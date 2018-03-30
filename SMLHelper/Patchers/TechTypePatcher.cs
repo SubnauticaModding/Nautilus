@@ -13,7 +13,7 @@ namespace SMLHelper.Patchers
 
         private static Dictionary<TechType, string> customTechTypes = new Dictionary<TechType, string>();
 
-        private static int currentIndex = 11011;
+        public static int currentIndex = 11011;
         private static string CallerName = null;
 
         public static TechType AddTechType(string name, string languageName, string languageTooltip)
