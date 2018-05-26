@@ -26,7 +26,9 @@ namespace SMLHelper.Patchers
 
             harmony.Patch(method, null,
                 new HarmonyMethod(typeof(LanguagePatcher).GetMethod("Postfix")));
+#if DEBUG
             Logger.Log("LanguagePatcher is done.");
+#endif
         }
     }
 }

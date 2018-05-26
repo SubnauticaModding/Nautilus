@@ -93,7 +93,9 @@ namespace SMLHelper.Patchers
                     }
                 }
             }
+#if DEBUG
             Logger.Log("ResourcesPatcher is done.");
+#endif
         }
     }
 }

@@ -32,16 +32,18 @@ namespace SMLHelper.Patchers
 
             var groups = GroupsField.GetValue(null) as Dictionary<TechGroup, Dictionary<TechCategory, List<TechType>>>;
             groups[group][category].Add(techType);
-
+#if DEBUG
             Logger.Log($"Added \"{techType.AsString():G}\" to groups under \"{group:G}->{category:G}\"");
+#endif
         }
 
         public static void RemoveFromCustomGroup(TechGroup group, TechCategory category, TechType techType)
         {
             var groups = GroupsField.GetValue(null) as Dictionary<TechGroup, Dictionary<TechCategory, List<TechType>>>;
             groups[group][category].Remove(techType);
-
+#if DEBUG
             Logger.Log($"Removed \"{techType.AsString():G}\" from groups under \"{group:G}->{category:G}\"");
+#endif
         }
         public static void Patch(HarmonyInstance harmony)
         {
@@ -67,7 +69,9 @@ namespace SMLHelper.Patchers
             harmony.Patch(preparePrefabIDCache, null,
                 new HarmonyMethod(typeof(CraftDataPatcher).GetMethod("Postfix")));
 
+#if DEBUG
             Logger.Log("CraftDataPatcher is done.");
+#endif
         }
 
         public static void Postfix()

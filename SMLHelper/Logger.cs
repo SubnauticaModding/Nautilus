@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if DEBUG
+using System;
 
 namespace SMLHelper
 {
@@ -12,3 +13,4 @@ namespace SMLHelper
         }
     }
 }
+#endif

@@ -32,8 +32,9 @@ namespace SMLHelper.Patchers
 
             harmony.Patch(techTypeType.GetMethod("ToString", new Type[0]),
                 new HarmonyMethod(thisType.GetMethod("Prefix_ToString", BindingFlags.Public | BindingFlags.Static)), null);
-
+#if DEBUG
             Logger.Log("CraftTreeTypePatcher is done.");
+#endif
         }
 
         private static readonly EnumCacheManager<CraftTree.Type> cacheManager = new EnumCacheManager<CraftTree.Type>("CraftTreeType", startingIndex);
@@ -69,7 +70,9 @@ namespace SMLHelper.Patchers
             cacheManager.customEnumTypes.Add(cratfTreeType, cache);
 
             CallerName = CallerName ?? Assembly.GetCallingAssembly().GetName().Name;
+#if DEBUG
             Logger.Log("Successfully added CraftTree Type: \"{0}\" to Index: \"{1}\" for mod \"{2}\"", name, cache.Index, CallerName);
+#endif
             CallerName = null;
 
             cacheManager.SaveCache();
