@@ -80,8 +80,9 @@ namespace SMLHelper.Patchers
 
             harmony.Patch(getPrefabAsync,
                 new HarmonyMethod(typeof(PrefabDatabasePatcher).GetMethod("GetPrefabAsync_Prefix")), null);
-
+#if DEBUG
             Logger.Log("PrefabDatabasePatcher is done.");
+#endif
         }
     }
 }

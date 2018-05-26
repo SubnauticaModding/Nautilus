@@ -64,9 +64,9 @@ namespace SMLHelper.Util
 
                 cacheList.Add(cache);
             }
-
+#if DEBUG
             Logger.Log("Loaded EnumTypeCache!");
-
+#endif
             cacheLoaded = true;
         }
 

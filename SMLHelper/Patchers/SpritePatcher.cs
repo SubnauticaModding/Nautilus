@@ -12,7 +12,9 @@ namespace SMLHelper.Patchers
 
             harmony.Patch(getFromResources,
                 new HarmonyMethod(typeof(SpritePatcher).GetMethod("Prefix")), null);
+#if DEBUG
             Logger.Log("SpritePatcher is done.");
+#endif
         }
 
         public static bool Prefix(ref Atlas.Sprite __result, string name)

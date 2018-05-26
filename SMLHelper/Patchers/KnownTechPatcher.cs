@@ -18,6 +18,9 @@ namespace SMLHelper.Patchers
             var postfix = typeof(KnownTechPatcher).GetMethod("Postfix", BindingFlags.Public | BindingFlags.Static);
 
             harmony.Patch(initMethod, null, new HarmonyMethod(postfix));
+#if DEBUG
+            Logger.Log("KnownTechPatcher is done.");
+#endif
         }
 
         private static bool initialized = false;

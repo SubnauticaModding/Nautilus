@@ -236,8 +236,9 @@ namespace SMLHelper.Patchers
                 harmony.Patch(craftTreeInitialize, null,
                     new HarmonyMethod(patcherClass.GetMethod("InitializePostFix")));
             }
-
+#if DEBUG
             Logger.Log($"CraftTreePatcher is done.");
+#endif
         }
     }
 }

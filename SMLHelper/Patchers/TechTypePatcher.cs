@@ -33,8 +33,9 @@ namespace SMLHelper.Patchers
 
             harmony.Patch(techTypeType.GetMethod("ToString", new Type[0]),
                 new HarmonyMethod(thisType.GetMethod("Prefix_ToString", BindingFlags.Public | BindingFlags.Static)), null);
-
+#if DEBUG
             Logger.Log("TechTypePatcher is done.");
+#endif
         }
 
         private static readonly EnumCacheManager<TechType> cacheManager = new EnumCacheManager<TechType>("TechType", startingIndex);
@@ -94,7 +95,9 @@ namespace SMLHelper.Patchers
                 KnownTechPatcher.unlockedAtStart.Add(techType);
 
             CallerName = CallerName ?? Assembly.GetCallingAssembly().GetName().Name;
+#if DEBUG
             Logger.Log("Successfully added Tech Type: \"{0}\" to Index: \"{1}\" for mod \"{2}\"", name, cache.Index, CallerName);
+#endif
             CallerName = null;
 
             cacheManager.SaveCache();

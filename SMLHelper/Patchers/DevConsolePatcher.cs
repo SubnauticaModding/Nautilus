@@ -17,7 +17,9 @@ namespace SMLHelper.Patchers
             var submitMethod = devConsoleType.GetMethod("Submit", BindingFlags.Instance | BindingFlags.NonPublic);
 
             harmony.Patch(submitMethod, null, new HarmonyMethod(thisType.GetMethod("Postfix")));
+#if DEBUG
             Logger.Log("DevConsolePatcher is done.");
+#endif
         }
 
         public static void Postfix(bool __result, string value)
