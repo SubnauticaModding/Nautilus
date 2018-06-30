@@ -25,105 +25,79 @@
 
         internal static void Patch()
         {
-            var nodes = new List<CustomCraftNode>();
-
-            foreach (var customNode in customNodes)
-                nodes.Add(new CustomCraftNode(customNode.TechType, customNode.Scheme, customNode.Path));
-
-            foreach (var customNode in customCraftNodes)
-                nodes.Add(new CustomCraftNode(customNode.Value, CraftTree.Type.Fabricator, customNode.Key));
-
-            foreach(var tab in customTabs)
+            // Old custom tabs added through new CustomCraftTreeNode classes
+            foreach (var tab in customTabs)
             {
                 if (tab == null) continue;
 
-                var path = tab.Path.SplitByChar('/');
-                var tree = CraftTreeHandler.GetExistingTree(tab.Scheme);
+                var root = CraftTreeHandler.GetExistingTree(tab.Scheme);
 
-                if (tree == null) continue;
+                if (root == null) continue;
 
-                var tabNode = default(CustomCraftTreeTab);
-
-                foreach (var pathNode in path)
+                if (!tab.Path.Contains("/")) // Added to the root
                 {
-                    var newTabNode = default(CustomCraftTreeTab);
+                    root.AddTabNode(tab.Path, tab.Name, tab.Sprite.Sprite);
+                }
+                else // Added under an existing tab
+                {
+                    var path = tab.Path.SplitByChar('/');
+                    var tabName = path[path.Length - 1]; // Last
+                    var relativeRoot = path[path.Length - 2]; // Last - 1
 
-                    if (tabNode == null)
-                        newTabNode = tree.GetTabNode(pathNode);
-                    else
-                        newTabNode = tabNode.GetTabNode(pathNode);
-
-                    if (newTabNode == null)
-                        tabNode.AddTabNode(pathNode, tab.Name, tab.Sprite.Sprite);
-                    else
-                        tabNode = newTabNode;
+                    root.GetTabNode(relativeRoot).AddTabNode(tabName, tab.Name, tab.Sprite.Sprite);
                 }
             }
 
-            foreach(var node in nodes)
+            // Old custom craft nodes added through new CustomCraftTreeNode classes
+
+            var craftNodes = new List<CustomCraftNode>();
+
+            foreach (var customNode in customNodes)
+                craftNodes.Add(new CustomCraftNode(customNode.TechType, customNode.Scheme, customNode.Path));
+
+            foreach (var customNode in customCraftNodes)
+                craftNodes.Add(new CustomCraftNode(customNode.Value, CraftTree.Type.Fabricator, customNode.Key));
+
+            foreach (var node in craftNodes)
             {
                 if (node == null) continue;
 
-                var path = node.Path.SplitByChar('/');
-                var tree = CraftTreeHandler.GetExistingTree(node.Scheme);
+                var root = CraftTreeHandler.GetExistingTree(node.Scheme);
 
-                if (tree == null) continue;
+                if (root == null) continue;
 
-                var tabNode = default(CustomCraftTreeTab);
-
-                foreach(var pathNode in path)
+                if (!node.Path.Contains("/")) // Added to the root
                 {
-                    var newTabNode = default(CustomCraftTreeTab);
+                    root.AddCraftingNode(node.TechType);
+                }
+                else // Added under an existing tab
+                {
+                    var path = node.Path.SplitByChar('/');
+                    var relativeRoot = path[path.Length - 2]; // Last - 1
 
-                    if (tabNode == null)
-                        newTabNode = tree.GetTabNode(pathNode);
-                    else
-                        newTabNode = tabNode.GetTabNode(pathNode);
-
-                    if (newTabNode == null && tabNode != null)
-                    {
-                        var techType = TechType.None;
-                        var craftNode = default(CustomCraftTreeCraft);
-
-                        if(TechTypeExtensions.FromString(pathNode, out techType, false))
-                        {
-                            craftNode = tabNode.AddCraftingNode(techType);
-                        }
-                        else
-                        {
-                            craftNode = tabNode.AddModdedCraftingNode(pathNode);
-                        }
-                    }
-                    else
-                    {
-                        tabNode = newTabNode;
-                    }
+                    root.GetTabNode(relativeRoot).AddCraftingNode(node.TechType);
                 }
             }
 
+            // Old node scrubbing handled through new CustomCraftTreeNode classes
             foreach (var node in nodesToRemove)
             {
                 if (node == null) continue;
 
-                var path = node.Path.SplitByChar('/');
-                var tree = CraftTreeHandler.GetExistingTree(node.Scheme);
+                var root = CraftTreeHandler.GetExistingTree(node.Scheme);
 
-                if (tree == null) continue;
+                if (root == null) continue;
 
-                var treeNode = default(CustomCraftTreeNode);
-
-                foreach (var pathNode in path)
+                if (!node.Path.Contains("/")) // Removed from the root
                 {
-                    var newTreeNode = tree.GetNode(pathNode);
+                    root.GetNode(node.Path).RemoveNode();
+                }
+                else // Removed from an existing tab
+                {
+                    var path = node.Path.SplitByChar('/');
+                    var nodeName = path[path.Length - 1]; // Last
 
-                    if(newTreeNode == null)
-                    {
-                        treeNode.RemoveNode();
-                    }
-                    else
-                    {
-                        treeNode = newTreeNode;
-                    }
+                    root.GetTabNode(nodeName).RemoveNode();
                 }
             }
 

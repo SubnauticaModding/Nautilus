@@ -18,6 +18,8 @@ namespace SMLHelper.V2
             {
                 InitializeOld(); // Some patch methods add values/call methods to V2 patchers, and so they need to called first.
                 Initialize();
+
+                Logger.Log("All patchers completed");
             }
             catch (Exception e)
             {
