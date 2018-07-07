@@ -5,7 +5,6 @@ namespace SMLHelper.V2
     using Patchers;
     using System;
     using Options;
-    using System.IO;
 
     public class Initializer
     {
@@ -13,29 +12,6 @@ namespace SMLHelper.V2
 
         public static void Patch()
         {
-            string bannedIDsFolder = "./QMods/Modding Helper/BannedIDs";
-            if (!Directory.Exists(bannedIDsFolder))
-                Directory.CreateDirectory(bannedIDsFolder);
-            string[] files = Directory.GetFiles(bannedIDsFolder);
-            if (files != null && files.Length != 0)
-            {
-                foreach (string file in files)
-                {
-                    string[] lines = File.ReadAllLines(file);
-                    if (lines != null && files.Length != 0)
-                    {
-                        foreach (string line in lines)
-                        {
-                            bool result = int.TryParse(line, out int id);
-                            if (result != false && id != 0)
-                            {
-                                // Add to banned list
-                            }
-                        }
-                    }
-                }
-            }
-
             harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
 
 #if DEBUG
