@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
+    using System.Threading;
 
     internal class EnumTypeCache
     {
@@ -20,6 +21,8 @@
         private List<EnumTypeCache> cacheList = new List<EnumTypeCache>();
         private readonly HashSet<int> BannedIDs;
         private readonly int LargestBannedID;
+
+        private static bool fileInUse = false;
 
         internal Dictionary<T, EnumTypeCache> customEnumTypes = new Dictionary<T, EnumTypeCache>();
 
@@ -68,7 +71,11 @@
                 return;
             }
 
+            WaitForFile();
+
+            fileInUse = true;
             var allText = File.ReadAllLines(savePathDir);
+            fileInUse = false;
 
             foreach (var line in allText)
             {
@@ -102,7 +109,11 @@
                 stringBuilder.AppendLine(string.Format("{0}:{1}", entry.Value.Name, entry.Value.Index));
             }
 
+            WaitForFile();
+
+            fileInUse = true;
             File.WriteAllText(savePathDir, stringBuilder.ToString());
+            fileInUse = false;
         }
 
         internal EnumTypeCache GetCacheForTypeName(string name)
@@ -173,6 +184,28 @@
             }
 
             return count >= 2 && (!BannedIDs?.Contains(index) ?? false);
+        }
+
+        private void WaitForFile()
+        {
+            if (!fileInUse)
+                return;
+
+            const short maxWaits = 10;
+
+            short waits = 0;
+            while (fileInUse && waits < maxWaits)
+            {
+                waits++;
+                Logger.Log($"{EnumTypeName} cache file in use. Wait cycle {waits}.");                
+                Thread.Sleep(100);
+            }
+
+            if (!fileInUse)
+                return;
+
+            if (waits == maxWaits)
+                Logger.Log($"Maximum wait time exceeded for {EnumTypeName} cache file.");
         }
 
         #endregion
