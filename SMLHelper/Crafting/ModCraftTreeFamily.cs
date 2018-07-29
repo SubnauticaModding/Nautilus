@@ -225,7 +225,7 @@
         /// Creates a collection of new crafting nodes for the crafting tree and links it to the calling node.
         /// </summary>
         /// <param name="techTypes">The TechTypes to be crafted.</param>
-        public void AddCraftingNode(params TechType[] techTypes) => AddCraftingNode(techTypes.AsEnumerable());
+        public void AddCraftingNode(params TechType[] techTypes) => AddCraftingNode(techTypes.AsEnumerable());        
 
         /// <summary>
         /// Creates a collection of new crafting nodes for the crafting tree and links it to the calling node.
@@ -241,8 +241,8 @@
         }
 
         /// <summary>
-        /// <para>Creates a new crafting node for a modded item and links it to the calling node.</para>
-        /// <para>If the modded item isn't present for the player, this call is safely ignored.</para>
+        /// <para>Creates a new crafting node for a modded item for crafting tree and links it to the calling node.</para>
+        /// <para>If the modded TechType isn't found, no change is made and no error is thrown.</para>
         /// </summary>
         /// <param name="moddedTechTypeName">The internal name of the custom TechType to be crafted.</param>
         /// <remarks>
@@ -260,6 +260,53 @@
 
                 ChildNodes.Add(craftNode);
             }
+        }
+
+        /// <summary>
+        /// <para>Creates a new crafting node for a modded item and links it to the calling node.</para>
+        /// <para>If the modded item isn't present for the player, this call is safely ignored.</para>
+        /// </summary>
+        /// <param name="moddedTechTypeName">The internal name of the custom TechType to be crafted.</param>
+        /// <returns>
+        ///   <c>True</c> if the modded item was found and the node was successfully added; Otherwise <c>false</c>.
+        /// </returns>
+        /// <remarks>
+        /// If the player doesn't have the mod for this TechType installed, then nothing will happen.
+        /// </remarks>
+        public bool TryAddModdedCraftingNode(string moddedTechTypeName)
+        {
+            return TryAddModdedCraftingNode(moddedTechTypeName, out var techType);
+        }
+
+        /// <summary>
+        /// <para>Creates a new crafting node for a modded item and links it to the calling node.</para>
+        /// <para>If the modded item isn't present for the player, this call is safely ignored.</para>
+        /// </summary>
+        /// <param name="moddedTechTypeName">The internal name of the custom TechType to be crafted.</param>
+        /// <param name="moddedTechType">The TechType of the modded item.</param>
+        /// <returns>
+        ///   <c>True</c> if the modded item was found and the node was successfully added; Otherwise <c>false</c>.
+        /// </returns>
+        /// <remarks>
+        /// If the player doesn't have the mod for this TechType installed, then nothing will happen.
+        /// </remarks>
+        public bool TryAddModdedCraftingNode(string moddedTechTypeName, out TechType moddedTechType)
+        {
+            EnumTypeCache cache = TechTypePatcher.cacheManager.GetCacheForTypeName(moddedTechTypeName);
+
+            if (cache != null)
+            {
+                moddedTechType = (TechType)cache.Index;
+                var craftNode = new ModCraftTreeCraft(moddedTechType);
+                craftNode.LinkToParent(this);
+
+                ChildNodes.Add(craftNode);
+
+                return true;
+            }
+
+            moddedTechType = TechType.None;
+            return false;
         }
     }
 
@@ -343,7 +390,7 @@
 
         public ModCraftTreeNode GetNode(params string[] stepsToNode)
         {
-            if (stepsToNode.Length == 1)
+            if(stepsToNode.Length == 1)
             {
                 return base.GetNode(stepsToNode[0]);
             }
