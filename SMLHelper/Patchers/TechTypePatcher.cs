@@ -25,6 +25,12 @@
                 enumTypeName: TechTypeEnumName,
                 startingIndex: startingIndex,
                 bannedIDs: ExtBannedIdManager.GetBannedIdsFor(TechTypeEnumName, bannedIndices, PreRegisteredTechTypes()));
+        
+        static TechTypePatcher()
+        {
+            TechType value = Enum.GetValues(typeof(TechType)).Cast<TechType>().Last();
+            StartingIndex = (int)value + 1;
+        }
 
         internal static TechType AddTechType(string name)
         {
@@ -108,8 +114,6 @@
             var enumType = typeof(Enum);
             var thisType = typeof(TechTypePatcher);
             var techTypeType = typeof(TechType);
-            TechType value = Enum.GetValues(typeof(TechType)).Cast<TechType>().Last();
-            StartingIndex = (int)value + 1;
 
             harmony.Patch(enumType.GetMethod("GetValues", BindingFlags.Public | BindingFlags.Static), null,
                 new HarmonyMethod(thisType.GetMethod("Postfix_GetValues", BindingFlags.NonPublic | BindingFlags.Static)));
