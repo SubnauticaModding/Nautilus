@@ -9,7 +9,7 @@
     internal class TechTypePatcher
     {
         private const string TechTypeEnumName = "TechType";
-        internal static readonly int startingIndex = 11010;
+        internal static readonly int startingIndex;
         internal static readonly List<int> bannedIndices = new List<int>
         {
             11110, //AutosortLocker 
@@ -108,6 +108,8 @@
             var enumType = typeof(Enum);
             var thisType = typeof(TechTypePatcher);
             var techTypeType = typeof(TechType);
+            TechType value = Enum.GetValues(typeof(TechType)).Cast<TechType>().Last();
+            StartingIndex = (int)value + 1;
 
             harmony.Patch(enumType.GetMethod("GetValues", BindingFlags.Public | BindingFlags.Static), null,
                 new HarmonyMethod(thisType.GetMethod("Postfix_GetValues", BindingFlags.NonPublic | BindingFlags.Static)));
