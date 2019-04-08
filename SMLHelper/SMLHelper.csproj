@@ -118,7 +118,6 @@
     <Compile Include="Options\SliderModOption.cs" />
     <Compile Include="Options\ToggleModOption.cs" />
     <Compile Include="Options\Utility\Validator.cs" />
-    <Compile Include="Patchers\ItemPropertyPatcher.cs" />
     <Compile Include="Patchers\ItemActionPatcher.cs" />
     <Compile Include="Patchers\ItemsContainerPatcher.cs" />
     <Compile Include="Patchers\OptionsPanelPatcher.cs" />

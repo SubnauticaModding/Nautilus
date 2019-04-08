@@ -14,16 +14,20 @@
             // Hide constructor
         }
 
+        internal static readonly IDictionary<TechType, object[]> TechTypeProperties = new SelfCheckingDictionary<TechType, object[]>("TechTypeProperties");
+
+        internal static readonly IDictionary<InventoryItem, object[]> InventoryItemProperties = new SelfCheckingDictionary<InventoryItem, object[]>("InventoryItemProperties");
+
         void IItemPropertyHandler.SetProperty(TechType techType, object property)
         {
-            if (ItemPropertyPatcher.TechTypeProperties.TryGetValue(techType, out object[] existingProperties))
+            if (TechTypeProperties.TryGetValue(techType, out object[] existingProperties))
             {
                 List<object> propertyList = existingProperties.ToList();
                 if (propertyList.Contains(property))
                 {
                     propertyList.Add(property);
-                    ItemPropertyPatcher.TechTypeProperties.Remove(techType);
-                    ItemPropertyPatcher.TechTypeProperties.Add(techType, propertyList.ToArray());
+                    TechTypeProperties.Remove(techType);
+                    TechTypeProperties.Add(techType, propertyList.ToArray());
                 }
             }
             else
@@ -32,20 +36,20 @@
                 {
                     property
                 };
-                ItemPropertyPatcher.TechTypeProperties.Add(techType, propertyList.ToArray());
+                TechTypeProperties.Add(techType, propertyList.ToArray());
             }
         }
 
         void IItemPropertyHandler.RemoveProperty(TechType techType, object property)
         {
-            if (ItemPropertyPatcher.TechTypeProperties.TryGetValue(techType, out object[] existingProperties))
+            if (TechTypeProperties.TryGetValue(techType, out object[] existingProperties))
             {
                 List<object> propertyList = existingProperties.ToList();
                 if (propertyList.Contains(property))
                 {
                     propertyList.Remove(property);
-                    ItemPropertyPatcher.TechTypeProperties.Remove(techType);
-                    ItemPropertyPatcher.TechTypeProperties.Add(techType, propertyList.ToArray());
+                    TechTypeProperties.Remove(techType);
+                    TechTypeProperties.Add(techType, propertyList.ToArray());
                 }
             }
         }
@@ -58,7 +62,7 @@
 
         bool IItemPropertyHandler.TryGetProperties(TechType techType, out object[] properties)
         {
-            if (ItemPropertyPatcher.TechTypeProperties.TryGetValue(techType, out object[] existingProperties))
+            if (TechTypeProperties.TryGetValue(techType, out object[] existingProperties))
             {
                 properties = existingProperties;
                 return true;
@@ -69,14 +73,14 @@
 
         void IItemPropertyHandler.SetProperty(InventoryItem item, object property)
         {
-            if (ItemPropertyPatcher.InventoryItemProperties.TryGetValue(item, out object[] existingProperties))
+            if (InventoryItemProperties.TryGetValue(item, out object[] existingProperties))
             {
                 List<object> propertyList = existingProperties.ToList();
                 if (propertyList.Contains(property))
                 {
                     propertyList.Add(property);
-                    ItemPropertyPatcher.InventoryItemProperties.Remove(item);
-                    ItemPropertyPatcher.InventoryItemProperties.Add(item, propertyList.ToArray());
+                    InventoryItemProperties.Remove(item);
+                    InventoryItemProperties.Add(item, propertyList.ToArray());
                 }
             }
             else
@@ -85,7 +89,7 @@
                 {
                     property
                 };
-                ItemPropertyPatcher.InventoryItemProperties.Add(item, propertyList.ToArray());
+                InventoryItemProperties.Add(item, propertyList.ToArray());
             }
         }
 
@@ -97,21 +101,21 @@
 
         void IItemPropertyHandler.RemoveProperty(InventoryItem item, object property)
         {
-            if (ItemPropertyPatcher.InventoryItemProperties.TryGetValue(item, out object[] existingProperties))
+            if (InventoryItemProperties.TryGetValue(item, out object[] existingProperties))
             {
                 List<object> propertyList = existingProperties.ToList();
                 if (propertyList.Contains(property))
                 {
                     propertyList.Remove(property);
-                    ItemPropertyPatcher.InventoryItemProperties.Remove(item);
-                    ItemPropertyPatcher.InventoryItemProperties.Add(item, propertyList.ToArray());
+                    InventoryItemProperties.Remove(item);
+                    InventoryItemProperties.Add(item, propertyList.ToArray());
                 }
             }
         }
 
         bool IItemPropertyHandler.TryGetProperties(InventoryItem item, out object[] properties)
         {
-            if (ItemPropertyPatcher.InventoryItemProperties.TryGetValue(item, out object[] existingProperties))
+            if (InventoryItemProperties.TryGetValue(item, out object[] existingProperties))
             {
                 properties = existingProperties;
                 return true;
