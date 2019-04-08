@@ -2,7 +2,7 @@
 {
     public interface IItemPropertyHandler
     {
-        void SetProperty(TechType techType, object property);
+        void AddProperty(TechType techType, object property);
 
         void RemoveProperty(TechType techType, object property);
 
@@ -10,7 +10,7 @@
 
         bool TryGetProperties(TechType techType, out object[] properties);
 
-        void SetProperty(InventoryItem item, object property);
+        void AddProperty(InventoryItem item, object property);
 
         bool HasProperty(InventoryItem item, object property);
 

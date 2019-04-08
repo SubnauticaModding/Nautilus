@@ -18,7 +18,7 @@
 
         internal static readonly IDictionary<InventoryItem, object[]> InventoryItemProperties = new SelfCheckingDictionary<InventoryItem, object[]>("InventoryItemProperties");
 
-        void IItemPropertyHandler.SetProperty(TechType techType, object property)
+        void IItemPropertyHandler.AddProperty(TechType techType, object property)
         {
             if (TechTypeProperties.TryGetValue(techType, out object[] existingProperties))
             {
@@ -71,7 +71,7 @@
             return false;
         }
 
-        void IItemPropertyHandler.SetProperty(InventoryItem item, object property)
+        void IItemPropertyHandler.AddProperty(InventoryItem item, object property)
         {
             if (InventoryItemProperties.TryGetValue(item, out object[] existingProperties))
             {
@@ -126,9 +126,9 @@
 
         #region Static Methods
 
-        public static void SetProperty(TechType techType, object property)
+        public static void AddProperty(TechType techType, object property)
         {
-            Main.SetProperty(techType, property);
+            Main.AddProperty(techType, property);
         }
 
         public static void RemoveProperty(TechType techType, object property)
@@ -146,9 +146,9 @@
             return Main.TryGetProperties(techType, out Properties);
         }
 
-        public static void SetProperty(InventoryItem item, object property)
+        public static void AddProperty(InventoryItem item, object property)
         {
-            Main.SetProperty(item, property);
+            Main.AddProperty(item, property);
         }
 
         public static bool HasProperty(InventoryItem item, object property)

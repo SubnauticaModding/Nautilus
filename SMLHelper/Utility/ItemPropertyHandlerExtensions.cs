@@ -6,7 +6,7 @@
     {
         public static void SetProperty(this TechType techType, object property)
         {
-            ItemPropertyHandler.Main.SetProperty(techType, property);
+            ItemPropertyHandler.Main.AddProperty(techType, property);
         }
 
         public static void RemoveProperty(this TechType techType, object property)
@@ -26,7 +26,7 @@
 
         public static void SetProperty(this InventoryItem item, object property)
         {
-            ItemPropertyHandler.Main.SetProperty(item, property);
+            ItemPropertyHandler.Main.AddProperty(item, property);
         }
 
         public static bool HasProperty(this InventoryItem item, object property)
