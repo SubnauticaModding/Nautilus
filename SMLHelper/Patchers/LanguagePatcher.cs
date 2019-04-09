@@ -191,7 +191,7 @@
 
         internal static string TrimTextDelimiters(string value)
         {
-            return value.Trim(TextDelimiterOpen, TextDelimiterClose);
+            return value.Substring(1, value.Length - 2);
         }
     }
 }
