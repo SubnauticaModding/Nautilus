@@ -1,20 +1,20 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using Harmony;
+    using Oculus.Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+    using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
 
     internal class LanguagePatcher
     {
         private const string LanguageDir = "./QMods/Modding Helper/Language";
         private const string LanguageOrigDir = LanguageDir + "/Originals";
         private const string LanguageOverDir = LanguageDir + "/Overrides";
-        private const char TextDelimiterOpen = '{';
-        private const char TextDelimiterClose = '}';
-        private const char KeyValueSeparator = ':';
 
         private static readonly Dictionary<string, Dictionary<string, string>> originalCustomLines = new Dictionary<string, Dictionary<string, string>>();
         private static readonly Dictionary<string, string> customLines = new Dictionary<string, string>();
@@ -76,14 +76,10 @@
         private static void WriteOriginalLinesFile(string modKey)
         {
             Dictionary<string, string> modCustomLines = originalCustomLines[modKey];
-            var text = new StringBuilder();
-            foreach (string langLineKey in modCustomLines.Keys)
-            {
-                string value = modCustomLines[langLineKey];
-                text.AppendLine($"{langLineKey}{KeyValueSeparator}{TextDelimiterOpen}{value}{TextDelimiterClose}");
-            }
 
-            File.WriteAllText($"{LanguageOrigDir}/{modKey}.txt", text.ToString(), Encoding.UTF8);
+            string text = JsonConvert.SerializeObject(modCustomLines);
+
+            File.WriteAllText($"{LanguageOrigDir}/{modKey}.txt", text, Encoding.UTF8);
         }
 
         private static void ReadOverrideCustomLines()
@@ -105,38 +101,38 @@
                 if (!originalCustomLines.ContainsKey(modName))
                     continue; // Not for a mod we know about
 
-                string[] languageLines = File.ReadAllLines(file, Encoding.UTF8);
+                string text = File.ReadAllText(file, Encoding.UTF8);
+
+                Dictionary<string, string> languageLines = null;
+                try
+                {
+                    languageLines = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
+                }
+                catch
+                {
+                    Logger.Log($"Language override file for '{modName}' does not have a valid JSON structure.", LogLevel.Warn);
+                    continue; // Incorrectly formatted
+                }
 
                 Dictionary<string, string> originalLines = originalCustomLines[modName];
 
                 int overridesApplied = 0;
-                for (int lineIndex = 0; lineIndex < languageLines.Length; lineIndex++)
+                for (int lineIndex = 0; lineIndex < languageLines.Count; lineIndex++)
                 {
-                    string line = languageLines[lineIndex];
-                    if (string.IsNullOrEmpty(line))
-                        continue; // Skip empty lines
+                    KeyValuePair<string, string> line = languageLines.ElementAt(lineIndex);
 
-                    string[] split = line.Split(new[] { KeyValueSeparator }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (split.Length != 2)
+                    if (!originalLines.ContainsKey(line.Key))
                     {
-                        Logger.Log($"Line '{lineIndex}' in language override file for '{modName}' was not correctly formatted.", LogLevel.Warn);
-                        continue; // Not correctly formatter
-                    }
-
-                    string key = split[0];
-
-                    if (!originalLines.ContainsKey(key))
-                    {
-                        Logger.Log($"Key '{key}' on line '{lineIndex}' in language override file for '{modName}' did not match an original key.", LogLevel.Warn);
+                        Logger.Log($"Key '{line.Key}' on line '{lineIndex}' in language override file for '{modName}' did not match an original key.", LogLevel.Warn);
                         continue; // Skip keys we don't recognize.
                     }
 
-                    customLines[key] = TrimTextDelimiters(split[1]);
+                    customLines[line.Key] = line.Value;
                     overridesApplied++;
                 }
 
-                Logger.Log($"Applied {overridesApplied} language overrides to mod {modName}.", LogLevel.Info);
+                if (overridesApplied > 0)
+                    Logger.Log($"Applied {overridesApplied} language overrides to mod {modName}.", LogLevel.Info);
             }
         }
 
@@ -148,32 +144,40 @@
             if (!File.Exists(fileName))
                 return true; // File not found
 
-            string[] lines = File.ReadAllLines(fileName, Encoding.UTF8);
+            string text = File.ReadAllText(fileName, Encoding.UTF8);
 
-            if (lines.Length != modCustomLines.Count)
-                return true; // Difference in line count
+            if (Regex.IsMatch(text, ".*?:{[^]*?}"))
+                return true; // File is using old format
 
-            // Confirm if the file actually needs to be updated
-            foreach (string line in lines)
+            Dictionary<string, string> entries = null;
+            try
             {
-                string[] split = line.Split(new[] { KeyValueSeparator }, StringSplitOptions.RemoveEmptyEntries);
+                entries = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
+            }
+            catch
+            {
+                return true; // File cannot be parsed
+            }
 
-                if (split.Length != 2)
-                    return true; // Malformatted, likely externally edited
-
-                string lineKey = split[0];
-                string lineValue = TrimTextDelimiters(split[1]);
-
-                if (modCustomLines.TryGetValue(lineKey, out string origValue))
+            if (entries != null)
+            {
+                // Confirm if the file actually needs to be updated
+                foreach (KeyValuePair<string, string> entry in entries)
                 {
-                    if (origValue != lineValue)
+                    string lineKey = entry.Key;
+                    string lineValue = entry.Value;
+
+                    if (modCustomLines.TryGetValue(lineKey, out string origValue))
                     {
-                        return true; // Difference in line content
+                        if (origValue != lineValue)
+                        {
+                            return true; // Difference in line content
+                        }
                     }
-                }
-                else
-                {
-                    return true; // Key not found
+                    else
+                    {
+                        return true; // Key not found
+                    }
                 }
             }
 
@@ -187,11 +191,6 @@
 
             originalCustomLines[modAssemblyName][lineId] = text;
             customLines[lineId] = text;
-        }
-
-        internal static string TrimTextDelimiters(string value)
-        {
-            return value.Substring(1, value.Length - 2);
         }
     }
 }
