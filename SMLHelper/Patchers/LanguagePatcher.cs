@@ -146,7 +146,7 @@
 
             string text = File.ReadAllText(fileName, Encoding.UTF8);
 
-            if (Regex.IsMatch(text, "^[^\"\n]*?:{[^]*?}"))
+            if (Regex.IsMatch(text, "^[^\n]*?:{[^]*?}"))
                 return true; // File is using old format
 
             Dictionary<string, string> entries = null;
