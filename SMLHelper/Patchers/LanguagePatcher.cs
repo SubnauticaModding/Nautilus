@@ -111,7 +111,7 @@
 
                 Dictionary<string, string> originalLines = originalCustomLines[modName];
 
-                MatchCollection matches = Regex.Matches(text, OverrideRegex);
+                MatchCollection matches = Regex.Matches(text, OverrideRegex, RegexOptions.Multiline);
 
                 int overridesApplied = 0;
                 foreach (Match match in matches)
