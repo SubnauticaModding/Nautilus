@@ -64,15 +64,12 @@
             int filesWritten = 0;
             foreach (string modKey in originalCustomLines.Keys)
             {
-                if (!FileNeedsRewrite(modKey))
-                    continue; // File is identical to captured lines. No need to rewrite it.
-
                 WriteOriginalLinesFile(modKey);
                 filesWritten++;
             }
 
             if (filesWritten > 0)
-                Logger.Log($"Updated {filesWritten} of {originalCustomLines.Count} original language files.", LogLevel.Info);
+                Logger.Log($"Updated {filesWritten} original language files.", LogLevel.Debug);
         }
 
         private static void WriteOriginalLinesFile(string modKey)
@@ -132,43 +129,6 @@
 
                 Logger.Log($"Applied {overridesApplied} language overrides to mod {modName}.", LogLevel.Info);
             }
-        }
-
-        private static bool FileNeedsRewrite(string modKey)
-        {
-            Dictionary<string, string> modCustomLines = originalCustomLines[modKey];
-            string fileName = $"{LanguageOrigDir}/{modKey}.txt";
-
-            if (!File.Exists(fileName))
-                return true; // File not found
-
-            string[] lines = File.ReadAllLines(fileName, Encoding.UTF8);
-
-            if (lines.Length != modCustomLines.Count)
-                return true; // Difference in line count
-
-            // Confirm if the file actually needs to be updated
-            foreach (string line in lines)
-            {
-                string[] split = line.Split(new[] { KeyValueSeparator }, 2, StringSplitOptions.RemoveEmptyEntries);
-
-                string lineKey = split[0];
-                string lineValue = TrimTextDelimiters(split[1]);
-
-                if (modCustomLines.TryGetValue(lineKey, out string origValue))
-                {
-                    if (origValue != lineValue)
-                    {
-                        return true; // Difference in line content
-                    }
-                }
-                else
-                {
-                    return true; // Key not found
-                }
-            }
-
-            return false; // All lines matched and valid
         }
 
         internal static void AddCustomLanguageLine(string modAssemblyName, string lineId, string text)
