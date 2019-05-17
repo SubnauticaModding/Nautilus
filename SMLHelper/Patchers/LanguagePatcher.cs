@@ -99,7 +99,7 @@
 
             foreach (string file in files)
             {
-                string modName = Path.GetFileName(file).Replace(".txt", string.Empty);
+                string modName = Path.GetFileNameWithoutExtension(file);
 
                 if (!originalCustomLines.ContainsKey(modName))
                     continue; // Not for a mod we know about
