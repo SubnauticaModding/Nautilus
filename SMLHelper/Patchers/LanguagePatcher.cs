@@ -16,7 +16,7 @@
         private const char TextDelimiterOpen = '{';
         private const char TextDelimiterClose = '}';
         private const char KeyValueSeparator = ':';
-        private const string OverrideRegex = "^(?<key>\\w+?)\\s*?:\\s*?{(?<value>[\\s\\S]+?)}$";
+        private const string OverrideRegex = @"^(?<key>\w+?)\s*?:\s*?{(?<value>[\s\S]+?)}$";
 
         private static readonly Dictionary<string, Dictionary<string, string>> originalCustomLines = new Dictionary<string, Dictionary<string, string>>();
         private static readonly Dictionary<string, string> customLines = new Dictionary<string, string>();
@@ -138,11 +138,6 @@
 
             originalCustomLines[modAssemblyName][lineId] = text;
             customLines[lineId] = text;
-        }
-
-        internal static string TrimTextDelimiters(string value)
-        {
-            return value.Substring(1, value.Length - 2);
         }
     }
 }
