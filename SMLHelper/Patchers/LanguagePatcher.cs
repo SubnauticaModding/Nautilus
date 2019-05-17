@@ -150,10 +150,7 @@
             // Confirm if the file actually needs to be updated
             foreach (string line in lines)
             {
-                string[] split = line.Split(new[] { KeyValueSeparator }, StringSplitOptions.RemoveEmptyEntries);
-
-                if (split.Length != 2)
-                    return true; // Malformatted, likely externally edited
+                string[] split = line.Split(new[] { KeyValueSeparator }, 2, StringSplitOptions.RemoveEmptyEntries);
 
                 string lineKey = split[0];
                 string lineValue = TrimTextDelimiters(split[1]);
