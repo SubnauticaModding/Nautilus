@@ -6,6 +6,7 @@
     using System.IO;
     using System.Reflection;
     using System.Text;
+    using System.Text.RegularExpressions;
 
     internal class LanguagePatcher
     {
@@ -15,6 +16,7 @@
         private const char TextDelimiterOpen = '{';
         private const char TextDelimiterClose = '}';
         private const char KeyValueSeparator = ':';
+        private const string OverrideRegex = "(?<key>\\w+?)\\s*?:\\s*?{(?<value>[\\s\\S]+?)}$";
 
         private static readonly Dictionary<string, Dictionary<string, string>> originalCustomLines = new Dictionary<string, Dictionary<string, string>>();
         private static readonly Dictionary<string, string> customLines = new Dictionary<string, string>();
@@ -105,34 +107,26 @@
                 if (!originalCustomLines.ContainsKey(modName))
                     continue; // Not for a mod we know about
 
-                string[] languageLines = File.ReadAllLines(file, Encoding.UTF8);
+                string text = File.ReadAllText(file, Encoding.UTF8);
 
                 Dictionary<string, string> originalLines = originalCustomLines[modName];
 
+                MatchCollection matches = Regex.Matches(text, OverrideRegex);
+
                 int overridesApplied = 0;
-                for (int lineIndex = 0; lineIndex < languageLines.Length; lineIndex++)
+                foreach (Match match in matches)
                 {
-                    string line = languageLines[lineIndex];
-                    if (string.IsNullOrEmpty(line))
-                        continue; // Skip empty lines
-
-                    string[] split = line.Split(new[] { KeyValueSeparator }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (split.Length != 2)
-                    {
-                        Logger.Log($"Line '{lineIndex}' in language override file for '{modName}' was not correctly formatted.", LogLevel.Warn);
-                        continue; // Not correctly formatter
-                    }
-
-                    string key = split[0];
+                    string key = match.Groups["key"].Value;
+                    string value = match.Groups["value"].Value;
 
                     if (!originalLines.ContainsKey(key))
                     {
-                        Logger.Log($"Key '{key}' on line '{lineIndex}' in language override file for '{modName}' did not match an original key.", LogLevel.Warn);
-                        continue; // Skip keys we don't recognize.
+                        Logger.Log($"Key '{key}' in language override file for '{modName}' did not match an original key.", LogLevel.Warn);
+                        continue; // Skip keys we don't recognize
                     }
 
-                    customLines[key] = TrimTextDelimiters(split[1]);
+                    customLines[key] = value;
+
                     overridesApplied++;
                 }
 
