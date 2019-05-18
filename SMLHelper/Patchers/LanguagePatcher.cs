@@ -20,8 +20,12 @@
 
         private static readonly Dictionary<string, Dictionary<string, string>> originalCustomLines = new Dictionary<string, Dictionary<string, string>>();
         private static readonly Dictionary<string, string> customLines = new Dictionary<string, string>();
-
         private static Type languageType = typeof(Language);
+
+        internal static string GetCustomLine(string key)
+        {
+            return customLines[key];
+        }
 
         internal static void Postfix(ref Language __instance)
         {
@@ -108,27 +112,34 @@
 
                 Dictionary<string, string> originalLines = originalCustomLines[modName];
 
-                MatchCollection matches = Regex.Matches(text, OverrideRegex, RegexOptions.Multiline);
-
-                int overridesApplied = 0;
-                foreach (Match match in matches)
-                {
-                    string key = match.Groups["key"].Value;
-                    string value = match.Groups["value"].Value;
-
-                    if (!originalLines.ContainsKey(key))
-                    {
-                        Logger.Log($"Key '{key}' in language override file for '{modName}' did not match an original key.", LogLevel.Warn);
-                        continue; // Skip keys we don't recognize
-                    }
-
-                    customLines[key] = value;
-
-                    overridesApplied++;
-                }
+                int overridesApplied = ExtractCustomLinesFromText(modName, text, originalLines);
 
                 Logger.Log($"Applied {overridesApplied} language overrides to mod {modName}.", LogLevel.Info);
             }
+        }
+
+        internal static int ExtractCustomLinesFromText(string modName, string text, Dictionary<string, string> originalLines)
+        {
+            MatchCollection matches = Regex.Matches(text, OverrideRegex, RegexOptions.Multiline);
+
+            int overridesApplied = 0;
+            foreach (Match match in matches)
+            {
+                string key = match.Groups["key"].Value;
+                string value = match.Groups["value"].Value;
+
+                if (!originalLines.ContainsKey(key))
+                {
+                    Logger.Log($"Key '{key}' in language override file for '{modName}' did not match an original key.", LogLevel.Warn);
+                    continue; // Skip keys we don't recognize
+                }
+
+                customLines[key] = value;
+
+                overridesApplied++;
+            }
+
+            return overridesApplied;
         }
 
         internal static void AddCustomLanguageLine(string modAssemblyName, string lineId, string text)
