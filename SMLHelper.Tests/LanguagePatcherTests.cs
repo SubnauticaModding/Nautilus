@@ -13,6 +13,7 @@
             "CustomValue1", "CustomValue1{0}", "{0}CustomValue1", "{0}CustomValue1{1}",
             "{0}Custom{1}Value1{2}", "Custom{0}Value1", "Custom\nValue1", "\nCustomValue1",
             "CustomValue1\n", "\nCustom\nValue1\n", "Custom{0}\n{1}Value1",
+            "Custom-Value1\n", "\nCustom_Value1\n", "Custom{0}:{1}Value1",
         };
 
         private static readonly IEnumerable<string> CustomValues2 = new string[]
@@ -20,6 +21,7 @@
             "2CustomValue", "2CustomValue{0}", "{0}2CustomValue", "{0}2CustomValue{1}",
             "{0}2Custom{1}Value{2}", "2Custom{0}Value", "2Custom\nValue", "\n2CustomValue",
             "2CustomValue\n", "2\nCustom\nValue\n", "2Custom{0}\n{1}Value",
+            "2Custom-Value\n", "2\nCustom_Value\n", "2Custom{0}:{1}Value",
         };
 
         [TestCaseSource(nameof(CustomValues1))]

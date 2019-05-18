@@ -16,7 +16,7 @@
         private const char TextDelimiterOpen = '{';
         private const char TextDelimiterClose = '}';
         private const char KeyValueSeparator = ':';
-        private const string OverrideRegex = @"^(?<key>\w+?)\s*?:\s*?{(?<value>[\s\S]+?)}(?=\Z|(\n|\n\r|\r\n)(\w+?:))";
+        private static readonly Regex OverrideRegex = new Regex("(?<key>[\\w]+)\\s*:\\s*{(?<value>([~!@#$%^&*()\\-_=+\\[\\];:\"',<>\\/?]|{\\d+}|[\\w\\s\n])+)}(\n|\r\n)*", RegexOptions.Compiled | RegexOptions.Multiline);
 
         private static readonly Dictionary<string, Dictionary<string, string>> originalCustomLines = new Dictionary<string, Dictionary<string, string>>();
         private static readonly Dictionary<string, string> customLines = new Dictionary<string, string>();
@@ -120,7 +120,7 @@
 
         internal static int ExtractCustomLinesFromText(string modName, string text, Dictionary<string, string> originalLines)
         {
-            MatchCollection matches = Regex.Matches(text, OverrideRegex, RegexOptions.Multiline);
+            MatchCollection matches = OverrideRegex.Matches(text);
 
             int overridesApplied = 0;
             foreach (Match match in matches)

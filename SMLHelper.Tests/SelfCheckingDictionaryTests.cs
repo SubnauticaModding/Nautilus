@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.Tests
 {
     using NUnit.Framework;
+    using SMLHelper.V2;
     using SMLHelper.V2.Patchers;
 
     [TestFixture]
@@ -103,6 +104,7 @@
         [Test]
         public void Add_StepByStep_DupsRemoved()
         {
+            Logger.Initialized = true;
             var testDictionary = new SelfCheckingDictionary<TechType, int>("Test");
 
             Assert.AreEqual(0, testDictionary.Count);
