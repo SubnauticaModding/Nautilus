@@ -30,12 +30,13 @@
             // Register the TechType.
             TechType techType = TechTypePatcher.AddTechType(internalName);
 
+            string tooltipKey = "Tooltip_" + internalName;
             // Register Language lines.
-            LanguagePatcher.AddCustomLanguageLine(modName, internalName, displayName);
-            LanguagePatcher.AddCustomLanguageLine(modName, "Tooltip_" + internalName, tooltip);
+            LanguagePatcher.AddCustomLanguageLine(modName, internalName, displayName);            
+            LanguagePatcher.AddCustomLanguageLine(modName, tooltipKey, tooltip);
 
             Dictionary<TechType, string> valueToString = TooltipFactory.techTypeTooltipStrings.valueToString;
-            valueToString[techType] = "Tooltip_" + internalName;
+            valueToString[techType] = tooltipKey;
 
             // Unlock the TechType on start
             if (unlockAtStart)

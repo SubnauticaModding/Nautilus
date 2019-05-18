@@ -16,7 +16,7 @@
         private const char TextDelimiterOpen = '{';
         private const char TextDelimiterClose = '}';
         private const char KeyValueSeparator = ':';
-        private static readonly Regex OverrideRegex = new Regex("(?<key>[\\w]+)\\s*:\\s*{(?<value>([~!@#$%^&*()\\-_=+\\[\\];:\"',<>\\/?]|{\\d+}|[\\w\\s\n])+)}(\n|\r\n)*", RegexOptions.Multiline);
+        private static readonly Regex OverrideRegex = new Regex("(?<key>[\\w_]+)\\s*:\\s*{(?<value>([~!@#$%^&*()\\-_=+\\[\\];:\"',<>\\/?]|{\\d+}|[\\w\\s\n])+)}(\n|\r\n)*", RegexOptions.Multiline);
 
         private static readonly Dictionary<string, Dictionary<string, string>> originalCustomLines = new Dictionary<string, Dictionary<string, string>>();
         private static readonly Dictionary<string, string> customLines = new Dictionary<string, string>();
