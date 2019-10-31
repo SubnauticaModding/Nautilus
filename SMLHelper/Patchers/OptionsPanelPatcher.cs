@@ -116,53 +116,49 @@
         // do not show tab if it is already visible (to prevent scroll position resetting)
         internal static bool SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {
-            return !(tabIndex >= 0 && tabIndex < __instance.tabs.Count && __instance.tabs[tabIndex].pane.activeSelf);
+            return tabIndex < 0 || tabIndex >= __instance.tabs.Count || !__instance.tabs[tabIndex].pane.activeSelf;
         }
 
         // adjusting ui elements
         internal static void SetVisibleTab_Postfix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {
-            if (tabIndex >= 0 && tabIndex < __instance.tabs.Count)
+            if (tabIndex < 0 || tabIndex >= __instance.tabs.Count)
+                return;
+
+            try
             {
-                try
+                Transform options = __instance.tabs[tabIndex].container.transform;
+
+                for (int i = 0; i < options.childCount; i++)
                 {
-                    Transform options = __instance.tabs[tabIndex].container.transform;
+                    Transform option = options.GetChild(i);
 
-                    for (int i = 0; i < options.childCount; ++i)
-                    {
-                        Transform option = options.GetChild(i);
+                    if (option.localPosition.x == 0) // ui layout didn't touch this element yet
+                        continue;
 
-                        if (option.localPosition.x == 0) // ui layout didn't touch this element yet
-                            continue;
-
-                        if (option.name.Contains("uGUI_ToggleOption"))
-                            ProcessToggleOption(option);
-                        else
-                        if (option.name.Contains("uGUI_SliderOption"))
-                            ProcessSliderOption(option);
-                        else
-                        if (option.name.Contains("uGUI_ChoiceOption"))
-                            ProcessChoiceOption(option);
-                        else
-                        if (option.name.Contains("uGUI_BindingOption"))
-                            ProcessBindingOption(option);
-                    }
+                    if (option.name.Contains("uGUI_ToggleOption"))
+                        ProcessToggleOption(option);
+                    else
+                    if (option.name.Contains("uGUI_SliderOption"))
+                        ProcessSliderOption(option);
+                    else
+                    if (option.name.Contains("uGUI_ChoiceOption"))
+                        ProcessChoiceOption(option);
+                    else
+                    if (option.name.Contains("uGUI_BindingOption"))
+                        ProcessBindingOption(option);
                 }
-                catch (System.Exception e)
-                {
-                    V2.Logger.Log($"Exception while adjusting mod options: {e.GetType()}\t{e.Message}", LogLevel.Error);
-                }
+            }
+            catch (System.Exception e)
+            {
+                V2.Logger.Log($"Exception while adjusting mod options: {e.GetType()}\t{e.Message}", LogLevel.Error);
             }
         }
 
-        static void ProcessToggleOption(Transform option)
+        private static void ProcessToggleOption(Transform option)
         {
             Transform check = option.Find("Toggle/Background");
             Text text = option.GetComponentInChildren<Text>();
-
-            // :)
-            if (text.text == "Enable AuxUpgradeConsole                        (Restart game)")
-                text.text = "Enable AuxUpgradeConsole (Restart game)";
 
             int textWidth = GetTextWidth(text) + 20;
             Vector3 pos = check.localPosition;
@@ -174,7 +170,7 @@
             }
         }
 
-        static void ProcessSliderOption(Transform option)
+        private static void ProcessSliderOption(Transform option)
         {
             const float sliderValueWidth = 85f;
 
@@ -202,7 +198,7 @@
             }
         }
 
-        static void ProcessChoiceOption(Transform option)
+        private static void ProcessChoiceOption(Transform option)
         {
             Transform choice = option.Find("Choice/Background");
             Text text = option.GetComponentInChildren<Text>();
@@ -222,7 +218,7 @@
             }
         }
 
-        static void ProcessBindingOption(Transform option)
+        private static void ProcessBindingOption(Transform option)
         {
             // changing width for keybinding option
             Transform binding = option.Find("Bindings");
@@ -257,7 +253,7 @@
             }
         }
 
-        static int GetTextWidth(Text text)
+        private static int GetTextWidth(Text text)
         {
             int width = 0;
 
