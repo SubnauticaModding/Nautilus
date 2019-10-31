@@ -17,7 +17,12 @@
         {
             harmony.Patch(AccessTools.Method(typeof(KnownTech), "Initialize"), 
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), "InitializePostfix")));
+
+            harmony.Patch(AccessTools.Method(typeof(KnownTech), "Deinitialize"),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), "DeinitializePostfix")));
         }
+
+        internal static void DeinitializePostfix() => initialized = false;
 
         internal static void InitializePostfix()
         {
