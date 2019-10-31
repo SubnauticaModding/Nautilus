@@ -2,6 +2,7 @@
 {
     using Harmony;
     using Options;
+    using System.Reflection;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Events;
@@ -15,6 +16,21 @@
         {
             harmony.Patch(AccessTools.Method(typeof(uGUI_OptionsPanel), "AddTabs"),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), "AddTabs_Postfix")));
+
+            // check if already patched (there will be some conflicts if we patch this twice)
+            MethodInfo setVisibleTabMethod = AccessTools.Method(typeof(uGUI_TabbedControlsPanel), "SetVisibleTab");
+            Patches patches = harmony.GetPatchInfo(setVisibleTabMethod);
+            
+            if (patches == null)
+            {
+                harmony.Patch(setVisibleTabMethod,
+                    new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), "SetVisibleTab_Prefix")),
+                    new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), "SetVisibleTab_Postfix")));
+                
+                V2.Logger.Log("Options.SetVisibleTab is patched", V2.LogLevel.Debug);
+            }
+            else
+                V2.Logger.Log("Options.SetVisibleTab is already patched. Check if ModOptionsAdjusted mod is active.", V2.LogLevel.Warn);
         }
 
         internal static void AddTabs_Postfix(uGUI_OptionsPanel __instance)
@@ -93,6 +109,164 @@
                     }
                 }
             }
+        }
+
+
+
+        // do not show tab if it is already visible (to prevent scroll position resetting)
+        internal static bool SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
+        {
+            return tabIndex < 0 || tabIndex >= __instance.tabs.Count || !__instance.tabs[tabIndex].pane.activeSelf;
+        }
+
+        // adjusting ui elements
+        internal static void SetVisibleTab_Postfix(uGUI_TabbedControlsPanel __instance, int tabIndex)
+        {
+            if (tabIndex < 0 || tabIndex >= __instance.tabs.Count)
+                return;
+
+            try
+            {
+                Transform options = __instance.tabs[tabIndex].container.transform;
+
+                for (int i = 0; i < options.childCount; i++)
+                {
+                    Transform option = options.GetChild(i);
+
+                    if (option.localPosition.x == 0) // ui layout didn't touch this element yet
+                        continue;
+
+                    if (option.name.Contains("uGUI_ToggleOption"))
+                        ProcessToggleOption(option);
+                    else
+                    if (option.name.Contains("uGUI_SliderOption"))
+                        ProcessSliderOption(option);
+                    else
+                    if (option.name.Contains("uGUI_ChoiceOption"))
+                        ProcessChoiceOption(option);
+                    else
+                    if (option.name.Contains("uGUI_BindingOption"))
+                        ProcessBindingOption(option);
+                }
+            }
+            catch (System.Exception e)
+            {
+                V2.Logger.Log($"Exception while adjusting mod options: {e.GetType()}\t{e.Message}", LogLevel.Error);
+            }
+        }
+
+        private static void ProcessToggleOption(Transform option)
+        {
+            Transform check = option.Find("Toggle/Background");
+            Text text = option.GetComponentInChildren<Text>();
+
+            int textWidth = GetTextWidth(text) + 20;
+            Vector3 pos = check.localPosition;
+
+            if (textWidth > pos.x)
+            {
+                pos.x = textWidth;
+                check.localPosition = pos;
+            }
+        }
+
+        private static void ProcessSliderOption(Transform option)
+        {
+            const float sliderValueWidth = 85f;
+
+            // changing width for slider value label
+            RectTransform sliderValueRect = option.Find("Slider/Value").GetComponent<RectTransform>();
+            Vector2 valueSize = sliderValueRect.sizeDelta;
+            valueSize.x = sliderValueWidth;
+            sliderValueRect.sizeDelta = valueSize;
+
+            // changing width for slider
+            Transform slider = option.Find("Slider/Background");
+            Text text = option.GetComponentInChildren<Text>();
+
+            RectTransform rect = slider.GetComponent<RectTransform>();
+
+            float widthAll = option.GetComponent<RectTransform>().rect.width;
+            float widthSlider = rect.rect.width;
+            float widthText = GetTextWidth(text) + 25;
+
+            if (widthText + widthSlider + sliderValueWidth > widthAll)
+            {
+                Vector2 size = rect.sizeDelta;
+                size.x = widthAll - widthText - sliderValueWidth - widthSlider;
+                rect.sizeDelta = size;
+            }
+        }
+
+        private static void ProcessChoiceOption(Transform option)
+        {
+            Transform choice = option.Find("Choice/Background");
+            Text text = option.GetComponentInChildren<Text>();
+
+            RectTransform rect = choice.GetComponent<RectTransform>();
+
+            float widthAll = option.GetComponent<RectTransform>().rect.width;
+            float widthChoice = rect.rect.width;
+
+            float widthText = GetTextWidth(text) + 10;
+
+            if (widthText + widthChoice > widthAll)
+            {
+                Vector2 size = rect.sizeDelta;
+                size.x = widthAll - widthText - widthChoice;
+                rect.sizeDelta = size;
+            }
+        }
+
+        private static void ProcessBindingOption(Transform option)
+        {
+            // changing width for keybinding option
+            Transform binding = option.Find("Bindings");
+            Text text = option.GetComponentInChildren<Text>();
+
+            RectTransform rect = binding.GetComponent<RectTransform>();
+
+            float widthAll = option.GetComponent<RectTransform>().rect.width;
+            float widthBinding = rect.rect.width;
+
+            float widthText = GetTextWidth(text) + 10;
+
+            if (widthText + widthBinding > widthAll)
+            {
+                Vector2 size = rect.sizeDelta;
+                size.x = widthAll - widthText - widthBinding;
+                rect.sizeDelta = size;
+            }
+
+            // fixing bug when all keybinds show 'D' (after reselecting tab)
+            Transform primaryBinding = binding.Find("Primary Binding"); // bug only on primary bindings
+            Text bindingText = primaryBinding.Find("Label").GetComponent<Text>();
+
+            if (bindingText.text == "D")
+            {
+                string buttonRawText = primaryBinding.GetComponent<uGUI_Binding>().value;
+
+                if (uGUI.buttonCharacters.TryGetValue(buttonRawText, out string buttonText))
+                    bindingText.text = buttonText;
+                else
+                    bindingText.text = buttonRawText;
+            }
+        }
+
+        private static int GetTextWidth(Text text)
+        {
+            int width = 0;
+
+            Font font = text.font;
+            font.RequestCharactersInTexture(text.text, text.fontSize, text.fontStyle);
+
+            foreach (char c in text.text)
+            {
+                font.GetCharacterInfo(c, out CharacterInfo charInfo, text.fontSize, text.fontStyle);
+                width += charInfo.advance;
+            }
+
+            return width;
         }
     }
 }
