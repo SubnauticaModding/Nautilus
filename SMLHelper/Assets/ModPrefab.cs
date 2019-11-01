@@ -25,9 +25,6 @@
         internal static bool TryGetFromFileName(string classId, out ModPrefab prefab) => FileNameDictionary.TryGetValue(classId, out prefab);
         internal static bool TryGetFromClassId(string classId, out ModPrefab prefab) => ClassIdDictionary.TryGetValue(classId, out prefab);
 
-        // Cached prefab to reduce potential performance hit :)
-        internal GameObject cachedPrefab;
-
         internal readonly string ModName;
 
         /// <summary>
@@ -65,14 +62,6 @@
 
         internal GameObject GetGameObjectInternal()
         {
-            if(cachedPrefab)
-            {
-                // This will avoid GetGameObject() being called every time the object is spawned. Could break things if there is a degree 
-                // of random generation in GetGameObject(), in that case the modder will need to do their random stuff in a MonoBehaviour.Awake()
-                // e.g. in MinecraftFish, the tropical fish have random colours which is done in a MonoBehaviour, rather than the GetGameObject() method
-                return cachedPrefab;
-            }
-
             GameObject go = GetGameObject();
 
             if (go == null)
@@ -106,9 +95,6 @@
             {
                 go.GetComponent<PrefabIdentifier>().ClassId = ClassID;
             }
-
-            // Assign the cached prefab to be used in the future
-            cachedPrefab = go;
 
             return go;
         }
