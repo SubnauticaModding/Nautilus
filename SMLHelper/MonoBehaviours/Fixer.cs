@@ -15,8 +15,6 @@ namespace SMLHelper.V2.MonoBehaviours
         private float time;
         private bool initalized;
 
-        private static FieldInfo BuilderPrefab = typeof(Builder).GetField("prefab", BindingFlags.NonPublic | BindingFlags.Static);
-
         private void Update()
         {
             if (!initalized)
@@ -25,12 +23,18 @@ namespace SMLHelper.V2.MonoBehaviours
                 initalized = true;
             }
 
-            var prefab = (GameObject)BuilderPrefab.GetValue(null);
-
-            if (transform.position == new Vector3(-5000, -5000, -5000) && gameObject != prefab && Time.time > time)
+            if (Time.time > time && gameObject != Builder.prefab)
             {
-                Logger.Debug("Destroying object: " + gameObject);
-                Destroy(gameObject);
+                if (transform.position.y < -4500)
+                {
+                    Logger.Debug("Destroying object: " + gameObject);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Logger.Debug("Destroying Fixer for object: " + gameObject);
+                    Destroy(this);
+                }
             }
         }
 
