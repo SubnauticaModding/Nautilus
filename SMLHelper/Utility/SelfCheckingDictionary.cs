@@ -23,14 +23,23 @@
         internal readonly Dictionary<K, V> UniqueEntries;
         internal readonly string CollectionName;
 
-        public SelfCheckingDictionary(string collectionName)
+        internal readonly Func<K, string> ToLogString;
+
+        private SelfCheckingDictionary(Func<K, string> toLog)
+        {
+            ToLogString = toLog ?? ((k) => k.ToString());
+        }
+
+        public SelfCheckingDictionary(string collectionName, Func<K, string> toLog = null)
+            : this(toLog)
         {
             CollectionName = collectionName;
             UniqueEntries = new Dictionary<K, V>();
             DuplicatesDiscarded = new Dictionary<K, int>();
         }
 
-        public SelfCheckingDictionary(string collectionName, IEqualityComparer<K> equalityComparer)
+        public SelfCheckingDictionary(string collectionName, IEqualityComparer<K> equalityComparer, Func<K, string> toLog = null)
+            : this(toLog)
         {
             CollectionName = collectionName;
             UniqueEntries = new Dictionary<K, V>(equalityComparer);
@@ -135,9 +144,10 @@
         /// <param name="key">The no longer unique key.</param>
         private void DupFoundAllDiscardedLog(K key)
         {
-            Logger.Warn($"{CollectionName} already exists for '{key}'.{Environment.NewLine}" +
+            string keyLogString = ToLogString(key);
+            Logger.Warn($"{CollectionName} already exists for '{keyLogString}'.{Environment.NewLine}" +
                         $"All entries will be removed so conflict can be noted and resolved.{Environment.NewLine}" +
-                        $"So far we have discarded or overwritten {DuplicatesDiscarded[key]} entries for '{key}'.");
+                        $"So far we have discarded or overwritten {DuplicatesDiscarded[key]} entries for '{keyLogString}'.");
         }
 
         /// <summary>
@@ -146,9 +156,10 @@
         /// <param name="key">The no longer unique key.</param>
         private void DupFoundLastDiscardedLog(K key)
         {
-            Logger.Warn($"{CollectionName} already exists for '{key}'.{Environment.NewLine}" +
+            string keyLogString = ToLogString(key);
+            Logger.Warn($"{CollectionName} already exists for '{keyLogString}'.{Environment.NewLine}" +
                         $"Original value has been overwritten by later entry.{Environment.NewLine}" +
-                        $"So far we have discarded or overwritten {DuplicatesDiscarded[key]} entries for '{key}'.");
+                        $"So far we have discarded or overwritten {DuplicatesDiscarded[key]} entries for '{keyLogString}'.");
         }
     }
 }

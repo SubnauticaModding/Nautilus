@@ -1,13 +1,16 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using Harmony;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     internal class KnownTechPatcher
     {
+        private static readonly Func<TechType, string> AsStringFunction = (t) => t.AsString();
+
         internal static List<TechType> UnlockedAtStart = new List<TechType>();
-        internal static IDictionary<TechType, KnownTech.AnalysisTech> AnalysisTech = new SelfCheckingDictionary<TechType, KnownTech.AnalysisTech>("AnalysisTech");
+        internal static IDictionary<TechType, KnownTech.AnalysisTech> AnalysisTech = new SelfCheckingDictionary<TechType, KnownTech.AnalysisTech>("AnalysisTech", AsStringFunction);
 
         private static bool initialized = false;
 
