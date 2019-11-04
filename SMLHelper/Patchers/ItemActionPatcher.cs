@@ -23,6 +23,8 @@
 
         #region Internal Fields
 
+        private static readonly Func<TechType, string> AsStringFunction = (t) => t.AsString();
+
         /// <summary>
         /// A constant <see cref="ItemAction"/> value to represent a custom middle click item action
         /// </summary>
@@ -35,8 +37,8 @@
         internal const string LeftClickMouseIcon = "<color=#ADF8FFFF></color>";
         internal const string MiddleClickMouseIcon = "<color=#ADF8FFFF></color>";
 
-        internal static readonly IDictionary<TechType, CustomItemAction> MiddleClickActions = new SelfCheckingDictionary<TechType, CustomItemAction>("MiddleClickActions");
-        internal static readonly IDictionary<TechType, CustomItemAction> LeftClickActions = new SelfCheckingDictionary<TechType, CustomItemAction>("LeftClickActions");
+        internal static readonly IDictionary<TechType, CustomItemAction> MiddleClickActions = new SelfCheckingDictionary<TechType, CustomItemAction>("MiddleClickActions", AsStringFunction);
+        internal static readonly IDictionary<TechType, CustomItemAction> LeftClickActions = new SelfCheckingDictionary<TechType, CustomItemAction>("LeftClickActions", AsStringFunction);
 
         #endregion
 
