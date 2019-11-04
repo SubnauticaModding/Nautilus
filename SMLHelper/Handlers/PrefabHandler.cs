@@ -5,6 +5,9 @@
 
     public class PrefabHandler : IPrefabHandler
     {
+        /// <summary>
+        /// Main entry point for all calls to this handler.
+        /// </summary>
         public static IPrefabHandler Main { get; } = new PrefabHandler();
 
         private PrefabHandler()

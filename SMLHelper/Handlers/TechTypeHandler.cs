@@ -16,6 +16,10 @@
         internal static readonly Dictionary<TechType, Assembly> TechTypesAddedBy = new Dictionary<TechType, Assembly>();
 
         internal static readonly TechTypeHandler Singleton = new TechTypeHandler();
+
+        /// <summary>
+        /// Main entry point for all calls to this handler.
+        /// </summary>
         public static ITechTypeHandler Main => Singleton;
 
         private TechTypeHandler()
