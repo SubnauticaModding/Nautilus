@@ -223,7 +223,7 @@
         /// <seealso cref="TechData"/>
         void ICraftDataHandler.SetTechData(TechType techType, ITechData techData)
         {
-            CraftDataPatcher.CustomTechData.Add(techType, techData);
+            CraftDataPatcher.CustomTechData[techType] = techData;
         }
 
         /// <summary>
@@ -235,7 +235,7 @@
         /// <seealso cref="TechData"/>
         void ICraftDataHandler.SetTechData(TechType techType, TechData techData)
         {
-            CraftDataPatcher.CustomTechData.Add(techType, techData);
+            CraftDataPatcher.CustomTechData[techType] = techData;
         }
 
         /// <summary>
