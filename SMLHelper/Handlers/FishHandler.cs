@@ -2,33 +2,41 @@
 {
     using System;
     using System.Collections.Generic;
-    using SMLHelper.V2.Assets;
     using System.IO;
+    using QModManager.Utility;
+    using SMLHelper.V2.Assets;
+    using SMLHelper.V2.Interfaces;
 
     /// <summary>
     /// Class to manage registering of fish into the game
     /// </summary>
-    public static class CustomFishHandler
+    public class FishHandler : IFishHandler
     {
+        /// <summary>
+        /// Main entry point for all calls to this handler.
+        /// </summary>
+        public static IFishHandler Main { get; } = new FishHandler();
+
+        private FishHandler() { }
+
         /// <summary>
         /// A list of all the custom fish that have so far been registered into the game. This includes ones from mods that may have been loaded earlier.
         /// It is mainly used by CustomFishPatcher to spawn fish in
         /// </summary>
-        public static List<TechType> fishTechTypes = new List<TechType>();
+        internal static List<TechType> fishTechTypes = new List<TechType>();
 
         /// <summary>
         /// Registers a CustomFish object into the game
         /// </summary>
         /// <param name="fish">The CustomFish that you are registering</param>
         /// <returns>The TechType created using the info from your CustomFish object</returns>
-        public static TechType RegisterFish(CustomFish fish)
+        TechType IFishHandler.RegisterFish(Fish fish)
         {
-            Logger.Log($"[FishFramework] Creating fish: {fish.displayName}");
             TechType type = TechTypeHandler.AddTechType(fish.id, fish.displayName, fish.tooltip);
 
             fishTechTypes.Add(type);
 
-            CustomFishPrefab fishPrefab = new CustomFishPrefab(fish.id, $"WorldEntities/Tools/{fish.id}", type)
+            FishPrefab fishPrefab = new FishPrefab(fish.id, $"WorldEntities/Tools/{fish.id}", type)
             {
                 modelPrefab = fish.modelPrefab,
                 swimSpeed = fish.swimSpeed,
@@ -38,14 +46,26 @@
                 isWaterCreature = fish.isWaterCreature
             };
 
-            if(!string.IsNullOrEmpty(fish.spriteFileName))
+            if (!string.IsNullOrEmpty(fish.spriteFileName))
             {
-                SpriteHandler.RegisterSprite(type, Path.Combine(Environment.CurrentDirectory + "/QMods/",fish.spriteFileName));
+                SpriteHandler.RegisterSprite(type, Path.Combine(Path.Combine(Environment.CurrentDirectory, "QMods"), fish.spriteFileName));
             }
 
             PrefabHandler.RegisterPrefab(fishPrefab);
 
+            Logger.Debug($"Successfully registered fish: '{fish.displayName}' with Tech Type: '{fish.id}'");
+
             return type;
+        }
+
+        /// <summary>
+        /// Registers a CustomFish object into the game
+        /// </summary>
+        /// <param name="fish">The CustomFish that you are registering</param>
+        /// <returns>The TechType created using the info from your CustomFish object</returns>
+        public static TechType RegisterFish(Fish fish)
+        {
+            return Main.RegisterFish(fish);
         }
     }
 }

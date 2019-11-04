@@ -1,8 +1,12 @@
 ﻿namespace SMLHelper.V2.Assets
 {
+    using Handlers;
     using UnityEngine;
 
-    public class CustomFish
+    /// <summary>
+    /// "A wrapper class that uses <see cref="FishHandler"/> and <see cref="FishPrefab"/> to quickly create a custom fish
+    /// </summary>
+    public class Fish
     {
         /// <summary>
         /// The id to use to create the creature. This should be unique
