@@ -32,12 +32,12 @@
         /// </summary>
         public CraftNode CraftNode;
 
-        protected ModCraftTreeLinkingNode Parent = null;
+        internal ModCraftTreeLinkingNode Parent = null;
 
-        protected virtual CraftTree.Type Scheme => this.Parent.Scheme;
-        protected virtual string SchemeAsString => this.Parent.SchemeAsString;
+        internal virtual CraftTree.Type Scheme => this.Parent.Scheme;
+        internal virtual string SchemeAsString => this.Parent.SchemeAsString;
 
-        protected ModCraftTreeNode(string name, TreeAction action, TechType techType)
+        internal ModCraftTreeNode(string name, TreeAction action, TechType techType)
         {
             Name = name;
             Action = action;

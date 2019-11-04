@@ -18,7 +18,7 @@
         /// </summary>
         public readonly List<ModCraftTreeNode> ChildNodes = new List<ModCraftTreeNode>();
 
-        protected ModCraftTreeLinkingNode(string name, TreeAction action, TechType techType)
+        internal ModCraftTreeLinkingNode(string name, TreeAction action, TechType techType)
             : base(name, action, techType)
         {
         }

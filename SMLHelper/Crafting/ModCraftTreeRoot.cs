@@ -13,8 +13,8 @@
         private readonly string _schemeAsString;
         private readonly CraftTree.Type _scheme;
 
-        protected override string SchemeAsString => _schemeAsString;
-        protected override CraftTree.Type Scheme => _scheme;
+        internal override string SchemeAsString => _schemeAsString;
+        internal override CraftTree.Type Scheme => _scheme;
 
         internal ModCraftTreeRoot(CraftTree.Type scheme, string schemeAsString)
             : base("Root", TreeAction.None, TechType.None)
