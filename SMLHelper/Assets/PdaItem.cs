@@ -35,6 +35,14 @@
         public bool UnlockedAtStart => this.RequiredForUnlock == TechType.None;
 
         /// <summary>
+        /// Message which should be shown when the item is unlocked. <para/>
+        /// If not overridden, the message will default to Subnautica's (language key "<see langword="NotificationBlueprintUnlocked"/>").
+        /// </summary>
+        public virtual string DiscoverMessage => null;
+
+        internal string DiscoverMessageResolved => this.DiscoverMessage == null ? "NotificationBlueprintUnlocked" : $"{this.TechType.AsString()}_DiscoverMessage";
+
+        /// <summary>
         /// Initializes a new <see cref="PdaItem"/>, the basic class for any item that appears among your PDA blueprints.
         /// DO NOT USE THIS CLASS DIRECTLY! Use <seealso cref="Craftable"/> or <see cref="Buildable"/> instead.
         /// </summary>
@@ -58,10 +66,13 @@
 
             CraftDataHandler.AddToGroup(this.GroupForPDA, this.CategoryForPDA, this.TechType);
 
-            if (this.UnlockedAtStart)
-                KnownTechHandler.UnlockOnStart(this.TechType);
-            else
-                KnownTechHandler.SetAnalysisTechEntry(this.RequiredForUnlock, new TechType[1] { this.TechType }, $"{this.FriendlyName} blueprint discovered!");
+            if (!this.UnlockedAtStart)
+                KnownTechHandler.SetAnalysisTechEntry(this.RequiredForUnlock, new TechType[1] { this.TechType }, this.DiscoverMessageResolved);
+        }
+
+        internal sealed override void PatchTechType()
+        {
+            this.TechType = TechTypeHandler.Singleton.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, this.UnlockedAtStart);
         }
     }
 }

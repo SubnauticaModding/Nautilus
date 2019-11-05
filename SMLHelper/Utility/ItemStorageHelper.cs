@@ -12,6 +12,9 @@
 
         internal static readonly ItemStorageHelper Singleton = new ItemStorageHelper();
 
+        /// <summary>
+        /// Main entry point for all calls to this handler.
+        /// </summary>
         public static IStorageHelper Main => Singleton;
 
         private ItemStorageHelper()

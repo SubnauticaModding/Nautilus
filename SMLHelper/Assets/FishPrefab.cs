@@ -1,14 +1,13 @@
 ﻿namespace SMLHelper.V2.Assets
 {
+    using QModManager.Utility;
     using UnityEngine;
-    using SMLHelper.V2.Utility;
-    using Logger = SMLHelper.V2.Logger;
 
     /// <summary>
     /// Class used by CustomFish for constructing a prefab based on the values provided by the user.
     /// You can use this yourself if you want, but you will need to manually provide a TechType
     /// </summary>
-    public class CustomFishPrefab : ModPrefab
+    public class FishPrefab : ModPrefab
     {
         /// <summary>
         /// The model to use to create the creature. This would ideally only have renderer/collider components attached, but will still work if it has behaviours
@@ -36,23 +35,27 @@
         /// </summary>
         public float swimInterval;
 
-        public CustomFishPrefab(string classId, string prefabFileName, TechType techType = TechType.None) : base(classId, prefabFileName, techType)
-        {
-        }
+        /// <summary>
+        /// Creates a new <see cref="FishPrefab"/> with the given values
+        /// </summary>
+        /// <param name="classId"></param>
+        /// <param name="prefabFileName"></param>
+        /// <param name="techType"></param>
+        public FishPrefab(string classId, string prefabFileName, TechType techType = TechType.None) : base(classId, prefabFileName, techType) { }
 
-        public override GameObject GetGameObject()
+        /// <summary>
+        /// Gets the prefab game object
+        /// </summary>
+        public sealed override GameObject GetGameObject()
         {
-            Logger.Log($"[FishFramework] Initializing fish: {ClassID}", LogLevel.Debug);
+            V2.Logger.Debug($"[FishFramework] Initializing fish: {ClassID}");
             GameObject mainObj = modelPrefab;
 
-            Logger.Log("[FishFramework] Setting correct shaders on renderers", LogLevel.Debug);
             Renderer[] renderers = mainObj.GetComponentsInChildren<Renderer>();
             foreach(Renderer rend in renderers)
             {
                 rend.material.shader = Shader.Find("MarmosetUBER");
             }
-
-            Logger.Log("[FishFramework] Adding essential components to object", LogLevel.Debug);
 
             Rigidbody rb = mainObj.GetOrAddComponent<Rigidbody>();
             rb.useGravity = false;
@@ -73,7 +76,6 @@
             mainObj.GetOrAddComponent<EntityTag>().slotType = EntitySlot.Type.Creature;
             mainObj.GetOrAddComponent<PrefabIdentifier>().ClassId = ClassID;
             mainObj.GetOrAddComponent<TechTag>().type = TechType;
-
             mainObj.GetOrAddComponent<SkyApplier>().renderers = renderers;
             mainObj.GetOrAddComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Near;
             mainObj.GetOrAddComponent<LiveMixin>().health = 10f;
@@ -82,6 +84,7 @@
             creature.initialCuriosity = AnimationCurve.Linear(0f, 0.5f, 1f, 0.5f);
             creature.initialFriendliness = AnimationCurve.Linear(0f, 0.5f, 1f, 0.5f);
             creature.initialHunger = AnimationCurve.Linear(0f, 0.5f, 1f, 0.5f);
+
             SwimBehaviour behaviour = null;
             if (isWaterCreature)
             {
@@ -98,20 +101,23 @@
                 OnSurfaceMovement move = mainObj.GetOrAddComponent<OnSurfaceMovement>();
                 move.onSurfaceTracker = mainObj.GetOrAddComponent<OnSurfaceTracker>();
             }
+
             Locomotion loco = mainObj.GetOrAddComponent<Locomotion>();
             loco.useRigidbody = rb;
+
             mainObj.GetOrAddComponent<EcoTarget>().type = EcoTargetType.Peeper;
             mainObj.GetOrAddComponent<CreatureUtils>();
             mainObj.GetOrAddComponent<VFXSchoolFishRepulsor>();
+
             SplineFollowing spline = mainObj.GetOrAddComponent<SplineFollowing>();
             spline.locomotion = loco;
             spline.levelOfDetail = mainObj.GetOrAddComponent<BehaviourLOD>();
             spline.GoTo(mainObj.transform.position + mainObj.transform.forward, mainObj.transform.forward, 5f);
+
             behaviour.splineFollowing = spline;
 
             if (pickupable)
             {
-                Logger.Log("[FishFramework] Adding pickupable component", LogLevel.Debug);
                 mainObj.GetOrAddComponent<Pickupable>();
             }
 

@@ -2,6 +2,7 @@
 {
     using System;
     using Handlers;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// An item that can be spawned into the game.
@@ -98,13 +99,18 @@
 
             // Because invocation order isn't guaranteed by event handlers,
             // we make sure the TechType is patched first before anything else that might require it.
-            this.TechType = TechTypeHandler.Singleton.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, false);
+            PatchTechType();
 
             CorePatchEvents.Invoke();
 
             this.IsPatched = true;
 
             OnFinishedPatching?.Invoke();
+        }
+
+        internal virtual void PatchTechType()
+        {
+            this.TechType = TechTypeHandler.Singleton.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, false);
         }
 
         private void RegisterBasics()
@@ -118,7 +124,9 @@
                 throw new Exception($"Error patching Spawnable:{this.ClassID}");
             }
 
-            SpriteHandler.RegisterSprite(this.TechType, $"./QMods/{assetsFolder.Trim('/')}/{this.IconFileName}");
+            string path = IOUtilities.Combine(".", "QMods", assetsFolder.Trim('/'), this.IconFileName);
+
+            SpriteHandler.RegisterSprite(this.TechType, path);
         }
     }
 }

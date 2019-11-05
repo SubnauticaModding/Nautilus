@@ -5,7 +5,9 @@
 
     public class BioReactorHandler : IBioReactorHandler
     {
-        // Singleton
+        /// <summary>
+        /// Main entry point for all calls to this handler.
+        /// </summary>
         public static IBioReactorHandler Main { get; } = new BioReactorHandler();
 
         private BioReactorHandler()
