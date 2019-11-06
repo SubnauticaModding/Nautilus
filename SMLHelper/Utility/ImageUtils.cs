@@ -25,14 +25,16 @@
             {
                 byte[] imageBytes = File.ReadAllBytes(filePathToImage);
                 Texture2D texture2D = new Texture2D(2, 2, format, false);
-                if (texture2D.LoadImage(imageBytes))
+                try
                 {
+                    texture2D.LoadRawTextureData(imageBytes);
                     return texture2D;
                 }
-                else
+                catch (UnityException uex)
                 {
-                    Logger.Log("Error on LoadTextureFromFile call. Texture cannot be loaded: " + filePathToImage, LogLevel.Error);
+                    Logger.Error("Error on LoadTextureFromFile call. Texture cannot be loaded: " + uex);
                 }
+
             }
             else
             {
