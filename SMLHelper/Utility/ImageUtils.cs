@@ -27,7 +27,7 @@
                 Texture2D texture2D = new Texture2D(2, 2, format, false);
                 try
                 {
-                    texture2D.LoadRawTextureData(imageBytes);
+                    texture2D.LoadImage(imageBytes);
                     return texture2D;
                 }
                 catch (UnityException uex)
