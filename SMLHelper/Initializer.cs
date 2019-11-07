@@ -13,7 +13,7 @@
         {
             Logger.Initialize();
 
-            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version}...", LogLevel.Info);
+            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version}", LogLevel.Info);
 
             harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
 

@@ -7,5 +7,5 @@
   "Game": "Subnautica",
   "Priority": "Last",
   "AssemblyName": "SMLHelper.dll",
-  "EntryMethod": "SMLHelper.V2.Initializer.Patch",
+  "EntryMethod": "SMLHelper.V2.Initializer.Patch"
 }
