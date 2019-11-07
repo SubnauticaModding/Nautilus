@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.V2.Utility
 {
+    using System.Diagnostics;
     using System.Reflection;
 
     /// <summary>
@@ -165,6 +166,27 @@
                     fieldInfo.SetValue(copy, value);
                 }
             }
+        }
+
+        private static readonly Assembly smlHelperAssembly = Assembly.GetExecutingAssembly();
+
+        internal static string CallingAssemblyNameByStackTrace()
+        {
+            return CallingAssemblyByStackTrace().GetName().Name;
+        }
+        internal static Assembly CallingAssemblyByStackTrace()
+        {
+            var stackTrace = new StackTrace();
+            StackFrame[] frames = stackTrace.GetFrames();
+
+            foreach (StackFrame stackFrame in frames)
+            {
+                Assembly ownerAssembly = stackFrame.GetMethod().DeclaringType.Assembly;
+                if (ownerAssembly != smlHelperAssembly)
+                    return ownerAssembly;
+            }
+
+            return smlHelperAssembly;
         }
     }
 }

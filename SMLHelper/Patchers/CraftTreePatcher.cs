@@ -22,42 +22,29 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            Type type = typeof(CraftTree);
-            Type patcherClass = typeof(CraftTreePatcher);
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), "GetTree"),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "GetTreePreFix")));
 
-            MethodInfo craftTreeGetTree = type.GetMethod("GetTree", BindingFlags.Static | BindingFlags.Public);
-            MethodInfo craftTreeInitialize = type.GetMethod("Initialize", BindingFlags.Static | BindingFlags.Public);
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), "Initialize"),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "InitializePostFix")));
 
-            MethodInfo fabricatorScheme = type.GetMethod("FabricatorScheme", BindingFlags.Static | BindingFlags.NonPublic);
-            MethodInfo constructorScheme = type.GetMethod("ConstructorScheme", BindingFlags.Static | BindingFlags.NonPublic);
-            MethodInfo workbenchScheme = type.GetMethod("WorkbenchScheme", BindingFlags.Static | BindingFlags.NonPublic);
-            MethodInfo seamothUpgradesScheme = type.GetMethod("SeamothUpgradesScheme", BindingFlags.NonPublic | BindingFlags.Static);
-            MethodInfo mapRoomSheme = type.GetMethod("MapRoomSheme", BindingFlags.Static | BindingFlags.NonPublic);
-            MethodInfo cyclopsFabricatorScheme = type.GetMethod("CyclopsFabricatorScheme", BindingFlags.Static | BindingFlags.NonPublic);
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), "FabricatorScheme"),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "FabricatorSchemePostfix")));
 
-            harmony.Patch(craftTreeGetTree,
-                new HarmonyMethod(patcherClass.GetMethod("GetTreePreFix", BindingFlags.Static | BindingFlags.NonPublic)), null);
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), "ConstructorScheme"),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "ConstructorSchemePostfix")));
 
-            harmony.Patch(craftTreeInitialize, null,
-                new HarmonyMethod(patcherClass.GetMethod("InitializePostFix", BindingFlags.Static | BindingFlags.NonPublic)));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), "WorkbenchScheme"),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "WorkbenchSchemePostfix")));
 
-            harmony.Patch(fabricatorScheme, null,
-                new HarmonyMethod(patcherClass.GetMethod("FabricatorSchemePostfix", BindingFlags.Static | BindingFlags.NonPublic)));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), "SeamothUpgradesScheme"),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "SeamothUpgradesSchemePostfix")));
 
-            harmony.Patch(constructorScheme, null,
-                new HarmonyMethod(patcherClass.GetMethod("ConstructorSchemePostfix", BindingFlags.Static | BindingFlags.NonPublic)));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), "MapRoomSheme"),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "MapRoomSchemePostfix")));
 
-            harmony.Patch(workbenchScheme, null,
-                new HarmonyMethod(patcherClass.GetMethod("WorkbenchSchemePostfix", BindingFlags.Static | BindingFlags.NonPublic)));
-
-            harmony.Patch(seamothUpgradesScheme, null,
-                new HarmonyMethod(patcherClass.GetMethod("SeamothUpgradesSchemePostfix", BindingFlags.Static | BindingFlags.NonPublic)));
-
-            harmony.Patch(mapRoomSheme, null,
-                new HarmonyMethod(patcherClass.GetMethod("MapRoomSchemePostfix", BindingFlags.Static | BindingFlags.NonPublic)));
-
-            harmony.Patch(cyclopsFabricatorScheme, null,
-                new HarmonyMethod(patcherClass.GetMethod("CyclopsFabricatorSchemePostfix", BindingFlags.Static | BindingFlags.NonPublic)));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), "CyclopsFabricatorScheme"),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "CyclopsFabricatorSchemePostfix")));
 
             Logger.Log($"CraftTreePatcher is done.", LogLevel.Debug);
         }
@@ -76,7 +63,6 @@
         private static void InitializePostFix()
         {
             var craftTreeInitialized = (bool)ReflectionHelper.GetStaticField<CraftTree>("initialized");
-            Type craftTreeClass = typeof(CraftTree);
         
             if (craftTreeInitialized && !ModCraftTreeNode.Initialized)
             {
@@ -84,7 +70,7 @@
                 {
                     CraftTree customTree = CustomTrees[cTreeKey].CraftTree;
 
-                    MethodInfo addToCraftableTech = craftTreeClass.GetMethod("AddToCraftableTech", BindingFlags.Static | BindingFlags.NonPublic);
+                    MethodInfo addToCraftableTech = AccessTools.Method(typeof(CraftTree), "AddToCraftableTech");
 
                     addToCraftableTech.Invoke(null, new[] { customTree });
                 }
@@ -93,49 +79,44 @@
 
         private static void FabricatorSchemePostfix(ref CraftNode __result)
         {
-            RemoveNodes(ref __result, NodesToRemove, CraftTree.Type.Fabricator);
-            AddCustomTabs(ref __result, TabNodes, CraftTree.Type.Fabricator);
-            PatchNodes(ref __result, CraftingNodes, CraftTree.Type.Fabricator);
+            PatchCraftTree(ref __result, CraftTree.Type.Fabricator);
         }
 
         private static void ConstructorSchemePostfix(ref CraftNode __result)
         {
-            RemoveNodes(ref __result, NodesToRemove, CraftTree.Type.Constructor);
-            AddCustomTabs(ref __result, TabNodes, CraftTree.Type.Constructor);
-            PatchNodes(ref __result, CraftingNodes, CraftTree.Type.Constructor);
+            PatchCraftTree(ref __result, CraftTree.Type.Constructor);
         }
 
         private static void WorkbenchSchemePostfix(ref CraftNode __result)
         {
-            RemoveNodes(ref __result, NodesToRemove, CraftTree.Type.Workbench);
-            AddCustomTabs(ref __result, TabNodes, CraftTree.Type.Workbench);
-            PatchNodes(ref __result, CraftingNodes, CraftTree.Type.Workbench);
+            PatchCraftTree(ref __result, CraftTree.Type.Workbench);
         }
 
         private static void SeamothUpgradesSchemePostfix(ref CraftNode __result)
         {
-            RemoveNodes(ref __result, NodesToRemove, CraftTree.Type.SeamothUpgrades);
-            AddCustomTabs(ref __result, TabNodes, CraftTree.Type.SeamothUpgrades);
-            PatchNodes(ref __result, CraftingNodes, CraftTree.Type.SeamothUpgrades);
+            PatchCraftTree(ref __result, CraftTree.Type.SeamothUpgrades);
         }
 
         private static void MapRoomSchemePostfix(ref CraftNode __result)
         {
-            RemoveNodes(ref __result, NodesToRemove, CraftTree.Type.MapRoom);
-            AddCustomTabs(ref __result, TabNodes, CraftTree.Type.MapRoom);
-            PatchNodes(ref __result, CraftingNodes, CraftTree.Type.MapRoom);
+            PatchCraftTree(ref __result, CraftTree.Type.MapRoom);
         }
 
         private static void CyclopsFabricatorSchemePostfix(ref CraftNode __result)
         {
-            RemoveNodes(ref __result, NodesToRemove, CraftTree.Type.CyclopsFabricator);
-            AddCustomTabs(ref __result, TabNodes, CraftTree.Type.CyclopsFabricator);
-            PatchNodes(ref __result, CraftingNodes, CraftTree.Type.CyclopsFabricator);
+            PatchCraftTree(ref __result, CraftTree.Type.CyclopsFabricator);
         }
 
         #endregion
 
         #region Handling Nodes
+
+        private static void PatchCraftTree(ref CraftNode __result, CraftTree.Type type)
+        {
+            RemoveNodes(ref __result, NodesToRemove, type);
+            AddCustomTabs(ref __result, TabNodes, type);
+            PatchNodes(ref __result, CraftingNodes, type);
+        }
 
         private static void AddCustomTabs(ref CraftNode nodes, List<TabNode> customTabs, CraftTree.Type scheme)
         {

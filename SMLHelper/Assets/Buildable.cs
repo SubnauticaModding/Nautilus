@@ -29,11 +29,6 @@
         private void PatchBuildable()
         {
             CraftDataHandler.AddBuildable(this.TechType);
-
-            if (!string.IsNullOrEmpty(HandOverText))
-            {
-                LanguageHandler.SetLanguageLine($"{this.ClassID}HandOver", this.HandOverText);
-            }
         }
     }
 }

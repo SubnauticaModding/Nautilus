@@ -2,10 +2,10 @@
   "Id": "SMLHelper",
   "DisplayName": "Modding Helper (SMLHelper)",
   "Author": "AHK1221 & PrimeSonic & AlexejheroYTB",
-  "Version": "2.2.1",
+  "Version": "2.3.0",
   "Enable": true,
   "Game": "Subnautica",
   "Priority": "Last",
   "AssemblyName": "SMLHelper.dll",
-  "EntryMethod": "SMLHelper.V2.Initializer.Patch",
+  "EntryMethod": "SMLHelper.V2.Initializer.Patch"
 }

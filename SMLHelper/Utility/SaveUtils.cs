@@ -11,7 +11,7 @@
         /// </summary>
         public static string GetCurrentSaveDataDir()
         {
-            return Path.Combine(SNUtils.savedGamesDir, Utils.GetSavegameDir());
+            return SaveLoadManager.temporarySavePath;
         }
     }
 }
