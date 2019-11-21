@@ -47,17 +47,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\Dependencies\0Harmony-1.2.0.1.dll</HintPath>
+      <HintPath>..\..\DependenciesBZ\0Harmony-1.2.0.1.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass_publicized">
-      <HintPath>..\Dependencies\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+      <HintPath>..\..\DependenciesBZ\Assembly-CSharp-firstpass_publicized.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependencies\Assembly-CSharp_publicized.dll</HintPath>
+      <HintPath>..\..\DependenciesBZ\Assembly-CSharp_publicized.dll</HintPath>
     </Reference>
     <Reference Include="QModInstaller">
-      <HintPath>..\Dependencies\QModInstaller.dll</HintPath>
+      <HintPath>..\..\DependenciesBZ\QModInstaller.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,21 +66,21 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
-      <HintPath>..\Dependencies\UnityEngine.dll</HintPath>
+      <HintPath>..\..\DependenciesBZ\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\DependenciesBZ\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependencies\UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>..\..\DependenciesBZ\UnityEngine.ImageConversionModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\Dependencies\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\..\DependenciesBZ\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\Dependencies\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\DependenciesBZ\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
