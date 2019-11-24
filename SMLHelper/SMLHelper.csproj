@@ -30,9 +30,9 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\Program Files %28x86%29\Steam\steamapps\common\SubnauticaZero\QMods\Modding Helper\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -57,6 +57,10 @@
     <Reference Include="Assembly-CSharp_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\DependenciesBZ\Assembly-CSharp_publicized.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>..\..\DependenciesBZ\LitJson.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="QModInstaller">
@@ -112,7 +116,6 @@
     <Compile Include="Crafting\ModCraftTreeTab.cs" />
     <Compile Include="Crafting\Node.cs" />
     <Compile Include="Crafting\TabNode.cs" />
-    <Compile Include="Crafting\TechData.cs" />
     <Compile Include="Handlers\BioReactorHandler.cs" />
     <Compile Include="Handlers\CraftDataHandler.cs" />
     <Compile Include="Handlers\CraftTreeHandler.cs" />
@@ -162,6 +165,7 @@
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
     <Compile Include="Patchers\ResourcesPatcher.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />
+    <Compile Include="Patchers\TechDataPatcher.cs" />
     <Compile Include="Patchers\TechTypePatcher.cs" />
     <Compile Include="Patchers\TooltipPatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

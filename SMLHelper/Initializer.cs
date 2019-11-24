@@ -29,6 +29,7 @@
 
         internal static void Initialize()
         {
+            TechDataPatcher.Patch(harmony);
             FishPatcher.Patch(harmony);
             TechTypePatcher.Patch(harmony);
             CraftTreeTypePatcher.Patch(harmony);

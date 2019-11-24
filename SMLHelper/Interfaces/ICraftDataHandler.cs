@@ -1,26 +1,18 @@
 ﻿namespace SMLHelper.V2.Interfaces
 {
+    using System.Collections.Generic;
     using Crafting;
 
     public interface ICraftDataHandler
     {
         /// <summary>
-        /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
+        /// <para>Allows you to edit JsonValues Directly for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="techData">The TechData for that TechType.</param>
-        /// <seealso cref="TechData"/>
-        void SetTechData(TechType techType, ITechData techData);
-
-        /// <summary>
-        /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
-        /// <para>Can be used for existing TechTypes too.</para>
-        /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to edit.</param>
-        /// <param name="techData">The TechData for that TechType.</param>
-        /// <seealso cref="TechData"/>
-        void SetTechData(TechType techType, TechData techData);
+        /// <seealso cref="TechData.defaults"/>
+        void SetTechData(TechType techType, JsonValue techData);
 
         /// <summary>
         /// <para>Allows you to edit EquipmentTypes for TechTypes.</para>
@@ -143,6 +135,17 @@
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        ITechData GetModdedTechData(TechType techType);
+        JsonValue GetModdedTechData(TechType techType);
+
+
+        /// <summary>
+        /// <para>Allows you to edit recipes for TechTypes.</para>
+        /// <para>Can be used for existing TechTypes too.</para>
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to edit.</param>
+        /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
+        /// <seealso cref="Ingredient"/>
+        void AddIngredients(TechType techType, ICollection<Ingredient> ingredients);
+        void AddLinkedItems(TechType techType, ICollection<Ingredient> linkedItems);
     }
 }

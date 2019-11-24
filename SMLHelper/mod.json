@@ -4,7 +4,7 @@
   "Author": "AHK1221 & PrimeSonic & AlexejheroYTB",
   "Version": "2.3.0",
   "Enable": true,
-  "Game": "Subnautica",
+  "Game": "BelowZero",
   "Priority": "Last",
   "AssemblyName": "SMLHelper.dll",
   "EntryMethod": "SMLHelper.V2.Initializer.Patch"

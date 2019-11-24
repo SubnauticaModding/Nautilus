@@ -3,6 +3,8 @@
     using Crafting;
     using Patchers;
     using Interfaces;
+    using System.Collections.Generic;
+    using System;
 
     /// <summary>
     /// A handler class for adding and editing crafted items.
@@ -28,23 +30,34 @@
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="techData">The TechData for that TechType.</param>
         /// <seealso cref="TechData"/>
-        public static void SetTechData(TechType techType, ITechData techData)
+        public static void SetTechData(TechType techType, JsonValue techData)
         {
             Main.SetTechData(techType, techData);
         }
 
         /// <summary>
-        /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
+        /// <para>Allows you to edit recipes for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
-        /// <param name="techData">The TechData for that TechType.</param>
-        /// <seealso cref="TechData"/>
-        public static void SetTechData(TechType techType, TechData techData)
+        /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
+        /// <seealso cref="Ingredient"/>
+        public static void AddIngredients(TechType techType, ICollection<Ingredient> ingredients)
         {
-            Main.SetTechData(techType, techData);
+            Main.AddIngredients(techType, ingredients);
         }
 
+        /// <summary>
+        /// <para>Allows you to edit Linked Items for TechTypes.</para>
+        /// <para>Can be used for existing TechTypes too.</para>
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to edit.</param>
+        /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
+        /// <seealso cref="Ingredient"/>
+        public static void AddLinkedItems(TechType techType, ICollection<Ingredient> linkedItems)
+        {
+            Main.AddLinkedItems(techType, linkedItems);
+        }
         /// <summary>
         /// <para>Allows you to edit EquipmentTypes for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
@@ -208,7 +221,7 @@
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        public static ITechData GetModdedTechData(TechType techType)
+        public static JsonValue GetModdedTechData(TechType techType)
         {
             return Main.GetModdedTechData(techType);
         }
@@ -218,27 +231,73 @@
         #region Interface Methods
 
         /// <summary>
-        /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
+        /// <para>Allows you to add or edit TechData for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="techData">The TechData for that TechType.</param>
-        /// <seealso cref="TechData"/>
-        void ICraftDataHandler.SetTechData(TechType techType, ITechData techData)
+        /// <seealso cref="TechData.defaults"/>
+        void ICraftDataHandler.SetTechData(TechType techType, JsonValue techData)
         {
-            CraftDataPatcher.CustomTechData[techType] = techData;
+            if (new JsonValue((int)techType) != techData[TechData.PropertyToID("techType")])
+            {
+                techData.Add(TechData.PropertyToID("techType"), new JsonValue((int)techType));
+            }
+            TechDataPatcher.CustomTechData[techType] = techData;
         }
 
         /// <summary>
-        /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
+        /// <para>Allows you to edit recipes for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
-        /// <param name="techData">The TechData for that TechType.</param>
-        /// <seealso cref="TechData"/>
-        void ICraftDataHandler.SetTechData(TechType techType, TechData techData)
+        /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
+        /// <seealso cref="Ingredient"/>
+        void ICraftDataHandler.AddIngredients(TechType techType, ICollection<Ingredient> ingredients)
         {
-            CraftDataPatcher.CustomTechData[techType] = techData;
+            TechDataPatcher.CustomTechData[techType].Add(TechData.PropertyToID("ingredients"), new JsonValue(JsonValue.Type.Array));
+            JsonValue ingredientslist = TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("ingredients")];
+            int amount = TechData.PropertyToID("amount");
+            int tech = TechData.PropertyToID("techType");
+            int count = ingredients.Count;
+            int current = 0;
+
+
+            foreach (Ingredient i in ingredients)
+            {
+                ingredientslist.Add(new JsonValue(current));
+                ingredientslist[current] = new JsonValue(JsonValue.Type.Object);
+                ingredientslist[current].Add(amount, new JsonValue(i.amount));
+                ingredientslist[current].Add(tech, new JsonValue((int)i.techType));
+                current++;
+            }
+        }
+
+        /// <summary>
+        /// <para>Allows you to edit Linked Items for TechTypes.</para>
+        /// <para>Can be used for existing TechTypes too.</para>
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to edit.</param>
+        /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
+        /// <seealso cref="Ingredient"/>
+        void ICraftDataHandler.AddLinkedItems(TechType techType, ICollection<Ingredient> linkedItems)
+        {
+            TechDataPatcher.CustomTechData[techType].Add(TechData.PropertyToID("linkedItems"), new JsonValue(JsonValue.Type.Array));
+            JsonValue linkedItemslist = TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("linkedItems")];
+            int amount = TechData.PropertyToID("amount");
+            int tech = TechData.PropertyToID("techType");
+            int count = linkedItems.Count;
+            int current = 0;
+
+
+            foreach (Ingredient i in linkedItems)
+            {
+                linkedItemslist.Add(new JsonValue(current));
+                linkedItemslist[current] = new JsonValue(JsonValue.Type.Object);
+                linkedItemslist[current].Add(amount, new JsonValue(i.amount));
+                linkedItemslist[current].Add(tech, new JsonValue((int)i.techType));
+                current++;
+            }
         }
 
         /// <summary>
@@ -249,7 +308,7 @@
         /// <param name="equipmentType">The EquipmentType for that TechType.</param>
         void ICraftDataHandler.SetEquipmentType(TechType techType, EquipmentType equipmentType)
         {
-            CraftDataPatcher.CustomEquipmentTypes[techType] = equipmentType;
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("equipmentType")] = new JsonValue((int)equipmentType);
         }
 
         /// <summary>
@@ -260,7 +319,7 @@
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
         void ICraftDataHandler.SetQuickSlotType(TechType techType, QuickSlotType slotType)
         {
-            CraftDataPatcher.CustomSlotTypes[techType] = slotType;
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("slotType")] = new JsonValue((int)slotType);
         }
 
         /// <summary>
@@ -271,7 +330,7 @@
         /// <param name="harvestOutput">The harvest output for that TechType.</param>
         void ICraftDataHandler.SetHarvestOutput(TechType techType, TechType harvestOutput)
         {
-            CraftDataPatcher.CustomHarvestOutputList[techType] = harvestOutput;
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("harvestOutput")] = new JsonValue((int)harvestOutput);
         }
 
         /// <summary>
@@ -282,7 +341,7 @@
         /// <param name="harvestType">The HarvestType for that TechType.</param>
         void ICraftDataHandler.SetHarvestType(TechType techType, HarvestType harvestType)
         {
-            CraftDataPatcher.CustomHarvestTypeList[techType] = harvestType;
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("harvestType")] = new JsonValue((int)harvestType);
         }
 
         /// <summary>
@@ -293,7 +352,7 @@
         /// <param name="bonus">The number of additional slices/seeds you'll receive on last cut.</param>
         void ICraftDataHandler.SetHarvestFinalCutBonus(TechType techType, int bonus)
         {
-            CraftDataPatcher.CustomFinalCutBonusList[techType] = bonus;
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("harvestFinalCutBonus")] = new JsonValue(bonus);
         }
 
         /// <summary>
@@ -304,7 +363,8 @@
         /// <param name="size">The item size for that TechType.</param>
         void ICraftDataHandler.SetItemSize(TechType techType, Vector2int size)
         {
-            CraftDataPatcher.CustomItemSizes[techType] = size;
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("x")] = new JsonValue(size.x);
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("y")] = new JsonValue(size.y);
         }
 
         /// <summary>
@@ -316,7 +376,8 @@
         /// <param name="y">The height of the item</param>
         void ICraftDataHandler.SetItemSize(TechType techType, int x, int y)
         {
-            CraftDataPatcher.CustomItemSizes[techType] = new Vector2int(x, y);
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("x")] = new JsonValue(x);
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("y")] = new JsonValue(y);
         }
 
         /// <summary>
@@ -327,7 +388,7 @@
         /// <param name="time">The crafting time, in seconds, for that TechType.</param>
         void ICraftDataHandler.SetCraftingTime(TechType techType, float time)
         {
-            CraftDataPatcher.CustomCraftingTimes[techType] = time;
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("craftTime")] = new JsonValue(time);
         }
 
         /// <summary>
@@ -338,7 +399,7 @@
         /// <param name="cooked">The cooked creature counterpart for that TechType.</param>
         void ICraftDataHandler.SetCookedVariant(TechType uncooked, TechType cooked)
         {
-            CraftDataPatcher.CustomCookedCreatureList[uncooked] = cooked;
+            TechDataPatcher.CustomTechData[uncooked][TechData.PropertyToID("processed")] = new JsonValue((int)cooked);
         }
 
         /// <summary>
@@ -349,7 +410,7 @@
         /// <seealso cref="CraftData.BackgroundType"/>
         void ICraftDataHandler.SetBackgroundType(TechType techType, CraftData.BackgroundType backgroundColor)
         {
-            CraftDataPatcher.CustomBackgroundTypes[techType] = backgroundColor;
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("backgroundType")] = new JsonValue((int)backgroundColor);
         }
 
         /// <summary>
@@ -358,7 +419,7 @@
         /// <param name="techType">The TechType which you want to add to the buildable list.</param>
         void ICraftDataHandler.AddBuildable(TechType techType)
         {
-            CraftDataPatcher.CustomBuildables.Add(techType);
+            TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("buildable")] = new JsonValue(true);
         }
 
         /// <summary>
@@ -404,9 +465,9 @@
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        ITechData ICraftDataHandler.GetModdedTechData(TechType techType)
+        JsonValue ICraftDataHandler.GetModdedTechData(TechType techType)
         {
-            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData moddedTechData))
+            if (TechDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue moddedTechData))
             {
                 return moddedTechData;
             }

@@ -69,7 +69,7 @@
             forces.handleGravity = true;
             forces.underwaterDrag = 1f;
             forces.underwaterGravity = 0;
-            forces.waterDepth = Ocean.main.GetOceanLevel();
+            forces.waterDepth = Ocean.GetOceanLevel();
             forces.enabled = false;
             forces.enabled = true;
 
