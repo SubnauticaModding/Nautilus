@@ -58,7 +58,7 @@
         /// <summary>
         /// This provides the <see cref="TechData"/> instance used to designate how this item is crafted or constructed.
         /// </summary>
-        protected abstract JsonValue GetBlueprintRecipe();
+        protected abstract RecipeData GetBlueprintRecipe();
 
         private void PatchTechDataEntry()
         {

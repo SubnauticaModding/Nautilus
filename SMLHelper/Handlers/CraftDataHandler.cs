@@ -28,11 +28,23 @@
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
+        /// <param name="recipeData">The TechData for that TechType.</param>
+        /// <seealso cref="RecipeData"/>
+        public static void SetTechData(TechType techType, RecipeData recipeData)
+        {
+            Main.SetTechData(techType, recipeData);
+        }
+
+        /// <summary>
+        /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
+        /// <para>Can be used for existing TechTypes too.</para>
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="techData">The TechData for that TechType.</param>
         /// <seealso cref="TechData"/>
-        public static void SetTechData(TechType techType, JsonValue techData)
+        public static void SetTechData(TechType techType, JsonValue jsonValue)
         {
-            Main.SetTechData(techType, techData);
+            Main.SetTechData(techType, jsonValue);
         }
 
         /// <summary>
@@ -54,7 +66,7 @@
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
         /// <seealso cref="Ingredient"/>
-        public static void AddLinkedItems(TechType techType, ICollection<Ingredient> linkedItems)
+        public static void AddLinkedItems(TechType techType, ICollection<TechType> linkedItems)
         {
             Main.AddLinkedItems(techType, linkedItems);
         }
@@ -235,15 +247,41 @@
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
-        /// <param name="techData">The TechData for that TechType.</param>
+        /// <param name="recipeData">The TechData for that TechType.</param>
         /// <seealso cref="TechData.defaults"/>
-        void ICraftDataHandler.SetTechData(TechType techType, JsonValue techData)
+        void ICraftDataHandler.SetTechData(TechType techType, RecipeData recipeData)
         {
-            if (new JsonValue((int)techType) != techData[TechData.PropertyToID("techType")])
+            JsonValue currentTechType = new JsonValue();
+            currentTechType = new JsonValue();
+
+            currentTechType.Add(TechData.PropertyToID("techType"), new JsonValue((int)techType));
+            currentTechType.Add(TechData.PropertyToID("craftAmount"), new JsonValue(recipeData.craftAmount));
+            TechDataPatcher.CustomTechData[techType] = currentTechType;
+            if (recipeData.ingredientCount >0)
             {
-                techData.Add(TechData.PropertyToID("techType"), new JsonValue((int)techType));
+                CraftDataHandler.AddIngredients(techType, recipeData.Ingredients);
             }
-            TechDataPatcher.CustomTechData[techType] = techData;
+            if (recipeData.linkedItemCount > 0)
+            {
+                CraftDataHandler.AddLinkedItems(techType, recipeData.LinkedItems);
+            }
+
+        }
+
+        /// <summary>
+        /// <para>Allows you to add or edit TechData for TechTypes.</para>
+        /// <para>Can be used for existing TechTypes too.</para>
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to edit.</param>
+        /// <param name="recipeData">The TechData for that TechType.</param>
+        /// <seealso cref="TechData.defaults"/>
+        void ICraftDataHandler.SetTechData(TechType techType, JsonValue jsonValue)
+        {
+            if (new JsonValue((int)techType) != jsonValue[TechData.PropertyToID("techType")])
+            {
+                jsonValue.Add(TechData.PropertyToID("techType"), new JsonValue((int)techType));
+            }
+            TechDataPatcher.CustomTechData[techType] = jsonValue;
         }
 
         /// <summary>
@@ -280,7 +318,7 @@
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
         /// <seealso cref="Ingredient"/>
-        void ICraftDataHandler.AddLinkedItems(TechType techType, ICollection<Ingredient> linkedItems)
+        void ICraftDataHandler.AddLinkedItems(TechType techType, ICollection<TechType> linkedItems)
         {
             TechDataPatcher.CustomTechData[techType].Add(TechData.PropertyToID("linkedItems"), new JsonValue(JsonValue.Type.Array));
             JsonValue linkedItemslist = TechDataPatcher.CustomTechData[techType][TechData.PropertyToID("linkedItems")];
@@ -290,12 +328,10 @@
             int current = 0;
 
 
-            foreach (Ingredient i in linkedItems)
+            foreach (TechType i in linkedItems)
             {
                 linkedItemslist.Add(new JsonValue(current));
-                linkedItemslist[current] = new JsonValue(JsonValue.Type.Object);
-                linkedItemslist[current].Add(amount, new JsonValue(i.amount));
-                linkedItemslist[current].Add(tech, new JsonValue((int)i.techType));
+                linkedItemslist[current].Add(tech, new JsonValue((int)i));
                 current++;
             }
         }

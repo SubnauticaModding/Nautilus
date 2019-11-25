@@ -116,6 +116,7 @@
     <Compile Include="Crafting\ModCraftTreeTab.cs" />
     <Compile Include="Crafting\Node.cs" />
     <Compile Include="Crafting\TabNode.cs" />
+    <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Handlers\BioReactorHandler.cs" />
     <Compile Include="Handlers\CraftDataHandler.cs" />
     <Compile Include="Handlers\CraftTreeHandler.cs" />

@@ -12,7 +12,16 @@
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="techData">The TechData for that TechType.</param>
         /// <seealso cref="TechData.defaults"/>
-        void SetTechData(TechType techType, JsonValue techData);
+        void SetTechData(TechType techType, RecipeData techData);
+
+        /// <summary>
+        /// <para>Allows you to edit JsonValues Directly for TechTypes.</para>
+        /// <para>Can be used for existing TechTypes too.</para>
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to edit.</param>
+        /// <param name="techData">The TechData for that TechType.</param>
+        /// <seealso cref="TechData.defaults"/>
+        void SetTechData(TechType techType, JsonValue jsonValue);
 
         /// <summary>
         /// <para>Allows you to edit EquipmentTypes for TechTypes.</para>
@@ -146,6 +155,6 @@
         /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
         /// <seealso cref="Ingredient"/>
         void AddIngredients(TechType techType, ICollection<Ingredient> ingredients);
-        void AddLinkedItems(TechType techType, ICollection<Ingredient> linkedItems);
+        void AddLinkedItems(TechType techType, ICollection<TechType> linkedItems);
     }
 }
