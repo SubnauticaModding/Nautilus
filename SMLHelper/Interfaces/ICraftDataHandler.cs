@@ -6,12 +6,12 @@
     public interface ICraftDataHandler
     {
         /// <summary>
-        /// <para>Allows you to edit JsonValues Directly for TechTypes.</para>
+        /// <para>Allows you to edit RecipeData for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="techData">The TechData for that TechType.</param>
-        /// <seealso cref="TechData.defaults"/>
+        /// <seealso cref="RecipeData"/>
         void SetTechData(TechType techType, RecipeData techData);
 
         /// <summary>

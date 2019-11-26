@@ -24,7 +24,7 @@
         #region Static Methods
 
         /// <summary>
-        /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
+        /// <para>Allows you to edit recipes, i.e. RecipeData for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
@@ -41,7 +41,7 @@
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="techData">The TechData for that TechType.</param>
-        /// <seealso cref="TechData"/>
+        /// <seealso cref="TechData.defaults"/>
         public static void SetTechData(TechType techType, JsonValue jsonValue)
         {
             Main.SetTechData(techType, jsonValue);
@@ -243,12 +243,12 @@
         #region Interface Methods
 
         /// <summary>
-        /// <para>Allows you to add or edit TechData for TechTypes.</para>
+        /// <para>Allows you to add or edit RecipeData for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="recipeData">The TechData for that TechType.</param>
-        /// <seealso cref="TechData.defaults"/>
+        /// <seealso cref="RecipeData"/>
         void ICraftDataHandler.SetTechData(TechType techType, RecipeData recipeData)
         {
             JsonValue currentTechType = new JsonValue();

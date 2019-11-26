@@ -56,13 +56,13 @@
                     TechData.entries[techType] = CustomTechData[techType];
                     Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
                     replaced++;
-                    Console.WriteLine("Replaced Item: " + techType + " " + TechData.Contains(techType));
+                    Logger.Log($"Replaced Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
                 }
                 else if (!techDataExists)
                 {
                     TechData.Add(techType, CustomTechData[techType]);
                     added++;
-                    Console.WriteLine("Added Item: " + techType + " " + TechData.Contains(techType));
+                    Logger.Log($"Added Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
                 }
             }
             if(added>0)
