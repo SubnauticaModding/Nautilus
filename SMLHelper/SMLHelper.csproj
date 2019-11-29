@@ -29,6 +29,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\SUBNAUTICA\SMLHelper.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BELOWZERO|AnyCPU'">
     <OutputPath>bin\BELOWZERO\</OutputPath>
@@ -39,6 +40,7 @@
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\BELOWZERO\SMLHelper.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony-1.2.0.1">
@@ -116,6 +118,8 @@
     <Compile Include="Crafting\TechData.cs" />
     <Compile Include="Handlers\BioReactorHandler.cs" />
     <Compile Include="Handlers\CraftDataHandler.cs" />
+    <Compile Include="Handlers\CraftDataHandlerSub.cs" />
+    <Compile Include="Handlers\CraftDataHandlerBZ.cs" />
     <Compile Include="Handlers\CraftTreeHandler.cs" />
     <Compile Include="Handlers\FishHandler.cs" />
     <Compile Include="Handlers\ItemActionHandler.cs" />
