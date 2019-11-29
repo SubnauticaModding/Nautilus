@@ -1,8 +1,8 @@
 ﻿namespace SMLHelper.V2.Options
 {
-    using SMLHelper.V2.Options.Utility;
     using System;
     using System.Linq;
+    using SMLHelper.V2.Options.Utility;
 
     /// <summary>
     /// Contains all the information about a choice changed event.
@@ -20,20 +20,32 @@
         public int Index { get; }
 
         /// <summary>
-        /// The value of the <see cref="ModChoiceOption"/> as a string
+        /// The value of the <see cref="ModChoiceOption"/> as a string.
         /// </summary>
         public string Value { get; }
 
+        /// <summary>
+        /// Constructs a new <see cref="ChoiceChangedEventArgs"/>.
+        /// </summary>
+        /// <param name="id">The ID of the <see cref="ModChoiceOption"/> that was changed.</param>
+        /// <param name="index">The new index for the <see cref="ModChoiceOption"/>.</param>
         public ChoiceChangedEventArgs(string id, int index)
         {
-            Id = id;
-            Index = index;
+            this.Id = id;
+            this.Index = index;
         }
+
+        /// <summary>
+        /// Constructs a new <see cref="ChoiceChangedEventArgs"/>.
+        /// </summary>
+        /// <param name="id">The ID of the <see cref="ModChoiceOption"/> that was changed.</param>
+        /// <param name="index">The new index for the <see cref="ModChoiceOption"/>.</param>
+        /// <param name="value">The value of the <see cref="ModChoiceOption"/> as a string.</param>
         public ChoiceChangedEventArgs(string id, int index, string value)
         {
-            Id = id;
-            Index = index;
-            Value = value;
+            this.Id = id;
+            this.Index = index;
+            this.Value = value;
         }
     }
 
@@ -73,7 +85,8 @@
         /// <param name="index">The starting value.</param>
         protected void AddChoiceOption(string id, string label, string[] options, int index)
         {
-            if (!Validator.ValidateChoiceOrDropdownOption(id, label, options, index)) return;
+            if (!Validator.ValidateChoiceOrDropdownOption(id, label, options, index))
+                return;
             _options.Add(id, new ModChoiceOption(id, label, options, index));
         }
         /// <summary>
@@ -132,7 +145,14 @@
     /// </summary>
     public class ModChoiceOption : ModOption
     {
+        /// <summary>
+        /// The array of readable string options to choose between in the <see cref="ModChoiceOption"/>.
+        /// </summary>
         public string[] Options { get; }
+
+        /// <summary>
+        /// The currently selected index among the options array.
+        /// </summary>
         public int Index { get; }
 
         /// <summary>
@@ -144,8 +164,8 @@
         /// <param name="index">The starting value.</param>
         internal ModChoiceOption(string id, string label, string[] options, int index) : base(ModOptionType.Choice, label, id)
         {
-            Options = options;
-            Index = index;
+            this.Options = options;
+            this.Index = index;
         }
     }
 }

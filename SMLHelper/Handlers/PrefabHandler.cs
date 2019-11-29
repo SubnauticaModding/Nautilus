@@ -3,6 +3,9 @@
     using Assets;
     using Interfaces;
 
+    /// <summary>
+    /// A handler for registering Unity prefabs associated to a <see cref="TechType"/>.
+    /// </summary>
     public class PrefabHandler : IPrefabHandler
     {
         /// <summary>

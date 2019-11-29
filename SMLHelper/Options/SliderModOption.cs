@@ -23,11 +23,16 @@
         /// </summary>
         public int IntegerValue { get; }
 
+        /// <summary>
+        /// Constructs a new <see cref="SliderChangedEventArgs"/>.
+        /// </summary>
+        /// <param name="id">The ID of the <see cref="ModSliderOption"/> that was changed.</param>
+        /// <param name="value">The new value for the <see cref="ModSliderOption"/>.</param>
         public SliderChangedEventArgs(string id, float value)
         {
-            Id = id;
-            Value = value;
-            IntegerValue = Mathf.RoundToInt(value);
+            this.Id = id;
+            this.Value = value;
+            this.IntegerValue = Mathf.RoundToInt(value);
         }
     }
 
@@ -67,8 +72,19 @@
     /// </summary>
     public class ModSliderOption : ModOption
     {
+        /// <summary>
+        /// The minimum value of the <see cref="ModSliderOption"/>.
+        /// </summary>
         public float MinValue { get; }
+
+        /// <summary>
+        /// The maximum value of the <see cref="ModSliderOption"/>.
+        /// </summary>
         public float MaxValue { get; }
+
+        /// <summary>
+        /// The current value of the <see cref="ModSliderOption"/>.
+        /// </summary>
         public float Value { get; }
 
         /// <summary>
@@ -81,9 +97,9 @@
         /// <param name="value">The starting value.</param>
         internal ModSliderOption(string id, string label, float minValue, float maxValue, float value) : base(ModOptionType.Slider, label, id)
         {
-            MinValue = minValue;
-            MaxValue = maxValue;
-            Value = value;
+            this.MinValue = minValue;
+            this.MaxValue = maxValue;
+            this.Value = value;
         }
     }
 }

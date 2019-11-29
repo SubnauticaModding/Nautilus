@@ -2,32 +2,45 @@
 {
     using UnityEngine;
 
-    // TODO: Maybe more Prefab-related functions here?
+    /// <summary>
+    /// A small collection of prefab related utilities.
+    /// </summary>
     public static class PrefabUtils
     {
+        /// <summary>
+        /// Adds and configures the following components on the gameobject passed by reference:<para/>
+        /// - <see cref="Rigidbody"/>
+        /// - <see cref="LargeWorldEntity"/>
+        /// - <see cref="Renderer"/>
+        /// - <see cref="SkyApplier"/>
+        /// - <see cref="WorldForces"/>
+        /// </summary>
+        /// <param name="_object"></param>
+        /// <param name="classId"></param>
         public static void AddBasicComponents(ref GameObject _object, string classId)
         {
-            var rb = _object.AddComponent<Rigidbody>();
+            Rigidbody rb = _object.AddComponent<Rigidbody>();
             _object.AddComponent<PrefabIdentifier>().ClassId = classId;
             _object.AddComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Near;
-            var rend = _object.GetComponentInChildren<Renderer>();
+            Renderer rend = _object.GetComponentInChildren<Renderer>();
             rend.material.shader = Shader.Find("MarmosetUBER");
-            var applier = _object.AddComponent<SkyApplier>();
+            SkyApplier applier = _object.AddComponent<SkyApplier>();
             applier.renderers = new Renderer[] { rend };
             applier.anchorSky = Skies.Auto;
-            var forces = _object.AddComponent<WorldForces>();
+            WorldForces forces = _object.AddComponent<WorldForces>();
             forces.useRigidbody = rb;
         }
 
+        /// <summary>
+        /// Will attempt to return <see cref="GameObject.GetComponent{T}"/>.<para/>
+        /// If the component is not found, it will be added through <see cref="GameObject.AddComponent{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">A type of Unity <see cref="Component"/>.</typeparam>
+        /// <param name="obj">The gameobject that should have the component.</param>
+        /// <returns>The existing component attached to the gameobject or a newly created and attached one.</returns>
         public static T GetOrAddComponent<T>(this GameObject obj) where T : Component
         {
-            T comp = obj.GetComponent<T>();
-            if (!comp)
-            {
-                comp = obj.AddComponent<T>();
-            }
-
-            return comp;
+            return obj.GetComponent<T>() ?? obj.AddComponent<T>();
         }
     }
 }

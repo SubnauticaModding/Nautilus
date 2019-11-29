@@ -2,6 +2,9 @@
 {
     using System;
 
+    /// <summary>
+    /// A handler class for registering your custom middle click actions for items
+    /// </summary>
     public interface IItemActionHandler
     {
         /// <summary>

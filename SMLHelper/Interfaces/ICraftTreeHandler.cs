@@ -3,6 +3,9 @@
     using Crafting;
     using UnityEngine;
 
+    /// <summary>
+    /// A handler class for creating and editing of crafting trees.
+    /// </summary>
     public interface ICraftTreeHandler
     {
         /// <summary>

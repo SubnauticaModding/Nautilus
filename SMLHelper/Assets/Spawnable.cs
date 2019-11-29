@@ -118,6 +118,11 @@
             this.TechType = TechTypeHandler.Singleton.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, false);
         }
 
+        /// <summary>
+        /// Determines thee <see cref="Atlas.Sprite"/> to be used for this spawnable's icon.<para/>
+        /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
+        /// </summary>
+        /// <returns>Returns the <see cref="Atlas.Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Atlas.Sprite)"/> call.</returns>
         protected virtual Atlas.Sprite GetItemSprite()
         {
             // This is for backwards compatibility with mods that were using the "ModName/Assets" format

@@ -17,10 +17,15 @@
         /// </summary>
         public bool Value { get; }
 
+        /// <summary>
+        /// Constructs a new <see cref="ToggleChangedEventArgs"/>.
+        /// </summary>
+        /// <param name="id">The ID of the <see cref="ModToggleOption"/> that was changed.</param>
+        /// <param name="value">The new value for the <see cref="ModToggleOption"/>.</param>
         public ToggleChangedEventArgs(string id, bool value)
         {
-            Id = id;
-            Value = value;
+            this.Id = id;
+            this.Value = value;
         }
     }
 
@@ -58,6 +63,9 @@
     /// </summary>
     public class ModToggleOption : ModOption
     {
+        /// <summary>
+        /// The current value of the <see cref="ModToggleOption"/>.
+        /// </summary>
         public bool Value { get; }
 
         /// <summary>
@@ -68,7 +76,7 @@
         /// <param name="value">The starting value.</param>
         internal ModToggleOption(string id, string label, bool value) : base(ModOptionType.Toggle, label, id)
         {
-            Value = value;
+            this.Value = value;
         }
     }
 }

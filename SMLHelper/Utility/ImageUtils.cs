@@ -4,6 +4,9 @@
     using UnityEngine;
     using Logger = V2.Logger;
 
+    /// <summary>
+    /// A collection of image loading utility methods that can create Unity objects from image files at runtime.
+    /// </summary>
     public static class ImageUtils
     {
         /// <summary>
@@ -24,7 +27,7 @@
             if (File.Exists(filePathToImage))
             {
                 byte[] imageBytes = File.ReadAllBytes(filePathToImage);
-                Texture2D texture2D = new Texture2D(2, 2, format, false);
+                var texture2D = new Texture2D(2, 2, format, false);
                 try
                 {
                     texture2D.LoadImage(imageBytes);

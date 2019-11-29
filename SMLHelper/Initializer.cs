@@ -5,10 +5,16 @@
     using Harmony;
     using Patchers;
 
+    /// <summary>
+    /// WARNING: This class is for use only by QModManager.
+    /// </summary>
     public class Initializer
     {
         private static HarmonyInstance harmony;
 
+        /// <summary>
+        /// WARNING: This method is for use only by QModManager.
+        /// </summary>
         public static void Patch()
         {
             Logger.Initialize();

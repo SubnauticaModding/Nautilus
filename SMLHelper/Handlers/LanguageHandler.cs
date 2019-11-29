@@ -4,6 +4,9 @@
     using Patchers;
     using Utility;
 
+    /// <summary>
+    /// A handler for adding custom language lines.
+    /// </summary>
     public class LanguageHandler : ILanguageHandler
     {
         /// <summary>

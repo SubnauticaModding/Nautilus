@@ -121,6 +121,7 @@
     <Compile Include="Crafting\TabNode.cs" />
     <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Crafting\TechData.cs" />
+    <Compile Include="Handler.cs" />
     <Compile Include="Handlers\BioReactorHandler.cs" />
     <Compile Include="Handlers\CraftDataHandler.cs" />
     <Compile Include="Handlers\CraftDataHandler_Subnautica.cs" />

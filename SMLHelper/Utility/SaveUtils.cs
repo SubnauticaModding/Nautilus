@@ -1,9 +1,8 @@
 ﻿namespace SMLHelper.V2.Utility
 {
-    using System.IO;
-
-    /* TODO: Maybe add more saving related functions here,
-       such as those related to serializing? */
+    /// <summary>
+    /// A small collection of save data related utilities.
+    /// </summary>
     public static class SaveUtils
     {
         /// <summary>

@@ -1,5 +1,8 @@
 ﻿namespace SMLHelper.V2.Interfaces
 {
+    /// <summary>
+    /// A handler with common methods for updating BioReactor values.
+    /// </summary>
     public interface IBioReactorHandler
     {
         /// <summary>

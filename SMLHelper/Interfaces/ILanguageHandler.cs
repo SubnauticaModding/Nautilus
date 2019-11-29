@@ -1,5 +1,8 @@
 ﻿namespace SMLHelper.V2.Interfaces
 {
+    /// <summary>
+    /// A handler for adding custom language lines.
+    /// </summary>
     public interface ILanguageHandler
     {
         /// <summary>
