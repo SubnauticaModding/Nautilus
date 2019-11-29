@@ -1,4 +1,4 @@
-﻿#if BELOWZERO
+﻿#if SUBNAUTICA
 #pragma warning disable IDE1006 // Naming Styles - Ignored for backwards compatibility
 namespace SMLHelper.V2.Crafting
 {
@@ -7,8 +7,8 @@ namespace SMLHelper.V2.Crafting
     /// <summary>
     /// A class that fully describes a recipe for a <see cref="TechType"/> identified item.
     /// </summary>
-    /// <seealso cref="TechData" />
-    public class RecipeData
+    /// <seealso cref="ITechData" />
+    public class TechData : ITechData
     {
         /// <summary>
         /// Gets or sets the how many copies of the item are created when crafting this recipe.
@@ -47,13 +47,13 @@ namespace SMLHelper.V2.Crafting
         /// <summary>
         /// Initializes a new instance of the <see cref="TechData"/> class a custom recipe.
         /// </summary>
-        public RecipeData() { }
+        public TechData() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TechData"/> class for a custom recipe with a list of ingridients.
         /// </summary>
         /// <param name="ingredients">The ingredients.</param>
-        public RecipeData(List<Ingredient> ingredients)
+        public TechData(List<Ingredient> ingredients)
         {
             Ingredients = ingredients;
         }
@@ -62,7 +62,7 @@ namespace SMLHelper.V2.Crafting
         /// Initializes a new instance of the <see cref="TechData"/> class for a custom recipe with a collection of ingridients.
         /// </summary>
         /// <param name="ingredients">The ingredients.</param>
-        public RecipeData(params Ingredient[] ingredients)
+        public TechData(params Ingredient[] ingredients)
         {
             foreach (Ingredient ingredient in ingredients)
             {
@@ -75,7 +75,7 @@ namespace SMLHelper.V2.Crafting
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>The <see cref="IIngredient"/> at the requested the index if the index is value; Otherwise returns null.</returns>
-        public Ingredient GetIngredient(int index)
+        public IIngredient GetIngredient(int index)
         {
             if (Ingredients != null && Ingredients.Count > index)
             {
@@ -96,7 +96,43 @@ namespace SMLHelper.V2.Crafting
             {
                 return LinkedItems[index];
             }
+
             return TechType.None;
+        }
+    }
+
+    /// <summary>
+    /// A class for representing a required ingredient in a recipe.
+    /// </summary>
+    /// <seealso cref="IIngredient" />
+    /// <seealso cref="TechData"/>
+    public class Ingredient : IIngredient
+    {
+        /// <summary>
+        /// Gets or sets the item ID.
+        /// </summary>
+        /// <value>
+        /// The item ID.
+        /// </value>
+        public TechType techType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number of this item required for the recipe.
+        /// </summary>
+        /// <value>
+        /// The amount of this item needed for the recipe.
+        /// </value>
+        public int amount { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Ingredient"/> class.
+        /// </summary>
+        /// <param name="techType">The item ID.</param>
+        /// <param name="amount">The number of instances of this item required for the recipe.</param>
+        public Ingredient(TechType techType, int amount)
+        {
+            this.techType = techType;
+            this.amount = amount;
         }
     }
 }
