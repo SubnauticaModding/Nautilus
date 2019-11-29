@@ -156,6 +156,8 @@
     <Compile Include="Options\Utility\Validator.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher.cs" />
+    <Compile Include="Patchers\CraftDataPatcherBZ.cs" />
+    <Compile Include="Patchers\CraftDataPatcherSub.cs" />
     <Compile Include="Patchers\CraftTreePatcher.cs" />
     <Compile Include="Patchers\CraftTreeTypePatcher.cs" />
     <Compile Include="Patchers\DevConsolePatcher.cs" />
