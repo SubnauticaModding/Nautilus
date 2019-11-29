@@ -45,16 +45,16 @@
       <HintPath>..\Dependencies\0Harmony-1.2.0.1.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\DependenciesBZ\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+      <HintPath>..\Dependencies\BelowZero\Assembly-CSharp-firstpass_publicized.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\DependenciesBZ\Assembly-CSharp_publicized.dll</HintPath>
+      <HintPath>..\Dependencies\BelowZero\Assembly-CSharp_publicized.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
-      <HintPath>..\Dependencies\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp-firstpass_publicized.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
-      <HintPath>..\Dependencies\Assembly-CSharp_publicized.dll</HintPath>
+      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp_publicized.dll</HintPath>
     </Reference>
     <Reference Include="LitJson">
       <HintPath>..\Dependencies\LitJson.dll</HintPath>
@@ -181,13 +181,13 @@
     <Compile Include="Utility\StorageHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="modSub.json" />
-    <None Include="modBZ.json" />
+    <None Include="QModManager\Subnautica.json" />
+    <None Include="QModManager\BelowZero.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == SUBNAUTICA (copy "$(ProjectDir)modSub.json" "$(ProjectDir)$(OutDir)mod.json")
-if $(ConfigurationName) == BELOWZERO (copy "$(ProjectDir)modBZ.json" "$(ProjectDir)$(OutDir)mod.json")</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == SUBNAUTICA (copy "$(ProjectDir)QModManager\Subnautica.json" "$(ProjectDir)$(OutDir)mod.json")
+if $(ConfigurationName) == BELOWZERO (copy "$(ProjectDir)QModManager\BelowZero.json" "$(ProjectDir)$(OutDir)mod.json")</PostBuildEvent>
   </PropertyGroup>
 </Project>
