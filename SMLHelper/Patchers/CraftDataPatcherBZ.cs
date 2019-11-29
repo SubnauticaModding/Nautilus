@@ -42,11 +42,17 @@ namespace SMLHelper.V2.Patchers
 
                 if (techDataExists && TechData.entries[techType] != CustomTechData[techType])
                 {
-                    Console.WriteLine(TechData.entries[techType]);
-                    TechData.entries[techType] = CustomTechData[techType];
-                    Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
-                    replaced++;
-                    Logger.Log($"Replaced Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
+                    if (TechData.TryGetValue(techType, out JsonValue originalData))
+                    {
+                        foreach (JsonValue newData in CustomTechData[techType])
+                        {
+                            TechData.entries[techType][newData.GetInt()] = CustomTechData[techType][newData.GetInt()];
+                        }
+
+                        Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
+                        replaced++;
+                        Logger.Log($"Replaced Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
+                    }
                 }
                 else if (!techDataExists)
                 {
