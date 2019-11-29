@@ -125,6 +125,7 @@
     <Compile Include="Handlers\PDAHandler.cs" />
     <Compile Include="Handlers\PrefabHandler.cs" />
     <Compile Include="Handlers\SpriteHandler.cs" />
+    <Compile Include="Handlers\TechDataHandler.cs" />
     <Compile Include="Handlers\TechTypeHandler.cs" />
     <Compile Include="Initializer.cs" />
     <Compile Include="Interfaces\IBioReactorHandler.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
     <Compile Include="Patchers\ResourcesPatcher.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />
+    <Compile Include="Patchers\TechDataPatcher.cs" />
     <Compile Include="Patchers\TechTypePatcher.cs" />
     <Compile Include="Patchers\TooltipPatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

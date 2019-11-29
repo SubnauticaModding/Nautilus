@@ -33,6 +33,11 @@
             TechTypePatcher.Patch(harmony);
             CraftTreeTypePatcher.Patch(harmony);
             CraftDataPatcher.Patch(harmony);
+
+#if BELOWZERO
+            TechDataPatcher.Patch(harmony);
+#endif
+
             CraftTreePatcher.Patch(harmony);
             DevConsolePatcher.Patch(harmony);
             LanguagePatcher.Patch(harmony);

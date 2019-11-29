@@ -2,6 +2,7 @@
 {
     using Assets;
     using Harmony;
+    using SMLHelper.V2.Handlers;
     using System;
     using System.Collections.Generic;
 
@@ -9,9 +10,8 @@
     {
         #region Internal Fields
 
-        private static readonly Func<TechType, string> AsStringFunction = (t) => t.AsString();
-
 #if SUBNAUTICA
+        private static readonly Func<TechType, string> AsStringFunction = (t) => t.AsString();
 
         internal static IDictionary<TechType, ITechData> CustomTechData = new SelfCheckingDictionary<TechType, ITechData>("CustomTechData", AsStringFunction);
         internal static IDictionary<TechType, TechType> CustomHarvestOutputList = new SelfCheckingDictionary<TechType, TechType>("CustomHarvestOutputList", AsStringFunction);
@@ -24,11 +24,6 @@
         internal static IDictionary<TechType, TechType> CustomCookedCreatureList = new SelfCheckingDictionary<TechType, TechType>("CustomCookedCreatureList", AsStringFunction);
         internal static IDictionary<TechType, CraftData.BackgroundType> CustomBackgroundTypes = new SelfCheckingDictionary<TechType, CraftData.BackgroundType>("CustomBackgroundTypes", TechTypeExtensions.sTechTypeComparer, AsStringFunction);
         internal static List<TechType> CustomBuildables = new List<TechType>();
-
-#elif BELOWZERO
-
-        internal static IDictionary<TechType, JsonValue> CustomTechData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
-
 #endif
         #endregion
 
@@ -90,12 +85,6 @@
             Logger.Log($"Removed \"{techType.AsString():G}\" from groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
         }
 
-#if SUBNAUTICA
-        internal static void AddToCustomTechData(TechType techType, ITechData techData)
-        {
-            CustomTechData.Add(techType, techData);
-        }
-#endif
 
         #endregion
 
@@ -116,25 +105,17 @@
             PatchUtils.PatchDictionary(CraftData.cookedCreatureList, CustomCookedCreatureList);
             PatchUtils.PatchDictionary(CraftData.backgroundTypes, CustomBackgroundTypes);
             PatchUtils.PatchList(CraftData.buildables, CustomBuildables);
-#elif BELOWZERO
-            harmony.Patch(AccessTools.Method(typeof(CraftData), "PreparePrefabIDCache"),
-                           prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), "TechDataCachePostfix")));
-            harmony.Patch(AccessTools.Method(typeof(TechData), "Cache"),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), "TechDataCachePostfix")));
 
+            AddCustomTechDataToOriginalDictionary();
 #endif
             harmony.Patch(AccessTools.Method(typeof(CraftData), "PreparePrefabIDCache"), 
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), "PreparePrefabIDCachePostfix")));
 
-#if SUBNAUTICA
-            AddCustomTechDataToOriginalDictionary();
-#endif
             Logger.Log("CraftDataPatcher is done.", LogLevel.Debug);
         }
 
         private static void PreparePrefabIDCachePostfix()
         {
-
             Dictionary<TechType, string> techMapping = CraftData.techMapping;
             Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
 
@@ -206,47 +187,8 @@
             if (replaced > 0)
                 Logger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Info);
         }
-#elif BELOWZERO
-
-        private static void TechDataCachePostfix()
-        {
-            AddCustomTechDataToOriginalDictionary();
-        }
-
-        internal static void AddToCustomTechData(TechType techType, JsonValue techData)
-        {
-            CustomTechData.Add(techType, techData);
-        }
-
-        private static void AddCustomTechDataToOriginalDictionary()
-        {
-            short added = 0;
-            short replaced = 0;
-            foreach (TechType techType in CustomTechData.Keys)
-            {
-                bool techDataExists = TechData.Contains(techType);
-
-                if (techDataExists && TechData.entries[techType] != CustomTechData[techType])
-                {
-                    Console.WriteLine(TechData.entries[techType]);
-                    TechData.entries[techType] = CustomTechData[techType];
-                    Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
-                    replaced++;
-                    Logger.Log($"Replaced Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
-                }
-                else if (!techDataExists)
-                {
-                    TechData.Add(techType, CustomTechData[techType]);
-                    added++;
-                    Logger.Log($"Added Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
-                }
-            }
-            if (added > 0)
-                Logger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
-            if (replaced > 0)
-                Logger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Info);
-        }
 #endif
-        #endregion
+
+#endregion
     }
 }
