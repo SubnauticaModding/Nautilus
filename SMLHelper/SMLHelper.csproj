@@ -123,8 +123,8 @@
     <Compile Include="Crafting\TechData.cs" />
     <Compile Include="Handlers\BioReactorHandler.cs" />
     <Compile Include="Handlers\CraftDataHandler.cs" />
-    <Compile Include="Handlers\CraftDataHandlerSub.cs" />
-    <Compile Include="Handlers\CraftDataHandlerBZ.cs" />
+    <Compile Include="Handlers\CraftDataHandler_Subnautica.cs" />
+    <Compile Include="Handlers\CraftDataHandler_BelowZero.cs" />
     <Compile Include="Handlers\CraftTreeHandler.cs" />
     <Compile Include="Handlers\FishHandler.cs" />
     <Compile Include="Handlers\ItemActionHandler.cs" />
@@ -138,8 +138,8 @@
     <Compile Include="Initializer.cs" />
     <Compile Include="Interfaces\IBioReactorHandler.cs" />
     <Compile Include="Interfaces\ICraftDataHandler.cs" />
-    <Compile Include="Interfaces\ICraftDataHandlerBZ.cs" />
-    <Compile Include="Interfaces\ICraftDataHandlerSub.cs" />
+    <Compile Include="Interfaces\ICraftDataHandler_BelowZero.cs" />
+    <Compile Include="Interfaces\ICraftDataHandler_Subnautica.cs" />
     <Compile Include="Interfaces\ICraftTreeHandler.cs" />
     <Compile Include="Interfaces\IFishHandler.cs" />
     <Compile Include="Interfaces\IItemActionHandler.cs" />
@@ -161,8 +161,8 @@
     <Compile Include="Options\Utility\Validator.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher.cs" />
-    <Compile Include="Patchers\CraftDataPatcherBZ.cs" />
-    <Compile Include="Patchers\CraftDataPatcherSub.cs" />
+    <Compile Include="Patchers\CraftDataPatcher_BelowZero.cs" />
+    <Compile Include="Patchers\CraftDataPatcher_Subnautica.cs" />
     <Compile Include="Patchers\CraftTreePatcher.cs" />
     <Compile Include="Patchers\CraftTreeTypePatcher.cs" />
     <Compile Include="Patchers\DevConsolePatcher.cs" />
