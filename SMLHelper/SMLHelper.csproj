@@ -60,6 +60,7 @@
       <HintPath>..\Dependencies\LitJson.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Build.Utilities.v3.5" />
     <Reference Include="QModInstaller">
       <HintPath>..\Dependencies\QModInstaller.dll</HintPath>
       <Private>False</Private>
@@ -180,14 +181,13 @@
     <Compile Include="Utility\StorageHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mod.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="modSub.json" />
+    <None Include="modBZ.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == SUBNAUTICA (copy "$(ProjectDir)modSub.json" "$(ProjectDir)$(OutDir)mod.json")
+if $(ConfigurationName) == BELOWZERO (copy "$(ProjectDir)modBZ.json" "$(ProjectDir)$(OutDir)mod.json")</PostBuildEvent>
   </PropertyGroup>
 </Project>
