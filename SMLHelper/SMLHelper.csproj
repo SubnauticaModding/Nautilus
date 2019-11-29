@@ -133,6 +133,8 @@
     <Compile Include="Initializer.cs" />
     <Compile Include="Interfaces\IBioReactorHandler.cs" />
     <Compile Include="Interfaces\ICraftDataHandler.cs" />
+    <Compile Include="Interfaces\ICraftDataHandlerBZ.cs" />
+    <Compile Include="Interfaces\ICraftDataHandlerSub.cs" />
     <Compile Include="Interfaces\ICraftTreeHandler.cs" />
     <Compile Include="Interfaces\IFishHandler.cs" />
     <Compile Include="Interfaces\IItemActionHandler.cs" />
