@@ -1,6 +1,8 @@
 ﻿namespace SMLHelper.V2.Assets
 {
     using System;
+    using System.IO;
+    using System.Reflection;
     using Handlers;
     using SMLHelper.V2.Utility;
 
@@ -17,10 +19,10 @@
 
         /// <summary>
         /// Override with the folder where your mod's icons and other assets are stored.
-        /// Normally, this will be something like "MyModAssembly/Assets".
+        /// By default, this will point to the same folder where your mod DLL is.
         /// </summary>
         /// <example>"MyModAssembly/Assets"</example>
-        public abstract string AssetsFolder { get; }
+        public virtual string AssetsFolder => modFolderLocation;
 
         /// <summary>
         /// Override with the file name for this item's icon.
@@ -63,7 +65,8 @@
             this.FriendlyName = friendlyName;
             this.Description = description;
 
-            CorePatchEvents += RegisterBasics;
+            CorePatchEvents += () => PrefabHandler.RegisterPrefab(this);
+            CorePatchEvents += () => SpriteHandler.RegisterSprite(this.TechType, GetItemSprite());
         }
 
         /// <summary>
@@ -83,6 +86,8 @@
         /// You can attach simple <seealso cref="PatchEvent"/> methods to this event if you want to run code <c>after</c> the core patching methods have finished.
         /// </summary>
         protected PatchEvent OnFinishedPatching;
+
+        private readonly string modFolderLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         /// <summary>
         /// Starts all patching code in SMLHelper.
@@ -113,20 +118,20 @@
             this.TechType = TechTypeHandler.Singleton.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, false);
         }
 
-        private void RegisterBasics()
+        protected virtual Atlas.Sprite GetItemSprite()
         {
-            PrefabHandler.RegisterPrefab(this);
+            // This is for backwards compatibility with mods that were using the "ModName/Assets" format
+            string path = this.AssetsFolder != modFolderLocation
+                ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
+                : Path.Combine(this.AssetsFolder, this.IconFileName);
 
-            string assetsFolder = this.AssetsFolder;
-            if (string.IsNullOrEmpty(assetsFolder))
+            if (File.Exists(path))
             {
-                Logger.Log($"AssetsFolder property for Spawnable instance of {this.ClassID} must have a non-empty value.", LogLevel.Error);
-                throw new Exception($"Error patching Spawnable:{this.ClassID}");
+                return ImageUtils.LoadSpriteFromFile(path);
             }
 
-            string path = IOUtilities.Combine(".", "QMods", assetsFolder.Trim('/'), this.IconFileName);
-
-            SpriteHandler.RegisterSprite(this.TechType, path);
+            Logger.Warn($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+            return SpriteManager.defaultSprite;
         }
     }
 }
