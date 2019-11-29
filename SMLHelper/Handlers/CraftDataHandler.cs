@@ -6,17 +6,20 @@
     /// <summary>
     /// A handler class for adding and editing crafted items.
     /// </summary>
+#if SUBNAUTICA
     public partial class CraftDataHandler : ICraftDataHandler
+#elif BELOWZERO
+    public partial class TechDataHandler : ICraftDataHandler
+#endif
     {
         /// <summary>
         /// Main entry point for all calls to this handler.
         /// </summary>
+#if SUBNAUTICA
         public static ICraftDataHandler Main { get; } = new CraftDataHandler();
-
-        private CraftDataHandler()
-        {
-            // Hides constructor
-        }
+#elif BELOWZERO
+        public static ICraftDataHandler Main { get; } = new TechDataHandler();
+#endif
 
         #region Common Static Methods
 
