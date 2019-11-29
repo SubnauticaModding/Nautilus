@@ -365,7 +365,7 @@
             foreach (TechType i in linkedItems)
             {
                 linkedItemslist.Add(new JsonValue(current));
-                linkedItemslist[current].Add(tech, new JsonValue((int)i));
+                linkedItemslist[current] = new JsonValue((int)i);
                 current++;
             }
         }
