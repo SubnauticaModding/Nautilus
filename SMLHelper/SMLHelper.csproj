@@ -45,12 +45,15 @@
   <ItemGroup>
     <Reference Include="0Harmony-1.2.0.1">
       <HintPath>..\Dependencies\0Harmony-1.2.0.1.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='BELOWZERO'">
       <HintPath>..\Dependencies\BelowZero\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='BELOWZERO'">
       <HintPath>..\Dependencies\BelowZero\Assembly-CSharp_publicized.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\Assembly-CSharp-firstpass_publicized.dll</HintPath>
@@ -75,6 +78,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>..\Dependencies\UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
@@ -95,6 +99,7 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\Dependencies\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
