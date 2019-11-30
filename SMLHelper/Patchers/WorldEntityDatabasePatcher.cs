@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using Harmony;
+    using System;
     using UWE;
 
     internal class WorldEntityDatabasePatcher
@@ -9,15 +10,9 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Constructor(typeof(WorldEntityDatabase)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), "CtorPostfix")));
-        }
-
-        private static void CtorPostfix()
-        {
-            foreach(var customInfo in CustomWorldEntityInfos)
+            foreach (var customInfo in CustomWorldEntityInfos)
             {
-                if(WorldEntityDatabase.main.infos.ContainsKey(customInfo.Key))
+                if (WorldEntityDatabase.main.infos.ContainsKey(customInfo.Key))
                 {
                     // TODO:    Allow some sort of functionality
                     //          that allows editing of existing entries
@@ -27,6 +22,14 @@
                     WorldEntityDatabase.main.infos.Add(customInfo);
                 }
             }
+
+            harmony.Patch(AccessTools.Constructor(typeof(WorldEntityDatabase)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), "CtorPostfix")));
+        }
+
+        private static void CtorPostfix()
+        {
+
         }
     }
 }
