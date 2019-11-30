@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using Harmony;
+    using System.Collections.Generic;
 
     internal class LootDistributionPatcher
     {
@@ -26,6 +27,35 @@
                 else
                 {
                     __instance.srcDistribution.Add(entry);
+
+                    string classId = entry.Key;
+                    LootDistributionData.SrcData data = entry.Value;
+                    List<LootDistributionData.BiomeData> distribution = data.distribution;
+
+                    if (distribution != null)
+                    {
+                        for(int i = 0; i < distribution.Count; i++)
+                        {
+                            LootDistributionData.BiomeData biomeData = distribution[i];
+                            BiomeType biome = biomeData.biome;
+                            int count = biomeData.count;
+                            float probability = biomeData.probability;
+                            LootDistributionData.DstData dstData;
+
+                            if (!__instance.dstDistribution.TryGetValue(biome, out dstData))
+                            {
+                                dstData = new LootDistributionData.DstData();
+                                dstData.prefabs = new List<LootDistributionData.PrefabData>();
+                                __instance.dstDistribution.Add(biome, dstData);
+                            }
+
+                            LootDistributionData.PrefabData prefabData = new LootDistributionData.PrefabData();
+                            prefabData.classId = classId;
+                            prefabData.count = count;
+                            prefabData.probability = probability;
+                            dstData.prefabs.Add(prefabData);
+                        }
+                    }
                 }
             }
         }
