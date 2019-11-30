@@ -169,6 +169,7 @@
     <Compile Include="Patchers\CraftTreeTypePatcher.cs" />
     <Compile Include="Patchers\DevConsolePatcher.cs" />
     <Compile Include="Patchers\FishPatcher.cs" />
+    <Compile Include="Patchers\IngameMenuPatcher.cs" />
     <Compile Include="Patchers\ItemActionPatcher.cs" />
     <Compile Include="Patchers\ItemsContainerPatcher.cs" />
     <Compile Include="Patchers\KnownTechPatcher.cs" />

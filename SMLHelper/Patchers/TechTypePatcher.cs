@@ -44,7 +44,6 @@
                 cache.Index = cacheManager.GetNextFreeIndex();
 
             var techType = (TechType)cache.Index;
-
             cacheManager.Add(techType, cache);
 
             // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
@@ -56,9 +55,7 @@
 
             string intKey = cache.Index.ToString();
             TechTypeExtensions.techTypeKeys[techType] = intKey;
-            TechTypeExtensions.keyTechTypes[intKey] = techType;
-
-            cacheManager.SaveCache();
+            TechTypeExtensions.keyTechTypes[intKey] = techType;            
 
             Logger.Log($"Successfully added Tech Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             return techType;
@@ -98,6 +95,11 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
+            SaveUtils.RegisterOnSaveEvent(() =>
+            {
+                cacheManager.SaveCache();
+            });
+
             harmony.Patch(AccessTools.Method(typeof(Enum), "GetValues"),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), "Postfix_GetValues")));
 
