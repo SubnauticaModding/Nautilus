@@ -51,6 +51,8 @@
             ItemsContainerPatcher.Patch(harmony);
             PDAPatcher.Patch(harmony);
             ItemActionPatcher.Patch(harmony);
+            LootDistributionPatcher.Patch(harmony);
+            WorldEntityDatabasePatcher.Patch(harmony);
             //TooltipPatcher.Patch(harmony);
         }
     }
