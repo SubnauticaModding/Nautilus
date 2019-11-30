@@ -105,6 +105,7 @@
   <ItemGroup>
     <Compile Include="Assets\Buildable.cs" />
     <Compile Include="Assets\Craftable.cs" />
+    <Compile Include="Assets\CustomFabricator.cs" />
     <Compile Include="Assets\Fish.cs" />
     <Compile Include="Assets\FishPrefab.cs" />
     <Compile Include="Assets\ModPrefab.cs" />
