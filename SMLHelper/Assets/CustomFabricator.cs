@@ -225,7 +225,7 @@
         /// To use this method's default behavior, you must use the following methods to build up your crafting tree.<para/>
         /// - <see cref="AddCraftNode(TechType, string)"/><para/>
         /// - <see cref="AddCraftNode(string, string)"/><para/>
-        /// - <see cref="AddCraftNode{T}(T, string)"/><para/>
+        /// - <see cref="AddCraftNode(Craftable, string)"/><para/>
         /// - <see cref="AddTabNode(string, string, Atlas.Sprite, string)"/>
         /// </summary>
         /// <param name="craftTreeType"></param>
@@ -266,6 +266,7 @@
         /// When this value is null, the craft node will be added to the root of the craft tree.</param>
         public void AddCraftNode(TechType techType, string parentTabId = null)
         {
+            Logger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{this.ClassID}'");
             orderedCraftTreeActions.Add(() =>
             {
                 ModCraftTreeLinkingNode parentTab = craftTreeLinkingNodes[parentTabId ?? RootNode];
@@ -282,6 +283,7 @@
         /// When this value is null, the craft node will be added to the root of the craft tree.</param>
         public void AddCraftNode(string moddedTechType, string parentTabId = null)
         {
+            Logger.Debug($"'{moddedTechType}' will be added to the custom craft tree '{this.ClassID}'");
             orderedCraftTreeActions.Add(() =>
             {
                 if (TechTypeHandler.TryGetModdedTechType(moddedTechType, out TechType techType))
@@ -300,22 +302,37 @@
         /// Safely adds a new crafting node to the custom crafting tree of this fabricator.<para/>
         /// If the item has not been patched yet, its <see cref="Spawnable.Patch"/> method will first be invoked.
         /// </summary>
-        /// <typeparam name="T">Any type that inherits from <see cref="Spawnable"/>.</typeparam>
-        /// <param name="item">The <see cref="Spawnable"/> item to craft.</param>
+        /// <param name="item">The <see cref="Craftable"/> item to craft from this fabricator.</param>
         /// <param name="parentTabId">Optional. The parent tab of this craft node.<para/>
-        /// When this value is null, the craft node will be added to the root of the craft tree.</param>
-        public void AddCraftNode<T>(T item, string parentTabId = null)
-            where T : Spawnable
+        /// When this value is null, the item's <see cref="Craftable.StepsToFabricatorTab"/> property will be checked instead.<para/>
+        /// The craft node will be added to the root of the craft tree if both are null.</param>
+        public void AddCraftNode(Craftable item, string parentTabId = null)
         {
+            Logger.Debug($"'{item.ClassID}' will be added to the custom craft tree '{this.ClassID}'");
             orderedCraftTreeActions.Add(() =>
             {
-                if (!item.IsPatched)
+                if (item.TechType == TechType.None)
                 {
                     Logger.Info($"'{item.ClassID} had to be patched early to obtain its TechType value for the custom craft tree '{this.ClassID}'");
                     item.Patch();
                 }
 
-                ModCraftTreeLinkingNode parentTab = craftTreeLinkingNodes[parentTabId ?? RootNode];
+                string[] stepsToParent = item.StepsToFabricatorTab;
+
+                if (parentTabId == null)
+                {
+                    if (stepsToParent != null && stepsToParent.Length > 0)
+                    {
+                        int last = stepsToParent.Length - 1;
+                        parentTabId = stepsToParent[last];
+                    }
+                    else
+                    {
+                        parentTabId = RootNode;
+                    }
+                }
+
+                ModCraftTreeLinkingNode parentTab = craftTreeLinkingNodes[parentTabId];
                 parentTab.AddCraftingNode(item.TechType);
             });
         }
