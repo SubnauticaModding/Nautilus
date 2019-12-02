@@ -112,9 +112,7 @@
     <Compile Include="Assets\ModSprite.cs" />
     <Compile Include="Assets\PdaItem.cs" />
     <Compile Include="Assets\Spawnable.cs" />
-    <Compile Include="Crafting\BlueprintBase.cs" />
     <Compile Include="Crafting\CraftingNode.cs" />
-    <Compile Include="Crafting\Ingredient.cs" />
     <Compile Include="Crafting\ModCraftTreeCraft.cs" />
     <Compile Include="Crafting\ModCraftTreeLinkingNode.cs" />
     <Compile Include="Crafting\ModCraftTreeNode.cs" />
