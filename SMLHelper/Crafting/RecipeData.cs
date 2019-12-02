@@ -74,7 +74,7 @@ namespace SMLHelper.V2.Crafting
         /// Gets the ingredient at the specified index.
         /// </summary>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="IIngredient"/> at the requested the index if the index is value; Otherwise returns null.</returns>
+        /// <returns>The <see cref="Ingredient"/> at the requested the index if the index is value; Otherwise returns null.</returns>
         public Ingredient GetIngredient(int index)
         {
             if (Ingredients != null && Ingredients.Count > index)
