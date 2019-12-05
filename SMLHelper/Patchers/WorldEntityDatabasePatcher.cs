@@ -10,26 +10,23 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            foreach (var customInfo in CustomWorldEntityInfos)
+            harmony.Patch(AccessTools.Method(typeof(WorldEntityDatabase), "TryGetInfo"),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), "Prefix")));
+        }
+
+        private static bool Prefix(string classId, ref WorldEntityInfo info, ref bool __result)
+        {
+            foreach(var entry in CustomWorldEntityInfos)
             {
-                if (WorldEntityDatabase.main.infos.ContainsKey(customInfo.Key))
+                if(entry.Key == classId)
                 {
-                    // TODO:    Allow some sort of functionality
-                    //          that allows editing of existing entries
-                }
-                else
-                {
-                    WorldEntityDatabase.main.infos.Add(customInfo);
+                    __result = true;
+                    info = entry.Value;
+                    return false;
                 }
             }
 
-            harmony.Patch(AccessTools.Constructor(typeof(WorldEntityDatabase)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), "CtorPostfix")));
-        }
-
-        private static void CtorPostfix()
-        {
-
+            return true;
         }
     }
 }

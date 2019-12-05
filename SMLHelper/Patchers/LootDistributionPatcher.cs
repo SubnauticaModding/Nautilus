@@ -1,7 +1,11 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
+    using System; 
     using Harmony;
     using System.Collections.Generic;
+    using UnityEngine;
+    using UWE;
+    using Logger = V2.Logger;
 
     internal class LootDistributionPatcher
     {
@@ -26,7 +30,7 @@
                 }
                 else
                 {
-                    __instance.srcDistribution.Add(entry);
+                    __instance.srcDistribution.Add(entry.Key, entry.Value);
 
                     string classId = entry.Key;
                     LootDistributionData.SrcData data = entry.Value;
