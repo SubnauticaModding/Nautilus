@@ -134,6 +134,7 @@
     <Compile Include="Handlers\LanguageHandler.cs" />
     <Compile Include="Handlers\LootDistributionHandler.cs" />
     <Compile Include="Handlers\OptionsPanelHandler.cs" />
+    <Compile Include="Handlers\PDAEncyclopediaHandler.cs" />
     <Compile Include="Handlers\PDAHandler.cs" />
     <Compile Include="Handlers\PrefabHandler.cs" />
     <Compile Include="Handlers\SpriteHandler.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Interfaces\ILanguageHandler.cs" />
     <Compile Include="Interfaces\ILootDistributionHandler.cs" />
     <Compile Include="Interfaces\IOptionsPanelHandler.cs" />
+    <Compile Include="Interfaces\IPDAEncyclopediaHandler.cs" />
     <Compile Include="Interfaces\IPDAHandler.cs" />
     <Compile Include="Interfaces\IPrefabHandler.cs" />
     <Compile Include="Interfaces\ISpriteHandler.cs" />
@@ -179,6 +181,7 @@
     <Compile Include="Patchers\LanguagePatcher.cs" />
     <Compile Include="Patchers\LootDistributionPatcher.cs" />
     <Compile Include="Patchers\OptionsPanelPatcher.cs" />
+    <Compile Include="Patchers\PDAEncyclopediaPatcher.cs" />
     <Compile Include="Patchers\PDAPatcher.cs" />
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
     <Compile Include="Patchers\ResourcesPatcher.cs" />
