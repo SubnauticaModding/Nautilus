@@ -179,7 +179,7 @@
     <Compile Include="Patchers\LanguagePatcher.cs" />
     <Compile Include="Patchers\LootDistributionPatcher.cs" />
     <Compile Include="Patchers\OptionsPanelPatcher.cs" />
-    <Compile Include="Patchers\PdaPatcher.cs" />
+    <Compile Include="Patchers\PDAPatcher.cs" />
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
     <Compile Include="Patchers\ResourcesPatcher.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />

@@ -49,6 +49,15 @@
         }
 
         /// <summary>
+        /// Adds custom scanner entry.
+        /// </summary>
+        /// <param name="entryData"></param>
+        void IPDAHandler.AddCustomScannerEntry(PDAScanner.EntryData entryData)
+        {
+            PDAPatcher.CustomEntryData[entryData.key] = entryData;
+        }
+
+        /// <summary>
         /// Edits how many fragments must be scanned before unlocking the techtype's blueprint.
         /// </summary>
         /// <param name="techType">Can be either techtype of the fragment or the crafted item.</param>
@@ -66,6 +75,15 @@
         public static void EditFragmentScanTime(TechType techType, float scanTime)
         {
             Main.EditFragmentScanTime(techType, scanTime);
+        }
+
+        /// <summary>
+        /// Adds custom scanner entry.
+        /// </summary>
+        /// <param name="entryData"></param>
+        public static void AddCustomScannerEntry(PDAScanner.EntryData entryData)
+        {
+            Main.AddCustomScannerEntry(entryData);
         }
     }
 }
