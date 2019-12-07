@@ -1,7 +1,7 @@
 ﻿namespace SMLHelper.V2.Assets
 {
     using Crafting;
-    using Handlers;
+    using SMLHelper.V2.Interfaces;
 
     /// <summary>
     /// A <see cref="Spawnable"/> item that appears in the PDA blueprints.
@@ -9,6 +9,9 @@
     /// <seealso cref="Spawnable" />
     public abstract class PdaItem : Spawnable
     {
+        internal ICraftDataHandler CraftDataHandler { get; set; } = Handlers.CraftDataHandler.Main;
+        internal IKnownTechHandler KnownTechHandler { get; set; } = Handlers.KnownTechHandler.Main;
+
         /// <summary>
         /// Override to set the <see cref="TechType"/> that must first be scanned or picked up to unlock the blueprint for this item.
         /// If not overriden, it this item will be unlocked from the start of the game.
@@ -67,17 +70,17 @@
 #endif
         private void PatchTechDataEntry()
         {
-            CraftDataHandler.SetTechData(this.TechType, GetBlueprintRecipe());
+            this.CraftDataHandler.SetTechData(this.TechType, GetBlueprintRecipe());
 
-            CraftDataHandler.AddToGroup(this.GroupForPDA, this.CategoryForPDA, this.TechType);
+            this.CraftDataHandler.AddToGroup(this.GroupForPDA, this.CategoryForPDA, this.TechType);
 
             if (!this.UnlockedAtStart)
-                KnownTechHandler.SetAnalysisTechEntry(this.RequiredForUnlock, new TechType[1] { this.TechType }, this.DiscoverMessageResolved);
+                this.KnownTechHandler.SetAnalysisTechEntry(this.RequiredForUnlock, new TechType[1] { this.TechType }, this.DiscoverMessageResolved);
         }
 
         internal sealed override void PatchTechType()
         {
-            this.TechType = TechTypeHandler.Singleton.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, this.UnlockedAtStart);
+            this.TechType = this.TechTypeHandler.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, this.UnlockedAtStart);
         }
     }
 }

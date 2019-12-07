@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using SMLHelper.V2.Crafting;
-    using SMLHelper.V2.Handlers;
+    using SMLHelper.V2.Interfaces;
     using SMLHelper.V2.Utility;
     using UnityEngine;
     using Logger = V2.Logger;
@@ -14,6 +14,8 @@
     /// <seealso cref="ModPrefab"/>
     public abstract class CustomFabricator : Spawnable
     {
+        internal ICraftTreeHandler CraftTreeHandler { get; set; } = Handlers.CraftTreeHandler.Main;
+
         /// <summary>
         /// Defines a list of available models for your <see cref="CustomFabricator"/>.
         /// </summary>
@@ -231,7 +233,7 @@
         /// <param name="craftTreeType"></param>
         protected virtual void CreateCustomCraftTree(out CraftTree.Type craftTreeType)
         {
-            ModCraftTreeRoot root = CraftTreeHandler.Main.CreateCustomCraftTreeAndType(this.ClassID, out craftTreeType);
+            ModCraftTreeRoot root = this.CraftTreeHandler.CreateCustomCraftTreeAndType(this.ClassID, out craftTreeType);
             craftTreeLinkingNodes.Add(RootNode, root);
 
             // Since we shouldn't rely on attached events to be executed in any particular order,
@@ -286,7 +288,7 @@
             Logger.Debug($"'{moddedTechType}' will be added to the custom craft tree '{this.ClassID}'");
             orderedCraftTreeActions.Add(() =>
             {
-                if (TechTypeHandler.TryGetModdedTechType(moddedTechType, out TechType techType))
+                if (this.TechTypeHandler.TryGetModdedTechType(moddedTechType, out TechType techType))
                 {
                     ModCraftTreeLinkingNode parentTab = craftTreeLinkingNodes[parentTabId ?? RootNode];
                     parentTab.AddCraftingNode(techType);

@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.V2.Assets
 {
-    using Handlers;
+    using System;
 
     /// <summary>
     /// An item that can be built into the game world.
@@ -9,9 +9,7 @@
     /// <seealso cref="Spawnable"/>
     public abstract class Buildable : PdaItem
     {
-        /// <summary>
-        /// Override with the text to be displayed when your hover the cursor over the built item.
-        /// </summary>
+        [Obsolete("HandOverText is non-functional.")]
         public virtual string HandOverText => null;
 
         /// <summary>
@@ -28,7 +26,7 @@
 
         private void PatchBuildable()
         {
-            CraftDataHandler.AddBuildable(this.TechType);
+            this.CraftDataHandler.AddBuildable(this.TechType);
         }
     }
 }

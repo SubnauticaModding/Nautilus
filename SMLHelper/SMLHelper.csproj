@@ -185,6 +185,7 @@
     <Compile Include="Interfaces\ISpriteHandler.cs" />
     <Compile Include="Interfaces\IStorageHelper.cs" />
     <Compile Include="Interfaces\ITechTypeHandler.cs" />
+    <Compile Include="Interfaces\ITechTypeHandlerInternal.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MonoBehaviours\Fixer.cs" />
     <Compile Include="Options\ChoiceModOption.cs" />
