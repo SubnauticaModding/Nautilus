@@ -36,9 +36,9 @@
         }
 
         /// <summary>
-        /// Registers a simple <see cref="Action"/> method to invoke whenever the player saves the game via the in game menu.
+        /// Registers a simple <see cref="Action"/> method to invoke the <c>first time</c> the player saves the game via the in game menu.
         /// </summary>
-        /// <param name="onSaveAction">The method to invoke.</param>
+        /// <param name="onSaveAction">The method to invoke. This action will not be invoked a second time.</param>
         public static void RegisterOneTimeUseOnSaveEvent(Action onSaveAction)
         {
             Main.RegisterOneTimeUseOnSaveEvent(onSaveAction);

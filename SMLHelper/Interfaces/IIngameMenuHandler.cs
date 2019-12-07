@@ -21,9 +21,9 @@
         void UnregisterOnSaveEvent(Action onSaveAction);
 
         /// <summary>
-        /// Registers a simple <see cref="Action"/> method to invoke the first time the player saves the game via the in game menu.
+        /// Registers a simple <see cref="Action"/> method to invoke the <c>first time</c> the player saves the game via the in game menu.
         /// </summary>
-        /// <param name="onSaveAction">The method to invoke once.</param>
+        /// <param name="onSaveAction">The method to invoke. This action will not be invoked a second time.</param>
         void RegisterOneTimeUseOnSaveEvent(Action onSaveAction);
     }
 }
