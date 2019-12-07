@@ -129,6 +129,7 @@
     <Compile Include="Handlers\CraftDataHandler_BelowZero.cs" />
     <Compile Include="Handlers\CraftTreeHandler.cs" />
     <Compile Include="Handlers\FishHandler.cs" />
+    <Compile Include="Handlers\IngameMenuHandler.cs" />
     <Compile Include="Handlers\ItemActionHandler.cs" />
     <Compile Include="Handlers\KnownTechHandler.cs" />
     <Compile Include="Handlers\LanguageHandler.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Interfaces\ICraftDataHandler_Subnautica.cs" />
     <Compile Include="Interfaces\ICraftTreeHandler.cs" />
     <Compile Include="Interfaces\IFishHandler.cs" />
+    <Compile Include="Interfaces\IIngameMenuHandler.cs" />
     <Compile Include="Interfaces\IItemActionHandler.cs" />
     <Compile Include="Interfaces\IKnownTechHandler.cs" />
     <Compile Include="Interfaces\ILanguageHandler.cs" />
