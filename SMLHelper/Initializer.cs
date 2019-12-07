@@ -1,9 +1,11 @@
 ﻿namespace SMLHelper.V2
 {
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
     using Harmony;
     using Patchers;
+    using SMLHelper.V2.Handlers;
 
     /// <summary>
     /// WARNING: This class is for use only by QModManager.

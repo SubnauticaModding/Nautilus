@@ -25,8 +25,60 @@
             {
                 if(__instance.srcDistribution.ContainsKey(entry.Key))
                 {
-                    // TODO:    Add some sort of functionality that
-                    //          allows editing of existing entries.
+                    LootDistributionData.SrcData srcData = __instance.srcDistribution[entry.Key];
+                    LootDistributionData.SrcData customSrcData = entry.Value;
+                    string classId = entry.Key;
+                
+                    foreach(var customBiomeDist in customSrcData.distribution)
+                    {
+                        bool foundBiome = false;
+
+                        for(int i = 0; i < srcData.distribution.Count; i++)
+                        {
+                            LootDistributionData.BiomeData biomeDist = srcData.distribution[i];
+
+                            if(customBiomeDist.biome == biomeDist.biome)
+                            {
+                                biomeDist.count = customBiomeDist.count;
+                                biomeDist.probability = customBiomeDist.probability;
+
+                                foundBiome = true;
+                            }
+                        }
+
+                        if (!foundBiome)
+                        {
+                            srcData.distribution.Add(customBiomeDist);
+                        }
+
+                        if (__instance.dstDistribution.TryGetValue(customBiomeDist.biome, out LootDistributionData.DstData dstData))
+                        {
+                            bool foundPrefab = false;
+
+                            for (int j = 0; j < dstData.prefabs.Count; j++)
+                            {
+                                LootDistributionData.PrefabData prefabData = dstData.prefabs[j];
+
+                                if (prefabData.classId == classId)
+                                {
+                                    prefabData.count = customBiomeDist.count;
+                                    prefabData.probability = customBiomeDist.probability;
+
+                                    foundPrefab = true;
+                                }
+                            }
+
+                            if(!foundPrefab)
+                            {
+                                dstData.prefabs.Add(new LootDistributionData.PrefabData()
+                                {
+                                    classId = classId,
+                                    count = customBiomeDist.count,
+                                    probability = customBiomeDist.probability
+                                });
+                            }
+                        }
+                    }
                 }
                 else
                 {
