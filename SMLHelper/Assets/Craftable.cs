@@ -1,19 +1,19 @@
 ﻿namespace SMLHelper.V2.Assets
 {
-    using System;
     using Handlers;
 
     /// <summary>
-    /// An item that can be crafted into the game world.
+    /// An item that can be crafted into the game world from a fabricator.
     /// </summary>
     /// <seealso cref="PdaItem" />
     /// <seealso cref="Spawnable" />
     public abstract class Craftable : PdaItem
     {
         /// <summary>
-        /// Override with the fabricator that crafts this item.
+        /// Override with the vanilla fabricator that crafts this item.<para/>
+        /// Leave this as <see cref="CraftTree.Type.None"/> if you are manually adding this item to a custom fabricator.
         /// </summary>
-        public abstract CraftTree.Type FabricatorType { get; }
+        public virtual CraftTree.Type FabricatorType => CraftTree.Type.None;
 
         /// <summary>
         /// Override with the tab node steps to take to get to the tab you want the item's blueprint to appear in.
@@ -35,10 +35,10 @@
 
         private void PatchCraftingTree()
         {
-            if (FabricatorType == CraftTree.Type.None)
+            if (this.FabricatorType == CraftTree.Type.None)
             {
-                Logger.Log($"FabricatorType property for Craftable instance of {this.ClassID} must have a value greater than CraftTree.Type.None.", LogLevel.Error);
-                throw new Exception($"Error patching Craftable: {this.ClassID}");
+                Logger.Debug($"Craftable '{this.ClassID}' was not automatically patched into a crafting tree.");
+                return;
             }
 
             if (this.StepsToFabricatorTab == null || this.StepsToFabricatorTab.Length == 0)

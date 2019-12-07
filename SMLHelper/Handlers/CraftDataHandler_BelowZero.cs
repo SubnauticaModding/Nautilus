@@ -109,7 +109,7 @@ namespace SMLHelper.V2.Handlers
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
-        /// <param name="recipeData">The TechData for that TechType.</param>
+        /// <param name="jsonValue">The TechData for that TechType.</param>
         /// <seealso cref="TechData.defaults"/>
         void ICraftDataHandler.SetTechData(TechType techType, JsonValue jsonValue)
         {
@@ -154,7 +154,7 @@ namespace SMLHelper.V2.Handlers
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
-        /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
+        /// <param name="linkedItems">The collection of Ingredients for that TechType.</param>
         /// <seealso cref="Ingredient"/>
         void ICraftDataHandler.AddLinkedItems(TechType techType, ICollection<TechType> linkedItems)
         {
