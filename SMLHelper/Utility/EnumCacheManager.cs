@@ -5,7 +5,7 @@
     using System.IO;
     using System.Reflection;
     using System.Text;
-
+    
     internal class EnumTypeCache
     {
         internal int Index;
@@ -119,11 +119,10 @@
                 string savePathDir = GetCachePath();
                 var stringBuilder = new StringBuilder();
 
-                foreach (KeyValuePair<T, EnumTypeCache> entry in customEnumTypes)
+                foreach (EnumTypeCache entry in customEnumTypes.Values)
                 {
-                    cacheList.Add(entry.Value);
-
-                    stringBuilder.AppendLine($"{entry.Value.Name}:{entry.Value.Index}");
+                    cacheList.Add(entry);
+                    stringBuilder.AppendLine($"{entry.Name}:{entry.Index}");
                 }
 
                 File.WriteAllText(savePathDir, stringBuilder.ToString());
