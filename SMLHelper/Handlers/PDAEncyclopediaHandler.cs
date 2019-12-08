@@ -26,7 +26,7 @@
         /// <summary>
         /// Adds custom entry.
         /// </summary>
-        /// <param name="entry"></param>
+        /// <param name="entry">The <see cref="PDAEncyclopedia.EntryData"/> entry.</param>
         public static void AddCustomEntry(PDAEncyclopedia.EntryData entry)
         {
             Main.AddCustomEntry(entry);

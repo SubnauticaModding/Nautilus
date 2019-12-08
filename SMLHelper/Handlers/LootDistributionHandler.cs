@@ -2,7 +2,9 @@
 {
     using Interfaces;
     using Patchers;
+    using SMLHelper.V2.Assets;
     using System.Collections.Generic;
+    using System.Linq;
     using UWE;
 
     /// <summary>
@@ -19,12 +21,40 @@
 
         /// <summary>
         /// Adds in a custom entry into the Loot Distribution of the game.
+        /// You must also add the <see cref="WorldEntityInfo"/> into the <see cref="WorldEntityDatabase"/> using <see cref="WorldEntityDatabaseHandler"/>.
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="classId"></param>
+        /// <param name="data">The <see cref="LootDistributionData.SrcData"/> that contains data related to the spawning of a prefab, also contains the path to the prefab.</param>
+        /// <param name="classId">The classId of the prefab.</param>
         public static void AddCustomLootDistData(LootDistributionData.SrcData data, string classId)
         {
             Main.AddCustomLootDistData(data, classId);
+        }
+
+        /// <summary>
+        /// Adds in a custom entry into the Loot Distribution of the game.
+        /// You must also add the <see cref="WorldEntityInfo"/> into the <see cref="WorldEntityDatabase"/> using <see cref="WorldEntityDatabaseHandler"/>.
+        /// </summary>
+        /// <param name="classId">The classId of the prefab.</param>
+        /// <param name="prefabPath">The prefab path of the prefab.</param>
+        /// <param name="biomeDistribution">The <see cref="LootDistributionData.BiomeData"/> dictating how the prefab should spawn in the world.</param>
+        public static void AddCustomLootDistData(string classId, string prefabPath, IEnumerable<LootDistributionData.BiomeData> biomeDistribution)
+        {
+            Main.AddCustomLootDistData(new LootDistributionData.SrcData()
+            {
+                distribution = biomeDistribution.ToList(),
+                prefabPath = prefabPath
+            }, classId);
+        }
+
+        /// <summary>
+        /// Adds in a custom entry into the Loot Distribution of the game.
+        /// You must also add the <see cref="WorldEntityInfo"/> into the <see cref="WorldEntityDatabase"/> using <see cref="WorldEntityDatabaseHandler"/>.
+        /// </summary>
+        /// <param name="prefab">The custom prefab which you want to spawn naturally in the game.</param>
+        /// <param name="biomeDistribution">The <see cref="LootDistributionData.BiomeData"/> dictating how the prefab should spawn in the world.</param>
+        public static void AddCustomLootDistData(ModPrefab prefab, IEnumerable<LootDistributionData.BiomeData> biomeDistribution)
+        {
+            AddCustomLootDistData(prefab.ClassID, prefab.PrefabFileName, biomeDistribution);
         }
 
         /// <summary>
@@ -32,11 +62,24 @@
         /// </summary>
         /// <param name="classID">The ClassID of the prefab. If unsure, use CraftData.GetClassIdForTechType.</param>
         /// <param name="biome">The biome, in which this prefab is spawning, or being set to spawn in.</param>
-        /// <param name="probability">The probability for which this prefab should spawn for. Between 0 and 1.</param>
+        /// <param name="probability">The probability for which this prefab should spawn for.</param>
         /// <param name="count">The count of the prefab. Usually just 1.</param>
         public static void EditLootBiomeData(string classID, BiomeType biome, float probability, int count)
         {
             Main.EditLootBiomeData(classID, biome, probability, count);
+        }
+
+        /// <summary>
+        /// Edits Loot Distribution data for existing prefabs, for e.g. original game prefabs.
+        /// </summary>
+        /// <param name="classID">The ClassID of the prefab. If unsure, use CraftData.GetClassIdForTechType.</param>
+        /// <param name="biomeDistribution">The list of <see cref="LootDistributionData.BiomeData"/> that contains information about how/when it should spawn in biomes.</param>
+        public static void EditLootBiomeData(string classID, IEnumerable<LootDistributionData.BiomeData> biomeDistribution)
+        {
+            foreach(var distribution in biomeDistribution)
+            {
+                Main.EditLootBiomeData(classID, distribution.biome, distribution.probability, distribution.count);
+            }
         }
 
         void ILootDistributionHandler.AddCustomLootDistData(LootDistributionData.SrcData data, string classId)
