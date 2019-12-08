@@ -1,5 +1,8 @@
 ﻿namespace SMLHelper.V2.Utility
 {
+    using System;
+    using SMLHelper.V2.Patchers;
+
     /// <summary>
     /// A small collection of save data related utilities.
     /// </summary>

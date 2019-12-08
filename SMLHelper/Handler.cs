@@ -23,6 +23,11 @@
         public static ICraftTreeHandler CraftTreeHandler => Handlers.CraftTreeHandler.Main;
 
         /// <summary>
+        /// A handler class that offers simple ways to tap into functionality of the in game menu.
+        /// </summary>
+        public static IIngameMenuHandler IngameMenuHandler => Handlers.IngameMenuHandler.Main;
+
+        /// <summary>
         /// Class to manage registering of fish into the game
         /// </summary>
         public static IFishHandler FishHandler => Handlers.FishHandler.Main;
