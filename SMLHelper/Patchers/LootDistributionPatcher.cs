@@ -1,15 +1,12 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using System; 
     using Harmony;
     using System.Collections.Generic;
-    using UnityEngine;
-    using UWE;
     using Logger = V2.Logger;
 
     internal class LootDistributionPatcher
     {
-        internal static SelfCheckingDictionary<string, LootDistributionData.SrcData> CustomSrcData = new SelfCheckingDictionary<string, LootDistributionData.SrcData>("CustomSrcData");
+        internal static readonly SelfCheckingDictionary<string, LootDistributionData.SrcData> CustomSrcData = new SelfCheckingDictionary<string, LootDistributionData.SrcData>("CustomSrcData");
 
         internal static void Patch(HarmonyInstance harmony)
         {
@@ -23,95 +20,106 @@
         {
             foreach(var entry in CustomSrcData)
             {
-                if(__instance.srcDistribution.ContainsKey(entry.Key))
+                LootDistributionData.SrcData customSrcData = entry.Value;
+                string classId = entry.Key;
+
+                if (__instance.srcDistribution.TryGetValue(entry.Key, out LootDistributionData.SrcData srcData))
                 {
-                    LootDistributionData.SrcData srcData = __instance.srcDistribution[entry.Key];
-                    LootDistributionData.SrcData customSrcData = entry.Value;
-                    string classId = entry.Key;
-                
-                    foreach(var customBiomeDist in customSrcData.distribution)
-                    {
-                        bool foundBiome = false;
-
-                        for(int i = 0; i < srcData.distribution.Count; i++)
-                        {
-                            LootDistributionData.BiomeData biomeDist = srcData.distribution[i];
-
-                            if(customBiomeDist.biome == biomeDist.biome)
-                            {
-                                biomeDist.count = customBiomeDist.count;
-                                biomeDist.probability = customBiomeDist.probability;
-
-                                foundBiome = true;
-                            }
-                        }
-
-                        if (!foundBiome)
-                        {
-                            srcData.distribution.Add(customBiomeDist);
-                        }
-
-                        if (__instance.dstDistribution.TryGetValue(customBiomeDist.biome, out LootDistributionData.DstData dstData))
-                        {
-                            bool foundPrefab = false;
-
-                            for (int j = 0; j < dstData.prefabs.Count; j++)
-                            {
-                                LootDistributionData.PrefabData prefabData = dstData.prefabs[j];
-
-                                if (prefabData.classId == classId)
-                                {
-                                    prefabData.count = customBiomeDist.count;
-                                    prefabData.probability = customBiomeDist.probability;
-
-                                    foundPrefab = true;
-                                }
-                            }
-
-                            if(!foundPrefab)
-                            {
-                                dstData.prefabs.Add(new LootDistributionData.PrefabData()
-                                {
-                                    classId = classId,
-                                    count = customBiomeDist.count,
-                                    probability = customBiomeDist.probability
-                                });
-                            }
-                        }
-                    }
+                    EditExistingData(classId, srcData, customSrcData, __instance.dstDistribution);
                 }
                 else
                 {
-                    __instance.srcDistribution.Add(entry.Key, entry.Value);
+                    AddCustomData(classId, customSrcData, __instance.srcDistribution, __instance.dstDistribution);
+                }
+            }
+        }
 
-                    string classId = entry.Key;
-                    LootDistributionData.SrcData data = entry.Value;
-                    List<LootDistributionData.BiomeData> distribution = data.distribution;
+        private static void EditExistingData(string classId, LootDistributionData.SrcData existingData, LootDistributionData.SrcData changes, Dictionary<BiomeType, LootDistributionData.DstData> dstData)
+        {
+            foreach (var customBiomeDist in changes.distribution)
+            {
+                bool foundBiome = false;
 
-                    if (distribution != null)
+                for (int i = 0; i < existingData.distribution.Count; i++)
+                {
+                    LootDistributionData.BiomeData biomeDist = existingData.distribution[i];
+
+                    if (customBiomeDist.biome == biomeDist.biome)
                     {
-                        for(int i = 0; i < distribution.Count; i++)
-                        {
-                            LootDistributionData.BiomeData biomeData = distribution[i];
-                            BiomeType biome = biomeData.biome;
-                            int count = biomeData.count;
-                            float probability = biomeData.probability;
-                            LootDistributionData.DstData dstData;
+                        biomeDist.count = customBiomeDist.count;
+                        biomeDist.probability = customBiomeDist.probability;
 
-                            if (!__instance.dstDistribution.TryGetValue(biome, out dstData))
-                            {
-                                dstData = new LootDistributionData.DstData();
-                                dstData.prefabs = new List<LootDistributionData.PrefabData>();
-                                __instance.dstDistribution.Add(biome, dstData);
-                            }
-
-                            LootDistributionData.PrefabData prefabData = new LootDistributionData.PrefabData();
-                            prefabData.classId = classId;
-                            prefabData.count = count;
-                            prefabData.probability = probability;
-                            dstData.prefabs.Add(prefabData);
-                        }
+                        foundBiome = true;
                     }
+                }
+
+                if (!foundBiome)
+                {
+                    existingData.distribution.Add(customBiomeDist);
+                }
+
+                if (!dstData.TryGetValue(customBiomeDist.biome, out LootDistributionData.DstData biomeDistData))
+                {
+                    biomeDistData = new LootDistributionData.DstData();
+                    biomeDistData.prefabs = new List<LootDistributionData.PrefabData>();
+                    dstData.Add(customBiomeDist.biome, biomeDistData);
+                }
+
+                bool foundPrefab = false;
+
+                for (int j = 0; j < biomeDistData.prefabs.Count; j++)
+                {
+                    LootDistributionData.PrefabData prefabData = biomeDistData.prefabs[j];
+
+                    if (prefabData.classId == classId)
+                    {
+                        prefabData.count = customBiomeDist.count;
+                        prefabData.probability = customBiomeDist.probability;
+
+                        foundPrefab = true;
+                    }
+                }
+
+                if (!foundPrefab)
+                {
+                    biomeDistData.prefabs.Add(new LootDistributionData.PrefabData()
+                    {
+                        classId = classId,
+                        count = customBiomeDist.count,
+                        probability = customBiomeDist.probability
+                    });
+                }
+            }
+        }
+
+        private static void AddCustomData(string classId, LootDistributionData.SrcData customSrcData, Dictionary<string, LootDistributionData.SrcData> srcDistribution, Dictionary<BiomeType, LootDistributionData.DstData> dstDistribution)
+        {
+            srcDistribution.Add(classId, customSrcData);
+
+            List<LootDistributionData.BiomeData> distribution = customSrcData.distribution;
+
+            if (distribution != null)
+            {
+                for (int i = 0; i < distribution.Count; i++)
+                {
+                    LootDistributionData.BiomeData biomeData = distribution[i];
+                    BiomeType biome = biomeData.biome;
+                    int count = biomeData.count;
+                    float probability = biomeData.probability;
+                    LootDistributionData.DstData dstData;
+
+                    if (!dstDistribution.TryGetValue(biome, out dstData))
+                    {
+                        dstData = new LootDistributionData.DstData();
+                        dstData.prefabs = new List<LootDistributionData.PrefabData>();
+                        dstDistribution.Add(biome, dstData);
+                    }
+
+                    LootDistributionData.PrefabData prefabData = new LootDistributionData.PrefabData();
+                    prefabData.classId = classId;
+                    prefabData.count = count;
+                    prefabData.probability = probability;
+                    dstData.prefabs.Add(prefabData);
                 }
             }
         }

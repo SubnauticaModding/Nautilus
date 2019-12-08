@@ -6,7 +6,7 @@
 
     internal class WorldEntityDatabasePatcher
     {
-        internal static SelfCheckingDictionary<string, WorldEntityInfo> CustomWorldEntityInfos = new SelfCheckingDictionary<string, WorldEntityInfo>("CustomWorldEntityInfo");
+        internal static readonly SelfCheckingDictionary<string, WorldEntityInfo> CustomWorldEntityInfos = new SelfCheckingDictionary<string, WorldEntityInfo>("CustomWorldEntityInfo");
 
         internal static void Patch(HarmonyInstance harmony)
         {

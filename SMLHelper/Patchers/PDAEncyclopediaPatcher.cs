@@ -6,7 +6,7 @@
 
     internal class PDAEncyclopediaPatcher
     {
-        internal static SelfCheckingDictionary<string, PDAEncyclopedia.EntryData> CustomEntryData = new SelfCheckingDictionary<string, PDAEncyclopedia.EntryData>("CustomEntryData");
+        internal static readonly SelfCheckingDictionary<string, PDAEncyclopedia.EntryData> CustomEntryData = new SelfCheckingDictionary<string, PDAEncyclopedia.EntryData>("CustomEntryData");
 
         internal static void Patch(HarmonyInstance harmony)
         {

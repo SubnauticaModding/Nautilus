@@ -10,7 +10,7 @@
     {
         internal static readonly Dictionary<TechType, int> FragmentCount = new Dictionary<TechType, int>();
         internal static readonly Dictionary<TechType, float> FragmentScanTime = new Dictionary<TechType, float>();
-        internal static SelfCheckingDictionary<TechType, PDAScanner.EntryData> CustomEntryData = new SelfCheckingDictionary<TechType, PDAScanner.EntryData>("CustomEntryData");
+        internal static readonly SelfCheckingDictionary<TechType, PDAScanner.EntryData> CustomEntryData = new SelfCheckingDictionary<TechType, PDAScanner.EntryData>("CustomEntryData");
 
         private static readonly Dictionary<TechType, PDAScanner.EntryData> BlueprintToFragment = new Dictionary<TechType, PDAScanner.EntryData>();
 
