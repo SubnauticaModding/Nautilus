@@ -34,6 +34,9 @@
 
         public void Add(T value, EnumTypeCache entry)
         {
+            if (HashedKeys.Contains(value))
+                return;
+
             HashedKeys.Add(value);
             customEnumTypes.Add(value, entry);
             customEnumNames.Add(entry.Name, value);
@@ -83,6 +86,7 @@
 
                 if (!File.Exists(savePathDir))
                 {
+                    Logger.Info($"No {EnumTypeName} cache file was found. One will be created when the game is saved.");
                     cacheLoaded = true; // Just so it wont keep calling this over and over again.
                     return;
                 }
@@ -140,19 +144,6 @@
             foreach (EnumTypeCache cache in cacheList)
             {
                 if (cache.Name == name)
-                    return cache;
-            }
-
-            return null;
-        }
-
-        internal EnumTypeCache GetCacheForIndex(int index)
-        {
-            LoadCache();
-
-            foreach (EnumTypeCache cache in cacheList)
-            {
-                if (cache.Index == index)
                     return cache;
             }
 
