@@ -39,7 +39,7 @@
 
             // Remember which Assembly added it
             Assembly mod = ReflectionHelper.CallingAssemblyByStackTrace();
-            TechTypesAddedBy.Add(techType, mod);
+            TechTypesAddedBy[techType] = mod;
 
             // Register Language lines.
             LanguagePatcher.AddCustomLanguageLine(modName, internalName, displayName);

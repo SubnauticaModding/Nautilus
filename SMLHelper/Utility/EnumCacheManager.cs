@@ -34,6 +34,9 @@
 
         public void Add(T value, EnumTypeCache entry)
         {
+            if (HashedKeys.Contains(value))
+                return;
+
             HashedKeys.Add(value);
             customEnumTypes.Add(value, entry);
             customEnumNames.Add(entry.Name, value);
