@@ -51,6 +51,7 @@
             ItemsContainerPatcher.Patch(harmony);
             PDAPatcher.Patch(harmony);
             ItemActionPatcher.Patch(harmony);
+            IngameMenuPatcher.Patch(harmony);
             //TooltipPatcher.Patch(harmony);
         }
     }
