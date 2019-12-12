@@ -86,6 +86,14 @@
             {
                 return MapIntString.GetEnumerator();
             }
+
+            public void Clear()
+            {
+                MapIntString.Clear();
+                MapEnumString.Clear();
+                MapStringEnum.Clear();
+                MapStringInt.Clear();
+            }
         }
 
         internal readonly string EnumTypeName;
@@ -200,6 +208,7 @@
                     stringBuilder.AppendLine($"{entry.Value}:{entry.Key}");
                 }
 
+                entriesFromFile.Clear();
                 File.WriteAllText(savePathDir, stringBuilder.ToString());
             }
             catch (Exception exception)
