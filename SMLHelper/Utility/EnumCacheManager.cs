@@ -96,6 +96,7 @@
         private readonly int LargestBannedID;
 
         private readonly DoubleKeyDictionary entriesFromFile = new DoubleKeyDictionary();
+        private readonly DoubleKeyDictionary entriesFromDeactivatedFile = new DoubleKeyDictionary();
         private readonly DoubleKeyDictionary entriesFromRequests = new DoubleKeyDictionary();
 
         public IEnumerable<T> ModdedKeys => entriesFromRequests.KnownsEnumKeys;
@@ -154,6 +155,11 @@
             return Path.Combine(GetCacheDirectoryPath(), $"{EnumTypeName}Cache.txt");
         }
 
+        private string GetDeactivatedCachePath()
+        {
+            return Path.Combine(GetCacheDirectoryPath(), $"{EnumTypeName}DeactivatedCache.txt");
+        }
+
         internal void LoadCache()
         {
             if (cacheLoaded)
@@ -186,11 +192,38 @@
                 Logger.Error($"Caught exception while reading cache!{Environment.NewLine}{exception}");
             }
 
+            try
+            {
+                string savePathDir = GetDeactivatedCachePath();
+
+                if (!File.Exists(savePathDir))
+                {
+                    cacheLoaded = true;
+                    return;
+                }
+
+                string[] allText = File.ReadAllLines(savePathDir);
+                foreach (string line in allText)
+                {
+                    string[] split = line.Split(':');
+                    string name = split[0];
+                    string index = split[1];
+
+                    entriesFromDeactivatedFile.Add(Convert.ToInt32(index), name);
+                    entriesFromFile.Add(Convert.ToInt32(index), name);
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.Error($"Caught exception while reading Deactivated cache!{Environment.NewLine}{exception}");
+            }
+
             cacheLoaded = true;
         }
 
         internal void SaveCache()
         {
+            LoadCache();
             try
             {
                 string savePathDir = GetCachePath();
@@ -202,6 +235,20 @@
                 }
 
                 File.WriteAllText(savePathDir, stringBuilder.ToString());
+
+                savePathDir = GetDeactivatedCachePath();
+                stringBuilder = new StringBuilder();
+
+                foreach (KeyValuePair<int, string> entry in entriesFromFile)
+                {
+                    if (!entriesFromRequests.TryGetValue(entry.Value, out int v))
+                    {
+                        stringBuilder.AppendLine($"{entry.Value}:{entry.Key}");
+                    }
+                }
+
+                File.WriteAllText(savePathDir, stringBuilder.ToString());
+
             }
             catch (Exception exception)
             {
