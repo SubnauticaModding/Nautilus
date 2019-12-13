@@ -162,7 +162,7 @@
         {
             return Path.Combine(GetCacheDirectoryPath(), $"{EnumTypeName}Cache.txt");
         }
-        
+
         private string GetDeactivatedCachePath()
         {
             return Path.Combine(GetCacheDirectoryPath(), $"{EnumTypeName}DeactivatedCache.txt");
@@ -173,36 +173,24 @@
             if (cacheLoaded)
                 return;
 
+            ReadCacheFile(GetCachePath(), (index, name) =>
+            {
+                entriesFromFile.Add(index, name);
+            });
+
+            ReadCacheFile(GetDeactivatedCachePath(), (index, name) =>
+            {
+                entriesFromDeactivatedFile.Add(index, name);
+                entriesFromFile.Add(index, name);
+            });
+
+            cacheLoaded = true;
+        }
+
+        private void ReadCacheFile(string savePathDir, Action<int, string> loadParsedEntry)
+        {
             try
             {
-                string savePathDir = GetCachePath();
-
-                if (!File.Exists(savePathDir))
-                {
-                    cacheLoaded = true; // Just so it wont keep calling this over and over again.
-                    return;
-                }
-
-                string[] allText = File.ReadAllLines(savePathDir);
-
-                foreach (string line in allText)
-                {
-                    string[] split = line.Split(':');
-                    string name = split[0];
-                    string index = split[1];
-
-                    entriesFromFile.Add(Convert.ToInt32(index), name);
-                }
-            }
-            catch (Exception exception)
-            {
-                Logger.Error($"Caught exception while reading cache!{Environment.NewLine}{exception}");
-            }
-
-            try
-            {
-                string savePathDir = GetDeactivatedCachePath();
-                
                 if (!File.Exists(savePathDir))
                 {
                     cacheLoaded = true;
@@ -216,16 +204,13 @@
                     string name = split[0];
                     string index = split[1];
 
-                    entriesFromDeactivatedFile.Add(Convert.ToInt32(index), name);
-                    entriesFromFile.Add(Convert.ToInt32(index), name);
+                    loadParsedEntry.Invoke(Convert.ToInt32(index), name);
                 }
             }
             catch (Exception exception)
             {
-                Logger.Error($"Caught exception while reading Deactivated cache!{Environment.NewLine}{exception}");
+                Logger.Error($"Caught exception while reading {savePathDir}{Environment.NewLine}{exception}");
             }
-
-            cacheLoaded = true;
         }
 
         internal void SaveCache()
@@ -270,6 +255,7 @@
 
             if (entriesFromRequests.TryGetValue(name, out int value) || (entriesFromFile.TryGetValue(name, out value) && !entriesFromDeactivatedFile.TryGetValue(name, out value)))
             {
+
                 return new EnumTypeCache(value, name);
             }
 
