@@ -13,7 +13,7 @@
         /// </summary>
         public static string GetCurrentSaveDataDir()
         {
-            return SaveLoadManager.temporarySavePath;
+            return SaveLoadManager.GetTemporarySavePath();
         }
     }
 }

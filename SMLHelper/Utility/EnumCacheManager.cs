@@ -86,6 +86,14 @@
             {
                 return MapIntString.GetEnumerator();
             }
+
+            public void Clear()
+            {
+                MapIntString.Clear();
+                MapEnumString.Clear();
+                MapStringEnum.Clear();
+                MapStringInt.Clear();
+            }
         }
 
         internal readonly string EnumTypeName;
@@ -165,37 +173,24 @@
             if (cacheLoaded)
                 return;
 
+            ReadCacheFile(GetCachePath(), (index, name) =>
+            {
+                entriesFromFile.Add(index, name);
+            });
+
+            ReadCacheFile(GetDeactivatedCachePath(), (index, name) =>
+            {
+                entriesFromDeactivatedFile.Add(index, name);
+                entriesFromFile.Add(index, name);
+            });
+
+            cacheLoaded = true;
+        }
+
+        private void ReadCacheFile(string savePathDir, Action<int, string> loadParsedEntry)
+        {
             try
             {
-                string savePathDir = GetCachePath();
-
-                if (!File.Exists(savePathDir))
-                {
-                    Logger.Info($"No {EnumTypeName} cache file was found. One will be created when the game is saved.");
-                    cacheLoaded = true; // Just so it wont keep calling this over and over again.
-                    return;
-                }
-
-                string[] allText = File.ReadAllLines(savePathDir);
-
-                foreach (string line in allText)
-                {
-                    string[] split = line.Split(':');
-                    string name = split[0];
-                    string index = split[1];
-
-                    entriesFromFile.Add(Convert.ToInt32(index), name);
-                }
-            }
-            catch (Exception exception)
-            {
-                Logger.Error($"Caught exception while reading cache!{Environment.NewLine}{exception}");
-            }
-
-            try
-            {
-                string savePathDir = GetDeactivatedCachePath();
-
                 if (!File.Exists(savePathDir))
                 {
                     cacheLoaded = true;
@@ -209,16 +204,13 @@
                     string name = split[0];
                     string index = split[1];
 
-                    entriesFromDeactivatedFile.Add(Convert.ToInt32(index), name);
-                    entriesFromFile.Add(Convert.ToInt32(index), name);
+                    loadParsedEntry.Invoke(Convert.ToInt32(index), name);
                 }
             }
             catch (Exception exception)
             {
-                Logger.Error($"Caught exception while reading Deactivated cache!{Environment.NewLine}{exception}");
+                Logger.Error($"Caught exception while reading {savePathDir}{Environment.NewLine}{exception}");
             }
-
-            cacheLoaded = true;
         }
 
         internal void SaveCache()
@@ -236,6 +228,7 @@
 
                 File.WriteAllText(savePathDir, stringBuilder.ToString());
 
+
                 savePathDir = GetDeactivatedCachePath();
                 stringBuilder = new StringBuilder();
 
@@ -248,7 +241,7 @@
                 }
 
                 File.WriteAllText(savePathDir, stringBuilder.ToString());
-
+                entriesFromFile.Clear();
             }
             catch (Exception exception)
             {
