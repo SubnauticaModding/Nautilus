@@ -1,5 +1,8 @@
 ﻿namespace SMLHelper.V2.Interfaces
 {
+    /// <summary>
+    /// A handler class for everything related to creating new TechTypes.
+    /// </summary>
     public interface ITechTypeHandler
     {
         /// <summary>

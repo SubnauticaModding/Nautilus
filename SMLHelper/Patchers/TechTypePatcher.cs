@@ -1,10 +1,10 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
+    using Harmony;
+    using SMLHelper.V2.Handlers;
     using Utility;
 
     internal class TechTypePatcher
@@ -29,23 +29,22 @@
 
         internal static TechType AddTechType(string name)
         {
-            EnumTypeCache cache = cacheManager.GetCacheForTypeName(name);
+            EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name);
 
             if (cache == null)
             {
                 cache = new EnumTypeCache()
                 {
                     Name = name,
-                    Index = cacheManager.GetNextFreeIndex()
+                    Index = cacheManager.GetNextAvailableIndex()
                 };
             }
 
-            if (cacheManager.IsIndexValid(cache.Index))
-                cache.Index = cacheManager.GetNextFreeIndex();
+            if (cacheManager.IsIndexAvailable(cache.Index))
+                cache.Index = cacheManager.GetNextAvailableIndex();
 
             var techType = (TechType)cache.Index;
-
-            cacheManager.Add(techType, cache);
+            cacheManager.Add(techType, cache.Index, cache.Name);
 
             // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
             // See README.md for details.
@@ -57,8 +56,6 @@
             string intKey = cache.Index.ToString();
             TechTypeExtensions.techTypeKeys[techType] = intKey;
             TechTypeExtensions.keyTechTypes[intKey] = techType;
-
-            cacheManager.SaveCache();
 
             Logger.Log($"Successfully added Tech Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             return techType;
@@ -98,6 +95,8 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
+            IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
+
             harmony.Patch(AccessTools.Method(typeof(Enum), "GetValues"),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), "Postfix_GetValues")));
 
@@ -133,7 +132,8 @@
 
         private static bool Prefix_IsDefined(Type enumType, object value, ref bool __result)
         {
-            if (TooltipPatcher.DisableEnumIsDefinedPatch) return true;
+            if (TooltipPatcher.DisableEnumIsDefinedPatch)
+                return true;
 
             if (enumType.Equals(typeof(TechType)))
             {
@@ -165,9 +165,9 @@
         {
             if (__instance is TechType techType)
             {
-                if (cacheManager.TryGetValue(techType, out EnumTypeCache techTypeCache))
+                if (cacheManager.TryGetValue(techType, out string techTypeName))
                 {
-                    __result = techTypeCache.Name;
+                    __result = techTypeName;
                     return false;
                 }
             }

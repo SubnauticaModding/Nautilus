@@ -5,15 +5,25 @@
     using Harmony;
     using Patchers;
 
+    /// <summary>
+    /// WARNING: This class is for use only by QModManager.
+    /// </summary>
     public class Initializer
     {
         private static HarmonyInstance harmony;
 
+        /// <summary>
+        /// WARNING: This method is for use only by QModManager.
+        /// </summary>
         public static void Patch()
         {
             Logger.Initialize();
 
-            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version}", LogLevel.Info);
+#if SUBNAUTICA
+            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
+#elif BELOWZERO
+            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Below Zero", LogLevel.Info);
+#endif
 
             harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
 
@@ -45,6 +55,7 @@
             ItemsContainerPatcher.Patch(harmony);
             PDAPatcher.Patch(harmony);
             ItemActionPatcher.Patch(harmony);
+            IngameMenuPatcher.Patch(harmony);
             //TooltipPatcher.Patch(harmony);
         }
     }

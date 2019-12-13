@@ -11,6 +11,12 @@ namespace SMLHelper.V2.Examples
         {
             Config.Load();
             OptionsPanelHandler.RegisterModOptions(new Options());
+            SaveUtils.RegisterOnSaveEvent(OnSaveEvent);
+        }
+
+        private static void OnSaveEvent()
+        {
+            // Run some code whenever the game is saving
         }
     }
 
@@ -73,4 +79,5 @@ namespace SMLHelper.V2.Examples
             AddToggleOption("exampleToggle", "Toggle", Config.ToggleValue);
         }
     }
+
 }

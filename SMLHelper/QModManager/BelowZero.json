@@ -1,11 +1,10 @@
 {
   "Id": "SMLHelper",
   "DisplayName": "Modding Helper (SMLHelper)",
-  "Author": "AHK1221 & PrimeSonic & AlexejheroYTB",
-  "Version": "2.3.0",
+  "Author": "The QModManager Team",
+  "Version": "2.4.0",
   "Enable": true,
-  "Game": "Subnautica",
-  "Priority": "Last",
+  "Game": "BelowZero",
   "AssemblyName": "SMLHelper.dll",
   "EntryMethod": "SMLHelper.V2.Initializer.Patch"
 }

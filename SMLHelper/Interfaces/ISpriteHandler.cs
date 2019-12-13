@@ -3,6 +3,9 @@
     using Utility;
     using UnityEngine;
 
+    /// <summary>
+    /// A handler class for adding custom sprites into the game.
+    /// </summary>
     public interface ISpriteHandler
     {
         /// <summary>

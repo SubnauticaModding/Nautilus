@@ -2,6 +2,9 @@
 {
     using UnityEngine;
 
+    /// <summary>
+    /// A collection of utility methods that simplify calls into <see cref="PlayerPrefs"/> for quick custom save data.
+    /// </summary>
     public static class PlayerPrefsExtra
     {
         /// <summary>

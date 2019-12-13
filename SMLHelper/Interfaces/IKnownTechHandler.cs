@@ -2,6 +2,9 @@
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// A handler class for configuring custom unlocking conditions for item blueprints.
+    /// </summary>
     public interface IKnownTechHandler
     {
         /// <summary>

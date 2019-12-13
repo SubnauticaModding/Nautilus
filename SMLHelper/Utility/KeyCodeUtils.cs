@@ -3,6 +3,9 @@
     using System;
     using UnityEngine;
 
+    /// <summary>
+    /// A collection of <see cref="KeyCode"/> related utility methods.
+    /// </summary>
     public static class KeyCodeUtils
     {
         /// <summary>

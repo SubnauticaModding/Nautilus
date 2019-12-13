@@ -10,34 +10,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SMLHelper.V2</RootNamespace>
     <AssemblyName>SMLHelper</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\SMLHelper.xml</DocumentationFile>
-    <NoWarn>1591</NoWarn>
-    <LangVersion>7.3</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>7.3</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -45,19 +19,61 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SUBNAUTICA|AnyCPU'">
+    <OutputPath>bin\SUBNAUTICA\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SUBNAUTICA</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\SUBNAUTICA\SMLHelper.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BELOWZERO|AnyCPU'">
+    <OutputPath>bin\BELOWZERO\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;BELOWZERO</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\BELOWZERO\SMLHelper.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
+    <Reference Include="0Harmony-1.2.0.1">
       <HintPath>..\Dependencies\0Harmony-1.2.0.1.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass_publicized">
-      <HintPath>..\Dependencies\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+    <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependencies\Assembly-CSharp_publicized.dll</HintPath>
+    <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\Assembly-CSharp_publicized.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="QModInstaller">
-      <HintPath>..\Dependencies\QModInstaller.dll</HintPath>
+    <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
+      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
+      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp_publicized.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>..\Dependencies\LitJson.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.v3.5" />
+    <Reference Include="QModInstaller" Condition="'$(Configuration)'=='SUBNAUTICA'">
+      <HintPath>..\Dependencies\Subnautica\QModInstaller.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="QModInstaller" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\QModInstaller.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,27 +81,61 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine">
-      <HintPath>..\Dependencies\UnityEngine.dll</HintPath>
+    <Reference Include="UnityEngine" Condition="'$(Configuration)'=='SUBNAUTICA'">
+      <HintPath>..\Dependencies\Subnautica\UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+    <Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
+      <HintPath>..\Dependencies\Subnautica\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UnityEngine.ImageConversionModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependencies\UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>..\Dependencies\Subnautica\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>..\Dependencies\UnityEngine.PhysicsModule.dll</HintPath>
+    <Reference Include="UnityEngine.PhysicsModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
+      <HintPath>..\Dependencies\Subnautica\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\Dependencies\UnityEngine.UI.dll</HintPath>
+    <Reference Include="UnityEngine.TextRenderingModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
+      <HintPath>..\Dependencies\Subnautica\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI" Condition="'$(Configuration)'=='SUBNAUTICA'">
+      <HintPath>..\Dependencies\Subnautica\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule" Condition="'$(Configuration)'=='BELOWZERO'">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependencies\BelowZero\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\UnityEngine.PhysicsModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Buildable.cs" />
     <Compile Include="Assets\Craftable.cs" />
+    <Compile Include="Assets\CustomFabricator.cs" />
     <Compile Include="Assets\Fish.cs" />
     <Compile Include="Assets\FishPrefab.cs" />
     <Compile Include="Assets\ModPrefab.cs" />
@@ -100,11 +150,16 @@
     <Compile Include="Crafting\ModCraftTreeTab.cs" />
     <Compile Include="Crafting\Node.cs" />
     <Compile Include="Crafting\TabNode.cs" />
+    <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Crafting\TechData.cs" />
+    <Compile Include="Handler.cs" />
     <Compile Include="Handlers\BioReactorHandler.cs" />
     <Compile Include="Handlers\CraftDataHandler.cs" />
+    <Compile Include="Handlers\CraftDataHandler_Subnautica.cs" />
+    <Compile Include="Handlers\CraftDataHandler_BelowZero.cs" />
     <Compile Include="Handlers\CraftTreeHandler.cs" />
     <Compile Include="Handlers\FishHandler.cs" />
+    <Compile Include="Handlers\IngameMenuHandler.cs" />
     <Compile Include="Handlers\ItemActionHandler.cs" />
     <Compile Include="Handlers\KnownTechHandler.cs" />
     <Compile Include="Handlers\LanguageHandler.cs" />
@@ -116,8 +171,11 @@
     <Compile Include="Initializer.cs" />
     <Compile Include="Interfaces\IBioReactorHandler.cs" />
     <Compile Include="Interfaces\ICraftDataHandler.cs" />
+    <Compile Include="Interfaces\ICraftDataHandler_BelowZero.cs" />
+    <Compile Include="Interfaces\ICraftDataHandler_Subnautica.cs" />
     <Compile Include="Interfaces\ICraftTreeHandler.cs" />
     <Compile Include="Interfaces\IFishHandler.cs" />
+    <Compile Include="Interfaces\IIngameMenuHandler.cs" />
     <Compile Include="Interfaces\IItemActionHandler.cs" />
     <Compile Include="Interfaces\IKnownTechHandler.cs" />
     <Compile Include="Interfaces\ILanguageHandler.cs" />
@@ -137,10 +195,13 @@
     <Compile Include="Options\Utility\Validator.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher.cs" />
+    <Compile Include="Patchers\CraftDataPatcher_BelowZero.cs" />
+    <Compile Include="Patchers\CraftDataPatcher_Subnautica.cs" />
     <Compile Include="Patchers\CraftTreePatcher.cs" />
     <Compile Include="Patchers\CraftTreeTypePatcher.cs" />
     <Compile Include="Patchers\DevConsolePatcher.cs" />
     <Compile Include="Patchers\FishPatcher.cs" />
+    <Compile Include="Patchers\IngameMenuPatcher.cs" />
     <Compile Include="Patchers\ItemActionPatcher.cs" />
     <Compile Include="Patchers\ItemsContainerPatcher.cs" />
     <Compile Include="Patchers\KnownTechPatcher.cs" />
@@ -168,14 +229,13 @@
     <Compile Include="Utility\StorageHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mod.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="QModManager\Subnautica.json" />
+    <None Include="QModManager\BelowZero.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == SUBNAUTICA (copy "$(ProjectDir)QModManager\Subnautica.json" "$(ProjectDir)$(OutDir)mod.json")
+if $(ConfigurationName) == BELOWZERO (copy "$(ProjectDir)QModManager\BelowZero.json" "$(ProjectDir)$(OutDir)mod.json")</PostBuildEvent>
   </PropertyGroup>
 </Project>

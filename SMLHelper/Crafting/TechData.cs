@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Crafting
+﻿#if SUBNAUTICA
+#pragma warning disable IDE1006 // Naming Styles - Ignored for backwards compatibility
+namespace SMLHelper.V2.Crafting
 {
     using System.Collections.Generic;
 
@@ -64,7 +66,7 @@
         {
             foreach (Ingredient ingredient in ingredients)
             {
-                Ingredients.Add(ingredient); 
+                Ingredients.Add(ingredient);
             }
         }
 
@@ -134,3 +136,5 @@
         }
     }
 }
+#pragma warning restore IDE1006 // Naming Styles
+#endif

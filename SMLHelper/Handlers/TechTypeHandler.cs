@@ -39,7 +39,7 @@
 
             // Remember which Assembly added it
             Assembly mod = ReflectionHelper.CallingAssemblyByStackTrace();
-            TechTypesAddedBy.Add(techType, mod);
+            TechTypesAddedBy[techType] = mod;
 
             // Register Language lines.
             LanguagePatcher.AddCustomLanguageLine(modName, internalName, displayName);
@@ -289,7 +289,7 @@
         /// </remarks>
         bool ITechTypeHandler.TryGetModdedTechType(string techtypeString, out TechType modTechType)
         {
-            EnumTypeCache cache = TechTypePatcher.cacheManager.GetCacheForTypeName(techtypeString);
+            EnumTypeCache cache = TechTypePatcher.cacheManager.RequestCacheForTypeName(techtypeString);
 
             if (cache != null) // Item Found
             {
@@ -316,7 +316,7 @@
         /// </remarks>
         bool ITechTypeHandler.ModdedTechTypeExists(string techtypeString)
         {
-            EnumTypeCache cache = TechTypePatcher.cacheManager.GetCacheForTypeName(techtypeString);
+            EnumTypeCache cache = TechTypePatcher.cacheManager.RequestCacheForTypeName(techtypeString);
             return cache != null;
         }
 

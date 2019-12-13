@@ -1,5 +1,8 @@
 ﻿namespace SMLHelper.V2.Interfaces
 {
+    /// <summary>
+    /// A handler class for various scanner related data.
+    /// </summary>
     public interface IPDAHandler
     {
         /// <summary>

@@ -3,6 +3,9 @@
     using Patchers;
     using Interfaces;
 
+    /// <summary>
+    /// A handler with common methods for updating BioReactor values.
+    /// </summary>
     public class BioReactorHandler : IBioReactorHandler
     {
         /// <summary>

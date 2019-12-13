@@ -2,6 +2,10 @@
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// A utility class that offers additional info about <see cref="ItemsContainer"/> instances.
+    /// </summary>
+    /// <seealso cref="StorageHelperExtensions" />
     public interface IStorageHelper
     {
         /// <summary>

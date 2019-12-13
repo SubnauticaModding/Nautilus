@@ -1,11 +1,16 @@
 namespace SMLHelper.V2.MonoBehaviours
 {
+    using SMLHelper.V2.Assets;
     using UnityEngine;
-    using System.Reflection;
     using Logger = V2.Logger;
 
+    /// <summary>
+    /// This <see cref="MonoBehaviour"/> is <c>automatically</c> added to any <see cref="GameObject"/> created through <see cref="ModPrefab.GetGameObject"/>.
+    /// </summary>
     public class Fixer : MonoBehaviour, IProtoEventListener
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
         [SerializeField]
         public TechType techType;
 
@@ -23,16 +28,16 @@ namespace SMLHelper.V2.MonoBehaviours
                 initalized = true;
             }
 
-            if (Time.time > time && gameObject != Builder.prefab)
+            if (Time.time > time && this.gameObject != Builder.prefab)
             {
-                if (transform.position.y < -4500)
+                if (this.transform.position.y < -4500)
                 {
-                    Logger.Debug("Destroying object: " + gameObject);
-                    Destroy(gameObject);
+                    Logger.Debug("Destroying object: " + this.gameObject);
+                    Destroy(this.gameObject);
                 }
                 else
                 {
-                    Logger.Debug("Destroying Fixer for object: " + gameObject);
+                    Logger.Debug("Destroying Fixer for object: " + this.gameObject);
                     Destroy(this);
                 }
             }
@@ -44,17 +49,19 @@ namespace SMLHelper.V2.MonoBehaviours
 
         public void OnProtoDeserialize(ProtobufSerializer serializer)
         {
-            var constructable = GetComponent<Constructable>();
+            Constructable constructable = GetComponent<Constructable>();
             if (constructable != null)
             {
                 constructable.techType = techType;
             }
 
-            var techTag = GetComponent<TechTag>();
+            TechTag techTag = GetComponent<TechTag>();
             if (techTag != null)
             {
                 techTag.type = techType;
             }
         }
+
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

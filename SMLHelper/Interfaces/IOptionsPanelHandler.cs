@@ -2,6 +2,9 @@
 {
     using Options;
 
+    /// <summary>
+    /// A handler class for registering your custom in-game mod options.
+    /// </summary>
     public interface IOptionsPanelHandler
     {
         /// <summary>

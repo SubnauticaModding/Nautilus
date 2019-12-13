@@ -54,12 +54,17 @@
         {
             CorePatchEvents += PatchTechDataEntry;
         }
-
+#if SUBNAUTICA
         /// <summary>
         /// This provides the <see cref="TechData"/> instance used to designate how this item is crafted or constructed.
         /// </summary>
         protected abstract TechData GetBlueprintRecipe();
-
+#elif BELOWZERO
+        /// <summary>
+        /// This provides the <see cref="RecipeData"/> instance used to designate how this item is crafted or constructed.
+        /// </summary>
+        protected abstract RecipeData GetBlueprintRecipe();
+#endif
         private void PatchTechDataEntry()
         {
             CraftDataHandler.SetTechData(this.TechType, GetBlueprintRecipe());

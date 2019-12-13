@@ -1,8 +1,8 @@
 ﻿namespace SMLHelper.V2.Options
 {
-    using SMLHelper.V2.Utility;
     using System;
     using System.Linq;
+    using SMLHelper.V2.Utility;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.UI;
@@ -27,11 +27,16 @@
         /// </summary>
         public string KeyName { get; }
 
+        /// <summary>
+        /// Constructs a new <see cref="KeybindChangedEventArgs"/>.
+        /// </summary>
+        /// <param name="id">The ID of the <see cref="ModKeybindOption"/> that was changed.</param>
+        /// <param name="key">The new value for the <see cref="ModKeybindOption"/>.</param>
         public KeybindChangedEventArgs(string id, KeyCode key)
         {
-            Id = id;
-            Key = key;
-            KeyName = KeyCodeUtils.KeyCodeToString(key);
+            this.Id = id;
+            this.Key = key;
+            this.KeyName = KeyCodeUtils.KeyCodeToString(key);
         }
     }
 
@@ -81,7 +86,14 @@
     /// </summary>
     public class ModKeybindOption : ModOption
     {
+        /// <summary>
+        /// The currently selected <see cref="KeyCode"/> for the <see cref="ModKeybindOption"/>.
+        /// </summary>
         public KeyCode Key { get; }
+
+        /// <summary>
+        /// The currently select input source device for the <see cref="ModKeybindOption"/>.
+        /// </summary>
         public GameInput.Device Device { get; }
 
         /// <summary>
@@ -93,8 +105,8 @@
         /// <param name="key">The starting keybind value.</param>
         internal ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(ModOptionType.Keybind, label, id)
         {
-            Device = device;
-            Key = key;
+            this.Device = device;
+            this.Key = key;
         }
 
         internal static GameObject AddBindingOptionWithCallback(uGUI_OptionsPanel panel, int tab, string label, KeyCode key, GameInput.Device device, UnityAction<KeyCode> callback)

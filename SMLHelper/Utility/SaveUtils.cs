@@ -1,9 +1,11 @@
 ﻿namespace SMLHelper.V2.Utility
 {
-    using System.IO;
+    using System;
+    using SMLHelper.V2.Patchers;
 
-    /* TODO: Maybe add more saving related functions here,
-       such as those related to serializing? */
+    /// <summary>
+    /// A small collection of save data related utilities.
+    /// </summary>
     public static class SaveUtils
     {
         /// <summary>
@@ -11,7 +13,7 @@
         /// </summary>
         public static string GetCurrentSaveDataDir()
         {
-            return SaveLoadManager.temporarySavePath;
+            return SaveLoadManager.GetTemporarySavePath();
         }
     }
 }
