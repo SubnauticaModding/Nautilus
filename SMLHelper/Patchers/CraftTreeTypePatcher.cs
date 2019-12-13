@@ -20,7 +20,7 @@
 
         internal static ModCraftTreeRoot CreateCustomCraftTreeAndType(string name, out CraftTree.Type craftTreeType)
         {
-            EnumTypeCache cache = cacheManager.GetCacheForTypeName(name);
+            EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name);
 
             if (cache == null)
             {

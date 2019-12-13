@@ -289,7 +289,7 @@
         /// </remarks>
         bool ITechTypeHandler.TryGetModdedTechType(string techtypeString, out TechType modTechType)
         {
-            EnumTypeCache cache = TechTypePatcher.cacheManager.GetCacheForTypeName(techtypeString);
+            EnumTypeCache cache = TechTypePatcher.cacheManager.RequestCacheForTypeName(techtypeString);
 
             if (cache != null) // Item Found
             {
@@ -316,7 +316,7 @@
         /// </remarks>
         bool ITechTypeHandler.ModdedTechTypeExists(string techtypeString)
         {
-            EnumTypeCache cache = TechTypePatcher.cacheManager.GetCacheForTypeName(techtypeString);
+            EnumTypeCache cache = TechTypePatcher.cacheManager.RequestCacheForTypeName(techtypeString);
             return cache != null;
         }
 

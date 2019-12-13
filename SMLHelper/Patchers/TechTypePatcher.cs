@@ -29,7 +29,7 @@
 
         internal static TechType AddTechType(string name)
         {
-            EnumTypeCache cache = cacheManager.GetCacheForTypeName(name);
+            EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name);
 
             if (cache == null)
             {

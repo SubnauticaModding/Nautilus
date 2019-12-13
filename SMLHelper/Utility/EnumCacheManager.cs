@@ -63,6 +63,19 @@
                     this.LargestIntValue = backingValue;
             }
 
+            public void Remove(int backingValue, string name)
+            {
+                Remove((T)(object)backingValue, backingValue, name);
+            }
+
+            public void Remove(T enumValue, int backingValue, string name)
+            {
+                MapIntString.Remove(backingValue);
+                MapEnumString.Remove(enumValue);
+                MapStringEnum.Remove(name);
+                MapStringInt.Remove(name);
+            }
+
             public int LargestIntValue { get; private set; }
 
             public IEnumerable<T> KnownsEnumKeys => MapEnumString.Keys;
@@ -249,13 +262,23 @@
             }
         }
 
-        internal EnumTypeCache GetCacheForTypeName(string name)
+        internal EnumTypeCache RequestCacheForTypeName(string name)
         {
             LoadCache();
 
-            if (entriesFromRequests.TryGetValue(name, out int value) || (entriesFromFile.TryGetValue(name, out value) && !entriesFromDeactivatedFile.TryGetValue(name, out value)))
+            if (entriesFromRequests.TryGetValue(name, out int value))
             {
-
+                return new EnumTypeCache(value, name);
+            }
+            else if (entriesFromFile.TryGetValue(name, out value))
+            {
+                entriesFromRequests.Add(value, name);
+                return new EnumTypeCache(value, name);
+            }
+            else if (entriesFromDeactivatedFile.TryGetValue(name, out value))
+            {
+                entriesFromRequests.Add(value, name);
+                entriesFromDeactivatedFile.Remove(value, name);
                 return new EnumTypeCache(value, name);
             }
 
