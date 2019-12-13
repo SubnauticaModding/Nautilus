@@ -260,8 +260,9 @@
         {
             LoadCache();
 
-            if (entriesFromRequests.TryGetValue(name, out int value) || entriesFromFile.TryGetValue(name, out value))
+            if (entriesFromRequests.TryGetValue(name, out int value) || (entriesFromFile.TryGetValue(name, out value) && !entriesFromDeactivatedFile.TryGetValue(name, out value)))
             {
+
                 return new EnumTypeCache(value, name);
             }
 
