@@ -26,7 +26,7 @@
         /// <param name="data">The <see cref="LootDistributionData.SrcData"/> that contains data related to the spawning of a prefab, also contains the path to the prefab.</param>
         /// <param name="classId">The classId of the prefab.</param>
         /// <param name="info">The WorldEntityInfo of the prefab. For more information on how to set this up, see <see cref="WorldEntityDatabaseHandler"/>.</param>
-        public static void AddCustomLootDistData(string classId, LootDistributionData.SrcData data, WorldEntityInfo info = null)
+        public static void AddLootDistributionData(string classId, LootDistributionData.SrcData data, WorldEntityInfo info = null)
         {
             Main.AddCustomLootDistData(data, classId);
 
@@ -42,7 +42,7 @@
         /// <param name="prefabPath">The prefab path of the prefab.</param>
         /// <param name="biomeDistribution">The <see cref="LootDistributionData.BiomeData"/> dictating how the prefab should spawn in the world.</param>
         /// <param name="info">The WorldEntityInfo of the prefab. For more information on how to set this up, see <see cref="WorldEntityDatabaseHandler"/>.</param>
-        public static void AddCustomLootDistData(string classId, string prefabPath, IEnumerable<LootDistributionData.BiomeData> biomeDistribution, WorldEntityInfo info = null)
+        public static void AddLootDistributionData(string classId, string prefabPath, IEnumerable<LootDistributionData.BiomeData> biomeDistribution, WorldEntityInfo info = null)
         {
             Main.AddCustomLootDistData(new LootDistributionData.SrcData()
             {
@@ -61,7 +61,7 @@
         /// <param name="prefab">The custom prefab which you want to spawn naturally in the game.</param>
         /// <param name="biomeDistribution">The <see cref="LootDistributionData.BiomeData"/> dictating how the prefab should spawn in the world.</param>
         /// <param name="info">The WorldEntityInfo of the prefab. For more information on how to set this up, see <see cref="WorldEntityDatabaseHandler"/>.</param>
-        public static void AddCustomLootDistData(ModPrefab prefab, IEnumerable<LootDistributionData.BiomeData> biomeDistribution, WorldEntityInfo info)
+        public static void AddLootDistributionData(ModPrefab prefab, IEnumerable<LootDistributionData.BiomeData> biomeDistribution, WorldEntityInfo info)
         {
             AddCustomLootDistData(prefab.ClassID, prefab.PrefabFileName, biomeDistribution);
 
@@ -76,7 +76,7 @@
         /// <param name="biome">The biome, in which this prefab is spawning, or being set to spawn in.</param>
         /// <param name="probability">The probability for which this prefab should spawn for.</param>
         /// <param name="count">The count of the prefab. Usually just 1.</param>
-        public static void EditLootBiomeData(string classID, BiomeType biome, float probability, int count)
+        public static void EditLootDistributionData(string classID, BiomeType biome, float probability, int count)
         {
             Main.EditLootBiomeData(classID, biome, probability, count);
         }
@@ -86,7 +86,7 @@
         /// </summary>
         /// <param name="classID">The ClassID of the prefab. If unsure, use CraftData.GetClassIdForTechType.</param>
         /// <param name="biomeDistribution">The list of <see cref="LootDistributionData.BiomeData"/> that contains information about how/when it should spawn in biomes.</param>
-        public static void EditLootBiomeData(string classID, IEnumerable<LootDistributionData.BiomeData> biomeDistribution)
+        public static void EditLootDistributionData(string classID, IEnumerable<LootDistributionData.BiomeData> biomeDistribution)
         {
             foreach(var distribution in biomeDistribution)
             {
