@@ -1,47 +1,147 @@
 ﻿namespace SMLHelper.V2.Utility
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
     using System.Text;
-    
+
     internal class EnumTypeCache
     {
         internal int Index;
         internal string Name;
+
+        public EnumTypeCache()
+        {
+        }
+
+        public EnumTypeCache(int index, string name)
+        {
+            Index = index;
+            Name = name;
+        }
     }
 
     internal class EnumCacheManager<T> where T : Enum
     {
+        private class DoubleKeyDictionary : IEnumerable<KeyValuePair<int, string>>
+        {
+            private readonly Dictionary<int, string> MapIntString = new Dictionary<int, string>();
+            private readonly Dictionary<T, string> MapEnumString = new Dictionary<T, string>();
+            private readonly Dictionary<string, T> MapStringEnum = new Dictionary<string, T>();
+            private readonly Dictionary<string, int> MapStringInt = new Dictionary<string, int>();
+
+            public bool TryGetValue(T enumValue, out string name)
+            {
+                return MapEnumString.TryGetValue(enumValue, out name);
+            }
+
+            public bool TryGetValue(string name, out T enumValue)
+            {
+                return MapStringEnum.TryGetValue(name, out enumValue);
+            }
+
+            public bool TryGetValue(string name, out int backingValue)
+            {
+                return MapStringInt.TryGetValue(name, out backingValue);
+            }
+
+            public void Add(int backingValue, string name)
+            {
+                Add((T)(object)backingValue, backingValue, name);
+            }
+
+            public void Add(T enumValue, int backingValue, string name)
+            {
+                MapIntString.Add(backingValue, name);
+                MapEnumString.Add(enumValue, name);
+                MapStringEnum.Add(name, enumValue);
+                MapStringInt.Add(name, backingValue);
+
+                if (backingValue > this.LargestIntValue)
+                    this.LargestIntValue = backingValue;
+            }
+
+            public void Remove(int backingValue, string name)
+            {
+                Remove((T)(object)backingValue, backingValue, name);
+            }
+
+            public void Remove(T enumValue, int backingValue, string name)
+            {
+                MapIntString.Remove(backingValue);
+                MapEnumString.Remove(enumValue);
+                MapStringEnum.Remove(name);
+                MapStringInt.Remove(name);
+            }
+
+            public int LargestIntValue { get; private set; }
+
+            public IEnumerable<T> KnownsEnumKeys => MapEnumString.Keys;
+
+            public bool IsKnownKey(T key)
+            {
+                return MapEnumString.ContainsKey(key);
+            }
+
+            public bool IsKnownKey(int key)
+            {
+                return MapIntString.ContainsKey(key);
+            }
+
+            public IEnumerator<KeyValuePair<int, string>> GetEnumerator()
+            {
+                return MapIntString.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return MapIntString.GetEnumerator();
+            }
+
+            public void Clear()
+            {
+                MapIntString.Clear();
+                MapEnumString.Clear();
+                MapStringEnum.Clear();
+                MapStringInt.Clear();
+            }
+        }
+
         internal readonly string EnumTypeName;
         internal readonly int StartingIndex;
         internal bool cacheLoaded = false;
 
-        private List<EnumTypeCache> cacheList = new List<EnumTypeCache>();
         private readonly HashSet<int> BannedIDs;
         private readonly int LargestBannedID;
 
-        private readonly Dictionary<T, EnumTypeCache> customEnumTypes = new Dictionary<T, EnumTypeCache>();
-        private readonly Dictionary<string, T> customEnumNames = new Dictionary<string, T>(StringComparer.InvariantCultureIgnoreCase);
-        private readonly HashSet<T> HashedKeys = new HashSet<T>();
+        private readonly DoubleKeyDictionary entriesFromFile = new DoubleKeyDictionary();
+        private readonly DoubleKeyDictionary entriesFromDeactivatedFile = new DoubleKeyDictionary();
+        private readonly DoubleKeyDictionary entriesFromRequests = new DoubleKeyDictionary();
 
-        public IEnumerable<T> ModdedKeys => HashedKeys;
+        public IEnumerable<T> ModdedKeys => entriesFromRequests.KnownsEnumKeys;
 
-        public bool TryGetValue(T key, out EnumTypeCache value) => customEnumTypes.TryGetValue(key, out value);
-
-        public bool TryParse(string value, out T type) => customEnumNames.TryGetValue(value, out type);
-
-        public void Add(T value, EnumTypeCache entry)
+        public bool TryGetValue(T key, out string value)
         {
-            HashedKeys.Add(value);
-            customEnumTypes.Add(value, entry);
-            customEnumNames.Add(entry.Name, value);
+            return entriesFromRequests.TryGetValue(key, out value);
         }
 
-        public void Add(KeyValuePair<T, EnumTypeCache> item) => Add(item.Key, item.Value);
+        public bool TryParse(string value, out T type)
+        {
+            return entriesFromRequests.TryGetValue(value, out type);
+        }
 
-        public bool ContainsKey(T key) => HashedKeys.Contains(key);
+        public void Add(T value, int backingValue, string name)
+        {
+            if (!entriesFromRequests.IsKnownKey(backingValue))
+                entriesFromRequests.Add(value, backingValue, name);
+        }
+
+        public bool ContainsKey(T key)
+        {
+            return entriesFromRequests.IsKnownKey(key);
+        }
 
         internal EnumCacheManager(string enumTypeName, int startingIndex, IEnumerable<int> bannedIDs)
         {
@@ -71,61 +171,90 @@
             return saveDir;
         }
 
-        private string GetCachePath() => Path.Combine(GetCacheDirectoryPath(), $"{EnumTypeName}Cache.txt");
+        private string GetCachePath()
+        {
+            return Path.Combine(GetCacheDirectoryPath(), $"{EnumTypeName}Cache.txt");
+        }
+
+        private string GetDeactivatedCachePath()
+        {
+            return Path.Combine(GetCacheDirectoryPath(), $"{EnumTypeName}DeactivatedCache.txt");
+        }
 
         internal void LoadCache()
         {
-            if (cacheLoaded) return;
+            if (cacheLoaded)
+                return;
 
+            ReadCacheFile(GetCachePath(), (index, name) =>
+            {
+                entriesFromFile.Add(index, name);
+            });
+
+            ReadCacheFile(GetDeactivatedCachePath(), (index, name) =>
+            {
+                entriesFromDeactivatedFile.Add(index, name);
+                entriesFromFile.Add(index, name);
+            });
+
+            cacheLoaded = true;
+        }
+
+        private void ReadCacheFile(string savePathDir, Action<int, string> loadParsedEntry)
+        {
             try
             {
-                string savePathDir = GetCachePath();
-
                 if (!File.Exists(savePathDir))
                 {
-                    cacheLoaded = true; // Just so it wont keep calling this over and over again.
+                    cacheLoaded = true;
                     return;
                 }
 
                 string[] allText = File.ReadAllLines(savePathDir);
-
                 foreach (string line in allText)
                 {
                     string[] split = line.Split(':');
                     string name = split[0];
                     string index = split[1];
 
-                    var cache = new EnumTypeCache()
-                    {
-                        Name = name,
-                        Index = int.Parse(index)
-                    };
-
-                    cacheList.Add(cache);
+                    loadParsedEntry.Invoke(Convert.ToInt32(index), name);
                 }
             }
             catch (Exception exception)
             {
-                Logger.Error($"Caught exception while reading cache!{Environment.NewLine}{exception}");
+                Logger.Error($"Caught exception while reading {savePathDir}{Environment.NewLine}{exception}");
             }
-
-            cacheLoaded = true;
         }
 
         internal void SaveCache()
         {
+            LoadCache();
             try
             {
                 string savePathDir = GetCachePath();
                 var stringBuilder = new StringBuilder();
 
-                foreach (EnumTypeCache entry in customEnumTypes.Values)
+                foreach (KeyValuePair<int, string> entry in entriesFromRequests)
                 {
-                    cacheList.Add(entry);
-                    stringBuilder.AppendLine($"{entry.Name}:{entry.Index}");
+                    stringBuilder.AppendLine($"{entry.Value}:{entry.Key}");
                 }
 
                 File.WriteAllText(savePathDir, stringBuilder.ToString());
+
+
+                savePathDir = GetDeactivatedCachePath();
+                stringBuilder = new StringBuilder();
+
+                foreach (KeyValuePair<int, string> entry in entriesFromFile)
+                {
+                    if (!entriesFromRequests.TryGetValue(entry.Value, out int v))
+                    {
+                        stringBuilder.AppendLine($"{entry.Value}:{entry.Key}");
+                    }
+                }
+
+                File.WriteAllText(savePathDir, stringBuilder.ToString());
+                entriesFromFile.Clear();
             }
             catch (Exception exception)
             {
@@ -133,74 +262,59 @@
             }
         }
 
-        internal EnumTypeCache GetCacheForTypeName(string name)
+        internal EnumTypeCache RequestCacheForTypeName(string name)
         {
             LoadCache();
 
-            foreach (EnumTypeCache cache in cacheList)
+            if (entriesFromRequests.TryGetValue(name, out int value))
             {
-                if (cache.Name == name)
-                    return cache;
+                return new EnumTypeCache(value, name);
+            }
+            else if (entriesFromFile.TryGetValue(name, out value))
+            {
+                entriesFromRequests.Add(value, name);
+                return new EnumTypeCache(value, name);
+            }
+            else if (entriesFromDeactivatedFile.TryGetValue(name, out value))
+            {
+                entriesFromRequests.Add(value, name);
+                entriesFromDeactivatedFile.Remove(value, name);
+                return new EnumTypeCache(value, name);
             }
 
             return null;
         }
 
-        internal EnumTypeCache GetCacheForIndex(int index)
+        internal int GetNextAvailableIndex()
         {
             LoadCache();
 
-            foreach (EnumTypeCache cache in cacheList)
+            int index = StartingIndex + 1;
+
+            while (entriesFromFile.IsKnownKey(index) ||
+                   entriesFromRequests.IsKnownKey(index) ||
+                   BannedIDs.Contains(index))
             {
-                if (cache.Index == index)
-                    return cache;
-            }
-
-            return null;
-        }
-
-        internal int GetLargestIndexFromCache()
-        {
-            LoadCache();
-
-            int index = StartingIndex;
-
-            foreach (EnumTypeCache cache in cacheList)
-            {
-                if (cache.Index > index)
-                    index = cache.Index;
+                index++;
             }
 
             return index;
         }
 
-        internal int GetNextFreeIndex()
+        internal bool IsIndexAvailable(int index)
         {
             LoadCache();
 
-            int freeIndex = GetLargestIndexFromCache() + 1;
+            if (BannedIDs.Contains(index))
+                return false;
 
-            if (BannedIDs != null && BannedIDs.Contains(freeIndex))
-            {
-                freeIndex = LargestBannedID + 1;
-            }
+            if (entriesFromFile.IsKnownKey(index))
+                return false;
 
-            return freeIndex;
-        }
+            if (entriesFromRequests.IsKnownKey(index))
+                return false;
 
-        internal bool IsIndexValid(int index)
-        {
-            LoadCache();
-
-            int count = 0;
-
-            foreach (EnumTypeCache cache in cacheList)
-            {
-                if (cache.Index == index)
-                    count++;
-            }
-
-            return count >= 2 && (!BannedIDs?.Contains(index) ?? false);
+            return true;
         }
 
         #endregion

@@ -29,22 +29,22 @@
 
         internal static TechType AddTechType(string name)
         {
-            EnumTypeCache cache = cacheManager.GetCacheForTypeName(name);
+            EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name);
 
             if (cache == null)
             {
                 cache = new EnumTypeCache()
                 {
                     Name = name,
-                    Index = cacheManager.GetNextFreeIndex()
+                    Index = cacheManager.GetNextAvailableIndex()
                 };
             }
 
-            if (cacheManager.IsIndexValid(cache.Index))
-                cache.Index = cacheManager.GetNextFreeIndex();
+            if (cacheManager.IsIndexAvailable(cache.Index))
+                cache.Index = cacheManager.GetNextAvailableIndex();
 
             var techType = (TechType)cache.Index;
-            cacheManager.Add(techType, cache);
+            cacheManager.Add(techType, cache.Index, cache.Name);
 
             // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
             // See README.md for details.
@@ -165,9 +165,9 @@
         {
             if (__instance is TechType techType)
             {
-                if (cacheManager.TryGetValue(techType, out EnumTypeCache techTypeCache))
+                if (cacheManager.TryGetValue(techType, out string techTypeName))
                 {
-                    __result = techTypeCache.Name;
+                    __result = techTypeName;
                     return false;
                 }
             }

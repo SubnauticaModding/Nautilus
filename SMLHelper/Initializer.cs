@@ -21,7 +21,11 @@
         {
             Logger.Initialize();
 
-            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version}", LogLevel.Info);
+#if SUBNAUTICA
+            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
+#elif BELOWZERO
+            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Below Zero", LogLevel.Info);
+#endif
 
             harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
 
@@ -56,7 +60,7 @@
             ItemActionPatcher.Patch(harmony);
             LootDistributionPatcher.Patch(harmony);
             WorldEntityDatabasePatcher.Patch(harmony);
-
+            IngameMenuPatcher.Patch(harmony);
             //TooltipPatcher.Patch(harmony);
         }
     }

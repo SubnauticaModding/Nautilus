@@ -181,7 +181,7 @@
         /// </remarks>
         public void AddModdedCraftingNode(string moddedTechTypeName)
         {
-            EnumTypeCache cache = TechTypePatcher.cacheManager.GetCacheForTypeName(moddedTechTypeName);
+            EnumTypeCache cache = TechTypePatcher.cacheManager.RequestCacheForTypeName(moddedTechTypeName);
 
             if (cache != null)
             {
