@@ -2,7 +2,7 @@
   "Id": "SMLHelper",
   "DisplayName": "Modding Helper (SMLHelper)",
   "Author": "The QModManager Team",
-  "Version": "2.4.1",
+  "Version": "2.4.2",
   "Enable": true,
   "Game": "Subnautica",
   "AssemblyName": "SMLHelper.dll",

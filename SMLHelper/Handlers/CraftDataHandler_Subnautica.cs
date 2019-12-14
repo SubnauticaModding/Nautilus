@@ -37,6 +37,18 @@ namespace SMLHelper.V2.Handlers
             Main.SetTechData(techType, techData);
         }
 
+        /// <summary>
+        /// Safely accesses the crafting data from a modded item.<para/>
+        /// WARNING: This method is highly dependent on mod load order. 
+        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to access.</param>
+        /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
+        public static ITechData GetModdedTechData(TechType techType)
+        {
+            return Main.GetModdedTechData(techType);
+        }
+
         #endregion
 
         #region Subnautica specific implementations
@@ -183,6 +195,23 @@ namespace SMLHelper.V2.Handlers
         void ICraftDataHandler.AddBuildable(TechType techType)
         {
             CraftDataPatcher.CustomBuildables.Add(techType);
+        }
+
+        /// <summary>
+        /// Safely accesses the crafting data from a modded item.<para/>
+        /// WARNING: This method is highly dependent on mod load order. 
+        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to access.</param>
+        /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
+        ITechData ICraftDataHandler.GetModdedTechData(TechType techType)
+        {
+            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData moddedTechData))
+            {
+                return moddedTechData;
+            }
+
+            return null;
         }
 
         #endregion
