@@ -39,7 +39,7 @@
         /// <param name="cellLevel">The <see cref="LargeWorldEntity.CellLevel"/> of the entity.</param>
         /// <param name="slotType">The <see cref="EntitySlot.Type"/> of the entity. Dictates which "slots" are suitable for this entity to spawn in. For e.g., most in-crate fragments have a <see cref="EntitySlot.Type.Small"/> slot type.</param>
         /// <param name="localScale">The scale that the entity's local scale is set to when spawned.</param>
-        public static void AddCustomInfo(string classId, TechType techType, bool prefabZUp = false, LargeWorldEntity.CellLevel cellLevel = LargeWorldEntity.CellLevel.Global, EntitySlot.Type slotType = EntitySlot.Type.Small, Vector3 localScale = Vector3.one)
+        public static void AddCustomInfo(string classId, TechType techType, Vector3 localScale, bool prefabZUp = false, LargeWorldEntity.CellLevel cellLevel = LargeWorldEntity.CellLevel.Global, EntitySlot.Type slotType = EntitySlot.Type.Small)
         {
             Main.AddCustomInfo(classId, new WorldEntityInfo()
             {

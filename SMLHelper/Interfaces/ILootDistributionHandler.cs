@@ -10,11 +10,11 @@
         /// </summary>
         /// <param name="data"></param>
         /// <param name="classId"></param>
-        void AddCustomLootDistData(LootDistributionData.SrcData data, string classId);
+        void AddLootDistributionData(LootDistributionData.SrcData data, string classId);
 
         /// <summary>
         /// Edits Loot Distribution Data for existing/original class IDs. 
         /// </summary>
-        void EditLootBiomeData(string classid, BiomeType biome, float probability, int count);
+        void EditLootDistributionData(string classid, BiomeType biome, float probability, int count);
     }
 }

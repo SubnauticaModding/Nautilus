@@ -96,7 +96,7 @@
         /// <param name="scanTime">The amount of time it takes to finish one scan. In seconds.</param>
         /// <param name="destroyAfterScan">Whether the object should be destroyed after the scan is finished.</param>
         /// <param name="encyclopediaKey">The key to the encyclopedia entry.</param>
-        public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, int totalFragmentsRequired = 2, float scanTime = 2f, bool destroyAfterScan = true, string encyclopediaKey)
+        public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, string encyclopediaKey, int totalFragmentsRequired = 2, float scanTime = 2f, bool destroyAfterScan = true)
         {
             Main.AddCustomScannerEntry(new PDAScanner.EntryData()
             {

@@ -28,7 +28,7 @@
         /// <param name="info">The WorldEntityInfo of the prefab. For more information on how to set this up, see <see cref="WorldEntityDatabaseHandler"/>.</param>
         public static void AddLootDistributionData(string classId, LootDistributionData.SrcData data, WorldEntityInfo info = null)
         {
-            Main.AddCustomLootDistData(data, classId);
+            Main.AddLootDistributionData(data, classId);
 
             if (info != null)
                 WorldEntityDatabaseHandler.AddCustomInfo(classId, info);
@@ -44,7 +44,7 @@
         /// <param name="info">The WorldEntityInfo of the prefab. For more information on how to set this up, see <see cref="WorldEntityDatabaseHandler"/>.</param>
         public static void AddLootDistributionData(string classId, string prefabPath, IEnumerable<LootDistributionData.BiomeData> biomeDistribution, WorldEntityInfo info = null)
         {
-            Main.AddCustomLootDistData(new LootDistributionData.SrcData()
+            Main.AddLootDistributionData(new LootDistributionData.SrcData()
             {
                 distribution = biomeDistribution.ToList(),
                 prefabPath = prefabPath
@@ -63,7 +63,7 @@
         /// <param name="info">The WorldEntityInfo of the prefab. For more information on how to set this up, see <see cref="WorldEntityDatabaseHandler"/>.</param>
         public static void AddLootDistributionData(ModPrefab prefab, IEnumerable<LootDistributionData.BiomeData> biomeDistribution, WorldEntityInfo info)
         {
-            AddCustomLootDistData(prefab.ClassID, prefab.PrefabFileName, biomeDistribution);
+            AddLootDistributionData(prefab.ClassID, prefab.PrefabFileName, biomeDistribution);
 
             if (info != null)
                 WorldEntityDatabaseHandler.AddCustomInfo(prefab.ClassID, info);
@@ -78,7 +78,7 @@
         /// <param name="count">The count of the prefab. Usually just 1.</param>
         public static void EditLootDistributionData(string classID, BiomeType biome, float probability, int count)
         {
-            Main.EditLootBiomeData(classID, biome, probability, count);
+            Main.EditLootDistributionData(classID, biome, probability, count);
         }
 
         /// <summary>
@@ -90,16 +90,16 @@
         {
             foreach(var distribution in biomeDistribution)
             {
-                Main.EditLootBiomeData(classID, distribution.biome, distribution.probability, distribution.count);
+                Main.EditLootDistributionData(classID, distribution.biome, distribution.probability, distribution.count);
             }
         }
 
-        void ILootDistributionHandler.AddCustomLootDistData(LootDistributionData.SrcData data, string classId)
+        void ILootDistributionHandler.AddLootDistributionData(LootDistributionData.SrcData data, string classId)
         {
             LootDistributionPatcher.CustomSrcData.Add(classId, data);
         }
 
-        void ILootDistributionHandler.EditLootBiomeData(string classid, BiomeType biome, float probability, int count)
+        void ILootDistributionHandler.EditLootDistributionData(string classid, BiomeType biome, float probability, int count)
         {
             LootDistributionData.SrcData srcData;
             if(!LootDistributionPatcher.CustomSrcData.TryGetValue(classid, out srcData))
