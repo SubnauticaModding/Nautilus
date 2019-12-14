@@ -22,6 +22,15 @@ namespace SMLHelper.V2.Interfaces
         /// <param name="techData">The TechData for that TechType.</param>
         /// <seealso cref="TechData"/>
         void SetTechData(TechType techType, TechData techData);
+
+        /// <summary>
+        /// Safely accesses the crafting data from a modded item.<para/>
+        /// WARNING: This method is highly dependent on mod load order. 
+        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to access.</param>
+        /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
+        ITechData GetModdedTechData(TechType techType);
     }
 }
 #endif
