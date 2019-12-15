@@ -3,15 +3,14 @@
     using System.Collections.Generic;
     using System.Reflection;
     using Assets;
-    using Harmony;
 
     internal class SpritePatcher
     {
         // The groups field is present in Subnautica and BZ Stable.
-        private static readonly FieldInfo groupsInfo = AccessTools.Field(typeof(SpriteManager), "groups");
+        private static readonly FieldInfo groupsInfo = typeof(SpriteManager).GetField("groups", BindingFlags.Static | BindingFlags.NonPublic);
 
         // In BZ Experimental, it is replaced by the atlases field.
-        private static readonly FieldInfo atlasesInfo = AccessTools.Field(typeof(SpriteManager), "atlases");
+        private static readonly FieldInfo atlasesInfo = typeof(SpriteManager).GetField("atlases", BindingFlags.Static | BindingFlags.NonPublic);
 
         // To avoid having to create a third build configuration, this is the one patcher class that will used literal strings insteead of nameof.
         // TODO - Once BZ stable is updated with the changes from Experimental, we can return this back to using fields directly.
