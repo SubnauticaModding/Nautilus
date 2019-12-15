@@ -86,17 +86,17 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(Enum), "GetValues"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), "Postfix_GetValues")));
+            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.GetValues)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), nameof(CraftTreeTypePatcher.Postfix_GetValues))));
 
-            harmony.Patch(AccessTools.Method(typeof(Enum), "IsDefined"),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), "Prefix_IsDefined")));
+            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.IsDefined)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), nameof(CraftTreeTypePatcher.Prefix_IsDefined))));
 
-            harmony.Patch(AccessTools.Method(typeof(Enum), "Parse", new Type[] { typeof(Type), typeof(string), typeof(bool) }),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), "Prefix_Parse")));
+            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.Parse), new Type[] { typeof(Type), typeof(string), typeof(bool) }),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), nameof(CraftTreeTypePatcher.Prefix_Parse))));
 
-            harmony.Patch(AccessTools.Method(typeof(CraftTree.Type), "ToString", new Type[] { }),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), "Prefix_ToString")));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree.Type), nameof(Enum.ToString), new Type[] { }),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), nameof(CraftTreeTypePatcher.Prefix_ToString))));
 
             Logger.Log("CraftTreeTypePatcher is done.", LogLevel.Debug);
         }

@@ -14,18 +14,18 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(uGUI_OptionsPanel), "AddTabs"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), "AddTabs_Postfix")));
+            harmony.Patch(AccessTools.Method(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.AddTabs_Postfix))));
 
             // check if already patched (there will be some conflicts if we patch this twice)
-            MethodInfo setVisibleTabMethod = AccessTools.Method(typeof(uGUI_TabbedControlsPanel), "SetVisibleTab");
+            MethodInfo setVisibleTabMethod = AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab));
             Patches patches = harmony.GetPatchInfo(setVisibleTabMethod);
             
             if (patches == null)
             {
                 harmony.Patch(setVisibleTabMethod,
-                    new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), "SetVisibleTab_Prefix")),
-                    new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), "SetVisibleTab_Postfix")));
+                    new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.SetVisibleTab_Prefix))),
+                    new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.SetVisibleTab_Postfix))));
                 
                 V2.Logger.Log("Options.SetVisibleTab is patched", V2.LogLevel.Debug);
             }

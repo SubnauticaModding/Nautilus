@@ -12,8 +12,8 @@
 
         public static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(DevConsole), "Submit"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(DevConsolePatcher), "Postfix")));
+            harmony.Patch(AccessTools.Method(typeof(DevConsole), nameof(DevConsole.Submit)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(DevConsolePatcher), nameof(DevConsolePatcher.Postfix))));
 
             Logger.Log("DevConsolePatcher is done.", LogLevel.Debug);
         }

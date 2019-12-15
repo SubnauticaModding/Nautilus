@@ -1,8 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
-    using System;
     using System.Collections.Generic;
+    using Harmony;
 
     internal class PDAEncyclopediaPatcher
     {
@@ -10,8 +9,8 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(PDAEncyclopedia), "Initialize"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAEncyclopediaPatcher), "InitializePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(PDAEncyclopedia), nameof(PDAEncyclopedia.Initialize)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAEncyclopediaPatcher), nameof(PDAEncyclopediaPatcher.InitializePostfix))));
         }
 
         private static void InitializePostfix()
@@ -19,7 +18,7 @@
             Dictionary<string, PDAEncyclopedia.EntryData> mapping = PDAEncyclopedia.mapping;
 
             // Add custom entry data
-            foreach (var entry in CustomEntryData)
+            foreach (KeyValuePair<string, PDAEncyclopedia.EntryData> entry in CustomEntryData)
             {
                 if (!mapping.ContainsKey(entry.Key))
                 {

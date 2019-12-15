@@ -16,8 +16,8 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(PDAScanner), "Initialize"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAPatcher), "InitializePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(PDAScanner), nameof(PDAScanner.Initialize)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAPatcher), nameof(PDAPatcher.InitializePostfix))));
 
             Logger.Log($"PDAPatcher is done.", LogLevel.Debug);
         }
