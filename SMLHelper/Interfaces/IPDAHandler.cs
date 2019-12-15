@@ -18,5 +18,11 @@
         /// <param name="techType">Can be either techtype of the fragment or the crafted item.</param>
         /// <param name="scanTime">The relative time spent on scanning. Default value is 1.</param>
         void EditFragmentScanTime(TechType techType, float scanTime);
+
+        /// <summary>
+        /// Adds custom scanner entry.
+        /// </summary>
+        /// <param name="entryData"></param>
+        void AddCustomScannerEntry(PDAScanner.EntryData entryData);
     }
 }
