@@ -51,7 +51,7 @@
                 return Atlases[groupName];
             }
 
-            Logger.Error("SpritePatcher was unable to find a sprite ictionary");
+            Logger.Error("SpritePatcher was unable to find a sprite dictionary");
             return null;
         }
     }
