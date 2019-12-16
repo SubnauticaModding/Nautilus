@@ -217,7 +217,6 @@
     <Compile Include="Patchers\PDAEncyclopediaPatcher.cs" />
     <Compile Include="Patchers\PDAPatcher.cs" />
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
-    <Compile Include="Patchers\ResourcesPatcher.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />
     <Compile Include="Patchers\TechTypePatcher.cs" />
     <Compile Include="Patchers\TooltipPatcher.cs" />
