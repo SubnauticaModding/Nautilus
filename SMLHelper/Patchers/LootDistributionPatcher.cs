@@ -1,7 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
     using System.Collections.Generic;
+    using Harmony;
     using Logger = V2.Logger;
 
     internal class LootDistributionPatcher
@@ -10,15 +10,15 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(LootDistributionData), "Initialize"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(LootDistributionPatcher), "InitializePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(LootDistributionData), nameof(LootDistributionData.Initialize)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(LootDistributionPatcher), nameof(LootDistributionPatcher.InitializePostfix))));
 
             Logger.Log("LootDistributionPatcher is done.", LogLevel.Debug);
         }
 
         private static void InitializePostfix(LootDistributionData __instance)
         {
-            foreach(var entry in CustomSrcData)
+            foreach (KeyValuePair<string, LootDistributionData.SrcData> entry in CustomSrcData)
             {
                 LootDistributionData.SrcData customSrcData = entry.Value;
                 string classId = entry.Key;
@@ -36,7 +36,7 @@
 
         private static void EditExistingData(string classId, LootDistributionData.SrcData existingData, LootDistributionData.SrcData changes, Dictionary<BiomeType, LootDistributionData.DstData> dstData)
         {
-            foreach (var customBiomeDist in changes.distribution)
+            foreach (LootDistributionData.BiomeData customBiomeDist in changes.distribution)
             {
                 bool foundBiome = false;
 
@@ -60,8 +60,10 @@
 
                 if (!dstData.TryGetValue(customBiomeDist.biome, out LootDistributionData.DstData biomeDistData))
                 {
-                    biomeDistData = new LootDistributionData.DstData();
-                    biomeDistData.prefabs = new List<LootDistributionData.PrefabData>();
+                    biomeDistData = new LootDistributionData.DstData
+                    {
+                        prefabs = new List<LootDistributionData.PrefabData>()
+                    };
                     dstData.Add(customBiomeDist.biome, biomeDistData);
                 }
 
@@ -106,19 +108,22 @@
                     BiomeType biome = biomeData.biome;
                     int count = biomeData.count;
                     float probability = biomeData.probability;
-                    LootDistributionData.DstData dstData;
 
-                    if (!dstDistribution.TryGetValue(biome, out dstData))
+                    if (!dstDistribution.TryGetValue(biome, out LootDistributionData.DstData dstData))
                     {
-                        dstData = new LootDistributionData.DstData();
-                        dstData.prefabs = new List<LootDistributionData.PrefabData>();
+                        dstData = new LootDistributionData.DstData
+                        {
+                            prefabs = new List<LootDistributionData.PrefabData>()
+                        };
                         dstDistribution.Add(biome, dstData);
                     }
 
-                    LootDistributionData.PrefabData prefabData = new LootDistributionData.PrefabData();
-                    prefabData.classId = classId;
-                    prefabData.count = count;
-                    prefabData.probability = probability;
+                    var prefabData = new LootDistributionData.PrefabData
+                    {
+                        classId = classId,
+                        count = count,
+                        probability = probability
+                    };
                     dstData.prefabs.Add(prefabData);
                 }
             }

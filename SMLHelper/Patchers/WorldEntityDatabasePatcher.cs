@@ -1,7 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
+    using System.Collections.Generic;
     using Harmony;
-    using System;
     using UWE;
 
     internal class WorldEntityDatabasePatcher
@@ -10,15 +10,15 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(WorldEntityDatabase), "TryGetInfo"),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), "Prefix")));
+            harmony.Patch(AccessTools.Method(typeof(WorldEntityDatabase), nameof(WorldEntityDatabase.TryGetInfo)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), nameof(WorldEntityDatabasePatcher.Prefix))));
         }
 
         private static bool Prefix(string classId, ref WorldEntityInfo info, ref bool __result)
         {
-            foreach(var entry in CustomWorldEntityInfos)
+            foreach (KeyValuePair<string, WorldEntityInfo> entry in CustomWorldEntityInfos)
             {
-                if(entry.Key == classId)
+                if (entry.Key == classId)
                 {
                     __result = true;
                     info = entry.Value;

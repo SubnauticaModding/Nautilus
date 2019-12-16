@@ -38,8 +38,8 @@
 
             ReadOverrideCustomLines();
 
-            harmony.Patch(AccessTools.Method(typeof(Language), "LoadLanguageFile"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(LanguagePatcher), "Postfix")));
+            harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.LoadLanguageFile)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(LanguagePatcher), nameof(LanguagePatcher.Postfix))));
 
             Logger.Log("LanguagePatcher is done.", LogLevel.Debug);
         }

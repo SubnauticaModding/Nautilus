@@ -49,14 +49,14 @@
             // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
             // See README.md for details.
 
-            harmony.Patch(AccessTools.Method(typeof(uGUI_InventoryTab), "OnPointerClick"), 
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), "OnPointerClick_Prefix")));
+            harmony.Patch(AccessTools.Method(typeof(uGUI_InventoryTab), nameof(uGUI_InventoryTab.OnPointerClick)), 
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.OnPointerClick_Prefix))));
 
-            harmony.Patch(AccessTools.Method(typeof(Inventory), "ExecuteItemAction"), 
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), "ExecuteItemAction_Prefix")));
+            harmony.Patch(AccessTools.Method(typeof(Inventory), nameof(Inventory.ExecuteItemAction)), 
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.ExecuteItemAction_Prefix))));
 
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), "ItemActions"), 
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), "ItemActions_Postfix")));
+            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemActions)), 
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.ItemActions_Postfix))));
 
             if (MiddleClickActions.Count > 0 && LeftClickActions.Count > 0)
                 Logger.Log($"Added {LeftClickActions.Count} left click actions and {MiddleClickActions.Count} middle click actions.");

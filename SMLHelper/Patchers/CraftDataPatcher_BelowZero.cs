@@ -1,10 +1,8 @@
 ﻿#if BELOWZERO
 namespace SMLHelper.V2.Patchers
 {
-    using Assets;
-    using Harmony;
-    using System;
     using System.Collections.Generic;
+    using Harmony;
 
     internal partial class CraftDataPatcher
     {
@@ -21,9 +19,9 @@ namespace SMLHelper.V2.Patchers
 
         private static void PatchForBelowZero(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(CraftData), "PreparePrefabIDCache"),
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(TechDataCachePostfix))));
-            harmony.Patch(AccessTools.Method(typeof(TechData), "Cache"),
+            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(TechDataCachePostfix))));
         }
 

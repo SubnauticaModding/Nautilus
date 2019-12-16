@@ -18,11 +18,11 @@
 
         public static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(KnownTech), "Initialize"), 
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), "InitializePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.Initialize)), 
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(KnownTechPatcher.InitializePostfix))));
 
-            harmony.Patch(AccessTools.Method(typeof(KnownTech), "Deinitialize"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), "DeinitializePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.Deinitialize)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(KnownTechPatcher.DeinitializePostfix))));
         }
 
         internal static void DeinitializePostfix() => initialized = false;
@@ -58,7 +58,7 @@
                         if (customTech.unlockPopup != null)
                             tech.unlockPopup = customTech.unlockPopup;
 
-                        if (customTech.unlockMessage != "")
+                        if (customTech.unlockMessage != string.Empty)
                             tech.unlockMessage = customTech.unlockMessage;
                     }
                 }

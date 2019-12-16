@@ -97,17 +97,17 @@
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-            harmony.Patch(AccessTools.Method(typeof(Enum), "GetValues"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), "Postfix_GetValues")));
+            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.GetValues)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), nameof(TechTypePatcher.Postfix_GetValues))));
 
-            harmony.Patch(AccessTools.Method(typeof(Enum), "IsDefined"),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), "Prefix_IsDefined")));
+            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.IsDefined)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), nameof(TechTypePatcher.Prefix_IsDefined))));
 
-            harmony.Patch(AccessTools.Method(typeof(Enum), "Parse", new Type[] { typeof(Type), typeof(string), typeof(bool) }),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), "Prefix_Parse")));
+            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.Parse), new Type[] { typeof(Type), typeof(string), typeof(bool) }),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), nameof(TechTypePatcher.Prefix_Parse))));
 
-            harmony.Patch(AccessTools.Method(typeof(TechType), "ToString", new Type[] { }),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), "Prefix_ToString")));
+            harmony.Patch(AccessTools.Method(typeof(TechType), nameof(TechType.ToString), new Type[] { }),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), nameof(TechTypePatcher.Prefix_ToString))));
 
             Logger.Log($"Added {cacheManager.ModdedKeys.Count()} TechTypes succesfully into the game.", LogLevel.Info);
 
