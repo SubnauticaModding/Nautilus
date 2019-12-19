@@ -66,5 +66,20 @@
         /// A handler class for everything related to creating new TechTypes.
         /// </summary>
         public static ITechTypeHandler TechTypeHandler => Handlers.TechTypeHandler.Main;
+
+        /// <summary>
+        /// A handler class for adding and editing resource spawns.
+        /// </summary>
+        public static ILootDistributionHandler LootDistributionHandler => Handlers.LootDistributionHandler.Main;
+
+        /// <summary>
+        /// A handler for adding custom entries to the world entity database.
+        /// </summary>
+        public static IWorldEntityDatabaseHandler WorldEntityDatabaseHandler => Handlers.WorldEntityDatabaseHandler.Main;
+
+        /// <summary>
+        /// A handler for adding custom entries to the PDA Encyclopedia.
+        /// </summary>
+        public static IPDAEncyclopediaHandler PDAEncyclopediaHandler => Handlers.PDAEncyclopediaHandler.Main;
     }
 }
