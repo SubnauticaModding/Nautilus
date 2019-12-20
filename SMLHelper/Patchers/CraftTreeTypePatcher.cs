@@ -2,6 +2,7 @@
 {
     using Crafting;
     using Harmony;
+    using SMLHelper.V2.Handlers;
     using System;
     using System.Collections.Generic;
     using Utility;
@@ -37,8 +38,6 @@
             craftTreeType = (CraftTree.Type)cache.Index;
 
             cacheManager.Add(craftTreeType, cache.Index, cache.Name);
-
-            cacheManager.SaveCache();
 
             Logger.Log($"Successfully added CraftTree Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
 
@@ -86,6 +85,8 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
+            IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
+
             harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.GetValues)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), nameof(CraftTreeTypePatcher.Postfix_GetValues))));
 
