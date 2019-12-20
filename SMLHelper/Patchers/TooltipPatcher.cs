@@ -20,17 +20,17 @@
         {
             Initialize();
 
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), "InventoryItem"),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), "Transpiler")));
+            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.InventoryItem)),
+                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
 
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), "InventoryItemView"),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), "Transpiler")));
+            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.InventoryItemView)),
+                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
 
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), "BuildTech"),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), "Transpiler")));
+            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech)),
+                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
 
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), "Recipe"),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), "Transpiler")));
+            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.Recipe)),
+                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
 
             Logger.Log("TooltipPatcher is done.", LogLevel.Debug);
         }

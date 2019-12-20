@@ -8,15 +8,15 @@
     {
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(ItemsContainer), "HasRoomFor", new Type[] { typeof(int), typeof(int) }),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), "HasRoomFor_XY_Prefix")),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), "HasRoomFor_Postfix")));
+            harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.HasRoomFor), new Type[] { typeof(int), typeof(int) }),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.HasRoomFor_XY_Prefix))),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.HasRoomFor_Postfix))));
 
-            harmony.Patch(AccessTools.Method(typeof(ItemsContainer), "NotifyAddItem"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), "NotifyChangeItem_Postfix")));
+            harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.NotifyAddItem)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
 
-            harmony.Patch(AccessTools.Method(typeof(ItemsContainer), "NotifyRemoveItem"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), "NotifyChangeItem_Postfix")));
+            harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.NotifyRemoveItem)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
 
             Logger.Log($"ItemsContainerPatcher is done.", LogLevel.Debug);
         }

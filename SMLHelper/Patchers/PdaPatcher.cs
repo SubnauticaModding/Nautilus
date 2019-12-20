@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using Harmony;
+    using System;
     using System.Collections.Generic;
 
     // Special thanks to Gorillazilla9 for sharing this method of fragment count patching
@@ -9,13 +10,14 @@
     {
         internal static readonly Dictionary<TechType, int> FragmentCount = new Dictionary<TechType, int>();
         internal static readonly Dictionary<TechType, float> FragmentScanTime = new Dictionary<TechType, float>();
+        internal static readonly SelfCheckingDictionary<TechType, PDAScanner.EntryData> CustomEntryData = new SelfCheckingDictionary<TechType, PDAScanner.EntryData>("CustomEntryData");
 
         private static readonly Dictionary<TechType, PDAScanner.EntryData> BlueprintToFragment = new Dictionary<TechType, PDAScanner.EntryData>();
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(PDAScanner), "Initialize"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAPatcher), "InitializePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(PDAScanner), nameof(PDAScanner.Initialize)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAPatcher), nameof(PDAPatcher.InitializePostfix))));
 
             Logger.Log($"PDAPatcher is done.", LogLevel.Debug);
         }
@@ -34,6 +36,15 @@
                 TechType blueprintTechType = entry.Value.blueprint;
 
                 BlueprintToFragment[blueprintTechType] = entry.Value;
+            }
+
+            // Add custom entry data
+            foreach (var entry in CustomEntryData)
+            {
+                if (!mapping.ContainsKey(entry.Key))
+                {
+                    PDAScanner.mapping.Add(entry.Key, entry.Value);
+                }
             }
 
             // Update fragment totals

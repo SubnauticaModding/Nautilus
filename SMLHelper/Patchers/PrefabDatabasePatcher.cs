@@ -44,14 +44,14 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), "LoadPrefabDatabase"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), "LoadPrefabDatabase_Postfix")));
+            harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.LoadPrefabDatabase)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.LoadPrefabDatabase_Postfix))));
 
-            harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), "GetPrefabForFilename"), 
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), "GetPrefabForFilename_Prefix")));
+            harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.GetPrefabForFilename)), 
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.GetPrefabForFilename_Prefix))));
 
-            harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), "GetPrefabAsync"),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), "GetPrefabAsync_Prefix")));
+            harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.GetPrefabAsync)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.GetPrefabAsync_Prefix))));
 
             Logger.Log("PrefabDatabasePatcher is done.", LogLevel.Debug);
         }

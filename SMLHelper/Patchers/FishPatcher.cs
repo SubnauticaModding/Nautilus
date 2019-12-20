@@ -1,10 +1,9 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
-    using SMLHelper.V2.Handlers;
     using System;
     using System.Collections.Generic;
-    using System.Reflection;
+    using Harmony;
+    using SMLHelper.V2.Handlers;
     using UnityEngine;
     using Logger = V2.Logger;
     using Random = UnityEngine.Random;
@@ -18,8 +17,8 @@
             Type creatureType = typeof(Creature);
             Type thisType = typeof(FishPatcher);
 
-            harmony.Patch(creatureType.GetMethod("Start", BindingFlags.Public | BindingFlags.Instance),
-                null, new HarmonyMethod(thisType.GetMethod("CreatureStart_Postfix", BindingFlags.NonPublic | BindingFlags.Static)), null);
+            harmony.Patch(AccessTools.Method(typeof(Creature), nameof(Creature.Start)),
+                            postfix: new HarmonyMethod(typeof(FishPatcher), nameof(FishPatcher.CreatureStart_Postfix)));
 
             Logger.Debug("CustomFishPatcher is done.");
         }

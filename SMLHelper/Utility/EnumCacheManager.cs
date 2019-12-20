@@ -29,8 +29,8 @@
         {
             private readonly Dictionary<int, string> MapIntString = new Dictionary<int, string>();
             private readonly Dictionary<T, string> MapEnumString = new Dictionary<T, string>();
-            private readonly Dictionary<string, T> MapStringEnum = new Dictionary<string, T>();
-            private readonly Dictionary<string, int> MapStringInt = new Dictionary<string, int>();
+            private readonly Dictionary<string, T> MapStringEnum = new Dictionary<string, T>(StringComparer.InvariantCultureIgnoreCase);
+            private readonly Dictionary<string, int> MapStringInt = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
 
             public bool TryGetValue(T enumValue, out string name)
             {

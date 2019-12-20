@@ -22,29 +22,29 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), "GetTree"),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "GetTreePreFix")));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.GetTree)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.GetTreePreFix))));
 
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), "Initialize"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "InitializePostFix")));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.Initialize)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.InitializePostFix))));
 
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), "FabricatorScheme"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "FabricatorSchemePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.FabricatorScheme)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.FabricatorSchemePostfix))));
 
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), "ConstructorScheme"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "ConstructorSchemePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.ConstructorScheme)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.ConstructorSchemePostfix))));
 
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), "WorkbenchScheme"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "WorkbenchSchemePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.WorkbenchScheme)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.WorkbenchSchemePostfix))));
 
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), "SeamothUpgradesScheme"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "SeamothUpgradesSchemePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.SeamothUpgradesScheme)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.SeamothUpgradesSchemePostfix))));
 
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), "MapRoomSheme"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "MapRoomSchemePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.MapRoomSheme)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.MapRoomSchemePostfix))));
 
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), "CyclopsFabricatorScheme"),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), "CyclopsFabricatorSchemePostfix")));
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.CyclopsFabricatorScheme)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.CyclopsFabricatorSchemePostfix))));
 
             Logger.Log($"CraftTreePatcher is done.", LogLevel.Debug);
         }
@@ -62,15 +62,13 @@
 
         private static void InitializePostFix()
         {
-            var craftTreeInitialized = (bool)ReflectionHelper.GetStaticField<CraftTree>("initialized");
-        
-            if (craftTreeInitialized && !ModCraftTreeNode.Initialized)
+            if (CraftTree.initialized && !ModCraftTreeNode.Initialized)
             {
                 foreach (CraftTree.Type cTreeKey in CustomTrees.Keys)
                 {
                     CraftTree customTree = CustomTrees[cTreeKey].CraftTree;
 
-                    MethodInfo addToCraftableTech = AccessTools.Method(typeof(CraftTree), "AddToCraftableTech");
+                    MethodInfo addToCraftableTech = AccessTools.Method(typeof(CraftTree), nameof(CraftTree.AddToCraftableTech));
 
                     addToCraftableTech.Invoke(null, new[] { customTree });
                 }
