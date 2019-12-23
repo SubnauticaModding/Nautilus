@@ -5,6 +5,5 @@
   "Version": "2.5.0",
   "Enable": true,
   "Game": "Subnautica",
-  "AssemblyName": "SMLHelper.dll",
-  "EntryMethod": "SMLHelper.V2.Initializer.Patch"
+  "AssemblyName": "SMLHelper.dll"
 }

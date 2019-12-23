@@ -1,34 +1,36 @@
 ﻿namespace SMLHelper.V2
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
     using Harmony;
     using Patchers;
-    using SMLHelper.V2.Handlers;
+    using QModManager.API.ModLoading;
 
     /// <summary>
     /// WARNING: This class is for use only by QModManager.
     /// </summary>
+    [QModCore]
     public class Initializer
     {
-        private static HarmonyInstance harmony;
+#if SUBNAUTICA
+        /// <summary>
+        /// WARNING: This method is for use only by QModManager.
+        /// </summary>
+        [QModPrePatch("9AAF85E9C980BD7AB1E2AEBA35BC06E9")]
+        public static void SetUpLogger()
+        {
+            Logger.Initialize();
+
+            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
+
+        }
 
         /// <summary>
         /// WARNING: This method is for use only by QModManager.
         /// </summary>
-        public static void Patch()
+        [QModPostPatch("0B8AB3339D45F229633494237AEF79BB")]
+        public static void RunPatchers()
         {
-            Logger.Initialize();
-
-#if SUBNAUTICA
-            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
-#elif BELOWZERO
-            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Below Zero", LogLevel.Info);
-#endif
-
-            harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
-
             try
             {
                 Initialize();
@@ -39,8 +41,29 @@
             }
         }
 
-        internal static void Initialize()
+#endif
+#if BELOWZERO
+        /// <summary>
+        /// WARNING: This method is for use only by QModManager.
+        /// </summary>
+        public static void Patch()
         {
+            Logger.Initialize();
+
+            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Below Zero", LogLevel.Info);
+            try
+            {
+                Initialize();
+            }
+            catch (Exception e)
+            {
+                Logger.Error($"Caught exception while trying to initialize SMLHelper{Environment.NewLine}{e}");
+            }
+        }
+#endif
+        private static void Initialize()
+        {
+            var harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
             FishPatcher.Patch(harmony);
             TechTypePatcher.Patch(harmony);
             CraftTreeTypePatcher.Patch(harmony);
@@ -60,7 +83,7 @@
             LootDistributionPatcher.Patch(harmony);
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
-            //TooltipPatcher.Patch(harmony);
+            //TooltipPatcher.Patch(harmony); // Disabled
         }
     }
 }
