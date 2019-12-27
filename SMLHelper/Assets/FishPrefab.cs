@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.V2.Assets
 {
-    using QModManager.Utility;
+    using SMLHelper.V2.Utility;
     using UnityEngine;
 
     /// <summary>

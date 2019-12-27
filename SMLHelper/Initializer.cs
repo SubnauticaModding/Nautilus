@@ -16,7 +16,7 @@
         /// <summary>
         /// WARNING: This method is for use only by QModManager.
         /// </summary>
-        [QModPrePatch("9AAF85E9C980BD7AB1E2AEBA35BC06E9")]
+        [QModPrePatch]
         public static void SetUpLogger()
         {
             Logger.Initialize();
