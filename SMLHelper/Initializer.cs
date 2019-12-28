@@ -4,12 +4,15 @@
     using System.Reflection;
     using Harmony;
     using Patchers;
+#if SUBNAUTICA
     using QModManager.API.ModLoading;
-
+#endif
     /// <summary>
     /// WARNING: This class is for use only by QModManager.
     /// </summary>
+#if SUBNAUTICA
     [QModCore]
+#endif
     public class Initializer
     {
 #if SUBNAUTICA

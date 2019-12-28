@@ -175,7 +175,7 @@
 #endif
                 case Models.Custom:
                     prefab = GetCustomCrafterPreFab();
-                    crafter = prefab.GetOrAddComponent<Fabricator>();
+                    crafter = prefab.EnsureComponent<Fabricator>();
                     break;
             }
 

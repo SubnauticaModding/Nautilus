@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.V2.Utility
 {
+    using System;
     using UnityEngine;
 
     /// <summary>
@@ -38,6 +39,7 @@
         /// <typeparam name="T">A type of Unity <see cref="Component"/>.</typeparam>
         /// <param name="obj">The gameobject that should have the component.</param>
         /// <returns>The existing component attached to the gameobject or a newly created and attached one.</returns>
+        [Obsolete("This functionality can be found in Assembly-CSharp-firstpass as Radical.EnsureComponent<T>", true)]
         public static T GetOrAddComponent<T>(this GameObject obj) where T : Component
         {
             return obj.GetComponent<T>() ?? obj.AddComponent<T>();

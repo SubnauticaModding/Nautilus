@@ -1,6 +1,5 @@
 ﻿namespace SMLHelper.V2.Assets
 {
-    using SMLHelper.V2.Utility;
     using UnityEngine;
 
     /// <summary>
@@ -48,20 +47,20 @@
         /// </summary>
         public sealed override GameObject GetGameObject()
         {
-            V2.Logger.Debug($"[FishFramework] Initializing fish: {ClassID}");
+            V2.Logger.Debug($"[FishFramework] Initializing fish: {this.ClassID}");
             GameObject mainObj = modelPrefab;
 
             Renderer[] renderers = mainObj.GetComponentsInChildren<Renderer>();
-            foreach(Renderer rend in renderers)
+            foreach (Renderer rend in renderers)
             {
                 rend.material.shader = Shader.Find("MarmosetUBER");
             }
 
-            Rigidbody rb = mainObj.GetOrAddComponent<Rigidbody>();
+            Rigidbody rb = mainObj.EnsureComponent<Rigidbody>();
             rb.useGravity = false;
             rb.angularDrag = 1f;
 
-            WorldForces forces = mainObj.GetOrAddComponent<WorldForces>();
+            WorldForces forces = mainObj.EnsureComponent<WorldForces>();
             forces.useRigidbody = rb;
             forces.aboveWaterDrag = 0f;
             forces.aboveWaterGravity = 9.81f;
@@ -77,14 +76,14 @@
             forces.enabled = false;
             forces.enabled = true;
 
-            mainObj.GetOrAddComponent<EntityTag>().slotType = EntitySlot.Type.Creature;
-            mainObj.GetOrAddComponent<PrefabIdentifier>().ClassId = ClassID;
-            mainObj.GetOrAddComponent<TechTag>().type = TechType;
-            mainObj.GetOrAddComponent<SkyApplier>().renderers = renderers;
-            mainObj.GetOrAddComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Near;
-            mainObj.GetOrAddComponent<LiveMixin>().health = 10f;
+            mainObj.EnsureComponent<EntityTag>().slotType = EntitySlot.Type.Creature;
+            mainObj.EnsureComponent<PrefabIdentifier>().ClassId = this.ClassID;
+            mainObj.EnsureComponent<TechTag>().type = this.TechType;
+            mainObj.EnsureComponent<SkyApplier>().renderers = renderers;
+            mainObj.EnsureComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Near;
+            mainObj.EnsureComponent<LiveMixin>().health = 10f;
 
-            Creature creature = mainObj.GetOrAddComponent<Creature>();
+            Creature creature = mainObj.EnsureComponent<Creature>();
             creature.initialCuriosity = AnimationCurve.Linear(0f, 0.5f, 1f, 0.5f);
             creature.initialFriendliness = AnimationCurve.Linear(0f, 0.5f, 1f, 0.5f);
             creature.initialHunger = AnimationCurve.Linear(0f, 0.5f, 1f, 0.5f);
@@ -92,37 +91,37 @@
             SwimBehaviour behaviour = null;
             if (isWaterCreature)
             {
-                behaviour = mainObj.GetOrAddComponent<SwimBehaviour>();
-                SwimRandom swim = mainObj.GetOrAddComponent<SwimRandom>();
+                behaviour = mainObj.EnsureComponent<SwimBehaviour>();
+                SwimRandom swim = mainObj.EnsureComponent<SwimRandom>();
                 swim.swimVelocity = swimSpeed;
                 swim.swimRadius = swimRadius;
                 swim.swimInterval = swimInterval;
             }
             else
             {
-                behaviour = mainObj.GetOrAddComponent<WalkBehaviour>();
-                WalkOnGround walk = mainObj.GetOrAddComponent<WalkOnGround>();
-                OnSurfaceMovement move = mainObj.GetOrAddComponent<OnSurfaceMovement>();
-                move.onSurfaceTracker = mainObj.GetOrAddComponent<OnSurfaceTracker>();
+                behaviour = mainObj.EnsureComponent<WalkBehaviour>();
+                WalkOnGround walk = mainObj.EnsureComponent<WalkOnGround>();
+                OnSurfaceMovement move = mainObj.EnsureComponent<OnSurfaceMovement>();
+                move.onSurfaceTracker = mainObj.EnsureComponent<OnSurfaceTracker>();
             }
 
-            Locomotion loco = mainObj.GetOrAddComponent<Locomotion>();
+            Locomotion loco = mainObj.EnsureComponent<Locomotion>();
             loco.useRigidbody = rb;
 
-            mainObj.GetOrAddComponent<EcoTarget>().type = EcoTargetType.Peeper;
-            mainObj.GetOrAddComponent<CreatureUtils>();
-            mainObj.GetOrAddComponent<VFXSchoolFishRepulsor>();
+            mainObj.EnsureComponent<EcoTarget>().type = EcoTargetType.Peeper;
+            mainObj.EnsureComponent<CreatureUtils>();
+            mainObj.EnsureComponent<VFXSchoolFishRepulsor>();
 
-            SplineFollowing spline = mainObj.GetOrAddComponent<SplineFollowing>();
+            SplineFollowing spline = mainObj.EnsureComponent<SplineFollowing>();
             spline.locomotion = loco;
-            spline.levelOfDetail = mainObj.GetOrAddComponent<BehaviourLOD>();
+            spline.levelOfDetail = mainObj.EnsureComponent<BehaviourLOD>();
             spline.GoTo(mainObj.transform.position + mainObj.transform.forward, mainObj.transform.forward, 5f);
 
             behaviour.splineFollowing = spline;
 
             if (pickupable)
             {
-                mainObj.GetOrAddComponent<Pickupable>();
+                mainObj.EnsureComponent<Pickupable>();
             }
 
             creature.ScanCreatureActions();
