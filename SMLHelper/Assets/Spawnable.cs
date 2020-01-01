@@ -4,6 +4,7 @@
     using System.IO;
     using System.Reflection;
     using Handlers;
+    using SMLHelper.V2.Interfaces;
     using SMLHelper.V2.Utility;
 
     /// <summary>
@@ -12,6 +13,10 @@
     /// <seealso cref="ModPrefab"/>
     public abstract class Spawnable : ModPrefab
     {
+        internal IPrefabHandler PrefabHandler { get; set; } = Handlers.PrefabHandler.Main;
+        internal ISpriteHandler SpriteHandler { get; set; } = Handlers.SpriteHandler.Main;
+        internal ITechTypeHandlerInternal TechTypeHandler { get; set; } = Handlers.TechTypeHandler.Singleton;
+
         /// <summary>
         /// A simple delegate type that takes no parameters and returns void.
         /// </summary>
@@ -59,14 +64,14 @@
             if (string.IsNullOrEmpty(classId))
             {
                 Logger.Log($"ClassID for Spawnables must be a non-empty value.", LogLevel.Error);
-                throw new Exception($"Error patching Spawnable");
+                throw new ArgumentException($"Error patching Spawnable");
             }
 
             this.FriendlyName = friendlyName;
             this.Description = description;
 
-            CorePatchEvents += () => PrefabHandler.RegisterPrefab(this);
-            CorePatchEvents += () => SpriteHandler.RegisterSprite(this.TechType, GetItemSprite());
+            CorePatchEvents += () => this.PrefabHandler.RegisterPrefab(this);
+            CorePatchEvents += () => this.SpriteHandler.RegisterSprite(this.TechType, GetItemSprite());
         }
 
         /// <summary>
@@ -115,7 +120,7 @@
 
         internal virtual void PatchTechType()
         {
-            this.TechType = TechTypeHandler.Singleton.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, false);
+            this.TechType = this.TechTypeHandler.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, false);
         }
 
         /// <summary>

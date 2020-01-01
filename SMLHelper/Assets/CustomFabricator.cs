@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using SMLHelper.V2.Crafting;
     using SMLHelper.V2.Handlers;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.V2.Interfaces;
     using UnityEngine;
     using Logger = V2.Logger;
 
@@ -42,8 +42,8 @@
         }
 
         private const string RootNode = "root";
-        private readonly Dictionary<string, ModCraftTreeLinkingNode> craftTreeLinkingNodes = new Dictionary<string, ModCraftTreeLinkingNode>();
-        private readonly List<Action> orderedCraftTreeActions = new List<Action>();
+        internal readonly Dictionary<string, ModCraftTreeLinkingNode> CraftTreeLinkingNodes = new Dictionary<string, ModCraftTreeLinkingNode>();
+        internal readonly List<Action> OrderedCraftTreeActions = new List<Action>();
 
         /// <summary>
         /// Initialized a new <see cref="CustomFabricator"/> based on the <see cref="Spawnable"/> asset class.
@@ -239,14 +239,14 @@
         /// - <see cref="AddTabNode(string, string, Atlas.Sprite, string)"/>
         /// </summary>
         /// <param name="craftTreeType"></param>
-        protected virtual void CreateCustomCraftTree(out CraftTree.Type craftTreeType)
+        internal virtual void CreateCustomCraftTree(out CraftTree.Type craftTreeType)
         {
-            ModCraftTreeRoot root = CraftTreeHandler.Main.CreateCustomCraftTreeAndType(this.ClassID, out craftTreeType);
-            craftTreeLinkingNodes.Add(RootNode, root);
+            ModCraftTreeRoot root = CraftTreeHandler.CreateCustomCraftTreeAndType(this.ClassID, out craftTreeType);
+            CraftTreeLinkingNodes.Add(RootNode, root);
 
             // Since we shouldn't rely on attached events to be executed in any particular order,
             // this list of actions will ensure that the craft tree is built up in the order in which nodes were received.
-            foreach (Action action in orderedCraftTreeActions)
+            foreach (Action action in OrderedCraftTreeActions)
                 action.Invoke();
         }
 
@@ -260,11 +260,11 @@
         /// When this value is null, the tab will be added to the root of the craft tree.</param>
         public void AddTabNode(string tabId, string displayText, Atlas.Sprite tabSprite, string parentTabId = null)
         {
-            orderedCraftTreeActions.Add(() =>
+            OrderedCraftTreeActions.Add(() =>
             {
-                ModCraftTreeLinkingNode parentNode = craftTreeLinkingNodes[parentTabId ?? RootNode];
+                ModCraftTreeLinkingNode parentNode = CraftTreeLinkingNodes[parentTabId ?? RootNode];
                 ModCraftTreeTab tab = parentNode.AddTabNode(tabId, displayText, tabSprite);
-                craftTreeLinkingNodes[tabId] = tab;
+                CraftTreeLinkingNodes[tabId] = tab;
             });
         }
 
@@ -277,9 +277,9 @@
         public void AddCraftNode(TechType techType, string parentTabId = null)
         {
             Logger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{this.ClassID}'");
-            orderedCraftTreeActions.Add(() =>
+            OrderedCraftTreeActions.Add(() =>
             {
-                ModCraftTreeLinkingNode parentTab = craftTreeLinkingNodes[parentTabId ?? RootNode];
+                ModCraftTreeLinkingNode parentTab = CraftTreeLinkingNodes[parentTabId ?? RootNode];
                 parentTab.AddCraftingNode(techType);
             });
         }
@@ -294,11 +294,11 @@
         public void AddCraftNode(string moddedTechType, string parentTabId = null)
         {
             Logger.Debug($"'{moddedTechType}' will be added to the custom craft tree '{this.ClassID}'");
-            orderedCraftTreeActions.Add(() =>
+            OrderedCraftTreeActions.Add(() =>
             {
-                if (TechTypeHandler.TryGetModdedTechType(moddedTechType, out TechType techType))
+                if (this.TechTypeHandler.TryGetModdedTechType(moddedTechType, out TechType techType))
                 {
-                    ModCraftTreeLinkingNode parentTab = craftTreeLinkingNodes[parentTabId ?? RootNode];
+                    ModCraftTreeLinkingNode parentTab = CraftTreeLinkingNodes[parentTabId ?? RootNode];
                     parentTab.AddCraftingNode(techType);
                 }
                 else
@@ -319,7 +319,7 @@
         public void AddCraftNode(Craftable item, string parentTabId = null)
         {
             Logger.Debug($"'{item.ClassID}' will be added to the custom craft tree '{this.ClassID}'");
-            orderedCraftTreeActions.Add(() =>
+            OrderedCraftTreeActions.Add(() =>
             {
                 if (item.TechType == TechType.None)
                 {
@@ -342,7 +342,7 @@
                     }
                 }
 
-                ModCraftTreeLinkingNode parentTab = craftTreeLinkingNodes[parentTabId];
+                ModCraftTreeLinkingNode parentTab = CraftTreeLinkingNodes[parentTabId];
                 parentTab.AddCraftingNode(item.TechType);
             });
         }

@@ -35,3 +35,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("2.5.2.0")]
 [assembly: AssemblyFileVersion("2.5.2.0")]
 [assembly: InternalsVisibleTo("SMLHelper.Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
