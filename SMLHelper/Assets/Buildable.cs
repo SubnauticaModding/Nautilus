@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.V2.Assets
 {
+    using System;
     using Handlers;
 
     /// <summary>
@@ -12,6 +13,7 @@
         /// <summary>
         /// Override with the text to be displayed when your hover the cursor over the built item.
         /// </summary>
+        [Obsolete("No longer functional. Handle with a customized HandTarget instead.", true)]
         public virtual string HandOverText => null;
 
         /// <summary>

@@ -9,10 +9,10 @@
     using Logger = V2.Logger;
 
     /// <summary>
-    /// An asset class similar to <seealso cref="Buildable"/> that streamlines the process of creating a custom fabricator with a custom crafting tree.
+    /// An asset class inheriting from <seealso cref="Buildable"/> that streamlines the process of creating a custom fabricator with a custom crafting tree.
     /// </summary>
     /// <seealso cref="ModPrefab"/>
-    public abstract class CustomFabricator : Spawnable
+    public abstract class CustomFabricator : Buildable
     {
         /// <summary>
         /// Defines a list of available models for your <see cref="CustomFabricator"/>.
@@ -123,6 +123,16 @@
         /// The ID value for your custom craft tree. This is set in the <see cref="CreateCustomCraftTree(out CraftTree.Type)"/> method.
         /// </summary>
         public CraftTree.Type TreeTypeID { get; private set; }
+
+        /// <summary>
+        /// Override with the category within the group in the PDA blueprints where this item appears.
+        /// </summary>
+        public override TechCategory CategoryForPDA => TechCategory.InteriorModule;
+
+        /// <summary>
+        /// Override with the main group in the PDA blueprints where this item appears.
+        /// </summary>
+        public override TechGroup GroupForPDA => TechGroup.InteriorModules;        
 
         /// <summary>
         /// The in-game <see cref="GameObject"/>.
