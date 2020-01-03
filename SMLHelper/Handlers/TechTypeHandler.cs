@@ -11,11 +11,11 @@
     /// <summary>
     /// A handler class for everything related to creating new TechTypes.
     /// </summary>
-    public class TechTypeHandler : ITechTypeHandler
+    public class TechTypeHandler : ITechTypeHandlerInternal, ITechTypeHandler
     {
         internal static readonly Dictionary<TechType, Assembly> TechTypesAddedBy = new Dictionary<TechType, Assembly>();
 
-        internal static readonly TechTypeHandler Singleton = new TechTypeHandler();
+        internal static readonly ITechTypeHandlerInternal Singleton = new TechTypeHandler();
 
         /// <summary>
         /// Main entry point for all calls to this handler.
@@ -27,12 +27,12 @@
             // Hide constructor
         }
 
-        internal TechType AddTechType(string modName, string internalName, string displayName, string tooltip)
+        TechType ITechTypeHandlerInternal.AddTechType(string modName, string internalName, string displayName, string tooltip)
         {
-            return AddTechType(modName, internalName, displayName, tooltip, true);
+            return Singleton.AddTechType(modName, internalName, displayName, tooltip, true);
         }
 
-        internal TechType AddTechType(string modName, string internalName, string displayName, string tooltip, bool unlockAtStart)
+        TechType ITechTypeHandlerInternal.AddTechType(string modName, string internalName, string displayName, string tooltip, bool unlockAtStart)
         {
             // Register the TechType.
             TechType techType = TechTypePatcher.AddTechType(internalName);
@@ -186,7 +186,7 @@
         TechType ITechTypeHandler.AddTechType(string internalName, string displayName, string tooltip, bool unlockAtStart)
         {
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-            return AddTechType(modName, internalName, displayName, tooltip, unlockAtStart);
+            return Singleton.AddTechType(modName, internalName, displayName, tooltip, unlockAtStart);
         }
 
         /// <summary>
