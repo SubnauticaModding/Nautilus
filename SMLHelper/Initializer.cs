@@ -6,7 +6,6 @@
     using Patchers;
 #if SUBNAUTICA
     using QModManager.API.ModLoading;
-    using SMLHelper.V2.Utility;
 #endif
     /// <summary>
     /// WARNING: This class is for use only by QModManager.
@@ -38,7 +37,6 @@
             try
             {
                 Initialize();
-                AudioUtils.Start();
             }
             catch (Exception e)
             {
