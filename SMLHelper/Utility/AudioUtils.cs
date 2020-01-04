@@ -12,10 +12,11 @@
         /// Creates a <see cref="Sound"/> instance from a path. Can be stored and later used with <see cref="PlaySound(Sound)"/>
         /// </summary>
         /// <param name="path">The path of the sound. Relative to the base game folder.</param>
+        /// <param name="mode"></param>
         /// <returns>The <see cref="Sound"/> instance</returns>
-        public static Sound CreateSound(string path)
+        public static Sound CreateSound(string path, MODE mode = MODE.DEFAULT)
         {
-            RuntimeManager.LowlevelSystem.createSound(path, MODE.DEFAULT, out Sound sound);
+            RuntimeManager.LowlevelSystem.createSound(path, mode, out Sound sound);
             return sound;
         }
 
@@ -23,10 +24,11 @@
         /// Plays a <see cref="Sound"/> globally from a path. Must be a .wav file
         /// </summary>
         /// <param name="path">The path of the sound. Relative to the base game folder.</param>
+        /// <param name="mode"></param>
         /// <returns>The channel on which the sound was created</returns>
-        public static Channel PlaySound(string path)
+        public static Channel PlaySound(string path, MODE mode = MODE.DEFAULT)
         {
-            return PlaySound(CreateSound(path));
+            return PlaySound(CreateSound(path, mode));
         }
 
         /// <summary>
@@ -37,8 +39,8 @@
         public static Channel PlaySound(Sound sound)
         {
             RuntimeManager.LowlevelSystem.getMasterChannelGroup(out ChannelGroup channels);
-            RuntimeManager.LowlevelSystem.playSound(sound, channels, false, out Channel newChannel);
-            return newChannel;
+            RuntimeManager.LowlevelSystem.playSound(sound, channels, false, out Channel channel);
+            return channel;
         }
     }
 }
