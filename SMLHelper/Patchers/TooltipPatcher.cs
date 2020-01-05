@@ -205,8 +205,8 @@
             List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
 
             // Get the target op code based on what method is being patched
-            // Ldloc_0 for InventoryItem and InventoryItemView, Ldarg_2 for BuildTech and Recipe
-            OpCode targetCode = method.Name.Contains("InventoryItem") ? OpCodes.Ldloc_0 : OpCodes.Ldarg_2;
+            // Callvirt for InventoryItem and InventoryItemView, Ldarg_2 for BuildTech and Recipe
+            OpCode targetCode = method.Name.Contains("InventoryItem") ? OpCodes.Callvirt : OpCodes.Ldarg_2;
             // Get the last occurance of the code
             int entryIndex = codes.FindLastIndex(c => c.opcode == targetCode);
 
@@ -219,17 +219,21 @@
             // Remove all labels at the target op code
             List<Label> labelsToMove = codes[entryIndex].labels.ToArray().ToList();
             codes[entryIndex].labels.Clear();
+
+            // Change first custom IL code based on what method is being patched
+            // Dup for InventoryItem and InventoryItemView, Ldloc_0 for BuildTech and Recipe
+            OpCode firstCode = method.Name.Contains("InventoryItem") ? OpCodes.Dup : OpCodes.Ldloc_0;
             
             // Insert custom IL codes
             CodeInstruction[] codesToInsert = new CodeInstruction[]
             {
-                new CodeInstruction(OpCodes.Ldloc_0)
+                new CodeInstruction(firstCode)
                 {
-                    // Move labels correctly
+                    // Move labels accordingly
                     labels = labelsToMove
                 },
                 new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Call, SymbolExtensions.GetMethodInfo(methodInfo))
+                new CodeInstruction(OpCodes.Call, SymbolExtensions.GetMethodInfo(methodInfo)),
             };
             codes.InsertRange(entryIndex, codesToInsert);
 
