@@ -7,6 +7,7 @@
 #if SUBNAUTICA
     using QModManager.API.ModLoading;
 #endif
+
     /// <summary>
     /// WARNING: This class is for use only by QModManager.
     /// </summary>
@@ -43,8 +44,8 @@
                 Logger.Error($"Caught exception while trying to initialize SMLHelper{Environment.NewLine}{e}");
             }
         }
-
 #endif
+
 #if BELOWZERO
         /// <summary>
         /// WARNING: This method is for use only by QModManager.
@@ -64,6 +65,7 @@
             }
         }
 #endif
+
         private static void Initialize()
         {
             var harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
@@ -86,7 +88,7 @@
             LootDistributionPatcher.Patch(harmony);
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
-            //TooltipPatcher.Patch(harmony); // Disabled
+            TooltipPatcher.Patch(harmony);
         }
     }
 }
