@@ -25,6 +25,8 @@
         [Obsolete("This method is for use only by QModManager.", true)]
         public static void PrePatch()
         {
+            Logger.Initialize();
+    
             Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
         }
 
