@@ -14,7 +14,7 @@
 #if SUBNAUTICA
     [QModCore]
 #endif
-    [Obsolete("This method is for use only by QModManager.", true)]
+    [Obsolete("This class is for use only by QModManager.", true)]
     public class Initializer
     {
 #if SUBNAUTICA
