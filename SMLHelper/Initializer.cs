@@ -14,6 +14,7 @@
 #if SUBNAUTICA
     [QModCore]
 #endif
+    [Obsolete("This method is for use only by QModManager.", true)]
     public class Initializer
     {
 #if SUBNAUTICA
@@ -21,19 +22,18 @@
         /// WARNING: This method is for use only by QModManager.
         /// </summary>
         [QModPrePatch]
-        public static void SetUpLogger()
+        [Obsolete("This method is for use only by QModManager.", true)]
+        public static void PrePatch()
         {
-            Logger.Initialize();
-
             Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
-
         }
 
         /// <summary>
         /// WARNING: This method is for use only by QModManager.
         /// </summary>
         [QModPostPatch("0B8AB3339D45F229633494237AEF79BB")]
-        public static void RunPatchers()
+        [Obsolete("This method is for use only by QModManager.", true)]
+        public static void PostPatch()
         {
             try
             {
@@ -50,6 +50,7 @@
         /// <summary>
         /// WARNING: This method is for use only by QModManager.
         /// </summary>
+        [Obsolete("This method is for use only by QModManager.", true)]
         public static void Patch()
         {
             Logger.Initialize();
