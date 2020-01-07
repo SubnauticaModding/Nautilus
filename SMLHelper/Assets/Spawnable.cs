@@ -79,10 +79,11 @@
             this.FriendlyName = friendlyName;
             this.Description = description;
 
-            CorePatchEvents += () => this.PrefabHandler.RegisterPrefab(this);
-            CorePatchEvents += () => this.SpriteHandler.RegisterSprite(this.TechType, GetItemSprite());
             CorePatchEvents += () =>
             {
+                this.PrefabHandler.RegisterPrefab(this);
+                this.SpriteHandler.RegisterSprite(this.TechType, GetItemSprite());
+
                 if (!this.SizeInInventory.Equals(defaultSize))
                     this.CraftDataHandler.SetItemSize(this.TechType, this.SizeInInventory);
             };
