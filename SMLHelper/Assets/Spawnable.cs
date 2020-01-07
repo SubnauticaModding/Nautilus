@@ -15,7 +15,10 @@
     {
         internal IPrefabHandler PrefabHandler { get; set; } = Handlers.PrefabHandler.Main;
         internal ISpriteHandler SpriteHandler { get; set; } = Handlers.SpriteHandler.Main;
+        internal ICraftDataHandler CraftDataHandler { get; set; } = Handlers.CraftDataHandler.Main;
         internal ITechTypeHandlerInternal TechTypeHandler { get; set; } = Handlers.TechTypeHandler.Singleton;
+
+        private static readonly Vector2int defaultSize = new Vector2int(1, 1);
 
         /// <summary>
         /// A simple delegate type that takes no parameters and returns void.
@@ -53,6 +56,12 @@
         public bool IsPatched { get; private set; } = false;
 
         /// <summary>
+        /// Returns the size that this entity will occupy inside the player inventory.<br/>
+        /// By default this will be 1x1. Override to change the size.
+        /// </summary>
+        public virtual Vector2int SizeInInventory { get; } = defaultSize;
+
+        /// <summary>
         /// Initializes a new <see cref="Spawnable"/>, the basic class needed for any item that can be spawned into the Subnautica game world.
         /// </summary>
         /// <param name="classId">The main internal identifier for this item. Your item's <see cref="TechType"/> will be created using this name.</param>
@@ -72,6 +81,11 @@
 
             CorePatchEvents += () => this.PrefabHandler.RegisterPrefab(this);
             CorePatchEvents += () => this.SpriteHandler.RegisterSprite(this.TechType, GetItemSprite());
+            CorePatchEvents += () =>
+            {
+                if (!this.SizeInInventory.Equals(defaultSize))
+                    this.CraftDataHandler.SetItemSize(this.TechType, this.SizeInInventory);
+            };
         }
 
         /// <summary>
