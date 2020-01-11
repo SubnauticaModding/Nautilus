@@ -59,6 +59,7 @@ namespace SMLHelper.V2.Patchers
                     Logger.Log($"Added Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
                 }
             }
+            CustomTechData.Clear();
             if (added > 0)
                 Logger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
             if (replaced > 0)
