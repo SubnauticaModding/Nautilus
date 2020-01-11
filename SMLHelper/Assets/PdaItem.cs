@@ -9,7 +9,6 @@
     /// <seealso cref="Spawnable" />
     public abstract class PdaItem : Spawnable
     {
-        internal ICraftDataHandler CraftDataHandler { get; set; } = Handlers.CraftDataHandler.Main;
         internal IKnownTechHandler KnownTechHandler { get; set; } = Handlers.KnownTechHandler.Main;
 
         /// <summary>

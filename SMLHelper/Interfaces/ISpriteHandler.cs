@@ -8,6 +8,9 @@
     /// </summary>
     public interface ISpriteHandler
     {
+
+#if SUBNAUTICA
+
         /// <summary>
         /// Registers a new sprite to the game.
         /// </summary>
@@ -22,7 +25,8 @@
         /// <param name="id">The sprite internal identifier.</param>
         /// <param name="sprite">The sprite to be added.</param>
         void RegisterSprite(SpriteManager.Group group, string id, Atlas.Sprite sprite);
-
+        
+#endif
         /// <summary>
         /// Registers a new sprite to the game.
         /// </summary>

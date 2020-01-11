@@ -47,6 +47,8 @@
             return null;
         }
 
+#if SUBNAUTICA
+
         /// <summary>
         /// Creates a new <see cref="Atlas.Sprite" /> from an image file.
         /// </summary>
@@ -63,5 +65,27 @@
 
             return new Atlas.Sprite(texture2D);
         }
+        
+#elif BELOWZERO
+
+        /// <summary>
+        /// Creates a new <see cref="Sprite" /> from an image file.
+        /// </summary>
+        /// <param name="filePathToImage">The path to the image file.</param>
+        /// <param name="format">
+        /// <para>The texture format. By default, this uses <see cref="TextureFormat.BC7" />.</para>
+        /// <para>https://docs.unity3d.com/ScriptReference/TextureFormat.BC7.html</para>
+        /// <para>Don't change this unless you really know what you're doing.</para>
+        /// </param>
+        /// <returns>Will return a new <see cref="Sprite"/> instance if the file exists; Otherwise returns null.</returns>
+        public static Sprite LoadSpriteFromFile(string filePathToImage, TextureFormat format = TextureFormat.BC7)
+        {
+            Texture2D texture2D = LoadTextureFromFile(filePathToImage, TextureFormat.BC7);
+
+            return Sprite.Create(texture2D, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
+        }
+
+
+#endif
     }
 }
