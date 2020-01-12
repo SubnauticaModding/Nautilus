@@ -57,13 +57,13 @@
         /// </summary>
         /// <param name="filePathToImage">The path to the image file.</param>
         /// <param name="format">
-        /// <para>The texture format. By default, this uses <see cref="TextureFormat.BC7" />.</para>
-        /// <para>https://docs.unity3d.com/ScriptReference/TextureFormat.BC7.html</para>
-        /// <para>Don't change this unless you really know what you're doing.</para>
+        /// The texture format. By default, this uses <see cref="TextureFormat.BC7" />.<br/>
+        /// https://docs.unity3d.com/ScriptReference/TextureFormat.BC7.html <br/>
+        /// Don't change this unless you really know what you're doing.
         /// </param>
         /// <returns>Will return a new <see cref="Sprite"/> instance if the file exists; Otherwise returns null.</returns>
         public static Sprite LoadSpriteFromFile(string filePathToImage, TextureFormat format = TextureFormat.BC7)
-        {            
+        {
             Texture2D texture2D = LoadTextureFromFile(filePathToImage, TextureFormat.BC7);
             return LoadSpriteFromTexture(texture2D);
         }
@@ -73,7 +73,7 @@
         /// </summary>
         /// <param name="texture2D">The 2D texture to convert into a sprite.</param>
         /// <returns>
-        /// Will return a new <see cref="Sprite" /> instance if the file exists; Otherwise returns null.
+        /// Will return a new <see cref="Sprite" /> instance using the provided texture.
         /// </returns>
         public static Sprite LoadSpriteFromTexture(Texture2D texture2D)
         {
