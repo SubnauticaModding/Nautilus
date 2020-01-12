@@ -3,9 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using QModManager.Utility;
     using SMLHelper.V2.Assets;
     using SMLHelper.V2.Interfaces;
+#if SUBNAUTICA
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+    using Sprite = UnityEngine.Sprite;
+#endif
 
     /// <summary>
     /// Class to manage registering of fish into the game
@@ -36,7 +40,7 @@
 
             fishTechTypes.Add(type);
 
-            FishPrefab fishPrefab = new FishPrefab(fish.id, $"WorldEntities/Tools/{fish.id}", type)
+            var fishPrefab = new FishPrefab(fish.id, $"WorldEntities/Tools/{fish.id}", type)
             {
                 modelPrefab = fish.modelPrefab,
                 swimSpeed = fish.swimSpeed,

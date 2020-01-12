@@ -4,7 +4,7 @@
     using Patchers;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEngine;
+    using Sprite = UnityEngine.Sprite;
 
     /// <summary>
     /// A handler class for configuring custom unlocking conditions for item blueprints.
