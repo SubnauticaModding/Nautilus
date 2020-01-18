@@ -1,11 +1,9 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
     using System.Collections.Generic;
     using System.Reflection;
-    using Utility;
     using Crafting;
-    using System;
+    using Harmony;
 
     internal class CraftTreePatcher
     {
@@ -45,7 +43,10 @@
 
             harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.CyclopsFabricatorScheme)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.CyclopsFabricatorSchemePostfix))));
-
+#if BELOWZERO
+            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.SeaTruckFabricatorScheme)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.SeaTruckFabricatorSchemePostfix))));
+#endif
             Logger.Log($"CraftTreePatcher is done.", LogLevel.Debug);
         }
 
@@ -105,7 +106,14 @@
             PatchCraftTree(ref __result, CraftTree.Type.CyclopsFabricator);
         }
 
-        #endregion
+#if BELOWZERO
+        private static void SeaTruckFabricatorSchemePostfix(ref CraftNode __result)
+        {
+            PatchCraftTree(ref __result, CraftTree.Type.SeaTruckFabricator);
+        }
+#endif
+
+#endregion
 
         #region Handling Nodes
 
@@ -121,7 +129,8 @@
             foreach (TabNode tab in customTabs)
             {
                 // Wrong crafter, skip.
-                if (tab.Scheme != scheme) continue;
+                if (tab.Scheme != scheme)
+                    continue;
 
                 TreeNode currentNode = default;
                 currentNode = nodes;
@@ -155,7 +164,8 @@
             foreach (CraftingNode customNode in customNodes)
             {
                 // Wrong crafter, just skip the node.
-                if (customNode.Scheme != scheme) continue;
+                if (customNode.Scheme != scheme)
+                    continue;
 
                 // Have to do this to make sure C# shuts up.
                 TreeNode node = default;
@@ -168,8 +178,10 @@
                     string currentPath = customNode.Path[i];
                     TreeNode currentNode = node[currentPath];
 
-                    if (currentNode != null) node = currentNode;
-                    else break;
+                    if (currentNode != null)
+                        node = currentNode;
+                    else
+                        break;
                 }
 
                 // Add the node.
@@ -188,7 +200,8 @@
             foreach (Node nodeToRemove in nodesToRemove)
             {
                 // Not for this fabricator. Skip.
-                if (nodeToRemove.Scheme != scheme) continue;
+                if (nodeToRemove.Scheme != scheme)
+                    continue;
 
                 // Get the names of each node in the path to traverse tree until we reach the node we want.
                 TreeNode currentNode = default;
