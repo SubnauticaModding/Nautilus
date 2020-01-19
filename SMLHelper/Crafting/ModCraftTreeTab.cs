@@ -2,7 +2,11 @@
 {
     using Assets;
     using Patchers;
-    using UnityEngine;
+#if SUBNAUTICA
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+    using Sprite = UnityEngine.Sprite;
+#endif
 
     /// <summary>
     /// A tab node of a CraftTree. Tab nodes help organize crafting nodes by grouping them into categories.
@@ -11,32 +15,15 @@
     public class ModCraftTreeTab : ModCraftTreeLinkingNode
     {
         private readonly string DisplayText;
-#if SUBNAUTICA
-        private readonly Atlas.Sprite Asprite;
-#endif
-        private readonly Sprite Usprite;
+        private readonly Sprite XSprite;
         private readonly bool IsExistingTab;
         private readonly string ModName;
-
-#if SUBNAUTICA
-        internal ModCraftTreeTab(string modName, string nameID, string displayText, Atlas.Sprite sprite)
-            : base(nameID, TreeAction.Expand, TechType.None)
-        {
-            DisplayText = displayText;
-            Asprite = sprite;
-            Usprite = null;
-            ModName = modName;
-        }
-#endif
 
         internal ModCraftTreeTab(string modName, string nameID, string displayText, Sprite sprite)
             : base(nameID, TreeAction.Expand, TechType.None)
         {
             DisplayText = displayText;
-#if SUBNAUTICA
-            Asprite = null;
-#endif
-            Usprite = sprite;
+            XSprite = sprite;
             ModName = modName;
         }
 
@@ -51,32 +38,16 @@
         {
             base.LinkToParent(parent);
 
-            if (IsExistingTab) return;
+            if (IsExistingTab)
+                return;
 
             LanguagePatcher.AddCustomLanguageLine(ModName, $"{base.SchemeAsString}Menu_{Name}", DisplayText);
 
-            string spriteID = $"{SchemeAsString}_{Name}";
-
-#if SUBNAUTICA
-            ModSprite modSprite;
-            if (Asprite != null)
-            {
-                modSprite = new ModSprite(SpriteManager.Group.Category, spriteID, Asprite);
-            }
-            else
-            {
-                modSprite = new ModSprite(SpriteManager.Group.Category, spriteID, Usprite);
-
-            }
-
-            ModSprite.Add(modSprite);
-#elif BELOWZERO
+            string spriteID = $"{this.SchemeAsString}_{Name}";
 
             ModSprite modSprite;
-            modSprite = new ModSprite(SpriteManager.Group.Category, spriteID, Usprite);
+            modSprite = new ModSprite(SpriteManager.Group.Category, spriteID, XSprite);
             ModSprite.Add(modSprite);
-
-#endif
         }
     }
 }

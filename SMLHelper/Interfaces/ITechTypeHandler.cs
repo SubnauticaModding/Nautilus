@@ -1,5 +1,11 @@
 ﻿namespace SMLHelper.V2.Interfaces
 {
+#if SUBNAUTICA
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+    using Sprite = UnityEngine.Sprite;
+#endif
+
     /// <summary>
     /// A handler class for everything related to creating new TechTypes.
     /// </summary>
@@ -24,7 +30,6 @@
         /// <returns>The new <see cref="TechType"/> that is created.</returns>
         TechType AddTechType(string internalName, string displayName, string tooltip, bool unlockAtStart);
 
-#if SUBNAUTICA
         /// <summary>
         /// Adds a new <see cref="TechType"/> into the game, with a sprite. This new techtype will be unlocked at the start of a the game.
         /// </summary>
@@ -33,7 +38,7 @@
         /// <param name="tooltip">The tooltip, displayed when hovered in an inventory. Can be anything.</param>
         /// <param name="sprite">The sprite that will related to this TechType.</param>
         /// <returns>The new <see cref="TechType"/> that is created.</returns>
-        TechType AddTechType(string internalName, string displayName, string tooltip, Atlas.Sprite sprite);
+        TechType AddTechType(string internalName, string displayName, string tooltip, Sprite sprite);
 
         /// <summary>
         /// Adds a new <see cref="TechType"/> into the game, with a sprite.
@@ -44,29 +49,7 @@
         /// <param name="sprite">The sprite that will related to this TechType.</param>
         /// <param name="unlockAtStart">Whether this TechType should be unlocked on game start, or not. By default, <c>true</c>.</param>
         /// <returns>The new <see cref="TechType"/> that is created.</returns>
-        TechType AddTechType(string internalName, string displayName, string tooltip, Atlas.Sprite sprite, bool unlockAtStart);
-        
-#endif
-        /// <summary>
-        /// Adds a new <see cref="TechType"/> into the game, with a sprite. This new techtype will be unlocked at the start of a the game.
-        /// </summary>
-        /// <param name="internalName">The internal name of the TechType. Should not contain special characters.</param>
-        /// <param name="displayName">The display name of the TechType. Can be anything.</param>
-        /// <param name="tooltip">The tooltip, displayed when hovered in an inventory. Can be anything.</param>
-        /// <param name="sprite">The sprite that will related to this TechType.</param>
-        /// <returns>The new <see cref="TechType"/> that is created.</returns>
-        TechType AddTechType(string internalName, string displayName, string tooltip, UnityEngine.Sprite sprite);
-
-        /// <summary>
-        /// Adds a new <see cref="TechType"/> into the game, with a sprite.
-        /// </summary>
-        /// <param name="internalName">The internal name of the TechType. Should not contain special characters.</param>
-        /// <param name="displayName">The display name of the TechType. Can be anything.</param>
-        /// <param name="tooltip">The tooltip, displayed when hovered in an inventory. Can be anything.</param>
-        /// <param name="sprite">The sprite that will related to this TechType.</param>
-        /// <param name="unlockAtStart">Whether this TechType should be unlocked on game start, or not. By default, <c>true</c>.</param>
-        /// <returns>The new <see cref="TechType"/> that is created.</returns>
-        TechType AddTechType(string internalName, string displayName, string tooltip, UnityEngine.Sprite sprite, bool unlockAtStart);
+        TechType AddTechType(string internalName, string displayName, string tooltip, Sprite sprite, bool unlockAtStart);
 
         /// <summary>
         /// Safely looks for a modded item from another mod in the SMLHelper TechTypeCache and outputs its <see cref="TechType" /> value when found.
