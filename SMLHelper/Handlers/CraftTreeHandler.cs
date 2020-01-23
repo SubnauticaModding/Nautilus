@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.V2.Handlers
 {
+    using System;
     using Crafting;
     using Interfaces;
     using Patchers;
@@ -196,7 +197,7 @@
         /// </summary>
         /// <param name="craftTree">The target craft tree to edit.</param>
         /// <param name="craftingItem">The item to craft.</param>
-        
+
         void ICraftTreeHandler.AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem)
         {
             ValidateStandardCraftTree(craftTree);
@@ -217,7 +218,7 @@
 
             CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, modName, name, displayName));
         }
-        
+
         /// <summary>
         /// Adds a new tab node to the root of the specified crafting tree, at the specified tab location.
         /// </summary>
@@ -236,7 +237,7 @@
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
 
             CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, modName, name, displayName));
-        }        
+        }
 
         /// <summary>
         /// <para>Removes a node at the specified node location. Can be used to remove either tabs or craft nodes.</para>
@@ -270,14 +271,17 @@
                 case CraftTree.Type.Centrifuge:
                 case CraftTree.Type.CyclopsFabricator:
                 case CraftTree.Type.Rocket:
+#if BELOWZERO
+                case CraftTree.Type.SeaTruckFabricator:
+#endif
                     break; // Okay
-                case CraftTree.Type.Unused1:                    
-                case CraftTree.Type.Unused2:                    
+                case CraftTree.Type.Unused1:
+                case CraftTree.Type.Unused2:
                 case CraftTree.Type.None:
                 default:
                     throw new ArgumentException($"{nameof(craftTree)} value of '{craftTree}' does not correspond to a standard crafting tree.{Environment.NewLine}" +
                                             $"This method is intended for use only with standard crafting trees, not custom ones or unused ones.");
-            }   
+            }
         }
     }
 }
