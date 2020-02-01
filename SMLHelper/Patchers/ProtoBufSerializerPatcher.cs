@@ -12,8 +12,8 @@
         
         public static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(typeof(ProtobufSerializer).GetMethod("Serialize", BindingFlags.NonPublic | BindingFlags.Instance), new HarmonyMethod(typeof(ProtoBufSerializerPatcher), nameof(ProtoBufSerializerPatcher.Prefix_Serialize)));
-            harmony.Patch(typeof(ProtobufSerializer).GetMethod("Deserialize", BindingFlags.NonPublic | BindingFlags.Instance), new HarmonyMethod(typeof(ProtoBufSerializerPatcher), nameof(ProtoBufSerializerPatcher.Prefix_Deserialize)));
+            harmony.Patch(typeof(ProtobufSerializer).GetMethod(nameof(ProtobufSerializer.Serialize), BindingFlags.NonPublic | BindingFlags.Instance), new HarmonyMethod(typeof(ProtoBufSerializerPatcher), nameof(ProtoBufSerializerPatcher.Prefix_Serialize)));
+            harmony.Patch(typeof(ProtobufSerializer).GetMethod(nameof(ProtobufSerializer.Deserialize), BindingFlags.NonPublic | BindingFlags.Instance), new HarmonyMethod(typeof(ProtoBufSerializerPatcher), nameof(ProtoBufSerializerPatcher.Prefix_Deserialize)));
         }
 
         private static bool Prefix_Serialize(Stream stream, object source, Type type)
