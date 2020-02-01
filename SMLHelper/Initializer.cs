@@ -7,12 +7,14 @@
 #if SUBNAUTICA
     using QModManager.API.ModLoading;
 #endif
+
     /// <summary>
     /// WARNING: This class is for use only by QModManager.
     /// </summary>
 #if SUBNAUTICA
     [QModCore]
 #endif
+    [Obsolete("This class is for use only by QModManager.", true)]
     public class Initializer
     {
 #if SUBNAUTICA
@@ -20,18 +22,19 @@
         /// WARNING: This method is for use only by QModManager.
         /// </summary>
         [QModPrePatch]
-        public static void SetUpLogger()
+        [Obsolete("This method is for use only by QModManager.", true)]
+        public static void PrePatch()
         {
             Logger.Initialize();
-
+    
             Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
-
         }
 
         /// <summary>
         /// WARNING: This method is for use only by QModManager.
         /// </summary>
         [QModPostPatch("0B8AB3339D45F229633494237AEF79BB")]
+        [Obsolete("This method is for use only by QModManager.", true)]
         public static void RunPatchers()
         {
             try
@@ -43,12 +46,13 @@
                 Logger.Error($"Caught exception while trying to initialize SMLHelper{Environment.NewLine}{e}");
             }
         }
-
 #endif
+
 #if BELOWZERO
         /// <summary>
         /// WARNING: This method is for use only by QModManager.
         /// </summary>
+        [Obsolete("This method is for use only by QModManager.", true)]
         public static void Patch()
         {
             Logger.Initialize();
@@ -64,6 +68,7 @@
             }
         }
 #endif
+
         private static void Initialize()
         {
             var harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
@@ -87,7 +92,7 @@
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
             ProtoBufSerializerPatcher.Patch(harmony);
-            //TooltipPatcher.Patch(harmony); // Disabled
+            TooltipPatcher.Patch(harmony);
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿namespace SMLHelper.V2.Handlers
 {
+    using System;
     using Crafting;
     using Interfaces;
     using Patchers;
-    using Utility;
-    using System;
     using UnityEngine;
+    using Utility;
 
     /// <summary>
     /// A handler class for creating and editing of crafting trees.
@@ -221,7 +221,7 @@
         /// </summary>
         /// <param name="craftTree">The target craft tree to edit.</param>
         /// <param name="craftingItem">The item to craft.</param>
-        
+
         void ICraftTreeHandler.AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem)
         {
             ValidateStandardCraftTree(craftTree);
@@ -250,7 +250,7 @@
         /// <param name="name">The ID of the tab node. Must be unique!</param>
         /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
         /// <param name="sprite">The sprite of the tab.</param>
-        
+
         void ICraftTreeHandler.AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
         {
             ValidateStandardCraftTree(craftTree);
@@ -293,7 +293,7 @@
         /// </param>        
         void ICraftTreeHandler.AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite, params string[] stepsToTab)
         {
-            ValidateStandardCraftTree(craftTree);            
+            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
 
             CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, new Atlas.Sprite(sprite), modName, name, displayName));
@@ -310,7 +310,7 @@
         /// <para>This means matching the id of the crafted item or the id of the tab name.</para>
         /// <para>Do not include "root" in this path.</para>
         /// </param>
-        
+
         void ICraftTreeHandler.RemoveNode(CraftTree.Type craftTree, params string[] stepsToNode)
         {
             ValidateStandardCraftTree(craftTree);
@@ -331,14 +331,17 @@
                 case CraftTree.Type.Centrifuge:
                 case CraftTree.Type.CyclopsFabricator:
                 case CraftTree.Type.Rocket:
+#if BELOWZERO
+                case CraftTree.Type.SeaTruckFabricator:
+#endif
                     break; // Okay
-                case CraftTree.Type.Unused1:                    
-                case CraftTree.Type.Unused2:                    
+                case CraftTree.Type.Unused1:
+                case CraftTree.Type.Unused2:
                 case CraftTree.Type.None:
                 default:
                     throw new ArgumentException($"{nameof(craftTree)} value of '{craftTree}' does not correspond to a standard crafting tree.{Environment.NewLine}" +
                                             $"This method is intended for use only with standard crafting trees, not custom ones or unused ones.");
-            }   
+            }
         }
     }
 }

@@ -136,6 +136,7 @@
     <Compile Include="Assets\Buildable.cs" />
     <Compile Include="Assets\Craftable.cs" />
     <Compile Include="Assets\CustomFabricator.cs" />
+    <Compile Include="Assets\Equipable.cs" />
     <Compile Include="Assets\Fish.cs" />
     <Compile Include="Assets\FishPrefab.cs" />
     <Compile Include="Assets\ModPrefab.cs" />
@@ -221,6 +222,7 @@
     <Compile Include="Patchers\ProtoBufSerializerPatcher.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />
     <Compile Include="Patchers\TechTypePatcher.cs" />
+    <Compile Include="Patchers\TooltipPatcher.cs" />
     <Compile Include="Patchers\WorldEntityDatabasePatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\EnumCacheManager.cs" />

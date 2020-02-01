@@ -10,6 +10,31 @@
     [TestFixture]
     internal class SpawnableTests
     {
+        private List<string> _recordedEvents;
+        private IPrefabHandler _mockPrefabHandler;
+        private ISpriteHandler _mockSpriteHandler;
+        private ITechTypeHandlerInternal _mockTechTypeHandler;
+        private ICraftDataHandler _craftDataHandler;
+        private TestSpawnable _spawnable;
+
+        [SetUp]
+        public void SetupForTests()
+        {
+            _recordedEvents = new List<string>();
+            _mockPrefabHandler = Substitute.For<IPrefabHandler>();
+            _mockSpriteHandler = Substitute.For<ISpriteHandler>();
+            _mockTechTypeHandler = Substitute.For<ITechTypeHandlerInternal>();
+            _craftDataHandler = Substitute.For<ICraftDataHandler>();
+
+            _spawnable = new TestSpawnable(_recordedEvents)
+            {
+                PrefabHandler = _mockPrefabHandler,
+                SpriteHandler = _mockSpriteHandler,
+                TechTypeHandler = _mockTechTypeHandler,
+                CraftDataHandler = _craftDataHandler
+            };
+        }
+
         [TestCase("")]
         [TestCase(null)]
         public void Spawnable_Construct_MissingClassId_Throws(string missingClassId)
@@ -25,44 +50,52 @@
         {
             // ARRANGE
             const TechType createdTechType = TechType.Accumulator;
-            var recordedEvents = new List<string>();
 
-            IPrefabHandler mockPrefabHandler = Substitute.For<IPrefabHandler>();
-            ISpriteHandler mockSpriteHandler = Substitute.For<ISpriteHandler>();
-            ITechTypeHandlerInternal mockTechTypeHandler = Substitute.For<ITechTypeHandlerInternal>();
-
-            mockTechTypeHandler
-                .AddTechType(Arg.Any<string>(), Arg.Do<string>((c) => recordedEvents.Add("AddTechType")), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>())
+            _mockTechTypeHandler
+                .AddTechType(Arg.Any<string>(), Arg.Do<string>((c) => _recordedEvents.Add("AddTechType")), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>())
                 .Returns(createdTechType);
 
-            var spawnable = new TestSpawnable(recordedEvents)
-            {
-                PrefabHandler = mockPrefabHandler,
-                SpriteHandler = mockSpriteHandler,
-                TechTypeHandler = mockTechTypeHandler
-            };
-
-            mockPrefabHandler.RegisterPrefab(Arg.Do<Spawnable>((s) => recordedEvents.Add("RegisterPrefab")));
-            mockSpriteHandler.RegisterSprite(Arg.Any<TechType>(), Arg.Do<Atlas.Sprite>((s) => recordedEvents.Add("RegisterSprite")));
+            _mockPrefabHandler.RegisterPrefab(Arg.Do<Spawnable>((s) => _recordedEvents.Add("RegisterPrefab")));
+            _mockSpriteHandler.RegisterSprite(Arg.Any<TechType>(), Arg.Do<Atlas.Sprite>((s) => _recordedEvents.Add("RegisterSprite")));
 
             // ACT
-            spawnable.Patch();
+            _spawnable.Patch();
 
             // ASSERT
-            Assert.AreEqual("OnStartedPatching", recordedEvents[0]);
-            Assert.AreEqual("AddTechType", recordedEvents[1]);
-            Assert.AreEqual("RegisterPrefab", recordedEvents[2]);
-            Assert.AreEqual("RegisterSprite", recordedEvents[3]);
-            Assert.AreEqual("OnFinishedPatching", recordedEvents[4]);
+            Assert.AreEqual("OnStartedPatching", _recordedEvents[0]);
+            Assert.AreEqual("AddTechType", _recordedEvents[1]);
+            Assert.AreEqual("RegisterPrefab", _recordedEvents[2]);
+            Assert.AreEqual("RegisterSprite", _recordedEvents[3]);
+            Assert.AreEqual("OnFinishedPatching", _recordedEvents[4]);
 
-            Assert.AreEqual(createdTechType, spawnable.TechType);
-            Assert.IsTrue(spawnable.GetItemSpriteInvoked);
-            Assert.IsTrue(spawnable.IsPatched);
+            Assert.AreEqual(createdTechType, _spawnable.TechType);
+            Assert.IsTrue(_spawnable.GetItemSpriteInvoked);
+            Assert.IsTrue(_spawnable.IsPatched);
+        }
+
+        [Test]
+        public void Patch_WhenSizeDifferent_CallsSetItemSize()
+        {
+            // ARRANGE
+            const TechType createdTechType = TechType.Accumulator;
+
+            _mockTechTypeHandler.AddTechType(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>())
+                                .Returns(createdTechType);
+
+            var customSize = new Vector2int(2, 2);
+            _spawnable.DifferentSize = customSize;
+
+            _spawnable.Patch();
+
+            Assert.AreEqual(createdTechType, _spawnable.TechType);
+            _craftDataHandler.Received(1).SetItemSize(createdTechType, customSize);
+            Assert.IsTrue(_spawnable.IsPatched);
         }
 
         private class TestSpawnable : Spawnable
         {
             public bool GetItemSpriteInvoked { get; private set; } = false;
+            public Vector2int? DifferentSize { get; set; }
 
             public TestSpawnable(List<string> recordedEvents)
                 : base("classId", "friendlyName", "description")
@@ -85,6 +118,17 @@
             {
                 this.GetItemSpriteInvoked = true;
                 return null;
+            }
+
+            public override Vector2int SizeInInventory
+            {
+                get
+                {
+                    if (this.DifferentSize.HasValue)
+                        return this.DifferentSize.Value;
+                    else
+                        return base.SizeInInventory;
+                }
             }
         }
     }
