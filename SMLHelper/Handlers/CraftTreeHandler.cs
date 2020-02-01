@@ -5,7 +5,6 @@
     using Interfaces;
     using Patchers;
     using Utility;
-    using System;
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
 #elif BELOWZERO

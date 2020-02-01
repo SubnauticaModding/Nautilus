@@ -64,7 +64,7 @@
         /// <returns>Will return a new <see cref="Sprite"/> instance if the file exists; Otherwise returns null.</returns>
         public static Sprite LoadSpriteFromFile(string filePathToImage, TextureFormat format = TextureFormat.BC7)
         {
-            Texture2D texture2D = LoadTextureFromFile(filePathToImage, TextureFormat.BC7);
+            Texture2D texture2D = LoadTextureFromFile(filePathToImage, format);
             return LoadSpriteFromTexture(texture2D);
         }
 
