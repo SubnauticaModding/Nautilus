@@ -5,8 +5,9 @@
     using UnityEngine;
     using UWE;
     using Logger = V2.Logger;
+    using Abstract;
 
-    internal class PrefabDatabasePatcher
+    internal class PrefabDatabasePatcher : IPatch
     {
         internal static void LoadPrefabDatabase_Postfix()
         {
@@ -42,7 +43,7 @@
             return true;
         }
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.LoadPrefabDatabase)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.LoadPrefabDatabase_Postfix))));

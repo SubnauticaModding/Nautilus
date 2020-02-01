@@ -1,9 +1,11 @@
 ﻿namespace SMLHelper.V2
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using Harmony;
     using Patchers;
+    using Patchers.Abstract;
 #if SUBNAUTICA
     using QModManager.API.ModLoading;
 #endif
@@ -67,26 +69,18 @@
         private static void Initialize()
         {
             var harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
-            FishPatcher.Patch(harmony);
-            TechTypePatcher.Patch(harmony);
-            CraftTreeTypePatcher.Patch(harmony);
-            CraftDataPatcher.Patch(harmony);
-            CraftTreePatcher.Patch(harmony);
-            DevConsolePatcher.Patch(harmony);
-            LanguagePatcher.Patch(harmony);
-            PrefabDatabasePatcher.Patch(harmony);
-            SpritePatcher.Patch();
-            KnownTechPatcher.Patch(harmony);
-            BioReactorPatcher.Patch(harmony);
-            OptionsPanelPatcher.Patch(harmony);
-            ItemsContainerPatcher.Patch(harmony);
-            PDAPatcher.Patch(harmony);
-            PDAEncyclopediaPatcher.Patch(harmony);
-            ItemActionPatcher.Patch(harmony);
-            LootDistributionPatcher.Patch(harmony);
-            WorldEntityDatabasePatcher.Patch(harmony);
-            IngameMenuPatcher.Patch(harmony);
-            //TooltipPatcher.Patch(harmony); // Disabled
+            var discoveredPatches = Assembly.GetExecutingAssembly()
+                .GetTypes()
+                .Where(p => typeof(IPatch).IsAssignableFrom(p) &&
+                            p.IsClass && !p.IsInterface
+                      )
+                .Select(Activator.CreateInstance)
+                .Cast<IPatch>();
+
+            foreach (IPatch patch in discoveredPatches)
+            {
+                patch.Patch(harmony);
+            }
         }
     }
 }

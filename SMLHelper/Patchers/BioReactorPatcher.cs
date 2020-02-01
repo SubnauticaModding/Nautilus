@@ -2,12 +2,13 @@
 {
     using Harmony;
     using System.Collections.Generic;
+    using Abstract;
 
-    internal class BioReactorPatcher
+    internal class BioReactorPatcher : IPatch
     {
         internal static IDictionary<TechType, float> CustomBioreactorCharges = new SelfCheckingDictionary<TechType, float>("CustomBioreactorCharges", TechTypeExtensions.sTechTypeComparer);
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
             // See README.md for details.

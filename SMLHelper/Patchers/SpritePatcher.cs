@@ -3,8 +3,10 @@
     using System.Collections.Generic;
     using System.Reflection;
     using Assets;
+    using Abstract;
+    using Harmony;
 
-    internal class SpritePatcher
+    internal class SpritePatcher : IPatch
     {
         // The groups field is present in Subnautica and BZ Stable.
         private static readonly FieldInfo groupsInfo = typeof(SpriteManager).GetField("groups", BindingFlags.Static | BindingFlags.NonPublic);
@@ -21,7 +23,7 @@
         private static Dictionary<string, Dictionary<string, Atlas.Sprite>> _atlases;
         private static Dictionary<string, Dictionary<string, Atlas.Sprite>> Atlases => _atlases ?? (_atlases = (Dictionary<string, Dictionary<string, Atlas.Sprite>>)atlasesInfo.GetValue(null));
 
-        internal static void Patch()
+        public void Patch(HarmonyInstance _) // unused parameter
         {
             foreach (SpriteManager.Group moddedGroup in ModSprite.ModSprites.Keys)
             {

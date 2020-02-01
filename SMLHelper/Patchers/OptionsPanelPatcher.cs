@@ -7,12 +7,13 @@
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.UI;
+    using Abstract;
 
-    internal class OptionsPanelPatcher
+    internal class OptionsPanelPatcher : IPatch
     {
         internal static SortedList<string, ModOptions> modOptions = new SortedList<string, ModOptions>();
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.AddTabs_Postfix))));

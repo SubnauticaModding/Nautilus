@@ -3,12 +3,13 @@
     using System.Collections.Generic;
     using Harmony;
     using Logger = V2.Logger;
+    using Abstract;
 
-    internal class LootDistributionPatcher
+    internal class LootDistributionPatcher : IPatch
     {
         internal static readonly SelfCheckingDictionary<string, LootDistributionData.SrcData> CustomSrcData = new SelfCheckingDictionary<string, LootDistributionData.SrcData>("CustomSrcData");
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(LootDistributionData), nameof(LootDistributionData.Initialize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(LootDistributionPatcher), nameof(LootDistributionPatcher.InitializePostfix))));

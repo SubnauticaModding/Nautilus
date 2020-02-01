@@ -6,8 +6,9 @@
     using System;
     using System.Collections.Generic;
     using Utility;
+    using Abstract;
 
-    internal class CraftTreeTypePatcher
+    internal class CraftTreeTypePatcher : IPatch
     {
         private const string CraftTreeTypeEnumName = "CraftTreeType";
 
@@ -83,7 +84,7 @@
 
         #region Patches
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 

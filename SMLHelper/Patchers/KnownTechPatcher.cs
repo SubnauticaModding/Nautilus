@@ -4,8 +4,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Abstract;
 
-    internal class KnownTechPatcher
+    internal class KnownTechPatcher : IPatch
     {
         private static readonly Func<TechType, string> AsStringFunction = (t) => t.AsString();
 
@@ -16,7 +17,7 @@
 
         private static FMODAsset UnlockSound;
 
-        public static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.Initialize)), 
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(KnownTechPatcher.InitializePostfix))));

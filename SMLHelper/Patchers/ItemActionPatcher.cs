@@ -4,8 +4,9 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Abstract;
 
-    internal class ItemActionPatcher
+    internal class ItemActionPatcher : IPatch
     {
         internal class CustomItemAction
         {
@@ -44,7 +45,7 @@
 
         #region Patching
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
             // See README.md for details.

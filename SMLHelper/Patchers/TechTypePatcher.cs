@@ -6,8 +6,9 @@
     using Harmony;
     using SMLHelper.V2.Handlers;
     using Utility;
+    using Abstract;
 
-    internal class TechTypePatcher
+    internal class TechTypePatcher : IPatch
     {
         private const string TechTypeEnumName = "TechType";
         internal static readonly int startingIndex = 11010;
@@ -93,7 +94,7 @@
 
         #region Patches
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 

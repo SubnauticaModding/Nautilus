@@ -3,14 +3,15 @@
     using System;
     using System.Collections.Generic;
     using Harmony;
+    using Abstract;
 
-    internal class IngameMenuPatcher
+    internal class IngameMenuPatcher : IPatch
     {
         private static readonly List<Action> oneTimeUseOnSaveEvents = new List<Action>();
 
         internal static Action OnSaveEvents;
 
-        public static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.SaveGame)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeEvents))));

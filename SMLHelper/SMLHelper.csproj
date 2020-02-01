@@ -200,6 +200,7 @@
     <Compile Include="Options\SliderModOption.cs" />
     <Compile Include="Options\ToggleModOption.cs" />
     <Compile Include="Options\Utility\Validator.cs" />
+    <Compile Include="Patchers\Abstract\IPatch.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher_BelowZero.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="Patchers\PDAEncyclopediaPatcher.cs" />
     <Compile Include="Patchers\PDAPatcher.cs" />
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
+    <Compile Include="Patchers\ProtoBufSerializerPatcher.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />
     <Compile Include="Patchers\TechTypePatcher.cs" />
     <Compile Include="Patchers\WorldEntityDatabasePatcher.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="Utility\ReflectionHelper.cs" />
     <Compile Include="Utility\SaveUtils.cs" />
     <Compile Include="Utility\SelfCheckingDictionary.cs" />
+    <Compile Include="Utility\SMLProtobufSerializer.cs" />
     <Compile Include="Utility\StorageHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>

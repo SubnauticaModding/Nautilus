@@ -6,8 +6,9 @@
     using System.IO;
     using System.Reflection;
     using System.Text;
+    using Abstract;
 
-    internal class LanguagePatcher
+    internal class LanguagePatcher : IPatch
     {
         private static readonly string LanguageDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Language");
         private static readonly string LanguageOrigDir = Path.Combine(LanguageDir, "Originals");
@@ -29,7 +30,7 @@
             }
         }
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             if (!Directory.Exists(LanguageDir))
                 Directory.CreateDirectory(LanguageDir);

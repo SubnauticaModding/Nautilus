@@ -2,12 +2,13 @@
 {
     using System.Collections.Generic;
     using Harmony;
+    using Abstract;
 
-    internal class PDAEncyclopediaPatcher
+    internal class PDAEncyclopediaPatcher : IPatch
     {
         internal static readonly SelfCheckingDictionary<string, PDAEncyclopedia.EntryData> CustomEntryData = new SelfCheckingDictionary<string, PDAEncyclopedia.EntryData>("CustomEntryData");
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(PDAEncyclopedia), nameof(PDAEncyclopedia.Initialize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAEncyclopediaPatcher), nameof(PDAEncyclopediaPatcher.InitializePostfix))));

@@ -4,8 +4,9 @@
     using System.Collections.Generic;
     using Assets;
     using Harmony;
+    using Abstract;
 
-    internal partial class CraftDataPatcher
+    internal partial class CraftDataPatcher : IPatch
     {
         #region Internal Fields
 
@@ -75,7 +76,7 @@
 
         #region Patching
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
 #if SUBNAUTICA
             PatchForSubnautica();

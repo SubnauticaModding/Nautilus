@@ -7,12 +7,13 @@
     using UnityEngine;
     using Logger = V2.Logger;
     using Random = UnityEngine.Random;
+    using Abstract;
 
-    internal static class FishPatcher
+    internal class FishPatcher : IPatch
     {
         internal static List<Creature> usedCreatures = new List<Creature>();
 
-        public static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             Type creatureType = typeof(Creature);
             Type thisType = typeof(FishPatcher);

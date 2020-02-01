@@ -6,8 +6,9 @@
     using Utility;
     using Crafting;
     using System;
+    using Abstract;
 
-    internal class CraftTreePatcher
+    internal class CraftTreePatcher : IPatch
     {
         #region Internal Fields
 
@@ -20,7 +21,7 @@
 
         #region Patches
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.GetTree)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.GetTreePreFix))));

@@ -3,10 +3,11 @@
     using Harmony;
     using SMLHelper.V2.Utility;
     using System;
+    using Abstract;
 
-    internal static class ItemsContainerPatcher
+    internal class ItemsContainerPatcher : IPatch
     {
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.HasRoomFor), new Type[] { typeof(int), typeof(int) }),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.HasRoomFor_XY_Prefix))),

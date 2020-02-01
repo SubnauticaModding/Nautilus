@@ -3,10 +3,11 @@
     using Harmony;
     using System;
     using System.Collections.Generic;
+    using Abstract;
 
     // Special thanks to Gorillazilla9 for sharing this method of fragment count patching
     // https://github.com/Gorillazilla9/SubnauticaFragReqBoost/blob/master/PDAScannerPatcher.cs
-    internal class PDAPatcher
+    internal class PDAPatcher : IPatch
     {
         internal static readonly Dictionary<TechType, int> FragmentCount = new Dictionary<TechType, int>();
         internal static readonly Dictionary<TechType, float> FragmentScanTime = new Dictionary<TechType, float>();
@@ -14,7 +15,7 @@
 
         private static readonly Dictionary<TechType, PDAScanner.EntryData> BlueprintToFragment = new Dictionary<TechType, PDAScanner.EntryData>();
 
-        internal static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(PDAScanner), nameof(PDAScanner.Initialize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAPatcher), nameof(PDAPatcher.InitializePostfix))));

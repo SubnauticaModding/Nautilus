@@ -5,12 +5,13 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Abstract;
 
-    internal class DevConsolePatcher
+    internal class DevConsolePatcher : IPatch
     {
         public static List<CommandInfo> commands = new List<CommandInfo>();
 
-        public static void Patch(HarmonyInstance harmony)
+        public void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(DevConsole), nameof(DevConsole.Submit)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(DevConsolePatcher), nameof(DevConsolePatcher.Postfix))));
