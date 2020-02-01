@@ -50,7 +50,7 @@ namespace SMLHelper.V2.Utility
         {
             foreach (Type type in assembly.GetTypes())
             {
-                bool hasUweProtobuf = (type.GetCustomAttributes(typeof(ProtoContractAttribute), true).Length > 0);
+                bool hasUweProtobuf = (type.GetCustomAttributes(typeof(ProtoContractAttribute), false).Length > 0);
 
                 if (hasUweProtobuf)
                 {
