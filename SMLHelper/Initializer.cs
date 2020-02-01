@@ -35,7 +35,7 @@
         /// </summary>
         [QModPostPatch("0B8AB3339D45F229633494237AEF79BB")]
         [Obsolete("This method is for use only by QModManager.", true)]
-        public static void PostPatch()
+        public static void RunPatchers()
         {
             try
             {
