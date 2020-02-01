@@ -218,6 +218,7 @@
     <Compile Include="Patchers\PDAEncyclopediaPatcher.cs" />
     <Compile Include="Patchers\PDAPatcher.cs" />
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
+    <Compile Include="Patchers\ProtoBufSerializerPatcher.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />
     <Compile Include="Patchers\TechTypePatcher.cs" />
     <Compile Include="Patchers\WorldEntityDatabasePatcher.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Utility\ReflectionHelper.cs" />
     <Compile Include="Utility\SaveUtils.cs" />
     <Compile Include="Utility\SelfCheckingDictionary.cs" />
+    <Compile Include="Utility\SMLProtobufSerializer.cs" />
     <Compile Include="Utility\StorageHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
