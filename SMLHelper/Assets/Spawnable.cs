@@ -147,7 +147,7 @@
         /// Determines thee <see cref="Sprite"/> to be used for this spawnable's icon.<para/>
         /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
         /// </summary>
-        /// <returns>Returns the <see cref="Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Sprite)"/> call.</returns>
+        /// <returns>Returns the <see cref="Sprite"/> that will be used in the <see cref="ISpriteHandler.RegisterSprite(TechType, Sprite)"/> call.</returns>
         protected virtual Sprite GetItemSprite()
         {
             // This is for backwards compatibility with mods that were using the "ModName/Assets" format

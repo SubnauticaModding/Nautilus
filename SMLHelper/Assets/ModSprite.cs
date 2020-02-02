@@ -13,17 +13,37 @@
     /// </summary>
     internal class ModSprite
     {
-        internal static void Add(SpriteManager.Group group, string name, Sprite sprite)
+#if SUBNAUTICA
+        internal static void Add(SpriteManager.Group group, string name, Atlas.Sprite sprite)
+        {
+            Dictionary<string, Sprite> dictionary = GetGroupDictionary(ref group);
+            dictionary[name] = sprite;
+        }
+#endif
+        internal static void Add(SpriteManager.Group group, string name, UnityEngine.Sprite sprite)
+        {
+            Dictionary<string, Sprite> dictionary = GetGroupDictionary(ref group);
+#if SUBNAUTICA
+            dictionary[name] = new Atlas.Sprite(sprite);
+#elif BELOWZERO
+            dictionary[name] = sprite;
+#endif
+        }
+
+        private static Dictionary<string, Sprite> GetGroupDictionary(ref SpriteManager.Group group)
         {
             if (group == SpriteManager.Group.None)
                 group = SpriteManager.Group.Item;
             // There are no calls for sprites in the None Group.
             // All sprite calls for almost anything we don't manually group is in the Item group.
 
-            if (!ModSprites.ContainsKey(group))
-                ModSprites.Add(group, new Dictionary<string, Sprite>(StringComparer.InvariantCultureIgnoreCase));
+            if (!ModSprites.TryGetValue(group, out Dictionary<string, Sprite> dictionary))
+            {
+                dictionary = new Dictionary<string, Sprite>(StringComparer.InvariantCultureIgnoreCase);
+                ModSprites.Add(group, dictionary);
+            }
 
-            ModSprites[group][name] = sprite;
+            return dictionary;
         }
 
         internal static void Add(ModSprite sprite)

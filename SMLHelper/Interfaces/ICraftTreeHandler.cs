@@ -1,12 +1,6 @@
 ﻿namespace SMLHelper.V2.Interfaces
 {
     using Crafting;
-    using UnityEngine;
-#if SUBNAUTICA
-    using Sprite = Atlas.Sprite;
-#elif BELOWZERO
-    using Sprite = UnityEngine.Sprite;
-#endif
 
     /// <summary>
     /// A handler class for creating and editing of crafting trees.
@@ -62,6 +56,7 @@
         /// <param name="craftingItem">The item to craft.</param>        
         void AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem);
 
+#if SUBNAUTICA
         /// <summary>
         /// Adds a new tab node to the root of the specified crafting tree.
         /// </summary>
@@ -69,7 +64,7 @@
         /// <param name="name">The ID of the tab node. Must be unique!</param>
         /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
         /// <param name="sprite">The sprite of the tab.</param>        
-        void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Sprite sprite);
+        void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite);
 
         /// <summary>
         /// Adds a new tab node to the root of the specified crafting tree, at the specified tab location.
@@ -83,7 +78,30 @@
         /// <para>These must match the id value of the CraftNode in the crafting tree you're targeting.</para>
         /// <para>Do not include "root" in this path.</para>
         /// </param>        
-        void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Sprite sprite, params string[] stepsToTab);
+        void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite, params string[] stepsToTab);
+#endif
+        /// <summary>
+        /// Adds a new tab node to the root of the specified crafting tree.
+        /// </summary>
+        /// <param name="craftTree">The target craft tree to edit.</param>
+        /// <param name="name">The ID of the tab node. Must be unique!</param>
+        /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+        /// <param name="sprite">The sprite of the tab.</param>        
+        void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite);
+
+        /// <summary>
+        /// Adds a new tab node to the root of the specified crafting tree, at the specified tab location.
+        /// </summary>
+        /// <param name="craftTree">The target craft tree to edit.</param>
+        /// <param name="name">The ID of the tab node. Must be unique!</param>
+        /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+        /// <param name="sprite">The sprite of the tab.</param>
+        /// <param name="stepsToTab">
+        /// <para>The steps to the target tab.</para>
+        /// <para>These must match the id value of the CraftNode in the crafting tree you're targeting.</para>
+        /// <para>Do not include "root" in this path.</para>
+        /// </param>        
+        void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite, params string[] stepsToTab);
 
         /// <summary>
         /// <para>Removes a node at the specified node location. Can be used to remove either tabs or craft nodes.</para>

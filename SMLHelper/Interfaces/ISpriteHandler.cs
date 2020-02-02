@@ -2,17 +2,29 @@
 {
     using Utility;
     using UnityEngine;
-#if SUBNAUTICA
-    using Sprite = Atlas.Sprite;
-#elif BELOWZERO
-    using Sprite = UnityEngine.Sprite;
-#endif
 
     /// <summary>
     /// A handler class for adding custom sprites into the game.
     /// </summary>
     public interface ISpriteHandler
     {
+
+#if SUBNAUTICA
+        /// <summary>
+        /// Registers a new sprite to the game.
+        /// </summary>
+        /// <param name="group">The sprite group this sprite will be added to.</param>
+        /// <param name="id">The sprite internal identifier.</param>
+        /// <param name="sprite">The sprite to be added.</param>
+        void RegisterSprite(SpriteManager.Group group, string id, Atlas.Sprite sprite);
+        
+        /// <summary>
+        /// Registers a new sprite to the game.
+        /// </summary>
+        /// <param name="type">The techtype paired to this sprite.</param>
+        /// <param name="sprite">The sprite to be added.</param>
+        void RegisterSprite(TechType type, Atlas.Sprite sprite);
+#endif
         /// <summary>
         /// Registers a new sprite to the game.
         /// </summary>
@@ -20,7 +32,7 @@
         /// <param name="id">The sprite internal identifier.</param>
         /// <param name="sprite">The sprite to be added.</param>
         void RegisterSprite(SpriteManager.Group group, string id, Sprite sprite);
-        
+
         /// <summary>
         /// Registers a new sprite to the game.
         /// </summary>
