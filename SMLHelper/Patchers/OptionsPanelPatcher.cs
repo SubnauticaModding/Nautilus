@@ -2,7 +2,9 @@
 {
     using Harmony;
     using Options;
+    using System;
     using System.Reflection;
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Events;
@@ -12,33 +14,24 @@
     {
         internal static SortedList<string, ModOptions> modOptions = new SortedList<string, ModOptions>();
 
+        private static int  modsTab = -1; // index of 'Mods' tab
+        private static bool isMainMenu = true; // is options was opened in main menu or in game
+
         internal static void Patch(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.AddTabs_Postfix))));
 
-            // check if already patched (there will be some conflicts if we patch this twice)
-            MethodInfo setVisibleTabMethod = AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab));
-            Patches patches = harmony.GetPatchInfo(setVisibleTabMethod);
-            
-            if (patches == null)
-            {
-                harmony.Patch(setVisibleTabMethod,
-                    new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.SetVisibleTab_Prefix))),
-                    new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.SetVisibleTab_Postfix))));
-                
-                V2.Logger.Log("Options.SetVisibleTab is patched", V2.LogLevel.Debug);
-            }
-            else
-                V2.Logger.Log("Options.SetVisibleTab is already patched. Check if ModOptionsAdjusted mod is active.", V2.LogLevel.Warn);
+            ModOptionsAdjuster.Init(harmony);
         }
 
         internal static void AddTabs_Postfix(uGUI_OptionsPanel __instance)
         {
             uGUI_OptionsPanel optionsPanel = __instance;
-            
+            isMainMenu = (optionsPanel.GetComponent<MainMenuOptions>() != null);
+
             // Start the modsTab index at a value of -1
-            var modsTab = -1;
+            modsTab = -1;
             // Loop through all of the tabs
             for (int i = 0; i < optionsPanel.tabsContainer.childCount; i++)
             {
@@ -111,162 +104,178 @@
             }
         }
 
-
-
-        // do not show tab if it is already visible (to prevent scroll position resetting)
-        internal static bool SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
+        // Adjusting mod options ui elements so they don't overlap with their text labels.
+        // We add corresponding 'adjuster' components to each ui element in mod options tab.
+        // Reason for using components is to skip one frame before manually adjust ui elements to make sure that Unity UI Layout components is updated
+        private static class ModOptionsAdjuster
         {
-            return tabIndex < 0 || tabIndex >= __instance.tabs.Count || !__instance.tabs[tabIndex].pane.activeSelf;
-        }
-
-        // adjusting ui elements
-        internal static void SetVisibleTab_Postfix(uGUI_TabbedControlsPanel __instance, int tabIndex)
-        {
-            if (tabIndex < 0 || tabIndex >= __instance.tabs.Count)
-                return;
-
-            try
+            public static void Init(HarmonyInstance harmony)
             {
-                Transform options = __instance.tabs[tabIndex].container.transform;
+                MethodInfo uGUITabbedControlsPanel_AddItem =
+                    AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddItem), new Type[] { typeof(int), typeof(GameObject) });
 
-                for (int i = 0; i < options.childCount; i++)
+                if (harmony.GetPatchInfo(uGUITabbedControlsPanel_AddItem) == null) // check that it is not already patched
                 {
-                    Transform option = options.GetChild(i);
+                    harmony.Patch(uGUITabbedControlsPanel_AddItem,
+                        postfix: new HarmonyMethod(AccessTools.Method(typeof(ModOptionsAdjuster), nameof(ModOptionsAdjuster.AddItem_Postfix))));
 
-                    if (option.localPosition.x == 0) // ui layout didn't touch this element yet
-                        continue;
+                    V2.Logger.Log("ModOptionsAdjuster is inited", LogLevel.Debug);
+                }
+                else
+                    V2.Logger.Log("ModOptionsAdjuster is not inited", LogLevel.Warn);
+            }
 
-                    if (option.name.Contains("uGUI_ToggleOption"))
-                        ProcessToggleOption(option);
-                    else
-                    if (option.name.Contains("uGUI_SliderOption"))
-                        ProcessSliderOption(option);
-                    else
-                    if (option.name.Contains("uGUI_ChoiceOption"))
-                        ProcessChoiceOption(option);
-                    else
-                    if (option.name.Contains("uGUI_BindingOption"))
-                        ProcessBindingOption(option);
+            private static readonly Tuple<string, Type>[] optionTypes = new Tuple<string, Type>[]
+            {
+                Tuple.Create("uGUI_ToggleOption",  typeof(AdjustToggleOption)),
+                Tuple.Create("uGUI_SliderOption",  typeof(AdjustSliderOption)),
+                Tuple.Create("uGUI_ChoiceOption",  typeof(AdjustChoiceOption)),
+                Tuple.Create("uGUI_BindingOption", typeof(AdjustBindingOption))
+            };
+
+            // postfix for uGUI_TabbedControlsPanel.AddItem
+            private static void AddItem_Postfix(int tabIndex, GameObject __result)
+            {
+                if (__result == null || tabIndex != modsTab)
+                    return;
+
+                foreach (var type in optionTypes)
+                {
+                    if (__result.name.Contains(type.Item1))
+                    {
+                        __result.EnsureComponent(type.Item2);
+                        break;
+                    }
                 }
             }
-            catch (System.Exception e)
+
+            // base class for 'adjuster' components
+            // we add ContentSizeFitter component to text label so it will change width in its Update() based on text
+            // that's another reason to skip one frame
+            private abstract class AdjustModOption: MonoBehaviour
             {
-                V2.Logger.Log($"Exception while adjusting mod options: {e.GetType()}\t{e.Message}", LogLevel.Error);
-            }
-        }
+                private const float minCaptionWidth_MainMenu = 480f;
+                private const float minCaptionWidth_InGame   = 360f;
+                private GameObject caption = null;
 
-        private static void ProcessToggleOption(Transform option)
-        {
-            Transform check = option.Find("Toggle/Background");
-            Text text = option.GetComponentInChildren<Text>();
+                protected float CaptionWidth { get => caption?.GetComponent<RectTransform>().rect.width ?? 0f; }
 
-            int textWidth = GetTextWidth(text) + 20;
-            Vector3 pos = check.localPosition;
+                protected static Vector2 SetVec2x(Vector2 vec, float val)  { vec.x = val; return vec; }
 
-            if (textWidth > pos.x)
-            {
-                pos.x = textWidth;
-                check.localPosition = pos;
-            }
-        }
+                protected void SetCaptionGameObject(string gameObjectPath)
+                {
+                    caption = gameObject.transform.Find(gameObjectPath)?.gameObject;
 
-        private static void ProcessSliderOption(Transform option)
-        {
-            const float sliderValueWidth = 85f;
+                    if (!caption)
+                    {
+                        V2.Logger.Log($"AdjustModOption: caption gameobject '{gameObjectPath}' not found", V2.LogLevel.Warn);
+                        return;
+                    }
 
-            // changing width for slider value label
-            RectTransform sliderValueRect = option.Find("Slider/Value").GetComponent<RectTransform>();
-            Vector2 valueSize = sliderValueRect.sizeDelta;
-            valueSize.x = sliderValueWidth;
-            sliderValueRect.sizeDelta = valueSize;
+                    caption.AddComponent<LayoutElement>().minWidth = isMainMenu? minCaptionWidth_MainMenu: minCaptionWidth_InGame;
+                    caption.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize; // for autosizing captions
 
-            // changing width for slider
-            Transform slider = option.Find("Slider/Background");
-            Text text = option.GetComponentInChildren<Text>();
-
-            RectTransform rect = slider.GetComponent<RectTransform>();
-
-            float widthAll = option.GetComponent<RectTransform>().rect.width;
-            float widthSlider = rect.rect.width;
-            float widthText = GetTextWidth(text) + 25;
-
-            if (widthText + widthSlider + sliderValueWidth > widthAll)
-            {
-                Vector2 size = rect.sizeDelta;
-                size.x = widthAll - widthText - sliderValueWidth - widthSlider;
-                rect.sizeDelta = size;
-            }
-        }
-
-        private static void ProcessChoiceOption(Transform option)
-        {
-            Transform choice = option.Find("Choice/Background");
-            Text text = option.GetComponentInChildren<Text>();
-
-            RectTransform rect = choice.GetComponent<RectTransform>();
-
-            float widthAll = option.GetComponent<RectTransform>().rect.width;
-            float widthChoice = rect.rect.width;
-
-            float widthText = GetTextWidth(text) + 10;
-
-            if (widthText + widthChoice > widthAll)
-            {
-                Vector2 size = rect.sizeDelta;
-                size.x = widthAll - widthText - widthChoice;
-                rect.sizeDelta = size;
-            }
-        }
-
-        private static void ProcessBindingOption(Transform option)
-        {
-            // changing width for keybinding option
-            Transform binding = option.Find("Bindings");
-            Text text = option.GetComponentInChildren<Text>();
-
-            RectTransform rect = binding.GetComponent<RectTransform>();
-
-            float widthAll = option.GetComponent<RectTransform>().rect.width;
-            float widthBinding = rect.rect.width;
-
-            float widthText = GetTextWidth(text) + 10;
-
-            if (widthText + widthBinding > widthAll)
-            {
-                Vector2 size = rect.sizeDelta;
-                size.x = widthAll - widthText - widthBinding;
-                rect.sizeDelta = size;
+                    RectTransform transform = caption.GetComponent<RectTransform>();
+                    transform.SetAsFirstSibling(); // for HorizontalLayoutGroup
+                    transform.pivot = SetVec2x(transform.pivot, 0f);
+                    transform.anchoredPosition = SetVec2x(transform.anchoredPosition, 0f);
+                }
             }
 
-            // fixing bug when all keybinds show 'D' (after reselecting tab)
-            Transform primaryBinding = binding.Find("Primary Binding"); // bug only on primary bindings
-            Text bindingText = primaryBinding.Find("Label").GetComponent<Text>();
-
-            if (bindingText.text == "D")
+            // in case of ToggleOption there is no need to manually move elements
+            // other option types don't work well with HorizontalLayoutGroup :(
+            private class AdjustToggleOption: AdjustModOption
             {
-                string buttonRawText = primaryBinding.GetComponent<uGUI_Binding>().value;
+                private const float spacing = 20f;
 
-                if (uGUI.buttonCharacters.TryGetValue(buttonRawText, out string buttonText))
-                    bindingText.text = buttonText;
-                else
-                    bindingText.text = buttonRawText;
-            }
-        }
+                public void Awake()
+                {
+                    HorizontalLayoutGroup hlg = gameObject.transform.Find("Toggle").gameObject.AddComponent<HorizontalLayoutGroup>();
+                    hlg.childControlWidth = false;
+                    hlg.childForceExpandWidth = false;
+                    hlg.spacing = spacing;
 
-        private static int GetTextWidth(Text text)
-        {
-            int width = 0;
+                    SetCaptionGameObject("Toggle/Caption");
 
-            Font font = text.font;
-            font.RequestCharactersInTexture(text.text, text.fontSize, text.fontStyle);
-
-            foreach (char c in text.text)
-            {
-                font.GetCharacterInfo(c, out CharacterInfo charInfo, text.fontSize, text.fontStyle);
-                width += charInfo.advance;
+                    Destroy(this);
+                }
             }
 
-            return width;
+            private class AdjustSliderOption: AdjustModOption
+            {
+                private const float spacing = 25f;
+                private const float sliderValueWidth = 85f;
+
+                public IEnumerator Start()
+                {
+                    SetCaptionGameObject("Slider/Caption");
+                    yield return null; // skip one frame
+
+                    // for some reason sliders don't update their handle positions sometimes
+                    uGUI_SnappingSlider slider = gameObject.GetComponentInChildren<uGUI_SnappingSlider>();
+                    AccessTools.Method(typeof(Slider), "UpdateVisuals")?.Invoke(slider, null);
+
+                    // changing width for slider value label
+                    RectTransform sliderValueRect = gameObject.transform.Find("Slider/Value") as RectTransform;
+                    sliderValueRect.sizeDelta = SetVec2x(sliderValueRect.sizeDelta, sliderValueWidth);
+
+                    // changing width for slider
+                    RectTransform rect = gameObject.transform.Find("Slider/Background") as RectTransform;
+
+                    float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
+                    float widthSlider = rect.rect.width;
+                    float widthText = CaptionWidth + spacing;
+
+                    if (widthText + widthSlider + sliderValueWidth > widthAll)
+                        rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - sliderValueWidth - widthSlider);
+
+                    Destroy(this);
+                }
+            }
+
+            private class AdjustChoiceOption: AdjustModOption
+            {
+                private const float spacing = 10f;
+
+                public IEnumerator Start()
+                {
+                    SetCaptionGameObject("Choice/Caption");
+                    yield return null; // skip one frame
+
+                    RectTransform rect = gameObject.transform.Find("Choice/Background") as RectTransform;
+
+                    float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
+                    float widthChoice = rect.rect.width;
+                    float widthText = CaptionWidth + spacing;
+
+                    if (widthText + widthChoice > widthAll)
+                        rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthChoice);
+
+                    Destroy(this);
+                }
+            }
+
+            private class AdjustBindingOption: AdjustModOption
+            {
+                private const float spacing = 10f;
+
+                public IEnumerator Start()
+                {
+                    SetCaptionGameObject("Caption");
+                    yield return null; // skip one frame
+
+                    RectTransform rect = gameObject.transform.Find("Bindings") as RectTransform;
+
+                    float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
+                    float widthBinding = rect.rect.width;
+                    float widthText = CaptionWidth + spacing;
+
+                    if (widthText + widthBinding > widthAll)
+                        rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthBinding);
+
+                    Destroy(this);
+                }
+            }
         }
     }
 }
