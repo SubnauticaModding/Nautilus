@@ -3,12 +3,12 @@
     using Harmony;
     using Options;
     using System;
-    using System.Reflection;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.UI;
+    using QModManager.API;
 
     internal class OptionsPanelPatcher
     {
@@ -19,12 +19,16 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.AddTabs_Postfix))));
+            PatchUtils.PatchClass(harmony);
 
-            ModOptionsAdjuster.Init(harmony);
+            if (QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable ?? false)
+                V2.Logger.Log("ModOptionsAdjuster is not inited (ModsOptionsAdjusted mod is active)", LogLevel.Warn);
+            else
+                PatchUtils.PatchClass(harmony, typeof(ModOptionsAdjuster));
         }
 
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
         internal static void AddTabs_Postfix(uGUI_OptionsPanel __instance)
         {
             uGUI_OptionsPanel optionsPanel = __instance;
@@ -109,22 +113,6 @@
         // Reason for using components is to skip one frame before manually adjust ui elements to make sure that Unity UI Layout components is updated
         private static class ModOptionsAdjuster
         {
-            public static void Init(HarmonyInstance harmony)
-            {
-                MethodInfo uGUITabbedControlsPanel_AddItem =
-                    AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddItem), new Type[] { typeof(int), typeof(GameObject) });
-
-                if (harmony.GetPatchInfo(uGUITabbedControlsPanel_AddItem) == null) // check that it is not already patched
-                {
-                    harmony.Patch(uGUITabbedControlsPanel_AddItem,
-                        postfix: new HarmonyMethod(AccessTools.Method(typeof(ModOptionsAdjuster), nameof(ModOptionsAdjuster.AddItem_Postfix))));
-
-                    V2.Logger.Log("ModOptionsAdjuster is inited", LogLevel.Debug);
-                }
-                else
-                    V2.Logger.Log("ModOptionsAdjuster is not inited", LogLevel.Warn);
-            }
-
             private static readonly Tuple<string, Type>[] optionTypes = new Tuple<string, Type>[]
             {
                 Tuple.Create("uGUI_ToggleOption",  typeof(AdjustToggleOption)),
@@ -133,7 +121,8 @@
                 Tuple.Create("uGUI_BindingOption", typeof(AdjustBindingOption))
             };
 
-            // postfix for uGUI_TabbedControlsPanel.AddItem
+            [HarmonyPostfix]
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddItem), new Type[] { typeof(int), typeof(GameObject) })]
             private static void AddItem_Postfix(int tabIndex, GameObject __result)
             {
                 if (__result == null || tabIndex != modsTab)
