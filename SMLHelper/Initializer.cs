@@ -6,6 +6,7 @@
     using Patchers;
 #if SUBNAUTICA
     using QModManager.API.ModLoading;
+    using UnityEngine;
 #endif
 
     /// <summary>
@@ -28,6 +29,24 @@
             Logger.Initialize();
     
             Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
+        }
+
+        [QModPatch]
+        public static void Patch()
+        {
+            new TestHullPlate("Testtesttest", "Test", "Test").Patch();
+        }
+
+        public class TestHullPlate : Assets.HullPlate
+        {
+            public TestHullPlate(string classId, string friendlyName, string description) : base(classId, friendlyName, description)
+            {
+            }
+
+            public override Texture2D GetTexture()
+            {
+                return Utility.ImageUtils.LoadTextureFromFile(@"C:\Users\user\Desktop\test.png");
+            }
         }
 
         /// <summary>
