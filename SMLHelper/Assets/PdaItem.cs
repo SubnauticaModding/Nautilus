@@ -46,12 +46,11 @@
 
         /// <summary>
         /// Initializes a new <see cref="PdaItem"/>, the basic class for any item that appears among your PDA blueprints.
-        /// DO NOT USE THIS CLASS DIRECTLY! Use <seealso cref="Craftable"/> or <see cref="Buildable"/> instead.
         /// </summary>
         /// <param name="classId">The main internal identifier for this item. Your item's <see cref="TechType" /> will be created using this name.</param>
         /// <param name="friendlyName">The name displayed in-game for this item whether in the open world or in the inventory.</param>
         /// <param name="description">The description for this item; Typically seen in the PDA, inventory, or crafting screens.</param>
-        internal PdaItem(string classId, string friendlyName, string description)
+        protected PdaItem(string classId, string friendlyName, string description)
             : base(classId, friendlyName, description)
         {
             CorePatchEvents += PatchTechDataEntry;
