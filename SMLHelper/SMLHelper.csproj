@@ -241,13 +241,13 @@
     <Compile Include="Utility\StorageHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="QModManager\Subnautica.json" />
-    <None Include="QModManager\BelowZero.json" />
+    <None Include="mod_Subnautica.json" />
+    <None Include="mod_BelowZero.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == SUBNAUTICA (copy "$(ProjectDir)QModManager\Subnautica.json" "$(ProjectDir)$(OutDir)mod.json")
-if $(ConfigurationName) == BELOWZERO (copy "$(ProjectDir)QModManager\BelowZero.json" "$(ProjectDir)$(OutDir)mod.json")</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == SUBNAUTICA (copy "$(ProjectDir)mod_Subnautica.json" "$(ProjectDir)$(OutDir)mod.json")
+if $(ConfigurationName) == BELOWZERO (copy "$(ProjectDir)mod_BelowZero.json" "$(ProjectDir)$(OutDir)mod.json")</PostBuildEvent>
   </PropertyGroup>
 </Project>

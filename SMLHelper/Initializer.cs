@@ -33,7 +33,7 @@
         /// <summary>
         /// WARNING: This method is for use only by QModManager.
         /// </summary>
-        [QModPostPatch("0B8AB3339D45F229633494237AEF79BB")]
+        [QModPostPatch("E3DC72597463233E62D01BD222AD0C96")]
         [Obsolete("This method is for use only by QModManager.", true)]
         public static void PostPatch()
         {
