@@ -3,8 +3,12 @@
     using Harmony;
     using Options;
     using System;
+    using System.IO;
+    using System.Reflection;
     using System.Collections;
     using System.Collections.Generic;
+    using Oculus.Newtonsoft.Json;
+    using Oculus.Newtonsoft.Json.Serialization;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.EventSystems;
@@ -294,8 +298,11 @@
 
             private static class StoredHeadingStates
             {
+                private static readonly string configPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "headings_states.json");
+
                 private class StatesConfig
                 {
+                    [JsonProperty]
                     private readonly Dictionary<string, HeadingState> states = new Dictionary<string, HeadingState>();
 
                     public HeadingState this[string name]
@@ -305,11 +312,19 @@
                         set
                         {
                             states[name] = value;
-                            // TODO: save
+                            File.WriteAllText(configPath, JsonConvert.SerializeObject(this, Formatting.Indented));
                         }
                     }
                 }
-                private static readonly StatesConfig statesConfig = new StatesConfig(); // TODO: load
+                private static readonly StatesConfig statesConfig = CreateConfig();
+
+                private static StatesConfig CreateConfig()
+                {
+                    if (File.Exists(configPath))
+                        return JsonConvert.DeserializeObject<StatesConfig>(File.ReadAllText(configPath));
+                    else
+                        return new StatesConfig();
+                }
 
                 public static HeadingState get(string name) => statesConfig[name];
                 public static void store(string name, HeadingState state) => statesConfig[name] = state;
