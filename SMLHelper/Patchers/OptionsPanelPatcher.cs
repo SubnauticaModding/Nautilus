@@ -10,7 +10,6 @@
     using Oculus.Newtonsoft.Json;
     using Oculus.Newtonsoft.Json.Serialization;
     using UnityEngine;
-    using UnityEngine.Events;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using QModManager.API;
@@ -84,48 +83,8 @@
                 "Nothing"
             }, (int)TooltipPatcher.ExtraItemInfoOption, (i) => TooltipPatcher.SetExtraItemInfo((TooltipPatcher.ExtraItemInfo)i));
 
-            foreach (ModOptions modOption in modOptions.Values)
-            {
-                optionsPanel.AddHeading(modsTab, modOption.Name);
-
-                foreach (ModOption option in modOption.Options)
-                {
-                    switch (option.Type)
-                    {
-                        case ModOptionType.Slider:
-                            var slider = (ModSliderOption)option;
-
-                            optionsPanel.AddSliderOption(modsTab, slider.Label, slider.Value, slider.MinValue, slider.MaxValue, slider.Value,
-                                new UnityAction<float>((float sliderVal) =>
-                                    modOption.OnSliderChange(slider.Id, sliderVal)));
-                            break;
-                        case ModOptionType.Toggle:
-                            var toggle = (ModToggleOption)option;
-
-                            optionsPanel.AddToggleOption(modsTab, toggle.Label, toggle.Value,
-                                new UnityAction<bool>((bool toggleVal) =>
-                                    modOption.OnToggleChange(toggle.Id, toggleVal)));
-                            break;
-                        case ModOptionType.Choice:
-                            var choice = (ModChoiceOption)option;
-
-                            optionsPanel.AddChoiceOption(modsTab, choice.Label, choice.Options, choice.Index,
-                                new UnityAction<int>((int index) =>
-                                    modOption.OnChoiceChange(choice.Id, index, choice.Options[index])));
-                            break;
-                        case ModOptionType.Keybind:
-                            var keybind = (ModKeybindOption)option;
-
-                            ModKeybindOption.AddBindingOptionWithCallback(optionsPanel, modsTab, keybind.Label, keybind.Key, keybind.Device,
-                                new UnityAction<KeyCode>((KeyCode key) => 
-                                    modOption.OnKeybindChange(keybind.Id, key)));
-                            break;
-                        default:
-                            V2.Logger.Log($"Invalid ModOptionType detected for option: {option.Id} ({option.Type.ToString()})", LogLevel.Error);
-                            break;
-                    }
-                }
-            }
+            // adding all other options here
+            modOptions.Values.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
         }
 
         // Adjusting mod options ui elements so they don't overlap with their text labels.

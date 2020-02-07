@@ -1,35 +1,8 @@
 ﻿namespace SMLHelper.V2.Options
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-
-    /// <summary>
-    /// Indicates how the option is interacted with by the user.
-    /// </summary>
-    public enum ModOptionType
-    {
-        /// <summary>
-        /// The option uses a slider that allows for a choice within a continues range of values within a maximum and minimum.
-        /// </summary>
-        Slider,
-
-        /// <summary>
-        /// The option uses a checkbox that can be either enabled or disabled.
-        /// </summary>
-        Toggle,
-
-        /// <summary>
-        /// The option uses a selection of one of a discrete number of possible values.
-        /// </summary>
-        Choice,
-
-        /// <summary>
-        /// The option uses a keybind field that can be changed to a certain keyt
-        /// </summary>
-        Keybind,
-    }
 
     /// <summary>
     /// Abstract class that provides the framework for your mod's in-game configuration options.
@@ -42,25 +15,35 @@
         public readonly string Name;
 
         /// <summary>
-        /// Builds and obtains the <see cref="ModOption"/>s that belong to this instance.
+        /// Obtains the <see cref="ModOption"/>s that belong to this instance. Can be null.
         /// </summary>
         public List<ModOption> Options
         {
-            get
-            {
-                _options = new Dictionary<string, ModOption>();
-                BuildModOptions();
-
-                return _options.Values.ToList();
-            }
+            get => _options?.Values.ToList();
         }
 
         // This is a dictionary now in case we want to get the ModOption quickly
         // based on the provided ID.
         private Dictionary<string, ModOption> _options;
 
+        private void AddOption(ModOption option)
+        {
+            _options.Add(option.Id, option);
+            option.SetParent(this);
+        }
+
+        internal void AddOptionsToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        {
+            panel.AddHeading(tabIndex, Name);
+
+            _options = new Dictionary<string, ModOption>(); // we need to do this every time we adding options
+            BuildModOptions();
+
+            _options.Values.ForEach(option => option.AddToPanel(panel, tabIndex));
+        }
+
         /// <summary>
-        /// Creates a new insteance of <see cref="ModOptions"/>.
+        /// Creates a new instance of <see cref="ModOptions"/>.
         /// </summary>
         /// <param name="name">The name that will display above this section of options in the in-game menu.</param>
         public ModOptions(string name)
@@ -93,20 +76,30 @@
         /// </summary>
         public string Label { get; }
 
-        /// <summary>
-        /// The type of option for this instance.
-        /// </summary>
-        public ModOptionType Type { get; }
+        /// <summary> UI GameObject for this option </summary>
+        public GameObject OptionGameObject { get; protected set; }
+
+        /// <summary> Parent <see cref="ModOptions"/> for this option </summary>
+        protected ModOptions parentOptions;
+
+        internal void SetParent(ModOptions parent)
+        {
+            if (parentOptions == null)
+                parentOptions = parent;
+            else
+                V2.Logger.Log($"ModOption.SetParent: parent already setted for {Id}", LogLevel.Warn);
+        }
+
+        // adds UI GameObject to panel and updates OptionGameObject
+        internal abstract void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex);
 
         /// <summary>
         /// Base constructor for all mod options.
         /// </summary>
-        /// <param name="type">The mod option type.</param>
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="id">The internal ID if this option.</param>
-        internal ModOption(ModOptionType type, string label, string id)
+        internal ModOption(string label, string id)
         {
-            Type = type;
             Label = label;
             Id = id;
         }

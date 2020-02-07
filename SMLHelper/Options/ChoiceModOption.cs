@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using SMLHelper.V2.Options.Utility;
+    using UnityEngine.Events;
 
     /// <summary>
     /// Contains all the information about a choice changed event.
@@ -85,9 +86,8 @@
         /// <param name="index">The starting value.</param>
         protected void AddChoiceOption(string id, string label, string[] options, int index)
         {
-            if (!Validator.ValidateChoiceOrDropdownOption(id, label, options, index))
-                return;
-            _options.Add(id, new ModChoiceOption(id, label, options, index));
+            if (Validator.ValidateChoiceOrDropdownOption(id, label, options, index))
+                AddOption(new ModChoiceOption(id, label, options, index));
         }
         /// <summary>
         /// Adds a new <see cref="ModChoiceOption"/> to this instance.
@@ -155,6 +155,14 @@
         /// </summary>
         public int Index { get; }
 
+        internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        {
+            var choice = panel.AddChoiceOption(tabIndex, Label, Options, Index,
+                new UnityAction<int>((int index) => parentOptions.OnChoiceChange(Id, index, Options[index])));
+
+            OptionGameObject = choice.transform.parent.transform.parent.gameObject; // :(
+        }
+
         /// <summary>
         /// Instantiates a new <see cref="ModChoiceOption"/> for handling an option that can select one item from a list of values.
         /// </summary>
@@ -162,7 +170,7 @@
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="options">The collection of available values.</param>
         /// <param name="index">The starting value.</param>
-        internal ModChoiceOption(string id, string label, string[] options, int index) : base(ModOptionType.Choice, label, id)
+        internal ModChoiceOption(string id, string label, string[] options, int index) : base(label, id)
         {
             this.Options = options;
             this.Index = index;
