@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Options
 {
     using System;
+    using UnityEngine.Events;
 
     /// <summary>
     /// Contains all the information about a toggle changed event.
@@ -54,7 +55,7 @@
         /// <param name="value">The starting value.</param>
         protected void AddToggleOption(string id, string label, bool value)
         {
-            _options.Add(id, new ModToggleOption(id, label, value));
+            AddOption(new ModToggleOption(id, label, value));
         }
     }
 
@@ -68,13 +69,21 @@
         /// </summary>
         public bool Value { get; }
 
+        internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        {
+            var toggle = panel.AddToggleOption(tabIndex, Label, Value,
+                new UnityAction<bool>((bool value) => parentOptions.OnToggleChange(Id, value)));
+
+            OptionGameObject = toggle.transform.parent.gameObject;
+        }
+
         /// <summary>
         /// Instantiates a new <see cref="ModToggleOption"/> for handling an option that can be either ON or OFF.
         /// </summary>
         /// <param name="id">The internal ID of this option.</param>
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="value">The starting value.</param>
-        internal ModToggleOption(string id, string label, bool value) : base(ModOptionType.Toggle, label, id)
+        internal ModToggleOption(string id, string label, bool value) : base(label, id)
         {
             this.Value = value;
         }

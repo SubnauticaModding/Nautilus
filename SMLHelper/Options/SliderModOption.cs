@@ -2,6 +2,7 @@
 {
     using System;
     using UnityEngine;
+    using UnityEngine.Events;
 
     /// <summary>
     /// Contains all the information about a slider changed event.
@@ -63,7 +64,7 @@
         /// <param name="value">The starting value.</param>
         protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value)
         {
-            _options.Add(id, new ModSliderOption(id, label, minValue, maxValue, value));
+            AddOption(new ModSliderOption(id, label, minValue, maxValue, value));
         }
     }
 
@@ -87,6 +88,16 @@
         /// </summary>
         public float Value { get; }
 
+        internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        {
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, Value,
+                new UnityAction<float>((float value) => parentOptions.OnSliderChange(Id, value)));
+
+            // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
+            Transform options = panel.tabs[tabIndex].container.transform;
+            OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
+        }
+
         /// <summary>
         /// Instantiates a new <see cref="ModSliderOption"/> for handling an option that can have any floating point value between a minimum and maximum.
         /// </summary>
@@ -95,7 +106,7 @@
         /// <param name="minValue">The minimum value for the range.</param>
         /// <param name="maxValue">The maximum value for the range.</param>
         /// <param name="value">The starting value.</param>
-        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value) : base(ModOptionType.Slider, label, id)
+        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value) : base(label, id)
         {
             this.MinValue = minValue;
             this.MaxValue = maxValue;
