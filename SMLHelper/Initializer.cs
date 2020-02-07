@@ -4,20 +4,15 @@
     using System.Reflection;
     using Harmony;
     using Patchers;
-#if SUBNAUTICA
     using QModManager.API.ModLoading;
-#endif
 
     /// <summary>
     /// WARNING: This class is for use only by QModManager.
     /// </summary>
-#if SUBNAUTICA
     [QModCore]
-#endif
     [Obsolete("This class is for use only by QModManager.", true)]
     public class Initializer
     {
-#if SUBNAUTICA
         /// <summary>
         /// WARNING: This method is for use only by QModManager.
         /// </summary>
@@ -46,28 +41,7 @@
                 Logger.Error($"Caught exception while trying to initialize SMLHelper{Environment.NewLine}{e}");
             }
         }
-#endif
-
-#if BELOWZERO
-        /// <summary>
-        /// WARNING: This method is for use only by QModManager.
-        /// </summary>
-        [Obsolete("This method is for use only by QModManager.", true)]
-        public static void Patch()
-        {
-            Logger.Initialize();
-
-            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Below Zero", LogLevel.Info);
-            try
-            {
-                Initialize();
-            }
-            catch (Exception e)
-            {
-                Logger.Error($"Caught exception while trying to initialize SMLHelper{Environment.NewLine}{e}");
-            }
-        }
-#endif
+        
 
         private static void Initialize()
         {
