@@ -1,7 +1,9 @@
 ﻿namespace SMLHelper.V2.Options
 {
     using System;
+    using System.Collections;
     using UnityEngine;
+    using UnityEngine.UI;
     using UnityEngine.Events;
 
     /// <summary>
@@ -96,6 +98,9 @@
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
+
+            if (isNeedAdjusting)
+                OptionGameObject.AddComponent<SliderOptionAdjust>();
         }
 
         /// <summary>
@@ -111,6 +116,38 @@
             this.MinValue = minValue;
             this.MaxValue = maxValue;
             this.Value = value;
+        }
+
+        private class SliderOptionAdjust: ModOptionAdjust
+        {
+            private const float spacing = 25f;
+            private const float sliderValueWidth = 85f;
+
+            public IEnumerator Start()
+            {
+                SetCaptionGameObject("Slider/Caption");
+                yield return null; // skip one frame
+
+                // for some reason sliders don't update their handle positions sometimes
+                uGUI_SnappingSlider slider = gameObject.GetComponentInChildren<uGUI_SnappingSlider>();
+                Harmony.AccessTools.Method(typeof(Slider), "UpdateVisuals")?.Invoke(slider, null);
+
+                // changing width for slider value label
+                RectTransform sliderValueRect = gameObject.transform.Find("Slider/Value") as RectTransform;
+                sliderValueRect.sizeDelta = SetVec2x(sliderValueRect.sizeDelta, sliderValueWidth);
+
+                // changing width for slider
+                RectTransform rect = gameObject.transform.Find("Slider/Background") as RectTransform;
+
+                float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
+                float widthSlider = rect.rect.width;
+                float widthText = CaptionWidth + spacing;
+
+                if (widthText + widthSlider + sliderValueWidth > widthAll)
+                    rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - sliderValueWidth - widthSlider);
+
+                Destroy(this);
+            }
         }
     }
 }

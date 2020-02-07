@@ -2,7 +2,9 @@
 {
     using System;
     using System.Linq;
+    using System.Collections;
     using SMLHelper.V2.Options.Utility;
+    using UnityEngine;
     using UnityEngine.Events;
 
     /// <summary>
@@ -161,6 +163,9 @@
                 new UnityAction<int>((int index) => parentOptions.OnChoiceChange(Id, index, Options[index])));
 
             OptionGameObject = choice.transform.parent.transform.parent.gameObject; // :(
+
+            if (isNeedAdjusting)
+                OptionGameObject.AddComponent<ChoiceOptionAdjust>();
         }
 
         /// <summary>
@@ -174,6 +179,28 @@
         {
             this.Options = options;
             this.Index = index;
+        }
+
+        private class ChoiceOptionAdjust: ModOptionAdjust
+        {
+            private const float spacing = 10f;
+
+            public IEnumerator Start()
+            {
+                SetCaptionGameObject("Choice/Caption");
+                yield return null; // skip one frame
+
+                RectTransform rect = gameObject.transform.Find("Choice/Background") as RectTransform;
+
+                float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
+                float widthChoice = rect.rect.width;
+                float widthText = CaptionWidth + spacing;
+
+                if (widthText + widthChoice > widthAll)
+                    rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthChoice);
+
+                Destroy(this);
+            }
         }
     }
 }
