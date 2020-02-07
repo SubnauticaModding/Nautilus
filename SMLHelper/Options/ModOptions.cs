@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
+    using UnityEngine.UI;
+    using QModManager.API;
 
     /// <summary>
     /// Abstract class that provides the framework for your mod's in-game configuration options.
@@ -102,6 +104,43 @@
         {
             Label = label;
             Id = id;
+        }
+
+        // if ModsOptionsAdjusted mod is active, we don't add adjuster components
+        internal static readonly bool isNeedAdjusting = !(QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable ?? false);
+
+        // base class for 'adjuster' components (so ui elements don't overlap with their text labels)
+        // reason for using components is to skip one frame before manually adjust ui elements to make sure that Unity UI Layout components is updated
+        internal abstract class ModOptionAdjust: MonoBehaviour
+        {
+            private const float minCaptionWidth_MainMenu = 480f;
+            private const float minCaptionWidth_InGame   = 360f;
+            private GameObject caption = null;
+
+            protected float CaptionWidth { get => caption?.GetComponent<RectTransform>().rect.width ?? 0f; }
+
+            protected static Vector2 SetVec2x(Vector2 vec, float val)  { vec.x = val; return vec; }
+
+            // we add ContentSizeFitter component to text label so it will change width in its Update() based on text
+            protected void SetCaptionGameObject(string gameObjectPath)
+            {
+                caption = gameObject.transform.Find(gameObjectPath)?.gameObject;
+
+                if (!caption)
+                {
+                    V2.Logger.Log($"ModOptionAdjust: caption gameobject '{gameObjectPath}' not found", V2.LogLevel.Warn);
+                    return;
+                }
+
+                bool isMainMenu = gameObject.GetComponentInParent<MainMenuOptions>() != null;
+                caption.AddComponent<LayoutElement>().minWidth = isMainMenu? minCaptionWidth_MainMenu: minCaptionWidth_InGame;
+                caption.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize; // for autosizing captions
+
+                RectTransform transform = caption.GetComponent<RectTransform>();
+                transform.SetAsFirstSibling(); // for HorizontalLayoutGroup
+                transform.pivot = SetVec2x(transform.pivot, 0f);
+                transform.anchoredPosition = SetVec2x(transform.anchoredPosition, 0f);
+            }
         }
     }
 }

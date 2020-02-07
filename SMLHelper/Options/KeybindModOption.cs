@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Collections;
     using SMLHelper.V2.Utility;
     using UnityEngine;
     using UnityEngine.Events;
@@ -136,6 +137,31 @@
             binding.onValueChanged.RemoveAllListeners();
             var callback = new UnityAction<KeyCode>((KeyCode key) => parentOptions.OnKeybindChange(Id, key));
             binding.onValueChanged.AddListener(new UnityAction<string>((string s) => callback?.Invoke(KeyCodeUtils.StringToKeyCode(s))));
+
+            if (isNeedAdjusting)
+                OptionGameObject.AddComponent<BindingOptionAdjust>();
+        }
+
+        private class BindingOptionAdjust: ModOptionAdjust
+        {
+            private const float spacing = 10f;
+
+            public IEnumerator Start()
+            {
+                SetCaptionGameObject("Caption");
+                yield return null; // skip one frame
+
+                RectTransform rect = gameObject.transform.Find("Bindings") as RectTransform;
+
+                float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
+                float widthBinding = rect.rect.width;
+                float widthText = CaptionWidth + spacing;
+
+                if (widthText + widthBinding > widthAll)
+                    rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthBinding);
+
+                Destroy(this);
+            }
         }
     }
 }
