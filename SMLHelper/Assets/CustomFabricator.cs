@@ -4,13 +4,9 @@
     using System.Collections.Generic;
     using SMLHelper.V2.Crafting;
     using SMLHelper.V2.Handlers;
+    using SMLHelper.V2.Interfaces;
     using UnityEngine;
     using Logger = V2.Logger;
-#if SUBNAUTICA
-    using Sprite = Atlas.Sprite;
-#elif BELOWZERO
-    using Sprite = UnityEngine.Sprite;
-#endif
 
     /// <summary>
     /// An asset class inheriting from <seealso cref="Buildable"/> that streamlines the process of creating a custom fabricator with a custom crafting tree.
@@ -136,7 +132,7 @@
         /// <summary>
         /// Override with the main group in the PDA blueprints where this item appears.
         /// </summary>
-        public override TechGroup GroupForPDA => TechGroup.InteriorModules;
+        public override TechGroup GroupForPDA => TechGroup.InteriorModules;        
 
         /// <summary>
         /// The in-game <see cref="GameObject"/>.
@@ -234,6 +230,47 @@
             throw new NotImplementedException($"To use a custom fabricator model, the prefab must be created in {nameof(GetCustomCrafterPreFab)}.");
         }
 
+#if SUBNAUTICA
+
+        /// <summary>
+        /// Override this method if you want full control over how your custom craft tree is built up.<para/>
+        /// To use this method's default behavior, you must use the following methods to build up your crafting tree.<para/>
+        /// - <see cref="AddCraftNode(TechType, string)"/><para/>
+        /// - <see cref="AddCraftNode(string, string)"/><para/>
+        /// - <see cref="AddCraftNode(Craftable, string)"/><para/>
+        /// - <see cref="AddTabNode(string, string, Atlas.Sprite, string)"/>
+        /// </summary>
+        /// <param name="craftTreeType"></param>
+        internal virtual void CreateCustomCraftTree(out CraftTree.Type craftTreeType)
+        {
+            ModCraftTreeRoot root = CraftTreeHandler.CreateCustomCraftTreeAndType(this.ClassID, out craftTreeType);
+            CraftTreeLinkingNodes.Add(RootNode, root);
+
+            // Since we shouldn't rely on attached events to be executed in any particular order,
+            // this list of actions will ensure that the craft tree is built up in the order in which nodes were received.
+            foreach (Action action in OrderedCraftTreeActions)
+                action.Invoke();
+        }
+
+        /// <summary>
+        /// Adds a new tab node to the custom crafting tree of this fabricator.
+        /// </summary>
+        /// <param name="tabId">The internal ID for the tab node.</param>
+        /// <param name="displayText">The in-game text shown for the tab node.</param>
+        /// <param name="tabSprite">The sprite used for the tab node.</param>
+        /// <param name="parentTabId">Optional. The parent tab of this tab.<para/>
+        /// When this value is null, the tab will be added to the root of the craft tree.</param>
+        public void AddTabNode(string tabId, string displayText, Atlas.Sprite tabSprite, string parentTabId = null)
+        {
+            OrderedCraftTreeActions.Add(() =>
+            {
+                ModCraftTreeLinkingNode parentNode = CraftTreeLinkingNodes[parentTabId ?? RootNode];
+                ModCraftTreeTab tab = parentNode.AddTabNode(tabId, displayText, tabSprite);
+                CraftTreeLinkingNodes[tabId] = tab;
+            });
+        }
+#elif BELOWZERO
+
         /// <summary>
         /// Override this method if you want full control over how your custom craft tree is built up.<para/>
         /// To use this method's default behavior, you must use the following methods to build up your crafting tree.<para/>
@@ -271,6 +308,7 @@
             });
         }
 
+#endif
         /// <summary>
         /// Adds a new crafting node to the custom crafting tree of this fabricator.
         /// </summary>

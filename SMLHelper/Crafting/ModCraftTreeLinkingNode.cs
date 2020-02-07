@@ -3,13 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using Patchers;
+    using UnityEngine;
     using UnityEngine.Assertions;
     using Utility;
-#if SUBNAUTICA
-    using Sprite = Atlas.Sprite;
-#elif BELOWZERO
-    using Sprite = UnityEngine.Sprite;
-#endif
 
     /// <summary>
     /// Abstract class that provides methods for adding new nodes into the crafting tree.
@@ -26,7 +22,27 @@
             : base(name, action, techType)
         {
         }
+#if SUBNAUTICA
+        /// <summary>
+        /// Creates a new tab node for the crafting tree and links it to the calling node.
+        /// </summary>
+        /// <param name="nameID">The name/ID of this node.</param>
+        /// <param name="displayText">The hover text to display in-game.</param>
+        /// <param name="sprite">The custom sprite to display on this tab node.</param>
+        /// <returns>A new tab node linked to the root node and ready to use.</returns>
+        public ModCraftTreeTab AddTabNode(string nameID, string displayText, Atlas.Sprite sprite)
+        {
+            string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
 
+            var tabNode = new ModCraftTreeTab(modName, nameID, displayText, sprite);
+            tabNode.LinkToParent(this);
+
+            ChildNodes.Add(tabNode);
+
+            return tabNode;
+        }
+
+#endif
         /// <summary>
         /// Creates a new tab node for the crafting tree and links it to the calling node.
         /// </summary>
@@ -72,12 +88,11 @@
         {
             foreach (ModCraftTreeTab node in ChildNodes)
             {
-                if (node == null)
-                    continue;
+                if (node == null) continue;
 
                 if (node.Name == nameID && node.Action == TreeAction.Expand)
                 {
-                    ModCraftTreeTab tab = node;
+                    var tab = (ModCraftTreeTab)node;
                     return tab;
                 }
             }
@@ -94,8 +109,7 @@
         {
             foreach (ModCraftTreeNode node in ChildNodes)
             {
-                if (node == null)
-                    continue;
+                if (node == null) continue;
 
                 if (node.TechType == techType && node.Action == TreeAction.Craft)
                 {
@@ -116,8 +130,7 @@
         {
             foreach (ModCraftTreeNode node in ChildNodes)
             {
-                if (node == null)
-                    continue;
+                if (node == null) continue;
 
                 if (node.Name == nameID)
                     return node;
@@ -144,10 +157,7 @@
         /// Creates a collection of new crafting nodes for the crafting tree and links it to the calling node.
         /// </summary>
         /// <param name="techTypes">The TechTypes to be crafted.</param>
-        public void AddCraftingNode(params TechType[] techTypes)
-        {
-            AddCraftingNode(techTypes.AsEnumerable());
-        }
+        public void AddCraftingNode(params TechType[] techTypes) => AddCraftingNode(techTypes.AsEnumerable());
 
         /// <summary>
         /// Creates a collection of new crafting nodes for the crafting tree and links it to the calling node.
@@ -158,7 +168,7 @@
             foreach (TechType tType in techTypes)
             {
                 Assert.AreNotEqual(TechType.None, tType, "Attempt to add TechType.None as a crafting node.");
-                AddCraftingNode(tType);
+                this.AddCraftingNode(tType);
             }
         }
 
