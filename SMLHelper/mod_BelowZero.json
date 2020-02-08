@@ -1,10 +1,9 @@
 {
-  "Id": "SMLHelper",
-  "DisplayName": "Modding Helper (SMLHelper)",
-  "Author": "The QModManager Team",
-  "Version": "2.5.0",
-  "Enable": true,
-  "Game": "BelowZero",
-  "AssemblyName": "SMLHelper.dll",
-  "EntryMethod": "SMLHelper.V2.Initializer.Patch"
+    "Id": "SMLHelper",
+    "DisplayName": "Modding Helper (SMLHelper)",
+    "Author": "The SMLHelper Dev Team",
+    "Version": "2.5.3",
+    "Enable": true,
+    "Game": "BelowZero",
+    "AssemblyName": "SMLHelper.dll"
 }

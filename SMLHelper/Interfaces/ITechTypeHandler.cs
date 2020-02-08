@@ -24,6 +24,7 @@
         /// <returns>The new <see cref="TechType"/> that is created.</returns>
         TechType AddTechType(string internalName, string displayName, string tooltip, bool unlockAtStart);
 
+#if SUBNAUTICA
         /// <summary>
         /// Adds a new <see cref="TechType"/> into the game, with a sprite. This new techtype will be unlocked at the start of a the game.
         /// </summary>
@@ -44,7 +45,8 @@
         /// <param name="unlockAtStart">Whether this TechType should be unlocked on game start, or not. By default, <c>true</c>.</param>
         /// <returns>The new <see cref="TechType"/> that is created.</returns>
         TechType AddTechType(string internalName, string displayName, string tooltip, Atlas.Sprite sprite, bool unlockAtStart);
-
+        
+#endif
         /// <summary>
         /// Adds a new <see cref="TechType"/> into the game, with a sprite. This new techtype will be unlocked at the start of a the game.
         /// </summary>

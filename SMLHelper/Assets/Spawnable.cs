@@ -138,6 +138,7 @@
             this.TechType = this.TechTypeHandler.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, false);
         }
 
+#if SUBNAUTICA
         /// <summary>
         /// Determines thee <see cref="Atlas.Sprite"/> to be used for this spawnable's icon.<para/>
         /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
@@ -158,5 +159,29 @@
             Logger.Warn($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
             return SpriteManager.defaultSprite;
         }
+
+#elif BELOWZERO
+
+        /// <summary>
+        /// Determines thee <see cref="UnityEngine.Sprite"/> to be used for this spawnable's icon.<para/>
+        /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
+        /// </summary>
+        /// <returns>Returns the <see cref="UnityEngine.Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, UnityEngine.Sprite)"/> call.</returns>
+        protected virtual UnityEngine.Sprite GetItemSprite()
+        {
+            // This is for backwards compatibility with mods that were using the "ModName/Assets" format
+            string path = this.AssetsFolder != modFolderLocation
+                ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
+                : Path.Combine(this.AssetsFolder, this.IconFileName);
+
+            if (File.Exists(path))
+            {
+                return ImageUtils.LoadSpriteFromFile(path);
+            }
+
+            Logger.Warn($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+            return SpriteManager.defaultSprite;
+        }
+#endif
     }
 }
