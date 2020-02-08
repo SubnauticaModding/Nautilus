@@ -77,8 +77,7 @@
 
             OptionGameObject = toggle.transform.parent.gameObject;
 
-            if (isNeedAdjusting)
-                OptionGameObject.AddComponent<ToggleOptionAdjust>();
+            base.AddToPanel(panel, tabIndex);
         }
 
         /// <summary>
@@ -110,5 +109,6 @@
                 Destroy(this);
             }
         }
+        internal override Type AdjusterComponent => typeof(ToggleOptionAdjust);
     }
 }

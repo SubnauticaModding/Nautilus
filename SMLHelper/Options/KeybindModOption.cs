@@ -138,8 +138,7 @@
             var callback = new UnityAction<KeyCode>((KeyCode key) => parentOptions.OnKeybindChange(Id, key));
             binding.onValueChanged.AddListener(new UnityAction<string>((string s) => callback?.Invoke(KeyCodeUtils.StringToKeyCode(s))));
 
-            if (isNeedAdjusting)
-                OptionGameObject.AddComponent<BindingOptionAdjust>();
+            base.AddToPanel(panel, tabIndex);
         }
 
         private class BindingOptionAdjust: ModOptionAdjust
@@ -163,5 +162,6 @@
                 Destroy(this);
             }
         }
+        internal override Type AdjusterComponent => typeof(BindingOptionAdjust);
     }
 }

@@ -99,8 +99,7 @@
             Transform options = panel.tabs[tabIndex].container.transform;
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
 
-            if (isNeedAdjusting)
-                OptionGameObject.AddComponent<SliderOptionAdjust>();
+            base.AddToPanel(panel, tabIndex);
         }
 
         /// <summary>
@@ -149,5 +148,6 @@
                 Destroy(this);
             }
         }
+        internal override Type AdjusterComponent => typeof(SliderOptionAdjust);
     }
 }
