@@ -142,7 +142,8 @@
     <Compile Include="Assets\Fish.cs" />
     <Compile Include="Assets\FishPrefab.cs" />
     <Compile Include="Assets\ModPrefab.cs" />
-    <Compile Include="Assets\ModSprite.cs" />
+    <Compile Include="Assets\SubnauticaModSprite.cs" />
+    <Compile Include="Assets\BelowZeroModSprite.cs" />
     <Compile Include="Assets\PdaItem.cs" />
     <Compile Include="Assets\Spawnable.cs" />
     <Compile Include="Crafting\CraftingNode.cs" />
