@@ -58,9 +58,11 @@
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\Assembly-CSharp_publicized.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="LitJson">
       <HintPath>..\Dependencies\LitJson.dll</HintPath>
