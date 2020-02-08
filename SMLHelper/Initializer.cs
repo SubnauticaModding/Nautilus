@@ -92,7 +92,7 @@
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
             ProtoBufSerializerPatcher.Patch(harmony);
-            TooltipPatcher.Patch(harmony);
+            //TooltipPatcher.Patch(harmony);
         }
     }
 }
