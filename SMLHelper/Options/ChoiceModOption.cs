@@ -164,8 +164,7 @@
 
             OptionGameObject = choice.transform.parent.transform.parent.gameObject; // :(
 
-            if (isNeedAdjusting)
-                OptionGameObject.AddComponent<ChoiceOptionAdjust>();
+            base.AddToPanel(panel, tabIndex);
         }
 
         /// <summary>
@@ -202,5 +201,6 @@
                 Destroy(this);
             }
         }
+        internal override Type AdjusterComponent => typeof(ChoiceOptionAdjust);
     }
 }

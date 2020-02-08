@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.V2.Options
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -61,6 +62,33 @@
         /// <seealso cref="SliderChanged"/> | <seealso cref="ToggleChanged"/> | <seealso cref="ChoiceChanged"/> | <seealso cref="KeybindChanged"/>.</para>
         /// </summary>
         public abstract void BuildModOptions();
+
+        /// <summary> The event that is called whenever a game object created for the option </summary>
+        protected event EventHandler<GameObjectCreatedEventArgs> GameObjectCreated;
+
+        internal void OnGameObjectCreated(string id, GameObject gameObject)
+        {
+            GameObjectCreated?.Invoke(this, new GameObjectCreatedEventArgs(id, gameObject));
+        }
+    }
+
+    /// <summary> Contains all the information about a created game object event </summary>
+    public class GameObjectCreatedEventArgs : EventArgs
+    {
+        /// <summary> The ID of the <see cref="ModOption"/> for which game object was created </summary>
+        public string Id { get; }
+
+        /// <summary> New game object for the <see cref="ModOption"/> </summary>
+        public GameObject GameObject { get; }
+
+        /// <summary> Constructs a new <see cref="GameObjectCreatedEventArgs"/> </summary>
+        /// <param name="id"> The ID of the <see cref="ModOption"/> for which game object was created </param>
+        /// <param name="gameObject"> New game object for the <see cref="ModOption"/> </param>
+        public GameObjectCreatedEventArgs(string id, GameObject gameObject)
+        {
+            Id = id;
+            GameObject = gameObject;
+        }
     }
 
     /// <summary>
@@ -93,7 +121,13 @@
         }
 
         // adds UI GameObject to panel and updates OptionGameObject
-        internal abstract void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex);
+        internal virtual void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        {
+            if (isNeedAdjusting && AdjusterComponent != null)
+                OptionGameObject.AddComponent(AdjusterComponent);
+
+            parentOptions.OnGameObjectCreated(Id, OptionGameObject);
+        }
 
         /// <summary>
         /// Base constructor for all mod options.
@@ -108,6 +142,9 @@
 
         // if ModsOptionsAdjusted mod is active, we don't add adjuster components
         internal static readonly bool isNeedAdjusting = !(QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable ?? false);
+
+        // type of component derived from ModOptionAdjust (for using in base.AddToPanel)
+        internal abstract Type AdjusterComponent { get; }
 
         // base class for 'adjuster' components (so ui elements don't overlap with their text labels)
         // reason for using components is to skip one frame before manually adjust ui elements to make sure that Unity UI Layout components is updated
