@@ -57,7 +57,7 @@
         /// <summary>
         /// <para>Builds up the configuration the options.</para>
         /// <para>This method should be composed of calls into the following methods: 
-        /// <seealso cref="AddSliderOption"/> | <seealso cref="AddToggleOption"/> | <seealso cref="AddChoiceOption(string, string, string[], int)"/> | <seealso cref="AddKeybindOption(string, string, GameInput.Device, KeyCode)"/>.</para>
+        /// <seealso cref="AddSliderOption(string, string, float, float, float)"/> | <seealso cref="AddToggleOption"/> | <seealso cref="AddChoiceOption(string, string, string[], int)"/> | <seealso cref="AddKeybindOption(string, string, GameInput.Device, KeyCode)"/>.</para>
         /// <para>Make sure you have subscribed to the events in the constructor to handle what happens when the value is changed:
         /// <seealso cref="SliderChanged"/> | <seealso cref="ToggleChanged"/> | <seealso cref="ChoiceChanged"/> | <seealso cref="KeybindChanged"/>.</para>
         /// </summary>
@@ -151,30 +151,32 @@
         internal abstract class ModOptionAdjust: MonoBehaviour
         {
             private const float minCaptionWidth_MainMenu = 480f;
-            private const float minCaptionWidth_InGame   = 360f;
+            private const float minCaptionWidth_GameMenu = 360f;
             private GameObject caption = null;
 
             protected float CaptionWidth { get => caption?.GetComponent<RectTransform>().rect.width ?? 0f; }
 
+            protected bool isMainMenu {get; private set; } = true; // is it main menu or game menu
+
             protected static Vector2 SetVec2x(Vector2 vec, float val)  { vec.x = val; return vec; }
 
+            public void Awake() => isMainMenu = gameObject.GetComponentInParent<MainMenuOptions>() != null;
+
             // we add ContentSizeFitter component to text label so it will change width in its Update() based on text
-            protected void SetCaptionGameObject(string gameObjectPath)
+            protected void SetCaptionGameObject(string gameObjectPath, float minWidth = 0f)
             {
                 caption = gameObject.transform.Find(gameObjectPath)?.gameObject;
 
                 if (!caption)
                 {
-                    V2.Logger.Log($"ModOptionAdjust: caption gameobject '{gameObjectPath}' not found", V2.LogLevel.Warn);
+                    V2.Logger.Log($"ModOptionAdjust: caption gameobject '{gameObjectPath}' not found", LogLevel.Warn);
                     return;
                 }
 
-                bool isMainMenu = gameObject.GetComponentInParent<MainMenuOptions>() != null;
-                caption.AddComponent<LayoutElement>().minWidth = isMainMenu? minCaptionWidth_MainMenu: minCaptionWidth_InGame;
+                caption.AddComponent<LayoutElement>().minWidth = minWidth != 0f? minWidth: (isMainMenu? minCaptionWidth_MainMenu: minCaptionWidth_GameMenu);
                 caption.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize; // for autosizing captions
 
                 RectTransform transform = caption.GetComponent<RectTransform>();
-                transform.SetAsFirstSibling(); // for HorizontalLayoutGroup
                 transform.pivot = SetVec2x(transform.pivot, 0f);
                 transform.anchoredPosition = SetVec2x(transform.anchoredPosition, 0f);
             }

@@ -6,6 +6,8 @@
     using UnityEngine.UI;
     using UnityEngine.Events;
 
+    using Object = UnityEngine.Object;
+
     /// <summary>
     /// Contains all the information about a slider changed event.
     /// </summary>
@@ -66,7 +68,22 @@
         /// <param name="value">The starting value.</param>
         protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value)
         {
-            AddOption(new ModSliderOption(id, label, minValue, maxValue, value));
+            AddSliderOption(id, label, minValue, maxValue, value, null);
+        }
+
+        /// <summary>
+        /// Adds a new <see cref="ModSliderOption"/> to this instance.
+        /// </summary>
+        /// <param name="id">The internal ID for the slider option.</param>
+        /// <param name="label">The display text to use in the in-game menu.</param>
+        /// <param name="minValue">The minimum value for the range.</param>
+        /// <param name="maxValue">The maximum value for the range.</param>
+        /// <param name="value">The starting value.</param>
+        /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
+        /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
+        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, string valueFormat)
+        {
+            AddOption(new ModSliderOption(id, label, minValue, maxValue, value, valueFormat));
         }
     }
 
@@ -90,6 +107,9 @@
         /// </summary>
         public float Value { get; }
 
+        /// <summary> Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, string)"/>) </summary>
+        public string ValueFormat { get; }
+
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, Value,
@@ -98,6 +118,15 @@
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
+
+            // if we using custom value format, we need to replace vanilla uGUI_SliderWithLabel with our component
+            if (ValueFormat != null)
+            {
+                GameObject sliderObject = OptionGameObject.transform.Find("Slider").gameObject;
+                uGUI_SliderWithLabel sliderLabel = sliderObject.GetComponent<uGUI_SliderWithLabel>();
+                sliderObject.AddComponent<SliderLabel>().Init(sliderLabel.label, sliderLabel.slider, this);
+                Object.Destroy(sliderLabel);
+            }
 
             base.AddToPanel(panel, tabIndex);
         }
@@ -110,40 +139,117 @@
         /// <param name="minValue">The minimum value for the range.</param>
         /// <param name="maxValue">The maximum value for the range.</param>
         /// <param name="value">The starting value.</param>
-        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value) : base(label, id)
+        /// <param name="valueFormat">Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, string)"/>) </param>
+        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value, string valueFormat = null) : base(label, id)
         {
             this.MinValue = minValue;
             this.MaxValue = maxValue;
             this.Value = value;
+            this.ValueFormat = valueFormat;
         }
 
-        private class SliderOptionAdjust: ModOptionAdjust
+        // component for showing slider value with custom format
+        private class SliderLabel: MonoBehaviour
         {
-            private const float spacing = 25f;
-            private const float sliderValueWidth = 85f;
+            private Text label;
+            private Slider slider;
+
+            private string valueFormat = null;
+            private ModSliderOption sliderOption;
+
+            public float ValueWidth { get; private set; } = -1f; // width for value text field
+
+            public void Init(Text _label, Slider _slider, ModSliderOption _sliderOption)
+            {
+                label = _label;
+                slider = _slider;
+                sliderOption = _sliderOption;
+
+                valueFormat = sliderOption.ValueFormat;
+            }
 
             public IEnumerator Start()
             {
-                SetCaptionGameObject("Slider/Caption");
+                slider.onValueChanged.AddListener(new UnityAction<float>(OnValueChanged));
+                UpdateLabel();
+
+                // we need to know necessary width for value text field based on min/max values and value format
+                GameObject tempLabel = Instantiate(label.gameObject);
+                tempLabel.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+                // we'll add formatted min value to the label and skip one frame for updating ContentSizeFitter
+                tempLabel.GetComponent<Text>().text = string.Format(valueFormat, sliderOption.MinValue);
+                yield return null;
+                float widthForMin = tempLabel.GetComponent<RectTransform>().rect.width;
+
+                // same for max value
+                tempLabel.GetComponent<Text>().text = string.Format(valueFormat, sliderOption.MaxValue);
+                yield return null;
+                float widthForMax = tempLabel.GetComponent<RectTransform>().rect.width;
+
+                Destroy(tempLabel);
+                ValueWidth = Math.Max(widthForMin, widthForMax);
+            }
+
+            private void OnValueChanged(float value) => UpdateLabel();
+
+            private void UpdateLabel() => label.text = string.Format(valueFormat, slider.value);
+        }
+
+
+        private class SliderOptionAdjust: ModOptionAdjust
+        {
+            private const float spacing_MainMenu = 30f;
+            private const float spacing_GameMenu = 10f;
+            private const float valueSpacing = 15f; // used in game menu
+
+            public IEnumerator Start()
+            {
+                SetCaptionGameObject("Slider/Caption", isMainMenu? 488f: 364.7f); // need to use custom width for slider's captions
                 yield return null; // skip one frame
 
                 // for some reason sliders don't update their handle positions sometimes
                 uGUI_SnappingSlider slider = gameObject.GetComponentInChildren<uGUI_SnappingSlider>();
                 Harmony.AccessTools.Method(typeof(Slider), "UpdateVisuals")?.Invoke(slider, null);
 
-                // changing width for slider value label
-                RectTransform sliderValueRect = gameObject.transform.Find("Slider/Value") as RectTransform;
-                sliderValueRect.sizeDelta = SetVec2x(sliderValueRect.sizeDelta, sliderValueWidth);
+                float sliderValueWidth = 0f;
 
-                // changing width for slider
+                if (gameObject.GetComponentInChildren<SliderLabel>() is SliderLabel sliderLabel)
+                {
+                    // wait while SliderLabel calculating ValueWidth (one or two frames)
+                    while (sliderLabel.ValueWidth == -1f)
+                        yield return null;
+
+                    sliderValueWidth = sliderLabel.ValueWidth + (isMainMenu? 0f: valueSpacing);
+                }
+
+                // changing width for slider value label (we don't change width for default format!)
+                float widthDelta = 0f;
+                RectTransform sliderValueRect = gameObject.transform.Find("Slider/Value") as RectTransform;
+
+                if (sliderValueWidth > sliderValueRect.rect.width)
+                {
+                    widthDelta = sliderValueWidth - sliderValueRect.rect.width;
+                    sliderValueRect.sizeDelta = SetVec2x(sliderValueRect.sizeDelta, sliderValueWidth);
+                }
+                else
+                    sliderValueWidth = sliderValueRect.rect.width;
+
                 RectTransform rect = gameObject.transform.Find("Slider/Background") as RectTransform;
 
+                if (widthDelta != 0f)
+                    rect.localPosition = SetVec2x(rect.localPosition, rect.localPosition.x - widthDelta);
+
+                // changing width for slider
                 float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
                 float widthSlider = rect.rect.width;
-                float widthText = CaptionWidth + spacing;
+                float widthText = CaptionWidth + (isMainMenu? spacing_MainMenu: spacing_GameMenu);
 
+                // it's not pixel-perfect, but it's good enough
                 if (widthText + widthSlider + sliderValueWidth > widthAll)
                     rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - sliderValueWidth - widthSlider);
+                else if (widthDelta > 0f)
+                    rect.sizeDelta = SetVec2x(rect.sizeDelta, -widthDelta);
 
                 Destroy(this);
             }
