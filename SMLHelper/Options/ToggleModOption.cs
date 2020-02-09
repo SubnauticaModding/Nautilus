@@ -1,7 +1,8 @@
 ﻿namespace SMLHelper.V2.Options
 {
     using System;
-    using UnityEngine.UI;
+    using System.Collections;
+    using UnityEngine;
     using UnityEngine.Events;
 
     /// <summary>
@@ -91,20 +92,19 @@
             this.Value = value;
         }
 
-        // in case of ToggleOption there is no need to manually move elements
-        // other option types don't work well with HorizontalLayoutGroup :(
         private class ToggleOptionAdjust: ModOptionAdjust
         {
             private const float spacing = 20f;
 
-            public void Awake()
+            public IEnumerator Start()
             {
-                HorizontalLayoutGroup hlg = gameObject.transform.Find("Toggle").gameObject.AddComponent<HorizontalLayoutGroup>();
-                hlg.childControlWidth = false;
-                hlg.childForceExpandWidth = false;
-                hlg.spacing = spacing;
-
                 SetCaptionGameObject("Toggle/Caption");
+                yield return null;
+
+                Transform check = gameObject.transform.Find("Toggle/Background");
+
+                if (CaptionWidth + spacing > check.localPosition.x)
+                    check.localPosition = SetVec2x(check.localPosition, CaptionWidth + spacing);
 
                 Destroy(this);
             }
