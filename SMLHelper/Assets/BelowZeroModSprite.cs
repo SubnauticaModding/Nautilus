@@ -1,4 +1,5 @@
-﻿namespace SMLHelper.V2.Assets
+﻿#if BELOWZERO
+namespace SMLHelper.V2.Assets
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +9,7 @@
     /// </summary>
     internal class ModSprite
     {
-        internal static void Add(SpriteManager.Group group, string name, Atlas.Sprite sprite)
+        internal static void Add(SpriteManager.Group group, string name, UnityEngine.Sprite sprite)
         {
             if (group == SpriteManager.Group.None)
                 group = SpriteManager.Group.Item;
@@ -16,15 +17,15 @@
             // All sprite calls for almost anything we don't manually group is in the Item group.
 
             if (!ModSprites.ContainsKey(group))
-                ModSprites.Add(group, new Dictionary<string, Atlas.Sprite>(StringComparer.InvariantCultureIgnoreCase));
+                ModSprites.Add(group, new Dictionary<string, UnityEngine.Sprite>(StringComparer.InvariantCultureIgnoreCase));
 
             ModSprites[group][name] = sprite;
         }
 
         internal static void Add(ModSprite sprite) => Add(sprite.Group, sprite.Id, sprite.Sprite);
 
-        internal static Dictionary<SpriteManager.Group, Dictionary<string, Atlas.Sprite>> ModSprites 
-            = new Dictionary<SpriteManager.Group, Dictionary<string, Atlas.Sprite>>();
+        internal static Dictionary<SpriteManager.Group, Dictionary<string, UnityEngine.Sprite>> ModSprites 
+            = new Dictionary<SpriteManager.Group, Dictionary<string, UnityEngine.Sprite>>();
 
         /// <summary>
         /// The tech type of a specific item associated with this sprite.
@@ -35,7 +36,7 @@
         /// <summary>
         /// The actual sprite used in-game when this sprite is references.
         /// </summary>
-        public Atlas.Sprite Sprite;
+        public UnityEngine.Sprite Sprite;
 
         /// <summary>
         /// The group that this sprite belongs to. 
@@ -54,7 +55,7 @@
         /// </summary>
         /// <param name="type">The techtype paired to this sprite.</param>
         /// <param name="sprite">The sprite to be added.</param>
-        public ModSprite(TechType type, Atlas.Sprite sprite)
+        public ModSprite(TechType type, UnityEngine.Sprite sprite)
         {
             TechType = type;
             Id = type.AsString();
@@ -69,7 +70,7 @@
         /// <param name="group">The sprite group.</param>
         /// <param name="id">The sprite internal identifier.</param>
         /// <param name="sprite">The sprite to be added.</param>
-        public ModSprite(SpriteManager.Group group, string id, Atlas.Sprite sprite)
+        public ModSprite(SpriteManager.Group group, string id, UnityEngine.Sprite sprite)
         {
             Group = group;
             Id = id;
@@ -84,33 +85,13 @@
         /// <param name="group">The sprite group.</param>
         /// <param name="type">The techtype paired to this sprite.</param>
         /// <param name="sprite">The sprite to be added.</param>
-        public ModSprite(SpriteManager.Group group, TechType type, Atlas.Sprite sprite)
+        public ModSprite(SpriteManager.Group group, TechType type, UnityEngine.Sprite sprite)
         {
             Group = group;
             Id = type.AsString();
             Sprite = sprite;
             TechType = type;
         }
-
-        /// <summary>
-        /// Creates a new ModSprite to be used with a specific group and internal ID.
-        /// Created with a UnityEngine Sprite.
-        /// </summary>
-        /// <param name="group">The sprite group this sprite will be added to.</param>
-        /// <param name="id">The sprite internal identifier.</param>
-        /// <param name="sprite">The sprite to be added.</param>
-        public ModSprite(SpriteManager.Group group, string id, UnityEngine.Sprite sprite) : this(group, id, new Atlas.Sprite(sprite, false))
-        {
-        }
-
-        /// <summary>
-        /// Creates a new ModSprite to be used with a specific TechType.
-        /// Created with a UnityEngine Sprite.
-        /// </summary>
-        /// <param name="type">The techtype paired to this sprite.</param>
-        /// <param name="sprite">The sprite to be added.</param>
-        public ModSprite(TechType type, UnityEngine.Sprite sprite) : this(type, new Atlas.Sprite(sprite, false))
-        {
-        }
     }
 }
+#endif

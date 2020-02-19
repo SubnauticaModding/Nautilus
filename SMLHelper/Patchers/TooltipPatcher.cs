@@ -1,7 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using Harmony;
-    using QModManager;
+    using QModManager.API;
     using SMLHelper.V2.Handlers;
     using System;
     using System.Collections.Generic;
@@ -11,6 +11,9 @@
     using System.Reflection;
     using System.Reflection.Emit;
     using System.Text;
+#if BELOWZERO
+    using QModManager;
+#endif
 
     internal class TooltipPatcher
     {
@@ -73,12 +76,9 @@
 
             if (TechTypeHandler.TechTypesAddedBy.TryGetValue(type, out Assembly assembly))
             {
-                // SMLHelper can access QModManager internals because of this: 
-                // https://github.com/QModManager/QModManager/blob/releases/2.0.1/QModManager/Properties/AssemblyInfo.cs#L21
-
                 string modName = null;
-
-                foreach (QMod mod in Patcher.loadedMods)
+                
+                foreach (IQMod mod in QModServices.Main.GetAllMods())
                 {
                     if (mod == null || mod.LoadedAssembly == null) continue;
                     if (mod.LoadedAssembly == assembly)
@@ -124,9 +124,6 @@
             Nothing
         }
 
-        /// <summary>
-        /// Should be one of: '<see langword="Mod name (default)">'</see>, '<see langword="Mod name and item ID"></see>', or '<see langword="Nothing"></see>'
-        /// </summary>
         internal static ExtraItemInfo ExtraItemInfoOption { get; private set; }
 
         internal static void SetExtraItemInfo(ExtraItemInfo value)
@@ -204,8 +201,8 @@
             List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
 
             // Get the target op code based on what method is being patched
-            // Ldloc_0 for InventoryItem and InventoryItemView, Ldarg_2 for BuildTech and Recipe
-            OpCode targetCode = method.Name.Contains("InventoryItem") ? OpCodes.Ldloc_0 : OpCodes.Ldarg_2;
+            // Callvirt for InventoryItem and InventoryItemView, Ldarg_2 for BuildTech and Recipe
+            OpCode targetCode = method.Name.Contains("InventoryItem") ? OpCodes.Callvirt : OpCodes.Ldarg_2;
             // Get the last occurance of the code
             int entryIndex = codes.FindLastIndex(c => c.opcode == targetCode);
 
@@ -218,17 +215,21 @@
             // Remove all labels at the target op code
             List<Label> labelsToMove = codes[entryIndex].labels.ToArray().ToList();
             codes[entryIndex].labels.Clear();
+
+            // Change first custom IL code based on what method is being patched
+            // Dup for InventoryItem and InventoryItemView, Ldloc_0 for BuildTech and Recipe
+            OpCode firstCode = method.Name.Contains("InventoryItem") ? OpCodes.Dup : OpCodes.Ldloc_0;
             
             // Insert custom IL codes
             CodeInstruction[] codesToInsert = new CodeInstruction[]
             {
-                new CodeInstruction(OpCodes.Ldloc_0)
+                new CodeInstruction(firstCode)
                 {
-                    // Move labels correctly
+                    // Move labels accordingly
                     labels = labelsToMove
                 },
                 new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Call, SymbolExtensions.GetMethodInfo(methodInfo))
+                new CodeInstruction(OpCodes.Call, SymbolExtensions.GetMethodInfo(methodInfo)),
             };
             codes.InsertRange(entryIndex, codesToInsert);
 

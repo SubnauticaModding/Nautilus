@@ -1,11 +1,11 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
     using System.Text;
+    using Harmony;
 
     internal class LanguagePatcher
     {
@@ -58,25 +58,40 @@
                 if (!FileNeedsRewrite(modKey))
                     continue; // File is identical to captured lines. No need to rewrite it.
 
-                WriteOriginalLinesFile(modKey);
-                filesWritten++;
+                Logger.Log($"Writing original language lines file for {modKey}", LogLevel.Debug);
+                if (WriteOriginalLinesFile(modKey))
+                    filesWritten++;
+                else
+                    Logger.Log($"Error writing language lines file for {modKey}", LogLevel.Warn);
             }
 
             if (filesWritten > 0)
                 Logger.Log($"Updated {filesWritten} of {originalCustomLines.Count} original language files.", LogLevel.Debug);
         }
 
-        private static void WriteOriginalLinesFile(string modKey)
+        private static bool WriteOriginalLinesFile(string modKey)
         {
+            if (string.IsNullOrEmpty(modKey))
+                return false;
+
             Dictionary<string, string> modCustomLines = originalCustomLines[modKey];
             var text = new StringBuilder();
             foreach (string langLineKey in modCustomLines.Keys)
             {
-                string value = modCustomLines[langLineKey].Replace("\n", "\\n").Replace("\r", "\\r");
-                text.AppendLine($"{langLineKey}{KeyValueSeparator}{value}");
+                if (!modCustomLines.TryGetValue(langLineKey, out string line) || string.IsNullOrEmpty(line))
+                    continue;
+
+                string valueToWrite = line.Replace("\n", "\\n").Replace("\r", "\\r");
+                text.AppendLine($"{langLineKey}{KeyValueSeparator}{valueToWrite}");
             }
 
-            File.WriteAllText(Path.Combine(LanguageOrigDir, $"{modKey}.txt"), text.ToString(), Encoding.UTF8);
+            if (text.Length > 0)
+            {
+                File.WriteAllText(Path.Combine(LanguageOrigDir, $"{modKey}.txt"), text.ToString(), Encoding.UTF8);
+                return true;
+            }
+
+            return false;            
         }
 
         private static void ReadOverrideCustomLines()
