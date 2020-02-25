@@ -31,7 +31,7 @@ namespace SMLHelper.V2.Interfaces
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        JsonValue GetModdedTechData(TechType techType);
+        RecipeData GetRecipeData(TechType techType);
 
         /// <summary>
         /// <para>Allows you to add ingredients for a TechType crafting recipe.</para>
