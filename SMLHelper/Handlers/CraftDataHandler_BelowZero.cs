@@ -127,11 +127,13 @@ namespace SMLHelper.V2.Handlers
         /// <seealso cref="Ingredient"/>
         void ICraftDataHandler.AddIngredients(TechType techType, ICollection<Ingredient> ingredients)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType].Add(TechData.PropertyToID("ingredients"), new JsonValue(JsonValue.Type.Array));
             JsonValue ingredientslist = CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("ingredients")];
             int amount = TechData.PropertyToID("amount");
             int tech = TechData.PropertyToID("techType");
-            int count = ingredients.Count;
             int current = 0;
 
 
@@ -156,6 +158,9 @@ namespace SMLHelper.V2.Handlers
         /// <seealso cref="Ingredient"/>
         void ICraftDataHandler.AddLinkedItems(TechType techType, ICollection<TechType> linkedItems)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType].Add(TechData.PropertyToID("linkedItems"), new JsonValue(JsonValue.Type.Array));
             JsonValue linkedItemslist = CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("linkedItems")];
             int amount = TechData.PropertyToID("amount");
@@ -181,7 +186,6 @@ namespace SMLHelper.V2.Handlers
         /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
         RecipeData ICraftDataHandler.GetRecipeData(TechType techType)
         {
-
             if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue moddedTechData))
             {
                 if (!TechData.TryGetValue(techType, out moddedTechData))
@@ -236,6 +240,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="equipmentType">The EquipmentType for that TechType.</param>
         void ICraftDataHandler.SetEquipmentType(TechType techType, EquipmentType equipmentType)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("equipmentType")] = new JsonValue((int)equipmentType);
         }
 
@@ -247,6 +254,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
         void ICraftDataHandler.SetQuickSlotType(TechType techType, QuickSlotType slotType)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("slotType")] = new JsonValue((int)slotType);
         }
 
@@ -258,6 +268,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="harvestOutput">The harvest output for that TechType.</param>
         void ICraftDataHandler.SetHarvestOutput(TechType techType, TechType harvestOutput)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("harvestOutput")] = new JsonValue((int)harvestOutput);
         }
 
@@ -269,6 +282,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="harvestType">The HarvestType for that TechType.</param>
         void ICraftDataHandler.SetHarvestType(TechType techType, HarvestType harvestType)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("harvestType")] = new JsonValue((int)harvestType);
         }
 
@@ -280,6 +296,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="bonus">The number of additional slices/seeds you'll receive on last cut.</param>
         void ICraftDataHandler.SetHarvestFinalCutBonus(TechType techType, int bonus)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("harvestFinalCutBonus")] = new JsonValue(bonus);
         }
 
@@ -291,6 +310,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="size">The item size for that TechType.</param>
         void ICraftDataHandler.SetItemSize(TechType techType, Vector2int size)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("x")] = new JsonValue(size.x);
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("y")] = new JsonValue(size.y);
         }
@@ -304,6 +326,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="y">The height of the item</param>
         void ICraftDataHandler.SetItemSize(TechType techType, int x, int y)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("x")] = new JsonValue(x);
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("y")] = new JsonValue(y);
         }
@@ -316,6 +341,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="time">The crafting time, in seconds, for that TechType.</param>
         void ICraftDataHandler.SetCraftingTime(TechType techType, float time)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("craftTime")] = new JsonValue(time);
         }
 
@@ -327,6 +355,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="cooked">The cooked creature counterpart for that TechType.</param>
         void ICraftDataHandler.SetCookedVariant(TechType uncooked, TechType cooked)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(uncooked))
+                CraftDataPatcher.CustomTechData[uncooked] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[uncooked][TechData.PropertyToID("processed")] = new JsonValue((int)cooked);
         }
 
@@ -338,6 +369,9 @@ namespace SMLHelper.V2.Handlers
         /// <seealso cref="CraftData.BackgroundType"/>
         void ICraftDataHandler.SetBackgroundType(TechType techType, CraftData.BackgroundType backgroundColor)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("backgroundType")] = new JsonValue((int)backgroundColor);
         }
 
@@ -347,6 +381,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techType">The TechType which you want to add to the buildable list.</param>
         void ICraftDataHandler.AddBuildable(TechType techType)
         {
+            if (CraftDataPatcher.CustomTechData.ContainsKey(techType))
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+
             CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("buildable")] = new JsonValue(true);
         }
 
