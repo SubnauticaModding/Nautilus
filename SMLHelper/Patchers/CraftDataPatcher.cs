@@ -78,13 +78,10 @@
         internal static void Patch(HarmonyInstance harmony)
         {
 #if SUBNAUTICA
-            PatchForSubnautica();
+            PatchForSubnautica(harmony);
 #elif BELOWZERO
             PatchForBelowZero(harmony);
 #endif
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(PreparePrefabIDCachePostfix))));
-
             Logger.Log("CraftDataPatcher is done.", LogLevel.Debug);
         }
 
