@@ -1,6 +1,7 @@
 ﻿#if SUBNAUTICA
 namespace SMLHelper.V2.Patchers
 {
+    using Harmony;
     using System.Collections.Generic;
 
     internal partial class CraftDataPatcher
@@ -17,27 +18,55 @@ namespace SMLHelper.V2.Patchers
         internal static IDictionary<TechType, CraftData.BackgroundType> CustomBackgroundTypes = new SelfCheckingDictionary<TechType, CraftData.BackgroundType>("CustomBackgroundTypes", TechTypeExtensions.sTechTypeComparer, AsStringFunction);
         internal static List<TechType> CustomBuildables = new List<TechType>();
 
+
         internal static void AddToCustomTechData(TechType techType, ITechData techData)
         {
             CustomTechData.Add(techType, techData);
         }
 
-        private static void PatchForSubnautica()
+        private static void PatchForSubnautica(HarmonyInstance harmony)
+        {
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataCachePostfix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.Get)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataCachePostfix))));
+        }
+        private static void CraftDataCachePostfix()
         {
             // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
             // See README.md for details.
-            PatchUtils.PatchDictionary(CraftData.harvestOutputList, CustomHarvestOutputList);
-            PatchUtils.PatchDictionary(CraftData.harvestTypeList, CustomHarvestTypeList);
-            PatchUtils.PatchDictionary(CraftData.harvestFinalCutBonusList, CustomFinalCutBonusList);
-            PatchUtils.PatchDictionary(CraftData.itemSizes, CustomItemSizes);
-            PatchUtils.PatchDictionary(CraftData.equipmentTypes, CustomEquipmentTypes);
-            PatchUtils.PatchDictionary(CraftData.slotTypes, CustomSlotTypes);
-            PatchUtils.PatchDictionary(CraftData.craftingTimes, CustomCraftingTimes);
-            PatchUtils.PatchDictionary(CraftData.cookedCreatureList, CustomCookedCreatureList);
-            PatchUtils.PatchDictionary(CraftData.backgroundTypes, CustomBackgroundTypes);
-            PatchUtils.PatchList(CraftData.buildables, CustomBuildables);
+            if (CustomHarvestOutputList.Count > 0)
+                PatchUtils.PatchDictionary(CraftData.harvestOutputList, CustomHarvestOutputList);
 
-            AddCustomTechDataToOriginalDictionary();
+            if (CustomHarvestTypeList.Count > 0)
+                PatchUtils.PatchDictionary(CraftData.harvestTypeList, CustomHarvestTypeList);
+
+            if (CustomFinalCutBonusList.Count > 0)
+                PatchUtils.PatchDictionary(CraftData.harvestFinalCutBonusList, CustomFinalCutBonusList);
+
+            if (CustomItemSizes.Count > 0)
+                PatchUtils.PatchDictionary(CraftData.itemSizes, CustomItemSizes);
+
+            if (CustomEquipmentTypes.Count > 0)
+                PatchUtils.PatchDictionary(CraftData.equipmentTypes, CustomEquipmentTypes);
+
+            if (CustomSlotTypes.Count > 0)
+                PatchUtils.PatchDictionary(CraftData.slotTypes, CustomSlotTypes);
+
+            if (CustomCraftingTimes.Count > 0)
+                PatchUtils.PatchDictionary(CraftData.craftingTimes, CustomCraftingTimes);
+
+            if (CustomCookedCreatureList.Count > 0)
+                PatchUtils.PatchDictionary(CraftData.cookedCreatureList, CustomCookedCreatureList);
+
+            if (CustomBackgroundTypes.Count > 0)
+                PatchUtils.PatchDictionary(CraftData.backgroundTypes, CustomBackgroundTypes);
+
+            if (CustomBuildables.Count > 0)
+                PatchUtils.PatchList(CraftData.buildables, CustomBuildables);
+
+            if (CustomTechData.Count > 0)
+                AddCustomTechDataToOriginalDictionary();
         }
 
         private static void AddCustomTechDataToOriginalDictionary()
@@ -90,10 +119,10 @@ namespace SMLHelper.V2.Patchers
                 {
                     added++;
                 }
-
                 CraftData.techData.Add(techType, techDataInstance);
             }
 
+            CustomTechData.Clear();
             if (added > 0)
                 Logger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
 
