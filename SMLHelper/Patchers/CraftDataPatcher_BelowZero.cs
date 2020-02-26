@@ -36,8 +36,7 @@ namespace SMLHelper.V2.Patchers
             short replaced = 0;
             foreach (TechType techType in CustomTechData.Keys)
             {
-                bool techDataExists = TechData.Contains(techType);
-
+                bool techDataExists = TechData.entries.ContainsKey(techType);
                 if (techDataExists && TechData.entries[techType] != CustomTechData[techType])
                 {
                     if (TechData.TryGetValue(techType, out JsonValue originalData))
@@ -49,14 +48,14 @@ namespace SMLHelper.V2.Patchers
 
                         Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
                         replaced++;
-                        Logger.Log($"Replaced Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
+                        Logger.Log($"Replaced Item: " + techType + " " + TechData.Contains(techType), LogLevel.Debug);
                     }
                 }
                 else if (!techDataExists)
                 {
                     TechData.Add(techType, CustomTechData[techType]);
                     added++;
-                    Logger.Log($"Added Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
+                    Logger.Log($"Added Item: " + techType + " " + TechData.Contains(techType), LogLevel.Debug);
                 }
             }
             CustomTechData.Clear();
