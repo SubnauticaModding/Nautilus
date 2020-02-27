@@ -10,9 +10,10 @@ namespace SMLHelper.V2.Patchers
 #region Internal Fields
 
         internal static IDictionary<TechType, JsonValue> CustomTechData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
-        internal static IDictionary<TechType, JsonValue> PatchedTechData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
+        internal static int TechDataAltered = 0;
+        internal static int PrefabAltered = 0;
 
-#endregion
+        #endregion
 
         internal static void AddToCustomTechData(TechType techType, JsonValue techData)
         {
@@ -21,20 +22,40 @@ namespace SMLHelper.V2.Patchers
 
         private static void PatchForBelowZero(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(TechDataCachePrefix))));
-            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
+            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Initialize)),
+               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
+            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.TryGetValue)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(TechDataCachePrefix))));
 
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(PreparePrefabIDCachePostfix))));
-            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(PreparePrefabIDCachePostfix))));
+               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetPrefabForTechType)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataGetPrefabPrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetPrefabForTechTypeAsync)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataGetPrefabPrefix))));
         }
 
+
+        private static void CraftDataGetPrefabPrefix()
+        {
+            if (ModPrefab.PrefabCount > 0 && PrefabAltered != ModPrefab.PrefabCount)
+                CraftDataPrefabIDCachePostfix();
+        }
+
+        private static void CraftDataPrefabIDCachePostfix()
+        {
+            Dictionary<TechType, string> techMapping = CraftData.techMapping;
+            Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
+            foreach (ModPrefab prefab in ModPrefab.Prefabs)
+            {
+                techMapping[prefab.TechType] = prefab.ClassID;
+                entClassTechTable[prefab.ClassID] = prefab.TechType;
+                PrefabAltered++;
+            }
+        }
         private static void TechDataCachePrefix()
         {
-            if(CustomTechData.Count > 0)
+            if(CustomTechData.Count > 0 && TechDataAltered != CustomTechData.Count)
                 AddCustomTechDataToOriginalDictionary();
         }
 
@@ -56,12 +77,14 @@ namespace SMLHelper.V2.Patchers
 
                         Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
                         replaced++;
+                        TechDataAltered++;
                     }
                 }
                 else if (!techDataExists)
                 {
                     TechData.Add(techType, CustomTechData[techType]);
                     added++;
+                    TechDataAltered++;
                 }
             }
 
@@ -69,17 +92,6 @@ namespace SMLHelper.V2.Patchers
                 Logger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
             if (replaced > 0)
                 Logger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Info);
-        }
-
-        private static void PreparePrefabIDCachePostfix()
-        {
-            Dictionary<TechType, string> techMapping = CraftData.techMapping;
-            Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
-            foreach (ModPrefab prefab in ModPrefab.Prefabs)
-            {
-                techMapping[prefab.TechType] = prefab.ClassID;
-                entClassTechTable[prefab.ClassID] = prefab.TechType;
-            }
         }
     }
 }
