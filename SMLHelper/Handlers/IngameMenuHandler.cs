@@ -26,6 +26,15 @@
         }
 
         /// <summary>
+        /// Registers a simple <see cref="Action"/> method to invoke whenever the player quits the game via the in game menu.
+        /// </summary>
+        /// <param name="onQuitAction">The method to invoke.</param>
+        public static void RegisterOnQuitEvent(Action onQuitAction)
+        {
+            Main.RegisterOnQuitEvent(onQuitAction);
+        }
+
+        /// <summary>
         /// Removes a method previously added through <see cref="RegisterOnSaveEvent(Action)"/> so it is no longer invoked when saving the game.<para/>
         /// If you plan on using this, do not register an anonymous method.
         /// </summary>
@@ -33,6 +42,16 @@
         public static void UnregisterOnSaveEvent(Action onSaveAction)
         {
             Main.UnregisterOnSaveEvent(onSaveAction);
+        }
+
+        /// <summary>
+        /// Removes a method previously added through <see cref="RegisterOnSaveEvent(Action)"/> so it is no longer invoked when quitting the game.<para/>
+        /// If you plan on using this, do not register an anonymous method.
+        /// </summary>
+        /// <param name="onQuitAction">The method invoked.</param>
+        public static void UnregisterOnQuitEvent(Action onQuitAction)
+        {
+            Main.UnregisterOnQuitEvent(onQuitAction);
         }
 
         /// <summary>
@@ -45,12 +64,30 @@
         }
 
         /// <summary>
+        /// Registers a simple <see cref="Action"/> method to invoke the <c>first time</c> the player quits the game via the in game menu.
+        /// </summary>
+        /// <param name="onQuitAction">The method to invoke. This action will not be invoked a second time.</param>
+        public static void RegisterOneTimeUseOnQuitEvent(Action onQuitAction)
+        {
+            Main.RegisterOneTimeUseOnQuitEvent(onQuitAction);
+        }
+
+        /// <summary>
         /// Registers a simple <see cref="Action"/> method to invoke whenever the player saves the game via the in game menu.
         /// </summary>
         /// <param name="onSaveAction">The method to invoke.</param>
         void IIngameMenuHandler.RegisterOnSaveEvent(Action onSaveAction)
         {
             IngameMenuPatcher.OnSaveEvents += onSaveAction;
+        }
+
+        /// <summary>
+        /// Registers a simple <see cref="Action"/> method to invoke whenever the player quits the game via the in game menu.
+        /// </summary>
+        /// <param name="onQuitAction">The method to invoke.</param>
+        void IIngameMenuHandler.RegisterOnQuitEvent(Action onQuitAction)
+        {
+            IngameMenuPatcher.OnQuitEvents += onQuitAction;
         }
 
         /// <summary>
@@ -64,12 +101,31 @@
         }
 
         /// <summary>
+        /// Removes a method previously added through <see cref="RegisterOnSaveEvent(Action)"/> so it is no longer invoked when quiting the game.<para/>
+        /// If you plan on using this, do not register an anonymous method.
+        /// </summary>
+        /// <param name="onQuitAction">The method invoked.</param>
+        void IIngameMenuHandler.UnregisterOnQuitEvent(Action onQuitAction)
+        {
+            IngameMenuPatcher.OnQuitEvents -= onQuitAction;
+        }
+
+        /// <summary>
         /// Registers a simple <see cref="Action"/> method to invoke the <c>first time</c> the player saves the game via the in game menu.
         /// </summary>
         /// <param name="onSaveAction">The method to invoke. This action will not be invoked a second time.</param>
         void IIngameMenuHandler.RegisterOneTimeUseOnSaveEvent(Action onSaveAction)
         {
             IngameMenuPatcher.AddOneTimeUseSaveEvent(onSaveAction);
+        }
+
+        /// <summary>
+        /// Registers a simple <see cref="Action"/> method to invoke the <c>first time</c> the player quits the game via the in game menu.
+        /// </summary>
+        /// <param name="onQuitAction">The method to invoke. This action will not be invoked a second time.</param>
+        void IIngameMenuHandler.RegisterOneTimeUseOnQuitEvent(Action onQuitAction)
+        {
+            IngameMenuPatcher.AddOneTimeUseQuitEvent(onQuitAction);
         }
     }
 }
