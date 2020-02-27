@@ -206,12 +206,11 @@ namespace SMLHelper.V2.Handlers
         /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
         ITechData ICraftDataHandler.GetModdedTechData(TechType techType)
         {
-            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData moddedTechData))
+            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData moddedTechData))
             {
-                return moddedTechData;
+                moddedTechData = CraftData.Get(techType, true);
             }
-
-            return null;
+            return moddedTechData;
         }
 
         #endregion
