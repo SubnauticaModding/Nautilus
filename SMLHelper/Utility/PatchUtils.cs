@@ -14,7 +14,6 @@
             {
                 original[entry.Key] = entry.Value;
             }
-            patches.Clear();
         }
 
         internal static void PatchList<ValueType>(List<ValueType> original, IList<ValueType> patches)
@@ -23,7 +22,6 @@
             {
                 original.Add(entry);
             }
-            patches.Clear();
         }
 
         // attributes for use with PatchClass method

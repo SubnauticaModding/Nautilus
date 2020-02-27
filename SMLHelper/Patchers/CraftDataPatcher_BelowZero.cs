@@ -6,11 +6,11 @@ namespace SMLHelper.V2.Patchers
 
     internal partial class CraftDataPatcher
     {
-#region Internal Fields
+        #region Internal Fields
 
         internal static IDictionary<TechType, JsonValue> CustomTechData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
 
-#endregion
+        #endregion
 
         internal static void AddToCustomTechData(TechType techType, JsonValue techData)
         {
@@ -20,15 +20,14 @@ namespace SMLHelper.V2.Patchers
         private static void PatchForBelowZero(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(TechDataCachePostfix))));
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(TechDataCachePostfix))));
             harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(TechDataCachePostfix))));
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(TechDataCachePostfix))));
         }
 
         private static void TechDataCachePostfix()
         {
-            if (CustomTechData.Count > 0)
-                AddCustomTechDataToOriginalDictionary();
+            AddCustomTechDataToOriginalDictionary();
         }
 
         private static void AddCustomTechDataToOriginalDictionary()
@@ -59,7 +58,6 @@ namespace SMLHelper.V2.Patchers
                     Logger.Log($"Added Item: " + techType + " " + TechData.Contains(techType), LogLevel.Debug);
                 }
             }
-
             CustomTechData.Clear();
             if (added > 0)
                 Logger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
