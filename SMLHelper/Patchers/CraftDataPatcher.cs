@@ -78,26 +78,12 @@
         internal static void Patch(HarmonyInstance harmony)
         {
 #if SUBNAUTICA
-            PatchForSubnautica();
+            PatchForSubnautica(harmony);
 #elif BELOWZERO
             PatchForBelowZero(harmony);
 #endif
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(PreparePrefabIDCachePostfix))));
 
             Logger.Log("CraftDataPatcher is done.", LogLevel.Debug);
-        }
-
-        private static void PreparePrefabIDCachePostfix()
-        {
-            Dictionary<TechType, string> techMapping = CraftData.techMapping;
-            Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
-
-            foreach (ModPrefab prefab in ModPrefab.Prefabs)
-            {
-                techMapping[prefab.TechType] = prefab.ClassID;
-                entClassTechTable[prefab.ClassID] = prefab.TechType;
-            }
         }
 
         #endregion
