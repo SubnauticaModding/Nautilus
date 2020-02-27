@@ -23,7 +23,7 @@
         {
             PatchUtils.PatchClass(harmony);
 
-            if (QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable ?? false)
+            if (QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable == true)
                 V2.Logger.Log("ModOptionsAdjuster is not inited (ModsOptionsAdjusted mod is active)", LogLevel.Warn);
             else
                 PatchUtils.PatchClass(harmony, typeof(ModOptionsHeadingsToggle));
@@ -31,7 +31,7 @@
 
 
         // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
-        [HarmonyPostfix]
+        [PatchUtils.Postfix]
         [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTab))]
         internal static void AddTab_Postfix(string label, int __result)
         {
@@ -39,7 +39,7 @@
                 modsTabIndex = __result;
         }
 
-        [HarmonyPostfix]
+        [PatchUtils.Postfix]
         [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
         internal static void AddTabs_Postfix(uGUI_OptionsPanel __instance)
         {
@@ -254,7 +254,7 @@
             #endregion
 
             #region patches for uGUI_TabbedControlsPanel
-            [HarmonyPrefix]
+            [PatchUtils.Prefix]
             [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddHeading))]
             private static bool AddHeading_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex, string label)
             {
@@ -265,14 +265,14 @@
                 return false;
             }
 
-            [HarmonyPostfix]
+            [PatchUtils.Postfix]
             [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.Awake))]
             private static void Awake_Postfix(uGUI_TabbedControlsPanel __instance)
             {
                 InitHeadingPrefab(__instance);
             }
 
-            [HarmonyPrefix]
+            [PatchUtils.Prefix]
             [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
             private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
             {

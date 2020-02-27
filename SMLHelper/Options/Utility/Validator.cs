@@ -24,12 +24,21 @@
             return true;
         }
 
-        internal static bool ValidateID(string id, out string result) => (result = ValidateID(id)) == null;
-
-        internal static bool ValidateLabel(string id, out string result) => (result = ValidateLabel(id)) == null;
-
-        internal static bool ValidateArray(string[] array, int index, out string result) => (result = ValidateArray(array, index)) == null;
-
+        internal static bool ValidateID(string id, out string result)
+        {
+            result = ValidateID(id);
+            return result == null;
+        }
+        internal static bool ValidateLabel(string id, out string result)
+        {
+            result = ValidateLabel(id);
+            return result == null;
+        }
+        internal static bool ValidateArray(string[] array, int index, out string result)
+        {
+            result = ValidateArray(array, index);
+            return result == null;
+        }
 
         private static string ValidateID(string id)
         {

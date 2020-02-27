@@ -24,8 +24,19 @@
             }
         }
 
+        // attributes for use with PatchClass method
+        // we using them instead of Harmony attributes to avoid confusion and show that these patches are not processed by Harmony.PatchAll
+        [AttributeUsage(AttributeTargets.Method)]
+        internal class Prefix: Attribute {}
+
+        [AttributeUsage(AttributeTargets.Method)]
+        internal class Postfix: Attribute {}
+
+        [AttributeUsage(AttributeTargets.Method)]
+        internal class Transpiler: Attribute {}
+
         // use methods from 'typeWithPatchMethods' class as harmony patches
-        // valid method need to have HarmonyPatch and Harmony[Prefix/Postfix/Transpiler] attributes
+        // valid method need to have HarmonyPatch and PatchUtils.[Prefix/Postfix/Transpiler] attributes
         // if typeWithPatchMethods is null, we use type from which this method is called
         internal static void PatchClass(HarmonyInstance harmony, Type typeWithPatchMethods = null)
         {
@@ -39,7 +50,7 @@
                 HarmonyMethod _method_if<H>() => method.IsDefined(typeof(H), false)? new HarmonyMethod(method): null;
 
                 if (Attribute.GetCustomAttribute(method, typeof(HarmonyPatch)) is HarmonyPatch harmonyPatch)
-                    harmony.Patch(_getTargetMethod(harmonyPatch.info), _method_if<HarmonyPrefix>(), _method_if<HarmonyPostfix>(), _method_if<HarmonyTranspiler>());
+                    harmony.Patch(_getTargetMethod(harmonyPatch.info), _method_if<Prefix>(), _method_if<Postfix>(), _method_if<Transpiler>());
             }
         }
     }
