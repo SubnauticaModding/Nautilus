@@ -10,7 +10,6 @@ namespace SMLHelper.V2.Patchers
     internal partial class CraftDataPatcher
     {
         internal static IDictionary<TechType, ITechData> CustomTechData = new SelfCheckingDictionary<TechType, ITechData>("CustomTechData", AsStringFunction);
-        internal static IDictionary<TechType, ITechData> PatchedTechData = new SelfCheckingDictionary<TechType, ITechData>("CustomTechData", AsStringFunction);
         internal static IDictionary<TechType, TechType> CustomHarvestOutputList = new SelfCheckingDictionary<TechType, TechType>("CustomHarvestOutputList", AsStringFunction);
         internal static IDictionary<TechType, HarvestType> CustomHarvestTypeList = new SelfCheckingDictionary<TechType, HarvestType>("CustomHarvestTypeList", AsStringFunction);
         internal static IDictionary<TechType, int> CustomFinalCutBonusList = new SelfCheckingDictionary<TechType, int>("CustomFinalCutBonusList", TechTypeExtensions.sTechTypeComparer, AsStringFunction);
@@ -21,6 +20,18 @@ namespace SMLHelper.V2.Patchers
         internal static IDictionary<TechType, TechType> CustomCookedCreatureList = new SelfCheckingDictionary<TechType, TechType>("CustomCookedCreatureList", AsStringFunction);
         internal static IDictionary<TechType, CraftData.BackgroundType> CustomBackgroundTypes = new SelfCheckingDictionary<TechType, CraftData.BackgroundType>("CustomBackgroundTypes", TechTypeExtensions.sTechTypeComparer, AsStringFunction);
         internal static List<TechType> CustomBuildables = new List<TechType>();
+        internal static int TechDataAltered = 0;
+        internal static int HarvestOutputAltered = 0;
+        internal static int HarvestTypeAltered = 0;
+        internal static int FinalCutBonusAltered = 0;
+        internal static int ItemSizesAltered = 0;
+        internal static int EquipmentTypesAltered = 0;
+        internal static int SlotTypesAltered = 0;
+        internal static int CraftingTimesAltered = 0;
+        internal static int CookedCreatureAltered = 0;
+        internal static int BackgroundTypesAltered = 0;
+        internal static int BuildablesAltered = 0;
+        internal static int PrefabAltered = 0;
 
         internal static void AddToCustomTechData(TechType techType, ITechData techData)
         {
@@ -29,42 +40,152 @@ namespace SMLHelper.V2.Patchers
 
         private static void PatchForSubnautica(HarmonyInstance harmony)
         {
-            IngameMenuHandler.Main.RegisterOnQuitEvent(() => CustomTechData = PatchedTechData);
-
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataCachePostfix))));
+               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomDataToOriginalDictionaries))));
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(PreparePrefabIDCachePostfix))));
-
+               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.Get)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataCachePostfix))));
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.Get)),
-               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(PreparePrefabIDCachePostfix))));
-
-
-
-            // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
-            // See README.md for details.
-            PatchUtils.PatchDictionary(CraftData.harvestOutputList, CustomHarvestOutputList);
-            PatchUtils.PatchDictionary(CraftData.harvestTypeList, CustomHarvestTypeList);
-            PatchUtils.PatchDictionary(CraftData.harvestFinalCutBonusList, CustomFinalCutBonusList);
-            PatchUtils.PatchDictionary(CraftData.itemSizes, CustomItemSizes);
-            PatchUtils.PatchDictionary(CraftData.equipmentTypes, CustomEquipmentTypes);
-            PatchUtils.PatchDictionary(CraftData.slotTypes, CustomSlotTypes);
-            PatchUtils.PatchDictionary(CraftData.craftingTimes, CustomCraftingTimes);
-            PatchUtils.PatchDictionary(CraftData.cookedCreatureList, CustomCookedCreatureList);
-            PatchUtils.PatchDictionary(CraftData.backgroundTypes, CustomBackgroundTypes);
-            PatchUtils.PatchList(CraftData.buildables, CustomBuildables);
-
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataGetPrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetPrefabForTechType)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataGetPrefabPrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetHarvestOutputData)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetHarvestOutputPrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetHarvestTypeExpensive)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetHarvestTypePrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetHarvestTypeFromTech)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetHarvestTypePrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetHarvestFinalCutBonus)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetFinalCutBonusPrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetItemSize)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetItemSizePrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetEquipmentType)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetEquipmentTypePrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetQuickSlotType)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetSlotTypePrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetCraftTime)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetCraftTimePrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetCookedData)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetCookedCreaturePrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetBackgroundType)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetBackgroundTypesPrefix))));
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.IsBuildableTech)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetBuildablePrefix))));
         }
 
-        private static void CraftDataCachePostfix()
+        private static void CraftDataGetPrefabPrefix()
         {
-            if(CustomTechData.Count > 0)
-                AddCustomTechDataToOriginalDictionary();
+            if (ModPrefab.PrefabCount > 0 && PrefabAltered != ModPrefab.PrefabCount)
+                CraftDataPrefabIDCachePostfix();
         }
 
-        private static void AddCustomTechDataToOriginalDictionary()
+        private static void CraftDataPrefabIDCachePostfix()
+        {
+            Dictionary<TechType, string> techMapping = CraftData.techMapping;
+            Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
+            foreach (ModPrefab prefab in ModPrefab.Prefabs)
+            {
+                techMapping[prefab.TechType] = prefab.ClassID;
+                entClassTechTable[prefab.ClassID] = prefab.TechType;
+                PrefabAltered++;
+            }
+        }
+
+        private static void CraftDataGetPrefix()
+        {
+            AddCustomDataToOriginalDictionaries();
+        }
+
+        private static void GetHarvestOutputPrefix()
+        {
+            if (CustomHarvestOutputList.Count > 0 && HarvestOutputAltered != CustomHarvestOutputList.Count)
+            {
+                PatchUtils.PatchDictionary(CraftData.harvestOutputList, CustomHarvestOutputList);
+                HarvestOutputAltered = CustomHarvestOutputList.Count;
+            }
+        }
+
+        private static void GetHarvestTypePrefix()
+        {
+            if (CustomHarvestTypeList.Count > 0 && HarvestTypeAltered != CustomHarvestTypeList.Count)
+            {
+                PatchUtils.PatchDictionary(CraftData.harvestTypeList, CustomHarvestTypeList);
+                HarvestTypeAltered = CustomHarvestTypeList.Count;
+            }
+        }
+
+        private static void GetFinalCutBonusPrefix()
+        {
+            if (CustomFinalCutBonusList.Count > 0 && FinalCutBonusAltered != CustomFinalCutBonusList.Count)
+            {
+                PatchUtils.PatchDictionary(CraftData.harvestFinalCutBonusList, CustomFinalCutBonusList);
+                FinalCutBonusAltered = CustomFinalCutBonusList.Count;
+            }
+        }
+
+        private static void GetItemSizePrefix()
+        {
+            if (CustomItemSizes.Count > 0 && ItemSizesAltered != CustomItemSizes.Count)
+            {
+                PatchUtils.PatchDictionary(CraftData.itemSizes, CustomItemSizes);
+                ItemSizesAltered = CustomItemSizes.Count;
+            }
+        }
+
+        private static void GetEquipmentTypePrefix()
+        {
+            if (CustomEquipmentTypes.Count > 0 && EquipmentTypesAltered != CustomEquipmentTypes.Count)
+            {
+                PatchUtils.PatchDictionary(CraftData.equipmentTypes, CustomEquipmentTypes);
+                EquipmentTypesAltered = CustomEquipmentTypes.Count;
+            }
+        }
+
+        private static void GetSlotTypePrefix()
+        {
+            if (CustomSlotTypes.Count > 0 && SlotTypesAltered != CustomSlotTypes.Count)
+            {
+                PatchUtils.PatchDictionary(CraftData.slotTypes, CustomSlotTypes);
+                SlotTypesAltered = CustomSlotTypes.Count;
+            }
+        }
+
+        private static void GetCraftTimePrefix()
+        {
+            if (CustomCraftingTimes.Count > 0 && CraftingTimesAltered != CustomCraftingTimes.Count)
+            {
+                PatchUtils.PatchDictionary(CraftData.craftingTimes, CustomCraftingTimes);
+                CraftingTimesAltered = CustomCraftingTimes.Count;
+            }
+        }
+
+        private static void GetCookedCreaturePrefix()
+        {
+            if (CustomCookedCreatureList.Count > 0 && CookedCreatureAltered != CustomCookedCreatureList.Count)
+            {
+                PatchUtils.PatchDictionary(CraftData.cookedCreatureList, CustomCookedCreatureList);
+                CookedCreatureAltered = CustomCookedCreatureList.Count;
+            }
+        }
+
+        private static void GetBackgroundTypesPrefix()
+        {
+            if (CustomBackgroundTypes.Count > 0 && BackgroundTypesAltered != CustomBackgroundTypes.Count)
+            {
+                PatchUtils.PatchDictionary(CraftData.backgroundTypes, CustomBackgroundTypes);
+                BackgroundTypesAltered = CustomBackgroundTypes.Count;
+            }
+        }
+
+        private static void GetBuildablePrefix()
+        {
+            if (CustomBuildables.Count > 0 && BuildablesAltered != CustomBuildables.Count)
+            {
+                PatchUtils.PatchList(CraftData.buildables, CustomBuildables);
+                BuildablesAltered = CustomBuildables.Count;
+            }
+        }
+
+        private static void AddCustomDataToOriginalDictionaries()
         {
             short added = 0;
             short replaced = 0;
@@ -110,16 +231,16 @@ namespace SMLHelper.V2.Patchers
                         CraftData.techData.Remove(techType);
                         Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
                         replaced++;
+                        TechDataAltered++;
                     }
                     else
                     {
                         added++;
+                        TechDataAltered++;
                     }
                     CraftData.techData.Add(techType, techDataInstance);
-                    PatchedTechData.Add(techType, techDataInstance);
                 }
             }
-            CustomTechData.Clear();
 
             if (added > 0)
                 Logger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
@@ -128,16 +249,6 @@ namespace SMLHelper.V2.Patchers
                 Logger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Info);
         }
 
-        private static void PreparePrefabIDCachePostfix()
-        {
-            Dictionary<TechType, string> techMapping = CraftData.techMapping;
-            Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
-            foreach (ModPrefab prefab in ModPrefab.Prefabs)
-            {
-                techMapping[prefab.TechType] = prefab.ClassID;
-                entClassTechTable[prefab.ClassID] = prefab.TechType;
-            }
-        }
     }
 }
 #endif

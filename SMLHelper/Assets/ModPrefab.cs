@@ -22,6 +22,7 @@
         }
 
         internal static IEnumerable<ModPrefab> Prefabs => PreFabsList;
+        internal static int PrefabCount = PreFabsList.Count;
         internal static bool TryGetFromFileName(string classId, out ModPrefab prefab) => FileNameDictionary.TryGetValue(classId, out prefab);
         internal static bool TryGetFromClassId(string classId, out ModPrefab prefab) => ClassIdDictionary.TryGetValue(classId, out prefab);
 
