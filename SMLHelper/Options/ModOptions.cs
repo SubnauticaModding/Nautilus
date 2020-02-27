@@ -141,7 +141,7 @@
         }
 
         // if ModsOptionsAdjusted mod is active, we don't add adjuster components
-        internal static readonly bool isNeedAdjusting = !(QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable ?? false);
+        internal static readonly bool isNeedAdjusting = (QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable != true);
 
         // type of component derived from ModOptionAdjust (for using in base.AddToPanel)
         internal abstract Type AdjusterComponent { get; }
