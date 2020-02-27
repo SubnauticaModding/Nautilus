@@ -92,7 +92,8 @@ namespace SMLHelper.V2.Patchers
 
         private static void CraftDataGetPrefix()
         {
-            AddCustomDataToOriginalDictionaries();
+            if (TechDataAltered < CustomTechData.Keys.Count)
+                AddCustomDataToOriginalDictionaries();
         }
 
         private static void GetHarvestOutputPrefix()
@@ -194,52 +195,49 @@ namespace SMLHelper.V2.Patchers
                 bool techDataExists = CraftData.techData.ContainsKey(techType);
                 ITechData smlTechData = CustomTechData[techType];
 
-                if (techDataExists && CraftData.Get(techType) != smlTechData)
+                var techDataInstance = new CraftData.TechData
                 {
-                    var techDataInstance = new CraftData.TechData
+                    _techType = techType,
+                    _craftAmount = smlTechData.craftAmount
+                };
+
+                var ingredientsList = new CraftData.Ingredients();
+
+                if (smlTechData.ingredientCount > 0)
+                {
+                    for (int i = 0; i < smlTechData.ingredientCount; i++)
                     {
-                        _techType = techType,
-                        _craftAmount = smlTechData.craftAmount
-                    };
+                        IIngredient smlIngredient = smlTechData.GetIngredient(i);
 
-                    var ingredientsList = new CraftData.Ingredients();
-
-                    if (smlTechData.ingredientCount > 0)
-                    {
-                        for (int i = 0; i < smlTechData.ingredientCount; i++)
-                        {
-                            IIngredient smlIngredient = smlTechData.GetIngredient(i);
-
-                            var ingredient = new CraftData.Ingredient(smlIngredient.techType, smlIngredient.amount);
-                            ingredientsList.Add(smlIngredient.techType, smlIngredient.amount);
-                        }
-                        techDataInstance._ingredients = ingredientsList;
+                        var ingredient = new CraftData.Ingredient(smlIngredient.techType, smlIngredient.amount);
+                        ingredientsList.Add(smlIngredient.techType, smlIngredient.amount);
                     }
-
-                    if (smlTechData.linkedItemCount > 0)
-                    {
-                        var linkedItems = new List<TechType>();
-                        for (int l = 0; l < smlTechData.linkedItemCount; l++)
-                        {
-                            linkedItems.Add(smlTechData.GetLinkedItem(l));
-                        }
-                        techDataInstance._linkedItems = linkedItems;
-                    }
-
-                    if (techDataExists)
-                    {
-                        CraftData.techData.Remove(techType);
-                        Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
-                        replaced++;
-                        TechDataAltered++;
-                    }
-                    else
-                    {
-                        added++;
-                        TechDataAltered++;
-                    }
-                    CraftData.techData.Add(techType, techDataInstance);
+                    techDataInstance._ingredients = ingredientsList;
                 }
+
+                if (smlTechData.linkedItemCount > 0)
+                {
+                    var linkedItems = new List<TechType>();
+                    for (int l = 0; l < smlTechData.linkedItemCount; l++)
+                    {
+                        linkedItems.Add(smlTechData.GetLinkedItem(l));
+                    }
+                    techDataInstance._linkedItems = linkedItems;
+                }
+
+                if (techDataExists)
+                {
+                    CraftData.techData.Remove(techType);
+                    Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
+                    replaced++;
+                    TechDataAltered++;
+                }
+                else
+                {
+                    added++;
+                    TechDataAltered++;
+                }
+                CraftData.techData.Add(techType, techDataInstance);
             }
 
             if (added > 0)
