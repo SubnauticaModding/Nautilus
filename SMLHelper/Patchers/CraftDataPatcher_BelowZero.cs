@@ -38,8 +38,12 @@ namespace SMLHelper.V2.Patchers
 
         private static void CraftDataGetPrefabPrefix()
         {
-            if (ModPrefab.PrefabCount > 0 && PrefabAltered != ModPrefab.PrefabCount)
-                CraftDataPrefabIDCachePostfix();
+            if (ModPrefab.PrefabCount > 0)
+            {
+                ModPrefab prefab = ModPrefab.Prefabs.FirstOrFallback(null);
+                if (!CraftData.techMapping.ContainsKey(prefab.TechType) || !CraftData.entClassTechTable.ContainsKey(prefab.ClassID))
+                    CraftDataPrefabIDCachePostfix();
+            }
         }
 
         private static void CraftDataPrefabIDCachePostfix()
