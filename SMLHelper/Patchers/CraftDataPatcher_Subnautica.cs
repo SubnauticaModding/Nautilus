@@ -213,7 +213,7 @@ namespace SMLHelper.V2.Patchers
             {
                 ITechData smlTechData = CustomTechData[techType];
                 bool techExists = CraftData.techData.TryGetValue(techType, out CraftData.TechData techData);
-                bool sameData = true;
+                bool sameData = false;
 
                 if (techExists)
                 {
@@ -249,7 +249,6 @@ namespace SMLHelper.V2.Patchers
 
                 if (!techExists || !sameData)
                 {
-                    Console.WriteLine($"techtype: {techType.ToString()}, techExists: {techExists}, sameData: {sameData}");
                     var techDataInstance = new CraftData.TechData
                     {
                         _techType = techType,
