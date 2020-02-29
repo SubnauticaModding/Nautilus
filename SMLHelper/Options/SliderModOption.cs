@@ -208,10 +208,6 @@
                 SetCaptionGameObject("Slider/Caption", isMainMenu? 488f: 364.7f); // need to use custom width for slider's captions
                 yield return null; // skip one frame
 
-                // for some reason sliders don't update their handle positions sometimes
-                uGUI_SnappingSlider slider = gameObject.GetComponentInChildren<uGUI_SnappingSlider>();
-                Harmony.AccessTools.Method(typeof(Slider), "UpdateVisuals")?.Invoke(slider, null);
-
                 float sliderValueWidth = 0f;
 
                 if (gameObject.GetComponentInChildren<SliderLabel>() is SliderLabel sliderLabel)

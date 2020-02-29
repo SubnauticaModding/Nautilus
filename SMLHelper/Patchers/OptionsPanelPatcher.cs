@@ -3,7 +3,9 @@
     using Harmony;
     using Options;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
+    using System.Reflection.Emit;
     using System.Collections;
     using System.Collections.Generic;
     using Oculus.Newtonsoft.Json;
@@ -78,6 +80,39 @@
             // adding all other options here
             modOptions.Values.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
         }
+
+        // fix for slider, check for zero divider added (in that case just return value unchanged)
+        // it happens when slider is in pre-awake state, so any given value snaps to default value
+        [PatchUtils.Transpiler]
+        [HarmonyPatch(typeof(uGUI_SnappingSlider), nameof(uGUI_SnappingSlider.SnapValue))]
+        internal static IEnumerable<CodeInstruction> SnapValue_Fix(IEnumerable<CodeInstruction> cins)
+        {
+            var list = cins.ToList();
+
+            int indexLabel = list.FindIndex(cin => cin.opcode == OpCodes.Starg_S && cin.operand.Equals((byte)1)) + 1;
+            if (indexLabel == 0 || list[indexLabel].labels.Count == 0)
+            {
+                V2.Logger.Log("SnapValue_Fix: indexLabel not found", LogLevel.Warn);
+                return cins;
+            }
+
+            int indexToInject = list.FindIndex(cin => cin.opcode == OpCodes.Stloc_1) + 1;
+            if (indexToInject == 0)
+            {
+                V2.Logger.Log("SnapValue_Fix: indexToInject not found", LogLevel.Warn);
+                return cins;
+            }
+
+            list.InsertRange(indexToInject, new List<CodeInstruction>
+            {
+                new CodeInstruction(OpCodes.Ldloc_1),
+                new CodeInstruction(OpCodes.Ldc_R4, 0f),
+                new CodeInstruction(OpCodes.Beq, list[indexLabel].labels[0])
+            });
+
+            return list;
+        }
+
 
         // Class for collapsing/expanding options in 'Mods' tab
         // Options can be collapsed/expanded by clicking on mod's title or arrow button
