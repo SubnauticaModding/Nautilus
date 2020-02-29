@@ -68,7 +68,7 @@
         /// <param name="value">The starting value.</param>
         protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value)
         {
-            AddSliderOption(id, label, minValue, maxValue, value, null);
+            AddSliderOption(id, label, minValue, maxValue, value, null, null);
         }
 
         /// <summary>
@@ -79,11 +79,12 @@
         /// <param name="minValue">The minimum value for the range.</param>
         /// <param name="maxValue">The maximum value for the range.</param>
         /// <param name="value">The starting value.</param>
+        /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
         /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
         /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
-        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, string valueFormat)
+        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat)
         {
-            AddOption(new ModSliderOption(id, label, minValue, maxValue, value, valueFormat));
+            AddOption(new ModSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat));
         }
     }
 
@@ -107,12 +108,18 @@
         /// </summary>
         public float Value { get; }
 
-        /// <summary> Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, string)"/>) </summary>
+        /// <summary>
+        /// The default value of the <see cref="ModSliderOption"/>.
+        /// Showed on the slider by small gray circle. Slider's handle will snap to the default value near it.
+        /// </summary>
+        public float DefaultValue { get; }
+
+        /// <summary> Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string)"/>) </summary>
         public string ValueFormat { get; }
 
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, Value,
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue,
                 new UnityAction<float>((float value) => parentOptions.OnSliderChange(Id, value)));
 
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
@@ -139,12 +146,14 @@
         /// <param name="minValue">The minimum value for the range.</param>
         /// <param name="maxValue">The maximum value for the range.</param>
         /// <param name="value">The starting value.</param>
-        /// <param name="valueFormat">Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, string)"/>) </param>
-        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value, string valueFormat = null) : base(label, id)
+        /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
+        /// <param name="valueFormat">Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string)"/>) </param>
+        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = null) : base(label, id)
         {
             this.MinValue = minValue;
             this.MaxValue = maxValue;
             this.Value = value;
+            this.DefaultValue = defaultValue ?? value;
             this.ValueFormat = valueFormat;
         }
 
