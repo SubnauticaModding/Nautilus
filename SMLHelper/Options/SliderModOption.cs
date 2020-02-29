@@ -1,12 +1,11 @@
 ﻿namespace SMLHelper.V2.Options
 {
     using System;
+    using System.Reflection;
     using System.Collections;
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.Events;
-
-    using Object = UnityEngine.Object;
 
     /// <summary>
     /// Contains all the information about a slider changed event.
@@ -117,10 +116,12 @@
         /// <summary> Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string)"/>) </summary>
         public string ValueFormat { get; }
 
+        private SliderValue sliderValue = null;
+
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue,
-                new UnityAction<float>((float value) => parentOptions.OnSliderChange(Id, value)));
+                new UnityAction<float>((float value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value)));
 
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;
@@ -128,14 +129,11 @@
 
             // if we using custom value format, we need to replace vanilla uGUI_SliderWithLabel with our component
             if (ValueFormat != null)
-            {
-                GameObject sliderObject = OptionGameObject.transform.Find("Slider").gameObject;
-                uGUI_SliderWithLabel sliderLabel = sliderObject.GetComponent<uGUI_SliderWithLabel>();
-                sliderObject.AddComponent<SliderLabel>().Init(sliderLabel.label, sliderLabel.slider, this);
-                Object.Destroy(sliderLabel);
-            }
+                OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>().ValueFormat = ValueFormat;
 
             base.AddToPanel(panel, tabIndex);
+
+            sliderValue = OptionGameObject.GetComponentInChildren<SliderValue>(); // we can also add custom SliderValue in OnGameObjectCreated event
         }
 
         /// <summary>
@@ -157,42 +155,123 @@
             this.ValueFormat = valueFormat;
         }
 
-        // component for showing slider value with custom format
-        private class SliderLabel: MonoBehaviour
+        /// <summary>
+        /// Component for customizing slider's value behaviour.
+        /// If you need more complex behaviour than just custom value format then you can inherit this component 
+        /// and add it to "Slider" game object in OnGameObjectCreated event (see <see cref="AddToPanel"/> for details on adding component)
+        /// You can override value converters <see cref="ConvertToDisplayValue"/> and <see cref="ConvertToSliderValue"/>,
+        /// in that case internal range for slider will be changed to [0.0f : 1.0f] and you can control displayed value with these converters
+        /// (also this value will be passed to <see cref="ModOptions.OnSliderChange"/> event)
+        /// </summary>
+        public class SliderValue: MonoBehaviour
         {
-            private Text label;
-            private Slider slider;
+            /// <summary> The value label of the <see cref="SliderValue"/> </summary>
+            protected Text label;
 
-            private string valueFormat = null;
-            private ModSliderOption sliderOption;
+            /// <summary> The slider controlling this <see cref="SliderValue"/> </summary>
+            protected Slider slider;
 
-            public float ValueWidth { get; private set; } = -1f; // width for value text field
+            /// <summary>
+            /// The minimum value of the <see cref="SliderValue"/>.
+            /// In case of custom value converters it can be not equal to internal minimum value for slider
+            /// </summary>
+            protected float minValue;
 
-            public void Init(Text _label, Slider _slider, ModSliderOption _sliderOption)
+            /// <summary>
+            /// The maximum value of the <see cref="SliderValue"/>.
+            /// In case of custom value converters it can be not equal to internal maximum value for slider
+            /// </summary>
+            protected float maxValue;
+
+            /// <summary> Custom value format property. Set it right after adding component to game object for proper behaviour </summary>
+            public string ValueFormat
             {
-                label = _label;
-                slider = _slider;
-                sliderOption = _sliderOption;
-
-                valueFormat = sliderOption.ValueFormat;
+                get => valueFormat;
+                set => valueFormat = value ?? "{0}";
             }
 
-            public IEnumerator Start()
+            /// <summary> Custom value format </summary>
+            protected string valueFormat = "{0}";
+
+            /// <summary>
+            /// Width for value text field. Used by <see cref="SliderOptionAdjust"/> to adjust label width.
+            /// It is calculated in <see cref="UpdateValueWidth"/>, but you can override this property.
+            /// </summary>
+            public virtual float ValueWidth { get; protected set; } = -1f;
+
+            /// <summary> Override this if you need to initialize custom value converters </summary>
+            protected virtual void InitConverters() {}
+
+            /// <summary> Converts internal slider value [0.0f : 1.0f] to displayed value </summary>
+            public virtual float ConvertToDisplayValue(float sliderValue) => sliderValue;
+
+            /// <summary> Converts displayed value to internal slider value [0.0f : 1.0f] </summary>
+            public virtual float ConvertToSliderValue(float displayValue) => displayValue;
+
+            /// <summary> Component initialization. If you overriding this, make sure that you calling base.Awake() </summary>
+            protected virtual void Awake()
             {
+                bool _isOverrided(string methodName)
+                {
+                    MethodInfo method = GetType().GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance);
+                    return method.DeclaringType != method.GetBaseDefinition().DeclaringType;
+                }
+
+                bool useConverters = _isOverrided(nameof(SliderValue.ConvertToDisplayValue)) &&
+                                     _isOverrided(nameof(SliderValue.ConvertToSliderValue));
+
+                if (GetComponent<uGUI_SliderWithLabel>() is uGUI_SliderWithLabel sliderLabel)
+                {
+                    label  = sliderLabel.label;
+                    slider = sliderLabel.slider;
+                    Destroy(sliderLabel);
+                }
+                else
+                    V2.Logger.Log("uGUI_SliderWithLabel not found", LogLevel.Error);
+
+                if (GetComponent<uGUI_SnappingSlider>() is uGUI_SnappingSlider snappingSlider)
+                {
+                    minValue = snappingSlider.minValue;
+                    maxValue = snappingSlider.maxValue;
+
+                    // if we use overrided converters, we change range of the slider to [0.0f : 1.0f]
+                    if (useConverters)
+                    {
+                        InitConverters();
+
+                        snappingSlider.minValue = 0f;
+                        snappingSlider.maxValue = 1f;
+                        snappingSlider.defaultValue = ConvertToSliderValue(snappingSlider.defaultValue);
+                        snappingSlider.value = ConvertToSliderValue(snappingSlider.value);
+                    }
+                }
+                else
+                    V2.Logger.Log("uGUI_SnappingSlider not found", LogLevel.Error);
+
                 slider.onValueChanged.AddListener(new UnityAction<float>(OnValueChanged));
                 UpdateLabel();
+            }
 
+            /// <summary> <see cref="MonoBehaviour"/>.Start() </summary>
+            protected virtual IEnumerator Start() => UpdateValueWidth();
+
+            /// <summary>
+            /// Method for calculating necessary label's width. Creates temporary label and compares widths of min and max values,
+            /// then sets <see cref="ValueWidth"/> to the wider. Be aware that in case of using custom converters some intermediate value may be wider than min/max values.
+            /// </summary>
+            protected virtual IEnumerator UpdateValueWidth()
+            {
                 // we need to know necessary width for value text field based on min/max values and value format
                 GameObject tempLabel = Instantiate(label.gameObject);
                 tempLabel.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 
                 // we'll add formatted min value to the label and skip one frame for updating ContentSizeFitter
-                tempLabel.GetComponent<Text>().text = string.Format(valueFormat, sliderOption.MinValue);
+                tempLabel.GetComponent<Text>().text = string.Format(valueFormat, minValue);
                 yield return null;
                 float widthForMin = tempLabel.GetComponent<RectTransform>().rect.width;
 
                 // same for max value
-                tempLabel.GetComponent<Text>().text = string.Format(valueFormat, sliderOption.MaxValue);
+                tempLabel.GetComponent<Text>().text = string.Format(valueFormat, maxValue);
                 yield return null;
                 float widthForMax = tempLabel.GetComponent<RectTransform>().rect.width;
 
@@ -200,9 +279,14 @@
                 ValueWidth = Math.Max(widthForMin, widthForMax);
             }
 
-            private void OnValueChanged(float value) => UpdateLabel();
+            /// <summary> Called when user changes slider value </summary>
+            protected virtual void OnValueChanged(float value) => UpdateLabel();
 
-            private void UpdateLabel() => label.text = string.Format(valueFormat, slider.value);
+            /// <summary>
+            /// Updates label's text with formatted and converted slider's value.
+            /// Override this if you need even more control on slider's value behaviour.
+            /// </summary>
+            protected virtual void UpdateLabel() => label.text = string.Format(valueFormat, ConvertToDisplayValue(slider.value));
         }
 
 
@@ -219,13 +303,13 @@
 
                 float sliderValueWidth = 0f;
 
-                if (gameObject.GetComponentInChildren<SliderLabel>() is SliderLabel sliderLabel)
+                if (gameObject.GetComponentInChildren<SliderValue>() is SliderValue sliderValue)
                 {
-                    // wait while SliderLabel calculating ValueWidth (one or two frames)
-                    while (sliderLabel.ValueWidth == -1f)
+                    // wait while SliderValue calculating ValueWidth (one or two frames)
+                    while (sliderValue.ValueWidth < 0)
                         yield return null;
 
-                    sliderValueWidth = sliderLabel.ValueWidth + (isMainMenu? 0f: valueSpacing);
+                    sliderValueWidth = sliderValue.ValueWidth + (isMainMenu? 0f: valueSpacing);
                 }
 
                 // changing width for slider value label (we don't change width for default format!)
