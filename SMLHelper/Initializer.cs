@@ -26,7 +26,10 @@
 #elif BELOWZERO
             Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for BelowZero", LogLevel.Info);
 #endif
+
+            Logger.Debug("Loading TechType Cache");
             TechTypePatcher.cacheManager.LoadCache();
+            Logger.Debug("Loading CraftTreeType Cache");
             CraftTreeTypePatcher.cacheManager.LoadCache();
         }
 
