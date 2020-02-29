@@ -74,7 +74,10 @@
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
+
+            Logger.Debug("Saving TechType Cache");
             TechTypePatcher.cacheManager.SaveCache();
+            Logger.Debug("Saving CraftTreeType Cache");
             CraftTreeTypePatcher.cacheManager.SaveCache();
         }
     }
