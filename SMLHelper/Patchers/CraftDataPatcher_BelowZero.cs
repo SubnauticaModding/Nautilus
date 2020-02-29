@@ -22,24 +22,12 @@ namespace SMLHelper.V2.Patchers
         {
             harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.TryGetValue)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
+
             harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
 
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetPrefabForTechType)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataGetPrefabPrefix))));
-        }
-
-
-        private static void CraftDataGetPrefabPrefix()
-        {
-            if (ModPrefab.PrefabCount > 0)
-            {
-                ModPrefab prefab = ModPrefab.Prefabs.FirstOrFallback(null);
-                if (!CraftData.techMapping.ContainsKey(prefab.TechType) || !CraftData.entClassTechTable.ContainsKey(prefab.ClassID))
-                    CraftDataPrefabIDCachePostfix();
-            }
         }
 
         private static void CraftDataPrefabIDCachePostfix()
