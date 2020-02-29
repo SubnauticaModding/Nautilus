@@ -208,7 +208,7 @@ namespace SMLHelper.V2.Handlers
         {
             if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData moddedTechData))
             {
-                moddedTechData = CraftData.Get(techType, true);
+                return null;
             }
             return moddedTechData;
         }
