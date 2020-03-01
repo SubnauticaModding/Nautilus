@@ -79,119 +79,145 @@ namespace SMLHelper.V2.Patchers
 
         private static void GetHarvestOutputPrefix(TechType techType)
         {
-            if (CraftData.harvestOutputList.ContainsKey(techType) && CustomHarvestOutputList.ContainsKey(techType))
+            if (CustomHarvestOutputList.TryGetValue(techType, out TechType smlho))
             {
-                if(CraftData.harvestOutputList[techType] != CustomHarvestOutputList[techType])
-                    CraftData.harvestOutputList[techType] = CustomHarvestOutputList[techType];
-            }
-            else if (CustomHarvestOutputList.ContainsKey(techType))
-            {
-                PatchUtils.PatchDictionary(CraftData.harvestOutputList, CustomHarvestOutputList);
+                if(CraftData.harvestOutputList.TryGetValue(techType, out TechType tt))
+                {
+                    if(smlho != tt)
+                        CraftData.harvestOutputList[techType] = smlho;
+                }
+                else
+                {
+                    PatchUtils.PatchDictionary(CraftData.harvestOutputList, CustomHarvestOutputList);
+                }
             }
         }
 
         private static void GetHarvestTypePrefix(TechType techType)
         {
-            if (CraftData.harvestTypeList.ContainsKey(techType) && CustomHarvestTypeList.ContainsKey(techType))
+            if (CustomHarvestTypeList.TryGetValue(techType, out HarvestType smlht))
             {
-                if (CraftData.harvestTypeList[techType] != CustomHarvestTypeList[techType])
-                    CraftData.harvestTypeList[techType] = CustomHarvestTypeList[techType];
-            }
-            else if (CustomHarvestTypeList.ContainsKey(techType))
-            {
-                PatchUtils.PatchDictionary(CraftData.harvestTypeList, CustomHarvestTypeList);
+                if (CraftData.harvestTypeList.TryGetValue(techType, out HarvestType ht))
+                {
+                    if (ht != smlht)
+                        CraftData.harvestTypeList[techType] = smlht;
+                }
+                else
+                {
+                    PatchUtils.PatchDictionary(CraftData.harvestTypeList, CustomHarvestTypeList);
+                }
             }
         }
 
         private static void GetFinalCutBonusPrefix(TechType techType)
         {
-            if (CraftData.harvestFinalCutBonusList.ContainsKey(techType) && CustomFinalCutBonusList.ContainsKey(techType))
+            if (CustomFinalCutBonusList.TryGetValue(techType, out int smlhfcb))
             {
-                if (CraftData.harvestFinalCutBonusList[techType] != CustomFinalCutBonusList[techType])
-                    CraftData.harvestFinalCutBonusList[techType] = CustomFinalCutBonusList[techType];
-            }
-            else if (CustomFinalCutBonusList.ContainsKey(techType))
-            {
-                PatchUtils.PatchDictionary(CraftData.harvestFinalCutBonusList, CustomFinalCutBonusList);
+                if (CraftData.harvestFinalCutBonusList.TryGetValue(techType, out int hfcb))
+                {
+                    if (hfcb != smlhfcb)
+                        CraftData.harvestFinalCutBonusList[techType] = smlhfcb;
+                }
+                else
+                {
+                    PatchUtils.PatchDictionary(CraftData.harvestFinalCutBonusList, CustomFinalCutBonusList);
+                }
             }
         }
 
         private static void GetItemSizePrefix(TechType techType)
         {
-            if (CraftData.itemSizes.ContainsKey(techType) && CustomItemSizes.ContainsKey(techType))
+            if(CustomItemSizes.TryGetValue(techType, out Vector2int smlItemSize))
             {
-                if ((CraftData.itemSizes[techType].x != CustomItemSizes[techType].x || CraftData.itemSizes[techType].y != CustomItemSizes[techType].y))
-                    CraftData.itemSizes[techType] = CustomItemSizes[techType];
+                if(CraftData.itemSizes.TryGetValue(techType, out Vector2int itemSize))
+                {
+                    if (smlItemSize.x != itemSize.x || smlItemSize.y != itemSize.y)
+                        CraftData.itemSizes[techType] = smlItemSize;
+                }
+                else
+                {
+                    PatchUtils.PatchDictionary(CraftData.itemSizes, CustomItemSizes);
+                }
             }
-            else if(CustomItemSizes.ContainsKey(techType))
-            {
-                PatchUtils.PatchDictionary(CraftData.itemSizes, CustomItemSizes);
-            }
-
         }
 
         private static void GetEquipmentTypePrefix(TechType techType)
         {
-            if (CraftData.equipmentTypes.ContainsKey(techType) && CustomEquipmentTypes.ContainsKey(techType))
+            if (CustomEquipmentTypes.TryGetValue(techType, out EquipmentType SMLET))
             {
-                if (CraftData.equipmentTypes[techType] != CustomEquipmentTypes[techType])
-                    CraftData.equipmentTypes[techType] = CustomEquipmentTypes[techType];
-            }
-            else if (CustomEquipmentTypes.ContainsKey(techType))
-            {
-                PatchUtils.PatchDictionary(CraftData.equipmentTypes, CustomEquipmentTypes);
+                if (CraftData.equipmentTypes.TryGetValue(techType, out EquipmentType ET))
+                {
+                    if (ET != SMLET)
+                        CraftData.equipmentTypes[techType] = SMLET;
+                }
+                else
+                {
+                    PatchUtils.PatchDictionary(CraftData.equipmentTypes, CustomEquipmentTypes);
+                }
             }
         }
 
         private static void GetSlotTypePrefix(TechType techType)
         {
-            if (CraftData.slotTypes.ContainsKey(techType) && CustomSlotTypes.ContainsKey(techType))
+            if (CustomSlotTypes.TryGetValue(techType, out QuickSlotType smlqst))
             {
-                if (CraftData.slotTypes[techType] != CustomSlotTypes[techType])
-                    CraftData.slotTypes[techType] = CustomSlotTypes[techType];
-            }
-            else if (CustomSlotTypes.ContainsKey(techType))
-            {
-                PatchUtils.PatchDictionary(CraftData.slotTypes, CustomSlotTypes);
+                if (CraftData.slotTypes.TryGetValue(techType, out QuickSlotType qst))
+                {
+                    if (qst != smlqst)
+                        CraftData.slotTypes[techType] = smlqst;
+                }
+                else
+                {
+                    PatchUtils.PatchDictionary(CraftData.slotTypes, CustomSlotTypes);
+                }
             }
         }
 
         private static void GetCraftTimePrefix(TechType techType)
         {
-            if (CraftData.craftingTimes.ContainsKey(techType) && CustomCraftingTimes.ContainsKey(techType))
+            if (CustomCraftingTimes.TryGetValue(techType, out float smlct))
             {
-                if (CraftData.craftingTimes[techType] != CustomCraftingTimes[techType])
-                    CraftData.craftingTimes[techType] = CustomCraftingTimes[techType];
-            }
-            else if (CustomCraftingTimes.ContainsKey(techType))
-            {
-                PatchUtils.PatchDictionary(CraftData.craftingTimes, CustomCraftingTimes);
+                if (CraftData.craftingTimes.TryGetValue(techType, out float ct))
+                {
+                    if (ct != smlct)
+                        CraftData.craftingTimes[techType] = smlct;
+                }
+                else
+                {
+                    PatchUtils.PatchDictionary(CraftData.craftingTimes, CustomCraftingTimes);
+                }
             }
         }
 
         private static void GetCookedCreaturePrefix(TechType techType)
         {
-            if (CraftData.cookedCreatureList.ContainsKey(techType) && CustomCookedCreatureList.ContainsKey(techType))
+            if (CustomCookedCreatureList.TryGetValue(techType, out TechType smltt))
             {
-                if (CraftData.cookedCreatureList[techType] != CustomCookedCreatureList[techType])
-                    CraftData.cookedCreatureList[techType] = CustomCookedCreatureList[techType];
-            }
-            else if (CustomCookedCreatureList.ContainsKey(techType))
-            {
-                PatchUtils.PatchDictionary(CraftData.cookedCreatureList, CustomCookedCreatureList);
+                if (CraftData.cookedCreatureList.TryGetValue(techType, out TechType tt))
+                {
+                    if (tt != smltt)
+                        CraftData.cookedCreatureList[techType] = smltt;
+                }
+                else
+                {
+                    PatchUtils.PatchDictionary(CraftData.cookedCreatureList, CustomCookedCreatureList);
+                }
             }
         }
 
         private static void GetBackgroundTypesPrefix(TechType techType)
         {
-            if (CraftData.backgroundTypes.ContainsKey(techType) && CustomBackgroundTypes.ContainsKey(techType))
+            if (CustomBackgroundTypes.TryGetValue(techType, out CraftData.BackgroundType smlbt))
             {
-                if (CraftData.backgroundTypes[techType] != CustomBackgroundTypes[techType])
-                    CraftData.backgroundTypes[techType] = CustomBackgroundTypes[techType];
-            }
-            else if (CustomBackgroundTypes.ContainsKey(techType))
-            {
-                PatchUtils.PatchDictionary(CraftData.backgroundTypes, CustomBackgroundTypes);
+                if (CraftData.backgroundTypes.TryGetValue(techType, out CraftData.BackgroundType bt))
+                {
+                    if (bt != smlbt)
+                        CraftData.backgroundTypes[techType] = smlbt;
+                }
+                else
+                {
+                    PatchUtils.PatchDictionary(CraftData.backgroundTypes, CustomBackgroundTypes);
+                }
             }
         }
 
@@ -203,13 +229,11 @@ namespace SMLHelper.V2.Patchers
 
         private static void NeedsPatchingCheckPrefix(TechType techType)
         {
-            bool techExists = CraftData.techData.TryGetValue(techType, out CraftData.TechData techData) && CustomTechData.ContainsKey(techType);
+            bool techExists = CraftData.techData.TryGetValue(techType, out CraftData.TechData techData);
 
             bool sameData = false;
-            if (techExists)
+            if (techExists && CustomTechData.TryGetValue(techType, out ITechData smlTechData))
             {
-                ITechData smlTechData = CustomTechData[techType];
-
                 sameData = smlTechData.craftAmount == techData.craftAmount &&
                     smlTechData.ingredientCount == techData.ingredientCount &&
                     smlTechData.linkedItemCount == techData.linkedItemCount;
@@ -254,8 +278,8 @@ namespace SMLHelper.V2.Patchers
             foreach (TechType techType in CustomTechData.Keys)
             {
                 bool techExists = CraftData.techData.TryGetValue(techType, out CraftData.TechData techData);
-                bool sameData = false;
                 ITechData smlTechData = CustomTechData[techType];
+                bool sameData = false;
 
                 if (techExists)
                 {
