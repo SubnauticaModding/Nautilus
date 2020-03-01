@@ -18,8 +18,6 @@
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeSaveEvents))));
             harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.QuitGame)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeQuitEvents))));
-            harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.QuitGameAsync)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeQuitEvents))));
         }
 
         internal static void AddOneTimeUseSaveEvent(Action onSaveAction)
