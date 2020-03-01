@@ -11,26 +11,15 @@ namespace SMLHelper.V2.Patchers
     {
         internal static IDictionary<TechType, ITechData> CustomTechData = new SelfCheckingDictionary<TechType, ITechData>("CustomTechData", AsStringFunction);
         internal static IDictionary<TechType, TechType> CustomHarvestOutputList = new SelfCheckingDictionary<TechType, TechType>("CustomHarvestOutputList", AsStringFunction);
-        internal static int HarvestOutputAltered = 0;
         internal static IDictionary<TechType, HarvestType> CustomHarvestTypeList = new SelfCheckingDictionary<TechType, HarvestType>("CustomHarvestTypeList", AsStringFunction);
-        internal static int HarvestTypeAltered = 0;
         internal static IDictionary<TechType, int> CustomFinalCutBonusList = new SelfCheckingDictionary<TechType, int>("CustomFinalCutBonusList", TechTypeExtensions.sTechTypeComparer, AsStringFunction);
-        internal static int FinalCutBonusAltered = 0;
         internal static IDictionary<TechType, Vector2int> CustomItemSizes = new SelfCheckingDictionary<TechType, Vector2int>("CustomItemSizes", AsStringFunction);
-        internal static int ItemSizesAltered = 0;
         internal static IDictionary<TechType, EquipmentType> CustomEquipmentTypes = new SelfCheckingDictionary<TechType, EquipmentType>("CustomEquipmentTypes", AsStringFunction);
-        internal static int EquipmentTypesAltered = 0;
         internal static IDictionary<TechType, QuickSlotType> CustomSlotTypes = new SelfCheckingDictionary<TechType, QuickSlotType>("CustomSlotTypes", AsStringFunction);
-        internal static int SlotTypesAltered = 0;
         internal static IDictionary<TechType, float> CustomCraftingTimes = new SelfCheckingDictionary<TechType, float>("CustomCraftingTimes", AsStringFunction);
-        internal static int CraftingTimesAltered = 0;
         internal static IDictionary<TechType, TechType> CustomCookedCreatureList = new SelfCheckingDictionary<TechType, TechType>("CustomCookedCreatureList", AsStringFunction);
-        internal static int CookedCreatureAltered = 0;
         internal static IDictionary<TechType, CraftData.BackgroundType> CustomBackgroundTypes = new SelfCheckingDictionary<TechType, CraftData.BackgroundType>("CustomBackgroundTypes", TechTypeExtensions.sTechTypeComparer, AsStringFunction);
-        internal static int BackgroundTypesAltered = 0;
         internal static List<TechType> CustomBuildables = new List<TechType>();
-        internal static int BuildablesAltered = 0;
-        internal static int PrefabAltered = 0;
 
         internal static void AddToCustomTechData(TechType techType, ITechData techData)
         {
