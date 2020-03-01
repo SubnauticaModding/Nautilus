@@ -26,19 +26,6 @@ namespace SMLHelper.V2.Patchers
             harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
 
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
-        }
-
-        private static void CraftDataPrefabIDCachePostfix()
-        {
-            Dictionary<TechType, string> techMapping = CraftData.techMapping;
-            Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
-            foreach (ModPrefab prefab in ModPrefab.Prefabs)
-            {
-                techMapping[prefab.TechType] = prefab.ClassID;
-                entClassTechTable[prefab.ClassID] = prefab.TechType;
-            }
         }
 
         private static void CheckPatchRequired(TechType techType)

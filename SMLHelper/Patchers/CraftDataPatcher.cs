@@ -82,10 +82,25 @@
 #elif BELOWZERO
             PatchForBelowZero(harmony);
 #endif
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
+               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
 
             Logger.Log("CraftDataPatcher is done.", LogLevel.Debug);
         }
 
+        private static void CraftDataPrefabIDCachePostfix()
+        {
+            if (ModPrefab.ModPrefabsPatched) return;
+
+            Dictionary<TechType, string> techMapping = CraftData.techMapping;
+            Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
+            foreach (ModPrefab prefab in ModPrefab.Prefabs)
+            {
+                techMapping[prefab.TechType] = prefab.ClassID;
+                entClassTechTable[prefab.ClassID] = prefab.TechType;
+            }
+            ModPrefab.ModPrefabsPatched = true;
+        }
         #endregion
     }
 }
