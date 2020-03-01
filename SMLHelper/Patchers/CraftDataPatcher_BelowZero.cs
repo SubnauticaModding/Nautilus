@@ -21,7 +21,7 @@ namespace SMLHelper.V2.Patchers
         private static void PatchForBelowZero(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.TryGetValue)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CheckPatchRequired))));
 
             harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
@@ -41,29 +41,48 @@ namespace SMLHelper.V2.Patchers
             }
         }
 
+        private static void CheckPatchRequired(TechType techType)
+        {
+            if(CustomTechData.TryGetValue(techType, out JsonValue SMLTechData))
+            {
+                if (TechData.entries.ContainsKey(techType))
+                {
+                    if(SMLTechData != TechData.entries[techType])
+                        AddCustomTechDataToOriginalDictionary();
+                }
+                else
+                {
+                    AddCustomTechDataToOriginalDictionary();
+                }
+            }
+        }
+
         private static void AddCustomTechDataToOriginalDictionary()
         {
             short added = 0;
             short replaced = 0;
             foreach (TechType techType in CustomTechData.Keys)
             {
+                JsonValue SMLTechData = CustomTechData[techType];
                 bool techDataExists = TechData.entries.ContainsKey(techType);
-                if (techDataExists && TechData.entries[techType] != CustomTechData[techType])
+
+                if (techDataExists)
                 {
-                    if (TechData.entries.ContainsKey(techType))
+                    JsonValue techData = TechData.entries[techType];
+                    if (techData != SMLTechData)
                     {
-                        foreach (int key in CustomTechData[techType].Keys)
+                        foreach (int key in SMLTechData.Keys)
                         {
-                            TechData.entries[techType][key] = CustomTechData[techType][key];
+                            techData[key] = SMLTechData[key];
                         }
 
-                        Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
+                        Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was Changed.", LogLevel.Warn);
                         replaced++;
                     }
                 }
-                else if (!techDataExists)
+                else
                 {
-                    TechData.Add(techType, CustomTechData[techType]);
+                    TechData.Add(techType, SMLTechData);
                     added++;
                 }
             }
