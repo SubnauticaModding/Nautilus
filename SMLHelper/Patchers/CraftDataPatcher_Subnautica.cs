@@ -28,9 +28,6 @@ namespace SMLHelper.V2.Patchers
 
         private static void PatchForSubnautica(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-               postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(PatchModPrefabs))));
-
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.Get)),
                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(NeedsPatchingCheckPrefix))));
 
@@ -64,17 +61,6 @@ namespace SMLHelper.V2.Patchers
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.IsBuildableTech)),
                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetBuildablePrefix))));
 
-        }
-
-        private static void PatchModPrefabs()
-        {
-            Dictionary<TechType, string> techMapping = CraftData.techMapping;
-            Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
-            foreach (ModPrefab prefab in ModPrefab.Prefabs)
-            {
-                techMapping[prefab.TechType] = prefab.ClassID;
-                entClassTechTable[prefab.ClassID] = prefab.TechType;
-            }
         }
 
         private static void GetHarvestOutputPrefix(TechType techType)
