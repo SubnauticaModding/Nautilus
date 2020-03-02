@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using SMLHelper.V2.Crafting;
     using SMLHelper.V2.Handlers;
-    using SMLHelper.V2.Interfaces;
     using UnityEngine;
     using Logger = V2.Logger;
 

@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using QModManager.Utility;
     using SMLHelper.V2.Assets;
     using SMLHelper.V2.Interfaces;
 

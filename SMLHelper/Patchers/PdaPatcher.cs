@@ -1,7 +1,6 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using Harmony;
-    using System;
     using System.Collections.Generic;
 
     // Special thanks to Gorillazilla9 for sharing this method of fragment count patching
