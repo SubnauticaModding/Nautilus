@@ -20,12 +20,17 @@
         [Obsolete("This method is for use only by QModManager.", true)]
         public static void PrePatch()
         {
-            Logger.Initialize();
+            Logger.Initialize(); 
 #if SUBNAUTICA
             Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
 #elif BELOWZERO
             Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for BelowZero", LogLevel.Info);
 #endif
+
+            Logger.Debug("Loading TechType Cache");
+            TechTypePatcher.cacheManager.LoadCache();
+            Logger.Debug("Loading CraftTreeType Cache");
+            CraftTreeTypePatcher.cacheManager.LoadCache();
         }
 
         /// <summary>
@@ -69,6 +74,11 @@
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
+
+            Logger.Debug("Saving TechType Cache");
+            TechTypePatcher.cacheManager.SaveCache();
+            Logger.Debug("Saving CraftTreeType Cache");
+            CraftTreeTypePatcher.cacheManager.SaveCache();
         }
     }
 }
