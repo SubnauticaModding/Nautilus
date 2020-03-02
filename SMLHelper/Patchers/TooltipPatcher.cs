@@ -6,14 +6,10 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
     using System.Reflection.Emit;
     using System.Text;
-#if BELOWZERO
-    using QModManager;
-#endif
 
     internal class TooltipPatcher
     {
@@ -198,7 +194,7 @@
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase method)
         {
             // Turn the IEnumerable into a List
-            List<CodeInstruction> codes = new List<CodeInstruction>(instructions);
+            var codes = new List<CodeInstruction>(instructions);
 
             // Get the target op code based on what method is being patched
             // Callvirt for InventoryItem and InventoryItemView, Ldarg_2 for BuildTech and Recipe
@@ -213,7 +209,7 @@
             else methodInfo = () => CustomTooltip(null, TechType.None);
 
             // Remove all labels at the target op code
-            List<Label> labelsToMove = codes[entryIndex].labels.ToArray().ToList();
+            var labelsToMove = new List<Label>(codes[entryIndex].labels.ToArray());
             codes[entryIndex].labels.Clear();
 
             // Change first custom IL code based on what method is being patched
@@ -234,7 +230,7 @@
             codes.InsertRange(entryIndex, codesToInsert);
 
             // Return modified IL
-            return codes.AsEnumerable();
+            return codes;
         }
 
         #endregion

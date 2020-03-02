@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using UnityEngine;
     using UnityEngine.UI;
     using QModManager.API;
@@ -20,10 +19,7 @@
         /// <summary>
         /// Obtains the <see cref="ModOption"/>s that belong to this instance. Can be null.
         /// </summary>
-        public List<ModOption> Options
-        {
-            get => _options?.Values.ToList();
-        }
+        public List<ModOption> Options => _options == null ? null : new List<ModOption>(_options.Values);
 
         // This is a dictionary now in case we want to get the ModOption quickly
         // based on the provided ID.

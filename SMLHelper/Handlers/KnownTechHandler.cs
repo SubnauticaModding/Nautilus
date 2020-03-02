@@ -3,7 +3,6 @@
     using Interfaces;
     using Patchers;
     using System.Collections.Generic;
-    using System.Linq;
     using UnityEngine;
 
     /// <summary>
@@ -58,7 +57,7 @@
                     unlockMessage = UnlockMessage,
                     unlockSound = UnlockSound,
                     unlockPopup = UnlockSprite,
-                    unlockTechTypes = techTypesToUnlock.ToList()
+                    unlockTechTypes = new List<TechType>(techTypesToUnlock)
                 });
             }
         }

@@ -1,7 +1,6 @@
 ﻿namespace SMLHelper.V2.Options
 {
     using System;
-    using System.Linq;
     using System.Collections;
     using SMLHelper.V2.Options.Utility;
     using UnityEngine;
@@ -112,7 +111,12 @@
         /// <param name="index">The starting value.</param>
         protected void AddChoiceOption(string id, string label, object[] options, int index)
         {
-            AddChoiceOption(id, label, options.Select(obj => obj.ToString()).ToArray(), index);
+            string[] strOptions = new string[options.Length];
+
+            for (int i = 0; i < options.Length; i++)
+                strOptions[i] = options[i].ToString();
+
+            AddChoiceOption(id, label, strOptions, index);
         }
         /// <summary>
         /// Adds a new <see cref="ModChoiceOption"/> to this instance.
