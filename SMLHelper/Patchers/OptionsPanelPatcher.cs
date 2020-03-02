@@ -3,7 +3,6 @@
     using Harmony;
     using Options;
     using System.IO;
-    using System.Linq;
     using System.Reflection;
     using System.Reflection.Emit;
     using System.Collections;
@@ -87,7 +86,7 @@
         [HarmonyPatch(typeof(uGUI_SnappingSlider), nameof(uGUI_SnappingSlider.SnapValue))]
         internal static IEnumerable<CodeInstruction> SnapValue_Fix(IEnumerable<CodeInstruction> cins)
         {
-            var list = cins.ToList();
+            var list = new List<CodeInstruction>(cins);
 
             int indexLabel = list.FindIndex(cin => cin.opcode == OpCodes.Starg_S && cin.operand.Equals((byte)1)) + 1;
             if (indexLabel == 0 || list[indexLabel].labels.Count == 0)

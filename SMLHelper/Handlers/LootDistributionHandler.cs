@@ -1,7 +1,6 @@
 ﻿namespace SMLHelper.V2.Handlers
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Interfaces;
     using Patchers;
     using SMLHelper.V2.Assets;
@@ -127,7 +126,7 @@
         {
             Main.AddLootDistributionData(classId, new LootDistributionData.SrcData()
             {
-                distribution = biomeDistribution.ToList(),
+                distribution = new List<LootDistributionData.BiomeData>(biomeDistribution),
                 prefabPath = prefabPath
             });
         }
@@ -144,7 +143,7 @@
         {
             Main.AddLootDistributionData(classId, new LootDistributionData.SrcData()
             {
-                distribution = biomeDistribution.ToList(),
+                distribution = new List<LootDistributionData.BiomeData>(biomeDistribution),
                 prefabPath = prefabPath
             });
 

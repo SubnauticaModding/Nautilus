@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Harmony;
     using SMLHelper.V2.Handlers;
     using Utility;
@@ -109,7 +108,7 @@
             harmony.Patch(AccessTools.Method(typeof(TechType), nameof(TechType.ToString), new Type[] { }),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), nameof(TechTypePatcher.Prefix_ToString))));
 
-            Logger.Log($"Added {cacheManager.ModdedKeys.Count()} TechTypes succesfully into the game.", LogLevel.Info);
+            Logger.Log($"Added {cacheManager.ModdedKeysCount} TechTypes succesfully into the game.", LogLevel.Info);
 
             Logger.Log("TechTypePatcher is done.", LogLevel.Debug);
         }
