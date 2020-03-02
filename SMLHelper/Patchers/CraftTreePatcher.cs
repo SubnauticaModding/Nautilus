@@ -54,7 +54,7 @@
         {
             if (CustomTrees.ContainsKey(treeType))
             {
-                __result = CustomTrees[treeType].CraftTree;
+                __result = CustomTrees[treeType].CustomCraftingTree;
                 return false;
             }
 
@@ -67,7 +67,7 @@
             {
                 foreach (CraftTree.Type cTreeKey in CustomTrees.Keys)
                 {
-                    CraftTree customTree = CustomTrees[cTreeKey].CraftTree;
+                    CraftTree customTree = CustomTrees[cTreeKey].CustomCraftingTree;
 
                     MethodInfo addToCraftableTech = AccessTools.Method(typeof(CraftTree), nameof(CraftTree.AddToCraftableTech));
 
