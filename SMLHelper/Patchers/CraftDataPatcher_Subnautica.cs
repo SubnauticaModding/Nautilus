@@ -2,9 +2,6 @@
 namespace SMLHelper.V2.Patchers
 {
     using Harmony;
-    using SMLHelper.V2.Assets;
-    using SMLHelper.V2.Handlers;
-    using System;
     using System.Collections.Generic;
 
     internal partial class CraftDataPatcher
