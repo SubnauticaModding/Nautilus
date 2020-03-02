@@ -3,7 +3,6 @@
     using Harmony;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
 
     internal class DevConsolePatcher
@@ -35,7 +34,7 @@
                 {
                     if (command.Name.Contains(args[0]))
                     {
-                        List<string> argsList = args.ToList();
+                        List<string> argsList = new List<string>(args);
                         argsList.RemoveAt(0);
                         string[] newArgs = argsList.ToArray();
                         command.CommandHandler.Invoke(null, new object[] { newArgs });
