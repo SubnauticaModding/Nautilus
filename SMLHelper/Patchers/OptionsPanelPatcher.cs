@@ -2,43 +2,53 @@
 {
     using Harmony;
     using Options;
+    using System.IO;
+    using System.Linq;
     using System.Reflection;
+    using System.Reflection.Emit;
+    using System.Collections;
     using System.Collections.Generic;
+    using Oculus.Newtonsoft.Json;
+    using Oculus.Newtonsoft.Json.Serialization;
     using UnityEngine;
-    using UnityEngine.Events;
+    using UnityEngine.EventSystems;
     using UnityEngine.UI;
+    using QModManager.API;
 
     internal class OptionsPanelPatcher
     {
         internal static SortedList<string, ModOptions> modOptions = new SortedList<string, ModOptions>();
 
+        private static int  modsTabIndex = -1;
+
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.AddTabs_Postfix))));
+            PatchUtils.PatchClass(harmony);
 
-            // check if already patched (there will be some conflicts if we patch this twice)
-            MethodInfo setVisibleTabMethod = AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab));
-            Patches patches = harmony.GetPatchInfo(setVisibleTabMethod);
-            
-            if (patches == null)
-            {
-                harmony.Patch(setVisibleTabMethod,
-                    new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.SetVisibleTab_Prefix))),
-                    new HarmonyMethod(AccessTools.Method(typeof(OptionsPanelPatcher), nameof(OptionsPanelPatcher.SetVisibleTab_Postfix))));
-                
-                V2.Logger.Log("Options.SetVisibleTab is patched", V2.LogLevel.Debug);
-            }
+            if (QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable == true)
+                V2.Logger.Log("ModOptionsAdjuster is not inited (ModsOptionsAdjusted mod is active)", LogLevel.Warn);
             else
-                V2.Logger.Log("Options.SetVisibleTab is already patched. Check if ModOptionsAdjusted mod is active.", V2.LogLevel.Warn);
+                PatchUtils.PatchClass(harmony, typeof(ModOptionsHeadingsToggle));
         }
 
+
+        // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTab))]
+        internal static void AddTab_Postfix(string label, int __result)
+        {
+            if (label == "Mods")
+                modsTabIndex = __result;
+        }
+
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
         internal static void AddTabs_Postfix(uGUI_OptionsPanel __instance)
         {
             uGUI_OptionsPanel optionsPanel = __instance;
-            
+
             // Start the modsTab index at a value of -1
-            var modsTab = -1;
+            int modsTab = -1;
             // Loop through all of the tabs
             for (int i = 0; i < optionsPanel.tabsContainer.childCount; i++)
             {
@@ -67,206 +77,252 @@
                 "Nothing"
             }, (int)TooltipPatcher.ExtraItemInfoOption, (i) => TooltipPatcher.SetExtraItemInfo((TooltipPatcher.ExtraItemInfo)i));
 
-            foreach (ModOptions modOption in modOptions.Values)
+            // adding all other options here
+            modOptions.Values.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
+        }
+
+        // fix for slider, check for zero divider added (in that case just return value unchanged)
+        // it happens when slider is in pre-awake state, so any given value snaps to default value
+        [PatchUtils.Transpiler]
+        [HarmonyPatch(typeof(uGUI_SnappingSlider), nameof(uGUI_SnappingSlider.SnapValue))]
+        internal static IEnumerable<CodeInstruction> SnapValue_Fix(IEnumerable<CodeInstruction> cins)
+        {
+            var list = cins.ToList();
+
+            int indexLabel = list.FindIndex(cin => cin.opcode == OpCodes.Starg_S && cin.operand.Equals((byte)1)) + 1;
+            if (indexLabel == 0 || list[indexLabel].labels.Count == 0)
             {
-                optionsPanel.AddHeading(modsTab, modOption.Name);
+                V2.Logger.Log("SnapValue_Fix: indexLabel not found", LogLevel.Warn);
+                return cins;
+            }
 
-                foreach (ModOption option in modOption.Options)
+            int indexToInject = list.FindIndex(cin => cin.opcode == OpCodes.Stloc_1) + 1;
+            if (indexToInject == 0)
+            {
+                V2.Logger.Log("SnapValue_Fix: indexToInject not found", LogLevel.Warn);
+                return cins;
+            }
+
+            list.InsertRange(indexToInject, new List<CodeInstruction>
+            {
+                new CodeInstruction(OpCodes.Ldloc_1),
+                new CodeInstruction(OpCodes.Ldc_R4, 0f),
+                new CodeInstruction(OpCodes.Beq, list[indexLabel].labels[0])
+            });
+
+            return list;
+        }
+
+
+        // Class for collapsing/expanding options in 'Mods' tab
+        // Options can be collapsed/expanded by clicking on mod's title or arrow button
+        private static class ModOptionsHeadingsToggle
+        {
+            private enum HeadingState { Collapsed, Expanded };
+
+            private static GameObject headingPrefab = null;
+
+            private static class StoredHeadingStates
+            {
+                private static readonly string configPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "headings_states.json");
+
+                private class StatesConfig
                 {
-                    switch (option.Type)
+                    [JsonProperty]
+                    private readonly Dictionary<string, HeadingState> states = new Dictionary<string, HeadingState>();
+
+                    public HeadingState this[string name]
                     {
-                        case ModOptionType.Slider:
-                            var slider = (ModSliderOption)option;
+                        get => states.TryGetValue(name, out HeadingState state)? state: HeadingState.Expanded;
 
-                            optionsPanel.AddSliderOption(modsTab, slider.Label, slider.Value, slider.MinValue, slider.MaxValue, slider.Value,
-                                new UnityAction<float>((float sliderVal) =>
-                                    modOption.OnSliderChange(slider.Id, sliderVal)));
-                            break;
-                        case ModOptionType.Toggle:
-                            var toggle = (ModToggleOption)option;
-
-                            optionsPanel.AddToggleOption(modsTab, toggle.Label, toggle.Value,
-                                new UnityAction<bool>((bool toggleVal) =>
-                                    modOption.OnToggleChange(toggle.Id, toggleVal)));
-                            break;
-                        case ModOptionType.Choice:
-                            var choice = (ModChoiceOption)option;
-
-                            optionsPanel.AddChoiceOption(modsTab, choice.Label, choice.Options, choice.Index,
-                                new UnityAction<int>((int index) =>
-                                    modOption.OnChoiceChange(choice.Id, index, choice.Options[index])));
-                            break;
-                        case ModOptionType.Keybind:
-                            var keybind = (ModKeybindOption)option;
-
-                            ModKeybindOption.AddBindingOptionWithCallback(optionsPanel, modsTab, keybind.Label, keybind.Key, keybind.Device,
-                                new UnityAction<KeyCode>((KeyCode key) => 
-                                    modOption.OnKeybindChange(keybind.Id, key)));
-                            break;
-                        default:
-                            V2.Logger.Log($"Invalid ModOptionType detected for option: {option.Id} ({option.Type.ToString()})", LogLevel.Error);
-                            break;
+                        set
+                        {
+                            states[name] = value;
+                            File.WriteAllText(configPath, JsonConvert.SerializeObject(this, Formatting.Indented));
+                        }
                     }
                 }
+                private static readonly StatesConfig statesConfig = CreateConfig();
+
+                private static StatesConfig CreateConfig()
+                {
+                    if (File.Exists(configPath))
+                        return JsonConvert.DeserializeObject<StatesConfig>(File.ReadAllText(configPath));
+                    else
+                        return new StatesConfig();
+                }
+
+                public static HeadingState get(string name) => statesConfig[name];
+                public static void store(string name, HeadingState state) => statesConfig[name] = state;
             }
-        }
 
-
-
-        // do not show tab if it is already visible (to prevent scroll position resetting)
-        internal static bool SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
-        {
-            return tabIndex < 0 || tabIndex >= __instance.tabs.Count || !__instance.tabs[tabIndex].pane.activeSelf;
-        }
-
-        // adjusting ui elements
-        internal static void SetVisibleTab_Postfix(uGUI_TabbedControlsPanel __instance, int tabIndex)
-        {
-            if (tabIndex < 0 || tabIndex >= __instance.tabs.Count)
-                return;
-
-            try
+            // we add arrow button from Choice ui element to the options headings for collapsing/expanding 
+            private static void InitHeadingPrefab(uGUI_TabbedControlsPanel panel)
             {
+                if (headingPrefab)
+                    return;
+
+                headingPrefab = Object.Instantiate(panel.headingPrefab);
+                headingPrefab.name = "OptionHeadingToggleable";
+                headingPrefab.AddComponent<HeadingToggle>();
+
+                Transform captionTransform = headingPrefab.transform.Find("Caption");
+                captionTransform.localPosition = new Vector3(45f, 0f, 0f);
+                captionTransform.gameObject.AddComponent<HeadingClickHandler>();
+                captionTransform.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+                GameObject button = Object.Instantiate(panel.choiceOptionPrefab.transform.Find("Choice/Background/NextButton").gameObject);
+                button.name = "HeadingToggleButton";
+                button.AddComponent<ToggleButtonClickHandler>();
+
+                RectTransform buttonTransform = button.transform as RectTransform;
+                buttonTransform.SetParent(headingPrefab.transform);
+                buttonTransform.SetAsFirstSibling();
+                buttonTransform.localEulerAngles = new Vector3(0f, 0f, -90f);
+                buttonTransform.localPosition = new Vector3(15f, -13f, 0f);
+                buttonTransform.pivot = new Vector2(0.25f, 0.5f);
+                buttonTransform.anchorMin = buttonTransform.anchorMax = new Vector2(0f, 0.5f);
+            }
+
+            #region components
+            // main component for headings toggling
+            private class HeadingToggle: MonoBehaviour
+            {
+                private HeadingState headingState = HeadingState.Expanded;
+                private string headingName = null;
+                private List<GameObject> childOptions = null;
+
+                private void Init()
+                {
+                    if (childOptions != null)
+                        return;
+
+                    headingName = transform.Find("Caption")?.GetComponent<Text>()?.text;
+
+                    childOptions = new List<GameObject>();
+
+                    for (int i = transform.GetSiblingIndex() + 1; i < transform.parent.childCount; i++)
+                    {
+                        GameObject option = transform.parent.GetChild(i).gameObject;
+
+                        if (option.GetComponent<HeadingToggle>())
+                            break;
+
+                        childOptions.Add(option);
+                    }
+                }
+
+                public void EnsureState() // for setting previously saved state
+                {
+                    Init();
+
+                    HeadingState storedState = StoredHeadingStates.get(headingName);
+
+                    if (headingState != storedState)
+                    {
+                        SetState(storedState);
+                        GetComponentInChildren<ToggleButtonClickHandler>()?.SetStateInstant(storedState);
+                    }
+                }
+
+                public void SetState(HeadingState state)
+                {
+                    Init();
+
+                    childOptions.ForEach(option => option.SetActive(state == HeadingState.Expanded));
+                    headingState = state;
+
+                    StoredHeadingStates.store(headingName, state);
+                }
+            }
+
+            // click handler for arrow button
+            private class ToggleButtonClickHandler: MonoBehaviour, IPointerClickHandler
+            {
+                private const float timeRotate = 0.1f;
+                private HeadingState headingState = HeadingState.Expanded;
+                private bool isRotating = false;
+
+                public void SetStateInstant(HeadingState state)
+                {
+                    headingState = state;
+                    transform.localEulerAngles = new Vector3(0, 0, headingState == HeadingState.Expanded? -90: 0);
+                }
+
+                public void OnPointerClick(PointerEventData _)
+                {
+                    if (isRotating)
+                        return;
+
+                    headingState = headingState == HeadingState.Expanded? HeadingState.Collapsed: HeadingState.Expanded;
+                    StartCoroutine(SmoothRotate(headingState == HeadingState.Expanded? -90: 90));
+
+                    GetComponentInParent<HeadingToggle>()?.SetState(headingState);
+                }
+
+                private IEnumerator SmoothRotate(float angles)
+                {
+                    isRotating = true;
+
+                    Quaternion startRotation = transform.localRotation;
+                    Quaternion endRotation = Quaternion.Euler(new Vector3(0f, 0f, angles)) * startRotation;
+
+                    float timeStart = Time.realtimeSinceStartup; // Time.deltaTime works only in main menu
+
+                    while (timeStart + timeRotate > Time.realtimeSinceStartup)
+                    {
+                        transform.localRotation = Quaternion.Lerp(startRotation, endRotation, (Time.realtimeSinceStartup - timeStart) / timeRotate);
+                        yield return null;
+                    }
+
+                    transform.localRotation = endRotation;
+                    isRotating = false;
+                }
+            }
+
+            // click handler for title, just redirects clicks to button click handler
+            private class HeadingClickHandler: MonoBehaviour, IPointerClickHandler
+            {
+                public void OnPointerClick(PointerEventData eventData) =>
+                    transform.parent.GetComponentInChildren<ToggleButtonClickHandler>()?.OnPointerClick(eventData);
+            }
+            #endregion
+
+            #region patches for uGUI_TabbedControlsPanel
+            [PatchUtils.Prefix]
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddHeading))]
+            private static bool AddHeading_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex, string label)
+            {
+                if (tabIndex != modsTabIndex)
+                    return true;
+
+                __instance.AddItem(tabIndex, headingPrefab, label);
+                return false;
+            }
+
+            [PatchUtils.Postfix]
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.Awake))]
+            private static void Awake_Postfix(uGUI_TabbedControlsPanel __instance)
+            {
+                InitHeadingPrefab(__instance);
+            }
+
+            [PatchUtils.Prefix]
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
+            private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
+            {
+                if (tabIndex != modsTabIndex)
+                    return;
+
+                // just in case, for changing vertical spacing between ui elements
+                //__instance.tabs[tabIndex].container.GetComponent<VerticalLayoutGroup>().spacing = 15f; // default is 15f
+
                 Transform options = __instance.tabs[tabIndex].container.transform;
 
                 for (int i = 0; i < options.childCount; i++)
-                {
-                    Transform option = options.GetChild(i);
-
-                    if (option.localPosition.x == 0) // ui layout didn't touch this element yet
-                        continue;
-
-                    if (option.name.Contains("uGUI_ToggleOption"))
-                        ProcessToggleOption(option);
-                    else
-                    if (option.name.Contains("uGUI_SliderOption"))
-                        ProcessSliderOption(option);
-                    else
-                    if (option.name.Contains("uGUI_ChoiceOption"))
-                        ProcessChoiceOption(option);
-                    else
-                    if (option.name.Contains("uGUI_BindingOption"))
-                        ProcessBindingOption(option);
-                }
+                    options.GetChild(i).GetComponent<HeadingToggle>()?.EnsureState();
             }
-            catch (System.Exception e)
-            {
-                V2.Logger.Log($"Exception while adjusting mod options: {e.GetType()}\t{e.Message}", LogLevel.Error);
-            }
-        }
-
-        private static void ProcessToggleOption(Transform option)
-        {
-            Transform check = option.Find("Toggle/Background");
-            Text text = option.GetComponentInChildren<Text>();
-
-            int textWidth = GetTextWidth(text) + 20;
-            Vector3 pos = check.localPosition;
-
-            if (textWidth > pos.x)
-            {
-                pos.x = textWidth;
-                check.localPosition = pos;
-            }
-        }
-
-        private static void ProcessSliderOption(Transform option)
-        {
-            const float sliderValueWidth = 85f;
-
-            // changing width for slider value label
-            RectTransform sliderValueRect = option.Find("Slider/Value").GetComponent<RectTransform>();
-            Vector2 valueSize = sliderValueRect.sizeDelta;
-            valueSize.x = sliderValueWidth;
-            sliderValueRect.sizeDelta = valueSize;
-
-            // changing width for slider
-            Transform slider = option.Find("Slider/Background");
-            Text text = option.GetComponentInChildren<Text>();
-
-            RectTransform rect = slider.GetComponent<RectTransform>();
-
-            float widthAll = option.GetComponent<RectTransform>().rect.width;
-            float widthSlider = rect.rect.width;
-            float widthText = GetTextWidth(text) + 25;
-
-            if (widthText + widthSlider + sliderValueWidth > widthAll)
-            {
-                Vector2 size = rect.sizeDelta;
-                size.x = widthAll - widthText - sliderValueWidth - widthSlider;
-                rect.sizeDelta = size;
-            }
-        }
-
-        private static void ProcessChoiceOption(Transform option)
-        {
-            Transform choice = option.Find("Choice/Background");
-            Text text = option.GetComponentInChildren<Text>();
-
-            RectTransform rect = choice.GetComponent<RectTransform>();
-
-            float widthAll = option.GetComponent<RectTransform>().rect.width;
-            float widthChoice = rect.rect.width;
-
-            float widthText = GetTextWidth(text) + 10;
-
-            if (widthText + widthChoice > widthAll)
-            {
-                Vector2 size = rect.sizeDelta;
-                size.x = widthAll - widthText - widthChoice;
-                rect.sizeDelta = size;
-            }
-        }
-
-        private static void ProcessBindingOption(Transform option)
-        {
-            // changing width for keybinding option
-            Transform binding = option.Find("Bindings");
-            Text text = option.GetComponentInChildren<Text>();
-
-            RectTransform rect = binding.GetComponent<RectTransform>();
-
-            float widthAll = option.GetComponent<RectTransform>().rect.width;
-            float widthBinding = rect.rect.width;
-
-            float widthText = GetTextWidth(text) + 10;
-
-            if (widthText + widthBinding > widthAll)
-            {
-                Vector2 size = rect.sizeDelta;
-                size.x = widthAll - widthText - widthBinding;
-                rect.sizeDelta = size;
-            }
-
-            // fixing bug when all keybinds show 'D' (after reselecting tab)
-            Transform primaryBinding = binding.Find("Primary Binding"); // bug only on primary bindings
-            Text bindingText = primaryBinding.Find("Label").GetComponent<Text>();
-
-            if (bindingText.text == "D")
-            {
-                string buttonRawText = primaryBinding.GetComponent<uGUI_Binding>().value;
-
-                if (uGUI.buttonCharacters.TryGetValue(buttonRawText, out string buttonText))
-                    bindingText.text = buttonText;
-                else
-                    bindingText.text = buttonRawText;
-            }
-        }
-
-        private static int GetTextWidth(Text text)
-        {
-            int width = 0;
-
-            Font font = text.font;
-            font.RequestCharactersInTexture(text.text, text.fontSize, text.fontStyle);
-
-            foreach (char c in text.text)
-            {
-                font.GetCharacterInfo(c, out CharacterInfo charInfo, text.fontSize, text.fontStyle);
-                width += charInfo.advance;
-            }
-
-            return width;
+            #endregion
         }
     }
 }

@@ -64,8 +64,8 @@
       <HintPath>..\Dependencies\Subnautica\Assembly-CSharp_publicized.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="LitJson">
-      <HintPath>..\Dependencies\LitJson.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Dependencies\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Build.Utilities.v3.5">
@@ -81,10 +81,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\UnityEngine.dll</HintPath>
       <Private>False</Private>
@@ -100,10 +96,6 @@
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\UnityEngine.PhysicsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
-      <HintPath>..\Dependencies\Subnautica\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI" Condition="'$(Configuration)'=='SUBNAUTICA'">
@@ -125,10 +117,6 @@
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule" Condition="'$(Configuration)'=='BELOWZERO'">
       <HintPath>..\Dependencies\BelowZero\UnityEngine.PhysicsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\Dependencies\BelowZero\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI" Condition="'$(Configuration)'=='BELOWZERO'">
