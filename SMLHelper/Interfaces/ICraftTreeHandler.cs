@@ -64,7 +64,9 @@
         /// <param name="name">The ID of the tab node. Must be unique!</param>
         /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
         /// <param name="sprite">The sprite of the tab.</param>        
-        void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite);
+        void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Sprite sprite);
+
+#if SUBNAUTICA
 
         /// <summary>
         /// Adds a new tab node to the root of the specified crafting tree.
@@ -73,7 +75,7 @@
         /// <param name="name">The ID of the tab node. Must be unique!</param>
         /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
         /// <param name="sprite">The sprite of the tab.</param>        
-        void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Sprite sprite);
+        void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite);
 
         /// <summary>
         /// Adds a new tab node to the root of the specified crafting tree, at the specified tab location.
@@ -88,7 +90,8 @@
         /// <para>Do not include "root" in this path.</para>
         /// </param>        
         void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite, params string[] stepsToTab);
-
+        
+#endif
         /// <summary>
         /// Adds a new tab node to the root of the specified crafting tree, at the specified tab location.
         /// </summary>

@@ -77,12 +77,8 @@
             if (TechTypeHandler.TechTypesAddedBy.TryGetValue(type, out Assembly assembly))
             {
                 string modName = null;
-
-#if SUBNAUTICA
+                
                 foreach (IQMod mod in QModServices.Main.GetAllMods())
-#elif BELOWZERO
-                foreach (QMod mod in QModAPI.GetAllMods(true, true))
-#endif
                 {
                     if (mod == null || mod.LoadedAssembly == null) continue;
                     if (mod.LoadedAssembly == assembly)

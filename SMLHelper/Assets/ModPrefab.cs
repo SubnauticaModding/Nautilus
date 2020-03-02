@@ -4,6 +4,7 @@
     using UnityEngine;
     using MonoBehaviours;
     using System;
+    using SMLHelper.V2.Patchers;
 
     /// <summary>
     /// The abstract class to inherit when you want to add new PreFabs into the game.
@@ -13,12 +14,14 @@
         private static readonly Dictionary<string, ModPrefab> FileNameDictionary = new Dictionary<string, ModPrefab>(StringComparer.InvariantCultureIgnoreCase);
         private static readonly Dictionary<string, ModPrefab> ClassIdDictionary = new Dictionary<string, ModPrefab>(StringComparer.InvariantCultureIgnoreCase);
         private static readonly List<ModPrefab> PreFabsList = new List<ModPrefab>();
+        internal static bool ModPrefabsPatched = false;
 
         internal static void Add(ModPrefab prefab)
         {
             FileNameDictionary.Add(prefab.PrefabFileName, prefab);
             ClassIdDictionary.Add(prefab.ClassID, prefab);
             PreFabsList.Add(prefab);
+            ModPrefabsPatched = false;
         }
 
         internal static IEnumerable<ModPrefab> Prefabs => PreFabsList;
