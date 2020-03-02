@@ -132,8 +132,8 @@
 
         private static bool Prefix_IsDefined(Type enumType, object value, ref bool __result)
         {
-            //if (TooltipPatcher.DisableEnumIsDefinedPatch)
-            //    return true;
+            if (TooltipPatcher.DisableEnumIsDefinedPatch)
+                return true;
 
             if (enumType.Equals(typeof(TechType)))
             {

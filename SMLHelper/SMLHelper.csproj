@@ -37,7 +37,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -58,15 +58,19 @@
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\Assembly-CSharp_publicized.dll</HintPath>
-    </Reference>
-    <Reference Include="LitJson">
-      <HintPath>..\Dependencies\LitJson.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.Build.Utilities.v3.5" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Dependencies\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.v3.5">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="QModInstaller" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\QModInstaller.dll</HintPath>
       <Private>False</Private>
@@ -77,10 +81,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="UnityEngine" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\UnityEngine.dll</HintPath>
       <Private>False</Private>
@@ -96,10 +96,6 @@
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\UnityEngine.PhysicsModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
-      <HintPath>..\Dependencies\Subnautica\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI" Condition="'$(Configuration)'=='SUBNAUTICA'">
@@ -123,10 +119,6 @@
       <HintPath>..\Dependencies\BelowZero\UnityEngine.PhysicsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.TextRenderingModule" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\Dependencies\BelowZero\UnityEngine.TextRenderingModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEngine.UI" Condition="'$(Configuration)'=='BELOWZERO'">
       <HintPath>..\Dependencies\BelowZero\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
@@ -136,10 +128,12 @@
     <Compile Include="Assets\Buildable.cs" />
     <Compile Include="Assets\Craftable.cs" />
     <Compile Include="Assets\CustomFabricator.cs" />
+    <Compile Include="Assets\Equipable.cs" />
     <Compile Include="Assets\Fish.cs" />
     <Compile Include="Assets\FishPrefab.cs" />
     <Compile Include="Assets\ModPrefab.cs" />
-    <Compile Include="Assets\ModSprite.cs" />
+    <Compile Include="Assets\SubnauticaModSprite.cs" />
+    <Compile Include="Assets\BelowZeroModSprite.cs" />
     <Compile Include="Assets\PdaItem.cs" />
     <Compile Include="Assets\Spawnable.cs" />
     <Compile Include="Crafting\CraftingNode.cs" />
@@ -220,6 +214,7 @@
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />
     <Compile Include="Patchers\TechTypePatcher.cs" />
+    <Compile Include="Patchers\TooltipPatcher.cs" />
     <Compile Include="Patchers\WorldEntityDatabasePatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AudioUtils.cs" />
@@ -238,13 +233,13 @@
     <Compile Include="Utility\StorageHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="QModManager\Subnautica.json" />
-    <None Include="QModManager\BelowZero.json" />
+    <None Include="mod_Subnautica.json" />
+    <None Include="mod_BelowZero.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == SUBNAUTICA (copy "$(ProjectDir)QModManager\Subnautica.json" "$(ProjectDir)$(OutDir)mod.json")
-if $(ConfigurationName) == BELOWZERO (copy "$(ProjectDir)QModManager\BelowZero.json" "$(ProjectDir)$(OutDir)mod.json")</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == SUBNAUTICA (copy "$(ProjectDir)mod_Subnautica.json" "$(ProjectDir)$(OutDir)mod.json")
+if $(ConfigurationName) == BELOWZERO (copy "$(ProjectDir)mod_BelowZero.json" "$(ProjectDir)$(OutDir)mod.json")</PostBuildEvent>
   </PropertyGroup>
 </Project>

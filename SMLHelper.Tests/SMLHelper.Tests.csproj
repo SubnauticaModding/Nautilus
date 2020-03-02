@@ -76,8 +76,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssestClassTests\PdaItemTests.cs" />
-    <Compile Include="AssestClassTests\SpawnableTests.cs" />
+    <Compile Include="PdaItemTests.cs" />
+    <Compile Include="SpawnableTests.cs" />
     <Compile Include="LanguagePatcherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelfCheckingDictionaryTests.cs" />

@@ -22,7 +22,7 @@
             : base(name, action, techType)
         {
         }
-
+#if SUBNAUTICA
         /// <summary>
         /// Creates a new tab node for the crafting tree and links it to the calling node.
         /// </summary>
@@ -42,6 +42,7 @@
             return tabNode;
         }
 
+#endif
         /// <summary>
         /// Creates a new tab node for the crafting tree and links it to the calling node.
         /// </summary>

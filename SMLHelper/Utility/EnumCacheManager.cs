@@ -27,10 +27,10 @@
     {
         private class DoubleKeyDictionary : IEnumerable<KeyValuePair<int, string>>
         {
-            private readonly Dictionary<int, string> MapIntString = new Dictionary<int, string>();
-            private readonly Dictionary<T, string> MapEnumString = new Dictionary<T, string>();
-            private readonly Dictionary<string, T> MapStringEnum = new Dictionary<string, T>(StringComparer.InvariantCultureIgnoreCase);
-            private readonly Dictionary<string, int> MapStringInt = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
+            private readonly SortedDictionary<int, string> MapIntString = new SortedDictionary<int, string>();
+            private readonly SortedDictionary<T, string> MapEnumString = new SortedDictionary<T, string>();
+            private readonly SortedDictionary<string, T> MapStringEnum = new SortedDictionary<string, T>(StringComparer.InvariantCultureIgnoreCase);
+            private readonly SortedDictionary<string, int> MapStringInt = new SortedDictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
 
             public bool TryGetValue(T enumValue, out string name)
             {

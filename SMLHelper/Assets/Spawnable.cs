@@ -15,7 +15,10 @@
     {
         internal IPrefabHandler PrefabHandler { get; set; } = Handlers.PrefabHandler.Main;
         internal ISpriteHandler SpriteHandler { get; set; } = Handlers.SpriteHandler.Main;
+        internal ICraftDataHandler CraftDataHandler { get; set; } = Handlers.CraftDataHandler.Main;
         internal ITechTypeHandlerInternal TechTypeHandler { get; set; } = Handlers.TechTypeHandler.Singleton;
+
+        private static readonly Vector2int defaultSize = new Vector2int(1, 1);
 
         /// <summary>
         /// A simple delegate type that takes no parameters and returns void.
@@ -53,6 +56,12 @@
         public bool IsPatched { get; private set; } = false;
 
         /// <summary>
+        /// Returns the size that this entity will occupy inside the player inventory.<br/>
+        /// By default this will be 1x1. Override to change the size.
+        /// </summary>
+        public virtual Vector2int SizeInInventory { get; } = defaultSize;
+
+        /// <summary>
         /// Initializes a new <see cref="Spawnable"/>, the basic class needed for any item that can be spawned into the Subnautica game world.
         /// </summary>
         /// <param name="classId">The main internal identifier for this item. Your item's <see cref="TechType"/> will be created using this name.</param>
@@ -70,8 +79,14 @@
             this.FriendlyName = friendlyName;
             this.Description = description;
 
-            CorePatchEvents += () => this.PrefabHandler.RegisterPrefab(this);
-            CorePatchEvents += () => this.SpriteHandler.RegisterSprite(this.TechType, GetItemSprite());
+            CorePatchEvents += () =>
+            {
+                this.PrefabHandler.RegisterPrefab(this);
+                this.SpriteHandler.RegisterSprite(this.TechType, GetItemSprite());
+
+                if (!this.SizeInInventory.Equals(defaultSize))
+                    this.CraftDataHandler.SetItemSize(this.TechType, this.SizeInInventory);
+            };
         }
 
         /// <summary>
@@ -123,6 +138,7 @@
             this.TechType = this.TechTypeHandler.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, false);
         }
 
+#if SUBNAUTICA
         /// <summary>
         /// Determines thee <see cref="Atlas.Sprite"/> to be used for this spawnable's icon.<para/>
         /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
@@ -143,5 +159,29 @@
             Logger.Warn($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
             return SpriteManager.defaultSprite;
         }
+
+#elif BELOWZERO
+
+        /// <summary>
+        /// Determines thee <see cref="UnityEngine.Sprite"/> to be used for this spawnable's icon.<para/>
+        /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
+        /// </summary>
+        /// <returns>Returns the <see cref="UnityEngine.Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, UnityEngine.Sprite)"/> call.</returns>
+        protected virtual UnityEngine.Sprite GetItemSprite()
+        {
+            // This is for backwards compatibility with mods that were using the "ModName/Assets" format
+            string path = this.AssetsFolder != modFolderLocation
+                ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
+                : Path.Combine(this.AssetsFolder, this.IconFileName);
+
+            if (File.Exists(path))
+            {
+                return ImageUtils.LoadSpriteFromFile(path);
+            }
+
+            Logger.Warn($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+            return SpriteManager.defaultSprite;
+        }
+#endif
     }
 }
