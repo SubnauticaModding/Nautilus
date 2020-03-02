@@ -1,7 +1,6 @@
 ﻿namespace SMLHelper.V2.Options
 {
     using System;
-    using System.Linq;
     using System.Collections;
     using SMLHelper.V2.Utility;
     using UnityEngine;
@@ -125,10 +124,11 @@
 
             // Create bindings
             uGUI_Bindings bindings = OptionGameObject.GetComponentInChildren<uGUI_Bindings>();
-            uGUI_Binding binding = bindings.bindings.First();
+            uGUI_Binding binding = bindings.bindings[0];
 
             // Destroy secondary bindings
-            UnityEngine.Object.Destroy(bindings.bindings.Last().gameObject);
+            int last = bindings.bindings.Length - 1;
+            UnityEngine.Object.Destroy(bindings.bindings[last].gameObject);
             UnityEngine.Object.Destroy(bindings);
 
             // Update bindings

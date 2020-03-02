@@ -80,6 +80,8 @@
 
             public IEnumerable<T> KnownsEnumKeys => MapEnumString.Keys;
 
+            public int KnownsEnumCount => MapEnumString.Count;
+
             public bool IsKnownKey(T key)
             {
                 return MapEnumString.ContainsKey(key);
@@ -121,6 +123,8 @@
         private readonly DoubleKeyDictionary entriesFromRequests = new DoubleKeyDictionary();
 
         public IEnumerable<T> ModdedKeys => entriesFromRequests.KnownsEnumKeys;
+
+        public int ModdedKeysCount => entriesFromRequests.KnownsEnumCount;
 
         public bool TryGetValue(T key, out string value)
         {

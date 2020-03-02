@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.V2.Crafting
 {
-    using System.Linq;
+    using System;
     using Patchers;
     using UnityEngine.Assertions;
 
@@ -98,13 +98,15 @@
                 return base.GetNode(stepsToNode[0]);
             }
 
-            string nodeID = stepsToNode[stepsToNode.Length - 1];
-            string[] stepsToTab = stepsToNode.Take(stepsToNode.Length - 1).ToArray();
+            int stepCountToTab = stepsToNode.Length - 1;
+
+            string nodeID = stepsToNode[stepCountToTab];
+            string[] stepsToTab = new string[stepCountToTab];
+            Array.Copy(stepsToNode, stepsToTab, stepCountToTab);
+
             ModCraftTreeTab tab = GetTabNode(stepsToTab);
 
-            if (tab == null) return null;
-
-            return tab.GetNode(nodeID);
+            return tab?.GetNode(nodeID);
         }
     }
 }
