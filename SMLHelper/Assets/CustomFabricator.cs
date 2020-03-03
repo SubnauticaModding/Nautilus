@@ -119,9 +119,14 @@
         public virtual Color ColorTint => Color.white;
 
         /// <summary>
-        /// The ID value for your custom craft tree. This is set in the <see cref="CreateCustomCraftTree(out CraftTree.Type)"/> method.
+        /// The ID value for your custom craft tree. This is set after this <see cref="Spawnable.Patch"/> method is invoked.
         /// </summary>
         public CraftTree.Type TreeTypeID { get; private set; }
+
+        /// <summary>
+        /// Gets the root node of the crafting tree. This is set after this <see cref="Spawnable.Patch"/> method is invoked.
+        /// </summary>
+        public ModCraftTreeRoot Root { get; private set; }
 
         /// <summary>
         /// Override with the category within the group in the PDA blueprints where this item appears.
@@ -131,7 +136,7 @@
         /// <summary>
         /// Override with the main group in the PDA blueprints where this item appears.
         /// </summary>
-        public override TechGroup GroupForPDA => TechGroup.InteriorModules;        
+        public override TechGroup GroupForPDA => TechGroup.InteriorModules;
 
         /// <summary>
         /// The in-game <see cref="GameObject"/>.
@@ -228,7 +233,7 @@
         {
             throw new NotImplementedException($"To use a custom fabricator model, the prefab must be created in {nameof(GetCustomCrafterPreFab)}.");
         }
-        
+
         /// <summary>
         /// Override this method if you want full control over how your custom craft tree is built up.<para/>
         /// To use this method's default behavior, you must use the following methods to build up your crafting tree.<para/>
@@ -240,6 +245,7 @@
         internal virtual void CreateCustomCraftTree(out CraftTree.Type craftTreeType)
         {
             ModCraftTreeRoot root = CraftTreeHandler.CreateCustomCraftTreeAndType(this.ClassID, out craftTreeType);
+            this.Root = root;
             CraftTreeLinkingNodes.Add(RootNode, root);
 
             // Since we shouldn't rely on attached events to be executed in any particular order,
