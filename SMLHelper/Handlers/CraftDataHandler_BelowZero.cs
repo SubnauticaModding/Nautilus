@@ -239,6 +239,11 @@ namespace SMLHelper.V2.Handlers
                 }
             }
 
+            if (!TechData.Contains(TechType.Knife))
+            {
+                TechData.Initialize();
+            }
+
             if (TechData.TryGetValue(techType, out JsonValue techData))
             {
                 RecipeData currentRecipeData = new RecipeData();
