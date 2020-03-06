@@ -1,6 +1,5 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Abstract;
     using Harmony;
     using System;
     using System.IO;
