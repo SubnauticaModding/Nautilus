@@ -73,6 +73,7 @@
             LootDistributionPatcher.Patch(harmony);
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
+            ProtoBufSerializerPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
 
             Logger.Debug("Saving TechType Cache");
