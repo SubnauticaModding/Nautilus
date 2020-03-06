@@ -286,7 +286,11 @@
             /// Updates label's text with formatted and converted slider's value.
             /// Override this if you need even more control on slider's value behaviour.
             /// </summary>
-            protected virtual void UpdateLabel() => label.text = string.Format(valueFormat, ConvertToDisplayValue(slider.value));
+            protected virtual void UpdateLabel()
+            {
+                float val = ConvertToDisplayValue(slider.value); // doing it separately in case that valueFormat is changing in ConvertToDisplayValue
+                label.text = string.Format(valueFormat, val);
+            }
         }
 
 
