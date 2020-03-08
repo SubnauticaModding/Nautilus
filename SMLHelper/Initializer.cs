@@ -5,7 +5,7 @@
     using Harmony;
     using Patchers;
     using QModManager.API.ModLoading;
-#endif
+
     /// <summary>
     /// WARNING: This class is for use only by QModManager.
     /// </summary>
