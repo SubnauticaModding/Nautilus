@@ -49,6 +49,18 @@ namespace SMLHelper.V2.Handlers
             return Main.GetModdedTechData(techType);
         }
 
+        /// <summary>
+        /// Safely accesses the crafting data from any item.<para/>
+        /// WARNING: This method is highly dependent on mod load order. 
+        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to access.</param>
+        /// <returns>Returns TechData if it exists; Otherwise, returns <c>null</c>.</returns>
+        public static TechData GetTechData(TechType techType)
+        {
+            return Main.GetTechData(techType);
+        }
+
         #endregion
 
         #region Subnautica specific implementations
@@ -206,11 +218,56 @@ namespace SMLHelper.V2.Handlers
         /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
         ITechData ICraftDataHandler.GetModdedTechData(TechType techType)
         {
+            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData moddedTechData))
+            {
+                return null;
+            }
+            return moddedTechData;
+        }
+
+        /// <summary>
+        /// Safely accesses the crafting data from any item.<para/>
+        /// WARNING: This method is highly dependent on mod load order. 
+        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to access.</param>
+        /// <returns>Returns TechData if it exists; Otherwise, returns <c>null</c>.</returns>
+        TechData ICraftDataHandler.GetTechData(TechType techType)
+        {
+
             if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData moddedTechData))
             {
-                return moddedTechData;
+                TechData techData = new TechData() {craftAmount = moddedTechData.craftAmount};
+
+                for(int i = 0; i < moddedTechData.ingredientCount; i++)
+                {
+                    IIngredient ingredient = moddedTechData.GetIngredient(i);
+                    Ingredient smlingredient = new Ingredient(ingredient.techType, ingredient.amount);
+                    techData.Ingredients.Add(smlingredient);
+                }
+                for (int i = 0; i < moddedTechData.linkedItemCount; i++)
+                {
+                    techData.LinkedItems.Add(moddedTechData.GetLinkedItem(i));
+                }
+                return techData;
             }
 
+            ITechData td = CraftData.Get(techType, true);
+            if(td != null)
+            {
+                TechData techData = new TechData() { craftAmount = td.craftAmount };
+                for (int i = 0; i < td.ingredientCount; i++)
+                {
+                    IIngredient ingredient = td.GetIngredient(i);
+                    Ingredient smlingredient = new Ingredient(ingredient.techType, ingredient.amount);
+                    techData.Ingredients.Add(smlingredient);
+                }
+                for (int i = 0; i < td.linkedItemCount; i++)
+                {
+                    techData.LinkedItems.Add(moddedTechData.GetLinkedItem(i));
+                }
+                return techData;
+            }
             return null;
         }
 

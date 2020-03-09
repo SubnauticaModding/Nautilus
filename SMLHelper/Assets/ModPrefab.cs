@@ -1,9 +1,9 @@
 ﻿namespace SMLHelper.V2.Assets
 {
-    using System.Collections.Generic;
-    using UnityEngine;
-    using MonoBehaviours;
     using System;
+    using System.Collections.Generic;
+    using MonoBehaviours;
+    using UnityEngine;
 
     /// <summary>
     /// The abstract class to inherit when you want to add new PreFabs into the game.
@@ -13,17 +13,26 @@
         private static readonly Dictionary<string, ModPrefab> FileNameDictionary = new Dictionary<string, ModPrefab>(StringComparer.InvariantCultureIgnoreCase);
         private static readonly Dictionary<string, ModPrefab> ClassIdDictionary = new Dictionary<string, ModPrefab>(StringComparer.InvariantCultureIgnoreCase);
         private static readonly List<ModPrefab> PreFabsList = new List<ModPrefab>();
+        internal static bool ModPrefabsPatched = false;
 
         internal static void Add(ModPrefab prefab)
         {
             FileNameDictionary.Add(prefab.PrefabFileName, prefab);
             ClassIdDictionary.Add(prefab.ClassID, prefab);
             PreFabsList.Add(prefab);
+            ModPrefabsPatched = false;
         }
 
         internal static IEnumerable<ModPrefab> Prefabs => PreFabsList;
-        internal static bool TryGetFromFileName(string classId, out ModPrefab prefab) => FileNameDictionary.TryGetValue(classId, out prefab);
-        internal static bool TryGetFromClassId(string classId, out ModPrefab prefab) => ClassIdDictionary.TryGetValue(classId, out prefab);
+        internal static bool TryGetFromFileName(string classId, out ModPrefab prefab)
+        {
+            return FileNameDictionary.TryGetValue(classId, out prefab);
+        }
+
+        internal static bool TryGetFromClassId(string classId, out ModPrefab prefab)
+        {
+            return ClassIdDictionary.TryGetValue(classId, out prefab);
+        }
 
         internal readonly string ModName;
 
@@ -53,11 +62,11 @@
         /// Can also be set later in the constructor if it is not yet provided.</param>
         protected ModPrefab(string classId, string prefabFileName, TechType techType = TechType.None)
         {
-            ClassID = classId;
-            PrefabFileName = prefabFileName;
-            TechType = techType;
+            this.ClassID = classId;
+            this.PrefabFileName = prefabFileName;
+            this.TechType = techType;
 
-            ModName = this.GetType().Assembly.GetName().Name;
+            ModName = GetType().Assembly.GetName().Name;
         }
 
         internal GameObject GetGameObjectInternal()
@@ -70,30 +79,30 @@
             }
 
             go.transform.position = new Vector3(-5000, -5000, -5000);
-            go.name = ClassID;
+            go.name = this.ClassID;
 
             /* Make sure prefab doesn't get cleared when quiting game to menu. */
             SceneCleanerPreserve scp = go.AddComponent<SceneCleanerPreserve>();
             scp.enabled = true;
-          
-            if (TechType != TechType.None)
+
+            if (this.TechType != TechType.None)
             {
-                go.AddComponent<Fixer>().techType = TechType;
+                go.AddComponent<Fixer>().techType = this.TechType;
 
                 if (go.GetComponent<TechTag>() != null)
                 {
-                    go.GetComponent<TechTag>().type = TechType;
+                    go.GetComponent<TechTag>().type = this.TechType;
                 }
 
                 if (go.GetComponent<Constructable>() != null)
                 {
-                    go.GetComponent<Constructable>().techType = TechType;
+                    go.GetComponent<Constructable>().techType = this.TechType;
                 }
             }
 
             if (go.GetComponent<PrefabIdentifier>() != null)
             {
-                go.GetComponent<PrefabIdentifier>().ClassId = ClassID;
+                go.GetComponent<PrefabIdentifier>().ClassId = this.ClassID;
             }
 
             return go;

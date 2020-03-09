@@ -1,7 +1,6 @@
 ﻿namespace SMLHelper.V2.Crafting
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Patchers;
     using UnityEngine;
     using UnityEngine.Assertions;
@@ -88,11 +87,12 @@
         {
             foreach (ModCraftTreeTab node in ChildNodes)
             {
-                if (node == null) continue;
+                if (node == null)
+                    continue;
 
                 if (node.Name == nameID && node.Action == TreeAction.Expand)
                 {
-                    var tab = (ModCraftTreeTab)node;
+                    var tab = node;
                     return tab;
                 }
             }
@@ -109,7 +109,8 @@
         {
             foreach (ModCraftTreeNode node in ChildNodes)
             {
-                if (node == null) continue;
+                if (node == null)
+                    continue;
 
                 if (node.TechType == techType && node.Action == TreeAction.Craft)
                 {
@@ -130,7 +131,8 @@
         {
             foreach (ModCraftTreeNode node in ChildNodes)
             {
-                if (node == null) continue;
+                if (node == null)
+                    continue;
 
                 if (node.Name == nameID)
                     return node;
@@ -157,7 +159,10 @@
         /// Creates a collection of new crafting nodes for the crafting tree and links it to the calling node.
         /// </summary>
         /// <param name="techTypes">The TechTypes to be crafted.</param>
-        public void AddCraftingNode(params TechType[] techTypes) => AddCraftingNode(techTypes.AsEnumerable());
+        public void AddCraftingNode(params TechType[] techTypes)
+        {
+            AddCraftingNode((IEnumerable<TechType>)techTypes);
+        }
 
         /// <summary>
         /// Creates a collection of new crafting nodes for the crafting tree and links it to the calling node.
@@ -168,7 +173,7 @@
             foreach (TechType tType in techTypes)
             {
                 Assert.AreNotEqual(TechType.None, tType, "Attempt to add TechType.None as a crafting node.");
-                this.AddCraftingNode(tType);
+                AddCraftingNode(tType);
             }
         }
 

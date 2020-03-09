@@ -3,10 +3,11 @@ namespace SMLHelper.V2.Patchers
 {
     using System.Collections.Generic;
     using Harmony;
+    using SMLHelper.V2.Assets;
 
     internal partial class CraftDataPatcher
     {
-        #region Internal Fields
+#region Internal Fields
 
         internal static IDictionary<TechType, JsonValue> CustomTechData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
 
@@ -19,15 +20,28 @@ namespace SMLHelper.V2.Patchers
 
         private static void PatchForBelowZero(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(TechDataCachePostfix))));
+            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.TryGetValue)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CheckPatchRequired))));
+
             harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(TechDataCachePostfix))));
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
+
         }
 
-        private static void TechDataCachePostfix()
+        private static void CheckPatchRequired(TechType techType)
         {
-            AddCustomTechDataToOriginalDictionary();
+            if(CustomTechData.TryGetValue(techType, out JsonValue SMLTechData))
+            {
+                if (TechData.entries.TryGetValue(techType, out JsonValue techData))
+                {
+                    if(techData != SMLTechData)
+                        AddCustomTechDataToOriginalDictionary();
+                }
+                else
+                {
+                    AddCustomTechDataToOriginalDictionary();
+                }
+            }
         }
 
         private static void AddCustomTechDataToOriginalDictionary()
@@ -36,30 +50,30 @@ namespace SMLHelper.V2.Patchers
             short replaced = 0;
             foreach (TechType techType in CustomTechData.Keys)
             {
-                bool techDataExists = TechData.Contains(techType);
+                JsonValue SMLTechData = CustomTechData[techType];
+                bool techDataExists = TechData.entries.ContainsKey(techType);
 
-                if (techDataExists && TechData.entries[techType] != CustomTechData[techType])
+                if (techDataExists)
                 {
-                    if (TechData.TryGetValue(techType, out JsonValue originalData))
+                    JsonValue techData = TechData.entries[techType];
+                    if (techData != SMLTechData)
                     {
-                        foreach (int key in CustomTechData[techType].Keys)
+                        foreach (int key in SMLTechData.Keys)
                         {
-                            TechData.entries[techType][key] = CustomTechData[techType][key];
+                            techData[key] = SMLTechData[key];
                         }
 
-                        Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
+                        Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was Changed.", LogLevel.Warn);
                         replaced++;
-                        Logger.Log($"Replaced Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
                     }
                 }
-                else if (!techDataExists)
+                else
                 {
-                    TechData.Add(techType, CustomTechData[techType]);
+                    TechData.Add(techType, SMLTechData);
                     added++;
-                    Logger.Log($"Added Item: " + techType + " " + TechData.Contains(techType), LogLevel.Info);
                 }
             }
-            CustomTechData.Clear();
+
             if (added > 0)
                 Logger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
             if (replaced > 0)

@@ -1,9 +1,9 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Harmony;
 
     internal class KnownTechPatcher
     {
@@ -18,14 +18,17 @@
 
         public static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.Initialize)), 
+            harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.Initialize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(KnownTechPatcher.InitializePostfix))));
 
             harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.Deinitialize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(KnownTechPatcher.DeinitializePostfix))));
         }
 
-        internal static void DeinitializePostfix() => initialized = false;
+        internal static void DeinitializePostfix()
+        {
+            initialized = false;
+        }
 
         internal static void InitializePostfix()
         {
@@ -66,8 +69,11 @@
 
             foreach (KnownTech.AnalysisTech tech in techToAdd)
             {
-                if (tech == null) continue;
-                if (tech.unlockSound == null) tech.unlockSound = UnlockSound;
+                if (tech == null)
+                    continue;
+
+                if (tech.unlockSound == null)
+                    tech.unlockSound = UnlockSound;
 
                 analysisTech.Add(tech);
             }

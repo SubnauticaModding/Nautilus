@@ -1,8 +1,10 @@
 ﻿namespace SMLHelper.V2.Options
 {
     using System;
-    using System.Linq;
+    using System.Collections;
     using SMLHelper.V2.Options.Utility;
+    using UnityEngine;
+    using UnityEngine.Events;
 
     /// <summary>
     /// Contains all the information about a choice changed event.
@@ -85,9 +87,8 @@
         /// <param name="index">The starting value.</param>
         protected void AddChoiceOption(string id, string label, string[] options, int index)
         {
-            if (!Validator.ValidateChoiceOrDropdownOption(id, label, options, index))
-                return;
-            _options.Add(id, new ModChoiceOption(id, label, options, index));
+            if (Validator.ValidateChoiceOrDropdownOption(id, label, options, index))
+                AddOption(new ModChoiceOption(id, label, options, index));
         }
         /// <summary>
         /// Adds a new <see cref="ModChoiceOption"/> to this instance.
@@ -110,7 +111,12 @@
         /// <param name="index">The starting value.</param>
         protected void AddChoiceOption(string id, string label, object[] options, int index)
         {
-            AddChoiceOption(id, label, options.Select(obj => obj.ToString()).ToArray(), index);
+            string[] strOptions = new string[options.Length];
+
+            for (int i = 0; i < options.Length; i++)
+                strOptions[i] = options[i].ToString();
+
+            AddChoiceOption(id, label, strOptions, index);
         }
         /// <summary>
         /// Adds a new <see cref="ModChoiceOption"/> to this instance.
@@ -155,6 +161,16 @@
         /// </summary>
         public int Index { get; }
 
+        internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        {
+            var choice = panel.AddChoiceOption(tabIndex, Label, Options, Index,
+                new UnityAction<int>((int index) => parentOptions.OnChoiceChange(Id, index, Options[index])));
+
+            OptionGameObject = choice.transform.parent.transform.parent.gameObject; // :(
+
+            base.AddToPanel(panel, tabIndex);
+        }
+
         /// <summary>
         /// Instantiates a new <see cref="ModChoiceOption"/> for handling an option that can select one item from a list of values.
         /// </summary>
@@ -162,10 +178,33 @@
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="options">The collection of available values.</param>
         /// <param name="index">The starting value.</param>
-        internal ModChoiceOption(string id, string label, string[] options, int index) : base(ModOptionType.Choice, label, id)
+        internal ModChoiceOption(string id, string label, string[] options, int index) : base(label, id)
         {
             this.Options = options;
             this.Index = index;
         }
+
+        private class ChoiceOptionAdjust: ModOptionAdjust
+        {
+            private const float spacing = 10f;
+
+            public IEnumerator Start()
+            {
+                SetCaptionGameObject("Choice/Caption");
+                yield return null; // skip one frame
+
+                RectTransform rect = gameObject.transform.Find("Choice/Background") as RectTransform;
+
+                float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
+                float widthChoice = rect.rect.width;
+                float widthText = CaptionWidth + spacing;
+
+                if (widthText + widthChoice > widthAll)
+                    rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthChoice);
+
+                Destroy(this);
+            }
+        }
+        internal override Type AdjusterComponent => typeof(ChoiceOptionAdjust);
     }
 }

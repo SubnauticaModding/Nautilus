@@ -1,11 +1,15 @@
 ﻿namespace SMLHelper.V2.Crafting
 {
-    using System.Linq;
+    using System;
     using Patchers;
+    using SMLHelper.V2.Handlers;
     using UnityEngine.Assertions;
 
     /// <summary>
-    /// The root node of a CraftTree. The whole tree starts here.
+    /// The root node of a CraftTree. The whole tree starts here.<para/>
+    /// Build up your custom crafting tree from this root node using the AddCraftingNode and AddTabNode methods.<br/>
+    /// This tree will be automatically patched into the game. No further calls into <see cref="CraftTreeHandler"/> required.<para/>
+    /// For more advanced usage, you can replace the default value of <see cref="CraftTreeCreation"/> with your own custom function.        
     /// </summary>    
     /// <seealso cref="ModCraftTreeLinkingNode" />
     public class ModCraftTreeRoot : ModCraftTreeLinkingNode
@@ -24,13 +28,15 @@
             _schemeAsString = schemeAsString;
             _scheme = scheme;
             HasCustomTrees = true;
+
+            CraftTreeCreation = () => new CraftTree(_schemeAsString, CraftNode);
         }
 
         /// <summary>
         /// Dynamically creates the CraftTree object for this crafting tree.
         /// The CraftNode objects were created and linked as the classes of the ModCraftTreeFamily were created and linked.
         /// </summary>
-        internal CraftTree CraftTree => new CraftTree(_schemeAsString, CraftNode);
+        internal CraftTree CustomCraftingTree => CraftTreeCreation.Invoke();
 
         /// <summary>
         /// Populates a new ModCraftTreeRoot from a CraftNode tree.
@@ -53,13 +59,17 @@
                     var techType = TechType.None;
                     TechTypeExtensions.FromString(node.id, out techType, false);
 
-                    if (node.id == "SeamothHullModule2") techType = TechType.VehicleHullModule2;
-                    else if (node.id == "SeamothHullModule3") techType = TechType.VehicleHullModule3;
-
                     root.AddCraftingNode(techType);
                 }
             }
         }
+
+        /// <summary>
+        /// The craft tree creation function.<br/>
+        /// Default implementaion returns a new <see cref="CraftTree"/> instantiated with <see cref="SchemeAsString"/> and the root <see cref="CraftNode"/>.<para/>
+        /// You can replace this function with your own to have more control of the crafting tree when it is being created.
+        /// </summary>
+        public Func<CraftTree> CraftTreeCreation;
 
         /// <summary>
         /// Gets the tab node at the specified path from the root.
@@ -98,13 +108,15 @@
                 return base.GetNode(stepsToNode[0]);
             }
 
-            string nodeID = stepsToNode[stepsToNode.Length - 1];
-            string[] stepsToTab = stepsToNode.Take(stepsToNode.Length - 1).ToArray();
+            int stepCountToTab = stepsToNode.Length - 1;
+
+            string nodeID = stepsToNode[stepCountToTab];
+            string[] stepsToTab = new string[stepCountToTab];
+            Array.Copy(stepsToNode, stepsToTab, stepCountToTab);
+
             ModCraftTreeTab tab = GetTabNode(stepsToTab);
 
-            if (tab == null) return null;
-
-            return tab.GetNode(nodeID);
+            return tab?.GetNode(nodeID);
         }
     }
 }

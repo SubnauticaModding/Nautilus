@@ -31,7 +31,16 @@ namespace SMLHelper.V2.Interfaces
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        JsonValue GetModdedTechData(TechType techType);
+        RecipeData GetRecipeData(TechType techType);
+
+        /// <summary>
+        /// Safely accesses the crafting data from a modded item.<para/>
+        /// WARNING: This method is highly dependent on mod load order. 
+        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to access.</param>
+        /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
+        RecipeData GetModdedRecipeData(TechType techType);
 
         /// <summary>
         /// <para>Allows you to add ingredients for a TechType crafting recipe.</para>

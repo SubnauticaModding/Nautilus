@@ -27,10 +27,10 @@
     {
         private class DoubleKeyDictionary : IEnumerable<KeyValuePair<int, string>>
         {
-            private readonly Dictionary<int, string> MapIntString = new Dictionary<int, string>();
-            private readonly Dictionary<T, string> MapEnumString = new Dictionary<T, string>();
-            private readonly Dictionary<string, T> MapStringEnum = new Dictionary<string, T>(StringComparer.InvariantCultureIgnoreCase);
-            private readonly Dictionary<string, int> MapStringInt = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
+            private readonly SortedDictionary<int, string> MapIntString = new SortedDictionary<int, string>();
+            private readonly SortedDictionary<T, string> MapEnumString = new SortedDictionary<T, string>();
+            private readonly SortedDictionary<string, T> MapStringEnum = new SortedDictionary<string, T>(StringComparer.InvariantCultureIgnoreCase);
+            private readonly SortedDictionary<string, int> MapStringInt = new SortedDictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
 
             public bool TryGetValue(T enumValue, out string name)
             {
@@ -80,6 +80,8 @@
 
             public IEnumerable<T> KnownsEnumKeys => MapEnumString.Keys;
 
+            public int KnownsEnumCount => MapEnumString.Count;
+
             public bool IsKnownKey(T key)
             {
                 return MapEnumString.ContainsKey(key);
@@ -121,6 +123,8 @@
         private readonly DoubleKeyDictionary entriesFromRequests = new DoubleKeyDictionary();
 
         public IEnumerable<T> ModdedKeys => entriesFromRequests.KnownsEnumKeys;
+
+        public int ModdedKeysCount => entriesFromRequests.KnownsEnumCount;
 
         public bool TryGetValue(T key, out string value)
         {

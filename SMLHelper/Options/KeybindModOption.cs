@@ -1,7 +1,7 @@
 ﻿namespace SMLHelper.V2.Options
 {
     using System;
-    using System.Linq;
+    using System.Collections;
     using SMLHelper.V2.Utility;
     using UnityEngine;
     using UnityEngine.Events;
@@ -66,7 +66,7 @@
         /// <param name="key">The starting keybind value.</param>
         protected void AddKeybindOption(string id, string label, GameInput.Device device, KeyCode key)
         {
-            _options.Add(id, new ModKeybindOption(id, label, device, key));
+            AddOption(new ModKeybindOption(id, label, device, key));
         }
         /// <summary>
         /// Adds a new <see cref="ModKeybindOption"/> to this instance.
@@ -103,41 +103,65 @@
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="device">The device name.</param>
         /// <param name="key">The starting keybind value.</param>
-        internal ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(ModOptionType.Keybind, label, id)
+        internal ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id)
         {
             this.Device = device;
             this.Key = key;
         }
 
-        internal static GameObject AddBindingOptionWithCallback(uGUI_OptionsPanel panel, int tab, string label, KeyCode key, GameInput.Device device, UnityAction<KeyCode> callback)
+        internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             // Add item
-            GameObject gameObject = panel.AddItem(tab, panel.bindingOptionPrefab);
+            OptionGameObject = panel.AddItem(tabIndex, panel.bindingOptionPrefab);
 
             // Update text
-            Text text = gameObject.GetComponentInChildren<Text>();
+            Text text = OptionGameObject.GetComponentInChildren<Text>();
             if (text != null)
             {
-                gameObject.GetComponentInChildren<TranslationLiveUpdate>().translationKey = label;
-                text.text = Language.main.Get(label);
-                //text.text = label;
+                OptionGameObject.GetComponentInChildren<TranslationLiveUpdate>().translationKey = Label;
+                text.text = Language.main.Get(Label);
             }
 
             // Create bindings
-            uGUI_Bindings bindings = gameObject.GetComponentInChildren<uGUI_Bindings>();
-            uGUI_Binding binding = bindings.bindings.First();
+            uGUI_Bindings bindings = OptionGameObject.GetComponentInChildren<uGUI_Bindings>();
+            uGUI_Binding binding = bindings.bindings[0];
 
             // Destroy secondary bindings
-            UnityEngine.Object.Destroy(bindings.bindings.Last().gameObject);
+            int last = bindings.bindings.Length - 1;
+            UnityEngine.Object.Destroy(bindings.bindings[last].gameObject);
             UnityEngine.Object.Destroy(bindings);
 
             // Update bindings
-            binding.device = device;
-            binding.value = KeyCodeUtils.KeyCodeToString(key);
+            binding.device = Device;
+            binding.value = KeyCodeUtils.KeyCodeToString(Key);
             binding.onValueChanged.RemoveAllListeners();
+            var callback = new UnityAction<KeyCode>((KeyCode key) => parentOptions.OnKeybindChange(Id, key));
             binding.onValueChanged.AddListener(new UnityAction<string>((string s) => callback?.Invoke(KeyCodeUtils.StringToKeyCode(s))));
 
-            return gameObject;
+            base.AddToPanel(panel, tabIndex);
         }
+
+        private class BindingOptionAdjust: ModOptionAdjust
+        {
+            private const float spacing = 10f;
+
+            public IEnumerator Start()
+            {
+                SetCaptionGameObject("Caption");
+                yield return null; // skip one frame
+
+                RectTransform rect = gameObject.transform.Find("Bindings") as RectTransform;
+
+                float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
+                float widthBinding = rect.rect.width;
+                float widthText = CaptionWidth + spacing;
+
+                if (widthText + widthBinding > widthAll)
+                    rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthBinding);
+
+                Destroy(this);
+            }
+        }
+        internal override Type AdjusterComponent => typeof(BindingOptionAdjust);
     }
 }

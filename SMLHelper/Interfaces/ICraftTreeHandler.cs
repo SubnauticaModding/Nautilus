@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Interfaces
 {
     using Crafting;
+    using SMLHelper.V2.Handlers;
     using UnityEngine;
 
     /// <summary>
@@ -9,15 +10,16 @@
     public interface ICraftTreeHandler
     {
         /// <summary>
-        /// <para>Your first method call to start a new custom crafting tree.</para>
-        /// <para>Creating a new CraftTree only makes sense if you're going to use it in a new type of <see cref="GhostCrafter"/>.</para>
+        /// Your first method call to start a new custom crafting tree.<br/>
+        /// Creating a new CraftTree only makes sense if you're going to use it in a new type of <see cref="GhostCrafter"/>.
         /// </summary>
         /// <param name="name">The name for the new <see cref="CraftTree.Type" /> enum.</param>
         /// <param name="craftTreeType">The new enum instance for your custom craft tree type.</param>
         /// <returns>
-        /// <para>Returns the root node for your custom craft tree, as a new <see cref="ModCraftTreeRoot"/> instance.</para>
-        /// <para>Build up your custom crafting tree from this root node.</para>
-        /// <para>This tree will be automatically patched into the game. No further calls into <see cref="ICraftTreeHandler"/> required.</para>
+        /// Returns the root node for your custom craft tree, as a new <see cref="ModCraftTreeRoot"/> instance.<br/>
+        /// Build up your custom crafting tree from this root node.<br/>
+        /// This tree will be automatically patched into the game. No further calls into <see cref="CraftTreeHandler"/> required.<para/>
+        /// For more advanced usage, you can replace the default value of <see cref="ModCraftTreeRoot.CraftTreeCreation"/> with your own custom function.        
         /// </returns>
         /// <seealso cref="ModCraftTreeNode"/>
         /// <seealso cref="ModCraftTreeLinkingNode"/>
