@@ -266,7 +266,7 @@
             }
         }
 
-        internal EnumTypeCache RequestCacheForTypeName(string name)
+        internal EnumTypeCache RequestCacheForTypeName(string name, bool checkDeactivated = true)
         {
             LoadCache();
 
@@ -279,7 +279,7 @@
                 entriesFromRequests.Add(value, name);
                 return new EnumTypeCache(value, name);
             }
-            else if (entriesFromDeactivatedFile.TryGetValue(name, out value))
+            else if (checkDeactivated && entriesFromDeactivatedFile.TryGetValue(name, out value))
             {
                 entriesFromRequests.Add(value, name);
                 entriesFromDeactivatedFile.Remove(value, name);

@@ -234,41 +234,38 @@ namespace SMLHelper.V2.Handlers
         /// <returns>Returns TechData if it exists; Otherwise, returns <c>null</c>.</returns>
         TechData ICraftDataHandler.GetTechData(TechType techType)
         {
-
-            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData moddedTechData))
+            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData iTechData))
             {
-                TechData techData = new TechData() {craftAmount = moddedTechData.craftAmount};
-
-                for(int i = 0; i < moddedTechData.ingredientCount; i++)
-                {
-                    IIngredient ingredient = moddedTechData.GetIngredient(i);
-                    Ingredient smlingredient = new Ingredient(ingredient.techType, ingredient.amount);
-                    techData.Ingredients.Add(smlingredient);
-                }
-                for (int i = 0; i < moddedTechData.linkedItemCount; i++)
-                {
-                    techData.LinkedItems.Add(moddedTechData.GetLinkedItem(i));
-                }
-                return techData;
+                return ConvertToTechData(iTechData);
             }
 
-            ITechData td = CraftData.Get(techType, true);
-            if(td != null)
+            iTechData = CraftData.Get(techType, true);
+
+            if (iTechData != null)
             {
-                TechData techData = new TechData() { craftAmount = td.craftAmount };
-                for (int i = 0; i < td.ingredientCount; i++)
-                {
-                    IIngredient ingredient = td.GetIngredient(i);
-                    Ingredient smlingredient = new Ingredient(ingredient.techType, ingredient.amount);
-                    techData.Ingredients.Add(smlingredient);
-                }
-                for (int i = 0; i < td.linkedItemCount; i++)
-                {
-                    techData.LinkedItems.Add(moddedTechData.GetLinkedItem(i));
-                }
-                return techData;
+                return ConvertToTechData(iTechData);
             }
+
             return null;
+        }
+
+        private static TechData ConvertToTechData(ITechData iTechData)
+        {
+            var techData = new TechData() { craftAmount = iTechData.craftAmount };
+
+            for (int i = 0; i < iTechData.ingredientCount; i++)
+            {
+                IIngredient ingredient = iTechData.GetIngredient(i);
+                var smlingredient = new Ingredient(ingredient.techType, ingredient.amount);
+                techData.Ingredients.Add(smlingredient);
+            }
+
+            for (int i = 0; i < iTechData.linkedItemCount; i++)
+            {
+                techData.LinkedItems.Add(iTechData.GetLinkedItem(i));
+            }
+
+            return techData;
         }
 
         #endregion
