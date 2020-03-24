@@ -195,48 +195,12 @@ namespace SMLHelper.V2.Handlers
         /// Make sure your mod is loading after the mod whose TechData you are trying to access.
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
-        /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
+        /// <returns>The RecipeData from the item if it exists; Otherwise, returns <c>null</c>.</returns>
         RecipeData ICraftDataHandler.GetRecipeData(TechType techType)
         {
-            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue moddedTechData))
+            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue techData))
             {
-                RecipeData currentRecipeData = new RecipeData();
-
-                if (moddedTechData.TryGetValue(TechData.propertyCraftAmount, out JsonValue craftAmount))
-                {
-                    currentRecipeData.craftAmount = craftAmount.GetInt();
-                    if (moddedTechData.GetArray(TechData.propertyIngredients, out JsonValue jsonValue, null))
-                    {
-                        for (int i = 0; i < jsonValue.Count; i++)
-                        {
-                            JsonValue jsonValue2 = jsonValue[i];
-                            TechType @int = (TechType)jsonValue2.GetInt(TechData.propertyTechType, 0);
-                            int int2 = jsonValue2.GetInt(TechData.propertyAmount, 0);
-                            if (@int != TechType.None && int2 > 0)
-                            {
-                                if (currentRecipeData.Ingredients == null)
-                                {
-                                    currentRecipeData.Ingredients = new List<Ingredient>();
-                                }
-                                currentRecipeData.Ingredients.Add(new Ingredient(@int, int2));
-                            }
-                        }
-
-                        if (moddedTechData.GetArray(TechData.propertyLinkedItems, out JsonValue jsonValue3, null))
-                        {
-                            for (int j = 0; j < jsonValue3.Count; j++)
-                            {
-                                TechType int3 = (TechType)jsonValue3[j].GetInt(0);
-                                if (currentRecipeData.LinkedItems == null)
-                                {
-                                    currentRecipeData.LinkedItems = new List<TechType>();
-                                }
-                                currentRecipeData.LinkedItems.Add(int3);
-                            }
-                        }
-                        return currentRecipeData;
-                    }
-                }
+                return ConvertToTechData(techData);
             }
 
             if (!TechData.Contains(TechType.Knife))
@@ -244,44 +208,51 @@ namespace SMLHelper.V2.Handlers
                 TechData.Initialize();
             }
 
-            if (TechData.TryGetValue(techType, out JsonValue techData))
+            if (TechData.TryGetValue(techType, out techData))
             {
-                RecipeData currentRecipeData = new RecipeData();
+                return ConvertToTechData(techData);
+            }
 
-                if (techData.TryGetValue(TechData.propertyCraftAmount, out JsonValue craftAmount))
+            return null;
+        }
+
+        private static RecipeData ConvertToTechData(JsonValue techData)
+        {
+            RecipeData currentRecipeData = new RecipeData();
+
+            if (techData.TryGetValue(TechData.propertyCraftAmount, out JsonValue craftAmount))
+            {
+                currentRecipeData.craftAmount = craftAmount.GetInt();
+
+                if (techData.GetArray(TechData.propertyIngredients, out JsonValue jsonValue, null))
                 {
-                    currentRecipeData.craftAmount = craftAmount.GetInt();
-
-                    if (techData.GetArray(TechData.propertyIngredients, out JsonValue jsonValue, null))
+                    for (int i = 0; i < jsonValue.Count; i++)
                     {
-                        for (int i = 0; i < jsonValue.Count; i++)
+                        JsonValue jsonValue2 = jsonValue[i];
+                        TechType @int = (TechType)jsonValue2.GetInt(TechData.propertyTechType, 0);
+                        int int2 = jsonValue2.GetInt(TechData.propertyAmount, 0);
+                        if (@int != TechType.None && int2 > 0)
                         {
-                            JsonValue jsonValue2 = jsonValue[i];
-                            TechType @int = (TechType)jsonValue2.GetInt(TechData.propertyTechType, 0);
-                            int int2 = jsonValue2.GetInt(TechData.propertyAmount, 0);
-                            if (@int != TechType.None && int2 > 0)
+                            if (currentRecipeData.Ingredients == null)
                             {
-                                if (currentRecipeData.Ingredients == null)
-                                {
-                                    currentRecipeData.Ingredients = new List<Ingredient>();
-                                }
-                                currentRecipeData.Ingredients.Add(new Ingredient(@int, int2));
+                                currentRecipeData.Ingredients = new List<Ingredient>();
                             }
+                            currentRecipeData.Ingredients.Add(new Ingredient(@int, int2));
                         }
-                        if (techData.GetArray(TechData.propertyLinkedItems, out JsonValue jsonValue3, null))
-                        {
-                            for (int j = 0; j < jsonValue3.Count; j++)
-                            {
-                                TechType int3 = (TechType)jsonValue3[j].GetInt(0);
-                                if (currentRecipeData.LinkedItems == null)
-                                {
-                                    currentRecipeData.LinkedItems = new List<TechType>();
-                                }
-                                currentRecipeData.LinkedItems.Add(int3);
-                            }
-                        }
-                        return currentRecipeData;
                     }
+                    if (techData.GetArray(TechData.propertyLinkedItems, out JsonValue jsonValue3, null))
+                    {
+                        for (int j = 0; j < jsonValue3.Count; j++)
+                        {
+                            TechType int3 = (TechType)jsonValue3[j].GetInt(0);
+                            if (currentRecipeData.LinkedItems == null)
+                            {
+                                currentRecipeData.LinkedItems = new List<TechType>();
+                            }
+                            currentRecipeData.LinkedItems.Add(int3);
+                        }
+                    }
+                    return currentRecipeData;
                 }
             }
             return null;
