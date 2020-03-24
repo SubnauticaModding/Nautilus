@@ -200,7 +200,7 @@ namespace SMLHelper.V2.Handlers
         {
             if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue techData))
             {
-                return ConvertToTechData(techData);
+                return ConvertToRecipeData(techData);
             }
 
             if (!TechData.Contains(TechType.Knife))
@@ -210,13 +210,13 @@ namespace SMLHelper.V2.Handlers
 
             if (TechData.TryGetValue(techType, out techData))
             {
-                return ConvertToTechData(techData);
+                return ConvertToRecipeData(techData);
             }
 
             return null;
         }
 
-        private static RecipeData ConvertToTechData(JsonValue techData)
+        private static RecipeData ConvertToRecipeData(JsonValue techData)
         {
             RecipeData currentRecipeData = new RecipeData();
 
