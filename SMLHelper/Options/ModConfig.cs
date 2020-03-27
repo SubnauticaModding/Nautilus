@@ -99,6 +99,8 @@ namespace SMLHelper.V2.Options
         /// }
         /// </code>
         /// </example>
+        /// <seealso cref="Load{T}(bool)"/>
+        /// <seealso cref="Load(bool)"/>
         /// <seealso cref="Save"/>
         public static T Load<T>(T config, bool saveDefaultConfigIfNotExist = true) where T : ModConfig
         {
@@ -129,6 +131,44 @@ namespace SMLHelper.V2.Options
             }
             return config;
         }
+
+        /// <summary>
+        /// Loads a given <see cref="ModConfig"/>'s options from the JSON file on disk and populates it.
+        /// </summary>
+        /// <typeparam name="T">The type of <see cref="ModConfig"/> to use for deserialization.</typeparam>
+        /// <param name="saveDefaultConfigIfNotExist">Whether a config file containing default values should
+        /// be created if it does not already exist.</param>
+        /// <returns>A <seealso cref="ModConfig"/> with its properties and fields populated from the 
+        /// associated JSON file.</returns>
+        /// <example>
+        /// <code>
+        /// using System;
+        /// using SMLHelper.V2.Options;
+        /// using SMLHelper.V2.Utility;
+        /// using UnityEngine;
+        /// 
+        /// public class Config : ModConfig {
+        ///     public KeyCode ActivationKey { get; set; } = KeyCode.Backspace;
+        ///     public Config() : base(fileName: "config") { }
+        /// }
+        /// 
+        /// public class MyMod {
+        ///     public static Config Config = ModConfig.Load&lt;Config&gt;();
+        ///     public static void Initialize() {
+        ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActivationKey);
+        ///         Console.WriteLine($"[MyMod] LOADED: ActivationKey = {activationKey}");
+        ///         // Will print "[MyMod] LOADED: ActivationKey = Backspace" in Player.log on first run,
+        ///         // and whatever value they have saved in their config.json for the "ActivationKey"
+        ///         // property on subsequent runs.
+        ///     }
+        /// }
+        /// </code>
+        /// </example>
+        /// <seealso cref="Load{T}(T, bool)"/>
+        /// <seealso cref="Load(bool)"/>
+        /// <seealso cref="Save"/>
+        public static T Load<T>(bool saveDefaultConfigIfNotExist = true) where T : ModConfig
+            => Load(Activator.CreateInstance<T>(), saveDefaultConfigIfNotExist);
 
         /// <summary>
         /// Saves the <see cref="ModConfig"/>'s currently set properties and fields to it associated JSON 
