@@ -1,10 +1,9 @@
-﻿using System;
-using SMLHelper.V2.Utility;
-using Oculus.Newtonsoft.Json;
-using UnityEngine;
-
-namespace SMLHelper.V2.Options.JsonConverters
+﻿namespace SMLHelper.V2.Utility.JsonConverters
 {
+    using System;
+    using Oculus.Newtonsoft.Json;
+    using UnityEngine;
+
     internal class KeyCodeConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
