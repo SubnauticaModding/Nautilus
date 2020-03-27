@@ -186,7 +186,9 @@
     <Compile Include="Logger.cs" />
     <Compile Include="MonoBehaviours\Fixer.cs" />
     <Compile Include="Options\ChoiceModOption.cs" />
+    <Compile Include="Options\JsonConverters\KeyCodeConverter.cs" />
     <Compile Include="Options\KeybindModOption.cs" />
+    <Compile Include="Options\ModConfig.cs" />
     <Compile Include="Options\ModOptions.cs" />
     <Compile Include="Options\SliderModOption.cs" />
     <Compile Include="Options\ToggleModOption.cs" />
