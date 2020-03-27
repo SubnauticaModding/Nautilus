@@ -71,8 +71,8 @@ namespace SMLHelper.V2.Options
         /// </summary>
         /// <typeparam name="T">The type of <see cref="ModConfig"/> to use for deserialization.</typeparam>
         /// <param name="config">The <seealso cref="ModConfig"/> to load.</param>
-        /// <param name="saveDefaultConfigIfNotExist">Whether a config file creating default values should be
-        /// created if it does not already exist.</param>
+        /// <param name="saveDefaultConfigIfNotExist">Whether a config file containing default values should
+        /// be created if it does not already exist.</param>
         /// <returns>A <seealso cref="ModConfig"/> with its properties and fields populated from the 
         /// associated JSON file.</returns>
         /// <example>
