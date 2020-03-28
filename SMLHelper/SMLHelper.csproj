@@ -143,6 +143,7 @@
     <Compile Include="Crafting\TabNode.cs" />
     <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Crafting\TechData.cs" />
+    <Compile Include="Json\ExtensionMethods\JsonExtensions.cs" />
     <Compile Include="Handler.cs" />
     <Compile Include="Handlers\BioReactorHandler.cs" />
     <Compile Include="Handlers\CraftDataHandler.cs" />
@@ -171,7 +172,7 @@
     <Compile Include="Interfaces\IFishHandler.cs" />
     <Compile Include="Interfaces\IIngameMenuHandler.cs" />
     <Compile Include="Interfaces\IItemActionHandler.cs" />
-    <Compile Include="Interfaces\IJsonFile.cs" />
+    <Compile Include="Json\Interfaces\IJsonFile.cs" />
     <Compile Include="Interfaces\IKnownTechHandler.cs" />
     <Compile Include="Interfaces\ILanguageHandler.cs" />
     <Compile Include="Interfaces\ILootDistributionHandler.cs" />
@@ -187,7 +188,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="MonoBehaviours\Fixer.cs" />
     <Compile Include="Options\ChoiceModOption.cs" />
-    <Compile Include="Options\ConfigFile.cs" />
+    <Compile Include="Json\ConfigFile.cs" />
     <Compile Include="Options\KeybindModOption.cs" />
     <Compile Include="Options\ModOptions.cs" />
     <Compile Include="Options\SliderModOption.cs" />
@@ -222,7 +223,7 @@
     <Compile Include="Utility\ImageUtils.cs" />
     <Compile Include="Utility\IOUtilities.cs" />
     <Compile Include="Utility\ItemStorageHelper.cs" />
-    <Compile Include="Utility\JsonConverters\KeyCodeConverter.cs" />
+    <Compile Include="Json\Converters\KeyCodeConverter.cs" />
     <Compile Include="Utility\JsonUtils.cs" />
     <Compile Include="Utility\KeyCodeUtils.cs" />
     <Compile Include="Utility\PatchUtils.cs" />
