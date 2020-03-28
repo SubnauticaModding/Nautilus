@@ -24,6 +24,12 @@
         public virtual string[] StepsToFabricatorTab => null;
 
         /// <summary>
+        /// Override with a custom crafting time for this item. Normal default crafting time is <c>1f</c>.<para/>
+        /// Any value zero or less will be ignored.
+        /// </summary>
+        public virtual float CraftingTime => 0f;
+
+        /// <summary>
         /// Initializes a new <see cref="Craftable"/>, the basic class for any item that can be crafted at a fabricator.
         /// </summary>
         /// <param name="classId">The main internal identifier for this item. Your item's <see cref="TechType" /> will be created using this name.</param>
@@ -32,10 +38,10 @@
         protected Craftable(string classId, string friendlyName, string description)
             : base(classId, friendlyName, description)
         {
-            CorePatchEvents += PatchCraftingTree;
+            CorePatchEvents += PatchCraftingData;
         }
 
-        private void PatchCraftingTree()
+        private void PatchCraftingData()
         {
             if (this.FabricatorType == CraftTree.Type.None)
             {
@@ -47,6 +53,9 @@
                 this.CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType);
             else
                 this.CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType, this.StepsToFabricatorTab);
+
+            if (this.CraftingTime > 0f)
+                this.CraftDataHandler.SetCraftingTime(this.TechType, this.CraftingTime);
         }
     }
 }
