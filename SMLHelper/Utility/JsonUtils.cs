@@ -51,7 +51,7 @@
         /// {
         ///     public static MyConfig Config = JsonUtils.Load(new MyConfig());
         ///     public static void Initialize() {
-        ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActiviationKey);
+        ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActivationKey);
         ///         Console.WriteLine($"[MyMod] LOADED: ActivationKey = {activationKey}");
         ///         // Will print "[MyMod] LOADED: ActivationKey = Backspace" in Player.log on first run,
         ///         // and whatever value is have saved in the config.json for the "ActivationKey" 
@@ -118,7 +118,7 @@
         /// {
         ///     public static MyConfig Config = JsonUtils.Load&lt;MyConfig&gt;();
         ///     public static void Initialize() {
-        ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActiviationKey);
+        ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActivationKey);
         ///         Console.WriteLine($"[MyMod] LOADED: ActivationKey = {activationKey}");
         ///         // Will print "[MyMod] LOADED: ActivationKey = Backspace" in Player.log on first run,
         ///         // and whatever value is have saved in the config.json for the "ActivationKey" 
@@ -158,7 +158,7 @@
         /// {
         ///     public static MyConfig Config = JsonUtils.Load(new MyConfig());
         ///     public static void Initialize() {
-        ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActiviationKey);
+        ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActivationKey);
         ///         Console.WriteLine($"[MyMod] LOADED: ActivationKey = {activationKey}");
         ///         // Will print "[MyMod] LOADED: ActivationKey = Backspace" in Player.log on first run,
         ///         // and whatever value is have saved in the config.json for the "ActivationKey" 
