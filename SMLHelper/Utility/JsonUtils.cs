@@ -23,7 +23,7 @@
 
         private static string GetName<T>(bool camelCase = true) where T : class
         {
-            string name = nameof(T);
+            string name = typeof(T).Name;
             if (camelCase)
             {
                 CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
@@ -35,18 +35,17 @@
         }
 
         /// <summary>
-        /// Create an instance of <typeparamref name="T"/>, populated with data from the JSON file at
-        /// the given <paramref name="path"/>.
+        /// Create an instance of <typeparamref name="T"/>, populated with data from the JSON file at the given 
+        /// <paramref name="path"/>.
         /// </summary>
         /// <typeparam name="T">The type of object to initialise and populate with JSON data.</typeparam>
         /// <param name="path">The path on disk at which the JSON file can be found.</param>
-        /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values
-        /// if it does not already exist.</param>
-        /// <param name="jsonConverters">An array of <see cref="JsonConverter"/>s to be used for
-        /// deserialization.</param>
+        /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values if it does not 
+        /// already exist.</param>
+        /// <param name="jsonConverters">An array of <see cref="JsonConverter"/>s to be used for deserialization.</param>
         /// <returns>The <typeparamref name="T"/> instance populated with data from the JSON file at
-        /// <paramref name="path"/>, or default values if it cannot be found or an error is encountered while
-        /// parsing the file.</returns>
+        /// <paramref name="path"/>, or default values if it cannot be found or an error is encountered while parsing the
+        /// file.</returns>
         /// <seealso cref="Load{T}(T, string, bool, JsonConverter[])"/>
         /// <seealso cref="Save{T}(T, string, JsonConverter[])"/>
         public static T Load<T>(string path = null, bool createFileIfNotExist = true,
@@ -68,8 +67,7 @@
                 }
                 catch (Exception)
                 {
-                    Logger.Announce("Could not parse JSON file, " +
-                        $"loading default values: {path}", LogLevel.Warn, true);
+                    Logger.Announce($"Could not parse JSON file, loading default values: {path}", LogLevel.Warn, true);
                     return new T();
                 }
             }
@@ -88,14 +86,12 @@
         /// <summary>
         /// Loads data from the JSON file at <paramref name="path"/> into the <paramref name="jsonObject"/>.
         /// </summary>
-        /// <typeparam name="T">The type of <paramref name="jsonObject"/> to populate with JSON
-        /// data.</typeparam>
+        /// <typeparam name="T">The type of <paramref name="jsonObject"/> to populate with JSON data.</typeparam>
         /// <param name="jsonObject">The <typeparamref name="T"/> instance to popular with JSON data.</param>
         /// <param name="path">The path on disk at which the JSON file can be found.</param>
-        /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values
-        /// if it does not already exist.</param>
-        /// <param name="jsonConverters">An array of <see cref="JsonConverter"/>s to be used for
-        /// deserialization.</param>
+        /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values if it does not
+        /// already exist.</param>
+        /// <param name="jsonConverters">An array of <see cref="JsonConverter"/>s to be used for deserialization.</param>
         /// <seealso cref="Load{T}(string, bool, JsonConverter[])"/>
         /// <seealso cref="Save{T}(T, string, JsonConverter[])"/>
         public static void Load<T>(T jsonObject, string path = null, bool createFileIfNotExist = true,
@@ -122,8 +118,7 @@
                 }
                 catch (Exception)
                 {
-                    Logger.Announce("Could not parse JSON file, " +
-                        $"instance values unchanged: {path}", LogLevel.Warn, true);
+                    Logger.Announce($"Could not parse JSON file, instance values unchanged: {path}", LogLevel.Warn, true);
                 }
             }
             else if (createFileIfNotExist)
@@ -133,15 +128,13 @@
         }
 
         /// <summary>
-        /// Saves the <paramref name="jsonObject"/> parsed as JSON data to the JSON file at
-        /// <paramref name="path"/>, creating it if it does not exist.
+        /// Saves the <paramref name="jsonObject"/> parsed as JSON data to the JSON file at <paramref name="path"/>,
+        /// creating it if it does not exist.
         /// </summary>
-        /// <typeparam name="T">The type of <paramref name="jsonObject"/> to parse into JSON
-        /// data.</typeparam>
+        /// <typeparam name="T">The type of <paramref name="jsonObject"/> to parse into JSON data.</typeparam>
         /// <param name="jsonObject">The <typeparamref name="T"/> instance to parse into JSON data.</param>
         /// <param name="path">The path on disk at which to store the JSON file.</param>
-        /// <param name="jsonConverters">An array of <see cref="JsonConverter"/>s to be used for
-        /// serialization.</param>
+        /// <param name="jsonConverters">An array of <see cref="JsonConverter"/>s to be used for serialization.</param>
         /// <seealso cref="Load{T}(T, string, bool, JsonConverter[])"/>
         /// <seealso cref="Load{T}(string, bool, JsonConverter[])"/>
         public static void Save<T>(T jsonObject, string path = null,
