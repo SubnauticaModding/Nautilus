@@ -1,5 +1,4 @@
-﻿
-namespace SMLHelper.V2.Json
+﻿namespace SMLHelper.V2.Json
 {
     using System.IO;
     using System.Reflection;
