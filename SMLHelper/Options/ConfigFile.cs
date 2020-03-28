@@ -29,7 +29,7 @@ namespace SMLHelper.V2.Options
     ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActivationKey);
     ///         Console.WriteLine($"[MyMod] LOADED: ActivationKey = {activationKey}");
     ///         // Will print "[MyMod] LOADED: ActivationKey = Backspace" in Player.log on first run,
-    ///         // and whatever value is have saved in the config.json for the "ActivationKey" 
+    ///         // and whatever value is saved in the config.json for the "ActivationKey" 
     ///         // property on subsequent runs.
     ///     }
     /// }
