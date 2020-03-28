@@ -1,177 +1,157 @@
 ﻿namespace SMLHelper.V2.Utility
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
+    using System.Globalization;
     using System.Text;
-    using SMLHelper.V2.Interfaces;
+    using System.Threading;
+    using System.Reflection;
     using Oculus.Newtonsoft.Json;
-    using Oculus.Newtonsoft.Json.Converters;
 
     /// <summary>
     /// A collection of utilities for interacting with JSON files.
     /// </summary>
     public static class JsonUtils
     {
-        private static readonly JsonConverter[] defaultJsonConverters = new JsonConverter[]
+        private static string GetDefaultPath<T>(Assembly assembly) where T : class
         {
-            new JsonConverters.KeyCodeConverter(),
-            new StringEnumConverter(),
-            new VersionConverter()
-        };
+            return Path.Combine(
+                Path.GetDirectoryName(assembly.Location),
+                $"{GetName<T>()}.json"
+            );
+        }
+
+        private static string GetName<T>(bool camelCase = true) where T : class
+        {
+            string name = nameof(T);
+            if (camelCase)
+            {
+                CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+                name = currentCulture.TextInfo.ToTitleCase(name)
+                    .Replace("_", string.Empty).Replace(" ", string.Empty);
+                name = char.ToLowerInvariant(name[0]) + name.Substring(1);
+            }
+            return name;
+        }
 
         /// <summary>
-        /// Loads a given <see cref="IJsonFile"/>'s options from the JSON file on disk and populates it.
+        /// Create an instance of <typeparamref name="T"/>, populated with data from the JSON file at
+        /// the given <paramref name="path"/>.
         /// </summary>
-        /// <typeparam name="T">The type of <see cref="IJsonFile"/> to use for
-        /// deserialization.</typeparam>
-        /// <param name="jsonFile">The <seealso cref="IJsonFile"/> to load.</param>
-        /// <param name="saveDefaultsIfNotExist">Whether a config file containing default values should
-        /// be created if it does not already exist.</param>
-        /// <param name="jsonConverters">The <see cref="JsonConverter"/>s to use when
-        /// deserializing. By default, <see cref="JsonConverters.KeyCodeConverter"/>,
-        /// <see cref="StringEnumConverter"/> and <see cref="VersionConverter"/> will be used.</param>
-        /// <returns>A <seealso cref="IJsonFile"/> with its properties and fields populated from the 
-        /// associated JSON file.</returns>
-        /// <seealso cref="Load{T}(bool, JsonConverter[])"/>
-        /// <seealso cref="Save{T}(T, JsonConverter[])"/>
-        /// <example>
-        /// <code>
-        /// using System;
-        /// using SMLHelper.V2.Options;
-        /// using SMLHelper.V2.Utility;
-        /// using UnityEngine;
-        /// 
-        /// public class MyConfig : ConfigFile
-        /// {
-        ///     public KeyCode ActivationKey { get; set; } = KeyCode.Backspace;
-        /// }
-        /// 
-        /// public static class MyMod
-        /// {
-        ///     public static MyConfig Config = JsonUtils.Load(new MyConfig());
-        ///     public static void Initialize() {
-        ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActivationKey);
-        ///         Console.WriteLine($"[MyMod] LOADED: ActivationKey = {activationKey}");
-        ///         // Will print "[MyMod] LOADED: ActivationKey = Backspace" in Player.log on first run,
-        ///         // and whatever value is saved in the config.json for the "ActivationKey" 
-        ///         // property on subsequent runs.
-        ///     }
-        /// }
-        /// </code>
-        /// </example>
-        public static T Load<T>(T jsonFile, bool saveDefaultsIfNotExist = true,
-            params JsonConverter[] jsonConverters) where T : IJsonFile
+        /// <typeparam name="T">The type of object to initialise and populate with JSON data.</typeparam>
+        /// <param name="path">The path on disk at which the JSON file can be found.</param>
+        /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values
+        /// if it does not already exist.</param>
+        /// <param name="jsonConverters">An array of <see cref="JsonConverter"/>s to be used for
+        /// deserialization.</param>
+        /// <returns>The <typeparamref name="T"/> instance populated with data from the JSON file at
+        /// <paramref name="path"/>, or default values if it cannot be found or an error is encountered while
+        /// parsing the file.</returns>
+        /// <seealso cref="Load{T}(T, string, bool, JsonConverter[])"/>
+        /// <seealso cref="Save{T}(T, string, JsonConverter[])"/>
+        public static T Load<T>(string path = null, bool createFileIfNotExist = true,
+            params JsonConverter[] jsonConverters) where T : class, new()
         {
-            var path = jsonFile.JsonFilePath;
+            if (string.IsNullOrEmpty(path))
+            {
+                path = GetDefaultPath<T>(Assembly.GetCallingAssembly());
+            }
+
             if (Directory.Exists(Path.GetDirectoryName(path)) && File.Exists(path))
             {
                 try
                 {
-                    var converters = new List<JsonConverter>(jsonConverters);
-                    converters.AddRange(defaultJsonConverters);
-
                     string serializedJson = File.ReadAllText(path);
-                    jsonFile = JsonConvert.DeserializeObject<T>(
-                        serializedJson, converters.ToArray()
+                    return JsonConvert.DeserializeObject<T>(
+                        serializedJson, jsonConverters
                     );
                 }
                 catch (Exception)
                 {
                     Logger.Announce("Could not parse JSON file, " +
-                        $"loading default values: {path}", LogLevel.Error, true);
+                        $"loading default values: {path}", LogLevel.Warn, true);
+                    return new T();
                 }
             }
-            else if (saveDefaultsIfNotExist)
+            else if (createFileIfNotExist)
             {
-                Save(jsonFile);
+                T jsonObject = new T();
+                Save(jsonObject, path, jsonConverters);
+                return jsonObject;
             }
-            return jsonFile;
+            else
+            {
+                return new T();
+            }
         }
 
         /// <summary>
-        /// Loads a given <see cref="IJsonFile"/>'s options from the JSON file on disk and populates it.
+        /// Loads data from the JSON file at <paramref name="path"/> into the <paramref name="jsonObject"/>.
         /// </summary>
-        /// <typeparam name="T">The type of <see cref="IJsonFile"/> to use for deserialization.</typeparam>
-        /// <param name="saveDefaultsIfNotExist">Whether a config file containing default values should
-        /// be created if it does not already exist.</param>
-        /// <param name="jsonConverters">The <see cref="JsonConverter"/>s to use when
-        /// deserializing. By default, <see cref="JsonConverters.KeyCodeConverter"/>,
-        /// <see cref="StringEnumConverter"/> and <see cref="VersionConverter"/> will be used.</param>
-        /// <returns>A <seealso cref="IJsonFile"/> with its properties and fields populated from the 
-        /// associated JSON file.</returns>
-        /// <seealso cref="Load{T}(T, bool, JsonConverter[])"/>
-        /// <seealso cref="Save{T}(T, JsonConverter[])"/>
-        /// <example>
-        /// <code>
-        /// using System;
-        /// using SMLHelper.V2.Options;
-        /// using SMLHelper.V2.Utility;
-        /// using UnityEngine;
-        /// 
-        /// public class MyConfig : ConfigFile
-        /// {
-        ///     public KeyCode ActivationKey { get; set; } = KeyCode.Backspace;
-        /// }
-        /// 
-        /// public static class MyMod
-        /// {
-        ///     public static MyConfig Config = JsonUtils.Load&lt;MyConfig&gt;();
-        ///     public static void Initialize() {
-        ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActivationKey);
-        ///         Console.WriteLine($"[MyMod] LOADED: ActivationKey = {activationKey}");
-        ///         // Will print "[MyMod] LOADED: ActivationKey = Backspace" in Player.log on first run,
-        ///         // and whatever value is saved in the config.json for the "ActivationKey" 
-        ///         // property on subsequent runs.
-        ///     }
-        /// }
-        /// </code>
-        /// </example>
-        public static T Load<T>(bool saveDefaultsIfNotExist = true,
-            params JsonConverter[] jsonConverters) where T : IJsonFile, new()
-            => Load(new T(), saveDefaultsIfNotExist, jsonConverters);
+        /// <typeparam name="T">The type of <paramref name="jsonObject"/> to populate with JSON
+        /// data.</typeparam>
+        /// <param name="jsonObject">The <typeparamref name="T"/> instance to popular with JSON data.</param>
+        /// <param name="path">The path on disk at which the JSON file can be found.</param>
+        /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values
+        /// if it does not already exist.</param>
+        /// <param name="jsonConverters">An array of <see cref="JsonConverter"/>s to be used for
+        /// deserialization.</param>
+        /// <seealso cref="Load{T}(string, bool, JsonConverter[])"/>
+        /// <seealso cref="Save{T}(T, string, JsonConverter[])"/>
+        public static void Load<T>(T jsonObject, string path = null, bool createFileIfNotExist = true,
+            params JsonConverter[] jsonConverters) where T : class
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                path = GetDefaultPath<T>(Assembly.GetCallingAssembly());
+            }
+
+            if (Directory.Exists(Path.GetDirectoryName(path)) && File.Exists(path))
+            {
+                try
+                {
+                    var jsonSerializerSettings = new JsonSerializerSettings()
+                    {
+                        Converters = jsonConverters
+                    };
+
+                    string serializedJson = File.ReadAllText(path);
+                    JsonConvert.PopulateObject(
+                        serializedJson, jsonObject, jsonSerializerSettings
+                    );
+                }
+                catch (Exception)
+                {
+                    Logger.Announce("Could not parse JSON file, " +
+                        $"instance values unchanged: {path}", LogLevel.Warn, true);
+                }
+            }
+            else if (createFileIfNotExist)
+            {
+                Save(jsonObject, path, jsonConverters);
+            }
+        }
 
         /// <summary>
-        /// Saves the <see cref="IJsonFile"/>'s currently set properties and fields to it associated JSON 
-        /// file on disk.
+        /// Saves the <paramref name="jsonObject"/> parsed as JSON data to the JSON file at
+        /// <paramref name="path"/>, creating it if it does not exist.
         /// </summary>
-        /// <typeparam name="T">The type of <see cref="IJsonFile"/> to use for deserialization.</typeparam>
-        /// <param name="jsonFile">The <seealso cref="IJsonFile"/> to save.</param>
-        /// <param name="jsonConverters">The <see cref="JsonConverter"/>s to use when serializing. By
-        /// default, <see cref="JsonConverters.KeyCodeConverter"/>, <see cref="StringEnumConverter"/> and
-        /// <see cref="VersionConverter"/> will be used.</param>
-        /// <seealso cref="Load{T}(T, bool, JsonConverter[])"/>
-        /// <seealso cref="Load{T}(bool, JsonConverter[])"/>
-        /// <example>
-        /// <code>
-        /// using System;
-        /// using SMLHelper.V2.Options;
-        /// using SMLHelper.V2.Utility;
-        /// using UnityEngine;
-        /// 
-        /// public class MyConfig : ConfigFile
-        /// {
-        ///     public KeyCode ActivationKey { get; set; } = KeyCode.Backspace;
-        /// }
-        /// 
-        /// public static class MyMod
-        /// {
-        ///     public static MyConfig Config = JsonUtils.Load(new MyConfig());
-        ///     public static void Initialize() {
-        ///         string activationKey = KeyCodeUtils.KeyCodeToString(Config.ActivationKey);
-        ///         Console.WriteLine($"[MyMod] LOADED: ActivationKey = {activationKey}");
-        ///         // Will print "[MyMod] LOADED: ActivationKey = Backspace" in Player.log on first run,
-        ///         // and whatever value is saved in the config.json for the "ActivationKey" 
-        ///         // property on subsequent runs.
-        ///         Config.ActivationKey = KeyCode.Mouse2;
-        ///         JsonUtils.Save(Config);
-        ///         // The "ActivationKey" property in config.json will now read "MouseButtonMiddle"
-        ///     }
-        /// }
-        /// </code>
-        /// </example>
-        public static void Save<T>(T jsonFile, params JsonConverter[] jsonConverters) where T : IJsonFile
+        /// <typeparam name="T">The type of <paramref name="jsonObject"/> to parse into JSON
+        /// data.</typeparam>
+        /// <param name="jsonObject">The <typeparamref name="T"/> instance to parse into JSON data.</param>
+        /// <param name="path">The path on disk at which to store the JSON file.</param>
+        /// <param name="jsonConverters">An array of <see cref="JsonConverter"/>s to be used for
+        /// serialization.</param>
+        /// <seealso cref="Load{T}(T, string, bool, JsonConverter[])"/>
+        /// <seealso cref="Load{T}(string, bool, JsonConverter[])"/>
+        public static void Save<T>(T jsonObject, string path = null,
+            params JsonConverter[] jsonConverters) where T : class
         {
+            if (string.IsNullOrEmpty(path))
+            {
+                path = GetDefaultPath<T>(Assembly.GetCallingAssembly());
+            }
+
             var stringBuilder = new StringBuilder();
             var stringWriter = new StringWriter(stringBuilder);
             using (var jsonTextWriter = new JsonTextWriter(stringWriter)
@@ -180,18 +160,14 @@
                 Formatting = Formatting.Indented
             })
             {
-                var converters = new List<JsonConverter>(jsonConverters);
-                converters.AddRange(defaultJsonConverters);
-
                 var jsonSerializer = new JsonSerializer();
-                foreach (var jsonConverter in converters)
+                foreach (var jsonConverter in jsonConverters)
                 {
                     jsonSerializer.Converters.Add(jsonConverter);
                 }
-                jsonSerializer.Serialize(jsonTextWriter, jsonFile);
+                jsonSerializer.Serialize(jsonTextWriter, jsonObject);
             }
 
-            var path = jsonFile.JsonFilePath;
             var fileInfo = new FileInfo(path);
             fileInfo.Directory.Create(); // Only creates the directory if it doesn't already exist
             File.WriteAllText(path, stringBuilder.ToString());
