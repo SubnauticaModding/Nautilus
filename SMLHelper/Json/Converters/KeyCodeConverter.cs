@@ -38,8 +38,8 @@
         }
 
         /// <summary>
-        /// The method for determining whether the current <paramref name="objectType"/>
-        /// can be processed by this <see cref="JsonConverter"/>.
+        /// The method for determining whether the current <paramref name="objectType"/> can be processed by this
+        /// <see cref="JsonConverter"/>.
         /// </summary>
         /// <param name="objectType"></param>
         /// <returns></returns>

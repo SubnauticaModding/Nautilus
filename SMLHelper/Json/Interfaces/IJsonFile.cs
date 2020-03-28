@@ -22,8 +22,8 @@
         /// <summary>
         /// A method for loading the JSON properties from disk.
         /// </summary>
-        /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values
-        /// if it does not already exist.</param>
+        /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values if it does not
+        /// already exist.</param>
         /// <param name="jsonConverters">Optional <see cref="JsonConverter"/>s to be used for
         /// deserialization.</param>
         /// <seealso cref="Save(JsonConverter[])"/>
@@ -32,8 +32,7 @@
         /// <summary>
         /// A method for saving the JSON properties to disk.
         /// </summary>
-        /// <param name="jsonConverters">Optional <see cref="JsonConverter"/>s to be used for
-        /// serialization.</param>
+        /// <param name="jsonConverters">Optional <see cref="JsonConverter"/>s to be used for serialization.</param>
         /// <seealso cref="Load(bool, JsonConverter[])"/>
         void Save(params JsonConverter[] jsonConverters);
     }
