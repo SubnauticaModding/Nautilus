@@ -46,13 +46,14 @@
             if (this.FabricatorType == CraftTree.Type.None)
             {
                 Logger.Debug($"Craftable '{this.ClassID}' was not automatically patched into a crafting tree.");
-                return;
             }
-
-            if (this.StepsToFabricatorTab == null || this.StepsToFabricatorTab.Length == 0)
-                this.CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType);
             else
-                this.CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType, this.StepsToFabricatorTab);
+            {
+                if (this.StepsToFabricatorTab == null || this.StepsToFabricatorTab.Length == 0)
+                    this.CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType);
+                else
+                    this.CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType, this.StepsToFabricatorTab);
+            }
 
             if (this.CraftingTime > 0f)
                 this.CraftDataHandler.SetCraftingTime(this.TechType, this.CraftingTime);
