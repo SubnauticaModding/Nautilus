@@ -16,6 +16,7 @@ namespace SMLHelper.V2.Patchers
         internal static IDictionary<TechType, float> CustomCraftingTimes = new SelfCheckingDictionary<TechType, float>("CustomCraftingTimes", AsStringFunction);
         internal static IDictionary<TechType, TechType> CustomCookedCreatureList = new SelfCheckingDictionary<TechType, TechType>("CustomCookedCreatureList", AsStringFunction);
         internal static IDictionary<TechType, CraftData.BackgroundType> CustomBackgroundTypes = new SelfCheckingDictionary<TechType, CraftData.BackgroundType>("CustomBackgroundTypes", TechTypeExtensions.sTechTypeComparer, AsStringFunction);
+        internal static IDictionary<TechType, string> CustomEatingSounds = new SelfCheckingDictionary<TechType, string>("CustomEatingSounds", AsStringFunction);
         internal static List<TechType> CustomBuildables = new List<TechType>();
 
         internal static void AddToCustomTechData(TechType techType, ITechData techData)
@@ -57,6 +58,9 @@ namespace SMLHelper.V2.Patchers
 
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.IsBuildableTech)),
                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetBuildablePrefix))));
+
+            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetUseEatSound)),
+               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetUseEatSoundPrefix))));
 
         }
 
@@ -204,6 +208,22 @@ namespace SMLHelper.V2.Patchers
             }
         }
 
+        private static void GetUseEatSoundPrefix(TechType techType)
+        {
+            if (CustomEatingSounds.TryGetValue(techType, out string smlsoundPath))
+            {
+                if (CraftData.useEatSound.TryGetValue(techType, out string soundPath))
+                {
+                    if (smlsoundPath != soundPath)
+                        CraftData.useEatSound[techType] = smlsoundPath;
+                }
+                else
+                {
+                    PatchUtils.PatchDictionary(CraftData.useEatSound, CustomEatingSounds);
+                }
+            }
+        }
+
         private static void GetBuildablePrefix(TechType recipe)
         {
             if (CustomBuildables.Contains(recipe) && !CraftData.buildables.Contains(recipe))
@@ -255,7 +275,6 @@ namespace SMLHelper.V2.Patchers
 
         private static void PatchCustomTechData()
         {
-
             short added = 0;
             short replaced = 0;
             foreach (TechType techType in CustomTechData.Keys)
@@ -350,6 +369,7 @@ namespace SMLHelper.V2.Patchers
                 Logger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Info);
         }
 
+        
     }
 }
 #endif
