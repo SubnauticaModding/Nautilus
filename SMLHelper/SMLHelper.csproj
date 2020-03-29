@@ -143,6 +143,7 @@
     <Compile Include="Crafting\TabNode.cs" />
     <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Crafting\TechData.cs" />
+    <Compile Include="Json\Converters\FloatConverter.cs" />
     <Compile Include="Json\ExtensionMethods\JsonExtensions.cs" />
     <Compile Include="Handler.cs" />
     <Compile Include="Handlers\BioReactorHandler.cs" />

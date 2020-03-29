@@ -6,7 +6,7 @@
     using UnityEngine;
 
     /// <summary>
-    /// A <seealso cref="JsonConverter"/> for handling <see cref="KeyCode"/>s.
+    /// A <see cref="JsonConverter"/> for handling <see cref="KeyCode"/>s.
     /// </summary>
     public class KeyCodeConverter : JsonConverter
     {

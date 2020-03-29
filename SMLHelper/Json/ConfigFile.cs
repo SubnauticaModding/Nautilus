@@ -22,6 +22,7 @@
         [JsonIgnore]
         private readonly JsonConverter[] alwaysIncludedJsonConverters = new JsonConverter[] {
             new KeyCodeConverter(),
+            new FloatConverter(),
             new StringEnumConverter(),
             new VersionConverter()
         };
