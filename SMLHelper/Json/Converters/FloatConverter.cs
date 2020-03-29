@@ -52,13 +52,13 @@
                 if (value is float)
                 {
                     d = Math.Round((float)value, DecimalPlaces, Mode);
+                    writer.WriteValue(float.Parse(d.ToString(CultureInfo.InvariantCulture).TrimEnd('0')));
                 }
                 else
                 {
                     d = Math.Round((double)value, DecimalPlaces, Mode);
+                    writer.WriteValue(double.Parse(d.ToString(CultureInfo.InvariantCulture).TrimEnd('0')));
                 }
-                d = double.Parse(d.ToString(CultureInfo.InvariantCulture).TrimEnd('0'));
-                writer.WriteValue(d);
             }
             else
             {
