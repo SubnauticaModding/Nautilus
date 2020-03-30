@@ -16,6 +16,7 @@ namespace SMLHelper.V2.Patchers
         internal static IDictionary<TechType, float> CustomCraftingTimes = new SelfCheckingDictionary<TechType, float>("CustomCraftingTimes", AsStringFunction);
         internal static IDictionary<TechType, TechType> CustomCookedCreatureList = new SelfCheckingDictionary<TechType, TechType>("CustomCookedCreatureList", AsStringFunction);
         internal static IDictionary<TechType, CraftData.BackgroundType> CustomBackgroundTypes = new SelfCheckingDictionary<TechType, CraftData.BackgroundType>("CustomBackgroundTypes", TechTypeExtensions.sTechTypeComparer, AsStringFunction);
+        internal static IDictionary<TechType, string> CustomEatingSounds = new SelfCheckingDictionary<TechType, string>("CustomEatingSounds", AsStringFunction);
         internal static List<TechType> CustomBuildables = new List<TechType>();
 
         internal static void AddToCustomTechData(TechType techType, ITechData techData)
@@ -25,191 +26,105 @@ namespace SMLHelper.V2.Patchers
 
         private static void PatchForSubnautica(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.Get)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(NeedsPatchingCheckPrefix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetHarvestOutputData)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetHarvestOutputPrefix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetHarvestTypeFromTech)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetHarvestTypePrefix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetHarvestFinalCutBonus)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetFinalCutBonusPrefix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetItemSize)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetItemSizePrefix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetEquipmentType)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetEquipmentTypePrefix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetQuickSlotType)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetSlotTypePrefix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetCraftTime)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetCraftTimePrefix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetCookedData)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetCookedCreaturePrefix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.GetBackgroundType)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetBackgroundTypesPrefix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.IsBuildableTech)),
-               prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(GetBuildablePrefix))));
-
+            PatchUtils.PatchClass(harmony);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetHarvestOutputData))]
         private static void GetHarvestOutputPrefix(TechType techType)
         {
-            if (CustomHarvestOutputList.TryGetValue(techType, out TechType smlho))
-            {
-                if(CraftData.harvestOutputList.TryGetValue(techType, out TechType tt))
-                {
-                    if(smlho != tt)
-                        CraftData.harvestOutputList[techType] = smlho;
-                }
-                else
-                {
-                    PatchUtils.PatchDictionary(CraftData.harvestOutputList, CustomHarvestOutputList);
-                }
-            }
+            DictionaryPrefix(techType, CustomHarvestOutputList, CraftData.harvestOutputList);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetHarvestTypeFromTech))]
         private static void GetHarvestTypePrefix(TechType techType)
         {
-            if (CustomHarvestTypeList.TryGetValue(techType, out HarvestType smlht))
-            {
-                if (CraftData.harvestTypeList.TryGetValue(techType, out HarvestType ht))
-                {
-                    if (ht != smlht)
-                        CraftData.harvestTypeList[techType] = smlht;
-                }
-                else
-                {
-                    PatchUtils.PatchDictionary(CraftData.harvestTypeList, CustomHarvestTypeList);
-                }
-            }
+            DictionaryPrefix(techType, CustomHarvestTypeList, CraftData.harvestTypeList);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetHarvestFinalCutBonus))]
         private static void GetFinalCutBonusPrefix(TechType techType)
         {
-            if (CustomFinalCutBonusList.TryGetValue(techType, out int smlhfcb))
-            {
-                if (CraftData.harvestFinalCutBonusList.TryGetValue(techType, out int hfcb))
-                {
-                    if (hfcb != smlhfcb)
-                        CraftData.harvestFinalCutBonusList[techType] = smlhfcb;
-                }
-                else
-                {
-                    PatchUtils.PatchDictionary(CraftData.harvestFinalCutBonusList, CustomFinalCutBonusList);
-                }
-            }
+            DictionaryPrefix(techType, CustomFinalCutBonusList, CraftData.harvestFinalCutBonusList);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetItemSize))]
         private static void GetItemSizePrefix(TechType techType)
         {
-            if(CustomItemSizes.TryGetValue(techType, out Vector2int smlItemSize))
-            {
-                if(CraftData.itemSizes.TryGetValue(techType, out Vector2int itemSize))
-                {
-                    if (smlItemSize.x != itemSize.x || smlItemSize.y != itemSize.y)
-                        CraftData.itemSizes[techType] = smlItemSize;
-                }
-                else
-                {
-                    PatchUtils.PatchDictionary(CraftData.itemSizes, CustomItemSizes);
-                }
-            }
+            DictionaryPrefix(techType, CustomItemSizes, CraftData.itemSizes);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetEquipmentType))]
         private static void GetEquipmentTypePrefix(TechType techType)
         {
-            if (CustomEquipmentTypes.TryGetValue(techType, out EquipmentType SMLET))
-            {
-                if (CraftData.equipmentTypes.TryGetValue(techType, out EquipmentType ET))
-                {
-                    if (ET != SMLET)
-                        CraftData.equipmentTypes[techType] = SMLET;
-                }
-                else
-                {
-                    PatchUtils.PatchDictionary(CraftData.equipmentTypes, CustomEquipmentTypes);
-                }
-            }
+            DictionaryPrefix(techType, CustomEquipmentTypes, CraftData.equipmentTypes);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetQuickSlotType))]
         private static void GetSlotTypePrefix(TechType techType)
         {
-            if (CustomSlotTypes.TryGetValue(techType, out QuickSlotType smlqst))
-            {
-                if (CraftData.slotTypes.TryGetValue(techType, out QuickSlotType qst))
-                {
-                    if (qst != smlqst)
-                        CraftData.slotTypes[techType] = smlqst;
-                }
-                else
-                {
-                    PatchUtils.PatchDictionary(CraftData.slotTypes, CustomSlotTypes);
-                }
-            }
+            DictionaryPrefix(techType, CustomSlotTypes, CraftData.slotTypes);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetCraftTime))]
         private static void GetCraftTimePrefix(TechType techType)
         {
-            if (CustomCraftingTimes.TryGetValue(techType, out float smlct))
-            {
-                if (CraftData.craftingTimes.TryGetValue(techType, out float ct))
-                {
-                    if (ct != smlct)
-                        CraftData.craftingTimes[techType] = smlct;
-                }
-                else
-                {
-                    PatchUtils.PatchDictionary(CraftData.craftingTimes, CustomCraftingTimes);
-                }
-            }
+            DictionaryPrefix(techType, CustomCraftingTimes, CraftData.craftingTimes);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetCookedData))]
         private static void GetCookedCreaturePrefix(TechType techType)
         {
-            if (CustomCookedCreatureList.TryGetValue(techType, out TechType smltt))
-            {
-                if (CraftData.cookedCreatureList.TryGetValue(techType, out TechType tt))
-                {
-                    if (tt != smltt)
-                        CraftData.cookedCreatureList[techType] = smltt;
-                }
-                else
-                {
-                    PatchUtils.PatchDictionary(CraftData.cookedCreatureList, CustomCookedCreatureList);
-                }
-            }
+            DictionaryPrefix(techType, CustomCookedCreatureList, CraftData.cookedCreatureList);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetBackgroundType))]
         private static void GetBackgroundTypesPrefix(TechType techType)
         {
-            if (CustomBackgroundTypes.TryGetValue(techType, out CraftData.BackgroundType smlbt))
+            DictionaryPrefix(techType, CustomBackgroundTypes, CraftData.backgroundTypes);
+        }
+
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetUseEatSound))]
+        private static void GetUseEatSoundPrefix(TechType techType)
+        {
+            DictionaryPrefix(techType, CustomEatingSounds, CraftData.useEatSound);
+        }
+
+        private static void DictionaryPrefix<T>(TechType techType, IDictionary<TechType, T> smlCollection, IDictionary<TechType, T> craftDataCollection)
+        {
+            if (smlCollection.TryGetValue(techType, out T sml))
             {
-                if (CraftData.backgroundTypes.TryGetValue(techType, out CraftData.BackgroundType bt))
+                if (craftDataCollection.TryGetValue(techType, out T gameVal))
                 {
-                    if (bt != smlbt)
-                        CraftData.backgroundTypes[techType] = smlbt;
+                    if (!sml.Equals(gameVal))
+                        craftDataCollection[techType] = sml;
                 }
                 else
                 {
-                    PatchUtils.PatchDictionary(CraftData.backgroundTypes, CustomBackgroundTypes);
+                    PatchUtils.PatchDictionary(craftDataCollection, smlCollection);
                 }
             }
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.IsBuildableTech))]
         private static void GetBuildablePrefix(TechType recipe)
         {
             if (CustomBuildables.Contains(recipe) && !CraftData.buildables.Contains(recipe))
                 PatchUtils.PatchList(CraftData.buildables, CustomBuildables);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.Get))]
         private static void NeedsPatchingCheckPrefix(TechType techType)
         {
             bool techExists = CraftData.techData.TryGetValue(techType, out CraftData.TechData techData);
@@ -255,7 +170,6 @@ namespace SMLHelper.V2.Patchers
 
         private static void PatchCustomTechData()
         {
-
             short added = 0;
             short replaced = 0;
             foreach (TechType techType in CustomTechData.Keys)
@@ -350,6 +264,7 @@ namespace SMLHelper.V2.Patchers
                 Logger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Info);
         }
 
+        
     }
 }
 #endif

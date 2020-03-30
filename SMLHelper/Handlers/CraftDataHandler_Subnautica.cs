@@ -10,7 +10,6 @@ namespace SMLHelper.V2.Handlers
     /// </summary>
     public partial class CraftDataHandler : ICraftDataHandler
     {
-
         #region Subnautica Specific Static Methods
 
         /// <summary>
@@ -59,6 +58,25 @@ namespace SMLHelper.V2.Handlers
         public static TechData GetTechData(TechType techType)
         {
             return Main.GetTechData(techType);
+        }
+
+        /// <summary>
+        /// Sets the eating sound for the provided TechType.
+        /// </summary>
+        /// <param name="consumable">The item being consumed during <see cref="Survival.Eat(UnityEngine.GameObject)"/>.</param>
+        /// <param name="soundPath">
+        /// The sound path.
+        /// <para>
+        /// Value values are
+        /// - "event:/player/drink"
+        /// - "event:/player/drink_stillsuit"
+        /// - "event:/player/use_first_aid"
+        /// - "event:/player/eat" (default)
+        /// </para>
+        /// </param>
+        public static void SetEatingSound(TechType consumable, string soundPath)
+        {
+            Main.SetEatingSound(consumable, soundPath);
         }
 
         #endregion
@@ -266,6 +284,25 @@ namespace SMLHelper.V2.Handlers
             }
 
             return techData;
+        }
+
+        /// <summary>
+        /// Sets the eating sound for the provided TechType.
+        /// </summary>
+        /// <param name="consumable">The item being consumed during <see cref="Survival.Eat(UnityEngine.GameObject)"/>.</param>
+        /// <param name="soundPath">
+        /// The sound path.
+        /// <para>
+        /// Value values are
+        /// - "event:/player/drink"
+        /// - "event:/player/drink_stillsuit"
+        /// - "event:/player/use_first_aid"
+        /// - "event:/player/eat" (default)
+        /// </para>
+        /// </param>
+        void ICraftDataHandler.SetEatingSound(TechType consumable, string soundPath)
+        {
+            CraftDataPatcher.CustomEatingSounds.Add(consumable, soundPath);
         }
 
         #endregion
