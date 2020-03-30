@@ -203,6 +203,12 @@
                 if (nodeToRemove.Scheme != scheme)
                     continue;
 
+                if (nodeToRemove.Path == null || nodeToRemove.Path.Length == 0)
+                {
+                    Logger.Warn($"An empty path in {nameof(RemoveNodes)} for '{scheme}' was skipped");
+                    continue;
+                }
+
                 // Get the names of each node in the path to traverse tree until we reach the node we want.
                 TreeNode currentNode = default;
                 currentNode = nodes;
@@ -220,14 +226,18 @@
                     currentNode = currentNode[currentPath];
                 }
 
-                // Hold a reference to the parent node
-                TreeNode parentNode = currentNode.parent;
-
                 // Safty checks.
                 if (currentNode != null && currentNode.id == currentPath)
                 {
-                    currentNode.Clear(); // Remove all child nodes (if any)
-                    parentNode.RemoveNode(currentNode); // Remove the node
+                    if (currentNode.parent == null)
+                    {
+                        Logger.Warn($"Skipped removing craft tree node in {nameof(RemoveNodes)} for '{scheme}'. Could not identify the parent node.");
+                    }
+                    else
+                    {
+                        currentNode.Clear(); // Remove all child nodes (if any)
+                        currentNode.parent.RemoveNode(currentNode); // Remove the node from its parent
+                    }
                 }
             }
         }
