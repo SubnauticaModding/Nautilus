@@ -20,36 +20,13 @@
 
         internal static void Patch(HarmonyInstance harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.GetTree)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.GetTreePreFix))));
+            PatchUtils.PatchClass(harmony);
 
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.Initialize)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.InitializePostFix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.FabricatorScheme)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.FabricatorSchemePostfix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.ConstructorScheme)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.ConstructorSchemePostfix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.WorkbenchScheme)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.WorkbenchSchemePostfix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.SeamothUpgradesScheme)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.SeamothUpgradesSchemePostfix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.MapRoomSheme)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.MapRoomSchemePostfix))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.CyclopsFabricatorScheme)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.CyclopsFabricatorSchemePostfix))));
-#if BELOWZERO
-            harmony.Patch(AccessTools.Method(typeof(CraftTree), nameof(CraftTree.SeaTruckFabricatorScheme)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreePatcher), nameof(CraftTreePatcher.SeaTruckFabricatorSchemePostfix))));
-#endif
             Logger.Log($"CraftTreePatcher is done.", LogLevel.Debug);
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.GetTree))]
         private static bool GetTreePreFix(CraftTree.Type treeType, ref CraftTree __result)
         {
             if (CustomTrees.ContainsKey(treeType))
@@ -61,6 +38,8 @@
             return true;
         }
 
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.Initialize))]
         private static void InitializePostFix()
         {
             if (CraftTree.initialized && !ModCraftTreeNode.Initialized)
@@ -76,44 +55,58 @@
             }
         }
 
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.FabricatorScheme))]
         private static void FabricatorSchemePostfix(ref CraftNode __result)
         {
             PatchCraftTree(ref __result, CraftTree.Type.Fabricator);
         }
 
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.ConstructorScheme))]
         private static void ConstructorSchemePostfix(ref CraftNode __result)
         {
             PatchCraftTree(ref __result, CraftTree.Type.Constructor);
         }
 
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.WorkbenchScheme))]
         private static void WorkbenchSchemePostfix(ref CraftNode __result)
         {
             PatchCraftTree(ref __result, CraftTree.Type.Workbench);
         }
 
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.SeamothUpgradesScheme))]
         private static void SeamothUpgradesSchemePostfix(ref CraftNode __result)
         {
             PatchCraftTree(ref __result, CraftTree.Type.SeamothUpgrades);
         }
 
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.MapRoomSheme))]
         private static void MapRoomSchemePostfix(ref CraftNode __result)
         {
             PatchCraftTree(ref __result, CraftTree.Type.MapRoom);
         }
 
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.CyclopsFabricatorScheme))]
         private static void CyclopsFabricatorSchemePostfix(ref CraftNode __result)
         {
             PatchCraftTree(ref __result, CraftTree.Type.CyclopsFabricator);
         }
 
 #if BELOWZERO
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.SeaTruckFabricatorScheme))]
         private static void SeaTruckFabricatorSchemePostfix(ref CraftNode __result)
         {
             PatchCraftTree(ref __result, CraftTree.Type.SeaTruckFabricator);
         }
 #endif
 
-#endregion
+        #endregion
 
         #region Handling Nodes
 
