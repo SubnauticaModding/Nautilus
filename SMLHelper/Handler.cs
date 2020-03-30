@@ -81,5 +81,11 @@
         /// A handler for adding custom entries to the PDA Encyclopedia.
         /// </summary>
         public static IPDAEncyclopediaHandler PDAEncyclopediaHandler => Handlers.PDAEncyclopediaHandler.Main;
+
+
+        /// <summary>
+        /// A handler for registering Unity prefabs associated to a <see cref="TechType"/>.
+        /// </summary>
+        public static IPrefabHandler PrefabHandler => Handlers.PrefabHandler.Main;
     }
 }
