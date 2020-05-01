@@ -13,6 +13,9 @@
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using QModManager.API;
+#if BELOWZERO
+    using TMPro;
+#endif
 
     internal class OptionsPanelPatcher
     {
@@ -51,8 +54,14 @@
             // Loop through all of the tabs
             for (int i = 0; i < optionsPanel.tabsContainer.childCount; i++)
             {
+#if SUBNAUTICA
                 // Check if they are named "Mods"
                 var text = optionsPanel.tabsContainer.GetChild(i).GetComponentInChildren<Text>(true);
+#elif BELOWZERO
+                // Check if they are named "Mods"
+                var text = optionsPanel.tabsContainer.GetChild(i).GetComponentInChildren<TextMeshProUGUI>(true);
+#endif
+
                 if (text != null && text.text == "Mods")
                 {
                     // Set the tab index to the found one and break
@@ -60,6 +69,7 @@
                     break;
                 }
             }
+
             // If no tab was found, create one
             if (modsTab == -1)
             {
@@ -132,7 +142,17 @@
 
                     public HeadingState this[string name]
                     {
-                        get => states.TryGetValue(name, out HeadingState state)? state: HeadingState.Expanded;
+                        get
+                        {
+                            if(string.IsNullOrEmpty(name))
+                            {
+                                return HeadingState.Expanded;
+                            }
+                            else
+                            {
+                                return states.TryGetValue(name, out HeadingState state) ? state : HeadingState.Expanded;
+                            }
+                        }
 
                         set
                         {
@@ -183,7 +203,7 @@
                 buttonTransform.anchorMin = buttonTransform.anchorMax = new Vector2(0f, 0.5f);
             }
 
-            #region components
+#region components
             // main component for headings toggling
             private class HeadingToggle: MonoBehaviour
             {
@@ -285,9 +305,9 @@
                 public void OnPointerClick(PointerEventData eventData) =>
                     transform.parent.GetComponentInChildren<ToggleButtonClickHandler>()?.OnPointerClick(eventData);
             }
-            #endregion
+#endregion
 
-            #region patches for uGUI_TabbedControlsPanel
+#region patches for uGUI_TabbedControlsPanel
             [PatchUtils.Prefix]
             [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddHeading))]
             private static bool AddHeading_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex, string label)
@@ -321,7 +341,7 @@
                 for (int i = 0; i < options.childCount; i++)
                     options.GetChild(i).GetComponent<HeadingToggle>()?.EnsureState();
             }
-            #endregion
+#endregion
         }
     }
 }

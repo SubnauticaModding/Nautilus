@@ -6,6 +6,9 @@
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.Events;
+#if BELOWZERO
+    using TMPro;
+#endif
 
     /// <summary>
     /// Contains all the information about a slider changed event.
@@ -165,9 +168,13 @@
         /// </summary>
         public class SliderValue: MonoBehaviour
         {
+#if SUBNAUTICA
             /// <summary> The value label of the <see cref="SliderValue"/> </summary>
             protected Text label;
-
+#elif BELOWZERO
+            /// <summary> The value label of the <see cref="SliderValue"/> </summary>
+            protected TextMeshProUGUI label;
+#endif
             /// <summary> The slider controlling this <see cref="SliderValue"/> </summary>
             protected Slider slider;
 
