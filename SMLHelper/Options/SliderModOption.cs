@@ -6,6 +6,11 @@
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.Events;
+#if SUBNAUTICA
+    using Text = UnityEngine.UI.Text;
+#elif BELOWZERO
+    using Text = TMPro.TextMeshProUGUI;
+#endif
 
     /// <summary>
     /// Contains all the information about a slider changed event.

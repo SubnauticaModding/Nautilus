@@ -120,6 +120,10 @@
       <HintPath>..\Dependencies\BelowZero\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.TextMeshPro" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\Unity.TextMeshPro.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Buildable.cs" />

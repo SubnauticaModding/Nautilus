@@ -2,7 +2,7 @@
     "Id": "SMLHelper",
     "DisplayName": "Modding Helper (SMLHelper)",
     "Author": "The SMLHelper Dev Team",
-    "Version": "2.6.1",
+    "Version": "2.6.2",
     "Enable": true,
     "Game": "BelowZero",
     "AssemblyName": "SMLHelper.dll"
