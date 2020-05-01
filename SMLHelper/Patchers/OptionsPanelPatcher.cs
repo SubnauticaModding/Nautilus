@@ -139,7 +139,7 @@
 
                     public HeadingState this[string name]
                     {
-                        get => states.TryGetValue(name ?? "", out HeadingState state) ? state : HeadingState.Expanded;
+                        get => states.TryGetValue(name, out HeadingState state) ? state : HeadingState.Expanded;
                         
                         set
                         {
@@ -204,6 +204,12 @@
                         return;
 
                     headingName = transform.Find("Caption")?.GetComponent<Text>()?.text;
+
+                    if(headingName == null)
+                    {
+                        V2.Logger.Error("Heading is Null!!!  this should not happen!, Please report this to SMLHelper Dev Team!");
+                        headingName = "";
+                    }
 
                     childOptions = new List<GameObject>();
 
