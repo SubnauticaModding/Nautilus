@@ -203,13 +203,7 @@
                     if (childOptions != null)
                         return;
 
-                    headingName = transform.Find("Caption")?.GetComponent<Text>()?.text;
-
-                    if(headingName == null)
-                    {
-                        V2.Logger.Error("Heading is Null!!!  this should not happen!, Please report this to SMLHelper Dev Team!");
-                        headingName = "";
-                    }
+                    headingName = transform.Find("Caption")?.GetComponent<Text>()?.text ?? "";
 
                     childOptions = new List<GameObject>();
 
