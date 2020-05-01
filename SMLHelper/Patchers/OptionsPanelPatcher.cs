@@ -13,8 +13,10 @@
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using QModManager.API;
-#if BELOWZERO
-    using TMPro;
+#if SUBNAUTICA
+    using Text = UnityEngine.UI.Text;
+#elif BELOWZERO
+    using Text = TMPro.TextMeshProUGUI;
 #endif
 
     internal class OptionsPanelPatcher
@@ -54,13 +56,8 @@
             // Loop through all of the tabs
             for (int i = 0; i < optionsPanel.tabsContainer.childCount; i++)
             {
-#if SUBNAUTICA
                 // Check if they are named "Mods"
                 var text = optionsPanel.tabsContainer.GetChild(i).GetComponentInChildren<Text>(true);
-#elif BELOWZERO
-                // Check if they are named "Mods"
-                var text = optionsPanel.tabsContainer.GetChild(i).GetComponentInChildren<TextMeshProUGUI>(true);
-#endif
 
                 if (text != null && text.text == "Mods")
                 {
@@ -142,18 +139,8 @@
 
                     public HeadingState this[string name]
                     {
-                        get
-                        {
-                            if(string.IsNullOrEmpty(name))
-                            {
-                                return HeadingState.Expanded;
-                            }
-                            else
-                            {
-                                return states.TryGetValue(name, out HeadingState state) ? state : HeadingState.Expanded;
-                            }
-                        }
-
+                        get => states.TryGetValue(name ?? "", out HeadingState state) ? state : HeadingState.Expanded;
+                        
                         set
                         {
                             states[name] = value;
