@@ -32,8 +32,8 @@
         }
 
         /// <summary>
-        /// <para>Allows you to edit QuickSlotType for TechTypes.</para>
-        /// <para>Can be used for existing TechTypes too.</para>
+        /// <para>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</para>
+        /// <para>Careful: This has to be called after the prefab registration.</para>
         /// </summary>
         /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
