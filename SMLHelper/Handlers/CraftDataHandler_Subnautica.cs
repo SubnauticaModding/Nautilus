@@ -10,7 +10,7 @@ namespace SMLHelper.V2.Handlers
     /// </summary>
     public partial class CraftDataHandler : ICraftDataHandler
     {
-        #region Subnautica Specific Static Methods
+#region Subnautica Specific Static Methods
 
         /// <summary>
         /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
@@ -79,9 +79,9 @@ namespace SMLHelper.V2.Handlers
             Main.SetEatingSound(consumable, soundPath);
         }
 
-        #endregion
+#endregion
 
-        #region Subnautica specific implementations
+#region Subnautica specific implementations
 
         /// <summary>
         /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
@@ -119,8 +119,8 @@ namespace SMLHelper.V2.Handlers
         }
 
         /// <summary>
-        /// <para>Allows you to edit QuickSlotType for TechTypes.</para>
-        /// <para>Can be used for existing TechTypes too.</para>
+        /// <para>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</para>
+        /// <para>Careful: This has to be called after the prefab registration.</para>
         /// </summary>
         /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
@@ -305,7 +305,7 @@ namespace SMLHelper.V2.Handlers
             CraftDataPatcher.CustomEatingSounds.Add(consumable, soundPath);
         }
 
-        #endregion
+#endregion
     }
 }
 #endif
