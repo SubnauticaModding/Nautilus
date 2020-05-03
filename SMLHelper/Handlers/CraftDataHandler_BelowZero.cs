@@ -4,6 +4,7 @@ namespace SMLHelper.V2.Handlers
     using System.Collections.Generic;
     using Crafting;
     using Interfaces;
+    using Oculus.Newtonsoft.Json;
     using Patchers;
 
     /// <summary>
@@ -220,45 +221,43 @@ namespace SMLHelper.V2.Handlers
 
         private static RecipeData ConvertToRecipeData(JsonValue techData)
         {
-            if (techData.TryGetValue(TechData.propertyCraftAmount, out JsonValue craftAmount))
+            RecipeData currentRecipeData = new RecipeData
             {
-                if (techData.GetArray(TechData.propertyIngredients, out JsonValue jsonValue, null))
-                {
-                    var currentRecipeData = new RecipeData
-                    {
-                        craftAmount = craftAmount.GetInt()
-                    };
+                craftAmount = techData.GetInt(TechData.propertyCraftAmount, out int craftAmount, 0) ? craftAmount : TechData.defaultCraftAmount
+            };
 
-                    for (int i = 0; i < jsonValue.Count; i++)
+            if(techData.GetArray(TechData.propertyIngredients, out JsonValue jsonValue, null))
+            {
+                for(int i = 0; i < jsonValue.Count; i++)
+                {
+                    JsonValue jsonValue2 = jsonValue[i];
+                    TechType techType = (TechType)jsonValue2.GetInt(TechData.propertyTechType, 0);
+                    int int2 = jsonValue2.GetInt(TechData.propertyAmount, 0);
+                    if(techType != TechType.None && int2 > 0)
                     {
-                        JsonValue jsonValue2 = jsonValue[i];
-                        var @int = (TechType)jsonValue2.GetInt(TechData.propertyTechType, 0);
-                        int int2 = jsonValue2.GetInt(TechData.propertyAmount, 0);
-                        if (@int != TechType.None && int2 > 0)
+                        if(currentRecipeData.Ingredients == null)
                         {
-                            if (currentRecipeData.Ingredients == null)
-                            {
-                                currentRecipeData.Ingredients = new List<Ingredient>();
-                            }
-                            currentRecipeData.Ingredients.Add(new Ingredient(@int, int2));
+                            currentRecipeData.Ingredients = new List<Ingredient>();
                         }
+                        ErrorMessage.AddMessage($"{techType.AsString()} : {int2}");
+                        currentRecipeData.Ingredients.Add(new Ingredient(techType, int2));
                     }
-                    if (techData.GetArray(TechData.propertyLinkedItems, out JsonValue jsonValue3, null))
-                    {
-                        for (int j = 0; j < jsonValue3.Count; j++)
-                        {
-                            var int3 = (TechType)jsonValue3[j].GetInt(0);
-                            if (currentRecipeData.LinkedItems == null)
-                            {
-                                currentRecipeData.LinkedItems = new List<TechType>();
-                            }
-                            currentRecipeData.LinkedItems.Add(int3);
-                        }
-                    }
-                    return currentRecipeData;
                 }
             }
-            return null;
+
+            if(techData.GetArray(TechData.propertyLinkedItems, out JsonValue jsonValue3, null))
+            {
+                for(int j = 0; j < jsonValue3.Count; j++)
+                {
+                    TechType techType1 = (TechType)jsonValue3[j].GetInt(0);
+                    if(currentRecipeData.LinkedItems == null)
+                    {
+                        currentRecipeData.LinkedItems = new List<TechType>();
+                    }
+                    currentRecipeData.LinkedItems.Add(techType1);
+                }
+            }
+            return currentRecipeData;
         }
 
         /// <summary>
@@ -270,12 +269,7 @@ namespace SMLHelper.V2.Handlers
         /// <returns>The RecipeData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
         RecipeData ICraftDataHandler.GetModdedRecipeData(TechType techType)
         {
-            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue techData))
-            {
-                return ConvertToRecipeData(techData);
-            }
-
-            return null;
+            return CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue techData) ? ConvertToRecipeData(techData) : null;
         }
 
         /// <summary>
@@ -353,8 +347,18 @@ namespace SMLHelper.V2.Handlers
         /// <param name="y">The height of the item</param>
         void ICraftDataHandler.SetItemSize(TechType techType, int x, int y)
         {
-            AddJsonProperty(techType, "x", new JsonValue(x));
-            AddJsonProperty(techType, "y", new JsonValue(y));
+            JsonValue jsonValue = new JsonValue()
+            {
+                { 
+                    TechData.propertyX, 
+                    new JsonValue(x) 
+                }, 
+                { 
+                    TechData.propertyY, 
+                    new JsonValue(y)
+                }
+            };
+            AddJsonProperty(techType, "itemSize", jsonValue);
         }
 
         /// <summary>
@@ -409,6 +413,10 @@ namespace SMLHelper.V2.Handlers
             {
                 CraftDataPatcher.CustomTechData[techType] = new JsonValue
                 {
+                    { 
+                        TechData.PropertyToID("techType"), 
+                        new JsonValue((int)techType) 
+                    },
                     {
                         TechData.PropertyToID(key),
                         newValue
