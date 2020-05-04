@@ -104,10 +104,6 @@
                 {
                     CraftDataHandler.SetItemSize(TechType, SizeInInventory);
                 }
-            };
-
-            OnFinishedPatching += () =>
-            {
                 if(EntityInfo != null && BiomesToSpawnIn != null)
                 {
                     WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
