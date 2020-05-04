@@ -11,12 +11,46 @@
     public abstract class PdaItem: Spawnable
     {
         internal IKnownTechHandler KnownTechHandler { get; set; } = Handlers.KnownTechHandler.Main;
+        internal IPDAHandler PDAHandler { get; set; } = Handlers.PDAHandler.Main;
+        internal IPDAEncyclopediaHandler PDAEncyclopediaHandler { get; set; } = Handlers.PDAEncyclopediaHandler.Main;
 
         /// <summary>
         /// Override to set the <see cref="TechType"/> that must first be scanned or picked up to unlock the blueprint for this item.
         /// If not overriden, it this item will be unlocked from the start of the game.
         /// </summary>
         public virtual TechType RequiredForUnlock => TechType.None;
+
+        /// <summary>
+        /// Override to add a scanner entry to the <see cref="RequiredForUnlock"/> TechType if it does not have one.
+        /// WARNING. You cannot add a scanner entry for a techtype that can already be scanned! 
+        /// Default is <see langword="false"/>.
+        /// </summary>
+        public virtual bool AddScannerEntry => false;
+
+        /// <summary>
+        /// Override to set the number of <see cref="RequiredForUnlock"/> that must be scanned to unlock;
+        /// If not overriden, Default value is <see langword="1 fragment"/>.
+        /// </summary>
+        public virtual int FragmentsToScan => 1;
+
+        /// <summary>
+        /// Override to set the speed that the <see cref="RequiredForUnlock"/> fragments are scanned;
+        /// If not overriden, Default value is <see langword="2 seconds"/>.
+        /// </summary>
+        public virtual float TimeToScanFragment => 2f;
+
+        /// <summary>
+        /// Override to allow fragments to be scanned for materials after the relavent TechType is already Unlocked.
+        /// Default is <see langword="false"/>.
+        /// </summary>
+        public virtual bool DestroyFragmentOnScan => false;
+
+        /// <summary>
+        /// Override to add a <see cref="PDAEncyclopedia.EntryData"/> into the PDA's Encyclopedia for this object.
+        /// WARNING. You cannot overwrite an existing entry with this. It must have a unique key! 
+        /// Default is <see langword="Null"/>.
+        /// </summary>
+        public virtual PDAEncyclopedia.EntryData EncyclopediaEntryData => null;
 
         /// <summary>
         /// Override with the main group in the PDA blueprints where this item appears.
@@ -86,9 +120,34 @@
                 }
             }
 
+            if(EncyclopediaEntryData != null)
+            {
+                PDAEncyclopediaHandler.AddCustomEntry(EncyclopediaEntryData);
+            }
+
             if(!UnlockedAtStart)
             {
                 KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new TechType[1] { TechType }, DiscoverMessageResolved);
+
+                if(AddScannerEntry)
+                {
+                    PDAScanner.EntryData entryData = new PDAScanner.EntryData()
+                    {
+                        key = RequiredForUnlock,
+                        blueprint = TechType,
+                        destroyAfterScan = DestroyFragmentOnScan,
+                        isFragment = true,
+                        locked = true,
+                        scanTime = TimeToScanFragment,
+                        totalFragments = FragmentsToScan
+                    };
+
+                    if(EncyclopediaEntryData != null)
+                    {
+                        entryData.encyclopedia = EncyclopediaEntryData.key;
+                    }
+                    PDAHandler.AddCustomScannerEntry(entryData);
+                }
             }
         }
 
