@@ -2,6 +2,7 @@
 {
     using Crafting;
     using SMLHelper.V2.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     /// A <see cref="Spawnable"/> item that appears in the PDA blueprints.
@@ -70,9 +71,19 @@
         {
             CraftDataHandler.SetTechData(TechType, GetBlueprintRecipe());
 
+
             if(GroupForPDA != TechGroup.Uncategorized)
             {
-                CraftDataHandler.AddToGroup(GroupForPDA, CategoryForPDA, TechType);
+                List<TechCategory> categories = new List<TechCategory>();
+                CraftData.GetBuilderCategories(GroupForPDA, categories);
+                if(categories.Contains(CategoryForPDA))
+                {
+                    CraftDataHandler.AddToGroup(GroupForPDA, CategoryForPDA, TechType);
+                }
+                else
+                {
+                    Logger.Error($"Failed to add {TechType} to {GroupForPDA}/{CategoryForPDA} as that is an invalid combination.");
+                }
             }
 
             if(!UnlockedAtStart)
