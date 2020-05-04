@@ -7,7 +7,7 @@
     /// A <see cref="Spawnable"/> item that appears in the PDA blueprints.
     /// </summary>
     /// <seealso cref="Spawnable" />
-    public abstract class PdaItem : Spawnable
+    public abstract class PdaItem: Spawnable
     {
         internal IKnownTechHandler KnownTechHandler { get; set; } = Handlers.KnownTechHandler.Main;
 
@@ -20,12 +20,12 @@
         /// <summary>
         /// Override with the main group in the PDA blueprints where this item appears.
         /// </summary>
-        public abstract TechGroup GroupForPDA { get; }
+        public virtual TechGroup GroupForPDA => TechGroup.Uncategorized;
 
         /// <summary>
         /// Override with the category within the group in the PDA blueprints where this item appears.
         /// </summary>
-        public abstract TechCategory CategoryForPDA { get; }
+        public virtual TechCategory CategoryForPDA => TechCategory.Misc;
 
         /// <summary>
         /// Gets a value indicating whether <see cref="RequiredForUnlock"/> has been set to lock this blueprint behind another <see cref="TechType"/>.
@@ -34,7 +34,7 @@
         ///   Returns <c>true</c> if will be unlocked from the start of the game; otherwise, <c>false</c>.
         /// </value>
         /// <seealso cref="RequiredForUnlock"/>
-        public bool UnlockedAtStart => this.RequiredForUnlock == TechType.None;
+        public bool UnlockedAtStart => RequiredForUnlock == TechType.None;
 
         /// <summary>
         /// Message which should be shown when the item is unlocked. <para/>
@@ -42,7 +42,7 @@
         /// </summary>
         public virtual string DiscoverMessage => null;
 
-        internal string DiscoverMessageResolved => this.DiscoverMessage == null ? "NotificationBlueprintUnlocked" : $"{this.TechType.AsString()}_DiscoverMessage";
+        internal string DiscoverMessageResolved => DiscoverMessage == null ? "NotificationBlueprintUnlocked" : $"{TechType.AsString()}_DiscoverMessage";
 
         /// <summary>
         /// Initializes a new <see cref="PdaItem"/>, the basic class for any item that appears among your PDA blueprints.
@@ -68,17 +68,22 @@
 #endif
         private void PatchTechDataEntry()
         {
-            this.CraftDataHandler.SetTechData(this.TechType, GetBlueprintRecipe());
+            CraftDataHandler.SetTechData(TechType, GetBlueprintRecipe());
 
-            this.CraftDataHandler.AddToGroup(this.GroupForPDA, this.CategoryForPDA, this.TechType);
+            if(GroupForPDA != TechGroup.Uncategorized)
+            {
+                CraftDataHandler.AddToGroup(GroupForPDA, CategoryForPDA, TechType);
+            }
 
-            if (!this.UnlockedAtStart)
-                this.KnownTechHandler.SetAnalysisTechEntry(this.RequiredForUnlock, new TechType[1] { this.TechType }, this.DiscoverMessageResolved);
+            if(!UnlockedAtStart)
+            {
+                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new TechType[1] { TechType }, DiscoverMessageResolved);
+            }
         }
 
         internal sealed override void PatchTechType()
         {
-            this.TechType = this.TechTypeHandler.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, this.UnlockedAtStart);
+            TechType = TechTypeHandler.AddTechType(ModName, ClassID, FriendlyName, Description, UnlockedAtStart);
         }
     }
 }
