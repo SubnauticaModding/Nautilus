@@ -1,22 +1,26 @@
 ﻿namespace SMLHelper.V2.Assets
 {
-    using System;
-    using System.IO;
-    using System.Reflection;
     using Handlers;
     using SMLHelper.V2.Interfaces;
     using SMLHelper.V2.Utility;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
+    using UWE;
 
     /// <summary>
     /// An item that can be spawned into the game.
     /// </summary>
     /// <seealso cref="ModPrefab"/>
-    public abstract class Spawnable : ModPrefab
+    public abstract class Spawnable: ModPrefab
     {
         internal IPrefabHandler PrefabHandler { get; set; } = Handlers.PrefabHandler.Main;
         internal ISpriteHandler SpriteHandler { get; set; } = Handlers.SpriteHandler.Main;
         internal ICraftDataHandler CraftDataHandler { get; set; } = Handlers.CraftDataHandler.Main;
         internal ITechTypeHandlerInternal TechTypeHandler { get; set; } = Handlers.TechTypeHandler.Singleton;
+        internal IWorldEntityDatabaseHandler WorldEntityDatabaseHandler { get; set; } = Handlers.WorldEntityDatabaseHandler.Main;
+        internal ILootDistributionHandler LootDistributionHandler { get; set; } = Handlers.LootDistributionHandler.Main;
 
         private static readonly Vector2int defaultSize = new Vector2int(1, 1);
 
@@ -37,7 +41,7 @@
         /// If not overriden, this defaults to "[this item's ClassID].png".
         /// </summary>
         /// <example>"MyClassID.png"</example>
-        public virtual string IconFileName => $"{this.ClassID}.png";
+        public virtual string IconFileName => $"{ClassID}.png";
 
         /// <summary>
         /// The in-game name of this spawnable item.
@@ -62,6 +66,18 @@
         public virtual Vector2int SizeInInventory { get; } = defaultSize;
 
         /// <summary>
+        /// Returns the List of BiomeData that handles what Biomes this prefab will spawn, how probable it is to spawn there and how many per spawn.
+        /// By default this will be null. Override to change this.
+        /// </summary>
+        public virtual List<LootDistributionData.BiomeData> BiomesToSpawnIn { get; } = null;
+
+        /// <summary>
+        /// Returns the <see cref="WorldEntityInfo"/> of this object if it has one.
+        /// By default this will be null. Override to change this.
+        /// </summary>
+        public virtual WorldEntityInfo EntityInfo { get; } = null;
+
+        /// <summary>
         /// Initializes a new <see cref="Spawnable"/>, the basic class needed for any item that can be spawned into the Subnautica game world.
         /// </summary>
         /// <param name="classId">The main internal identifier for this item. Your item's <see cref="TechType"/> will be created using this name.</param>
@@ -70,22 +86,33 @@
         protected Spawnable(string classId, string friendlyName, string description)
             : base(classId, $"{classId}Prefab")
         {
-            if (string.IsNullOrEmpty(classId))
+            if(string.IsNullOrEmpty(classId))
             {
                 Logger.Log($"ClassID for Spawnables must be a non-empty value.", LogLevel.Error);
                 throw new ArgumentException($"Error patching Spawnable");
             }
 
-            this.FriendlyName = friendlyName;
-            this.Description = description;
+            FriendlyName = friendlyName;
+            Description = description;
 
             CorePatchEvents += () =>
             {
-                this.PrefabHandler.RegisterPrefab(this);
-                this.SpriteHandler.RegisterSprite(this.TechType, GetItemSprite());
+                PrefabHandler.RegisterPrefab(this);
+                SpriteHandler.RegisterSprite(TechType, GetItemSprite());
 
-                if (!this.SizeInInventory.Equals(defaultSize))
-                    this.CraftDataHandler.SetItemSize(this.TechType, this.SizeInInventory);
+                if(!SizeInInventory.Equals(defaultSize))
+                {
+                    CraftDataHandler.SetItemSize(TechType, SizeInInventory);
+                }
+            };
+
+            OnFinishedPatching += () =>
+            {
+                if(EntityInfo != null && BiomesToSpawnIn != null)
+                {
+                    WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
+                    LootDistributionHandler.AddLootDistributionData(this, BiomesToSpawnIn, EntityInfo);
+                }
             };
         }
 
@@ -117,8 +144,10 @@
         /// <seealso cref="OnFinishedPatching"/>
         public void Patch()
         {
-            if (this.IsPatched)
+            if(IsPatched)
+            {
                 return; // Already patched. Skip.
+            }
 
             OnStartedPatching?.Invoke();
 
@@ -128,14 +157,14 @@
 
             CorePatchEvents.Invoke();
 
-            this.IsPatched = true;
+            IsPatched = true;
 
             OnFinishedPatching?.Invoke();
         }
 
         internal virtual void PatchTechType()
         {
-            this.TechType = this.TechTypeHandler.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, false);
+            TechType = TechTypeHandler.AddTechType(ModName, ClassID, FriendlyName, Description, false);
         }
 
 #if SUBNAUTICA
@@ -147,16 +176,16 @@
         protected virtual Atlas.Sprite GetItemSprite()
         {
             // This is for backwards compatibility with mods that were using the "ModName/Assets" format
-            string path = this.AssetsFolder != modFolderLocation
-                ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
-                : Path.Combine(this.AssetsFolder, this.IconFileName);
+            string path = AssetsFolder != modFolderLocation
+                ? IOUtilities.Combine(".", "QMods", AssetsFolder.Trim('/'), IconFileName)
+                : Path.Combine(AssetsFolder, IconFileName);
 
-            if (File.Exists(path))
+            if(File.Exists(path))
             {
                 return ImageUtils.LoadSpriteFromFile(path);
             }
 
-            Logger.Warn($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+            Logger.Warn($"Sprite for '{PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
             return SpriteManager.defaultSprite;
         }
 
