@@ -120,7 +120,7 @@ namespace SMLHelper.V2.Handlers
 
         /// <summary>
         /// <para>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</para>
-        /// <para>Careful: This has to be called after the prefab registration.</para>
+        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, ITechData)"/> and <see cref="SetTechData(TechType, TechData)"/>.</para>
         /// </summary>
         /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
