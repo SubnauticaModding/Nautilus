@@ -1,7 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using System.Collections.Generic;
     using Harmony;
+    using System.Collections.Generic;
 
     internal class PDAEncyclopediaPatcher
     {
@@ -18,11 +18,15 @@
             Dictionary<string, PDAEncyclopedia.EntryData> mapping = PDAEncyclopedia.mapping;
 
             // Add custom entry data
-            foreach (KeyValuePair<string, PDAEncyclopedia.EntryData> entry in CustomEntryData)
+            foreach(KeyValuePair<string, PDAEncyclopedia.EntryData> entry in CustomEntryData)
             {
-                if (!mapping.ContainsKey(entry.Key))
+                if(!mapping.ContainsKey(entry.Key))
                 {
                     mapping.Add(entry.Key, entry.Value);
+                }
+                else
+                {
+                    Logger.Warn($"PDAEncyclopedia already Contains EntryData for Key Value: {entry.Key}, Unable to Overwrite.");
                 }
             }
         }
