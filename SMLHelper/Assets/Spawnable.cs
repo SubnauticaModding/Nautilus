@@ -106,7 +106,6 @@
                 }
                 if(EntityInfo != null && BiomesToSpawnIn != null)
                 {
-                    WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
                     LootDistributionHandler.AddLootDistributionData(this, BiomesToSpawnIn, EntityInfo);
                 }
             };
