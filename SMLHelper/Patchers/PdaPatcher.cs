@@ -30,7 +30,7 @@
             Dictionary<TechType, PDAScanner.EntryData> mapping = PDAScanner.mapping;
 
             // Populate BlueprintToFragment for reverse lookup
-            foreach (KeyValuePair<TechType, PDAScanner.EntryData> entry in mapping)
+            foreach(KeyValuePair<TechType, PDAScanner.EntryData> entry in mapping)
             {
                 TechType blueprintTechType = entry.Value.blueprint;
 
@@ -38,22 +38,26 @@
             }
 
             // Add custom entry data
-            foreach (var entry in CustomEntryData)
+            foreach(KeyValuePair<TechType, PDAScanner.EntryData> entry in CustomEntryData)
             {
-                if (!mapping.ContainsKey(entry.Key))
+                if(!mapping.ContainsKey(entry.Key))
                 {
                     PDAScanner.mapping.Add(entry.Key, entry.Value);
+                }
+                else
+                {
+                    Logger.Warn($"PDAScanner already Contains EntryData for TechType: {entry.Key.AsString()}, Unable to Overwrite.");
                 }
             }
 
             // Update fragment totals
-            foreach (KeyValuePair<TechType, int> fragmentEntry in FragmentCount)
+            foreach(KeyValuePair<TechType, int> fragmentEntry in FragmentCount)
             {
-                if (mapping.ContainsKey(fragmentEntry.Key)) // Lookup by techtype of fragment
+                if(mapping.ContainsKey(fragmentEntry.Key)) // Lookup by techtype of fragment
                 {
                     mapping[fragmentEntry.Key].totalFragments = fragmentEntry.Value;
                 }
-                else if (BlueprintToFragment.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entryData)) // Lookup by blueprint techtype
+                else if(BlueprintToFragment.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entryData)) // Lookup by blueprint techtype
                 {
                     entryData.totalFragments = fragmentEntry.Value;
                 }
@@ -64,13 +68,13 @@
             }
 
             // Update scan times
-            foreach (KeyValuePair<TechType, float> fragmentEntry in FragmentScanTime)
+            foreach(KeyValuePair<TechType, float> fragmentEntry in FragmentScanTime)
             {
-                if (mapping.ContainsKey(fragmentEntry.Key)) // Lookup by techtype of fragment
+                if(mapping.ContainsKey(fragmentEntry.Key)) // Lookup by techtype of fragment
                 {
                     mapping[fragmentEntry.Key].scanTime = fragmentEntry.Value;
                 }
-                else if (BlueprintToFragment.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entryData)) // Lookup by blueprint techtype
+                else if(BlueprintToFragment.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entryData)) // Lookup by blueprint techtype
                 {
                     entryData.scanTime = fragmentEntry.Value;
                 }
