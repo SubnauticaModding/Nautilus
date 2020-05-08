@@ -239,7 +239,6 @@ namespace SMLHelper.V2.Handlers
                         {
                             currentRecipeData.Ingredients = new List<Ingredient>();
                         }
-                        ErrorMessage.AddMessage($"{techType.AsString()} : {int2}");
                         currentRecipeData.Ingredients.Add(new Ingredient(techType, int2));
                     }
                 }
