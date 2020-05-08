@@ -1,11 +1,11 @@
 ﻿#if BELOWZERO
 namespace SMLHelper.V2.Handlers
 {
-    using System.Collections.Generic;
     using Crafting;
     using Interfaces;
     using Oculus.Newtonsoft.Json;
     using Patchers;
+    using System.Collections.Generic;
 
     /// <summary>
     /// A handler class for adding and editing crafted items.
@@ -141,7 +141,9 @@ namespace SMLHelper.V2.Handlers
         void ICraftDataHandler.AddIngredients(TechType techType, ICollection<Ingredient> ingredients)
         {
             if (!CraftDataPatcher.CustomTechData.ContainsKey(techType))
+            {
                 CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+            }
 
             CraftDataPatcher.CustomTechData[techType].Add(TechData.PropertyToID("ingredients"), new JsonValue(JsonValue.Type.Array));
             JsonValue ingredientslist = CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("ingredients")];
@@ -172,7 +174,9 @@ namespace SMLHelper.V2.Handlers
         void ICraftDataHandler.AddLinkedItems(TechType techType, ICollection<TechType> linkedItems)
         {
             if (!CraftDataPatcher.CustomTechData.ContainsKey(techType))
+            {
                 CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+            }
 
             CraftDataPatcher.CustomTechData[techType].Add(TechData.PropertyToID("linkedItems"), new JsonValue(JsonValue.Type.Array));
             JsonValue linkedItemslist = CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("linkedItems")];
@@ -226,16 +230,16 @@ namespace SMLHelper.V2.Handlers
                 craftAmount = techData.GetInt(TechData.propertyCraftAmount, out int craftAmount, 0) ? craftAmount : TechData.defaultCraftAmount
             };
 
-            if(techData.GetArray(TechData.propertyIngredients, out JsonValue jsonValue, null))
+            if (techData.GetArray(TechData.propertyIngredients, out JsonValue jsonValue, null))
             {
-                for(int i = 0; i < jsonValue.Count; i++)
+                for (int i = 0; i < jsonValue.Count; i++)
                 {
                     JsonValue jsonValue2 = jsonValue[i];
                     TechType techType = (TechType)jsonValue2.GetInt(TechData.propertyTechType, 0);
                     int int2 = jsonValue2.GetInt(TechData.propertyAmount, 0);
-                    if(techType != TechType.None && int2 > 0)
+                    if (techType != TechType.None && int2 > 0)
                     {
-                        if(currentRecipeData.Ingredients == null)
+                        if (currentRecipeData.Ingredients == null)
                         {
                             currentRecipeData.Ingredients = new List<Ingredient>();
                         }
@@ -244,12 +248,12 @@ namespace SMLHelper.V2.Handlers
                 }
             }
 
-            if(techData.GetArray(TechData.propertyLinkedItems, out JsonValue jsonValue3, null))
+            if (techData.GetArray(TechData.propertyLinkedItems, out JsonValue jsonValue3, null))
             {
-                for(int j = 0; j < jsonValue3.Count; j++)
+                for (int j = 0; j < jsonValue3.Count; j++)
                 {
                     TechType techType1 = (TechType)jsonValue3[j].GetInt(0);
-                    if(currentRecipeData.LinkedItems == null)
+                    if (currentRecipeData.LinkedItems == null)
                     {
                         currentRecipeData.LinkedItems = new List<TechType>();
                     }
@@ -348,12 +352,12 @@ namespace SMLHelper.V2.Handlers
         {
             JsonValue jsonValue = new JsonValue()
             {
-                { 
-                    TechData.propertyX, 
-                    new JsonValue(x) 
-                }, 
-                { 
-                    TechData.propertyY, 
+                {
+                    TechData.propertyX,
+                    new JsonValue(x)
+                },
+                {
+                    TechData.propertyY,
                     new JsonValue(y)
                 }
             };
@@ -412,9 +416,9 @@ namespace SMLHelper.V2.Handlers
             {
                 CraftDataPatcher.CustomTechData[techType] = new JsonValue
                 {
-                    { 
-                        TechData.PropertyToID("techType"), 
-                        new JsonValue((int)techType) 
+                    {
+                        TechData.PropertyToID("techType"),
+                        new JsonValue((int)techType)
                     },
                     {
                         TechData.PropertyToID(key),
