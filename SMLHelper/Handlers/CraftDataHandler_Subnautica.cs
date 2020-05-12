@@ -10,8 +10,7 @@ namespace SMLHelper.V2.Handlers
     /// </summary>
     public partial class CraftDataHandler : ICraftDataHandler
     {
-
-        #region Subnautica Specific Static Methods
+#region Subnautica Specific Static Methods
 
         /// <summary>
         /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
@@ -61,9 +60,28 @@ namespace SMLHelper.V2.Handlers
             return Main.GetTechData(techType);
         }
 
-        #endregion
+        /// <summary>
+        /// Sets the eating sound for the provided TechType.
+        /// </summary>
+        /// <param name="consumable">The item being consumed during <see cref="Survival.Eat(UnityEngine.GameObject)"/>.</param>
+        /// <param name="soundPath">
+        /// The sound path.
+        /// <para>
+        /// Value values are
+        /// - "event:/player/drink"
+        /// - "event:/player/drink_stillsuit"
+        /// - "event:/player/use_first_aid"
+        /// - "event:/player/eat" (default)
+        /// </para>
+        /// </param>
+        public static void SetEatingSound(TechType consumable, string soundPath)
+        {
+            Main.SetEatingSound(consumable, soundPath);
+        }
 
-        #region Subnautica specific implementations
+#endregion
+
+#region Subnautica specific implementations
 
         /// <summary>
         /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
@@ -101,8 +119,8 @@ namespace SMLHelper.V2.Handlers
         }
 
         /// <summary>
-        /// <para>Allows you to edit QuickSlotType for TechTypes.</para>
-        /// <para>Can be used for existing TechTypes too.</para>
+        /// <para>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</para>
+        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, ITechData)"/> and <see cref="SetTechData(TechType, TechData)"/>.</para>
         /// </summary>
         /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
@@ -268,7 +286,26 @@ namespace SMLHelper.V2.Handlers
             return techData;
         }
 
-        #endregion
+        /// <summary>
+        /// Sets the eating sound for the provided TechType.
+        /// </summary>
+        /// <param name="consumable">The item being consumed during <see cref="Survival.Eat(UnityEngine.GameObject)"/>.</param>
+        /// <param name="soundPath">
+        /// The sound path.
+        /// <para>
+        /// Value values are
+        /// - "event:/player/drink"
+        /// - "event:/player/drink_stillsuit"
+        /// - "event:/player/use_first_aid"
+        /// - "event:/player/eat" (default)
+        /// </para>
+        /// </param>
+        void ICraftDataHandler.SetEatingSound(TechType consumable, string soundPath)
+        {
+            CraftDataPatcher.CustomEatingSounds.Add(consumable, soundPath);
+        }
+
+#endregion
     }
 }
 #endif

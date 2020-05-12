@@ -40,6 +40,22 @@ namespace SMLHelper.V2.Interfaces
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>Returns TechData if it exists; Otherwise, returns <c>null</c>.</returns>
         TechData GetTechData(TechType techType);
+
+        /// <summary>
+        /// Sets the eating sound for the provided TechType.
+        /// </summary>
+        /// <param name="consumable">The item being consumed during <see cref="Survival.Eat(UnityEngine.GameObject)"/>.</param>
+        /// <param name="soundPath">
+        /// The sound path.
+        /// <para>
+        /// Value values are
+        /// - "event:/player/drink"
+        /// - "event:/player/drink_stillsuit"
+        /// - "event:/player/use_first_aid"
+        /// - "event:/player/eat" (default)
+        /// </para>
+        /// </param>
+        void SetEatingSound(TechType consumable, string soundPath);
     }
 }
 #endif

@@ -6,7 +6,7 @@
     /// <summary>
     /// A handler class for adding and editing crafted items.
     /// </summary>
-    public partial class CraftDataHandler : ICraftDataHandler
+    public partial class CraftDataHandler: ICraftDataHandler
     {
         /// <summary>
         /// Main entry point for all calls to this handler.
@@ -31,12 +31,21 @@
             Main.SetEquipmentType(techType, equipmentType);
         }
 
+#if SUBNAUTICA
         /// <summary>
-        /// <para>Allows you to edit QuickSlotType for TechTypes.</para>
-        /// <para>Can be used for existing TechTypes too.</para>
+        /// <para>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</para>
+        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, Crafting.TechData)"/> and <see cref="SetTechData(TechType, Crafting.TechData)"/>.</para>
         /// </summary>
         /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
+#elif BELOWZERO
+        /// <summary>
+        /// <para>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</para>
+        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, Crafting.RecipeData)"/> and <see cref="SetTechData(TechType, JsonValue)"/>.</para>
+        /// </summary>
+        /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
+        /// <param name="slotType">The QuickSlotType for that TechType.</param>
+#endif
         public static void SetQuickSlotType(TechType techType, QuickSlotType slotType)
         {
             Main.SetQuickSlotType(techType, slotType);

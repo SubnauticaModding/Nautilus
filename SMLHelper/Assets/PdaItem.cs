@@ -2,14 +2,17 @@
 {
     using Crafting;
     using SMLHelper.V2.Interfaces;
+    using System.Collections.Generic;
 
     /// <summary>
     /// A <see cref="Spawnable"/> item that appears in the PDA blueprints.
     /// </summary>
     /// <seealso cref="Spawnable" />
-    public abstract class PdaItem : Spawnable
+    public abstract class PdaItem: Spawnable
     {
         internal IKnownTechHandler KnownTechHandler { get; set; } = Handlers.KnownTechHandler.Main;
+        internal IPDAHandler PDAHandler { get; set; } = Handlers.PDAHandler.Main;
+        internal IPDAEncyclopediaHandler PDAEncyclopediaHandler { get; set; } = Handlers.PDAEncyclopediaHandler.Main;
 
         /// <summary>
         /// Override to set the <see cref="TechType"/> that must first be scanned or picked up to unlock the blueprint for this item.
@@ -18,14 +21,46 @@
         public virtual TechType RequiredForUnlock => TechType.None;
 
         /// <summary>
+        /// Override to add a scanner entry to the <see cref="RequiredForUnlock"/> TechType if it does not have one.
+        /// WARNING. You cannot add a scanner entry for a techtype that can already be scanned! 
+        /// Default is <see langword="false"/>.
+        /// </summary>
+        public virtual bool AddScannerEntry => false;
+
+        /// <summary>
+        /// Override to set the number of <see cref="RequiredForUnlock"/> that must be scanned to unlock;
+        /// If not overriden, Default value is <see langword="1 fragment"/>.
+        /// </summary>
+        public virtual int FragmentsToScan => 1;
+
+        /// <summary>
+        /// Override to set the speed that the <see cref="RequiredForUnlock"/> fragments are scanned;
+        /// If not overriden, Default value is <see langword="2 seconds"/>.
+        /// </summary>
+        public virtual float TimeToScanFragment => 2f;
+
+        /// <summary>
+        /// Override to allow fragments to be scanned for materials after the relavent TechType is already Unlocked.
+        /// Default is <see langword="false"/>.
+        /// </summary>
+        public virtual bool DestroyFragmentOnScan => false;
+
+        /// <summary>
+        /// Override to add a <see cref="PDAEncyclopedia.EntryData"/> into the PDA's Encyclopedia for this object.
+        /// WARNING. You cannot overwrite an existing entry with this. It must have a unique key! 
+        /// Default is <see langword="Null"/>.
+        /// </summary>
+        public virtual PDAEncyclopedia.EntryData EncyclopediaEntryData => null;
+
+        /// <summary>
         /// Override with the main group in the PDA blueprints where this item appears.
         /// </summary>
-        public abstract TechGroup GroupForPDA { get; }
+        public virtual TechGroup GroupForPDA => TechGroup.Uncategorized;
 
         /// <summary>
         /// Override with the category within the group in the PDA blueprints where this item appears.
         /// </summary>
-        public abstract TechCategory CategoryForPDA { get; }
+        public virtual TechCategory CategoryForPDA => TechCategory.Misc;
 
         /// <summary>
         /// Gets a value indicating whether <see cref="RequiredForUnlock"/> has been set to lock this blueprint behind another <see cref="TechType"/>.
@@ -34,7 +69,7 @@
         ///   Returns <c>true</c> if will be unlocked from the start of the game; otherwise, <c>false</c>.
         /// </value>
         /// <seealso cref="RequiredForUnlock"/>
-        public bool UnlockedAtStart => this.RequiredForUnlock == TechType.None;
+        public bool UnlockedAtStart => RequiredForUnlock == TechType.None;
 
         /// <summary>
         /// Message which should be shown when the item is unlocked. <para/>
@@ -42,7 +77,7 @@
         /// </summary>
         public virtual string DiscoverMessage => null;
 
-        internal string DiscoverMessageResolved => this.DiscoverMessage == null ? "NotificationBlueprintUnlocked" : $"{this.TechType.AsString()}_DiscoverMessage";
+        internal string DiscoverMessageResolved => DiscoverMessage == null ? "NotificationBlueprintUnlocked" : $"{TechType.AsString()}_DiscoverMessage";
 
         /// <summary>
         /// Initializes a new <see cref="PdaItem"/>, the basic class for any item that appears among your PDA blueprints.
@@ -68,17 +103,57 @@
 #endif
         private void PatchTechDataEntry()
         {
-            this.CraftDataHandler.SetTechData(this.TechType, GetBlueprintRecipe());
+            CraftDataHandler.SetTechData(TechType, GetBlueprintRecipe());
 
-            this.CraftDataHandler.AddToGroup(this.GroupForPDA, this.CategoryForPDA, this.TechType);
 
-            if (!this.UnlockedAtStart)
-                this.KnownTechHandler.SetAnalysisTechEntry(this.RequiredForUnlock, new TechType[1] { this.TechType }, this.DiscoverMessageResolved);
+            if(GroupForPDA != TechGroup.Uncategorized)
+            {
+                List<TechCategory> categories = new List<TechCategory>();
+                CraftData.GetBuilderCategories(GroupForPDA, categories);
+                if(categories.Contains(CategoryForPDA))
+                {
+                    CraftDataHandler.AddToGroup(GroupForPDA, CategoryForPDA, TechType);
+                }
+                else
+                {
+                    Logger.Error($"Failed to add {TechType} to {GroupForPDA}/{CategoryForPDA} as that is an invalid combination.");
+                }
+            }
+
+            if(EncyclopediaEntryData != null)
+            {
+                PDAEncyclopediaHandler.AddCustomEntry(EncyclopediaEntryData);
+            }
+
+            if(!UnlockedAtStart)
+            {
+                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new TechType[1] { TechType }, DiscoverMessageResolved);
+
+                if(AddScannerEntry)
+                {
+                    PDAScanner.EntryData entryData = new PDAScanner.EntryData()
+                    {
+                        key = RequiredForUnlock,
+                        blueprint = TechType,
+                        destroyAfterScan = DestroyFragmentOnScan,
+                        isFragment = true,
+                        locked = true,
+                        scanTime = TimeToScanFragment,
+                        totalFragments = FragmentsToScan
+                    };
+
+                    if(EncyclopediaEntryData != null)
+                    {
+                        entryData.encyclopedia = EncyclopediaEntryData.key;
+                    }
+                    PDAHandler.AddCustomScannerEntry(entryData);
+                }
+            }
         }
 
         internal sealed override void PatchTechType()
         {
-            this.TechType = this.TechTypeHandler.AddTechType(ModName, this.ClassID, this.FriendlyName, this.Description, this.UnlockedAtStart);
+            TechType = TechTypeHandler.AddTechType(ModName, ClassID, FriendlyName, Description, UnlockedAtStart);
         }
     }
 }

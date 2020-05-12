@@ -1,8 +1,8 @@
 {
     "Id": "SMLHelper",
-    "DisplayName": "SMLHelper (Modding Helper)",
+    "DisplayName": "SMLHelper",
     "Author": "The SMLHelper Dev Team",
-    "Version": "2.6.1",
+    "Version": "2.6.5",
     "Enable": true,
     "Game": "Subnautica",
     "AssemblyName": "SMLHelper.dll"

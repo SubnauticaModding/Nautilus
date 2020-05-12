@@ -5,7 +5,7 @@
     /// </summary>    
     /// <seealso cref="Spawnable" />
     /// <seealso cref="Craftable" />
-    public abstract class Equipable : Craftable
+    public abstract class Equipable: Craftable
     {
         /// <summary>
         /// Gets the type of equipment slot this item can fit into.
@@ -16,6 +16,14 @@
         public abstract EquipmentType EquipmentType { get; }
 
         /// <summary>
+        /// Gets the type of equipment slot this item can fit into.
+        /// </summary>
+        /// <value>
+        /// The type of the equipment slot compatible with this item.
+        /// </value>
+        public virtual QuickSlotType QuickSlotType => QuickSlotType.None;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Equipable"/> class.
         /// </summary>
         /// <param name="classId">The main internal identifier for this item. Your item's <see cref="TechType" /> will be created using this name.</param>
@@ -24,7 +32,8 @@
         protected Equipable(string classId, string friendlyName, string description)
             : base(classId, friendlyName, description)
         {
-            CorePatchEvents += () => this.CraftDataHandler.SetEquipmentType(this.TechType, this.EquipmentType);
+            CorePatchEvents += () => CraftDataHandler.SetEquipmentType(TechType, EquipmentType);
+            CorePatchEvents += () => CraftDataHandler.SetQuickSlotType(TechType, QuickSlotType);
         }
     }
 }

@@ -133,7 +133,6 @@
 
         /// <summary>
         /// Adds in a custom entry into the Loot Distribution of the game.
-        /// You must also add the <see cref="WorldEntityInfo"/> into the <see cref="WorldEntityDatabase"/> using <see cref="WorldEntityDatabaseHandler"/>.
         /// </summary>
         /// <param name="classId">The classId of the prefab.</param>
         /// <param name="prefabPath">The prefab path of the prefab.</param>
@@ -152,7 +151,6 @@
 
         /// <summary>
         /// Adds in a custom entry into the Loot Distribution of the game.
-        /// You must also add the <see cref="WorldEntityInfo"/> into the <see cref="WorldEntityDatabase"/> using <see cref="WorldEntityDatabaseHandler"/>.
         /// </summary>
         /// <param name="prefab">The custom prefab which you want to spawn naturally in the game.</param>
         /// <param name="biomeDistribution">The <see cref="LootDistributionData.BiomeData"/> dictating how the prefab should spawn in the world.</param>
