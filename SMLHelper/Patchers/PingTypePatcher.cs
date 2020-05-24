@@ -1,38 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Harmony;
-using SMLHelper.V2.Handlers;
-using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.V2.Patchers
 {
+    using System;
+    using System.Collections.Generic;
+    using Harmony;
+    using Handlers;
+    using Utility;
+#if SUBNAUTICA
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+    using Sprite = UnityEngine.Sprite;
+#endif
+    
     internal class PingTypePatcher
     {
-        private const string TechTypeEnumName = "PingType";
-        internal static readonly int startingIndex = 10;
+        private const string EnumName = "PingType";
+        internal static readonly int startingIndex = 1000;
         internal static readonly List<int> bannedIndices = new List<int>();
-        private static readonly Dictionary<PingType, Atlas.Sprite> cachedSprites = new Dictionary<PingType, Atlas.Sprite>();
 
         internal static readonly EnumCacheManager<PingType> cacheManager =
             new EnumCacheManager<PingType>(
-                enumTypeName: TechTypeEnumName,
+                enumTypeName: EnumName,
                 startingIndex: startingIndex,
-                bannedIDs: ExtBannedIdManager.GetBannedIdsFor(TechTypeEnumName, bannedIndices, PreRegisteredCraftTreeTypes()));
+                bannedIDs: ExtBannedIdManager.GetBannedIdsFor(EnumName, bannedIndices, PreRegisteredPingTypes()));
 
-        private static List<int> PreRegisteredCraftTreeTypes()
+        private static List<int> PreRegisteredPingTypes()
         {
-            var declaredPingTypes = (PingType[]) Enum.GetValues(typeof(PingType));
-            var bannedIndices = declaredPingTypes.Select(t => (int) t)
-                .Where(t => t > startingIndex)
-                .Distinct()
-                .ToList();
+            var preRegistered = new List<int>();
+            foreach (PingType type in Enum.GetValues(typeof(PingType)))
+            {
+                var typeCode = (int) type;
+                if (typeCode >= startingIndex && !preRegistered.Contains(typeCode))
+                {
+                    preRegistered.Add(typeCode);
+                }
+            }
             
-            Logger.Log($"Finished known PingType exclusion. {bannedIndices.Count} IDs were added in ban list.");
+            Logger.Log($"Finished known PingType exclusion. {preRegistered.Count} IDs were added in ban list.");
             return bannedIndices;
         }
 
-        internal static PingType AddPingType(string name, Atlas.Sprite sprite)
+        internal static PingType AddPingType(string name, Sprite sprite)
         {
             var cache = cacheManager.RequestCacheForTypeName(name) ?? new EnumTypeCache()
             {
@@ -45,8 +52,8 @@ namespace SMLHelper.V2.Patchers
 
             var pingType = (PingType) cache.Index;
             cacheManager.Add(pingType, cache.Index, cache.Name);
+            SpritePatcher.AddSprite(SpriteManager.Group.Pings, pingType.ToString(), sprite);
             
-            cachedSprites.Add(pingType, sprite);
             if (PingManager.sCachedPingTypeStrings.valueToString.ContainsKey(pingType) == false)
                 PingManager.sCachedPingTypeStrings.valueToString.Add(pingType, name);
 
@@ -57,19 +64,6 @@ namespace SMLHelper.V2.Patchers
             return pingType;
         }
 
-        internal static PingType? GetPingType(string pingName)
-        {
-            try
-            {
-                var ping = Enum.Parse(typeof(PingType), pingName);
-                return (PingType) ping;
-            }
-            catch (ArgumentException e)
-            {
-                return new PingType?();
-            }
-        }
-        
         internal static void Patch(HarmonyInstance harmony)
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
@@ -80,47 +74,37 @@ namespace SMLHelper.V2.Patchers
             harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.IsDefined)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(PingTypePatcher), nameof(Prefix_IsDefined))));
 
-            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.Parse), new Type[] { typeof(Type), typeof(string), typeof(bool) }),
+            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.Parse), new[] { typeof(Type), typeof(string), typeof(bool) }),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(PingTypePatcher), nameof(Prefix_Parse))));
 
             harmony.Patch(AccessTools.Method(typeof(PingType), nameof(PingType.ToString), new Type[] { }),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(PingTypePatcher), nameof(Prefix_ToString))));
-            
-            harmony.Patch(AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) }),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(PingTypePatcher), nameof(Prefix_SpriteManager_Get))));
 
             Logger.Log($"Added {cacheManager.ModdedKeysCount} PingTypes succesfully into the game.");
             Logger.Log("PingTypePatcher is done.", LogLevel.Debug);
         }
-
-        private static bool Prefix_SpriteManager_Get(SpriteManager.Group group, string name, ref Atlas.Sprite __result)
-        {
-            if (group == SpriteManager.Group.Pings)
-            {
-                var pingType = GetPingType(name);
-                if (pingType.HasValue && cachedSprites.ContainsKey(pingType.Value))
-                {
-                    __result = cachedSprites[pingType.Value];
-                    return false;
-                }
-            }
-
-            return true;
-        }
         
         private static void Postfix_GetValues(Type enumType, ref Array __result)
         {
-            if (enumType == typeof(PingType))
+            var list = new List<PingType>();
+            foreach (PingType type in __result)
             {
-                __result = __result.Cast<PingType>().Concat(cacheManager.ModdedKeys).ToArray();
+                list.Add(type);
             }
+
+            list.AddRange(cacheManager.ModdedKeys);
+            __result = list.ToArray();
         }
         
         private static bool Prefix_IsDefined(Type enumType, object value, ref bool __result)
         {
-            var result = enumType == typeof(PingType) && cacheManager.ContainsKey((PingType) value);
-            __result |= result;
-            return !result;
+            if (enumType == typeof(PingType) && cacheManager.ContainsKey((PingType) value))
+            {
+                __result = true;
+                return false;
+            }
+
+            return true;
         }
         
         private static bool Prefix_Parse(Type enumType, string value, bool ignoreCase, ref object __result)
