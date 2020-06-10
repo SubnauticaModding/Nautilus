@@ -192,6 +192,7 @@
     <Compile Include="Interfaces\IWorldEntityDatabaseHandler.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MonoBehaviours\Fixer.cs" />
+    <Compile Include="Options\ButtonModOption.cs" />
     <Compile Include="Options\ChoiceModOption.cs" />
     <Compile Include="Json\ConfigFile.cs" />
     <Compile Include="Options\KeybindModOption.cs" />
