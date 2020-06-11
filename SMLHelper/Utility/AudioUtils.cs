@@ -38,7 +38,7 @@
         /// <param name="mode"></param>
         /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
         /// <returns>The channel on which the sound was created</returns>
-        public static Channel PlaySound(string path, VolumeControl volumeControl, MODE mode = MODE.DEFAULT)
+        public static Channel PlaySound(string path, SoundChannel volumeControl, MODE mode = MODE.DEFAULT)
         {
             return PlaySound(CreateSound(path, mode), volumeControl);
         }
@@ -58,7 +58,7 @@
         /// <summary>
         /// The a list the different volume controls in the game
         /// </summary>
-        public enum VolumeControl
+        public enum SoundChannel
         {
             /// <summary>Master volume control</summary>
             Master,
@@ -76,21 +76,21 @@
         /// <param name="sound">The sound which should be played</param>
         /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
         /// <returns>The channel on which the sound was created</returns>
-        public static Channel PlaySound(Sound sound, VolumeControl volumeControl)
+        public static Channel PlaySound(Sound sound, SoundChannel volumeControl)
         {
             float volumeLevel;
             switch (volumeControl)
             {
-                case VolumeControl.Master:
+                case SoundChannel.Master:
                     volumeLevel = SoundSystem.masterVolume;
                     break;
-                case VolumeControl.Music:
+                case SoundChannel.Music:
                     volumeLevel = SoundSystem.musicVolume;
                     break;
-                case VolumeControl.Voice:
+                case SoundChannel.Voice:
                     volumeLevel = SoundSystem.voiceVolume;
                     break;
-                case VolumeControl.Ambient:
+                case SoundChannel.Ambient:
                     volumeLevel = SoundSystem.ambientVolume;
                     break;
                 default:
