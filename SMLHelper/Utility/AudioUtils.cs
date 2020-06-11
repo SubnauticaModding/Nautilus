@@ -42,5 +42,55 @@
             RuntimeManager.LowlevelSystem.playSound(sound, channels, false, out Channel channel);
             return channel;
         }
+
+        /// <summary>
+        /// The a list the different volume controls in the game
+        /// </summary>
+        public enum VolumeControl
+        {
+            /// <summary>Master volume control</summary>
+            Master,
+            /// <summary>Music volume control</summary>
+            Music,
+            /// <summary>Voice volume control</summary>
+            Voice,
+            /// <summary>Ambient volume control</summary>
+            Ambient
+        }
+
+        /// <summary>
+        /// Plays a <see cref="Sound"/> globally at specified volume
+        /// </summary>
+        /// <param name="sound">The sound which should be played</param>
+        /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
+        /// <returns>The channel on which the sound was created</returns>
+        public static Channel PlaySound(Sound sound, VolumeControl volumeControl)
+        {
+            float volumeLevel;
+            switch (volumeControl)
+            {
+                case VolumeControl.Master:
+                    volumeLevel = SoundSystem.masterVolume;
+                    break;
+                case VolumeControl.Music:
+                    volumeLevel = SoundSystem.musicVolume;
+                    break;
+                case VolumeControl.Voice:
+                    volumeLevel = SoundSystem.voiceVolume;
+                    break;
+                case VolumeControl.Ambient:
+                    volumeLevel = SoundSystem.ambientVolume;
+                    break;
+                default:
+                    volumeLevel = 1f;
+                    break;
+            }
+
+            RuntimeManager.LowlevelSystem.getMasterChannelGroup(out ChannelGroup channels);
+            var newChannels = channels;
+            newChannels.setVolume(volumeLevel);
+            RuntimeManager.LowlevelSystem.playSound(sound, newChannels, false, out Channel channel);
+            return channel;
+        }
     }
 }
