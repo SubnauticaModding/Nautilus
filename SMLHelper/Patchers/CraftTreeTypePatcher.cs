@@ -81,85 +81,12 @@
             return bannedIndices;
         }
 
-        #region Patches
-
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch()
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.GetValues)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), nameof(CraftTreeTypePatcher.Postfix_GetValues))));
-
-            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.IsDefined)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), nameof(CraftTreeTypePatcher.Prefix_IsDefined))));
-
-            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.Parse), new Type[] { typeof(Type), typeof(string), typeof(bool) }),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), nameof(CraftTreeTypePatcher.Prefix_Parse))));
-
-            harmony.Patch(AccessTools.Method(typeof(CraftTree.Type), nameof(Enum.ToString), new Type[] { }),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftTreeTypePatcher), nameof(CraftTreeTypePatcher.Prefix_ToString))));
-
+            Logger.Log($"Added {cacheManager.ModdedKeysCount} CraftTreeTypes succesfully into the game.");
             Logger.Log("CraftTreeTypePatcher is done.", LogLevel.Debug);
         }
-
-        internal static void Postfix_GetValues(Type enumType, ref Array __result)
-        {
-            if (enumType.Equals(typeof(CraftTree.Type)))
-            {
-                var listArray = new List<CraftTree.Type>();
-                foreach (object obj in __result)
-                {
-                    listArray.Add((CraftTree.Type)obj);
-                }
-
-                listArray.AddRange(cacheManager.ModdedKeys);
-
-                __result = listArray.ToArray();
-            }
-        }
-
-        internal static bool Prefix_IsDefined(Type enumType, object value, ref bool __result)
-        {
-            if (enumType.Equals(typeof(CraftTree.Type)))
-            {
-                if (cacheManager.ContainsKey((CraftTree.Type)value))
-                {
-                    __result = true;
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        internal static bool Prefix_Parse(Type enumType, string value, bool ignoreCase, ref object __result)
-        {
-            if (enumType.Equals(typeof(CraftTree.Type)))
-            {
-                if (cacheManager.TryParse(value, out CraftTree.Type craftTreeType))
-                {
-                    __result = craftTreeType;
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        internal static bool Prefix_ToString(Enum __instance, ref string __result)
-        {
-            if (__instance is CraftTree.Type craftTreeType)
-            {
-                if (cacheManager.TryGetValue(craftTreeType, out string craftTreeTypeName))
-                {
-                    __result = craftTreeTypeName;
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        #endregion
     }
 }

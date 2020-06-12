@@ -90,90 +90,13 @@
             return bannedIndices;
         }
 
-        #region Patches
-
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch()
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
-
-            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.GetValues)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), nameof(TechTypePatcher.Postfix_GetValues))));
-
-            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.IsDefined)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), nameof(TechTypePatcher.Prefix_IsDefined))));
-
-            harmony.Patch(AccessTools.Method(typeof(Enum), nameof(Enum.Parse), new Type[] { typeof(Type), typeof(string), typeof(bool) }),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), nameof(TechTypePatcher.Prefix_Parse))));
-
-            harmony.Patch(AccessTools.Method(typeof(TechType), nameof(TechType.ToString), new Type[] { }),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(TechTypePatcher), nameof(TechTypePatcher.Prefix_ToString))));
 
             Logger.Log($"Added {cacheManager.ModdedKeysCount} TechTypes succesfully into the game.", LogLevel.Info);
 
             Logger.Log("TechTypePatcher is done.", LogLevel.Debug);
         }
-
-        private static void Postfix_GetValues(Type enumType, ref Array __result)
-        {
-            if (enumType.Equals(typeof(TechType)))
-            {
-                var listArray = new List<TechType>();
-                foreach (object obj in __result)
-                {
-                    listArray.Add((TechType)obj);
-                }
-
-                listArray.AddRange(cacheManager.ModdedKeys);
-
-                __result = listArray.ToArray();
-            }
-        }
-
-        private static bool Prefix_IsDefined(Type enumType, object value, ref bool __result)
-        {
-            if (TooltipPatcher.DisableEnumIsDefinedPatch)
-                return true;
-
-            if (enumType.Equals(typeof(TechType)))
-            {
-                if (cacheManager.ContainsKey((TechType)value))
-                {
-                    __result = true;
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private static bool Prefix_Parse(Type enumType, string value, bool ignoreCase, ref object __result)
-        {
-            if (enumType.Equals(typeof(TechType)))
-            {
-                if (cacheManager.TryParse(value, out TechType techType))
-                {
-                    __result = techType;
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private static bool Prefix_ToString(Enum __instance, ref string __result)
-        {
-            if (__instance is TechType techType)
-            {
-                if (cacheManager.TryGetValue(techType, out string techTypeName))
-                {
-                    __result = techTypeName;
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        #endregion
     }
 }

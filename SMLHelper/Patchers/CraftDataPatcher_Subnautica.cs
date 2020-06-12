@@ -27,6 +27,8 @@ namespace SMLHelper.V2.Patchers
         private static void PatchForSubnautica(HarmonyInstance harmony)
         {
             PatchUtils.PatchClass(harmony);
+
+            Logger.Log("CraftDataPatcher is ready.", LogLevel.Debug);
         }
 
         [PatchUtils.Prefix]

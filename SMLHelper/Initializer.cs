@@ -20,7 +20,7 @@
         [Obsolete("This method is for use only by QModManager.", true)]
         public static void PrePatch()
         {
-            Logger.Initialize(); 
+            Logger.Initialize();
 #if SUBNAUTICA
             Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
 #elif BELOWZERO
@@ -49,14 +49,19 @@
                 Logger.Error($"Caught exception while trying to initialize SMLHelper{Environment.NewLine}{e}");
             }
         }
-        
+
 
         private static void Initialize()
         {
             var harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
+
             FishPatcher.Patch(harmony);
-            TechTypePatcher.Patch(harmony);
-            CraftTreeTypePatcher.Patch(harmony);
+
+            TechTypePatcher.Patch();
+            CraftTreeTypePatcher.Patch();
+            PingTypePatcher.Patch();
+            EnumPatcher.Patch(harmony);
+
             CraftDataPatcher.Patch(harmony);
             CraftTreePatcher.Patch(harmony);
             DevConsolePatcher.Patch(harmony);
@@ -74,7 +79,8 @@
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
-            PingTypePatcher.Patch(harmony);
+
+
 
             Logger.Debug("Saving TechType Cache");
             TechTypePatcher.cacheManager.SaveCache();
