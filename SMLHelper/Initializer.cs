@@ -74,6 +74,7 @@
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
+            PingTypePatcher.Patch(harmony);
 
             Logger.Debug("Saving TechType Cache");
             TechTypePatcher.cacheManager.SaveCache();

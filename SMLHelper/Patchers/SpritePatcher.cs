@@ -59,5 +59,11 @@
             Logger.Error("SpritePatcher was unable to find a sprite dictionary");
             return null;
         }
+
+        internal static void AddSprite(SpriteManager.Group group, string spriteName, Sprite sprite)
+        {
+            var spriteGroup = GetSpriteGroup(group);
+            spriteGroup.Add(spriteName, sprite);
+        }
     }
 }
