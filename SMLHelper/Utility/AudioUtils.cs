@@ -56,21 +56,6 @@
         }
 
         /// <summary>
-        /// The a list the different volume controls in the game
-        /// </summary>
-        public enum SoundChannel
-        {
-            /// <summary>Master volume control</summary>
-            Master,
-            /// <summary>Music volume control</summary>
-            Music,
-            /// <summary>Voice volume control</summary>
-            Voice,
-            /// <summary>Ambient volume control</summary>
-            Ambient
-        }
-
-        /// <summary>
         /// Plays a <see cref="Sound"/> globally at specified volume
         /// </summary>
         /// <param name="sound">The sound which should be played</param>
@@ -79,6 +64,7 @@
         public static Channel PlaySound(Sound sound, SoundChannel volumeControl)
         {
             float volumeLevel;
+            
             switch (volumeControl)
             {
                 case SoundChannel.Master:

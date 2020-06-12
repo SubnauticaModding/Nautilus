@@ -237,6 +237,7 @@
     <Compile Include="Utility\ReflectionHelper.cs" />
     <Compile Include="Utility\SaveUtils.cs" />
     <Compile Include="Utility\SelfCheckingDictionary.cs" />
+    <Compile Include="Utility\SoundChannel.cs" />
     <Compile Include="Utility\StorageHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
