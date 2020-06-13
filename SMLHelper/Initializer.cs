@@ -4,6 +4,7 @@
     using System.Reflection;
     using Harmony;
     using Patchers;
+    using Patchers.EnumPatching;
     using QModManager.API.ModLoading;
 
     /// <summary>

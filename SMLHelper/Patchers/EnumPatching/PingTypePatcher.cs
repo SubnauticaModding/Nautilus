@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.V2.Patchers.EnumPatching
 {
     using System;
     using System.Collections.Generic;

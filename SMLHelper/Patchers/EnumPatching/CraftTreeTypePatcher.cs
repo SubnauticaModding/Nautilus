@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.V2.Patchers.EnumPatching
 {
     using Crafting;
     using Harmony;
