@@ -207,8 +207,9 @@
     <Compile Include="Patchers\CraftDataPatcher_BelowZero.cs" />
     <Compile Include="Patchers\CraftDataPatcher_Subnautica.cs" />
     <Compile Include="Patchers\CraftTreePatcher.cs" />
-    <Compile Include="Patchers\CraftTreeTypePatcher.cs" />
+    <Compile Include="Patchers\EnumPatching\CraftTreeTypePatcher.cs" />
     <Compile Include="Patchers\DevConsolePatcher.cs" />
+    <Compile Include="Patchers\EnumPatching\EnumPatcher.cs" />
     <Compile Include="Patchers\FishPatcher.cs" />
     <Compile Include="Patchers\IngameMenuPatcher.cs" />
     <Compile Include="Patchers\ItemActionPatcher.cs" />
@@ -219,10 +220,10 @@
     <Compile Include="Patchers\OptionsPanelPatcher.cs" />
     <Compile Include="Patchers\PDAEncyclopediaPatcher.cs" />
     <Compile Include="Patchers\PDAPatcher.cs" />
-    <Compile Include="Patchers\PingTypePatcher.cs" />
+    <Compile Include="Patchers\EnumPatching\PingTypePatcher.cs" />
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />
-    <Compile Include="Patchers\TechTypePatcher.cs" />
+    <Compile Include="Patchers\EnumPatching\TechTypePatcher.cs" />
     <Compile Include="Patchers\TooltipPatcher.cs" />
     <Compile Include="Patchers\WorldEntityDatabasePatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
