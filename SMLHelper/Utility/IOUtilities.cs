@@ -7,13 +7,6 @@
     /// </summary>
     public static class IOUtilities
     {
-        /// <summary>Used to know if Debug logs are enabled.</summary>
-        public static bool IsDebugLogsEnabled
-        {
-            get => Logger.EnableDebugging;
-            private set { }
-        }
-
         /// <summary>
         /// Works like <see cref="Path.Combine(string, string)"/>, but can have more than 2 paths
         /// </summary>

@@ -15,8 +15,11 @@
     internal static class Logger
     {
         internal static bool Initialized = false;
-
         internal static bool EnableDebugging { get; private set; }
+
+        /// <summary>Public getter that can be accessed by mods (to know if Debug logs are enabled).</summary>
+        public static bool DebugLogsEnabled { get => EnableDebugging; private set { } }
+
         internal static void SetDebugging(bool value)
         {
             string configPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "EnableDebugLogs.txt");
