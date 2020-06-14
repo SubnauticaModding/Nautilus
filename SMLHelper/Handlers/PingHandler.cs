@@ -4,6 +4,7 @@
     using Interfaces;
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
+    using SMLHelper.V2.Patchers.EnumPatching;
 #elif BELOWZERO
     using Sprite = UnityEngine.Sprite;
 #endif

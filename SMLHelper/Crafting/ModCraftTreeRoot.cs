@@ -3,6 +3,7 @@
     using System;
     using Patchers;
     using SMLHelper.V2.Handlers;
+    using SMLHelper.V2.Patchers.EnumPatching;
     using UnityEngine.Assertions;
 
     /// <summary>

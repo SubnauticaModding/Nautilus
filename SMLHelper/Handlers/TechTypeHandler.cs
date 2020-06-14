@@ -5,6 +5,7 @@
     using Assets;
     using Patchers;
     using SMLHelper.V2.Interfaces;
+    using SMLHelper.V2.Patchers.EnumPatching;
     using UnityEngine;
     using Utility;
 

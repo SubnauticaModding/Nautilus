@@ -3,6 +3,7 @@
     using Harmony;
     using QModManager.API;
     using SMLHelper.V2.Handlers;
+    using SMLHelper.V2.Patchers.EnumPatching;
     using System;
     using System.Collections.Generic;
     using System.IO;
