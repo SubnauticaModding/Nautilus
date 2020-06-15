@@ -5,6 +5,7 @@
     using Assets;
     using Patchers;
     using SMLHelper.V2.Interfaces;
+    using SMLHelper.V2.Patchers.EnumPatching;
     using UnityEngine;
     using Utility;
 
@@ -212,8 +213,6 @@
         /// <returns>The new <see cref="TechType"/> that is created.</returns>
         TechType ITechTypeHandler.AddTechType(string internalName, string displayName, string tooltip, Atlas.Sprite sprite, bool unlockAtStart)
         {
-            string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             // Register the TechType using overload.
             TechType techType = Main.AddTechType(internalName, displayName, tooltip, unlockAtStart);
 
@@ -249,8 +248,6 @@
         /// <returns>The new <see cref="TechType"/> that is created.</returns>
         TechType ITechTypeHandler.AddTechType(string internalName, string displayName, string tooltip, Sprite sprite, bool unlockAtStart)
         {
-            string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             // Register the TechType using overload.
             TechType techType = Main.AddTechType(internalName, displayName, tooltip, unlockAtStart);
 

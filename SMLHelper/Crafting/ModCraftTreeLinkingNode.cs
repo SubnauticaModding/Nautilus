@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Patchers;
+    using SMLHelper.V2.Patchers.EnumPatching;
     using UnityEngine;
     using UnityEngine.Assertions;
     using Utility;

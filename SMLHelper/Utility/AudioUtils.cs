@@ -32,6 +32,18 @@
         }
 
         /// <summary>
+        /// Plays a <see cref="Sound"/> globally from a path. Must be a .wav file. Has overload for controlling volume
+        /// </summary>
+        /// <param name="path">The path of the sound. Relative to the base game folder.</param>
+        /// <param name="mode"></param>
+        /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
+        /// <returns>The channel on which the sound was created</returns>
+        public static Channel PlaySound(string path, SoundChannel volumeControl, MODE mode = MODE.DEFAULT)
+        {
+            return PlaySound(CreateSound(path, mode), volumeControl);
+        }
+
+        /// <summary>
         /// Plays a <see cref="Sound"/> globally
         /// </summary>
         /// <param name="sound">The sound which should be played</param>
@@ -40,6 +52,42 @@
         {
             RuntimeManager.LowlevelSystem.getMasterChannelGroup(out ChannelGroup channels);
             RuntimeManager.LowlevelSystem.playSound(sound, channels, false, out Channel channel);
+            return channel;
+        }
+
+        /// <summary>
+        /// Plays a <see cref="Sound"/> globally at specified volume
+        /// </summary>
+        /// <param name="sound">The sound which should be played</param>
+        /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
+        /// <returns>The channel on which the sound was created</returns>
+        public static Channel PlaySound(Sound sound, SoundChannel volumeControl)
+        {
+            float volumeLevel;
+            
+            switch (volumeControl)
+            {
+                case SoundChannel.Master:
+                    volumeLevel = SoundSystem.masterVolume;
+                    break;
+                case SoundChannel.Music:
+                    volumeLevel = SoundSystem.musicVolume;
+                    break;
+                case SoundChannel.Voice:
+                    volumeLevel = SoundSystem.voiceVolume;
+                    break;
+                case SoundChannel.Ambient:
+                    volumeLevel = SoundSystem.ambientVolume;
+                    break;
+                default:
+                    volumeLevel = 1f;
+                    break;
+            }
+
+            RuntimeManager.LowlevelSystem.getMasterChannelGroup(out ChannelGroup channels);
+            var newChannels = channels;
+            newChannels.setVolume(volumeLevel);
+            RuntimeManager.LowlevelSystem.playSound(sound, newChannels, false, out Channel channel);
             return channel;
         }
     }

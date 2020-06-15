@@ -3,6 +3,7 @@
     using System;
     using Patchers;
     using SMLHelper.V2.Handlers;
+    using SMLHelper.V2.Patchers.EnumPatching;
     using UnityEngine.Assertions;
 
     /// <summary>
@@ -56,8 +57,7 @@
 
                 if (node.action == TreeAction.Craft)
                 {
-                    var techType = TechType.None;
-                    TechTypeExtensions.FromString(node.id, out techType, false);
+                    TechTypeExtensions.FromString(node.id, out TechType techType, false);
 
                     root.AddCraftingNode(techType);
                 }

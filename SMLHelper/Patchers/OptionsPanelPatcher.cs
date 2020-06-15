@@ -28,6 +28,7 @@
         internal static void Patch(HarmonyInstance harmony)
         {
             PatchUtils.PatchClass(harmony);
+            PatchUtils.PatchClass(harmony, typeof(ScrollPosKeeper));
 
             if (QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable == true)
                 V2.Logger.Log("ModOptionsAdjuster is not inited (ModsOptionsAdjusted mod is active)", LogLevel.Warn);
@@ -329,6 +330,65 @@
                     options.GetChild(i).GetComponent<HeadingToggle>()?.EnsureState();
             }
 #endregion
+        }
+
+
+        // Patch class for saving scroll positions for tabs in options menu
+        // Restores positions after switching between tabs and after reopening menu
+        private static class ScrollPosKeeper
+        {
+            // key - tab index, value - scroll position
+            private static readonly Dictionary<int, float> devMenuScrollPos = new Dictionary<int, float>();
+            private static readonly Dictionary<int, float> optionsScrollPos = new Dictionary<int, float>();
+
+            private static void StorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
+            {
+                var scrollPos = panel is uGUI_DeveloperPanel? devMenuScrollPos: optionsScrollPos;
+                if (tabIndex >= 0 && tabIndex < panel.tabs.Count)
+                    scrollPos[tabIndex] = panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition;
+            }
+
+            private static void RestorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
+            {
+                var scrollPos = panel is uGUI_DeveloperPanel? devMenuScrollPos: optionsScrollPos;
+                if (tabIndex >= 0 && tabIndex < panel.tabs.Count && scrollPos.TryGetValue(tabIndex, out float pos))
+                    panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition = pos;
+            }
+
+            [PatchUtils.Prefix]
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.RemoveTabs))]
+            private static void RemoveTabs_Prefix(uGUI_TabbedControlsPanel __instance)
+            {
+                StorePos(__instance, __instance.currentTab);
+            }
+
+            [PatchUtils.Postfix]
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.HighlightCurrentTab))]
+            private static void HighlightCurrentTab_Postfix(uGUI_TabbedControlsPanel __instance)
+            {
+                __instance.StartCoroutine(_restorePos());
+
+                IEnumerator _restorePos()
+                {
+                    yield return null;
+                    RestorePos(__instance, __instance.currentTab);
+                }
+            }
+
+            [PatchUtils.Prefix]
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
+            private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
+            {
+                if (tabIndex != __instance.currentTab)
+                    StorePos(__instance, __instance.currentTab);
+            }
+
+            [PatchUtils.Postfix]
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
+            private static void SetVisibleTab_Postfix(uGUI_TabbedControlsPanel __instance, int tabIndex)
+            {
+                RestorePos(__instance, tabIndex);
+            }
         }
     }
 }

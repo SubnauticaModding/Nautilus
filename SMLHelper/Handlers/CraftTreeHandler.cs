@@ -6,6 +6,7 @@
     using Patchers;
     using Utility;
     using UnityEngine;
+    using SMLHelper.V2.Patchers.EnumPatching;
 
     /// <summary>
     /// A handler class for creating and editing of crafting trees.
