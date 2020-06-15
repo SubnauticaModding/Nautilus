@@ -7,6 +7,7 @@
     using SMLHelper.V2.Patchers.EnumPatching;
 #elif BELOWZERO
     using Sprite = UnityEngine.Sprite;
+    using SMLHelper.V2.Patchers.EnumPatching;
 #endif
 
     /// <summary>
