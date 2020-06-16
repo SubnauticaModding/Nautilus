@@ -222,6 +222,7 @@
     <Compile Include="Patchers\PDAPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\PingTypePatcher.cs" />
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
+    <Compile Include="Patchers\SmlJsonValue.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\TechTypePatcher.cs" />
     <Compile Include="Patchers\TooltipPatcher.cs" />
