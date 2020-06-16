@@ -99,7 +99,7 @@ namespace SMLHelper.V2.Handlers
         /// <seealso cref="RecipeData"/>
         void ICraftDataHandler.SetTechData(TechType techType, RecipeData recipeData)
         {
-            var currentTechType = new SmlJsonValue
+            var currentTechType = new JsonValue
             {
                 { TechData.PropertyToID("techType"), new JsonValue((int)techType) },
                 { TechData.PropertyToID("craftAmount"), new JsonValue(recipeData.craftAmount) }
@@ -126,15 +126,14 @@ namespace SMLHelper.V2.Handlers
         /// <seealso cref="TechData.defaults"/>
         void ICraftDataHandler.SetTechData(TechType techType, JsonValue jsonValue)
         {
-            var smlJsonValue = new SmlJsonValue(jsonValue);
             var techTypeValue = new JsonValue((int)techType);
 
-            if (techTypeValue != smlJsonValue[TechData.PropertyToID("techType")])
+            if (techTypeValue != jsonValue[TechData.PropertyToID("techType")])
             {
-                smlJsonValue.Add(TechData.PropertyToID("techType"), techTypeValue);
+                jsonValue.Add(TechData.PropertyToID("techType"), techTypeValue);
             }
 
-            CraftDataPatcher.CustomTechData[techType] = smlJsonValue;
+            CraftDataPatcher.CustomTechData[techType] = jsonValue;
         }
 
         /// <summary>
@@ -146,9 +145,9 @@ namespace SMLHelper.V2.Handlers
         /// <seealso cref="Ingredient"/>
         void ICraftDataHandler.AddIngredients(TechType techType, ICollection<Ingredient> ingredients)
         {
-            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out SmlJsonValue smlJsonValue))
+            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue smlJsonValue))
             {
-                smlJsonValue = new SmlJsonValue();
+                smlJsonValue = new JsonValue();
                 CraftDataPatcher.CustomTechData.Add(techType, smlJsonValue);
             }
 
@@ -168,8 +167,6 @@ namespace SMLHelper.V2.Handlers
                 };
                 current++;
             }
-
-            smlJsonValue.HasPendingChanges = true;
         }
 
         /// <summary>
@@ -181,9 +178,9 @@ namespace SMLHelper.V2.Handlers
         /// <seealso cref="Ingredient"/>
         void ICraftDataHandler.AddLinkedItems(TechType techType, ICollection<TechType> linkedItems)
         {
-            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out SmlJsonValue smlJsonValue))
+            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue smlJsonValue))
             {
-                smlJsonValue = new SmlJsonValue();
+                smlJsonValue = new JsonValue();
                 CraftDataPatcher.CustomTechData.Add(techType, smlJsonValue);
             }
 
@@ -200,8 +197,6 @@ namespace SMLHelper.V2.Handlers
                 linkedItemslist[current] = new JsonValue((int)i);
                 current++;
             }
-
-            smlJsonValue.HasPendingChanges = true;
         }
 
         /// <summary>
@@ -282,7 +277,7 @@ namespace SMLHelper.V2.Handlers
         /// <returns>The RecipeData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
         RecipeData ICraftDataHandler.GetModdedRecipeData(TechType techType)
         {
-            return CraftDataPatcher.CustomTechData.TryGetValue(techType, out SmlJsonValue techData) ? ConvertToRecipeData(techData) : null;
+            return CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue techData) ? ConvertToRecipeData(techData) : null;
         }
 
         /// <summary>
@@ -418,14 +413,13 @@ namespace SMLHelper.V2.Handlers
 
         private static void AddJsonProperty(TechType techType, string key, JsonValue newValue)
         {
-            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out SmlJsonValue techData))
+            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue techData))
             {
                 techData[TechData.PropertyToID(key)] = newValue;
-                techData.HasPendingChanges = true;
             }
             else
             {
-                CraftDataPatcher.CustomTechData[techType] = new SmlJsonValue
+                CraftDataPatcher.CustomTechData[techType] = new JsonValue
                 {
                     {
                         TechData.PropertyToID("techType"),

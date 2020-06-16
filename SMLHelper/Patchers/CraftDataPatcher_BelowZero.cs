@@ -8,25 +8,22 @@ namespace SMLHelper.V2.Patchers
 
     internal partial class CraftDataPatcher
     {
-        internal static IDictionary<TechType, SmlJsonValue> CustomTechData = new SelfCheckingDictionary<TechType, SmlJsonValue>("CustomTechData", AsStringFunction);
+        internal static IDictionary<TechType, JsonValue> CustomTechData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
 
         private static void PatchForBelowZero(HarmonyInstance harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.TryGetValue)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CheckPatchRequired))));
 
-            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
+            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Initialize)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
         }
 
         private static void CheckPatchRequired(TechType techType)
         {
-            if (CustomTechData.TryGetValue(techType, out SmlJsonValue smlTechData))
+            if (CustomTechData.TryGetValue(techType, out JsonValue smlTechData))
             {
-                if (smlTechData.HasPendingChanges)
-                {
-                    AddCustomTechDataToOriginalDictionary();
-                }
+                AddCustomTechDataToOriginalDictionary();
             }
         }
 
@@ -34,14 +31,10 @@ namespace SMLHelper.V2.Patchers
         {
             var added = new List<TechType>();
             var updated = new List<TechType>();
-            foreach (KeyValuePair<TechType, SmlJsonValue> customTechData in CustomTechData)
+            foreach (KeyValuePair<TechType, JsonValue> customTechData in CustomTechData)
             {
+                JsonValue smlTechData = customTechData.Value;
                 TechType techType = customTechData.Key;
-                SmlJsonValue smlTechData = customTechData.Value;
-                
-                if (!smlTechData.HasPendingChanges)
-                    continue;
-
                 if (TechData.entries.TryGetValue(techType, out JsonValue techData))
                 {
                     if (techData != smlTechData)
@@ -55,16 +48,16 @@ namespace SMLHelper.V2.Patchers
                 }
                 else
                 {
-                    TechData.Add(techType, smlTechData);
+                    TechData.entries.Add(techType, smlTechData);
                     added.Add(techType);
                 }
-
-                smlTechData.HasPendingChanges = false;
             }
+
+            CustomTechData.Clear();
 
             if (added.Count > 0)
             {
-                Logger.Log($"Added {added} new entries to the TechData.entries dictionary.", LogLevel.Info);
+                Logger.Log($"Added {added.Count} new entries to the TechData.entries dictionary.", LogLevel.Info);
                 LogEntries("Added the following TechTypes", added);
             }
 
