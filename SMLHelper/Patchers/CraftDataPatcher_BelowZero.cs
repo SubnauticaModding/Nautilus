@@ -23,7 +23,11 @@ namespace SMLHelper.V2.Patchers
         {
             if (CustomTechData.TryGetValue(techType, out JsonValue smlTechData))
             {
-                AddCustomTechDataToOriginalDictionary();
+                if (TechData.entries.TryGetValue(techType, out JsonValue techData) &&
+                    smlTechData != techData)
+                {
+                    AddCustomTechDataToOriginalDictionary();
+                }
             }
         }
 
@@ -51,6 +55,12 @@ namespace SMLHelper.V2.Patchers
                     TechData.entries.Add(techType, smlTechData);
                     added.Add(techType);
                 }
+            }
+
+            for (int i = 0; i < updated.Count; i++)
+            {
+                TechType updatedTechData = updated[i];
+                CustomTechData[updatedTechData] = TechData.entries[updatedTechData];
             }
 
             CustomTechData.Clear();
