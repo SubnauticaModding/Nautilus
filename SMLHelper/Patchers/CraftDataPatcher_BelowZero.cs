@@ -15,8 +15,8 @@ namespace SMLHelper.V2.Patchers
             harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.TryGetValue)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CheckPatchRequired))));
 
-            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Initialize)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
+            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
         }
 
         private static void CheckPatchRequired(TechType techType)
