@@ -104,7 +104,9 @@ namespace SMLHelper.V2.Handlers
                 { TechData.PropertyToID("techType"), new JsonValue((int)techType) },
                 { TechData.PropertyToID("craftAmount"), new JsonValue(recipeData.craftAmount) }
             };
+            
             CraftDataPatcher.CustomTechData[techType] = currentTechType;
+
             if (recipeData.ingredientCount > 0)
             {
                 Main.AddIngredients(techType, recipeData.Ingredients);
@@ -124,10 +126,13 @@ namespace SMLHelper.V2.Handlers
         /// <seealso cref="TechData.defaults"/>
         void ICraftDataHandler.SetTechData(TechType techType, JsonValue jsonValue)
         {
-            if (new JsonValue((int)techType) != jsonValue[TechData.PropertyToID("techType")])
+            var techTypeValue = new JsonValue((int)techType);
+
+            if (techTypeValue != jsonValue[TechData.PropertyToID("techType")])
             {
-                jsonValue.Add(TechData.PropertyToID("techType"), new JsonValue((int)techType));
+                jsonValue.Add(TechData.PropertyToID("techType"), techTypeValue);
             }
+
             CraftDataPatcher.CustomTechData[techType] = jsonValue;
         }
 
@@ -140,17 +145,17 @@ namespace SMLHelper.V2.Handlers
         /// <seealso cref="Ingredient"/>
         void ICraftDataHandler.AddIngredients(TechType techType, ICollection<Ingredient> ingredients)
         {
-            if (!CraftDataPatcher.CustomTechData.ContainsKey(techType))
+            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue smlJsonValue))
             {
-                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+                smlJsonValue = new JsonValue();
+                CraftDataPatcher.CustomTechData.Add(techType, smlJsonValue);
             }
 
-            CraftDataPatcher.CustomTechData[techType].Add(TechData.PropertyToID("ingredients"), new JsonValue(JsonValue.Type.Array));
-            JsonValue ingredientslist = CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("ingredients")];
+            smlJsonValue.Add(TechData.PropertyToID("ingredients"), new JsonValue(JsonValue.Type.Array));
+            JsonValue ingredientslist = smlJsonValue[TechData.PropertyToID("ingredients")];
             int amount = TechData.PropertyToID("amount");
             int tech = TechData.PropertyToID("techType");
             int current = 0;
-
 
             foreach (Ingredient i in ingredients)
             {
@@ -173,18 +178,18 @@ namespace SMLHelper.V2.Handlers
         /// <seealso cref="Ingredient"/>
         void ICraftDataHandler.AddLinkedItems(TechType techType, ICollection<TechType> linkedItems)
         {
-            if (!CraftDataPatcher.CustomTechData.ContainsKey(techType))
+            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue smlJsonValue))
             {
-                CraftDataPatcher.CustomTechData[techType] = new JsonValue();
+                smlJsonValue = new JsonValue();
+                CraftDataPatcher.CustomTechData.Add(techType, smlJsonValue);
             }
 
-            CraftDataPatcher.CustomTechData[techType].Add(TechData.PropertyToID("linkedItems"), new JsonValue(JsonValue.Type.Array));
-            JsonValue linkedItemslist = CraftDataPatcher.CustomTechData[techType][TechData.PropertyToID("linkedItems")];
-            int amount = TechData.PropertyToID("amount");
-            int tech = TechData.PropertyToID("techType");
-            int count = linkedItems.Count;
+            smlJsonValue.Add(TechData.PropertyToID("linkedItems"), new JsonValue(JsonValue.Type.Array));
+            JsonValue linkedItemslist = smlJsonValue[TechData.PropertyToID("linkedItems")];
+            //int amount = TechData.PropertyToID("amount");
+            //int tech = TechData.PropertyToID("techType");
+            //int count = linkedItems.Count;
             int current = 0;
-
 
             foreach (TechType i in linkedItems)
             {
