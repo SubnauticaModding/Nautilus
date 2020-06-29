@@ -88,6 +88,7 @@
             modOptions.Values.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
         }
 
+#if SUBNAUTICA // it looks like this is fixed in BelowZero
         // fix for slider, check for zero divider added (in that case just return value unchanged)
         // it happens when slider is in pre-awake state, so any given value snaps to default value
         [PatchUtils.Transpiler]
@@ -119,7 +120,7 @@
 
             return list;
         }
-
+#endif
 
         // Class for collapsing/expanding options in 'Mods' tab
         // Options can be collapsed/expanded by clicking on mod's title or arrow button
