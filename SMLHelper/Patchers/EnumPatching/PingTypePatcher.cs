@@ -6,7 +6,7 @@
     using Handlers;
     using Utility;
 #if SUBNAUTICA
-    using Sprite = Atlas.Sprite;    
+    using Sprite = Atlas.Sprite;
 #elif BELOWZERO
     using Sprite = UnityEngine.Sprite;
 #endif

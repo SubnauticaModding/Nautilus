@@ -12,13 +12,16 @@
     {
         internal static void Patch()
         {
-            foreach (SpriteManager.Group moddedGroup in ModSprite.ModSprites.Keys)
+            foreach (var moddedSpriteGroup in ModSprite.ModSprites)
             {
-                Dictionary<string, Sprite> spriteAtlas = GetSpriteGroup(moddedGroup);
+                SpriteManager.Group moddedGroup = moddedSpriteGroup.Key;
+
+                Dictionary<string, Sprite> spriteAtlas = GetSpriteAtlas(moddedGroup);
                 if (spriteAtlas == null)
                     continue;
 
-                foreach (var sprite in ModSprite.ModSprites[moddedGroup])
+                Dictionary<string, Sprite> moddedSprites = moddedSpriteGroup.Value;
+                foreach (var sprite in moddedSprites)
                 {
                     spriteAtlas.Add(sprite.Key, sprite.Value);
                 }
@@ -27,7 +30,7 @@
             Logger.Debug("SpritePatcher is done.");
         }
 
-        private static Dictionary<string, Sprite> GetSpriteGroup(SpriteManager.Group groupKey)
+        private static Dictionary<string, Sprite> GetSpriteAtlas(SpriteManager.Group groupKey)
         {
             if (!SpriteManager.mapping.TryGetValue(groupKey, out string atlasName))
             {
