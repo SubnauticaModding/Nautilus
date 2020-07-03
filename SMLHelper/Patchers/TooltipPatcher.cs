@@ -106,10 +106,7 @@
 
         internal static bool IsVanillaTechType(TechType type)
         {
-            DisableEnumIsDefinedPatch = true;
-            bool result = Enum.IsDefined(typeof(TechType), type);
-            DisableEnumIsDefinedPatch = false;
-            return result;
+            return type <= TechType.Databox;
         }
 
         #region Options
