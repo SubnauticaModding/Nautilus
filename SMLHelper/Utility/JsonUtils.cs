@@ -35,25 +35,6 @@
         }
 
         /// <summary>
-        /// Check if text is valid json
-        /// </summary>
-        /// <param name="text">Text to check</param>
-        /// <returns>Whether or not text is valid json</returns>
-        public static bool IsJsonValid(string text)
-        {
-            if (text == "" || text == null)
-                return false;
-
-            try
-            {
-                var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                dynamic result = serializer.DeserializeObject(text);
-                return true;
-            }
-            catch { return false; }
-        }
-
-        /// <summary>
         /// Create an instance of <typeparamref name="T"/>, populated with data from the JSON file at the given 
         /// <paramref name="path"/>.
         /// </summary>
