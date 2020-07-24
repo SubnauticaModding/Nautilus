@@ -6,8 +6,13 @@
     using SMLHelper.V2.Json.Converters;
     using SMLHelper.V2.Json.ExtensionMethods;
     using SMLHelper.V2.Json.Interfaces;
+#if SUBNAUTICA
+    using Oculus.Newtonsoft.Json;
+    using Oculus.Newtonsoft.Json.Converters;
+#elif BELOWZERO
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+#endif
 
     /// <summary>
     /// A simple implementation of <see cref="IJsonFile"/> for use with config files.
