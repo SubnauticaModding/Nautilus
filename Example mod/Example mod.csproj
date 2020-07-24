@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Example_mod</RootNamespace>
     <AssemblyName>Example mod</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -22,6 +22,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BELOWZERO|AnyCPU'">
     <OutputPath>bin\BELOWZERO\</OutputPath>
@@ -31,16 +32,33 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\Assembly-CSharp_publicized.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
+      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
+      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp_publicized.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="UnityEngine.CoreModule">
+    <Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Subnautica\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI" Condition="'$(Configuration)'=='SUBNAUTICA'">

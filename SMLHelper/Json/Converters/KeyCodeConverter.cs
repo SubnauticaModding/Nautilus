@@ -2,7 +2,7 @@
 {
     using System;
     using SMLHelper.V2.Utility;
-    using Oculus.Newtonsoft.Json;
+    using Newtonsoft.Json;
     using UnityEngine;
 
     /// <summary>

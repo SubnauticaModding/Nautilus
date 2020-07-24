@@ -7,8 +7,8 @@
     using System.Reflection.Emit;
     using System.Collections;
     using System.Collections.Generic;
-    using Oculus.Newtonsoft.Json;
-    using Oculus.Newtonsoft.Json.Serialization;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
     using UnityEngine;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;

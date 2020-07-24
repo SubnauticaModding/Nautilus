@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\SUBNAUTICA\SMLHelper.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BELOWZERO|AnyCPU'">
     <OutputPath>bin\BELOWZERO\</OutputPath>
@@ -37,11 +38,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\BELOWZERO\SMLHelper.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony-1.2.0.1">
@@ -64,7 +66,11 @@
       <HintPath>..\Dependencies\Subnautica\Assembly-CSharp_publicized.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
+    <Reference Include="Newtonsoft.Json" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <HintPath>..\Dependencies\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -86,6 +92,10 @@
       <HintPath>..\Dependencies\Subnautica\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)'=='BELOWZERO'">
+      <HintPath>..\Dependencies\BelowZero\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.ImageConversionModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\Subnautica\UnityEngine.ImageConversionModule.dll</HintPath>
@@ -101,10 +111,6 @@
     </Reference>
     <Reference Include="UnityEngine" Condition="'$(Configuration)'=='BELOWZERO'">
       <HintPath>..\Dependencies\BelowZero\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\Dependencies\BelowZero\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule" Condition="'$(Configuration)'=='BELOWZERO'">

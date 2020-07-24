@@ -2,7 +2,7 @@
 {
     using System;
     using System.Globalization;
-    using Oculus.Newtonsoft.Json;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// A <see cref="JsonConverter"/> for rounding floats or doubles to a given number of decimal places,

@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading;
     using System.Reflection;
-    using Oculus.Newtonsoft.Json;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// A collection of utilities for interacting with JSON files.

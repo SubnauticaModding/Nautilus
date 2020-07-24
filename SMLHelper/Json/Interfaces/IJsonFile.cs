@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.V2.Json.Interfaces
 {
-    using Oculus.Newtonsoft.Json;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// A simple interface for a JSON file framework.
