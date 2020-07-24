@@ -118,6 +118,14 @@
         /// </summary>
         public float DefaultValue { get; }
 
+#if BELOWZERO
+        /// <summary>
+        /// The step value of the <see cref="ModSliderOption"/>.
+        /// Defaults to 0.05f same as default code.
+        /// </summary>
+        public float Step { get; } = 0.05f;
+#endif
+
         /// <summary> Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string)"/>) </summary>
         public string ValueFormat { get; }
 
@@ -125,9 +133,15 @@
 
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
+#if SUBNAUTICA
+            
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue,
                 new UnityAction<float>((float value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value)));
+#elif BELOWZERO
 
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step,
+                new UnityAction<float>((float value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value)));
+#endif
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
