@@ -1,7 +1,9 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
+    using System;
     using System.Collections.Generic;
     using Harmony;
+    using Newtonsoft.Json;
     using Logger = V2.Logger;
 
     internal class LootDistributionPatcher
@@ -22,14 +24,16 @@
             {
                 LootDistributionData.SrcData customSrcData = entry.Value;
                 string classId = entry.Key;
-
-                if (__instance.srcDistribution.TryGetValue(entry.Key, out LootDistributionData.SrcData srcData))
+                if(customSrcData != null)
                 {
-                    EditExistingData(classId, srcData, customSrcData, __instance.dstDistribution);
-                }
-                else
-                {
-                    AddCustomData(classId, customSrcData, __instance.srcDistribution, __instance.dstDistribution);
+                    if (__instance.srcDistribution.TryGetValue(entry.Key, out LootDistributionData.SrcData srcData))
+                    {
+                        EditExistingData(classId, srcData, customSrcData, __instance.dstDistribution);
+                    }
+                    else
+                    {
+                        AddCustomData(classId, customSrcData, __instance.srcDistribution, __instance.dstDistribution);
+                    }
                 }
             }
         }
