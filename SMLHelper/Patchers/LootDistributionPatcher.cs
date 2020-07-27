@@ -3,9 +3,12 @@
     using System;
     using System.Collections.Generic;
     using Harmony;
-    using Newtonsoft.Json;
     using Logger = V2.Logger;
-
+#if SUBNAUTICA
+    using Oculus.Newtonsoft.Json;
+#elif BELOWZERO
+    using Newtonsoft.Json;
+#endif
     internal class LootDistributionPatcher
     {
         internal static readonly SelfCheckingDictionary<string, LootDistributionData.SrcData> CustomSrcData = new SelfCheckingDictionary<string, LootDistributionData.SrcData>("CustomSrcData");
