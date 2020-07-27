@@ -49,7 +49,7 @@
         }
 
         /// <summary>
-        /// Adds in a custom <see cref="PDAScanner.EntryData"/>.
+        /// Adds in a custom <see cref="PDAScanner.EntryData"/>. ***Cannot be used to Change the values of a techtype that has data already!***
         /// </summary>
         /// <param name="entryData">The <see cref="PDAScanner.EntryData"/> of the entry. Must be populated when passed in.</param>
         void IPDAHandler.AddCustomScannerEntry(PDAScanner.EntryData entryData)
