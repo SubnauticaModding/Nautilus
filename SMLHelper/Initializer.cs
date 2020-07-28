@@ -70,7 +70,7 @@
             PrefabDatabasePatcher.Patch(harmony);
             SpritePatcher.Patch();
             KnownTechPatcher.Patch(harmony);
-            BioReactorPatcher.Patch(harmony);
+            BioReactorPatcher.Patch();
             OptionsPanelPatcher.Patch(harmony);
             ItemsContainerPatcher.Patch(harmony);
             PDAPatcher.Patch(harmony);

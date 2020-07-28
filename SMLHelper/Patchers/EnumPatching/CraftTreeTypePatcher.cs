@@ -1,7 +1,6 @@
 ﻿namespace SMLHelper.V2.Patchers.EnumPatching
 {
     using Crafting;
-    using HarmonyLib;
     using SMLHelper.V2.Handlers;
     using System;
     using System.Collections.Generic;
