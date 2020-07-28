@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Harmony;
+    using HarmonyLib;
     using SMLHelper.V2.Handlers;
     using UnityEngine;
     using Logger = V2.Logger;
@@ -12,7 +12,7 @@
     {
         internal static List<Creature> usedCreatures = new List<Creature>();
 
-        public static void Patch(HarmonyInstance harmony)
+        public static void Patch(Harmony harmony)
         {
             Type creatureType = typeof(Creature);
             Type thisType = typeof(FishPatcher);

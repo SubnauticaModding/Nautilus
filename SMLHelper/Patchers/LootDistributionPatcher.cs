@@ -1,14 +1,14 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using System.Collections.Generic;
-    using Harmony;
+    using HarmonyLib;
     using Logger = V2.Logger;
 
     internal class LootDistributionPatcher
     {
         internal static readonly SelfCheckingDictionary<string, LootDistributionData.SrcData> CustomSrcData = new SelfCheckingDictionary<string, LootDistributionData.SrcData>("CustomSrcData");
 
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(LootDistributionData), nameof(LootDistributionData.Initialize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(LootDistributionPatcher), nameof(LootDistributionPatcher.InitializePostfix))));

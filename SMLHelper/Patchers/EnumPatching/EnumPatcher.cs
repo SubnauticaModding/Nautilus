@@ -2,12 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using Harmony;
+    using HarmonyLib;
     using SMLHelper.V2.Utility;
 
     internal class EnumPatcher
     {
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
             PatchUtils.PatchClass(harmony);
 

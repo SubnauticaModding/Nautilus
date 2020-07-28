@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
+    using HarmonyLib;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -44,7 +44,7 @@
 
         #region Patching
 
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
             // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
             // See README.md for details.

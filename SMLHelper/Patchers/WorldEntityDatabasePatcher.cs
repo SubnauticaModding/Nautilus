@@ -1,14 +1,14 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using System.Collections.Generic;
-    using Harmony;
+    using HarmonyLib;
     using UWE;
 
     internal class WorldEntityDatabasePatcher
     {
         internal static readonly SelfCheckingDictionary<string, WorldEntityInfo> CustomWorldEntityInfos = new SelfCheckingDictionary<string, WorldEntityInfo>("CustomWorldEntityInfo");
 
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(WorldEntityDatabase), nameof(WorldEntityDatabase.TryGetInfo)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), nameof(WorldEntityDatabasePatcher.Prefix))));

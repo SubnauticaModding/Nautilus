@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Assets;
-    using Harmony;
+    using HarmonyLib;
 
     internal partial class CraftDataPatcher
     {
@@ -75,7 +75,7 @@
 
         #region Patching
 
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
 #if SUBNAUTICA
             PatchForSubnautica(harmony);

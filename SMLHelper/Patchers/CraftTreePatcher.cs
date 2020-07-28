@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using Crafting;
-    using Harmony;
+    using HarmonyLib;
 
     internal class CraftTreePatcher
     {
@@ -18,7 +18,7 @@
 
         #region Patches
 
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
             PatchUtils.PatchClass(harmony);
 
