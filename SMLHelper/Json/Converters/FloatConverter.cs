@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using Oculus.Newtonsoft.Json;
+    using UnityEngine;
 
     /// <summary>
     /// A <see cref="JsonConverter"/> for rounding floats or doubles to a given number of decimal places,
@@ -48,18 +49,13 @@
         {
             if (DecimalPlaces > -1)
             {
-                double d;
-                if (value is float)
+                if (value is float floatValue)
                 {
-                    d = Math.Round((float)value, DecimalPlaces, Mode);
-                    var dString = d.ToString(CultureInfo.InvariantCulture);
-                    writer.WriteValue(float.Parse(dString.Contains(".") ? dString.TrimEnd('0') : dString));
+                    writer.WriteValue(Math.Round(floatValue, DecimalPlaces, Mode).ToString());
                 }
                 else
                 {
-                    d = Math.Round((double)value, DecimalPlaces, Mode);
-                    var dString = d.ToString(CultureInfo.InvariantCulture);
-                    writer.WriteValue(double.Parse(dString.Contains(".") ? dString.TrimEnd('0') : dString));
+                    writer.WriteValue(Math.Round((double)value, DecimalPlaces, Mode).ToString());
                 }
             }
             else
