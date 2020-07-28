@@ -9,7 +9,7 @@ namespace SMLHelper.V2.Examples
 {
     public static class ExampleMod
     {
-        public static Config Config = new Config();
+        public static Config Config { get; } = new Config();
 
         public static void Patch()
         {
@@ -20,10 +20,10 @@ namespace SMLHelper.V2.Examples
 
     public class Config : ConfigFile
     {
-        public int ChoiceIndex;
-        public KeyCode KeybindKey;
-        public float SliderValue;
-        public bool ToggleValue;
+        public int ChoiceIndex { get; internal set; }
+        public KeyCode KeybindKey { get; internal set; }
+        public float SliderValue { get; internal set; }
+        public bool ToggleValue { get; internal set; }
     }
 
     public class Options : ModOptions
