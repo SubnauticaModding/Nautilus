@@ -43,7 +43,7 @@
         /// using SMLHelper.V2.Options;
         /// using UnityEngine;
         /// 
-        /// public static class MyConfig : ConfigFile
+        /// public class MyConfig : ConfigFile
         /// {
         ///     public KeyCode ActivationKey { get; set; } = KeyCode.Escape;
         ///     public MyConfig() : base("options", "Config Files") { }
