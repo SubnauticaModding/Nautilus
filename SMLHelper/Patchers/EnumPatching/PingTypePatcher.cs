@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Harmony;
+    using HarmonyLib;
     using Handlers;
     using Utility;
 #if SUBNAUTICA

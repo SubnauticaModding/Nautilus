@@ -4,13 +4,13 @@ namespace SMLHelper.V2.Patchers
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using Harmony;
+    using HarmonyLib;
 
     internal partial class CraftDataPatcher
     {
         internal static IDictionary<TechType, JsonValue> CustomTechData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
 
-        private static void PatchForBelowZero(HarmonyInstance harmony)
+        private static void PatchForBelowZero(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.TryGetValue)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CheckPatchRequired))));

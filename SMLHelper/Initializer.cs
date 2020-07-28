@@ -2,7 +2,7 @@
 {
     using System;
     using System.Reflection;
-    using Harmony;
+    using HarmonyLib;
     using Patchers;
     using Patchers.EnumPatching;
     using QModManager.API.ModLoading;
@@ -54,7 +54,7 @@
 
         private static void Initialize()
         {
-            var harmony = HarmonyInstance.Create("com.ahk1221.smlhelper");
+            var harmony = new Harmony("com.ahk1221.smlhelper");
 
             FishPatcher.Patch(harmony);
 
