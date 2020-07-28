@@ -49,14 +49,7 @@
         {
             if (DecimalPlaces > -1)
             {
-                if (value is float floatValue)
-                {
-                    writer.WriteValue(Math.Round(floatValue, DecimalPlaces, Mode).ToString());
-                }
-                else
-                {
-                    writer.WriteValue(Math.Round((double)value, DecimalPlaces, Mode).ToString());
-                }
+                writer.WriteValue(Math.Round((double)value, DecimalPlaces, Mode).ToString(CultureInfo.InvariantCulture));
             }
             else
             {
