@@ -52,12 +52,14 @@
                 if (value is float)
                 {
                     d = Math.Round((float)value, DecimalPlaces, Mode);
-                    writer.WriteValue(float.Parse(d.ToString(CultureInfo.InvariantCulture).TrimEnd('0')));
+                    var dString = d.ToString(CultureInfo.InvariantCulture);
+                    writer.WriteValue(float.Parse(dString.Contains(".") ? dString.TrimEnd('0') : dString));
                 }
                 else
                 {
                     d = Math.Round((double)value, DecimalPlaces, Mode);
-                    writer.WriteValue(double.Parse(d.ToString(CultureInfo.InvariantCulture).TrimEnd('0')));
+                    var dString = d.ToString(CultureInfo.InvariantCulture);
+                    writer.WriteValue(double.Parse(dString.Contains(".") ? dString.TrimEnd('0') : dString));
                 }
             }
             else
