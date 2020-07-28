@@ -49,7 +49,7 @@
         {
             if (DecimalPlaces > -1)
             {
-                writer.WriteValue(Math.Round((double)value, DecimalPlaces, Mode).ToString(CultureInfo.InvariantCulture));
+                writer.WriteValue(Math.Round(Convert.ToDouble(value), DecimalPlaces, Mode).ToString(CultureInfo.InvariantCulture));
             }
             else
             {
