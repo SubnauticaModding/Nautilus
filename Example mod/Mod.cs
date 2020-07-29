@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using QModManager.API.ModLoading;
 using SMLHelper.V2.Handlers;
 using SMLHelper.V2.Json;
 using SMLHelper.V2.Options;
@@ -7,10 +8,12 @@ using UnityEngine.UI;
 
 namespace SMLHelper.V2.Examples
 {
+    [QModCore]
     public static class ExampleMod
     {
         public static Config Config { get; } = new Config();
 
+        [QModPatch]
         public static void Patch()
         {
             Config.Load();
