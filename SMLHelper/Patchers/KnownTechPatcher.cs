@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Harmony;
+    using HarmonyLib;
 
     internal class KnownTechPatcher
     {
@@ -16,7 +16,7 @@
 
         private static FMODAsset UnlockSound;
 
-        public static void Patch(HarmonyInstance harmony)
+        public static void Patch(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.Initialize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(KnownTechPatcher.InitializePostfix))));

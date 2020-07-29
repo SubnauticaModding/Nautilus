@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
+    using HarmonyLib;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
@@ -9,7 +9,7 @@
     {
         public static List<CommandInfo> commands = new List<CommandInfo>();
 
-        public static void Patch(HarmonyInstance harmony)
+        public static void Patch(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(DevConsole), nameof(DevConsole.Submit)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(DevConsolePatcher), nameof(DevConsolePatcher.Postfix))));

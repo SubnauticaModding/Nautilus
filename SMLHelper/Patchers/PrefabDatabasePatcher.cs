@@ -1,7 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using Assets;
-    using Harmony;
+    using HarmonyLib;
     using UnityEngine;
     using UWE;
     using Logger = V2.Logger;
@@ -42,7 +42,7 @@
             return true;
         }
 
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.LoadPrefabDatabase)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.LoadPrefabDatabase_Postfix))));
