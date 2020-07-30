@@ -37,10 +37,6 @@
       <HintPath>..\Dependencies\Subnautica\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Dependencies\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="QModInstaller">
       <HintPath>..\Dependencies\Subnautica\QModInstaller.dll</HintPath>
       <Private>False</Private>
