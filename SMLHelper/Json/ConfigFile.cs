@@ -8,7 +8,6 @@
     using SMLHelper.V2.Json.Interfaces;
     using Oculus.Newtonsoft.Json;
     using Oculus.Newtonsoft.Json.Converters;
-    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// A simple implementation of <see cref="IJsonFile"/> for use with config files.
@@ -21,7 +20,7 @@
         public string JsonFilePath { get; private set; }
 
         [JsonIgnore]
-        private static JsonConverter[] alwaysIncludedJsonConverters = new JsonConverter[] {
+        private static readonly JsonConverter[] alwaysIncludedJsonConverters = new JsonConverter[] {
             new KeyCodeConverter(),
             new FloatConverter(),
             new StringEnumConverter(),
