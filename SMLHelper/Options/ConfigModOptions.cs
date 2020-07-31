@@ -262,9 +262,6 @@
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
-                    if (senderFound && eventArgsFound)
-                        break;
-
                     var param = parameters[i];
                     if (!senderFound && param.ParameterType == typeof(object))
                     {
@@ -278,6 +275,9 @@
                         eventArgsFound = true;
                         invokeParams[i] = e;
                     }
+
+                    if (senderFound && eventArgsFound)
+                        break;
                 }
 
                 methodInfo.Invoke(Config, invokeParams);
@@ -469,9 +469,6 @@
                 var modOptionEventFound = false;
                 for (var i = 0; i < parameters.Length; i++)
                 {
-                    if (senderFound && eventArgsFound && modOptionEventFound)
-                        break;
-
                     var param = parameters[i];
                     if (!senderFound && param.ParameterType == objectType)
                     {
@@ -491,6 +488,9 @@
                         modOptionEventFound = true;
                         invokeParams[i] = e;
                     }
+
+                    if (senderFound && eventArgsFound && modOptionEventFound)
+                        break;
                 }
 
                 method.Invoke(Config, invokeParams);
@@ -540,9 +540,6 @@
                     var modOptionEventFound = false;
                     for (var i = 0; i < parameters.Length; i++)
                     {
-                        if (senderFound && eventArgsFound && modOptionEventFound)
-                            break;
-
                         var param = parameters[i];
                         if (!senderFound && param.ParameterType == objectType)
                         {
@@ -562,6 +559,9 @@
                             modOptionEventFound = true;
                             invokeParams[i] = e;
                         }
+
+                        if (senderFound && eventArgsFound && modOptionEventFound)
+                            break;
                     }
 
                     method.Invoke(Config, invokeParams);
