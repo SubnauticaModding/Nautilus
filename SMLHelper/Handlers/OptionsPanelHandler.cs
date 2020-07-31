@@ -3,7 +3,7 @@
     using Options;
     using Patchers;
     using Interfaces;
-    using SMLHelper.V2.Json;
+    using Json;
     using System.Linq;
 
     /// <summary>
@@ -49,7 +49,7 @@
         /// </summary>
         /// <typeparam name="T">A class derived from <see cref="ConfigFile"/> to generate the options menu from.</typeparam>
         /// <returns>An instance of the <typeparamref name="T"/> : <see cref="ConfigFile"/> with values loaded
-        /// from the config file on file on disk.</returns>
+        /// from the config file on disk.</returns>
         public static T RegisterModOptions<T>() where T : ConfigFile, new()
             => Main.RegisterModOptions<T>();
 
@@ -59,7 +59,7 @@
         /// </summary>
         /// <typeparam name="T">A class derived from <see cref="ConfigFile"/> to generate the options menu from.</typeparam>
         /// <returns>An instance of the <typeparamref name="T"/> : <see cref="ConfigFile"/> with values loaded
-        /// from the config file on file on disk.</returns>
+        /// from the config file on disk.</returns>
         T IOptionsPanelHandler.RegisterModOptions<T>()
         {
             var configModOptions = new ConfigModOptions<T>();
