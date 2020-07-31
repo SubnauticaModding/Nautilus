@@ -129,7 +129,10 @@ namespace SMLHelper.V2.Options
         /// Signifies a <see cref="ModOptions"/> menu should be automatically generated from a <see cref="Json.ConfigFile"/>.
         /// </summary>
         /// <param name="name">The display name for the generated options menu.</param>
-        public MenuAttribute(string name) => Name = name;
+        public MenuAttribute(string name)
+        {
+            Name = name;
+        }
 
         internal MenuAttribute() { }
     }

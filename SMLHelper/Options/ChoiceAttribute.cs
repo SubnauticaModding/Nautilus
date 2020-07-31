@@ -50,7 +50,10 @@ namespace SMLHelper.V2.Options
         /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <see cref="ChoiceAttribute"/>.
         /// </remarks>
         /// <param name="options">The list of options for the user to choose from.</param>
-        public ChoiceAttribute(params string[] options) => Options = options;
+        public ChoiceAttribute(params string[] options)
+        {
+            Options = options;
+        }
 
         /// <summary>
         /// Attribute used to signify the specified member should be represented in the mod's options menu as a

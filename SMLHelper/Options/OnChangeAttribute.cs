@@ -88,6 +88,9 @@ namespace SMLHelper.V2.Options
         /// The method must be a member of the same class.
         /// </summary>
         /// <param name="methodName">The name of the method within the same class to run.</param>
-        public OnChangeAttribute(string methodName) => MethodName = methodName;
+        public OnChangeAttribute(string methodName)
+        {
+            MethodName = methodName;
+        }
     }
 }

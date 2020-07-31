@@ -45,10 +45,13 @@ namespace SMLHelper.V2.Options
         /// </summary>
         public int Order { get; set; } = i++;
         private static int i = 0;
-        
+
         /// <summary>
         /// Specifies the label to display for the given field in the mod's option menu.
         /// </summary>
-        public LabelAttribute(string label = null) => Label = label;
+        public LabelAttribute(string label = null)
+        {
+            Label = label;
+        }
     }
 }
