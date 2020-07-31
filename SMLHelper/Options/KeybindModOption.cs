@@ -15,7 +15,7 @@
     /// <summary>
     /// Contains all the information about a keybind changed event.
     /// </summary>
-    public class KeybindChangedEventArgs : EventArgs
+    public class KeybindChangedEventArgs : EventArgs, IModOptionEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModKeybindOption"/> that was changed.

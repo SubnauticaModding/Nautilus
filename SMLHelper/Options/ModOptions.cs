@@ -69,7 +69,7 @@
     }
 
     /// <summary> Contains all the information about a created game object event </summary>
-    public class GameObjectCreatedEventArgs : EventArgs
+    public class GameObjectCreatedEventArgs : EventArgs, IModOptionEventArgs
     {
         /// <summary> The ID of the <see cref="ModOption"/> for which game object was created </summary>
         public string Id { get; }

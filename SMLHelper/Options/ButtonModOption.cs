@@ -7,7 +7,7 @@
     /// <summary>
     /// Contains all the information about a button click event.
     /// </summary>
-    public class ButtonClickedEventArgs : EventArgs
+    public class ButtonClickedEventArgs : EventArgs, IModOptionEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModButtonOption"/> that was clicked.
