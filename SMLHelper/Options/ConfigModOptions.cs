@@ -50,17 +50,23 @@
             foreach (PropertyInfo property in typeof(TConfigFile).GetProperties(bindingFlags)
                 .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
                 .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
+            {
                 ProcessFieldOrProperty(property, property.PropertyType);
+            }
 
             foreach (FieldInfo field in typeof(TConfigFile).GetFields(bindingFlags)
                 .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
                 .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
+            {
                 ProcessFieldOrProperty(field, field.FieldType);
+            }
 
             foreach (MethodInfo method in typeof(TConfigFile).GetMethods(bindingFlags | BindingFlags.NonPublic | BindingFlags.Static)
                 .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
                 .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
+            {
                 ProcessMethod(method);
+            }
 
             Logger.Debug($"[ConfigModOptions] Found {modOptionsMetadata.Count()} options to add to the menu.");
 
