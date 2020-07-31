@@ -4,7 +4,7 @@ namespace SMLHelper.V2.Options
 {
     /// <summary>
     /// Attribute used to signify a <see cref="ModOptions"/> menu should be automatically generated from a
-    /// <see cref="Json.ConfigFile"/>, as well as  specifying options for handling the <see cref="Json.ConfigFile"/>
+    /// <see cref="Json.ConfigFile"/>, as well as specifying options for handling the <see cref="Json.ConfigFile"/>
     /// and <see cref="ModOptions"/> menu.
     /// </summary>
     /// <example>
