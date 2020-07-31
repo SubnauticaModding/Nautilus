@@ -18,6 +18,9 @@
             harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.NotifyRemoveItem)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
 
+            harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.NotifyResize)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
+
             Logger.Log($"ItemsContainerPatcher is done.", LogLevel.Debug);
         }
 
