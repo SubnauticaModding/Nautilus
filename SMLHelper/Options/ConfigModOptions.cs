@@ -72,23 +72,35 @@
 
             // Conditionally add events
             if (modOptionsMetadata.Values.Any(x => x.ModOptionType == typeof(ModButtonOption)))
+            {
                 ButtonClicked += ConfigModOptions_ButtonClicked;
+            }
 
             if (modOptionsMetadata.Values.Any(x => x.ModOptionType == typeof(ModChoiceOption)))
+            {
                 ChoiceChanged += ConfigModOptions_ChoiceChanged;
+            }
 
             if (modOptionsMetadata.Values.Any(x => x.ModOptionType == typeof(ModKeybindOption)))
+            {
                 KeybindChanged += ConfigModOptions_KeybindChanged;
+            }
 
             if (modOptionsMetadata.Values.Any(x => x.ModOptionType == typeof(ModSliderOption)))
+            {
                 SliderChanged += ConfigModOptions_SliderChanged;
+            }
 
             if (modOptionsMetadata.Values.Any(x => x.ModOptionType == typeof(ModToggleOption)))
+            {
                 ToggleChanged += ConfigModOptions_ToggleChanged;
+            }
 
             if (modOptionsMetadata.Values.Any(x => x.TooltipAttribute != null
                 || (x.OnGameObjectCreatedAttributes != null && x.OnGameObjectCreatedAttributes.Any())))
+            {
                 GameObjectCreated += ConfigModOptions_GameObjectCreated;
+            }
         }
 
         #region Member Processing
@@ -205,9 +217,14 @@
                 var labelAttribute = memberInfo.GetCustomAttributes(typeof(LabelAttribute), true)
                     .SingleOrDefault() as LabelAttribute;
                 if (labelAttribute == null)
+                {
                     labelAttribute = new LabelAttribute();
+                }
+
                 if (string.IsNullOrEmpty(labelAttribute.Label))
-                    labelAttribute.Label = memberInfo.Name; // If there is no label specified, just use the member's name.
+                {   // If there is no label specified, just use the member's name.
+                    labelAttribute.Label = memberInfo.Name;
+                }
 
                 // ModOptionMetadata needed for all ModOptions
                 var modOptionMetadata = new ModOptionMetadata
@@ -287,7 +304,9 @@
                     }
 
                     if (senderFound && eventArgsFound)
+                    {
                         break;
+                    }
                 }
 
                 methodInfo.Invoke(Config, invokeParams);
@@ -338,7 +357,9 @@
 
                 // Optionally save the Config to disk
                 if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                {
                     Config.Save();
+                }
 
                 // Invoke any OnChange methods specified
                 InvokeOnChange(modOptionMetadata, sender, e);
@@ -370,7 +391,9 @@
 
                 // Optionally save the Config to disk
                 if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                {
                     Config.Save();
+                }
 
                 // Invoke any OnChange methods specified
                 InvokeOnChange(modOptionMetadata, sender, e);
@@ -402,7 +425,9 @@
 
                 // Optionally save the Config to disk
                 if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                {
                     Config.Save();
+                }
 
                 // Invoke any OnChange methods specified
                 InvokeOnChange(modOptionMetadata, sender, e);
@@ -434,7 +459,9 @@
 
                 // Optionally save the Config to disk
                 if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                {
                     Config.Save();
+                }
 
                 // Invoke any OnChange methods specified
                 InvokeOnChange(modOptionMetadata, sender, e);
@@ -500,7 +527,9 @@
                     }
 
                     if (senderFound && eventArgsFound && modOptionEventFound)
+                    {
                         break;
+                    }
                 }
 
                 method.Invoke(Config, invokeParams);
@@ -520,11 +549,15 @@
             {
                 // Create a tooltip if there is a TooltipAttribute specified
                 if (modOptionMetadata.TooltipAttribute != null)
+                {
                     e.GameObject.GetComponentInChildren<Text>().gameObject.AddComponent<ModOptionTooltip>().Tooltip
                         = modOptionMetadata.TooltipAttribute.Tooltip;
+                }
 
                 if (modOptionMetadata.OnGameObjectCreatedAttributes == null)
-                    return; // Skip attempting to invoke events if there are no OnGameObjectCreatedAttributes set for the member.
+                {   // Skip attempting to invoke events if there are no OnGameObjectCreatedAttributes set for the member.
+                    return;
+                }
 
                 // cache types used in comparisons
                 var objectType = typeof(object);
@@ -571,7 +604,9 @@
                         }
 
                         if (senderFound && eventArgsFound && modOptionEventFound)
+                        {
                             break;
+                        }
                     }
 
                     method.Invoke(Config, invokeParams);
@@ -595,8 +630,9 @@
 
                 var label = modOptionMetadata.LabelAttribute.Label;
                 if (modOptionMetadata.ModOptionType == typeof(ModButtonOption))
-                    // Just add the button to the menu, easy
+                {   // Just add the button to the menu, easy
                     AddButtonOption(id, label);
+                }
                 else if (modOptionMetadata.ModOptionType == typeof(ModChoiceOption))
                 {   // Parse the metadata for the ModChoiceOption and add to menu
                     object value;
