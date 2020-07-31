@@ -65,12 +65,12 @@
             var configModOptions = new ConfigModOptions<T>();
             RegisterModOptions(configModOptions);
 
-            var modOptionsAttribute = typeof(T).GetCustomAttributes(typeof(MenuAttribute), true).SingleOrDefault() as MenuAttribute
+            var menuAttribute = typeof(T).GetCustomAttributes(typeof(MenuAttribute), true).SingleOrDefault() as MenuAttribute
                 ?? new MenuAttribute();
 
-            if (modOptionsAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.SaveGame))
+            if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.SaveGame))
                 IngameMenuHandler.RegisterOnSaveEvent(() => configModOptions.Config.Save());
-            if (modOptionsAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.QuitGame))
+            if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.QuitGame))
                 IngameMenuHandler.RegisterOnQuitEvent(() => configModOptions.Config.Save());
 
             return configModOptions.Config;
