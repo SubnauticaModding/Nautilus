@@ -31,42 +31,6 @@
         public TConfigFile Config { get; }
 
         /// <summary>
-        /// The <see cref="MenuAttribute"/> relating to this <see cref="ModOptions"/> menu.
-        /// </summary>
-        private readonly MenuAttribute menuAttribute;
-
-        /// <summary>
-        /// A simple struct containing metadata for each auto-generated <see cref="ModOption"/>.
-        /// </summary>
-        private struct ModOptionMetadata
-        {
-            public Type ModOptionType;
-            public LabelAttribute LabelAttribute;
-            public MemberInfo MemberInfo;
-            public TooltipAttribute TooltipAttribute;
-            public OnChangeAttribute[] OnChangeAttributes;
-            public OnGameObjectCreatedAttribute[] OnGameObjectCreatedAttributes;
-            public ButtonAttribute ButtonAttribute;
-            public ChoiceAttribute ChoiceAttribute;
-            public SliderAttribute SliderAttribute;
-        }
-
-        /// <summary>
-        /// A dictionary of <see cref="ModOptionMetadata"/>, indexed by <see cref="ModOption.Id"/>.
-        /// </summary>
-        private readonly Dictionary<string, ModOptionMetadata> modOptionsMetadata
-            = new Dictionary<string, ModOptionMetadata>();
-
-        /// <summary>
-        /// A list of attributes which when declared on a member of <see cref="Config"/> will be used to
-        /// automatically generate a <see cref="ModOption"/>.
-        /// </summary>
-        private static readonly Type[] relevantAttributeTypes = new Type[] {
-            typeof(LabelAttribute), typeof(ButtonAttribute), typeof(ChoiceAttribute), typeof(OnChangeAttribute),
-            typeof(OnGameObjectCreatedAttribute), typeof(SliderAttribute), typeof(TooltipAttribute)
-        };
-
-        /// <summary>
         /// Instantiates a new <see cref="ConfigModOptions{T}"/>, generating <see cref="ModOption"/>s by parsing the fields,
         /// properties and methods declared in the class.
         /// </summary>
@@ -81,6 +45,7 @@
             menuAttribute = typeof(TConfigFile).GetCustomAttributes(typeof(MenuAttribute), true).SingleOrDefault() as MenuAttribute
                 ?? new MenuAttribute(Name);
 
+            // Process members
             var bindingFlags = BindingFlags.Instance | BindingFlags.Public;
             foreach (PropertyInfo property in typeof(TConfigFile).GetProperties(bindingFlags)
                 .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
@@ -119,6 +84,43 @@
                 || (x.OnGameObjectCreatedAttributes != null && x.OnGameObjectCreatedAttributes.Any())))
                 GameObjectCreated += ConfigModOptions_GameObjectCreated;
         }
+
+        #region Member Processing
+        /// <summary>
+        /// The <see cref="MenuAttribute"/> relating to this <see cref="ModOptions"/> menu.
+        /// </summary>
+        private readonly MenuAttribute menuAttribute;
+
+        /// <summary>
+        /// A simple struct containing metadata for each auto-generated <see cref="ModOption"/>.
+        /// </summary>
+        private struct ModOptionMetadata
+        {
+            public Type ModOptionType;
+            public LabelAttribute LabelAttribute;
+            public MemberInfo MemberInfo;
+            public TooltipAttribute TooltipAttribute;
+            public OnChangeAttribute[] OnChangeAttributes;
+            public OnGameObjectCreatedAttribute[] OnGameObjectCreatedAttributes;
+            public ButtonAttribute ButtonAttribute;
+            public ChoiceAttribute ChoiceAttribute;
+            public SliderAttribute SliderAttribute;
+        }
+
+        /// <summary>
+        /// A dictionary of <see cref="ModOptionMetadata"/>, indexed by <see cref="ModOption.Id"/>.
+        /// </summary>
+        private readonly Dictionary<string, ModOptionMetadata> modOptionsMetadata
+            = new Dictionary<string, ModOptionMetadata>();
+
+        /// <summary>
+        /// A list of attributes which when declared on a member of <see cref="Config"/> will be used to
+        /// automatically generate a <see cref="ModOption"/>.
+        /// </summary>
+        private static readonly Type[] relevantAttributeTypes = new Type[] {
+            typeof(LabelAttribute), typeof(ButtonAttribute), typeof(ChoiceAttribute), typeof(OnChangeAttribute),
+            typeof(OnGameObjectCreatedAttribute), typeof(SliderAttribute), typeof(TooltipAttribute)
+        };
 
         /// <summary>
         /// Checks whether a given <see cref="MemberInfo"/> is declared in any subclass of <see cref="ConfigFile"/>.
@@ -244,7 +246,9 @@
                 Logger.Error($"[ConfigModOptions] {ex.Message}");
             }
         }
+        #endregion
 
+        #region Click, Change and GameObjectCreated Events
         /// <summary>
         /// Invokes the method for a given <see cref="ButtonAttribute"/> and passes parameters when the button is clicked.
         /// </summary>
@@ -568,6 +572,7 @@
                 }
             }
         }
+        #endregion
 
         /// <summary>
         /// Adds options to the menu based on the <see cref="modOptionsMetadata"/> dictionary, generated by the constructor.
