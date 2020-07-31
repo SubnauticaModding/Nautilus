@@ -130,5 +130,7 @@ namespace SMLHelper.V2.Options
         /// </summary>
         /// <param name="name">The display name for the generated options menu.</param>
         public MenuAttribute(string name) => Name = name;
+
+        internal MenuAttribute() { }
     }
 }
