@@ -1,123 +1,92 @@
-﻿using System.Collections.Generic;
-using QModManager.API.ModLoading;
+﻿using QModManager.API.ModLoading;
 using SMLHelper.V2.Handlers;
+using SMLHelper.V2.Interfaces;
 using SMLHelper.V2.Json;
 using SMLHelper.V2.Options;
 using UnityEngine;
 using UnityEngine.UI;
+using Logger = QModManager.Utility.Logger;
+using Tooltip = SMLHelper.V2.Options.TooltipAttribute;
 
 namespace SMLHelper.V2.Examples
 {
     [QModCore]
     public static class ExampleMod
     {
-        public static Config Config { get; } = new Config();
+        internal static Config Config { get; } = OptionsPanelHandler.RegisterModOptions<Config>();
 
         [QModPatch]
         public static void Patch()
         {
-            Config.Load();
-            OptionsPanelHandler.RegisterModOptions(new Options());
+            Logger.Log(Logger.Level.Info, "Patched successfully!");
         }
     }
 
+    public enum CustomChoice { One, Two, Three }
+
+    [Menu("SMLHelper Example Mod")]
     public class Config : ConfigFile
     {
-        public int ChoiceIndex { get; internal set; }
-        public KeyCode KeybindKey { get; internal set; }
-        public float SliderValue { get; internal set; }
-        public bool ToggleValue { get; internal set; }
-    }
+        [Label("My index-based choice"), Tooltip("A simple tooltip"), Choice("Choice 1", "Choice 2", "Choice 3"), OnChange(nameof(MyGenericValueChangedEvent))]
+        public int ChoiceIndex;
 
-    public class Options : ModOptions
-    {
-        public Options() : base("SMLHelper Example Mod")
+        [Label("My string-based choice"), Choice("Foo", "Bar"), OnChange(nameof(MyGenericValueChangedEvent))]
+        public string ChoiceString = "Foo";
+
+        [Label("My enum-based choice"), OnChange(nameof(MyGenericValueChangedEvent))]
+        public CustomChoice ChoiceEnum;
+
+        [Label("My customised enum-based choice"), Choice("1", "2", "3"), OnChange(nameof(MyGenericValueChangedEvent))]
+        public CustomChoice ChoiceEnumCustomValues;
+
+        [Label("My keybind"), OnChange(nameof(MyGenericValueChangedEvent))]
+        public KeyCode KeybindKey;
+
+        [Label("My slider"), Slider(0, 50, DefaultValue = 25, Format = "{0:F2}"), OnChange(nameof(MyGenericValueChangedEvent))]
+        public int SliderValue;
+
+        [Label("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
+        public bool ToggleValue;
+
+        [Label("My button"), OnGameObjectCreated(nameof(MyGameObjectCreatedEvent))]
+        public void MyButtonClickEvent(ButtonClickedEventArgs e)
         {
-            ChoiceChanged += Options_ChoiceChanged;
-            KeybindChanged += Options_KeybindChanged;
-            SliderChanged += Options_SliderChanged;
-            ToggleChanged += Options_ToggleChanged;
-
-            GameObjectCreated += Options_GameObjectCreated;
+            Logger.Log(Logger.Level.Info, "Button was clicked!");
+            Logger.Log(Logger.Level.Info, $"{e.Id}");
         }
 
-        public void Options_ChoiceChanged(object sender, ChoiceChangedEventArgs e)
+        public void MyCheckboxToggleEvent(ToggleChangedEventArgs e)
         {
-            if (e.Id != "exampleChoice") return;
-            ExampleMod.Config.ChoiceIndex = e.Index;
-            ExampleMod.Config.Save();
-        }
-        public void Options_KeybindChanged(object sender, KeybindChangedEventArgs e)
-        {
-            if (e.Id != "exampleKeybind") return;
-            ExampleMod.Config.KeybindKey = e.Key;
-            ExampleMod.Config.Save();
-        }
-        public void Options_SliderChanged(object sender, SliderChangedEventArgs e)
-        {
-            if (e.Id != "exampleSlider") return;
-            ExampleMod.Config.SliderValue = e.Value;
-            ExampleMod.Config.Save();
-        }
-        public void Options_ToggleChanged(object sender, ToggleChangedEventArgs e)
-        {
-            if (e.Id != "exampleToggle") return;
-            ExampleMod.Config.ToggleValue = e.Value;
-            ExampleMod.Config.Save();
+            Logger.Log(Logger.Level.Info, "Checkbox value was changed!");
+            Logger.Log(Logger.Level.Info, $"{e.Value}");
         }
 
-        public override void BuildModOptions()
+        private void MyGenericValueChangedEvent(IModOptionEventArgs e)
         {
-            AddChoiceOption("exampleChoice", "Choice", new string[] { "Choice 1", "Choice 2", "Choice 3" }, ExampleMod.Config.ChoiceIndex);
-            AddKeybindOption("exampleKeybind", "Keybind", GameInput.Device.Keyboard, ExampleMod.Config.KeybindKey);
-            AddSliderOption("exampleSlider", "Slider", 0, 100, ExampleMod.Config.SliderValue, 50f); // do not specify format here if you going to use custom SliderValue
-            AddToggleOption("exampleToggle", "Toggle", ExampleMod.Config.ToggleValue);
-        }
+            Logger.Log(Logger.Level.Info, "Generic value changed!");
+            Logger.Log(Logger.Level.Info, $"{e.Id}: {e.GetType()}");
 
-        // some optional and advanced stuff
-        public void Options_GameObjectCreated(object sender, GameObjectCreatedEventArgs e)
-        {
-            GameObject go = e.GameObject;
-
-            if (e.Id == "exampleChoice")
+            switch (e)
             {
-                // adding tooltip to the choice's label
-                GameObject label = go.GetComponentInChildren<Text>().gameObject;
-                label.AddComponent<Tooltip>().tooltip = "This is tooltip for choice";
-            }
-            else
-            if (e.Id == "exampleSlider")
-            {
-                // adding custom value handler
-                // if you need just custom value format, you don't need custom component, just add format to AddSliderOption params
-                GameObject slider = go.transform.Find("Slider").gameObject;
-                slider.AddComponent<CustomSliderValue>().ValueFormat = "{0:F2}"; // ValueFormat is optional
+                case KeybindChangedEventArgs keybindChangedEventArgs:
+                    Logger.Log(Logger.Level.Info, keybindChangedEventArgs.KeyName);
+                    break;
+                case ChoiceChangedEventArgs choiceChangedEventArgs:
+                    Logger.Log(Logger.Level.Info, $"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
+                    break;
+                case SliderChangedEventArgs sliderChangedEventArgs:
+                    Logger.Log(Logger.Level.Info, sliderChangedEventArgs.Value.ToString());
+                    break;
+                case ToggleChangedEventArgs toggleChangedEventArgs:
+                    Logger.Log(Logger.Level.Info, toggleChangedEventArgs.Value.ToString());
+                    break;
             }
         }
 
-        private class Tooltip : MonoBehaviour, ITooltip
+        private void MyGameObjectCreatedEvent(GameObjectCreatedEventArgs e)
         {
-            public string tooltip;
-
-            public void Start()
-            {
-                Destroy(gameObject.GetComponent<LayoutElement>()); // so tooltip will be only for the text and not for empty space after the text
-            }
-
-            public void GetTooltip(out string tooltipText, List<TooltipIcon> _)
-            {
-                tooltipText = tooltip;
-            }
-        }
-
-        // simple example, just changing slider's value with step of 5.0
-        private class CustomSliderValue : ModSliderOption.SliderValue
-        {
-            protected override void UpdateLabel()
-            {
-                slider.value = Mathf.Round(slider.value / 5.0f) * 5.0f;
-                base.UpdateLabel();
-            }
+            Logger.Log(Logger.Level.Info, "GameObject was created");
+            Logger.Log(Logger.Level.Info, $"{e.Id}: {e.GameObject}");
         }
     }
 }
