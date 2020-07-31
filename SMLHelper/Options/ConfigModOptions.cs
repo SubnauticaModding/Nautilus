@@ -281,7 +281,7 @@
                     }
                 }
 
-                methodInfo.FastInvoke(Config, invokeParams);
+                methodInfo.Invoke(Config, invokeParams);
             }
         }
 
@@ -494,7 +494,7 @@
                     }
                 }
 
-                method.FastInvoke(Config, invokeParams);
+                method.Invoke(Config, invokeParams);
             }
         }
 
@@ -565,7 +565,7 @@
                         }
                     }
 
-                    method.FastInvoke(Config, invokeParams);
+                    method.Invoke(Config, invokeParams);
                 }
             }
         }
