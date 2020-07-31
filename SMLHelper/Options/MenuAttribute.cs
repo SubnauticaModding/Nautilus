@@ -79,7 +79,7 @@ namespace SMLHelper.V2.Options
     /// <seealso cref="ModOptions"/>
     /// <seealso cref="Json.ConfigFile"/>
     /// <seealso cref="QModManager.Utility.Logger"/>
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class MenuAttribute : Attribute
     {
         /// <summary>
