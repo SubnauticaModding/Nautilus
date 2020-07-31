@@ -92,8 +92,7 @@
                 .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
                 ProcessFieldOrProperty(field, field.FieldType);
 
-            foreach (MethodInfo method in typeof(TConfigFile)
-                .GetMethods(bindingFlags | BindingFlags.NonPublic | BindingFlags.Static)
+            foreach (MethodInfo method in typeof(TConfigFile).GetMethods(bindingFlags | BindingFlags.NonPublic | BindingFlags.Static)
                 .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
                 .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
                 ProcessMethod(method);
