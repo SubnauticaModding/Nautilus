@@ -657,7 +657,7 @@
 
                     AddSliderOption(id, label, modOptionMetadata.SliderAttribute.Min, modOptionMetadata.SliderAttribute.Max,
                         Convert.ToSingle(value), modOptionMetadata.SliderAttribute.DefaultValue,
-                        modOptionMetadata.SliderAttribute.Format);
+                        modOptionMetadata.SliderAttribute.Format, modOptionMetadata.SliderAttribute.Step);
                 }
                 else if (modOptionMetadata.ModOptionType == typeof(ModToggleOption))
                 {   // Parse the metadata for the ModToggleOption and add to menu

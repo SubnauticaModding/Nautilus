@@ -42,7 +42,12 @@ namespace SMLHelper.V2.Options
         /// <summary>
         /// The format to use when displaying the value, e.g. "{0:F2}" or "{0:F0} %"
         /// </summary>
-        public string Format { get; set; }
+        public string Format { get; set; } = "{0:F0}";
+
+        /// <summary>
+        /// The step to apply to the slider (ie. round to nearest)
+        /// </summary>
+        public float Step { get; set; }
 
         /// <summary>
         /// Signifies the specified <see cref="float"/>, <see cref="double"/> or <see cref="int"/> should be represented in the mod's
