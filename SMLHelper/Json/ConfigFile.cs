@@ -1,23 +1,29 @@
 ﻿namespace SMLHelper.V2.Json
 {
-    using System.IO;
-    using System.Reflection;
-    using System.Linq;
+    using Oculus.Newtonsoft.Json;
+    using Oculus.Newtonsoft.Json.Converters;
     using SMLHelper.V2.Json.Converters;
     using SMLHelper.V2.Json.ExtensionMethods;
     using SMLHelper.V2.Json.Interfaces;
-    using Oculus.Newtonsoft.Json;
-    using Oculus.Newtonsoft.Json.Converters;
+    using System.IO;
+    using System.Reflection;
+    using System.Linq;
+    using System;
 
     /// <summary>
     /// A simple implementation of <see cref="IJsonFile"/> for use with config files.
     /// </summary>
     public abstract class ConfigFile : IJsonFile
     {
+        [JsonIgnore]
+        private readonly string JsonFilename;
+        [JsonIgnore]
+        private readonly string JsonPath;
+
         /// <summary>
         /// The file path at which the JSON file is accessible for reading and writing.
         /// </summary>
-        public string JsonFilePath { get; private set; }
+        public string JsonFilePath => Path.Combine(JsonPath, $"{JsonFilename}.json");
 
         [JsonIgnore]
         private readonly JsonConverter[] alwaysIncludedJsonConverters = new JsonConverter[] {
@@ -32,6 +38,26 @@
         /// </summary>
         /// <seealso cref="alwaysIncludedJsonConverters"/>
         public JsonConverter[] AlwaysIncludedJsonConverters => alwaysIncludedJsonConverters;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ConfigFile"/>, parsing the filename and subfolder from a
+        /// <see cref="ConfigFileAttribute"/> if declared, or with default values otherwise.
+        /// </summary>
+        public ConfigFile()
+        {
+            if (GetType().GetCustomAttributes(typeof(ConfigFileAttribute), true).FirstOrDefault() is ConfigFileAttribute configFile)
+            {
+                JsonFilename = configFile.Filename;
+                JsonPath = Path.Combine(
+                    Path.GetDirectoryName(Assembly.GetCallingAssembly().Location),
+                    configFile.Subfolder);
+            }
+            else
+            {
+                JsonFilename = "config";
+                JsonPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+            }
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="ConfigFile"/>.
@@ -53,16 +79,10 @@
         /// </example>
         protected ConfigFile(string fileName = "config", string subfolder = null)
         {
-            var path = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
-            if (string.IsNullOrEmpty(fileName))
-            {
-                fileName = "config";
-            }
-            JsonFilePath = Path.Combine(
-                path,
-                string.IsNullOrEmpty(subfolder) ? string.Empty : subfolder,
-                $"{fileName}.json"
-            );
+            JsonFilename = fileName;
+            JsonPath = Path.Combine(
+                Path.GetDirectoryName(Assembly.GetCallingAssembly().Location),
+                string.IsNullOrEmpty(subfolder) ? string.Empty : subfolder);
         }
 
         /// <summary>
