@@ -194,18 +194,18 @@
                 var modOptionType = typeof(TModOption); // cache the ModOption type for comparisons
 
                 // Get the label
-                var modOptionAttribute = memberInfo.GetCustomAttributes(typeof(LabelAttribute), true)
+                var labelAttribute = memberInfo.GetCustomAttributes(typeof(LabelAttribute), true)
                     .SingleOrDefault() as LabelAttribute;
-                if (modOptionAttribute == null)
-                    modOptionAttribute = new LabelAttribute();
-                if (string.IsNullOrEmpty(modOptionAttribute.Label))
-                    modOptionAttribute.Label = memberInfo.Name; // If there is no label specified, just use the member's name.
+                if (labelAttribute == null)
+                    labelAttribute = new LabelAttribute();
+                if (string.IsNullOrEmpty(labelAttribute.Label))
+                    labelAttribute.Label = memberInfo.Name; // If there is no label specified, just use the member's name.
 
                 // ModOptionMetadata needed for all ModOptions
                 var modOptionMetadata = new ModOptionMetadata
                 {
                     ModOptionType = modOptionType,
-                    LabelAttribute = modOptionAttribute,
+                    LabelAttribute = labelAttribute,
                     MemberInfo = memberInfo,
                     TooltipAttribute = memberInfo.GetCustomAttributes(typeof(TooltipAttribute), true)
                         .SingleOrDefault() as TooltipAttribute,
@@ -217,7 +217,7 @@
                 {   // ModButtonOption specific metadata
                     modOptionMetadata.ButtonAttribute = memberInfo.GetCustomAttributes(typeof(ButtonAttribute), true)
                         .SingleOrDefault() as ButtonAttribute ?? new ButtonAttribute();
-                    modOptionsMetadata.Add(modOptionAttribute.Id, modOptionMetadata);
+                    modOptionsMetadata.Add(labelAttribute.Id, modOptionMetadata);
                     return; // We don't need to process any further metadata for buttons
                 }
 
@@ -237,7 +237,7 @@
                         ?? new SliderAttribute();
                 }
 
-                modOptionsMetadata.Add(modOptionAttribute.Id, modOptionMetadata);
+                modOptionsMetadata.Add(labelAttribute.Id, modOptionMetadata);
             }
             catch (Exception ex)
             {
