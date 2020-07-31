@@ -4,5 +4,8 @@
   "Author": "ahk1221 & PrimeSonic & AlexejheroYTB",
   "Version": "Updated for the latest version of SMLHelper",
   "Enable": true,
-  "AssemblyName": "Example mod.dll"
+  "AssemblyName": "Example mod.dll",
+  "VersionDependencies": {
+    "SMLHelper":  "2.9"
+  }
 }
