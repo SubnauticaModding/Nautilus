@@ -36,7 +36,7 @@ namespace SMLHelper.V2.Json
         /// Used to specify the filename for the <see cref="ConfigFile"/>.
         /// </summary>
         /// <remarks>
-        /// When used alongside the <see cref="ConfigFile(string, string)"/> constructor, this attribute takes precedence.
+        /// When used alongside the <see cref="ConfigFile(string, string)"/> constructor, this attribute is ignored.
         /// </remarks>
         /// <param name="filename">The filename to use for the <see cref="ConfigFile"/>.</param>
         public ConfigFileAttribute(string filename = "config")
