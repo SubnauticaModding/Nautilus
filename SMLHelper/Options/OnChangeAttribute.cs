@@ -11,7 +11,7 @@ namespace SMLHelper.V2.Options
     /// <para>
     /// The specified method can take the following parameters in any order:<br/>
     /// - <see cref="object"/> sender: The sender of the event<br/>
-    /// - <see cref="IModOptionEventArgs"/> eventArgs: The generalized event arguments of the event<br/>
+    /// - <see cref="Interfaces.IModOptionEventArgs"/> eventArgs: The generalized event arguments of the event<br/>
     /// - <see cref="ChoiceChangedEventArgs"/> choiceChangedEventArgs: Only when the member corresponds to a
     ///   <see cref="ModChoiceOption"/><br/>
     /// - <see cref="KeybindChangedEventArgs"/> keybindChangedEventArgs: Only when the member correspends to a
@@ -24,6 +24,7 @@ namespace SMLHelper.V2.Options
     /// </remarks>
     /// <example>
     /// <code>
+    /// using SMLHelper.V2.Interfaces;
     /// using SMLHelper.V2.Json;
     /// using SMLHelper.V2.Options;
     /// using QModManager.Utility;
@@ -66,7 +67,7 @@ namespace SMLHelper.V2.Options
     /// </example>
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="LabelAttribute"/>
-    /// <seealso cref="IModOptionEventArgs"/>
+    /// <seealso cref="Interfaces.IModOptionEventArgs"/>
     /// <seealso cref="ChoiceChangedEventArgs"/>
     /// <seealso cref="KeybindChangedEventArgs"/>
     /// <seealso cref="SliderChangedEventArgs"/>

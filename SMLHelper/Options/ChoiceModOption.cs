@@ -9,7 +9,7 @@
     /// <summary>
     /// Contains all the information about a choice changed event.
     /// </summary>
-    public class ChoiceChangedEventArgs : EventArgs, IModOptionEventArgs
+    public class ChoiceChangedEventArgs : EventArgs, Interfaces.IModOptionEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModChoiceOption"/> that was changed.

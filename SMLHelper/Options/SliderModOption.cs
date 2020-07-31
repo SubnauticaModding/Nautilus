@@ -15,7 +15,7 @@
     /// <summary>
     /// Contains all the information about a slider changed event.
     /// </summary>
-    public class SliderChangedEventArgs : EventArgs, IModOptionEventArgs
+    public class SliderChangedEventArgs : EventArgs, Interfaces.IModOptionEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModSliderOption"/> that was changed.

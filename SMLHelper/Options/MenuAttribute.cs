@@ -9,6 +9,7 @@ namespace SMLHelper.V2.Options
     /// </summary>
     /// <example>
     /// <code>
+    /// using SMLHelper.V2.Interfaces;
     /// using SMLHelper.V2.Json;
     /// using SMLHelper.V2.Options;
     /// using QModManager.Utility;
