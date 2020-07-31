@@ -3,7 +3,8 @@
 namespace SMLHelper.V2.Options
 {
     /// <summary>
-    /// Attribute used to signify the specified method should be represented in the mod's options menu as a Button.
+    /// Attribute used to signify the specified method should be represented in the mod's options menu
+    /// as a <see cref="ModButtonOption"/>.
     /// When the button is clicked, the given method will run.
     /// </summary>
     /// <example>
