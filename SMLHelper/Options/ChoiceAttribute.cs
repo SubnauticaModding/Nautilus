@@ -4,12 +4,12 @@ using System.Linq;
 namespace SMLHelper.V2.Options
 {
     /// <summary>
-    /// Attribute used to signify the specified <see cref="int"/> should be represented in the mod's options menu as a
-    /// <see cref="ModChoiceOption"/>, where the <see cref="int"/> represents the index of the selected choice in the given array.
+    /// Attribute used to signify the specified member should be represented in the mod's options menu as a
+    /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
+    /// <see cref="Enum"/>-based members.
     /// </summary>
     /// <remarks>
-    /// Attribute will be ignored for <see cref="Enum"/>-based Choice options, and the <see cref="Enum"/> will instead be parsed
-    /// to infer the relevant choices to display.
+    /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <see cref="ChoiceAttribute"/>.
     /// </remarks>
     /// <example>
     /// <code>
@@ -42,23 +42,23 @@ namespace SMLHelper.V2.Options
         public string[] Options { get; }
 
         /// <summary>
-        /// Sifnigies the specified <see cref="int"/> should be represented in the mod's options menu as a
-        /// <see cref="ModChoiceOption"/>, where the <see cref="int"/> represents the index of the selected choice in the given array.
+        /// Attribute used to signify the specified member should be represented in the mod's options menu as a
+        /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
+        /// <see cref="Enum"/>-based members.
         /// </summary>
         /// <remarks>
-        /// Attribute will be ignored for <see cref="Enum"/>-based Choice options, and the <see cref="Enum"/> will instead be parsed
-        /// to infer the relevant choices to display.
+        /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <see cref="ChoiceAttribute"/>.
         /// </remarks>
         /// <param name="options">The list of options for the user to choose from.</param>
         public ChoiceAttribute(params string[] options) => Options = options;
 
         /// <summary>
-        /// Sifnigies the specified <see cref="int"/> should be represented in the mod's options menu as a
-        /// <see cref="ModChoiceOption"/>, where the <see cref="int"/> represents the index of the selected choice in the given array.
+        /// Attribute used to signify the specified member should be represented in the mod's options menu as a
+        /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
+        /// <see cref="Enum"/>-based members.
         /// </summary>
         /// <remarks>
-        /// Attribute will be ignored for <see cref="Enum"/>-based Choice options, and the <see cref="Enum"/> will instead be parsed
-        /// to infer the relevant choices to display.
+        /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <see cref="ChoiceAttribute"/>.
         /// </remarks>
         /// <param name="options">The list of options for the user to choose from.</param>
         public ChoiceAttribute(params object[] options) : this(options.Select(x => x.ToString()).ToArray()) { }
