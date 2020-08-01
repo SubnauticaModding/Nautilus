@@ -459,11 +459,6 @@
             if (modOptionMetadata.OnChangeAttributes == null)
                 return; // Skip attempting to invoke events if there are no OnChangeAttributes set for the member.
 
-            // cache types used in comparisons
-            var objectType = typeof(object);
-            var eventArgsType = typeof(TEventArgs);
-            var genericModOptionEventArgsType = typeof(IModOptionEventArgs);
-
             foreach (var onChangeAttribute in modOptionMetadata.OnChangeAttributes)
             {
                 var method = modOptionMetadata.MemberInfo.DeclaringType.GetMethod(onChangeAttribute.MethodName,
@@ -484,20 +479,20 @@
                 for (var i = 0; i < parameters.Length; i++)
                 {
                     var param = parameters[i];
-                    if (!senderFound && param.ParameterType == objectType)
+                    if (!senderFound && param.ParameterType == typeof(object))
                     {
                         senderFound = true;
                         invokeParams[i] = sender;
                         continue;
                     }
 
-                    if (!eventArgsFound && param.ParameterType == eventArgsType)
+                    if (!eventArgsFound && param.ParameterType == typeof(TEventArgs))
                     {
                         eventArgsFound = true;
                         invokeParams[i] = e;
                     }
 
-                    if (!modOptionEventFound && param.ParameterType == genericModOptionEventArgsType)
+                    if (!modOptionEventFound && param.ParameterType == typeof(IModOptionEventArgs))
                     {
                         modOptionEventFound = true;
                         invokeParams[i] = e;
@@ -532,11 +527,6 @@
                 if (modOptionMetadata.OnGameObjectCreatedAttributes == null)
                     return; // Skip attempting to invoke events if there are no OnGameObjectCreatedAttributes set for the member.
 
-                // cache types used in comparisons
-                var objectType = typeof(object);
-                var gameObjectCreatedEventArgsType = typeof(GameObjectCreatedEventArgs);
-                var genericModOptionEventArgsType = typeof(IModOptionEventArgs);
-
                 foreach (var onGameObjectCreatedAttribute in modOptionMetadata.OnGameObjectCreatedAttributes)
                 {
                     var method = modOptionMetadata.MemberInfo.DeclaringType.GetMethod(onGameObjectCreatedAttribute.MethodName,
@@ -557,20 +547,20 @@
                     for (var i = 0; i < parameters.Length; i++)
                     {
                         var param = parameters[i];
-                        if (!senderFound && param.ParameterType == objectType)
+                        if (!senderFound && param.ParameterType == typeof(object))
                         {
                             senderFound = true;
                             invokeParams[i] = sender;
                             continue;
                         }
 
-                        if (!eventArgsFound && param.ParameterType == gameObjectCreatedEventArgsType)
+                        if (!eventArgsFound && param.ParameterType == typeof(GameObjectCreatedEventArgs))
                         {
                             eventArgsFound = true;
                             invokeParams[i] = e;
                         }
 
-                        if (!modOptionEventFound && param.ParameterType == genericModOptionEventArgsType)
+                        if (!modOptionEventFound && param.ParameterType == typeof(IModOptionEventArgs))
                         {
                             modOptionEventFound = true;
                             invokeParams[i] = e;
