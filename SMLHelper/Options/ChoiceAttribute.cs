@@ -1,8 +1,9 @@
-﻿using System;
-using System.Linq;
-
-namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options
 {
+    using Json;
+    using System;
+    using System.Linq;
+
     /// <summary>
     /// Attribute used to signify the specified member should be represented in the mod's options menu as a
     /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
@@ -32,7 +33,7 @@ namespace SMLHelper.V2.Options
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="LabelAttribute"/>
     /// <seealso cref="ModChoiceOption"/>
-    /// <seealso cref="Json.ConfigFile"/>
+    /// <seealso cref="ConfigFile"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     public sealed class ChoiceAttribute : Attribute
     {

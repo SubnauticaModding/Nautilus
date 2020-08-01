@@ -1,16 +1,14 @@
 ﻿namespace SMLHelper.V2.Options
 {
-    using HarmonyLib;
-    using QModManager.API;
-    using SMLHelper.V2.Interfaces;
-    using SMLHelper.V2.Json;
+    using Interfaces;
+    using Json;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using QModManager.API;
     using UnityEngine;
-    using UWE;
-    using Logger = V2.Logger;
+    using Logger = Logger;
 #if SUBNAUTICA
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO

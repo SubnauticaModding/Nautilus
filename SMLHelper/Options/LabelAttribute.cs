@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options
 {
+    using Json;
+    using System;
+
     /// <summary>
     /// Attribute used to specify the label to display for the given field in the mod's options menu.
     /// </summary>
@@ -22,7 +23,7 @@ namespace SMLHelper.V2.Options
     /// </code>
     /// </example>
     /// <seealso cref="MenuAttribute"/>
-    /// <seealso cref="Json.ConfigFile"/>
+    /// <seealso cref="ConfigFile"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method, AllowMultiple = false)]
     public sealed class LabelAttribute : Attribute
     {
@@ -33,7 +34,7 @@ namespace SMLHelper.V2.Options
 
         /// <summary>
         /// The Id to be used for the field in the mod's option menu. If none is specified, one will be automatically generated when
-        /// your <see cref="Json.ConfigFile"/> is registered to the <see cref="Handlers.OptionsPanelHandler"/>. This means it will
+        /// your <see cref="ConfigFile"/> is registered to the <see cref="Handlers.OptionsPanelHandler"/>. This means it will
         /// change every time the game is launched, but is guaranteed to be unique. If you would like to specify an Id to use for
         /// internal comparisons, you can do so here.
         /// </summary>

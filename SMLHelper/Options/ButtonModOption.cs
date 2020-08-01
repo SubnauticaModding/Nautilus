@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.V2.Options
 {
+    using Interfaces;
     using System;
     using UnityEngine.Events;
     using UnityEngine.UI;
@@ -7,7 +8,7 @@
     /// <summary>
     /// Contains all the information about a button click event.
     /// </summary>
-    public class ButtonClickedEventArgs : EventArgs, Interfaces.IModOptionEventArgs
+    public class ButtonClickedEventArgs : EventArgs, IModOptionEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModButtonOption"/> that was clicked.

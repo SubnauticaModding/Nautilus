@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SMLHelper.V2.Json
+﻿namespace SMLHelper.V2.Json
 {
+    using System;
+
     /// <summary>
     /// Attribute used to specify the filename and subfolder for a <see cref="ConfigFile"/>.
     /// </summary>

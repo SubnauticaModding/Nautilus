@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options
 {
+    using Json;
+    using System;
+
     /// <summary>
     /// Attribute used to signify a tooltip to display whenever the user hovers their mouse over the <see cref="ModOption"/>.
     /// </summary>
@@ -20,7 +21,7 @@ namespace SMLHelper.V2.Options
     /// </example>
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="LabelAttribute"/>
-    /// <seealso cref="Json.ConfigFile"/>
+    /// <seealso cref="ConfigFile"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     public sealed class TooltipAttribute : Attribute
     {

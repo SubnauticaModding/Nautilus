@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options
 {
+    using Json;
+    using System;
+
     /// <summary>
     /// Attribute used to signify the specified <see cref="float"/>, <see cref="double"/> or <see cref="int"/> should be represented
     /// in the mod's option menu as a <see cref="ModSliderOption"/>.
@@ -20,7 +21,7 @@ namespace SMLHelper.V2.Options
     /// </code>
     /// </example>
     /// <seealso cref="MenuAttribute"/>
-    /// <seealso cref="Json.ConfigFile"/>
+    /// <seealso cref="ConfigFile"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     public sealed class SliderAttribute : Attribute
     {

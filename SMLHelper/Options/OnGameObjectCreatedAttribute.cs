@@ -1,7 +1,9 @@
-﻿using System;
-
-namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options
 {
+    using Interfaces;
+    using System;
+    using QModManager.Utility;
+
     /// <summary>
     /// Attribute used to signify a method to run whenever the <see cref="UnityEngine.GameObject"/> for the <see cref="ModOption"/>
     /// corresponding to this member is created.
@@ -11,7 +13,7 @@ namespace SMLHelper.V2.Options
     /// <para>
     /// The specified method can optionally take the following parameters in any order:<br/>
     /// - <see cref="object"/> sender: The sender of the event<br/>
-    /// - <see cref="Interfaces.IModOptionEventArgs"/> eventArgs: The generalized event arguments of the event<br/>
+    /// - <see cref="IModOptionEventArgs"/> eventArgs: The generalized event arguments of the event<br/>
     /// - <see cref="GameObjectCreatedEventArgs"/> gameObjectCreatedEventArgs: The <see cref="GameObjectCreatedEventArgs"/>
     ///   for the event
     /// </para>
@@ -39,9 +41,10 @@ namespace SMLHelper.V2.Options
     /// </example>
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="LabelAttribute"/>
-    /// <seealso cref="Interfaces.IModOptionEventArgs"/>
+    /// <seealso cref="IModOptionEventArgs"/>
     /// <seealso cref="GameObjectCreatedEventArgs"/>
     /// <seealso cref="OnChangeAttribute"/>
+    /// <seealso cref="Logger"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class OnGameObjectCreatedAttribute : Attribute
     {

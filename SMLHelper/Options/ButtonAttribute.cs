@@ -1,7 +1,9 @@
-﻿using System;
-
-namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options
 {
+    using Json;
+    using System;
+    using QModManager.Utility;
+
     /// <summary>
     /// Attribute used to signify the specified method should be represented in the mod's options menu
     /// as a <see cref="ModButtonOption"/>.
@@ -28,8 +30,8 @@ namespace SMLHelper.V2.Options
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="LabelAttribute"/>
     /// <seealso cref="ButtonClickedEventArgs"/>
-    /// <seealso cref="QModManager.Utility.Logger"/>
-    /// <seealso cref="Json.ConfigFile"/>
+    /// <seealso cref="Logger"/>
+    /// <seealso cref="ConfigFile"/>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public sealed class ButtonAttribute : Attribute { }
 }

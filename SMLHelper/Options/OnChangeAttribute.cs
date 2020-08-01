@@ -1,7 +1,9 @@
-﻿using System;
-
-namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options
 {
+    using Interfaces;
+    using Json;
+    using System;
+
     /// <summary>
     /// Attribute used to signify a method to run whenever the member this attribute is applied to changes.
     /// The method must be a member of the same class.
@@ -11,7 +13,7 @@ namespace SMLHelper.V2.Options
     /// <para>
     /// The specified method can take the following parameters in any order:<br/>
     /// - <see cref="object"/> sender: The sender of the event<br/>
-    /// - <see cref="Interfaces.IModOptionEventArgs"/> eventArgs: The generalized event arguments of the event<br/>
+    /// - <see cref="IModOptionEventArgs"/> eventArgs: The generalized event arguments of the event<br/>
     /// - <see cref="ChoiceChangedEventArgs"/> choiceChangedEventArgs: Only when the member corresponds to a
     ///   <see cref="ModChoiceOption"/><br/>
     /// - <see cref="KeybindChangedEventArgs"/> keybindChangedEventArgs: Only when the member correspends to a
@@ -67,12 +69,12 @@ namespace SMLHelper.V2.Options
     /// </example>
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="LabelAttribute"/>
-    /// <seealso cref="Interfaces.IModOptionEventArgs"/>
+    /// <seealso cref="IModOptionEventArgs"/>
     /// <seealso cref="ChoiceChangedEventArgs"/>
     /// <seealso cref="KeybindChangedEventArgs"/>
     /// <seealso cref="SliderChangedEventArgs"/>
     /// <seealso cref="ToggleChangedEventArgs"/>
-    /// <seealso cref="Json.ConfigFile"/>
+    /// <seealso cref="ConfigFile"/>
     /// <seealso cref="OnGameObjectCreatedAttribute"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
     public sealed class OnChangeAttribute : Attribute

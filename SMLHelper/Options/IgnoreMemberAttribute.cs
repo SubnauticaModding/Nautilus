@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options
 {
+    using Json;
+    using System;
+
     /// <summary>
     /// Attribute used to signify the given property, field or method should be ignored when generating your mod options menu.
     /// </summary>
@@ -31,7 +32,7 @@ namespace SMLHelper.V2.Options
     /// </example>
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="LabelAttribute"/>
-    /// <seealso cref="Json.ConfigFile"/>
+    /// <seealso cref="ConfigFile"/>
     /// <seealso cref="MenuAttribute.IgnoreUnattributedMembers"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method, AllowMultiple = false)]
     public sealed class IgnoreMemberAttribute : Attribute { }

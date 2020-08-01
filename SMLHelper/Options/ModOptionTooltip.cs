@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options
 {
+    using System.Collections.Generic;
+    using UnityEngine;
+    using UnityEngine.UI;
+
     internal class ModOptionTooltip : MonoBehaviour, ITooltip
     {
         public string Tooltip;

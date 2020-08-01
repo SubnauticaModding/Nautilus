@@ -1,14 +1,13 @@
 ﻿namespace SMLHelper.V2.Json
 {
+    using Converters;
+    using ExtensionMethods;
+    using Interfaces;
     using Oculus.Newtonsoft.Json;
     using Oculus.Newtonsoft.Json.Converters;
-    using SMLHelper.V2.Json.Converters;
-    using SMLHelper.V2.Json.ExtensionMethods;
-    using SMLHelper.V2.Json.Interfaces;
     using System.IO;
     using System.Reflection;
     using System.Linq;
-    using System;
 
     /// <summary>
     /// A simple implementation of <see cref="IJsonFile"/> for use with config files.

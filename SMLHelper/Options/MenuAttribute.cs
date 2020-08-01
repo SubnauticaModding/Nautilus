@@ -1,7 +1,9 @@
-﻿using System;
-
-namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options
 {
+    using Json;
+    using System;
+    using QModManager.Utility;
+
     /// <summary>
     /// Attribute used to signify a <see cref="ModOptions"/> menu should be automatically generated from a
     /// <see cref="Json.ConfigFile"/>, as well as specifying options for handling the <see cref="Json.ConfigFile"/>
@@ -77,8 +79,8 @@ namespace SMLHelper.V2.Options
     /// <seealso cref="SliderAttribute"/>
     /// <seealso cref="ButtonAttribute"/>
     /// <seealso cref="ModOptions"/>
-    /// <seealso cref="Json.ConfigFile"/>
-    /// <seealso cref="QModManager.Utility.Logger"/>
+    /// <seealso cref="ConfigFile"/>
+    /// <seealso cref="Logger"/>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class MenuAttribute : Attribute
     {
