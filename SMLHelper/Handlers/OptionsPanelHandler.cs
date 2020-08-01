@@ -70,6 +70,7 @@
 
             if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.SaveGame))
                 IngameMenuHandler.RegisterOnSaveEvent(() => configModOptions.Config.Save());
+
             if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.QuitGame))
                 IngameMenuHandler.RegisterOnQuitEvent(() => configModOptions.Config.Save());
 
