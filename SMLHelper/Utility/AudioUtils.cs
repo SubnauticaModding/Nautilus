@@ -16,7 +16,11 @@
         /// <returns>The <see cref="Sound"/> instance</returns>
         public static Sound CreateSound(string path, MODE mode = MODE.DEFAULT)
         {
+#if SUBNAUTICA
+            RuntimeManager.CoreSystem.createSound(path, mode, out Sound sound);
+#elif BELOWZERO
             RuntimeManager.LowlevelSystem.createSound(path, mode, out Sound sound);
+#endif
             return sound;
         }
 
@@ -50,8 +54,13 @@
         /// <returns>The channel on which the sound was created</returns>
         public static Channel PlaySound(Sound sound)
         {
+#if SUBNAUTICA
+            RuntimeManager.CoreSystem.getMasterChannelGroup(out ChannelGroup channels);
+            RuntimeManager.CoreSystem.playSound(sound, channels, false, out Channel channel);
+#elif BELOWZERO
             RuntimeManager.LowlevelSystem.getMasterChannelGroup(out ChannelGroup channels);
             RuntimeManager.LowlevelSystem.playSound(sound, channels, false, out Channel channel);
+#endif
             return channel;
         }
 
@@ -84,10 +93,17 @@
                     break;
             }
 
+#if SUBNAUTICA
+            RuntimeManager.CoreSystem.getMasterChannelGroup(out ChannelGroup channels);
+            var newChannels = channels;
+            newChannels.setVolume(volumeLevel);
+            RuntimeManager.CoreSystem.playSound(sound, newChannels, false, out Channel channel);
+#elif BELOWZERO
             RuntimeManager.LowlevelSystem.getMasterChannelGroup(out ChannelGroup channels);
             var newChannels = channels;
             newChannels.setVolume(volumeLevel);
             RuntimeManager.LowlevelSystem.playSound(sound, newChannels, false, out Channel channel);
+#endif
             return channel;
         }
     }

@@ -1,7 +1,7 @@
 ﻿namespace SMLHelper.V2.Json.ExtensionMethods
 {
     using SMLHelper.V2.Utility;
-    using Oculus.Newtonsoft.Json;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Extension methods for parsing objects as JSON data.

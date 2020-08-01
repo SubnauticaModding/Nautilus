@@ -2,8 +2,8 @@
 {
     using System;
     using SMLHelper.V2.Utility;
-    using Oculus.Newtonsoft.Json;
     using UnityEngine;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// A <see cref="JsonConverter"/> for handling <see cref="KeyCode"/>s.

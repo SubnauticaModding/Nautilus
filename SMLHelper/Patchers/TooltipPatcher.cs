@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
+    using HarmonyLib;
     using QModManager.API;
     using SMLHelper.V2.Handlers;
     using SMLHelper.V2.Patchers.EnumPatching;
@@ -16,7 +16,7 @@
     {
         internal static bool DisableEnumIsDefinedPatch = false;
 
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
             Initialize();
 

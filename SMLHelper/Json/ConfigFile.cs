@@ -6,8 +6,8 @@
     using SMLHelper.V2.Json.Converters;
     using SMLHelper.V2.Json.ExtensionMethods;
     using SMLHelper.V2.Json.Interfaces;
-    using Oculus.Newtonsoft.Json;
-    using Oculus.Newtonsoft.Json.Converters;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
 
     /// <summary>
     /// A simple implementation of <see cref="IJsonFile"/> for use with config files.
@@ -43,7 +43,7 @@
         /// using SMLHelper.V2.Options;
         /// using UnityEngine;
         /// 
-        /// public static class MyConfig : ConfigFile
+        /// public class MyConfig : ConfigFile
         /// {
         ///     public KeyCode ActivationKey { get; set; } = KeyCode.Escape;
         ///     public MyConfig() : base("options", "Config Files") { }

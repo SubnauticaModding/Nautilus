@@ -4,7 +4,7 @@
     using System.Reflection;
     using System.Diagnostics;
     using System.Collections.Generic;
-    using Harmony;
+    using HarmonyLib;
 
     internal static class PatchUtils
     {
@@ -38,7 +38,7 @@
         // use methods from 'typeWithPatchMethods' class as harmony patches
         // valid method need to have HarmonyPatch and PatchUtils.[Prefix/Postfix/Transpiler] attributes
         // if typeWithPatchMethods is null, we use type from which this method is called
-        internal static void PatchClass(HarmonyInstance harmony, Type typeWithPatchMethods = null)
+        internal static void PatchClass(Harmony harmony, Type typeWithPatchMethods = null)
         {
             MethodInfo _getTargetMethod(HarmonyMethod hm) => AccessTools.Method(hm.declaringType, hm.methodName, hm.argumentTypes);
 

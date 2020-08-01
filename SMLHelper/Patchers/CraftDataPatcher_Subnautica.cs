@@ -1,7 +1,7 @@
 ﻿#if SUBNAUTICA
 namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
+    using HarmonyLib;
     using System.Collections.Generic;
 
     internal partial class CraftDataPatcher
@@ -24,7 +24,7 @@ namespace SMLHelper.V2.Patchers
             CustomTechData.Add(techType, techData);
         }
 
-        private static void PatchForSubnautica(HarmonyInstance harmony)
+        private static void PatchForSubnautica(Harmony harmony)
         {
             PatchUtils.PatchClass(harmony);
         }

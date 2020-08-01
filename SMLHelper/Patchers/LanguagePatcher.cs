@@ -5,7 +5,7 @@
     using System.IO;
     using System.Reflection;
     using System.Text;
-    using Harmony;
+    using HarmonyLib;
 
     internal class LanguagePatcher
     {
@@ -29,7 +29,7 @@
             }
         }
 
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
             if (!Directory.Exists(LanguageDir))
                 Directory.CreateDirectory(LanguageDir);
