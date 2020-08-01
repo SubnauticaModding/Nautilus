@@ -118,15 +118,6 @@
             = new Dictionary<string, ModOptionMetadata>();
 
         /// <summary>
-        /// A list of attributes which when declared on a member of <see cref="Config"/> will be used to
-        /// automatically generate a <see cref="ModOption"/>.
-        /// </summary>
-        private static readonly Type[] relevantAttributeTypes = new Type[] {
-            typeof(LabelAttribute), typeof(ButtonAttribute), typeof(ChoiceAttribute), typeof(OnChangeAttribute),
-            typeof(OnGameObjectCreatedAttribute), typeof(SliderAttribute), typeof(TooltipAttribute)
-        };
-
-        /// <summary>
         /// Checks whether a given <see cref="MemberInfo"/> is declared in any subclass of <see cref="ConfigFile"/>.
         /// </summary>
         /// <param name="memberInfo">The <see cref="MemberInfo"/> to check.</param>
@@ -142,9 +133,26 @@
         /// <param name="memberInfo">The <see cref="MemberInfo"/> to check.</param>
         /// <returns>Whether the given <see cref="MemberInfo"/> member should be ignored when generating the options menu.</returns>
         private bool MemberIsNotIgnored(MemberInfo memberInfo)
-            => !memberInfo.GetCustomAttributes(typeof(IgnoreMemberAttribute), true).Any() &&
-                (!menuAttribute.IgnoreUnattributedMembers || memberInfo.GetCustomAttributes(true)
-                .Any(a => relevantAttributeTypes.Contains(a.GetType())));
+        {
+            if (Attribute.IsDefined(memberInfo, typeof(IgnoreMemberAttribute)))
+            {
+                return false;
+            }
+            else if (!menuAttribute.IgnoreUnattributedMembers)
+            {
+                return true;
+            }
+            else
+            {
+                return Attribute.IsDefined(memberInfo, typeof(LabelAttribute), true) ||
+                    Attribute.IsDefined(memberInfo, typeof(ButtonAttribute), true) ||
+                    Attribute.IsDefined(memberInfo, typeof(ChoiceAttribute), true) ||
+                    Attribute.IsDefined(memberInfo, typeof(OnChangeAttribute), true) ||
+                    Attribute.IsDefined(memberInfo, typeof(OnGameObjectCreatedAttribute), true) ||
+                    Attribute.IsDefined(memberInfo, typeof(SliderAttribute), true) ||
+                    Attribute.IsDefined(memberInfo, typeof(TooltipAttribute), true);
+            }
+        }
 
         /// <summary>
         /// Processes the given field or property and hands off to <see cref="AddModOptionMetadata{TModOption}(MemberInfo, Type)"/>
@@ -162,12 +170,14 @@
             {   // Generate a ModKeybindOption
                 AddModOptionMetadata<ModKeybindOption>(memberInfo, memberType);
             }
-            else if (memberType.IsEnum || memberInfo.GetCustomAttributes(typeof(ChoiceAttribute), true).Any())
+            else if (memberType.IsEnum || Attribute.IsDefined(memberInfo, typeof(ChoiceAttribute), true))
             {   // Generate a ModChoiceOption
                 AddModOptionMetadata<ModChoiceOption>(memberInfo, memberType);
             }
-            else if (new[] { typeof(float), typeof(double), typeof(int) }.Contains(memberType)
-                || memberInfo.GetCustomAttributes(typeof(SliderAttribute), true).Any())
+            else if (memberType == typeof(float) ||
+                    memberType == typeof(double) ||
+                    memberType == typeof(int) ||
+                    Attribute.IsDefined(memberInfo, typeof(SliderAttribute), true))
             {   // Generate a ModSliderOption
                 AddModOptionMetadata<ModSliderOption>(memberInfo, memberType);
             }
@@ -180,7 +190,8 @@
         /// <param name="methodInfo">The <see cref="MethodInfo"/> of the method.</param>
         private void ProcessMethod(MethodInfo methodInfo)
         {
-            if (methodInfo.GetCustomAttributes(true).Any(attribute => attribute is LabelAttribute || attribute is ButtonAttribute))
+            if (Attribute.IsDefined(methodInfo, typeof(LabelAttribute), true) ||
+                Attribute.IsDefined(methodInfo, typeof(ButtonAttribute), true))
             {   // Generate a ModButtonOption
                 AddModOptionMetadata<ModButtonOption>(methodInfo, null);
             }
