@@ -5,11 +5,11 @@
     using QModManager.Utility;
 
     /// <summary>
-    /// Attribute used to signify a method to run whenever the <see cref="UnityEngine.GameObject"/> for the <see cref="ModOption"/>
-    /// corresponding to this member is created.
+    /// Attribute used to signify a method to call whenever the <see cref="UnityEngine.GameObject"/> for the 
+    /// <see cref="ModOption"/> corresponding to the attributed member is created.
     /// </summary>
     /// <remarks>
-    /// Can be specified multiple times to call multiple methods.
+    /// The method must be a member of the same class. Can be specified multiple times to call multiple methods.
     /// <para>
     /// The specified method can optionally take the following parameters in any order:<br/>
     /// - <see cref="object"/> sender: The sender of the event<br/>
@@ -28,7 +28,7 @@
     /// [Menu("SMLHelper Example Mod")]
     /// public class Config : ConfigFile
     /// {
-    ///     [Label("My checkbox"), OnGameObjectCreated(nameof(MyGameObjectCreatedEvent))]
+    ///     [Toggle("My checkbox"), OnGameObjectCreated(nameof(MyGameObjectCreatedEvent))]
     ///     public bool ToggleValue;
     /// 
     ///     private void MyGameObjectCreatedEvent(GameObjectCreatedEventArgs e)
@@ -40,30 +40,22 @@
     /// </code>
     /// </example>
     /// <seealso cref="MenuAttribute"/>
-    /// <seealso cref="LabelAttribute"/>
+    /// <seealso cref="ToggleAttribute"/>
     /// <seealso cref="IModOptionEventArgs"/>
     /// <seealso cref="GameObjectCreatedEventArgs"/>
     /// <seealso cref="OnChangeAttribute"/>
     /// <seealso cref="Logger"/>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method, AllowMultiple = true)]
-    public sealed class OnGameObjectCreatedAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = true)]
+    public sealed class OnGameObjectCreatedAttribute : ModOptionEventAttribute
     {
         /// <summary>
-        /// The name of the method to run when the <see cref="UnityEngine.GameObject"/> for the <see cref="ModOption"/> corresponding
-        /// to this member is created.
-        /// The method must be a member of the same class.
+        /// Signifies a method to call whenever the <see cref="UnityEngine.GameObject"/> for the 
+        /// <see cref="ModOption"/> corresponding to the attributed member is created.
         /// </summary>
-        public string MethodName { get; }
-
-        /// <summary>
-        /// Signifies a method to run whenever the <see cref="UnityEngine.GameObject"/> for the <see cref="ModOption"/> corresponding
-        /// to this member is created.
+        /// <remarks>
         /// The method must be a member of the same class.
-        /// </summary>
-        /// <param name="methodName">The name of the method within the same class to run.</param>
-        public OnGameObjectCreatedAttribute(string methodName)
-        {
-            MethodName = methodName;
-        }
+        /// </remarks>
+        /// <param name="methodName">The name of the method within the same class to invoke.</param>
+        public OnGameObjectCreatedAttribute(string methodName) : base(methodName) { }
     }
 }

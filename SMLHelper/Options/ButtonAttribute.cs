@@ -5,7 +5,7 @@
     using QModManager.Utility;
 
     /// <summary>
-    /// Attribute used to signify the specified method should be represented in the mod's options menu
+    /// Attribute used to signify the attrubuted method should be represented in the mod's options menu
     /// as a <see cref="ModButtonOption"/>.
     /// When the button is clicked, the given method will run.
     /// </summary>
@@ -18,7 +18,7 @@
     /// [Menu("My Options Menu")]
     /// public class Config : ConfigFile
     /// {
-    ///     [Label("My Cool Button), Button]
+    ///     [Button("My Cool Button")]
     ///     public static void MyCoolButton(object sender, ButtonClickedEventArgs e)
     ///     {
     ///         Logger.Log(Logger.Level.Info, "Button was clicked!");
@@ -28,10 +28,23 @@
     /// </code>
     /// </example>
     /// <seealso cref="MenuAttribute"/>
-    /// <seealso cref="LabelAttribute"/>
     /// <seealso cref="ButtonClickedEventArgs"/>
     /// <seealso cref="Logger"/>
     /// <seealso cref="ConfigFile"/>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public sealed class ButtonAttribute : Attribute { }
+    public sealed class ButtonAttribute : ModOptionAttribute
+    {
+        /// <summary>
+        /// Signifies the attributed method should be represented in the mod's options menu as a <see cref="ModButtonOption"/>
+        /// and sets its label.
+        /// </summary>
+        /// <param name="label">The label for the button. If none is set, the name of the method will be used.</param>
+        public ButtonAttribute(string label = null) : base(label) { }
+
+        /// <summary>
+        /// Signifies the attributed method should be represented in the mod's options menu as a <see cref="ModButtonOption"/>
+        /// and sets its label.
+        /// </summary>
+        public ButtonAttribute() { }
+    }
 }

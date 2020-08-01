@@ -20,22 +20,23 @@
     /// [Menu("SMLHelper Example Mod")]
     /// public class Config : ConfigFile
     /// {
-    ///     [Label("My index-based choice"), Tooltip("A simple tooltip"), Choice("Choice 1", "Choice 2", "Choice 3"), OnChange(nameof(MyGenericValueChangedEvent))]
+    ///     [Choice("My index-based choice", "Choice 1", "Choice 2", "Choice 3", Tooltip = "A simple tooltip")]
+    ///     [OnChange(nameof(MyGenericValueChangedEvent))]
     ///     public int ChoiceIndex;
     ///
-    ///     [Label("My enum-based choice"), OnChange(nameof(MyGenericValueChangedEvent))]
+    ///     [Choice("My enum-based choice"), OnChange(nameof(MyGenericValueChangedEvent))]
     ///     public CustomChoice ChoiceEnum;
     /// 
-    ///     [Label("My keybind"), OnChange(nameof(MyGenericValueChangedEvent))]
+    ///     [Keybind("My keybind"), OnChange(nameof(MyGenericValueChangedEvent))]
     ///     public KeyCode KeybindKey;
     /// 
-    ///     [Label("My slider"), Slider(0, 50, DefaultValue = 25, Format = "{0:F2}"), OnChange(nameof(MyGenericValueChangedEvent))]
+    ///     [Slider("My slider", 0, 50, DefaultValue = 25, Format = "{0:F2}"), OnChange(nameof(MyGenericValueChangedEvent))]
     ///     public float SliderValue;
     /// 
-    ///     [Label("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
+    ///     [Toggle("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
     ///     public bool ToggleValue;
     /// 
-    ///     [Label("My button")]
+    ///     [Button("My button")]
     ///     public void MyButtonClickEvent(ButtonClickedEventArgs e)
     ///     {
     ///         Logger.Log(Logger.Level.Info, "Button was clicked!");
@@ -72,11 +73,11 @@
     /// }
     /// </code>
     /// </example>
-    /// <seealso cref="LabelAttribute"/>
-    /// <seealso cref="TooltipAttribute"/>
     /// <seealso cref="ChoiceAttribute"/>
     /// <seealso cref="OnChangeAttribute"/>
+    /// <seealso cref="KeybindAttribute"/>
     /// <seealso cref="SliderAttribute"/>
+    /// <seealso cref="ToggleAttribute"/>
     /// <seealso cref="ButtonAttribute"/>
     /// <seealso cref="ModOptions"/>
     /// <seealso cref="ConfigFile"/>

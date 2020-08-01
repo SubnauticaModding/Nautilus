@@ -2,14 +2,14 @@
 {
     using Interfaces;
     using Json;
+    using QModManager.Utility;
     using System;
 
     /// <summary>
-    /// Attribute used to signify a method to run whenever the member this attribute is applied to changes.
-    /// The method must be a member of the same class.
+    /// Attribute used to signify a method to call whenever the attributed member's value changes.
     /// </summary>
     /// <remarks>
-    /// Can be specified mutliple times to call multiple methods.
+    /// The method must be a member of the same class. Can be specified mutliple times to call multiple methods.
     /// <para>
     /// The specified method can take the following parameters in any order:<br/>
     /// - <see cref="object"/> sender: The sender of the event<br/>
@@ -35,7 +35,7 @@
     /// [Menu("SMLHelper Example Mod")]
     /// public class Config : ConfigFile
     /// {
-    ///     [Label("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
+    ///     [Toggle("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
     ///     public bool ToggleValue;
     ///     
     ///     public void MyCheckboxToggleEvent(ToggleChangedEventArgs e)
@@ -68,7 +68,7 @@
     /// </code>
     /// </example>
     /// <seealso cref="MenuAttribute"/>
-    /// <seealso cref="LabelAttribute"/>
+    /// <seealso cref="ToggleAttribute"/>
     /// <seealso cref="IModOptionEventArgs"/>
     /// <seealso cref="ChoiceChangedEventArgs"/>
     /// <seealso cref="KeybindChangedEventArgs"/>
@@ -76,23 +76,17 @@
     /// <seealso cref="ToggleChangedEventArgs"/>
     /// <seealso cref="ConfigFile"/>
     /// <seealso cref="OnGameObjectCreatedAttribute"/>
+    /// <seealso cref="Logger"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
-    public sealed class OnChangeAttribute : Attribute
+    public sealed class OnChangeAttribute : ModOptionEventAttribute
     {
         /// <summary>
-        /// The name of the method to run whenever the member this attribute is applied to changes.
-        /// The method must be a member of the same class.
+        /// Signifies a method to call whenever the attributed member's value changes.
         /// </summary>
-        public string MethodName { get; }
-
-        /// <summary>
-        /// Signifies a method to run whenever the member this attribute is applied to changes.
+        /// <remarks>
         /// The method must be a member of the same class.
-        /// </summary>
-        /// <param name="methodName">The name of the method within the same class to run.</param>
-        public OnChangeAttribute(string methodName)
-        {
-            MethodName = methodName;
-        }
+        /// </remarks>
+        /// <param name="methodName">The name of the method within the same class to invoke.</param>
+        public OnChangeAttribute(string methodName) : base(methodName) { }
     }
 }

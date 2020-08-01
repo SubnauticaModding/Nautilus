@@ -2,10 +2,10 @@
 {
     using Json;
     using System;
-    using System.Linq;
+    using System.Reflection.Emit;
 
     /// <summary>
-    /// Attribute used to signify the specified member should be represented in the mod's options menu as a
+    /// Attribute used to signify the attributed member should be represented in the mod's options menu as a
     /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
     /// <see cref="Enum"/>-based members.
     /// </summary>
@@ -22,42 +22,42 @@
     /// [Menu("My Options Menu")]
     /// public class Config : ConfigFile
     /// {
-    ///     [Label("My index-based choice"), Choice("One", "Two", "Three")]
+    ///     [Choice("My index-based choice", "One", "Two", "Three")]
     ///     public int MyIndexBasedChoice;
     ///     
-    ///     [Label("My enum-based choice")]
+    ///     [Choice]
     ///     public CustomChoice MyEnumBasedChoice;
     /// }
     /// </code>
     /// </example>
     /// <seealso cref="MenuAttribute"/>
-    /// <seealso cref="LabelAttribute"/>
     /// <seealso cref="ModChoiceOption"/>
     /// <seealso cref="ConfigFile"/>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    public sealed class ChoiceAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
+    public sealed class ChoiceAttribute : ModOptionAttribute
     {
         /// <summary>
         /// The list of options that will be displayed.
         /// </summary>
-        public string[] Options { get; }
+        public string[] Options { get; set; }
 
         /// <summary>
-        /// Attribute used to signify the specified member should be represented in the mod's options menu as a
+        /// Attribute used to signify the attributed member should be represented in the mod's options menu as a
         /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
         /// <see cref="Enum"/>-based members.
         /// </summary>
         /// <remarks>
         /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <see cref="ChoiceAttribute"/>.
         /// </remarks>
+        /// <param name="label">The label for the choice. If none is set, the name of the member will be used.</param>
         /// <param name="options">The list of options for the user to choose from.</param>
-        public ChoiceAttribute(params string[] options)
+        public ChoiceAttribute(string label = null, params string[] options) : base(label)
         {
             Options = options;
         }
 
         /// <summary>
-        /// Attribute used to signify the specified member should be represented in the mod's options menu as a
+        /// Attribute used to signify the attributed member should be represented in the mod's options menu as a
         /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
         /// <see cref="Enum"/>-based members.
         /// </summary>
@@ -65,6 +65,16 @@
         /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <see cref="ChoiceAttribute"/>.
         /// </remarks>
         /// <param name="options">The list of options for the user to choose from.</param>
-        public ChoiceAttribute(params object[] options) : this(options.Select(x => x.ToString()).ToArray()) { }
+        public ChoiceAttribute(string[] options) : this(null, options) { }
+
+        /// <summary>
+        /// Attribute used to signify the attributed member should be represented in the mod's options menu as a
+        /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
+        /// <see cref="Enum"/>-based members.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <see cref="ChoiceAttribute"/>.
+        /// </remarks>
+        public ChoiceAttribute() { }
     }
 }

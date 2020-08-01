@@ -2,11 +2,11 @@
 {
     using Interfaces;
     using Json;
+    using QModManager.API;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using QModManager.API;
     using UnityEngine;
     using Logger = Logger;
 #if SUBNAUTICA
@@ -19,47 +19,77 @@
     /// An internal derivative of <see cref="ModOptions"/> for use in auto-generating a menu based on attributes
     /// declared in a <see cref="ConfigFile"/>.
     /// </summary>
-    /// <typeparam name="TConfigFile">The type of the class derived from <see cref="ConfigFile"/> to use for
+    /// <typeparam name="T">The type of the class derived from <see cref="ConfigFile"/> to use for
     /// loading to/saving from disk.</typeparam>
-    internal class ConfigModOptions<TConfigFile> : ModOptions where TConfigFile : ConfigFile, new()
+    internal class ConfigModOptions<T> : ModOptions where T : ConfigFile, new()
     {
         /// <summary>
-        /// The <typeparamref name="TConfigFile"/> <see cref="ConfigFile"/> instance related to this <see cref="ModOptions"/> menu.
+        /// The <typeparamref name="T"/> <see cref="ConfigFile"/> instance related to this <see cref="ModOptions"/> menu.
         /// </summary>
-        public TConfigFile Config { get; }
+        public T Config { get; }
 
         /// <summary>
         /// Instantiates a new <see cref="ConfigModOptions{T}"/>, generating <see cref="ModOption"/>s by parsing the fields,
         /// properties and methods declared in the class.
         /// </summary>
-        public ConfigModOptions()
-            : base((typeof(TConfigFile).GetCustomAttributes(typeof(MenuAttribute), true).SingleOrDefault() as MenuAttribute)?.Name
-                  ?? QModServices.Main.GetMod(Assembly.GetCallingAssembly()).DisplayName)
+        public ConfigModOptions() : base(null)
         {
             // Instantiate and load the config
-            Config = new TConfigFile();
+            Config = new T();
             Config.Load();
 
-            menuAttribute = typeof(TConfigFile).GetCustomAttributes(typeof(MenuAttribute), true).SingleOrDefault() as MenuAttribute
-                ?? new MenuAttribute(Name);
+            menuAttribute = GetMenuAttributeOrDefault();
+            Name = menuAttribute.Name;
 
+            ProcessMembers();
+            BindEvents();
+        }
+
+        /// <summary>
+        /// Conditionally binds events
+        /// </summary>
+        private void BindEvents()
+        {
+            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute is ButtonAttribute))
+                ButtonClicked += ConfigModOptions_ButtonClicked;
+
+            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute is ChoiceAttribute))
+                ChoiceChanged += ConfigModOptions_ChoiceChanged;
+
+            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute is KeybindAttribute))
+                KeybindChanged += ConfigModOptions_KeybindChanged;
+
+            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute is SliderAttribute))
+                SliderChanged += ConfigModOptions_SliderChanged;
+
+            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute is ToggleAttribute))
+                ToggleChanged += ConfigModOptions_ToggleChanged;
+
+            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute.Tooltip != null
+                || (x.OnGameObjectCreatedAttributes != null && x.OnGameObjectCreatedAttributes.Any())))
+                GameObjectCreated += ConfigModOptions_GameObjectCreated;
+        }
+
+        #region Member Processing
+        private void ProcessMembers()
+        {
             // Process members
             var bindingFlags = BindingFlags.Instance | BindingFlags.Public;
-            foreach (PropertyInfo property in typeof(TConfigFile).GetProperties(bindingFlags)
+            foreach (PropertyInfo property in typeof(T).GetProperties(bindingFlags)
                 .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
                 .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
             {
                 ProcessFieldOrProperty(property, property.PropertyType);
             }
 
-            foreach (FieldInfo field in typeof(TConfigFile).GetFields(bindingFlags)
+            foreach (FieldInfo field in typeof(T).GetFields(bindingFlags)
                 .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
                 .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
             {
                 ProcessFieldOrProperty(field, field.FieldType);
             }
 
-            foreach (MethodInfo method in typeof(TConfigFile).GetMethods(bindingFlags | BindingFlags.NonPublic | BindingFlags.Static)
+            foreach (MethodInfo method in typeof(T).GetMethods(bindingFlags | BindingFlags.NonPublic | BindingFlags.Static)
                 .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
                 .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
             {
@@ -67,48 +97,36 @@
             }
 
             Logger.Debug($"[ConfigModOptions] Found {modOptionsMetadata.Count()} options to add to the menu.");
-
-            // Conditionally add events
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionType == typeof(ModButtonOption)))
-                ButtonClicked += ConfigModOptions_ButtonClicked;
-
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionType == typeof(ModChoiceOption)))
-                ChoiceChanged += ConfigModOptions_ChoiceChanged;
-
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionType == typeof(ModKeybindOption)))
-                KeybindChanged += ConfigModOptions_KeybindChanged;
-
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionType == typeof(ModSliderOption)))
-                SliderChanged += ConfigModOptions_SliderChanged;
-
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionType == typeof(ModToggleOption)))
-                ToggleChanged += ConfigModOptions_ToggleChanged;
-
-            if (modOptionsMetadata.Values.Any(x => x.TooltipAttribute != null
-                || (x.OnGameObjectCreatedAttributes != null && x.OnGameObjectCreatedAttributes.Any())))
-                GameObjectCreated += ConfigModOptions_GameObjectCreated;
         }
 
-        #region Member Processing
         /// <summary>
         /// The <see cref="MenuAttribute"/> relating to this <see cref="ModOptions"/> menu.
         /// </summary>
         private readonly MenuAttribute menuAttribute;
 
         /// <summary>
+        /// Gets the <see cref="MenuAttribute"/> defined on the <typeparamref name="T"/>, or
+        /// a default <see cref="MenuAttribute"/> with its name automatically parsed from the Display Name
+        /// of the QMod that <typeparamref name="T"/> is defined in.
+        /// </summary>
+        /// <returns></returns>
+        private MenuAttribute GetMenuAttributeOrDefault()
+        {
+            if (Attribute.IsDefined(typeof(T), typeof(MenuAttribute), true))
+                return typeof(T).GetCustomAttributes(typeof(MenuAttribute), true).SingleOrDefault() as MenuAttribute;
+            else
+                return new MenuAttribute(QModServices.Main.GetMod(Assembly.GetAssembly(typeof(T))).DisplayName);
+        }
+
+        /// <summary>
         /// A simple struct containing metadata for each auto-generated <see cref="ModOption"/>.
         /// </summary>
         private struct ModOptionMetadata
         {
-            public Type ModOptionType;
-            public LabelAttribute LabelAttribute;
+            public ModOptionAttribute ModOptionAttribute;
             public MemberInfo MemberInfo;
-            public TooltipAttribute TooltipAttribute;
             public OnChangeAttribute[] OnChangeAttributes;
             public OnGameObjectCreatedAttribute[] OnGameObjectCreatedAttributes;
-            public ButtonAttribute ButtonAttribute;
-            public ChoiceAttribute ChoiceAttribute;
-            public SliderAttribute SliderAttribute;
         }
 
         /// <summary>
@@ -144,18 +162,13 @@
             }
             else
             {
-                return Attribute.IsDefined(memberInfo, typeof(LabelAttribute), true) ||
-                    Attribute.IsDefined(memberInfo, typeof(ButtonAttribute), true) ||
-                    Attribute.IsDefined(memberInfo, typeof(ChoiceAttribute), true) ||
-                    Attribute.IsDefined(memberInfo, typeof(OnChangeAttribute), true) ||
-                    Attribute.IsDefined(memberInfo, typeof(OnGameObjectCreatedAttribute), true) ||
-                    Attribute.IsDefined(memberInfo, typeof(SliderAttribute), true) ||
-                    Attribute.IsDefined(memberInfo, typeof(TooltipAttribute), true);
+                return Attribute.IsDefined(memberInfo, typeof(ModOptionAttribute), true) ||
+                    Attribute.IsDefined(memberInfo, typeof(ModOptionEventAttribute), true);
             }
         }
 
         /// <summary>
-        /// Processes the given field or property and hands off to <see cref="AddModOptionMetadata{TModOption}(MemberInfo, Type)"/>
+        /// Processes the given field or property and hands off to <see cref="AddModOptionMetadata{TAttribute}(MemberInfo)"/>
         /// to generate a <see cref="ModOptionMetadata"/> and add it to the <see cref="modOptionsMetadata"/> dictionary.
         /// </summary>
         /// <param name="memberInfo">The <see cref="MemberInfo"/> of the member.</param>
@@ -163,100 +176,72 @@
         private void ProcessFieldOrProperty(MemberInfo memberInfo, Type memberType)
         {
             if (memberType == typeof(bool))
-            {   // Generate a ModToggleOption
-                AddModOptionMetadata<ModToggleOption>(memberInfo, memberType);
+            {
+                AddModOptionMetadata<ToggleAttribute>(memberInfo);
             }
             else if (memberType == typeof(KeyCode))
-            {   // Generate a ModKeybindOption
-                AddModOptionMetadata<ModKeybindOption>(memberInfo, memberType);
+            {
+                AddModOptionMetadata<KeybindAttribute>(memberInfo);
             }
             else if (memberType.IsEnum || Attribute.IsDefined(memberInfo, typeof(ChoiceAttribute), true))
-            {   // Generate a ModChoiceOption
-                AddModOptionMetadata<ModChoiceOption>(memberInfo, memberType);
+            {
+                AddModOptionMetadata<ChoiceAttribute>(memberInfo);
             }
             else if (memberType == typeof(float) ||
                     memberType == typeof(double) ||
                     memberType == typeof(int) ||
                     Attribute.IsDefined(memberInfo, typeof(SliderAttribute), true))
-            {   // Generate a ModSliderOption
-                AddModOptionMetadata<ModSliderOption>(memberInfo, memberType);
+            {
+                AddModOptionMetadata<SliderAttribute>(memberInfo);
             }
         }
 
         /// <summary>
-        /// Processes the given method and hands off to <see cref="AddModOptionMetadata{TModOption}(MemberInfo, Type)"/>
+        /// Processes the given method and hands off to <see cref="AddModOptionMetadata{TAttribute}(MemberInfo)"/>
         /// to generate a <see cref="ModOptionMetadata"/> and add it to the <see cref="modOptionsMetadata"/> dictionary.
         /// </summary>
         /// <param name="methodInfo">The <see cref="MethodInfo"/> of the method.</param>
         private void ProcessMethod(MethodInfo methodInfo)
         {
-            if (Attribute.IsDefined(methodInfo, typeof(LabelAttribute), true) ||
-                Attribute.IsDefined(methodInfo, typeof(ButtonAttribute), true))
-            {   // Generate a ModButtonOption
-                AddModOptionMetadata<ModButtonOption>(methodInfo, null);
-            }
+            AddModOptionMetadata<ButtonAttribute>(methodInfo);
         }
 
         /// <summary>
         /// Generates a <see cref="ModOptionMetadata"/> based on the member and its attributes, then adds it to the
         /// <see cref="modOptionsMetadata"/> dictionary.
         /// </summary>
-        /// <typeparam name="TModOption">The type of the <see cref="ModOption"/> to generate for this member.</typeparam>
+        /// <typeparam name="TAttribute">The type of the <see cref="ModOption"/> to generate for this member.</typeparam>
         /// <param name="memberInfo">The <see cref="MemberInfo"/> of the member.</param>
-        /// <param name="memberType">The underlying <see cref="Type"/> of the member.</param>
-        private void AddModOptionMetadata<TModOption>(MemberInfo memberInfo, Type memberType) where TModOption : ModOption
+        private void AddModOptionMetadata<TAttribute>(MemberInfo memberInfo)
+            where TAttribute : ModOptionAttribute, new()
         {
             try
             {
-                var modOptionType = typeof(TModOption); // cache the ModOption type for comparisons
-
-                // Get the label
-                var labelAttribute = memberInfo.GetCustomAttributes(typeof(LabelAttribute), true)
-                    .SingleOrDefault() as LabelAttribute;
-                if (labelAttribute == null)
-                    labelAttribute = new LabelAttribute();
+                // Get the ModOptionAttribute
+                var modOptionAttribute = memberInfo.GetCustomAttributes(typeof(ModOptionAttribute), true)
+                    .SingleOrDefault() as ModOptionAttribute ?? new TAttribute();
 
                 // If there is no label specified, just use the member's name.
-                if (string.IsNullOrEmpty(labelAttribute.Label))
-                    labelAttribute.Label = memberInfo.Name;
+                if (string.IsNullOrEmpty(modOptionAttribute.Label))
+                    modOptionAttribute.Label = memberInfo.Name;
 
                 // ModOptionMetadata needed for all ModOptions
                 var modOptionMetadata = new ModOptionMetadata
                 {
-                    ModOptionType = modOptionType,
-                    LabelAttribute = labelAttribute,
+                    ModOptionAttribute = modOptionAttribute,
                     MemberInfo = memberInfo,
-                    TooltipAttribute = memberInfo.GetCustomAttributes(typeof(TooltipAttribute), true)
-                        .SingleOrDefault() as TooltipAttribute,
                     OnGameObjectCreatedAttributes = memberInfo.GetCustomAttributes(typeof(OnGameObjectCreatedAttribute), true)
                         .Select(o => o as OnGameObjectCreatedAttribute).ToArray()
                 };
 
-                if (modOptionType == typeof(ModButtonOption))
-                {   // ModButtonOption specific metadata
-                    modOptionMetadata.ButtonAttribute = memberInfo.GetCustomAttributes(typeof(ButtonAttribute), true)
-                        .SingleOrDefault() as ButtonAttribute ?? new ButtonAttribute();
-                    modOptionsMetadata.Add(labelAttribute.Id, modOptionMetadata);
-                    return; // We don't need to process any further metadata for buttons
+                if (typeof(TAttribute) != typeof(ButtonAttribute))
+                {
+                    // Get the OnChange attributes
+                    modOptionMetadata.OnChangeAttributes = memberInfo.GetCustomAttributes(typeof(OnChangeAttribute), true)
+                        .Select(o => o as OnChangeAttribute).ToArray();
                 }
 
-                // Get the OnChange attributes
-                modOptionMetadata.OnChangeAttributes = memberInfo.GetCustomAttributes(typeof(OnChangeAttribute), true)
-                    .Select(o => o as OnChangeAttribute).ToArray();
-
-                if (modOptionType == typeof(ModChoiceOption))
-                {   // ModChoiceOption specific metadata
-                    modOptionMetadata.ChoiceAttribute = memberInfo.GetCustomAttributes(typeof(ChoiceAttribute), true)
-                        .SingleOrDefault() as ChoiceAttribute;
-                }
-                else if (modOptionType == typeof(ModSliderOption))
-                {   // ModSliderOption specific metadata
-                    modOptionMetadata.SliderAttribute = memberInfo.GetCustomAttributes(typeof(SliderAttribute), true)
-                        .SingleOrDefault() as SliderAttribute
-                        ?? new SliderAttribute();
-                }
-
-                modOptionsMetadata.Add(labelAttribute.Id, modOptionMetadata);
+                modOptionsMetadata.Add(modOptionAttribute.Id, modOptionMetadata);
             }
             catch (Exception ex)
             {
@@ -310,7 +295,7 @@
         /// <summary>
         /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
         /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="InvokeOnChange{TEventArgs}(ModOptionMetadata, object, TEventArgs)"/> to invoke any methods specified with a
+        /// <see cref="InvokeOnChange{TSource}(ModOptionMetadata, object, TSource)"/> to invoke any methods specified with a
         /// <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original choice changed event.</param>
@@ -322,7 +307,7 @@
                 // Set the value in the Config
                 switch (modOptionMetadata.MemberInfo)
                 {
-                    case PropertyInfo property when property.PropertyType.IsEnum && modOptionMetadata.ChoiceAttribute == null:
+                    case PropertyInfo property when property.PropertyType.IsEnum && modOptionMetadata.ModOptionAttribute is ChoiceAttribute:
                         property.SetValue(Config, Enum.Parse(property.PropertyType, e.Value), null);
                         break;
                     case PropertyInfo property when property.PropertyType.IsEnum:
@@ -335,7 +320,7 @@
                     case PropertyInfo property:
                         property.SetValue(Config, e.Index, null);
                         break;
-                    case FieldInfo field when field.FieldType.IsEnum && modOptionMetadata.ChoiceAttribute == null:
+                    case FieldInfo field when field.FieldType.IsEnum && modOptionMetadata.ModOptionAttribute is ChoiceAttribute:
                         field.SetValue(Config, Enum.Parse(field.FieldType, e.Value));
                         break;
                     case FieldInfo field when field.FieldType.IsEnum:
@@ -361,7 +346,7 @@
         /// <summary>
         /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
         /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="InvokeOnChange{TEventArgs}(ModOptionMetadata, object, TEventArgs)"/> to invoke any methods specified with a
+        /// <see cref="InvokeOnChange{TSource}(ModOptionMetadata, object, TSource)"/> to invoke any methods specified with a
         /// <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original keybind changed event.</param>
@@ -393,7 +378,7 @@
         /// <summary>
         /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
         /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="InvokeOnChange{TEventArgs}(ModOptionMetadata, object, TEventArgs)"/> to invoke any methods specified with a
+        /// <see cref="InvokeOnChange{TSource}(ModOptionMetadata, object, TSource)"/> to invoke any methods specified with a
         /// <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original slider changed event.</param>
@@ -425,7 +410,7 @@
         /// <summary>
         /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
         /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="InvokeOnChange{TEventArgs}(ModOptionMetadata, object, TEventArgs)"/> to invoke any methods specified with a
+        /// <see cref="InvokeOnChange{TSource}(ModOptionMetadata, object, TSource)"/> to invoke any methods specified with a
         /// <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original toggle changed event.</param>
@@ -458,12 +443,12 @@
         /// Invokes the relevant method(s) specified with <see cref="OnChangeAttribute"/>(s)
         /// and passes parameters when a value is changed.
         /// </summary>
-        /// <typeparam name="TEventArgs">The type of the original event args.</typeparam>
+        /// <typeparam name="TSource">The type of the original event args.</typeparam>
         /// <param name="modOptionMetadata"></param>
         /// <param name="sender">The sender of the original event.</param>
-        /// <param name="e">The <typeparamref name="TEventArgs"/> for the original changed event.</param>
-        private void InvokeOnChange<TEventArgs>(ModOptionMetadata modOptionMetadata, object sender, TEventArgs e)
-            where TEventArgs : IModOptionEventArgs
+        /// <param name="e">The <typeparamref name="TSource"/> for the original changed event.</param>
+        private void InvokeOnChange<TSource>(ModOptionMetadata modOptionMetadata, object sender, TSource e)
+            where TSource : IModOptionEventArgs
         {
             if (modOptionMetadata.OnChangeAttributes == null)
                 return; // Skip attempting to invoke events if there are no OnChangeAttributes set for the member.
@@ -495,7 +480,7 @@
                         continue;
                     }
 
-                    if (!eventArgsFound && param.ParameterType == typeof(TEventArgs))
+                    if (!eventArgsFound && param.ParameterType == typeof(TSource))
                     {
                         eventArgsFound = true;
                         invokeParams[i] = e;
@@ -527,10 +512,9 @@
             if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
             {
                 // Create a tooltip if there is a TooltipAttribute specified
-                if (modOptionMetadata.TooltipAttribute != null)
+                if (modOptionMetadata.ModOptionAttribute.Tooltip is string tooltip)
                 {
-                    e.GameObject.GetComponentInChildren<Text>().gameObject.AddComponent<ModOptionTooltip>().Tooltip
-                        = modOptionMetadata.TooltipAttribute.Tooltip;
+                    e.GameObject.GetComponentInChildren<Text>().gameObject.AddComponent<ModOptionTooltip>().Tooltip = tooltip;
                 }
 
                 if (modOptionMetadata.OnGameObjectCreatedAttributes == null)
@@ -592,20 +576,23 @@
         /// </summary>
         public override void BuildModOptions()
         {
-            foreach (var entry in modOptionsMetadata.OrderBy(x => x.Value.LabelAttribute.Order).ThenBy(x => x.Value.MemberInfo.Name))
+            foreach (var entry in modOptionsMetadata
+                .OrderBy(x => x.Value.ModOptionAttribute.Order)
+                .ThenBy(x => x.Value.MemberInfo.Name))
             {
                 var id = entry.Key;
                 var modOptionMetadata = entry.Value;
 
-                Logger.Debug($"[ConfigModOptions] {modOptionMetadata.MemberInfo.Name}: {modOptionMetadata.ModOptionType}");
-                Logger.Debug($"[ConfigModOptions] Label: {modOptionMetadata.LabelAttribute?.Label}");
+                Logger.Debug($"[ConfigModOptions] {modOptionMetadata.MemberInfo.Name}: " +
+                    $"{modOptionMetadata.ModOptionAttribute.GetType()}");
+                Logger.Debug($"[ConfigModOptions] Label: {modOptionMetadata.ModOptionAttribute.Label}");
 
-                var label = modOptionMetadata.LabelAttribute.Label;
-                if (modOptionMetadata.ModOptionType == typeof(ModButtonOption))
+                var label = modOptionMetadata.ModOptionAttribute.Label;
+                if (modOptionMetadata.ModOptionAttribute is ButtonAttribute)
                 {   // Just add the button to the menu, easy
                     AddButtonOption(id, label);
                 }
-                else if (modOptionMetadata.ModOptionType == typeof(ModChoiceOption))
+                else if (modOptionMetadata.ModOptionAttribute is ChoiceAttribute choiceAttribute)
                 {   // Parse the metadata for the ModChoiceOption and add to menu
                     object value;
                     Type type;
@@ -626,20 +613,26 @@
 
                     if (type.IsEnum) // Add enum-based choice
                     {
-                        if (modOptionMetadata.ChoiceAttribute is ChoiceAttribute choiceAttribute)
-                            // Display custom strings 
+                        if (choiceAttribute.Options != null && choiceAttribute.Options.Any())
+                        {   // Display custom strings 
                             AddChoiceOption(id, label, choiceAttribute.Options,
                                 Array.IndexOf(Enum.GetValues(type), value));
+                        }
                         else
-                            // Display strings generated from the enum
+                        {   // Display strings generated from the enum
                             AddChoiceOption(id, label, Enum.GetNames(type), value.ToString());
+                        }
                     }
-                    else if (type == typeof(string)) // Add string-based choice
-                        AddChoiceOption(id, label, modOptionMetadata.ChoiceAttribute.Options, value);
-                    else // Add index-based choice
-                        AddChoiceOption(id, label, modOptionMetadata.ChoiceAttribute.Options, Convert.ToInt32(value));
+                    else if (type == typeof(string))
+                    {   // Add string-based choice
+                        AddChoiceOption(id, label, choiceAttribute.Options, value);
+                    }
+                    else
+                    {   // Add index-based choice
+                        AddChoiceOption(id, label, choiceAttribute.Options, Convert.ToInt32(value));
+                    }
                 }
-                else if (modOptionMetadata.ModOptionType == typeof(ModKeybindOption))
+                else if (modOptionMetadata.ModOptionAttribute is KeybindAttribute)
                 {   // Parse the metadata for the ModKeybindOption and add to menu
                     object value;
                     switch (modOptionMetadata.MemberInfo)
@@ -655,7 +648,7 @@
 
                     AddKeybindOption(id, label, GameInput.Device.Keyboard, (KeyCode)value);
                 }
-                else if (modOptionMetadata.ModOptionType == typeof(ModSliderOption))
+                else if (modOptionMetadata.ModOptionAttribute is SliderAttribute sliderAttribute)
                 {   // Parse the metadata for the ModSliderOption and add to menu
                     object value;
                     Type type;
@@ -673,11 +666,11 @@
                         default: continue;
                     }
 
-                    AddSliderOption(id, label, modOptionMetadata.SliderAttribute.Min, modOptionMetadata.SliderAttribute.Max,
-                        Convert.ToSingle(value), modOptionMetadata.SliderAttribute.DefaultValue,
-                        modOptionMetadata.SliderAttribute.Format, modOptionMetadata.SliderAttribute.Step);
+                    AddSliderOption(id, label, sliderAttribute.Min, sliderAttribute.Max,
+                        Convert.ToSingle(value), sliderAttribute.DefaultValue,
+                        sliderAttribute.Format, sliderAttribute.Step);
                 }
-                else if (modOptionMetadata.ModOptionType == typeof(ModToggleOption))
+                else if (modOptionMetadata.ModOptionAttribute is ToggleAttribute)
                 {   // Parse the metadata for the ModToggleOption and add to menu
                     object value;
                     switch (modOptionMetadata.MemberInfo)

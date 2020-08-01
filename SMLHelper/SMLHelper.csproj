@@ -148,6 +148,8 @@
     <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Crafting\TechData.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
+    <Compile Include="Interfaces\IModOptionAttribute.cs" />
+    <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
     <Compile Include="Interfaces\IPingHandler.cs" />
     <Compile Include="Json\ConfigFileAttribute.cs" />
     <Compile Include="Json\Converters\FloatConverter.cs" />
@@ -202,7 +204,10 @@
     <Compile Include="Options\ConfigModOptions.cs" />
     <Compile Include="Options\IgnoreMemberAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventArgs.cs" />
+    <Compile Include="Options\KeybindAttribute.cs" />
     <Compile Include="Options\KeybindModOption.cs" />
+    <Compile Include="Options\ModOptionAttribute.cs" />
+    <Compile Include="Options\ModOptionEventAttribute.cs" />
     <Compile Include="Options\ModOptions.cs" />
     <Compile Include="Options\MenuAttribute.cs" />
     <Compile Include="Options\ButtonAttribute.cs" />
@@ -210,10 +215,9 @@
     <Compile Include="Options\SliderAttribute.cs" />
     <Compile Include="Options\SliderModOption.cs" />
     <Compile Include="Options\OnChangeAttribute.cs" />
+    <Compile Include="Options\ToggleAttribute.cs" />
     <Compile Include="Options\ToggleModOption.cs" />
-    <Compile Include="Options\LabelAttribute.cs" />
     <Compile Include="Options\ModOptionTooltip.cs" />
-    <Compile Include="Options\TooltipAttribute.cs" />
     <Compile Include="Options\Utility\Validator.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher.cs" />

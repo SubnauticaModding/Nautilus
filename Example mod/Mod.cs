@@ -6,7 +6,6 @@ using SMLHelper.V2.Options;
 using UnityEngine;
 using UnityEngine.UI;
 using Logger = QModManager.Utility.Logger;
-using Tooltip = SMLHelper.V2.Options.TooltipAttribute;
 
 namespace SMLHelper.V2.Examples
 {
@@ -24,34 +23,34 @@ namespace SMLHelper.V2.Examples
 
     public enum CustomChoice { One, Two, Three }
 
-    [Menu("SMLHelper Example Mod")]
+    [Menu("SMLHelper Example Mod", IgnoreUnattributedMembers = true)]
     public class Config : ConfigFile
     {
-        [Label("My index-based choice"), Tooltip("A simple tooltip"), Choice("Choice 1", "Choice 2", "Choice 3"), OnChange(nameof(MyGenericValueChangedEvent))]
+        [Choice("My index-based choice", "One", "Two", "Three"), OnChange(nameof(MyGenericValueChangedEvent))]
         public int ChoiceIndex;
 
-        [Label("My string-based choice"), Choice("Foo", "Bar"), OnChange(nameof(MyGenericValueChangedEvent))]
-        public string ChoiceString = "Foo";
+        [Choice("My string-based choice", "Foo", "Bar"), OnChange(nameof(MyGenericValueChangedEvent))]
+        public string ChoiceValue = "Foo";
 
-        [Label("My enum-based choice"), OnChange(nameof(MyGenericValueChangedEvent))]
+        [Choice("My enum-based choice"), OnChange(nameof(MyGenericValueChangedEvent))]
         public CustomChoice ChoiceEnum;
 
-        [Label("My customised enum-based choice"), Choice("1", "2", "3"), OnChange(nameof(MyGenericValueChangedEvent))]
-        public CustomChoice ChoiceEnumCustomValues;
+        [Choice("My customised enum-based choice", "1", "2", "3"), OnChange(nameof(MyGenericValueChangedEvent))]
+        public CustomChoice ChoiceCustomEnum;
 
-        [Label("My keybind"), OnChange(nameof(MyGenericValueChangedEvent))]
+        [Keybind("My keybind"), OnChange(nameof(MyGenericValueChangedEvent))]
         public KeyCode KeybindKey;
 
-        [Label("My slider"), Slider(0, 50, DefaultValue = 25, Format = "{0:F2}"), OnChange(nameof(MyGenericValueChangedEvent))]
+        [Slider("My slider", 0, 50, DefaultValue = 25, Format = "{0:F2}"), OnChange(nameof(MyGenericValueChangedEvent))]
         public int SliderValue;
 
-        [Label("My stepped slider"), Slider(0, 100, Step = 10), OnChange(nameof(MyGenericValueChangedEvent))]
+        [Slider("My stepped slider", 0, 100, Step = 10), OnChange(nameof(MyGenericValueChangedEvent))]
         public int SteppedSliderValue;
 
-        [Label("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
+        [Toggle("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
         public bool ToggleValue;
 
-        [Label("My button"), OnGameObjectCreated(nameof(MyGameObjectCreatedEvent))]
+        [Button("My button"), OnGameObjectCreated(nameof(MyGameObjectCreatedEvent))]
         public void MyButtonClickEvent(ButtonClickedEventArgs e)
         {
             Logger.Log(Logger.Level.Info, "Button was clicked!");

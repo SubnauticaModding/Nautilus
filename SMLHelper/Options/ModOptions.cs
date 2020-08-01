@@ -15,7 +15,7 @@
         /// <summary>
         /// The name of this set of configuration options.
         /// </summary>
-        public readonly string Name;
+        public string Name { get; protected set; }
 
         /// <summary>
         /// Obtains the <see cref="ModOption"/>s that belong to this instance. Can be null.
@@ -145,7 +145,7 @@
 
         // base class for 'adjuster' components (so ui elements don't overlap with their text labels)
         // reason for using components is to skip one frame before manually adjust ui elements to make sure that Unity UI Layout components is updated
-        internal abstract class ModOptionAdjust: MonoBehaviour
+        internal abstract class ModOptionAdjust : MonoBehaviour
         {
             private const float minCaptionWidth_MainMenu = 480f;
             private const float minCaptionWidth_GameMenu = 360f;
@@ -153,9 +153,9 @@
 
             protected float CaptionWidth { get => caption?.GetComponent<RectTransform>().rect.width ?? 0f; }
 
-            protected bool isMainMenu {get; private set; } = true; // is it main menu or game menu
+            protected bool isMainMenu { get; private set; } = true; // is it main menu or game menu
 
-            protected static Vector2 SetVec2x(Vector2 vec, float val)  { vec.x = val; return vec; }
+            protected static Vector2 SetVec2x(Vector2 vec, float val) { vec.x = val; return vec; }
 
             public void Awake() => isMainMenu = gameObject.GetComponentInParent<MainMenuOptions>() != null;
 
@@ -170,7 +170,7 @@
                     return;
                 }
 
-                caption.AddComponent<LayoutElement>().minWidth = minWidth != 0f? minWidth: (isMainMenu? minCaptionWidth_MainMenu: minCaptionWidth_GameMenu);
+                caption.AddComponent<LayoutElement>().minWidth = minWidth != 0f ? minWidth : (isMainMenu ? minCaptionWidth_MainMenu : minCaptionWidth_GameMenu);
                 caption.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize; // for autosizing captions
 
                 RectTransform transform = caption.GetComponent<RectTransform>();
