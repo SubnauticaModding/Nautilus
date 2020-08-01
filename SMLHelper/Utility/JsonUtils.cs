@@ -6,11 +6,7 @@
     using System.Text;
     using System.Threading;
     using System.Reflection;
-#if SUBNAUTICA
-    using Oculus.Newtonsoft.Json;
-#elif BELOWZERO
     using Newtonsoft.Json;
-#endif
 
     /// <summary>
     /// A collection of utilities for interacting with JSON files.

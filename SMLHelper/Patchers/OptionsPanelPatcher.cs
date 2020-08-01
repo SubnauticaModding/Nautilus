@@ -11,13 +11,11 @@
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using QModManager.API;
-#if SUBNAUTICA
-    using Oculus.Newtonsoft.Json;
-    using Oculus.Newtonsoft.Json.Converters;
-    using Text = UnityEngine.UI.Text;
-#elif BELOWZERO
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+#if SUBNAUTICA
+    using Text = UnityEngine.UI.Text;
+#elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
 #endif
 

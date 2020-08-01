@@ -8,6 +8,7 @@
     <ProjectGuid>{418502DD-372D-4EF9-8021-B262552DFEDE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <RootNamespace>SMLHelper.V2</RootNamespace>
     <AssemblyName>SMLHelper</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -25,7 +26,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>false</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -38,7 +38,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -66,11 +65,7 @@
       <HintPath>..\Dependencies\Subnautica\Assembly-CSharp_publicized.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\Dependencies\BelowZero\Newtonsoft.Json.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json" Condition="'$(Configuration)'=='SUBNAUTICA'">
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\Dependencies\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
