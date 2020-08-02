@@ -23,7 +23,7 @@ namespace SMLHelper.V2.Examples
 
     public enum CustomChoice { One, Two, Three }
 
-    [Menu("SMLHelper Example Mod", IgnoreUnattributedMembers = true)]
+    [Menu("SMLHelper Example Mod")]
     public class Config : ConfigFile
     {
         [Choice("My index-based choice", "One", "Two", "Three"), OnChange(nameof(MyGenericValueChangedEvent))]
@@ -57,7 +57,7 @@ namespace SMLHelper.V2.Examples
             Logger.Log(Logger.Level.Info, $"{e.Id}");
         }
 
-        public void MyCheckboxToggleEvent(ToggleChangedEventArgs e)
+        private void MyCheckboxToggleEvent(ToggleChangedEventArgs e)
         {
             Logger.Log(Logger.Level.Info, "Checkbox value was changed!");
             Logger.Log(Logger.Level.Info, $"{e.Value}");
