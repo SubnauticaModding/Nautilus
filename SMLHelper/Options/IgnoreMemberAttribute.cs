@@ -18,7 +18,7 @@
     /// [Menu("My Options Menu")]
     /// public class Config : ConfigFile
     /// {
-    ///     [Label("My Cool Button)]
+    ///     [Button("My Cool Button)]
     ///     public static void MyCoolButton(object sender, ButtonClickedEventArgs e)
     ///     {
     ///         Logger.Log(Logger.Level.Info, "Button was clicked!");
@@ -31,7 +31,7 @@
     /// </code>
     /// </example>
     /// <seealso cref="MenuAttribute"/>
-    /// <seealso cref="LabelAttribute"/>
+    /// <seealso cref="ButtonAttribute"/>
     /// <seealso cref="ConfigFile"/>
     /// <seealso cref="MenuAttribute.IgnoreUnattributedMembers"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method, AllowMultiple = false)]
