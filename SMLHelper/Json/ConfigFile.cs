@@ -44,7 +44,7 @@
         /// </summary>
         public ConfigFile()
         {
-            if (GetType().GetCustomAttributes(typeof(ConfigFileAttribute), true).FirstOrDefault() is ConfigFileAttribute configFile)
+            if (GetType().GetCustomAttributes(typeof(ConfigFileAttribute), true).SingleOrDefault() is ConfigFileAttribute configFile)
             {
                 JsonFilename = configFile.Filename;
                 JsonPath = Path.Combine(
