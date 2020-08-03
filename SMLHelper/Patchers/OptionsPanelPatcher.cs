@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
+    using HarmonyLib;
     using Options;
     using System.IO;
     using System.Reflection;
@@ -25,7 +25,7 @@
 
         private static int  modsTabIndex = -1;
 
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
             PatchUtils.PatchClass(harmony);
             PatchUtils.PatchClass(harmony, typeof(ScrollPosKeeper));

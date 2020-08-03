@@ -4,6 +4,5 @@
   "Author": "ahk1221 & PrimeSonic & AlexejheroYTB",
   "Version": "Updated for the latest version of SMLHelper",
   "Enable": true,
-  "AssemblyName": "Example mod.dll",
-  "EntryMethod": "SMLHelper.V2.Examples.ExampleMod.Patch"
+  "AssemblyName": "Example mod.dll"
 }

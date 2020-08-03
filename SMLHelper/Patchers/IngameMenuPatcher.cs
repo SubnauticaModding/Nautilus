@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Harmony;
+    using HarmonyLib;
 
     internal class IngameMenuPatcher
     {
@@ -12,7 +12,7 @@
         internal static Action OnSaveEvents;
         internal static Action OnQuitEvents;
 
-        public static void Patch(HarmonyInstance harmony)
+        public static void Patch(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.SaveGame)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeSaveEvents))));

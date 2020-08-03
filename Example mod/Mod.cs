@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
+using QModManager.API.ModLoading;
 using SMLHelper.V2.Handlers;
+using SMLHelper.V2.Json;
 using SMLHelper.V2.Options;
-using SMLHelper.V2.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace SMLHelper.V2.Examples
 {
+    [QModCore]
     public static class ExampleMod
     {
+        public static Config Config { get; } = new Config();
+
+        [QModPatch]
         public static void Patch()
         {
             Config.Load();
@@ -16,20 +21,12 @@ namespace SMLHelper.V2.Examples
         }
     }
 
-    public static class Config
+    public class Config : ConfigFile
     {
-        public static int ChoiceIndex;
-        public static KeyCode KeybindKey;
-        public static float SliderValue;
-        public static bool ToggleValue;
-
-        public static void Load()
-        {
-            ChoiceIndex = PlayerPrefs.GetInt("SMLHelperExampleModChoice", 0);
-            KeybindKey = PlayerPrefsExtra.GetKeyCode("SMLHelperExampleModKeybind", KeyCode.X);
-            SliderValue = PlayerPrefs.GetFloat("SMLHelperExampleModSlider", 50f);
-            ToggleValue = PlayerPrefsExtra.GetBool("SMLHelperExampleModToggle", true);
-        }
+        public int ChoiceIndex { get; internal set; }
+        public KeyCode KeybindKey { get; internal set; }
+        public float SliderValue { get; internal set; }
+        public bool ToggleValue { get; internal set; }
     }
 
     public class Options : ModOptions
@@ -47,34 +44,34 @@ namespace SMLHelper.V2.Examples
         public void Options_ChoiceChanged(object sender, ChoiceChangedEventArgs e)
         {
             if (e.Id != "exampleChoice") return;
-            Config.ChoiceIndex = e.Index;
-            PlayerPrefs.SetInt("SMLHelperExampleModChoice", e.Index);
+            ExampleMod.Config.ChoiceIndex = e.Index;
+            ExampleMod.Config.Save();
         }
         public void Options_KeybindChanged(object sender, KeybindChangedEventArgs e)
         {
             if (e.Id != "exampleKeybind") return;
-            Config.KeybindKey = e.Key;
-            PlayerPrefsExtra.SetKeyCode("SMLHelperExampleModKeybind", e.Key);
+            ExampleMod.Config.KeybindKey = e.Key;
+            ExampleMod.Config.Save();
         }
         public void Options_SliderChanged(object sender, SliderChangedEventArgs e)
         {
             if (e.Id != "exampleSlider") return;
-            Config.SliderValue = e.Value;
-            PlayerPrefs.SetFloat("SMLHelperExampleModSlider", e.Value);
+            ExampleMod.Config.SliderValue = e.Value;
+            ExampleMod.Config.Save();
         }
         public void Options_ToggleChanged(object sender, ToggleChangedEventArgs e)
         {
             if (e.Id != "exampleToggle") return;
-            Config.ToggleValue = e.Value;
-            PlayerPrefsExtra.SetBool("SMLHelperExampleModToggle", e.Value);
+            ExampleMod.Config.ToggleValue = e.Value;
+            ExampleMod.Config.Save();
         }
 
         public override void BuildModOptions()
         {
-            AddChoiceOption("exampleChoice", "Choice", new string[] { "Choice 1", "Choice 2", "Choice 3" }, Config.ChoiceIndex);
-            AddKeybindOption("exampleKeybind", "Keybind", GameInput.Device.Keyboard, Config.KeybindKey);
-            AddSliderOption("exampleSlider", "Slider", 0, 100, Config.SliderValue, 50f); // do not specify format here if you going to use custom SliderValue
-            AddToggleOption("exampleToggle", "Toggle", Config.ToggleValue);
+            AddChoiceOption("exampleChoice", "Choice", new string[] { "Choice 1", "Choice 2", "Choice 3" }, ExampleMod.Config.ChoiceIndex);
+            AddKeybindOption("exampleKeybind", "Keybind", GameInput.Device.Keyboard, ExampleMod.Config.KeybindKey);
+            AddSliderOption("exampleSlider", "Slider", 0, 100, ExampleMod.Config.SliderValue, 50f); // do not specify format here if you going to use custom SliderValue
+            AddToggleOption("exampleToggle", "Toggle", ExampleMod.Config.ToggleValue);
         }
 
         // some optional and advanced stuff
@@ -98,7 +95,7 @@ namespace SMLHelper.V2.Examples
             }
         }
 
-        private class Tooltip: MonoBehaviour, ITooltip
+        private class Tooltip : MonoBehaviour, ITooltip
         {
             public string tooltip;
 
@@ -114,7 +111,7 @@ namespace SMLHelper.V2.Examples
         }
 
         // simple example, just changing slider's value with step of 5.0
-        private class CustomSliderValue: ModSliderOption.SliderValue
+        private class CustomSliderValue : ModSliderOption.SliderValue
         {
             protected override void UpdateLabel()
             {

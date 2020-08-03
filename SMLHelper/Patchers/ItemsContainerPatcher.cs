@@ -1,12 +1,12 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using Harmony;
+    using HarmonyLib;
     using SMLHelper.V2.Utility;
     using System;
 
     internal static class ItemsContainerPatcher
     {
-        internal static void Patch(HarmonyInstance harmony)
+        internal static void Patch(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.HasRoomFor), new Type[] { typeof(int), typeof(int) }),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.HasRoomFor_XY_Prefix))),
@@ -16,6 +16,9 @@
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
 
             harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.NotifyRemoveItem)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
+
+            harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.NotifyResize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
 
             Logger.Log($"ItemsContainerPatcher is done.", LogLevel.Debug);
