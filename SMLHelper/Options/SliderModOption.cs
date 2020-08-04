@@ -73,7 +73,24 @@
         /// <param name="value">The starting value.</param>
         protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value)
         {
-            AddSliderOption(id, label, minValue, maxValue, value, null, null);
+            AddSliderOption(id, label, minValue, maxValue, value, null, null, 0);
+        }
+
+        /// <summary>
+        /// Adds a new <see cref="ModSliderOption"/> to this instance.
+        /// </summary>
+        /// <param name="id">The internal ID for the slider option.</param>
+        /// <param name="label">The display text to use in the in-game menu.</param>
+        /// <param name="minValue">The minimum value for the range.</param>
+        /// <param name="maxValue">The maximum value for the range.</param>
+        /// <param name="value">The starting value.</param>
+        /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
+        /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
+        /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
+        
+        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = null)
+        {
+            AddSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, 0);
         }
 
         /// <summary>
