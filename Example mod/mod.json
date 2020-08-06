@@ -1,8 +1,8 @@
 {
   "Id": "SMLHelperExampleMod",
   "DisplayName": "Example Mod For SMLHelper",
-  "Author": "ahk1221 & PrimeSonic & AlexejheroYTB",
-  "Version": "Updated for the latest version of SMLHelper",
+  "Author": "The SMLHelper Dev Team",
+  "Version": "2.9",
   "Enable": true,
   "AssemblyName": "Example mod.dll",
   "VersionDependencies": {
