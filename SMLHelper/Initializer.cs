@@ -12,7 +12,6 @@
     /// WARNING: This class is for use only by QModManager.
     /// </summary>
     [QModCore]
-    [Obsolete("This class is for use only by QModManager.", true)]
     public class Initializer
     {
         internal static readonly Harmony harmony = new Harmony("com.ahk1221.smlhelper");
