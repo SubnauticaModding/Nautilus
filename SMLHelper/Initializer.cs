@@ -15,7 +15,7 @@
     [Obsolete("This class is for use only by QModManager.", true)]
     public class Initializer
     {
-        private static Harmony harmony = new Harmony("com.ahk1221.smlhelper");
+        private static readonly Harmony harmony = new Harmony("com.ahk1221.smlhelper");
 
         /// <summary>
         /// WARNING: This method is for use only by QModManager.
@@ -36,14 +36,7 @@
             Logger.Debug("Loading CraftTreeType Cache");
             CraftTreeTypePatcher.cacheManager.LoadCache();
 
-            try
-            {
-                PreInitialize();
-            }
-            catch(Exception e)
-            {
-                Logger.Error($"Caught exception while trying to initialize SMLHelper{Environment.NewLine}{e}");
-            }
+            PrefabDatabasePatcher.PrePatch(harmony);
         }
 
         /// <summary>
@@ -53,24 +46,6 @@
         [Obsolete("This method is for use only by QModManager.", true)]
         public static void PostPatch()
         {
-            try
-            {
-                PostInitialize();
-            }
-            catch (Exception e)
-            {
-                Logger.Error($"Caught exception while trying to initialize SMLHelper{Environment.NewLine}{e}");
-            }
-        }
-
-        private static void PreInitialize()
-        {
-            PrefabDatabasePatcher.PrePatch(harmony);
-        }
-
-        private static void PostInitialize()
-        {
-
             FishPatcher.Patch(harmony);
 
             TechTypePatcher.Patch();
