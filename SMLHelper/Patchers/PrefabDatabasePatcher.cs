@@ -29,11 +29,12 @@
             return true;
         }
 
-        internal static bool TryGetPrefabFilename_Prefix(string classId, ref string filename)
+        internal static bool TryGetPrefabFilename_Prefix(string classId, ref string filename, ref bool __result)
         {
             if (ModPrefab.TryGetFromClassId(classId, out ModPrefab prefab))
             {
                 filename = prefab.PrefabFileName;
+                __result = true;
                 return false;
             }
             return true;
