@@ -14,6 +14,8 @@
             {
                 PrefabDatabase.prefabFiles[prefab.ClassID] = prefab.PrefabFileName;
             }
+
+            Initializer.harmony.Unpatch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename)), HarmonyPatchType.Prefix, Initializer.harmony.Id);
         }
 
         internal static bool GetPrefabForFilename_Prefix(string filename, ref GameObject __result)
@@ -72,7 +74,6 @@
             harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.LoadPrefabDatabase)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.LoadPrefabDatabase_Postfix))));
 
-            harmony.Unpatch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename)), HarmonyPatchType.Prefix, harmony.Id);
 
             Logger.Log("PrefabDatabasePostPatcher is done.", LogLevel.Debug);
         }
