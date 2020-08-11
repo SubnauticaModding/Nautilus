@@ -2,12 +2,15 @@
 {
     using Assets;
     using HarmonyLib;
+    using System.Reflection;
     using UnityEngine;
     using UWE;
     using Logger = V2.Logger;
 
     internal class PrefabDatabasePatcher
     {
+        private static MethodInfo tryGetPrefabFilename = AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename));
+
         internal static void LoadPrefabDatabase_Postfix()
         {
             foreach (ModPrefab prefab in ModPrefab.Prefabs)
@@ -15,7 +18,7 @@
                 PrefabDatabase.prefabFiles[prefab.ClassID] = prefab.PrefabFileName;
             }
 
-            Initializer.harmony.Unpatch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename)), HarmonyPatchType.Prefix, Initializer.harmony.Id);
+            Initializer.harmony.Unpatch(tryGetPrefabFilename, HarmonyPatchType.Prefix, Initializer.harmony.Id);
         }
 
         internal static bool GetPrefabForFilename_Prefix(string filename, ref GameObject __result)
@@ -60,8 +63,7 @@
             harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.GetPrefabForFilename)), 
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.GetPrefabForFilename_Prefix))));
 
-            harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.TryGetPrefabFilename_Prefix))));
+            harmony.Patch(tryGetPrefabFilename, prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.TryGetPrefabFilename_Prefix))));
 
             harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.GetPrefabAsync)),
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.GetPrefabAsync_Prefix))));
