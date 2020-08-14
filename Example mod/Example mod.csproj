@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Example_mod</RootNamespace>
     <AssemblyName>Example mod</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -18,6 +18,7 @@
     <OutputPath>bin\SUBNAUTICA\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <Optimize>true</Optimize>
+    <Dependencies>..\Dependencies\Subnautica</Dependencies>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -28,6 +29,7 @@
     <OutputPath>bin\BELOWZERO\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <Optimize>true</Optimize>
+    <Dependencies>..\Dependencies\BelowZero</Dependencies>
     <DebugType>none</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -36,55 +38,34 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\core\0Harmony.dll</HintPath>
+      <HintPath>..\Dependencies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(Dependencies)\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
-      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp-firstpass_publicized.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
-      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp_publicized.dll</HintPath>
+      <HintPath>$(Dependencies)\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="QModInstaller">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\QModManager\QModInstaller.dll</HintPath>
+      <HintPath>$(Dependencies)\QModInstaller.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SMLHelper">
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Subnautica\Qmods\Modding Helper\SMLHelper.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="QModInstaller">
-      <HintPath>..\Dependencies\Subnautica\QModInstaller.dll</HintPath>
+      <HintPath>..\SMLHelper\bin\$(Configuration)\SMLHelper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\Dependencies\BelowZero\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(Dependencies)\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="UnityEngine.UI">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UI" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\Dependencies\BelowZero\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>$(Dependencies)\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

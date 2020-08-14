@@ -8,7 +8,7 @@
     <ProjectGuid>{418502DD-372D-4EF9-8021-B262552DFEDE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <RootNamespace>SMLHelper.V2</RootNamespace>
     <AssemblyName>SMLHelper</AssemblyName>
     <FileAlignment>512</FileAlignment>

@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SMLHelper.Tests</RootNamespace>
     <AssemblyName>SMLHelper.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -33,6 +33,7 @@
     <OutputPath>bin\SUBNAUTICA\</OutputPath>
     <DefineConstants>TRACE;DEBUG;SUBNAUTICA</DefineConstants>
     <Optimize>false</Optimize>
+    <Dependencies>..\Dependencies\Subnautica</Dependencies>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -43,26 +44,23 @@
     <OutputPath>bin\BELOWZERO\</OutputPath>
     <DefineConstants>TRACE;DEBUG;BELOWZERO</DefineConstants>
     <Optimize>true</Optimize>
+    <Dependencies>..\Dependencies\BelowZero</Dependencies>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\Dependencies\BelowZero\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+    <Reference Include="Assembly-CSharp-firstpass_publicized">
+      <HintPath>$(Dependencies)\Assembly-CSharp-firstpass_publicized.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\Dependencies\BelowZero\Assembly-CSharp_publicized.dll</HintPath>
+    <Reference Include="Assembly-CSharp_publicized">
+      <HintPath>$(Dependencies)\Assembly-CSharp_publicized.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
-      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp-firstpass_publicized.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp_publicized" Condition="'$(Configuration)'=='SUBNAUTICA'">
-      <HintPath>..\Dependencies\Subnautica\Assembly-CSharp_publicized.dll</HintPath>
+    <Reference Include="SMLHelper">
+      <HintPath>..\SMLHelper\bin\$(Configuration)\SMLHelper.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -81,12 +79,8 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)'=='SUBNAUTICA'">
-      <HintPath>..\Dependencies\Subnautica\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)'=='BELOWZERO'">
-      <HintPath>..\Dependencies\BelowZero\UnityEngine.CoreModule.dll</HintPath>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(Dependencies)\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -99,12 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SMLHelper\SMLHelper.csproj">
-      <Project>{418502dd-372d-4ef9-8021-b262552dfede}</Project>
-      <Name>SMLHelper</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
