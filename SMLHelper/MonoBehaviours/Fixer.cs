@@ -7,61 +7,35 @@ namespace SMLHelper.V2.MonoBehaviours
     /// <summary>
     /// This <see cref="MonoBehaviour"/> is <c>automatically</c> added to any <see cref="GameObject"/> created through <see cref="ModPrefab.GetGameObject"/>.
     /// </summary>
-    public class Fixer : MonoBehaviour, IProtoEventListener
+    internal class Fixer : MonoBehaviour
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
-        [SerializeField]
-        public TechType techType;
-
-        [SerializeField]
-        public string ClassId;
-
         private float time;
-        private bool initalized;
+        private bool isPrefab => transform.position.y < -4500f;
 
-        private void Update()
+        public void Awake()
         {
-            if (!initalized)
-            {
-                time = Time.time + 1f;
-                initalized = true;
-            }
+            time = Time.time + 1f;
 
-            if (Time.time > time && this.gameObject != Builder.prefab)
-            {
-                if (this.transform.position.y < -4500)
-                {
-                    Logger.Debug("Destroying object: " + this.gameObject);
-                    Destroy(this.gameObject);
-                }
-                else
-                {
-                    Logger.Debug("Destroying Fixer for object: " + this.gameObject);
-                    Destroy(this);
-                }
-            }
+            // preventing LargeWorldEntity registration for prefabs (registered in LargeWorldEntity.Start)
+            if (gameObject.GetComponentInChildren<LargeWorldEntity>() is LargeWorldEntity lwe)
+                lwe.enabled = !isPrefab;
         }
 
-        public void OnProtoSerialize(ProtobufSerializer serializer)
+        public void Update()
         {
-        }
+            if (Time.time < time || gameObject == Builder.prefab)
+                return;
 
-        public void OnProtoDeserialize(ProtobufSerializer serializer)
-        {
-            Constructable constructable = GetComponent<Constructable>();
-            if (constructable != null)
+            if (isPrefab)
             {
-                constructable.techType = techType;
+                Logger.Debug("Destroying object: " + gameObject);
+                Destroy(gameObject);
             }
-
-            TechTag techTag = GetComponent<TechTag>();
-            if (techTag != null)
+            else
             {
-                techTag.type = techType;
+                Logger.Debug("Destroying Fixer for object: " + gameObject);
+                Destroy(this);
             }
         }
-
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

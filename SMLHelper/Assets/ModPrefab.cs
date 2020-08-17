@@ -81,28 +81,25 @@
             go.transform.position = new Vector3(-5000, -5000, -5000);
             go.name = this.ClassID;
 
-            /* Make sure prefab doesn't get cleared when quiting game to menu. */
-            SceneCleanerPreserve scp = go.AddComponent<SceneCleanerPreserve>();
-            scp.enabled = true;
-
             if (this.TechType != TechType.None)
             {
-                go.AddComponent<Fixer>().techType = this.TechType;
+                if (go.activeInHierarchy) // don't add Fixer to inactive prefabs
+                    go.AddComponent<Fixer>();
 
-                if (go.GetComponent<TechTag>() != null)
+                if (go.GetComponent<TechTag>() is TechTag tag)
                 {
-                    go.GetComponent<TechTag>().type = this.TechType;
+                    tag.type = this.TechType;
                 }
 
-                if (go.GetComponent<Constructable>() != null)
+                if (go.GetComponent<Constructable>() is Constructable cs)
                 {
-                    go.GetComponent<Constructable>().techType = this.TechType;
+                    cs.techType = this.TechType;
                 }
             }
 
-            if (go.GetComponent<PrefabIdentifier>() != null)
+            if (go.GetComponent<PrefabIdentifier>() is PrefabIdentifier pid)
             {
-                go.GetComponent<PrefabIdentifier>().ClassId = this.ClassID;
+                pid.ClassId = this.ClassID;
             }
 
             return go;
