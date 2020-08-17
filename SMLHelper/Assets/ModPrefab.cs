@@ -78,14 +78,13 @@
                 return null;
             }
 
-            go.transform.position = new Vector3(-5000, -5000, -5000);
+            if (go.activeInHierarchy) // inactive prefabs don't need to be removed by cache
+                ModPrefabCache.AddPrefab(go);
+
             go.name = this.ClassID;
 
             if (this.TechType != TechType.None)
             {
-                if (go.activeInHierarchy) // don't add Fixer to inactive prefabs
-                    go.AddComponent<Fixer>();
-
                 if (go.GetComponent<TechTag>() is TechTag tag)
                 {
                     tag.type = this.TechType;
