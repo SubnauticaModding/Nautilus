@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using MonoBehaviours;
     using UnityEngine;
 
     /// <summary>
@@ -48,7 +47,7 @@
 
         /// <summary>
         /// The <see cref="TechType"/> of the corresponding item.
-        /// Used for <see cref="Fixer" />, <see cref="TechTag" />, and <see cref="Constructable" /> components whenever applicable.
+        /// Used for <see cref="TechTag" />, and <see cref="Constructable" /> components whenever applicable.
         /// </summary>
         public TechType TechType { get; protected set; }
 
@@ -58,7 +57,7 @@
         /// <param name="classId">The class identifier used for the <see cref="PrefabIdentifier" /> component whenever applicable.</param>
         /// <param name="prefabFileName">Name of the prefab file.</param>
         /// <param name="techType">The techtype of the corresponding item. 
-        /// Used for the <see cref="Fixer" />, <see cref="TechTag" />, and <see cref="Constructable" /> components whenever applicable.
+        /// Used for the <see cref="TechTag" /> and <see cref="Constructable" /> components whenever applicable.
         /// Can also be set later in the constructor if it is not yet provided.</param>
         protected ModPrefab(string classId, string prefabFileName, TechType techType = TechType.None)
         {

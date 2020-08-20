@@ -5,7 +5,11 @@
     using UnityEngine;
     using Logger = V2.Logger;
 
-    /// <summary> TODO </summary>
+    /// <summary>
+    /// Class that used by <see cref="ModPrefab"/> to store game objects that used as prefabs.
+    /// Also it can be used by mods directly, e.g. in <see cref="ModPrefab.GetGameObject"/> to store prefab before returning.
+    /// Game objects in cache are inactive and will not be on scene.
+    /// </summary>
     public static class ModPrefabCache
     {
         private const float cleanDelay = 1.0f; // delay in secs before attempt to remove prefab from cache
@@ -46,7 +50,12 @@
             prefabRoot.SetActive(false);
         }
 
-        /// <summary> TODO </summary>
+        /// <summary> Add prefab to cache </summary>
+        /// <param name="prefab"> Prefab to add. </param>
+        /// <param name="autoremove">
+        /// Is prefab needed to be removed from cache after use.
+        /// Prefabs without autoremove flag can be safely deleted by <see cref="UnityEngine.Object.Destroy(UnityEngine.Object)" />
+        /// </param>
         public static void AddPrefab(GameObject prefab, bool autoremove = true)
         {
             Init();
