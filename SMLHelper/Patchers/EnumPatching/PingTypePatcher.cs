@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using SMLHelper.V2.Assets;
     using Handlers;
     using Utility;
 #if SUBNAUTICA
@@ -9,7 +10,7 @@
 #elif BELOWZERO
     using Sprite = UnityEngine.Sprite;
 #endif
-    
+
     internal class PingTypePatcher
     {
         private const string EnumName = "PingType";
@@ -50,7 +51,7 @@
 
             var pingType = (PingType) cache.Index;
             cacheManager.Add(pingType, cache.Index, cache.Name);
-            SpritePatcher.AddSprite(SpriteManager.Group.Pings, pingType.ToString(), sprite);
+            ModSprite.Add(SpriteManager.Group.Pings, pingType.ToString(), sprite);
             
             if (PingManager.sCachedPingTypeStrings.valueToString.ContainsKey(pingType) == false)
                 PingManager.sCachedPingTypeStrings.valueToString.Add(pingType, name);

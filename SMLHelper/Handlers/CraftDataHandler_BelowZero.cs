@@ -3,7 +3,7 @@ namespace SMLHelper.V2.Handlers
 {
     using Crafting;
     using Interfaces;
-    using Oculus.Newtonsoft.Json;
+    using Newtonsoft.Json;
     using Patchers;
     using System.Collections.Generic;
 

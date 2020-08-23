@@ -7,16 +7,16 @@
     using System.Reflection.Emit;
     using System.Collections;
     using System.Collections.Generic;
-    using Oculus.Newtonsoft.Json;
-    using Oculus.Newtonsoft.Json.Serialization;
     using UnityEngine;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using QModManager.API;
 #if SUBNAUTICA
+    using Oculus.Newtonsoft.Json;
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
+    using Newtonsoft.Json;
 #endif
 
     internal class OptionsPanelPatcher

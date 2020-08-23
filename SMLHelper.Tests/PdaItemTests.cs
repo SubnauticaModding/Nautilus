@@ -6,6 +6,11 @@
     using SMLHelper.V2.Crafting;
     using SMLHelper.V2.Interfaces;
     using UnityEngine;
+#if SUBNAUTICA
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+    using TechData = V2.Crafting.RecipeData;
+#endif
 
     [TestFixture]
     internal class PdaItemTests
@@ -86,7 +91,7 @@
                 return this.TechDataToReturn;
             }
 
-            protected override Atlas.Sprite GetItemSprite()
+            protected override Sprite GetItemSprite()
             {
                 return null;
             }

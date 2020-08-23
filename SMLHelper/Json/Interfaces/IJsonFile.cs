@@ -1,6 +1,10 @@
 ﻿namespace SMLHelper.V2.Json.Interfaces
 {
+#if SUBNAUTICA
     using Oculus.Newtonsoft.Json;
+#elif BELOWZERO
+    using Newtonsoft.Json;
+#endif
 
     /// <summary>
     /// A simple interface for a JSON file framework.
