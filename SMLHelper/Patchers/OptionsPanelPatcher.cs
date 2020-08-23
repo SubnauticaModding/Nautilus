@@ -11,12 +11,12 @@
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using QModManager.API;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
 #if SUBNAUTICA
+    using Oculus.Newtonsoft.Json;
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
+    using Newtonsoft.Json;
 #endif
 
     internal class OptionsPanelPatcher
