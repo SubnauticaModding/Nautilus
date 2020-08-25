@@ -1,7 +1,6 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using System.Collections.Generic;
-    using System.Reflection;
     using Assets;
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
@@ -11,59 +10,46 @@
 
     internal class SpritePatcher
     {
-        // The groups field is present in Subnautica and BZ Stable.
-        private static readonly FieldInfo groupsInfo = typeof(SpriteManager).GetField("groups", BindingFlags.Static | BindingFlags.NonPublic);
-
-        // In BZ Experimental, it is replaced by the atlases field.
-        private static readonly FieldInfo atlasesInfo = typeof(SpriteManager).GetField("atlases", BindingFlags.Static | BindingFlags.NonPublic);
-
-        // To avoid having to create a third build configuration, this is the one patcher class that will used literal strings insteead of nameof.
-        // TODO - Once BZ stable is updated with the changes from Experimental, we can return this back to using fields directly.
-
-        private static Dictionary<SpriteManager.Group, Dictionary<string, Sprite>> _groups;
-        private static Dictionary<SpriteManager.Group, Dictionary<string, Sprite>> Groups => _groups ?? (_groups = (Dictionary<SpriteManager.Group, Dictionary<string, Sprite>>)groupsInfo.GetValue(null));
-
-        private static Dictionary<string, Dictionary<string, Sprite>> _atlases;
-        private static Dictionary<string, Dictionary<string, Sprite>> Atlases => _atlases ?? (_atlases = (Dictionary<string, Dictionary<string, Sprite>>)atlasesInfo.GetValue(null));
-
         internal static void Patch()
         {
-            foreach (SpriteManager.Group moddedGroup in ModSprite.ModSprites.Keys)
+            foreach (var moddedSpriteGroup in ModSprite.ModSprites)
             {
-                Dictionary<string, Sprite> spriteGroup = GetSpriteGroup(moddedGroup);
-                if (spriteGroup == null)
-                    return;
+                SpriteManager.Group moddedGroup = moddedSpriteGroup.Key;
 
-                foreach (string spriteKey in ModSprite.ModSprites[moddedGroup].Keys)
+                Dictionary<string, Sprite> spriteAtlas = GetSpriteAtlas(moddedGroup);
+                if (spriteAtlas == null)
+                    continue;
+
+                Dictionary<string, Sprite> moddedSprites = moddedSpriteGroup.Value;
+                foreach (var sprite in moddedSprites)
                 {
-                    spriteGroup.Add(spriteKey, ModSprite.ModSprites[moddedGroup][spriteKey]);
+                    spriteAtlas.Add(sprite.Key, sprite.Value);
                 }
-
             }
 
-            Logger.Log("SpritePatcher is done.", LogLevel.Debug);
+            Logger.Debug("SpritePatcher is done.");
         }
 
-        private static Dictionary<string, Sprite> GetSpriteGroup(SpriteManager.Group groupKey)
+        private static Dictionary<string, Sprite> GetSpriteAtlas(SpriteManager.Group groupKey)
         {
-            if (groupsInfo != null)
+            if (!SpriteManager.mapping.TryGetValue(groupKey, out string atlasName))
             {
-                return Groups[groupKey];
-            }
-            else if (atlasesInfo != null)
-            {
-                string groupName = SpriteManager.mapping[groupKey];
-                return Atlases[groupName];
+                Logger.Error($"SpritePatcher was unable to find a sprite mapping for {nameof(SpriteManager.Group)}.{groupKey}");
+                return null;
             }
 
-            Logger.Error("SpritePatcher was unable to find a sprite dictionary");
+#if SUBNAUTICA
+            var atlas = Atlas.GetAtlas(atlasName);
+            if (atlas != null)
+                return atlas._nameToSprite;
+
+#elif BELOWZERO
+            if (SpriteManager.atlases.TryGetValue(atlasName, out var spriteGroup))
+                    return spriteGroup;
+#endif
+
+            Logger.Error($"SpritePatcher was unable to find a sprite atlas for {nameof(SpriteManager.Group)}.{groupKey}");
             return null;
-        }
-
-        internal static void AddSprite(SpriteManager.Group group, string spriteName, Sprite sprite)
-        {
-            var spriteGroup = GetSpriteGroup(group);
-            spriteGroup.Add(spriteName, sprite);
         }
     }
 }

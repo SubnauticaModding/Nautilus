@@ -6,8 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLHelper", "SMLHelper\SMLHelper.csproj", "{418502DD-372D-4EF9-8021-B262552DFEDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example mod", "Example mod\Example mod.csproj", "{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{418502DD-372D-4EF9-8021-B262552DFEDE} = {418502DD-372D-4EF9-8021-B262552DFEDE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLHelper.Tests", "SMLHelper.Tests\SMLHelper.Tests.csproj", "{EBC4AAF3-A13B-427E-BF99-3AE23EDEB4B8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{418502DD-372D-4EF9-8021-B262552DFEDE} = {418502DD-372D-4EF9-8021-B262552DFEDE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
