@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="..\common.props" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">SN.STABLE</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -14,22 +15,20 @@
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SUBNAUTICA|AnyCPU'">
-    <OutputPath>bin\SUBNAUTICA\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
+    <OutputPath>bin\SN.STABLE\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SUBNAUTICA;SUBNAUTICA_STABLE</DefineConstants>
     <Optimize>true</Optimize>
-    <Dependencies>..\Dependencies\Subnautica</Dependencies>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BELOWZERO|AnyCPU'">
-    <OutputPath>bin\BELOWZERO\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
+    <OutputPath>bin\BZ.STABLE\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;BELOWZERO;BELOWZERO_STABLE</DefineConstants>
     <Optimize>true</Optimize>
-    <Dependencies>..\Dependencies\BelowZero</Dependencies>
     <DebugType>none</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -38,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\Dependencies\0Harmony.dll</HintPath>
+      <HintPath>$(Dependencies)\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -59,12 +58,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="UnityEngine.CoreModule" Condition="'$(Configuration)'=='BELOWZERO'">
+    <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(Dependencies)\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>$(Dependencies)\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
