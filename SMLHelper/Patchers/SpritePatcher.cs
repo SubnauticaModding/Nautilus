@@ -24,6 +24,7 @@
                 foreach (var sprite in moddedSprites)
                 {
                     spriteAtlas.Add(sprite.Key, sprite.Value);
+                    Logger.Debug($"Adding Sprite {sprite.Key} to {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
                 }
             }
 
@@ -40,8 +41,8 @@
 
 #if SUBNAUTICA
             var atlas = Atlas.GetAtlas(atlasName);
-            if (atlas != null)
-                return atlas._nameToSprite;
+            if (atlas?.nameToSprite != null)
+                return atlas.nameToSprite;
 
 #elif BELOWZERO
             if (SpriteManager.atlases.TryGetValue(atlasName, out var spriteGroup))
