@@ -1,14 +1,8 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using System;
     using System.Collections.Generic;
     using HarmonyLib;
     using Logger = V2.Logger;
-#if SUBNAUTICA
-    using Oculus.Newtonsoft.Json;
-#elif BELOWZERO
-    using Newtonsoft.Json;
-#endif
 
     internal class LootDistributionPatcher
     {

@@ -36,9 +36,11 @@
             {
                 int randomIndex = Random.Range(0, FishHandler.fishTechTypes.Count);
                 TechType randomFish = FishHandler.fishTechTypes[randomIndex];
-
+#if SUBNAUTICA_EXP
+                GameObject fish = null;
+#else
                 GameObject fish = CraftData.InstantiateFromPrefab(randomFish);
-
+#endif
                 // Deletes the fish if it is a ground creature spawned in water
                 if (fish.GetComponent<WalkOnGround>() && !__instance.GetComponent<WalkOnGround>())
                 {

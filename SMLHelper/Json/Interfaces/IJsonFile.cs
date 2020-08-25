@@ -1,8 +1,8 @@
 ﻿namespace SMLHelper.V2.Json.Interfaces
 {
-#if SUBNAUTICA
+#if SUBNAUTICA_STABLE
     using Oculus.Newtonsoft.Json;
-#elif BELOWZERO
+#else
     using Newtonsoft.Json;
 #endif
 

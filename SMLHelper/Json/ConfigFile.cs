@@ -6,10 +6,10 @@
     using SMLHelper.V2.Json.Converters;
     using SMLHelper.V2.Json.ExtensionMethods;
     using SMLHelper.V2.Json.Interfaces;
-#if SUBNAUTICA
+#if SUBNAUTICA_STABLE
     using Oculus.Newtonsoft.Json;
     using Oculus.Newtonsoft.Json.Converters;
-#elif BELOWZERO
+#else
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 #endif

@@ -3,9 +3,9 @@
     using System;
     using SMLHelper.V2.Utility;
     using UnityEngine;
-#if SUBNAUTICA
+#if SUBNAUTICA_STABLE
     using Oculus.Newtonsoft.Json;
-#elif BELOWZERO
+#else
     using Newtonsoft.Json;
 #endif
 
