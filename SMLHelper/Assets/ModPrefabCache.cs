@@ -59,9 +59,23 @@
         public static void AddPrefab(GameObject prefab, bool autoremove = true)
         {
             Init();
-
             prefab.transform.parent = prefabRoot.transform;
 
+            AddPrefabInternal(prefab, autoremove);
+        }
+
+        /// <summary> TODO </summary>
+        public static GameObject AddPrefabCopy(GameObject prefab, bool autoremove = true)
+        {
+            Init();
+            var prefabCopy = UnityEngine.Object.Instantiate(prefab, prefabRoot.transform);
+
+            AddPrefabInternal(prefabCopy, autoremove);
+            return prefabCopy;
+        }
+
+        private static void AddPrefabInternal(GameObject prefab, bool autoremove)
+        {
             if (autoremove)
                 prefabs.Add(Tuple.Create(Time.time, prefab));
 
