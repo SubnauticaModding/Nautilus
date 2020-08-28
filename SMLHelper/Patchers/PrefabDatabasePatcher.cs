@@ -60,9 +60,10 @@
 
         internal static void PrePatch(Harmony harmony)
         {
+#if !SUBNAUTICA_EXP // TODO
             harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.GetPrefabForFilename)), 
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.GetPrefabForFilename_Prefix))));
-
+#endif
             harmony.Patch(tryGetPrefabFilename, prefix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(PrefabDatabasePatcher.TryGetPrefabFilename_Prefix))));
 
             harmony.Patch(AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.GetPrefabAsync)),

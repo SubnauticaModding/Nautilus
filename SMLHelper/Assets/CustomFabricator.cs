@@ -7,6 +7,12 @@
     using UnityEngine;
     using Logger = V2.Logger;
 
+#if SUBNAUTICA
+    using Sprite = Atlas.Sprite;
+#elif BELOWZERO
+    using Sprite = UnityEngine.Sprite;
+#endif
+
     /// <summary>
     /// An asset class inheriting from <seealso cref="Buildable"/> that streamlines the process of creating a custom fabricator with a custom crafting tree.
     /// </summary>
@@ -151,11 +157,19 @@
             {
                 case Models.Fabricator:
                 default:
+#if SUBNAUTICA_EXP
+                    prefab = null; // TODO
+#else
                     prefab = GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Fabricator));
+#endif
                     crafter = prefab.GetComponent<Fabricator>();
                     break;
                 case Models.Workbench:
+#if SUBNAUTICA_EXP
+                    prefab = null; // TODO
+#else
                     prefab = GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Workbench));
+#endif
                     crafter = prefab.GetComponent<Workbench>();
                     break;
 #if SUBNAUTICA
@@ -253,25 +267,7 @@
             foreach (Action action in OrderedCraftTreeActions)
                 action.Invoke();
         }
-#if SUBNAUTICA
-        /// <summary>
-        /// Adds a new tab node to the custom crafting tree of this fabricator.
-        /// </summary>
-        /// <param name="tabId">The internal ID for the tab node.</param>
-        /// <param name="displayText">The in-game text shown for the tab node.</param>
-        /// <param name="tabSprite">The sprite used for the tab node.</param>
-        /// <param name="parentTabId">Optional. The parent tab of this tab.<para/>
-        /// When this value is null, the tab will be added to the root of the craft tree.</param>
-        public void AddTabNode(string tabId, string displayText, Atlas.Sprite tabSprite, string parentTabId = null)
-        {
-            OrderedCraftTreeActions.Add(() =>
-            {
-                ModCraftTreeLinkingNode parentNode = CraftTreeLinkingNodes[parentTabId ?? RootNode];
-                ModCraftTreeTab tab = parentNode.AddTabNode(tabId, displayText, tabSprite);
-                CraftTreeLinkingNodes[tabId] = tab;
-            });
-        }
-#elif BELOWZERO
+
         /// <summary>
         /// Adds a new tab node to the custom crafting tree of this fabricator.
         /// </summary>
@@ -289,7 +285,6 @@
                 CraftTreeLinkingNodes[tabId] = tab;
             });
         }
-#endif
 
         /// <summary>
         /// Adds a new crafting node to the custom crafting tree of this fabricator.
