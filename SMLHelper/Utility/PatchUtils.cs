@@ -4,6 +4,7 @@
     using System.Reflection;
     using System.Diagnostics;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using HarmonyLib;
 
     internal static class PatchUtils
@@ -24,6 +25,13 @@
             }
         }
 
+        // for use with iterator methods, returns MoveNext method from the iterator type
+        internal static MethodInfo GetIteratorMethod(MethodInfo method)
+        {
+            Type stateMachineType = method.GetCustomAttribute<StateMachineAttribute>()?.StateMachineType;
+            return AccessTools.Method(stateMachineType, "MoveNext");
+        }
+
         // attributes for use with PatchClass method
         // we using them instead of Harmony attributes to avoid confusion and show that these patches are not processed by Harmony.PatchAll
         [AttributeUsage(AttributeTargets.Method)]
@@ -40,16 +48,15 @@
         // if typeWithPatchMethods is null, we use type from which this method is called
         internal static void PatchClass(Harmony harmony, Type typeWithPatchMethods = null)
         {
-            MethodInfo _getTargetMethod(HarmonyMethod hm) => AccessTools.Method(hm.declaringType, hm.methodName, hm.argumentTypes);
+            static MethodInfo _getTargetMethod(HarmonyMethod hm) => AccessTools.Method(hm.declaringType, hm.methodName, hm.argumentTypes);
 
-            if (typeWithPatchMethods == null)
-                typeWithPatchMethods = new StackTrace().GetFrame(1).GetMethod().ReflectedType;
+            typeWithPatchMethods ??= new StackTrace().GetFrame(1).GetMethod().ReflectedType;
 
             foreach (var method in typeWithPatchMethods.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
             {
-                HarmonyMethod _method_if<H>() => method.IsDefined(typeof(H), false)? new HarmonyMethod(method): null;
+                HarmonyMethod _method_if<H>() => method.IsDefined(typeof(H))? new HarmonyMethod(method): null;
 
-                if (Attribute.GetCustomAttribute(method, typeof(HarmonyPatch)) is HarmonyPatch harmonyPatch)
+                if (method.GetCustomAttribute<HarmonyPatch>() is HarmonyPatch harmonyPatch)
                     harmony.Patch(_getTargetMethod(harmonyPatch.info), _method_if<Prefix>(), _method_if<Postfix>(), _method_if<Transpiler>());
             }
         }

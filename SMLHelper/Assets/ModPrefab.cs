@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Assets
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -71,12 +72,28 @@
         internal GameObject GetGameObjectInternal()
         {
             GameObject go = GetGameObject();
-
-            if (go == null)
-            {
+            if (!go)
                 return null;
-            }
 
+            ProcessPrefab(go);
+            return go;
+        }
+
+        internal IEnumerator GetGameObjectInternalAsync(IOut<GameObject> gameObject)
+        {
+            var taskResult = new TaskResult<GameObject>();
+            yield return GetGameObjectAsync(taskResult);
+
+            GameObject go = taskResult.Get();
+            if (!go)
+                yield break;
+
+            ProcessPrefab(go);
+            gameObject.Set(go);
+        }
+
+        private void ProcessPrefab(GameObject go)
+        {
             if (go.activeInHierarchy) // inactive prefabs don't need to be removed by cache
                 ModPrefabCache.AddPrefab(go);
 
@@ -99,15 +116,17 @@
             {
                 pid.ClassId = this.ClassID;
             }
-
-            return go;
         }
+
 
         /// <summary>
         /// Gets the prefab game object. Set up your prefab components here.
         /// The <see cref="TechType"/> and ClassID are already handled.
         /// </summary>
         /// <returns>The game object to be instantiated into a new in-game entity.</returns>
-        public abstract GameObject GetGameObject();
+        public virtual GameObject GetGameObject() => null; // SUBNAUTICA_EXP TODO: remove (or make obsolete) for SN after async update
+
+        /// <summary> TODO </summary>
+        public virtual IEnumerator GetGameObjectAsync(IOut<GameObject> gameObject) => null;
     }
 }
