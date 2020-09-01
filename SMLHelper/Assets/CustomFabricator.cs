@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Assets
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using SMLHelper.V2.Crafting;
     using SMLHelper.V2.Handlers;
@@ -150,31 +151,78 @@
         /// <returns></returns>
         public override GameObject GetGameObject()
         {
+#if SUBNAUTICA_EXP
+            return null;
+#else
+            GameObject prefab = this.Model switch
+            {
+                Models.Fabricator => GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Fabricator)),
+                Models.Workbench => GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Workbench)),
+#if SUBNAUTICA
+                Models.MoonPool => GameObject.Instantiate(Resources.Load<GameObject>("Submarine/Build/CyclopsFabricator")),
+#endif
+                Models.Custom => GetCustomCrafterPreFab(),
+                _ => null
+            };
+
+            return ProcessPrefab(prefab);
+#endif
+        }
+
+        /// <summary>
+        /// The in-game <see cref="GameObject"/>, async way.
+        /// </summary>
+        /// <returns></returns>
+        public override IEnumerator GetGameObjectAsync(IOut<GameObject> gameObject)
+        {
             GameObject prefab;
+            var taskResult = new TaskResult<GameObject>();
+
+            switch (this.Model)
+            {
+                case Models.Fabricator:
+                default:
+                    yield return CraftData.GetPrefabForTechTypeAsync(TechType.Fabricator, false, taskResult);
+                    prefab = GameObject.Instantiate(taskResult.Get());
+                    break;
+                case Models.Workbench:
+                    yield return CraftData.GetPrefabForTechTypeAsync(TechType.Workbench, false, taskResult);
+                    prefab = GameObject.Instantiate(taskResult.Get());
+                    break;
+#if SUBNAUTICA
+                case Models.MoonPool:
+#pragma warning disable CS0618 // obsolete
+                    var request = UWE.PrefabDatabase.GetPrefabForFilenameAsync("Submarine/Build/CyclopsFabricator.prefab");
+#pragma warning restore CS0618
+                    yield return request;
+                    request.TryGetPrefab(out prefab);
+                    prefab = GameObject.Instantiate(prefab);
+                    break;
+#endif
+                case Models.Custom:
+                    yield return GetCustomCrafterPreFabAsync(taskResult);
+                    prefab = taskResult.Get();
+                    break;
+            };
+
+            gameObject.Set(ProcessPrefab(prefab));
+        }
+
+        private GameObject ProcessPrefab(GameObject prefab)
+        {
             Constructable constructible = null;
             GhostCrafter crafter;
             switch (this.Model)
             {
                 case Models.Fabricator:
                 default:
-#if SUBNAUTICA_EXP
-                    prefab = null; // TODO
-#else
-                    prefab = GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Fabricator));
-#endif
                     crafter = prefab.GetComponent<Fabricator>();
                     break;
                 case Models.Workbench:
-#if SUBNAUTICA_EXP
-                    prefab = null; // TODO
-#else
-                    prefab = GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Workbench));
-#endif
                     crafter = prefab.GetComponent<Workbench>();
                     break;
 #if SUBNAUTICA
                 case Models.MoonPool:
-                    prefab = GameObject.Instantiate(Resources.Load<GameObject>("Submarine/Build/CyclopsFabricator"));
                     crafter = prefab.GetComponent<Fabricator>();
 
                     // Add prefab ID because CyclopsFabricator normaly doesn't have one
@@ -202,7 +250,6 @@
                     break;
 #endif
                 case Models.Custom:
-                    prefab = GetCustomCrafterPreFab();
                     crafter = prefab.EnsureComponent<Fabricator>();
                     break;
             }
@@ -246,6 +293,15 @@
         protected virtual GameObject GetCustomCrafterPreFab()
         {
             throw new NotImplementedException($"To use a custom fabricator model, the prefab must be created in {nameof(GetCustomCrafterPreFab)}.");
+        }
+
+        /// <summary>
+        /// Override this method if you want to provide your own prefab and model for your custom fabricator.<para/>
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IEnumerator GetCustomCrafterPreFabAsync(IOut<GameObject> gameObject)
+        {
+            throw new NotImplementedException($"To use a custom fabricator model, the prefab must be created in {nameof(GetCustomCrafterPreFabAsync)}.");
         }
 
         /// <summary>
