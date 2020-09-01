@@ -9,6 +9,7 @@
     {
         private readonly ModPrefab modPrefab;
 
+        private int state = 0;
         private CoroutineTask<GameObject> task;
         private TaskResult<GameObject> taskResult;
 
@@ -44,7 +45,7 @@
         public bool MoveNext()
         {
             Init();
-            return task.GetResult() == null; // TODO: possible infinite loop ?
+            return state++ == 0;
         }
 
         public void Reset() {}

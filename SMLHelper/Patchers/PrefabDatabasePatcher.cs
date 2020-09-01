@@ -60,11 +60,14 @@
 
             try
             {
-                // trying sync method for backward compatibility
-                if (prefab.GetGameObjectInternal() is GameObject go) // SUBNAUTICA_EXP TODO: remove for SN after async update
+                // trying sync method first
+                if (prefab.GetGameObjectInternal() is GameObject go)
                     return new LoadedPrefabRequest(go);
             }
-            catch (Exception) {}
+            catch (Exception e)
+            {
+                Logger.Debug($"Caught exception while calling GetGameObject for {classId}, trying GetGameObjectAsync now. {Environment.NewLine}{e}");
+            }
 
             return new ModPrefabRequest(prefab);
         }

@@ -64,7 +64,13 @@
             AddPrefabInternal(prefab, autoremove);
         }
 
-        /// <summary> TODO </summary>
+        /// <summary> Add prefab copy to cache (instatiated copy will not run 'Awake') </summary>
+        /// <param name="prefab"> Prefab to copy and add. </param>
+        /// <param name="autoremove">
+        /// Is prefab copy needed to be removed from cache after use.
+        /// Prefabs without autoremove flag can be safely deleted by <see cref="UnityEngine.Object.Destroy(UnityEngine.Object)" />
+        /// </param>
+        /// <returns> Prefab copy </returns>
         public static GameObject AddPrefabCopy(GameObject prefab, bool autoremove = true)
         {
             Init();

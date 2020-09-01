@@ -72,7 +72,7 @@
         internal GameObject GetGameObjectInternal()
         {
             GameObject go = GetGameObject();
-            if (!go)
+            if (go == null)
                 return null;
 
             ProcessPrefab(go);
@@ -85,7 +85,7 @@
             yield return GetGameObjectAsync(taskResult);
 
             GameObject go = taskResult.Get();
-            if (!go)
+            if (go == null)
                 yield break;
 
             ProcessPrefab(go);
@@ -124,9 +124,13 @@
         /// The <see cref="TechType"/> and ClassID are already handled.
         /// </summary>
         /// <returns>The game object to be instantiated into a new in-game entity.</returns>
-        public virtual GameObject GetGameObject() => null; // SUBNAUTICA_EXP TODO: remove (or make obsolete) for SN after async update
+        public virtual GameObject GetGameObject() => null;
 
-        /// <summary> TODO </summary>
+        /// <summary>
+        /// Gets the prefab game object asynchronously. Set up your prefab components here.
+        /// The <see cref="TechType"/> and ClassID are already handled.
+        /// </summary>
+        /// <param name="gameObject"> The game object to be instantiated into a new in-game entity. </param>
         public virtual IEnumerator GetGameObjectAsync(IOut<GameObject> gameObject) => null;
     }
 }
