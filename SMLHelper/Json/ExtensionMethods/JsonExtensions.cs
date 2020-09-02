@@ -1,9 +1,9 @@
 ﻿namespace SMLHelper.V2.Json.ExtensionMethods
 {
     using SMLHelper.V2.Utility;
-#if SUBNAUTICA
+#if SUBNAUTICA_STABLE
     using Oculus.Newtonsoft.Json;
-#elif BELOWZERO
+#else
     using Newtonsoft.Json;
 #endif
 

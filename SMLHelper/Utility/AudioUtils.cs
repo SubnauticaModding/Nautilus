@@ -2,17 +2,17 @@
 {
     using FMOD;
     using FMODUnity;
-#if SUBNAUTICA
-
-#elif BELOWZERO
-
-#endif
 
     /// <summary>
     /// Utilities for audio and sound
     /// </summary>
     public static class AudioUtils
     {
+#if SUBNAUTICA_STABLE
+        private static System FMOD_System => RuntimeManager.LowlevelSystem;
+#else
+        private static System FMOD_System => RuntimeManager.CoreSystem;
+#endif
         /// <summary>
         /// Creates a <see cref="Sound"/> instance from a path. Can be stored and later used with <see cref="PlaySound(Sound)"/>
         /// </summary>
@@ -21,11 +21,7 @@
         /// <returns>The <see cref="Sound"/> instance</returns>
         public static Sound CreateSound(string path, MODE mode = MODE.DEFAULT)
         {
-#if SUBNAUTICA
-            RuntimeManager.LowlevelSystem.createSound(path, mode, out Sound sound);
-#elif BELOWZERO
-            RuntimeManager.CoreSystem.createSound(path, mode, out Sound sound);
-#endif
+            FMOD_System.createSound(path, mode, out Sound sound);
             return sound;
         }
 
@@ -59,13 +55,9 @@
         /// <returns>The channel on which the sound was created</returns>
         public static Channel PlaySound(Sound sound)
         {
-#if SUBNAUTICA
-            RuntimeManager.LowlevelSystem.getMasterChannelGroup(out ChannelGroup channels);
-            RuntimeManager.LowlevelSystem.playSound(sound, channels, false, out Channel channel);
-#elif BELOWZERO
-            RuntimeManager.CoreSystem.getMasterChannelGroup(out ChannelGroup channels);
-            RuntimeManager.CoreSystem.playSound(sound, channels, false, out Channel channel);
-#endif
+            FMOD_System.getMasterChannelGroup(out ChannelGroup channels);
+            FMOD_System.playSound(sound, channels, false, out Channel channel);
+
             return channel;
         }
 
@@ -77,38 +69,20 @@
         /// <returns>The channel on which the sound was created</returns>
         public static Channel PlaySound(Sound sound, SoundChannel volumeControl)
         {
-            float volumeLevel;
-            
-            switch (volumeControl)
+            float volumeLevel = volumeControl switch
             {
-                case SoundChannel.Master:
-                    volumeLevel = SoundSystem.masterVolume;
-                    break;
-                case SoundChannel.Music:
-                    volumeLevel = SoundSystem.musicVolume;
-                    break;
-                case SoundChannel.Voice:
-                    volumeLevel = SoundSystem.voiceVolume;
-                    break;
-                case SoundChannel.Ambient:
-                    volumeLevel = SoundSystem.ambientVolume;
-                    break;
-                default:
-                    volumeLevel = 1f;
-                    break;
-            }
+                SoundChannel.Master  => SoundSystem.masterVolume,
+                SoundChannel.Music   => SoundSystem.musicVolume,
+                SoundChannel.Voice   => SoundSystem.voiceVolume,
+                SoundChannel.Ambient => SoundSystem.ambientVolume,
+                _ => 1f,
+            };
 
-#if SUBNAUTICA
-            RuntimeManager.LowlevelSystem.getMasterChannelGroup(out ChannelGroup channels);
+            FMOD_System.getMasterChannelGroup(out ChannelGroup channels);
             var newChannels = channels;
             newChannels.setVolume(volumeLevel);
-            RuntimeManager.LowlevelSystem.playSound(sound, newChannels, false, out Channel channel);
-#elif BELOWZERO
-            RuntimeManager.CoreSystem.getMasterChannelGroup(out ChannelGroup channels);
-            var newChannels = channels;
-            newChannels.setVolume(volumeLevel);
-            RuntimeManager.CoreSystem.playSound(sound, newChannels, false, out Channel channel);
-#endif
+            FMOD_System.playSound(sound, newChannels, false, out Channel channel);
+
             return channel;
         }
     }

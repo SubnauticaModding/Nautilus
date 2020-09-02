@@ -11,12 +11,17 @@
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using QModManager.API;
-#if SUBNAUTICA
+
+#if SUBNAUTICA_STABLE
     using Oculus.Newtonsoft.Json;
+#else
+    using Newtonsoft.Json;
+#endif
+
+#if SUBNAUTICA
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
-    using Newtonsoft.Json;
 #endif
 
     internal class OptionsPanelPatcher
@@ -88,7 +93,7 @@
             modOptions.Values.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
         }
 
-#if SUBNAUTICA // it looks like this is fixed in BelowZero
+#if SUBNAUTICA_STABLE
         // fix for slider, check for zero divider added (in that case just return value unchanged)
         // it happens when slider is in pre-awake state, so any given value snaps to default value
         [PatchUtils.Transpiler]

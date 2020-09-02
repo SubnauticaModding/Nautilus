@@ -23,8 +23,16 @@
                 Dictionary<string, Sprite> moddedSprites = moddedSpriteGroup.Value;
                 foreach (var sprite in moddedSprites)
                 {
-                    spriteAtlas.Add(sprite.Key, sprite.Value);
-                    Logger.Debug($"Adding Sprite {sprite.Key} to {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
+                    if (spriteAtlas.ContainsKey(sprite.Key))
+                    {
+                        Logger.Debug($"Overwriting Sprite {sprite.Key} in {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
+                        spriteAtlas[sprite.Key] = sprite.Value;
+                    }
+                    else
+                    {
+                        Logger.Debug($"Adding Sprite {sprite.Key} to {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
+                        spriteAtlas.Add(sprite.Key, sprite.Value);
+                    }
                 }
             }
 

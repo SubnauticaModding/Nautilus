@@ -19,6 +19,8 @@ namespace SMLHelper.V2.Assets
             if (!ModSprites.ContainsKey(group))
                 ModSprites.Add(group, new Dictionary<string, Atlas.Sprite>(StringComparer.InvariantCultureIgnoreCase));
 
+            if(ModSprites[group].ContainsKey(name))
+                Logger.Debug($"ModSprite already registered for {group}/{name}.  Old sprite will be overwritten.");
             ModSprites[group][name] = sprite;
         }
 

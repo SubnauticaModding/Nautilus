@@ -6,9 +6,9 @@
     using System.Text;
     using System.Threading;
     using System.Reflection;
-#if SUBNAUTICA
+#if SUBNAUTICA_STABLE
     using Oculus.Newtonsoft.Json;
-#elif BELOWZERO
+#else
     using Newtonsoft.Json;
 #endif
 

@@ -2,10 +2,9 @@
 {
     using System;
     using System.Globalization;
-    using UnityEngine;
-#if SUBNAUTICA
+#if SUBNAUTICA_STABLE
     using Oculus.Newtonsoft.Json;
-#elif BELOWZERO
+#else
     using Newtonsoft.Json;
 #endif
 
