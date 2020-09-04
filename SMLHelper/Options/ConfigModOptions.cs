@@ -451,24 +451,12 @@
         /// </summary>
         private void BindEvents()
         {
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute is ButtonAttribute))
-                ButtonClicked += ConfigModOptions_ButtonClicked;
-
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute is ChoiceAttribute))
-                ChoiceChanged += ConfigModOptions_ChoiceChanged;
-
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute is KeybindAttribute))
-                KeybindChanged += ConfigModOptions_KeybindChanged;
-
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute is SliderAttribute))
-                SliderChanged += ConfigModOptions_SliderChanged;
-
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute is ToggleAttribute))
-                ToggleChanged += ConfigModOptions_ToggleChanged;
-
-            if (modOptionsMetadata.Values.Any(x => x.ModOptionAttribute.Tooltip != null
-                || (x.OnGameObjectCreatedMetadata != null && x.OnGameObjectCreatedMetadata.Any())))
-                GameObjectCreated += ConfigModOptions_GameObjectCreated;
+            ButtonClicked += ConfigModOptions_ButtonClicked;
+            ChoiceChanged += ConfigModOptions_ChoiceChanged;
+            KeybindChanged += ConfigModOptions_KeybindChanged;
+            SliderChanged += ConfigModOptions_SliderChanged;
+            ToggleChanged += ConfigModOptions_ToggleChanged;
+            GameObjectCreated += ConfigModOptions_GameObjectCreated;
         }
 
         /// <summary>
@@ -532,7 +520,7 @@
                 else if (memberInfoMetadata.ValueType.IsEnum)
                 {
                     // Enum-based choice where the values are defined as custom strings
-                    var value = Enum.GetNames(memberInfoMetadata.ValueType)[e.Index];
+                    var value = Enum.Parse(memberInfoMetadata.ValueType, Enum.GetNames(memberInfoMetadata.ValueType)[e.Index]);
                     memberInfoMetadata.SetValue(Config, value);
                 }
                 else if (memberInfoMetadata.ValueType == typeof(string))
@@ -804,7 +792,7 @@
                 // Enum-based choice where the values are defined as custom strings
                 string[] options = choiceAttribute.Options;
                 string value = memberInfoMetadata.GetValue(Config).ToString();
-                int index = Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value);
+                int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
                 AddChoiceOption(id, label, options, index);
             }
             else if (memberInfoMetadata.ValueType == typeof(string))
