@@ -13,12 +13,16 @@
     using UnityEngine;
     using Logger = Logger;
 #if SUBNAUTICA
-    using Oculus.Newtonsoft.Json;
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO
-    using Newtonsoft.Json;    
     using Text = TMPro.TextMeshProUGUI;
 #endif
+#if SUBNAUTICA_STABLE
+    using Oculus.Newtonsoft.Json;
+#else
+    using Newtonsoft.Json;
+#endif
+
 
     /// <summary>
     /// An internal derivative of <see cref="ModOptions"/> for use in auto-generating a menu based on attributes
