@@ -48,7 +48,7 @@
         /// <summary>
         /// The step to apply to the slider (ie. round to nearest)
         /// </summary>
-        public float Step { get; set; }
+        public float Step { get; set; } = 0.05f;
 
         /// <summary>
         /// Signifies the specified <see cref="float"/>, <see cref="double"/> or <see cref="int"/> should be represented in the mod's
