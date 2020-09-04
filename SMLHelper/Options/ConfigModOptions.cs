@@ -833,27 +833,15 @@
         private void BuildModSliderOption(string id, string label,
             MemberInfoMetadata memberInfoMetadata, SliderAttribute sliderAttribute)
         {
-            float value;
-            if (memberInfoMetadata.ValueType == typeof(float))
-            {
-                value = memberInfoMetadata.GetValue<float>(Config);
-            }
-            else if (memberInfoMetadata.ValueType == typeof(double))
-            {
-                value = Convert.ToSingle(memberInfoMetadata.GetValue<double>(Config));
-            }
-            else if (memberInfoMetadata.ValueType == typeof(int))
-            {
-                value = Convert.ToSingle(memberInfoMetadata.GetValue<int>(Config));
-            }
-            else
-            {
-                return;
-            }
+            float value = Convert.ToSingle(memberInfoMetadata.GetValue(Config));
+
+            float step = sliderAttribute.Step;
+            if (memberInfoMetadata.ValueType == typeof(int))
+                step = Mathf.CeilToInt(step);
 
             AddSliderOption(id, label, sliderAttribute.Min, sliderAttribute.Max,
                 Convert.ToSingle(value), sliderAttribute.DefaultValue,
-                sliderAttribute.Format, sliderAttribute.Step);
+                sliderAttribute.Format, step);
         }
 
         /// <summary>
