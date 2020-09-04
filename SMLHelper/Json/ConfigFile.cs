@@ -3,11 +3,16 @@
     using Converters;
     using ExtensionMethods;
     using Interfaces;
-    using Oculus.Newtonsoft.Json;
-    using Oculus.Newtonsoft.Json.Converters;
     using System.IO;
     using System.Reflection;
     using System.Linq;
+#if SUBNAUTICA_STABLE
+    using Oculus.Newtonsoft.Json;
+    using Oculus.Newtonsoft.Json.Converters;
+#else
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+#endif
 
     /// <summary>
     /// A simple implementation of <see cref="IJsonFile"/> for use with config files.

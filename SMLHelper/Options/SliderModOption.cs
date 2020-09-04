@@ -137,17 +137,22 @@
         /// </summary>
         public float DefaultValue { get; }
 
-        /// <summary> Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string, float)"/>) </summary>
-        public string ValueFormat { get; }
+        /// <summary>
+        /// The step value of the <see cref="ModSliderOption"/>.
+        /// Defaults to 0.05f same as default code.
+        /// </summary>
+        public float Step { get; } = 0.05f;
 
-        /// <summary> Step for the slider ie. round to nearest X </summary>
-        public float Step { get; }
+        /// <summary> Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string)"/>) </summary>
+        public string ValueFormat { get; }
 
         private SliderValue sliderValue = null;
 
         private float previousValue;
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
+#if SUBNAUTICA
+            
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue,
                 new UnityAction<float>((float value) =>
                 {
@@ -158,11 +163,15 @@
                         parentOptions.OnSliderChange(Id, value);
                     }
                 }));
-
+#elif BELOWZERO
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step,
+                new UnityAction<float>((float value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value)));
+#endif
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
 
+#if SUBNAUTICA
             // if we using custom value format or step, we need to replace vanilla uGUI_SliderWithLabel with our component
             if (ValueFormat != null || Step >= Mathf.Epsilon)
             {
@@ -171,6 +180,11 @@
                 if (ValueFormat != null)
                     sliderValue.ValueFormat = ValueFormat;
             }
+#elif BELOWZERO
+            // if we using custom value format or step, we need to replace vanilla uGUI_SliderWithLabel with our component
+            if (ValueFormat != null)
+                OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>().ValueFormat = ValueFormat;
+#endif
 
             base.AddToPanel(panel, tabIndex);
 
@@ -188,7 +202,7 @@
         /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
         /// <param name="valueFormat">Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string, float)"/>) </param>
         /// <param name="step">Step for the slider ie. round to nearest X</param>
-        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = null, float step = 0) : base(label, id)
+        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = null, float step = 0.05f) : base(label, id)
         {
             MinValue = minValue;
             MaxValue = maxValue;

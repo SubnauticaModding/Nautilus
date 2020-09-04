@@ -22,14 +22,16 @@
             {
                 LootDistributionData.SrcData customSrcData = entry.Value;
                 string classId = entry.Key;
-
-                if (__instance.srcDistribution.TryGetValue(entry.Key, out LootDistributionData.SrcData srcData))
+                if(customSrcData != null)
                 {
-                    EditExistingData(classId, srcData, customSrcData, __instance.dstDistribution);
-                }
-                else
-                {
-                    AddCustomData(classId, customSrcData, __instance.srcDistribution, __instance.dstDistribution);
+                    if (__instance.srcDistribution.TryGetValue(entry.Key, out LootDistributionData.SrcData srcData))
+                    {
+                        EditExistingData(classId, srcData, customSrcData, __instance.dstDistribution);
+                    }
+                    else
+                    {
+                        AddCustomData(classId, customSrcData, __instance.srcDistribution, __instance.dstDistribution);
+                    }
                 }
             }
         }

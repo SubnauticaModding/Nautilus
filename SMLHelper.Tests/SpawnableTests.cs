@@ -6,6 +6,10 @@
     using NUnit.Framework;
     using SMLHelper.V2.Assets;
     using SMLHelper.V2.Interfaces;
+    using UnityEngine;
+#if SUBNAUTICA
+    using Sprite = Atlas.Sprite;
+#endif
 
     [TestFixture]
     internal class SpawnableTests
@@ -56,7 +60,7 @@
                 .Returns(createdTechType);
 
             _mockPrefabHandler.RegisterPrefab(Arg.Do<Spawnable>((s) => _recordedEvents.Add("RegisterPrefab")));
-            _mockSpriteHandler.RegisterSprite(Arg.Any<TechType>(), Arg.Do<Atlas.Sprite>((s) => _recordedEvents.Add("RegisterSprite")));
+            _mockSpriteHandler.RegisterSprite(Arg.Any<TechType>(), Arg.Do<Sprite>((s) => _recordedEvents.Add("RegisterSprite")));
 
             // ACT
             _spawnable.Patch();
@@ -114,7 +118,7 @@
                 throw new NotImplementedException();
             }
 
-            protected override Atlas.Sprite GetItemSprite()
+            protected override Sprite GetItemSprite()
             {
                 this.GetItemSpriteInvoked = true;
                 return null;

@@ -2,8 +2,11 @@
 {
     using System;
     using System.Globalization;
+#if SUBNAUTICA_STABLE
     using Oculus.Newtonsoft.Json;
-    using UnityEngine;
+#else
+    using Newtonsoft.Json;
+#endif
 
     /// <summary>
     /// A <see cref="JsonConverter"/> for rounding floats or doubles to a given number of decimal places,
