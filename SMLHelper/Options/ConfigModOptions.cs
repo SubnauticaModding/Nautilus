@@ -17,12 +17,6 @@
 #elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
 #endif
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
-    using Newtonsoft.Json;
-#endif
-
 
     /// <summary>
     /// An internal derivative of <see cref="ModOptions"/> for use in auto-generating a menu based on attributes
@@ -62,7 +56,6 @@
         /// </summary>
         private class ModOptionMetadata
         {
-            [JsonProperty(TypeNameHandling = TypeNameHandling.All)]
             public ModOptionAttribute ModOptionAttribute;
             public MemberInfoMetadata MemberInfoMetadata;
             public IEnumerable<MemberInfoMetadata> OnChangeMetadata;
