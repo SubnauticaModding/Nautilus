@@ -3,20 +3,20 @@
     using HarmonyLib;
     using Interfaces;
     using Json;
-    using Oculus.Newtonsoft.Json;
-    using Oculus.Newtonsoft.Json.Bson;
     using QModManager.API;
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Text;
     using UnityEngine;
     using Logger = Logger;
 #if SUBNAUTICA
+    using Oculus.Newtonsoft.Json;
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO
+    using Newtonsoft.Json;    
     using Text = TMPro.TextMeshProUGUI;
 #endif
 
@@ -197,101 +197,29 @@
 
         private ConfigModOptionsMetadata configModOptionsMetadata;
 
-        private static readonly string CacheDir = Path.Combine(
-            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-            "OptionsPanelCache");
-        private static Dictionary<string, ConfigModOptionsMetadata> Cache;
-
-        private string CachePath => Path.Combine(CacheDir, $"{QMod.Id}.dat");
-        private string CacheKey => typeof(T).FullName;
-
         private void LoadMetadata()
         {
             long timestamp = File.GetLastWriteTimeUtc(assembly.Location).Ticks;
-            Logger.Debug($"Timestamp: {timestamp}");
 
-            if (Cache == null)
-                LoadCache();
+            Stopwatch stopwatch = new Stopwatch();
 
-            Logger.Debug($"OptionsPanelCache: {Cache?.Count() ?? 0} entries.");
+            if (Logger.EnableDebugging)
+                stopwatch.Start();
 
-            if (Cache != null && Cache.TryGetValue(CacheKey, out var metadata) && timestamp == metadata.Timestamp)
+            configModOptionsMetadata = new ConfigModOptionsMetadata
             {
-                Logger.Debug($"[{QMod.DisplayName}] {CacheKey}: Loaded metadata from OptionsPanelCache.");
-                configModOptionsMetadata = metadata;
-                Name = configModOptionsMetadata.MenuAttribute.Name;
-            }
-            else
+                MenuAttribute = GetMenuAttributeOrDefault(),
+                ModOptionsMetadata = new Dictionary<string, ModOptionMetadata>(),
+                Timestamp = timestamp
+            };
+            Name = configModOptionsMetadata.MenuAttribute.Name;
+
+            ProcessMetadata();
+
+            if (Logger.EnableDebugging)
             {
-                Logger.Debug($"[{QMod.DisplayName}] {CacheKey}: Parsing metadata from attributes via reflection.");
-
-                configModOptionsMetadata = new ConfigModOptionsMetadata
-                {
-                    MenuAttribute = GetMenuAttributeOrDefault(),
-                    ModOptionsMetadata = new Dictionary<string, ModOptionMetadata>(),
-                    Timestamp = timestamp
-                };
-                Name = configModOptionsMetadata.MenuAttribute.Name;
-
-                ProcessMetadata();
-                SaveCache();
-            }
-        }
-
-        private void LoadCache()
-        {
-            if (!File.Exists(CachePath))
-            {
-                Logger.Debug($"[{QMod.DisplayName}] Could not find OptionsPanelCache ({CachePath}): skipping load.");
-                return;
-            }
-
-            Logger.Debug($"[{QMod.DisplayName}] Loading OptionsPanelCache...");
-            try
-            {
-                var data = File.ReadAllBytes(CachePath);
-
-                using (var ms = new MemoryStream(data))
-                using (var reader = new BsonReader(ms))
-                {
-                    var serializer = new JsonSerializer();
-                    Cache = serializer.Deserialize<Dictionary<string, ConfigModOptionsMetadata>>(reader);
-                }
-
-                Logger.Debug($"[{QMod.DisplayName}] OptionsPanelCache loaded.");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error($"Failed to load OptionsPanelCache! ({Path.GetFileName(CachePath)}): {ex.Message}");
-                throw;
-            }
-        }
-
-        private void SaveCache()
-        {
-            if (Cache == null)
-                Cache = new Dictionary<string, ConfigModOptionsMetadata>();
-
-            Logger.Debug($"[{QMod.DisplayName}] Updating OptionsPanelCache for {CacheKey}...");
-            Cache[CacheKey] = configModOptionsMetadata;
-
-            try
-            {
-                Directory.CreateDirectory(CacheDir);
-
-                using (var ms = new MemoryStream())
-                using (var writer = new BsonWriter(ms))
-                {
-                    var serializer = new JsonSerializer();
-                    serializer.Serialize(writer, Cache);
-                    File.WriteAllBytes(CachePath, ms.ToArray());
-                }
-
-                Logger.Debug($"[{QMod.DisplayName}] OptionsPanelCache saved.");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error($"Failed to save OptionsPanelCache! ({Path.GetFileName(CachePath)}): {ex.Message}");
+                stopwatch.Stop();
+                Logger.Debug($"[{QMod.DisplayName}] ConfigModOptions metadata parsed via reflection in {stopwatch.ElapsedMilliseconds}ms.");
             }
         }
         #endregion
