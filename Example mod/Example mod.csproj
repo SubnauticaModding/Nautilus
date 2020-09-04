@@ -40,14 +40,6 @@
       <HintPath>$(Dependencies)\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>$(Dependencies)\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>$(Dependencies)\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="QModInstaller">
       <HintPath>$(Dependencies)\QModInstaller.dll</HintPath>
       <Private>False</Private>
