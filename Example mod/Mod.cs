@@ -41,11 +41,14 @@ namespace SMLHelper.V2.Examples
         [Keybind("My keybind"), OnChange(nameof(MyGenericValueChangedEvent))]
         public KeyCode KeybindKey;
 
-        [Slider("My slider", 0, 50, DefaultValue = 25, Format = "{0:F2}"), OnChange(nameof(MyGenericValueChangedEvent))]
+        [Slider("My slider", 0, 50, DefaultValue = 25), OnChange(nameof(MyGenericValueChangedEvent))]
         public int SliderValue;
 
         [Slider("My stepped slider", 0, 100, Step = 10), OnChange(nameof(MyGenericValueChangedEvent))]
         public int SteppedSliderValue;
+
+        [Slider("My float-based slider", 0, 100, Format = "{0:F2}"), OnChange(nameof(MyGenericValueChangedEvent))]
+        public float FloatSliderValue;
 
         [Toggle("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
         public bool ToggleValue;
