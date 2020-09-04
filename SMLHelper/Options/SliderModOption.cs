@@ -148,7 +148,9 @@
 
         private SliderValue sliderValue = null;
 
+#if SUBNAUTICA
         private float previousValue;
+#endif
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
 #if SUBNAUTICA
