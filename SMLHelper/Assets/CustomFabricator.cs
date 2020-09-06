@@ -271,7 +271,7 @@
             constructible.rotationEnabled = this.RotationEnabled;
             constructible.techType = this.TechType; // This was necessary to correctly associate the recipe at building time            
 
-            SkyApplier skyApplier = prefab.GetComponent<SkyApplier>();
+            SkyApplier skyApplier = prefab.EnsureComponent<SkyApplier>();
             skyApplier.renderers = prefab.GetComponentsInChildren<Renderer>();
             skyApplier.anchorSky = Skies.Auto;
 
