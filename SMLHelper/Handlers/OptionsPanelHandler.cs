@@ -62,19 +62,19 @@
         /// from the config file on disk.</returns>
         T IOptionsPanelHandler.RegisterModOptions<T>()
         {
-            var configModOptions = new ConfigModOptions<T>();
-            RegisterModOptions(configModOptions);
+            var optionsMenuBuilder = new OptionsMenuBuilder<T>();
+            RegisterModOptions(optionsMenuBuilder);
 
             var menuAttribute = typeof(T).GetCustomAttribute<MenuAttribute>(true)
-                ?? new MenuAttribute(configModOptions.Name);
+                ?? new MenuAttribute(optionsMenuBuilder.Name);
 
             if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.SaveGame))
-                IngameMenuHandler.RegisterOnSaveEvent(() => configModOptions.Config.Save());
+                IngameMenuHandler.RegisterOnSaveEvent(() => optionsMenuBuilder.Config.Save());
 
             if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.QuitGame))
-                IngameMenuHandler.RegisterOnQuitEvent(() => configModOptions.Config.Save());
+                IngameMenuHandler.RegisterOnQuitEvent(() => optionsMenuBuilder.Config.Save());
 
-            return configModOptions.Config;
+            return optionsMenuBuilder.Config;
         }
     }
 }

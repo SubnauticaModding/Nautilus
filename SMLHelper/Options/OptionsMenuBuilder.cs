@@ -29,7 +29,7 @@
     /// </summary>
     /// <typeparam name="T">The type of the class derived from <see cref="ConfigFile"/> to use for
     /// loading to/saving from disk.</typeparam>
-    internal class ConfigModOptions<T> : ModOptions where T : ConfigFile, new()
+    internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     {
         /// <summary>
         /// The <typeparamref name="T"/> <see cref="ConfigFile"/> instance related to this <see cref="ModOptions"/> menu.
@@ -40,10 +40,10 @@
         private IQMod QMod { get; }
 
         /// <summary>
-        /// Instantiates a new <see cref="ConfigModOptions{T}"/>, generating <see cref="ModOption"/>s by parsing the fields,
+        /// Instantiates a new <see cref="OptionsMenuBuilder{T}"/>, generating <see cref="ModOption"/>s by parsing the fields,
         /// properties and methods declared in the class.
         /// </summary>
-        public ConfigModOptions() : base(null)
+        public OptionsMenuBuilder() : base(null)
         {
             QMod = QModServices.Main.GetMod(assembly);
 
@@ -152,7 +152,7 @@
                     if (methodInfo == null)
                     {
                         // Method not found, log error and skip.
-                        Logger.Error($"[ConfigModOptions] Could not find the specified method: {typeof(T)}.{Name}");
+                        Logger.Error($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{Name}");
                         return;
                     }
                 }
@@ -174,7 +174,7 @@
                 if (!MethodValid)
                 {
                     // Method not found, log error and skip.
-                    Logger.Error($"[ConfigModOptions] Could not find the specified method: {typeof(T)}.{Name}");
+                    Logger.Error($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{Name}");
                     return;
                 }
 
@@ -182,7 +182,7 @@
             }
         }
 
-        private struct ConfigModOptionsMetadata
+        private struct OptionsMenuBuilderMetadata
         {
             /// <summary>
             /// Timestamp of the relevant mod assembly. Used to determine the validity of the metadata.
@@ -200,7 +200,7 @@
             public Dictionary<string, ModOptionMetadata> ModOptionsMetadata;
         }
 
-        private ConfigModOptionsMetadata configModOptionsMetadata;
+        private OptionsMenuBuilderMetadata optionsMenuBuilderMetadata;
 
         private void LoadMetadata()
         {
@@ -211,28 +211,28 @@
             if (Logger.EnableDebugging)
                 stopwatch.Start();
 
-            configModOptionsMetadata = new ConfigModOptionsMetadata
+            optionsMenuBuilderMetadata = new OptionsMenuBuilderMetadata
             {
                 MenuAttribute = GetMenuAttributeOrDefault(),
                 ModOptionsMetadata = new Dictionary<string, ModOptionMetadata>(),
                 Timestamp = timestamp
             };
-            Name = configModOptionsMetadata.MenuAttribute.Name;
+            Name = optionsMenuBuilderMetadata.MenuAttribute.Name;
 
             ProcessMetadata();
 
             if (Logger.EnableDebugging)
             {
                 stopwatch.Stop();
-                Logger.Debug($"[{QMod.DisplayName}] ConfigModOptions metadata parsed via reflection in {stopwatch.ElapsedMilliseconds}ms.");
+                Logger.Debug($"[{QMod.DisplayName}] OptionsMenuBuilder metadata parsed via reflection in {stopwatch.ElapsedMilliseconds}ms.");
             }
         }
         #endregion
 
         #region Metadata Processing
-        private MenuAttribute menuAttribute => configModOptionsMetadata.MenuAttribute;
+        private MenuAttribute menuAttribute => optionsMenuBuilderMetadata.MenuAttribute;
         private Dictionary<string, ModOptionMetadata> modOptionsMetadata
-            => configModOptionsMetadata.ModOptionsMetadata;
+            => optionsMenuBuilderMetadata.ModOptionsMetadata;
 
         /// <summary>
         /// Process metadata for members of <typeparamref name="T"/>.
@@ -261,7 +261,7 @@
                 ProcessMethod(method);
             }
 
-            Logger.Debug($"[ConfigModOptions] Found {modOptionsMetadata.Count()} options to add to the menu.");
+            Logger.Debug($"[OptionsMenuBuilder] Found {modOptionsMetadata.Count()} options to add to the menu.");
         }
 
         /// <summary>
@@ -413,7 +413,7 @@
             }
             catch (Exception ex)
             {
-                Logger.Error($"[ConfigModOptions] {ex.Message}");
+                Logger.Error($"[OptionsMenuBuilder] {ex.Message}");
             }
         }
 
@@ -449,15 +449,15 @@
         /// </summary>
         private void BindEvents()
         {
-            ButtonClicked += ConfigModOptions_ButtonClicked;
-            ChoiceChanged += ConfigModOptions_ChoiceChanged;
-            KeybindChanged += ConfigModOptions_KeybindChanged;
-            SliderChanged += ConfigModOptions_SliderChanged;
-            ToggleChanged += ConfigModOptions_ToggleChanged;
-            Config.OnStartedLoading += Config_OnStartedLoading;
-            Config.OnFinishedLoading += Config_OnFinishedLoading;
+            ButtonClicked += OptionsMenuBuilder_ButtonClicked;
+            ChoiceChanged += OptionsMenuBuilder_ChoiceChanged;
+            KeybindChanged += OptionsMenuBuilder_KeybindChanged;
+            SliderChanged += OptionsMenuBuilder_SliderChanged;
+            ToggleChanged += OptionsMenuBuilder_ToggleChanged;
+            Config.OnStartedLoading += OptionsMenuBuilder_Config_OnStartedLoading;
+            Config.OnFinishedLoading += OptionsMenuBuilder_Config_OnFinishedLoading;
 
-            GameObjectCreated += ConfigModOptions_GameObjectCreated;
+            GameObjectCreated += OptionsMenuBuilder_GameObjectCreated;
         }
 
         /// <summary>
@@ -465,7 +465,7 @@
         /// </summary>
         /// <param name="sender">The sender of the original button click event.</param>
         /// <param name="e">The <see cref="ButtonClickedEventArgs"/> for the click event.</param>
-        private void ConfigModOptions_ButtonClicked(object sender, ButtonClickedEventArgs e)
+        private void OptionsMenuBuilder_ButtonClicked(object sender, ButtonClickedEventArgs e)
         {
             if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata)
                 && modOptionMetadata.MemberInfoMetadata.MethodParameterTypes is Type[] parameterTypes)
@@ -504,7 +504,7 @@
         /// </summary>
         /// <param name="sender">The sender of the original choice changed event.</param>
         /// <param name="e">The <see cref="ChoiceChangedEventArgs"/> for the choice changed event.</param>
-        private void ConfigModOptions_ChoiceChanged(object sender, ChoiceChangedEventArgs e)
+        private void OptionsMenuBuilder_ChoiceChanged(object sender, ChoiceChangedEventArgs e)
         {
             if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
             {
@@ -554,7 +554,7 @@
         /// </summary>
         /// <param name="sender">The sender of the original keybind changed event.</param>
         /// <param name="e">The <see cref="KeybindChangedEventArgs"/> for the keybind changed event.</param>
-        private void ConfigModOptions_KeybindChanged(object sender, KeybindChangedEventArgs e)
+        private void OptionsMenuBuilder_KeybindChanged(object sender, KeybindChangedEventArgs e)
         {
             if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
             {
@@ -578,7 +578,7 @@
         /// </summary>
         /// <param name="sender">The sender of the original slider changed event.</param>
         /// <param name="e">The <see cref="SliderChangedEventArgs"/> for the slider changed event.</param>
-        private void ConfigModOptions_SliderChanged(object sender, SliderChangedEventArgs e)
+        private void OptionsMenuBuilder_SliderChanged(object sender, SliderChangedEventArgs e)
         {
             if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
             {
@@ -604,7 +604,7 @@
         /// </summary>
         /// <param name="sender">The sender of the original toggle changed event.</param>
         /// <param name="e">The <see cref="ToggleChangedEventArgs"/> for the toggle changed event.</param>
-        private void ConfigModOptions_ToggleChanged(object sender, ToggleChangedEventArgs e)
+        private void OptionsMenuBuilder_ToggleChanged(object sender, ToggleChangedEventArgs e)
         {
             if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
             {
@@ -621,17 +621,17 @@
         }
 
         private string jsonConfig;
-        private void Config_OnStartedLoading(object sender, ConfigFileEventArgs e)
+        private void OptionsMenuBuilder_Config_OnStartedLoading(object sender, ConfigFileEventArgs e)
         {
             jsonConfig = JsonConvert.SerializeObject(e.Instance as T);
         }
 
-        private void Config_OnFinishedLoading(object sender, ConfigFileEventArgs e)
+        private void OptionsMenuBuilder_Config_OnFinishedLoading(object sender, ConfigFileEventArgs e)
         {
             T oldConfig = JsonConvert.DeserializeObject<T>(jsonConfig);
             T currentConfig = e.Instance as T;
 
-            foreach (var modOptionMetadata in configModOptionsMetadata.ModOptionsMetadata.Values)
+            foreach (var modOptionMetadata in optionsMenuBuilderMetadata.ModOptionsMetadata.Values)
             {
                 if (modOptionMetadata.MemberInfoMetadata.MemberType != MemberType.Field &&
                     modOptionMetadata.MemberInfoMetadata.MemberType != MemberType.Property)
@@ -744,7 +744,7 @@
             if (!memberInfoMetadata.MethodValid)
             {
                 // Method not found, log error and skip.
-                Logger.Error($"[ConfigModOptions] Could not find the specified method: {typeof(T)}.{memberInfoMetadata.Name}");
+                Logger.Error($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{memberInfoMetadata.Name}");
                 return;
             }
 
@@ -788,7 +788,7 @@
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ConfigModOptions_GameObjectCreated(object sender, GameObjectCreatedEventArgs e)
+        private void OptionsMenuBuilder_GameObjectCreated(object sender, GameObjectCreatedEventArgs e)
         {
             if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
             {
@@ -826,9 +826,9 @@
                 var id = entry.Key;
                 var modOptionMetadata = entry.Value;
 
-                Logger.Debug($"[ConfigModOptions] {modOptionMetadata.MemberInfoMetadata.Name}: " +
+                Logger.Debug($"[OptionsMenuBuilder] {modOptionMetadata.MemberInfoMetadata.Name}: " +
                     $"{modOptionMetadata.ModOptionAttribute.GetType()}");
-                Logger.Debug($"[ConfigModOptions] Label: {modOptionMetadata.ModOptionAttribute.Label}");
+                Logger.Debug($"[OptionsMenuBuilder] Label: {modOptionMetadata.ModOptionAttribute.Label}");
 
                 var label = modOptionMetadata.ModOptionAttribute.Label;
 
