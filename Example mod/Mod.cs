@@ -42,7 +42,7 @@ namespace SMLHelper.V2.Examples
     /// <para>We could also specify a <see cref="ConfigFileAttribute"/> here to customise the name of the config file
     /// (defaults to "config") and an optional subfolder for the config file to reside in.</para>
     /// </summary>
-    [Menu("SMLHelper Example Mod", LoadOn = MenuAttribute.LoadEvents.MenuRegistered | MenuAttribute.LoadEvents.MenuOpened)]
+    [Menu("SMLHelper Example Mod")]
     public class Config : ConfigFile
     {
         /// <summary>
