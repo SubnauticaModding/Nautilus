@@ -15,7 +15,7 @@
         /// <summary>
         /// The name of this set of configuration options.
         /// </summary>
-        public string Name { get; protected set; }
+        public string Name;
 
         /// <summary>
         /// Obtains the <see cref="ModOption"/>s that belong to this instance. Can be null.
