@@ -92,7 +92,7 @@
         /// This enumeration has a <see cref="FlagsAttribute"/> that allows a bitwise combination of its member values.
         /// </remarks>
         [Flags]
-        public enum SaveEvents : short
+        public enum SaveEvents : byte
         {
             /// <summary>
             /// Never automatically save.
@@ -113,18 +113,58 @@
         }
 
         /// <summary>
+        /// Specifies after which events the config file should be loaded from disk automatically.
+        /// </summary>
+        /// <remarks>
+        /// This enumeration has a <see cref="FlagsAttribute"/> that allows a bitwise combination of its member values.
+        /// </remarks>
+        [Flags]
+        public enum LoadEvents : byte
+        {
+            /// <summary>
+            /// Never automatically load.
+            /// </summary>
+            None = 0,
+            /// <summary>
+            /// Load when the menu is registered to SMLHelper via <see cref="Handlers.OptionsPanelHandler.RegisterModOptions{T}"/>.
+            /// </summary>
+            /// <remarks>
+            /// In normal usage, this option is equivalent to loading when the game is launched.
+            /// </remarks>
+            MenuRegistered = 1,
+            /// <summary>
+            /// Load when the menu is opened by the player.
+            /// </summary>
+            /// <remarks>
+            /// Useful for allowing players to edit their config files manually without restarting the game for their changes to take effect.
+            /// </remarks>
+            MenuOpened = 2
+        }
+
+        /// <summary>
         /// The display name for the generated options menu.
         /// </summary>
         public string Name { get; }
 
         /// <summary>
         /// The events after which the config file will be saved to disk automatically.
+        /// Defaults to <see cref="SaveEvents.ChangeValue"/>.
         /// </summary>
         /// <seealso cref="SaveEvents"/>
+        /// <seealso cref="LoadOn"/>
         public SaveEvents SaveOn { get; set; } = SaveEvents.ChangeValue;
 
         /// <summary>
+        /// The events after which the config file will be loaded from disk automatically.
+        /// Defaults to <see cref="LoadEvents.MenuRegistered"/>.
+        /// </summary>
+        /// <seealso cref="LoadEvents"/>
+        /// <seealso cref="SaveOn"/>
+        public LoadEvents LoadOn { get; set; } = LoadEvents.MenuRegistered;
+
+        /// <summary>
         /// Whether or not members with no relevant attributes should be ignored when generating the menu.
+        /// Defaults to <see langword="false"/>.
         /// </summary>
         public bool IgnoreUnattributedMembers { get; set; } = false;
 

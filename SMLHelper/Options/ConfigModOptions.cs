@@ -42,11 +42,14 @@
         {
             QMod = QModServices.Main.GetMod(assembly);
 
-            // Instantiate and load the config
             Config = new T();
-            Config.Load();
 
             LoadMetadata();
+
+            // Conditionally load the config
+            if (menuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuRegistered))
+                Config.Load();
+
             BindEvents();
         }
 
@@ -717,6 +720,10 @@
         /// </summary>
         public override void BuildModOptions()
         {
+            // Conditionally load the config
+            if (menuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuOpened))
+                Config.Load();
+
             foreach (var entry in modOptionsMetadata
                 .OrderBy(x => x.Value.ModOptionAttribute.Order)
                 .ThenBy(x => x.Value.MemberInfoMetadata.Name))
