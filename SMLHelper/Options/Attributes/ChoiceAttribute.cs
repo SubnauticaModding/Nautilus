@@ -1,8 +1,7 @@
-﻿namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options.Attributes
 {
     using Json;
     using System;
-    using System.Reflection.Emit;
 
     /// <summary>
     /// Attribute used to signify the attributed member should be represented in the mod's options menu as a

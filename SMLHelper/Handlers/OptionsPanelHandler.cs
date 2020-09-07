@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Handlers
 {
     using Options;
+    using Options.Attributes;
     using Patchers;
     using Interfaces;
     using Json;

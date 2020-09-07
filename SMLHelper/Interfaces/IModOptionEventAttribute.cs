@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.V2.Interfaces
 {
-    using Options;
+    using Options.Attributes;
 
     /// <summary>
     /// Defines properties for <see cref="ModOptionEventAttribute"/> derivatives to implement for the purpose

@@ -3,6 +3,7 @@
     using Handlers;
     using Json;
     using Options;
+    using Options.Attributes;
 
     /// <summary>
     /// Defines properties for <see cref="ModOptionAttribute"/> derivatives to implement for the purpose of holding

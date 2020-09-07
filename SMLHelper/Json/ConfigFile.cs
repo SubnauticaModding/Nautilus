@@ -93,19 +93,23 @@
         /// <summary>
         /// An event that is invoked whenever the <see cref="ConfigFile"/> is about to load data from disk.
         /// </summary>
+        [JsonIgnore]
         public EventHandler<ConfigFileEventArgs> OnStartedLoading;
         /// <summary>
         /// An event that is invoked whenever the <see cref="ConfigFile"/> has finished loading data from disk.
         /// </summary>
+        [JsonIgnore]
         public EventHandler<ConfigFileEventArgs> OnFinishedLoading;
 
         /// <summary>
         /// An event that is invoked whenever the <see cref="ConfigFile"/> is about to save data to disk.
         /// </summary>
+        [JsonIgnore]
         public EventHandler<ConfigFileEventArgs> OnStartedSaving;
         /// <summary>
         /// An event that is invoked whenever the <see cref="ConfigFile"/> has finished saving data to disk.
         /// </summary>
+        [JsonIgnore]
         public EventHandler<ConfigFileEventArgs> OnFinishedSaving;
 
         /// <summary>
