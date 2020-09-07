@@ -5,6 +5,7 @@
     using Interfaces;
     using Json;
     using System.Linq;
+    using System.Reflection;
 
     /// <summary>
     /// A handler class for registering your custom in-game mod options.
@@ -65,7 +66,7 @@
             var configModOptions = new ConfigModOptions<T>();
             RegisterModOptions(configModOptions);
 
-            var menuAttribute = typeof(T).GetCustomAttributes(typeof(MenuAttribute), true).SingleOrDefault() as MenuAttribute
+            var menuAttribute = typeof(T).GetCustomAttributes<MenuAttribute>(true).SingleOrDefault()
                 ?? new MenuAttribute();
 
             if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.SaveGame))

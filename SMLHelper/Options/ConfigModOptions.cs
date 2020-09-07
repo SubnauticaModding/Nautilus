@@ -268,7 +268,7 @@
         private MenuAttribute GetMenuAttributeOrDefault()
         {
             if (Attribute.IsDefined(typeof(T), typeof(MenuAttribute), true))
-                return typeof(T).GetCustomAttributes(typeof(MenuAttribute), true).SingleOrDefault() as MenuAttribute;
+                return typeof(T).GetCustomAttributes<MenuAttribute>(true).SingleOrDefault();
             else
                 return new MenuAttribute(QMod.DisplayName);
         }
@@ -381,8 +381,8 @@
             try
             {
                 // Get the ModOptionAttribute
-                var modOptionAttribute = memberInfo.GetCustomAttributes(typeof(ModOptionAttribute), true)
-                    .SingleOrDefault() as ModOptionAttribute ?? new TAttribute();
+                var modOptionAttribute = memberInfo.GetCustomAttributes<ModOptionAttribute>(true)
+                    .SingleOrDefault() ?? new TAttribute();
 
                 // If there is no label specified, just use the member's name.
                 if (string.IsNullOrEmpty(modOptionAttribute.Label))
@@ -427,7 +427,7 @@
             where TAttribute : ModOptionEventAttribute
         {
             var metadatas = new List<MemberInfoMetadata>();
-            foreach (TAttribute attribute in memberInfo.GetCustomAttributes(typeof(TAttribute), true))
+            foreach (TAttribute attribute in memberInfo.GetCustomAttributes<TAttribute>(true))
             {
                 var methodMetadata = new MemberInfoMetadata
                 {
