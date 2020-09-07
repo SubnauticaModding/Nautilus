@@ -3,6 +3,7 @@
     using Converters;
     using ExtensionMethods;
     using Interfaces;
+    using System;
     using System.IO;
     using System.Reflection;
     using System.Linq;
@@ -90,6 +91,24 @@
         }
 
         /// <summary>
+        /// An event that is invoked whenever the <see cref="ConfigFile"/> is about to load data from disk.
+        /// </summary>
+        public EventHandler<ConfigFileEventArgs> OnStartedLoading;
+        /// <summary>
+        /// An event that is invoked whenever the <see cref="ConfigFile"/> has finished loading data from disk.
+        /// </summary>
+        public EventHandler<ConfigFileEventArgs> OnFinishedLoading;
+
+        /// <summary>
+        /// An event that is invoked whenever the <see cref="ConfigFile"/> is about to save data to disk.
+        /// </summary>
+        public EventHandler<ConfigFileEventArgs> OnStartedSaving;
+        /// <summary>
+        /// An event that is invoked whenever the <see cref="ConfigFile"/> has finished saving data to disk.
+        /// </summary>
+        public EventHandler<ConfigFileEventArgs> OnFinishedSaving;
+
+        /// <summary>
         /// Loads the JSON properties from the file on disk into the <see cref="ConfigFile"/>.
         /// </summary>
         /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values if it does not
@@ -97,15 +116,25 @@
         /// <seealso cref="Save()"/>
         /// <seealso cref="LoadWithConverters(bool, JsonConverter[])"/>
         public void Load(bool createFileIfNotExist = true)
-            => this.LoadJson(JsonFilePath, createFileIfNotExist, AlwaysIncludedJsonConverters.Distinct().ToArray());
+        {
+            var e = new ConfigFileEventArgs(this);
+            OnStartedLoading?.Invoke(this, e);
+            this.LoadJson(JsonFilePath, createFileIfNotExist, AlwaysIncludedJsonConverters.Distinct().ToArray());
+            OnFinishedLoading?.Invoke(this, e);
+        }
 
         /// <summary>
         /// Saves the current fields and properties of the <see cref="ConfigFile"/> as JSON properties to the file on disk.
         /// </summary>
         /// <seealso cref="Load(bool)"/>
         /// <seealso cref="SaveWithConverters(JsonConverter[])"/>
-        public void Save() => this.SaveJson(JsonFilePath,
-            AlwaysIncludedJsonConverters.Distinct().ToArray());
+        public void Save()
+        {
+            var e = new ConfigFileEventArgs(this);
+            OnStartedSaving?.Invoke(this, e);
+            this.SaveJson(JsonFilePath, AlwaysIncludedJsonConverters.Distinct().ToArray());
+            OnFinishedSaving?.Invoke(this, e);
+        }
 
         /// <summary>
         /// Loads the JSON properties from the file on disk into the <see cref="ConfigFile"/>.
@@ -130,5 +159,25 @@
         public void SaveWithConverters(params JsonConverter[] jsonConverters)
             => this.SaveJson(JsonFilePath,
                 AlwaysIncludedJsonConverters.Concat(jsonConverters).Distinct().ToArray());
+    }
+
+    /// <summary>
+    /// Contains basic information for a <see cref="ConfigFile"/> event.
+    /// </summary>
+    public class ConfigFileEventArgs : EventArgs
+    {
+        /// <summary>
+        /// The instance of the <see cref="ConfigFile"/> this event pertains to.
+        /// </summary>
+        public ConfigFile Instance { get; }
+
+        /// <summary>
+        /// Instantiates a new <see cref="ConfigFileEventArgs"/>.
+        /// </summary>
+        /// <param name="instance">The <see cref="ConfigFile"/> instance the event pertains to.</param>
+        public ConfigFileEventArgs(ConfigFile instance)
+        {
+            Instance = instance;
+        }
     }
 }
