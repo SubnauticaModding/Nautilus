@@ -17,6 +17,11 @@
 #elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
 #endif
+#if SUBNAUTICA_STABLE
+    using Oculus.Newtonsoft.Json;
+#else
+    using Newtonsoft.Json;
+#endif
 
     /// <summary>
     /// An internal derivative of <see cref="ModOptions"/> for use in auto-generating a menu based on attributes
@@ -44,13 +49,13 @@
 
             Config = new T();
 
+            BindEvents();
+
             LoadMetadata();
 
             // Conditionally load the config
             if (menuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuRegistered))
                 Config.Load();
-
-            BindEvents();
         }
 
         #region Serialization/Deserialization
@@ -449,6 +454,9 @@
             KeybindChanged += ConfigModOptions_KeybindChanged;
             SliderChanged += ConfigModOptions_SliderChanged;
             ToggleChanged += ConfigModOptions_ToggleChanged;
+            Config.OnStartedLoading += Config_OnStartedLoading;
+            Config.OnFinishedLoading += Config_OnFinishedLoading;
+
             GameObjectCreated += ConfigModOptions_GameObjectCreated;
         }
 
@@ -609,6 +617,96 @@
 
                 // Invoke any OnChange methods specified
                 InvokeOnChangeEvents(modOptionMetadata, sender, e);
+            }
+        }
+
+        private string jsonConfig;
+        private void Config_OnStartedLoading(object sender, ConfigFileEventArgs e)
+        {
+            jsonConfig = JsonConvert.SerializeObject(e.Instance as T);
+        }
+
+        private void Config_OnFinishedLoading(object sender, ConfigFileEventArgs e)
+        {
+            T oldConfig = JsonConvert.DeserializeObject<T>(jsonConfig);
+            T currentConfig = e.Instance as T;
+
+            foreach (var modOptionMetadata in configModOptionsMetadata.ModOptionsMetadata.Values)
+            {
+                if (modOptionMetadata.MemberInfoMetadata.MemberType != MemberType.Field &&
+                    modOptionMetadata.MemberInfoMetadata.MemberType != MemberType.Property)
+                {
+                    continue;
+                }
+
+                if (!modOptionMetadata.MemberInfoMetadata.GetValue(oldConfig)
+                    .Equals(modOptionMetadata.MemberInfoMetadata.GetValue(currentConfig)))
+                {
+                    InvokeOnChangeEvents(modOptionMetadata, sender);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Invokes the relevant method(s) specified with the <see cref="OnChangeAttribute"/>(s)
+        /// and passes parameters when a value is changed when loaded from disk.
+        /// </summary>
+        /// <param name="modOptionMetadata">The metadata for the mod option.</param>
+        /// <param name="sender">The sender of the event.</param>
+        private void InvokeOnChangeEvents(ModOptionMetadata modOptionMetadata, object sender)
+        {
+            var id = modOptionMetadata.ModOptionAttribute.Id;
+            var memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
+
+            if (modOptionMetadata.ModOptionAttribute is ChoiceAttribute choiceAttribute)
+            {
+                if (memberInfoMetadata.ValueType.IsEnum && (choiceAttribute.Options == null || !choiceAttribute.Options.Any()))
+                {
+                    // Enum-based choice where the values are parsed from the enum type
+                    string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
+                    string value = memberInfoMetadata.GetValue(Config).ToString();
+                    var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
+                else if (memberInfoMetadata.ValueType.IsEnum)
+                {
+                    // Enum-based choice where the values are defined as custom strings
+                    string value = memberInfoMetadata.GetValue(Config).ToString();
+                    int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
+                    var eventArgs = new ChoiceChangedEventArgs(id, index, value);
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
+                else if (memberInfoMetadata.ValueType == typeof(string))
+                {
+                    // string-based choice value
+                    string[] options = choiceAttribute.Options;
+                    string value = memberInfoMetadata.GetValue<string>(Config);
+                    var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
+                else if (memberInfoMetadata.ValueType == typeof(int))
+                {
+                    // index-based choice value
+                    string[] options = choiceAttribute.Options;
+                    int index = memberInfoMetadata.GetValue<int>(Config);
+                    var eventArgs = new ChoiceChangedEventArgs(id, index, options[index]);
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
+            }
+            else if (modOptionMetadata.ModOptionAttribute is KeybindAttribute)
+            {
+                var eventArgs = new KeybindChangedEventArgs(id, memberInfoMetadata.GetValue<KeyCode>(Config));
+                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+            }
+            else if (modOptionMetadata.ModOptionAttribute is SliderAttribute)
+            {
+                var eventArgs = new SliderChangedEventArgs(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
+                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+            }
+            else if (modOptionMetadata.ModOptionAttribute is ToggleAttribute)
+            {
+                var eventArgs = new ToggleChangedEventArgs(id, memberInfoMetadata.GetValue<bool>(Config));
+                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
             }
         }
 
