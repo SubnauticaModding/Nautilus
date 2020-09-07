@@ -4,7 +4,6 @@
     using Patchers;
     using Interfaces;
     using Json;
-    using System.Linq;
     using System.Reflection;
 
     /// <summary>
@@ -66,8 +65,8 @@
             var configModOptions = new ConfigModOptions<T>();
             RegisterModOptions(configModOptions);
 
-            var menuAttribute = typeof(T).GetCustomAttributes<MenuAttribute>(true).SingleOrDefault()
-                ?? new MenuAttribute();
+            var menuAttribute = typeof(T).GetCustomAttribute<MenuAttribute>(true)
+                ?? new MenuAttribute(configModOptions.Name);
 
             if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.SaveGame))
                 IngameMenuHandler.RegisterOnSaveEvent(() => configModOptions.Config.Save());
