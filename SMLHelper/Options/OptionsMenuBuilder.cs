@@ -186,11 +186,6 @@
         private struct OptionsMenuBuilderMetadata
         {
             /// <summary>
-            /// Timestamp of the relevant mod assembly. Used to determine the validity of the metadata.
-            /// </summary>
-            public long Timestamp;
-
-            /// <summary>
             /// The <see cref="MenuAttribute"/> relating to this <see cref="ModOptions"/> menu.
             /// </summary>
             public MenuAttribute MenuAttribute;
@@ -215,8 +210,7 @@
             optionsMenuBuilderMetadata = new OptionsMenuBuilderMetadata
             {
                 MenuAttribute = GetMenuAttributeOrDefault(),
-                ModOptionsMetadata = new Dictionary<string, ModOptionMetadata>(),
-                Timestamp = timestamp
+                ModOptionsMetadata = new Dictionary<string, ModOptionMetadata>()
             };
             Name = optionsMenuBuilderMetadata.MenuAttribute.Name;
 
