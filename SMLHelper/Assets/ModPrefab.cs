@@ -31,6 +31,11 @@
 
         internal static bool TryGetFromClassId(string classId, out ModPrefab prefab)
         {
+            if (string.IsNullOrEmpty(classId))
+            {
+                prefab = null;
+                return false;
+            }
             return ClassIdDictionary.TryGetValue(classId, out prefab);
         }
 
