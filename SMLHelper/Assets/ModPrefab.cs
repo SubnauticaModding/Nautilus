@@ -26,6 +26,11 @@
         internal static IEnumerable<ModPrefab> Prefabs => PreFabsList;
         internal static bool TryGetFromFileName(string classId, out ModPrefab prefab)
         {
+            if (string.IsNullOrEmpty(classId))
+            {
+                prefab = null;
+                return false;
+            }
             return FileNameDictionary.TryGetValue(classId, out prefab);
         }
 
