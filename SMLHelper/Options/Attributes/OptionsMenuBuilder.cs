@@ -34,7 +34,6 @@
         /// </summary>
         public T Config { get; }
 
-        private Assembly assembly => Assembly.GetAssembly(typeof(T));
         private IQMod QMod { get; }
 
         /// <summary>
@@ -43,7 +42,7 @@
         /// </summary>
         public OptionsMenuBuilder() : base(null)
         {
-            QMod = QModServices.Main.GetMod(assembly);
+            QMod = QModServices.Main.GetMod(Assembly.GetAssembly(typeof(T)));
 
             Config = new T();
 
@@ -74,7 +73,7 @@
             if (Logger.EnableDebugging)
                 stopwatch.Start();
 
-            menuAttribute = GetMenuAttributeOrDefault();
+            menuAttribute = typeof(T).GetCustomAttribute<MenuAttribute>(true) ?? new MenuAttribute(QMod.DisplayName);
             modOptionsMetadata = new Dictionary<string, ModOptionMetadata<T>>();
 
             Name = menuAttribute.Name;
@@ -84,7 +83,7 @@
             if (Logger.EnableDebugging)
             {
                 stopwatch.Stop();
-                Logger.Debug($"[{QMod.DisplayName}] OptionsMenuBuilder metadata parsed via reflection in {stopwatch.ElapsedMilliseconds}ms.");
+                Logger.Debug($"[{QMod.DisplayName}] [{typeof(T).Name}] OptionsMenuBuilder metadata parsed in {stopwatch.ElapsedMilliseconds}ms.");
             }
         }
 
@@ -115,18 +114,7 @@
                 ProcessMethod(method);
             }
 
-            Logger.Debug($"[OptionsMenuBuilder] Found {modOptionsMetadata.Count()} options to add to the menu.");
-        }
-
-        /// <summary>
-        /// Gets the <see cref="Attributes.MenuAttribute"/> defined on the <typeparamref name="T"/>, or
-        /// a default <see cref="Attributes.MenuAttribute"/> with its name automatically parsed from the Display Name
-        /// of the QMod that <typeparamref name="T"/> is defined in.
-        /// </summary>
-        /// <returns></returns>
-        private MenuAttribute GetMenuAttributeOrDefault()
-        {
-            return typeof(T).GetCustomAttribute<MenuAttribute>(true) ?? new MenuAttribute(QMod.DisplayName);
+            Logger.Debug($"[{QMod.DisplayName}] [{typeof(T).Name}] Found {modOptionsMetadata.Count()} options to add to the menu.");
         }
 
         /// <summary>
@@ -174,10 +162,11 @@
                     }
                     return true;
 
-                default:
                 case MenuAttribute.Members.OptIn:
                     return Attribute.IsDefined(memberInfo, typeof(ModOptionAttribute), true) ||
                         Attribute.IsDefined(memberInfo, typeof(ModOptionEventAttribute), true);
+
+                default: throw new NotImplementedException();
             }
         }
 
@@ -689,9 +678,9 @@
                 var id = entry.Key;
                 var modOptionMetadata = entry.Value;
 
-                Logger.Debug($"[OptionsMenuBuilder] {modOptionMetadata.MemberInfoMetadata.Name}: " +
+                Logger.Debug($"[{QMod.DisplayName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
                     $"{modOptionMetadata.ModOptionAttribute.GetType()}");
-                Logger.Debug($"[OptionsMenuBuilder] Label: {modOptionMetadata.ModOptionAttribute.Label}");
+                Logger.Debug($"[{QMod.DisplayName}] [{typeof(T).Name}] Label: {modOptionMetadata.ModOptionAttribute.Label}");
 
                 var label = modOptionMetadata.ModOptionAttribute.Label;
 
