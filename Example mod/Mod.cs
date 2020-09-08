@@ -34,7 +34,7 @@ namespace SMLHelper.V2.Examples
     /// <para>Optionally, we can set the <see cref="MenuAttribute.SaveOn"/> or <see cref="MenuAttribute.LoadOn"/> properties to customise
     /// when the values are saved to or loaded from disk respectively. By default, the values will be saved whenever they change,
     /// and loaded from disk when the game is registered to the options menu, which in this example happens on game launch and
-    /// is there recommended setting.</para>
+    /// is the recommended setting.</para>
     /// 
     /// <para>Both of these values allow for bitwise combinations of their options, so
     /// <c>[Menu("SMLHelper Example Mod", LoadOn = MenuAttribute.LoadEvents.MenuRegistered | MenuAttribute.LoadEvents.MenuOpened)]</c>
@@ -92,7 +92,7 @@ namespace SMLHelper.V2.Examples
 
         /// <summary>
         /// <para>A <see cref="KeybindAttribute"/> is represented in the mod options menu as a customistable keybind, where the
-        /// user clicks the  box to set the binding, stored as a <see cref="KeyCode"/>.</para>
+        /// user clicks the box to set the binding, stored as a <see cref="KeyCode"/>.</para>
         /// 
         /// <para>Here, we are not specifying a default, so by default this keybind will not be set.</para>
         /// </summary>
