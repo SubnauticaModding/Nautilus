@@ -13,7 +13,8 @@
     public abstract class ModOptionAttribute : Attribute, IModOptionAttribute
     {
         /// <summary>
-        /// The label to use when displaying the field in the mod's options menu.
+        /// The label to use when displaying the field in the mod's options menu. If <see cref="LabelLanguageId"/> is set, this
+        /// will be ignored.
         /// </summary>
         public string Label { get; set; }
 
@@ -38,10 +39,19 @@
         public string Tooltip { get; set; }
 
         /// <summary>
+        /// An optional id to be parsed with <see cref="Language.Get(string)"/> for the label, allowing for custom language-based strings
+        /// via the <see cref="LanguageHandler"/> API. If this is set, it will take precedence.
+        /// </summary>
+        /// <seealso cref="LanguageHandler.SetLanguageLine(string, string)"/>
+        /// <seealso cref="Language.Get(string)"/>
+        public string LabelLanguageId { get; set; }
+
+        /// <summary>
         /// Signifies the attributed member should be represented in the mod's options menu as a <see cref="ModOption"/>
         /// with an optional label.
         /// </summary>
-        /// <param name="label">The label to display. If none is set, the name of the member will be used.</param>
+        /// <param name="label">The label to display. If none is set, the name of the member will be used. If <see cref="LabelLanguageId"/>
+        /// is set, this will be ignored.</param>
         protected ModOptionAttribute(string label = null)
         {
             Label = label;

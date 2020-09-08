@@ -42,8 +42,7 @@
         public ButtonAttribute(string label = null) : base(label) { }
 
         /// <summary>
-        /// Signifies the attributed method should be represented in the mod's options menu as a <see cref="ModButtonOption"/>
-        /// and sets its label.
+        /// Signifies the attributed method should be represented in the mod's options menu as a <see cref="ModButtonOption"/>.
         /// </summary>
         public ButtonAttribute() { }
     }

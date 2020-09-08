@@ -34,5 +34,13 @@
         /// An optional tooltip to display for the field.
         /// </summary>
         string Tooltip { get; }
+
+        /// <summary>
+        /// An optional id to be parsed with <see cref="Language.Get(string)"/> for the label, allowing for custom language-based strings
+        /// via the <see cref="LanguageHandler"/> API.
+        /// </summary>
+        /// <seealso cref="LanguageHandler.SetLanguageLine(string, string)"/>
+        /// <seealso cref="Language.Get(string)"/>
+        string LabelLanguageId { get; }
     }
 }

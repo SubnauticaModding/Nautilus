@@ -63,11 +63,14 @@
                 string id = entry.Key;
                 ModOptionAttributeMetadata<T> modOptionMetadata = entry.Value;
 
+                string label = modOptionMetadata.ModOptionAttribute.Label;
+                if (Language.main.TryGet(modOptionMetadata.ModOptionAttribute.LabelLanguageId, out string languageLabel))
+                    label = languageLabel;
+
                 Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
                     $"{modOptionMetadata.ModOptionAttribute.GetType().Name}");
-                Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] Label: {modOptionMetadata.ModOptionAttribute.Label}");
+                Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] Label: {label}");
 
-                string label = modOptionMetadata.ModOptionAttribute.Label;
 
                 switch (modOptionMetadata.ModOptionAttribute)
                 {
