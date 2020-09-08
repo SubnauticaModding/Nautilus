@@ -26,13 +26,6 @@
     /// loading to/saving from disk.</typeparam>
     internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     {
-        ///// <summary>
-        ///// The <typeparamref name="T"/> <see cref="ConfigFile"/> instance related to this <see cref="ModOptions"/> menu.
-        ///// </summary>
-        //public T Config { get; }
-
-        //private IQMod QMod { get; }
-
         public ConfigFileMetadata<T> ConfigFileMetadata { get; } = new ConfigFileMetadata<T>();
 
         /// <summary>
