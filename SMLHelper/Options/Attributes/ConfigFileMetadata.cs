@@ -183,7 +183,7 @@
             try
             {
                 // Get the ModOptionAttribute
-                var modOptionAttribute = memberInfo.GetCustomAttribute<ModOptionAttribute>(true)
+                ModOptionAttribute modOptionAttribute = memberInfo.GetCustomAttribute<ModOptionAttribute>(true)
                     ?? new TAttribute();
 
                 // If there is no label specified, just use the member's name.

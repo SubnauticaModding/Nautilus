@@ -13,6 +13,7 @@
 #endif
 #if SUBNAUTICA_STABLE
     using Oculus.Newtonsoft.Json;
+    using System.Collections.Generic;
 #else
     using Newtonsoft.Json;
 #endif
@@ -84,7 +85,7 @@
 
                 for (var i = 0; i < parameters.Length; i++)
                 {
-                    var type = parameterTypes[i];
+                    Type type = parameterTypes[i];
                     if (!senderFound && type == typeof(object))
                     {
                         senderFound = true;
@@ -117,31 +118,31 @@
             if (ConfigFileMetadata.TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
             {
                 // Set the value in the Config
-                var memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
-                var choiceAttribute = modOptionMetadata.ModOptionAttribute as ChoiceAttribute;
+                MemberInfoMetadata<T> memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
+                ChoiceAttribute choiceAttribute = modOptionMetadata.ModOptionAttribute as ChoiceAttribute;
 
                 if (memberInfoMetadata.ValueType.IsEnum && (choiceAttribute.Options == null || !choiceAttribute.Options.Any()))
                 {
                     // Enum-based choice where the values are parsed from the enum type
-                    var value = Enum.Parse(memberInfoMetadata.ValueType, e.Value);
+                    object value = Enum.Parse(memberInfoMetadata.ValueType, e.Value);
                     memberInfoMetadata.SetValue(ConfigFileMetadata.Config, value);
                 }
                 else if (memberInfoMetadata.ValueType.IsEnum)
                 {
                     // Enum-based choice where the values are defined as custom strings
-                    var value = Enum.Parse(memberInfoMetadata.ValueType, Enum.GetNames(memberInfoMetadata.ValueType)[e.Index]);
+                    object value = Enum.Parse(memberInfoMetadata.ValueType, Enum.GetNames(memberInfoMetadata.ValueType)[e.Index]);
                     memberInfoMetadata.SetValue(ConfigFileMetadata.Config, value);
                 }
                 else if (memberInfoMetadata.ValueType == typeof(string))
                 {
                     // string-based choice value
-                    var value = e.Value;
+                    string value = e.Value;
                     memberInfoMetadata.SetValue(ConfigFileMetadata.Config, value);
                 }
                 else if (memberInfoMetadata.ValueType == typeof(int))
                 {
                     // index-based choice value
-                    var value = e.Index;
+                    int value = e.Index;
                     memberInfoMetadata.SetValue(ConfigFileMetadata.Config, value);
                 }
 
@@ -191,8 +192,8 @@
             if (ConfigFileMetadata.TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
             {
                 // Set the value in the Config
-                var memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
-                var value = Convert.ChangeType(e.Value, memberInfoMetadata.ValueType);
+                MemberInfoMetadata<T> memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
+                object value = Convert.ChangeType(e.Value, memberInfoMetadata.ValueType);
                 memberInfoMetadata.SetValue(ConfigFileMetadata.Config, value);
 
                 // Optionally save the Config to disk
@@ -239,7 +240,7 @@
             T oldConfig = JsonConvert.DeserializeObject<T>(jsonConfig);
             T currentConfig = e.Instance as T;
 
-            foreach (var modOptionMetadata in ConfigFileMetadata.GetValues())
+            foreach (ModOptionAttributeMetadata<T> modOptionMetadata in ConfigFileMetadata.GetValues())
             {
                 if (modOptionMetadata.MemberInfoMetadata.MemberType != MemberType.Field &&
                     modOptionMetadata.MemberInfoMetadata.MemberType != MemberType.Property)
@@ -263,8 +264,8 @@
         /// <param name="sender">The sender of the event.</param>
         private void InvokeOnChangeEvents(ModOptionAttributeMetadata<T> modOptionMetadata, object sender)
         {
-            var id = modOptionMetadata.ModOptionAttribute.Id;
-            var memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
+            string id = modOptionMetadata.ModOptionAttribute.Id;
+            MemberInfoMetadata<T> memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
 
             switch (modOptionMetadata.ModOptionAttribute)
             {
@@ -342,7 +343,7 @@
             if (modOptionMetadata.OnChangeMetadata == null)
                 return; // Skip attempting to invoke events if there are no OnChangeAttributes set for the member.
 
-            foreach (var onChangeMetadata in modOptionMetadata.OnChangeMetadata)
+            foreach (MemberInfoMetadata<T> onChangeMetadata in modOptionMetadata.OnChangeMetadata)
             {
                 InvokeEvent(onChangeMetadata, sender, e);
             }
@@ -419,7 +420,7 @@
                 if (modOptionMetadata.OnGameObjectCreatedMetadata == null)
                     return; // Skip attempting to invoke events if there are no OnGameObjectCreatedAttributes set for the member.
 
-                foreach (var onGameObjectCreatedMetadata in modOptionMetadata.OnGameObjectCreatedMetadata)
+                foreach (MemberInfoMetadata<T> onGameObjectCreatedMetadata in modOptionMetadata.OnGameObjectCreatedMetadata)
                 {
                     InvokeEvent(onGameObjectCreatedMetadata, sender, e);
                 }
@@ -437,18 +438,18 @@
             if (ConfigFileMetadata.MenuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuOpened))
                 ConfigFileMetadata.Config.Load();
 
-            foreach (var entry in ConfigFileMetadata.ModOptionAttributesMetadata
+            foreach (KeyValuePair<string, ModOptionAttributeMetadata<T>> entry in ConfigFileMetadata.ModOptionAttributesMetadata
                 .OrderBy(x => x.Value.ModOptionAttribute.Order)
                 .ThenBy(x => x.Value.MemberInfoMetadata.Name))
             {
-                var id = entry.Key;
-                var modOptionMetadata = entry.Value;
+                string id = entry.Key;
+                ModOptionAttributeMetadata<T> modOptionMetadata = entry.Value;
 
                 Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
                     $"{modOptionMetadata.ModOptionAttribute.GetType()}");
                 Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] Label: {modOptionMetadata.ModOptionAttribute.Label}");
 
-                var label = modOptionMetadata.ModOptionAttribute.Label;
+                string label = modOptionMetadata.ModOptionAttribute.Label;
 
                 switch (modOptionMetadata.ModOptionAttribute)
                 {
@@ -530,7 +531,7 @@
         /// <param name="memberInfoMetadata">The metadata of the corresponding member.</param>
         private void BuildModKeybindOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
-            var value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
+            KeyCode value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
             AddKeybindOption(id, label, GameInput.Device.Keyboard, value);
         }
 
