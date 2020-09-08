@@ -254,11 +254,6 @@
             return ModOptionAttributesMetadata.TryGetValue(id, out modOptionAttributeMetadata);
         }
 
-        public IEnumerable<ModOptionAttributeMetadata<T>> GetValues()
-        {
-            return ModOptionAttributesMetadata.Values;
-        }
-
         #region Events
         public void BindEvents()
         {
@@ -277,7 +272,7 @@
             T oldConfig = JsonConvert.DeserializeObject<T>(jsonConfig);
             T currentConfig = e.Instance as T;
 
-            foreach (ModOptionAttributeMetadata<T> modOptionMetadata in GetValues())
+            foreach (ModOptionAttributeMetadata<T> modOptionMetadata in ModOptionAttributesMetadata.Values)
             {
                 if (modOptionMetadata.MemberInfoMetadata.MemberType != MemberType.Field &&
                     modOptionMetadata.MemberInfoMetadata.MemberType != MemberType.Property)
