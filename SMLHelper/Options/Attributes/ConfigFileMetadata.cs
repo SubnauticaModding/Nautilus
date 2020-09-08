@@ -2,7 +2,6 @@
 {
     using Interfaces;
     using Json;
-    using Oculus.Newtonsoft.Json;
     using QModManager.API;
     using System;
     using System.Collections.Generic;
@@ -12,8 +11,10 @@
     using UnityEngine;
     using Logger = Logger;
 #if SUBNAUTICA
+    using Oculus.Newtonsoft.Json;
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO
+    using Newtonsoft.Json;
     using Text = TMPro.TextMeshProUGUI;
 #endif
 
