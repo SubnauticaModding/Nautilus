@@ -2,12 +2,8 @@
 {
     using Interfaces;
     using Json;
-    using QModManager.API;
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
-    using System.Reflection;
     using UnityEngine;
     using Logger = Logger;
 #if SUBNAUTICA
@@ -29,12 +25,14 @@
     /// loading to/saving from disk.</typeparam>
     internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     {
-        /// <summary>
-        /// The <typeparamref name="T"/> <see cref="ConfigFile"/> instance related to this <see cref="ModOptions"/> menu.
-        /// </summary>
-        public T Config { get; }
+        ///// <summary>
+        ///// The <typeparamref name="T"/> <see cref="ConfigFile"/> instance related to this <see cref="ModOptions"/> menu.
+        ///// </summary>
+        //public T Config { get; }
 
-        private IQMod QMod { get; }
+        //private IQMod QMod { get; }
+
+        public ConfigFileMetadata<T> ConfigFileMetadata { get; } = new ConfigFileMetadata<T>();
 
         /// <summary>
         /// Instantiates a new <see cref="OptionsMenuBuilder{T}"/>, generating <see cref="ModOption"/>s by parsing the fields,
@@ -42,248 +40,16 @@
         /// </summary>
         public OptionsMenuBuilder() : base(null)
         {
-            QMod = QModServices.Main.GetMod(Assembly.GetAssembly(typeof(T)));
-
-            Config = new T();
-
             BindEvents();
 
-            LoadMetadata();
+            ConfigFileMetadata.ProcessMetadata();
+
+            Name = ConfigFileMetadata.MenuAttribute.Name;
 
             // Conditionally load the config
-            if (menuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuRegistered))
-                Config.Load();
+            if (ConfigFileMetadata.MenuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuRegistered))
+                ConfigFileMetadata.Config.Load();
         }
-
-        #region Metadata Processing
-        /// <summary>
-        /// The <see cref="MenuAttribute"/> relating to this <see cref="ModOptions"/> menu.
-        /// </summary>
-        private MenuAttribute menuAttribute;
-
-        /// <summary>
-        /// A dictionary of <see cref="ModOptionMetadata{T}"/>, indexed by <see cref="ModOption.Id"/>.
-        /// </summary>
-        public Dictionary<string, ModOptionMetadata<T>> modOptionsMetadata;
-
-        private void LoadMetadata()
-        {
-            Stopwatch stopwatch = new Stopwatch();
-
-            if (Logger.EnableDebugging)
-                stopwatch.Start();
-
-            menuAttribute = typeof(T).GetCustomAttribute<MenuAttribute>(true) ?? new MenuAttribute(QMod.DisplayName);
-            modOptionsMetadata = new Dictionary<string, ModOptionMetadata<T>>();
-
-            Name = menuAttribute.Name;
-
-            ProcessMetadata();
-
-            if (Logger.EnableDebugging)
-            {
-                stopwatch.Stop();
-                Logger.Debug($"[{QMod.DisplayName}] [{typeof(T).Name}] OptionsMenuBuilder metadata parsed in {stopwatch.ElapsedMilliseconds}ms.");
-            }
-        }
-
-        /// <summary>
-        /// Process metadata for members of <typeparamref name="T"/>.
-        /// </summary>
-        private void ProcessMetadata()
-        {
-            var bindingFlags = BindingFlags.Instance | BindingFlags.Public;
-            foreach (PropertyInfo property in typeof(T).GetProperties(bindingFlags)
-                .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
-                .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
-            {
-                ProcessFieldOrProperty(property, MemberType.Property, property.PropertyType);
-            }
-
-            foreach (FieldInfo field in typeof(T).GetFields(bindingFlags)
-                .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
-                .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
-            {
-                ProcessFieldOrProperty(field, MemberType.Field, field.FieldType);
-            }
-
-            foreach (MethodInfo method in typeof(T).GetMethods(bindingFlags | BindingFlags.Static)
-                .Where(MemberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
-                .Where(MemberIsNotIgnored)) // Filter out explicitly ignored members
-            {
-                ProcessMethod(method);
-            }
-
-            Logger.Debug($"[{QMod.DisplayName}] [{typeof(T).Name}] Found {modOptionsMetadata.Count()} options to add to the menu.");
-        }
-
-        /// <summary>
-        /// Checks whether a given <see cref="MemberInfo"/> is declared in any subclass of <see cref="ConfigFile"/>.
-        /// </summary>
-        /// <param name="memberInfo">The <see cref="MemberInfo"/> to check.</param>
-        /// <returns>Whether the given <see cref="MemberInfo"/> is declared in any subclass of <see cref="ConfigFile"/>.</returns>
-        private static bool MemberIsDeclaredInConfigFileSubclass(MemberInfo memberInfo)
-            => memberInfo.DeclaringType.IsSubclassOf(typeof(ConfigFile));
-
-        /// <summary>
-        /// Checks whether a given <see cref="MemberInfo"/> should be ignored when generating the options menu, based on whether
-        /// the member has a declared <see cref="IgnoreMemberAttribute"/>, or the <see cref="menuAttribute"/>'s
-        /// <see cref="MenuAttribute.MemberProcessing"/> property.
-        /// </summary>
-        /// <param name="memberInfo">The <see cref="MemberInfo"/> to check.</param>
-        /// <returns>Whether the given <see cref="MemberInfo"/> member should be ignored when generating the options menu.</returns>
-        private bool MemberIsNotIgnored(MemberInfo memberInfo)
-        {
-            if (Attribute.IsDefined(memberInfo, typeof(IgnoreMemberAttribute)))
-                return false;
-
-            switch (menuAttribute.MemberProcessing)
-            {
-                case MenuAttribute.Members.OptOut:
-                    if (memberInfo is MethodInfo)
-                    {
-                        if (Attribute.IsDefined(memberInfo, typeof(ButtonAttribute), true))
-                            return true;
-
-                        IEnumerable<MemberInfoMetadata<T>> eventMetadatas
-                            = modOptionsMetadata.Values.SelectMany(modOptionsMetadata =>
-                            {
-                                IEnumerable<MemberInfoMetadata<T>> result = new List<MemberInfoMetadata<T>>();
-
-                                if (modOptionsMetadata.OnChangeMetadata != null)
-                                    result.Concat(modOptionsMetadata.OnChangeMetadata);
-
-                                if (modOptionsMetadata.OnGameObjectCreatedMetadata != null)
-                                    result.Concat(modOptionsMetadata.OnGameObjectCreatedMetadata);
-
-                                return result;
-                            });
-                        return eventMetadatas.Any(memberInfoMetadata => memberInfoMetadata.Name == memberInfo.Name);
-                    }
-                    return true;
-
-                case MenuAttribute.Members.OptIn:
-                    return Attribute.IsDefined(memberInfo, typeof(ModOptionAttribute), true) ||
-                        Attribute.IsDefined(memberInfo, typeof(ModOptionEventAttribute), true);
-
-                default: throw new NotImplementedException();
-            }
-        }
-
-        /// <summary>
-        /// Processes the given field or property and hands off to
-        /// <see cref="AddModOptionMetadata{TAttribute}(MemberInfo, MemberType, Type)"/> to generate a <see cref="ModOptionMetadata{T}"/>
-        /// and add it to the <see cref="modOptionsMetadata"/> dictionary.
-        /// </summary>
-        /// <param name="memberInfo">The <see cref="MemberInfo"/> of the member.</param>
-        /// <param name="memberType">The <see cref="MemberType"/> of the member.</param>
-        /// <param name="underlyingType">The underlying <see cref="Type"/> of the member.</param>
-        private void ProcessFieldOrProperty(MemberInfo memberInfo, MemberType memberType, Type underlyingType)
-        {
-            if (underlyingType == typeof(bool))
-            {
-                AddModOptionMetadata<ToggleAttribute>(memberInfo, memberType, underlyingType);
-            }
-            else if (underlyingType == typeof(KeyCode))
-            {
-                AddModOptionMetadata<KeybindAttribute>(memberInfo, memberType, underlyingType);
-            }
-            else if (underlyingType.IsEnum || Attribute.IsDefined(memberInfo, typeof(ChoiceAttribute), true))
-            {
-                AddModOptionMetadata<ChoiceAttribute>(memberInfo, memberType, underlyingType);
-            }
-            else if (underlyingType == typeof(float) ||
-                    underlyingType == typeof(double) ||
-                    underlyingType == typeof(int) ||
-                    Attribute.IsDefined(memberInfo, typeof(SliderAttribute), true))
-            {
-                AddModOptionMetadata<SliderAttribute>(memberInfo, memberType, underlyingType);
-            }
-        }
-
-        /// <summary>
-        /// Processes the given method and hands off to <see cref="AddModOptionMetadata{TAttribute}(MemberInfo, MemberType, Type)"/>
-        /// to generate a <see cref="ModOptionMetadata{T}"/> and add it to the <see cref="modOptionsMetadata"/> dictionary.
-        /// </summary>
-        /// <param name="methodInfo">The <see cref="MethodInfo"/> of the method.</param>
-        private void ProcessMethod(MethodInfo methodInfo)
-        {
-            AddModOptionMetadata<ButtonAttribute>(methodInfo, MemberType.Method);
-        }
-
-        /// <summary>
-        /// Generates a <see cref="ModOptionMetadata{T}"/> based on the member and its attributes, then adds it to the
-        /// <see cref="modOptionsMetadata"/> dictionary.
-        /// </summary>
-        /// <typeparam name="TAttribute">The type of the <see cref="ModOption"/> to generate for this member.</typeparam>
-        /// <param name="memberInfo">The <see cref="MemberInfo"/> of the member.</param>
-        /// <param name="memberType">The <see cref="MemberType"/> of the member.</param>
-        /// <param name="underlyingType">The underlying <see cref="Type"/> of the member.</param>
-        private void AddModOptionMetadata<TAttribute>(MemberInfo memberInfo, MemberType memberType,
-            Type underlyingType = null) where TAttribute : ModOptionAttribute, new()
-        {
-            try
-            {
-                // Get the ModOptionAttribute
-                var modOptionAttribute = memberInfo.GetCustomAttribute<ModOptionAttribute>(true)
-                    ?? new TAttribute();
-
-                // If there is no label specified, just use the member's name.
-                if (string.IsNullOrEmpty(modOptionAttribute.Label))
-                    modOptionAttribute.Label = memberInfo.Name;
-
-                // ModOptionMetadata needed for all ModOptions
-                var modOptionMetadata = new ModOptionMetadata<T>
-                {
-                    ModOptionAttribute = modOptionAttribute,
-                    MemberInfoMetadata = new MemberInfoMetadata<T>
-                    {
-                        MemberType = memberType,
-                        Name = memberInfo.Name,
-                        ValueType = underlyingType
-                    },
-                    OnGameObjectCreatedMetadata = GetEventMetadata<OnGameObjectCreatedAttribute>(memberInfo)
-                };
-
-                if (memberType == MemberType.Method)
-                    modOptionMetadata.MemberInfoMetadata.ParseMethodParameterTypes(memberInfo as MethodInfo);
-
-                if (typeof(TAttribute) != typeof(ButtonAttribute))
-                    modOptionMetadata.OnChangeMetadata = GetEventMetadata<OnChangeAttribute>(memberInfo);
-
-                modOptionsMetadata.Add(modOptionAttribute.Id, modOptionMetadata);
-            }
-            catch (Exception ex)
-            {
-                Logger.Error($"[OptionsMenuBuilder] {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Gets the metadata of every <typeparamref name="TAttribute"/> defined for a member.
-        /// </summary>
-        /// <typeparam name="TAttribute">
-        /// The type of <see cref="ModOptionEventAttribute"/> attribute defined on the member to gather metadata for.
-        /// </typeparam>
-        /// <param name="memberInfo">The member to gather attribute metadata for.</param>
-        /// <returns></returns>
-        private IEnumerable<MemberInfoMetadata<T>> GetEventMetadata<TAttribute>(MemberInfo memberInfo)
-            where TAttribute : ModOptionEventAttribute
-        {
-            var metadatas = new List<MemberInfoMetadata<T>>();
-            foreach (TAttribute attribute in memberInfo.GetCustomAttributes<TAttribute>(true))
-            {
-                var methodMetadata = new MemberInfoMetadata<T>
-                {
-                    MemberType = MemberType.Method,
-                    Name = attribute.MethodName
-                };
-                methodMetadata.ParseMethodParameterTypes();
-                metadatas.Add(methodMetadata);
-            }
-            return metadatas;
-        }
-        #endregion
 
         #region Click, Change and GameObjectCreated Events
         /// <summary>
@@ -296,8 +62,8 @@
             KeybindChanged += OptionsMenuBuilder_KeybindChanged;
             SliderChanged += OptionsMenuBuilder_SliderChanged;
             ToggleChanged += OptionsMenuBuilder_ToggleChanged;
-            Config.OnStartedLoading += OptionsMenuBuilder_Config_OnStartedLoading;
-            Config.OnFinishedLoading += OptionsMenuBuilder_Config_OnFinishedLoading;
+            ConfigFileMetadata.Config.OnStartedLoading += OptionsMenuBuilder_Config_OnStartedLoading;
+            ConfigFileMetadata.Config.OnFinishedLoading += OptionsMenuBuilder_Config_OnFinishedLoading;
 
             GameObjectCreated += OptionsMenuBuilder_GameObjectCreated;
         }
@@ -309,7 +75,7 @@
         /// <param name="e">The <see cref="ButtonClickedEventArgs"/> for the click event.</param>
         private void OptionsMenuBuilder_ButtonClicked(object sender, ButtonClickedEventArgs e)
         {
-            if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata)
+            if (ConfigFileMetadata.TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata)
                 && modOptionMetadata.MemberInfoMetadata.MethodParameterTypes is Type[] parameterTypes)
             {
                 var parameters = new object[parameterTypes.Length];
@@ -334,21 +100,21 @@
                         break;
                 }
 
-                modOptionMetadata.MemberInfoMetadata.InvokeMethod(Config, parameters);
+                modOptionMetadata.MemberInfoMetadata.InvokeMethod(ConfigFileMetadata.Config, parameters);
             }
         }
 
         /// <summary>
-        /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
-        /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="InvokeOnChangeEvents{TSource}(ModOptionMetadata{T}, object, TSource)"/> to invoke any methods specified with a
-        /// <see cref="OnChangeAttribute"/>.
+        /// Sets the value in the <see cref="ConfigFileMetadata{T}.Config"/>, optionally saving the
+        /// <see cref="ConfigFileMetadata{T}.Config"/> to disk if the <see cref="MenuAttribute.SaveEvents.ChangeValue"/>
+        /// flag is set, before passing off to <see cref="InvokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
+        /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original choice changed event.</param>
         /// <param name="e">The <see cref="ChoiceChangedEventArgs"/> for the choice changed event.</param>
         private void OptionsMenuBuilder_ChoiceChanged(object sender, ChoiceChangedEventArgs e)
         {
-            if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
+            if (ConfigFileMetadata.TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
             {
                 // Set the value in the Config
                 var memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
@@ -358,30 +124,30 @@
                 {
                     // Enum-based choice where the values are parsed from the enum type
                     var value = Enum.Parse(memberInfoMetadata.ValueType, e.Value);
-                    memberInfoMetadata.SetValue(Config, value);
+                    memberInfoMetadata.SetValue(ConfigFileMetadata.Config, value);
                 }
                 else if (memberInfoMetadata.ValueType.IsEnum)
                 {
                     // Enum-based choice where the values are defined as custom strings
                     var value = Enum.Parse(memberInfoMetadata.ValueType, Enum.GetNames(memberInfoMetadata.ValueType)[e.Index]);
-                    memberInfoMetadata.SetValue(Config, value);
+                    memberInfoMetadata.SetValue(ConfigFileMetadata.Config, value);
                 }
                 else if (memberInfoMetadata.ValueType == typeof(string))
                 {
                     // string-based choice value
                     var value = e.Value;
-                    memberInfoMetadata.SetValue(Config, value);
+                    memberInfoMetadata.SetValue(ConfigFileMetadata.Config, value);
                 }
                 else if (memberInfoMetadata.ValueType == typeof(int))
                 {
                     // index-based choice value
                     var value = e.Index;
-                    memberInfoMetadata.SetValue(Config, value);
+                    memberInfoMetadata.SetValue(ConfigFileMetadata.Config, value);
                 }
 
                 // Optionally save the Config to disk
-                if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
-                    Config.Save();
+                if (ConfigFileMetadata.MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                    ConfigFileMetadata.Config.Save();
 
                 // Invoke any OnChange methods specified
                 InvokeOnChangeEvents(modOptionMetadata, sender, e);
@@ -389,23 +155,23 @@
         }
 
         /// <summary>
-        /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
-        /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="InvokeOnChangeEvents{TSource}(ModOptionMetadata{T}, object, TSource)"/> to invoke any methods specified with a
-        /// <see cref="OnChangeAttribute"/>.
+        /// Sets the value in the <see cref="ConfigFileMetadata{T}.Config"/>, optionally saving the
+        /// <see cref="ConfigFileMetadata{T}.Config"/> to disk if the <see cref="MenuAttribute.SaveEvents.ChangeValue"/>
+        /// flag is set, before passing off to <see cref="InvokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
+        /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original keybind changed event.</param>
         /// <param name="e">The <see cref="KeybindChangedEventArgs"/> for the keybind changed event.</param>
         private void OptionsMenuBuilder_KeybindChanged(object sender, KeybindChangedEventArgs e)
         {
-            if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
+            if (ConfigFileMetadata.TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
             {
                 // Set the value in the Config
-                modOptionMetadata.MemberInfoMetadata.SetValue(Config, e.Key);
+                modOptionMetadata.MemberInfoMetadata.SetValue(ConfigFileMetadata.Config, e.Key);
 
                 // Optionally save the Config to disk
-                if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
-                    Config.Save();
+                if (ConfigFileMetadata.MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                    ConfigFileMetadata.Config.Save();
 
                 // Invoke any OnChange methods specified
                 InvokeOnChangeEvents(modOptionMetadata, sender, e);
@@ -413,25 +179,25 @@
         }
 
         /// <summary>
-        /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
-        /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="InvokeOnChangeEvents{TSource}(ModOptionMetadata{T}, object, TSource)"/> to invoke any methods specified with a
-        /// <see cref="OnChangeAttribute"/>.
+        /// Sets the value in the <see cref="ConfigFileMetadata{T}.Config"/>, optionally saving the
+        /// <see cref="ConfigFileMetadata{T}.Config"/> to disk if the <see cref="MenuAttribute.SaveEvents.ChangeValue"/>
+        /// flag is set, before passing off to <see cref="InvokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
+        /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original slider changed event.</param>
         /// <param name="e">The <see cref="SliderChangedEventArgs"/> for the slider changed event.</param>
         private void OptionsMenuBuilder_SliderChanged(object sender, SliderChangedEventArgs e)
         {
-            if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
+            if (ConfigFileMetadata.TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
             {
                 // Set the value in the Config
                 var memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
                 var value = Convert.ChangeType(e.Value, memberInfoMetadata.ValueType);
-                memberInfoMetadata.SetValue(Config, value);
+                memberInfoMetadata.SetValue(ConfigFileMetadata.Config, value);
 
                 // Optionally save the Config to disk
-                if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
-                    Config.Save();
+                if (ConfigFileMetadata.MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                    ConfigFileMetadata.Config.Save();
 
                 // Invoke any OnChange methods specified
                 InvokeOnChangeEvents(modOptionMetadata, sender, e);
@@ -439,23 +205,23 @@
         }
 
         /// <summary>
-        /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
-        /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="InvokeOnChangeEvents{TSource}(ModOptionMetadata{T}, object, TSource)"/> to invoke any methods specified with a
-        /// <see cref="OnChangeAttribute"/>.
+        /// Sets the value in the <see cref="ConfigFileMetadata{T}.Config"/>, optionally saving the
+        /// <see cref="ConfigFileMetadata{T}.Config"/> to disk if the <see cref="MenuAttribute.SaveEvents.ChangeValue"/>
+        /// flag is set, before passing off to <see cref="InvokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
+        /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original toggle changed event.</param>
         /// <param name="e">The <see cref="ToggleChangedEventArgs"/> for the toggle changed event.</param>
         private void OptionsMenuBuilder_ToggleChanged(object sender, ToggleChangedEventArgs e)
         {
-            if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
+            if (ConfigFileMetadata.TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
             {
                 // Set the value in the Config
-                modOptionMetadata.MemberInfoMetadata.SetValue(Config, e.Value);
+                modOptionMetadata.MemberInfoMetadata.SetValue(ConfigFileMetadata.Config, e.Value);
 
                 // Optionally save the Config to disk
-                if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
-                    Config.Save();
+                if (ConfigFileMetadata.MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                    ConfigFileMetadata.Config.Save();
 
                 // Invoke any OnChange methods specified
                 InvokeOnChangeEvents(modOptionMetadata, sender, e);
@@ -473,7 +239,7 @@
             T oldConfig = JsonConvert.DeserializeObject<T>(jsonConfig);
             T currentConfig = e.Instance as T;
 
-            foreach (var modOptionMetadata in modOptionsMetadata.Values)
+            foreach (var modOptionMetadata in ConfigFileMetadata.GetValues())
             {
                 if (modOptionMetadata.MemberInfoMetadata.MemberType != MemberType.Field &&
                     modOptionMetadata.MemberInfoMetadata.MemberType != MemberType.Property)
@@ -495,7 +261,7 @@
         /// </summary>
         /// <param name="modOptionMetadata">The metadata for the mod option.</param>
         /// <param name="sender">The sender of the event.</param>
-        private void InvokeOnChangeEvents(ModOptionMetadata<T> modOptionMetadata, object sender)
+        private void InvokeOnChangeEvents(ModOptionAttributeMetadata<T> modOptionMetadata, object sender)
         {
             var id = modOptionMetadata.ModOptionAttribute.Id;
             var memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
@@ -506,7 +272,7 @@
                     // Enum-based choice where the values are parsed from the enum type
                     {
                         string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
-                        string value = memberInfoMetadata.GetValue(Config).ToString();
+                        string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
                         var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
@@ -514,7 +280,7 @@
                 case ChoiceAttribute _ when memberInfoMetadata.ValueType.IsEnum:
                     // Enum-based choice where the values are defined as custom strings
                     {
-                        string value = memberInfoMetadata.GetValue(Config).ToString();
+                        string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
                         int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
                         var eventArgs = new ChoiceChangedEventArgs(id, index, value);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
@@ -524,7 +290,7 @@
                     // string-based choice value
                     {
                         string[] options = choiceAttribute.Options;
-                        string value = memberInfoMetadata.GetValue<string>(Config);
+                        string value = memberInfoMetadata.GetValue<string>(ConfigFileMetadata.Config);
                         var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
@@ -533,7 +299,7 @@
                     // index-based choice value
                     {
                         string[] options = choiceAttribute.Options;
-                        int index = memberInfoMetadata.GetValue<int>(Config);
+                        int index = memberInfoMetadata.GetValue<int>(ConfigFileMetadata.Config);
                         var eventArgs = new ChoiceChangedEventArgs(id, index, options[index]);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
@@ -541,21 +307,21 @@
 
                 case KeybindAttribute _:
                     {
-                        var eventArgs = new KeybindChangedEventArgs(id, memberInfoMetadata.GetValue<KeyCode>(Config));
+                        var eventArgs = new KeybindChangedEventArgs(id, memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
 
                 case SliderAttribute _:
                     {
-                        var eventArgs = new SliderChangedEventArgs(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
+                        var eventArgs = new SliderChangedEventArgs(id, Convert.ToSingle(memberInfoMetadata.GetValue(ConfigFileMetadata.Config)));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
 
                 case ToggleAttribute _:
                     {
-                        var eventArgs = new ToggleChangedEventArgs(id, memberInfoMetadata.GetValue<bool>(Config));
+                        var eventArgs = new ToggleChangedEventArgs(id, memberInfoMetadata.GetValue<bool>(ConfigFileMetadata.Config));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -570,7 +336,7 @@
         /// <param name="modOptionMetadata">The metadata for the mod option.</param>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The event args from the OnChange event.</param>
-        private void InvokeOnChangeEvents<TSource>(ModOptionMetadata<T> modOptionMetadata, object sender, TSource e)
+        private void InvokeOnChangeEvents<TSource>(ModOptionAttributeMetadata<T> modOptionMetadata, object sender, TSource e)
             where TSource : IModOptionEventArgs
         {
             if (modOptionMetadata.OnChangeMetadata == null)
@@ -629,7 +395,7 @@
                         break;
                 }
 
-                memberInfoMetadata.InvokeMethod(Config, parameters);
+                memberInfoMetadata.InvokeMethod(ConfigFileMetadata.Config, parameters);
             }
         }
 
@@ -642,7 +408,7 @@
         /// <param name="e"></param>
         private void OptionsMenuBuilder_GameObjectCreated(object sender, GameObjectCreatedEventArgs e)
         {
-            if (modOptionsMetadata.TryGetValue(e.Id, out var modOptionMetadata))
+            if (ConfigFileMetadata.TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
             {
                 // Create a tooltip if there is a TooltipAttribute specified
                 if (modOptionMetadata.ModOptionAttribute.Tooltip is string tooltip)
@@ -663,24 +429,24 @@
 
         #region Build ModOptions Menu
         /// <summary>
-        /// Adds options to the menu based on the <see cref="modOptionsMetadata"/> dictionary, generated by the constructor.
+        /// Adds options to the menu based on the <see cref="ConfigFileMetadata"/>.
         /// </summary>
         public override void BuildModOptions()
         {
             // Conditionally load the config
-            if (menuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuOpened))
-                Config.Load();
+            if (ConfigFileMetadata.MenuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuOpened))
+                ConfigFileMetadata.Config.Load();
 
-            foreach (var entry in modOptionsMetadata
+            foreach (var entry in ConfigFileMetadata.ModOptionAttributesMetadata
                 .OrderBy(x => x.Value.ModOptionAttribute.Order)
                 .ThenBy(x => x.Value.MemberInfoMetadata.Name))
             {
                 var id = entry.Key;
                 var modOptionMetadata = entry.Value;
 
-                Logger.Debug($"[{QMod.DisplayName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
+                Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
                     $"{modOptionMetadata.ModOptionAttribute.GetType()}");
-                Logger.Debug($"[{QMod.DisplayName}] [{typeof(T).Name}] Label: {modOptionMetadata.ModOptionAttribute.Label}");
+                Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] Label: {modOptionMetadata.ModOptionAttribute.Label}");
 
                 var label = modOptionMetadata.ModOptionAttribute.Label;
 
@@ -729,14 +495,14 @@
             {
                 // Enum-based choice where the values are parsed from the enum type
                 string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
-                string value = memberInfoMetadata.GetValue(Config).ToString();
+                string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
                 AddChoiceOption(id, label, options, value);
             }
             else if (memberInfoMetadata.ValueType.IsEnum)
             {
                 // Enum-based choice where the values are defined as custom strings
                 string[] options = choiceAttribute.Options;
-                string value = memberInfoMetadata.GetValue(Config).ToString();
+                string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
                 int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
                 AddChoiceOption(id, label, options, index);
             }
@@ -744,14 +510,14 @@
             {
                 // string-based choice value
                 string[] options = choiceAttribute.Options;
-                string value = memberInfoMetadata.GetValue<string>(Config);
+                string value = memberInfoMetadata.GetValue<string>(ConfigFileMetadata.Config);
                 AddChoiceOption(id, label, options, value);
             }
             else if (memberInfoMetadata.ValueType == typeof(int))
             {
                 // index-based choice value
                 string[] options = choiceAttribute.Options;
-                int index = memberInfoMetadata.GetValue<int>(Config);
+                int index = memberInfoMetadata.GetValue<int>(ConfigFileMetadata.Config);
                 AddChoiceOption(id, label, options, index);
             }
         }
@@ -764,7 +530,7 @@
         /// <param name="memberInfoMetadata">The metadata of the corresponding member.</param>
         private void BuildModKeybindOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
-            var value = memberInfoMetadata.GetValue<KeyCode>(Config);
+            var value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
             AddKeybindOption(id, label, GameInput.Device.Keyboard, value);
         }
 
@@ -778,7 +544,7 @@
         private void BuildModSliderOption(string id, string label,
             MemberInfoMetadata<T> memberInfoMetadata, SliderAttribute sliderAttribute)
         {
-            float value = Convert.ToSingle(memberInfoMetadata.GetValue(Config));
+            float value = Convert.ToSingle(memberInfoMetadata.GetValue(ConfigFileMetadata.Config));
 
             float step = sliderAttribute.Step;
             if (memberInfoMetadata.ValueType == typeof(int))
@@ -797,7 +563,7 @@
         /// <param name="memberInfoMetadata">The metadata of the corresponding member.</param>
         private void BuildModToggleOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
-            bool value = memberInfoMetadata.GetValue<bool>(Config);
+            bool value = memberInfoMetadata.GetValue<bool>(ConfigFileMetadata.Config);
             AddToggleOption(id, label, value);
         }
         #endregion

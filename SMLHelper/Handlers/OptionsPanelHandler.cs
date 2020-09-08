@@ -70,12 +70,12 @@
                 ?? new MenuAttribute(optionsMenuBuilder.Name);
 
             if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.SaveGame))
-                IngameMenuHandler.RegisterOnSaveEvent(() => optionsMenuBuilder.Config.Save());
+                IngameMenuHandler.RegisterOnSaveEvent(() => optionsMenuBuilder.ConfigFileMetadata.Config.Save());
 
             if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.QuitGame))
-                IngameMenuHandler.RegisterOnQuitEvent(() => optionsMenuBuilder.Config.Save());
+                IngameMenuHandler.RegisterOnQuitEvent(() => optionsMenuBuilder.ConfigFileMetadata.Config.Save());
 
-            return optionsMenuBuilder.Config;
+            return optionsMenuBuilder.ConfigFileMetadata.Config;
         }
     }
 }

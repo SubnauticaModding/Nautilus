@@ -3,7 +3,7 @@
     using Json;
     using System.Collections.Generic;
 
-    internal class ModOptionMetadata<T> where T : ConfigFile, new()
+    internal class ModOptionAttributeMetadata<T> where T : ConfigFile, new()
     {
         public ModOptionAttribute ModOptionAttribute;
         public MemberInfoMetadata<T> MemberInfoMetadata;

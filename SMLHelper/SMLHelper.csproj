@@ -191,8 +191,9 @@
     <Compile Include="Interfaces\IWorldEntityDatabaseHandler.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MonoBehaviours\Fixer.cs" />
+    <Compile Include="Options\Attributes\ConfigFileMetadata.cs" />
     <Compile Include="Options\Attributes\MemberInfoMetadata.cs" />
-    <Compile Include="Options\Attributes\ModOptionMetadata.cs" />
+    <Compile Include="Options\Attributes\ModOptionAttributeMetadata.cs" />
     <Compile Include="Options\ButtonModOption.cs" />
     <Compile Include="Options\Attributes\ChoiceAttribute.cs" />
     <Compile Include="Options\ChoiceModOption.cs" />
