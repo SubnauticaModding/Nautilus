@@ -140,45 +140,44 @@
         /// <summary>
         /// Checks whether a given <see cref="MemberInfo"/> should be ignored when generating the options menu, based on whether
         /// the member has a declared <see cref="IgnoreMemberAttribute"/>, or the <see cref="menuAttribute"/>'s
-        /// <see cref="MenuAttribute.IgnoreUnattributedMembers"/> property.
+        /// <see cref="MenuAttribute.MemberProcessing"/> property.
         /// </summary>
         /// <param name="memberInfo">The <see cref="MemberInfo"/> to check.</param>
         /// <returns>Whether the given <see cref="MemberInfo"/> member should be ignored when generating the options menu.</returns>
         private bool MemberIsNotIgnored(MemberInfo memberInfo)
         {
             if (Attribute.IsDefined(memberInfo, typeof(IgnoreMemberAttribute)))
-            {
                 return false;
-            }
-            else if (!menuAttribute.IgnoreUnattributedMembers)
+
+            switch (menuAttribute.MemberProcessing)
             {
-                if (memberInfo is MethodInfo)
-                {
-                    if (Attribute.IsDefined(memberInfo, typeof(ButtonAttribute), true))
-                        return true;
+                case MenuAttribute.Members.OptOut:
+                    if (memberInfo is MethodInfo)
+                    {
+                        if (Attribute.IsDefined(memberInfo, typeof(ButtonAttribute), true))
+                            return true;
 
-                    IEnumerable<MemberInfoMetadata<T>> eventMetadatas
-                        = modOptionsMetadata.Values.SelectMany(modOptionsMetadata =>
-                        {
-                            IEnumerable<MemberInfoMetadata<T>> result = new List<MemberInfoMetadata<T>>();
+                        IEnumerable<MemberInfoMetadata<T>> eventMetadatas
+                            = modOptionsMetadata.Values.SelectMany(modOptionsMetadata =>
+                            {
+                                IEnumerable<MemberInfoMetadata<T>> result = new List<MemberInfoMetadata<T>>();
 
-                            if (modOptionsMetadata.OnChangeMetadata != null)
-                                result.Concat(modOptionsMetadata.OnChangeMetadata);
+                                if (modOptionsMetadata.OnChangeMetadata != null)
+                                    result.Concat(modOptionsMetadata.OnChangeMetadata);
 
-                            if (modOptionsMetadata.OnGameObjectCreatedMetadata != null)
-                                result.Concat(modOptionsMetadata.OnGameObjectCreatedMetadata);
+                                if (modOptionsMetadata.OnGameObjectCreatedMetadata != null)
+                                    result.Concat(modOptionsMetadata.OnGameObjectCreatedMetadata);
 
-                            return result;
-                        });
-                    return eventMetadatas.Any(memberInfoMetadata => memberInfoMetadata.Name == memberInfo.Name);
-                }
+                                return result;
+                            });
+                        return eventMetadatas.Any(memberInfoMetadata => memberInfoMetadata.Name == memberInfo.Name);
+                    }
+                    return true;
 
-                return true;
-            }
-            else
-            {
-                return Attribute.IsDefined(memberInfo, typeof(ModOptionAttribute), true) ||
-                    Attribute.IsDefined(memberInfo, typeof(ModOptionEventAttribute), true);
+                default:
+                case MenuAttribute.Members.OptIn:
+                    return Attribute.IsDefined(memberInfo, typeof(ModOptionAttribute), true) ||
+                        Attribute.IsDefined(memberInfo, typeof(ModOptionEventAttribute), true);
             }
         }
 

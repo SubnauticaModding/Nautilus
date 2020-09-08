@@ -6,7 +6,7 @@
 
     /// <summary>
     /// Attribute used to signify a <see cref="ModOptions"/> menu should be automatically generated from a
-    /// <see cref="ConfigFile"/>, as well as specifying options for handling the <see cref="Json.ConfigFile"/>
+    /// <see cref="ConfigFile"/>, as well as specifying options for handling the <see cref="ConfigFile"/>
     /// and <see cref="ModOptions"/> menu.
     /// </summary>
     /// <example>
@@ -142,6 +142,23 @@
         }
 
         /// <summary>
+        /// Specifies which members of the <see cref="ConfigFile"/> will be parsed and added to the menu.
+        /// </summary>
+        public enum Members
+        {
+            /// <summary>
+            /// Only <see langword="public"/> members attributed with a <see cref="ModOptionAttribute"/> derivative such as 
+            /// <see cref="SliderAttribute"/>, <see cref="ChoiceAttribute"/> etc. will be processed.
+            /// </summary>
+            OptIn,
+            /// <summary>
+            /// All <see langword="public"/> members will be processed, and where they are not attributed, a default attribute
+            /// will be generated for them.
+            /// </summary>
+            OptOut
+        }
+
+        /// <summary>
         /// The display name for the generated options menu.
         /// </summary>
         public string Name { get; }
@@ -163,13 +180,14 @@
         public LoadEvents LoadOn { get; set; } = LoadEvents.MenuRegistered;
 
         /// <summary>
-        /// Whether or not members with no relevant attributes should be ignored when generating the menu.
-        /// Defaults to <see langword="false"/>.
+        /// How members of the <see cref="ConfigFile"/> will be processed.
+        /// Defaults to <see cref="Members.OptIn"/>, so that only <see langword="public"/> attributed members will be processed.
         /// </summary>
-        public bool IgnoreUnattributedMembers { get; set; } = false;
+        /// <seealso cref="Members"/>
+        public Members MemberProcessing { get; set; } = Members.OptIn;
 
         /// <summary>
-        /// Signifies a <see cref="ModOptions"/> menu should be automatically generated from a <see cref="Json.ConfigFile"/>.
+        /// Signifies a <see cref="ModOptions"/> menu should be automatically generated from a <see cref="ConfigFile"/>.
         /// </summary>
         /// <param name="name">The display name for the generated options menu.</param>
         public MenuAttribute(string name)

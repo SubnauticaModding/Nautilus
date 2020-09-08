@@ -4,11 +4,11 @@
     using System;
 
     /// <summary>
-    /// Attribute used to signify the given property, field or method should be ignored when generating your mod options menu.
+    /// <para>Attribute used to signify the given property, field or method should be ignored when generating your mod options menu.</para>
     /// </summary>
     /// <remarks>
-    /// It is also possible to ignore any members that don't have any relevant attributes by setting the
-    /// <see cref="MenuAttribute.IgnoreUnattributedMembers"/> property to <see langword="true"/>.
+    /// By default, all members are ignored unless they are attributed with a <see cref="ModOptionAttribute"/> derivative,
+    /// unless the <see cref="MenuAttribute.MemberProcessing"/> property is set to <see cref="MenuAttribute.Members.OptOut"/>.
     /// </remarks>
     /// <example>
     /// <code>
@@ -33,7 +33,8 @@
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="ButtonAttribute"/>
     /// <seealso cref="ConfigFile"/>
-    /// <seealso cref="MenuAttribute.IgnoreUnattributedMembers"/>
+    /// <seealso cref="MenuAttribute.MemberProcessing"/>
+    /// <seealso cref="MenuAttribute.Members"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method, AllowMultiple = false)]
     public sealed class IgnoreMemberAttribute : Attribute { }
 }
