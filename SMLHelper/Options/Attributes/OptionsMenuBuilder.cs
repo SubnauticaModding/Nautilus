@@ -1,6 +1,5 @@
-﻿namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.V2.Options.Attributes
 {
-    using Attributes;
     using HarmonyLib;
     using Interfaces;
     using Json;

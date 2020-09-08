@@ -195,7 +195,7 @@
     <Compile Include="Options\Attributes\ChoiceAttribute.cs" />
     <Compile Include="Options\ChoiceModOption.cs" />
     <Compile Include="Json\ConfigFile.cs" />
-    <Compile Include="Options\OptionsMenuBuilder.cs" />
+    <Compile Include="Options\Attributes\OptionsMenuBuilder.cs" />
     <Compile Include="Options\Attributes\IgnoreMemberAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventArgs.cs" />
     <Compile Include="Options\Attributes\KeybindAttribute.cs" />
