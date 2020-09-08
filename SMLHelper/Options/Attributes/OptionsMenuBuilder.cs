@@ -439,7 +439,7 @@
                 ModOptionAttributeMetadata<T> modOptionMetadata = entry.Value;
 
                 Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
-                    $"{modOptionMetadata.ModOptionAttribute.GetType()}");
+                    $"{modOptionMetadata.ModOptionAttribute.GetType().Name}");
                 Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] Label: {modOptionMetadata.ModOptionAttribute.Label}");
 
                 string label = modOptionMetadata.ModOptionAttribute.Label;
