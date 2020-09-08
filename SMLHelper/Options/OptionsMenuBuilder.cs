@@ -659,55 +659,65 @@
             var id = modOptionMetadata.ModOptionAttribute.Id;
             var memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
 
-            if (modOptionMetadata.ModOptionAttribute is ChoiceAttribute choiceAttribute)
+            switch (modOptionMetadata.ModOptionAttribute)
             {
-                if (memberInfoMetadata.ValueType.IsEnum && (choiceAttribute.Options == null || !choiceAttribute.Options.Any()))
-                {
+                case ChoiceAttribute choiceAttribute when (memberInfoMetadata.ValueType.IsEnum && (choiceAttribute.Options == null || !choiceAttribute.Options.Any())):
                     // Enum-based choice where the values are parsed from the enum type
-                    string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
-                    string value = memberInfoMetadata.GetValue(Config).ToString();
-                    var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
-                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-                }
-                else if (memberInfoMetadata.ValueType.IsEnum)
-                {
+                    {
+                        string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
+                        string value = memberInfoMetadata.GetValue(Config).ToString();
+                        var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                    }
+                    break;
+                case ChoiceAttribute _ when memberInfoMetadata.ValueType.IsEnum:
                     // Enum-based choice where the values are defined as custom strings
-                    string value = memberInfoMetadata.GetValue(Config).ToString();
-                    int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
-                    var eventArgs = new ChoiceChangedEventArgs(id, index, value);
-                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-                }
-                else if (memberInfoMetadata.ValueType == typeof(string))
-                {
+                    {
+                        string value = memberInfoMetadata.GetValue(Config).ToString();
+                        int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
+                        var eventArgs = new ChoiceChangedEventArgs(id, index, value);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                    }
+                    break;
+                case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType == typeof(string):
                     // string-based choice value
-                    string[] options = choiceAttribute.Options;
-                    string value = memberInfoMetadata.GetValue<string>(Config);
-                    var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
-                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-                }
-                else if (memberInfoMetadata.ValueType == typeof(int))
-                {
+                    {
+                        string[] options = choiceAttribute.Options;
+                        string value = memberInfoMetadata.GetValue<string>(Config);
+                        var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                    }
+                    break;
+                case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType == typeof(int):
                     // index-based choice value
-                    string[] options = choiceAttribute.Options;
-                    int index = memberInfoMetadata.GetValue<int>(Config);
-                    var eventArgs = new ChoiceChangedEventArgs(id, index, options[index]);
-                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-                }
-            }
-            else if (modOptionMetadata.ModOptionAttribute is KeybindAttribute)
-            {
-                var eventArgs = new KeybindChangedEventArgs(id, memberInfoMetadata.GetValue<KeyCode>(Config));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
-            else if (modOptionMetadata.ModOptionAttribute is SliderAttribute)
-            {
-                var eventArgs = new SliderChangedEventArgs(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
-            else if (modOptionMetadata.ModOptionAttribute is ToggleAttribute)
-            {
-                var eventArgs = new ToggleChangedEventArgs(id, memberInfoMetadata.GetValue<bool>(Config));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                    {
+                        string[] options = choiceAttribute.Options;
+                        int index = memberInfoMetadata.GetValue<int>(Config);
+                        var eventArgs = new ChoiceChangedEventArgs(id, index, options[index]);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                    }
+                    break;
+
+                case KeybindAttribute _:
+                    {
+                        var eventArgs = new KeybindChangedEventArgs(id, memberInfoMetadata.GetValue<KeyCode>(Config));
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                    }
+                    break;
+
+                case SliderAttribute _:
+                    {
+                        var eventArgs = new SliderChangedEventArgs(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                    }
+                    break;
+
+                case ToggleAttribute _:
+                    {
+                        var eventArgs = new ToggleChangedEventArgs(id, memberInfoMetadata.GetValue<bool>(Config));
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                    }
+                    break;
             }
         }
 
@@ -833,25 +843,23 @@
 
                 var label = modOptionMetadata.ModOptionAttribute.Label;
 
-                if (modOptionMetadata.ModOptionAttribute is ButtonAttribute)
+                switch (modOptionMetadata.ModOptionAttribute)
                 {
-                    BuildModButtonOption(id, label);
-                }
-                else if (modOptionMetadata.ModOptionAttribute is ChoiceAttribute choiceAttribute)
-                {
-                    BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
-                }
-                else if (modOptionMetadata.ModOptionAttribute is KeybindAttribute)
-                {
-                    BuildModKeybindOption(id, label, modOptionMetadata.MemberInfoMetadata);
-                }
-                else if (modOptionMetadata.ModOptionAttribute is SliderAttribute sliderAttribute)
-                {
-                    BuildModSliderOption(id, label, modOptionMetadata.MemberInfoMetadata, sliderAttribute);
-                }
-                else if (modOptionMetadata.ModOptionAttribute is ToggleAttribute)
-                {
-                    BuildModToggleOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                    case ButtonAttribute _:
+                        BuildModButtonOption(id, label);
+                        break;
+                    case ChoiceAttribute choiceAttribute:
+                        BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
+                        break;
+                    case KeybindAttribute _:
+                        BuildModKeybindOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                        break;
+                    case SliderAttribute sliderAttribute:
+                        BuildModSliderOption(id, label, modOptionMetadata.MemberInfoMetadata, sliderAttribute);
+                        break;
+                    case ToggleAttribute _:
+                        BuildModToggleOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                        break;
                 }
             }
         }
