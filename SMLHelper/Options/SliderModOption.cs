@@ -87,7 +87,7 @@
         /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
         /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
         /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
-        
+
         protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = null)
         {
             AddSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, 0.05f);
@@ -154,7 +154,7 @@
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
 #if SUBNAUTICA
-            
+
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue,
                 new UnityAction<float>((float value) =>
                 {
@@ -270,6 +270,10 @@
                 if (Step >= Mathf.Epsilon)
                 {
                     var value = Mathf.Round(slider.value / Step) * Step;
+
+                    if (value != sliderValue)
+                        slider.value = value;
+
                     return value;
                 }
                 else
