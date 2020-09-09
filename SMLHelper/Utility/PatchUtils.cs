@@ -56,8 +56,8 @@
             {
                 HarmonyMethod _method_if<H>() => method.IsDefined(typeof(H))? new HarmonyMethod(method): null;
 
-                if (method.GetCustomAttribute<HarmonyPatch>() is HarmonyPatch harmonyPatch)
-                    harmony.Patch(_getTargetMethod(harmonyPatch.info), _method_if<Prefix>(), _method_if<Postfix>(), _method_if<Transpiler>());
+                if (method.GetCustomAttribute<HarmonyPatch>() is HarmonyPatch harmonyPatch && _getTargetMethod(harmonyPatch.info) is MethodInfo targetMethod)
+                    harmony.Patch(targetMethod, _method_if<Prefix>(), _method_if<Postfix>(), _method_if<Transpiler>());
             }
         }
     }
