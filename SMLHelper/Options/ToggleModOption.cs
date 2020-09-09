@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.V2.Options
 {
+    using Interfaces;
     using System;
     using System.Collections;
     using UnityEngine;
@@ -8,7 +9,7 @@
     /// <summary>
     /// Contains all the information about a toggle changed event.
     /// </summary>
-    public class ToggleChangedEventArgs : EventArgs
+    public class ToggleChangedEventArgs : EventArgs, IModOptionEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModToggleOption"/> that was changed.

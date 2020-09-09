@@ -1,11 +1,11 @@
 ﻿namespace SMLHelper.V2.Options
 {
+    using Interfaces;
     using System;
     using System.Collections;
     using SMLHelper.V2.Utility;
     using UnityEngine;
     using UnityEngine.Events;
-    using UnityEngine.UI;
 #if SUBNAUTICA
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO
@@ -15,7 +15,7 @@
     /// <summary>
     /// Contains all the information about a keybind changed event.
     /// </summary>
-    public class KeybindChangedEventArgs : EventArgs
+    public class KeybindChangedEventArgs : EventArgs, IModOptionEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModKeybindOption"/> that was changed.

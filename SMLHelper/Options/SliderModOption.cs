@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.V2.Options
 {
+    using Interfaces;
     using System;
     using System.Reflection;
     using System.Collections;
@@ -15,7 +16,7 @@
     /// <summary>
     /// Contains all the information about a slider changed event.
     /// </summary>
-    public class SliderChangedEventArgs : EventArgs
+    public class SliderChangedEventArgs : EventArgs, IModOptionEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModSliderOption"/> that was changed.
@@ -72,7 +73,7 @@
         /// <param name="value">The starting value.</param>
         protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value)
         {
-            AddSliderOption(id, label, minValue, maxValue, value, null, null);
+            AddSliderOption(id, label, minValue, maxValue, value, null, null, 0.05f);
         }
 
         /// <summary>
@@ -88,7 +89,24 @@
         /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
         protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = null)
         {
-            AddOption(new ModSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat));
+            AddSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, 0.05f);
+        }
+
+        /// <summary>
+        /// Adds a new <see cref="ModSliderOption"/> to this instance.
+        /// </summary>
+        /// <param name="id">The internal ID for the slider option.</param>
+        /// <param name="label">The display text to use in the in-game menu.</param>
+        /// <param name="minValue">The minimum value for the range.</param>
+        /// <param name="maxValue">The maximum value for the range.</param>
+        /// <param name="value">The starting value.</param>
+        /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
+        /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
+        /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
+        /// <param name="step">Step for the slider, ie. round to nearest X</param>
+        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = null, float step = 0.05f)
+        {
+            AddOption(new ModSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, step));
         }
     }
 
@@ -118,37 +136,62 @@
         /// </summary>
         public float DefaultValue { get; }
 
-#if BELOWZERO
         /// <summary>
         /// The step value of the <see cref="ModSliderOption"/>.
         /// Defaults to 0.05f same as default code.
         /// </summary>
         public float Step { get; } = 0.05f;
-#endif
 
         /// <summary> Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string)"/>) </summary>
         public string ValueFormat { get; }
 
         private SliderValue sliderValue = null;
 
+#if !BELOWZERO_EXP
+        private float previousValue;
+#endif
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-#if SUBNAUTICA
-            
-            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue,
-                new UnityAction<float>((float value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value)));
-#elif BELOWZERO
-
-            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step,
-                new UnityAction<float>((float value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value)));
+#if BELOWZERO_EXP
+            UnityAction<float> callback = new UnityAction<float>((value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value));
+#else
+            UnityAction<float> callback = new UnityAction<float>((value) =>
+            {
+                value = sliderValue?.ConvertToDisplayValue(value) ?? value;
+                if (value != previousValue)
+                {
+                    previousValue = value;
+                    parentOptions.OnSliderChange(Id, value);
+                }
+            });
 #endif
+
+#if SUBNAUTICA
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, callback);
+#elif BELOWZERO_STABLE
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback);
+#elif BELOWZERO_EXP
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, "0.0");
+#endif
+
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
 
+#if BELOWZERO_EXP
             // if we using custom value format, we need to replace vanilla uGUI_SliderWithLabel with our component
             if (ValueFormat != null)
                 OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>().ValueFormat = ValueFormat;
+#else
+            // if we using custom value format or step, we need to replace vanilla uGUI_SliderWithLabel with our component
+            if (ValueFormat != null || Step >= Mathf.Epsilon)
+            {
+                var sliderValue = OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>();
+                sliderValue.Step = Step;
+                if (ValueFormat != null)
+                    sliderValue.ValueFormat = ValueFormat;
+            }
+#endif
 
             base.AddToPanel(panel, tabIndex);
 
@@ -164,14 +207,16 @@
         /// <param name="maxValue">The maximum value for the range.</param>
         /// <param name="value">The starting value.</param>
         /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
-        /// <param name="valueFormat">Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string)"/>) </param>
-        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = null) : base(label, id)
+        /// <param name="valueFormat">Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string, float)"/>) </param>
+        /// <param name="step">Step for the slider ie. round to nearest X</param>
+        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = null, float step = 0.05f) : base(label, id)
         {
-            this.MinValue = minValue;
-            this.MaxValue = maxValue;
-            this.Value = value;
-            this.DefaultValue = defaultValue ?? value;
-            this.ValueFormat = valueFormat;
+            MinValue = minValue;
+            MaxValue = maxValue;
+            Value = value;
+            DefaultValue = defaultValue ?? value;
+            ValueFormat = valueFormat;
+            Step = step;
         }
 
         /// <summary>
@@ -182,7 +227,7 @@
         /// in that case internal range for slider will be changed to [0.0f : 1.0f] and you can control displayed value with these converters
         /// (also this value will be passed to <see cref="ModOptions.OnSliderChange"/> event)
         /// </summary>
-        public class SliderValue: MonoBehaviour
+        public class SliderValue : MonoBehaviour
         {
             /// <summary> The value label of the <see cref="SliderValue"/> </summary>
             protected Text label;
@@ -212,6 +257,9 @@
             /// <summary> Custom value format </summary>
             protected string valueFormat = "{0}";
 
+            /// <summary> Step for the slider </summary>
+            internal float Step;
+
             /// <summary>
             /// Width for value text field. Used by <see cref="SliderOptionAdjust"/> to adjust label width.
             /// It is calculated in <see cref="UpdateValueWidth"/>, but you can override this property.
@@ -219,10 +267,23 @@
             public virtual float ValueWidth { get; protected set; } = -1f;
 
             /// <summary> Override this if you need to initialize custom value converters </summary>
-            protected virtual void InitConverters() {}
+            protected virtual void InitConverters() { }
 
             /// <summary> Converts internal slider value [0.0f : 1.0f] to displayed value </summary>
-            public virtual float ConvertToDisplayValue(float sliderValue) => sliderValue;
+            public virtual float ConvertToDisplayValue(float sliderValue)
+            {
+                if (Step >= Mathf.Epsilon)
+                {
+                    var value = Mathf.Round(slider.value / Step) * Step;
+
+                    if (value != sliderValue)
+                        slider.value = value;
+
+                    return value;
+                }
+                else
+                    return sliderValue;
+            }
 
             /// <summary> Converts displayed value to internal slider value [0.0f : 1.0f] </summary>
             public virtual float ConvertToSliderValue(float displayValue) => displayValue;
@@ -241,7 +302,7 @@
 
                 if (GetComponent<uGUI_SliderWithLabel>() is uGUI_SliderWithLabel sliderLabel)
                 {
-                    label  = sliderLabel.label;
+                    label = sliderLabel.label;
                     slider = sliderLabel.slider;
                     Destroy(sliderLabel);
                 }
@@ -312,8 +373,7 @@
             }
         }
 
-
-        private class SliderOptionAdjust: ModOptionAdjust
+        private class SliderOptionAdjust : ModOptionAdjust
         {
 #if SUBNAUTICA
             private const string sliderBackground = "Slider/Background";
@@ -326,7 +386,7 @@
 
             public IEnumerator Start()
             {
-                SetCaptionGameObject("Slider/Caption", isMainMenu? 488f: 364.7f); // need to use custom width for slider's captions
+                SetCaptionGameObject("Slider/Caption", isMainMenu ? 488f : 364.7f); // need to use custom width for slider's captions
                 yield return null; // skip one frame
 
                 float sliderValueWidth = 0f;
@@ -337,7 +397,7 @@
                     while (sliderValue.ValueWidth < 0)
                         yield return null;
 
-                    sliderValueWidth = sliderValue.ValueWidth + (isMainMenu? 0f: valueSpacing);
+                    sliderValueWidth = sliderValue.ValueWidth + (isMainMenu ? 0f : valueSpacing);
                 }
 
                 // changing width for slider value label (we don't change width for default format!)
@@ -360,7 +420,7 @@
                 // changing width for slider
                 float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
                 float widthSlider = rect.rect.width;
-                float widthText = CaptionWidth + (isMainMenu? spacing_MainMenu: spacing_GameMenu);
+                float widthText = CaptionWidth + (isMainMenu ? spacing_MainMenu : spacing_GameMenu);
 
                 // it's not pixel-perfect, but it's good enough
                 if (widthText + widthSlider + sliderValueWidth > widthAll)
