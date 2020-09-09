@@ -4,11 +4,11 @@
     using System;
 
     /// <summary>
-    /// <para>Attribute used to signify the given property, field or method should be ignored when generating your mod options menu.</para>
+    /// Attribute used to signify the given property, field or method should be ignored when generating your mod options menu.
     /// </summary>
     /// <remarks>
-    /// By default, all members are ignored unless they are attributed with a <see cref="ModOptionAttribute"/> derivative,
-    /// unless the <see cref="MenuAttribute.MemberProcessing"/> property is set to <see cref="MenuAttribute.Members.OptOut"/>.
+    /// By default, all members are ignored unless either they are attributed with a <see cref="ModOptionAttribute"/> derivative,
+    /// or the <see cref="MenuAttribute.MemberProcessing"/> property is set to <see cref="MenuAttribute.Members.Implicit"/>.
     /// </remarks>
     /// <example>
     /// <code>

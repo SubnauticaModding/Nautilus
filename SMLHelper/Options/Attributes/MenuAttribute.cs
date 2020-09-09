@@ -150,12 +150,12 @@
             /// Only <see langword="public"/> members attributed with a <see cref="ModOptionAttribute"/> derivative such as 
             /// <see cref="SliderAttribute"/>, <see cref="ChoiceAttribute"/> etc. will be processed.
             /// </summary>
-            OptIn,
+            Explicit,
             /// <summary>
             /// All <see langword="public"/> members will be processed, and where they are not attributed, a default attribute
             /// will be generated for them.
             /// </summary>
-            OptOut
+            Implicit
         }
 
         /// <summary>
@@ -181,10 +181,10 @@
 
         /// <summary>
         /// How members of the <see cref="ConfigFile"/> will be processed.
-        /// Defaults to <see cref="Members.OptIn"/>, so that only <see langword="public"/> attributed members will be processed.
+        /// Defaults to <see cref="Members.Explicit"/>, so that only <see langword="public"/> attributed members will be processed.
         /// </summary>
         /// <seealso cref="Members"/>
-        public Members MemberProcessing { get; set; } = Members.OptIn;
+        public Members MemberProcessing { get; set; } = Members.Explicit;
 
         /// <summary>
         /// Signifies a <see cref="ModOptions"/> menu should be automatically generated from a <see cref="ConfigFile"/>.

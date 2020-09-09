@@ -108,7 +108,7 @@
 
             switch (MenuAttribute.MemberProcessing)
             {
-                case MenuAttribute.Members.OptOut:
+                case MenuAttribute.Members.Implicit:
                     if (memberInfo is MethodInfo)
                     {
                         if (Attribute.IsDefined(memberInfo, typeof(ButtonAttribute), true))
@@ -131,7 +131,7 @@
                     }
                     return true;
 
-                case MenuAttribute.Members.OptIn:
+                case MenuAttribute.Members.Explicit:
                     return Attribute.IsDefined(memberInfo, typeof(ModOptionAttribute), true) ||
                         Attribute.IsDefined(memberInfo, typeof(ModOptionEventAttribute), true);
 
