@@ -148,32 +148,41 @@
 
         private SliderValue sliderValue = null;
 
-#if SUBNAUTICA
+#if !BELOWZERO_EXP
         private float previousValue;
 #endif
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-#if SUBNAUTICA
-
-            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue,
-                new UnityAction<float>((float value) =>
+#if BELOWZERO_EXP
+            UnityAction<float> callback = new UnityAction<float>((value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value));
+#else
+            UnityAction<float> callback = new UnityAction<float>((value) =>
+            {
+                value = sliderValue?.ConvertToDisplayValue(value) ?? value;
+                if (value != previousValue)
                 {
-                    value = sliderValue?.ConvertToDisplayValue(value) ?? value;
-                    if (value != previousValue)
-                    {
-                        previousValue = value;
-                        parentOptions.OnSliderChange(Id, value);
-                    }
-                }));
+                    previousValue = value;
+                    parentOptions.OnSliderChange(Id, value);
+                }
+            });
+#endif
+
+#if BELOWZERO_EXP
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, 0);
 #elif BELOWZERO
-            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step,
-                new UnityAction<float>((float value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value)));
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback);
+#else
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, callback);
 #endif
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
 
-#if SUBNAUTICA
+#if BELOWZERO_EXP
+            // if we using custom value format, we need to replace vanilla uGUI_SliderWithLabel with our component
+            if (ValueFormat != null)
+                OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>().ValueFormat = ValueFormat;
+#else
             // if we using custom value format or step, we need to replace vanilla uGUI_SliderWithLabel with our component
             if (ValueFormat != null || Step >= Mathf.Epsilon)
             {
@@ -182,10 +191,6 @@
                 if (ValueFormat != null)
                     sliderValue.ValueFormat = ValueFormat;
             }
-#elif BELOWZERO
-            // if we using custom value format or step, we need to replace vanilla uGUI_SliderWithLabel with our component
-            if (ValueFormat != null)
-                OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>().ValueFormat = ValueFormat;
 #endif
 
             base.AddToPanel(panel, tabIndex);
