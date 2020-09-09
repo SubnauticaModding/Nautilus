@@ -167,13 +167,14 @@
             });
 #endif
 
-#if BELOWZERO_EXP
-            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, 0);
-#elif BELOWZERO
-            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback);
-#else
+#if SUBNAUTICA
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, callback);
+#elif BELOWZERO_STABLE
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback);
+#elif BELOWZERO_EXP
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, 0);
 #endif
+
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
