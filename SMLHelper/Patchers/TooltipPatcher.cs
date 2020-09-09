@@ -28,10 +28,13 @@
 
             harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech)),
                 transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
-
+#if BELOWZERO_EXP
+            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe)),
+                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
+#else
             harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.Recipe)),
                 transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
-
+#endif
             Logger.Log("TooltipPatcher is done.", LogLevel.Debug);
         }
 
@@ -109,7 +112,7 @@
             return type <= TechType.Databox;
         }
 
-        #region Options
+#region Options
 
         internal enum ExtraItemInfo
         {
@@ -185,9 +188,9 @@
             }
         }
 
-        #endregion
+#endregion
 
-        #region Patches
+#region Patches
 
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase method)
         {
@@ -231,6 +234,6 @@
             return codes;
         }
 
-        #endregion
+#endregion
     }
 }

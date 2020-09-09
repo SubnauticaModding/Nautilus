@@ -171,7 +171,7 @@
 #elif BELOWZERO_STABLE
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback);
 #elif BELOWZERO_EXP
-            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, 0);
+            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, "0.0");
 #endif
 
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack

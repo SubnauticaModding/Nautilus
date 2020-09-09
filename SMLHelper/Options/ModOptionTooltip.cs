@@ -10,6 +10,13 @@
 
         void Awake() => Destroy(GetComponent<LayoutElement>());
 
+#if BELOWZERO_EXP
+        public void GetTooltip(TooltipData tooltip)
+        {
+            tooltip.prefix.Append(Tooltip);
+        }
+#else
         public void GetTooltip(out string tooltipText, List<TooltipIcon> _) => tooltipText = Tooltip;
+#endif
     }
 }
