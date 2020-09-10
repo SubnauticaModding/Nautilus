@@ -28,8 +28,6 @@ namespace SMLHelper.V2.Examples
             Logger.Log(Logger.Level.Info, "Patched successfully!");
         }
 
-        public static object Test(bool param1) { return param1; }
-
         /// <summary>
         /// <para>Here, we are using the <see cref="ConsoleCommandAttribute"/> to define a custom console command.</para>
         /// 
