@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.V2
 {
-    using SMLHelper.V2.ExtensionMethods;
+    using ExtensionMethods;
     using System;
     using System.IO;
     using System.Reflection;
