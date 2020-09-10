@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.V2
 {
+    using SMLHelper.V2.ExtensionMethods;
     using System;
     using System.IO;
     using System.Reflection;
@@ -46,7 +47,7 @@
             {
                 EnableDebugging = bool.Parse(fileContents);
 
-                Log($"Enable debug logs set to: {EnableDebugging.ToString()}", LogLevel.Info);
+                Log($"Enable debug logs set to: {EnableDebugging}", LogLevel.Info);
             }
             catch (Exception)
             {
@@ -72,7 +73,7 @@
             Initialize();
 
             if (level >= LogLevel.Info || EnableDebugging)
-                Console.WriteLine($"[SMLHelper/{level.ToString()}] {text}");
+                Console.WriteLine($"[SMLHelper/{level}] {text}");
         }
 
         internal static void Log(string text, LogLevel level = LogLevel.Info, params object[] args)
@@ -83,7 +84,7 @@
                 text = string.Format(text, args);
 
             if (level >= LogLevel.Info || EnableDebugging)
-                Console.WriteLine($"[SMLHelper/{level.ToString()}] {text}");
+                Console.WriteLine($"[SMLHelper/{level}] {text}");
         }
 
         internal static void Announce(string text, LogLevel level = LogLevel.Info, bool logToFile = false)
@@ -93,7 +94,7 @@
             ErrorMessage.AddMessage(text);
 
             if (logToFile)
-                Log(text, level);
+                Log(text.StripXML(), level);
         }
 
         internal static void Announce(string text, LogLevel level = LogLevel.Info, bool logToFile = false, params object[] args)
@@ -103,7 +104,7 @@
             ErrorMessage.AddMessage(string.Format(text, args));
 
             if (logToFile)
-                Log(text, level, args);
+                Log(text.StripXML(), level, args);
         }
     }
 }

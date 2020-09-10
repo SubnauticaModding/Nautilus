@@ -1,9 +1,12 @@
-﻿using QModManager.API.ModLoading;
+﻿using HarmonyLib;
+using QModManager.API.ModLoading;
+using SMLHelper.V2.Commands;
 using SMLHelper.V2.Handlers;
 using SMLHelper.V2.Interfaces;
 using SMLHelper.V2.Json;
 using SMLHelper.V2.Options;
 using SMLHelper.V2.Options.Attributes;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Logger = QModManager.Utility.Logger;
@@ -24,6 +27,42 @@ namespace SMLHelper.V2.Examples
         {
             Logger.Log(Logger.Level.Info, "Patched successfully!");
         }
+
+        public static object Test(bool param1) { return param1; }
+
+        /// <summary>
+        /// <para>Here, we are using the <see cref="ConsoleCommandAttribute"/> to define a custom console command.</para>
+        /// 
+        /// <para>This method will respond to the "mycommand" command from the dev console. The command will respect the method
+        /// signature of the attributed method, passing values following "mycommand" as the correct types, as long as they can be
+        /// parsed to that type. For example, "mycommand foo 3 true" would be a valid command for this method signature.</para>
+        /// 
+        /// <para>The attributed method must be both <see langword="public"/> and <see langword="static"/>, or the attribute will
+        /// be ignored. <see cref="ConsoleCommandsHandler.RegisterConsoleCommand(string, Type, string, Type[])"/> allows for
+        /// targeting non-<see langword="public"/> methods (must still be <see langword="static"/>), and uses a
+        /// similar syntax to <see cref="HarmonyPatch"/> for defining the target method.</para>
+        /// 
+        /// <para>Commands are case-insensitive, but the subsequent parameters sent to your method are not, so you should convert
+        /// strings to lowercase using <see cref="string.ToLowerInvariant"/> if you are using them as an option switch.</para>
+        /// 
+        /// <para>Commands must be unique. If another mod has already added the command, your command will be rejected - so make
+        /// sure you pick a unique command!</para>
+        /// 
+        /// <para>If the user enters incorrect parameters for a command, they will be notified of the expected parameter types,
+        /// both on-screen and in the log.</para>
+        /// 
+        /// <para>Optionally, a custom command can have a return type. If it does, whatever is returned will be printed both
+        /// on-screen and in the log after being converted to a string.</para>
+        /// </summary>
+        /// <param name="myString"></param>
+        /// <param name="myInt"></param>
+        /// <param name="myBool"></param>
+        /// <returns></returns>
+        [ConsoleCommand("mycommand")]
+        public static string MyCustomCommand(string myString, int myInt, bool myBool = false)
+        {
+            return $"Parameters: {myString} {myInt} {myBool}";
+        }
     }
 
     public enum CustomChoice { One, Two, Three }
@@ -31,10 +70,10 @@ namespace SMLHelper.V2.Examples
     /// <summary>
     /// <para>The <see cref="MenuAttribute"/> allows us to set the title of our options menu in the "Mods" tab.</para>
     /// 
-    /// <para>Optionally, we can set the <see cref="MenuAttribute.SaveOn"/> or <see cref="MenuAttribute.LoadOn"/> properties to customise
-    /// when the values are saved to or loaded from disk respectively. By default, the values will be saved whenever they change,
-    /// and loaded from disk when the game is registered to the options menu, which in this example happens on game launch and
-    /// is the recommended setting.</para>
+    /// <para>Optionally, we can set the <see cref="MenuAttribute.SaveOn"/> or <see cref="MenuAttribute.LoadOn"/> properties to
+    /// customise when the values are saved to or loaded from disk respectively. By default, the values will be saved whenever
+    /// they change, and loaded from disk when the game is registered to the options menu, which in this example happens on game
+    /// launch and is the recommended setting.</para>
     /// 
     /// <para>Both of these values allow for bitwise combinations of their options, so
     /// <c>[Menu("SMLHelper Example Mod", LoadOn = MenuAttribute.LoadEvents.MenuRegistered | MenuAttribute.LoadEvents.MenuOpened)]</c>
@@ -55,9 +94,9 @@ namespace SMLHelper.V2.Examples
         /// up that array. As we are not specifiying a default value, the index will by 0 by default.</para>
         ///
         /// <para>The <see cref="OnChangeAttribute"/> is optional and allows us to specify the name of a method in the Config class to
-        /// call when the value has been changed via the options menu. Note that in many cases, you won't need to specify an OnChange event,
-        /// as the values are automatically saved to disk for you as specified by the <see cref="MenuAttribute"/>, and are updated in the
-        /// instance of <see cref="Config"/> returned when registering it to the options menu.</para>
+        /// call when the value has been changed via the options menu. Note that in many cases, you won't need to specify an OnChange
+        /// event, as the values are automatically saved to disk for you as specified by the <see cref="MenuAttribute"/>, and are
+        /// updated in the instance of <see cref="Config"/> returned when registering it to the options menu.</para>
         /// 
         /// <para>Here, we are specifying the name of a method which can handle any OnChange event, for the purposes of demonstrating
         /// its usage. See <see cref="MyGenericValueChangedEvent(IModOptionEventArgs)"/> for an example usage.</para>
@@ -104,50 +143,56 @@ namespace SMLHelper.V2.Examples
         /// minimum and maximum value. By default, the minimum value is 0 and maximum is 100.</para>
         /// 
         /// <para>Here, we are setting an initial value of 25 for the slider. We are also setting the
-        /// <see cref="SliderAttribute.DefaultValue"/> property so that this default can be represented by a notch in the slider.</para>
+        /// <see cref="SliderAttribute.DefaultValue"/> property so that this default can be represented by a notch in the slider.
+        /// </para>
         /// </summary>
         [Slider("My slider", 0, 50, DefaultValue = 25), OnChange(nameof(MyGenericValueChangedEvent))]
         public int SliderValue = 25;
 
         /// <summary>
-        /// <para>Here, we are defining a <see cref="SliderAttribute"/> with a step of 10, meaning that the value will only increment/decrement by 10,
-        /// resulting in possible values of 0, 10, 20, 30, and so on up to 100.</para>
+        /// <para>Here, we are defining a <see cref="SliderAttribute"/> with a step of 10, meaning that the value will only 
+        /// increment/decrement by 10, resulting in possible values of 0, 10, 20, 30, and so on up to 100.</para>
         /// 
-        /// <para>By default, an <see cref="int"/> has a step of 1, and a <see cref="float"/> or <see cref="double"/> has a step of 0.05.</para>
+        /// <para>By default, an <see cref="int"/> has a step of 1, and a <see cref="float"/> or <see cref="double"/>
+        /// has a step of 0.05.</para>
         /// </summary>
         [Slider("My stepped slider", Step = 10), OnChange(nameof(MyGenericValueChangedEvent))]
         public int SteppedSliderValue;
 
         /// <summary>
-        /// Here, we are defining a <see cref="SliderAttribute"/> with a format string which defines how the numeric value is displayed.
-        /// See <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings"/> for more info on
-        /// numeric format strings.
+        /// Here, we are defining a <see cref="SliderAttribute"/> with a format string which defines how the numeric value
+        /// is displayed.
+        /// See <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings"/> for more
+        /// info on numeric format strings.
         /// </summary>
         [Slider("My float-based slider", Format = "{0:F2}"), OnChange(nameof(MyGenericValueChangedEvent))]
         public float FloatSliderValue;
 
         /// <summary>
-        /// <para>A <see cref="ToggleAttribute"/> is used to represent a checkbox in the options menu and is backed by a <see cref="bool"/>.</para>
+        /// <para>A <see cref="ToggleAttribute"/> is used to represent a checkbox in the options menu
+        /// and is backed by a <see cref="bool"/>.</para>
         /// 
-        /// <para>Note that here we are defining two <see cref="OnChangeAttribute"/>s which correspond to different methods in the class.
-        /// They will both be fired when the value changed, but one of them is specific to this value only. See
+        /// <para>Note that here we are defining two <see cref="OnChangeAttribute"/>s which correspond to different methods
+        /// in the class. They will both be fired when the value changed, but one of them is specific to this value only. See
         /// <see cref="MyCheckboxToggleEvent(ToggleChangedEventArgs)"/> for an example usage.</para>
         /// </summary>
         [Toggle("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
         public bool ToggleValue;
 
         /// <summary>
-        /// <para>A <see cref="ButtonAttribute"/> is used to represent a button in the options menu, and is different to the other attributes above
-        /// in that it is backed by a public method rather than a field or property, and the method that is attributed with the
-        /// <see cref="ButtonAttribute"/> will be called when the corresponding button is clicked, allowing you to perform some custom action on demand
-        /// from the options menu.</para>
+        /// <para>A <see cref="ButtonAttribute"/> is used to represent a button in the options menu, and is different to the other
+        /// attributes above in that it is backed by a public method rather than a field or property, and the method that is
+        /// attributed with the <see cref="ButtonAttribute"/> will be called when the corresponding button is clicked, allowing you
+        /// to perform some custom action on demand from the options menu.</para>
         /// 
-        /// <para>Here, we are also defining an <see cref="OnGameObjectCreatedAttribute"/> to demonstrate its usage. In most cases, this attribute
-        /// will not be needed, but in some cases if you would like to perform some special action with the <see cref="GameObject"/> it can be useful.
-        /// See <see cref="MyGameObjectCreatedEvent(GameObjectCreatedEventArgs)"/> for an example usage.</para>
+        /// <para>Here, we are also defining an <see cref="OnGameObjectCreatedAttribute"/> to demonstrate its usage. In most cases,
+        /// this attribute will not be needed, but in some cases if you would like to perform some special action with the
+        /// <see cref="GameObject"/> it can be useful. See <see cref="MyGameObjectCreatedEvent(GameObjectCreatedEventArgs)"/> for an
+        /// example usage.</para>
         /// </summary>
-        /// <param name="e">The <see cref="ButtonClickedEventArgs"/> passed from the button click event, containing the id of the button as a string.
-        /// It is worth mentioning that it is not necessary to define the <see cref="ButtonClickedEventArgs"/> if you don't need it.</param>
+        /// <param name="e">The <see cref="ButtonClickedEventArgs"/> passed from the button click event, containing the id of the
+        /// button as a string. It is worth mentioning that it is not necessary to define the <see cref="ButtonClickedEventArgs"/>
+        /// if you don't need it.</param>
         [Button("My button"), OnGameObjectCreated(nameof(MyGameObjectCreatedEvent))]
         public void MyButtonClickEvent(ButtonClickedEventArgs e)
         {
@@ -156,11 +201,13 @@ namespace SMLHelper.V2.Examples
         }
 
         /// <summary>
-        /// This method will be called whenever a value with an <see cref="OnChangeAttribute"/> referencing it by name is changed. In this example,
-        /// only the field <see cref="ToggleValue"/> references it, so it will only be called whenever this value is changed by the user via the options menu.
+        /// This method will be called whenever a value with an <see cref="OnChangeAttribute"/> referencing it by name is changed.
+        /// In this example, only the field <see cref="ToggleValue"/> references it, so it will only be called whenever this value
+        /// is changed by the user via the options menu.
         /// </summary>
-        /// <param name="e">The <see cref="ToggleChangedEventArgs"/> passed from the onchange event, containing the id of the field as a string as well
-        /// as the new value. As with the other events in this example, it is not necessary to define the parameter if you do not need the data it contains.</param>
+        /// <param name="e">The <see cref="ToggleChangedEventArgs"/> passed from the onchange event, containing the id of the field
+        /// as a string as well as the new value. As with the other events in this example, it is not necessary to define the
+        /// parameter if you do not need the data it contains.</param>
         private void MyCheckboxToggleEvent(ToggleChangedEventArgs e)
         {
             Logger.Log(Logger.Level.Info, "Checkbox value was changed!");
@@ -168,16 +215,18 @@ namespace SMLHelper.V2.Examples
         }
 
         /// <summary>
-        /// This method will be called whenever a value with an <see cref="OnChangeAttribute"/> referencing it by name is changed. In this example,
-        /// every field above references it, so it will be called whenever any value in this class is changed by the user via the options menu.
+        /// This method will be called whenever a value with an <see cref="OnChangeAttribute"/> referencing it by name is changed.
+        /// In this example, every field above references it, so it will be called whenever any value in this class is changed by the
+        /// user via the options menu.
         /// </summary>
         /// <param name="e"><para>The data from the onchange event, passed as the interface <see cref="IModOptionEventArgs"/>.</para>
         /// 
-        /// <para>As this particular method is being used as an onchange event for various field types, the usage of the <see cref="IModOptionEventArgs"/>
-        /// interface here enables coercion to its original data type for correct handling, as demonstrated by the <see langword="switch"/>
-        /// statement below.</para>
+        /// <para>As this particular method is being used as an onchange event for various field types, the usage of the
+        /// <see cref="IModOptionEventArgs"/> interface here enables coercion to its original data type for correct handling, as
+        /// demonstrated by the <see langword="switch"/> statement below.</para>
         /// 
-        /// <para>As with the other events in this example, it is not necessary to define the parameter if you do not need the data it contains.</para></param>
+        /// <para>As with the other events in this example, it is not necessary to define the parameter if you do not need the data
+        /// it contains.</para></param>
         private void MyGenericValueChangedEvent(IModOptionEventArgs e)
         {
             Logger.Log(Logger.Level.Info, "Generic value changed!");
@@ -201,12 +250,13 @@ namespace SMLHelper.V2.Examples
         }
 
         /// <summary>
-        /// The method will be called whenever the <see cref="GameObject"/> for a member with a <see cref="OnGameObjectCreatedAttribute"/>
-        /// referencing it by name is created. In this example, only the <see cref="MyButtonClickEvent(ButtonClickedEventArgs)"/>
-        /// button is referencing it, so it will only be called whenever this button is created.
+        /// The method will be called whenever the <see cref="GameObject"/> for a member with a
+        /// <see cref="OnGameObjectCreatedAttribute"/> referencing it by name is created. In this example, only the
+        /// <see cref="MyButtonClickEvent(ButtonClickedEventArgs)"/> button is referencing it, so it will only be called whenever
+        /// this button is created.
         /// </summary>
-        /// <param name="e">The <see cref="GameObjectCreatedEventArgs"/> passed from the event, containing the id of the field as a string
-        /// as well as the newly created <see cref="GameObject"/>.</param>
+        /// <param name="e">The <see cref="GameObjectCreatedEventArgs"/> passed from the event, containing the id of the field
+        /// as a string as well as the newly created <see cref="GameObject"/>.</param>
         private void MyGameObjectCreatedEvent(GameObjectCreatedEventArgs e)
         {
             Logger.Log(Logger.Level.Info, "GameObject was created");
