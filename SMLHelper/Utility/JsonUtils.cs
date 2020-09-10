@@ -69,9 +69,11 @@
                         serializedJson, jsonConverters
                     );
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     Logger.Announce($"Could not parse JSON file, loading default values: {path}", LogLevel.Warn, true);
+                    Logger.Error(ex.Message);
+                    Logger.Error(ex.StackTrace);
                     return new T();
                 }
             }
@@ -120,9 +122,11 @@
                         serializedJson, jsonObject, jsonSerializerSettings
                     );
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     Logger.Announce($"Could not parse JSON file, instance values unchanged: {path}", LogLevel.Warn, true);
+                    Logger.Error(ex.Message);
+                    Logger.Error(ex.StackTrace);
                 }
             }
             else if (createFileIfNotExist)

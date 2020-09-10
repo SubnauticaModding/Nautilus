@@ -50,13 +50,14 @@
         /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
+            double d = Convert.ToDouble(value);
             if (DecimalPlaces > -1)
             {
-                writer.WriteValue(Math.Round(Convert.ToDouble(value), DecimalPlaces, Mode).ToString(CultureInfo.InvariantCulture));
+                writer.WriteValue(Math.Round(d, DecimalPlaces, Mode).ToString(CultureInfo.InvariantCulture.NumberFormat));
             }
             else
             {
-                writer.WriteValue(value);
+                writer.WriteValue(d.ToString(CultureInfo.InvariantCulture.NumberFormat));
             }
         }
 
@@ -73,11 +74,11 @@
             var s = (string)reader.Value;
             if (objectType == typeof(float))
             {
-                return float.Parse(s);
+                return float.Parse(s, CultureInfo.InvariantCulture.NumberFormat);
             }
             else
             {
-                return double.Parse(s);
+                return double.Parse(s, CultureInfo.InvariantCulture.NumberFormat);
             }
         }
 
