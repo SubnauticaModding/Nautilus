@@ -87,7 +87,7 @@
         {
             __result = false;
 
-            if (handleCommand(value))
+            if (HandleCommand(value))
             {
                 __result = true;
                 return false;
@@ -96,7 +96,7 @@
             return true;
         }
 
-        private static bool handleCommand(string value)
+        private static bool HandleCommand(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
                 return false;
