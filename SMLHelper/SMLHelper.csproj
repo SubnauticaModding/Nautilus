@@ -128,6 +128,8 @@
     <Compile Include="Assets\BelowZeroModSprite.cs" />
     <Compile Include="Assets\PdaItem.cs" />
     <Compile Include="Assets\Spawnable.cs" />
+    <Compile Include="Commands\Parameter.cs" />
+    <Compile Include="Commands\ConsoleCommand.cs" />
     <Compile Include="Crafting\CraftingNode.cs" />
     <Compile Include="Crafting\ModCraftTreeCraft.cs" />
     <Compile Include="Crafting\ModCraftTreeLinkingNode.cs" />
@@ -139,8 +141,6 @@
     <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Crafting\TechData.cs" />
     <Compile Include="Commands\ConsoleCommandAttribute.cs" />
-    <Compile Include="ExtensionMethods\ReflectionExtensions.cs" />
-    <Compile Include="ExtensionMethods\SystemExtensions.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
     <Compile Include="Interfaces\IModOptionAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />

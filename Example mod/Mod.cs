@@ -20,23 +20,41 @@ namespace SMLHelper.V2.Examples
         /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an options menu using
         /// Attributes. The values in this instance will be updated whenever the user changes the corresponding option in the menu.
         /// </summary>
-        internal static Config Config { get; } = OptionsPanelHandler.RegisterModOptions<Config>();
+        internal static Config Config { get; } = OptionsPanelHandler.Main.RegisterModOptions<Config>();
 
         [QModPatch]
         public static void Patch()
         {
             Logger.Log(Logger.Level.Info, "Patched successfully!");
+
+            /// Here we are registering a console command by use of a delegate. The delegate will respond to the "delegatecommand"
+            /// command from the dev console, passing values following "delegatecommand" as the correct types, provided they can be
+            /// parsed to that type. For example, "delegate command foo 3 true" would be a valid command for the
+            /// <see cref="MyCommand"/> delegate signature. You can also use use Func or Action to define your delegate signatures
+            /// if you prefer, and you can also pass a reference to a method that matches this signature.
+            ConsoleCommandsHandler.Main.RegisterConsoleCommand<MyCommand>("delegatecommand", (myString, myInt, myBool) =>
+            {
+                return $"Parameters: {myString} {myInt} {myBool}";
+            });
+
+            /// Here we are registering all console commands defined in <see cref="ExampleMod"/>, defined by decorating them
+            /// with the <see cref="ConsoleCommandAttribute"/>. See <see cref="MyAttributedCommand(string, int, bool)"/> below
+            /// for an example.
+            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(ExampleMod));
         }
 
+        private delegate string MyCommand(string myString, int myInt, bool myBool);
+
         /// <summary>
-        /// <para>Here, we are using the <see cref="ConsoleCommandAttribute"/> to define a custom console command.</para>
+        /// <para>Here, we are using the <see cref="ConsoleCommandAttribute"/> to define a custom console command, which is
+        /// registered via our use of <see cref="IConsoleCommandHandler.RegisterConsoleCommands(Type)"/> above.</para>
         /// 
         /// <para>This method will respond to the "mycommand" command from the dev console. The command will respect the method
-        /// signature of the attributed method, passing values following "mycommand" as the correct types, as long as they can be
+        /// signature of the decorated method, passing values following "mycommand" as the correct types, as long as they can be
         /// parsed to that type. For example, "mycommand foo 3 true" would be a valid command for this method signature.</para>
         /// 
-        /// <para>The attributed method must be both <see langword="public"/> and <see langword="static"/>, or the attribute will
-        /// be ignored. <see cref="ConsoleCommandsHandler.RegisterConsoleCommand(string, Type, string, Type[])"/> allows for
+        /// <para>The decorated method must be both <see langword="public"/> and <see langword="static"/>, or the attribute will
+        /// be ignored. <see cref="IConsoleCommandHandler.RegisterConsoleCommand(string, Type, string, Type[])"/> allows for
         /// targeting non-<see langword="public"/> methods (must still be <see langword="static"/>), and uses a
         /// similar syntax to <see cref="HarmonyPatch"/> for defining the target method.</para>
         /// 
@@ -56,8 +74,8 @@ namespace SMLHelper.V2.Examples
         /// <param name="myInt"></param>
         /// <param name="myBool"></param>
         /// <returns></returns>
-        [ConsoleCommand("mycommand")]
-        public static string MyCustomCommand(string myString, int myInt, bool myBool = false)
+        [ConsoleCommand("attributedcommand")]
+        public static string MyAttributedCommand(string myString, int myInt, bool myBool = false)
         {
             return $"Parameters: {myString} {myInt} {myBool}";
         }
@@ -180,7 +198,7 @@ namespace SMLHelper.V2.Examples
         /// <summary>
         /// <para>A <see cref="ButtonAttribute"/> is used to represent a button in the options menu, and is different to the other
         /// attributes above in that it is backed by a public method rather than a field or property, and the method that is
-        /// attributed with the <see cref="ButtonAttribute"/> will be called when the corresponding button is clicked, allowing you
+        /// decorated with the <see cref="ButtonAttribute"/> will be called when the corresponding button is clicked, allowing you
         /// to perform some custom action on demand from the options menu.</para>
         /// 
         /// <para>Here, we are also defining an <see cref="OnGameObjectCreatedAttribute"/> to demonstrate its usage. In most cases,

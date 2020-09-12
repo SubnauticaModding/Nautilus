@@ -1,112 +1,88 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
-    using ExtensionMethods;
+    using Commands;
+    using System;
     using System.Collections.Generic;
     using HarmonyLib;
-    using System.Reflection;
-    using System;
-    using System.Linq;
-    using System.Globalization;
     using QModManager.API;
-    using SMLHelper.V2.Commands;
-    using FMOD;
+    using System.Reflection;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using UnityEngine;
+    using Logger = Logger;
 
     internal static class ConsoleCommandsPatcher
     {
-        private static Dictionary<string, MethodInfo> commands = new Dictionary<string, MethodInfo>();
+        private static Dictionary<string, ConsoleCommand> ConsoleCommands = new Dictionary<string, ConsoleCommand>();
 
-        private static Dictionary<Type, Func<string, object>> typeConverters = new Dictionary<Type, Func<string, object>>()
-        {
-            [typeof(string)] = (s) => s,
-            [typeof(bool)] = (s) => bool.Parse(s),
-            [typeof(int)] = (s) => int.Parse(s, CultureInfo.InvariantCulture.NumberFormat),
-            [typeof(float)] = (s) => float.Parse(s, CultureInfo.InvariantCulture.NumberFormat),
-            [typeof(double)] = (s) => double.Parse(s, CultureInfo.InvariantCulture.NumberFormat)
-        };
-
-        private const string COMMAND_COLOR = "#ffff00ff";
-        private const string PARAM_TYPE_COLOR = "#00ffffff";
-        private const string PARAM_INPUT_COLOR = "#ff0000ff";
-        private const string PARAM_OPTIONAL_COLOR = "#00ff00ff";
-        private const string MOD_ORIGIN_COLOR = "#00ff00ff";
-        private const string MOD_CONFLICT_COLOR = "#c0c0c0ff";
+        private static Color CommandColor = new Color(1, 1, 0);
+        private static Color ParameterTypeColor = new Color(0, 1, 1);
+        private static Color ParameterInputColor = new Color(1, 0, 0);
+        private static Color ParameterOptionalColor = new Color(0, 1, 0);
+        private static Color ModOriginColor = new Color(0, 1, 0);
+        private static Color ModConflictColor = new Color(0.75f, 0.75f, 0.75f);
 
         public static void Patch(Harmony harmony)
         {
-            PatchUtils.PatchClass(harmony);
-
-            parseCustomCommands();
-
+            harmony.PatchAll(typeof(ConsoleCommandsPatcher));
             Logger.Debug("ConsoleCommandsPatcher is done.");
         }
 
-        public static void AddCustomCommand(string command, MethodInfo targetMethod)
+        public static void AddCustomCommand(string command, MethodInfo targetMethod, bool isDelegate = false, object target = null)
         {
-            command = command.ToLowerInvariant();
+            var consoleCommand = new ConsoleCommand(command, targetMethod, isDelegate, target);
 
-            if (commands.TryGetValue(command, out MethodInfo alreadyExists))
+            if (ConsoleCommands.TryGetValue(consoleCommand.CommandName, out ConsoleCommand alreadyDefinedCommand))
             {
-                Logger.Announce($"Could not register custom command <color={COMMAND_COLOR}>{command}</color> for mod " +
-                    $"<color={MOD_ORIGIN_COLOR}>{targetMethod.GetQMod().DisplayName}</color>:\n" +
-                    $"<color={MOD_CONFLICT_COLOR}>{alreadyExists.GetQMod().DisplayName}</color> already registered this command!",
-                    LogLevel.Error, true);
+                string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
+                    $"{GetColoredString(consoleCommand.QMod)}\n" +
+                    $"{GetColoredString(alreadyDefinedCommand.QMod, ModConflictColor)} already registered this command!";
+
+                LogAndAnnounce(error, LogLevel.Error);
 
                 return;
             }
 
-            if (!targetMethod.IsStatic)
+            if (!consoleCommand.HasValidInvoke())
             {
-                Logger.Announce($"Could not register custom command <color={COMMAND_COLOR}>{command}</color> for mod " +
-                    $"<color={MOD_ORIGIN_COLOR}>{targetMethod.GetQMod().DisplayName}</color>:\n" +
-                    $"Target method must be static.",
-                    LogLevel.Error, true);
+                string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
+                    $"{GetColoredString(consoleCommand.QMod)}\n" +
+                    "Target method must be static.";
+
+                LogAndAnnounce(error, LogLevel.Error);
 
                 return;
             }
 
-            foreach (ParameterInfo param in targetMethod.GetParameters())
+            if (!consoleCommand.HasValidParameterTypes())
             {
-                if (!typeConverters.ContainsKey(param.ParameterType))
-                {
-                    Logger.Announce($"Could not register custom command <color={COMMAND_COLOR}>{command}</color> for mod " +
-                        $"<color={MOD_ORIGIN_COLOR}>{targetMethod.GetQMod().DisplayName}</color>:\n" +
-                        $"Parameter type <color={PARAM_TYPE_COLOR}>{param.ParameterType.Name}</color> " +
-                        $"is not supported.\n" +
-                        $"Supported parameter types:\n" +
-                        $"{typeConverters.Keys.Select(x => $"<color={PARAM_TYPE_COLOR}>{x.Name}</color>").Join()}",
-                        LogLevel.Error, true);
+                string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
+                    $"{GetColoredString(consoleCommand.QMod)}\n" +
+                    "The following parameters have unsupported types:\n" +
+                    consoleCommand.GetInvalidParameters().Select(param => GetColoredString(param)).Join(delimiter: "\n") +
+                    "Supported parameter types:\n" +
+                    Parameter.SupportedTypes.Select(type => type.Name).Join();
 
-                    return;
-                }
+                LogAndAnnounce(error, LogLevel.Error);
+
+                return;
             }
 
-            commands.Add(command, targetMethod);
+            ConsoleCommands.Add(consoleCommand.CommandName, consoleCommand);
         }
 
-        private static void parseCustomCommands()
+        public static void ParseCustomCommands(Type type)
         {
-            foreach (IQMod qmod in QModServices.Main.GetAllMods())
+            foreach (MethodInfo targetMethod in type.GetMethods(BindingFlags.Public | BindingFlags.Static))
             {
-                if (qmod == null || !qmod.IsLoaded)
-                    continue;
-
-                foreach (Type type in qmod.LoadedAssembly.GetTypes())
-                {
-                    if (type.IsNotPublic || type.IsEnum)
-                        continue;
-
-                    foreach (MethodInfo targetMethod in type.GetMethods(BindingFlags.Public | BindingFlags.Static))
-                    {
-                        var customCommandAttribute = targetMethod.GetCustomAttribute<ConsoleCommandAttribute>(false);
-                        if (customCommandAttribute != null)
-                            AddCustomCommand(customCommandAttribute.Command, targetMethod);
-                    }
-                }
+                var customCommandAttribute = targetMethod.GetCustomAttribute<ConsoleCommandAttribute>(false);
+                if (customCommandAttribute != null)
+                    AddCustomCommand(customCommandAttribute.Command, targetMethod);
             }
         }
 
-        [PatchUtils.Prefix]
         [HarmonyPatch(typeof(DevConsole), nameof(DevConsole.Submit))]
+        [HarmonyPrefix]
         private static bool DevConsole_Submit_Prefix(string value, out bool __result)
         {
             __result = false;
@@ -130,9 +106,9 @@
             value = value.Trim();
             string[] components = value.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var command = components[0];
+            var commandString = components[0].ToLowerInvariant();
 
-            if (!commands.TryGetValue(command, out MethodInfo targetMethod))
+            if (!ConsoleCommands.TryGetValue(commandString, out ConsoleCommand command))
             {
                 Logger.Debug($"No command listener registered: {value}.");
                 return false;
@@ -140,76 +116,86 @@
 
             IEnumerable<string> parameters = components.Skip(1);
 
-            if (!validateUserParameters(command, targetMethod, parameters, out object[] validatedParameters))
-                return true;
-
-            string result = targetMethod.Invoke(null, BindingFlags.OptionalParamBinding | BindingFlags.InvokeMethod,
-                null, validatedParameters, CultureInfo.InvariantCulture)?.ToString();
-
-            if (result != null)
-                Logger.Announce($"<color={MOD_ORIGIN_COLOR}>[{targetMethod.GetQMod().DisplayName}]</color>" +
-                    $" {result.ToString(CultureInfo.InvariantCulture)}", LogLevel.Info, true);
-
-            return true;
-        }
-
-        private static bool validateUserParameters(string command, MethodInfo targetMethod, IEnumerable<string> parameters,
-            out object[] validatedParameters)
-        {
-            ParameterInfo[] methodParameters = targetMethod.GetParameters();
-            validatedParameters = null;
-
-            if (methodParameters.Length < parameters.Count() ||
-                methodParameters.Where(param => !param.IsOptional).Count() > parameters.Count())
+            if (!command.TryParseParameters(parameters, out object[] parsedParameters))
             {
-                Logger.Announce($"<color={COMMAND_COLOR}>{command}</color> expects the following parameters:\n" +
-                    $"{getParameterInfoString(methodParameters)}", LogLevel.Error, true);
+                if (parsedParameters != null)
+                {
+                    string invalidParameter = null;
+                    string parameterTypeName = null;
+                    for (int i = 0; i < parsedParameters.Length; i++)
+                    {
+                        if (parsedParameters[i] == null)
+                        {
+                            invalidParameter = parameters.ElementAt(i);
+                            parameterTypeName = command.ParameterTypes[i].Name;
+                            break;
+                        }
+                    }
+
+                    string error = $"{GetColoredString(invalidParameter, ParameterInputColor)} is not a valid " +
+                        $"{GetColoredString(parameterTypeName, ParameterTypeColor)}!";
+
+                    LogAndAnnounce(error, LogLevel.Error);
+                }
+
+                string parameterInfoString = $"{GetColoredString(command.CommandName, CommandColor)} " +
+                    "expects the following parameters\n" +
+                    command.Parameters.Select(param => GetColoredString(param)).Join(delimiter: "\n");
+
+                LogAndAnnounce(parameterInfoString, LogLevel.Error);
 
                 if (parameters.Any())
                     Logger.Announce($"Received parameters: {parameters.Join()}", LogLevel.Error, true);
 
-                return false;
+                return true;
             }
 
-            validatedParameters = new object[methodParameters.Length];
-            for (int i = 0; i < methodParameters.Length; i++)
+            string result = command.Invoke(parsedParameters);
+
+            if (result != null)
             {
-                Type type = methodParameters[i].ParameterType;
-
-                if (i >= parameters.Count())
-                {
-                    validatedParameters[i] = Type.Missing;
-                    continue;
-                }
-
-                string param = parameters.ElementAt(i);
-
-                try
-                {
-                    validatedParameters[i] = typeConverters[type](param);
-                }
-                catch (Exception)
-                {
-                    Logger.Announce($"<color={PARAM_INPUT_COLOR}>{param}</color> is not a valid " +
-                        $"<color={PARAM_TYPE_COLOR}>{type.Name}</color>!",
-                        LogLevel.Error, true);
-                    Logger.Announce($"<color={COMMAND_COLOR}>{command}</color> expects the following parameters:\n" +
-                        $"{getParameterInfoString(methodParameters)}", LogLevel.Error, true);
-                    Logger.Announce($"Received parameters: {parameters.Join()}", LogLevel.Error, true);
-                    return false;
-                }
+                LogAndAnnounce($"{GetColoredString($"[{command.QMod.DisplayName}]", ModOriginColor)} {result}", LogLevel.Info);
             }
 
             return true;
         }
 
-        private static string getParameterInfoString(ParameterInfo[] methodParameters)
+        private static void LogAndAnnounce(string message, LogLevel level)
         {
-            return methodParameters
-                .Select(param => $"{param.Name}: " +
-                    $"<color={PARAM_TYPE_COLOR}>{param.ParameterType.Name}</color>" +
-                    $"<color={PARAM_OPTIONAL_COLOR}>{(param.IsOptional ? " (optional)" : string.Empty)}</color>")
-                .Join(delimiter: "\n");
+            Logger.Announce(message);
+            Logger.Log(message.StripXML(), level);
+        }
+
+        private static string GetColoredString(IQMod mod)
+        {
+            return GetColoredString(mod, ModOriginColor);
+        }
+
+        private static string GetColoredString(IQMod mod, Color color)
+        {
+            return GetColoredString(mod.DisplayName, color);
+        }
+
+        private static string GetColoredString(ConsoleCommand command)
+        {
+            return GetColoredString(command.CommandName, CommandColor);
+        }
+
+        private static string GetColoredString(Parameter parameter)
+        {
+            return $"{parameter.Name}: {GetColoredString(parameter.ParameterType.Name, ParameterTypeColor)}" +
+                (parameter.IsOptional ? $" {GetColoredString("(optional)", ParameterOptionalColor)}" : string.Empty);
+        }
+
+        private static string GetColoredString(string str, Color color)
+        {
+            return $"<color=#{ColorUtility.ToHtmlStringRGB(color)}>{str}</color>";
+        }
+
+        private static Regex xmlRegex = new Regex("<.*?>", RegexOptions.Compiled);
+        public static string StripXML(this string source)
+        {
+            return xmlRegex.Replace(source, string.Empty);
         }
     }
 }
