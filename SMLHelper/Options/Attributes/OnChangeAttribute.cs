@@ -6,7 +6,7 @@
     using System;
 
     /// <summary>
-    /// Attribute used to signify a method to call whenever the attributed member's value changes.
+    /// Attribute used to signify a method to call whenever the decorated member's value changes.
     /// </summary>
     /// <remarks>
     /// The method must be a member of the same class. Can be specified mutliple times to call multiple methods.
@@ -81,7 +81,7 @@
     public sealed class OnChangeAttribute : ModOptionEventAttribute
     {
         /// <summary>
-        /// Signifies a method to call whenever the attributed member's value changes.
+        /// Signifies a method to call whenever the decorated member's value changes.
         /// </summary>
         /// <remarks>
         /// The method must be a member of the same class.

@@ -4,7 +4,7 @@
     using System;
 
     /// <summary>
-    /// Attribute used to signify the attributed <see cref="bool"/> should be represented in the mod's
+    /// Attribute used to signify the decorated <see cref="bool"/> should be represented in the mod's
     /// option menu as a <see cref="ModToggleOption"/>.
     /// </summary>
     /// <example>
@@ -26,14 +26,14 @@
     public sealed class ToggleAttribute : ModOptionAttribute
     {
         /// <summary>
-        /// Signifies the attributed <see cref="bool"/> should be represented in the mod's option menu
+        /// Signifies the decorated <see cref="bool"/> should be represented in the mod's option menu
         /// as a <see cref="ModToggleOption"/>.
         /// </summary>
         /// <param name="label">The label for the toggle.</param>
         public ToggleAttribute(string label = null) : base(label) { }
 
         /// <summary>
-        /// Signifies the attributed <see cref="bool"/> should be represented in the mod's option menu
+        /// Signifies the decorated <see cref="bool"/> should be represented in the mod's option menu
         /// as a <see cref="ModToggleOption"/>.
         /// </summary>
         public ToggleAttribute() { }

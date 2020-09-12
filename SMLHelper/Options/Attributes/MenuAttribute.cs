@@ -147,12 +147,12 @@
         public enum Members
         {
             /// <summary>
-            /// Only <see langword="public"/> members attributed with a <see cref="ModOptionAttribute"/> derivative such as 
+            /// Only <see langword="public"/> members decorated with a <see cref="ModOptionAttribute"/> derivative such as 
             /// <see cref="SliderAttribute"/>, <see cref="ChoiceAttribute"/> etc. will be processed.
             /// </summary>
             Explicit,
             /// <summary>
-            /// All <see langword="public"/> members will be processed, and where they are not attributed, a default attribute
+            /// All <see langword="public"/> members will be processed, and where they are not decorated, a default attribute
             /// will be generated for them.
             /// </summary>
             Implicit
@@ -181,7 +181,7 @@
 
         /// <summary>
         /// How members of the <see cref="ConfigFile"/> will be processed.
-        /// Defaults to <see cref="Members.Explicit"/>, so that only <see langword="public"/> attributed members will be processed.
+        /// Defaults to <see cref="Members.Explicit"/>, so that only <see langword="public"/> decorated members will be processed.
         /// </summary>
         /// <seealso cref="Members"/>
         public Members MemberProcessing { get; set; } = Members.Explicit;

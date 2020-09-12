@@ -6,7 +6,7 @@
     using System;
 
     /// <summary>
-    /// Abstract base attribute used to signify the attributed public member should generate a <see cref="ModOption"/>
+    /// Abstract base attribute used to signify the decorated public member should generate a <see cref="ModOption"/>
     /// in a mod's options menu.
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = false)]
@@ -47,7 +47,7 @@
         public string LabelLanguageId { get; set; }
 
         /// <summary>
-        /// Signifies the attributed member should be represented in the mod's options menu as a <see cref="ModOption"/>
+        /// Signifies the decorated member should be represented in the mod's options menu as a <see cref="ModOption"/>
         /// with an optional label.
         /// </summary>
         /// <param name="label">The label to display. If none is set, the name of the member will be used. If <see cref="LabelLanguageId"/>
