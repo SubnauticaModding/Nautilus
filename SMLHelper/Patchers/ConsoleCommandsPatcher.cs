@@ -28,11 +28,19 @@
             Logger.Debug("ConsoleCommandsPatcher is done.");
         }
 
-        public static void AddCustomCommand(string command, MethodInfo targetMethod, bool isDelegate = false, object target = null)
+        /// <summary>
+        /// Adds a custom console command from a target method/delegate.
+        /// </summary>
+        /// <param name="command">The command string that a user should enter.</param>
+        /// <param name="targetMethod">The targeted method.</param>
+        /// <param name="isDelegate">Whether the method is a delegate.</param>
+        /// <param name="instance">The instance the method belongs to.</param>
+        public static void AddCustomCommand(string command, MethodInfo targetMethod, bool isDelegate = false, object instance = null)
         {
-            var consoleCommand = new ConsoleCommand(command, targetMethod, isDelegate, target);
+            var consoleCommand = new ConsoleCommand(command, targetMethod, isDelegate, instance);
 
-            if (ConsoleCommands.TryGetValue(consoleCommand.CommandName, out ConsoleCommand alreadyDefinedCommand))
+            // if this command string was already registered, print an error and don't add it
+            if (ConsoleCommands.TryGetValue(consoleCommand.Trigger, out ConsoleCommand alreadyDefinedCommand))
             {
                 string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
                     $"{GetColoredString(consoleCommand.QMod)}\n" +
@@ -43,6 +51,7 @@
                 return;
             }
 
+            // if this command's method is invalid (not a public static, for example), print an error and don't add it
             if (!consoleCommand.HasValidInvoke())
             {
                 string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
@@ -54,6 +63,7 @@
                 return;
             }
 
+            // if any of the parameter types of the method are unsupported, print an error and don't add it
             if (!consoleCommand.HasValidParameterTypes())
             {
                 string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
@@ -68,9 +78,14 @@
                 return;
             }
 
-            ConsoleCommands.Add(consoleCommand.CommandName, consoleCommand);
+            ConsoleCommands.Add(consoleCommand.Trigger, consoleCommand);
         }
 
+        /// <summary>
+        /// Searches the given <paramref name="type"/> for methods decorated with the <see cref="ConsoleCommandAttribute"/> and
+        /// passes them on to <see cref="AddCustomCommand(string, MethodInfo, bool, object)"/>.
+        /// </summary>
+        /// <param name="type">The type within which to search.</param>
         public static void ParseCustomCommands(Type type)
         {
             foreach (MethodInfo targetMethod in type.GetMethods(BindingFlags.Public | BindingFlags.Static))
@@ -81,45 +96,60 @@
             }
         }
 
+        /// <summary>
+        /// Harmony patch on the <see cref="DevConsole"/> to intercept user submissions.
+        /// </summary>
+        /// <param name="value">The submitted value.</param>
+        /// <param name="__result">Original result of the method, used to determine whether or not the string will be added to the
+        /// <see cref="DevConsole.history"/>.</param>
+        /// <returns>Whether or not to let the original method run.</returns>
         [HarmonyPatch(typeof(DevConsole), nameof(DevConsole.Submit))]
         [HarmonyPrefix]
         private static bool DevConsole_Submit_Prefix(string value, out bool __result)
         {
-            __result = false;
-
-            if (HandleCommand(value))
+            if (HandleCommand(value)) // We have handled the command, whether the parameters were valid or not
             {
-                __result = true;
-                return false;
+                __result = true; // Command should be added to the history
+                return false; // Don't run original method
             }
 
-            return true;
+            __result = false; // Default value
+            return true; // Let the original method try to handle the command
         }
 
-        private static bool HandleCommand(string value)
+        /// <summary>
+        /// Attempts to handle a user command.
+        /// </summary>
+        /// <param name="input">The command input.</param>
+        /// <returns>Whether we have handled the command. Will return <see langword="true"/> if the command is in our list of
+        /// watched commands, whether or not the parameters were valid.</returns>
+        private static bool HandleCommand(string input)
         {
-            if (string.IsNullOrWhiteSpace(value))
+            if (string.IsNullOrWhiteSpace(input))
                 return false;
 
-            Logger.Debug($"Console command: {value}");
+            Logger.Debug($"Attempting to handle console command: {input}");
 
-            value = value.Trim();
-            string[] components = value.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            input = input.Trim();
+            string[] components = input.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var commandString = components[0].ToLowerInvariant();
+            var trigger = components[0].ToLowerInvariant();
 
-            if (!ConsoleCommands.TryGetValue(commandString, out ConsoleCommand command))
+            if (!ConsoleCommands.TryGetValue(trigger, out ConsoleCommand command))
             {
-                Logger.Debug($"No command listener registered: {value}.");
+                Logger.Debug($"No command listener registered for [{trigger}].");
                 return false;
             }
 
             IEnumerable<string> parameters = components.Skip(1);
 
+            // If the parameters couldn't be parsed by the command, print a user and developer-friendly error message both
+            // on-screen and in the log.
             if (!command.TryParseParameters(parameters, out object[] parsedParameters))
             {
                 if (parsedParameters != null)
                 {
+                    // Find the first invalid parameter
                     string invalidParameter = null;
                     string parameterTypeName = null;
                     for (int i = 0; i < parsedParameters.Length; i++)
@@ -132,34 +162,44 @@
                         }
                     }
 
+                    // Print a message about why it is invalid
                     string error = $"{GetColoredString(invalidParameter, ParameterInputColor)} is not a valid " +
                         $"{GetColoredString(parameterTypeName, ParameterTypeColor)}!";
 
                     LogAndAnnounce(error, LogLevel.Error);
                 }
 
-                string parameterInfoString = $"{GetColoredString(command.CommandName, CommandColor)} " +
+                // Print a message about what parameters the command expects
+                string parameterInfoString = $"{GetColoredString(command.Trigger, CommandColor)} " +
                     "expects the following parameters\n" +
                     command.Parameters.Select(param => GetColoredString(param)).Join(delimiter: "\n");
 
                 LogAndAnnounce(parameterInfoString, LogLevel.Error);
 
+                // Print a message detailing all received parameters.
                 if (parameters.Any())
                     Logger.Announce($"Received parameters: {parameters.Join()}", LogLevel.Error, true);
 
-                return true;
+                return true; // We've handled the command insofar as we've handled and reported the user error to them.
             }
 
-            string result = command.Invoke(parsedParameters);
+            Logger.Debug($"Handing command [{trigger}] to [{command.QMod.DisplayName}]...");
 
-            if (result != null)
-            {
+            string result = command.Invoke(parsedParameters); // Invoke the command with the parameters parsed from user input.
+
+            if (!string.IsNullOrEmpty(result)) // If the command has a return, print it.
                 LogAndAnnounce($"{GetColoredString($"[{command.QMod.DisplayName}]", ModOriginColor)} {result}", LogLevel.Info);
-            }
+
+            Logger.Debug($"Command [{trigger}] handled successfully by [{command.QMod.DisplayName}].");
 
             return true;
         }
 
+        /// <summary>
+        /// Logs the message after stripping XML tags (colors), but announces to the user with XML tags intact.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="level">Log level.</param>
         private static void LogAndAnnounce(string message, LogLevel level)
         {
             Logger.Announce(message);
@@ -178,7 +218,7 @@
 
         private static string GetColoredString(ConsoleCommand command)
         {
-            return GetColoredString(command.CommandName, CommandColor);
+            return GetColoredString(command.Trigger, CommandColor);
         }
 
         private static string GetColoredString(Parameter parameter)

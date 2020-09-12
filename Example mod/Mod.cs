@@ -32,6 +32,14 @@ namespace SMLHelper.V2.Examples
             /// parsed to that type. For example, "delegate command foo 3 true" would be a valid command for the
             /// <see cref="MyCommand"/> delegate signature. You can also use use Func or Action to define your delegate signatures
             /// if you prefer, and you can also pass a reference to a method that matches this signature.
+            /// 
+            /// Registered commands must be unique. If another mod has already added the command, your command will be rejected.
+            /// 
+            /// If the user enters incorrect parameters for a command, they will be notified of the expected parameter types,
+            /// both on-screen and in the log.
+            /// 
+            /// Note that a command can have a return type, but it is not necessary. If it does return any type, it will be printed
+            /// both on-screen and in the log.
             ConsoleCommandsHandler.Main.RegisterConsoleCommand<MyCommand>("delegatecommand", (myString, myInt, myBool) =>
             {
                 return $"Parameters: {myString} {myInt} {myBool}";
@@ -57,18 +65,6 @@ namespace SMLHelper.V2.Examples
         /// be ignored. <see cref="IConsoleCommandHandler.RegisterConsoleCommand(string, Type, string, Type[])"/> allows for
         /// targeting non-<see langword="public"/> methods (must still be <see langword="static"/>), and uses a
         /// similar syntax to <see cref="HarmonyPatch"/> for defining the target method.</para>
-        /// 
-        /// <para>Commands are case-insensitive, but the subsequent parameters sent to your method are not, so you should convert
-        /// strings to lowercase using <see cref="string.ToLowerInvariant"/> if you are using them as an option switch.</para>
-        /// 
-        /// <para>Commands must be unique. If another mod has already added the command, your command will be rejected - so make
-        /// sure you pick a unique command!</para>
-        /// 
-        /// <para>If the user enters incorrect parameters for a command, they will be notified of the expected parameter types,
-        /// both on-screen and in the log.</para>
-        /// 
-        /// <para>Optionally, a custom command can have a return type. If it does, whatever is returned will be printed both
-        /// on-screen and in the log after being converted to a string.</para>
         /// </summary>
         /// <param name="myString"></param>
         /// <param name="myInt"></param>

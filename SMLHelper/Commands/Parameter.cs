@@ -17,6 +17,7 @@ namespace SMLHelper.V2.Commands
             [typeof(float)] = (s) => float.Parse(s, CultureInfo.InvariantCulture.NumberFormat),
             [typeof(double)] = (s) => double.Parse(s, CultureInfo.InvariantCulture.NumberFormat)
         };
+
         public static IEnumerable<Type> SupportedTypes => TypeConverters.Keys;
 
         public Type ParameterType { get; }

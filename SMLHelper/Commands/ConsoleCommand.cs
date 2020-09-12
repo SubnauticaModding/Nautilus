@@ -7,35 +7,67 @@
     using System.Linq;
     using System.Reflection;
 
+    /// <summary>
+    /// Represents a console command.
+    /// </summary>
     internal class ConsoleCommand
     {
-        public string CommandName { get; }
-        public Type DeclaringType { get; }
-        public Type ReturnType { get; }
-        public string MethodName { get; }
-        public bool IsMethodStatic { get; }
-        public bool IsDelegate { get; }
-        public object TargetInstance { get; }
+        /// <summary>
+        /// The string that triggers the command.
+        /// </summary>
+        public string Trigger { get; }
+
+        /// <summary>
+        /// The QMod that registered the command.
+        /// </summary>
         public IQMod QMod { get; }
+
+        /// <summary>
+        /// The parameters for the command.
+        /// </summary>
         public IEnumerable<Parameter> Parameters { get; }
+
+        /// <summary>
+        /// The types of the parameters.
+        /// </summary>
         public Type[] ParameterTypes { get; }
 
-        public ConsoleCommand(string command, MethodInfo targetMethod, bool isDelegate = false, object target = null)
+        private Type DeclaringType { get; }
+        private string MethodName { get; }
+        private bool IsMethodStatic { get; }
+        private bool IsDelegate { get; }
+        private object Instance { get; }
+
+        /// <summary>
+        /// Creates an instance of <see cref="ConsoleCommand"/>.
+        /// </summary>
+        /// <param name="trigger">The string that triggers the command.</param>
+        /// <param name="targetMethod">The method targeted by the command.</param>
+        /// <param name="isDelegate">Whether or not the method is a delegate.</param>
+        /// <param name="instance">The instance the method belongs to.</param>
+        public ConsoleCommand(string trigger, MethodInfo targetMethod, bool isDelegate = false, object instance = null)
         {
-            CommandName = command.ToLowerInvariant();
+            Trigger = trigger.ToLowerInvariant();
             DeclaringType = targetMethod.DeclaringType;
-            ReturnType = targetMethod.ReturnType;
             MethodName = targetMethod.Name;
             IsMethodStatic = targetMethod.IsStatic;
             IsDelegate = isDelegate;
-            TargetInstance = target;
+            Instance = instance;
             QMod = QModServices.Main.GetMod(DeclaringType.Assembly);
             Parameters = targetMethod.GetParameters().Select(param => new Parameter(param));
             ParameterTypes = Parameters.Select(param => param.ParameterType).ToArray();
         }
 
-        public bool HasValidInvoke() => IsDelegate || TargetInstance != null || IsMethodStatic;
+        /// <summary>
+        /// Determines whether the targeted method is valid in terms of whether it is static or delegate.
+        /// </summary>
+        /// <returns></returns>
+        public bool HasValidInvoke() => IsDelegate || Instance != null || IsMethodStatic;
 
+        /// <summary>
+        /// Determines whether the target methods parameters are valid.
+        /// </summary>
+        /// <returns></returns>
         public bool HasValidParameterTypes()
         {
             foreach (Parameter parameter in Parameters)
@@ -47,21 +79,24 @@
             return true;
         }
 
+        /// <summary>
+        /// Returns a list of all invalid parameters.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Parameter> GetInvalidParameters()
             => Parameters.Where(param => !param.IsValidParameterType);
 
-        public string Invoke(object[] arguments)
-        {
-            if (TargetInstance != null)
-                return Traverse.Create(TargetInstance).Method(MethodName, ParameterTypes).GetValue(arguments).ToString();
-            else
-                return Traverse.Create(DeclaringType).Method(MethodName, ParameterTypes).GetValue(arguments).ToString();
-        }
-
+        /// <summary>
+        /// Attempts to parse input parameters into appropriate types as defined in the target method.
+        /// </summary>
+        /// <param name="inputParameters">The parameters as input by the user.</param>
+        /// <param name="parsedParameters">The parameters that have been successfully parsed.</param>
+        /// <returns>Whether or not all parameters were succesfully parsed.</returns>
         public bool TryParseParameters(IEnumerable<string> inputParameters, out object[] parsedParameters)
         {
             parsedParameters = null;
 
+            // Detect incorrect number of parameters (allow for optional)
             if (Parameters.Count() < inputParameters.Count() ||
                 Parameters.Where(param => !param.IsOptional).Count() > inputParameters.Count())
             {
@@ -73,7 +108,7 @@
             {
                 Parameter parameter = Parameters.ElementAt(i);
 
-                if (i >= inputParameters.Count())
+                if (i >= inputParameters.Count()) // It's an optional parameter that wasn't passed by the user
                 {
                     parsedParameters[i] = Type.Missing;
                     continue;
@@ -87,11 +122,24 @@
                 }
                 catch (Exception)
                 {
-                    return false;
+                    return false; // couldn't parse, wasn't a valid conversion
                 }
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Invokes the command with the given parameters.
+        /// </summary>
+        /// <param name="parameters">The command parameters.</param>
+        /// <returns>The string returned from the command.</returns>
+        public string Invoke(object[] parameters)
+        {
+            if (Instance != null)
+                return Traverse.Create(Instance).Method(MethodName, ParameterTypes).GetValue(parameters)?.ToString();
+            else
+                return Traverse.Create(DeclaringType).Method(MethodName, ParameterTypes).GetValue(parameters)?.ToString();
         }
     }
 }
