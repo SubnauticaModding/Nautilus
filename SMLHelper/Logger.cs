@@ -1,6 +1,5 @@
 ﻿namespace SMLHelper.V2
 {
-    using ExtensionMethods;
     using System;
     using System.IO;
     using System.Reflection;
@@ -94,7 +93,7 @@
             ErrorMessage.AddMessage(text);
 
             if (logToFile)
-                Log(text.StripXML(), level);
+                Log(text, level);
         }
 
         internal static void Announce(string text, LogLevel level = LogLevel.Info, bool logToFile = false, params object[] args)
@@ -104,7 +103,7 @@
             ErrorMessage.AddMessage(string.Format(text, args));
 
             if (logToFile)
-                Log(text.StripXML(), level, args);
+                Log(text, level, args);
         }
     }
 }
