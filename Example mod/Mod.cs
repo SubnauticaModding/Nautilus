@@ -185,7 +185,7 @@ namespace SMLHelper.V2.Examples
         /// and is backed by a <see cref="bool"/>.</para>
         /// 
         /// <para>Note that here we are defining two <see cref="OnChangeAttribute"/>s which correspond to different methods
-        /// in the class. They will both be fired when the value changed, but one of them is specific to this value only. See
+        /// in the class. They will both be fired when the value changes, but one of them is specific to this value only. See
         /// <see cref="MyCheckboxToggleEvent(ToggleChangedEventArgs)"/> for an example usage.</para>
         /// </summary>
         [Toggle("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
