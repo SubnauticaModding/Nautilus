@@ -30,7 +30,7 @@ namespace SMLHelper.V2.Examples
             /// Here we are registering a console command by use of a delegate. The delegate will respond to the "delegatecommand"
             /// command from the dev console, passing values following "delegatecommand" as the correct types, provided they can be
             /// parsed to that type. For example, "delegate command foo 3 true" would be a valid command for the
-            /// <see cref="MyCommand"/> delegate signature. You can also use use Func or Action to define your delegate signatures
+            /// <see cref="MyCommand"/> delegate signature. You can also use Func or Action to define your delegate signatures
             /// if you prefer, and you can also pass a reference to a method that matches this signature.
             /// 
             /// Registered commands must be unique. If another mod has already added the command, your command will be rejected.
