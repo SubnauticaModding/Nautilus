@@ -54,7 +54,7 @@
 
             CraftDataPatcher.Patch(harmony);
             CraftTreePatcher.Patch(harmony);
-            DevConsolePatcher.Patch(harmony);
+            ConsoleCommandsPatcher.Patch(harmony);
             LanguagePatcher.Patch(harmony);
             PrefabDatabasePatcher.PostPatch(harmony);
             SpritePatcher.Patch();

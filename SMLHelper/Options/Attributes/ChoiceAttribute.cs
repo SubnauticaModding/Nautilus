@@ -4,7 +4,7 @@
     using System;
 
     /// <summary>
-    /// Attribute used to signify the attributed member should be represented in the mod's options menu as a
+    /// Attribute used to signify the decorated member should be represented in the mod's options menu as a
     /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
     /// <see cref="Enum"/>-based members.
     /// </summary>
@@ -41,7 +41,7 @@
         public string[] Options { get; set; }
 
         /// <summary>
-        /// Attribute used to signify the attributed member should be represented in the mod's options menu as a
+        /// Attribute used to signify the decorated member should be represented in the mod's options menu as a
         /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
         /// <see cref="Enum"/>-based members.
         /// </summary>
@@ -56,7 +56,7 @@
         }
 
         /// <summary>
-        /// Attribute used to signify the attributed member should be represented in the mod's options menu as a
+        /// Attribute used to signify the decorated member should be represented in the mod's options menu as a
         /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
         /// <see cref="Enum"/>-based members.
         /// </summary>
@@ -67,7 +67,7 @@
         public ChoiceAttribute(string[] options) : this(null, options) { }
 
         /// <summary>
-        /// Attribute used to signify the attributed member should be represented in the mod's options menu as a
+        /// Attribute used to signify the decorated member should be represented in the mod's options menu as a
         /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
         /// <see cref="Enum"/>-based members.
         /// </summary>
