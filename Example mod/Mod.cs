@@ -29,7 +29,7 @@ namespace SMLHelper.V2.Examples
 
             /// Here we are registering a console command by use of a delegate. The delegate will respond to the "delegatecommand"
             /// command from the dev console, passing values following "delegatecommand" as the correct types, provided they can be
-            /// parsed to that type. For example, "delegate command foo 3 true" would be a valid command for the
+            /// parsed to that type. For example, "delegatecommand foo 3 true" would be a valid command for the
             /// <see cref="MyCommand"/> delegate signature. You can also use Func or Action to define your delegate signatures
             /// if you prefer, and you can also pass a reference to a method that matches this signature.
             /// 
@@ -57,9 +57,9 @@ namespace SMLHelper.V2.Examples
         /// <para>Here, we are using the <see cref="ConsoleCommandAttribute"/> to define a custom console command, which is
         /// registered via our use of <see cref="IConsoleCommandHandler.RegisterConsoleCommands(Type)"/> above.</para>
         /// 
-        /// <para>This method will respond to the "mycommand" command from the dev console. The command will respect the method
-        /// signature of the decorated method, passing values following "mycommand" as the correct types, as long as they can be
-        /// parsed to that type. For example, "mycommand foo 3 true" would be a valid command for this method signature.</para>
+        /// <para>This method will respond to the "attributedcommand" command from the dev console. The command will respect the method
+        /// signature of the decorated method, passing values following "attributedcommand" as the correct types, as long as they can be
+        /// parsed to that type. For example, "attributedcommand foo 3 true" would be a valid command for this method signature.</para>
         /// 
         /// <para>The decorated method must be both <see langword="public"/> and <see langword="static"/>, or the attribute will
         /// be ignored. <see cref="IConsoleCommandHandler.RegisterConsoleCommand(string, Type, string, Type[])"/> allows for
