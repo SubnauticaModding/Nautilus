@@ -46,7 +46,7 @@
         /// <see cref="Enum"/>-based members.
         /// </summary>
         /// <remarks>
-        /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <see cref="ChoiceAttribute"/>.
+        /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <paramref name="options"/>.
         /// </remarks>
         /// <param name="label">The label for the choice. If none is set, the name of the member will be used.</param>
         /// <param name="options">The list of options for the user to choose from.</param>
@@ -61,7 +61,7 @@
         /// <see cref="Enum"/>-based members.
         /// </summary>
         /// <remarks>
-        /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <see cref="ChoiceAttribute"/>.
+        /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <paramref name="options"/>.
         /// </remarks>
         /// <param name="options">The list of options for the user to choose from.</param>
         public ChoiceAttribute(string[] options) : this(null, options) { }
@@ -71,9 +71,6 @@
         /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
         /// <see cref="Enum"/>-based members.
         /// </summary>
-        /// <remarks>
-        /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <see cref="ChoiceAttribute"/>.
-        /// </remarks>
         public ChoiceAttribute() { }
     }
 }
