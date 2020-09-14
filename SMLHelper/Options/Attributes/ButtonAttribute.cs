@@ -5,7 +5,7 @@
     using QModManager.Utility;
 
     /// <summary>
-    /// Attribute used to signify the attrubuted method should be represented in the mod's options menu
+    /// Attribute used to signify the decorated method should be represented in the mod's options menu
     /// as a <see cref="ModButtonOption"/>.
     /// When the button is clicked, the given method will run.
     /// </summary>
