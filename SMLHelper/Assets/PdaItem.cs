@@ -22,7 +22,7 @@
 
         /// <summary>
         /// Override to add a scanner entry to the <see cref="RequiredForUnlock"/> TechType if it does not have one.
-        /// WARNING. You cannot add a scanner entry for a techtype that can already be scanned! 
+        /// WARNING. You can overwrite an existing entry with this. Use with Caution as this can break recipe unlocks of the original! 
         /// Default is <see langword="false"/>.
         /// </summary>
         public virtual bool AddScannerEntry => false;
@@ -47,7 +47,7 @@
 
         /// <summary>
         /// Override to add a <see cref="PDAEncyclopedia.EntryData"/> into the PDA's Encyclopedia for this object.
-        /// WARNING. You cannot overwrite an existing entry with this. It must have a unique key! 
+        /// WARNING. You can overwrite an existing entry with this. Use with Caution! 
         /// Default is <see langword="Null"/>.
         /// </summary>
         public virtual PDAEncyclopedia.EntryData EncyclopediaEntryData => null;
