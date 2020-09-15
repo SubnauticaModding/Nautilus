@@ -14,6 +14,7 @@
     <AssemblyName>SMLHelper</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -27,7 +28,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>8.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\SN.STABLE\SMLHelper.xml</DocumentationFile>
@@ -39,7 +39,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>8.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\SN.EXP\SMLHelper.xml</DocumentationFile>
@@ -51,7 +50,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>8.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\BZ.STABLE\SMLHelper.xml</DocumentationFile>
@@ -63,7 +61,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>8.0</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\BZ.EXP\SMLHelper.xml</DocumentationFile>
@@ -126,10 +123,13 @@
     <Compile Include="Assets\FishPrefab.cs" />
     <Compile Include="Assets\ModPrefab.cs" />
     <Compile Include="Assets\ModPrefabCache.cs" />
+    <Compile Include="Assets\ModPrefabRequest.cs" />
     <Compile Include="Assets\SubnauticaModSprite.cs" />
     <Compile Include="Assets\BelowZeroModSprite.cs" />
     <Compile Include="Assets\PdaItem.cs" />
     <Compile Include="Assets\Spawnable.cs" />
+    <Compile Include="Commands\Parameter.cs" />
+    <Compile Include="Commands\ConsoleCommand.cs" />
     <Compile Include="Crafting\CraftingNode.cs" />
     <Compile Include="Crafting\ModCraftTreeCraft.cs" />
     <Compile Include="Crafting\ModCraftTreeLinkingNode.cs" />
@@ -140,8 +140,13 @@
     <Compile Include="Crafting\TabNode.cs" />
     <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Crafting\TechData.cs" />
+    <Compile Include="Commands\ConsoleCommandAttribute.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
+    <Compile Include="Interfaces\IModOptionAttribute.cs" />
+    <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
+    <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
     <Compile Include="Interfaces\IPingHandler.cs" />
+    <Compile Include="Json\ConfigFileAttribute.cs" />
     <Compile Include="Json\Converters\FloatConverter.cs" />
     <Compile Include="Json\ExtensionMethods\JsonExtensions.cs" />
     <Compile Include="Handler.cs" />
@@ -187,21 +192,39 @@
     <Compile Include="Interfaces\IWorldEntityDatabaseHandler.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MonoBehaviours\Fixer.cs" />
+    <Compile Include="Options\Attributes\ConfigFileMetadata.cs" />
+    <Compile Include="Options\Attributes\MemberInfoMetadata.cs" />
+    <Compile Include="Options\Attributes\ModOptionAttributeMetadata.cs" />
     <Compile Include="Options\ButtonModOption.cs" />
+    <Compile Include="Options\Attributes\ChoiceAttribute.cs" />
     <Compile Include="Options\ChoiceModOption.cs" />
     <Compile Include="Json\ConfigFile.cs" />
+    <Compile Include="Options\Attributes\OptionsMenuBuilder.cs" />
+    <Compile Include="Options\Attributes\IgnoreMemberAttribute.cs" />
+    <Compile Include="Interfaces\IModOptionEventArgs.cs" />
+    <Compile Include="Options\Attributes\KeybindAttribute.cs" />
     <Compile Include="Options\KeybindModOption.cs" />
+    <Compile Include="Options\Attributes\ModOptionAttribute.cs" />
+    <Compile Include="Options\Attributes\ModOptionEventAttribute.cs" />
     <Compile Include="Options\ModOptions.cs" />
+    <Compile Include="Options\Attributes\MenuAttribute.cs" />
+    <Compile Include="Options\Attributes\ButtonAttribute.cs" />
+    <Compile Include="Options\Attributes\OnGameObjectCreatedAttribute.cs" />
+    <Compile Include="Options\Attributes\SliderAttribute.cs" />
     <Compile Include="Options\SliderModOption.cs" />
+    <Compile Include="Options\Attributes\OnChangeAttribute.cs" />
+    <Compile Include="Options\Attributes\ToggleAttribute.cs" />
     <Compile Include="Options\ToggleModOption.cs" />
+    <Compile Include="Options\ModOptionTooltip.cs" />
     <Compile Include="Options\Utility\Validator.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
+    <Compile Include="Handlers\ConsoleCommandsHandler.cs" />
+    <Compile Include="Patchers\ConsoleCommandsPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher_BelowZero.cs" />
     <Compile Include="Patchers\CraftDataPatcher_Subnautica.cs" />
     <Compile Include="Patchers\CraftTreePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\CraftTreeTypePatcher.cs" />
-    <Compile Include="Patchers\DevConsolePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\EnumPatcher.cs" />
     <Compile Include="Patchers\FishPatcher.cs" />
     <Compile Include="Patchers\IngameMenuPatcher.cs" />

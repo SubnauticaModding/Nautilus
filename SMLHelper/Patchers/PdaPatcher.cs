@@ -1,14 +1,15 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using HarmonyLib;
+    using SMLHelper.V2.Utility;
     using System.Collections.Generic;
 
     // Special thanks to Gorillazilla9 for sharing this method of fragment count patching
     // https://github.com/Gorillazilla9/SubnauticaFragReqBoost/blob/master/PDAScannerPatcher.cs
     internal class PDAPatcher
     {
-        internal static readonly Dictionary<TechType, int> FragmentCount = new Dictionary<TechType, int>();
-        internal static readonly Dictionary<TechType, float> FragmentScanTime = new Dictionary<TechType, float>();
+        internal static readonly SelfCheckingDictionary<TechType, int> FragmentCount = new SelfCheckingDictionary<TechType, int>("CustomFragmentCount");
+        internal static readonly SelfCheckingDictionary<TechType, float> FragmentScanTime = new SelfCheckingDictionary<TechType, float>("CustomFragmentScanTime");
         internal static readonly SelfCheckingDictionary<TechType, PDAScanner.EntryData> CustomEntryData = new SelfCheckingDictionary<TechType, PDAScanner.EntryData>("CustomEntryData");
 
         private static readonly Dictionary<TechType, PDAScanner.EntryData> BlueprintToFragment = new Dictionary<TechType, PDAScanner.EntryData>();
@@ -38,24 +39,26 @@
             }
 
             // Add custom entry data
-            foreach(KeyValuePair<TechType, PDAScanner.EntryData> entry in CustomEntryData)
+            foreach(KeyValuePair<TechType, PDAScanner.EntryData> customEntry in CustomEntryData)
             {
-                if(!mapping.ContainsKey(entry.Key))
+                if (!mapping.ContainsKey(customEntry.Key))
                 {
-                    PDAScanner.mapping.Add(entry.Key, entry.Value);
+                    PDAScanner.mapping.Add(customEntry.Key, customEntry.Value);
+                    Logger.Debug($"Adding PDAScanner EntryData for TechType: {customEntry.Key.AsString()}");
                 }
                 else
                 {
-                    Logger.Warn($"PDAScanner already Contains EntryData for TechType: {entry.Key.AsString()}, Unable to Overwrite.");
+                    mapping[customEntry.Key] = customEntry.Value;
+                    Logger.Debug($"PDAScanner already Contains EntryData for TechType: {customEntry.Key.AsString()}, Overwriting Original.");
                 }
             }
 
             // Update fragment totals
             foreach(KeyValuePair<TechType, int> fragmentEntry in FragmentCount)
             {
-                if(mapping.ContainsKey(fragmentEntry.Key)) // Lookup by techtype of fragment
+                if(mapping.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entry)) // Lookup by techtype of fragment
                 {
-                    mapping[fragmentEntry.Key].totalFragments = fragmentEntry.Value;
+                    entry.totalFragments = fragmentEntry.Value;
                 }
                 else if(BlueprintToFragment.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entryData)) // Lookup by blueprint techtype
                 {
@@ -70,9 +73,9 @@
             // Update scan times
             foreach(KeyValuePair<TechType, float> fragmentEntry in FragmentScanTime)
             {
-                if(mapping.ContainsKey(fragmentEntry.Key)) // Lookup by techtype of fragment
+                if(mapping.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entry)) // Lookup by techtype of fragment
                 {
-                    mapping[fragmentEntry.Key].scanTime = fragmentEntry.Value;
+                    entry.scanTime = fragmentEntry.Value;
                 }
                 else if(BlueprintToFragment.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entryData)) // Lookup by blueprint techtype
                 {

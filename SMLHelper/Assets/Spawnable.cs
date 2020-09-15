@@ -104,9 +104,14 @@
                 {
                     CraftDataHandler.SetItemSize(TechType, SizeInInventory);
                 }
+
                 if(EntityInfo != null && BiomesToSpawnIn != null)
                 {
                     LootDistributionHandler.AddLootDistributionData(this, BiomesToSpawnIn, EntityInfo);
+                }
+                else if(EntityInfo != null)
+                {
+                    WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
                 }
             };
         }
