@@ -114,7 +114,8 @@
                 {
                     var jsonSerializerSettings = new JsonSerializerSettings()
                     {
-                        Converters = jsonConverters
+                        Converters = jsonConverters,
+                        ObjectCreationHandling = ObjectCreationHandling.Replace
                     };
 
                     string serializedJson = File.ReadAllText(path);
