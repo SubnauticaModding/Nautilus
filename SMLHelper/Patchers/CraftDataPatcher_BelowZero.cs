@@ -23,7 +23,7 @@ namespace SMLHelper.V2.Patchers
         {
             if (CustomTechData.TryGetValue(techType, out JsonValue smlTechData))
             {
-                if (TechData.entries.TryGetValue(techType, out JsonValue techData) &&
+                if (!TechData.entries.TryGetValue(techType, out JsonValue techData) ||
                     smlTechData != techData)
                 {
                     AddCustomTechDataToOriginalDictionary();

@@ -28,7 +28,7 @@
 
             harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech)),
                 transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
-#if BELOWZERO_EXP
+#if BELOWZERO
             harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe)),
                 transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
 #else
