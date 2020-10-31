@@ -10,7 +10,7 @@
 
         void Awake() => Destroy(GetComponent<LayoutElement>());
 
-#if BELOWZERO_EXP
+#if BELOWZERO
         public void GetTooltip(TooltipData tooltip)
         {
             tooltip.prefix.Append(Tooltip);
