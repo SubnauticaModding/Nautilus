@@ -73,7 +73,7 @@
         /// <param name="value">The starting value.</param>
         protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value)
         {
-            AddSliderOption(id, label, minValue, maxValue, value, null, null, 0.05f);
+            AddSliderOption(id, label, minValue, maxValue, value, null, null, 0);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@
         /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
         protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = null)
         {
-            AddSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, 0.05f);
+            AddSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, 0);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@
         /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
         /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
         /// <param name="step">Step for the slider, ie. round to nearest X</param>
-        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = null, float step = 0.05f)
+        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = null, float step = 0)
         {
             AddOption(new ModSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, step));
         }
@@ -138,9 +138,9 @@
 
         /// <summary>
         /// The step value of the <see cref="ModSliderOption"/>.
-        /// Defaults to 0.05f same as default code.
+        /// Defaults to 0f for compatibility with older mods.
         /// </summary>
-        public float Step { get; } = 0.05f;
+        public float Step { get; } = 0;
 
         /// <summary> Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string)"/>) </summary>
         public string ValueFormat { get; }
@@ -207,7 +207,7 @@
         /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
         /// <param name="valueFormat">Format for value field (<see cref="ModOptions.AddSliderOption(string, string, float, float, float, float?, string, float)"/>) </param>
         /// <param name="step">Step for the slider ie. round to nearest X</param>
-        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = null, float step = 0.05f) : base(label, id)
+        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = null, float step = 0) : base(label, id)
         {
             MinValue = minValue;
             MaxValue = maxValue;
