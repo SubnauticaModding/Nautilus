@@ -20,6 +20,19 @@
         {
             Initialize();
 
+#if BELOWZERO
+            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.InventoryItem)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.ItemPostfix))));
+
+            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.InventoryItemView)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.ItemPostfix))));
+
+            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.TechTypePostfix))));
+
+            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe)),
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.TechTypePostfix))));
+#else
             harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.InventoryItem)),
                 transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
 
@@ -28,10 +41,6 @@
 
             harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech)),
                 transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
-#if BELOWZERO
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe)),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
-#else
             harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.Recipe)),
                 transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
 #endif
@@ -46,7 +55,11 @@
             else WriteSpace(sb);
 
             if (IsVanillaTechType(techType))
+#if SUBNAUTICA
                 WriteModName(sb, "Subnautica");
+#elif BELOWZERO
+                WriteModName(sb, "BelowZero");
+#endif
             else if (TechTypePatcher.cacheManager.ContainsKey(techType))
                 WriteModNameFromTechType(sb, techType);
             else
@@ -234,6 +247,19 @@
             return codes;
         }
 
-#endregion
+#if BELOWZERO
+        internal static void TechTypePostfix(TechType techType, TooltipData data)
+        {
+            CustomTooltip(data.prefix, techType);
+        }
+        internal static void ItemPostfix(InventoryItem item, TooltipData data)
+        {
+            TechType techType = item?.item?.GetTechType() ?? TechType.None;
+
+            CustomTooltip(data.prefix, techType);
+        }
+#endif
+
+        #endregion
     }
 }
