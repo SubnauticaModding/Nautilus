@@ -45,13 +45,16 @@
             int randomIndex = Random.Range(0, FishHandler.fishTechTypes.Count);
             TechType randomFish = FishHandler.fishTechTypes[randomIndex];
 
-            TaskResult<GameObject> result = new TaskResult<GameObject>();
-            yield return CraftData.InstantiateFromPrefabAsync(randomFish, result);
+            CoroutineTask<GameObject> task = CraftData.GetPrefabForTechTypeAsync(randomFish);
+            yield return task;
 
-            GameObject fish = result.Get();
+            GameObject prefab = task.GetResult();
 
-            if (fish is null)
+            if (prefab is null)
                 yield break;
+
+            GameObject fish = GameObject.Instantiate(prefab, originalUsedForSpawnLocation.transform.position, originalUsedForSpawnLocation.transform.rotation, false);
+            prefab.SetActive(false);
 
             // Deletes the fish if it is a ground creature spawned in water
             if (fish.GetComponent<WalkOnGround>() && !originalUsedForSpawnLocation.GetComponent<WalkOnGround>())
@@ -67,7 +70,7 @@
                 yield break;
             }
 
-            fish.transform.position = originalUsedForSpawnLocation.transform.position;
+            fish.SetActive(true);
 
             usedCreatures.Add(originalUsedForSpawnLocation);
             yield break;
