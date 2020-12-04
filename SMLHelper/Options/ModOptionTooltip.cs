@@ -11,6 +11,8 @@
         void Awake() => Destroy(GetComponent<LayoutElement>());
 
 #if BELOWZERO
+        public bool showTooltipOnDrag => true;
+
         public void GetTooltip(TooltipData tooltip)
         {
             tooltip.prefix.Append(Tooltip);
