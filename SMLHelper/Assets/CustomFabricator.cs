@@ -151,7 +151,7 @@
         /// <returns></returns>
         public override GameObject GetGameObject()
         {
-#if SUBNAUTICA_EXP
+#if SUBNAUTICA_EXP || BELOWZERO_EXP
             return null;
 #else
             GameObject prefab = this.Model switch

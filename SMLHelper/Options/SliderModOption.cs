@@ -147,12 +147,12 @@
 
         private SliderValue sliderValue = null;
 
-#if !BELOWZERO_EXP
+#if !BELOWZERO
         private float previousValue;
 #endif
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-#if BELOWZERO_EXP
+#if BELOWZERO
             UnityAction<float> callback = new UnityAction<float>((value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value));
 #else
             UnityAction<float> callback = new UnityAction<float>((value) =>
@@ -168,9 +168,7 @@
 
 #if SUBNAUTICA
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, callback);
-#elif BELOWZERO_STABLE
-            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback);
-#elif BELOWZERO_EXP
+#elif BELOWZERO
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, "0.0");
 #endif
 
@@ -178,7 +176,7 @@
             Transform options = panel.tabs[tabIndex].container.transform;
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
 
-#if BELOWZERO_EXP
+#if BELOWZERO
             // if we using custom value format, we need to replace vanilla uGUI_SliderWithLabel with our component
             if (ValueFormat != null)
                 OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>().ValueFormat = ValueFormat;

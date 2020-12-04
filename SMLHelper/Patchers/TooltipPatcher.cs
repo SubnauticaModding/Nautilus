@@ -4,12 +4,8 @@
     using QModManager.API;
     using SMLHelper.V2.Handlers;
     using SMLHelper.V2.Patchers.EnumPatching;
-    using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq.Expressions;
     using System.Reflection;
-    using System.Reflection.Emit;
     using System.Text;
 
     internal class TooltipPatcher
@@ -20,21 +16,20 @@
         {
             Initialize();
 
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.InventoryItem)),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
-
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.InventoryItemView)),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
-
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech)),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
-#if BELOWZERO_EXP
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe)),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
+            MethodInfo buildTech = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech));
+            MethodInfo itemCommons = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemCommons));
+#if BELOWZERO
+            MethodInfo recipe = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe));
 #else
-            harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.Recipe)),
-                transpiler: new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.Transpiler))));
+            MethodInfo recipe = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.Recipe));
 #endif
+            HarmonyMethod customTooltip = new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.CustomTooltip)));
+            HarmonyMethod techTypePostfix = new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.TechTypePostfix)));
+
+            harmony.Patch(itemCommons, postfix: customTooltip);
+            harmony.Patch(recipe, postfix: techTypePostfix);
+            harmony.Patch(buildTech, postfix: techTypePostfix);
+
             Logger.Log("TooltipPatcher is done.", LogLevel.Debug);
         }
 
@@ -46,17 +41,17 @@
             else WriteSpace(sb);
 
             if (IsVanillaTechType(techType))
+#if SUBNAUTICA
                 WriteModName(sb, "Subnautica");
+#elif BELOWZERO
+                WriteModName(sb, "BelowZero");
+#endif
             else if (TechTypePatcher.cacheManager.ContainsKey(techType))
                 WriteModNameFromTechType(sb, techType);
             else
                 WriteModNameError(sb, "Unknown Mod", "Item added without SMLHelper");
         }
-        internal static void CustomTooltip(StringBuilder sb, InventoryItem item)
-        {
-            CustomTooltip(sb, item.item.GetTechType());
-        }
-
+        
         internal static void WriteTechType(StringBuilder sb, TechType techType)
         {
             sb.AppendFormat("\n\n<size=19><color=#808080FF>{0} ({1})</color></size>", techType.AsString(), (int)techType);
@@ -192,48 +187,21 @@
 
 #region Patches
 
-        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase method)
+
+#if SUBNAUTICA
+        internal static void TechTypePostfix(TechType techType, ref string tooltipText)
         {
-            // Turn the IEnumerable into a List
-            var codes = new List<CodeInstruction>(instructions);
+            StringBuilder stringBuilder = new StringBuilder(tooltipText);
 
-            // Get the target op code based on what method is being patched
-            // Callvirt for InventoryItem and InventoryItemView, Ldarg_2 for BuildTech and Recipe
-            OpCode targetCode = method.Name.Contains("InventoryItem") ? OpCodes.Callvirt : OpCodes.Ldarg_2;
-            // Get the last occurance of the code
-            int entryIndex = codes.FindLastIndex(c => c.opcode == targetCode);
-
-            // Get the fnction that will be injected based on what method is currently being patched
-            // CustomTooltip(StringBuilder, InventoryItem) for InventoryItem and InventoryItemView, CustomTooltip(StringBuilder, TechType) for BuildTech and Recipe
-            Expression<Action> methodInfo;
-            if (method.Name.Contains("InventoryItem")) methodInfo = () => CustomTooltip(null, null);
-            else methodInfo = () => CustomTooltip(null, TechType.None);
-
-            // Remove all labels at the target op code
-            var labelsToMove = new List<Label>(codes[entryIndex].labels.ToArray());
-            codes[entryIndex].labels.Clear();
-
-            // Change first custom IL code based on what method is being patched
-            // Dup for InventoryItem and InventoryItemView, Ldloc_0 for BuildTech and Recipe
-            OpCode firstCode = method.Name.Contains("InventoryItem") ? OpCodes.Dup : OpCodes.Ldloc_0;
-            
-            // Insert custom IL codes
-            CodeInstruction[] codesToInsert = new CodeInstruction[]
-            {
-                new CodeInstruction(firstCode)
-                {
-                    // Move labels accordingly
-                    labels = labelsToMove
-                },
-                new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Call, SymbolExtensions.GetMethodInfo(methodInfo)),
-            };
-            codes.InsertRange(entryIndex, codesToInsert);
-
-            // Return modified IL
-            return codes;
+            CustomTooltip(stringBuilder, techType);
+            tooltipText = stringBuilder.ToString();
         }
-
+#elif BELOWZERO
+        internal static void TechTypePostfix(TechType techType, TooltipData data)
+        {
+            CustomTooltip(data.prefix, techType);
+        }
+#endif
 #endregion
     }
 }
