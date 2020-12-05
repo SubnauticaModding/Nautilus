@@ -48,6 +48,9 @@
             FishPatcher.Patch(harmony);
 
             TechTypePatcher.Patch();
+#if BELOWZERO
+            ButtonPatcher.Patch();
+#endif
             CraftTreeTypePatcher.Patch();
             PingTypePatcher.Patch();
             EnumPatcher.Patch(harmony);
