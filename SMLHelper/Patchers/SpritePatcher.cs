@@ -1,7 +1,11 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
+    using System.Collections;
     using System.Collections.Generic;
     using Assets;
+    using UnityEngine;
+    using UWE;
+    using Logger = Logger;
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
 #elif BELOWZERO
@@ -12,6 +16,16 @@
     {
         internal static void Patch()
         {
+            CoroutineHost.StartCoroutine(PatchSpritesAsync());
+        }
+
+        private static IEnumerator PatchSpritesAsync()
+        {
+            while(SpriteManager.atlases is null)
+            {
+                yield return new WaitForSecondsRealtime(1);
+            }
+
             foreach (var moddedSpriteGroup in ModSprite.ModSprites)
             {
                 SpriteManager.Group moddedGroup = moddedSpriteGroup.Key;
