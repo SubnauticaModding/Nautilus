@@ -33,7 +33,7 @@
 
         internal static void Patch(Harmony harmony)
         {
-#if SN1
+#if SUBNAUTICA
             PatchSprites();
 #elif BELOWZERO
             CoroutineHost.StartCoroutine(PatchSpritesAsync());
