@@ -19,7 +19,7 @@
 
         internal static void PatchCheck(SpriteManager.Group group, string name)
         {
-            if (string.IsNullOrEmpty(name) || !ModSprite.ModSprites.ContainsKey(group) || !ModSprite.ModSprites[group].TryGetValue(name, out _))
+            if (string.IsNullOrEmpty(name) || !ModSprite.ModSprites.TryGetValue(group, out var groupDict) || !groupDict.TryGetValue(name, out _))
                 return;
 #if BELOWZERO
             if (!SpriteManager.hasInitialized)
