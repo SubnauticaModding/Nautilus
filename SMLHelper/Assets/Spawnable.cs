@@ -4,10 +4,13 @@
     using SMLHelper.V2.Interfaces;
     using SMLHelper.V2.Utility;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+    using UnityEngine;
     using UWE;
+    using Logger = Logger;
 
     /// <summary>
     /// An item that can be spawned into the game.
@@ -98,9 +101,13 @@
             CorePatchEvents += () =>
             {
                 PrefabHandler.RegisterPrefab(this);
-                SpriteHandler.RegisterSprite(TechType, GetItemSprite());
 
-                if(!SizeInInventory.Equals(defaultSize))
+#if SN1
+                SpriteHandler.RegisterSprite(TechType, GetItemSprite());
+#elif BELOWZERO
+                CoroutineHost.StartCoroutine(RegisterSpriteAsync());
+#endif
+                if (!SizeInInventory.Equals(defaultSize))
                 {
                     CraftDataHandler.SetItemSize(TechType, SizeInInventory);
                 }
@@ -115,6 +122,17 @@
                 }
             };
         }
+
+#if BELOWZERO
+        private IEnumerator RegisterSpriteAsync()
+        {
+            while (!SpriteManager.hasInitialized)
+                yield return new WaitForSecondsRealtime(1);
+
+            SpriteHandler.RegisterSprite(TechType, GetItemSprite());
+            yield break;
+        }
+#endif
 
         /// <summary>
         /// This event triggers <c>before</c> the core patching methods begins.
