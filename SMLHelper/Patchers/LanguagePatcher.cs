@@ -23,7 +23,7 @@
             if (string.IsNullOrEmpty(key) || !customLines.ContainsKey(key))
                 return;
 
-            if (!__instance.strings.TryGetValue(key, out _))
+            if (!__instance.strings.ContainsKey(key))
                 InsertCustomLines(ref __instance);
         }
 
