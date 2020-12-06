@@ -18,7 +18,16 @@
         private static readonly Dictionary<string, Dictionary<string, string>> originalCustomLines = new Dictionary<string, Dictionary<string, string>>();
         private static readonly Dictionary<string, string> customLines = new Dictionary<string, string>();
 
-        internal static void Postfix(ref Language __instance)
+        internal static void RepatchCheck(ref Language __instance, string key)
+        {
+            if (string.IsNullOrEmpty(key) || !customLines.TryGetValue(key, out _))
+                return;
+
+            if (!__instance.strings.TryGetValue(key, out _))
+                InsertCustomLines(ref __instance);
+        }
+
+        internal static void InsertCustomLines(ref Language __instance)
         {
             // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
             // See README.md for details.
@@ -38,8 +47,14 @@
 
             ReadOverrideCustomLines();
 
-            harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.LoadLanguageFile)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(LanguagePatcher), nameof(LanguagePatcher.Postfix))));
+
+            HarmonyMethod repatchCheckMethod = new HarmonyMethod(AccessTools.Method(typeof(LanguagePatcher), nameof(LanguagePatcher.RepatchCheck)));
+            HarmonyMethod insertLinesMethod = new HarmonyMethod(AccessTools.Method(typeof(LanguagePatcher), nameof(LanguagePatcher.InsertCustomLines)));
+
+            harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.ParseMetaData)), prefix: insertLinesMethod);
+            harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.GetKeysFor)), prefix: insertLinesMethod);
+            harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.TryGet)), prefix: repatchCheckMethod);
+            harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.Contains)), prefix: repatchCheckMethod);
 
             Logger.Log("LanguagePatcher is done.", LogLevel.Debug);
         }
