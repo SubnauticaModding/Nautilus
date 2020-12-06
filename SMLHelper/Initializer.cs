@@ -60,7 +60,7 @@
             ConsoleCommandsPatcher.Patch(harmony);
             LanguagePatcher.Patch(harmony);
             PrefabDatabasePatcher.PostPatch(harmony);
-            SpritePatcher.Patch();
+            SpritePatcher.Patch(harmony);
             KnownTechPatcher.Patch(harmony);
             BioReactorPatcher.Patch();
             OptionsPanelPatcher.Patch(harmony);

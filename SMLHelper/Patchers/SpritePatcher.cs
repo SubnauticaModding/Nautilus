@@ -1,8 +1,10 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using Assets;
+    using HarmonyLib;
     using UnityEngine;
     using UWE;
     using Logger = Logger;
@@ -14,19 +16,45 @@
 
     internal class SpritePatcher
     {
-        internal static void Patch()
+
+        internal static void PatchCheck(SpriteManager.Group group, string name)
         {
-            CoroutineHost.StartCoroutine(PatchSpritesAsync());
+            if (string.IsNullOrEmpty(name) || !ModSprite.ModSprites.ContainsKey(group) || !ModSprite.ModSprites[group].TryGetValue(name, out _))
+                return;
+#if BELOWZERO
+            if (!SpriteManager.hasInitialized)
+                return;
+#endif
+            Dictionary<string, Sprite> atlas = GetSpriteAtlas(group);
+            
+            if (atlas != null && !atlas.TryGetValue(name, out _))
+                PatchSprites();
         }
 
+        internal static void Patch(Harmony harmony)
+        {
+#if SN1
+            PatchSprites();
+#elif BELOWZERO
+            CoroutineHost.StartCoroutine(PatchSpritesAsync());
+#endif
+            HarmonyMethod patchCheck = new HarmonyMethod(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
+            harmony.Patch(AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) }), prefix: patchCheck);
+        }
+
+#if BELOWZERO
         private static IEnumerator PatchSpritesAsync()
         {
-#if BELOWZERO
-            while(SpriteManager.atlases is null)
-            {
+            while (!SpriteManager.hasInitialized)
                 yield return new WaitForSecondsRealtime(1);
-            }
+
+            PatchSprites();
+            yield break;
+        }
 #endif
+
+        private static void PatchSprites()
+        {
             foreach (var moddedSpriteGroup in ModSprite.ModSprites)
             {
                 SpriteManager.Group moddedGroup = moddedSpriteGroup.Key;
@@ -50,9 +78,7 @@
                     }
                 }
             }
-
             Logger.Debug("SpritePatcher is done.");
-            yield break;
         }
 
         private static Dictionary<string, Sprite> GetSpriteAtlas(SpriteManager.Group groupKey)
@@ -62,17 +88,14 @@
                 Logger.Error($"SpritePatcher was unable to find a sprite mapping for {nameof(SpriteManager.Group)}.{groupKey}");
                 return null;
             }
-
 #if SUBNAUTICA
             var atlas = Atlas.GetAtlas(atlasName);
             if (atlas?.nameToSprite != null)
                 return atlas.nameToSprite;
-
 #elif BELOWZERO
             if (SpriteManager.atlases.TryGetValue(atlasName, out var spriteGroup))
                     return spriteGroup;
 #endif
-
             Logger.Error($"SpritePatcher was unable to find a sprite atlas for {nameof(SpriteManager.Group)}.{groupKey}");
             return null;
         }
