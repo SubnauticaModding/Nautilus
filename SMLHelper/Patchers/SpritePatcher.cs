@@ -21,11 +21,12 @@
 
         private static IEnumerator PatchSpritesAsync()
         {
+#if BZ
             while(SpriteManager.atlases is null)
             {
                 yield return new WaitForSecondsRealtime(1);
             }
-
+#endif
             foreach (var moddedSpriteGroup in ModSprite.ModSprites)
             {
                 SpriteManager.Group moddedGroup = moddedSpriteGroup.Key;
@@ -51,6 +52,7 @@
             }
 
             Logger.Debug("SpritePatcher is done.");
+            yield break;
         }
 
         private static Dictionary<string, Sprite> GetSpriteAtlas(SpriteManager.Group groupKey)
