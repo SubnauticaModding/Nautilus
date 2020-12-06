@@ -20,7 +20,7 @@
 
         internal static void RepatchCheck(ref Language __instance, string key)
         {
-            if (string.IsNullOrEmpty(key) || !customLines.TryGetValue(key, out _))
+            if (string.IsNullOrEmpty(key) || !customLines.ContainsKey(key))
                 return;
 
             if (!__instance.strings.TryGetValue(key, out _))
