@@ -21,7 +21,7 @@
 
         private static IEnumerator PatchSpritesAsync()
         {
-#if BZ
+#if BELOWZERO
             while(SpriteManager.atlases is null)
             {
                 yield return new WaitForSecondsRealtime(1);
