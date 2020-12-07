@@ -102,7 +102,7 @@
             {
                 PrefabHandler.RegisterPrefab(this);
 
-#if SN1
+#if SUBNAUTICA
                 SpriteHandler.RegisterSprite(TechType, GetItemSprite());
 #elif BELOWZERO
                 CoroutineHost.StartCoroutine(RegisterSpriteAsync());
