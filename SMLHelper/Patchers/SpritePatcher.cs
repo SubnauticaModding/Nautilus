@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Reflection;
     using Assets;
     using HarmonyLib;
     using UnityEngine;
@@ -35,11 +36,13 @@
         {
 #if SUBNAUTICA
             PatchSprites();
+            MethodInfo methodInfo = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
 #elif BELOWZERO
             CoroutineHost.StartCoroutine(PatchSpritesAsync());
+            MethodInfo methodInfo = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
 #endif
             HarmonyMethod patchCheck = new HarmonyMethod(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
-            harmony.Patch(AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) }), prefix: patchCheck);
+            harmony.Patch(methodInfo, prefix: patchCheck);
         }
 
 #if BELOWZERO
