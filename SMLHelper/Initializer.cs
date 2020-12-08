@@ -34,6 +34,8 @@
             TechTypePatcher.cacheManager.LoadCache();
             Logger.Debug("Loading CraftTreeType Cache");
             CraftTreeTypePatcher.cacheManager.LoadCache();
+            Logger.Debug("Loading PingType Cache");
+            PingTypePatcher.cacheManager.LoadCache();
 
             PrefabDatabasePatcher.PrePatch(harmony);
         }
@@ -79,6 +81,9 @@
             TechTypePatcher.cacheManager.SaveCache();
             Logger.Debug("Saving CraftTreeType Cache");
             CraftTreeTypePatcher.cacheManager.SaveCache();
+            Logger.Debug("Saving PingType Cache");
+            PingTypePatcher.cacheManager.SaveCache();
+
         }
     }
 }
