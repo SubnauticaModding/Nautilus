@@ -101,6 +101,7 @@
         protected void AddChoiceOption(string id, string label, string[] options, string value)
         {
             int index = Array.IndexOf(options, value);
+            if (index < 0) index = 0; 
             AddChoiceOption(id, label, options, index);
         }
         /// <summary>
