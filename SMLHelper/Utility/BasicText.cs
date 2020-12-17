@@ -369,7 +369,7 @@ namespace SMLHelper.V2.Utility
                 case TextAnchor.LowerLeft:
                 case TextAnchor.LowerCenter:
                 case TextAnchor.LowerRight:
-                    displayY = y - height / 2;
+                    displayY = y + height / 2;
                     break;
 
                 default:
