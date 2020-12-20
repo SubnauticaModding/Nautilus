@@ -34,6 +34,8 @@
             TechTypePatcher.cacheManager.LoadCache();
             Logger.Debug("Loading CraftTreeType Cache");
             CraftTreeTypePatcher.cacheManager.LoadCache();
+            Logger.Debug("Loading PingType Cache");
+            PingTypePatcher.cacheManager.LoadCache();
 
             PrefabDatabasePatcher.PrePatch(harmony);
         }
@@ -48,6 +50,9 @@
             FishPatcher.Patch(harmony);
 
             TechTypePatcher.Patch();
+#if BELOWZERO
+            ButtonPatcher.Patch();
+#endif
             CraftTreeTypePatcher.Patch();
             PingTypePatcher.Patch();
             EnumPatcher.Patch(harmony);
@@ -57,7 +62,7 @@
             ConsoleCommandsPatcher.Patch(harmony);
             LanguagePatcher.Patch(harmony);
             PrefabDatabasePatcher.PostPatch(harmony);
-            SpritePatcher.Patch();
+            SpritePatcher.Patch(harmony);
             KnownTechPatcher.Patch(harmony);
             BioReactorPatcher.Patch();
             OptionsPanelPatcher.Patch(harmony);
@@ -76,6 +81,9 @@
             TechTypePatcher.cacheManager.SaveCache();
             Logger.Debug("Saving CraftTreeType Cache");
             CraftTreeTypePatcher.cacheManager.SaveCache();
+            Logger.Debug("Saving PingType Cache");
+            PingTypePatcher.cacheManager.SaveCache();
+
         }
     }
 }

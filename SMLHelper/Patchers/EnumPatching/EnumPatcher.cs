@@ -30,6 +30,12 @@
             {
                 __result = GetValues(PingTypePatcher.cacheManager, __result);
             }
+#if BELOWZERO
+            else if (enumType == typeof(GameInput.Button))
+            {
+                __result = GetValues(ButtonPatcher.cacheManager, __result);
+            }
+#endif
         }
 
         private static T[] GetValues<T>(EnumCacheManager<T> cacheManager, Array __result) where T : Enum
@@ -50,7 +56,11 @@
         {
             if (IsDefined(TechTypePatcher.cacheManager, enumType, value) ||
                 IsDefined(CraftTreeTypePatcher.cacheManager, enumType, value) ||
-                IsDefined(PingTypePatcher.cacheManager, enumType, value))
+                IsDefined(PingTypePatcher.cacheManager, enumType, value)
+#if BELOWZERO
+                || IsDefined(ButtonPatcher.cacheManager, enumType, value)
+#endif
+                )
             {
                 __result = true;
                 return false;
@@ -83,7 +93,13 @@
                 __result = pingType;
                 return false;
             }
-
+#if BELOWZERO
+            else if (enumType == typeof(GameInput.Button) && ButtonPatcher.cacheManager.TryParse(value, out GameInput.Button button))
+            {
+                __result = button;
+                return false;
+            }
+#endif
             return true;
         }
 
@@ -105,6 +121,11 @@
                     __result = pingTypeName;
                     return false;
 
+#if BELOWZERO
+                case GameInput.Button button when ButtonPatcher.cacheManager.TryGetValue(button, out var buttonName):
+                    __result = buttonName;
+                    return false;
+#endif
                 default:
                     return true;
             }
