@@ -401,15 +401,14 @@ namespace SMLHelper.V2.Utility
             textText.fontStyle = cloneStyle ? uGUI.main.intro.mainText.text.fontStyle : style;
             textText.alignment = cloneAlign ? uGUI.main.intro.mainText.text.alignment : align;
             textText.color = cloneColor ? uGUI.main.intro.mainText.text.color : color;
-            textText.material = cloneMaterial ? uGUI.main.intro.mainText.text.material : material; 
+            textText.material = cloneMaterial ? uGUI.main.intro.mainText.text.material : material;
 
-            // This puts the text OVER the black "you are dead" screen, so it will still show for a death message
-            // One could of course get into parenting this object to different things, in different layers, but for
-            // basic purposes we're creating text that will "definitely show up".
-            var go = uGUI.main.overlays.overlays[0].graphic;
-            textObject.transform.SetParent(go.transform, false); // Parents our text to the black overlay
-            textText.canvas.overrideSorting = true;              // Turn on canvas sort override so the layers will work
-            textObject.layer += 100;                             // Set to a higher layer than the black overlay
+            // Sets it to SN's highest layer -- note it will not appear on top of the black "you are dead" overlay. To do that
+            // requires setting it HIGHER than uGUI.main.overlays.overlays[0].graphic  -- which will make SN throw a sloppy exception
+            // in the log, but will WORK.
+            textObject.transform.SetParent(uGUI.main.screenCanvas.transform, false); // Parents our text to the black overlay
+            textText.canvas.overrideSorting = true;              // Turn on canvas sort override so the layers will work                    
+            textObject.layer = 31;                               // Set to what seems to be Subnautica's highest layer
         }
 
         protected float x { get; set; } = 0;          // X position anchor
