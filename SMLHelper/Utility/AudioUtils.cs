@@ -2,6 +2,8 @@
 {
     using FMOD;
     using FMODUnity;
+    using NAudio.Wave;
+    using System;
 
     /// <summary>
     /// Utilities for audio and sound
@@ -71,9 +73,9 @@
         {
             float volumeLevel = volumeControl switch
             {
-                SoundChannel.Master  => SoundSystem.masterVolume,
-                SoundChannel.Music   => SoundSystem.musicVolume,
-                SoundChannel.Voice   => SoundSystem.voiceVolume,
+                SoundChannel.Master => SoundSystem.masterVolume,
+                SoundChannel.Music => SoundSystem.musicVolume,
+                SoundChannel.Voice => SoundSystem.voiceVolume,
                 SoundChannel.Ambient => SoundSystem.ambientVolume,
                 _ => 1f,
             };
@@ -84,6 +86,78 @@
             FMOD_System.playSound(sound, newChannels, false, out Channel channel);
 
             return channel;
+        }
+
+        /// <summary>
+        /// Convert an audio file from mp3 to wav format.
+        /// </summary>
+        /// <param name="inputFile">The filename of origin.</param>
+        /// <param name="outputFile">The destination filename.</param>
+        /// <param name="prefix">The audio file prefix.</param>
+        /// <param name="compressionType">How much compression you want to applay.</param>
+        /// <param name="convertType">The conversion type from => to</param>
+        /// <returns>The output filename produced.</returns>
+        public static string ConvertAudio(string inputFile, string outputFile = "", string prefix = "", CompressionType compressionType = CompressionType.None, ConvertType convertType = ConvertType.Mp3ToWav)
+        {
+            var result = string.Empty;
+            try
+            {
+                if (string.IsNullOrEmpty(outputFile))
+                    outputFile = inputFile.Replace(".mp3", ".wav");
+
+                if (!string.IsNullOrEmpty(prefix))
+                    outputFile = outputFile.Replace(".wav", $"{prefix}.wav");
+
+                using (var mp3Reader = new Mp3FileReader(inputFile))
+                {
+                    var wavFormat = new WaveFormat(mp3Reader.WaveFormat.SampleRate, mp3Reader.WaveFormat.BitsPerSample, mp3Reader.WaveFormat.Channels);
+                    switch (compressionType)
+                    {
+                        case CompressionType.None:
+                            break;
+                        case CompressionType.Medium:
+                            wavFormat = new WaveFormat(mp3Reader.WaveFormat.SampleRate / 2, mp3Reader.WaveFormat.BitsPerSample, mp3Reader.WaveFormat.Channels);
+                            break;
+                        case CompressionType.High:
+                            wavFormat = new WaveFormat(mp3Reader.WaveFormat.SampleRate / 4, mp3Reader.WaveFormat.BitsPerSample, mp3Reader.WaveFormat.Channels / 2);
+                            break;
+                    }
+                    using (var wavStream = new WaveFormatConversionStream(wavFormat, mp3Reader))
+                    {
+                        WaveFileWriter.CreateWaveFile(outputFile, wavStream);
+                        result = outputFile;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Conversion Error : {ex.Message}");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// The compression level to optimiz the file size.
+        /// </summary>
+        public enum CompressionType
+        {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+            None,
+            Medium,
+            High
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+        }
+
+        /// <summary>
+        /// The file type conversion.
+        /// </summary>
+        public enum ConvertType
+        {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+            Mp3ToWav,
+            WavToMp3
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         }
     }
 }
