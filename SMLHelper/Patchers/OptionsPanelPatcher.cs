@@ -44,7 +44,7 @@
 
         // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
         [PatchUtils.Postfix]
-        [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTab))]
+        [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddTab))]
         internal static void AddTab_Postfix(string label, int __result)
         {
             if (label == "Mods")
