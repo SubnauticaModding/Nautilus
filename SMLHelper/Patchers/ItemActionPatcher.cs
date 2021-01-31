@@ -52,7 +52,7 @@
             harmony.Patch(AccessTools.Method(typeof(uGUI_InventoryTab), nameof(uGUI_InventoryTab.OnPointerClick)), 
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.OnPointerClick_Prefix))));
 
-            harmony.Patch(AccessTools.Method(typeof(Inventory), nameof(Inventory.ExecuteItemAction)), 
+            harmony.Patch(AccessTools.Method(typeof(Inventory), nameof(Inventory.ExecuteItemAction),new Type[] { typeof(ItemAction), typeof(InventoryItem) }), 
                 prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.ExecuteItemAction_Prefix))));
 
             harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemActions)), 
