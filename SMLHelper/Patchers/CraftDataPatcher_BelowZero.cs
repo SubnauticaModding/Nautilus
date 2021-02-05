@@ -8,7 +8,7 @@ namespace SMLHelper.V2.Patchers
 
     internal partial class CraftDataPatcher
     {
-        internal static IDictionary<TechType, JsonValue> CustomTechData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
+        internal static readonly IDictionary<TechType, JsonValue> CustomTechData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
 
         private static void PatchForBelowZero(Harmony harmony)
         {
@@ -62,8 +62,6 @@ namespace SMLHelper.V2.Patchers
                 TechType updatedTechData = updated[i];
                 CustomTechData[updatedTechData] = TechData.entries[updatedTechData];
             }
-
-            CustomTechData.Clear();
 
             if (added.Count > 0)
             {
