@@ -232,7 +232,6 @@
     <Compile Include="Patchers\CraftDataPatcher_BelowZero.cs" />
     <Compile Include="Patchers\CraftDataPatcher_Subnautica.cs" />
     <Compile Include="Patchers\CraftTreePatcher.cs" />
-    <Compile Include="Patchers\EnumPatching\ButtonPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\CraftTreeTypePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\EnumPatcher.cs" />
     <Compile Include="Patchers\FishPatcher.cs" />

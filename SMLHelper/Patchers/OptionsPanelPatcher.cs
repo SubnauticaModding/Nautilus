@@ -22,6 +22,7 @@
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
+    using static SMLHelper.V2.Options.ModKeybindOption;
 #endif
 
     internal class OptionsPanelPatcher
@@ -50,6 +51,20 @@
             if (label == "Mods")
                 modsTabIndex = __result;
         }
+
+#if BELOWZERO
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue))]
+        internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
+        {
+            if (__instance.gameObject.GetComponent<ModBindingTag>() is null)
+                return true;
+
+            __instance.currentText.text = (__instance.active || __instance.value == null) ? "" : __instance.value;
+            __instance.UpdateState();
+            return false;
+        }
+#endif
 
         [PatchUtils.Postfix]
         [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
