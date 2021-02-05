@@ -76,6 +76,27 @@ namespace SMLHelper.V2.Interfaces
         /// <param name="techType">The TechType whose Cold Resistance you want to edit.</param>
         /// <param name="resistance">The int value for the Cold Resistance.</param>
         void SetColdResistance(TechType techType, int resistance);
+
+        /// <summary>
+        /// Sets the maximum charge.
+        /// </summary>
+        /// <param name="techType">The TechType whose MaxCharge you want to edit.</param>
+        /// <param name="maxCharge">The maximum charge.</param>
+        void SetMaxCharge(TechType techType, float maxCharge);
+
+        /// <summary>
+        /// Sets the energy cost.
+        /// </summary>
+        /// <param name="techType">The TechType whose EnergyCost you want to edit.</param>
+        /// <param name="energyCost">The energy cost.</param>
+        void SetEnergyCost(TechType techType, float energyCost);
+
+        /// <summary>
+        /// Sets the type of the sound.
+        /// </summary>
+        /// <param name="techType">Type of the tech.</param>
+        /// <param name="soundType">Type of the sound.</param>
+        void SetSoundType(TechType techType, TechData.SoundType soundType);
     }
 }
 #endif
