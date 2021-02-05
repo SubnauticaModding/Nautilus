@@ -11,6 +11,7 @@
 #elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
     using SMLHelper.V2.Patchers.EnumPatching;
+    using HarmonyLib;
 #endif
 
     /// <summary>
@@ -140,23 +141,28 @@
             // Update bindings
             binding.device = Device;
             binding.value = KeyCodeUtils.KeyCodeToString(Key);
+            binding.gameObject.EnsureComponent<ModBindingTag>();
 #if SUBNAUTICA
             binding.onValueChanged.RemoveAllListeners();
             var callback = new UnityAction<KeyCode>((KeyCode key) => parentOptions.OnKeybindChange(Id, key));
             binding.onValueChanged.AddListener(new UnityAction<string>((string s) => callback?.Invoke(KeyCodeUtils.StringToKeyCode(s))));
 #elif BELOWZERO
-            binding.action = ButtonPatcher.EnsureButton(Label, KeyCodeUtils.KeyCodeToString(Key), Device);
             binding.bindingSet = GameInput.BindingSet.Primary;
             var callback = new UnityAction<KeyCode>((KeyCode key) => parentOptions.OnKeybindChange(Id, key));
-#if BELOWZERO_STABLE
-            binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((GameInput.Device device, GameInput.Button button, GameInput.BindingSet bindingSet, string s) => { callback?.Invoke(KeyCodeUtils.StringToKeyCode(s)); panel.TryBind1_0(device, button, bindingSet, s); binding.RefreshValue(); });
-#elif BELOWZERO_EXP
-            binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((GameInput.Device device, GameInput.Button button, GameInput.BindingSet bindingSet, string s) => { callback?.Invoke(KeyCodeUtils.StringToKeyCode(s)); panel.TryBind(device, button, bindingSet, s); binding.RefreshValue(); });
-#endif
+
+            binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
+            {
+                binding.value = s;
+                parentOptions.OnKeybindChange(Id, KeyCodeUtils.StringToKeyCode(s));
+                binding.RefreshValue();
+            });
 #endif
 
             base.AddToPanel(panel, tabIndex);
         }
+
+        internal class ModBindingTag: MonoBehaviour { };
+
 
         private class BindingOptionAdjust: ModOptionAdjust
         {
