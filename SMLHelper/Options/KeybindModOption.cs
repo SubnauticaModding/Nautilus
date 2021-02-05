@@ -10,8 +10,6 @@
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
-    using SMLHelper.V2.Patchers.EnumPatching;
-    using HarmonyLib;
 #endif
 
     /// <summary>
@@ -148,8 +146,6 @@
             binding.onValueChanged.AddListener(new UnityAction<string>((string s) => callback?.Invoke(KeyCodeUtils.StringToKeyCode(s))));
 #elif BELOWZERO
             binding.bindingSet = GameInput.BindingSet.Primary;
-            var callback = new UnityAction<KeyCode>((KeyCode key) => parentOptions.OnKeybindChange(Id, key));
-
             binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
             {
                 binding.value = s;
