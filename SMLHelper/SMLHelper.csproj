@@ -256,6 +256,7 @@
     <Compile Include="Utility\BasicText.cs" />
     <Compile Include="Utility\EnumCacheManager.cs" />
     <Compile Include="Utility\ExtBannedIdManager.cs" />
+    <Compile Include="Interfaces\IBasicText.cs" />
     <Compile Include="Utility\ImageUtils.cs" />
     <Compile Include="Utility\IOUtilities.cs" />
     <Compile Include="Utility\ItemStorageHelper.cs" />
