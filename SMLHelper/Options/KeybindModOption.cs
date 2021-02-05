@@ -139,12 +139,12 @@
             // Update bindings
             binding.device = Device;
             binding.value = KeyCodeUtils.KeyCodeToString(Key);
-            binding.gameObject.EnsureComponent<ModBindingTag>();
 #if SUBNAUTICA
             binding.onValueChanged.RemoveAllListeners();
             var callback = new UnityAction<KeyCode>((KeyCode key) => parentOptions.OnKeybindChange(Id, key));
             binding.onValueChanged.AddListener(new UnityAction<string>((string s) => callback?.Invoke(KeyCodeUtils.StringToKeyCode(s))));
 #elif BELOWZERO
+            binding.gameObject.EnsureComponent<ModBindingTag>();
             binding.bindingSet = GameInput.BindingSet.Primary;
             binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
             {
@@ -157,7 +157,9 @@
             base.AddToPanel(panel, tabIndex);
         }
 
+#if BELOWZERO
         internal class ModBindingTag: MonoBehaviour { };
+#endif
 
 
         private class BindingOptionAdjust: ModOptionAdjust

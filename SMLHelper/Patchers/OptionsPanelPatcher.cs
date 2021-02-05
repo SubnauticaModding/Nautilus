@@ -52,6 +52,7 @@
                 modsTabIndex = __result;
         }
 
+#if BELOWZERO
         [PatchUtils.Prefix]
         [HarmonyPatch(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue))]
         internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
@@ -63,6 +64,7 @@
             __instance.UpdateState();
             return false;
         }
+#endif
 
         [PatchUtils.Postfix]
         [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
