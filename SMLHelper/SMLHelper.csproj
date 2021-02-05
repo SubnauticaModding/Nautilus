@@ -101,12 +101,20 @@
       <HintPath>$(Dependencies)\UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(Dependencies)\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>$(Dependencies)\UnityEngine.PhysicsModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>$(Dependencies)\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(Dependencies)\UnityEngine.UIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro" Condition="$(Configuration.Contains('BZ.'))">
@@ -245,6 +253,7 @@
     <Compile Include="Patchers\WorldEntityDatabasePatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AudioUtils.cs" />
+    <Compile Include="Utility\BasicText.cs" />
     <Compile Include="Utility\EnumCacheManager.cs" />
     <Compile Include="Utility\ExtBannedIdManager.cs" />
     <Compile Include="Utility\ImageUtils.cs" />
