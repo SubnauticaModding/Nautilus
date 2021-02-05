@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+#if BELOWZERO
+using Text = TMPro.TextMeshPro;
+using Font = TMPro.TMP_FontAsset;
+using FontStyle = TMPro.FontStyles;
+#endif
+
 namespace SMLHelper.V2.Utility
 {
     /// <summary>
@@ -235,11 +241,7 @@ namespace SMLHelper.V2.Utility
         /// <returns></returns>
         public string GetText()
         {
-            if (TextObject == null)
-            {
-                return "";
-            }
-            return TextText.text;
+            return TextText?.text ?? string.Empty;
         }
 
         /// <summary>
@@ -374,7 +376,11 @@ namespace SMLHelper.V2.Utility
             Align = useAlign;
             if (TextObject != null)
             {
+#if SUBNAUTICA
                 TextText.alignment = Align;
+#elif BELOWZERO
+                TextText.alignment = Convert(Align);
+#endif
                 DoAlignment();
             }
         }
@@ -407,14 +413,14 @@ namespace SMLHelper.V2.Utility
 
             float displayX, displayY;
 
-            switch (TextText.alignment)
+            switch (Align)
             {
                 case TextAnchor.UpperLeft:
                 case TextAnchor.MiddleLeft:
                 case TextAnchor.LowerLeft:
-                    displayX = X + width / 2;
-                    break;
 
+            displayX = X + width / 2;
+                    break;
                 case TextAnchor.UpperRight:
                 case TextAnchor.MiddleRight:
                 case TextAnchor.LowerRight:
@@ -426,12 +432,12 @@ namespace SMLHelper.V2.Utility
                     break;
             }
 
-            switch (TextText.alignment)
+            switch (Align)
             {
                 case TextAnchor.UpperLeft:
                 case TextAnchor.UpperCenter:
                 case TextAnchor.UpperRight:
-                    displayY = Y - height / 2;
+            displayY = Y - height / 2;
                     break;
 
                 case TextAnchor.LowerLeft:
@@ -467,7 +473,11 @@ namespace SMLHelper.V2.Utility
             TextText.font = CloneFont ? uGUI.main.intro.mainText.text.font : Font;
             TextText.fontSize = CloneSize ? uGUI.main.intro.mainText.text.fontSize : Size;
             TextText.fontStyle = CloneStyle ? uGUI.main.intro.mainText.text.fontStyle : Style;
+#if SUBNAUTICA
             TextText.alignment = CloneAlign ? uGUI.main.intro.mainText.text.alignment : Align;
+#elif BELOWZERO
+            TextText.alignment = CloneAlign ? uGUI.main.intro.mainText.text.alignment : Convert(Align);
+#endif
             TextText.color = CloneColor ? uGUI.main.intro.mainText.text.color : Color;
             TextText.material = CloneMaterial ? uGUI.main.intro.mainText.text.material : Material;
 
@@ -499,5 +509,34 @@ namespace SMLHelper.V2.Utility
         internal ContentSizeFitter TextFitter { get; set; } = null;   // Our content size fitter
 
         internal static int index = 0; // For giving unique names to the game objects
+        
+#if BELOWZERO
+        private static TMPro.TextAlignmentOptions Convert(TextAnchor textAnchor)
+        {
+            switch (textAnchor)
+            {
+                case TextAnchor.UpperLeft:
+                    return TMPro.TextAlignmentOptions.TopLeft;
+                case TextAnchor.UpperCenter:
+                    return TMPro.TextAlignmentOptions.Top;
+                case TextAnchor.UpperRight:
+                    return TMPro.TextAlignmentOptions.TopRight;
+                case TextAnchor.MiddleLeft:
+                    return TMPro.TextAlignmentOptions.MidlineLeft;
+                case TextAnchor.MiddleCenter:
+                    return TMPro.TextAlignmentOptions.Midline;
+                case TextAnchor.MiddleRight:
+                    return TMPro.TextAlignmentOptions.MidlineRight;
+                case TextAnchor.LowerLeft:
+                    return TMPro.TextAlignmentOptions.BottomLeft;
+                case TextAnchor.LowerCenter:
+                    return TMPro.TextAlignmentOptions.Bottom;
+                case TextAnchor.LowerRight:
+                    return TMPro.TextAlignmentOptions.BottomRight;
+                default: // Fallback case should never happen
+                    return TMPro.TextAlignmentOptions.Center;
+            }
+        }
+#endif
     }
 }
