@@ -411,25 +411,25 @@ namespace SMLHelper.V2.Utility
             textObject.layer = 31;                               // Set to what seems to be Subnautica's highest layer
         }
 
-        protected float x { get; set; } = 0;          // X position anchor
-        protected float y { get; set; } = 210f;       // Y position anchor (defaults to a comfortable centered about 1/3 from top of screen)
-        protected bool cloneAlign { get; set; }       // True if we're cloning Subnautica's "Press Any Button To Begin" alignment
-        protected bool cloneColor { get; set; }       // True if we're cloning Subnautica's "Press Any Button To Begin" color
-        protected bool cloneSize { get; set; }        // True if we're cloning Subnautica's "Press Any Button To Begin" fontsize
-        protected bool cloneFont { get; set; }        // True if we're cloning Subnautica's "Press Any Button To Begin" font
-        protected bool cloneStyle { get; set; }       // True if we're cloning Subnautica's "Press Any Button To Begin" font style
-        protected bool cloneMaterial { get; set; }    // True if we're cloning Subnautica's "Press Any Button To Begin" material
-        protected TextAnchor align { get; set; }      // text alignment
-        protected Color color { get; set; }           // text color
-        protected int size { get; set; }              // text size
-        protected Font font { get; set; }             // text font
-        protected FontStyle style { get; set; }       // text font style
-        protected Material material { get; set; }     // text material
-        protected GameObject textObject { get; set; } = null;          // Our game object
-        protected uGUI_TextFade textFade { get; set; } = null;         // Our text fader
-        protected Text textText { get; set; } = null;                  // Our text object
-        protected ContentSizeFitter textFitter { get; set; } = null;   // Our content size fitter
+        internal float x { get; set; } = 0;          // X position anchor
+        internal float y { get; set; } = 210f;       // Y position anchor (defaults to a comfortable centered about 1/3 from top of screen)
+        internal bool cloneAlign { get; set; }       // True if we're cloning Subnautica's "Press Any Button To Begin" alignment
+        internal bool cloneColor { get; set; }       // True if we're cloning Subnautica's "Press Any Button To Begin" color
+        internal bool cloneSize { get; set; }        // True if we're cloning Subnautica's "Press Any Button To Begin" fontsize
+        internal bool cloneFont { get; set; }        // True if we're cloning Subnautica's "Press Any Button To Begin" font
+        internal bool cloneStyle { get; set; }       // True if we're cloning Subnautica's "Press Any Button To Begin" font style
+        internal bool cloneMaterial { get; set; }    // True if we're cloning Subnautica's "Press Any Button To Begin" material
+        internal TextAnchor align { get; set; }      // text alignment
+        internal Color color { get; set; }           // text color
+        internal int size { get; set; }              // text size
+        internal Font font { get; set; }             // text font
+        internal FontStyle style { get; set; }       // text font style
+        internal Material material { get; set; }     // text material
+        internal GameObject textObject { get; set; } = null;          // Our game object
+        internal uGUI_TextFade textFade { get; set; } = null;         // Our text fader
+        internal Text textText { get; set; } = null;                  // Our text object
+        internal ContentSizeFitter textFitter { get; set; } = null;   // Our content size fitter
 
-        static int index = 0; // For giving unique names to the game objects
+        internal static int index = 0; // For giving unique names to the game objects
     }
 }
