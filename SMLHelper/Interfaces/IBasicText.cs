@@ -1,4 +1,9 @@
-﻿using TMPro;
+﻿#if BELOWZERO
+using Text = TMPro.TextMeshPro;
+using Font = TMPro.TMP_FontAsset;
+using FontStyle = TMPro.FontStyles;
+#endif
+
 using UnityEngine;
 
 namespace SMLHelper.V2.Interfaces
@@ -84,13 +89,13 @@ namespace SMLHelper.V2.Interfaces
         /// Sets the font 
         /// </summary>
         /// <param name="useFont">The font to render the text as.</param>
-        void SetFont(TMP_FontAsset useFont);
+        void SetFont(Font useFont);
 
         /// <summary>
         /// Sets the font style.
         /// </summary>
         /// <param name="useStyle">The text font style to use</param>
-        void SetFontStyle(FontStyles useStyle);
+        void SetFontStyle(FontStyle useStyle);
 
         /// <summary>
         /// Sets screen display location (position relative to the actual text is determined by the alignment)
