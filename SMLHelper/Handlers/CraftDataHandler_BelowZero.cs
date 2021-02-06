@@ -81,7 +81,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        public RecipeData GetTechData(TechType techType)
+        public static RecipeData GetTechData(TechType techType)
         {
             return Main.GetRecipeData(techType);
         }
@@ -105,9 +105,40 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        public RecipeData GetModdedTechData(TechType techType)
+        public static RecipeData GetModdedTechData(TechType techType)
         {
             return Main.GetModdedRecipeData(techType);
+        }
+
+        /// <summary>
+        /// Sets the maximum charge.
+        /// </summary>
+        /// <param name="techType">The TechType whose MaxCharge you want to edit.</param>
+        /// <param name="maxCharge">The maximum charge.</param>
+        public static void SetMaxCharge(TechType techType, float maxCharge)
+        {
+            Main.SetMaxCharge(techType, maxCharge);
+        }
+
+        /// <summary>
+        /// Sets the energy cost.
+        /// </summary>
+        /// <param name="techType">The TechType whose EnergyCost you want to edit.</param>
+        /// <param name="energyCost">The energy cost.</param>
+        public static void SetEnergyCost(TechType techType, float energyCost)
+        {
+            Main.SetEnergyCost(techType, energyCost);
+        }
+
+
+        /// <summary>
+        /// Sets the type of the sound.
+        /// </summary>
+        /// <param name="techType">Type of the tech.</param>
+        /// <param name="soundType">Type of the sound.</param>
+        public static void SetSoundType(TechType techType, TechData.SoundType soundType)
+        {
+            Main.SetSoundType(techType, soundType);
         }
 
         #endregion
@@ -448,6 +479,36 @@ namespace SMLHelper.V2.Handlers
         void ICraftDataHandler.AddBuildable(TechType techType)
         {
             AddJsonProperty(techType, "buildable", new JsonValue(true));
+        }
+
+        /// <summary>
+        /// Sets the maximum charge.
+        /// </summary>
+        /// <param name="techType">The TechType whose MaxCharge you want to edit.</param>
+        /// <param name="maxCharge">The maximum charge.</param>
+        void ICraftDataHandler.SetMaxCharge(TechType techType, float maxCharge)
+        {
+            AddJsonProperty(techType, "maxCharge", new JsonValue((double)maxCharge));
+        }
+
+        /// <summary>
+        /// Sets the energy cost.
+        /// </summary>
+        /// <param name="techType">The TechType whose EnergyCost you want to edit.</param>
+        /// <param name="energyCost">The energy cost.</param>
+        void ICraftDataHandler.SetEnergyCost(TechType techType, float energyCost)
+        {
+            AddJsonProperty(techType, "energyCost", new JsonValue((double)energyCost));
+        }
+
+        /// <summary>
+        /// Sets the type of the sound.
+        /// </summary>
+        /// <param name="techType">Type of the tech.</param>
+        /// <param name="soundType">Type of the sound.</param>
+        void ICraftDataHandler.SetSoundType(TechType techType, TechData.SoundType soundType)
+        {
+            AddJsonProperty(techType, "soundType", new JsonValue((int)soundType));
         }
 
         private static void AddJsonProperty(TechType techType, string key, JsonValue newValue)
