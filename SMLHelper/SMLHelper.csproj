@@ -150,10 +150,12 @@
     <Compile Include="Crafting\TechData.cs" />
     <Compile Include="Commands\ConsoleCommandAttribute.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
+    <Compile Include="Handlers\SurvivalHandler.cs" />
     <Compile Include="Interfaces\IModOptionAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
     <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
     <Compile Include="Interfaces\IPingHandler.cs" />
+    <Compile Include="Interfaces\ISurvivalHandler.cs" />
     <Compile Include="Json\ConfigFileAttribute.cs" />
     <Compile Include="Json\Converters\FloatConverter.cs" />
     <Compile Include="Json\ExtensionMethods\JsonExtensions.cs" />
@@ -248,6 +250,7 @@
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
     <Compile Include="Patchers\SpritePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\TechTypePatcher.cs" />
+    <Compile Include="Patchers\SurvivalPatcher.cs" />
     <Compile Include="Patchers\TooltipPatcher.cs" />
     <Compile Include="Patchers\WorldEntityDatabasePatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

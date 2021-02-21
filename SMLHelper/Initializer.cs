@@ -71,6 +71,7 @@
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
+            SurvivalPatcher.Patch(harmony);
 
 
 
