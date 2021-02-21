@@ -98,6 +98,21 @@ namespace SMLHelper.V2.Patchers
         {
             DictionaryPrefix(techType, CustomEatingSounds, CraftData.useEatSound);
         }
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.IsInvUseable))]
+        private static bool IsInvUseablePrefix(TechType techType, ref bool __result)
+        {
+            foreach (TechType tt in SurvivalPatcher.InventoryUseables)
+            {
+                if (techType == tt)
+                {
+                    __result = true;
+                    return false;
+                }
+            }
+            __result = false;
+            return true;
+        }
 
         private static void DictionaryPrefix<T>(TechType techType, IDictionary<TechType, T> smlCollection, IDictionary<TechType, T> craftDataCollection)
         {
