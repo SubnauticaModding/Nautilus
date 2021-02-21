@@ -57,7 +57,7 @@ namespace SMLHelper.V2.Handlers
         /// <para>
         /// must have the
         /// <seealso cref="Eatable"/>
-        /// Component attached to it in order to work.
+        /// Component attached to the item in order to work.
         /// </para>
         /// </summary>
         /// <param name="techType">the TechType that you want it to heal back</param>
@@ -80,7 +80,7 @@ namespace SMLHelper.V2.Handlers
         /// <para>
         /// must have the
         /// <seealso cref="Eatable"/>
-        /// Component attached to it in order to work.
+        /// Component attached to the item in order to work.
         /// </para>
         /// </summary>
         /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
@@ -103,7 +103,7 @@ namespace SMLHelper.V2.Handlers
         /// <para>
         /// must have the
         /// <seealso cref="Eatable"/>
-        /// Component attached to it in order to work.
+        /// Component attached to the item in order to work.
         /// </para>
         /// </summary>
         /// <param name="techType">the TechType that you want it to heal back</param>
