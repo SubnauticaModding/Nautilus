@@ -50,7 +50,8 @@ namespace SMLHelper.V2.Patchers
                     result = true;
                 }
             }
-            FMODUWE.PlayOneShot(CraftData.GetUseEatSound(tt), Player.main.transform.position);
+            if (result)
+                FMODUWE.PlayOneShot(CraftData.GetUseEatSound(tt), Player.main.transform.position); // only play the sound if its useable
         }
     }
 }
