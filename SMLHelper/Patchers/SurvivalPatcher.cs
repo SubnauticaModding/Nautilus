@@ -9,27 +9,22 @@ namespace SMLHelper.V2.Patchers
 
     internal class SurvivalPatcher
     {
-        internal static IDictionary<TechType, List<Action>> SurvivalDictionaryOnUse = new SelfCheckingDictionary<TechType, List<Action>>("SurvivalDictionaryOnUse", TechTypeExtensions.sTechTypeComparer);
-        internal static IDictionary<TechType, List<Action>> SurvivalDictionaryOnEat = new SelfCheckingDictionary<TechType, List<Action>>("SurvivalDictionaryOnEat", TechTypeExtensions.sTechTypeComparer);
+        internal static IDictionary<TechType, List<Action>> CustomSurvivalInventoryAction = new SelfCheckingDictionary<TechType, List<Action>>("CustomSurvivalInventoryAction", TechTypeExtensions.sTechTypeComparer);
         internal static List<TechType> InventoryUseables = new List<TechType>();
 
         internal static void Patch(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(Survival), nameof(Survival.Use)),
-                postfix: new HarmonyMethod(typeof(SurvivalPatcher), nameof(UsePostfix)));
+                postfix: new HarmonyMethod(typeof(SurvivalPatcher), nameof(SurvivalPostfix)));
 
             harmony.Patch(AccessTools.Method(typeof(Survival), nameof(Survival.Eat)),
-                postfix: new HarmonyMethod(typeof(SurvivalPatcher), nameof(EatPostfix)));
+                postfix: new HarmonyMethod(typeof(SurvivalPatcher), nameof(SurvivalPostfix)));
 
             Logger.Log($"SurvivalPatcher is done.", LogLevel.Debug);
         }
-        private static void UsePostfix(GameObject useObj, ref bool __result)
+        private static void SurvivalPostfix(GameObject useObj, ref bool __result)
         {
-            SurvivalPatchings(SurvivalDictionaryOnUse, useObj, ref __result);
-        }
-        private static void EatPostfix(GameObject useObj, ref bool __result)
-        {
-            SurvivalPatchings(SurvivalDictionaryOnEat, useObj, ref __result);
+            SurvivalPatchings(CustomSurvivalInventoryAction, useObj, ref __result);
         }
         private static void SurvivalPatchings(IDictionary<TechType, List<Action>> dictionary, GameObject obj, ref bool result)
         {

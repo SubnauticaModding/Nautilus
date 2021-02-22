@@ -20,152 +20,90 @@ namespace SMLHelper.V2.Handlers
         {
             // Hides constructor
         }
+
+        #region Implementation Methods
         /// <summary>
         /// <para>makes the item gives oxygen on use.</para>
         /// </summary>
         /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
         /// <param name="oxygenGiven">the oxygen amount the item gives</param>
-        void ISurvivalHandler.GiveOxygenOnUse(TechType techType, float oxygenGiven)
+        /// <param name="isEdible">set it to <c>true</c> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
+        /// <para>defaults to <c>false</c></para>
+        /// </param>
+        void ISurvivalHandler.GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible)
         {
-            if (SurvivalPatcher.SurvivalDictionaryOnUse.TryGetValue(techType, out List<Action> action))
+            if (SurvivalPatcher.CustomSurvivalInventoryAction.TryGetValue(techType, out List<Action> action))
             {
                 action.Add(() => { Player.main.GetComponent<OxygenManager>().AddOxygen(oxygenGiven); }); // add an action to the list
                 return;
             }
 
             // if we reach to this point then the techtype doesn't exist in the dictionary so we add it
-            SurvivalPatcher.SurvivalDictionaryOnUse[techType] = new List<Action>()
+            SurvivalPatcher.CustomSurvivalInventoryAction[techType] = new List<Action>()
             {
                 () =>
                 {
                     Player.main.GetComponent<OxygenManager>().AddOxygen(oxygenGiven);
                 }
             };
-            SurvivalPatcher.InventoryUseables.Add(techType);
+            if (!isEdible)
+                SurvivalPatcher.InventoryUseables.Add(techType);
         }
         /// <summary>
-        /// <para>makes the item gives oxygen on eat.</para>
-        /// <para>
-        /// must have the
-        /// <seealso cref="Eatable"/>
-        /// Component attached to it in order to work.
-        /// </para>
-        /// </summary>
-        /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
-        /// <param name="oxygenGiven">the oxygen amount the item gives</param>
-        void ISurvivalHandler.GiveOxygenOnEat(TechType techType, float oxygenGiven)
-        {
-            if (SurvivalPatcher.SurvivalDictionaryOnEat.TryGetValue(techType, out List<Action> action))
-            {
-                action.Add(() => { Player.main.GetComponent<OxygenManager>().AddOxygen(oxygenGiven); }); // add an action to the list
-                return;
-            }
-
-            // if we reach to this point then the techtype doesn't exist in the dictionary so we add it
-            SurvivalPatcher.SurvivalDictionaryOnEat[techType] = new List<Action>()
-            {
-                () =>
-                {
-                    Player.main.GetComponent<OxygenManager>().AddOxygen(oxygenGiven);
-                }
-            };
-        }
-        /// <summary>
-        /// <para>makes the item Heal the player on use.</para>
+        /// <para>makes the item Heal the player on consume.</para>
         /// </summary>
         /// <param name="techType">the TechType that you want it to heal back</param>
         /// <param name="healthBack">amount to heal the player</param>
-        void ISurvivalHandler.GiveHealthOnUse(TechType techType, float healthBack)
+        /// <param name="isEdible">set it to <c>true</c> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
+        /// <para>defaults to <c>false</c></para>
+        /// </param>
+        void ISurvivalHandler.GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible)
         {
-            if (SurvivalPatcher.SurvivalDictionaryOnUse.TryGetValue(techType, out List<Action> action))
+            if (SurvivalPatcher.CustomSurvivalInventoryAction.TryGetValue(techType, out List<Action> action))
             {
                 action.Add(() => { Player.main.GetComponent<LiveMixin>().AddHealth(healthBack); }); // add an action to the list
                 return;
             }
 
             // if we reach to this point then the techtype doesn't exist in the dictionary so we add it
-            SurvivalPatcher.SurvivalDictionaryOnUse[techType] = new List<Action>()
+            SurvivalPatcher.CustomSurvivalInventoryAction[techType] = new List<Action>()
             {
                 () =>
                 {
                     Player.main.GetComponent<LiveMixin>().AddHealth(healthBack);
                 }
             };
-            SurvivalPatcher.InventoryUseables.Add(techType);
+            if (!isEdible)
+                SurvivalPatcher.InventoryUseables.Add(techType);
         }
-        /// <summary>
-        /// makes the item Heal the player on eat.
-        /// <para>
-        /// must have the
-        /// <seealso cref="Eatable"/>
-        /// Component attached to the item in order to work.
-        /// </para>
-        /// </summary>
-        /// <param name="techType">the TechType that you want it to heal back</param>
-        /// <param name="healthBack">amount to heal the player</param>
-        void ISurvivalHandler.GiveHealthOnEat(TechType techType, float healthBack)
-        {
-            if (SurvivalPatcher.SurvivalDictionaryOnEat.TryGetValue(techType, out List<Action> action))
-            {
-                action.Add(() => { Player.main.GetComponent<LiveMixin>().AddHealth(healthBack); }); // add an action to the list
-                return;
-            }
+        #endregion
 
-            // if we reach to this point then the techtype doesn't exist in the dictionary so we add it
-            SurvivalPatcher.SurvivalDictionaryOnEat[techType] = new List<Action>()
-            {
-                () =>
-                {
-                    Player.main.GetComponent<LiveMixin>().AddHealth(healthBack);
-                }
-            };
-        }
+        #region Static Methods
         /// <summary>
         /// <para>makes the item gives oxygen on use.</para>
         /// </summary>
         /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
         /// <param name="oxygenGiven">the oxygen amount the item gives</param>
-        public static void GiveOxygenOnUse(TechType techType, float oxygenGiven)
+        /// <param name="isEdible">set it to <c>true</c> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
+        /// <para>defaults to <c>false</c></para>
+        /// </param>
+        public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible = false)
         {
-            Main.GiveOxygenOnUse(techType, oxygenGiven);
+            Main.GiveOxygenOnConsume(techType, oxygenGiven, isEdible);
         }
         /// <summary>
-        /// <para>makes the item gives oxygen on eat.</para>
-        /// <para>
-        /// must have the
-        /// <seealso cref="Eatable"/>
-        /// Component attached to the item in order to work.
-        /// </para>
-        /// </summary>
-        /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
-        /// <param name="oxygenGiven">the oxygen amount the item gives</param>
-        public static void GiveOxygenOnEat(TechType techType, float oxygenGiven)
-        {
-            Main.GiveOxygenOnEat(techType, oxygenGiven);
-        }
-        /// <summary>
-        /// <para>makes the item Heal the player on use.</para>
+        /// <para>makes the item Heal the player on consume.</para>
         /// </summary>
         /// <param name="techType">the TechType that you want it to heal back</param>
         /// <param name="healthBack">amount to heal the player</param>
-        public static void GiveHealthOnUse(TechType techType, float healthBack)
+        /// <param name="isEdible">set it to <c>true</c> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
+        /// <para>defaults to <c>false</c></para>
+        /// </param>
+        public static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible = false)
         {
-            Main.GiveHealthOnUse(techType, healthBack);
+            Main.GiveHealthOnConsume(techType, healthBack, isEdible);
         }
-        /// <summary>
-        /// makes the item Heal the player on eat.
-        /// <para>
-        /// must have the
-        /// <seealso cref="Eatable"/>
-        /// Component attached to the item in order to work.
-        /// </para>
-        /// </summary>
-        /// <param name="techType">the TechType that you want it to heal back</param>
-        /// <param name="healthBack">amount to heal the player</param>
-        public static void GiveHealthOnEat(TechType techType, float healthBack)
-        {
-            Main.GiveHealthOnEat(techType, healthBack);
-        }
+        #endregion
     }
 }
 #endif

@@ -11,35 +11,19 @@ namespace SMLHelper.V2.Interfaces
         /// </summary>
         /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
         /// <param name="oxygenGiven">the oxygen amount the item gives</param>
-        void GiveOxygenOnUse(TechType techType, float oxygenGiven);
+        /// <param name="isEdible">set it to <c>true</c> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
+        /// <para>defaults to <c>false</c></para>
+        /// </param>
+        void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible = false);
         /// <summary>
-        /// <para>makes the item Heal the player on use.</para>
+        /// <para>makes the item Heal the player on consume.</para>
         /// </summary>
         /// <param name="techType">the TechType that you want it to heal back</param>
         /// <param name="healthBack">amount to heal the player</param>
-        void GiveHealthOnUse(TechType techType, float healthBack);
-        /// <summary>
-        /// <para>makes the item gives oxygen on use.</para>
-        /// <para>
-        /// must have the
-        /// <seealso cref="Eatable"/>
-        /// Component attached to the item in order to work.
-        /// </para>
-        /// </summary>
-        /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
-        /// <param name="oxygenGiven">the oxygen amount the item gives</param>
-        void GiveOxygenOnEat(TechType techType, float oxygenGiven);
-        /// <summary>
-        /// makes the item Heal the player on eat.
-        /// <para>
-        /// must have the
-        /// <seealso cref="Eatable"/>
-        /// Component attached to the item in order to work.
-        /// </para>
-        /// </summary>
-        /// <param name="techType">the TechType that you want it to heal back</param>
-        /// <param name="healthBack">amount to heal the player</param>
-        void GiveHealthOnEat(TechType techType, float healthBack);
+        /// <param name="isEdible">set it to <c>true</c> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
+        /// <para>defaults to <c>false</c></para>
+        /// </param>
+        void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible = false);
     }
 }
 #endif
