@@ -1,6 +1,8 @@
 ﻿#if SUBNAUTICA
 namespace SMLHelper.V2.Handlers
 {
+    using System;
+    using System.Collections.Generic;
     using Patchers;
     using Interfaces;
 
@@ -25,7 +27,20 @@ namespace SMLHelper.V2.Handlers
         /// <param name="oxygenGiven">the oxygen amount the item gives</param>
         void ISurvivalHandler.GiveOxygenOnUse(TechType techType, float oxygenGiven)
         {
-            SurvivalPatcher.CustomOxygenOutputsOnUse.Add(techType, oxygenGiven);
+            if (SurvivalPatcher.SurvivalDictionaryOnUse.TryGetValue(techType, out List<Action> action))
+            {
+                action.Add(() => { Player.main.GetComponent<OxygenManager>().AddOxygen(oxygenGiven); }); // add an action to the list
+                return;
+            }
+
+            // if we reach to this point then the techtype doesn't exist in the dictionary so we add it
+            SurvivalPatcher.SurvivalDictionaryOnUse[techType] = new List<Action>()
+            {
+                () =>
+                {
+                    Player.main.GetComponent<OxygenManager>().AddOxygen(oxygenGiven);
+                }
+            };
             SurvivalPatcher.InventoryUseables.Add(techType);
         }
         /// <summary>
@@ -40,7 +55,20 @@ namespace SMLHelper.V2.Handlers
         /// <param name="oxygenGiven">the oxygen amount the item gives</param>
         void ISurvivalHandler.GiveOxygenOnEat(TechType techType, float oxygenGiven)
         {
-            SurvivalPatcher.CustomOxygenOutputsOnEat.Add(techType, oxygenGiven);
+            if (SurvivalPatcher.SurvivalDictionaryOnEat.TryGetValue(techType, out List<Action> action))
+            {
+                action.Add(() => { Player.main.GetComponent<OxygenManager>().AddOxygen(oxygenGiven); }); // add an action to the list
+                return;
+            }
+
+            // if we reach to this point then the techtype doesn't exist in the dictionary so we add it
+            SurvivalPatcher.SurvivalDictionaryOnEat[techType] = new List<Action>()
+            {
+                () =>
+                {
+                    Player.main.GetComponent<OxygenManager>().AddOxygen(oxygenGiven);
+                }
+            };
         }
         /// <summary>
         /// <para>makes the item Heal the player on use.</para>
@@ -49,7 +77,20 @@ namespace SMLHelper.V2.Handlers
         /// <param name="healthBack">amount to heal the player</param>
         void ISurvivalHandler.GiveHealthOnUse(TechType techType, float healthBack)
         {
-            SurvivalPatcher.CustomHealersOnUse.Add(techType, healthBack);
+            if (SurvivalPatcher.SurvivalDictionaryOnUse.TryGetValue(techType, out List<Action> action))
+            {
+                action.Add(() => { Player.main.GetComponent<LiveMixin>().AddHealth(healthBack); }); // add an action to the list
+                return;
+            }
+
+            // if we reach to this point then the techtype doesn't exist in the dictionary so we add it
+            SurvivalPatcher.SurvivalDictionaryOnUse[techType] = new List<Action>()
+            {
+                () =>
+                {
+                    Player.main.GetComponent<LiveMixin>().AddHealth(healthBack);
+                }
+            };
             SurvivalPatcher.InventoryUseables.Add(techType);
         }
         /// <summary>
@@ -64,7 +105,20 @@ namespace SMLHelper.V2.Handlers
         /// <param name="healthBack">amount to heal the player</param>
         void ISurvivalHandler.GiveHealthOnEat(TechType techType, float healthBack)
         {
-            SurvivalPatcher.CustomHealersOnEat.Add(techType, healthBack);
+            if (SurvivalPatcher.SurvivalDictionaryOnUse.TryGetValue(techType, out List<Action> action))
+            {
+                action.Add(() => { Player.main.GetComponent<LiveMixin>().AddHealth(healthBack); }); // add an action to the list
+                return;
+            }
+
+            // if we reach to this point then the techtype doesn't exist in the dictionary so we add it
+            SurvivalPatcher.SurvivalDictionaryOnUse[techType] = new List<Action>()
+            {
+                () =>
+                {
+                    Player.main.GetComponent<LiveMixin>().AddHealth(healthBack);
+                }
+            };
         }
         /// <summary>
         /// <para>makes the item gives oxygen on use.</para>

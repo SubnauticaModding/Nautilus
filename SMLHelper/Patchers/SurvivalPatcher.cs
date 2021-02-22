@@ -1,6 +1,7 @@
 ﻿#if SUBNAUTICA
 namespace SMLHelper.V2.Patchers
 {
+    using System;
     using System.Collections.Generic;
     using HarmonyLib;
     using UnityEngine;
@@ -8,10 +9,8 @@ namespace SMLHelper.V2.Patchers
 
     internal class SurvivalPatcher
     {
-        internal static IDictionary<TechType, float> CustomOxygenOutputsOnUse = new SelfCheckingDictionary<TechType, float>("CustomOxygenOutputsOnUse", TechTypeExtensions.sTechTypeComparer);
-        internal static IDictionary<TechType, float> CustomHealersOnUse = new SelfCheckingDictionary<TechType, float>("CustomHealersOnUse", TechTypeExtensions.sTechTypeComparer);
-        internal static IDictionary<TechType, float> CustomOxygenOutputsOnEat = new SelfCheckingDictionary<TechType, float>("CustomOxygenOutputsOnEat", TechTypeExtensions.sTechTypeComparer);
-        internal static IDictionary<TechType, float> CustomHealersOnEat = new SelfCheckingDictionary<TechType, float>("CustomHealersOnEat", TechTypeExtensions.sTechTypeComparer);
+        internal static IDictionary<TechType, List<Action>> SurvivalDictionaryOnUse = new SelfCheckingDictionary<TechType, List<Action>>("SurvivalDictionaryOnUse", TechTypeExtensions.sTechTypeComparer);
+        internal static IDictionary<TechType, List<Action>> SurvivalDictionaryOnEat = new SelfCheckingDictionary<TechType, List<Action>>("SurvivalDictionaryOnEat", TechTypeExtensions.sTechTypeComparer);
         internal static List<TechType> InventoryUseables = new List<TechType>();
 
         internal static void Patch(Harmony harmony)
@@ -26,29 +25,19 @@ namespace SMLHelper.V2.Patchers
         }
         private static void UsePostfix(GameObject useObj, ref bool __result)
         {
-            SurvivalPatchings(CustomHealersOnUse, CustomOxygenOutputsOnUse, useObj, ref __result);
+            SurvivalPatchings(SurvivalDictionaryOnUse, useObj, ref __result);
         }
         private static void EatPostfix(GameObject useObj, ref bool __result)
         {
-            SurvivalPatchings(CustomHealersOnEat, CustomOxygenOutputsOnEat, useObj, ref __result);
+            SurvivalPatchings(SurvivalDictionaryOnEat, useObj, ref __result);
         }
-        private static void SurvivalPatchings(IDictionary<TechType, float> healers, IDictionary<TechType, float> oxygeners, GameObject obj, ref bool result)
+        private static void SurvivalPatchings(IDictionary<TechType, List<Action>> dictionary, GameObject obj, ref bool result)
         {
             TechType tt = CraftData.GetTechType(obj);
-            foreach (KeyValuePair<TechType, float> kvp in oxygeners)
+            if (dictionary.TryGetValue(tt, out List<Action> action))
             {
-                if (tt == kvp.Key)
-                {
-                    Player.main.GetComponent<OxygenManager>().AddOxygen(kvp.Value);
-                    result = true;
-                }
-            }
-            foreach (KeyValuePair<TechType, float> kvp in healers)
-            {
-                if (tt == kvp.Key && Player.main.GetComponent<LiveMixin>().AddHealth(kvp.Value) > 0.1f)
-                {
-                    result = true;
-                }
+                action.ForEach((x) => x.Invoke());
+                result = true;
             }
             if (result)
                 FMODUWE.PlayOneShot(CraftData.GetUseEatSound(tt), Player.main.transform.position); // only play the sound if its useable

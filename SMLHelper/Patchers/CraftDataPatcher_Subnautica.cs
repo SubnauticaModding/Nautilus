@@ -102,13 +102,10 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPatch(typeof(CraftData), nameof(CraftData.IsInvUseable))]
         private static bool IsInvUseablePrefix(TechType techType, ref bool __result)
         {
-            foreach (TechType tt in SurvivalPatcher.InventoryUseables)
+            if (SurvivalPatcher.InventoryUseables.Contains(techType))
             {
-                if (techType == tt)
-                {
-                    __result = true;
-                    return false;
-                }
+                __result = true;
+                return false;
             }
             __result = false;
             return true;
