@@ -105,14 +105,14 @@ namespace SMLHelper.V2.Handlers
         /// <param name="healthBack">amount to heal the player</param>
         void ISurvivalHandler.GiveHealthOnEat(TechType techType, float healthBack)
         {
-            if (SurvivalPatcher.SurvivalDictionaryOnUse.TryGetValue(techType, out List<Action> action))
+            if (SurvivalPatcher.SurvivalDictionaryOnEat.TryGetValue(techType, out List<Action> action))
             {
                 action.Add(() => { Player.main.GetComponent<LiveMixin>().AddHealth(healthBack); }); // add an action to the list
                 return;
             }
 
             // if we reach to this point then the techtype doesn't exist in the dictionary so we add it
-            SurvivalPatcher.SurvivalDictionaryOnUse[techType] = new List<Action>()
+            SurvivalPatcher.SurvivalDictionaryOnEat[techType] = new List<Action>()
             {
                 () =>
                 {
