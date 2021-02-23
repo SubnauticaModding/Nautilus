@@ -27,8 +27,8 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
         /// <param name="oxygenGiven">the oxygen amount the item gives</param>
-        /// <param name="isEdible">set it to <c>true</c> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
-        /// <para>defaults to <c>false</c></para>
+        /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
+        /// <para>defaults to <see langword="false" /></para>
         /// </param>
         void ISurvivalHandler.GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible)
         {
@@ -54,8 +54,8 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">the TechType that you want it to heal back</param>
         /// <param name="healthBack">amount to heal the player</param>
-        /// <param name="isEdible">set it to <c>true</c> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
-        /// <para>defaults to <c>false</c></para>
+        /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
+        /// <para>defaults to <see langword="false" /></para>
         /// </param>
         void ISurvivalHandler.GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible)
         {
@@ -84,8 +84,8 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
         /// <param name="oxygenGiven">the oxygen amount the item gives</param>
-        /// <param name="isEdible">set it to <c>true</c> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
-        /// <para>defaults to <c>false</c></para>
+        /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
+        /// <para>defaults to <see langword="false" /></para>
         /// </param>
         public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible = false)
         {
@@ -96,8 +96,8 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">the TechType that you want it to heal back</param>
         /// <param name="healthBack">amount to heal the player</param>
-        /// <param name="isEdible">set it to <c>true</c> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
-        /// <para>defaults to <c>false</c></para>
+        /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
+        /// <para>defaults to <see langword="false" /></para>
         /// </param>
         public static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible = false)
         {
