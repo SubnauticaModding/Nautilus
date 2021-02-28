@@ -50,7 +50,7 @@
 
         public void Reset() {}
 
-#if BELOWZERO_EXP || SUBNAUTICA_EXP
+#if BELOWZERO || SUBNAUTICA_EXP
         public void Release()
         {
         }
