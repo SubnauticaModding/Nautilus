@@ -1,4 +1,3 @@
-﻿#if SUBNAUTICA
 namespace SMLHelper.V2.Handlers
 {
     using System;
@@ -106,4 +105,4 @@ namespace SMLHelper.V2.Handlers
         #endregion
     }
 }
-#endif
+#endif}

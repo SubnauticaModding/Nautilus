@@ -1,4 +1,3 @@
-﻿#if SUBNAUTICA
 namespace SMLHelper.V2.Patchers
 {
     using System;
@@ -35,8 +34,11 @@ namespace SMLHelper.V2.Patchers
                 result = true;
             }
             if (result)
+#if SUBNAUTICA
                 FMODUWE.PlayOneShot(CraftData.GetUseEatSound(tt), Player.main.transform.position); // only play the sound if its useable
+#elif BELOWZERO
+                FMODUWE.PlayOneShot(Player.main.GetUseSound(TechData.GetSoundType(tt)), Player.main.transform.position); // only play the sound if its useable
+#endif
         }
     }
 }
-#endif

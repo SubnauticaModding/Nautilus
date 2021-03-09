@@ -1,4 +1,3 @@
-﻿#if SUBNAUTICA
 namespace SMLHelper.V2.Interfaces
 {
     /// <summary>
@@ -26,4 +25,3 @@ namespace SMLHelper.V2.Interfaces
         void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible = false);
     }
 }
-#endif
