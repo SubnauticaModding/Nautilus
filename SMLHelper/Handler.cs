@@ -82,10 +82,14 @@
         /// </summary>
         public static IPDAEncyclopediaHandler PDAEncyclopediaHandler => Handlers.PDAEncyclopediaHandler.Main;
 
-
         /// <summary>
         /// A handler for registering Unity prefabs associated to a <see cref="TechType"/>.
         /// </summary>
         public static IPrefabHandler PrefabHandler => Handlers.PrefabHandler.Main;
+
+        /// <summary>
+        /// a handler for common uses to the Survival component
+        /// </summary>
+        public static ISurvivalHandler SurvivalHandler => Handlers.SurvivalHandler.Main;
     }
 }

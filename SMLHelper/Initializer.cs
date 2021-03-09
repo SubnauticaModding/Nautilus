@@ -71,6 +71,9 @@
             WorldEntityDatabasePatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
+#if SUBNAUTICA
+            SurvivalPatcher.Patch(harmony);
+#endif
 
 
 
