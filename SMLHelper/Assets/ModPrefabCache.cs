@@ -12,7 +12,7 @@
     /// </summary>
     public static class ModPrefabCache
     {
-        private const float cleanDelay = 1.0f; // delay in secs before attempt to remove prefab from cache
+        private const float cleanDelay = 30.0f; // delay in secs before attempt to remove prefab from cache
 
         // list of prefabs for removing (Item1 - time of addition, Item2 - prefab gameobject)
         private readonly static List<Tuple<float, GameObject>> prefabs = new List<Tuple<float, GameObject>>();

@@ -42,6 +42,35 @@
             return false;
         }
 
+#if !SUBNAUTICA_STABLE
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(DeferredSpawner.AddressablesTask), nameof(DeferredSpawner.AddressablesTask.SpawnAsync))]
+        internal static bool DeferredSpawner_AddressablesTask_Spawn_Prefix(DeferredSpawner.AddressablesTask __instance, ref IEnumerator __result)
+        {
+            if (!ModPrefab.TryGetFromFileName(__instance.key, out ModPrefab prefab))
+                return true;
+
+            __result = SpawnAsyncReplacement(__instance, prefab);
+            return false;
+        }
+
+        internal static IEnumerator SpawnAsyncReplacement(DeferredSpawner.AddressablesTask task, ModPrefab modPrefab)
+        {
+            TaskResult<GameObject> prefabResult = new TaskResult<GameObject>();
+            yield return modPrefab.GetGameObjectInternalAsync(prefabResult);
+            GameObject prefab = prefabResult.Get();
+
+            if(prefab != null)
+                task.spawnedObject = UnityEngine.Object.Instantiate<GameObject>(prefab, task.parent, task.position, task.rotation, task.instantiateActivated);
+                    
+            if (task.spawnedObject == null)
+                task.forceCancelled = true;
+
+            task.HandleLateCancelledSpawn();
+            yield break;
+        }
+#endif
+
         [PatchUtils.Prefix] // SUBNAUTICA_EXP TODO: remove for SN after async update
         [HarmonyPatch(typeof(PrefabDatabase), "GetPrefabForFilename")] // method can be absent
         internal static bool GetPrefabForFilename_Prefix(string filename, ref GameObject __result)
