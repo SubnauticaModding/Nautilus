@@ -164,7 +164,10 @@
 
         void ILootDistributionHandler.AddLootDistributionData(string classId, LootDistributionData.SrcData data)
         {
-            LootDistributionPatcher.CustomSrcData.Add(classId, data);
+            if (LootDistributionPatcher.CustomSrcData.ContainsKey(classId))
+                Logger.Log($"{classId}-{data.prefabPath} already has custom distribution data. Replacing with latest.", LogLevel.Debug);
+
+            LootDistributionPatcher.CustomSrcData[classId] = data;
         }
 
         void ILootDistributionHandler.EditLootDistributionData(string classId, BiomeType biome, float probability, int count)
