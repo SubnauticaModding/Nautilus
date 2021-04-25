@@ -329,7 +329,7 @@
             }
 
             [PatchUtils.Postfix]
-            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.Awake))]
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.OnEnable))]
             private static void Awake_Postfix(uGUI_TabbedControlsPanel __instance)
             {
                 InitHeadingPrefab(__instance);
