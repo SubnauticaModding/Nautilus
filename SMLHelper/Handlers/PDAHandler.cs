@@ -54,6 +54,9 @@
         /// <param name="entryData">The <see cref="PDAScanner.EntryData"/> of the entry. Must be populated when passed in.</param>
         void IPDAHandler.AddCustomScannerEntry(PDAScanner.EntryData entryData)
         {
+            if (PDAPatcher.CustomEntryData.ContainsKey(entryData.key))
+                Logger.Log($"{entryData.key} already has custom PDAScanner.EntryData. Replacing with latest.", LogLevel.Debug);
+
             PDAPatcher.CustomEntryData[entryData.key] = entryData;
         }
 

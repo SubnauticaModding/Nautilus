@@ -22,6 +22,7 @@
     using Text = UnityEngine.UI.Text;
 #elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
+    using static SMLHelper.V2.Options.ModKeybindOption;
 #endif
 
     internal class OptionsPanelPatcher
@@ -44,12 +45,26 @@
 
         // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
         [PatchUtils.Postfix]
-        [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTab))]
+        [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddTab))]
         internal static void AddTab_Postfix(string label, int __result)
         {
             if (label == "Mods")
                 modsTabIndex = __result;
         }
+
+#if BELOWZERO
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue))]
+        internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
+        {
+            if (__instance.gameObject.GetComponent<ModBindingTag>() is null)
+                return true;
+
+            __instance.currentText.text = (__instance.active || __instance.value == null) ? "" : __instance.value;
+            __instance.UpdateState();
+            return false;
+        }
+#endif
 
         [PatchUtils.Postfix]
         [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
@@ -314,7 +329,7 @@
             }
 
             [PatchUtils.Postfix]
-            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.Awake))]
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.OnEnable))]
             private static void Awake_Postfix(uGUI_TabbedControlsPanel __instance)
             {
                 InitHeadingPrefab(__instance);

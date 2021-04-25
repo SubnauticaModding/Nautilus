@@ -16,14 +16,14 @@
 #if SUBNAUTICA
         /// <summary>
         /// <para>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</para>
-        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, Crafting.TechData)"/> and <see cref="SetTechData(TechType, Crafting.TechData)"/>.</para>
+        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, Crafting.TechData)"/> and <see cref="SetTechData(TechType, ITechData)"/>.</para>
         /// </summary>
         /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
 #elif BELOWZERO
         /// <summary>
         /// <para>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</para>
-        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, Crafting.RecipeData)"/> and <see cref="SetTechData(TechType, JsonValue)"/>.</para>
+        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, Crafting.RecipeData)"/>.</para>
         /// </summary>
         /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
         /// <param name="slotType">The QuickSlotType for that TechType.</param>

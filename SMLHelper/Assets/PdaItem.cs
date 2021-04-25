@@ -63,13 +63,9 @@
         public virtual TechCategory CategoryForPDA => TechCategory.Misc;
 
         /// <summary>
-        /// Gets a value indicating whether <see cref="RequiredForUnlock"/> has been set to lock this blueprint behind another <see cref="TechType"/>.
+        /// Override this property to assign whether or not the <see cref="TechType"/> should be unlocked at the start, defaulted to <c><see cref="RequiredForUnlock"/> == <see cref"TechType.None"/></c>
         /// </summary>
-        /// <value>
-        ///   Returns <c>true</c> if will be unlocked from the start of the game; otherwise, <c>false</c>.
-        /// </value>
-        /// <seealso cref="RequiredForUnlock"/>
-        public bool UnlockedAtStart => RequiredForUnlock == TechType.None;
+        public virtual bool UnlockedAtStart => RequiredForUnlock == TechType.None;
 
         /// <summary>
         /// Message which should be shown when the item is unlocked. <para/>

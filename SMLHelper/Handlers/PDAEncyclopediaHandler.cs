@@ -20,6 +20,9 @@
 
         void IPDAEncyclopediaHandler.AddCustomEntry(PDAEncyclopedia.EntryData entry)
         {
+            if (PDAEncyclopediaPatcher.CustomEntryData.ContainsKey(entry.key))
+                Logger.Log($"{entry.key} already has custom PDAEncyclopedia.EntryData. Replacing with latest.", LogLevel.Debug);
+
             PDAEncyclopediaPatcher.CustomEntryData[entry.key] = entry;
         }
         
