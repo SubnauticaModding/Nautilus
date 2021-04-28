@@ -28,20 +28,20 @@
             // Hide constructor
         }
 
-        TechType ITechTypeHandlerInternal.AddTechType(Assembly assembly, string internalName, string displayName, string tooltip)
+        TechType ITechTypeHandlerInternal.AddTechType(Assembly modAssembly, string internalName, string displayName, string tooltip)
         {
-            return Singleton.AddTechType(assembly, internalName, displayName, tooltip, true);
+            return Singleton.AddTechType(modAssembly, internalName, displayName, tooltip, true);
         }
 
-        TechType ITechTypeHandlerInternal.AddTechType(Assembly assembly, string internalName, string displayName, string tooltip, bool unlockAtStart)
+        TechType ITechTypeHandlerInternal.AddTechType(Assembly modAssembly, string internalName, string displayName, string tooltip, bool unlockAtStart)
         {
-            string modName = assembly.GetName().Name;
+            string modName = modAssembly.GetName().Name;
             
             // Register the TechType.
             var techType = TechTypePatcher.AddTechType(internalName);
             
             // Remember which Assembly added it
-            TechTypesAddedBy[techType] = assembly;
+            TechTypesAddedBy[techType] = modAssembly;
             
             // register Language Lines.
             LanguagePatcher.AddCustomLanguageLine(modName, internalName, displayName);
