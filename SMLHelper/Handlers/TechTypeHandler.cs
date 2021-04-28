@@ -84,7 +84,7 @@
             Singleton.AddTechType(addedByAssembly, internalName, displayName, tooltip, unlockAtStart);
         
         /// <summary>
-        /// Adds a new <see cref="TechType"/> into the game. This new techtype will be unlocked at the start of a the game.
+        /// Adds a new <see cref="TechType"/> into the game. This new <see cref="TechType"/> will be unlocked at the start of a game.
         /// </summary>
         /// <param name="internalName">The internal name of the TechType. Should not contain special characters.</param>
         /// <param name="displayName">The display name of the TechType. Can be anything.</param>
