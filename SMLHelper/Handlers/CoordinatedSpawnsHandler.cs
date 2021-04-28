@@ -10,6 +10,9 @@ namespace SMLHelper.V2.Handlers
     /// </summary>
     public class CoordinatedSpawnsHandler : ICoordinatedSpawnHandler
     {
+        /// <summary>
+        /// Main entry point for all calls to this handler.
+        /// </summary>
         public static ICoordinatedSpawnHandler Main { get; } = new CoordinatedSpawnsHandler();
         
         private CoordinatedSpawnsHandler()
@@ -22,7 +25,7 @@ namespace SMLHelper.V2.Handlers
         /// Registers Multiple Coordinated spawns for one single passed TechType
         /// </summary>
         /// <param name="techTypeToSpawn">The TechType to spawn</param>
-        /// <param name="coordinatesToSpawnTo">the coordinates the <see cref="techTypeToSpawn"/> should spawn to</param>
+        /// <param name="coordinatesToSpawnTo">the coordinates the <see cref="TechType"/> should spawn to</param>
         void ICoordinatedSpawnHandler.RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, List<Vector3> coordinatesToSpawnTo)
         {
             var spawnInfos = new List<SpawnInfo>();
@@ -45,7 +48,7 @@ namespace SMLHelper.V2.Handlers
         /// <summary>
         /// registers Many Coordinated Spawns.
         /// </summary>
-        /// <param name="spawnInfos">The SpawnInfo to spawn.</param>
+        /// <param name="spawnInfos">The SpawnInfos to spawn.</param>
         void ICoordinatedSpawnHandler.RegisterCoordinatedSpawns(List<SpawnInfo> spawnInfos)
         {
             LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
