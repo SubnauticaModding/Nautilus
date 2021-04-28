@@ -32,44 +32,57 @@ namespace SMLHelper.V2.Handlers
             }
             LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
         }
-        
+
         /// <summary>
         /// Registers a Coordinated Spawn
         /// </summary>
         /// <param name="spawnInfo">the SpawnInfo to spawn</param>
-        void ICoordinatedSpawnHandler.RegisterCoordinatedSpawn(SpawnInfo spawnInfo) =>
+        void ICoordinatedSpawnHandler.RegisterCoordinatedSpawn(SpawnInfo spawnInfo)
+        {
             LargeWorldStreamerPatcher.spawnInfos.Add(spawnInfo);
+        }
 
         /// <summary>
         /// registers Many Coordinated Spawns.
         /// </summary>
         /// <param name="spawnInfos">The SpawnInfo to spawn.</param>
-        void ICoordinatedSpawnHandler.RegisterCoordinatedSpawns(List<SpawnInfo> spawnInfos) =>
+        void ICoordinatedSpawnHandler.RegisterCoordinatedSpawns(List<SpawnInfo> spawnInfos)
+        {
             LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
+        }
+
         #endregion
 
         #region Static Methods
+
         /// <summary>
         /// Registers a Coordinated Spawn
         /// </summary>
         /// <param name="spawnInfo">the SpawnInfo to spawn</param>
-        public static void RegisterCoordinatedSpawn(SpawnInfo spawnInfo) =>
+        public static void RegisterCoordinatedSpawn(SpawnInfo spawnInfo)
+        {
             Main.RegisterCoordinatedSpawn(spawnInfo);
+        }
 
         /// <summary>
         /// registers Many Coordinated Spawns.
         /// </summary>
         /// <param name="spawnInfos">The SpawnInfo to spawn.</param>
-        public static void RegisterCoordinatedSpawns(List<SpawnInfo> spawnInfos) =>
+        public static void RegisterCoordinatedSpawns(List<SpawnInfo> spawnInfos)
+        {
             Main.RegisterCoordinatedSpawns(spawnInfos);
+        }
 
         /// <summary>
         /// Registers Multiple Coordinated spawns for one single passed TechType
         /// </summary>
         /// <param name="techTypeToSpawn">The TechType to spawn</param>
         /// <param name="coordinatesToSpawnTo">the coordinates the <see cref="techTypeToSpawn"/> should spawn to</param>
-        public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, List<Vector3> coordinatesToSpawnTo) =>
+        public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, List<Vector3> coordinatesToSpawnTo)
+        {
             Main.RegisterCoordinatedSpawnsForOneTechType(techTypeToSpawn, coordinatesToSpawnTo);
+        }
+
         #endregion
     }
     

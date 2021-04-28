@@ -9,7 +9,10 @@ namespace SMLHelper.V2.MonoBehaviours
     {
         public SpawnInfo spawnInfo;
 
-        void Start() => StartCoroutine(SpawnAsync());
+        void Start() 
+        { 
+            StartCoroutine(SpawnAsync());
+        }
 
         IEnumerator SpawnAsync()
         {
