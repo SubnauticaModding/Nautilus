@@ -41,14 +41,7 @@ namespace SMLHelper.V2.Patchers
         {
             foreach (var spawnInfo in spawnInfos)
             {
-                if (spawnInfo.techType != TechType.None)
-                {
-                    CreateSpawner(true, spawnInfo);
-                }
-                else if (!string.IsNullOrEmpty(spawnInfo.classId))
-                {
-                    CreateSpawner(false, spawnInfo);
-                }
+                CreateSpawner(spawnInfo.spawnType == SpawnInfo.SpawnType.TechType, spawnInfo);
             }
         }
 
