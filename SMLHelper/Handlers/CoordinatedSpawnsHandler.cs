@@ -99,6 +99,8 @@ namespace SMLHelper.V2.Handlers
         public string classId;
         public Vector3 spawnPosition;
 
+        internal SpawnType spawnType;
+
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
         /// </summary>
@@ -108,6 +110,7 @@ namespace SMLHelper.V2.Handlers
         {
             this.techType = techType;
             this.spawnPosition = spawnPosition;
+            spawnType = SpawnType.TechType;
         }
 
         /// <summary>
@@ -119,6 +122,13 @@ namespace SMLHelper.V2.Handlers
         {
             this.classId = classId;
             this.spawnPosition = spawnPosition;
+            spawnType = SpawnType.ClassId;
+        }
+
+        internal enum SpawnType
+        {
+            ClassId, 
+            TechType
         }
     }
     #endregion

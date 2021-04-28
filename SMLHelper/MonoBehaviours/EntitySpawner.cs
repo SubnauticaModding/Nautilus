@@ -8,6 +8,7 @@ namespace SMLHelper.V2.MonoBehaviours
     public class EntitySpawner : MonoBehaviour
     {
         public SpawnInfo spawnInfo;
+        
 
         void Start() 
         { 
@@ -16,11 +17,21 @@ namespace SMLHelper.V2.MonoBehaviours
 
         IEnumerator SpawnAsync()
         {
+            var stringToLog = spawnInfo.spawnType == SpawnInfo.SpawnType.ClassId
+                ? spawnInfo.classId
+                : spawnInfo.techType.ToString();
+            
             var task = new TaskResult<GameObject>();
             yield return GetPrefabAsync(task);
 
+            if (task.Get() is null)
+            {
+                Logger.Error($"no prefab found for {stringToLog}; process for Coordinated Spawn canceled.");
+                Destroy(gameObject);
+            }
+
             var obj = UWE.Utils.InstantiateDeactivated(task.Get(), spawnInfo.spawnPosition, Quaternion.identity);
-            
+
             LargeWorld.main.streamer.cellManager.RegisterEntity(obj);
             
             obj.SetActive(true);
@@ -32,7 +43,7 @@ namespace SMLHelper.V2.MonoBehaviours
         {
             GameObject obj = null;
             
-            if (!string.IsNullOrEmpty(spawnInfo.classId)) // if classid isn't null, then we get the prefab using it
+            if (spawnInfo.spawnType == SpawnInfo.SpawnType.ClassId) // Spawn is via ClassID.
             {
                 var request = PrefabDatabase.GetPrefabAsync(spawnInfo.classId);
                 yield return request;
@@ -40,7 +51,7 @@ namespace SMLHelper.V2.MonoBehaviours
                 if (!request.TryGetPrefab(out obj))
                     Logger.Error($"no prefab found for ClassID: {spawnInfo.classId}");
             }
-            else if (spawnInfo.techType != TechType.None) // if techtype isn't null, then we get the prefab using it
+            else // spawn is via TechType.
             {
                 var task = CraftData.GetPrefabForTechTypeAsync(spawnInfo.techType);
                 yield return task;
