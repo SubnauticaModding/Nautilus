@@ -149,7 +149,7 @@
 
         internal sealed override void PatchTechType()
         {
-            TechType = TechTypeHandler.AddTechType(ModName, ClassID, FriendlyName, Description, UnlockedAtStart);
+            TechType = TechTypeHandler.AddTechType(Mod, ClassID, FriendlyName, Description, UnlockedAtStart);
         }
     }
 }
