@@ -48,8 +48,7 @@ namespace SMLHelper.V2.MonoBehaviours
                 var request = PrefabDatabase.GetPrefabAsync(spawnInfo.classId);
                 yield return request;
 
-                if (!request.TryGetPrefab(out obj))
-                    Logger.Error($"no prefab found for ClassID: {spawnInfo.classId}");
+                request.TryGetPrefab(out obj);
             }
             else // spawn is via TechType.
             {
