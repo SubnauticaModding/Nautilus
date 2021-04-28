@@ -28,21 +28,22 @@
             // Hide constructor
         }
 
-        TechType ITechTypeHandlerInternal.AddTechType(string modName, string internalName, string displayName, string tooltip)
+        TechType ITechTypeHandlerInternal.AddTechType(Assembly assembly, string internalName, string displayName, string tooltip)
         {
-            return Singleton.AddTechType(modName, internalName, displayName, tooltip, true);
+            return Singleton.AddTechType(assembly, internalName, displayName, tooltip, true);
         }
 
-        TechType ITechTypeHandlerInternal.AddTechType(string modName, string internalName, string displayName, string tooltip, bool unlockAtStart)
+        TechType ITechTypeHandlerInternal.AddTechType(Assembly assembly, string internalName, string displayName, string tooltip, bool unlockAtStart)
         {
+            string modName = assembly.GetName().Name;
+            
             // Register the TechType.
-            TechType techType = TechTypePatcher.AddTechType(internalName);
-
+            var techType = TechTypePatcher.AddTechType(internalName);
+            
             // Remember which Assembly added it
-            Assembly mod = ReflectionHelper.CallingAssemblyByStackTrace();
-            TechTypesAddedBy[techType] = mod;
-
-            // Register Language lines.
+            TechTypesAddedBy[techType] = assembly;
+            
+            // register Language Lines.
             LanguagePatcher.AddCustomLanguageLine(modName, internalName, displayName);
             LanguagePatcher.AddCustomLanguageLine(modName, "Tooltip_" + internalName, tooltip);
 
@@ -59,6 +60,29 @@
 
         #region Static Methods
 
+        /// <summary>
+        /// Adds a new <see cref="TechType"/> into the game. This new <see cref="TechType"/> will be unlocked at the start of a game.
+        /// </summary>
+        /// <param name="addedByAssembly">The assembly this TechType is getting added by.</param>
+        /// <param name="internalName">The internal name of the TechType. Should not contain special characters</param>
+        /// <param name="displayName">The display name of the TechType. Can be anything.</param>
+        /// <param name="tooltip">The tooltip, displayed when hovered in an inventory. Can be anything.</param>
+        /// <returns>The new <see cref="TechType"/> that is created.</returns>
+        public static TechType AddTechType(Assembly addedByAssembly, string internalName, string displayName, string tooltip) =>
+            Singleton.AddTechType(addedByAssembly, internalName, displayName, tooltip);
+
+        /// <summary>
+        /// Adds a new <see cref="TechType"/> into the game.
+        /// </summary>
+        /// <param name="addedByAssembly">The assembly this TechType is getting added by.</param>
+        /// <param name="internalName">The internal name of the TechType. Should not contain special characters</param>
+        /// <param name="displayName">The display name of the TechType. Can be anything.</param>
+        /// <param name="tooltip">The tooltip, displayed when hovered in an inventory. Can be anything.</param>
+        /// <param name="unlockAtStart">Whether this TechType should be unlocked on game start, or not. By default, <see langword="true"/>.</param>
+        /// <returns>The new <see cref="TechType"/> that is created.</returns>
+        public static TechType AddTechType(Assembly addedByAssembly, string internalName, string displayName, string tooltip, bool unlockAtStart) =>
+            Singleton.AddTechType(addedByAssembly, internalName, displayName, tooltip, unlockAtStart);
+        
         /// <summary>
         /// Adds a new <see cref="TechType"/> into the game. This new techtype will be unlocked at the start of a the game.
         /// </summary>
@@ -186,8 +210,8 @@
         /// <returns>The new <see cref="TechType"/> that is created.</returns>
         TechType ITechTypeHandler.AddTechType(string internalName, string displayName, string tooltip, bool unlockAtStart)
         {
-            string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-            return Singleton.AddTechType(modName, internalName, displayName, tooltip, unlockAtStart);
+            var mod = ReflectionHelper.CallingAssemblyByStackTrace();
+            return Singleton.AddTechType(mod, internalName, displayName, tooltip, unlockAtStart);
         }
 
         /// <summary>
