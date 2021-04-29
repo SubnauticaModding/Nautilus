@@ -95,9 +95,9 @@ namespace SMLHelper.V2.Handlers
     /// </summary>
     public class SpawnInfo
     {
-        public TechType techType;
-        public string classId;
-        public Vector3 spawnPosition;
+        internal readonly TechType techType;
+        internal readonly string classId;
+        internal readonly Vector3 spawnPosition;
 
         internal SpawnType spawnType;
 
