@@ -80,7 +80,7 @@ namespace SMLHelper.V2.Handlers
         /// Registers Multiple Coordinated spawns for one single passed TechType
         /// </summary>
         /// <param name="techTypeToSpawn">The TechType to spawn</param>
-        /// <param name="coordinatesToSpawnTo">the coordinates the <see cref="techTypeToSpawn"/> should spawn to</param>
+        /// <param name="coordinatesToSpawnTo">the coordinates the <see cref="TechType"/> should spawn to</param>
         public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, List<Vector3> coordinatesToSpawnTo)
         {
             Main.RegisterCoordinatedSpawnsForOneTechType(techTypeToSpawn, coordinatesToSpawnTo);
