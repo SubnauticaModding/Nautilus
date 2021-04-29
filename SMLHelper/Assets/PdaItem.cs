@@ -63,7 +63,7 @@
         public virtual TechCategory CategoryForPDA => TechCategory.Misc;
 
         /// <summary>
-        /// Override this property to assign whether or not the <see cref="TechType"/> should be unlocked at the start, defaulted to <c><see cref="RequiredForUnlock"/> == <see cref"TechType.None"/></c>
+        /// Override this property to assign whether or not the <see cref="TechType"/> should be unlocked at the start, defaulted to <c><see cref="RequiredForUnlock"/> == <see cref="TechType.None"/></c>
         /// </summary>
         public virtual bool UnlockedAtStart => RequiredForUnlock == TechType.None;
 

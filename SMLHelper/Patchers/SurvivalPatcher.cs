@@ -35,7 +35,9 @@ namespace SMLHelper.V2.Patchers
             }
             if (result)
 #if SUBNAUTICA
+#pragma warning disable CS0618 // Type or member is obsolete and yet IS still used by Subnautica itself.
                 FMODUWE.PlayOneShot(CraftData.GetUseEatSound(tt), Player.main.transform.position); // only play the sound if its useable
+#pragma warning restore CS0618 
 #elif BELOWZERO
                 FMODUWE.PlayOneShot(Player.main.GetUseSound(TechData.GetSoundType(tt)), Player.main.transform.position); // only play the sound if its useable
 #endif

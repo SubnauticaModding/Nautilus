@@ -285,43 +285,44 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>move "$(TargetDir)mod_*.json" "$(TargetDir)mod.json" &gt; nul
+    <PostBuildEvent>
+      move "$(TargetDir)mod_*.json" "$(TargetDir)mod.json" &gt; nul
 
-if "$(ConfigurationName)" == "BZ.STABLE" (
-rmdir "$(TargetDir)SMLHelper_BZ" /q /s
-mkdir "$(TargetDir)SMLHelper_BZ"
-move "$(TargetDir)mod.json" "$(TargetDir)SMLHelper_BZ\mod.json"  &gt; nul
-move "$(TargetDir)SMLHelper.xml" "$(TargetDir)SMLHelper_BZ\SMLHelper.xml"  &gt; nul
-move "$(TargetDir)SMLHelper.dll" "$(TargetDir)SMLHelper_BZ\SMLHelper.dll"  &gt; nul
-powershell Compress-Archive -Path '$(TargetDir)SMLHelper_BZ' -DestinationPath '$(TargetDir)\SMLHelper_$(ConfigurationName).zip' -Force
-)
+      if "$(ConfigurationName)" == "BZ.STABLE" (
+      rmdir "$(TargetDir)SMLHelper_BZ" /q /s &gt; nul
+      mkdir "$(TargetDir)SMLHelper_BZ" &gt; nul
+      xcopy "$(TargetDir)mod.json" "$(TargetDir)SMLHelper_BZ\mod.json" /q /y /i  &gt; nul
+      xcopy "$(TargetDir)SMLHelper.xml" "$(TargetDir)SMLHelper_BZ\SMLHelper.xml" /q /y /i  &gt; nul
+      xcopy "$(TargetDir)SMLHelper.dll" "$(TargetDir)SMLHelper_BZ\SMLHelper.dll" /q /y /i  &gt; nul
+      powershell Compress-Archive -Path '$(TargetDir)SMLHelper_BZ' -DestinationPath '$(TargetDir)\SMLHelper_$(ConfigurationName).zip' -Force &gt; nul
+      )
 
-if "$(ConfigurationName)" == "BZ.EXP"  (
-rmdir "$(TargetDir)SMLHelper_BZ" /q /s
-mkdir "$(TargetDir)SMLHelper_BZ"
-move "$(TargetDir)mod.json" "$(TargetDir)SMLHelper_BZ\mod.json"  &gt; nul
-move "$(TargetDir)SMLHelper.xml" "$(TargetDir)SMLHelper_BZ\SMLHelper.xml"  &gt; nul
-move "$(TargetDir)SMLHelper.dll" "$(TargetDir)SMLHelper_BZ\SMLHelper.dll"  &gt; nul
-powershell Compress-Archive -Path '$(TargetDir)SMLHelper_BZ' -DestinationPath '$(TargetDir)\SMLHelper_$(ConfigurationName).zip' -Force
-)
+      if "$(ConfigurationName)" == "BZ.EXP"  (
+      rmdir "$(TargetDir)SMLHelper_BZ" /q /s &gt; nul
+      mkdir "$(TargetDir)SMLHelper_BZ" &gt; nul
+      xcopy "$(TargetDir)mod.json" "$(TargetDir)SMLHelper_BZ\mod.json" /q /y /i  &gt; nul
+      xcopy "$(TargetDir)SMLHelper.xml" "$(TargetDir)SMLHelper_BZ\SMLHelper.xml" /q /y /i  &gt; nul
+      xcopy "$(TargetDir)SMLHelper.dll" "$(TargetDir)SMLHelper_BZ\SMLHelper.dll" /q /y /i  &gt; nul
+      powershell Compress-Archive -Path '$(TargetDir)SMLHelper_BZ' -DestinationPath '$(TargetDir)\SMLHelper_$(ConfigurationName).zip' -Force &gt; nul
+      )
 
-if "$(ConfigurationName)" == "SN.STABLE"  (
-rmdir "$(TargetDir)Modding Helper" /q /s
-mkdir "$(TargetDir)Modding Helper"
-move "$(TargetDir)mod.json" "$(TargetDir)Modding Helper\mod.json"  &gt; nul
-move "$(TargetDir)SMLHelper.xml" "$(TargetDir)Modding Helper\SMLHelper.xml"  &gt; nul
-move "$(TargetDir)SMLHelper.dll" "$(TargetDir)Modding Helper\SMLHelper.dll"  &gt; nul
-powershell Compress-Archive -Path '$(TargetDir)Modding Helper' -DestinationPath '$(TargetDir)\SMLHelper_$(ConfigurationName).zip' -Force
-)
+      if "$(ConfigurationName)" == "SN.STABLE"  (
+      rmdir "$(TargetDir)Modding Helper" /q /s &gt; nul
+      mkdir "$(TargetDir)Modding Helper" &gt; nul
+      xcopy  "$(TargetDir)mod.json" "$(TargetDir)Modding Helper\mod.json" /q /y /i &gt; nul
+      xcopy  "$(TargetDir)SMLHelper.xml" "$(TargetDir)Modding Helper\SMLHelper.xml" /q /y /i &gt; nul
+      xcopy  "$(TargetDir)SMLHelper.dll" "$(TargetDir)Modding Helper\SMLHelper.dll" /q /y /i &gt; nul
+      powershell Compress-Archive -Path '$(TargetDir)Modding Helper' -DestinationPath '$(TargetDir)\SMLHelper_$(ConfigurationName).zip' -Force &gt; nul
+      )
 
-if "$(ConfigurationName)" == "SN.EXP"  (
-rmdir "$(TargetDir)Modding Helper" /q /s
-mkdir "$(TargetDir)Modding Helper"
-move "$(TargetDir)mod.json" "$(TargetDir)Modding Helper\mod.json"  &gt; nul
-move "$(TargetDir)SMLHelper.xml" "$(TargetDir)Modding Helper\SMLHelper.xml"  &gt; nul
-move "$(TargetDir)SMLHelper.dll" "$(TargetDir)Modding Helper\SMLHelper.dll"  &gt; nul
-powershell Compress-Archive -Path '$(TargetDir)Modding Helper' -DestinationPath '$(TargetDir)\SMLHelper_$(ConfigurationName).zip' -Force
-)
-</PostBuildEvent>
+      if "$(ConfigurationName)" == "SN.EXP"  (
+      rmdir "$(TargetDir)Modding Helper" /q /s &gt; nul
+      mkdir "$(TargetDir)Modding Helper" &gt; nul
+      xcopy  "$(TargetDir)mod.json" "$(TargetDir)Modding Helper\mod.json" /q /y /i &gt; nul
+      xcopy  "$(TargetDir)SMLHelper.xml" "$(TargetDir)Modding Helper\SMLHelper.xml" /q /y /i &gt; nul
+      xcopy  "$(TargetDir)SMLHelper.dll" "$(TargetDir)Modding Helper\SMLHelper.dll" /q /y /i &gt; nul
+      powershell Compress-Archive -Path '$(TargetDir)Modding Helper' -DestinationPath '$(TargetDir)\SMLHelper_$(ConfigurationName).zip' -Force &gt; nul
+      )
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
