@@ -30,7 +30,7 @@ namespace SMLHelper.V2.MonoBehaviours
                 Destroy(gameObject);
             }
 
-            var obj = UWE.Utils.InstantiateDeactivated(task.Get(), spawnInfo.spawnPosition, Quaternion.identity);
+            var obj = UWE.Utils.InstantiateDeactivated(task.Get(), spawnInfo.spawnPosition, spawnInfo.rotation);
 
             LargeWorld.main.streamer.cellManager.RegisterEntity(obj);
             

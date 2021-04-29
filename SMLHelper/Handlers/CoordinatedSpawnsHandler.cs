@@ -98,6 +98,7 @@ namespace SMLHelper.V2.Handlers
         internal readonly TechType techType;
         internal readonly string classId;
         internal readonly Vector3 spawnPosition;
+		internal readonly Quaternion rotation
 
         internal SpawnType spawnType;
 
@@ -106,10 +107,12 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">TechType to spawn.</param>
         /// <param name="spawnPosition">Position to spawn into.</param>
-        public SpawnInfo(TechType techType, Vector3 spawnPosition)
+		/// <param name="rotation">an optional argument that specifies the rotation of the spawned object.</param>
+        public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation = Quaternion.identity)
         {
             this.techType = techType;
             this.spawnPosition = spawnPosition;
+			this.rotation = rotation;
             spawnType = SpawnType.TechType;
         }
 
@@ -118,10 +121,12 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="classId">ClassID to spawn.</param>
         /// <param name="spawnPosition">Position to spawn into.</param>
-        public SpawnInfo(string classId, Vector3 spawnPosition)
+		/// <param name="rotation">an optional argument that specifies the rotation of the spawned object.</param>
+        public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation = Quaternion.Identity)
         {
             this.classId = classId;
             this.spawnPosition = spawnPosition;
+			this.rotation = rotation;
             spawnType = SpawnType.ClassId;
         }
 
