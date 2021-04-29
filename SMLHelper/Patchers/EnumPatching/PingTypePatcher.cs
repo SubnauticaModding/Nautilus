@@ -46,9 +46,6 @@
                 Index = cacheManager.GetNextAvailableIndex()
             };
 
-            if (cacheManager.IsIndexAvailable(cache.Index))
-                cache.Index = cacheManager.GetNextAvailableIndex();
-
             var pingType = (PingType) cache.Index;
             cacheManager.Add(pingType, cache.Index, cache.Name);
             ModSprite.Add(SpriteManager.Group.Pings, pingType.ToString(), sprite);

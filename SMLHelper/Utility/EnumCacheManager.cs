@@ -297,6 +297,7 @@
 
             while (entriesFromFile.IsKnownKey(index) ||
                    entriesFromRequests.IsKnownKey(index) ||
+                   entriesFromDeactivatedFile.IsKnownKey(index) ||
                    BannedIDs.Contains(index))
             {
                 index++;
@@ -305,21 +306,6 @@
             return index;
         }
 
-        internal bool IsIndexAvailable(int index)
-        {
-            LoadCache();
-
-            if (BannedIDs.Contains(index))
-                return false;
-
-            if (entriesFromFile.IsKnownKey(index))
-                return false;
-
-            if (entriesFromRequests.IsKnownKey(index))
-                return false;
-
-            return true;
-        }
 
         #endregion
     }
