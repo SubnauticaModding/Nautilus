@@ -67,6 +67,12 @@
         /// By default this will be 1x1. Override to change the size.
         /// </summary>
         public virtual Vector2int SizeInInventory { get; } = defaultSize;
+        
+        /// <summary>
+        /// Returns the list of <see cref="Vector3"/>s that specify the prefab's Coordinated Spawns.<br/>
+        /// By default this will be null.
+        /// </summary>
+        public virtual List<Vector3> CoordinatedSpawns { get; } = null;
 
         /// <summary>
         /// Returns the List of BiomeData that handles what Biomes this prefab will spawn, how probable it is to spawn there and how many per spawn.
@@ -119,6 +125,11 @@
                 else if(EntityInfo != null)
                 {
                     WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
+                }
+
+                if (CoordinatedSpawns != null)
+                {
+                    CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(TechType, CoordinatedSpawns);
                 }
             };
         }

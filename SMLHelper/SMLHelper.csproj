@@ -149,8 +149,10 @@
     <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Crafting\TechData.cs" />
     <Compile Include="Commands\ConsoleCommandAttribute.cs" />
+    <Compile Include="Handlers\CoordinatedSpawnsHandler.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
     <Compile Include="Handlers\SurvivalHandler.cs" />
+    <Compile Include="Interfaces\ICoordinatedSpawnHandler.cs" />
     <Compile Include="Interfaces\IModOptionAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
     <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
@@ -201,6 +203,7 @@
     <Compile Include="Interfaces\ITechTypeHandlerInternal.cs" />
     <Compile Include="Interfaces\IWorldEntityDatabaseHandler.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="MonoBehaviours\EntitySpawner.cs" />
     <Compile Include="MonoBehaviours\Fixer.cs" />
     <Compile Include="Options\Attributes\ConfigFileMetadata.cs" />
     <Compile Include="Options\Attributes\MemberInfoMetadata.cs" />
@@ -242,6 +245,7 @@
     <Compile Include="Patchers\ItemsContainerPatcher.cs" />
     <Compile Include="Patchers\KnownTechPatcher.cs" />
     <Compile Include="Patchers\LanguagePatcher.cs" />
+    <Compile Include="Patchers\LargeWorldStreamerPatcher.cs" />
     <Compile Include="Patchers\LootDistributionPatcher.cs" />
     <Compile Include="Patchers\OptionsPanelPatcher.cs" />
     <Compile Include="Patchers\PDAEncyclopediaPatcher.cs" />

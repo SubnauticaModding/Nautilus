@@ -69,6 +69,7 @@
             ItemActionPatcher.Patch(harmony);
             LootDistributionPatcher.Patch(harmony);
             WorldEntityDatabasePatcher.Patch(harmony);
+            LargeWorldStreamerPatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
 #if SUBNAUTICA
