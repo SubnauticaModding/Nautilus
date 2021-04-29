@@ -20,19 +20,11 @@
 
         internal static ModCraftTreeRoot CreateCustomCraftTreeAndType(string name, out CraftTree.Type craftTreeType)
         {
-            EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name);
-
-            if (cache == null)
+            EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name) ?? new EnumTypeCache()
             {
-                cache = new EnumTypeCache()
-                {
-                    Name = name,
-                    Index = cacheManager.GetNextAvailableIndex()
-                };
-            }
-
-            if (cacheManager.IsIndexAvailable(cache.Index))
-                cache.Index = cacheManager.GetNextAvailableIndex();
+                Name = name,
+                Index = cacheManager.GetNextAvailableIndex()
+            };
 
             craftTreeType = (CraftTree.Type)cache.Index;
 
