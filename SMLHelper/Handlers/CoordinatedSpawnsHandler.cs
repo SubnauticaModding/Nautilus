@@ -98,7 +98,7 @@ namespace SMLHelper.V2.Handlers
         internal readonly TechType techType;
         internal readonly string classId;
         internal readonly Vector3 spawnPosition;
-		internal readonly Quaternion rotation
+        internal readonly Quaternion rotation;
 
         internal SpawnType spawnType;
 
@@ -107,12 +107,11 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">TechType to spawn.</param>
         /// <param name="spawnPosition">Position to spawn into.</param>
-		/// <param name="rotation">an optional argument that specifies the rotation of the spawned object.</param>
-        public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation = Quaternion.identity)
+        public SpawnInfo(TechType techType, Vector3 spawnPosition)
         {
             this.techType = techType;
             this.spawnPosition = spawnPosition;
-			this.rotation = rotation;
+            this.rotation = Quaternion.identity;
             spawnType = SpawnType.TechType;
         }
 
@@ -121,12 +120,39 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="classId">ClassID to spawn.</param>
         /// <param name="spawnPosition">Position to spawn into.</param>
-		/// <param name="rotation">an optional argument that specifies the rotation of the spawned object.</param>
-        public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation = Quaternion.Identity)
+        public SpawnInfo(string classId, Vector3 spawnPosition)
         {
             this.classId = classId;
             this.spawnPosition = spawnPosition;
-			this.rotation = rotation;
+            this.rotation = Quaternion.identity;
+            spawnType = SpawnType.ClassId;
+        }
+
+        /// <summary>
+        /// Initializes a new <see cref="SpawnInfo"/>.
+        /// </summary>
+        /// <param name="techType">TechType to spawn.</param>
+        /// <param name="spawnPosition">Position to spawn into.</param>
+        /// <param name="rotation">Rotation to spawn at.</param>
+        public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation)
+        {
+            this.techType = techType;
+            this.spawnPosition = spawnPosition;
+            this.rotation = rotation;
+            spawnType = SpawnType.TechType;
+        }
+
+        /// <summary>
+        /// Initializes a new <see cref="SpawnInfo"/>.
+        /// </summary>
+        /// <param name="classId">ClassID to spawn.</param>
+        /// <param name="spawnPosition">Position to spawn into.</param>
+        /// <param name="rotation">Rotation to spawn at.</param>
+        public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation)
+        {
+            this.classId = classId;
+            this.spawnPosition = spawnPosition;
+            this.rotation = rotation;
             spawnType = SpawnType.ClassId;
         }
 
