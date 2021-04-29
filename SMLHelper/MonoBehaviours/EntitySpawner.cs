@@ -5,9 +5,9 @@ using UWE;
 
 namespace SMLHelper.V2.MonoBehaviours
 {
-    public class EntitySpawner : MonoBehaviour
+    internal class EntitySpawner : MonoBehaviour
     {
-        public SpawnInfo spawnInfo;
+        internal SpawnInfo spawnInfo;
         
 
         void Start() 
