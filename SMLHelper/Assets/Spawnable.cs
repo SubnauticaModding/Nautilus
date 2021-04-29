@@ -182,7 +182,7 @@
 
         internal virtual void PatchTechType()
         {
-            TechType = TechTypeHandler.AddTechType(ModName, ClassID, FriendlyName, Description, false);
+            TechType = TechTypeHandler.AddTechType(Mod, ClassID, FriendlyName, Description, false);
         }
 
 #if SUBNAUTICA
