@@ -1,4 +1,5 @@
-﻿using SMLHelper.V2.Handlers;
+﻿using SMLHelper.V2;
+using SMLHelper.V2.Handlers;
 using SMLHelper.V2.Interfaces;
 using SMLHelper.V2.Patchers.EnumPatching;
 using SMLHelper.V2.Utility;
@@ -37,6 +38,7 @@ namespace SMLHelper.Handlers
         {
             TechGroup techGroup = TechGroupPatcher.AddTechGroup(techGroupName);
 
+            LanguageHandler.SetLanguageLine("Group" + techGroupName, displayName);
 
             return techGroup;
         }
@@ -91,12 +93,14 @@ namespace SMLHelper.Handlers
         /// </summary>
         /// <param name="techGroup">The tech group.</param>
         /// <param name="sprite">The sprite.</param>
-        public void RegisterModdedTechGroupAsBuilderTab(TechGroup techGroup, Atlas.Sprite sprite)
+        public bool TryRegisterModdedTechGroupAsBuilderTab(TechGroup techGroup, Atlas.Sprite sprite)
         {
-            if (!uGUI_BuilderMenu.groups.Contains(techGroup))
-                uGUI_BuilderMenu.groups.Add(techGroup);
+            if(!TechGroupPatcher.cacheManager.TryGetValue(techGroup, out string techGroupName) || uGUI_BuilderMenu.groups.Contains(techGroup) || sprite is null)
+                return false;
 
-            SpriteHandler.RegisterSprite(SpriteManager.Group.Tab, "group" + techGroup.ToString(), sprite);
+            uGUI_BuilderMenu.groups.Add(techGroup);
+            SpriteHandler.RegisterSprite(SpriteManager.Group.Tab, "group" + techGroupName, sprite);
+            return true;
         }
     }
 }

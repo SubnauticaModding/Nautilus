@@ -41,7 +41,7 @@
         /// </summary>
         /// <param name="techGroup">The tech group.</param>
         /// <param name="sprite">The sprite.</param>
-        void RegisterModdedTechGroupAsBuilderTab(TechGroup techGroup, Sprite sprite);
+        bool TryRegisterModdedTechGroupAsBuilderTab(TechGroup techGroup, Sprite sprite);
 
     }
 }
