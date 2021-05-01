@@ -9,7 +9,7 @@
     {
         private const string TechGroupEnumName = "TechGroup";
 
-        internal const int startingIndex = 14; // The default TechGroup contains indexes 0 through 14
+        internal const int startingIndex = 0; // The default TechGroup contains indexes 0 through 14
 
         internal static readonly EnumCacheManager<TechGroup> cacheManager =
             new EnumCacheManager<TechGroup>(
@@ -25,9 +25,15 @@
                 Index = cacheManager.GetNextAvailableIndex()
             };
 
-            var techGroup = (TechGroup)cache.Index;
+            TechGroup techGroup = (TechGroup)cache.Index;
 
             cacheManager.Add(techGroup, cache.Index, cache.Name);
+            
+            if (!uGUI_BlueprintsTab.groups.Contains(techGroup))
+                uGUI_BlueprintsTab.groups.Add(techGroup);
+
+            if (!CraftData.groups.ContainsKey(techGroup))
+                CraftData.groups[techGroup] = new Dictionary<TechCategory, List<TechType>>();
 
             Logger.Log($"Successfully added TechGroup: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
 

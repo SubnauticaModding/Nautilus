@@ -9,7 +9,7 @@
     {
         private const string TechCategoryEnumName = "TechCategory";
 
-        internal const int startingIndex = 14; // The default TechCategory contains indexes 0 through 14
+        internal const int startingIndex = 0; // The default TechCategory contains indexes 0 through 14
 
         internal static readonly EnumCacheManager<TechCategory> cacheManager =
             new EnumCacheManager<TechCategory>(
@@ -25,7 +25,7 @@
                 Index = cacheManager.GetNextAvailableIndex()
             };
 
-            var TechCategory = (TechCategory)cache.Index;
+            TechCategory TechCategory = (TechCategory)cache.Index;
 
             cacheManager.Add(TechCategory, cache.Index, cache.Name);
 

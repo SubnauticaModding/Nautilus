@@ -52,6 +52,8 @@
             TechTypePatcher.Patch();
             CraftTreeTypePatcher.Patch();
             PingTypePatcher.Patch();
+            TechCategoryPatcher.Patch();
+            TechGroupPatcher.Patch();
             EnumPatcher.Patch(harmony);
 
             CraftDataPatcher.Patch(harmony);

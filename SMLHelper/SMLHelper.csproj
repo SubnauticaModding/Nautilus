@@ -152,12 +152,14 @@
     <Compile Include="Handlers\CoordinatedSpawnsHandler.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
     <Compile Include="Handlers\SurvivalHandler.cs" />
+    <Compile Include="Handlers\TechGroupHandler.cs" />
     <Compile Include="Interfaces\ICoordinatedSpawnHandler.cs" />
     <Compile Include="Interfaces\IModOptionAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
     <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
     <Compile Include="Interfaces\IPingHandler.cs" />
     <Compile Include="Interfaces\ISurvivalHandler.cs" />
+    <Compile Include="Interfaces\ITechGroupHandler.cs" />
     <Compile Include="Json\ConfigFileAttribute.cs" />
     <Compile Include="Json\Converters\FloatConverter.cs" />
     <Compile Include="Json\ExtensionMethods\JsonExtensions.cs" />
