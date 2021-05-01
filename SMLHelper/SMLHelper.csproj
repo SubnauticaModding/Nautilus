@@ -239,6 +239,8 @@
     <Compile Include="Patchers\CraftTreePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\CraftTreeTypePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\EnumPatcher.cs" />
+    <Compile Include="Patchers\EnumPatching\TechCategoryPatcher.cs" />
+    <Compile Include="Patchers\EnumPatching\TechGroupPatcher.cs" />
     <Compile Include="Patchers\FishPatcher.cs" />
     <Compile Include="Patchers\IngameMenuPatcher.cs" />
     <Compile Include="Patchers\ItemActionPatcher.cs" />
