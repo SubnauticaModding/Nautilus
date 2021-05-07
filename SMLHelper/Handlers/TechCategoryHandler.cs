@@ -1,16 +1,10 @@
-﻿using SMLHelper.V2;
-using SMLHelper.V2.Handlers;
-using SMLHelper.V2.Interfaces;
-using SMLHelper.V2.Patchers.EnumPatching;
-using SMLHelper.V2.Utility;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SMLHelper.Handlers
+﻿namespace SMLHelper.V2.Handlers
 {
+    using SMLHelper.V2.Interfaces;
+    using SMLHelper.V2.Patchers.EnumPatching;
+    using SMLHelper.V2.Utility;
+    using System.Collections.Generic;
+
     /// <summary>
     /// A handler class for everything related to creating new TechCategories.
     /// </summary>
