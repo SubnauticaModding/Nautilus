@@ -79,69 +79,8 @@
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-
             Logger.Log($"Added {cacheManager.ModdedKeysCount} TechGroups succesfully into the game.");
             Logger.Log("TechGroupPatcher is done.", LogLevel.Debug);
-        }
-
-    }
-
-    /// <summary>
-    /// Needed Patches to work around a ReadOnly Array in uGUI_BuilderMenu called groupsTechTypes
-    /// </summary>
-    public static class BuilderMenuPatches
-    {
-        internal static void Patch(Harmony harmony)
-        {
-            PatchUtils.PatchClass(harmony);
-            Logger.Log("BuilderMenuPatches is done.", LogLevel.Debug);
-        }
-
-        /// <summary>
-        /// The Replacement Array of Lists of Techtypes used by the BuilderMenu
-        /// </summary>
-        public static List<TechType>[] groupsTechTypes;
-
-
-        /// <summary>
-        /// Prefixes the ensure tech group tech type data initialized.
-        /// </summary>
-        /// <returns></returns>
-        [PatchUtils.Prefix]
-        [HarmonyPatch(typeof(uGUI_BuilderMenu), nameof(uGUI_BuilderMenu.EnsureTechGroupTechTypeDataInitialized))]
-        public static bool Prefix_EnsureTechGroupTechTypeDataInitialized()
-        {
-            if (!uGUI_BuilderMenu.groupsTechTypesInitialized)
-            {
-                groupsTechTypes = new List<TechType>[uGUI_BuilderMenu.groups.Count];
-                for (int i = 0; i < uGUI_BuilderMenu.groups.Count; i++)
-                {
-                    groupsTechTypes[i] = new List<TechType>();
-                    List<TechType> list = groupsTechTypes[i];
-                    CraftData.GetBuilderGroupTech(uGUI_BuilderMenu.groups[i], list, false);
-                    for (int j = 0; j < list.Count; j++)
-                    {
-                        TechType key = list[j];
-                        uGUI_BuilderMenu.techTypeToTechGroupIdx.Add(key, i);
-                    }
-                }
-                uGUI_BuilderMenu.groupsTechTypesInitialized = true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Prefixes the get tech types for group.
-        /// </summary>
-        /// <param name="groupIdx">Index of the group.</param>
-        /// <param name="__result">The result.</param>
-        /// <returns></returns>
-        [PatchUtils.Prefix]
-        [HarmonyPatch(typeof(uGUI_BuilderMenu), nameof(uGUI_BuilderMenu.GetTechTypesForGroup))]
-        public static bool Prefix_GetTechTypesForGroup(int groupIdx, ref List<TechType> __result)
-        {
-            __result = groupsTechTypes[groupIdx];
-            return false;
         }
     }
 }

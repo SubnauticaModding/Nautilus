@@ -112,7 +112,7 @@
                 }
                 else
                 {
-                    Logger.Error($"Failed to add {TechType} to {GroupForPDA}/{CategoryForPDA} as that is an invalid combination.");
+                    Logger.Error($"Failed to add {TechType} to {GroupForPDA}/{CategoryForPDA} as it is not a registered combination.");
                 }
             }
 

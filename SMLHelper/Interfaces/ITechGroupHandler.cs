@@ -2,6 +2,8 @@
 {
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
+#else
+    using UnityEngine;
 #endif
 
     /// <summary>
@@ -35,13 +37,6 @@
         ///   <c>True</c> if the item was found; Otherwise <c>false</c>.
         /// </returns>
         bool ModdedTechGroupExists(string techGroupString);
-
-        /// <summary>
-        /// Registers the modded <see cref="TechGroup"/> as tab in the Habitate Builder Menu.
-        /// </summary>
-        /// <param name="techGroup">The tech group.</param>
-        /// <param name="sprite">The sprite.</param>
-        bool TryRegisterModdedTechGroupAsBuilderTab(TechGroup techGroup, Sprite sprite);
 
     }
 }

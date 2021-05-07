@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Assets;
     using HarmonyLib;
+    using SMLHelper.V2.Patchers.EnumPatching;
 
     internal partial class CraftDataPatcher
     {
@@ -17,19 +18,22 @@
 
         internal static void AddToCustomGroup(TechGroup group, TechCategory category, TechType techType, TechType after)
         {
-            Dictionary<TechGroup, Dictionary<TechCategory, List<TechType>>> groups = CraftData.groups;
-            Dictionary<TechCategory, List<TechType>> techGroup = groups[group];
-            if (techGroup == null)
+            if (!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
             {
                 // Should never happen, but doesn't hurt to add it.
                 Logger.Log("Invalid TechGroup!", LogLevel.Error);
                 return;
             }
 
-            List<TechType> techCategory = techGroup[category];
-            if (techCategory == null)
+            if (!techGroup.TryGetValue(category, out List<TechType> techCategory))
             {
-                Logger.Log($"Invalid TechCategory Combination! TechCategory: {category} TechGroup: {group}", LogLevel.Error);
+                Logger.Log($"{group} does not contain {category} as a registered group. Please ensure to register your TechCategory to the TechGroup using the TechCategoryHandler before using the combination.", LogLevel.Error);
+                return;
+            }
+
+            if(techCategory.Contains(techType))
+            {
+                Logger.Log($"\"{techType.AsString():G}\" Already exists at \"{group:G}->{category:G}\", Skipping Duplicate Entry", LogLevel.Debug);
                 return;
             }
 
@@ -50,25 +54,17 @@
 
         internal static void RemoveFromCustomGroup(TechGroup group, TechCategory category, TechType techType)
         {
-            Dictionary<TechGroup, Dictionary<TechCategory, List<TechType>>> groups = CraftData.groups;
-            Dictionary<TechCategory, List<TechType>> techGroup = groups[group];
-            if (techGroup == null)
-            {
-                // Should never happen, but doesn't hurt to add it.
-                Logger.Log("Invalid TechGroup!", LogLevel.Error);
+            if(!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
                 return;
-            }
 
-            List<TechType> techCategory = techGroup[category];
-            if (techCategory == null)
-            {
-                Logger.Log($"Invalid TechCategory Combination! TechCategory: {category} TechGroup: {group}", LogLevel.Error);
+            if(!techGroup.TryGetValue(category, out List<TechType> techCategory))
                 return;
-            }
+
+            if(!techCategory.Contains(techType))
+                return;
 
             techCategory.Remove(techType);
-
-            Logger.Log($"Removed \"{techType.AsString():G}\" from groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
+            Logger.Log($"Successfully Removed \"{techType.AsString():G}\" from groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
         }
 
         #endregion

@@ -44,7 +44,7 @@ namespace SMLHelper.Handlers
         }
 
         /// <summary>
-        /// Safely looks for a modded item from another mod in the SMLHelper TechGroupCache.
+        /// Safely looks for a modded group from another mod in the SMLHelper TechGroupCache.
         /// </summary>
         /// <param name="techGroupString">The string used to define the techgroup.</param>
         /// <returns>
@@ -86,21 +86,6 @@ namespace SMLHelper.Handlers
                 modTechGroup = TechGroup.Uncategorized;
                 return false;
             }
-        }
-
-        /// <summary>
-        /// Registers the modded <see cref="TechGroup"/> as tab in the Habitate Builder Menu.
-        /// </summary>
-        /// <param name="techGroup">The tech group.</param>
-        /// <param name="sprite">The sprite.</param>
-        public bool TryRegisterModdedTechGroupAsBuilderTab(TechGroup techGroup, Atlas.Sprite sprite)
-        {
-            if(!TechGroupPatcher.cacheManager.TryGetValue(techGroup, out string techGroupName) || uGUI_BuilderMenu.groups.Contains(techGroup) || sprite is null)
-                return false;
-
-            uGUI_BuilderMenu.groups.Add(techGroup);
-            SpriteHandler.RegisterSprite(SpriteManager.Group.Tab, "group" + techGroupName, sprite);
-            return true;
         }
     }
 }
