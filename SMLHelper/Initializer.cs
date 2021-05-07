@@ -6,8 +6,6 @@
     using Patchers;
     using Patchers.EnumPatching;
     using QModManager.API.ModLoading;
-    using QModManager.Utility;
-    using SMLHelper.Handlers;
 
 
     /// <summary>
