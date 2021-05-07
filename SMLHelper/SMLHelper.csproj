@@ -157,7 +157,7 @@
     <Compile Include="Interfaces\ICoordinatedSpawnHandler.cs" />
     <Compile Include="Interfaces\IModOptionAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
-    <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
+    <Compile Include="Interfaces\IConsoleCommandsHandler.cs" />
     <Compile Include="Interfaces\IPingHandler.cs" />
     <Compile Include="Interfaces\ISurvivalHandler.cs" />
     <Compile Include="Interfaces\ITechCategoryHandler.cs" />

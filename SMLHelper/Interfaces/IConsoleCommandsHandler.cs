@@ -6,7 +6,7 @@
     /// <summary>
     /// A handler class for registering your custom console commands.
     /// </summary>
-    public interface IConsoleCommandHandler
+    public interface IConsoleCommandsHandler
     {
         /// <summary>
         /// Registers your custom console command by targeting a <see langword="public"/> <see langword="static"/> method.
