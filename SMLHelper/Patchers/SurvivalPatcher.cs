@@ -33,14 +33,20 @@ namespace SMLHelper.V2.Patchers
                 action.ForEach((x) => x.Invoke());
                 result = true;
             }
-            if (result)
+            if(result)
+            {
 #if SUBNAUTICA
 #pragma warning disable CS0618 // Type or member is obsolete and yet IS still used by Subnautica itself.
-                FMODUWE.PlayOneShot(CraftData.GetUseEatSound(tt), Player.main.transform.position); // only play the sound if its useable
+                string sound = CraftData.GetUseEatSound(tt);
+                if(!string.IsNullOrEmpty(sound))
+                FMODUWE.PlayOneShot(sound, Player.main.transform.position); // only play the sound if its useable
 #pragma warning restore CS0618 
 #elif BELOWZERO
-                FMODUWE.PlayOneShot(Player.main.GetUseSound(TechData.GetSoundType(tt)), Player.main.transform.position); // only play the sound if its useable
+                FMODAsset asset = Player.main.GetUseSound(TechData.GetSoundType(tt));
+                if(asset != null)
+                FMODUWE.PlayOneShot(asset, Player.main.transform.position); // only play the sound if its useable
 #endif
+            }
         }
     }
 }
