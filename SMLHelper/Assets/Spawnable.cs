@@ -11,6 +11,10 @@
     using UnityEngine;
     using UWE;
     using Logger = Logger;
+#if SUBNAUTICA
+    using Sprite = Atlas.Sprite;
+#endif
+
 
     /// <summary>
     /// An item that can be spawned into the game.
@@ -196,36 +200,12 @@
             TechType = TechTypeHandler.AddTechType(Mod, ClassID, FriendlyName, Description, false);
         }
 
-#if SUBNAUTICA
         /// <summary>
-        /// Determines thee <see cref="Atlas.Sprite"/> to be used for this spawnable's icon.<para/>
+        /// Determines thee <see cref="Sprite"/> to be used for this spawnable's icon.<para/>
         /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
         /// </summary>
-        /// <returns>Returns the <see cref="Atlas.Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Atlas.Sprite)"/> call.</returns>
-        protected virtual Atlas.Sprite GetItemSprite()
-        {
-            // This is for backwards compatibility with mods that were using the "ModName/Assets" format
-            string path = AssetsFolder != modFolderLocation
-                ? IOUtilities.Combine(".", "QMods", AssetsFolder.Trim('/'), IconFileName)
-                : Path.Combine(AssetsFolder, IconFileName);
-
-            if(File.Exists(path))
-            {
-                return ImageUtils.LoadSpriteFromFile(path);
-            }
-
-            Logger.Warn($"Sprite for '{PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
-            return SpriteManager.defaultSprite;
-        }
-
-#elif BELOWZERO
-
-        /// <summary>
-        /// Determines thee <see cref="UnityEngine.Sprite"/> to be used for this spawnable's icon.<para/>
-        /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
-        /// </summary>
-        /// <returns>Returns the <see cref="UnityEngine.Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, UnityEngine.Sprite)"/> call.</returns>
-        protected virtual UnityEngine.Sprite GetItemSprite()
+        /// <returns>Returns the <see cref="Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Sprite)"/> call.</returns>
+        protected virtual Sprite GetItemSprite()
         {
             // This is for backwards compatibility with mods that were using the "ModName/Assets" format
             string path = this.AssetsFolder != modFolderLocation
@@ -237,9 +217,8 @@
                 return ImageUtils.LoadSpriteFromFile(path);
             }
 
-            Logger.Warn($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+            Logger.Debug($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
             return SpriteManager.defaultSprite;
         }
-#endif
     }
 }
