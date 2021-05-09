@@ -152,12 +152,16 @@
     <Compile Include="Handlers\CoordinatedSpawnsHandler.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
     <Compile Include="Handlers\SurvivalHandler.cs" />
+    <Compile Include="Handlers\TechCategoryHandler.cs" />
+    <Compile Include="Handlers\TechGroupHandler.cs" />
     <Compile Include="Interfaces\ICoordinatedSpawnHandler.cs" />
     <Compile Include="Interfaces\IModOptionAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
-    <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
+    <Compile Include="Interfaces\IConsoleCommandsHandler.cs" />
     <Compile Include="Interfaces\IPingHandler.cs" />
     <Compile Include="Interfaces\ISurvivalHandler.cs" />
+    <Compile Include="Interfaces\ITechCategoryHandler.cs" />
+    <Compile Include="Interfaces\ITechGroupHandler.cs" />
     <Compile Include="Json\ConfigFileAttribute.cs" />
     <Compile Include="Json\Converters\FloatConverter.cs" />
     <Compile Include="Json\ExtensionMethods\JsonExtensions.cs" />
@@ -239,6 +243,8 @@
     <Compile Include="Patchers\CraftTreePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\CraftTreeTypePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\EnumPatcher.cs" />
+    <Compile Include="Patchers\EnumPatching\TechCategoryPatcher.cs" />
+    <Compile Include="Patchers\EnumPatching\TechGroupPatcher.cs" />
     <Compile Include="Patchers\FishPatcher.cs" />
     <Compile Include="Patchers\IngameMenuPatcher.cs" />
     <Compile Include="Patchers\ItemActionPatcher.cs" />

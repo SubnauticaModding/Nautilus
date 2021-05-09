@@ -6,7 +6,7 @@
     using Patchers;
     using Patchers.EnumPatching;
     using QModManager.API.ModLoading;
-    using QModManager.Utility;
+
 
     /// <summary>
     /// WARNING: This class is for use only by QModManager.
@@ -52,6 +52,8 @@
             TechTypePatcher.Patch();
             CraftTreeTypePatcher.Patch();
             PingTypePatcher.Patch();
+            TechCategoryPatcher.Patch();
+            TechGroupPatcher.Patch();
             EnumPatcher.Patch(harmony);
 
             CraftDataPatcher.Patch(harmony);
@@ -72,9 +74,7 @@
             LargeWorldStreamerPatcher.Patch(harmony);
             IngameMenuPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
-#if SUBNAUTICA
             SurvivalPatcher.Patch(harmony);
-#endif
 
 
 
