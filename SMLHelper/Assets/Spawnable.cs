@@ -93,7 +93,7 @@
         /// <summary>
         /// Gets a value indicating whether if we should be looking for a Sprite.
         /// </summary>
-        public virtual bool HasSprite => true;
+        public virtual bool HasSprite => false;
 
         /// <summary>
         /// Initializes a new <see cref="Spawnable"/>, the basic class needed for any item that can be spawned into the Subnautica game world.
