@@ -91,5 +91,30 @@
         /// a handler for common uses to the Survival component
         /// </summary>
         public static ISurvivalHandler SurvivalHandler => Handlers.SurvivalHandler.Main;
+
+        /// <summary>
+        /// A handler to making coordinated Vector3 spawns ingame.
+        /// </summary>
+        public static ICoordinatedSpawnHandler CoordinatedSpawnHandler => Handlers.CoordinatedSpawnsHandler.Main;
+
+        /// <summary>
+        /// A handler class for adding custom TechGroups into the game.
+        /// </summary>
+        public static ITechGroupHandler TechGroupHandler => Handlers.TechGroupHandler.Main;
+
+        /// <summary>
+        /// A handler class for adding custom TechCategories into the game.
+        /// </summary>
+        public static ITechCategoryHandler TechCategoryHandler => Handlers.TechCategoryHandler.Main;
+
+        /// <summary>
+        /// A handler class for registering your custom console commands.
+        /// </summary>
+        public static IConsoleCommandsHandler ConsoleCommandsHandler => Handlers.ConsoleCommandsHandler.Main;
+
+        /// <summary>
+        /// A handler related to PingTypes
+        /// </summary>
+        public static IPingHandler PingHandler => Handlers.PingHandler.Main;
     }
 }

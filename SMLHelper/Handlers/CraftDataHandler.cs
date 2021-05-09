@@ -191,7 +191,7 @@
 
         /// <summary>
         /// Allows you to add items to the game's internal grouping system.
-        /// Required if you want to make buildable items show up in the Habitat Builder.
+        /// Required if you want to make buildable items show up in the Habitat Builder or show in the Blueprints Tab of the PDA.
         /// </summary>
         /// <param name="group">The TechGroup you want to add your TechType to.</param>
         /// <param name="category">The TechCategory (in the TechGroup) you want to add your TechType to.</param>
@@ -203,7 +203,7 @@
 
         /// <summary>
         /// Allows you to add items to the game's internal grouping system.
-        /// Required if you want to make buildable items show up in the Habitat Builder.
+        /// Required if you want to make buildable items show up in the Habitat Builder or show in the Blueprints Tab of the PDA.
         /// </summary>
         /// <param name="group">The TechGroup you want to add your TechType to.</param>
         /// <param name="category">The TechCategory (in the TechGroup) you want to add your TechType to.</param>

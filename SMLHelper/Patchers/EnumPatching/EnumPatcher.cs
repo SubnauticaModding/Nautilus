@@ -30,6 +30,14 @@
             {
                 __result = GetValues(PingTypePatcher.cacheManager, __result);
             }
+            else if (enumType == typeof(TechGroup))
+            {
+                __result = GetValues(TechGroupPatcher.cacheManager, __result);
+            }
+            else if (enumType == typeof(TechCategory))
+            {
+                __result = GetValues(TechCategoryPatcher.cacheManager, __result);
+            }
         }
 
         private static T[] GetValues<T>(EnumCacheManager<T> cacheManager, Array __result) where T : Enum
@@ -50,7 +58,9 @@
         {
             if (IsDefined(TechTypePatcher.cacheManager, enumType, value) ||
                 IsDefined(CraftTreeTypePatcher.cacheManager, enumType, value) ||
-                IsDefined(PingTypePatcher.cacheManager, enumType, value))
+                IsDefined(PingTypePatcher.cacheManager, enumType, value) ||
+                IsDefined(TechGroupPatcher.cacheManager, enumType, value) ||
+                IsDefined(TechCategoryPatcher.cacheManager, enumType, value))
             {
                 __result = true;
                 return false;
@@ -83,6 +93,16 @@
                 __result = pingType;
                 return false;
             }
+            else if (enumType == typeof(TechGroup) && TechGroupPatcher.cacheManager.TryParse(value, out TechGroup techGroup))
+            {
+                __result = techGroup;
+                return false;
+            }
+            else if (enumType == typeof(TechCategory) && TechCategoryPatcher.cacheManager.TryParse(value, out TechCategory techCategory))
+            {
+                __result = techCategory;
+                return false;
+            }
             return true;
         }
 
@@ -96,12 +116,20 @@
                     __result = techTypeName;
                     return false;
 
-                case CraftTree.Type craftTreeType when CraftTreeTypePatcher.cacheManager.TryGetValue(craftTreeType, out var craftTreeName):
-                    __result = craftTreeName;
+                case CraftTree.Type craftTreeType when CraftTreeTypePatcher.cacheManager.TryGetValue(craftTreeType, out var craftTreeTypeName):
+                    __result = craftTreeTypeName;
                     return false;
 
                 case PingType pingType when PingTypePatcher.cacheManager.TryGetValue(pingType, out var pingTypeName):
                     __result = pingTypeName;
+                    return false;
+
+                case TechGroup techGroup when TechGroupPatcher.cacheManager.TryGetValue(techGroup, out var techGroupName):
+                    __result = techGroupName;
+                    return false;
+
+                case TechCategory techCategory when TechCategoryPatcher.cacheManager.TryGetValue(techCategory, out var techCategoryName):
+                    __result = techCategoryName;
                     return false;
 
                 default:
