@@ -91,7 +91,7 @@
         public virtual WorldEntityInfo EntityInfo { get; } = null;
 
         /// <summary>
-        /// Gets a value indicating whether if we should be looking for a Sprite.
+        /// Gets a value indicating whether if we should be looking for a Sprite when NOT overriding <see cref="GetItemSprite"/>.
         /// </summary>
         public virtual bool HasSprite => false;
 
