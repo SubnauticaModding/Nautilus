@@ -91,6 +91,11 @@
         public virtual WorldEntityInfo EntityInfo { get; } = null;
 
         /// <summary>
+        /// Gets a value indicating whether if we should be looking for a Sprite.
+        /// </summary>
+        public virtual bool HasSprite => true;
+
+        /// <summary>
         /// Initializes a new <see cref="Spawnable"/>, the basic class needed for any item that can be spawned into the Subnautica game world.
         /// </summary>
         /// <param name="classId">The main internal identifier for this item. Your item's <see cref="TechType"/> will be created using this name.</param>
@@ -207,17 +212,20 @@
         /// <returns>Returns the <see cref="Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Sprite)"/> call.</returns>
         protected virtual Sprite GetItemSprite()
         {
-            // This is for backwards compatibility with mods that were using the "ModName/Assets" format
-            string path = this.AssetsFolder != modFolderLocation
+            if(HasSprite)
+            {
+                // This is for backwards compatibility with mods that were using the "ModName/Assets" format
+                string path = this.AssetsFolder != modFolderLocation
                 ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
                 : Path.Combine(this.AssetsFolder, this.IconFileName);
 
-            if (File.Exists(path))
-            {
-                return ImageUtils.LoadSpriteFromFile(path);
-            }
+                if(File.Exists(path))
+                {
+                    return ImageUtils.LoadSpriteFromFile(path);
+                }
 
-            Logger.Debug($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+                Logger.Error($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+            }
             return SpriteManager.defaultSprite;
         }
     }
