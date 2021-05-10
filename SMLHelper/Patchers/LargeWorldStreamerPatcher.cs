@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace SMLHelper.V2.Patchers
 {
-    [HarmonyPatch(typeof(LargeWorldStreamer))]
     internal class LargeWorldStreamerPatcher
     {
         internal static void Patch(Harmony harmony)
