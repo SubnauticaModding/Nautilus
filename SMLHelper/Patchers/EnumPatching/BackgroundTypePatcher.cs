@@ -50,7 +50,7 @@
                 if (enumValue == null)
                     continue; // Saftey check
 
-                int realEnumValue = (int)enumValue;
+                int realEnumValue = (byte)enumValue;
 
                 if (realEnumValue < startingIndex)
                     continue; // This is possibly a default Background
