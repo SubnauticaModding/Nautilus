@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using SMLHelper.V2.Handlers;
+    using Handlers;
     using Utility;
 
     internal class BackgroundTypePatcher
