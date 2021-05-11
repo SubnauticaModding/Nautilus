@@ -11,7 +11,7 @@
 #endif
 
     /// <summary>
-    /// A handler interface for everything related to creating new BackgroundTypes.
+    /// A handler for everything related to creating new BackgroundTypes.
     /// </summary>
     public class BackgroundTypeHandler : IBackgroundTypeHandler
     {
