@@ -1,11 +1,11 @@
-﻿#if SUBNAUTICA
-using Sprite = Atlas.Sprite;
+﻿namespace SMLHelper.V2.Interfaces
+{
+#if SUBNAUTICA
+    using Sprite = Atlas.Sprite;
 #elif BELOWZERO
     using Sprite = UnityEngine.Sprite;
 #endif
 
-namespace SMLHelper.V2.Interfaces
-{
     /// <summary>
     /// A handler interface for everything related to creating new BackgroundTypes.
     /// </summary>
