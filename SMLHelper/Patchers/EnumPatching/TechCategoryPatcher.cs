@@ -9,7 +9,7 @@
     {
         private const string TechCategoryEnumName = "TechCategory";
 
-        internal const int startingIndex = 0; // The default TechCategory contains indexes 0 through 14
+        internal const int startingIndex = 25; 
 
         internal static readonly EnumCacheManager<TechCategory> cacheManager =
             new EnumCacheManager<TechCategory>(

@@ -10,7 +10,7 @@
     {
         private const string TechGroupEnumName = "TechGroup";
 
-        internal const int startingIndex = 0; // The default TechGroup contains indexes 0 through 14
+        internal const int startingIndex = 15; // The default TechGroup contains indexes 0 through 14
 
         internal static readonly EnumCacheManager<TechGroup> cacheManager =
             new EnumCacheManager<TechGroup>(
