@@ -463,11 +463,11 @@ namespace SMLHelper.V2.Utility
         {
             // Make our own text object
             TextObject = new GameObject("BasicText" + (++index));
-            TextText = TextObject.AddComponent<Text>();          // The text itself
-            TextFade = TextObject.AddComponent<uGUI_TextFade>(); // The uGUI's helpful automatic fade component           
+            TextFade = TextObject.EnsureComponent<uGUI_TextFade>(); // The uGUI's helpful automatic fade component           
+            TextText = TextFade?.text ?? TextObject.EnsureComponent<Text>(); // The text itself
 
             // This makes the text box fit the text (rather than the other way around)
-            TextFitter = TextObject.AddComponent<ContentSizeFitter>();
+            TextFitter = TextObject.EnsureComponent<ContentSizeFitter>();
             TextFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
             TextFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
