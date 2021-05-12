@@ -10,14 +10,14 @@
     /// <summary>
     /// A handler class for registering your custom console commands.
     /// </summary>
-    public class ConsoleCommandsHandler : IConsoleCommandsHandler
+    public class ConsoleCommandsHandler : IConsoleCommandHandler
     {
         /// <summary>
         /// Main entry point for all calls to this handler.
         /// </summary>
-        public static IConsoleCommandsHandler Main { get; } = new ConsoleCommandsHandler();
+        public static IConsoleCommandHandler Main { get; } = new ConsoleCommandsHandler();
 
-        void IConsoleCommandsHandler.RegisterConsoleCommand(string command, Type declaringType, string methodName, Type[] parameters)
+        void IConsoleCommandHandler.RegisterConsoleCommand(string command, Type declaringType, string methodName, Type[] parameters)
         {
             MethodInfo targetMethod = parameters == null
                 ? AccessTools.Method(declaringType, methodName)
@@ -25,10 +25,10 @@
             ConsoleCommandsPatcher.AddCustomCommand(command, targetMethod);
         }
 
-        void IConsoleCommandsHandler.RegisterConsoleCommand<T>(string command, T callback)
+        void IConsoleCommandHandler.RegisterConsoleCommand<T>(string command, T callback)
             => ConsoleCommandsPatcher.AddCustomCommand(command, callback.Method, true, callback.Target);
 
-        void IConsoleCommandsHandler.RegisterConsoleCommands(Type type)
+        void IConsoleCommandHandler.RegisterConsoleCommands(Type type)
             => ConsoleCommandsPatcher.ParseCustomCommands(type);
     }
 }

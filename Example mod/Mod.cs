@@ -55,14 +55,14 @@ namespace SMLHelper.V2.Examples
 
         /// <summary>
         /// <para>Here, we are using the <see cref="ConsoleCommandAttribute"/> to define a custom console command, which is
-        /// registered via our use of <see cref="IConsoleCommandsHandler.RegisterConsoleCommands(Type)"/> above.</para>
+        /// registered via our use of <see cref="IConsoleCommandHandler.RegisterConsoleCommands(Type)"/> above.</para>
         /// 
         /// <para>This method will respond to the "attributedcommand" command from the dev console. The command will respect the method
         /// signature of the decorated method, passing values following "attributedcommand" as the correct types, as long as they can be
         /// parsed to that type. For example, "attributedcommand foo 3 true" would be a valid command for this method signature.</para>
         /// 
         /// <para>The decorated method must be both <see langword="public"/> and <see langword="static"/>, or the attribute will
-        /// be ignored. <see cref="IConsoleCommandsHandler.RegisterConsoleCommand(string, Type, string, Type[])"/> allows for
+        /// be ignored. <see cref="IConsoleCommandHandler.RegisterConsoleCommand(string, Type, string, Type[])"/> allows for
         /// targeting non-<see langword="public"/> methods (must still be <see langword="static"/>), and uses a
         /// similar syntax to <see cref="HarmonyPatch"/> for defining the target method.</para>
         /// </summary>

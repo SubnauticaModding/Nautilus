@@ -110,7 +110,7 @@
         /// <summary>
         /// A handler class for registering your custom console commands.
         /// </summary>
-        public static IConsoleCommandsHandler ConsoleCommandsHandler => Handlers.ConsoleCommandsHandler.Main;
+        public static IConsoleCommandHandler ConsoleCommandsHandler => Handlers.ConsoleCommandsHandler.Main;
 
         /// <summary>
         /// A handler related to PingTypes
