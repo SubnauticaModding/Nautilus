@@ -116,5 +116,10 @@
         /// A handler related to PingTypes
         /// </summary>
         public static IPingHandler PingHandler => Handlers.PingHandler.Main;
+
+        /// <summary>
+        /// A handler for everything related to creating new BackgroundTypes.
+        /// </summary>
+        public static IBackgroundTypeHandler BackgroundTypeHandler => Handlers.BackgroundTypeHandler.Main;
     }
 }
