@@ -38,6 +38,10 @@
             {
                 __result = GetValues(TechCategoryPatcher.cacheManager, __result);
             }
+            else if (enumType == typeof(CraftData.BackgroundType))
+            {
+                __result = GetValues(BackgroundTypePatcher.cacheManager, __result);
+            }
         }
 
         private static T[] GetValues<T>(EnumCacheManager<T> cacheManager, Array __result) where T : Enum
@@ -60,7 +64,8 @@
                 IsDefined(CraftTreeTypePatcher.cacheManager, enumType, value) ||
                 IsDefined(PingTypePatcher.cacheManager, enumType, value) ||
                 IsDefined(TechGroupPatcher.cacheManager, enumType, value) ||
-                IsDefined(TechCategoryPatcher.cacheManager, enumType, value))
+                IsDefined(TechCategoryPatcher.cacheManager, enumType, value) ||
+                IsDefined(BackgroundTypePatcher.cacheManager, enumType, value))
             {
                 __result = true;
                 return false;
@@ -103,6 +108,11 @@
                 __result = techCategory;
                 return false;
             }
+            else if (enumType == typeof(CraftData.BackgroundType) && BackgroundTypePatcher.cacheManager.TryParse(value, out CraftData.BackgroundType backgroundType))
+            {
+                __result = backgroundType;
+                return false;
+            }
             return true;
         }
 
@@ -130,6 +140,10 @@
 
                 case TechCategory techCategory when TechCategoryPatcher.cacheManager.TryGetValue(techCategory, out var techCategoryName):
                     __result = techCategoryName;
+                    return false;
+
+                case CraftData.BackgroundType backgroundType when BackgroundTypePatcher.cacheManager.TryGetValue(backgroundType, out var backgroundTypeName):
+                    __result = backgroundTypeName;
                     return false;
 
                 default:
