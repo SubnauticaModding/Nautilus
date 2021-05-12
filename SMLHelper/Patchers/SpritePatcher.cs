@@ -35,11 +35,10 @@
 
         internal static void Patch(Harmony harmony)
         {
-#if SUBNAUTICA
             PatchSprites();
+#if SUBNAUTICA
             MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
 #elif BELOWZERO
-            CoroutineHost.StartCoroutine(PatchSpritesAsync());
             MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
 #endif
             MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
@@ -49,17 +48,6 @@
             harmony.Patch(spriteManagerGet, prefix: patchCheck);
             harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
         }
-
-#if BELOWZERO
-        private static IEnumerator PatchSpritesAsync()
-        {
-            while (!SpriteManager.hasInitialized)
-                yield return new WaitForSecondsRealtime(1);
-
-            PatchSprites();
-            yield break;
-        }
-#endif
 
         private static void PatchSprites()
         {
