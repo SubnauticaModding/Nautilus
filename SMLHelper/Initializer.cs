@@ -54,6 +54,7 @@
             PingTypePatcher.Patch();
             TechCategoryPatcher.Patch();
             TechGroupPatcher.Patch();
+            BackgroundTypePatcher.Patch();
             EnumPatcher.Patch(harmony);
 
             CraftDataPatcher.Patch(harmony);

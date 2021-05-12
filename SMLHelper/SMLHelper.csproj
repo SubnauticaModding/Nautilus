@@ -149,11 +149,13 @@
     <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Crafting\TechData.cs" />
     <Compile Include="Commands\ConsoleCommandAttribute.cs" />
+    <Compile Include="Handlers\BackgroundTypeHandler.cs" />
     <Compile Include="Handlers\CoordinatedSpawnsHandler.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
     <Compile Include="Handlers\SurvivalHandler.cs" />
     <Compile Include="Handlers\TechCategoryHandler.cs" />
     <Compile Include="Handlers\TechGroupHandler.cs" />
+    <Compile Include="Interfaces\IBackgroundTypeHandler.cs" />
     <Compile Include="Interfaces\ICoordinatedSpawnHandler.cs" />
     <Compile Include="Interfaces\IModOptionAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="Options\ToggleModOption.cs" />
     <Compile Include="Options\ModOptionTooltip.cs" />
     <Compile Include="Options\Utility\Validator.cs" />
+    <Compile Include="Patchers\EnumPatching\BackgroundTypePatcher.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
     <Compile Include="Handlers\ConsoleCommandsHandler.cs" />
     <Compile Include="Patchers\ConsoleCommandsPatcher.cs" />

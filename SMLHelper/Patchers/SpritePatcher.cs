@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using Assets;
+    using Handlers;
     using HarmonyLib;
     using UnityEngine;
     using UWE;
@@ -36,12 +37,16 @@
         {
             PatchSprites();
 #if SUBNAUTICA
-            MethodInfo methodInfo = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
+            MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
 #elif BELOWZERO
-            MethodInfo methodInfo = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
+            MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
 #endif
+            MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
+
             HarmonyMethod patchCheck = new HarmonyMethod(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
-            harmony.Patch(methodInfo, prefix: patchCheck);
+            HarmonyMethod patchBackgrounds = new HarmonyMethod(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
+            harmony.Patch(spriteManagerGet, prefix: patchCheck);
+            harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
         }
 
         private static void PatchSprites()
@@ -70,6 +75,16 @@
                 }
             }
             Logger.Debug("SpritePatcher is done.");
+        }
+
+        private static bool PatchBackgrounds(CraftData.BackgroundType backgroundType, ref Sprite __result)
+        {
+            if (BackgroundTypeHandler.BackgroundSprites.TryGetValue(backgroundType, out Sprite value))
+            {
+                __result = value;
+                return false;
+            }
+            return true;
         }
 
         private static Dictionary<string, Sprite> GetSpriteAtlas(SpriteManager.Group groupKey)
