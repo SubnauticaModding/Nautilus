@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using SMLHelper.V2.Interfaces;
 
 #if BELOWZERO
-using Text = TMPro.TextMeshPro;
+using Text = TMPro.TextMeshProUGUI;
 using Font = TMPro.TMP_FontAsset;
 using FontStyle = TMPro.FontStyles;
 #endif
