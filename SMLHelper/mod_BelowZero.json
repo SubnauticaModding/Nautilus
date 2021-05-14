@@ -2,7 +2,7 @@
     "Id": "SMLHelper",
     "DisplayName": "SMLHelper",
     "Author": "The SMLHelper Dev Team",
-    "Version": "2.9.4",
+    "Version": "2.9.6",
     "Enable": true,
     "Game": "BelowZero",
     "AssemblyName": "SMLHelper.dll",

@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Assets
+﻿using System.Reflection;
+
+namespace SMLHelper.V2.Assets
 {
     using System;
     using System.Collections;
@@ -44,7 +46,7 @@
             return ClassIdDictionary.TryGetValue(classId, out prefab);
         }
 
-        internal readonly string ModName;
+        internal readonly Assembly Mod;
 
         /// <summary>
         /// The class identifier used for the <see cref="PrefabIdentifier" /> component whenever applicable.
@@ -76,7 +78,7 @@
             this.PrefabFileName = prefabFileName;
             this.TechType = techType;
 
-            ModName = GetType().Assembly.GetName().Name;
+            Mod = GetType().Assembly;
         }
 
         internal GameObject GetGameObjectInternal()

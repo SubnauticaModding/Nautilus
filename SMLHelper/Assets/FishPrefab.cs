@@ -68,9 +68,9 @@
             forces.handleGravity = true;
             forces.underwaterDrag = 1f;
             forces.underwaterGravity = 0;
-#if BELOWZERO
+#if BELOWZERO || SUBNAUTICA_EXP
             forces.waterDepth = Ocean.GetOceanLevel();
-#elif SUBNAUTICA
+#else
             forces.waterDepth = Ocean.main.GetOceanLevel();
 #endif
             forces.enabled = false;

@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using Assets;
+    using Handlers;
     using HarmonyLib;
     using UnityEngine;
     using UWE;
@@ -34,27 +35,19 @@
 
         internal static void Patch(Harmony harmony)
         {
+            PatchSprites();
 #if SUBNAUTICA
-            PatchSprites();
-            MethodInfo methodInfo = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
+            MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
 #elif BELOWZERO
-            CoroutineHost.StartCoroutine(PatchSpritesAsync());
-            MethodInfo methodInfo = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
+            MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
 #endif
+            MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
+
             HarmonyMethod patchCheck = new HarmonyMethod(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
-            harmony.Patch(methodInfo, prefix: patchCheck);
+            HarmonyMethod patchBackgrounds = new HarmonyMethod(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
+            harmony.Patch(spriteManagerGet, prefix: patchCheck);
+            harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
         }
-
-#if BELOWZERO
-        private static IEnumerator PatchSpritesAsync()
-        {
-            while (!SpriteManager.hasInitialized)
-                yield return new WaitForSecondsRealtime(1);
-
-            PatchSprites();
-            yield break;
-        }
-#endif
 
         private static void PatchSprites()
         {
@@ -82,6 +75,16 @@
                 }
             }
             Logger.Debug("SpritePatcher is done.");
+        }
+
+        private static bool PatchBackgrounds(CraftData.BackgroundType backgroundType, ref Sprite __result)
+        {
+            if (BackgroundTypeHandler.BackgroundSprites.TryGetValue(backgroundType, out Sprite value))
+            {
+                __result = value;
+                return false;
+            }
+            return true;
         }
 
         private static Dictionary<string, Sprite> GetSpriteAtlas(SpriteManager.Group groupKey)

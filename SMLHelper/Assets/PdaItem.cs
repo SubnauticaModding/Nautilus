@@ -63,7 +63,7 @@
         public virtual TechCategory CategoryForPDA => TechCategory.Misc;
 
         /// <summary>
-        /// Override this property to assign whether or not the <see cref="TechType"/> should be unlocked at the start, defaulted to <c><see cref="RequiredForUnlock"/> == <see cref"TechType.None"/></c>
+        /// Override this property to assign whether or not the <see cref="TechType"/> should be unlocked at the start, defaulted to <c><see cref="RequiredForUnlock"/> == <see cref="TechType.None"/></c>
         /// </summary>
         public virtual bool UnlockedAtStart => RequiredForUnlock == TechType.None;
 
@@ -112,7 +112,7 @@
                 }
                 else
                 {
-                    Logger.Error($"Failed to add {TechType} to {GroupForPDA}/{CategoryForPDA} as that is an invalid combination.");
+                    Logger.Error($"Failed to add {TechType} to {GroupForPDA}/{CategoryForPDA} as it is not a registered combination.");
                 }
             }
 
@@ -149,7 +149,7 @@
 
         internal sealed override void PatchTechType()
         {
-            TechType = TechTypeHandler.AddTechType(ModName, ClassID, FriendlyName, Description, UnlockedAtStart);
+            TechType = TechTypeHandler.AddTechType(Mod, ClassID, FriendlyName, Description, UnlockedAtStart);
         }
     }
 }

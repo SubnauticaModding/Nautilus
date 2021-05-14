@@ -11,6 +11,10 @@
     using UnityEngine;
     using UWE;
     using Logger = Logger;
+#if SUBNAUTICA
+    using Sprite = Atlas.Sprite;
+#endif
+
 
     /// <summary>
     /// An item that can be spawned into the game.
@@ -67,6 +71,12 @@
         /// By default this will be 1x1. Override to change the size.
         /// </summary>
         public virtual Vector2int SizeInInventory { get; } = defaultSize;
+        
+        /// <summary>
+        /// Returns the list of <see cref="Vector3"/>s that specify the prefab's Coordinated Spawns.<br/>
+        /// By default this will be null.
+        /// </summary>
+        public virtual List<Vector3> CoordinatedSpawns { get; } = null;
 
         /// <summary>
         /// Returns the List of BiomeData that handles what Biomes this prefab will spawn, how probable it is to spawn there and how many per spawn.
@@ -79,6 +89,11 @@
         /// By default this will be null. Override to change this.
         /// </summary>
         public virtual WorldEntityInfo EntityInfo { get; } = null;
+
+        /// <summary>
+        /// Gets a value indicating whether if we should be looking for a Sprite when NOT overriding <see cref="GetItemSprite"/>.
+        /// </summary>
+        public virtual bool HasSprite => false;
 
         /// <summary>
         /// Initializes a new <see cref="Spawnable"/>, the basic class needed for any item that can be spawned into the Subnautica game world.
@@ -119,6 +134,11 @@
                 else if(EntityInfo != null)
                 {
                     WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
+                }
+
+                if (CoordinatedSpawns != null)
+                {
+                    CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(TechType, CoordinatedSpawns);
                 }
             };
         }
@@ -182,53 +202,31 @@
 
         internal virtual void PatchTechType()
         {
-            TechType = TechTypeHandler.AddTechType(ModName, ClassID, FriendlyName, Description, false);
+            TechType = TechTypeHandler.AddTechType(Mod, ClassID, FriendlyName, Description, false);
         }
 
-#if SUBNAUTICA
         /// <summary>
-        /// Determines thee <see cref="Atlas.Sprite"/> to be used for this spawnable's icon.<para/>
+        /// Determines thee <see cref="Sprite"/> to be used for this spawnable's icon.<para/>
         /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
         /// </summary>
-        /// <returns>Returns the <see cref="Atlas.Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Atlas.Sprite)"/> call.</returns>
-        protected virtual Atlas.Sprite GetItemSprite()
+        /// <returns>Returns the <see cref="Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Sprite)"/> call.</returns>
+        protected virtual Sprite GetItemSprite()
         {
-            // This is for backwards compatibility with mods that were using the "ModName/Assets" format
-            string path = AssetsFolder != modFolderLocation
-                ? IOUtilities.Combine(".", "QMods", AssetsFolder.Trim('/'), IconFileName)
-                : Path.Combine(AssetsFolder, IconFileName);
-
-            if(File.Exists(path))
+            if(HasSprite)
             {
-                return ImageUtils.LoadSpriteFromFile(path);
-            }
-
-            Logger.Warn($"Sprite for '{PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
-            return SpriteManager.defaultSprite;
-        }
-
-#elif BELOWZERO
-
-        /// <summary>
-        /// Determines thee <see cref="UnityEngine.Sprite"/> to be used for this spawnable's icon.<para/>
-        /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
-        /// </summary>
-        /// <returns>Returns the <see cref="UnityEngine.Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, UnityEngine.Sprite)"/> call.</returns>
-        protected virtual UnityEngine.Sprite GetItemSprite()
-        {
-            // This is for backwards compatibility with mods that were using the "ModName/Assets" format
-            string path = this.AssetsFolder != modFolderLocation
+                // This is for backwards compatibility with mods that were using the "ModName/Assets" format
+                string path = this.AssetsFolder != modFolderLocation
                 ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
                 : Path.Combine(this.AssetsFolder, this.IconFileName);
 
-            if (File.Exists(path))
-            {
-                return ImageUtils.LoadSpriteFromFile(path);
-            }
+                if(File.Exists(path))
+                {
+                    return ImageUtils.LoadSpriteFromFile(path);
+                }
 
-            Logger.Warn($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+                Logger.Error($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+            }
             return SpriteManager.defaultSprite;
         }
-#endif
     }
 }

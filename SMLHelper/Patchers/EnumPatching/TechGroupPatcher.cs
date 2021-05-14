@@ -1,24 +1,24 @@
 ﻿namespace SMLHelper.V2.Patchers.EnumPatching
 {
-    using Crafting;
-    using SMLHelper.V2.Handlers;
     using System;
     using System.Collections.Generic;
+    using HarmonyLib;
+    using SMLHelper.V2.Handlers;
     using Utility;
 
-    internal class CraftTreeTypePatcher
+    internal class TechGroupPatcher
     {
-        private const string CraftTreeTypeEnumName = "CraftTreeType";
+        private const string TechGroupEnumName = "TechGroup";
 
-        internal const int startingIndex = 11; // The default CraftTree.Type contains indexes 0 through 10
+        internal const int startingIndex = 15; // The default TechGroup contains indexes 0 through 14
 
-        internal static readonly EnumCacheManager<CraftTree.Type> cacheManager =
-            new EnumCacheManager<CraftTree.Type>(
-                enumTypeName: CraftTreeTypeEnumName,
+        internal static readonly EnumCacheManager<TechGroup> cacheManager =
+            new EnumCacheManager<TechGroup>(
+                enumTypeName: TechGroupEnumName,
                 startingIndex: startingIndex,
-                bannedIDs: ExtBannedIdManager.GetBannedIdsFor(CraftTreeTypeEnumName, PreRegisteredCraftTreeTypes()));
+                bannedIDs: ExtBannedIdManager.GetBannedIdsFor(TechGroupEnumName, PreRegisteredTechGroupTypes()));
 
-        internal static ModCraftTreeRoot CreateCustomCraftTreeAndType(string name, out CraftTree.Type craftTreeType)
+        internal static TechGroup AddTechGroup(string name)
         {
             EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name) ?? new EnumTypeCache()
             {
@@ -26,20 +26,23 @@
                 Index = cacheManager.GetNextAvailableIndex()
             };
 
-            craftTreeType = (CraftTree.Type)cache.Index;
+            TechGroup techGroup = (TechGroup)cache.Index;
 
-            cacheManager.Add(craftTreeType, cache.Index, cache.Name);
+            cacheManager.Add(techGroup, cache.Index, cache.Name);
+            
+            if (!uGUI_BlueprintsTab.groups.Contains(techGroup))
+                uGUI_BlueprintsTab.groups.Add(techGroup);
 
-            Logger.Log($"Successfully added CraftTree Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            if (!CraftData.groups.ContainsKey(techGroup))
+                CraftData.groups[techGroup] = new Dictionary<TechCategory, List<TechType>>();
 
-            var customTreeRoot = new ModCraftTreeRoot(craftTreeType, name);
+            Logger.Log($"Successfully added TechGroup: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
 
-            CraftTreePatcher.CustomTrees[craftTreeType] = customTreeRoot;
 
-            return customTreeRoot;
+            return techGroup;
         }
 
-        private static List<int> PreRegisteredCraftTreeTypes()
+        private static List<int> PreRegisteredTechGroupTypes()
         {
             // Make sure to exclude already registered CraftTreeTypes.
             // Be aware that this approach is still subject to race conditions.
@@ -48,7 +51,7 @@
 
             var bannedIndices = new List<int>();
 
-            Array enumValues = Enum.GetValues(typeof(CraftTree.Type));
+            Array enumValues = Enum.GetValues(typeof(TechGroup));
 
             foreach (object enumValue in enumValues)
             {
@@ -67,7 +70,7 @@
                 bannedIndices.Add(realEnumValue);
             }
 
-            Logger.Log($"Finished known CraftTreeType exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
+            Logger.Log($"Finished known TechGroup exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
 
             return bannedIndices;
         }
@@ -76,8 +79,8 @@
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-            Logger.Log($"Added {cacheManager.ModdedKeysCount} CraftTreeTypes succesfully into the game.");
-            Logger.Log("CraftTreeTypePatcher is done.", LogLevel.Debug);
+            Logger.Log($"Added {cacheManager.ModdedKeysCount} TechGroups succesfully into the game.");
+            Logger.Log("TechGroupPatcher is done.", LogLevel.Debug);
         }
     }
 }

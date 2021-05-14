@@ -1,24 +1,23 @@
 ﻿namespace SMLHelper.V2.Patchers.EnumPatching
 {
-    using Crafting;
-    using SMLHelper.V2.Handlers;
     using System;
     using System.Collections.Generic;
+    using SMLHelper.V2.Handlers;
     using Utility;
 
-    internal class CraftTreeTypePatcher
+    internal class TechCategoryPatcher
     {
-        private const string CraftTreeTypeEnumName = "CraftTreeType";
+        private const string TechCategoryEnumName = "TechCategory";
 
-        internal const int startingIndex = 11; // The default CraftTree.Type contains indexes 0 through 10
+        internal const int startingIndex = 25; 
 
-        internal static readonly EnumCacheManager<CraftTree.Type> cacheManager =
-            new EnumCacheManager<CraftTree.Type>(
-                enumTypeName: CraftTreeTypeEnumName,
+        internal static readonly EnumCacheManager<TechCategory> cacheManager =
+            new EnumCacheManager<TechCategory>(
+                enumTypeName: TechCategoryEnumName,
                 startingIndex: startingIndex,
-                bannedIDs: ExtBannedIdManager.GetBannedIdsFor(CraftTreeTypeEnumName, PreRegisteredCraftTreeTypes()));
+                bannedIDs: ExtBannedIdManager.GetBannedIdsFor(TechCategoryEnumName, PreRegisteredTechCategoryTypes()));
 
-        internal static ModCraftTreeRoot CreateCustomCraftTreeAndType(string name, out CraftTree.Type craftTreeType)
+        internal static TechCategory AddTechCategory(string name)
         {
             EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name) ?? new EnumTypeCache()
             {
@@ -26,20 +25,17 @@
                 Index = cacheManager.GetNextAvailableIndex()
             };
 
-            craftTreeType = (CraftTree.Type)cache.Index;
+            TechCategory TechCategory = (TechCategory)cache.Index;
 
-            cacheManager.Add(craftTreeType, cache.Index, cache.Name);
+            cacheManager.Add(TechCategory, cache.Index, cache.Name);
 
-            Logger.Log($"Successfully added CraftTree Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            Logger.Log($"Successfully added TechCategory: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
 
-            var customTreeRoot = new ModCraftTreeRoot(craftTreeType, name);
 
-            CraftTreePatcher.CustomTrees[craftTreeType] = customTreeRoot;
-
-            return customTreeRoot;
+            return TechCategory;
         }
 
-        private static List<int> PreRegisteredCraftTreeTypes()
+        private static List<int> PreRegisteredTechCategoryTypes()
         {
             // Make sure to exclude already registered CraftTreeTypes.
             // Be aware that this approach is still subject to race conditions.
@@ -48,7 +44,7 @@
 
             var bannedIndices = new List<int>();
 
-            Array enumValues = Enum.GetValues(typeof(CraftTree.Type));
+            Array enumValues = Enum.GetValues(typeof(TechCategory));
 
             foreach (object enumValue in enumValues)
             {
@@ -67,7 +63,7 @@
                 bannedIndices.Add(realEnumValue);
             }
 
-            Logger.Log($"Finished known CraftTreeType exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
+            Logger.Log($"Finished known TechCategory exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
 
             return bannedIndices;
         }
@@ -76,8 +72,8 @@
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-            Logger.Log($"Added {cacheManager.ModdedKeysCount} CraftTreeTypes succesfully into the game.");
-            Logger.Log("CraftTreeTypePatcher is done.", LogLevel.Debug);
+            Logger.Log($"Added {cacheManager.ModdedKeysCount} TechCategorys succesfully into the game.");
+            Logger.Log("TechCategoryPatcher is done.", LogLevel.Debug);
         }
     }
 }

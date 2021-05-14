@@ -26,19 +26,11 @@
 
         internal static TechType AddTechType(string name)
         {
-            EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name);
-
-            if (cache == null)
+            EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name) ?? new EnumTypeCache()
             {
-                cache = new EnumTypeCache()
-                {
-                    Name = name,
-                    Index = cacheManager.GetNextAvailableIndex()
-                };
-            }
-
-            if (cacheManager.IsIndexAvailable(cache.Index))
-                cache.Index = cacheManager.GetNextAvailableIndex();
+                Name = name,
+                Index = cacheManager.GetNextAvailableIndex()
+            };
 
             var techType = (TechType)cache.Index;
             cacheManager.Add(techType, cache.Index, cache.Name);

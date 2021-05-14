@@ -259,7 +259,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-Assembly-CSharp-firstpass.dll
-Assembly-CSharp-firstpass_publicized.dll
-Assembly-CSharp.dll
-Assembly-CSharp_publicized.dll
+Assembly-CSharp*

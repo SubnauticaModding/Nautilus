@@ -71,6 +71,7 @@
         }
 #endif
 
+#if SUBNAUTICA_STABLE
         [PatchUtils.Prefix] // SUBNAUTICA_EXP TODO: remove for SN after async update
         [HarmonyPatch(typeof(PrefabDatabase), "GetPrefabForFilename")] // method can be absent
         internal static bool GetPrefabForFilename_Prefix(string filename, ref GameObject __result)
@@ -81,6 +82,7 @@
             __result = prefab.GetGameObjectInternal();
             return false;
         }
+#endif
 
         private static IPrefabRequest GetModPrefabAsync(string classId)
         {
@@ -143,6 +145,7 @@
         {
             PatchUtils.PatchClass(harmony);
 
+#if SUBNAUTICA_STABLE
             var obsoleteInstantiatePrefabAsync = AccessTools.Method(typeof(ProtobufSerializer), nameof(ProtobufSerializer.InstantiatePrefabAsync),
                 new[] { typeof(ProtobufSerializer.GameObjectData) });
 
@@ -154,7 +157,7 @@
                 harmony.Patch(PatchUtils.GetIteratorMethod(DeserializeObjectsAsync), transpiler:
                     new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(DeserializeObjectsAsync_Transpiler))));
             }
-
+#endif
             Logger.Log("PrefabDatabasePatcher is done.", LogLevel.Debug);
         }
 
