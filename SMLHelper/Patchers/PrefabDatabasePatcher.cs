@@ -145,18 +145,12 @@
         {
             PatchUtils.PatchClass(harmony);
 
-#if SUBNAUTICA_STABLE
-            var obsoleteInstantiatePrefabAsync = AccessTools.Method(typeof(ProtobufSerializer), nameof(ProtobufSerializer.InstantiatePrefabAsync),
-                new[] { typeof(ProtobufSerializer.GameObjectData) });
-
-            if (obsoleteInstantiatePrefabAsync == null) // it means that we have async-only prefabs now, otherwise patch will fail
-            {
+#if !SUBNAUTICA_STABLE
                 // patching iterator method ProtobufSerializer.DeserializeObjectsAsync
                 MethodInfo DeserializeObjectsAsync = typeof(ProtobufSerializer).GetMethod(
                     nameof(ProtobufSerializer.DeserializeObjectsAsync), BindingFlags.NonPublic | BindingFlags.Instance);
                 harmony.Patch(PatchUtils.GetIteratorMethod(DeserializeObjectsAsync), transpiler:
                     new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(DeserializeObjectsAsync_Transpiler))));
-            }
 #endif
             Logger.Log("PrefabDatabasePatcher is done.", LogLevel.Debug);
         }
