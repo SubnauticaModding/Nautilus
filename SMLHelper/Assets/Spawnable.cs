@@ -212,8 +212,6 @@
         /// <returns>Returns the <see cref="Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Sprite)"/> call.</returns>
         protected virtual Sprite GetItemSprite()
         {
-            if(HasSprite)
-            {
                 // This is for backwards compatibility with mods that were using the "ModName/Assets" format
                 string path = this.AssetsFolder != modFolderLocation
                 ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
@@ -224,8 +222,9 @@
                     return ImageUtils.LoadSpriteFromFile(path);
                 }
 
+            if(HasSprite)
                 Logger.Error($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
-            }
+
             return SpriteManager.defaultSprite;
         }
     }

@@ -180,6 +180,9 @@
             // if we using custom value format, we need to replace vanilla uGUI_SliderWithLabel with our component
             if (ValueFormat != null)
                 OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>().ValueFormat = ValueFormat;
+
+            // fixing tooltip for slider
+            OptionGameObject.transform.Find("Slider/Caption").GetComponent<Text>().raycastTarget = true;
 #else
             // if we using custom value format or step, we need to replace vanilla uGUI_SliderWithLabel with our component
             if (ValueFormat != null || Step >= Mathf.Epsilon)
