@@ -121,33 +121,23 @@
         {
             foreach (TabNode tab in customTabs)
             {
-                // Wrong crafter, skip.
-                if (tab.Scheme != scheme)
+                // Wrong Scheme, skip.
+                if(tab.Scheme != scheme)
                     continue;
 
-                TreeNode currentNode = default;
-                currentNode = nodes;
+                var targetNode = nodes.FindNodeByPath(tab.Path);
 
-                // Patch into game's CraftTree.
-                for (int i = 0; i < tab.Path.Length; i++)
+                //Parent Tab doesn't exist. 
+                if(targetNode == null)
                 {
-                    string currentPath = tab.Path[i];
-                    Logger.Log("Tab Current Path: " + currentPath + " Tab: " + tab.Name + " Crafter: " + tab.Scheme.ToString(), LogLevel.Debug);
-
-                    TreeNode node = currentNode[currentPath];
-
-                    // Reached the end of the line.
-                    if (node != null)
-                        currentNode = node;
-                    else
-                        break;
+                    Logger.Warn($"Tab Node does not exist in {scheme} at {string.Join("/", tab.Path)}. Failed to add new tab. ({tab.Name})");
+                    continue;
                 }
 
-                // Add the new tab node.
-                var newNode = new CraftNode(tab.Name, TreeAction.Expand, TechType.None);
-                currentNode.AddNode(new TreeNode[]
+                // Add the new child tab node.
+                targetNode.AddNode(new TreeNode[]
                 {
-                    newNode
+                    new CraftNode(tab.Name, TreeAction.Expand, TechType.None)
                 });
             }
         }
@@ -156,29 +146,22 @@
         {
             foreach (CraftingNode customNode in customNodes)
             {
-                // Wrong crafter, just skip the node.
-                if (customNode.Scheme != scheme)
+                // Wrong Scheme, just skip the node.
+                if(customNode.Scheme != scheme)
                     continue;
+                
+                //Find the target parent node.
+                var targetNode = nodes.FindNodeByPath(customNode.Path);
 
-                // Have to do this to make sure C# shuts up.
-                TreeNode node = default;
-                node = nodes;
-
-                // Loop through the path provided by the node.
-                // Get the node for the last path.
-                for (int i = 0; i < customNode.Path.Length; i++)
+                //Parent Tab doesn't exist. 
+                if(targetNode == null)
                 {
-                    string currentPath = customNode.Path[i];
-                    TreeNode currentNode = node[currentPath];
-
-                    if (currentNode != null)
-                        node = currentNode;
-                    else
-                        break;
+                    Logger.Warn($"Tab Node does not exist in {scheme} at {string.Join("/", customNode.Path)}. Failed to add node ({customNode.TechType})");
+                    continue;
                 }
 
-                // Add the node.
-                node.AddNode(new TreeNode[]
+                // Add the child node.
+                targetNode.AddNode(new TreeNode[]
                 {
                     new CraftNode(customNode.TechType.AsString(false), TreeAction.Craft, customNode.TechType)
                 });
@@ -202,36 +185,18 @@
                     continue;
                 }
 
-                // Get the names of each node in the path to traverse tree until we reach the node we want.
-                TreeNode currentNode = default;
-                currentNode = nodes;
-
-                // Travel the path down the tree.
-                string currentPath = null;
-                for (int step = 0; step < nodeToRemove.Path.Length; step++)
+                //Find the target node for removal.
+                var targetNode = nodes.FindNodeByPath(nodeToRemove.Path);
+                
+                //Node already doesn't exist. 
+                if (targetNode == null)
                 {
-                    currentPath = nodeToRemove.Path[step];
-                    if (step > nodeToRemove.Path.Length)
-                    {
-                        break;
-                    }
-
-                    currentNode = currentNode[currentPath];
+                    Logger.Debug($"Node does not exist for removal in {scheme} at {string.Join("/",nodeToRemove.Path)}. Skipping");
+                    continue;
                 }
 
-                // Safty checks.
-                if (currentNode != null && currentNode.id == currentPath)
-                {
-                    if (currentNode.parent == null)
-                    {
-                        Logger.Warn($"Skipped removing craft tree node in {nameof(RemoveNodes)} for '{scheme}'. Could not identify the parent node.");
-                    }
-                    else
-                    {
-                        currentNode.Clear(); // Remove all child nodes (if any)
-                        currentNode.parent.RemoveNode(currentNode); // Remove the node from its parent
-                    }
-                }
+                targetNode.Clear(); // Remove all child nodes (if any)
+                targetNode.parent?.RemoveNode(targetNode); // Remove the node from its parent
             }
         }
 
