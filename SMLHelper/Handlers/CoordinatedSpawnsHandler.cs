@@ -156,6 +156,34 @@ namespace SMLHelper.V2.Handlers
             spawnType = SpawnType.ClassId;
         }
 
+        /// <summary>
+        /// Initializes a new <see cref="SpawnInfo"/>.
+        /// </summary>
+        /// <param name="techType">TechType to spawn.</param>
+        /// <param name="spawnPosition">Position to spawn into.</param>
+        /// <param name="rotation">Rotation to spawn at.</param>
+        public SpawnInfo(TechType techType, Vector3 spawnPosition, Vector3 rotation)
+        {
+            this.techType = techType;
+            this.spawnPosition = spawnPosition;
+            this.rotation = Quaternion.Euler(rotation);
+            spawnType = SpawnType.TechType;
+        }
+
+        /// <summary>
+        /// Initializes a new <see cref="SpawnInfo"/>.
+        /// </summary>
+        /// <param name="classId">ClassID to spawn.</param>
+        /// <param name="spawnPosition">Position to spawn into.</param>
+        /// <param name="rotation">Rotation to spawn at.</param>
+        public SpawnInfo(string classId, Vector3 spawnPosition, Vector3 rotation)
+        {
+            this.classId = classId;
+            this.spawnPosition = spawnPosition;
+            this.rotation = Quaternion.Euler(rotation);
+            spawnType = SpawnType.ClassId;
+        }
+
         internal enum SpawnType
         {
             ClassId, 
