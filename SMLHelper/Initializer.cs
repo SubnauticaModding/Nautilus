@@ -47,8 +47,6 @@
         [Obsolete("This method is for use only by QModManager.", true)]
         public static void PostPatch()
         {
-            FishPatcher.Patch(harmony);
-
             TechTypePatcher.Patch();
             CraftTreeTypePatcher.Patch();
             PingTypePatcher.Patch();

@@ -127,8 +127,6 @@
     <Compile Include="Assets\Craftable.cs" />
     <Compile Include="Assets\CustomFabricator.cs" />
     <Compile Include="Assets\Equipable.cs" />
-    <Compile Include="Assets\Fish.cs" />
-    <Compile Include="Assets\FishPrefab.cs" />
     <Compile Include="Assets\ModPrefab.cs" />
     <Compile Include="Assets\ModPrefabCache.cs" />
     <Compile Include="Assets\ModPrefabRequest.cs" />
@@ -173,7 +171,6 @@
     <Compile Include="Handlers\CraftDataHandler_Subnautica.cs" />
     <Compile Include="Handlers\CraftDataHandler_BelowZero.cs" />
     <Compile Include="Handlers\CraftTreeHandler.cs" />
-    <Compile Include="Handlers\FishHandler.cs" />
     <Compile Include="Handlers\IngameMenuHandler.cs" />
     <Compile Include="Handlers\ItemActionHandler.cs" />
     <Compile Include="Handlers\KnownTechHandler.cs" />
@@ -192,7 +189,6 @@
     <Compile Include="Interfaces\ICraftDataHandler_BelowZero.cs" />
     <Compile Include="Interfaces\ICraftDataHandler_Subnautica.cs" />
     <Compile Include="Interfaces\ICraftTreeHandler.cs" />
-    <Compile Include="Interfaces\IFishHandler.cs" />
     <Compile Include="Interfaces\IIngameMenuHandler.cs" />
     <Compile Include="Interfaces\IItemActionHandler.cs" />
     <Compile Include="Json\Interfaces\IJsonFile.cs" />
@@ -248,7 +244,6 @@
     <Compile Include="Patchers\EnumPatching\EnumPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\TechCategoryPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\TechGroupPatcher.cs" />
-    <Compile Include="Patchers\FishPatcher.cs" />
     <Compile Include="Patchers\IngameMenuPatcher.cs" />
     <Compile Include="Patchers\ItemActionPatcher.cs" />
     <Compile Include="Patchers\ItemsContainerPatcher.cs" />

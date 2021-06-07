@@ -28,11 +28,6 @@
         public static IIngameMenuHandler IngameMenuHandler => Handlers.IngameMenuHandler.Main;
 
         /// <summary>
-        /// Class to manage registering of fish into the game
-        /// </summary>
-        public static IFishHandler FishHandler => Handlers.FishHandler.Main;
-
-        /// <summary>
         /// A handler class for registering your custom middle click actions for items
         /// </summary>
         public static IItemActionHandler ItemActionHandler => Handlers.ItemActionHandler.Main;
