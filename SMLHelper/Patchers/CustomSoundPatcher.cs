@@ -1,16 +1,14 @@
-﻿using System;
+﻿using FMOD;
+using FMODUnity;
+using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using FMOD.Studio;
-using Oculus.Newtonsoft.Json;
 using SMLHelper.V2.Utility;
 using UnityEngine;
 
 namespace SMLHelper.V2.Patchers
 {
-    using FMOD;
-    using FMODUnity;
-    using HarmonyLib;
-
     internal class CustomSoundPatcher
     {
         internal static SelfCheckingDictionary<string, Sound> CustomSounds = new SelfCheckingDictionary<string, Sound>("CustomSounds");
@@ -83,11 +81,15 @@ namespace SMLHelper.V2.Patchers
             if (__instance is null || string.IsNullOrEmpty(__instance._current)  || !PlayedChannels.TryGetValue(__instance._current, out var channel)) return true;
 
             ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
+#if SUBNAUTICA_STABLE
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity, ref attributes.forward);
+#elif SUBNAUTICA_EXP
+            channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
+#endif
             
             channel.getPosition(out var position, TIMEUNIT.MS);
             __instance.position = (int)position*1000;
-            __instance._positionSeconds = (float)position;
+            __instance._positionSeconds = position;
             
             return false;
         }
