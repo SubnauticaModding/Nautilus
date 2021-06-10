@@ -22,6 +22,7 @@ namespace SMLHelper.V2.Handlers
             // Hides constructor
         }
         
+        
         /// <summary>
         /// Register a Custom sound by file path. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
         /// </summary>
@@ -30,7 +31,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. defaults to <see cref="SoundChannel.Master"/></param>
         /// <returns>Returns the <see cref="Sound"/> loaded</returns>
 
-        public Sound RegisterCustomSound(string id, string filePath, SoundChannel soundChannel = SoundChannel.Master)
+        Sound ICustomSoundHandler.RegisterCustomSound(string id, string filePath, SoundChannel soundChannel)
         {
                 Sound sound = AudioUtils.CreateSound(filePath);
                 CustomSoundPatcher.CustomSounds[id] = sound;
@@ -45,7 +46,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="sound">The pre loaded sound</param>
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. <see cref="SoundChannel"/></param>
 
-        public void RegisterCustomSound(string id, Sound sound, SoundChannel soundChannel = SoundChannel.Master)
+        void ICustomSoundHandler.RegisterCustomSound(string id, Sound sound, SoundChannel soundChannel)
         {
             CustomSoundPatcher.CustomSounds[id] = sound;
             CustomSoundPatcher.CustomSoundChannels[id] = soundChannel;
@@ -55,7 +56,7 @@ namespace SMLHelper.V2.Handlers
         /// Try to find and play a custom <see cref="Sound"/> that has been registered.
         /// </summary>
         /// <param name="id">The Id of the custom sound</param>
-        public void TryPlayCustomSound(string id)
+        void ICustomSoundHandler.TryPlayCustomSound(string id)
         {
             if(!CustomSoundPatcher.CustomSounds.TryGetValue(id, out Sound sound)) return;
             if (!CustomSoundPatcher.CustomSoundChannels.TryGetValue(id, out var soundChannel))
@@ -69,9 +70,54 @@ namespace SMLHelper.V2.Handlers
         /// <param name="id">The Id of the custom sound</param>
         /// <param name="sound">Outputs the <see cref="Sound"/> if found and null if not found.</param>
         /// <returns>Returns true or false depending on if the id was found</returns>
-        public bool TryGetCustomSound(string id, out Sound sound)
+        bool ICustomSoundHandler.TryGetCustomSound(string id, out Sound sound)
         {
             return CustomSoundPatcher.CustomSounds.TryGetValue(id, out sound);
+        }
+        
+        /// <summary>
+        /// Register a Custom sound by file path. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="filePath">The file path on disk of the sound file to load</param>
+        /// <param name="soundChannel">The sound channel to get the volume to play the sound at. defaults to <see cref="SoundChannel.Master"/></param>
+        /// <returns>Returns the <see cref="Sound"/> loaded</returns>
+
+        public static Sound RegisterCustomSound(string id, string filePath, SoundChannel soundChannel = SoundChannel.Master)
+        {
+            return Main.RegisterCustomSound(id, filePath, soundChannel);
+        }
+
+        /// <summary>
+        /// Register a Custom sound that has been loaded using AudioUtils. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="sound">The pre loaded sound</param>
+        /// <param name="soundChannel">The sound channel to get the volume to play the sound at. <see cref="SoundChannel"/></param>
+
+        public static void RegisterCustomSound(string id, Sound sound, SoundChannel soundChannel = SoundChannel.Master)
+        {
+            Main.RegisterCustomSound(id, sound, soundChannel);
+        }
+
+        /// <summary>
+        /// Try to find and play a custom <see cref="Sound"/> that has been registered.
+        /// </summary>
+        /// <param name="id">The Id of the custom sound</param>
+        public static void TryPlayCustomSound(string id)
+        {
+            Main.TryPlayCustomSound(id);
+        }
+ 
+        /// <summary>
+        /// Try to get a registered custom <see cref="Sound"/>.
+        /// </summary>
+        /// <param name="id">The Id of the custom sound</param>
+        /// <param name="sound">Outputs the <see cref="Sound"/> if found and null if not found.</param>
+        /// <returns>Returns true or false depending on if the id was found</returns>
+        public static bool TryGetCustomSound(string id, out Sound sound)
+        {
+            return Main.TryGetCustomSound(id, out sound);
         }
     }
 }
