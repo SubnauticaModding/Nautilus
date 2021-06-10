@@ -21,8 +21,9 @@ namespace SMLHelper.V2.Handlers
         {
             // Hides constructor
         }
-        
-        
+
+        #region Interface Methods
+
         /// <summary>
         /// Register a Custom sound by file path. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
         /// </summary>
@@ -33,10 +34,10 @@ namespace SMLHelper.V2.Handlers
 
         Sound ICustomSoundHandler.RegisterCustomSound(string id, string filePath, SoundChannel soundChannel)
         {
-                Sound sound = AudioUtils.CreateSound(filePath);
-                CustomSoundPatcher.CustomSounds[id] = sound;
-                CustomSoundPatcher.CustomSoundChannels[id] = soundChannel;
-                return sound;
+            Sound sound = AudioUtils.CreateSound(filePath);
+            CustomSoundPatcher.CustomSounds[id] = sound;
+            CustomSoundPatcher.CustomSoundChannels[id] = soundChannel;
+            return sound;
         }
 
         /// <summary>
@@ -75,6 +76,10 @@ namespace SMLHelper.V2.Handlers
             return CustomSoundPatcher.CustomSounds.TryGetValue(id, out sound);
         }
         
+
+        #endregion
+        #region Static Methods
+
         /// <summary>
         /// Register a Custom sound by file path. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
         /// </summary>
@@ -119,5 +124,7 @@ namespace SMLHelper.V2.Handlers
         {
             return Main.TryGetCustomSound(id, out sound);
         }
+
+        #endregion
     }
 }
