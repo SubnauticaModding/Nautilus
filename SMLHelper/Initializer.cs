@@ -76,6 +76,7 @@
             IngameMenuPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
             SurvivalPatcher.Patch(harmony);
+            CustomSoundPatcher.Patch(harmony);
 
 
 

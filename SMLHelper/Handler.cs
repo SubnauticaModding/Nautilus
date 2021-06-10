@@ -121,5 +121,11 @@
         /// A handler for everything related to creating new BackgroundTypes.
         /// </summary>
         public static IBackgroundTypeHandler BackgroundTypeHandler => Handlers.BackgroundTypeHandler.Main;
+        
+        /// <summary>
+        /// A handler related to Custom Sounds
+        /// </summary>
+        public static ICustomSoundHandler SoundHandler => Handlers.CustomSoundHandler.Main;
+
     }
 }
