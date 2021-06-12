@@ -74,7 +74,7 @@
         
         /// <summary>
         /// Returns the Dictionary of (Vector3, Vector3) that specify the prefab's Coordinated Spawns as well as the rotations it will spawn as.<br/>
-		/// the Keys of the Dictionary will be counted as the spawns location and the Values of the Dictionary will be counted as the rotations of that spawn.<br/>
+	/// the Keys of the Dictionary will be counted as the spawns location and the Values of the Dictionary will be counted as the rotations of that spawn.<br/>
         /// By default this will be null.
         /// </summary>
         public virtual Dictionary<Vector3, Vector3> CoordinatedSpawns { get; } = null;
