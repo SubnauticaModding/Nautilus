@@ -1,3 +1,5 @@
+using Oculus.Newtonsoft.Json;
+
 namespace SMLHelper.V2.Handlers
 {
     using System.Collections.Generic;
@@ -120,12 +122,16 @@ namespace SMLHelper.V2.Handlers
     /// </summary>
     public class SpawnInfo
     {
-        internal readonly TechType techType;
-        internal readonly string classId;
-        internal readonly Vector3 spawnPosition;
-        internal readonly Quaternion rotation;
-
-        internal SpawnType spawnType;
+        [JsonProperty]
+        internal TechType techType { get; }
+        [JsonProperty]
+        internal string classId { get; }
+        [JsonProperty]
+        internal Vector3 spawnPosition { get;  }
+        [JsonProperty]
+        internal Quaternion rotation { get; }
+        [JsonProperty]
+        internal SpawnType spawnType { get; }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
