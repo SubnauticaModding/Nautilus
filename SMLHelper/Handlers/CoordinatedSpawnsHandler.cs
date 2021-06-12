@@ -53,12 +53,12 @@ namespace SMLHelper.V2.Handlers
         {
             LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
         }
-		
+
         /// <summary>
         /// Registers Multiple Coordinated spawns with rotations for one single passed TechType
         /// </summary>
         /// <param name="techTypeToSpawn">The TechType to spawn</param>
-        /// <param name="coordinatesToSpawnTo">the coordinates(Key) and the rotations(Value) the <see cref="TechType"/> should spawn to</param>
+        /// <param name="coordinatesAndRotationsToSpawnTo">the coordinates(Key) and the rotations(Value) the <see cref="TechType"/> should spawn to</param>
         void ICoordinatedSpawnHandler.RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, Dictionary<Vector3, Vector3> coordinatesAndRotationsToSpawnTo)
         {
             var spawnInfos = new List<SpawnInfo>();
@@ -100,12 +100,12 @@ namespace SMLHelper.V2.Handlers
         {
             Main.RegisterCoordinatedSpawnsForOneTechType(techTypeToSpawn, coordinatesToSpawnTo);
         }
-		
+
         /// <summary>
         /// Registers Multiple Coordinated spawns with rotations for one single passed TechType
         /// </summary>
         /// <param name="techTypeToSpawn">The TechType to spawn</param>
-        /// <param name="coordinatesToSpawnTo">the coordinates(Key) and the rotations(Value) the <see cref="TechType"/> should spawn to</param>
+        /// <param name="coordinatesAndRotationsToSpawnTo">the coordinates(Key) and the rotations(Value) the <see cref="TechType"/> should spawn to</param>
         public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, Dictionary<Vector3, Vector3> coordinatesAndRotationsToSpawnTo)
         {
             Main.RegisterCoordinatedSpawnsForOneTechType(techTypeToSpawn, coordinatesAndRotationsToSpawnTo);
