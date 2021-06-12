@@ -1,12 +1,13 @@
-using System.Collections.Generic;
-using System.IO;
-using HarmonyLib;
-using SMLHelper.V2.Handlers;
-using SMLHelper.V2.MonoBehaviours;
-using UnityEngine;
-
 namespace SMLHelper.V2.Patchers
 {
+    using Logger = Logger;
+    using System.Collections.Generic;
+    using System.IO;
+    using HarmonyLib;
+    using Handlers;
+    using MonoBehaviours;
+    using UnityEngine;
+
     internal class LargeWorldStreamerPatcher
     {
         internal static void Patch(Harmony harmony)

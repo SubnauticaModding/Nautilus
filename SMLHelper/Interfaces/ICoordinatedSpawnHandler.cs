@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using SMLHelper.V2.Handlers;
-using UnityEngine;
-
 namespace SMLHelper.V2.Interfaces
 {
+    using System.Collections.Generic;
+    using Handlers;
+    using UnityEngine;
+
     /// <summary>
     /// a Handler interface that handles and registers Coordinated (<see cref="Vector3"/> spawns).
     /// </summary>
