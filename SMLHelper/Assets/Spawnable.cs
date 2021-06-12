@@ -73,11 +73,17 @@
         public virtual Vector2int SizeInInventory { get; } = defaultSize;
         
         /// <summary>
+        /// Returns the list of <see cref="Vector3"/>s that specify the prefab's Coordinated Spawns.<br/>
+        /// /// By default this will be null.
+        /// </summary>
+        public virtual List<Vector3> CoordinatedSpawns { get; } = null;
+
+        /// <summary>
         /// Returns the Dictionary of (Vector3, Vector3) that specify the prefab's Coordinated Spawns as well as the rotations it will spawn as.<br/>
         /// the Keys of the Dictionary will be counted as the spawns location and the Values of the Dictionary will be counted as the rotations of that spawn.<br/>
         /// By default this will be null.
         /// </summary>
-        public virtual Dictionary<Vector3, Vector3> CoordinatedSpawns { get; } = null;
+        public virtual Dictionary<Vector3, Vector3> RotatedCoordinatedSpawns { get; } = null;
 
         /// <summary>
         /// Returns the List of BiomeData that handles what Biomes this prefab will spawn, how probable it is to spawn there and how many per spawn.
@@ -140,6 +146,11 @@
                 if (CoordinatedSpawns != null)
                 {
                     CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(TechType, CoordinatedSpawns);
+                }
+
+                if (RotatedCoordinatedSpawns != null)
+                {
+                    CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(TechType, RotatedCoordinatedSpawns);
                 }
             };
         }
