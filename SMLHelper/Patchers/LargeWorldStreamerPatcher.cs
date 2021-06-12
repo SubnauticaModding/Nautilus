@@ -25,7 +25,7 @@ namespace SMLHelper.V2.Patchers
             harmony.Patch(initializeOriginal, postfix: postfix);
         }
         
-        internal static List<SpawnInfo> spawnInfos = new List<SpawnInfo>();
+        internal static readonly List<SpawnInfo> spawnInfos = new List<SpawnInfo>();
         private static List<SpawnInfo> savedSpawnInfos = new List<SpawnInfo>();
         
         private static void InitializePostfix()
@@ -39,7 +39,7 @@ namespace SMLHelper.V2.Patchers
                 using var reader = new StreamReader(file);
                 try
                 {
-                    savedSpawnInfos = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd());
+                    savedSpawnInfos = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd()) ?? new List<SpawnInfo>();
                     reader.Close();
                 }
                 catch (Exception ex)
@@ -58,21 +58,29 @@ namespace SMLHelper.V2.Patchers
 
             savedSpawnInfos = savedSpawnInfos.Concat(spawnInfos).ToList();
             
+            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(()=>SaveData(file));
+
+            Initialize();
+            Logger.Debug("Coordinated Spawns have been initialized in the current save.");
+        }
+
+        private static void SaveData(string file)
+        {
             using var writer = new StreamWriter(file);
             try
             {
-                writer.Write(JsonConvert.SerializeObject(savedSpawnInfos, Formatting.Indented));
+                string data = JsonConvert.SerializeObject(savedSpawnInfos, Formatting.Indented,
+                    new JsonSerializerSettings() {ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
+                //Logger.Info(data);
+                writer.Write(data);
+                writer.Flush();
                 writer.Close();
             }
             catch (Exception ex)
             {
                 Logger.Error($"Failed to save spawn data to {file}\nSkipping static spawning until fixed!\n{ex}");
                 writer.Close();
-                return;
             }
-            
-            Initialize();
-            Logger.Debug("Coordinated Spawns have been initialized in the current save.");
         }
 
         private static void Initialize()
@@ -89,7 +97,6 @@ namespace SMLHelper.V2.Patchers
             
             var obj = new GameObject($"{keyToCheck}Spawner");
             obj.EnsureComponent<EntitySpawner>().spawnInfo = sp;
-            LargeWorld.main.streamer.cellManager.RegisterEntity(obj);
         }
     }
 }
