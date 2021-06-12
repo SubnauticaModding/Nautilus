@@ -28,7 +28,7 @@ namespace SMLHelper.V2.Interfaces
         /// <param name="coordinatesToSpawnTo">the coordinates the <see cref="TechType"/> should spawn to</param>
         void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, List<Vector3> coordinatesToSpawnTo);
 		
-		/// <summary>
+        /// <summary>
         /// Registers Multiple Coordinated spawns with rotations for one single passed TechType
         /// </summary>
         /// <param name="techTypeToSpawn">The TechType to spawn</param>
