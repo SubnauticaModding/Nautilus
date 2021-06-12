@@ -1,10 +1,9 @@
 ﻿namespace SMLHelper.V2.Assets
 {
     using Handlers;
-    using SMLHelper.V2.Interfaces;
-    using SMLHelper.V2.Utility;
+    using Interfaces;
+    using Utility;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
@@ -134,13 +133,11 @@
                     CraftDataHandler.SetItemSize(TechType, SizeInInventory);
                 }
 
-                if(EntityInfo != null && BiomesToSpawnIn != null)
-                {
-                    LootDistributionHandler.AddLootDistributionData(this, BiomesToSpawnIn, EntityInfo);
-                }
-                else if(EntityInfo != null)
+                if(EntityInfo != null)
                 {
                     WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
+                    if(BiomesToSpawnIn != null)
+                        LootDistributionHandler.AddLootDistributionData(this, BiomesToSpawnIn, EntityInfo);
                 }
 
                 if (CoordinatedSpawns != null)
@@ -224,15 +221,15 @@
         /// <returns>Returns the <see cref="Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Sprite)"/> call.</returns>
         protected virtual Sprite GetItemSprite()
         {
-                // This is for backwards compatibility with mods that were using the "ModName/Assets" format
-                string path = this.AssetsFolder != modFolderLocation
+            // This is for backwards compatibility with mods that were using the "ModName/Assets" format
+            string path = this.AssetsFolder != modFolderLocation
                 ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
                 : Path.Combine(this.AssetsFolder, this.IconFileName);
 
-                if(File.Exists(path))
-                {
-                    return ImageUtils.LoadSpriteFromFile(path);
-                }
+            if(File.Exists(path))
+            {
+                return ImageUtils.LoadSpriteFromFile(path);
+            }
 
             if(HasSprite)
                 Logger.Error($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
