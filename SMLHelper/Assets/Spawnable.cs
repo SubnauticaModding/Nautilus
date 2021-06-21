@@ -1,10 +1,9 @@
 ﻿namespace SMLHelper.V2.Assets
 {
     using Handlers;
-    using SMLHelper.V2.Interfaces;
-    using SMLHelper.V2.Utility;
+    using Interfaces;
+    using Utility;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
@@ -73,10 +72,17 @@
         public virtual Vector2int SizeInInventory { get; } = defaultSize;
         
         /// <summary>
-        /// Returns the list of <see cref="Vector3"/>s that specify the prefab's Coordinated Spawns.<br/>
-        /// By default this will be null.
+        /// A lightweight class used to specify the position of a Coordinated Spawn and optionally set its rotation.
         /// </summary>
-        public virtual List<Vector3> CoordinatedSpawns { get; } = null;
+        /// <param name="position"></param>
+        /// <param name="eulerAngles"></param>
+        public record SpawnLocation(Vector3 position, Vector3 eulerAngles = default);
+        
+        /// <summary>
+        /// Returns the list of <see cref="SpawnLocation"/>s that specify the prefab's Coordinated Spawns.<br/>
+        /// /// By default this will be null.
+        /// </summary>
+        public virtual List<SpawnLocation> CoordinatedSpawns { get; } = null;
 
         /// <summary>
         /// Returns the List of BiomeData that handles what Biomes this prefab will spawn, how probable it is to spawn there and how many per spawn.
@@ -127,18 +133,19 @@
                     CraftDataHandler.SetItemSize(TechType, SizeInInventory);
                 }
 
-                if(EntityInfo != null && BiomesToSpawnIn != null)
-                {
-                    LootDistributionHandler.AddLootDistributionData(this, BiomesToSpawnIn, EntityInfo);
-                }
-                else if(EntityInfo != null)
+                if(EntityInfo != null)
                 {
                     WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
+                    if(BiomesToSpawnIn != null)
+                        LootDistributionHandler.AddLootDistributionData(this, BiomesToSpawnIn, EntityInfo);
                 }
 
                 if (CoordinatedSpawns != null)
                 {
-                    CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(TechType, CoordinatedSpawns);
+                    foreach (var (position, eulerAngles) in CoordinatedSpawns)
+                    {
+                        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(TechType, position, eulerAngles));
+                    }
                 }
             };
         }
@@ -212,15 +219,15 @@
         /// <returns>Returns the <see cref="Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Sprite)"/> call.</returns>
         protected virtual Sprite GetItemSprite()
         {
-                // This is for backwards compatibility with mods that were using the "ModName/Assets" format
-                string path = this.AssetsFolder != modFolderLocation
+            // This is for backwards compatibility with mods that were using the "ModName/Assets" format
+            string path = this.AssetsFolder != modFolderLocation
                 ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
                 : Path.Combine(this.AssetsFolder, this.IconFileName);
 
-                if(File.Exists(path))
-                {
-                    return ImageUtils.LoadSpriteFromFile(path);
-                }
+            if(File.Exists(path))
+            {
+                return ImageUtils.LoadSpriteFromFile(path);
+            }
 
             if(HasSprite)
                 Logger.Error($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");

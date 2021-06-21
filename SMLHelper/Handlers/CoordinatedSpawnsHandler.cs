@@ -1,10 +1,12 @@
-using System.Collections.Generic;
-using SMLHelper.V2.Interfaces;
-using SMLHelper.V2.Patchers;
-using UnityEngine;
+using Oculus.Newtonsoft.Json;
 
 namespace SMLHelper.V2.Handlers
 {
+    using System.Collections.Generic;
+    using Interfaces;
+    using Patchers;
+    using UnityEngine;
+
     /// <summary>
     /// a Handler that handles and registers Coordinated (<see cref="Vector3"/> spawns).
     /// </summary>
@@ -54,6 +56,21 @@ namespace SMLHelper.V2.Handlers
             LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
         }
 
+        /// <summary>
+        /// Registers Multiple Coordinated spawns with rotations for one single passed TechType
+        /// </summary>
+        /// <param name="techTypeToSpawn">The TechType to spawn</param>
+        /// <param name="coordinatesAndRotationsToSpawnTo">the coordinates(Key) and the rotations(Value) the <see cref="TechType"/> should spawn to</param>
+        void ICoordinatedSpawnHandler.RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, Dictionary<Vector3, Vector3> coordinatesAndRotationsToSpawnTo)
+        {
+            var spawnInfos = new List<SpawnInfo>();
+            foreach (var kvp in coordinatesAndRotationsToSpawnTo)
+            {
+                spawnInfos.Add(new SpawnInfo(techTypeToSpawn, kvp.Key, kvp.Value));
+            }
+            LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
+        }
+
         #endregion
 
         #region Static Methods
@@ -86,6 +103,16 @@ namespace SMLHelper.V2.Handlers
             Main.RegisterCoordinatedSpawnsForOneTechType(techTypeToSpawn, coordinatesToSpawnTo);
         }
 
+        /// <summary>
+        /// Registers Multiple Coordinated spawns with rotations for one single passed TechType
+        /// </summary>
+        /// <param name="techTypeToSpawn">The TechType to spawn</param>
+        /// <param name="coordinatesAndRotationsToSpawnTo">the coordinates(Key) and the rotations(Value) the <see cref="TechType"/> should spawn to</param>
+        public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, Dictionary<Vector3, Vector3> coordinatesAndRotationsToSpawnTo)
+        {
+            Main.RegisterCoordinatedSpawnsForOneTechType(techTypeToSpawn, coordinatesAndRotationsToSpawnTo);
+	}
+
         #endregion
     }
     
@@ -95,12 +122,16 @@ namespace SMLHelper.V2.Handlers
     /// </summary>
     public class SpawnInfo
     {
-        internal readonly TechType techType;
-        internal readonly string classId;
-        internal readonly Vector3 spawnPosition;
-        internal readonly Quaternion rotation;
-
-        internal SpawnType spawnType;
+        [JsonProperty]
+        internal TechType techType { get; }
+        [JsonProperty]
+        internal string classId { get; }
+        [JsonProperty]
+        internal Vector3 spawnPosition { get;  }
+        [JsonProperty]
+        internal Quaternion rotation { get; }
+        [JsonProperty]
+        internal SpawnType spawnType { get; }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
