@@ -113,9 +113,12 @@ namespace SMLHelper.V2.Assets
 
             if (this.TechType != TechType.None)
             {
-                if (go.GetComponent<TechTag>() is TechTag tag)
+                if (OverrideTechTagAutomatically)
                 {
-                    tag.type = this.TechType;
+                    if (go.GetComponent<TechTag>() is TechTag tag)
+                    {
+                        tag.type = this.TechType;
+                    }
                 }
 
                 if (go.GetComponent<Constructable>() is Constructable cs)
@@ -144,5 +147,10 @@ namespace SMLHelper.V2.Assets
         /// </summary>
         /// <param name="gameObject"> The game object to be instantiated into a new in-game entity. </param>
         public virtual IEnumerator GetGameObjectAsync(IOut<GameObject> gameObject) => null;
+
+        /// <summary>
+        /// Only applies if the GameObject has a <see cref="TechTag"/> component. If set to true (true by default), the <see cref="global::TechType"/> of the prefab's <see cref="TechTag"/> component is automatically set to the TechType defined in the prefab. Only set this to false if you want this prefab to use an EXISTING <see cref="global::TechType"/>, which you will set manually.
+        /// </summary>
+        public virtual bool OverrideTechTagAutomatically => true;
     }
 }
