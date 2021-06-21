@@ -1,4 +1,3 @@
-using Oculus.Newtonsoft.Json;
 
 namespace SMLHelper.V2.Handlers
 {
@@ -6,6 +5,12 @@ namespace SMLHelper.V2.Handlers
     using Interfaces;
     using Patchers;
     using UnityEngine;
+#if SUBNAUTICA_STABLE
+    using Oculus.Newtonsoft.Json;
+#else
+    using Newtonsoft.Json;
+#endif
+
 
     /// <summary>
     /// a Handler that handles and registers Coordinated (<see cref="Vector3"/> spawns).
