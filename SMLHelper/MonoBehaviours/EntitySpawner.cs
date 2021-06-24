@@ -40,7 +40,7 @@ namespace SMLHelper.V2.MonoBehaviours
             if (lwe.cellLevel is not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global))
             {
                 var lws = LargeWorldStreamer.main;
-                while (!lws.IsReady()) // first we wait for the world streamer to be initialized
+                while (!lws.IsReady()) // first we make sure the world streamer is initialized
                 {
                     yield return new WaitForSecondsRealtime(2f);
                 }
