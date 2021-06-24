@@ -81,7 +81,7 @@
         
         /// <summary>
         /// Returns the list of <see cref="SpawnLocation"/>s that specify the prefab's Coordinated Spawns.<br/>
-        /// /// By default this will be null.
+        /// By default this will be null.
         /// </summary>
         public virtual List<SpawnLocation> CoordinatedSpawns { get; } = null;
 
