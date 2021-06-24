@@ -43,10 +43,7 @@ namespace SMLHelper.V2.MonoBehaviours
             if (lwe == null || lwe.cellLevel is not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global))
             {
                 var lws = LargeWorldStreamer.main;
-                while (!lws.IsReady()) // first we make sure the world streamer is initialized
-                {
-                    yield return new WaitForSecondsRealtime(2f);
-                }
+                yield return new WaitUntil(() => lws.IsReady()); // first we make sure the world streamer is initialized
                 var batch = lws.GetContainingBatch(spawnInfo.spawnPosition);
                 yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch)); // then we wait until the terrain is fully loaded (must be checked on each frame for faster spawns)
             }
