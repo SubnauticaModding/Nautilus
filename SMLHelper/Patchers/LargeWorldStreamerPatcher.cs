@@ -26,7 +26,7 @@ namespace SMLHelper.V2.Patchers
         }
         
         internal static readonly List<SpawnInfo> spawnInfos = new List<SpawnInfo>();
-        internal static List<SpawnInfo> savedSpawnInfos = new List<SpawnInfo>();
+        internal static readonly List<SpawnInfo> savedSpawnInfos = new List<SpawnInfo>();
         
         private static void InitializePostfix()
         {
@@ -39,7 +39,10 @@ namespace SMLHelper.V2.Patchers
                 using var reader = new StreamReader(file);
                 try
                 {
-                    savedSpawnInfos = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd()) ?? new List<SpawnInfo>();
+					var deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd());
+                    if (deserializedList is not null)
+						savedSpawnInfos.AddRange(deserializedList);
+					
                     reader.Close();
                 }
                 catch (Exception ex)
