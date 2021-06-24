@@ -34,10 +34,13 @@ namespace SMLHelper.V2.MonoBehaviours
                 Destroy(gameObject);
             }
 
-            var lwe = prefab.GetComponent<LargeWorldEntity>();
+
+            var obj = Utils.InstantiateDeactivated(prefab, spawnInfo.spawnPosition, spawnInfo.rotation);
+
+            var lwe = obj.GetComponent<LargeWorldEntity>();
 
             // non-global objects cannot be spawned in unloaded terrain so we need to wait
-            if (lwe.cellLevel is not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global))
+            if (lwe == null || lwe.cellLevel is not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global))
             {
                 var lws = LargeWorldStreamer.main;
                 while (!lws.IsReady()) // first we make sure the world streamer is initialized
@@ -47,8 +50,6 @@ namespace SMLHelper.V2.MonoBehaviours
                 var batch = lws.GetContainingBatch(spawnInfo.spawnPosition);
                 yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch)); // then we wait until the terrain is fully loaded (must be checked on each frame for faster spawns)
             }
-
-            var obj = Utils.InstantiateDeactivated(prefab, spawnInfo.spawnPosition, spawnInfo.rotation);
 
             LargeWorld.main.streamer.cellManager.RegisterEntity(obj);
             
