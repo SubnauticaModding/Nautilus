@@ -26,7 +26,7 @@ namespace SMLHelper.V2.Patchers
         }
         
         internal static readonly List<SpawnInfo> spawnInfos = new List<SpawnInfo>();
-        private static List<SpawnInfo> savedSpawnInfos = new List<SpawnInfo>();
+        internal static List<SpawnInfo> savedSpawnInfos = new List<SpawnInfo>();
         
         private static void InitializePostfix()
         {
@@ -55,10 +55,8 @@ namespace SMLHelper.V2.Patchers
                 if (spawnInfos.Contains(savedSpawnInfo))
                     spawnInfos.Remove(savedSpawnInfo);
             }
-
-            savedSpawnInfos = savedSpawnInfos.Concat(spawnInfos).ToList();
             
-            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(()=>SaveData(file));
+            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => SaveData(file));
 
             Initialize();
             Logger.Debug("Coordinated Spawns have been initialized in the current save.");
