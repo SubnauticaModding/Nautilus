@@ -1,10 +1,12 @@
-using System.Collections;
-using SMLHelper.V2.Handlers;
-using UnityEngine;
-using UWE;
-
 namespace SMLHelper.V2.MonoBehaviours
 {
+    using System.Collections;
+    using Handlers;
+    using Patchers;
+    using UnityEngine;
+    using UWE;
+    using Logger = Logger;
+
     internal class EntitySpawner : MonoBehaviour
     {
         internal SpawnInfo spawnInfo;
@@ -30,18 +32,20 @@ namespace SMLHelper.V2.MonoBehaviours
                 Destroy(gameObject);
             }
 
-            var obj = UWE.Utils.InstantiateDeactivated(task.Get(), spawnInfo.spawnPosition, spawnInfo.rotation);
+            var obj = Utils.InstantiateDeactivated(task.Get(), spawnInfo.spawnPosition, spawnInfo.rotation);
 
             LargeWorld.main.streamer.cellManager.RegisterEntity(obj);
             
             obj.SetActive(true);
+
+            LargeWorldStreamerPatcher.savedSpawnInfos.Add(spawnInfo);
             
             Destroy(gameObject);
         }
 
         IEnumerator GetPrefabAsync(IOut<GameObject> gameObject)
         {
-            GameObject obj = null;
+            GameObject obj;
             
             if (spawnInfo.spawnType == SpawnInfo.SpawnType.ClassId) // Spawn is via ClassID.
             {
