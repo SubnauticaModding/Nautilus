@@ -39,9 +39,9 @@ namespace SMLHelper.V2.Patchers
                 using var reader = new StreamReader(file);
                 try
                 {
-					var deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd());
+                    var deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd());
                     if (deserializedList is not null)
-						savedSpawnInfos.AddRange(deserializedList);
+                        savedSpawnInfos.AddRange(deserializedList);
 					
                     reader.Close();
                 }
