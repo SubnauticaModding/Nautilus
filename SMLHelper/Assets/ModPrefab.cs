@@ -105,7 +105,8 @@ namespace SMLHelper.V2.Assets
         }
 
         /// <summary>
-        /// Caches the prefab, then sets its TechType and ClassID to a default set of values applicable to most mods.<br/>FOR ADVANCED MODDING ONLY. Do not override unless you know exactly what you are doing.
+        /// Caches the prefab, then sets its TechType and ClassID to a default set of values applicable to most mods.<br/>
+        /// FOR ADVANCED MODDING ONLY. Do not override unless you know exactly what you are doing.
         /// </summary>
         /// <param name="go"></param>
         protected virtual void ProcessPrefab(GameObject go)
