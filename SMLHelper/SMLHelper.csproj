@@ -14,7 +14,7 @@
     <AssemblyName>SMLHelper</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -151,12 +151,14 @@
     <Compile Include="Commands\ConsoleCommandAttribute.cs" />
     <Compile Include="Handlers\BackgroundTypeHandler.cs" />
     <Compile Include="Handlers\CoordinatedSpawnsHandler.cs" />
+    <Compile Include="Handlers\CustomSoundHandler.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
     <Compile Include="Handlers\SurvivalHandler.cs" />
     <Compile Include="Handlers\TechCategoryHandler.cs" />
     <Compile Include="Handlers\TechGroupHandler.cs" />
     <Compile Include="Interfaces\IBackgroundTypeHandler.cs" />
     <Compile Include="Interfaces\ICoordinatedSpawnHandler.cs" />
+    <Compile Include="Interfaces\ICustomSoundHandler.cs" />
     <Compile Include="Interfaces\IModOptionAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
     <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
@@ -236,6 +238,7 @@
     <Compile Include="Options\ToggleModOption.cs" />
     <Compile Include="Options\ModOptionTooltip.cs" />
     <Compile Include="Options\Utility\Validator.cs" />
+    <Compile Include="Patchers\CustomSoundPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\BackgroundTypePatcher.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
     <Compile Include="Handlers\ConsoleCommandsHandler.cs" />
@@ -280,6 +283,7 @@
     <Compile Include="Utility\KeyCodeUtils.cs" />
     <Compile Include="Utility\PatchUtils.cs" />
     <Compile Include="Utility\PlayerPrefsExtra.cs" />
+    <Compile Include="Utility\Polyfill.cs" />
     <Compile Include="Utility\PrefabUtils.cs" />
     <Compile Include="Utility\ReflectionHelper.cs" />
     <Compile Include="Utility\SaveUtils.cs" />

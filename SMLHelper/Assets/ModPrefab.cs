@@ -104,7 +104,12 @@ namespace SMLHelper.V2.Assets
             gameObject.Set(go);
         }
 
-        private void ProcessPrefab(GameObject go)
+        /// <summary>
+        /// Caches the prefab, then sets its TechType and ClassID to a default set of values applicable to most mods.<br/>
+        /// FOR ADVANCED MODDING ONLY. Do not override unless you know exactly what you are doing.
+        /// </summary>
+        /// <param name="go"></param>
+        protected virtual void ProcessPrefab(GameObject go)
         {
             if (go.activeInHierarchy) // inactive prefabs don't need to be removed by cache
                 ModPrefabCache.AddPrefab(go);

@@ -1,12 +1,20 @@
-using System.Collections.Generic;
-using System.IO;
-using HarmonyLib;
-using SMLHelper.V2.Handlers;
-using SMLHelper.V2.MonoBehaviours;
-using UnityEngine;
-
 namespace SMLHelper.V2.Patchers
 {
+    using System;
+    using System.Linq;
+    using Logger = Logger;
+    using System.Collections.Generic;
+    using System.IO;
+    using HarmonyLib;
+    using Handlers;
+    using MonoBehaviours;
+    using UnityEngine;
+ #if SUBNAUTICA_STABLE
+    using Oculus.Newtonsoft.Json;
+#else
+    using Newtonsoft.Json;
+#endif
+
     internal class LargeWorldStreamerPatcher
     {
         internal static void Patch(Harmony harmony)
@@ -17,36 +25,76 @@ namespace SMLHelper.V2.Patchers
             harmony.Patch(initializeOriginal, postfix: postfix);
         }
         
-        internal static List<SpawnInfo> spawnInfos = new List<SpawnInfo>();
+        internal static readonly List<SpawnInfo> spawnInfos = new List<SpawnInfo>();
+        internal static readonly List<SpawnInfo> savedSpawnInfos = new List<SpawnInfo>();
         
-        static void InitializePostfix()
+        private static void InitializePostfix()
         {
             var file = Path.Combine(SaveLoadManager.GetTemporarySavePath(), "CoordinatedSpawnsInitialized.smlhelper");
             if (File.Exists(file))
             {
                 // already initialized, return to prevent from spawn duplications.
-                Logger.Debug("Coordinated Spawns already been Initialized in the current save.");
-                return;
+                Logger.Debug("Coordinated Spawns already been spawned in the current save. Loading Data");
+                
+                using var reader = new StreamReader(file);
+                try
+                {
+                    var deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd());
+                    if (deserializedList is not null)
+                        savedSpawnInfos.AddRange(deserializedList);
+					
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error($"Failed to load Saved spawn data from {file}\nSkipping static spawning until fixed!\n{ex}");
+                    reader.Close();
+                    return;
+                }
+            }
+
+            foreach (var savedSpawnInfo in savedSpawnInfos)
+            {
+                if (spawnInfos.Contains(savedSpawnInfo))
+                    spawnInfos.Remove(savedSpawnInfo);
             }
             
+            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => SaveData(file));
+
             Initialize();
-            
-            File.Create(file);
-            
             Logger.Debug("Coordinated Spawns have been initialized in the current save.");
         }
 
-        static void Initialize()
+        private static void SaveData(string file)
         {
-            foreach (var spawnInfo in spawnInfos)
+            using var writer = new StreamWriter(file);
+            try
             {
-                CreateSpawner(spawnInfo.spawnType == SpawnInfo.SpawnType.TechType, spawnInfo);
+                string data = JsonConvert.SerializeObject(savedSpawnInfos, Formatting.Indented,
+                    new JsonSerializerSettings() {ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
+                //Logger.Info(data);
+                writer.Write(data);
+                writer.Flush();
+                writer.Close();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"Failed to save spawn data to {file}\nSkipping static spawning until fixed!\n{ex}");
+                writer.Close();
             }
         }
 
-        static void CreateSpawner(bool checkTechType, SpawnInfo sp)
+        private static void Initialize()
         {
-            var keyToCheck = checkTechType ? sp.techType.ToString() : sp.classId;
+            foreach (var spawnInfo in spawnInfos)
+            {
+                CreateSpawner(spawnInfo);
+            }
+        }
+
+        private static void CreateSpawner(SpawnInfo sp)
+        {
+            var keyToCheck = sp.spawnType == SpawnInfo.SpawnType.TechType ? sp.techType.AsString() : sp.classId;
             
             var obj = new GameObject($"{keyToCheck}Spawner");
             obj.EnsureComponent<EntitySpawner>().spawnInfo = sp;
