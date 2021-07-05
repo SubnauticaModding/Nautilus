@@ -205,10 +205,10 @@
                     break;
             };
 
-            gameObject.Set(ProcessPrefab(prefab));
+            gameObject.Set(PreProcessPrefab(prefab));
         }
 
-        private GameObject ProcessPrefab(GameObject prefab)
+        private GameObject PreProcessPrefab(GameObject prefab)
         {
             Constructable constructible = null;
             GhostCrafter crafter;
