@@ -205,10 +205,15 @@
                     break;
             };
 
-            gameObject.Set(ProcessPrefab(prefab));
+            ProcessPrefab(prefab);
+            gameObject.Set(prefab);
         }
 
-        private GameObject ProcessPrefab(GameObject prefab)
+        /// <summary>
+        /// FOR ADVANCED MODDING ONLY. Do not override unless you know exactly what you are doing.
+        /// </summary>
+        /// <param name="prefab"></param>
+        protected override void ProcessPrefab(GameObject prefab)
         {
             Constructable constructible = null;
             GhostCrafter crafter;
@@ -282,8 +287,6 @@
             }
 
             crafter.powerRelay = PowerSource.FindRelay(prefab.transform);
-
-            return prefab;
         }
 
         /// <summary>
