@@ -10,7 +10,7 @@ namespace SMLHelper.V2.Json.Converters
     /// <summary>
     /// A Vector3 json converter that simplifies the Vector3 to only x,y,z serialization.
     /// </summary>
-    class Vector3Converter : JsonConverter
+    public class Vector3Converter : JsonConverter
     {
         /// <summary>
         /// A method that determines when this converter should process.

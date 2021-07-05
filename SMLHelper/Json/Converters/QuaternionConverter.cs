@@ -10,7 +10,7 @@ namespace SMLHelper.V2.Json.Converters
     /// <summary>
     /// A Quaternion json converter that simplifies the Vector3 to only x,y,z serialization.
     /// </summary>
-    class QuaternionConverter : JsonConverter
+    public class QuaternionConverter : JsonConverter
     {
         /// <summary>
         /// A method that determines when this converter should process.
