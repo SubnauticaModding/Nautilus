@@ -220,6 +220,30 @@ namespace SMLHelper.V2.Handlers
             spawnType = SpawnType.ClassId;
         }
 
+        [JsonConstructor]
+        internal SpawnInfo(string classId, TechType techType, Vector3 spawnPosition, Vector3 rotation)
+        {
+            this.classId = classId;
+            this.techType = techType;
+            this.spawnPosition = spawnPosition;
+            this.rotation = Quaternion.Euler(rotation);
+            spawnType = this.techType == TechType.None ? SpawnType.ClassId : SpawnType.TechType;
+        }
+
+        /// <summary>
+        /// Checks if the passed object is equal to the current object
+        /// </summary>
+        /// <param name="obj">passed object</param>
+        /// <returns>true if equal; otherwise false.</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is not SpawnInfo spawnInfo)
+                return false;
+
+            // this was necessary because the default Equality check was always giving a false positive.
+            return spawnInfo.classId == this.classId && spawnInfo.rotation == this.rotation && spawnInfo.techType == this.techType && spawnInfo.spawnType == this.spawnType;
+        }
+
         internal enum SpawnType
         {
             ClassId, 
