@@ -165,7 +165,8 @@
                 _ => null
             };
 
-            return ProcessPrefab(prefab);
+            ProcessPrefab(prefab);
+            return prefab;
 #endif
         }
 
