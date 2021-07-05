@@ -244,6 +244,16 @@ namespace SMLHelper.V2.Handlers
             return spawnInfo.classId == this.classId && spawnInfo.rotation == this.rotation && spawnInfo.techType == this.techType && spawnInfo.spawnType == this.spawnType;
         }
 
+        /// <summary>
+        /// Serves as the default hash function.
+        /// </summary>
+        /// <returns>A hash code for the current object.</returns>
+        public override int GetHashCode()
+        {
+            // this was required for C# to shut up
+            return base.GetHashCode();
+        }
+
         internal enum SpawnType
         {
             ClassId, 
