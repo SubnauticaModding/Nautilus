@@ -3,6 +3,7 @@ namespace SMLHelper.V2.Patchers
     using System;
     using System.Linq;
     using Logger = Logger;
+    using Json.Converters;
     using System.Collections.Generic;
     using System.IO;
     using HarmonyLib;
@@ -39,7 +40,7 @@ namespace SMLHelper.V2.Patchers
                 using var reader = new StreamReader(file);
                 try
                 {
-                    var deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd());
+                    var deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd(), new Vector3Converter(), new QuaternionConverter());
                     if (deserializedList is not null)
                         savedSpawnInfos.AddRange(deserializedList);
 					
@@ -58,7 +59,7 @@ namespace SMLHelper.V2.Patchers
                 if (spawnInfos.Contains(savedSpawnInfo))
                     spawnInfos.Remove(savedSpawnInfo);
             }
-            
+
             IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => SaveData(file));
 
             Initialize();
@@ -70,8 +71,7 @@ namespace SMLHelper.V2.Patchers
             using var writer = new StreamWriter(file);
             try
             {
-                string data = JsonConvert.SerializeObject(savedSpawnInfos, Formatting.Indented,
-                    new JsonSerializerSettings() {ReferenceLoopHandling = ReferenceLoopHandling.Ignore});
+                string data = JsonConvert.SerializeObject(savedSpawnInfos, Formatting.Indented, new Vector3Converter(), new QuaternionConverter());
                 //Logger.Info(data);
                 writer.Write(data);
                 writer.Flush();
