@@ -2,7 +2,7 @@
     "Id": "SMLHelper",
     "DisplayName": "SMLHelper",
     "Author": "The SMLHelper Dev Team",
-    "Version": "2.9.7",
+    "Version": "2.10",
     "Enable": true,
     "Game": "Subnautica",
     "AssemblyName": "SMLHelper.dll",
