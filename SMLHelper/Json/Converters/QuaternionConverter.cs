@@ -31,8 +31,7 @@ namespace SMLHelper.V2.Json.Converters
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var quaternion = (Quaternion)value;
-
-            serializer.Serialize(writer, new QuaternionJson(quaternion.x, quaternion.y, quaternion.z, quaternion.w));
+            serializer.Serialize(writer, (QuaternionJson)quaternion);
         }
 
         /// <summary>
@@ -45,11 +44,13 @@ namespace SMLHelper.V2.Json.Converters
         /// <returns></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var q = serializer.Deserialize<QuaternionJson>(reader);
-
-            return new Quaternion(q.X, q.Y, q.X, q.W);
+            return (Quaternion)serializer.Deserialize<QuaternionJson>(reader);
         }
     }
 
-    internal record QuaternionJson(float X, float Y, float Z, float W);
+    internal record QuaternionJson(float X, float Y, float Z, float W)
+    {
+        public static explicit operator Quaternion(QuaternionJson q) => new(q.X, q.Y, q.Z, q.W);
+        public static explicit operator QuaternionJson(Quaternion q) => new(q.x, q.y, q.z, q.w);
+    }
 }

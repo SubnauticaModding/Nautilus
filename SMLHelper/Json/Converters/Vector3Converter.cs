@@ -31,8 +31,7 @@ namespace SMLHelper.V2.Json.Converters
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var vector3 = (Vector3)value;
-
-            serializer.Serialize(writer, new Vector3Json(vector3.x, vector3.y, vector3.z));
+            serializer.Serialize(writer, (Vector3Json)vector3);
         }
 
         /// <summary>
@@ -45,11 +44,13 @@ namespace SMLHelper.V2.Json.Converters
         /// <returns></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var v = serializer.Deserialize<Vector3Json>(reader);
-
-            return new Vector3(v.X, v.Y, v.Z);
+            return (Vector3)serializer.Deserialize<Vector3Json>(reader);
         }
     }
 
-    internal record Vector3Json(float X, float Y, float Z);
+    internal record Vector3Json(float X, float Y, float Z)
+    {
+        public static explicit operator Vector3(Vector3Json v) => new(v.X, v.Y, v.Z);
+        public static explicit operator Vector3Json(Vector3 v) => new(v.x, v.y, v.z);
+    }
 }
