@@ -51,17 +51,5 @@ namespace SMLHelper.V2.Json.Converters
         }
     }
 
-    struct Vector3Json
-    {
-        public float x;
-        public float y;
-        public float z;
-
-        public Vector3Json(float x, float y, float z)
-        {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-    }
+    internal record Vector3Json(float x, float y, float z);
 }

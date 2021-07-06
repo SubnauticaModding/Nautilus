@@ -51,19 +51,5 @@ namespace SMLHelper.V2.Json.Converters
         }
     }
 
-    struct QuaternionJson
-    {
-        internal float x;
-        internal float y;
-        internal float z;
-        internal float w;
-
-        public QuaternionJson(float x, float y, float z, float w)
-        {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            this.w = w;
-        }
-    }
+    internal record QuaternionJson(float x, float y, float z, float w);
 }
