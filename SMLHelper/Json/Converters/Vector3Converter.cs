@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-#if SUBNAUTICA
+#if SUBNAUTICA_STABLE
 using Oculus.Newtonsoft.Json;
 #else
 using Newtonsoft.Json;
