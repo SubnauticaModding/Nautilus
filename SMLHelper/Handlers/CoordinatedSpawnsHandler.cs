@@ -254,13 +254,17 @@ namespace SMLHelper.V2.Handlers
         {
             // a simple GetHashCode implementation based on combinining the hashcodes of the fields used in the Equals equality check,
             // with an attempt to reduce diagonal collisions.
-            int hash = 13;
-            hash = (hash * 7) + techType.GetHashCode();
-            hash = (hash * 7) + classId.GetHashCode();
-            hash = (hash * 7) + spawnPosition.GetHashCode();
-            hash = (hash * 7) + rotation.GetHashCode();
-            hash = (hash * 7) + spawnType.GetHashCode();
-            return hash;
+
+            unchecked // in the case of overflow, simply wrap around
+            {
+                int hash = 13;
+                hash = (hash * 7) + techType.GetHashCode();
+                hash = (hash * 7) + classId.GetHashCode();
+                hash = (hash * 7) + spawnPosition.GetHashCode();
+                hash = (hash * 7) + rotation.GetHashCode();
+                hash = (hash * 7) + spawnType.GetHashCode();
+                return hash;
+            }
         }
 
         internal enum SpawnType
