@@ -47,9 +47,9 @@ namespace SMLHelper.V2.Json.Converters
         {
             var v = serializer.Deserialize<Vector3Json>(reader);
 
-            return new Vector3(v.x, v.y, v.z);
+            return new Vector3(v.X, v.Y, v.Z);
         }
     }
 
-    internal record Vector3Json(float x, float y, float z);
+    internal record Vector3Json(float X, float Y, float Z);
 }

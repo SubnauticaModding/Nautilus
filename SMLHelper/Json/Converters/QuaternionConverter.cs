@@ -47,9 +47,9 @@ namespace SMLHelper.V2.Json.Converters
         {
             var q = serializer.Deserialize<QuaternionJson>(reader);
 
-            return new Quaternion(q.x, q.y, q.z, q.w);
+            return new Quaternion(q.X, q.Y, q.X, q.W);
         }
     }
 
-    internal record QuaternionJson(float x, float y, float z, float w);
+    internal record QuaternionJson(float X, float Y, float Z, float W);
 }
