@@ -10,7 +10,7 @@ namespace SMLHelper.V2.Patchers
     using Handlers;
     using MonoBehaviours;
     using UnityEngine;
- #if SUBNAUTICA_STABLE
+#if SUBNAUTICA_STABLE
     using Oculus.Newtonsoft.Json;
 #else
     using Newtonsoft.Json;
@@ -25,10 +25,10 @@ namespace SMLHelper.V2.Patchers
 
             harmony.Patch(initializeOriginal, postfix: postfix);
         }
-        
+
         internal static readonly List<SpawnInfo> spawnInfos = new List<SpawnInfo>();
         internal static readonly List<SpawnInfo> savedSpawnInfos = new List<SpawnInfo>();
-        
+
         private static void InitializePostfix()
         {
             var file = Path.Combine(SaveLoadManager.GetTemporarySavePath(), "CoordinatedSpawnsInitialized.smlhelper");
@@ -36,14 +36,14 @@ namespace SMLHelper.V2.Patchers
             {
                 // already initialized, return to prevent from spawn duplications.
                 Logger.Debug("Coordinated Spawns already been spawned in the current save. Loading Data");
-                
+
                 using var reader = new StreamReader(file);
                 try
                 {
                     var deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd(), new Vector3Converter(), new QuaternionConverter());
                     if (deserializedList is not null)
                         savedSpawnInfos.AddRange(deserializedList);
-					
+
                     reader.Close();
                 }
                 catch (Exception ex)
@@ -92,12 +92,16 @@ namespace SMLHelper.V2.Patchers
             }
         }
 
-        private static void CreateSpawner(SpawnInfo sp)
+        private static void CreateSpawner(SpawnInfo spawnInfo)
         {
-            var keyToCheck = sp.spawnType == SpawnInfo.SpawnType.TechType ? sp.techType.AsString() : sp.classId;
-            
+            var keyToCheck = spawnInfo.Type switch
+            {
+                SpawnInfo.SpawnType.TechType => spawnInfo.TechType.AsString(),
+                _ => spawnInfo.ClassId
+            };
+
             var obj = new GameObject($"{keyToCheck}Spawner");
-            obj.EnsureComponent<EntitySpawner>().spawnInfo = sp;
+            obj.EnsureComponent<EntitySpawner>().spawnInfo = spawnInfo;
         }
     }
 }
