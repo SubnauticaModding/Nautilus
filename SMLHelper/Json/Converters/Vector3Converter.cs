@@ -45,7 +45,7 @@ namespace SMLHelper.V2.Json.Converters
         /// <returns></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var v = (Vector3Json)serializer.Deserialize(reader, typeof(Vector3Json));
+            var v = serializer.Deserialize<Vector3Json>(reader);
 
             return new Vector3(v.x, v.y, v.z);
         }

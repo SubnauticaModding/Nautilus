@@ -45,7 +45,7 @@ namespace SMLHelper.V2.Json.Converters
         /// <returns></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var q = (QuaternionJson)serializer.Deserialize(reader, typeof(QuaternionJson));
+            var q = serializer.Deserialize<QuaternionJson>(reader);
 
             return new Quaternion(q.x, q.y, q.z, q.w);
         }
