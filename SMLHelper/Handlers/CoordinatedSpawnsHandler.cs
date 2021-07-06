@@ -237,11 +237,12 @@ namespace SMLHelper.V2.Handlers
         /// <returns>true if equal; otherwise false.</returns>
         public override bool Equals(object obj)
         {
-            if (obj is not SpawnInfo spawnInfo)
-                return false;
-
             // this was necessary because the default Equality check was always giving a false positive.
-            return spawnInfo.classId == this.classId && spawnInfo.rotation == this.rotation && spawnInfo.techType == this.techType && spawnInfo.spawnType == this.spawnType;
+            return obj is SpawnInfo spawnInfo
+                && spawnInfo.classId == this.classId 
+                && spawnInfo.rotation == this.rotation 
+                && spawnInfo.techType == this.techType 
+                && spawnInfo.spawnType == this.spawnType;
         }
 
         /// <summary>
@@ -250,8 +251,14 @@ namespace SMLHelper.V2.Handlers
         /// <returns>A hash code for the current object.</returns>
         public override int GetHashCode()
         {
-            // this was required for C# to shut up
-            return base.GetHashCode();
+            // a simple GetHashCode implementation based on combinining the hashcodes of the fields used in the Equals equality check,
+            // with an attempt to reduce diagonal collisions.
+            int hash = 13;
+            hash = (hash * 7) + classId.GetHashCode();
+            hash = (hash * 7) + rotation.GetHashCode();
+            hash = (hash * 7) + techType.GetHashCode();
+            hash = (hash * 7) + spawnType.GetHashCode();
+            return hash;
         }
 
         internal enum SpawnType
