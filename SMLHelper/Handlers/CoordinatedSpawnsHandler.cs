@@ -199,7 +199,7 @@ namespace SMLHelper.V2.Handlers
             this.rotation = rotation;
             spawnType = this.techType switch
             {
-                TechType.None => SpawnType.ClassId,
+                default(TechType) => SpawnType.ClassId,
                 _ => SpawnType.TechType
             };
         }
