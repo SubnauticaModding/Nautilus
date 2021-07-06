@@ -40,7 +40,7 @@ namespace SMLHelper.V2.MonoBehaviours
             var lwe = obj.GetComponent<LargeWorldEntity>();
 
             // non-global objects cannot be spawned in unloaded terrain so we need to wait
-            if (lwe == null || lwe?.cellLevel is not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global))
+            if (lwe == null || lwe.cellLevel is not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global))
             {
                 var lws = LargeWorldStreamer.main;
                 yield return new WaitUntil(() => lws.IsReady()); // first we make sure the world streamer is initialized
