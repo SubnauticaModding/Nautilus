@@ -21,7 +21,7 @@ namespace SMLHelper.V2.Handlers
         /// Main entry point for all calls to this handler.
         /// </summary>
         public static ICoordinatedSpawnHandler Main { get; } = new CoordinatedSpawnsHandler();
-        
+
         private CoordinatedSpawnsHandler()
         {
             // Hide Constructor
@@ -116,11 +116,11 @@ namespace SMLHelper.V2.Handlers
         public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, Dictionary<Vector3, Vector3> coordinatesAndRotationsToSpawnTo)
         {
             Main.RegisterCoordinatedSpawnsForOneTechType(techTypeToSpawn, coordinatesAndRotationsToSpawnTo);
-	}
+        }
 
         #endregion
     }
-    
+
     #region SpawnInfo
     /// <summary>
     /// a basic class that provides enough info for the <see cref="CoordinatedSpawnsHandler"/> System to function.
@@ -132,7 +132,7 @@ namespace SMLHelper.V2.Handlers
         [JsonProperty]
         internal string classId { get; }
         [JsonProperty]
-        internal Vector3 spawnPosition { get;  }
+        internal Vector3 spawnPosition { get; }
         [JsonProperty]
         internal Quaternion rotation { get; }
         [JsonProperty]
@@ -239,10 +239,11 @@ namespace SMLHelper.V2.Handlers
         {
             // this was necessary because the default Equality check was always giving a false positive.
             return obj is SpawnInfo spawnInfo
-                && spawnInfo.classId == this.classId 
-                && spawnInfo.rotation == this.rotation 
-                && spawnInfo.techType == this.techType 
-                && spawnInfo.spawnType == this.spawnType;
+                && spawnInfo.techType == techType
+                && spawnInfo.classId == classId
+                && spawnInfo.spawnPosition == spawnPosition
+                && spawnInfo.rotation == rotation
+                && spawnInfo.spawnType == spawnType;
         }
 
         /// <summary>
@@ -254,16 +255,17 @@ namespace SMLHelper.V2.Handlers
             // a simple GetHashCode implementation based on combinining the hashcodes of the fields used in the Equals equality check,
             // with an attempt to reduce diagonal collisions.
             int hash = 13;
-            hash = (hash * 7) + classId.GetHashCode();
-            hash = (hash * 7) + rotation.GetHashCode();
             hash = (hash * 7) + techType.GetHashCode();
+            hash = (hash * 7) + classId.GetHashCode();
+            hash = (hash * 7) + spawnPosition.GetHashCode();
+            hash = (hash * 7) + rotation.GetHashCode();
             hash = (hash * 7) + spawnType.GetHashCode();
             return hash;
         }
 
         internal enum SpawnType
         {
-            ClassId, 
+            ClassId,
             TechType
         }
     }
