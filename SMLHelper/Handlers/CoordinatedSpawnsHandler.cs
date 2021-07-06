@@ -128,15 +128,15 @@ namespace SMLHelper.V2.Handlers
     public class SpawnInfo : IEquatable<SpawnInfo>
     {
         [JsonProperty]
-        internal TechType techType { get; }
+        internal TechType techType { get; init; }
         [JsonProperty]
-        internal string classId { get; }
+        internal string classId { get; init; }
         [JsonProperty]
-        internal Vector3 spawnPosition { get; }
+        internal Vector3 spawnPosition { get; init; }
         [JsonProperty]
-        internal Quaternion rotation { get; }
+        internal Quaternion rotation { get; init; }
         [JsonProperty]
-        internal SpawnType spawnType { get; }
+        internal SpawnType spawnType { get; init; }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -144,12 +144,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techType">TechType to spawn.</param>
         /// <param name="spawnPosition">Position to spawn into.</param>
         public SpawnInfo(TechType techType, Vector3 spawnPosition)
-        {
-            this.techType = techType;
-            this.spawnPosition = spawnPosition;
-            this.rotation = Quaternion.identity;
-            spawnType = SpawnType.TechType;
-        }
+            : this(default, techType, spawnPosition, Quaternion.identity) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -157,12 +152,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="classId">ClassID to spawn.</param>
         /// <param name="spawnPosition">Position to spawn into.</param>
         public SpawnInfo(string classId, Vector3 spawnPosition)
-        {
-            this.classId = classId;
-            this.spawnPosition = spawnPosition;
-            this.rotation = Quaternion.identity;
-            spawnType = SpawnType.ClassId;
-        }
+            : this(classId, default, spawnPosition, Quaternion.identity) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -171,12 +161,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation)
-        {
-            this.techType = techType;
-            this.spawnPosition = spawnPosition;
-            this.rotation = rotation;
-            spawnType = SpawnType.TechType;
-        }
+            : this(default, techType, spawnPosition, rotation) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -185,12 +170,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation)
-        {
-            this.classId = classId;
-            this.spawnPosition = spawnPosition;
-            this.rotation = rotation;
-            spawnType = SpawnType.ClassId;
-        }
+            : this(classId, default, spawnPosition, rotation) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -199,12 +179,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(TechType techType, Vector3 spawnPosition, Vector3 rotation)
-        {
-            this.techType = techType;
-            this.spawnPosition = spawnPosition;
-            this.rotation = Quaternion.Euler(rotation);
-            spawnType = SpawnType.TechType;
-        }
+            : this(default, techType, spawnPosition, Quaternion.Euler(rotation)) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -213,12 +188,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(string classId, Vector3 spawnPosition, Vector3 rotation)
-        {
-            this.classId = classId;
-            this.spawnPosition = spawnPosition;
-            this.rotation = Quaternion.Euler(rotation);
-            spawnType = SpawnType.ClassId;
-        }
+            : this(classId, default, spawnPosition, Quaternion.Euler(rotation)) { }
 
         [JsonConstructor]
         internal SpawnInfo(string classId, TechType techType, Vector3 spawnPosition, Quaternion rotation)
@@ -227,7 +197,11 @@ namespace SMLHelper.V2.Handlers
             this.techType = techType;
             this.spawnPosition = spawnPosition;
             this.rotation = rotation;
-            spawnType = this.techType == TechType.None ? SpawnType.ClassId : SpawnType.TechType;
+            spawnType = this.techType switch
+            {
+                TechType.None => SpawnType.ClassId,
+                _ => SpawnType.TechType
+            };
         }
 
         /// <summary>
