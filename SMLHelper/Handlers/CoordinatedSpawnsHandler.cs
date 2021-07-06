@@ -1,16 +1,16 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+#if SUBNAUTICA_STABLE
+using Oculus.Newtonsoft.Json;
+#else
+using Newtonsoft.Json;
+#endif
 
 namespace SMLHelper.V2.Handlers
 {
-    using System.Collections.Generic;
     using Interfaces;
     using Patchers;
-    using UnityEngine;
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
-    using Newtonsoft.Json;
-#endif
-
 
     /// <summary>
     /// a Handler that handles and registers Coordinated (<see cref="Vector3"/> spawns).
@@ -125,7 +125,7 @@ namespace SMLHelper.V2.Handlers
     /// <summary>
     /// a basic class that provides enough info for the <see cref="CoordinatedSpawnsHandler"/> System to function.
     /// </summary>
-    public class SpawnInfo
+    public class SpawnInfo : IEquatable<SpawnInfo>
     {
         [JsonProperty]
         internal TechType techType { get; }
@@ -231,40 +231,18 @@ namespace SMLHelper.V2.Handlers
         }
 
         /// <summary>
-        /// Checks if the passed object is equal to the current object
+        /// Indicates whether the current <see cref="SpawnInfo"/> is equal to another.
         /// </summary>
-        /// <param name="obj">passed object</param>
-        /// <returns>true if equal; otherwise false.</returns>
-        public override bool Equals(object obj)
+        /// <param name="other">The other <see cref="SpawnInfo"/>.</param>
+        /// <returns><see langword="true"/> if the current <see cref="SpawnInfo"/> is equal to the <paramref name="other"/> parameter;
+        /// otherwise <see langword="false"/>.</returns>
+        public bool Equals(SpawnInfo other)
         {
-            // this was necessary because the default Equality check was always giving a false positive.
-            return obj is SpawnInfo spawnInfo
-                && spawnInfo.techType == techType
-                && spawnInfo.classId == classId
-                && spawnInfo.spawnPosition == spawnPosition
-                && spawnInfo.rotation == rotation
-                && spawnInfo.spawnType == spawnType;
-        }
-
-        /// <summary>
-        /// Serves as the default hash function.
-        /// </summary>
-        /// <returns>A hash code for the current object.</returns>
-        public override int GetHashCode()
-        {
-            // a simple GetHashCode implementation based on combinining the hashcodes of the fields used in the Equals equality check,
-            // with an attempt to reduce diagonal collisions.
-
-            unchecked // in the case of overflow, simply wrap around
-            {
-                int hash = 13;
-                hash = (hash * 7) + techType.GetHashCode();
-                hash = (hash * 7) + classId.GetHashCode();
-                hash = (hash * 7) + spawnPosition.GetHashCode();
-                hash = (hash * 7) + rotation.GetHashCode();
-                hash = (hash * 7) + spawnType.GetHashCode();
-                return hash;
-            }
+            return other.techType == techType
+                && other.classId == classId
+                && other.spawnPosition == spawnPosition
+                && other.rotation == rotation
+                && other.spawnType == spawnType;
         }
 
         internal enum SpawnType
