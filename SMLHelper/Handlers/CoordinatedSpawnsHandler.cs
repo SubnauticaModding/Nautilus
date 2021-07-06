@@ -1,16 +1,16 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+#if SUBNAUTICA_STABLE
+using Oculus.Newtonsoft.Json;
+#else
+using Newtonsoft.Json;
+#endif
 
 namespace SMLHelper.V2.Handlers
 {
-    using System.Collections.Generic;
     using Interfaces;
     using Patchers;
-    using UnityEngine;
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
-    using Newtonsoft.Json;
-#endif
-
 
     /// <summary>
     /// a Handler that handles and registers Coordinated (<see cref="Vector3"/> spawns).
@@ -21,7 +21,7 @@ namespace SMLHelper.V2.Handlers
         /// Main entry point for all calls to this handler.
         /// </summary>
         public static ICoordinatedSpawnHandler Main { get; } = new CoordinatedSpawnsHandler();
-        
+
         private CoordinatedSpawnsHandler()
         {
             // Hide Constructor
@@ -116,27 +116,27 @@ namespace SMLHelper.V2.Handlers
         public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, Dictionary<Vector3, Vector3> coordinatesAndRotationsToSpawnTo)
         {
             Main.RegisterCoordinatedSpawnsForOneTechType(techTypeToSpawn, coordinatesAndRotationsToSpawnTo);
-	}
+        }
 
         #endregion
     }
-    
+
     #region SpawnInfo
     /// <summary>
-    /// a basic class that provides enough info for the <see cref="CoordinatedSpawnsHandler"/> System to function.
+    /// A basic struct that provides enough info for the <see cref="CoordinatedSpawnsHandler"/> System to function.
     /// </summary>
-    public class SpawnInfo
+    public struct SpawnInfo : IEquatable<SpawnInfo>
     {
         [JsonProperty]
-        internal TechType techType { get; }
+        internal TechType TechType { get; }
         [JsonProperty]
-        internal string classId { get; }
+        internal string ClassId { get; }
         [JsonProperty]
-        internal Vector3 spawnPosition { get;  }
+        internal Vector3 SpawnPosition { get; }
         [JsonProperty]
-        internal Quaternion rotation { get; }
+        internal Quaternion Rotation { get; }
         [JsonProperty]
-        internal SpawnType spawnType { get; }
+        internal SpawnType Type { get; }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -144,12 +144,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techType">TechType to spawn.</param>
         /// <param name="spawnPosition">Position to spawn into.</param>
         public SpawnInfo(TechType techType, Vector3 spawnPosition)
-        {
-            this.techType = techType;
-            this.spawnPosition = spawnPosition;
-            this.rotation = Quaternion.identity;
-            spawnType = SpawnType.TechType;
-        }
+            : this(default, techType, spawnPosition, Quaternion.identity) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -157,12 +152,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="classId">ClassID to spawn.</param>
         /// <param name="spawnPosition">Position to spawn into.</param>
         public SpawnInfo(string classId, Vector3 spawnPosition)
-        {
-            this.classId = classId;
-            this.spawnPosition = spawnPosition;
-            this.rotation = Quaternion.identity;
-            spawnType = SpawnType.ClassId;
-        }
+            : this(classId, default, spawnPosition, Quaternion.identity) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -171,12 +161,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation)
-        {
-            this.techType = techType;
-            this.spawnPosition = spawnPosition;
-            this.rotation = rotation;
-            spawnType = SpawnType.TechType;
-        }
+            : this(default, techType, spawnPosition, rotation) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -185,12 +170,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation)
-        {
-            this.classId = classId;
-            this.spawnPosition = spawnPosition;
-            this.rotation = rotation;
-            spawnType = SpawnType.ClassId;
-        }
+            : this(classId, default, spawnPosition, rotation) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -199,12 +179,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(TechType techType, Vector3 spawnPosition, Vector3 rotation)
-        {
-            this.techType = techType;
-            this.spawnPosition = spawnPosition;
-            this.rotation = Quaternion.Euler(rotation);
-            spawnType = SpawnType.TechType;
-        }
+            : this(default, techType, spawnPosition, Quaternion.Euler(rotation)) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -213,18 +188,97 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(string classId, Vector3 spawnPosition, Vector3 rotation)
+            : this(classId, default, spawnPosition, Quaternion.Euler(rotation)) { }
+
+        [JsonConstructor]
+        internal SpawnInfo(string classId, TechType techType, Vector3 spawnPosition, Quaternion rotation)
         {
-            this.classId = classId;
-            this.spawnPosition = spawnPosition;
-            this.rotation = Quaternion.Euler(rotation);
-            spawnType = SpawnType.ClassId;
+            ClassId = classId;
+            TechType = techType;
+            SpawnPosition = spawnPosition;
+            Rotation = rotation;
+            Type = TechType switch
+            {
+                default(TechType) => SpawnType.ClassId,
+                _ => SpawnType.TechType
+            };
         }
+
+        /// <summary>
+        /// Indicates whether this instance and a specified object are equal.
+        /// </summary>
+        /// <remarks>
+        /// It is worth noting that we use Unity's <see cref="Vector3.operator=="/> and <see cref="Quaternion.operator=="/>
+        /// operator comparisons for comparing the <see cref="SpawnPosition"/> and <see cref="Rotation"/> properties of each instance, 
+        /// to allow for an approximate comparison of these values.
+        /// </remarks>
+        /// <param name="obj">The object to compare with the current instance.</param>
+        /// <returns><see langword="true"/> if <paramref name="obj"/> is a <see cref="SpawnInfo"/> and represents the same
+        /// value as this instance; otherwise, <see langword="false"/>.</returns>
+        /// <seealso cref="Equals(SpawnInfo)"/>
+        public override bool Equals(object obj) => obj is SpawnInfo spawnInfo && Equals(spawnInfo);
+
+        /// <summary>
+        /// A custom hash code algorithm that takes into account the values of each property of the <see cref="SpawnInfo"/> instance,
+        /// and attempts to reduce diagonal collisions.
+        /// </summary>
+        /// <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+        public override int GetHashCode()
+        {
+            unchecked // overflow is fine, just wrap around
+            {
+                int hash = 13;
+                hash = (hash * 7) + TechType.GetHashCode();
+                hash = (hash * 7) + ClassId.GetHashCode();
+                hash = (hash * 7) + SpawnPosition.GetHashCode();
+                hash = (hash * 7) + Rotation.GetHashCode();
+                hash = (hash * 7) + Type.GetHashCode();
+                return hash;
+            }
+        }
+
+        /// <summary>
+        /// Indicates whether the current <see cref="SpawnInfo"/> is equal to another.
+        /// </summary>
+        /// <remarks>
+        /// It is worth noting that we use Unity's <see cref="Vector3.operator=="/> and <see cref="Quaternion.operator=="/>
+        /// operator comparisons for comparing the <see cref="SpawnPosition"/> and <see cref="Rotation"/> properties of each instance, 
+        /// to allow for an approximate comparison of these values.
+        /// </remarks>
+        /// <param name="other">The other <see cref="SpawnInfo"/>.</param>
+        /// <returns><see langword="true"/> if the current <see cref="SpawnInfo"/> is equal to the <paramref name="other"/> parameter;
+        /// otherwise <see langword="false"/>.</returns>
+        public bool Equals(SpawnInfo other) => other.TechType == TechType
+                                            && other.ClassId == ClassId
+                                            && other.SpawnPosition == SpawnPosition
+                                            && other.Rotation == Rotation
+                                            && other.Type == Type;
 
         internal enum SpawnType
         {
-            ClassId, 
+            ClassId,
             TechType
         }
+
+        /// <summary>
+        /// Indicates whether two <see cref="SpawnInfo"/> instances are equal.
+        /// </summary>
+        /// <param name="a">The first instance to compare.</param>
+        /// <param name="b">The second instance to compare.</param>
+        /// <returns><see langword="true"/> if the <see cref="SpawnInfo"/> instances are equal; otherwise, <see langword="false"/>.</returns>
+        /// <seealso cref="operator!="/>
+        /// <seealso cref="Equals(SpawnInfo)"/>
+        public static bool operator ==(SpawnInfo a, SpawnInfo b) => a.Equals(b);
+
+        /// <summary>
+        /// Indicates whether two <see cref="SpawnInfo"/> instances are not equal.
+        /// </summary>
+        /// <param name="a">The first instance to compare.</param>
+        /// <param name="b">The second instance to compare.</param>
+        /// <returns><see langword="true"/> if the <see cref="SpawnInfo"/> instances are not equal; otherwise, <see langword="false"/>.</returns>
+        /// <seealso cref="operator=="/>
+        /// <seealso cref="Equals(SpawnInfo)"/>
+        public static bool operator !=(SpawnInfo a, SpawnInfo b) => !(a == b);
     }
     #endregion
 }
