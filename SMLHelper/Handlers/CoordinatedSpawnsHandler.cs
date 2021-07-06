@@ -221,12 +221,12 @@ namespace SMLHelper.V2.Handlers
         }
 
         [JsonConstructor]
-        internal SpawnInfo(string classId, TechType techType, Vector3 spawnPosition, Vector3 rotation)
+        internal SpawnInfo(string classId, TechType techType, Vector3 spawnPosition, Quaternion rotation)
         {
             this.classId = classId;
             this.techType = techType;
             this.spawnPosition = spawnPosition;
-            this.rotation = Quaternion.Euler(rotation);
+            this.rotation = rotation;
             spawnType = this.techType == TechType.None ? SpawnType.ClassId : SpawnType.TechType;
         }
 
