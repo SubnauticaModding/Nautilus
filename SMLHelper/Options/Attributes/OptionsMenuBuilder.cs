@@ -124,8 +124,8 @@
             {
                 // Enum-based choice where the values are defined as custom strings
                 string[] options = choiceAttribute.Options;
-                string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
-                int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
+                string name = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
+                int index = Math.Max(Array.IndexOf(Enum.GetNames(memberInfoMetadata.ValueType), name), 0);
                 AddChoiceOption(id, label, options, index);
             }
             else if (memberInfoMetadata.ValueType == typeof(string))
