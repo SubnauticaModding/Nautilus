@@ -22,6 +22,7 @@ namespace SMLHelper.V2.Json
         /// <summary>
         /// The file path at which the JSON file is accessible for reading and writing.
         /// </summary>
+        [JsonIgnore]
         public abstract string JsonFilePath { get; }
 
         [JsonIgnore]
