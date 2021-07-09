@@ -22,7 +22,7 @@
         {
             T cache = new();
 
-            IngameMenuHandler.Main.RegisterOnLoadEvent(() => cache.Load(false));
+            IngameMenuHandler.Main.RegisterOnLoadEvent(() => cache.Load());
             IngameMenuHandler.Main.RegisterOnSaveEvent(() => cache.Save());
 
             return cache;

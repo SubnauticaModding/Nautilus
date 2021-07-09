@@ -12,7 +12,7 @@
         /// </summary>
         /// <typeparam name="T">A class derived from <see cref="SaveDataCache"/> to hold your save data.</typeparam>
         /// <returns>An instance of the <typeparamref name="T"/> : <see cref="SaveDataCache"/> with values loaded
-        /// from the json file on disk.</returns>
+        /// from the json file on disk whenever a save slot is loaded.</returns>
         T RegisterSaveDataCache<T>() where T : SaveDataCache, new();
     }
 }

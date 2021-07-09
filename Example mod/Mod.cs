@@ -4,6 +4,7 @@ using SMLHelper.V2.Commands;
 using SMLHelper.V2.Handlers;
 using SMLHelper.V2.Interfaces;
 using SMLHelper.V2.Json;
+using SMLHelper.V2.Json.Attributes;
 using SMLHelper.V2.Options;
 using SMLHelper.V2.Options.Attributes;
 using System;
@@ -16,15 +17,34 @@ namespace SMLHelper.V2.Examples
     [QModCore]
     public static class ExampleMod
     {
+        [HarmonyPatch(typeof(Player), nameof(Player.Update))]
+        public static class PlayerUpdatePatch
+        {
+            public static void Postfix()
+            {
+                MySaveData.PlayerPosition = MainCamera.camera.transform.position;
+            }
+        }
+
+        [FileName("player_position")]
+        internal class SaveData : SaveDataCache
+        {
+            public Vector3 PlayerPosition { get; set; } = Vector3.zero;
+        }
+
         /// <summary>
         /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an options menu using
         /// Attributes. The values in this instance will be updated whenever the user changes the corresponding option in the menu.
         /// </summary>
         internal static Config Config { get; } = OptionsPanelHandler.Main.RegisterModOptions<Config>();
 
+        internal static SaveData MySaveData { get; } = SaveDataHandler.Main.RegisterSaveDataCache<SaveData>();
+
         [QModPatch]
         public static void Patch()
         {
+            Harmony.CreateAndPatchAll(System.Reflection.Assembly.GetExecutingAssembly());
+
             Logger.Log(Logger.Level.Info, "Patched successfully!");
 
             /// Here we are registering a console command by use of a delegate. The delegate will respond to the "delegatecommand"

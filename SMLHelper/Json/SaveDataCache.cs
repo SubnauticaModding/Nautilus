@@ -64,11 +64,12 @@ namespace SMLHelper.V2.Json
         /// Loads the JSON properties from the file on disk into the <see cref="SaveDataCache"/>.
         /// </summary>
         /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values if it does not
-        /// already exist.</param>
+        /// already exist.<br/>
+        /// Don't set this to <see langword="true"/> unless you know exactly what you're doing.</param>
         /// <seealso cref="Save()"/>
         /// <seealso cref="LoadWithConverters(bool, JsonConverter[])"/>
         /// <exception cref="InvalidOperationException">Thrown when the player is not in-game.</exception>
-        public override void Load(bool createFileIfNotExist = true)
+        public override void Load(bool createFileIfNotExist = false)
         {
             if (InGame)
             {
@@ -104,13 +105,14 @@ namespace SMLHelper.V2.Json
         /// Loads the JSON properties from the file on disk into the <see cref="SaveDataCache"/>.
         /// </summary>
         /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values if it does not
-        /// already exist.</param>
+        /// already exist.<br/>
+        /// Don't set this to <see langword="true"/> unless you know exactly what you're doing.</param>
         /// <param name="jsonConverters">Optional <see cref="JsonConverter"/>s to be used for serialization.
         /// The <see cref="AlwaysIncludedJsonConverters"/> will always be used, regardless of whether you pass them.</param>
         /// <seealso cref="SaveWithConverters(JsonConverter[])"/>
         /// <seealso cref="Load(bool)"/>
         /// <exception cref="InvalidOperationException">Thrown when the player is not in-game.</exception>
-        public override void LoadWithConverters(bool createFileIfNotExist = true, params JsonConverter[] jsonConverters)
+        public override void LoadWithConverters(bool createFileIfNotExist = false, params JsonConverter[] jsonConverters)
         {
             if (InGame)
             {
