@@ -65,6 +65,7 @@
         {
             var optionsMenuBuilder = new OptionsMenuBuilder<T>();
             RegisterModOptions(optionsMenuBuilder);
+            optionsMenuBuilder.ConfigFileMetadata.Registered = true;
 
             var menuAttribute = typeof(T).GetCustomAttribute<MenuAttribute>(true)
                 ?? new MenuAttribute(optionsMenuBuilder.Name);

@@ -2,6 +2,7 @@
 {
     using Json;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
@@ -38,12 +39,57 @@
         {
             ConfigFileMetadata.BindEvents();
 
-            ButtonClicked += ConfigFileMetadata.HandleButtonClick;
-            ChoiceChanged += ConfigFileMetadata.HandleChoiceChanged;
-            KeybindChanged += ConfigFileMetadata.HandleKeybindChanged;
-            SliderChanged += ConfigFileMetadata.HandleSliderChanged;
-            ToggleChanged += ConfigFileMetadata.HandleToggleChanged;
-            GameObjectCreated += ConfigFileMetadata.HandleGameObjectCreated;
+            ButtonClicked += EventHandler;
+            ButtonClicked += EventHandler;
+            ChoiceChanged += EventHandler;
+            KeybindChanged += EventHandler;
+            SliderChanged += EventHandler;
+            ToggleChanged += EventHandler;
+            GameObjectCreated += EventHandler;
+        }
+
+        private void EventHandler(object sender, EventArgs e)
+        {
+            if (!ConfigFileMetadata.Registered)
+            {
+                // if we haven't marked the options menu as being registered yet, its too soon to fire the events,
+                // so run a coroutine that waits until the first frame where Registered == true
+                // before routing the event
+                UWE.CoroutineHost.StartCoroutine(DeferredEventHandlerRoutine(sender, e));
+            }
+            else
+            {
+                // otherwise, route the event immediately
+                RouteEventHandler(sender, e);
+            }
+        }
+
+        private IEnumerator DeferredEventHandlerRoutine(object sender, EventArgs e)
+        {
+            yield return new WaitUntil(() => ConfigFileMetadata.Registered);
+            RouteEventHandler(sender, e);
+        }
+
+        private void RouteEventHandler(object sender, EventArgs e)
+        {
+            switch (e)
+            {
+                case ButtonClickedEventArgs buttonClickedEventArgs:
+                    ConfigFileMetadata.HandleButtonClick(sender, buttonClickedEventArgs);
+                    break;
+                case ChoiceChangedEventArgs choiceChangedEventArgs:
+                    ConfigFileMetadata.HandleChoiceChanged(sender, choiceChangedEventArgs);
+                    break;
+                case KeybindChangedEventArgs keybindChangedEventArgs:
+                    ConfigFileMetadata.HandleKeybindChanged(sender, keybindChangedEventArgs);
+                    break;
+                case SliderChangedEventArgs sliderChangedEventArgs:
+                    ConfigFileMetadata.HandleSliderChanged(sender, sliderChangedEventArgs);
+                    break;
+                case GameObjectCreatedEventArgs gameObjectCreatedEventArgs:
+                    ConfigFileMetadata.HandleGameObjectCreated(sender, gameObjectCreatedEventArgs);
+                    break;
+            }
         }
 
         #region Build ModOptions Menu

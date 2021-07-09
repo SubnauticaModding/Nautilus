@@ -4,6 +4,7 @@
     using Json;
     using QModManager.API;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -24,6 +25,8 @@
     internal class ConfigFileMetadata<T> where T : ConfigFile, new()
     {
         public T Config { get; } = new T();
+
+        public bool Registered { get; set; } = false;
 
         public IQMod QMod { get; } = QModServices.Main.GetMod(Assembly.GetAssembly(typeof(T)));
 
@@ -287,7 +290,18 @@
                 if (!modOptionMetadata.MemberInfoMetadata.GetValue(oldConfig)
                     .Equals(modOptionMetadata.MemberInfoMetadata.GetValue(currentConfig)))
                 {
-                    invokeOnChangeEvents(modOptionMetadata, sender);
+                    if (!Registered)
+                    {
+                        // if we haven't marked the options menu as being registered yet, its too soon to fire the events,
+                        // so run a coroutine that waits until the first frame where Registered == true
+                        // before routing the events
+                        UWE.CoroutineHost.StartCoroutine(DeferredInvokeOnChangeEventsRoutine(modOptionMetadata, sender));
+                    }
+                    else
+                    {
+                        // otherwise, route the events immediately
+                        InvokeOnChangeEvents(modOptionMetadata, sender);
+                    }
                 }
             }
         }
@@ -331,7 +345,7 @@
         /// <summary>
         /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
         /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="invokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
+        /// <see cref="InvokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
         /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original choice changed event.</param>
@@ -374,14 +388,14 @@
                     Config.Save();
 
                 // Invoke any OnChange methods specified
-                invokeOnChangeEvents(modOptionMetadata, sender, e);
+                InvokeOnChangeEvents(modOptionMetadata, sender, e);
             }
         }
 
         /// <summary>
         /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
         /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="invokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
+        /// <see cref="InvokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
         /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original keybind changed event.</param>
@@ -398,14 +412,14 @@
                     Config.Save();
 
                 // Invoke any OnChange methods specified
-                invokeOnChangeEvents(modOptionMetadata, sender, e);
+                InvokeOnChangeEvents(modOptionMetadata, sender, e);
             }
         }
 
         /// <summary>
         /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
         /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="invokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
+        /// <see cref="InvokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
         /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original slider changed event.</param>
@@ -424,14 +438,14 @@
                     Config.Save();
 
                 // Invoke any OnChange methods specified
-                invokeOnChangeEvents(modOptionMetadata, sender, e);
+                InvokeOnChangeEvents(modOptionMetadata, sender, e);
             }
         }
 
         /// <summary>
         /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
         /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
-        /// <see cref="invokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
+        /// <see cref="InvokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
         /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original toggle changed event.</param>
@@ -448,7 +462,7 @@
                     Config.Save();
 
                 // Invoke any OnChange methods specified
-                invokeOnChangeEvents(modOptionMetadata, sender, e);
+                InvokeOnChangeEvents(modOptionMetadata, sender, e);
             }
         }
 
@@ -474,9 +488,15 @@
 
                 foreach (MemberInfoMetadata<T> onGameObjectCreatedMetadata in modOptionMetadata.OnGameObjectCreatedMetadata)
                 {
-                    invokeEvent(onGameObjectCreatedMetadata, sender, e);
+                    InvokeEvent(onGameObjectCreatedMetadata, sender, e);
                 }
             }
+        }
+
+        private IEnumerator DeferredInvokeOnChangeEventsRoutine(ModOptionAttributeMetadata<T> modOptionMetadata, object sender)
+        {
+            yield return new WaitUntil(() => Registered);
+            InvokeOnChangeEvents(modOptionMetadata, sender);
         }
 
         /// <summary>
@@ -485,7 +505,7 @@
         /// </summary>
         /// <param name="modOptionMetadata">The metadata for the mod option.</param>
         /// <param name="sender">The sender of the event.</param>
-        private void invokeOnChangeEvents(ModOptionAttributeMetadata<T> modOptionMetadata, object sender)
+        private void InvokeOnChangeEvents(ModOptionAttributeMetadata<T> modOptionMetadata, object sender)
         {
             string id = modOptionMetadata.ModOptionAttribute.Id;
             MemberInfoMetadata<T> memberInfoMetadata = modOptionMetadata.MemberInfoMetadata;
@@ -499,7 +519,7 @@
                         string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
                         string value = memberInfoMetadata.GetValue(Config).ToString();
                         var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
-                        invokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
                 case ChoiceAttribute _ when memberInfoMetadata.ValueType.IsEnum:
@@ -508,7 +528,7 @@
                         string value = memberInfoMetadata.GetValue(Config).ToString();
                         int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
                         var eventArgs = new ChoiceChangedEventArgs(id, index, value);
-                        invokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
                 case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType == typeof(string):
@@ -517,7 +537,7 @@
                         string[] options = choiceAttribute.Options;
                         string value = memberInfoMetadata.GetValue<string>(Config);
                         var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
-                        invokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
                 case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType == typeof(int):
@@ -526,28 +546,28 @@
                         string[] options = choiceAttribute.Options;
                         int index = memberInfoMetadata.GetValue<int>(Config);
                         var eventArgs = new ChoiceChangedEventArgs(id, index, options[index]);
-                        invokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
 
                 case KeybindAttribute _:
                     {
                         var eventArgs = new KeybindChangedEventArgs(id, memberInfoMetadata.GetValue<KeyCode>(Config));
-                        invokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
 
                 case SliderAttribute _:
                     {
                         var eventArgs = new SliderChangedEventArgs(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
-                        invokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
 
                 case ToggleAttribute _:
                     {
                         var eventArgs = new ToggleChangedEventArgs(id, memberInfoMetadata.GetValue<bool>(Config));
-                        invokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
             }
@@ -561,7 +581,7 @@
         /// <param name="modOptionMetadata">The metadata for the mod option.</param>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The event args from the OnChange event.</param>
-        private void invokeOnChangeEvents<TSource>(ModOptionAttributeMetadata<T> modOptionMetadata, object sender, TSource e)
+        private void InvokeOnChangeEvents<TSource>(ModOptionAttributeMetadata<T> modOptionMetadata, object sender, TSource e)
             where TSource : IModOptionEventArgs
         {
             if (modOptionMetadata.OnChangeMetadata == null)
@@ -569,7 +589,7 @@
 
             foreach (MemberInfoMetadata<T> onChangeMetadata in modOptionMetadata.OnChangeMetadata)
             {
-                invokeEvent(onChangeMetadata, sender, e);
+                InvokeEvent(onChangeMetadata, sender, e);
             }
         }
 
@@ -581,7 +601,7 @@
         /// <param name="memberInfoMetadata">The metadata for the method.</param>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The event args from the event.</param>
-        private void invokeEvent<TSource>(MemberInfoMetadata<T> memberInfoMetadata, object sender, TSource e)
+        private void InvokeEvent<TSource>(MemberInfoMetadata<T> memberInfoMetadata, object sender, TSource e)
             where TSource : IModOptionEventArgs
         {
             if (!memberInfoMetadata.MethodValid)
