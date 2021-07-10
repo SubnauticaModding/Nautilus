@@ -20,9 +20,6 @@ namespace SMLHelper.V2.Json
     /// </summary>
     public abstract class SaveDataCache : JsonFile
     {
-        private UserStoragePC userStorage;
-        private UserStoragePC UserStorage => userStorage ??= PlatformUtils.main.GetUserStorage() as UserStoragePC;
-        private string SaveSlot => SaveLoadManager.main.GetCurrentSlot();
         private string QModId { get; init; }
 
         private static readonly JsonConverter[] alwaysIncludedJsonConverters = new JsonConverter[]
@@ -30,7 +27,7 @@ namespace SMLHelper.V2.Json
             new Vector3Converter(), new QuaternionConverter()
         };
 
-        private bool InGame => SaveSlot != "test";
+        private bool InGame => string.IsNullOrWhiteSpace(SaveLoadManager.GetTemporarySavePath());
 
         private string jsonFileName = null;
         private string JsonFileName => jsonFileName ??= GetType().GetCustomAttribute<FileNameAttribute>() switch
@@ -49,7 +46,7 @@ namespace SMLHelper.V2.Json
         /// <summary>
         /// The file path at which the JSON file is accessible for reading and writing.
         /// </summary>
-        public override string JsonFilePath => Path.Combine(UserStorage.savePath, SaveSlot, QModId, $"{JsonFileName}.json");
+        public override string JsonFilePath => Path.Combine(SaveLoadManager.GetTemporarySavePath(), QModId, $"{JsonFileName}.json");
 
         /// <summary>
         /// Creates a new instance of <see cref="SaveDataCache"/>, parsing the file name from <see cref="FileNameAttribute"/>
@@ -64,12 +61,11 @@ namespace SMLHelper.V2.Json
         /// Loads the JSON properties from the file on disk into the <see cref="SaveDataCache"/>.
         /// </summary>
         /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values if it does not
-        /// already exist.<br/>
-        /// Don't set this to <see langword="true"/> unless you know exactly what you're doing.</param>
+        /// already exist.</param>
         /// <seealso cref="Save()"/>
         /// <seealso cref="LoadWithConverters(bool, JsonConverter[])"/>
         /// <exception cref="InvalidOperationException">Thrown when the player is not in-game.</exception>
-        public override void Load(bool createFileIfNotExist = false)
+        public override void Load(bool createFileIfNotExist = true)
         {
             if (InGame)
             {
@@ -105,14 +101,13 @@ namespace SMLHelper.V2.Json
         /// Loads the JSON properties from the file on disk into the <see cref="SaveDataCache"/>.
         /// </summary>
         /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values if it does not
-        /// already exist.<br/>
-        /// Don't set this to <see langword="true"/> unless you know exactly what you're doing.</param>
+        /// already exist.</param>
         /// <param name="jsonConverters">Optional <see cref="JsonConverter"/>s to be used for serialization.
         /// The <see cref="AlwaysIncludedJsonConverters"/> will always be used, regardless of whether you pass them.</param>
         /// <seealso cref="SaveWithConverters(JsonConverter[])"/>
         /// <seealso cref="Load(bool)"/>
         /// <exception cref="InvalidOperationException">Thrown when the player is not in-game.</exception>
-        public override void LoadWithConverters(bool createFileIfNotExist = false, params JsonConverter[] jsonConverters)
+        public override void LoadWithConverters(bool createFileIfNotExist = true, params JsonConverter[] jsonConverters)
         {
             if (InGame)
             {
