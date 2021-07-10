@@ -26,46 +26,44 @@ namespace SMLHelper.V2.Examples
             public Vector3 PlayerPosition { get; set; }
         }
 
-        /// <summary>
-        /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an options menu using
-        /// Attributes. The values in this instance will be updated whenever the user changes the corresponding option in the menu.
-        /// </summary>
-        internal static Config Config { get; } = OptionsPanelHandler.Main.RegisterModOptions<Config>();
-
-        /// <summary>
-        /// In a similar manner to the above, here we set up an instance of <see cref="SaveData"/>, which will automatically
-        /// be saved and loaded to and from disk appropriately. 
-        /// The values in this instance will be updated automatically whenever the user switches between save slots.
-        /// </summary>
-        internal static SaveData MySaveData { get; } = SaveDataHandler.Main.RegisterSaveDataCache<SaveData>();
-
         [QModPatch]
         public static void Patch()
         {
+            /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an 
+            /// options menu using Attributes. The values in this instance will be updated whenever the user changes 
+            /// the corresponding option in the menu.
+            Config config = OptionsPanelHandler.Main.RegisterModOptions<Config>();
+
+            /// In a similar manner to the above, here we set up an instance of <see cref="SaveData"/>, which will 
+            /// automatically be saved and loaded to and from disk appropriately.
+            /// The values in this instance will be updated automatically whenever the user switches between save slots.
+            SaveData saveData = SaveDataHandler.Main.RegisterSaveDataCache<SaveData>();
+
             // Simply display the recorded player position whenever the save data is loaded
-            MySaveData.OnFinishedLoading += (object sender, JsonFileEventArgs e) =>
+            saveData.OnFinishedLoading += (object sender, JsonFileEventArgs e) =>
             {
                 SaveData data = e.Instance as SaveData; // e.Instance is a JsonFile, which SaveDataCache derives from, 
                                                         // so we can use polymorphism to convert the JsonFile back into a 
                                                         // SaveData instance, and access its members, such as PlayerPosition
 
-                Logger.Log(Logger.Level.Info, 
-                           $"loaded player position from save slot: {data.PlayerPosition}", 
+                Logger.Log(Logger.Level.Info,
+                           $"loaded player position from save slot: {data.PlayerPosition}",
                            showOnScreen: true);
             };
 
             // Update the player position before saving it
-            MySaveData.OnStartedSaving += (object sender, JsonFileEventArgs e) =>
+            saveData.OnStartedSaving += (object sender, JsonFileEventArgs e) =>
             {
-                MySaveData.PlayerPosition = Player.main.transform.position;
+                SaveData data = e.Instance as SaveData;
+                data.PlayerPosition = Player.main.transform.position;
             };
 
             // Simply display the position we recorded to the save file whenever the save data it is saved
-            MySaveData.OnFinishedSaving += (object sender, JsonFileEventArgs e) =>
+            saveData.OnFinishedSaving += (object sender, JsonFileEventArgs e) =>
             {
                 SaveData data = e.Instance as SaveData;
-                Logger.Log(Logger.Level.Info, 
-                           $"saved player position to save slot: {data.PlayerPosition}", 
+                Logger.Log(Logger.Level.Info,
+                           $"saved player position to save slot: {data.PlayerPosition}",
                            showOnScreen: true);
             };
 
