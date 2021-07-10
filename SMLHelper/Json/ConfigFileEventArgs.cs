@@ -3,7 +3,7 @@
 namespace SMLHelper.V2.Json
 {
     /// <summary>
-    /// Contains basic information for a <see cref="JsonFile"/> event.
+    /// Contains basic information for a <see cref="ConfigFile"/> event.
     /// </summary>
     public class ConfigFileEventArgs : EventArgs
     {
