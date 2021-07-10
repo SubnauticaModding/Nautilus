@@ -60,19 +60,19 @@ namespace SMLHelper.V2.Patchers
                     spawnInfos.Remove(savedSpawnInfo);
             }
 
-            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => SaveData(file));
+            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => SaveData());
 
             Initialize();
             Logger.Debug("Coordinated Spawns have been initialized in the current save.");
         }
 
-        private static void SaveData(string file)
+        private static void SaveData()
         {
+            var file = Path.Combine(SaveLoadManager.GetTemporarySavePath(), "CoordinatedSpawnsInitialized.smlhelper");
             using var writer = new StreamWriter(file);
             try
             {
                 string data = JsonConvert.SerializeObject(savedSpawnInfos, Formatting.Indented, new Vector3Converter(), new QuaternionConverter());
-                //Logger.Info(data);
                 writer.Write(data);
                 writer.Flush();
                 writer.Close();
