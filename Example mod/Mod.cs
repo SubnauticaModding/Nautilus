@@ -42,9 +42,9 @@ namespace SMLHelper.V2.Examples
             // Simply display the recorded player position whenever the save data is loaded
             saveData.OnFinishedLoading += (object sender, JsonFileEventArgs e) =>
             {
-                SaveData data = e.Instance as SaveData; // e.Instance is a JsonFile, which SaveDataCache derives from, 
-                                                        // so we can use polymorphism to convert the JsonFile back into a 
-                                                        // SaveData instance, and access its members, such as PlayerPosition
+                SaveData data = e.Instance as SaveData; // e.Instance is the instance of your SaveData stored as a JsonFile.
+                                                        // We can use polymorphism to convert it back into a SaveData
+                                                        // instance, and access its members, such as PlayerPosition.
 
                 Logger.Log(Logger.Level.Info,
                            $"loaded player position from save slot: {data.PlayerPosition}",
