@@ -17,19 +17,13 @@ namespace SMLHelper.V2.Examples
     [QModCore]
     public static class ExampleMod
     {
-        [HarmonyPatch(typeof(Player), nameof(Player.Update))]
-        public static class PlayerUpdatePatch
-        {
-            public static void Postfix()
-            {
-                MySaveData.PlayerPosition = MainCamera.camera.transform.position;
-            }
-        }
-
+        /// <summary>
+        /// A simple SaveDataCache implementation, intended to save the players current position to disk.
+        /// </summary>
         [FileName("player_position")]
         internal class SaveData : SaveDataCache
         {
-            public Vector3 PlayerPosition { get; set; } = Vector3.zero;
+            public Vector3 PlayerPosition { get; set; }
         }
 
         /// <summary>
@@ -38,14 +32,38 @@ namespace SMLHelper.V2.Examples
         /// </summary>
         internal static Config Config { get; } = OptionsPanelHandler.Main.RegisterModOptions<Config>();
 
+        /// <summary>
+        /// In a similar manner to the above, here we set up an instance of <see cref="SaveData"/>, which will automatically
+        /// be saved and loaded to and from disk appropriately. 
+        /// The values in this instance will be updated automatically whenever the user switches between save slots.
+        /// </summary>
         internal static SaveData MySaveData { get; } = SaveDataHandler.Main.RegisterSaveDataCache<SaveData>();
 
         [QModPatch]
         public static void Patch()
         {
-            Harmony.CreateAndPatchAll(System.Reflection.Assembly.GetExecutingAssembly());
+            // Simply display the recorded player position whenever the save data is loaded
+            MySaveData.OnFinishedLoading += (object sender, JsonFileEventArgs e) =>
+            {
+                SaveData data = e.Instance as SaveData; // e.Instance is a JsonFile, which SaveDataCache derives from, so we can use
+                                                        // polymorphism to convert the JsonFile back into a SaveData instance,
+                                                        // and access its members, such as PlayerPosition
 
-            Logger.Log(Logger.Level.Info, "Patched successfully!");
+                Logger.Log(Logger.Level.Info, $"loaded player position from save slot: {data.PlayerPosition}", showOnScreen: true);
+            };
+
+            // Update the player position before saving it
+            MySaveData.OnStartedSaving += (object sender, JsonFileEventArgs e) =>
+            {
+                MySaveData.PlayerPosition = Player.main.transform.position;
+            };
+
+            // Simply display the position we recorded to the save file whenever the save data it is saved
+            MySaveData.OnFinishedSaving += (object sender, JsonFileEventArgs e) =>
+            {
+                SaveData data = e.Instance as SaveData;
+                Logger.Log(Logger.Level.Info, $"saved player position to save slot: {data.PlayerPosition}", showOnScreen: true);
+            };
 
             /// Here we are registering a console command by use of a delegate. The delegate will respond to the "delegatecommand"
             /// command from the dev console, passing values following "delegatecommand" as the correct types, provided they can be
@@ -69,6 +87,8 @@ namespace SMLHelper.V2.Examples
             /// with the <see cref="ConsoleCommandAttribute"/>. See <see cref="MyAttributedCommand(string, int, bool)"/> below
             /// for an example.
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(ExampleMod));
+
+            Logger.Log(Logger.Level.Info, "Patched successfully!");
         }
 
         private delegate string MyCommand(string myString, int myInt, bool myBool);
