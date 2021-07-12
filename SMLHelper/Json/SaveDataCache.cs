@@ -20,7 +20,7 @@ namespace SMLHelper.V2.Json
     {
         private string QModId { get; init; }
 
-        private bool InGame => string.IsNullOrWhiteSpace(SaveLoadManager.GetTemporarySavePath());
+        private bool InGame => !string.IsNullOrWhiteSpace(SaveLoadManager.GetTemporarySavePath());
 
         private string jsonFileName = null;
         private string JsonFileName => jsonFileName ??= GetType().GetCustomAttribute<FileNameAttribute>() switch
