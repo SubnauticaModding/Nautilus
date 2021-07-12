@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Linq;
 #if SUBNAUTICA_STABLE
 using Oculus.Newtonsoft.Json;
 #else
@@ -12,7 +11,6 @@ using Newtonsoft.Json;
 namespace SMLHelper.V2.Json
 {
     using Attributes;
-    using Converters;
     using Interfaces;
 
     /// <summary>
@@ -91,7 +89,7 @@ namespace SMLHelper.V2.Json
         /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values if it does not
         /// already exist.</param>
         /// <param name="jsonConverters">Optional <see cref="JsonConverter"/>s to be used for serialization.
-        /// The <see cref="AlwaysIncludedJsonConverters"/> will always be used, regardless of whether you pass them.</param>
+        /// The <see cref="JsonFile.AlwaysIncludedJsonConverters"/> will always be used, regardless of whether you pass them.</param>
         /// <seealso cref="SaveWithConverters(JsonConverter[])"/>
         /// <seealso cref="Load(bool)"/>
         /// <exception cref="InvalidOperationException">Thrown when the player is not in-game.</exception>
@@ -112,7 +110,7 @@ namespace SMLHelper.V2.Json
         /// Saves the current fields and properties of the <see cref="SaveDataCache"/> as JSON properties to the file on disk.
         /// </summary>
         /// <param name="jsonConverters">Optional <see cref="JsonConverter"/>s to be used for deserialization.
-        /// The <see cref="AlwaysIncludedJsonConverters"/> will always be used, regardless of whether you pass them.</param>
+        /// The <see cref="JsonFile.AlwaysIncludedJsonConverters"/> will always be used, regardless of whether you pass them.</param>
         /// <seealso cref="LoadWithConverters(bool, JsonConverter[])"/>
         /// <seealso cref="Save"/>
         /// <exception cref="InvalidOperationException">Thrown when the player is not in-game.</exception>
