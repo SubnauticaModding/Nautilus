@@ -36,7 +36,9 @@ namespace SMLHelper.V2.Json
             new KeyCodeConverter(),
             new FloatConverter(),
             new StringEnumConverter(),
-            new VersionConverter()
+            new VersionConverter(),
+            new Vector3Converter(),
+            new QuaternionConverter()
         };
 
         /// <summary>
