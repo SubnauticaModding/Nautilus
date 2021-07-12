@@ -27,10 +27,12 @@ namespace SMLHelper.V2.Json
 
         [JsonIgnore]
         private static readonly JsonConverter[] alwaysIncludedJsonConverters = new JsonConverter[] {
-            new KeyCodeConverter(),
             new FloatConverter(),
+            new KeyCodeConverter(),
             new StringEnumConverter(),
-            new VersionConverter()
+            new VersionConverter(),
+            new Vector3Converter(),
+            new QuaternionConverter()
         };
 
         /// <summary>

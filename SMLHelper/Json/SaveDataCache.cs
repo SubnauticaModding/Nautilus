@@ -22,11 +22,6 @@ namespace SMLHelper.V2.Json
     {
         private string QModId { get; init; }
 
-        private static readonly JsonConverter[] alwaysIncludedJsonConverters = new JsonConverter[]
-        {
-            new Vector3Converter(), new QuaternionConverter()
-        };
-
         private bool InGame => string.IsNullOrWhiteSpace(SaveLoadManager.GetTemporarySavePath());
 
         private string jsonFileName = null;
@@ -35,13 +30,6 @@ namespace SMLHelper.V2.Json
             FileNameAttribute fileNameAttribute => fileNameAttribute.FileName,
             _ => QModId
         };
-
-        /// <summary>
-        /// The <see cref="JsonConverter"/>s that should always be used when reading/writing JSON data.
-        /// </summary>
-        /// <seealso cref="alwaysIncludedJsonConverters"/>
-        public override JsonConverter[] AlwaysIncludedJsonConverters
-            => base.AlwaysIncludedJsonConverters.Concat(alwaysIncludedJsonConverters).ToArray();
 
         /// <summary>
         /// The file path at which the JSON file is accessible for reading and writing.
