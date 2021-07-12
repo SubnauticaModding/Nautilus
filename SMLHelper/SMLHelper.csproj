@@ -153,6 +153,7 @@
     <Compile Include="Handlers\CoordinatedSpawnsHandler.cs" />
     <Compile Include="Handlers\CustomSoundHandler.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
+    <Compile Include="Handlers\SaveDataHandler.cs" />
     <Compile Include="Handlers\SurvivalHandler.cs" />
     <Compile Include="Handlers\TechCategoryHandler.cs" />
     <Compile Include="Handlers\TechGroupHandler.cs" />
@@ -163,10 +164,13 @@
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
     <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
     <Compile Include="Interfaces\IPingHandler.cs" />
+    <Compile Include="Interfaces\ISaveDataHandler.cs" />
     <Compile Include="Interfaces\ISurvivalHandler.cs" />
     <Compile Include="Interfaces\ITechCategoryHandler.cs" />
     <Compile Include="Interfaces\ITechGroupHandler.cs" />
+    <Compile Include="Json\Attributes\FileNameAttribute.cs" />
     <Compile Include="Json\ConfigFileAttribute.cs" />
+    <Compile Include="Json\ConfigFileEventArgs.cs" />
     <Compile Include="Json\Converters\FloatConverter.cs" />
     <Compile Include="Json\Converters\QuaternionConverter.cs" />
     <Compile Include="Json\Converters\Vector3Converter.cs" />
@@ -212,6 +216,9 @@
     <Compile Include="Interfaces\ITechTypeHandler.cs" />
     <Compile Include="Interfaces\ITechTypeHandlerInternal.cs" />
     <Compile Include="Interfaces\IWorldEntityDatabaseHandler.cs" />
+    <Compile Include="Json\JsonFile.cs" />
+    <Compile Include="Json\JsonFileEventArgs.cs" />
+    <Compile Include="Json\SaveDataCache.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MonoBehaviours\EntitySpawner.cs" />
     <Compile Include="MonoBehaviours\Fixer.cs" />

@@ -72,6 +72,14 @@
       <HintPath>$(Dependencies)\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Assembly-CSharp-firstpass_publicized">
+      <HintPath>$(Dependencies)\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp_publicized">
+      <HintPath>$(Dependencies)\Assembly-CSharp_publicized.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="QModInstaller">
       <HintPath>$(Dependencies)\QModInstaller.dll</HintPath>
       <Private>False</Private>
