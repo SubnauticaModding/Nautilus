@@ -1,19 +1,20 @@
-﻿namespace SMLHelper.V2.Json
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Linq;
+#if SUBNAUTICA_STABLE
+using Oculus.Newtonsoft.Json;
+using Oculus.Newtonsoft.Json.Converters;
+#else
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+#endif
+
+namespace SMLHelper.V2.Json
 {
     using Converters;
     using ExtensionMethods;
     using Interfaces;
-    using System;
-    using System.IO;
-    using System.Reflection;
-    using System.Linq;
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-    using Oculus.Newtonsoft.Json.Converters;
-#else
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-#endif
 
     /// <summary>
     /// A simple implementation of <see cref="IJsonFile"/> for use with config files.
@@ -35,7 +36,9 @@
             new KeyCodeConverter(),
             new FloatConverter(),
             new StringEnumConverter(),
-            new VersionConverter()
+            new VersionConverter(),
+            new Vector3Converter(),
+            new QuaternionConverter()
         };
 
         /// <summary>
@@ -163,25 +166,5 @@
         public void SaveWithConverters(params JsonConverter[] jsonConverters)
             => this.SaveJson(JsonFilePath,
                 AlwaysIncludedJsonConverters.Concat(jsonConverters).Distinct().ToArray());
-    }
-
-    /// <summary>
-    /// Contains basic information for a <see cref="ConfigFile"/> event.
-    /// </summary>
-    public class ConfigFileEventArgs : EventArgs
-    {
-        /// <summary>
-        /// The instance of the <see cref="ConfigFile"/> this event pertains to.
-        /// </summary>
-        public ConfigFile Instance { get; }
-
-        /// <summary>
-        /// Instantiates a new <see cref="ConfigFileEventArgs"/>.
-        /// </summary>
-        /// <param name="instance">The <see cref="ConfigFile"/> instance the event pertains to.</param>
-        public ConfigFileEventArgs(ConfigFile instance)
-        {
-            Instance = instance;
-        }
     }
 }

@@ -26,6 +26,15 @@
         }
 
         /// <summary>
+        /// Registers a simple <see cref="Action"/> method to invoke whenever the player loads a saved game via the in game menu.
+        /// </summary>
+        /// <param name="onLoadAction">The method to invoke.</param>
+        public static void RegisterOnLoadEvent(Action onLoadAction)
+        {
+            Main.RegisterOnLoadEvent(onLoadAction);
+        }
+
+        /// <summary>
         /// Registers a simple <see cref="Action"/> method to invoke whenever the player quits the game via the in game menu.
         /// </summary>
         /// <param name="onQuitAction">The method to invoke.</param>
@@ -42,6 +51,16 @@
         public static void UnregisterOnSaveEvent(Action onSaveAction)
         {
             Main.UnregisterOnSaveEvent(onSaveAction);
+        }
+
+        /// <summary>
+        /// Removes a method previously added through <see cref="RegisterOnLoadEvent(Action)"/> so it is no longer invoked when loading the game.<para/>
+        /// If you plan on using this, do not register an anonymous method.
+        /// </summary>
+        /// <param name="onLoadAction">The method invoked.</param>
+        public static void UnregisterOnLoadEvent(Action onLoadAction)
+        {
+            Main.UnregisterOnLoadEvent(onLoadAction);
         }
 
         /// <summary>
@@ -64,6 +83,15 @@
         }
 
         /// <summary>
+        /// Registers a simple <see cref="Action"/> method to invoke the <c>first time</c> the player loads a saved game via the in game menu.
+        /// </summary>
+        /// <param name="onLoadAction">The method to invoke. This action will not be invoked a second time.</param>
+        public static void RegisterOneTimeUseOnLoadEvent(Action onLoadAction)
+        {
+            Main.RegisterOneTimeUseOnLoadEvent(onLoadAction);
+        }
+
+        /// <summary>
         /// Registers a simple <see cref="Action"/> method to invoke the <c>first time</c> the player quits the game via the in game menu.
         /// </summary>
         /// <param name="onQuitAction">The method to invoke. This action will not be invoked a second time.</param>
@@ -79,6 +107,11 @@
         void IIngameMenuHandler.RegisterOnSaveEvent(Action onSaveAction)
         {
             IngameMenuPatcher.OnSaveEvents += onSaveAction;
+        }
+
+        void IIngameMenuHandler.RegisterOnLoadEvent(Action onLoadAction)
+        {
+            IngameMenuPatcher.OnLoadEvents += onLoadAction;
         }
 
         /// <summary>
@@ -100,6 +133,11 @@
             IngameMenuPatcher.OnSaveEvents -= onSaveAction;
         }
 
+        void IIngameMenuHandler.UnregisterOnLoadEvent(Action onLoadAction)
+        {
+            IngameMenuPatcher.OnLoadEvents -= onLoadAction;
+        }
+
         /// <summary>
         /// Removes a method previously added through <see cref="RegisterOnSaveEvent(Action)"/> so it is no longer invoked when quiting the game.<para/>
         /// If you plan on using this, do not register an anonymous method.
@@ -117,6 +155,11 @@
         void IIngameMenuHandler.RegisterOneTimeUseOnSaveEvent(Action onSaveAction)
         {
             IngameMenuPatcher.AddOneTimeUseSaveEvent(onSaveAction);
+        }
+
+        void IIngameMenuHandler.RegisterOneTimeUseOnLoadEvent(Action onLoadAction)
+        {
+            IngameMenuPatcher.AddOneTimeUseLoadEvent(onLoadAction);
         }
 
         /// <summary>

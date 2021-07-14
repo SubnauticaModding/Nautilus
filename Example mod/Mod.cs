@@ -4,6 +4,7 @@ using SMLHelper.V2.Commands;
 using SMLHelper.V2.Handlers;
 using SMLHelper.V2.Interfaces;
 using SMLHelper.V2.Json;
+using SMLHelper.V2.Json.Attributes;
 using SMLHelper.V2.Options;
 using SMLHelper.V2.Options.Attributes;
 using System;
@@ -17,15 +18,54 @@ namespace SMLHelper.V2.Examples
     public static class ExampleMod
     {
         /// <summary>
-        /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an options menu using
-        /// Attributes. The values in this instance will be updated whenever the user changes the corresponding option in the menu.
+        /// A simple SaveDataCache implementation, intended to save the players current position to disk.
         /// </summary>
-        internal static Config Config { get; } = OptionsPanelHandler.Main.RegisterModOptions<Config>();
+        [FileName("player_position")]
+        internal class SaveData : SaveDataCache
+        {
+            public Vector3 PlayerPosition { get; set; }
+        }
 
         [QModPatch]
         public static void Patch()
         {
-            Logger.Log(Logger.Level.Info, "Patched successfully!");
+            /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an 
+            /// options menu using Attributes. The values in this instance will be updated whenever the user changes 
+            /// the corresponding option in the menu.
+            Config config = OptionsPanelHandler.Main.RegisterModOptions<Config>();
+
+            /// In a similar manner to the above, here we set up an instance of <see cref="SaveData"/>, which will 
+            /// automatically be saved and loaded to and from disk appropriately.
+            /// The values in this instance will be updated automatically whenever the user switches between save slots.
+            SaveData saveData = SaveDataHandler.Main.RegisterSaveDataCache<SaveData>();
+
+            // Simply display the recorded player position whenever the save data is loaded
+            saveData.OnFinishedLoading += (object sender, JsonFileEventArgs e) =>
+            {
+                SaveData data = e.Instance as SaveData; // e.Instance is the instance of your SaveData stored as a JsonFile.
+                                                        // We can use polymorphism to convert it back into a SaveData
+                                                        // instance, and access its members, such as PlayerPosition.
+
+                Logger.Log(Logger.Level.Info,
+                           $"loaded player position from save slot: {data.PlayerPosition}",
+                           showOnScreen: true);
+            };
+
+            // Update the player position before saving it
+            saveData.OnStartedSaving += (object sender, JsonFileEventArgs e) =>
+            {
+                SaveData data = e.Instance as SaveData;
+                data.PlayerPosition = Player.main.transform.position;
+            };
+
+            // Simply display the position we recorded to the save file whenever the save data it is saved
+            saveData.OnFinishedSaving += (object sender, JsonFileEventArgs e) =>
+            {
+                SaveData data = e.Instance as SaveData;
+                Logger.Log(Logger.Level.Info,
+                           $"saved player position to save slot: {data.PlayerPosition}",
+                           showOnScreen: true);
+            };
 
             /// Here we are registering a console command by use of a delegate. The delegate will respond to the "delegatecommand"
             /// command from the dev console, passing values following "delegatecommand" as the correct types, provided they can be
@@ -49,6 +89,8 @@ namespace SMLHelper.V2.Examples
             /// with the <see cref="ConsoleCommandAttribute"/>. See <see cref="MyAttributedCommand(string, int, bool)"/> below
             /// for an example.
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(ExampleMod));
+
+            Logger.Log(Logger.Level.Info, "Patched successfully!");
         }
 
         private delegate string MyCommand(string myString, int myInt, bool myBool);
