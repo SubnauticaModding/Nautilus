@@ -2,11 +2,11 @@
   "Id": "SMLHelperExampleMod",
   "DisplayName": "Example Mod For SMLHelper",
   "Author": "The SMLHelper Dev Team",
-  "Version": "2.10.1.2",
+  "Version": "2.11",
   "Enable": true,
   "AssemblyName": "Example mod.dll",
   "VersionDependencies": {
-    "SMLHelper": "2.10.1.2"
+    "SMLHelper": "2.11"
   },
   "Game": "Both"
 }
