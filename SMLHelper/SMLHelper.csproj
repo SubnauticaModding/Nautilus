@@ -176,6 +176,7 @@
     <Compile Include="Json\Converters\Vector2Converter.cs" />
     <Compile Include="Json\Converters\Vector2IntConverter.cs" />
     <Compile Include="Json\Converters\Vector3Converter.cs" />
+    <Compile Include="Json\Converters\Vector3IntConverter.cs" />
     <Compile Include="Json\Converters\Vector4Converter.cs" />
     <Compile Include="Json\ExtensionMethods\JsonExtensions.cs" />
     <Compile Include="Handler.cs" />

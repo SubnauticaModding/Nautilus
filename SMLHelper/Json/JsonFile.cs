@@ -35,6 +35,7 @@ namespace SMLHelper.V2.Json
             new Vector3Converter(),
             new Vector4Converter(),
             new Vector2IntConverter(),
+            new Vector3IntConverter(),
             new QuaternionConverter()
         };
 
