@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace SMLHelper.V2.Json.Converters
 {
     /// <summary>
-    /// A Vector2 json converter that simplifies the Vector2 to only x,y serialization.
+    /// A Vector2Int json converter that simplifies the Vector2Int to only x,y serialization.
     /// </summary>
     public class Vector2IntConverter : JsonConverter
     {
@@ -19,7 +19,7 @@ namespace SMLHelper.V2.Json.Converters
         /// <returns></returns>
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(Vector3);
+            return objectType == typeof(Vector2Int);
         }
 
         /// <summary>
