@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace SMLHelper.V2.Json.Converters
 {
     /// <summary>
-    /// A Vector2 json converter that simplifies the Vector3 to only x,y,z serialization.
+    /// A Vector2 json converter that simplifies the Vector2 to only x,y serialization.
     /// </summary>
     public class Vector2Converter : JsonConverter
     {
