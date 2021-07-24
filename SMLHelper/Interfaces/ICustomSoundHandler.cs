@@ -1,5 +1,6 @@
 ﻿using FMOD;
 using SMLHelper.V2.Utility;
+using UnityEngine;
 
 namespace SMLHelper.V2.Interfaces
 {
@@ -16,6 +17,15 @@ namespace SMLHelper.V2.Interfaces
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. defaults to <see cref="SoundChannel.Master"/></param>
         /// <returns>Returns the <see cref="Sound"/> loaded</returns>
         Sound RegisterCustomSound(string id, string filePath, SoundChannel soundChannel = SoundChannel.Master);
+
+        /// <summary>
+        /// Register a custom sound by an <see cref="AudioClip"/> instance. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="audio">The AudioClip to register.</param>
+        /// <param name="soundChannel">The sound channel to get the volume to play the sound at. defaults to <see cref="SoundChannel.Master"/></param>
+        /// <returns>Returns the <see cref="Sound"/> registered.</returns>
+        Sound RegisterCustomSound(string id, AudioClip audio, SoundChannel soundChannel = SoundChannel.Master);
 
         /// <summary>
         /// Register a Custom sound that has been loaded using AudioUtils. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
