@@ -1,12 +1,11 @@
-﻿using System;
-using FMOD;
-using SMLHelper.V2.Interfaces;
-using SMLHelper.V2.Patchers;
-using SMLHelper.V2.Utility;
-using UnityEngine;
-
-namespace SMLHelper.V2.Handlers
+﻿namespace SMLHelper.V2.Handlers
 {
+    using FMOD;
+    using Interfaces;
+    using Patchers;
+    using UnityEngine;
+    using Utility;
+    
     /// <summary>
     /// A handler class for adding and overriding Sounds.
     /// </summary>
