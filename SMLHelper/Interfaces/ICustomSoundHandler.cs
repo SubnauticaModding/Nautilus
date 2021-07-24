@@ -15,7 +15,7 @@
         /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
         /// <param name="filePath">The file path on disk of the sound file to load</param>
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. defaults to <see cref="SoundChannel.Master"/></param>
-        /// <returns>Returns the <see cref="Sound"/> loaded</returns>
+        /// <returns>the <see cref="Sound"/> loaded</returns>
         Sound RegisterCustomSound(string id, string filePath, SoundChannel soundChannel = SoundChannel.Master);
 
         /// <summary>
@@ -24,7 +24,7 @@
         /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
         /// <param name="audio">The AudioClip to register.</param>
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. defaults to <see cref="SoundChannel.Master"/></param>
-        /// <returns>Returns the <see cref="Sound"/> registered.</returns>
+        /// <returns>the <see cref="Sound"/> registered.</returns>
         Sound RegisterCustomSound(string id, AudioClip audio, SoundChannel soundChannel = SoundChannel.Master);
 
         /// <summary>
@@ -46,7 +46,7 @@
         /// </summary>
         /// <param name="id">The Id of the custom sound</param>
         /// <param name="sound">Outputs the <see cref="Sound"/> if found and null if not found.</param>
-        /// <returns>Returns true or false depending on if the id was found</returns>
+        /// <returns>true or false depending on if the id was found</returns>
         bool TryGetCustomSound(string id, out Sound sound);
     }
 }
