@@ -86,6 +86,9 @@
                 case SliderChangedEventArgs sliderChangedEventArgs:
                     ConfigFileMetadata.HandleSliderChanged(sender, sliderChangedEventArgs);
                     break;
+                case ToggleChangedEventArgs toggleChangedEventArgs:
+                    ConfigFileMetadata.HandleToggleChanged(sender, toggleChangedEventArgs);
+                    break;
                 case GameObjectCreatedEventArgs gameObjectCreatedEventArgs:
                     ConfigFileMetadata.HandleGameObjectCreated(sender, gameObjectCreatedEventArgs);
                     break;
