@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using HarmonyLib;
 
@@ -16,11 +17,11 @@
 
         public static void Patch(Harmony harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.SaveGame)),
+            harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.SaveGameAsync)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeSaveEvents))));
             harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.BeginAsyncSceneLoad)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeLoadEvents))));
-            harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.QuitGame)),
+            harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.QuitGameAsync)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeQuitEvents))));
         }
 
@@ -39,16 +40,20 @@
             oneTimeUseOnQuitEvents.Add(onQuitAction);
         }
 
-        internal static void InvokeSaveEvents()
+        internal static IEnumerator InvokeSaveEvents(IEnumerator enumerator)
         {
             OnSaveEvents?.Invoke();
-
+            
             if (oneTimeUseOnSaveEvents.Count > 0)
             {
                 foreach (Action action in oneTimeUseOnSaveEvents)
                     action.Invoke();
-
                 oneTimeUseOnSaveEvents.Clear();
+            }
+            
+            while (enumerator.MoveNext())
+            {
+                yield return enumerator.Current;
             }
         }
 
@@ -68,8 +73,13 @@
             }
         }
 
-        internal static void InvokeQuitEvents()
+        internal static IEnumerator InvokeQuitEvents(IEnumerator enumerator)
         {
+            while (enumerator.MoveNext())
+            {
+                yield return enumerator.Current;
+            }
+            
             OnQuitEvents?.Invoke();
 
             if (oneTimeUseOnQuitEvents.Count > 0)
