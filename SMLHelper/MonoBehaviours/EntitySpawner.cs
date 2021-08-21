@@ -39,17 +39,22 @@ namespace SMLHelper.V2.MonoBehaviours
             var obj = Utils.InstantiateDeactivated(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
 
             var lwe = obj.GetComponent<LargeWorldEntity>();
+            
+            var lws = LargeWorldStreamer.main;
+            yield return new WaitUntil(() => lws != null && lws.IsReady()); // first we make sure the world streamer is initialized
 
             // non-global objects cannot be spawned in unloaded terrain so we need to wait
-            if (lwe == null || lwe.cellLevel is not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global))
+            if (lwe is {cellLevel: not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global)})
             {
-                var lws = LargeWorldStreamer.main;
-                yield return new WaitUntil(() => lws.IsReady()); // first we make sure the world streamer is initialized
                 var batch = lws.GetContainingBatch(spawnInfo.SpawnPosition);
                 yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch)); // then we wait until the terrain is fully loaded (must be checked on each frame for faster spawns)
             }
 
-            LargeWorld.main.streamer.cellManager.RegisterEntity(obj);
+            var lw = LargeWorld.main;
+
+            yield return new WaitUntil(() => lw != null && lw.streamer.globalRoot != null); // need to make sure global root is ready too for global spawns.
+            
+            lw.streamer.cellManager.RegisterEntity(obj);
 
             obj.SetActive(true);
 

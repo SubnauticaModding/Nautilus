@@ -93,6 +93,10 @@
       <HintPath>$(Dependencies)\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>$(Dependencies)\UnityEngine.AudioModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(Dependencies)\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
@@ -173,7 +177,11 @@
     <Compile Include="Json\ConfigFileEventArgs.cs" />
     <Compile Include="Json\Converters\FloatConverter.cs" />
     <Compile Include="Json\Converters\QuaternionConverter.cs" />
+    <Compile Include="Json\Converters\Vector2Converter.cs" />
+    <Compile Include="Json\Converters\Vector2IntConverter.cs" />
     <Compile Include="Json\Converters\Vector3Converter.cs" />
+    <Compile Include="Json\Converters\Vector3IntConverter.cs" />
+    <Compile Include="Json\Converters\Vector4Converter.cs" />
     <Compile Include="Json\ExtensionMethods\JsonExtensions.cs" />
     <Compile Include="Handler.cs" />
     <Compile Include="Handlers\BioReactorHandler.cs" />
