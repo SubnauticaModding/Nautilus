@@ -125,6 +125,10 @@
       <HintPath>$(Dependencies)\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="FMODUnity" Condition="$(Configuration.Contains('.EXP'))">
+      <HintPath>$(Dependencies)\FMODUnity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Buildable.cs" />
