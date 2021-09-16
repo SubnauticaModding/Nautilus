@@ -60,7 +60,7 @@ namespace SMLHelper.V2.Patchers
                     spawnInfos.Remove(savedSpawnInfo);
             }
 
-            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => SaveData());
+            IngameMenuHandler.RegisterOnSaveEvent(() => SaveData());
 
             Initialize();
             Logger.Debug("Coordinated Spawns have been initialized in the current save.");
@@ -79,7 +79,7 @@ namespace SMLHelper.V2.Patchers
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to save spawn data to {file}\nSkipping static spawning until fixed!\n{ex}");
+                Logger.Error($"Failed to save spawn data to {file}\n{ex}");
                 writer.Close();
             }
         }

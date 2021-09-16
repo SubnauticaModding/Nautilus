@@ -17,7 +17,7 @@
 
         public static void Patch(Harmony harmony)
         {
-            harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.SaveGameAsync)),
+            harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.CaptureSaveScreenshot)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeSaveEvents))));
             harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.BeginAsyncSceneLoad)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeLoadEvents))));
@@ -40,7 +40,7 @@
             oneTimeUseOnQuitEvents.Add(onQuitAction);
         }
 
-        internal static IEnumerator InvokeSaveEvents(IEnumerator enumerator)
+        internal static void InvokeSaveEvents()
         {
             OnSaveEvents?.Invoke();
             
@@ -49,11 +49,6 @@
                 foreach (Action action in oneTimeUseOnSaveEvents)
                     action.Invoke();
                 oneTimeUseOnSaveEvents.Clear();
-            }
-            
-            while (enumerator.MoveNext())
-            {
-                yield return enumerator.Current;
             }
         }
 
