@@ -33,6 +33,10 @@
         {
             TechCategory techCategory = TechCategoryPatcher.AddTechCategory(techCatagoryName);
 
+            Dictionary<TechCategory, string> valueToString = uGUI_BlueprintsTab.techCategoryStrings.valueToString;
+            valueToString[techCategory] = "TechCategory" + techCatagoryName;
+            
+
             LanguageHandler.SetLanguageLine("TechCategory" + techCatagoryName, displayName);
 
             return techCategory;
