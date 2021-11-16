@@ -42,6 +42,10 @@
             {
                 __result = GetValues(BackgroundTypePatcher.cacheManager, __result);
             }
+            else if (enumType == typeof(EquipmentType))
+            {
+                __result = GetValues(EquipmentTypePatcher.cacheManager, __result);
+            }
         }
 
         private static T[] GetValues<T>(EnumCacheManager<T> cacheManager, Array __result) where T : Enum
@@ -65,7 +69,8 @@
                 IsDefined(PingTypePatcher.cacheManager, enumType, value) ||
                 IsDefined(TechGroupPatcher.cacheManager, enumType, value) ||
                 IsDefined(TechCategoryPatcher.cacheManager, enumType, value) ||
-                IsDefined(BackgroundTypePatcher.cacheManager, enumType, value))
+                IsDefined(BackgroundTypePatcher.cacheManager, enumType, value) ||
+                IsDefined(EquipmentTypePatcher.cacheManager, enumType, value))
             {
                 __result = true;
                 return false;
@@ -113,6 +118,11 @@
                 __result = backgroundType;
                 return false;
             }
+            else if (enumType == typeof(EquipmentType) && EquipmentTypePatcher.cacheManager.TryParse(value, out EquipmentType equipmentType))
+            {
+                __result = equipmentType;
+                return false;
+            }
             return true;
         }
 
@@ -144,6 +154,10 @@
 
                 case CraftData.BackgroundType backgroundType when BackgroundTypePatcher.cacheManager.TryGetValue(backgroundType, out var backgroundTypeName):
                     __result = backgroundTypeName;
+                    return false;
+
+                case EquipmentType equipmentType when EquipmentTypePatcher.cacheManager.TryGetValue(equipmentType, out var equipmentTypeName):
+                    __result = equipmentTypeName;
                     return false;
 
                 default:
