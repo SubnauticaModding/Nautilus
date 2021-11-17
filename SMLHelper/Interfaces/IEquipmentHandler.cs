@@ -11,7 +11,7 @@
         /// <param name="equipmentName">The name of the new equipment type</param>
         /// <param name="displayName">The display name of the new equipment type</param>
         /// <returns>The newly registered EquipmentType</returns>
-        EquipmentType RegisterNewEquipmentType(string equipmentName, string displayName);
+        EquipmentType AddEquipmentType(string equipmentName);
 
         /// <summary>
         /// Safely looks for a modded equipment type in the SMLHelper EquipmentTypeCache and outputs its <see cref="EquipmentType"/> value when found.

@@ -24,14 +24,12 @@
         /// Adds a new <see cref="Equipment" /> into the game.
         /// </summary>
         /// <param name="equipmentName">The name of the Equipment. Should not contain special characters.</param>
-        /// <param name="displayName">The display name of the Equipment. Can be anything.</param>
         /// <returns>
         /// The new <see cref="Equipment" /> that is created.
         /// </returns>
-        public EquipmentType RegisterNewEquipmentType(string equipmentName, string displayName)
+        public EquipmentType AddEquipmentType(string equipmentName)
         {
             EquipmentType equipment = EquipmentTypePatcher.AddEquipmentType(equipmentName);
-            LanguageHandler.SetLanguageLine(equipmentName, displayName);
             return equipment;
         }
 
@@ -45,14 +43,8 @@
         public bool ModdedEquipmentExists(string equipmentString)
         {
             EnumTypeCache cache = EquipmentTypePatcher.cacheManager.RequestCacheForTypeName(equipmentString, false);
-            if (cache != null) // Item Found
-            {
-                return true;
-            }
-            else // Mod not present or not yet loaded
-            {
-                return false;
-            }
+            // if we don't have it cached, the mod is not present or not yet loaded
+            return cache != null;
         }
 
         /// <summary>
