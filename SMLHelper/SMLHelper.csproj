@@ -160,6 +160,7 @@
     <Compile Include="Handlers\BackgroundTypeHandler.cs" />
     <Compile Include="Handlers\CoordinatedSpawnsHandler.cs" />
     <Compile Include="Handlers\CustomSoundHandler.cs" />
+    <Compile Include="Handlers\EquipmentHandler.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
     <Compile Include="Handlers\SaveDataHandler.cs" />
     <Compile Include="Handlers\SurvivalHandler.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Interfaces\IModOptionAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
     <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
+    <Compile Include="Interfaces\IEquipmentHandler.cs" />
     <Compile Include="Interfaces\IPingHandler.cs" />
     <Compile Include="Interfaces\ISaveDataHandler.cs" />
     <Compile Include="Interfaces\ISurvivalHandler.cs" />
@@ -270,6 +272,7 @@
     <Compile Include="Patchers\CraftTreePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\CraftTreeTypePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\EnumPatcher.cs" />
+    <Compile Include="Patchers\EnumPatching\EquipmentTypePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\TechCategoryPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\TechGroupPatcher.cs" />
     <Compile Include="Patchers\FishPatcher.cs" />

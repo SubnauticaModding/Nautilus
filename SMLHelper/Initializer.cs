@@ -55,6 +55,7 @@
             TechCategoryPatcher.Patch();
             TechGroupPatcher.Patch();
             BackgroundTypePatcher.Patch();
+            EquipmentTypePatcher.Patch();
             EnumPatcher.Patch(harmony);
 
             CraftDataPatcher.Patch(harmony);
