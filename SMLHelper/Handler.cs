@@ -127,5 +127,9 @@
         /// </summary>
         public static ICustomSoundHandler SoundHandler => Handlers.CustomSoundHandler.Main;
 
+        /// <summary>
+        /// A handler for adding custom EquipmentTypes into the game.
+        /// </summary>
+        public static IEquipmentHandler EquipmentHandler => Handlers.EquipmentHandler.Main;
     }
 }
