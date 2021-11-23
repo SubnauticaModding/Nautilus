@@ -40,7 +40,7 @@
         /// <returns>
         ///   <c>True</c> if the item was found; Otherwise <c>false</c>.
         /// </returns>
-        public bool ModdedEquipmentExists(string equipmentString)
+        public bool ModdedEquipmentTypeExists(string equipmentString)
         {
             EnumTypeCache cache = EquipmentTypePatcher.cacheManager.RequestCacheForTypeName(equipmentString, false);
             // if we don't have it cached, the mod is not present or not yet loaded

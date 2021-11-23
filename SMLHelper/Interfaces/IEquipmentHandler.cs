@@ -9,7 +9,6 @@
         /// Registers an equipment type for use when creating a equipment
         /// </summary>
         /// <param name="equipmentName">The name of the new equipment type</param>
-        /// <param name="displayName">The display name of the new equipment type</param>
         /// <returns>The newly registered EquipmentType</returns>
         EquipmentType AddEquipmentType(string equipmentName);
 
@@ -20,5 +19,12 @@
         /// <param name="moddedEquipmentType">The EquipmentType enum value. Defaults to <see cref="EquipmentType.None"/> when the EquipmentType was not found.</param>
         /// <returns><c>True</c> if the EquipmentType was found; Otherwise <c>false</c></returns>
         bool TryGetModdedEquipmentType(string equipmentTypeString, out EquipmentType moddedEquipmentType);
+
+        /// <summary>
+        ///  Checks for the existence of an added EquipmentType in the SMLHelper EquipmentTypeCache and outputs the result of the check
+        /// </summary>
+        /// <param name="equipmentString">The string used to define the modded EquipmentType</param>
+        /// <returns><c>True</c> if the EquipmentType was found; Otherwise <c>false</c></returns>
+        public bool ModdedEquipmentTypeExists(string equipmentString);
     }
 }
