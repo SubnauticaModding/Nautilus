@@ -136,9 +136,10 @@
 
                 if(EntityInfo != null)
                 {
-                    WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
                     if(BiomesToSpawnIn != null)
                         LootDistributionHandler.AddLootDistributionData(this, BiomesToSpawnIn, EntityInfo);
+                    else
+                        WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
                 }
 
                 if (CoordinatedSpawns != null)
