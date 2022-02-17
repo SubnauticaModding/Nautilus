@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Utility
+﻿using FMOD.Studio;
+
+namespace SMLHelper.V2.Utility
 {
     using System.Runtime.InteropServices;
     using FMOD;
@@ -119,6 +121,20 @@
             newChannels.setVolume(volumeLevel);
             FMOD_System.playSound(sound, newChannels, false, out Channel channel);
 
+            return channel;
+        }
+
+        /// <summary>
+        /// Plays a <see cref="Sound"/> on the specified <see cref="Bus"/>.
+        /// </summary>
+        /// <param name="sound">The sound which should be played.</param>
+        /// <param name="bus">The bus to play the sound on.</param>
+        /// <returns>The channel on which the sound was created.</returns>
+        public static Channel PlaySound(Sound sound, Bus bus)
+        {
+            bus.getChannelGroup(out var channelGroup);
+            channelGroup.getPaused(out var paused);
+            FMOD_System.playSound(sound, channelGroup, paused, out Channel channel);
             return channel;
         }
         
