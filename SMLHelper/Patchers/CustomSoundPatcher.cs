@@ -215,6 +215,7 @@
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_SetAsset_Prefix(FMOD_CustomEmitter __instance, FMODAsset newAsset)
         {
+            if (newAsset == null) return false;
             if (!CustomSounds.ContainsKey(newAsset.path)) return true;
 
             __instance.ReleaseEvent();
