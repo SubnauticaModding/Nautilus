@@ -1,20 +1,23 @@
-﻿using FMOD;
-using FMODUnity;
-using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using FMOD.Studio;
-using SMLHelper.V2.Utility;
-using UnityEngine;
-
-namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.V2.Patchers
 {
+    using FMOD;
+    using FMODUnity;
+    using HarmonyLib;
+    using System.Collections.Generic;
+    using FMOD.Studio;
+    using Utility;
+    using UnityEngine;
+    using Logger = Logger;
+    
     internal class CustomSoundPatcher
     {
-        internal static SelfCheckingDictionary<string, Sound> CustomSounds = new SelfCheckingDictionary<string, Sound>("CustomSounds");
-        internal static SelfCheckingDictionary<string, SoundChannel> CustomSoundChannels = new SelfCheckingDictionary<string, SoundChannel>("CustomSoundChannels");
-        private static readonly Dictionary<string, Channel> PlayedChannels = new Dictionary<string, Channel>();
+        internal static readonly SelfCheckingDictionary<string, Sound> CustomSounds = new("CustomSounds");
+        internal static readonly SelfCheckingDictionary<string, SoundChannel> CustomSoundChannels = new("CustomSoundChannels");
+        internal static readonly SelfCheckingDictionary<string, Bus> CustomSoundBuses = new("CustomSoundBuses");
         
+        private static readonly Dictionary<string, Channel> PlayedChannels = new();
+        private static readonly Dictionary<int, Channel> EmitterPlayedChannels = new();
+
         internal static void Patch(Harmony harmony)
         {
             harmony.PatchAll(typeof(CustomSoundPatcher));
@@ -29,10 +32,32 @@ namespace SMLHelper.V2.Patchers
         {
             if (string.IsNullOrEmpty(eventPath) || !CustomSounds.TryGetValue(eventPath, out Sound soundEvent)) return true;
 
-            if (!CustomSoundChannels.TryGetValue(eventPath, out SoundChannel soundChannel))
-                soundChannel = SoundChannel.Master;
-
-            AudioUtils.PlaySound(soundEvent, soundChannel);
+            if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
+            {
+                var channel = AudioUtils.PlaySound(soundEvent, bus);
+                if (soundEvent.getMode(out MODE mode) == RESULT.OK)
+                {
+                    if ((mode & MODE._3D) == MODE._3D) // if the sound is 3D, we set the position for it.
+                    {
+                        SetChannel3DAttributes(channel, position);
+                    }
+                }
+            }
+            else
+            {
+                if (!CustomSoundChannels.TryGetValue(eventPath, out SoundChannel soundChannel))
+                    soundChannel = SoundChannel.Master;
+                
+                var channel = AudioUtils.PlaySound(soundEvent, soundChannel);
+                if (soundEvent.getMode(out MODE mode) == RESULT.OK)
+                {
+                    if ((mode & MODE._3D) == MODE._3D) // if the sound is 3D, we set the position for it.
+                    {
+                        SetChannel3DAttributes(channel, position);
+                    }
+                }
+            }
+            
             return false;
         }
         
@@ -47,10 +72,18 @@ namespace SMLHelper.V2.Patchers
             soundEvent.getLength(out var length, TIMEUNIT.MS);
             __instance._length = (int)length*1000;
             __instance._lengthSeconds = length;
-            if (!CustomSoundChannels.TryGetValue(sound, out SoundChannel soundChannel))
-                soundChannel = SoundChannel.Master;
-
-            PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, soundChannel);
+            if (CustomSoundBuses.TryGetValue(sound, out Bus bus))
+            {
+                PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, bus);
+            }
+            else
+            {
+                if (!CustomSoundChannels.TryGetValue(sound, out SoundChannel soundChannel))
+                    soundChannel = SoundChannel.Master;
+                
+                PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, soundChannel);
+            }
+            
             if (!string.IsNullOrEmpty(subtitles))
             {
                 Subtitles main = Subtitles.main;
@@ -115,6 +148,148 @@ namespace SMLHelper.V2.Patchers
             
             return false;
         }
+
+        [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.Play))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomEmitter_Play_Prefix(FMOD_CustomEmitter __instance)
+        {
+            if (string.IsNullOrEmpty(__instance.asset?.path) || !CustomSounds.TryGetValue(__instance.asset.path, out var sound)) return true;
+
+            if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel) &&
+                channel.isPlaying(out var playing) == RESULT.OK && (playing || !__instance.restartOnPlay)) // already playing, no need to play it again
+            {
+                return false;
+            }
+
+            var soundPath = __instance.asset.path;
+
+            if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
+            {
+                EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(sound, bus);
+            }
+            else
+            {
+                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
+                    soundChannel = SoundChannel.Master;
+                
+                EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(soundPath, soundChannel);
+            }
+
+            SetChannel3DAttributes(channel, __instance.transform);
+            __instance._playing = true;
+            __instance.OnPlay();
+
+            return false;
+        }
+        
+        [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.Stop))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance)
+        {
+            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
+
+            channel.getChannelGroup(out var channelGroup);
+            channelGroup.stop();
+            __instance._playing = false;
+            __instance.OnStop();
+
+            return false;
+        }
+
+        [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.ManagedUpdate))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomEmitter_ManagedUpdate_Prefix(FMOD_CustomEmitter __instance)
+        {
+            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
+
+            if (__instance.followParent && channel.isPlaying(out var playing) == RESULT.OK && playing)
+            {
+                __instance.attributes = __instance.transform.To3DAttributes();
+                SetChannel3DAttributes(channel, __instance.transform);
+            }
+
+            return false;
+        }
+        
+        [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.SetAsset))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomEmitter_SetAsset_Prefix(FMOD_CustomEmitter __instance, FMODAsset newAsset)
+        {
+            if (!CustomSounds.ContainsKey(newAsset.path)) return true;
+
+            __instance.ReleaseEvent();
+            __instance.asset = newAsset;
+
+            return false;
+        }
+        
+        [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.ReleaseEvent))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomEmitter_ReleaseEvent_Prefix(FMOD_CustomEmitter __instance)
+        {
+            if (__instance.asset == null || CustomSounds.ContainsKey(__instance.asset.path)) return true;
+            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return false; // known sound but not played yet
+
+            channel.stop();
+            EmitterPlayedChannels.Remove(__instance.GetInstanceID());
+
+            return false;
+        }
+        
+        [HarmonyPatch(typeof(FMOD_CustomLoopingEmitter), nameof(FMOD_CustomLoopingEmitter.PlayStopSound))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomLoopingEmitter_PlayStopSound_Prefix(FMOD_CustomLoopingEmitter __instance)
+        {
+            if (__instance.assetStop == null) return true;
+            if (string.IsNullOrEmpty(__instance.assetStop.path) || !CustomSounds.TryGetValue(__instance.assetStop.path, out var sound)) return true;
+            
+            var soundPath = __instance.assetStop.path;
+            Channel channel;
+            if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
+            {
+                channel = AudioUtils.PlaySound(sound, bus);
+            }
+            else
+            {
+                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
+                    soundChannel = SoundChannel.Master;
+                
+                channel = AudioUtils.PlaySound(soundPath, soundChannel);
+            }
+            
+            SetChannel3DAttributes(channel, __instance.transform);
+            __instance.timeLastStopSound = Time.time;
+
+            return false;
+        }
+        
+        [HarmonyPatch(typeof(FMOD_CustomLoopingEmitter), nameof(FMOD_CustomLoopingEmitter.OnPlay))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomLoopingEmitter_OnPlay_Prefix(FMOD_CustomLoopingEmitter __instance)
+        {
+            if (__instance.assetStart == null) return true;
+            if (string.IsNullOrEmpty(__instance.assetStart.path) || !CustomSounds.TryGetValue(__instance.assetStart.path, out var sound)) return true;
+            
+            var soundPath = __instance.assetStart.path;
+            Channel channel;
+            if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
+            {
+                channel = AudioUtils.PlaySound(sound, bus);
+            }
+            else
+            {
+                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
+                    soundChannel = SoundChannel.Master;
+                
+                channel = AudioUtils.PlaySound(soundPath, soundChannel);
+            }
+            
+            SetChannel3DAttributes(channel, __instance.transform);
+            __instance.timeLastStopSound = Time.time;
+            BehaviourUpdateUtils.Register(__instance);
+
+            return false;
+        }
 #elif BELOWZERO
         [HarmonyPatch(typeof(FMODUWE), nameof(FMODUWE.PlayOneShotImpl))]
         [HarmonyPrefix]
@@ -122,10 +297,32 @@ namespace SMLHelper.V2.Patchers
         {
             if (string.IsNullOrEmpty(eventPath) || !CustomSounds.TryGetValue(eventPath, out Sound soundEvent)) return true;
 
-            if (!CustomSoundChannels.TryGetValue(eventPath, out SoundChannel soundChannel))
-                soundChannel = SoundChannel.Master;
-
-            AudioUtils.PlaySound(soundEvent, soundChannel);
+            if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
+            {
+                var channel = AudioUtils.PlaySound(soundEvent, bus);
+                if (soundEvent.getMode(out MODE mode) == RESULT.OK)
+                {
+                    if ((mode & MODE._3D) == MODE._3D) // if the sound is 3D, we set the position for it.
+                    {
+                        SetChannel3DAttributes(channel, position);
+                    }
+                }
+            }
+            else
+            {
+                if (!CustomSoundChannels.TryGetValue(eventPath, out SoundChannel soundChannel))
+                    soundChannel = SoundChannel.Master;
+                
+                var channel = AudioUtils.PlaySound(soundEvent, soundChannel);
+                if (soundEvent.getMode(out MODE mode) == RESULT.OK)
+                {
+                    if ((mode & MODE._3D) == MODE._3D) // if the sound is 3D, we set the position for it.
+                    {
+                        SetChannel3DAttributes(channel, position);
+                    }
+                }
+            }
+            
             return false;
         }
 
@@ -145,10 +342,18 @@ namespace SMLHelper.V2.Patchers
             });
             __instance._length = sound.Length;
             __instance._lengthSeconds = __instance._length * 0.001f;
-            if (!CustomSoundChannels.TryGetValue(sound, out SoundChannel soundChannel))
-                soundChannel = SoundChannel.Master;
-
-            PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, soundChannel);
+            if (CustomSoundBuses.TryGetValue(sound, out Bus bus))
+            {
+                PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, bus);
+            }
+            else
+            {
+                if (!CustomSoundChannels.TryGetValue(sound, out SoundChannel soundChannel))
+                    soundChannel = SoundChannel.Master;
+                
+                PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, soundChannel);
+            }
+            
             return false;
         }
         
@@ -204,6 +409,169 @@ namespace SMLHelper.V2.Patchers
             
             return false;
         }
+        
+        [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.Play))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomEmitter_Play_Prefix(FMOD_CustomEmitter __instance)
+        {
+            if (string.IsNullOrEmpty(__instance.asset?.path) || !CustomSounds.TryGetValue(__instance.asset.path, out var sound)) return true;
+
+            if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel) &&
+                channel.isPlaying(out var playing) == RESULT.OK && (playing || !__instance.restartOnPlay)) // already playing, no need to play it again
+            {
+                return false;
+            }
+
+            var soundPath = __instance.asset.path;
+
+            if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
+            {
+                EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(sound, bus);
+            }
+            else
+            {
+                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
+                    soundChannel = SoundChannel.Master;
+                
+                EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(soundPath, soundChannel);
+            }
+
+            SetChannel3DAttributes(channel, __instance.transform);
+            __instance._playing = true;
+            __instance.OnPlay();
+
+            return false;
+        }
+        
+        [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.Stop))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance)
+        {
+            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
+
+            channel.getChannelGroup(out var channelGroup);
+            channelGroup.stop();
+            __instance._playing = false;
+            __instance.OnStop();
+
+            return false;
+        }
+
+        [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.ManagedUpdate))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomEmitter_ManagedUpdate_Prefix(FMOD_CustomEmitter __instance)
+        {
+            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
+
+            if (__instance.followParent && channel.isPlaying(out var playing) == RESULT.OK && playing)
+            {
+                __instance.attributes = __instance.transform.To3DAttributes();
+                SetChannel3DAttributes(channel, __instance.transform);
+            }
+
+            return false;
+        }
+        
+        [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.SetAsset))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomEmitter_SetAsset_Prefix(FMOD_CustomEmitter __instance, FMODAsset newAsset)
+        {
+            if (newAsset == null) return false;
+            if (!CustomSounds.ContainsKey(newAsset.path)) return true;
+
+            __instance.ReleaseEvent();
+            __instance.asset = newAsset;
+
+            return false;
+        }
+        
+        [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.ReleaseEvent))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomEmitter_ReleaseEvent_Prefix(FMOD_CustomEmitter __instance)
+        {
+            if (__instance.asset == null || CustomSounds.ContainsKey(__instance.asset.path)) return true;
+            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return false; // known sound but not played yet
+
+            channel.stop();
+            EmitterPlayedChannels.Remove(__instance.GetInstanceID());
+
+            return false;
+        }
+        
+        [HarmonyPatch(typeof(FMOD_CustomLoopingEmitter), nameof(FMOD_CustomLoopingEmitter.PlayStopSound))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomLoopingEmitter_PlayStopSound_Prefix(FMOD_CustomLoopingEmitter __instance)
+        {
+            if (__instance.assetStop == null) return true;
+            if (string.IsNullOrEmpty(__instance.assetStop.path) || !CustomSounds.TryGetValue(__instance.assetStop.path, out var sound)) return true;
+            
+            var soundPath = __instance.assetStop.path;
+            Channel channel;
+            if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
+            {
+                channel = AudioUtils.PlaySound(sound, bus);
+            }
+            else
+            {
+                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
+                    soundChannel = SoundChannel.Master;
+                
+                channel = AudioUtils.PlaySound(soundPath, soundChannel);
+            }
+            
+            SetChannel3DAttributes(channel, __instance.transform);
+            __instance.timeLastStopSound = Time.time;
+
+            return false;
+        }
+        
+        [HarmonyPatch(typeof(FMOD_CustomLoopingEmitter), nameof(FMOD_CustomLoopingEmitter.OnPlay))]
+        [HarmonyPrefix]
+        public static bool FMOD_CustomLoopingEmitter_OnPlay_Prefix(FMOD_CustomLoopingEmitter __instance)
+        {
+            if (__instance.assetStart == null) return true;
+            if (string.IsNullOrEmpty(__instance.assetStart.path) || !CustomSounds.TryGetValue(__instance.assetStart.path, out var sound)) return true;
+            
+            var soundPath = __instance.assetStart.path;
+            Channel channel;
+            if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
+            {
+                channel = AudioUtils.PlaySound(sound, bus);
+            }
+            else
+            {
+                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
+                    soundChannel = SoundChannel.Master;
+                
+                channel = AudioUtils.PlaySound(soundPath, soundChannel);
+            }
+            
+            SetChannel3DAttributes(channel, __instance.transform);
+            __instance.timeLastStopSound = Time.time;
+            BehaviourUpdateUtils.Register(__instance);
+
+            return false;
+        }
 #endif
+
+        private static void SetChannel3DAttributes(Channel channel, Transform transform)
+        {
+            var attributes = transform.To3DAttributes();
+#if SUBNAUTICA_STABLE
+            channel.set3DAttributes(ref attributes.position, ref attributes.velocity, ref attributes.forward);
+#else
+            channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
+#endif
+        }
+        
+        private static void SetChannel3DAttributes(Channel channel, Vector3 position)
+        {
+            var attributes = position.To3DAttributes();
+#if SUBNAUTICA_STABLE
+            channel.set3DAttributes(ref attributes.position, ref attributes.velocity, ref attributes.forward);
+#else
+            channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
+#endif
+        }
     }
 }
