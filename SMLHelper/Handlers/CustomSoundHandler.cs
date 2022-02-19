@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Handlers
+﻿using NotImplementedException = System.NotImplementedException;
+
+namespace SMLHelper.V2.Handlers
 {
     using FMOD;
     using FMOD.Studio;
@@ -47,6 +49,19 @@
         /// </summary>
         /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
         /// <param name="filePath">The file path on disk of the sound file to load.</param>
+        /// <param name="busPath">The bus path to play the sound on.</param>
+        /// <returns>the <see cref="Sound"/> loaded</returns>
+        Sound ICustomSoundHandler.RegisterCustomSound(string id, string filePath, string busPath)
+        {
+            var bus = RuntimeManager.GetBus(busPath);
+            return Main.RegisterCustomSound(id, filePath, bus);
+        }
+
+        /// <summary>
+        /// Register a Custom sound by file path. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="filePath">The file path on disk of the sound file to load.</param>
         /// <param name="bus">The bus to play the sound on.</param>
         /// <returns>the <see cref="Sound"/> loaded</returns>
         Sound ICustomSoundHandler.RegisterCustomSound(string id, string filePath, Bus bus)
@@ -77,6 +92,19 @@
         /// </summary>
         /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
         /// <param name="audio">The AudioClip to register.</param>
+        /// <param name="busPath">The bus path to play the sound on.</param>
+        /// <returns>the <see cref="Sound"/> loaded</returns>
+        Sound ICustomSoundHandler.RegisterCustomSound(string id, AudioClip audio, string busPath)
+        {
+            var bus = RuntimeManager.GetBus(busPath);
+            return Main.RegisterCustomSound(id, audio, bus);
+        }
+
+        /// <summary>
+        /// Register a custom sound by an <see cref="AudioClip"/> instance. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="audio">The AudioClip to register.</param>
         /// <param name="bus">The bus to play the sound on.</param>
         /// <returns>the <see cref="Sound"/> loaded</returns>
         Sound ICustomSoundHandler.RegisterCustomSound(string id, AudioClip audio, Bus bus)
@@ -98,6 +126,18 @@
         {
             CustomSoundPatcher.CustomSounds[id] = sound;
             CustomSoundPatcher.CustomSoundChannels[id] = soundChannel;
+        }
+
+        /// <summary>
+        /// Register a Custom sound that has been loaded using AudioUtils. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="sound">The pre loaded sound</param>
+        /// <param name="busPath">The bus path to play the sound on.</param>
+        void ICustomSoundHandler.RegisterCustomSound(string id, Sound sound, string busPath)
+        {
+            var bus = RuntimeManager.GetBus(busPath);
+            Main.RegisterCustomSound(id, sound, bus);
         }
 
         /// <summary>
@@ -151,6 +191,18 @@
         {
             return Main.RegisterCustomSound(id, filePath, soundChannel);
         }
+
+        /// <summary>
+        /// Register a Custom sound by file path. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="filePath">The file path on disk of the sound file to load.</param>
+        /// <param name="busPath">The bus path to play the sound on.</param>
+        /// <returns>the <see cref="Sound"/> loaded</returns>
+        public static Sound RegisterCustomSound(string id, string filePath, string busPath)
+        {
+            return Main.RegisterCustomSound(id, filePath, busPath);
+        }
         
         /// <summary>
         /// Register a Custom sound by file path. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
@@ -174,6 +226,18 @@
         public static Sound RegisterCustomSound(string id, AudioClip audio, SoundChannel soundChannel = SoundChannel.Master)
         {
             return Main.RegisterCustomSound(id, audio, soundChannel);
+        }
+
+        /// <summary>
+        /// Register a custom sound by an <see cref="AudioClip"/> instance. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="audio">The AudioClip to register.</param>
+        /// <param name="busPath">The bus path to play the sound on.</param>
+        /// <returns>the <see cref="Sound"/> loaded</returns>
+        public static Sound RegisterCustomSound(string id, AudioClip audio, string busPath)
+        {
+            return Main.RegisterCustomSound(id, audio, busPath);
         }
 
         /// <summary>
@@ -208,8 +272,7 @@
         /// <param name="busPath">The bus path to play the sound on.</param>
         public static void RegisterCustomSound(string id, Sound sound, string busPath)
         {
-            var bus = RuntimeManager.GetBus(busPath);
-            Main.RegisterCustomSound(id, sound, bus);
+            Main.RegisterCustomSound(id, sound, busPath);
         }
         
         /// <summary>

@@ -24,6 +24,15 @@
         /// </summary>
         /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
         /// <param name="filePath">The file path on disk of the sound file to load.</param>
+        /// <param name="busPath">The bus path to play the sound on.</param>
+        /// <returns>the <see cref="Sound"/> loaded</returns>
+        Sound RegisterCustomSound(string id, string filePath, string busPath);
+        
+        /// <summary>
+        /// Register a Custom sound by file path. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="filePath">The file path on disk of the sound file to load.</param>
         /// <param name="bus">The bus to play the sound on.</param>
         /// <returns>the <see cref="Sound"/> loaded</returns>
         Sound RegisterCustomSound(string id, string filePath, Bus bus);
@@ -42,6 +51,15 @@
         /// </summary>
         /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
         /// <param name="audio">The AudioClip to register.</param>
+        /// <param name="busPath">The bus path to play the sound on.</param>
+        /// <returns>the <see cref="Sound"/> loaded</returns>
+        Sound RegisterCustomSound(string id, AudioClip audio, string busPath);
+        
+        /// <summary>
+        /// Register a custom sound by an <see cref="AudioClip"/> instance. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="audio">The AudioClip to register.</param>
         /// <param name="bus">The bus to play the sound on.</param>
         /// <returns>the <see cref="Sound"/> loaded</returns>
         Sound RegisterCustomSound(string id, AudioClip audio, Bus bus);
@@ -53,6 +71,14 @@
         /// <param name="sound">The pre loaded sound</param>
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. <see cref="SoundChannel"/></param>
         void RegisterCustomSound(string id, Sound sound, SoundChannel soundChannel = SoundChannel.Master);
+
+        /// <summary>
+        /// Register a Custom sound that has been loaded using AudioUtils. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="sound">The pre loaded sound</param>
+        /// <param name="busPath">The bus path to play the sound on.</param>
+        void RegisterCustomSound(string id, Sound sound, string busPath);
         
         /// <summary>
         /// Register a Custom sound that has been loaded using AudioUtils. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
