@@ -157,6 +157,8 @@
     <Compile Include="Crafting\RecipeData.cs" />
     <Compile Include="Crafting\TechData.cs" />
     <Compile Include="Commands\ConsoleCommandAttribute.cs" />
+    <Compile Include="FMod\Interfaces\IFModSound.cs" />
+    <Compile Include="FMod\FModMultiSounds.cs" />
     <Compile Include="Handlers\BackgroundTypeHandler.cs" />
     <Compile Include="Handlers\CoordinatedSpawnsHandler.cs" />
     <Compile Include="Handlers\CustomSoundHandler.cs" />
@@ -323,7 +325,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

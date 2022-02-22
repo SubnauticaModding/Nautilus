@@ -1,4 +1,5 @@
-﻿using NotImplementedException = System.NotImplementedException;
+﻿using SMLHelper.V2.FMod.Interfaces;
+using NotImplementedException = System.NotImplementedException;
 
 namespace SMLHelper.V2.Handlers
 {
@@ -113,6 +114,16 @@ namespace SMLHelper.V2.Handlers
             CustomSoundPatcher.CustomSounds[id] = sound;
             CustomSoundPatcher.CustomSoundBuses[id] = bus;
             return sound;
+        }
+
+        /// <summary>
+        /// Registers a Custom sound by an <see cref="IFModSound"/> instance. IFModSound instances have custom logic for playing sounds.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="fModSound">The sound IFModSound object to register.</param>
+        void ICustomSoundHandler.RegisterCustomSound(string id, IFModSound fModSound)
+        {
+            CustomSoundPatcher.CustomFModSounds[id] = fModSound;
         }
 
         /// <summary>
@@ -238,6 +249,16 @@ namespace SMLHelper.V2.Handlers
         public static Sound RegisterCustomSound(string id, AudioClip audio, string busPath)
         {
             return Main.RegisterCustomSound(id, audio, busPath);
+        }
+
+        /// <summary>
+        /// Registers a Custom sound by an <see cref="IFModSound"/> instance. IFModSound instances have custom logic for playing sounds.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="fModSound">The sound IFModSound object to register.</param>
+        public static void RegisterCustomSound(string id, IFModSound fModSound)
+        {
+            Main.RegisterCustomSound(id, fModSound);
         }
 
         /// <summary>

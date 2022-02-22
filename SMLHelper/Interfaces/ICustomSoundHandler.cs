@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Interfaces
+﻿using SMLHelper.V2.FMod.Interfaces;
+
+namespace SMLHelper.V2.Interfaces
 {
     using FMOD;
     using FMOD.Studio;
@@ -63,6 +65,13 @@
         /// <param name="bus">The bus to play the sound on.</param>
         /// <returns>the <see cref="Sound"/> loaded</returns>
         Sound RegisterCustomSound(string id, AudioClip audio, Bus bus);
+        
+        /// <summary>
+        /// Registers a Custom sound by an <see cref="IFModSound"/> instance. IFModSound instances have custom logic for playing sounds.
+        /// </summary>
+        /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
+        /// <param name="fModSound">The sound IFModSound object to register.</param>
+        void RegisterCustomSound(string id, IFModSound fModSound);
 
         /// <summary>
         /// Register a Custom sound that has been loaded using AudioUtils. Some vanilla game sounds can be overridden by matching the id to the <see cref="FMODAsset.path"/>.
