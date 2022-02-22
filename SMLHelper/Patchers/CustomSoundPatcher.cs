@@ -35,36 +35,24 @@ namespace SMLHelper.V2.Patchers
         {
             if (string.IsNullOrEmpty(eventPath) || !CustomSounds.TryGetValue(eventPath, out Sound soundEvent)) return true;
 
+            Channel channel;
             if (CustomFModSounds.TryGetValue(eventPath, out var fModSound))
             {
-                var channel = fModSound.PlaySound();
-                SetChannel3DAttributes(channel, position);
+                channel = fModSound.PlaySound();
             }
             else if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
             {
-                var channel = AudioUtils.PlaySound(soundEvent, bus);
-                if (soundEvent.getMode(out MODE mode) == RESULT.OK)
-                {
-                    if ((mode & MODE._3D) == MODE._3D) // if the sound is 3D, we set the position for it.
-                    {
-                        SetChannel3DAttributes(channel, position);
-                    }
-                }
+                channel = AudioUtils.PlaySound(soundEvent, bus);
             }
             else
             {
                 if (!CustomSoundChannels.TryGetValue(eventPath, out SoundChannel soundChannel))
                     soundChannel = SoundChannel.Master;
                 
-                var channel = AudioUtils.PlaySound(soundEvent, soundChannel);
-                if (soundEvent.getMode(out MODE mode) == RESULT.OK)
-                {
-                    if ((mode & MODE._3D) == MODE._3D) // if the sound is 3D, we set the position for it.
-                    {
-                        SetChannel3DAttributes(channel, position);
-                    }
-                }
+                channel = AudioUtils.PlaySound(soundEvent, soundChannel);
             }
+            
+            SetChannel3DAttributes(channel, position);
             
             return false;
         }
@@ -322,36 +310,24 @@ namespace SMLHelper.V2.Patchers
         {
             if (string.IsNullOrEmpty(eventPath) || !CustomSounds.TryGetValue(eventPath, out Sound soundEvent)) return true;
 
+            Channel channel;
             if (CustomFModSounds.TryGetValue(eventPath, out var fModSound))
             {
-                var channel = fModSound.PlaySound();
-                SetChannel3DAttributes(channel, position);
+                channel = fModSound.PlaySound();
             }
             if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
             {
-                var channel = AudioUtils.PlaySound(soundEvent, bus);
-                if (soundEvent.getMode(out MODE mode) == RESULT.OK)
-                {
-                    if ((mode & MODE._3D) == MODE._3D) // if the sound is 3D, we set the position for it.
-                    {
-                        SetChannel3DAttributes(channel, position);
-                    }
-                }
+                channel = AudioUtils.PlaySound(soundEvent, bus);
             }
             else
             {
                 if (!CustomSoundChannels.TryGetValue(eventPath, out SoundChannel soundChannel))
                     soundChannel = SoundChannel.Master;
                 
-                var channel = AudioUtils.PlaySound(soundEvent, soundChannel);
-                if (soundEvent.getMode(out MODE mode) == RESULT.OK)
-                {
-                    if ((mode & MODE._3D) == MODE._3D) // if the sound is 3D, we set the position for it.
-                    {
-                        SetChannel3DAttributes(channel, position);
-                    }
-                }
+                channel = AudioUtils.PlaySound(soundEvent, soundChannel);
             }
+            
+            SetChannel3DAttributes(channel, position);
             
             return false;
         }
