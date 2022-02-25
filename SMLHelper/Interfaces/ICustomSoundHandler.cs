@@ -110,5 +110,13 @@ namespace SMLHelper.V2.Interfaces
         /// <param name="sound">Outputs the <see cref="Sound"/> if found and null if not found.</param>
         /// <returns>true or false depending on if the id was found</returns>
         bool TryGetCustomSound(string id, out Sound sound);
+
+        /// <summary>
+        /// Try to get a playing custom sound channel for an emitter
+        /// </summary>
+        /// <param name="id">The emitter's ID, can be retrieved by calling <c>object.GetInstanceID()</c>.</param>
+        /// <param name="channel">Outputs the <see cref="Channel"/>.</param>
+        /// <returns>True if found, otherwise false.</returns>
+        bool TryGetCustomSoundChannel(int id, out Channel channel);
     }
 }

@@ -185,7 +185,17 @@ namespace SMLHelper.V2.Handlers
         {
             return CustomSoundPatcher.CustomSounds.TryGetValue(id, out sound);
         }
-        
+
+        /// <summary>
+        /// Try to get a playing custom sound channel for an emitter
+        /// </summary>
+        /// <param name="id">The emitter's ID, can be retrieved by calling <c>object.GetInstanceID()</c>.</param>
+        /// <param name="channel">Outputs the <see cref="Channel"/>.</param>
+        /// <returns>True if found, otherwise false.</returns>
+        bool ICustomSoundHandler.TryGetCustomSoundChannel(int id, out Channel channel)
+        {
+            return CustomSoundPatcher.EmitterPlayedChannels.TryGetValue(id, out channel);
+        }
 
         #endregion
         #region Static Methods
@@ -325,6 +335,17 @@ namespace SMLHelper.V2.Handlers
         public static bool TryGetCustomSound(string id, out Sound sound)
         {
             return Main.TryGetCustomSound(id, out sound);
+        }
+
+        /// <summary>
+        /// Try to get a playing custom sound channel for an emitter
+        /// </summary>
+        /// <param name="id">The emitter's ID, can be retrieved by calling <c>object.GetInstanceID()</c>.</param>
+        /// <param name="channel">Outputs the <see cref="Channel"/>.</param>
+        /// <returns>True if found, otherwise false.</returns>
+        public static bool TryGetCustomSoundChannel(int id, out Channel channel)
+        {
+            return Main.TryGetCustomSoundChannel(id, out channel);
         }
 
         #endregion

@@ -17,9 +17,9 @@ namespace SMLHelper.V2.Patchers
         internal static readonly SelfCheckingDictionary<string, SoundChannel> CustomSoundChannels = new("CustomSoundChannels");
         internal static readonly SelfCheckingDictionary<string, Bus> CustomSoundBuses = new("CustomSoundBuses");
         internal static readonly SelfCheckingDictionary<string, IFModSound> CustomFModSounds = new("CustoomFModSounds");
+        internal static readonly Dictionary<int, Channel> EmitterPlayedChannels = new();
 
         private static readonly Dictionary<string, Channel> PlayedChannels = new();
-        private static readonly Dictionary<int, Channel> EmitterPlayedChannels = new();
 
         internal static void Patch(Harmony harmony)
         {
