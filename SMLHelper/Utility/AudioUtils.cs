@@ -1,4 +1,6 @@
-﻿using FMOD.Studio;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FMOD.Studio;
 
 namespace SMLHelper.V2.Utility
 {
@@ -38,6 +40,17 @@ namespace SMLHelper.V2.Utility
         public static Sound CreateSound(AudioClip audio, MODE mode = MODE.DEFAULT)
         {
             return CreateSoundFromAudioClip(audio, mode);
+        }
+
+        /// <summary>
+        /// Converts an <see cref="AudioClip"/> collection to an FMOD <see cref="Sound"/> collection.
+        /// </summary>
+        /// <param name="clips">AudioClips to convert</param>
+        /// <param name="mode">The mode to set the sound to</param>
+        /// <returns>A collection of FMOD Sounds.</returns>
+        public static IEnumerable<Sound> AudioClipsToSounds(IEnumerable<AudioClip> clips, MODE mode = MODE.DEFAULT)
+        {
+            return clips.Select(clip => CreateSound(clip, mode)).ToList();
         }
 
         /// <summary>
