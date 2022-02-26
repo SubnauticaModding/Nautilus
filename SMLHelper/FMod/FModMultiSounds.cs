@@ -1,3 +1,4 @@
+using System.Linq;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
@@ -12,6 +13,11 @@ namespace SMLHelper.V2.FMod
     /// </summary>
     public class FModMultiSounds : IFModSound
     {
+        /// <summary>
+        /// Makes the sounds play in a randomized order. when <c>false</c>, sounds will play subsequently.
+        /// </summary>
+        public bool randomizeSounds;
+        
         private Sound[] _sounds;
 
         private Bus _bus;
@@ -35,23 +41,34 @@ namespace SMLHelper.V2.FMod
         /// </summary>
         /// <param name="sounds">The sounds to register for this object. Please ensure that none of the sounds are on <see cref="MODE.LOOP_NORMAL"/> or <see cref="MODE.LOOP_BIDI"/> modes.</param>
         /// <param name="busPath"><see cref="Bus"/> path to play these sounds under.</param>
-        public FModMultiSounds(Sound[] sounds, string busPath)
+        /// <param name="randomizeSounds">Makes the sounds play in a randomized order. when <c>false</c>, sounds will play subsequently.</param>
+        public FModMultiSounds(Sound[] sounds, string busPath, bool randomizeSounds = false)
         {
             _sounds = sounds;
             _bus = RuntimeManager.GetBus(busPath);
+            this.randomizeSounds = randomizeSounds;
         }
         
         /// <summary>
-        /// Makes the sounds play in a randomized order. when <c>false</c>, sounds will play subsequently.<br/>
-        /// Defaults to <c>false</c>.
+        /// Constructs a new instance of <see cref="FModMultiSounds"/>. Used to register FMOD events with multiple sounds in one event.
         /// </summary>
-        public bool RandomizeSounds { get; set; }
+        /// <param name="clips">The clips to register for this object.</param>
+        /// <param name="mode">The mode to set the clips to. Cannot be <c>MODE.LOOP_NORMAL</c> or <c>MODE.LOOP_BIDI</c>.</param>
+        /// <param name="busPath"><see cref="Bus"/> path to play these sounds under.</param>
+        /// <param name="randomizeSounds">Makes the sounds play in a randomized order. when <c>false</c>, sounds will play subsequently.</param>
+        public FModMultiSounds(AudioClip[] clips, MODE mode, string busPath, bool randomizeSounds = false)
+        {
+            mode &= ~MODE.LOOP_NORMAL & ~MODE.LOOP_BIDI; // Remove unsupported modes
+            _sounds = AudioUtils.AudioClipsToSounds(clips, mode).ToArray();
+            _bus = RuntimeManager.GetBus(busPath);
+            this.randomizeSounds = randomizeSounds;
+        }
 
         Channel IFModSound.PlaySound()
         {
             if (_sounds is {Length: > 0})
             {
-                if (RandomizeSounds)
+                if (randomizeSounds)
                 {
                     return AudioUtils.PlaySound(_sounds[Random.Range(0, _sounds.Length)], _bus);
                 }
