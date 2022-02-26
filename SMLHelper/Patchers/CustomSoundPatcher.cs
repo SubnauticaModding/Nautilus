@@ -33,7 +33,8 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMODUWE_PlayOneShotImpl_Prefix(string eventPath, Vector3 position, float volume)
         {
-            if (string.IsNullOrEmpty(eventPath) || !CustomSounds.TryGetValue(eventPath, out Sound soundEvent)) return true;
+            if (string.IsNullOrEmpty(eventPath) || !CustomSounds.TryGetValue(eventPath, out Sound soundEvent) 
+                                                && !CustomFModSounds.ContainsKey(eventPath)) return true;
 
             Channel channel;
             if (CustomFModSounds.TryGetValue(eventPath, out var fModSound))
@@ -61,7 +62,7 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool SoundQueue_Play_Prefix(SoundQueue __instance, string sound, string subtitles)
         {
-            if (string.IsNullOrEmpty(sound) || !CustomSounds.TryGetValue(sound, out Sound soundEvent)) return true;
+            if (string.IsNullOrEmpty(sound) || !CustomSounds.TryGetValue(sound, out Sound soundEvent) && !CustomFModSounds.ContainsKey(sound)) return true;
 
             __instance.Stop();
             __instance._current = sound;
@@ -153,7 +154,8 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_Play_Prefix(FMOD_CustomEmitter __instance)
         {
-            if (string.IsNullOrEmpty(__instance.asset?.path) || !CustomSounds.TryGetValue(__instance.asset.path, out var sound)) return true;
+            if (string.IsNullOrEmpty(__instance.asset?.path) || !CustomSounds.TryGetValue(__instance.asset.path, out var sound) 
+                                                             && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
 
             if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel) &&
                 channel.isPlaying(out var playing) == RESULT.OK && (playing || !__instance.restartOnPlay)) // already playing, no need to play it again
@@ -220,7 +222,7 @@ namespace SMLHelper.V2.Patchers
         public static bool FMOD_CustomEmitter_SetAsset_Prefix(FMOD_CustomEmitter __instance, FMODAsset newAsset)
         {
             if (newAsset == null) return false;
-            if (!CustomSounds.ContainsKey(newAsset.path)) return true;
+            if (!CustomSounds.ContainsKey(newAsset.path) && !CustomFModSounds.ContainsKey(newAsset.path)) return true;
 
             __instance.ReleaseEvent();
             __instance.asset = newAsset;
@@ -232,7 +234,7 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_ReleaseEvent_Prefix(FMOD_CustomEmitter __instance)
         {
-            if (__instance.asset == null || CustomSounds.ContainsKey(__instance.asset.path)) return true;
+            if (__instance.asset == null || !CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
             if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return false; // known sound but not played yet
 
             channel.stop();
@@ -246,7 +248,8 @@ namespace SMLHelper.V2.Patchers
         public static bool FMOD_CustomLoopingEmitter_PlayStopSound_Prefix(FMOD_CustomLoopingEmitter __instance)
         {
             if (__instance.assetStop == null) return true;
-            if (string.IsNullOrEmpty(__instance.assetStop.path) || !CustomSounds.TryGetValue(__instance.assetStop.path, out var sound)) return true;
+            if (string.IsNullOrEmpty(__instance.assetStop.path) || !CustomSounds.TryGetValue(__instance.assetStop.path, out var sound) 
+                && !CustomFModSounds.ContainsKey(__instance.assetStop.path)) return true;
             
             var soundPath = __instance.assetStop.path;
             Channel channel;
@@ -277,7 +280,8 @@ namespace SMLHelper.V2.Patchers
         public static bool FMOD_CustomLoopingEmitter_OnPlay_Prefix(FMOD_CustomLoopingEmitter __instance)
         {
             if (__instance.assetStart == null) return true;
-            if (string.IsNullOrEmpty(__instance.assetStart.path) || !CustomSounds.TryGetValue(__instance.assetStart.path, out var sound)) return true;
+            if (string.IsNullOrEmpty(__instance.assetStart.path) || !CustomSounds.TryGetValue(__instance.assetStart.path, out var sound) 
+                && !CustomFModSounds.ContainsKey(__instance.assetStart.path)) return true;
             
             var soundPath = __instance.assetStart.path;
             Channel channel;
@@ -308,14 +312,15 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMODUWE_PlayOneShotImpl_Prefix(string eventPath, Vector3 position, float volume)
         {
-            if (string.IsNullOrEmpty(eventPath) || !CustomSounds.TryGetValue(eventPath, out Sound soundEvent)) return true;
+            if (string.IsNullOrEmpty(eventPath) || !CustomSounds.TryGetValue(eventPath, out Sound soundEvent) 
+                                                && !CustomFModSounds.ContainsKey(eventPath)) return true;
 
             Channel channel;
             if (CustomFModSounds.TryGetValue(eventPath, out var fModSound))
             {
                 channel = fModSound.PlaySound();
             }
-            if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
+            else if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
             {
                 channel = AudioUtils.PlaySound(soundEvent, bus);
             }
@@ -336,7 +341,7 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool SoundQueue_Play_Prefix(SoundQueue __instance, string sound, SoundHost host, string subtitles, int subtitlesLine, int timelinePosition = 0)
         {
-            if (string.IsNullOrEmpty(sound) || !CustomSounds.TryGetValue(sound, out Sound soundEvent)) return true;
+            if (string.IsNullOrEmpty(sound) || !CustomSounds.TryGetValue(sound, out Sound soundEvent) && !CustomFModSounds.ContainsKey(sound)) return true;
 
             __instance.StopImpl();
             __instance._current =  new SoundQueue.Entry?(new SoundQueue.Entry
@@ -371,7 +376,8 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool SoundQueue_Stop_Prefix(SoundQueue __instance)
         {
-            if (__instance._current is null || string.IsNullOrEmpty(__instance._current.Value.sound) || !PlayedChannels.TryGetValue(__instance._current.Value.sound, out var channel)) return true;
+            if (__instance._current is null || string.IsNullOrEmpty(__instance._current.Value.sound) 
+                                            || !PlayedChannels.TryGetValue(__instance._current.Value.sound, out var channel)) return true;
 
             channel.stop();
             PlayedChannels.Remove(__instance._current.Value.sound);
@@ -424,7 +430,8 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_Play_Prefix(FMOD_CustomEmitter __instance)
         {
-            if (string.IsNullOrEmpty(__instance.asset?.path) || !CustomSounds.TryGetValue(__instance.asset.path, out var sound)) return true;
+            if (string.IsNullOrEmpty(__instance.asset?.path) || !CustomSounds.TryGetValue(__instance.asset.path, out var sound) 
+                && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
 
             if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel) &&
                 channel.isPlaying(out var playing) == RESULT.OK && (playing || !__instance.restartOnPlay)) // already playing, no need to play it again
@@ -491,7 +498,7 @@ namespace SMLHelper.V2.Patchers
         public static bool FMOD_CustomEmitter_SetAsset_Prefix(FMOD_CustomEmitter __instance, FMODAsset newAsset)
         {
             if (newAsset == null) return false;
-            if (!CustomSounds.ContainsKey(newAsset.path)) return true;
+            if (!CustomSounds.ContainsKey(newAsset.path) && !CustomFModSounds.ContainsKey(newAsset.path)) return true;
 
             __instance.ReleaseEvent();
             __instance.asset = newAsset;
@@ -503,7 +510,7 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_ReleaseEvent_Prefix(FMOD_CustomEmitter __instance)
         {
-            if (__instance.asset == null || CustomSounds.ContainsKey(__instance.asset.path)) return true;
+            if (__instance.asset == null || !CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
             if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return false; // known sound but not played yet
 
             channel.stop();
@@ -517,7 +524,8 @@ namespace SMLHelper.V2.Patchers
         public static bool FMOD_CustomLoopingEmitter_PlayStopSound_Prefix(FMOD_CustomLoopingEmitter __instance)
         {
             if (__instance.assetStop == null) return true;
-            if (string.IsNullOrEmpty(__instance.assetStop.path) || !CustomSounds.TryGetValue(__instance.assetStop.path, out var sound)) return true;
+            if (string.IsNullOrEmpty(__instance.assetStop.path) || !CustomSounds.TryGetValue(__instance.assetStop.path, out var sound) 
+                && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
             
             var soundPath = __instance.assetStop.path;
             Channel channel;
@@ -548,7 +556,8 @@ namespace SMLHelper.V2.Patchers
         public static bool FMOD_CustomLoopingEmitter_OnPlay_Prefix(FMOD_CustomLoopingEmitter __instance)
         {
             if (__instance.assetStart == null) return true;
-            if (string.IsNullOrEmpty(__instance.assetStart.path) || !CustomSounds.TryGetValue(__instance.assetStart.path, out var sound)) return true;
+            if (string.IsNullOrEmpty(__instance.assetStart.path) || !CustomSounds.TryGetValue(__instance.assetStart.path, out var sound) 
+                && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
             
             var soundPath = __instance.assetStart.path;
             Channel channel;
