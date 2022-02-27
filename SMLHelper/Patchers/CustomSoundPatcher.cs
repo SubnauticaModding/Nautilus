@@ -54,6 +54,7 @@ namespace SMLHelper.V2.Patchers
             }
             
             SetChannel3DAttributes(channel, position);
+            channel.setVolume(volume);
             
             return false;
         }
