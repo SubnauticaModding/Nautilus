@@ -68,8 +68,8 @@ namespace SMLHelper.V2.Patchers
             __instance.Stop();
             __instance._current = sound;
             soundEvent.getLength(out var length, TIMEUNIT.MS);
-            __instance._length = (int)length*1000;
-            __instance._lengthSeconds = length;
+            __instance._length = (int)length;
+            __instance._lengthSeconds = length * 0.001f;
             if (CustomFModSounds.TryGetValue(sound, out var fModSound))
             {
                 PlayedChannels[sound] = fModSound.PlaySound();
@@ -123,8 +123,8 @@ namespace SMLHelper.V2.Patchers
 #endif
             
             channel.getPosition(out var position, TIMEUNIT.MS);
-            __instance.position = (int)position*1000;
-            __instance._positionSeconds = position;
+            __instance._position = (int)position;
+            __instance._positionSeconds = position * 0.001f;
             
             return false;
         }
@@ -146,7 +146,7 @@ namespace SMLHelper.V2.Patchers
         {
             if (!PlayedChannels.TryGetValue(__instance._current, out var channel)) return true;
 
-            channel.setPosition((uint)Mathf.Clamp(value*0.001f, 0, __instance._length), TIMEUNIT.MS);
+            channel.setPosition((uint)Mathf.Clamp(value, 0, __instance._length), TIMEUNIT.MS);
             
             return false;
         }
