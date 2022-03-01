@@ -68,6 +68,7 @@
             BioReactorPatcher.Patch();
             OptionsPanelPatcher.Patch(harmony);
             ItemsContainerPatcher.Patch(harmony);
+            PDALogPatcher.Patch(harmony);
             PDAPatcher.Patch(harmony);
             PDAEncyclopediaPatcher.Patch(harmony);
             ItemActionPatcher.Patch(harmony);

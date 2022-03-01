@@ -163,6 +163,7 @@
     <Compile Include="Handlers\CoordinatedSpawnsHandler.cs" />
     <Compile Include="Handlers\CustomSoundHandler.cs" />
     <Compile Include="Handlers\EquipmentHandler.cs" />
+    <Compile Include="Handlers\PDALogHandler.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
     <Compile Include="Handlers\SaveDataHandler.cs" />
     <Compile Include="Handlers\SurvivalHandler.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
     <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
     <Compile Include="Interfaces\IEquipmentHandler.cs" />
+    <Compile Include="Interfaces\IPDALogHandler.cs" />
     <Compile Include="Interfaces\IPingHandler.cs" />
     <Compile Include="Interfaces\ISaveDataHandler.cs" />
     <Compile Include="Interfaces\ISurvivalHandler.cs" />
@@ -287,6 +289,7 @@
     <Compile Include="Patchers\LootDistributionPatcher.cs" />
     <Compile Include="Patchers\OptionsPanelPatcher.cs" />
     <Compile Include="Patchers\PDAEncyclopediaPatcher.cs" />
+    <Compile Include="Patchers\PDALogPatcher.cs" />
     <Compile Include="Patchers\PDAPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\PingTypePatcher.cs" />
     <Compile Include="Patchers\PrefabDatabasePatcher.cs" />
