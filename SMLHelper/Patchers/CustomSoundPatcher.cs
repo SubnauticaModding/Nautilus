@@ -159,7 +159,7 @@ namespace SMLHelper.V2.Patchers
                                                              && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
 
             if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel) &&
-                channel.isPlaying(out var playing) == RESULT.OK && (playing || !__instance.restartOnPlay)) // already playing, no need to play it again
+                channel.isPlaying(out var playing) == RESULT.OK && playing && !__instance.restartOnPlay) // already playing, no need to play it again
             {
                 return false;
             }
@@ -435,7 +435,7 @@ namespace SMLHelper.V2.Patchers
                 && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
 
             if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel) &&
-                channel.isPlaying(out var playing) == RESULT.OK && (playing || !__instance.restartOnPlay)) // already playing, no need to play it again
+                channel.isPlaying(out var playing) == RESULT.OK && playing && !__instance.restartOnPlay) // already playing, no need to play it again
             {
                 return false;
             }
