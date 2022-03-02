@@ -114,6 +114,7 @@ namespace SMLHelper.V2.Patchers
         public static bool SoundQueue_Update_Prefix(SoundQueue __instance)
         {
             if (__instance is null || string.IsNullOrEmpty(__instance._current)  || !PlayedChannels.TryGetValue(__instance._current, out var channel)) return true;
+            if (!SoundQueue.GetIsStartingOrPlaying(__instance.eventInstance)) return true;
 
             ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
 #if SUBNAUTICA_STABLE
@@ -121,7 +122,7 @@ namespace SMLHelper.V2.Patchers
 #elif SUBNAUTICA_EXP
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
 #endif
-            
+
             channel.getPosition(out var position, TIMEUNIT.MS);
             __instance._position = (int)position;
             __instance._positionSeconds = position * 0.001f;
@@ -393,6 +394,7 @@ namespace SMLHelper.V2.Patchers
         {
             var instanceCurrent = __instance._current ?? default;
             if (string.IsNullOrEmpty(instanceCurrent.sound)  || !PlayedChannels.TryGetValue(instanceCurrent.sound, out var channel)) return true;
+            if (!SoundQueue.GetIsStartingOrPlaying(__instance.eventInstance)) return true;
 
             ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
