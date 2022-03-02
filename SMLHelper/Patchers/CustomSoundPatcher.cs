@@ -183,7 +183,7 @@ namespace SMLHelper.V2.Patchers
                 EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(soundPath, soundChannel);
             }
 
-            SetChannel3DAttributes(channel, __instance.transform);
+            SetChannel3DAttributes(EmitterPlayedChannels[__instance.GetInstanceID()], __instance.transform);
             __instance._playing = true;
             __instance.OnPlay();
 
@@ -460,7 +460,7 @@ namespace SMLHelper.V2.Patchers
                 EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(soundPath, soundChannel);
             }
 
-            SetChannel3DAttributes(channel, __instance.transform);
+            SetChannel3DAttributes(EmitterPlayedChannels[__instance.GetInstanceID()], __instance.transform);
             __instance._playing = true;
             __instance.OnPlay();
 
