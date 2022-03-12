@@ -43,14 +43,25 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Converts an <see cref="AudioClip"/> collection to an FMOD <see cref="Sound"/> collection.
+        /// Creates an FMOD <see cref="Sound"/> collection from an <see cref="AudioClip"/> collection.
         /// </summary>
-        /// <param name="clips">AudioClips to convert</param>
+        /// <param name="clips">AudioClips to create from.</param>
         /// <param name="mode">The mode to set the sound to</param>
         /// <returns>A collection of FMOD Sounds.</returns>
-        public static IEnumerable<Sound> AudioClipsToSounds(IEnumerable<AudioClip> clips, MODE mode = MODE.DEFAULT)
+        public static IEnumerable<Sound> CreateSounds(IEnumerable<AudioClip> clips, MODE mode = MODE.DEFAULT)
         {
             return clips.Select(clip => CreateSound(clip, mode)).ToList();
+        }
+
+        /// <summary>
+        /// Converts a sound paths collection to an FMOD <see cref="Sound"/> collection.
+        /// </summary>
+        /// <param name="soundPaths">Sound paths to create from. Relative to the base game folder</param>
+        /// <param name="mode">The mode to set the sound to</param>
+        /// <returns>A collection of FMOD Sounds.</returns>
+        public static IEnumerable<Sound> CreateSounds(IEnumerable<string> soundPaths, MODE mode = MODE.DEFAULT)
+        {
+            return soundPaths.Select(path => CreateSound(path, mode));
         }
 
         /// <summary>

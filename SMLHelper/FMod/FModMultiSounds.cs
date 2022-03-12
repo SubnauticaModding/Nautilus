@@ -59,7 +59,22 @@ namespace SMLHelper.V2.FMod
         public FModMultiSounds(AudioClip[] clips, MODE mode, string busPath, bool randomizeSounds = false)
         {
             mode &= ~MODE.LOOP_NORMAL & ~MODE.LOOP_BIDI; // Remove unsupported modes
-            _sounds = AudioUtils.AudioClipsToSounds(clips, mode).ToArray();
+            _sounds = AudioUtils.CreateSounds(clips, mode).ToArray();
+            _bus = RuntimeManager.GetBus(busPath);
+            this.randomizeSounds = randomizeSounds;
+        }
+
+        /// <summary>
+        /// Constructs a new instance of <see cref="FModMultiSounds"/>. Used to register FMOD events with multiple sounds in one event.
+        /// </summary>
+        /// <param name="soundPaths">The sound paths to register for this object. Paths must be relative to the base game folder.</param>
+        /// <param name="mode">The mode to set the clips to. Cannot be <c>MODE.LOOP_NORMAL</c> or <c>MODE.LOOP_BIDI</c>.</param>
+        /// <param name="busPath"><see cref="Bus"/> path to play these sounds under.</param>
+        /// <param name="randomizeSounds">Makes the sounds play in a randomized order. when <c>false</c>, sounds will play subsequently.</param>
+        public FModMultiSounds(string[] soundPaths, MODE mode, string busPath, bool randomizeSounds = false)
+        {
+            mode &= ~MODE.LOOP_NORMAL & ~MODE.LOOP_BIDI; // Remove unsupported modes
+            _sounds = AudioUtils.CreateSounds(soundPaths, mode).ToArray();
             _bus = RuntimeManager.GetBus(busPath);
             this.randomizeSounds = randomizeSounds;
         }
