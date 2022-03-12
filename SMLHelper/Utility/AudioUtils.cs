@@ -12,7 +12,7 @@ namespace SMLHelper.V2.Utility
     /// <summary>
     /// Utilities for audio and sound
     /// </summary>
-    public static class AudioUtils
+    public static partial class AudioUtils
     {
 #if SUBNAUTICA_STABLE
         private static System FMOD_System => RuntimeManager.LowlevelSystem;

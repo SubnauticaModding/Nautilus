@@ -1,5 +1,4 @@
 ﻿using SMLHelper.V2.FMod.Interfaces;
-using NotImplementedException = System.NotImplementedException;
 
 namespace SMLHelper.V2.Handlers
 {

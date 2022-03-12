@@ -300,6 +300,8 @@
     <Compile Include="Patchers\WorldEntityDatabasePatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AudioUtils.cs" />
+    <Compile Include="Utility\AudioUtils_BelowZero.cs" />
+    <Compile Include="Utility\AudioUtils_Subnautica.cs" />
     <Compile Include="Utility\BasicText.cs" />
     <Compile Include="Utility\EnumCacheManager.cs" />
     <Compile Include="Utility\ExtBannedIdManager.cs" />
