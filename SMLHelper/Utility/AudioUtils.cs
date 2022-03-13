@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FMOD.Studio;
 
@@ -82,6 +83,7 @@ namespace SMLHelper.V2.Utility
         /// <param name="mode"></param>
         /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
         /// <returns>The channel on which the sound was created</returns>
+        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static Channel PlaySound(AudioClip audio, SoundChannel volumeControl, MODE mode = MODE.DEFAULT)
         {
             return PlaySound(CreateSound(audio, mode), volumeControl);
@@ -105,6 +107,7 @@ namespace SMLHelper.V2.Utility
         /// <param name="mode"></param>
         /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
         /// <returns>The channel on which the sound was created</returns>
+        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static Channel PlaySound(string path, SoundChannel volumeControl, MODE mode = MODE.DEFAULT)
         {
             return PlaySound(CreateSound(path, mode), volumeControl);
@@ -115,6 +118,7 @@ namespace SMLHelper.V2.Utility
         /// </summary>
         /// <param name="sound">The sound which should be played</param>
         /// <returns>The channel on which the sound was created</returns>
+        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static Channel PlaySound(Sound sound)
         {
             FMOD_System.getMasterChannelGroup(out ChannelGroup channels);
@@ -129,6 +133,7 @@ namespace SMLHelper.V2.Utility
         /// <param name="sound">The sound which should be played</param>
         /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
         /// <returns>The channel on which the sound was created</returns>
+        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static Channel PlaySound(Sound sound, SoundChannel volumeControl)
         {
             float volumeLevel = volumeControl switch

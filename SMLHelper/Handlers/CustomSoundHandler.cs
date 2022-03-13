@@ -1,4 +1,5 @@
-﻿using SMLHelper.V2.FMod.Interfaces;
+﻿using System;
+using SMLHelper.V2.FMod.Interfaces;
 
 namespace SMLHelper.V2.Handlers
 {
@@ -36,6 +37,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. defaults to <see cref="SoundChannel.Master"/></param>
         /// <returns>the <see cref="Sound"/> loaded</returns>
 
+        [Obsolete("Deprecated. Use ICustomSoundHandler.RegisterCustomSound(string, string, FMOD.Studio.Bus) instead.")]
         Sound ICustomSoundHandler.RegisterCustomSound(string id, string filePath, SoundChannel soundChannel)
         {
             Sound sound = AudioUtils.CreateSound(filePath);
@@ -79,6 +81,8 @@ namespace SMLHelper.V2.Handlers
         /// <param name="audio">The AudioClip to register.</param>
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. defaults to <see cref="SoundChannel.Master"/></param>
         /// <returns>the <see cref="Sound"/> registered.</returns>
+        
+        [Obsolete("Deprecated. Use ICustomSoundHandler.RegisterCustomSound(string, UnityEngine.AudioClip, FMOD.Studio.Bus) instead.")]
         Sound ICustomSoundHandler.RegisterCustomSound(string id, AudioClip audio, SoundChannel soundChannel)
         {
             var sound = AudioUtils.CreateSound(audio);
@@ -132,6 +136,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="sound">The pre loaded sound</param>
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. <see cref="SoundChannel"/></param>
 
+        [Obsolete("Deprecated. Use ICustomSoundHandler.RegisterCustomSound(string, FMOD.Sound, FMOD.Studio.Bus) instead.")]
         void ICustomSoundHandler.RegisterCustomSound(string id, Sound sound, SoundChannel soundChannel)
         {
             CustomSoundPatcher.CustomSounds[id] = sound;
@@ -207,6 +212,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. defaults to <see cref="SoundChannel.Master"/></param>
         /// <returns>the <see cref="Sound"/> loaded</returns>
 
+        [Obsolete("Deprecated. Use RegisterCustomSound(string, string, FMOD.Studio.Bus) instead.")]
         public static Sound RegisterCustomSound(string id, string filePath, SoundChannel soundChannel = SoundChannel.Master)
         {
             return Main.RegisterCustomSound(id, filePath, soundChannel);
@@ -243,6 +249,8 @@ namespace SMLHelper.V2.Handlers
         /// <param name="audio">The AudioClip to register.</param>
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. defaults to <see cref="SoundChannel.Master"/></param>
         /// <returns>the <see cref="Sound"/> registered.</returns>
+        
+        [Obsolete("Deprecated. Use RegisterCustomSound(string, UnityEngine.AudioClip, FMOD.Studio.Bus) instead.")]
         public static Sound RegisterCustomSound(string id, AudioClip audio, SoundChannel soundChannel = SoundChannel.Master)
         {
             return Main.RegisterCustomSound(id, audio, soundChannel);
@@ -289,6 +297,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="sound">The pre loaded sound</param>
         /// <param name="soundChannel">The sound channel to get the volume to play the sound at. <see cref="SoundChannel"/></param>
 
+        [Obsolete("Deprecated. Use RegisterCustomSound(string, FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static void RegisterCustomSound(string id, Sound sound, SoundChannel soundChannel = SoundChannel.Master)
         {
             Main.RegisterCustomSound(id, sound, soundChannel);
