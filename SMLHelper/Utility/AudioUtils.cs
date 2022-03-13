@@ -1,4 +1,9 @@
-﻿namespace SMLHelper.V2.Utility
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using FMOD.Studio;
+
+namespace SMLHelper.V2.Utility
 {
     using System.Runtime.InteropServices;
     using FMOD;
@@ -8,7 +13,7 @@
     /// <summary>
     /// Utilities for audio and sound
     /// </summary>
-    public static class AudioUtils
+    public static partial class AudioUtils
     {
 #if SUBNAUTICA_STABLE
         private static System FMOD_System => RuntimeManager.LowlevelSystem;
@@ -39,6 +44,28 @@
         }
 
         /// <summary>
+        /// Creates an FMOD <see cref="Sound"/> collection from an <see cref="AudioClip"/> collection.
+        /// </summary>
+        /// <param name="clips">AudioClips to create from.</param>
+        /// <param name="mode">The mode to set the sound to</param>
+        /// <returns>A collection of FMOD Sounds.</returns>
+        public static IEnumerable<Sound> CreateSounds(IEnumerable<AudioClip> clips, MODE mode = MODE.DEFAULT)
+        {
+            return clips.Select(clip => CreateSound(clip, mode)).ToList();
+        }
+
+        /// <summary>
+        /// Converts a sound paths collection to an FMOD <see cref="Sound"/> collection.
+        /// </summary>
+        /// <param name="soundPaths">Sound paths to create from. Relative to the base game folder</param>
+        /// <param name="mode">The mode to set the sound to</param>
+        /// <returns>A collection of FMOD Sounds.</returns>
+        public static IEnumerable<Sound> CreateSounds(IEnumerable<string> soundPaths, MODE mode = MODE.DEFAULT)
+        {
+            return soundPaths.Select(path => CreateSound(path, mode));
+        }
+
+        /// <summary>
         /// Plays a <see cref="Sound"/> from an <see cref="AudioClip"/>.
         /// </summary>
         /// <param name="audio">The AudioClip of the sound.</param>
@@ -56,6 +83,7 @@
         /// <param name="mode"></param>
         /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
         /// <returns>The channel on which the sound was created</returns>
+        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static Channel PlaySound(AudioClip audio, SoundChannel volumeControl, MODE mode = MODE.DEFAULT)
         {
             return PlaySound(CreateSound(audio, mode), volumeControl);
@@ -79,6 +107,7 @@
         /// <param name="mode"></param>
         /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
         /// <returns>The channel on which the sound was created</returns>
+        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static Channel PlaySound(string path, SoundChannel volumeControl, MODE mode = MODE.DEFAULT)
         {
             return PlaySound(CreateSound(path, mode), volumeControl);
@@ -89,6 +118,7 @@
         /// </summary>
         /// <param name="sound">The sound which should be played</param>
         /// <returns>The channel on which the sound was created</returns>
+        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static Channel PlaySound(Sound sound)
         {
             FMOD_System.getMasterChannelGroup(out ChannelGroup channels);
@@ -103,6 +133,7 @@
         /// <param name="sound">The sound which should be played</param>
         /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
         /// <returns>The channel on which the sound was created</returns>
+        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static Channel PlaySound(Sound sound, SoundChannel volumeControl)
         {
             float volumeLevel = volumeControl switch
@@ -119,6 +150,20 @@
             newChannels.setVolume(volumeLevel);
             FMOD_System.playSound(sound, newChannels, false, out Channel channel);
 
+            return channel;
+        }
+
+        /// <summary>
+        /// Plays a <see cref="Sound"/> on the specified <see cref="Bus"/>.
+        /// </summary>
+        /// <param name="sound">The sound which should be played.</param>
+        /// <param name="bus">The bus to play the sound on.</param>
+        /// <returns>The channel on which the sound was created.</returns>
+        public static Channel PlaySound(Sound sound, Bus bus)
+        {
+            bus.getChannelGroup(out var channelGroup);
+            channelGroup.getPaused(out var paused);
+            FMOD_System.playSound(sound, channelGroup, paused, out Channel channel);
             return channel;
         }
         
