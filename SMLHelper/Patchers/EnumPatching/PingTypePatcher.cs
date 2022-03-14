@@ -48,7 +48,7 @@
 
             var pingType = (PingType) cache.Index;
             cacheManager.Add(pingType, cache.Index, cache.Name);
-            ModSprite.Add(SpriteManager.Group.Pings, pingType.ToString(), sprite);
+            ModSprite.Add(SpriteManager.Group.Pings, cache.Name, sprite);
             
             if (PingManager.sCachedPingTypeStrings.valueToString.ContainsKey(pingType) == false)
                 PingManager.sCachedPingTypeStrings.valueToString.Add(pingType, name);
