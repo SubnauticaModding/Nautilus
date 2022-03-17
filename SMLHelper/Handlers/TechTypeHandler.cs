@@ -44,11 +44,15 @@
             TechTypesAddedBy[techType] = modAssembly;
             
             // register Language Lines.
-            LanguagePatcher.AddCustomLanguageLine(modName, internalName, displayName);
-            LanguagePatcher.AddCustomLanguageLine(modName, "Tooltip_" + internalName, tooltip);
-
-            Dictionary<TechType, string> valueToString = TooltipFactory.techTypeTooltipStrings.valueToString;
-            valueToString[techType] = "Tooltip_" + internalName;
+            if (displayName is not null)
+                LanguagePatcher.AddCustomLanguageLine(modName, internalName, displayName);
+            
+            if (tooltip is not null)
+            {
+                LanguagePatcher.AddCustomLanguageLine(modName, "Tooltip_" + internalName, tooltip);
+                var valueToString = TooltipFactory.techTypeTooltipStrings.valueToString;
+                valueToString[techType] = "Tooltip_" + internalName;
+            }
 
             // Unlock the TechType on start
             if (unlockAtStart)
