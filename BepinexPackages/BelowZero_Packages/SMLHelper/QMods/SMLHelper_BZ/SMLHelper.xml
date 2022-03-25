@@ -2121,6 +2121,15 @@
             <param name="techType">The TechType whose TechData you want to access.</param>
             <returns>The RecipeData from the item if it exists; Otherwise, returns <c>null</c>.</returns>
         </member>
+        <member name="M:SMLHelper.V2.Handlers.CraftDataHandler.SMLHelper#V2#Interfaces#ICraftDataHandler#GetTechData(TechType)">
+            <summary>
+            Safely accesses the crafting data from a modded or vanilla item.<para/>
+            WARNING: This method is highly dependent on mod load order. 
+            Make sure your mod is loading after the mod whose TechData you are trying to access.
+            </summary>
+            <param name="techType">The TechType whose TechData you want to access.</param>
+            <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
+        </member>
         <member name="M:SMLHelper.V2.Handlers.CraftDataHandler.SMLHelper#V2#Interfaces#ICraftDataHandler#GetModdedRecipeData(TechType)">
             <summary>
             Safely accesses the crafting data from a Modded item.<para/>
@@ -3943,6 +3952,15 @@
             <seealso cref="T:SMLHelper.V2.Crafting.RecipeData"/>
         </member>
         <member name="M:SMLHelper.V2.Interfaces.ICraftDataHandler.GetRecipeData(TechType)">
+            <summary>
+            Safely accesses the crafting data from a modded item.<para/>
+            WARNING: This method is highly dependent on mod load order. 
+            Make sure your mod is loading after the mod whose TechData you are trying to access.
+            </summary>
+            <param name="techType">The TechType whose TechData you want to access.</param>
+            <returns>The RecipeData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
+        </member>
+        <member name="M:SMLHelper.V2.Interfaces.ICraftDataHandler.GetTechData(TechType)">
             <summary>
             Safely accesses the crafting data from a modded item.<para/>
             WARNING: This method is highly dependent on mod load order. 
