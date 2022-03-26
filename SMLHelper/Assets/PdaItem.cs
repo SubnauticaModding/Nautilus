@@ -121,7 +121,7 @@
                 PDAEncyclopediaHandler.AddCustomEntry(EncyclopediaEntryData);
             }
 
-            if(!UnlockedAtStart)
+            if(!UnlockedAtStart && RequiredForUnlock != TechType.None)
             {
                 KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new TechType[1] { TechType }, DiscoverMessageResolved);
 
