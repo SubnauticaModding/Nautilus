@@ -55,6 +55,7 @@
             TechCategoryPatcher.Patch();
             TechGroupPatcher.Patch();
             BackgroundTypePatcher.Patch();
+            EquipmentTypePatcher.Patch();
             EnumPatcher.Patch(harmony);
 
             CraftDataPatcher.Patch(harmony);
@@ -67,6 +68,7 @@
             BioReactorPatcher.Patch();
             OptionsPanelPatcher.Patch(harmony);
             ItemsContainerPatcher.Patch(harmony);
+            PDALogPatcher.Patch(harmony);
             PDAPatcher.Patch(harmony);
             PDAEncyclopediaPatcher.Patch(harmony);
             ItemActionPatcher.Patch(harmony);

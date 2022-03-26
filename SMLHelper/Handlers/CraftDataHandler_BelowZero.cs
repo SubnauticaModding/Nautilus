@@ -83,7 +83,7 @@ namespace SMLHelper.V2.Handlers
         /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
         public static RecipeData GetTechData(TechType techType)
         {
-            return Main.GetRecipeData(techType);
+            return Main.GetTechData(techType);
         }
 
         /// <summary>
@@ -287,6 +287,18 @@ namespace SMLHelper.V2.Handlers
             return null;
         }
 
+
+        /// <summary>
+        /// Safely accesses the crafting data from a modded or vanilla item.<para/>
+        /// WARNING: This method is highly dependent on mod load order. 
+        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// </summary>
+        /// <param name="techType">The TechType whose TechData you want to access.</param>
+        /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
+        RecipeData ICraftDataHandler.GetTechData(TechType techType)
+        {
+            return GetRecipeData(techType);
+        }
         private static RecipeData ConvertToRecipeData(JsonValue techData)
         {
             RecipeData currentRecipeData = new RecipeData

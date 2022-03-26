@@ -75,6 +75,29 @@
         void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string UnlockMessage, UnityEngine.Sprite UnlockSprite);
 
         /// <summary>
+        /// Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
+        /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAnalysisTechEntryFromSpecific"/> or <see cref="RemoveAllCurrentAnalysisTechEntry"/>
+        /// </summary>
+        /// <param name="techType"></param>
+        /// <param name="compoundTechsForUnlock"></param>
+        void SetCompoundUnlock(TechType techType, List<TechType> compoundTechsForUnlock);
+
+
+        /// <summary>
+        /// Allows you to remove unlock entries for a <see cref="TechType"/> from specific entries.
+        /// </summary>
+        /// <param name="targetTechType">Target <see cref="TechType"/> to remove the unlocks for.</param>
+        /// <param name="techTypes">List of <see cref="TechType"/> to remove the targetTechType from.</param>
+        void RemoveAnalysisTechEntryFromSpecific(TechType targetTechType, List<TechType> techTypes);
+
+        /// <summary>
+        /// Allows you to remove all unlock entries from a <see cref="TechType"/> to be able to disable or change it to a new unlock.
+        /// ***Note: This is patch time specific so the LAST mod to call this on a techtype will be the only one to control what unlocks said type after its use.***
+        /// </summary>
+        /// <param name="targetTechType">Target <see cref="TechType"/> to remove the unlocks for.</param>
+        void RemoveAllCurrentAnalysisTechEntry(TechType targetTechType);
+
+        /// <summary>
         /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
         /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
         /// added to the existing AnalysisTech entry unlocks.

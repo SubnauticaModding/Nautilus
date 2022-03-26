@@ -16,9 +16,13 @@
 
         /// <summary>
         /// Override to set the <see cref="TechType"/> that must first be scanned or picked up to unlock the blueprint for this item.
-        /// If not overriden, it this item will be unlocked from the start of the game.
         /// </summary>
         public virtual TechType RequiredForUnlock => TechType.None;
+
+        /// <summary>
+        /// Override to set multiple <see cref="TechType"/>s that must first be scanned or picked up to unlock the blueprint for this item.
+        /// </summary>
+        public virtual List<TechType> CompoundTechsForUnlock => null;
 
         /// <summary>
         /// Override to add a scanner entry to the <see cref="RequiredForUnlock"/> TechType if it does not have one.
@@ -65,7 +69,7 @@
         /// <summary>
         /// Override this property to assign whether or not the <see cref="TechType"/> should be unlocked at the start, defaulted to <c><see cref="RequiredForUnlock"/> == <see cref="TechType.None"/></c>
         /// </summary>
-        public virtual bool UnlockedAtStart => RequiredForUnlock == TechType.None;
+        public virtual bool UnlockedAtStart => RequiredForUnlock == TechType.None && CompoundTechsForUnlock == null;
 
         /// <summary>
         /// Message which should be shown when the item is unlocked. <para/>
@@ -86,6 +90,7 @@
         {
             CorePatchEvents += PatchTechDataEntry;
         }
+
 #if SUBNAUTICA
         /// <summary>
         /// This provides the <see cref="TechData"/> instance used to designate how this item is crafted or constructed.
@@ -123,13 +128,20 @@
 
             if(!UnlockedAtStart)
             {
-                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new TechType[1] { TechType }, DiscoverMessageResolved);
+                var unlockTech = RequiredForUnlock == TechType.None? this.TechType: RequiredForUnlock;
 
-                if(AddScannerEntry)
+                KnownTechHandler.SetAnalysisTechEntry(unlockTech, new TechType[1] { TechType }, DiscoverMessageResolved);
+
+                if(CompoundTechsForUnlock != null && CompoundTechsForUnlock.Count > 0)
+                {
+                    KnownTechHandler.SetCompoundUnlock(this.TechType, CompoundTechsForUnlock);
+                }
+
+                if (AddScannerEntry)
                 {
                     PDAScanner.EntryData entryData = new PDAScanner.EntryData()
                     {
-                        key = RequiredForUnlock,
+                        key = unlockTech,
                         blueprint = TechType,
                         destroyAfterScan = DestroyFragmentOnScan,
                         isFragment = true,

@@ -127,5 +127,14 @@
         /// </summary>
         public static ICustomSoundHandler SoundHandler => Handlers.CustomSoundHandler.Main;
 
+        /// <summary>
+        /// A handler for adding custom EquipmentTypes into the game.
+        /// </summary>
+        public static IEquipmentHandler EquipmentHandler => Handlers.EquipmentHandler.Main;
+
+        /// <summary>
+        /// A handler for stuff related to the PDALog class.
+        /// </summary>
+        public static IPDALogHandler PDALogHandler => Handlers.PDALogHandler.Main;
     }
 }

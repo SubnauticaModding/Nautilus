@@ -20,21 +20,25 @@ namespace SMLHelper.V2.Patchers
     {
         internal static void Patch(Harmony harmony)
         {
-            var initializeOriginal = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.Initialize));
-            var postfix = new HarmonyMethod(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(InitializePostfix)));
-
-            harmony.Patch(initializeOriginal, postfix: postfix);
+            var initializeOrig = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.Initialize));
+            var initPostfix = new HarmonyMethod(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(InitializePostfix)));
+            harmony.Patch(initializeOrig, postfix: initPostfix);
         }
 
         internal static readonly List<SpawnInfo> spawnInfos = new List<SpawnInfo>();
         internal static readonly List<SpawnInfo> savedSpawnInfos = new List<SpawnInfo>();
+        
+        private static readonly List<SpawnInfo> initialSpawnInfos = new List<SpawnInfo>();
+
+        private static bool initialized;
 
         private static void InitializePostfix()
         {
+            InitializeSpawnInfos();
+            
             var file = Path.Combine(SaveLoadManager.GetTemporarySavePath(), "CoordinatedSpawnsInitialized.smlhelper");
             if (File.Exists(file))
             {
-                // already initialized, return to prevent from spawn duplications.
                 Logger.Debug("Coordinated Spawns already been spawned in the current save. Loading Data");
 
                 using var reader = new StreamReader(file);
@@ -60,9 +64,7 @@ namespace SMLHelper.V2.Patchers
                     spawnInfos.Remove(savedSpawnInfo);
             }
 
-            IngameMenuHandler.RegisterOnSaveEvent(() => SaveData());
-
-            Initialize();
+            InitializeSpawners();
             Logger.Debug("Coordinated Spawns have been initialized in the current save.");
         }
 
@@ -83,8 +85,27 @@ namespace SMLHelper.V2.Patchers
                 writer.Close();
             }
         }
+        
+        // We keep an initial copy of the spawn infos so Coordinated Spawns also works if you quit to main menu.
+        private static void InitializeSpawnInfos()
+        {
+            if (initialized)
+            {
+                // we already have an initialSpawnInfos initialized, refresh our spawnInfos List.
+                savedSpawnInfos.Clear();
+                foreach (var spawnInfo in initialSpawnInfos.Where(spawnInfo => !spawnInfos.Contains(spawnInfo)))
+                {
+                    spawnInfos.Add(spawnInfo);
+                }
+                return;
+            }
+            
+            initialSpawnInfos.AddRange(spawnInfos);
+            IngameMenuHandler.RegisterOnSaveEvent(SaveData);
+            initialized = true;
+        }
 
-        private static void Initialize()
+        private static void InitializeSpawners()
         {
             foreach (var spawnInfo in spawnInfos)
             {

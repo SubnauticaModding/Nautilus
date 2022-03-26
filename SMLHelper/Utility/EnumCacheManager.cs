@@ -29,8 +29,12 @@
         {
             private readonly SortedDictionary<int, string> MapIntString = new SortedDictionary<int, string>();
             private readonly SortedDictionary<T, string> MapEnumString = new SortedDictionary<T, string>();
-            private readonly SortedDictionary<string, T> MapStringEnum = new SortedDictionary<string, T>(StringComparer.InvariantCultureIgnoreCase);
-            private readonly SortedDictionary<string, int> MapStringInt = new SortedDictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
+
+            private readonly SortedDictionary<string, T> MapStringEnum =
+                new SortedDictionary<string, T>(StringComparer.InvariantCultureIgnoreCase);
+
+            private readonly SortedDictionary<string, int> MapStringInt =
+                new SortedDictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
 
             public bool TryGetValue(T enumValue, out string name)
             {
@@ -49,7 +53,7 @@
 
             public void Add(int backingValue, string name)
             {
-                Add((T)(object)backingValue, backingValue, name);
+                Add((T) (object) backingValue, backingValue, name);
             }
 
             public void Add(T enumValue, int backingValue, string name)
@@ -65,7 +69,7 @@
 
             public void Remove(int backingValue, string name)
             {
-                Remove((T)(object)backingValue, backingValue, name);
+                Remove((T) (object) backingValue, backingValue, name);
             }
 
             public void Remove(T enumValue, int backingValue, string name)
@@ -167,7 +171,8 @@
 
         private string GetCacheDirectoryPath()
         {
-            string saveDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"{EnumTypeName}Cache");
+            string saveDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                $"{EnumTypeName}Cache");
 
             if (!Directory.Exists(saveDir))
                 Directory.CreateDirectory(saveDir);
@@ -190,10 +195,7 @@
             if (cacheLoaded)
                 return;
 
-            ReadCacheFile(GetCachePath(), (index, name) =>
-            {
-                entriesFromFile.Add(index, name);
-            });
+            ReadCacheFile(GetCachePath(), (index, name) => { entriesFromFile.Add(index, name); });
 
             ReadCacheFile(GetDeactivatedCachePath(), (index, name) =>
             {
@@ -266,7 +268,7 @@
             }
         }
 
-        internal EnumTypeCache RequestCacheForTypeName(string name, bool checkDeactivated = true)
+        internal EnumTypeCache RequestCacheForTypeName(string name, bool checkFiles = true)
         {
             LoadCache();
 
@@ -274,16 +276,21 @@
             {
                 return new EnumTypeCache(value, name);
             }
-            else if (entriesFromFile.TryGetValue(name, out value))
+
+            if (checkFiles)
             {
-                entriesFromRequests.Add(value, name);
-                return new EnumTypeCache(value, name);
-            }
-            else if (checkDeactivated && entriesFromDeactivatedFile.TryGetValue(name, out value))
-            {
-                entriesFromRequests.Add(value, name);
-                entriesFromDeactivatedFile.Remove(value, name);
-                return new EnumTypeCache(value, name);
+                if (entriesFromFile.TryGetValue(name, out value))
+                {
+                    entriesFromRequests.Add(value, name);
+                    return new EnumTypeCache(value, name);
+                }
+
+                if (entriesFromDeactivatedFile.TryGetValue(name, out value))
+                {
+                    entriesFromRequests.Add(value, name);
+                    entriesFromDeactivatedFile.Remove(value, name);
+                    return new EnumTypeCache(value, name);
+                }
             }
 
             return null;
@@ -305,7 +312,6 @@
 
             return index;
         }
-
 
         #endregion
     }
