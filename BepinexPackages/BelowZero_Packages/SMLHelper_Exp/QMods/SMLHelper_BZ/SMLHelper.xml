@@ -515,7 +515,11 @@
         <member name="P:SMLHelper.V2.Assets.PdaItem.RequiredForUnlock">
             <summary>
             Override to set the <see cref="T:TechType"/> that must first be scanned or picked up to unlock the blueprint for this item.
-            If not overriden, it this item will be unlocked from the start of the game.
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.Assets.PdaItem.CompoundTechsForUnlock">
+            <summary>
+            Override to set multiple <see cref="T:TechType"/>s that must first be scanned or picked up to unlock the blueprint for this item.
             </summary>
         </member>
         <member name="P:SMLHelper.V2.Assets.PdaItem.AddScannerEntry">
@@ -2652,6 +2656,28 @@
             <param name="UnlockSound">The sound that plays when you unlock the blueprint.</param>
             <param name="UnlockSprite">The sprite that shows up when you unlock the blueprint.</param>
         </member>
+        <member name="M:SMLHelper.V2.Handlers.KnownTechHandler.SetCompoundUnlock(TechType,System.Collections.Generic.List{TechType})">
+            <summary>
+            Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
+            ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="M:SMLHelper.V2.Handlers.KnownTechHandler.RemoveAnalysisTechEntryFromSpecific(TechType,System.Collections.Generic.List{TechType})"/> or <see cref="M:SMLHelper.V2.Handlers.KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType)"/>
+            </summary>
+            <param name="techType"></param>
+            <param name="compoundTechsForUnlock"></param>
+        </member>
+        <member name="M:SMLHelper.V2.Handlers.KnownTechHandler.RemoveAnalysisTechEntryFromSpecific(TechType,System.Collections.Generic.List{TechType})">
+            <summary>
+            Allows you to remove unlock entries for a <see cref="T:TechType"/> from specific entries.
+            </summary>
+            <param name="targetTechType">Target <see cref="T:TechType"/> to remove the unlocks for.</param>
+            <param name="techTypes">List of <see cref="T:TechType"/> to remove the targetTechType from.</param>
+        </member>
+        <member name="M:SMLHelper.V2.Handlers.KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType)">
+            <summary>
+            Allows you to remove all unlock entries from a <see cref="T:TechType"/> to be able to disable or change it to a new unlock.
+            ***Note: This is patch time specific so the LAST mod to call this on a techtype will be the only one to control what unlocks said type after its use.***
+            </summary>
+            <param name="targetTechType">Target <see cref="T:TechType"/> to remove the unlocks for.</param>
+        </member>
         <member name="M:SMLHelper.V2.Handlers.KnownTechHandler.SMLHelper#V2#Interfaces#IKnownTechHandler#SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType})">
             <summary>
             Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -2723,6 +2749,28 @@
             <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
             <param name="UnlockSound">The sound that plays when you unlock the blueprint.</param>
             <param name="UnlockSprite">The sprite that shows up when you unlock the blueprint.</param>
+        </member>
+        <member name="M:SMLHelper.V2.Handlers.KnownTechHandler.SMLHelper#V2#Interfaces#IKnownTechHandler#SetCompoundUnlock(TechType,System.Collections.Generic.List{TechType})">
+            <summary>
+            Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
+            ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="M:SMLHelper.V2.Interfaces.IKnownTechHandler.RemoveAnalysisTechEntryFromSpecific(TechType,System.Collections.Generic.List{TechType})"/> or <see cref="M:SMLHelper.V2.Interfaces.IKnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType)"/>
+            </summary>
+            <param name="techType"></param>
+            <param name="compoundTechsForUnlock"></param>
+        </member>
+        <member name="M:SMLHelper.V2.Handlers.KnownTechHandler.SMLHelper#V2#Interfaces#IKnownTechHandler#RemoveAnalysisTechEntryFromSpecific(TechType,System.Collections.Generic.List{TechType})">
+            <summary>
+            Allows you to remove unlock entries for a <see cref="T:TechType"/> from specific entries.
+            </summary>
+            <param name="targetTechType">Target <see cref="T:TechType"/> to remove the unlocks for.</param>
+            <param name="techTypes">List of <see cref="T:TechType"/> to remove the targetTechType from.</param>
+        </member>
+        <member name="M:SMLHelper.V2.Handlers.KnownTechHandler.SMLHelper#V2#Interfaces#IKnownTechHandler#RemoveAllCurrentAnalysisTechEntry(TechType)">
+            <summary>
+            Allows you to remove all unlock entries from a <see cref="T:TechType"/> to be able to disable or change it to a new unlock.
+            ***Note: This is patch time specific so the LAST mod to call this on a techtype will be the only one to control what unlocks said type after its use.***
+            </summary>
+            <param name="targetTechType">Target <see cref="T:TechType"/> to remove the unlocks for.</param>
         </member>
         <member name="T:SMLHelper.V2.Handlers.LanguageHandler">
             <summary>
@@ -4284,6 +4332,28 @@
             <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
             <param name="UnlockMessage">The message that shows up on the right when the blueprint is unlocked. </param>
             <param name="UnlockSprite">The sprite that shows up when you unlock the blueprint.</param>
+        </member>
+        <member name="M:SMLHelper.V2.Interfaces.IKnownTechHandler.SetCompoundUnlock(TechType,System.Collections.Generic.List{TechType})">
+            <summary>
+            Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
+            ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="M:SMLHelper.V2.Interfaces.IKnownTechHandler.RemoveAnalysisTechEntryFromSpecific(TechType,System.Collections.Generic.List{TechType})"/> or <see cref="M:SMLHelper.V2.Interfaces.IKnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType)"/>
+            </summary>
+            <param name="techType"></param>
+            <param name="compoundTechsForUnlock"></param>
+        </member>
+        <member name="M:SMLHelper.V2.Interfaces.IKnownTechHandler.RemoveAnalysisTechEntryFromSpecific(TechType,System.Collections.Generic.List{TechType})">
+            <summary>
+            Allows you to remove unlock entries for a <see cref="T:TechType"/> from specific entries.
+            </summary>
+            <param name="targetTechType">Target <see cref="T:TechType"/> to remove the unlocks for.</param>
+            <param name="techTypes">List of <see cref="T:TechType"/> to remove the targetTechType from.</param>
+        </member>
+        <member name="M:SMLHelper.V2.Interfaces.IKnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType)">
+            <summary>
+            Allows you to remove all unlock entries from a <see cref="T:TechType"/> to be able to disable or change it to a new unlock.
+            ***Note: This is patch time specific so the LAST mod to call this on a techtype will be the only one to control what unlocks said type after its use.***
+            </summary>
+            <param name="targetTechType">Target <see cref="T:TechType"/> to remove the unlocks for.</param>
         </member>
         <member name="M:SMLHelper.V2.Interfaces.IKnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite)">
             <summary>
