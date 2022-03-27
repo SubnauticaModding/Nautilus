@@ -203,7 +203,7 @@
         /// </remarks>
         bool ICraftTreeHandler.ModdedCraftTreeTypeExists(string craftTreeString)
         {
-            EnumTypeCache cache = CraftTreeTypePatcher.cacheManager.RequestCacheForTypeName(craftTreeString);
+            EnumTypeCache cache = CraftTreeTypePatcher.cacheManager.RequestCacheForTypeName(craftTreeString, false);
             return cache != null;
         }
 

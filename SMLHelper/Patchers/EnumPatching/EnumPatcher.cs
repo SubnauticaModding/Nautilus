@@ -60,6 +60,101 @@
             return list.ToArray();
         }
 
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(Enum), nameof(Enum.GetNames))]
+        private static void Postfix_GetNames(Type enumType, ref Array __result)
+        {
+            if (enumType == typeof(TechType))
+            {
+                __result = GetNames(TechTypePatcher.cacheManager, __result);
+            }
+            else if (enumType == typeof(CraftTree.Type))
+            {
+                __result = GetNames(CraftTreeTypePatcher.cacheManager, __result);
+            }
+            else if (enumType == typeof(PingType))
+            {
+                __result = GetNames(PingTypePatcher.cacheManager, __result);
+            }
+            else if (enumType == typeof(TechGroup))
+            {
+                __result = GetNames(TechGroupPatcher.cacheManager, __result);
+            }
+            else if (enumType == typeof(TechCategory))
+            {
+                __result = GetNames(TechCategoryPatcher.cacheManager, __result);
+            }
+            else if (enumType == typeof(CraftData.BackgroundType))
+            {
+                __result = GetNames(BackgroundTypePatcher.cacheManager, __result);
+            }
+            else if (enumType == typeof(EquipmentType))
+            {
+                __result = GetNames(EquipmentTypePatcher.cacheManager, __result);
+            }
+        }
+
+        private static string[] GetNames<T>(EnumCacheManager<T> cacheManager, Array __result) where T : Enum
+        {
+            var list = new List<string>();
+            foreach (string type in __result)
+            {
+                list.Add(type);
+            }
+
+            foreach (T type in cacheManager.ModdedKeys)
+            {
+                if (cacheManager.TryGetValue(type, out string name))
+                    list.Add(name);
+            }
+
+            return list.ToArray();
+        }
+
+
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(Enum), nameof(Enum.GetName))]
+        private static bool Prefix_GetName(Type enumType, object value, ref string __result)
+        {
+            if (enumType == typeof(TechType) && TechTypePatcher.cacheManager.TryGetValue((TechType)value, out string name))
+            {
+                __result = name;
+                return false;
+            }
+            else if (enumType == typeof(CraftTree.Type) && CraftTreeTypePatcher.cacheManager.TryGetValue((CraftTree.Type)value, out name))
+            {
+                __result = name;
+                return false;
+            }
+            else if (enumType == typeof(PingType) && PingTypePatcher.cacheManager.TryGetValue((PingType)value, out name))
+            {
+                __result = name;
+                return false;
+            }
+            else if (enumType == typeof(TechGroup) && TechGroupPatcher.cacheManager.TryGetValue((TechGroup)value, out name))
+            {
+                __result = name;
+                return false;
+            }
+            else if (enumType == typeof(TechCategory) && TechCategoryPatcher.cacheManager.TryGetValue((TechCategory)value, out name))
+            {
+                __result = name;
+                return false;
+            }
+            else if (enumType == typeof(CraftData.BackgroundType) && BackgroundTypePatcher.cacheManager.TryGetValue((CraftData.BackgroundType)value, out name))
+            {
+                __result = name;
+                return false;
+            }
+            else if (enumType == typeof(EquipmentType) && EquipmentTypePatcher.cacheManager.TryGetValue((EquipmentType)value, out name))
+            {
+                __result = name;
+                return false;
+            }
+            return true;
+        }
+
+
         [PatchUtils.Prefix]
         [HarmonyPatch(typeof(Enum), nameof(Enum.IsDefined))]
         private static bool Prefix_IsDefined(Type enumType, object value, ref bool __result)
