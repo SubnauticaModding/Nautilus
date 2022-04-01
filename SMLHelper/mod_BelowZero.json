@@ -1,10 +1,11 @@
 {
-    "Id": "SMLHelper",
-    "DisplayName": "SMLHelper",
-    "Author": "The SMLHelper Dev Team",
-    "Version": "2.13.5",
-    "Enable": true,
-    "Game": "BelowZero",
-    "AssemblyName": "SMLHelper.dll",
-    "VersionChecker": { "LatestVersionURL": "https://raw.githubusercontent.com/SubnauticaModding/SMLHelper/master/SMLHelper/mod_BelowZero.json" }
+  "Id": "SMLHelper",
+  "DisplayName": "SMLHelper",
+  "Author": "The SMLHelper Dev Team",
+  "Version": "2.13.5",
+  "Enable": true,
+  "Game": "BelowZero",
+  "AssemblyName": "SMLHelper.dll",
+  "VersionChecker": { "LatestVersionURL": "https://raw.githubusercontent.com/SubnauticaModding/SMLHelper/master/SMLHelper/mod_BelowZero.json" },
+  "NitroxCompat": true
 }

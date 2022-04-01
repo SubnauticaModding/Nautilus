@@ -8,5 +8,6 @@
   "VersionDependencies": {
     "SMLHelper": "2.13.5"
   },
-  "Game": "Both"
+  "Game": "Both",
+  "NitroxCompat": true
 }
