@@ -17,10 +17,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLHelper.Tests", "SMLHelpe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5152F028-6D03-43C0-88C5-986313017D4F}"
 	ProjectSection(SolutionItems) = preProject
+		common.props = common.props
 		BepinexPackages\Subnautica_Packages\SMLHelper_Exp\manifest.json = BepinexPackages\Subnautica_Packages\SMLHelper_Exp\manifest.json
 		BepinexPackages\Subnautica_Packages\SMLHelper\manifest.json = BepinexPackages\Subnautica_Packages\SMLHelper\manifest.json
 		BepinexPackages\BelowZero_Packages\SMLHelper_Exp\manifest.json = BepinexPackages\BelowZero_Packages\SMLHelper_Exp\manifest.json
 		BepinexPackages\BelowZero_Packages\SMLHelper\manifest.json = BepinexPackages\BelowZero_Packages\SMLHelper\manifest.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build scripts", "Build scripts", "{6EF72E95-EA2D-44C1-8FB4-F0FE4865FFC4}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\SMLHelper-post-build.ps1 = Scripts\SMLHelper-post-build.ps1
 	EndProjectSection
 EndProject
 Global
@@ -56,6 +62,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6EF72E95-EA2D-44C1-8FB4-F0FE4865FFC4} = {5152F028-6D03-43C0-88C5-986313017D4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA2C5D3D-5F61-4EA3-9399-FDEF43184299}
