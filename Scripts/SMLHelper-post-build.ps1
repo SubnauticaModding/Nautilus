@@ -56,7 +56,8 @@ $buildPath = switch ($ConfigurationName.ToUpper())
     default { "Modding Helper" }
 }
 
-$buildDir = [System.IO.Path]::Combine($TargetDir, $buildPath)
+$qmodsDir = [System.IO.Path]::Combine($TargetDir, "QMods")
+$buildDir = [System.IO.Path]::Combine($qmodsDir, $buildPath)
 
 # Remove build dir and create fresh
 if (Test-Path $buildDir)
@@ -75,33 +76,8 @@ foreach ($file in "mod.json", "SMLHelper.xml", "SMLHelper.dll")
 $buildZipPath = [System.IO.Path]::Combine($TargetDir, "SMLHelper_$($ConfigurationName).zip")
 $null = Zip -Path $buildDir -DestinationPath $buildZipPath -Fresh
 
-$thunderstorePackagesPath = switch ($ConfigurationName.ToUpper())
-{
-    {($_ -like "SN*")} { "Subnautica_Packages" }
-    {($_ -like "BZ*")} { "BelowZero_Packages" }
-    default { "Subnautica_Packages" }
-}
-
-$thunderstoreBuildPath = switch ($ConfigurationName.ToUpper())
-{
-    {$_ -like "*.STABLE"} {"SMLHelper"}
-    {$_ -like "*.EXP"} {"SMLHelper_Exp"}
-    default {"SMLHelper"}
-}
-
-$thunderstoreBuildDir = [System.IO.Path]::Combine($SolutionDir, "BepinexPackages", $thunderstorePackagesPath)
-$copyDir = [System.IO.Path]::Combine($thunderstoreBuildDir, $thunderstoreBuildPath, "QMods", $buildPath)
-
-# Clear Thunderstore packages dir and create fresh
-if (Test-Path $copyDir)
-{
-    $null = Remove-Item -Path $copyDir -Force -Recurse
-}
-$null = New-Item -Path $copyDir -ItemType "directory"
-
-# Copy build over
-Copy-Item $([System.IO.Path]::Combine($buildDir, "*")) -Destination $copyDir
-
 # Zip the Thunderstore build
-$thunderstoreZipPath = [System.IO.Path]::Combine($thunderstoreBuildDir, "$($thunderstoreBuildPath).zip")
-$null = Zip -Path $([System.IO.Path]::Combine($thunderstoreBuildDir, $thunderstoreBuildPath, "*")) -DestinationPath $thunderstoreZipPath -Fresh
+$thunderstoreMetadataPath = [System.IO.Path]::Combine($SolutionDir, "ThunderstoreMetadata", $ConfigurationName, "*")
+$thunderstoreZipPath = [System.IO.Path]::Combine($TargetDir, "SMLHelper_$($ConfigurationName)_Thunderstore.zip")
+$null = Zip -Path $qmodsDir -DestinationPath $thunderstoreZipPath -Fresh
+$null = Zip -Path $thunderstoreMetadataPath -DestinationPath $thunderstoreZipPath
