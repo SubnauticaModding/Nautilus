@@ -18,15 +18,41 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5152F028-6D03-43C0-88C5-986313017D4F}"
 	ProjectSection(SolutionItems) = preProject
 		common.props = common.props
-		BepinexPackages\Subnautica_Packages\SMLHelper_Exp\manifest.json = BepinexPackages\Subnautica_Packages\SMLHelper_Exp\manifest.json
-		BepinexPackages\Subnautica_Packages\SMLHelper\manifest.json = BepinexPackages\Subnautica_Packages\SMLHelper\manifest.json
-		BepinexPackages\BelowZero_Packages\SMLHelper_Exp\manifest.json = BepinexPackages\BelowZero_Packages\SMLHelper_Exp\manifest.json
-		BepinexPackages\BelowZero_Packages\SMLHelper\manifest.json = BepinexPackages\BelowZero_Packages\SMLHelper\manifest.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build scripts", "Build scripts", "{6EF72E95-EA2D-44C1-8FB4-F0FE4865FFC4}"
 	ProjectSection(SolutionItems) = preProject
 		Scripts\SMLHelper-post-build.ps1 = Scripts\SMLHelper-post-build.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Thunderstore Metadata", "Thunderstore Metadata", "{3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BZ.EXP", "BZ.EXP", "{2C1B7578-00A7-48D9-AAAC-E2CCADDB2012}"
+	ProjectSection(SolutionItems) = preProject
+		ThunderstoreMetadata\BZ.EXP\icon.png = ThunderstoreMetadata\BZ.EXP\icon.png
+		ThunderstoreMetadata\BZ.EXP\manifest.json = ThunderstoreMetadata\BZ.EXP\manifest.json
+		ThunderstoreMetadata\BZ.EXP\README.md = ThunderstoreMetadata\BZ.EXP\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BZ.STABLE", "BZ.STABLE", "{A44010CF-A9DB-4609-80F1-5AF079A76558}"
+	ProjectSection(SolutionItems) = preProject
+		ThunderstoreMetadata\BZ.STABLE\icon.png = ThunderstoreMetadata\BZ.STABLE\icon.png
+		ThunderstoreMetadata\BZ.STABLE\manifest.json = ThunderstoreMetadata\BZ.STABLE\manifest.json
+		ThunderstoreMetadata\BZ.STABLE\README.md = ThunderstoreMetadata\BZ.STABLE\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SN.EXP", "SN.EXP", "{5AE6CA9D-FECA-48C4-9D44-21C34FDB98E6}"
+	ProjectSection(SolutionItems) = preProject
+		ThunderstoreMetadata\SN.EXP\icon.png = ThunderstoreMetadata\SN.EXP\icon.png
+		ThunderstoreMetadata\SN.EXP\manifest.json = ThunderstoreMetadata\SN.EXP\manifest.json
+		ThunderstoreMetadata\SN.EXP\README.md = ThunderstoreMetadata\SN.EXP\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SN.STABLE", "SN.STABLE", "{C907482C-248E-4E81-8A46-4DC54B07337C}"
+	ProjectSection(SolutionItems) = preProject
+		ThunderstoreMetadata\SN.STABLE\icon.png = ThunderstoreMetadata\SN.STABLE\icon.png
+		ThunderstoreMetadata\SN.STABLE\manifest.json = ThunderstoreMetadata\SN.STABLE\manifest.json
+		ThunderstoreMetadata\SN.STABLE\README.md = ThunderstoreMetadata\SN.STABLE\README.md
 	EndProjectSection
 EndProject
 Global
@@ -65,6 +91,11 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6EF72E95-EA2D-44C1-8FB4-F0FE4865FFC4} = {5152F028-6D03-43C0-88C5-986313017D4F}
+		{3630BD6E-A8B0-4FE9-9027-E09666CFF9EA} = {5152F028-6D03-43C0-88C5-986313017D4F}
+		{2C1B7578-00A7-48D9-AAAC-E2CCADDB2012} = {3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}
+		{A44010CF-A9DB-4609-80F1-5AF079A76558} = {3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}
+		{5AE6CA9D-FECA-48C4-9D44-21C34FDB98E6} = {3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}
+		{C907482C-248E-4E81-8A46-4DC54B07337C} = {3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA2C5D3D-5F61-4EA3-9399-FDEF43184299}
