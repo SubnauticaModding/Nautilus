@@ -329,6 +329,7 @@
     <None Include="mod_BelowZero.json" Condition="$(Configuration.Contains('BZ.'))">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
