@@ -6,5 +6,6 @@
   "Enable": true,
   "Game": "Subnautica",
   "AssemblyName": "SMLHelper.dll",
-  "VersionChecker": { "LatestVersionURL": "https://raw.githubusercontent.com/SubnauticaModding/SMLHelper/master/SMLHelper/mod_Subnautica.json" }
+  "VersionChecker": { "LatestVersionURL": "https://raw.githubusercontent.com/SubnauticaModding/SMLHelper/master/SMLHelper/mod_Subnautica.json" },
+  "NitroxCompat": true
 }
