@@ -323,16 +323,12 @@
     <Compile Include="Utility\StorageHelperExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mod_Subnautica.json" Condition="$(Configuration.Contains('SN.'))">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mod_BelowZero.json" Condition="$(Configuration.Contains('BZ.'))">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="mod_Subnautica.json" Condition="$(Configuration.Contains('SN.'))" />
+    <None Include="mod_BelowZero.json" Condition="$(Configuration.Contains('BZ.'))" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File "$(SolutionDir)Scripts\SMLHelper-post-build.ps1" -SolutionDir $(SolutionDir) -ConfigurationName $(ConfigurationName) -TargetDir $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>powershell.exe -ExecutionPolicy Bypass -NoProfile -NonInteractive -File "$(SolutionDir)Scripts\SMLHelper-post-build.ps1" -SolutionDir $(SolutionDir) -ConfigurationName $(ConfigurationName) -TargetDir $(TargetDir) -ProjectDir $(ProjectDir)</PostBuildEvent>
   </PropertyGroup>
 </Project>

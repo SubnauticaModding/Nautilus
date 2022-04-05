@@ -5,7 +5,9 @@ param (
     [Parameter(Mandatory)]
     [string]$ConfigurationName,
     [Parameter(Mandatory)]
-    [string]$TargetDir
+    [string]$TargetDir,
+    [Parameter(Mandatory)]
+    [string]$ProjectDir
 )
 
 <#
@@ -49,6 +51,16 @@ function Zip
     }
 }
 
+# Copy correct mod.json to target dir
+$modJsonSuffix = switch ($ConfigurationName.ToUpper())
+{
+    {($_ -like "SN*")} { "Subnautica" }
+    {($_ -like "BZ*")} { "BelowZero" }
+    default { "Subnautica" }
+}
+$modJsonFilename = "mod_$($modJsonSuffix).json"
+Copy-Item $([System.IO.Path]::Combine($ProjectDir, $modJsonFilename)) -Destination $([System.IO.Path]::Combine($TargetDir, "mod.json"))
+
 $buildPath = switch ($ConfigurationName.ToUpper())
 {
     {($_ -like "SN*")} { "Modding Helper" }
@@ -77,7 +89,7 @@ $buildZipPath = [System.IO.Path]::Combine($TargetDir, "SMLHelper_$($Configuratio
 $null = Zip -Path $buildDir -DestinationPath $buildZipPath -Fresh
 
 # Zip the Thunderstore build
-$thunderstoreMetadataPath = [System.IO.Path]::Combine($SolutionDir, "ThunderstoreMetadata", $ConfigurationName, "*")
+$thunderstoreMetadataPath = [System.IO.Path]::Combine($ProjectDir, "ThunderstoreMetadata", $ConfigurationName, "*")
 $thunderstoreZipPath = [System.IO.Path]::Combine($TargetDir, "SMLHelper_$($ConfigurationName)_Thunderstore.zip")
 $null = Zip -Path $qmodsDir -DestinationPath $thunderstoreZipPath -Fresh
 $null = Zip -Path $thunderstoreMetadataPath -DestinationPath $thunderstoreZipPath
