@@ -26,6 +26,14 @@ namespace SMLHelper.V2.Patchers
             harmony.PatchAll(typeof(CustomSoundPatcher));
             Logger.Debug("CustomSoundPatcher is done.");
         }
+        
+        [HarmonyPatch(typeof(PDASounds), nameof(PDASounds.Deinitialize))]
+        [HarmonyPrefix]
+        public static void PDASounds_Deinitialize_Postfix()
+        {
+            EmitterPlayedChannels.Clear();
+            PlayedChannels.Clear();
+        }
 
 #if  SUBNAUTICA
         
