@@ -89,6 +89,13 @@ namespace SMLHelper.V2.Examples
             /// with the <see cref="ConsoleCommandAttribute"/>. See <see cref="MyAttributedCommand(string, int, bool)"/> below
             /// for an example.
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(ExampleMod));
+            
+            // Here we spawn a Titanium at 0,0,0 coordinates. when the object is successfully spawned, the game will popup the desired message
+            // which is defined in our delegate.
+            CoordinatedSpawnsHandler.Main.RegisterCoordinatedSpawn(new SpawnInfo(TechType.Titanium, Vector3.zero, obj =>
+            {
+                ErrorMessage.AddMessage($"{obj} spawned via CoordinatedSpawns system at {obj.transform.position} position.");
+            }));
 
             Logger.Log(Logger.Level.Info, "Patched successfully!");
         }
