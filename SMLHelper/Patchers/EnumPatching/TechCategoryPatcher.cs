@@ -27,9 +27,10 @@
 
             TechCategory TechCategory = (TechCategory)cache.Index;
 
-            cacheManager.Add(TechCategory, cache.Index, cache.Name);
-
-            Logger.Log($"Successfully added TechCategory: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            if(cacheManager.Add(TechCategory, cache.Index, cache.Name))
+                Logger.Log($"Successfully added TechCategory: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            else
+                Logger.Log($"Failed adding TechCategory: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
 
 
             return TechCategory;

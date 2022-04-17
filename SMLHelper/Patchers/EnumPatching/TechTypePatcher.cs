@@ -33,20 +33,24 @@
             };
 
             var techType = (TechType)cache.Index;
-            cacheManager.Add(techType, cache.Index, cache.Name);
+            if(cacheManager.Add(techType, cache.Index, cache.Name))
+            {
+                TechTypeExtensions.stringsNormal[techType] = name;
+                TechTypeExtensions.stringsLowercase[techType] = name.ToLowerInvariant();
+                TechTypeExtensions.techTypesNormal[name] = techType;
+                TechTypeExtensions.techTypesIgnoreCase[name] = techType;
 
-            // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
-            // See README.md for details.
-            TechTypeExtensions.stringsNormal[techType] = name;
-            TechTypeExtensions.stringsLowercase[techType] = name.ToLowerInvariant();
-            TechTypeExtensions.techTypesNormal[name] = techType;
-            TechTypeExtensions.techTypesIgnoreCase[name] = techType;
+                string intKey = cache.Index.ToString();
+                TechTypeExtensions.techTypeKeys[techType] = intKey;
+                TechTypeExtensions.keyTechTypes[intKey] = techType;
 
-            string intKey = cache.Index.ToString();
-            TechTypeExtensions.techTypeKeys[techType] = intKey;
-            TechTypeExtensions.keyTechTypes[intKey] = techType;
+                Logger.Log($"Successfully added Tech Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            }
+            else
+            {
+                Logger.Log($"Failed adding Tech Type: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+            }
 
-            Logger.Log($"Successfully added Tech Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             return techType;
         }
 

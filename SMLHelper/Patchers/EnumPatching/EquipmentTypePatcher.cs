@@ -40,8 +40,10 @@
                 Index = cacheManager.GetNextAvailableIndex()
             };
             var equipmentType = (EquipmentType) cache.Index;
-            cacheManager.Add(equipmentType, cache.Index, cache.Name);
-            Logger.Log($"Successfully added EquipmentType: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            if(cacheManager.Add(equipmentType, cache.Index, cache.Name))
+                Logger.Log($"Successfully added EquipmentType: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            else
+                Logger.Log($"Failed adding EquipmentType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
             return equipmentType;
         }
 

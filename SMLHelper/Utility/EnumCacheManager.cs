@@ -140,10 +140,13 @@
             return entriesFromRequests.TryGetValue(value, out type);
         }
 
-        public void Add(T value, int backingValue, string name)
+        public bool Add(T value, int backingValue, string name)
         {
-            if (!entriesFromRequests.IsKnownKey(backingValue))
-                entriesFromRequests.Add(value, backingValue, name);
+            if (entriesFromRequests.IsKnownKey(backingValue))
+                return false;
+
+            entriesFromRequests.Add(value, backingValue, name);
+            return true;
         }
 
         public bool ContainsKey(T key)

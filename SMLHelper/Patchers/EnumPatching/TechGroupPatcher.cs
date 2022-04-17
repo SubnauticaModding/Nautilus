@@ -28,15 +28,21 @@
 
             TechGroup techGroup = (TechGroup)cache.Index;
 
-            cacheManager.Add(techGroup, cache.Index, cache.Name);
-            
-            if (!uGUI_BlueprintsTab.groups.Contains(techGroup))
-                uGUI_BlueprintsTab.groups.Add(techGroup);
+            if(cacheManager.Add(techGroup, cache.Index, cache.Name))
+            {
 
-            if (!CraftData.groups.ContainsKey(techGroup))
-                CraftData.groups[techGroup] = new Dictionary<TechCategory, List<TechType>>();
+                if (!uGUI_BlueprintsTab.groups.Contains(techGroup))
+                    uGUI_BlueprintsTab.groups.Add(techGroup);
 
-            Logger.Log($"Successfully added TechGroup: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+                if (!CraftData.groups.ContainsKey(techGroup))
+                    CraftData.groups[techGroup] = new Dictionary<TechCategory, List<TechType>>();
+
+                Logger.Log($"Successfully added TechGroup: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            }
+            else
+            {
+                Logger.Log($"Failed adding TechGroup: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+            }
 
 
             return techGroup;
