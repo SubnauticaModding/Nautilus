@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using NSubstitute;
     using NUnit.Framework;
     using SMLHelper.V2.Assets;
@@ -56,7 +57,7 @@
             const TechType createdTechType = TechType.Accumulator;
 
             _mockTechTypeHandler
-                .AddTechType(Arg.Any<string>(), Arg.Do<string>((c) => _recordedEvents.Add("AddTechType")), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>())
+                .AddTechType(Arg.Any<Assembly>(), Arg.Do<string>((c) => _recordedEvents.Add("AddTechType")), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>())
                 .Returns(createdTechType);
 
             _mockPrefabHandler.RegisterPrefab(Arg.Do<Spawnable>((s) => _recordedEvents.Add("RegisterPrefab")));
@@ -83,7 +84,7 @@
             // ARRANGE
             const TechType createdTechType = TechType.Accumulator;
 
-            _mockTechTypeHandler.AddTechType(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>())
+            _mockTechTypeHandler.AddTechType(Arg.Any<Assembly>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>())
                                 .Returns(createdTechType);
 
             var customSize = new Vector2int(2, 2);

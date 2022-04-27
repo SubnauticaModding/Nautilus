@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.Tests.AssestClassTests
 {
+    using System.Reflection;
     using NSubstitute;
     using NUnit.Framework;
     using SMLHelper.V2.Assets;
@@ -38,7 +39,7 @@
             IKnownTechHandler mockKnownTechHandler = Substitute.For<IKnownTechHandler>();
 
             mockTechTypeHandler
-                .AddTechType(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>())
+                .AddTechType(Arg.Any<Assembly>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>())
                 .Returns(createdTechType);
 
             var techData = new TechData();
@@ -58,9 +59,9 @@
 
             // ASSERT
             mockCraftDataHandler.Received(1).SetTechData(createdTechType, techData);
-            mockCraftDataHandler.Received(1).AddToGroup(TechGroup.Cyclops, TechCategory.Cyclops, createdTechType);
+            mockCraftDataHandler.Received(1).AddToGroup(TechGroup.Constructor, TechCategory.Constructor, createdTechType);
             mockKnownTechHandler.DidNotReceiveWithAnyArgs();
-            mockTechTypeHandler.Received(1).AddTechType(Arg.Any<string>(), "classId", "friendlyName", "description", true);
+            mockTechTypeHandler.Received(1).AddTechType(Arg.Any<Assembly>(), "classId", "friendlyName", "description", true);
         }
 
         private class SimpleTestPdaItem : PdaItem
@@ -78,8 +79,8 @@
             {
             }
 
-            public override TechGroup GroupForPDA { get; } = TechGroup.Cyclops;
-            public override TechCategory CategoryForPDA { get; } = TechCategory.Cyclops;
+            public override TechGroup GroupForPDA { get; } = TechGroup.Constructor;
+            public override TechCategory CategoryForPDA { get; } = TechCategory.Constructor;
 
             public override GameObject GetGameObject()
             {
