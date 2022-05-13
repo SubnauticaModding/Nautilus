@@ -202,7 +202,8 @@
         private void BuildModKeybindOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
             KeyCode value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
-            AddKeybindOption(id, label, GameInput.Device.Keyboard, value);
+            GameInput.Device primaryDevice = GameInput.IsPrimaryDeviceGamepad() ? GameInput.Device.Controller : GameInput.Device.Keyboard;
+            AddKeybindOption(id, label, primaryDevice, value);
         }
 
         /// <summary>

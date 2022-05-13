@@ -184,7 +184,8 @@
                 public static void store(string name, HeadingState state) => statesConfig[name] = state;
             }
 
-            // we add arrow button from Choice ui element to the options headings for collapsing/expanding 
+            // we add arrow button from Choice ui element to the options headings for collapsing/expanding
+            // it cannot be activated by controller since there are only click handlers
             private static void InitHeadingPrefab(uGUI_TabbedControlsPanel panel)
             {
                 if (headingPrefab)
@@ -214,7 +215,8 @@
 
 #region components
             // main component for headings toggling
-            private class HeadingToggle: MonoBehaviour
+            // extending Selectable allows controllers to bypass headings
+            private class HeadingToggle: Selectable
             {
                 private HeadingState headingState = HeadingState.Expanded;
                 private string headingName = null;
