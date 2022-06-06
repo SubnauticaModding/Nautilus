@@ -671,6 +671,12 @@
             <param name="position"></param>
             <param name="eulerAngles"></param>
         </member>
+        <member name="P:SMLHelper.V2.Assets.Spawnable.SpawnLocation.position">
+            <summary></summary>
+        </member>
+        <member name="P:SMLHelper.V2.Assets.Spawnable.SpawnLocation.eulerAngles">
+            <summary></summary>
+        </member>
         <member name="P:SMLHelper.V2.Assets.Spawnable.CoordinatedSpawns">
             <summary>
             Returns the list of <see cref="T:SMLHelper.V2.Assets.Spawnable.SpawnLocation"/>s that specify the prefab's Coordinated Spawns.<br/>
@@ -734,6 +740,52 @@
             Default behavior will look for a PNG file named <see cref="P:SMLHelper.V2.Assets.Spawnable.IconFileName"/> inside <see cref="P:SMLHelper.V2.Assets.Spawnable.AssetsFolder"/>.
             </summary>
             <returns>Returns the <see cref="T:Atlas.Sprite"/> that will be used in the <see cref="M:SMLHelper.V2.Handlers.SpriteHandler.RegisterSprite(TechType,Atlas.Sprite)"/> call.</returns>
+        </member>
+        <member name="T:SMLHelper.V2.BiomeThings.Biome">
+               <summary>
+            A class for adding biomes.
+              </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.BiomeName">
+            <summary>
+            The name of the added biome, must be a string.
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.BiomeRichPresence">
+            <summary>
+            The Rich Presence Message of the biome, must be a string.
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.ColorOnBiomeMap">
+            <summary>
+            The RGB value of the biome on the provided biome map.
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.BedRockType">
+            <summary>
+            The bedrock type of the biome (I'm actually not sure what this does)
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.GroundType">
+            <summary>
+            The Ground Type of the biome (I'm actually not sure what this does)
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.DebugType">
+            <summary>
+            The Debug Type of the biome (I'm actually not sure what this does)
+            </summary>
+        </member>
+        <member name="M:SMLHelper.V2.BiomeThings.Biome.Patch">
+            <summary>
+            Call this method to Finialize setting values, and add the biome to the game.
+            </summary>
+        </member>
+        <member name="M:SMLHelper.V2.BiomeThings.Biome.EditedBiomeMap(System.Int32@,System.Int32@)">
+            <summary>
+            The BiomeMap you have edited.
+            </summary>
+            <returns>An Array of Color32</returns>
         </member>
         <member name="T:SMLHelper.V2.Commands.ConsoleCommand">
             <summary>

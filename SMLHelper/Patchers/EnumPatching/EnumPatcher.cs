@@ -46,6 +46,14 @@
             {
                 __result = GetValues(EquipmentTypePatcher.cacheManager, __result);
             }
+            else if(enumType == typeof(BiomeGroup))
+            {
+                __result = GetValues(BiomeGroupPatcher.cacheManager, __result);
+            }
+            else if(enumType == typeof(BiomeType))
+            {
+                __result = GetValues(BiomeTypePatcher.cacheManager, __result);
+            }
         }
 
         private static T[] GetValues<T>(EnumCacheManager<T> cacheManager, Array __result) where T : Enum
@@ -70,7 +78,9 @@
                 IsDefined(TechGroupPatcher.cacheManager, enumType, value) ||
                 IsDefined(TechCategoryPatcher.cacheManager, enumType, value) ||
                 IsDefined(BackgroundTypePatcher.cacheManager, enumType, value) ||
-                IsDefined(EquipmentTypePatcher.cacheManager, enumType, value))
+                IsDefined(EquipmentTypePatcher.cacheManager, enumType, value) ||
+                IsDefined(BiomeGroupPatcher.cacheManager,enumType,value) ||
+                IsDefined(BiomeTypePatcher.cacheManager,enumType,value))
             {
                 __result = true;
                 return false;
@@ -123,6 +133,16 @@
                 __result = equipmentType;
                 return false;
             }
+            else if (enumType == typeof(BiomeGroup) && BiomeGroupPatcher.cacheManager.TryParse(value, out BiomeGroup biomeGroup))
+            {
+                __result = biomeGroup;
+                return false;
+            }
+            else if(enumType == typeof(BiomeType) && BiomeTypePatcher.cacheManager.TryParse(value,out BiomeType biomeType))
+            {
+                __result = biomeType;
+                return false;
+            }
             return true;
         }
 
@@ -158,6 +178,14 @@
 
                 case EquipmentType equipmentType when EquipmentTypePatcher.cacheManager.TryGetValue(equipmentType, out var equipmentTypeName):
                     __result = equipmentTypeName;
+                    return false;
+
+                    case BiomeGroup biomeGroup when BiomeGroupPatcher.cacheManager.TryGetValue(biomeGroup,out var biomeGroupName):
+                    __result = biomeGroupName;
+                    return false;
+
+                    case BiomeType biomeType when BiomeTypePatcher.cacheManager.TryGetValue(biomeType, out var biomeTypeName):
+                    __result = biomeTypeName;
                     return false;
 
                 default:
