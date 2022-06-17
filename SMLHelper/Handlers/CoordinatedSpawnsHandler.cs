@@ -279,11 +279,11 @@ namespace SMLHelper.V2.Handlers
             unchecked // overflow is fine, just wrap around
             {
                 int hash = 13;
-                hash = (hash * 7) + TechType.GetHashCode();
-                hash = (hash * 7) + ClassId.GetHashCode();
-                hash = (hash * 7) + SpawnPosition.GetHashCode();
-                hash = (hash * 7) + Rotation.GetHashCode();
-                hash = (hash * 7) + Type.GetHashCode();
+                hash += (hash * 7) + TechType.GetHashCode();
+                hash += (hash * 7) + ClassId.GetHashCode();
+                hash += (hash * 7) + SpawnPosition.GetHashCode();
+                hash += (hash * 7) + Rotation.GetHashCode();
+                hash += (hash * 7) + Type.GetHashCode();
                 return hash;
             }
         }
