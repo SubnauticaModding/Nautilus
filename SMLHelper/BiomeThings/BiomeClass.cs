@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Logger = QModManager.Utility.Logger;
+using UWE;
+using WorldStreaming;
 namespace SMLHelper.V2.BiomeThings
 {
     ///    <summary>
@@ -14,6 +16,14 @@ namespace SMLHelper.V2.BiomeThings
     ///   </summary>
     public abstract class Biome
     {
+        /// <summary>
+        /// The Path your octrees go in.
+        /// </summary>
+        public abstract string OctreesPath { get; }
+        /// <summary>
+        /// The Position of added biome, must be a Vector3.
+        /// </summary>
+        public abstract Vector3 BiomePos { get; }
         /// <summary>
         /// The name of the added biome, must be a string.
         /// </summary>
@@ -25,7 +35,13 @@ namespace SMLHelper.V2.BiomeThings
         /// <summary>
         /// The RGB value of the biome on the provided biome map.
         /// </summary>
-        public abstract Color32 ColorOnBiomeMap { get; }
+        public virtual Color32 ColorOnBiomeMap { get
+            {
+                return UnityEngine.Color.black;
+            } private set
+            {
+                ColorOnBiomeMap = value;
+            }}
         /// <summary>
         /// The bedrock type of the biome (I'm actually not sure what this does)
         /// </summary>
@@ -39,40 +55,80 @@ namespace SMLHelper.V2.BiomeThings
         /// </summary>
         public abstract int DebugType { get; }
         /// <summary>
+        /// The Ambient Light Settings for the biome.
+        /// </summary>
+        public abstract AmbientLightSettings amblightsettings { get; }
+        /// <summary>
+        /// The Fog Settings for the biome.
+        /// </summary>
+        public abstract FogSettings fogsettings { get; }
+        /// <summary>
+        /// Sunlight Settings for the biome.
+        /// </summary>
+        public abstract SunlightSettings sunsettings { get; }
+        /// <summary>
+        /// The batch Ids, of the biome, must be the same as the ones in your .optoctrees files
+        /// </summary>
+        public abstract List<Int3> batchIds { get; }
+        internal List<GameObject> batchroots = new List<GameObject>();
+        /// <summary>
         /// Call this method to Finialize setting values, and add the biome to the game.
         /// </summary>
         public void Patch()
         {
+            if (!Directory.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "BiomeOctreeCache")))
+                Directory.CreateDirectory(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "BiomeOctreeCache"));
+            /*
+            var cols2_ = EditedBiomeMap(out var foo, out var bar);
+            var cols1_ = Variables.finalbiomemap;
+            var cols1 = cols1_.GetPixels();
+            var cols2 = cols2_.GetPixels();
+            if((cols2_.height * cols2_.width) > (cols1_.height * cols1_.width))
+            {
+                cols1_.height = cols2_.height;
+                cols1_.width = cols2_.width;
+            }
+            for (int i = 0; i < (cols1_.width * cols1_.height); ++i)
+            {
+                int y = i / cols1_.width;
+                int x = i - (y * cols1_.width);
+                Color pixel = cols1_.GetPixel(x,y);
+                Color pixel2 = cols2_.GetPixel(x, y);
+                if (pixel.r != pixel2.r && pixel.g != pixel2.g && pixel.b != pixel2.b)
+                {
+                    throw new Exception("You cannot have two biomes in the same place.");
+                } else if (pixel == cols2_.GetPixel(x, y))
+                {
+                    var random = new System.Random();
+                    var color = new Color(random.NextByte(), random.NextByte(), random.NextByte());
+                    while(Variables.usedrandomcolors.Contains(color))
+                    {
+                        color = new Color(random.NextByte(), random.NextByte(), random.NextByte());
+                    }
+                    cols2_.SetPixel(x, y, color);
+                    Variables.usedrandomcolors.Add(color);
+                    ColorOnBiomeMap = (Color32)color;
+                }
+                cols1_.SetPixel(x, y, cols2_.GetPixel(x, y));
+            }
+            if(Variables.finalbiomemap == null)
+            {
+                Variables.finalbiomemap = cols1_;
+            }
+            if (ColorOnBiomeMap == UnityEngine.Color.black)
+            {
+                var random = new System.Random();
+                var color = new Color(random.NextByte(), random.NextByte(), random.NextByte());
+                while (Variables.usedrandomcolors.Contains(color))
+                {
+                    color = new Color(random.NextByte(), random.NextByte(), random.NextByte());
+                }
+                Variables.usedrandomcolors.Add(color);
+                ColorOnBiomeMap = (Color32)color;
+            }
+            */
             Variables.biomes.Add(this);
-            var cols1 = Variables.finalbiomemap.GetPixels();
-            var cols2 = EditedBiomeMap(out var dummy,out var dummy2).GetPixels();
-            var dict1 = new Dictionary<Color,Vector2>();
-            var dict2 = new Dictionary<Color,Vector2>();
-            for (var i = 0; i < cols1.Length; i++)
-            {
-                var e = Variables.finalbiomemap.GetPixel(i,(i + 1));
-                dict1.Add(e.linear,new Vector2(i,(i+1)));
-            }
-            for (var i = 0; i < cols1.Length; i++)
-            {
-                var e = EditedBiomeMap(out var dummy3,out var dummy4).GetPixel(i, (i + 1));
-                dict2.Add(e.linear,new Vector2(i,(i+1)));
-            }
-            for (var i = 0; i < cols1.Length; ++i)
-            {
-                if (cols1[i].linear == new Color(117,134,142) || cols1[i].linear == new Color(175,225,126) || cols1[i].linear == new Color(202,70,101) || cols1[i].linear == new Color(184,119,93) || cols1[i].linear == new Color(55,79,168) || cols1[i].linear == new Color(158,144,213) || cols1[i].linear == new Color(70,146,187) || cols1[i].linear == new Color(168,255,252) || cols1[i].linear == new Color(142,99,6) || cols1[i].linear == new Color(208,208,208) || cols1[i].linear == new Color(126,90,90) || cols1[i].linear == new Color(0,0,0) || cols1[i].linear == new Color(62,100,77) || cols1[i].linear == new Color(246,229,169) || cols1[i].linear == new Color(131,59,110) || cols1[i].linear == new Color(42,49,51) || cols1[i].linear == new Color(123,160,188) || cols1[i].linear == new Color(225,82,225) || cols1[i].linear == new Color(90,21,0))
-                {
-                    continue;
-                }
-                if (cols1[i].linear != cols2[i].linear && dict1[cols1[i].linear] == dict2[cols2[i].linear])
-                {
-                    throw new Exception("Two different biomes in same position.");
-                }
-                
-                cols1[i] += cols2[i];
-            }
-            Variables.finalbiomemap.SetPixels(cols1);
-            Variables.finalbiomemap.Apply();
+            
             QModManager.Utility.Logger.Log(QModManager.Utility.Logger.Level.Info, $"Patched biome {BiomeName}");
         }
         /// <summary>
@@ -80,13 +136,20 @@ namespace SMLHelper.V2.BiomeThings
         /// </summary>
         /// <returns>An Array of Color32</returns>
         public abstract Texture2D EditedBiomeMap(out int height, out int width);
+        /// <summary>
+        /// The gameobject with the collider for registering when biome is entered
+        /// </summary>
+        /// <returns>A gameobject with collider applied</returns>
+        public abstract GameObject GetCollider();
     }
 
     internal static class Variables
     {
         internal static readonly List<Biome> biomes = new List<Biome>();
-        internal static Texture2D finalbiomemap = SMLHelper.V2.Utility.ImageUtils.LoadTextureFromFile(Path.Combine(Directory.GetParent(Directory.GetParent(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).FullName).FullName, @"\Subnautica_Data\StreamingAssets\SNUnmanagedData\Build18\biomeMap.png"));
+        internal static Texture2D finalbiomemap = SMLHelper.V2.Utility.ImageUtils.LoadTextureFromFile(Path.Combine(SNUtils.unmanagedDataDir,"Build18","biomeMap.png"));
         internal static int finalbiomemapheight => finalbiomemap.height;
         internal static int finalbiomemapwidth => finalbiomemap.width;
+        internal static bool ignoreHeader = false;
+        internal static List<Color> usedrandomcolors = new List<Color>();
     }
 }

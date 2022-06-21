@@ -1,24 +1,15 @@
-﻿using HarmonyLib;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnityEngine;
-
+using HarmonyLib;
 namespace SMLHelper.V2.Patchers
 {
+    [HarmonyPatch]
     internal class PAXTerrainControllerPatcher
     {
-        [HarmonyPatch(typeof(PAXTerrainController),nameof(PAXTerrainController.LoadAsync))]
-        internal static class PAXTerrainController_LoadAsync_Patch
-        {
-            [HarmonyPostfix]
-            public static void Postfix()
-            {
-                var obj = new GameObject("WorldShifter");
-                obj.EnsureComponent<WorldShifter>();
-            }
-        }
+       
     }
 }

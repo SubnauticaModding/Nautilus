@@ -746,6 +746,16 @@
             A class for adding biomes.
               </summary>
         </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.OctreesPath">
+            <summary>
+            The Path your octrees go in.
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.BiomePos">
+            <summary>
+            The Position of added biome, must be a Vector3.
+            </summary>
+        </member>
         <member name="P:SMLHelper.V2.BiomeThings.Biome.BiomeName">
             <summary>
             The name of the added biome, must be a string.
@@ -776,6 +786,26 @@
             The Debug Type of the biome (I'm actually not sure what this does)
             </summary>
         </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.amblightsettings">
+            <summary>
+            The Ambient Light Settings for the biome.
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.fogsettings">
+            <summary>
+            The Fog Settings for the biome.
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.sunsettings">
+            <summary>
+            Sunlight Settings for the biome.
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.batchIds">
+            <summary>
+            The batch Ids, of the biome, must be the same as the ones in your .optoctrees files
+            </summary>
+        </member>
         <member name="M:SMLHelper.V2.BiomeThings.Biome.Patch">
             <summary>
             Call this method to Finialize setting values, and add the biome to the game.
@@ -786,6 +816,12 @@
             The BiomeMap you have edited.
             </summary>
             <returns>An Array of Color32</returns>
+        </member>
+        <member name="M:SMLHelper.V2.BiomeThings.Biome.GetCollider">
+            <summary>
+            The gameobject with the collider for registering when biome is entered
+            </summary>
+            <returns>A gameobject with collider applied</returns>
         </member>
         <member name="T:SMLHelper.V2.Commands.ConsoleCommand">
             <summary>

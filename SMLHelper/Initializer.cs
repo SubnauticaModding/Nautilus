@@ -6,7 +6,7 @@
     using Patchers;
     using Patchers.EnumPatching;
     using QModManager.API.ModLoading;
-
+    using System.IO;
 
     /// <summary>
     /// WARNING: This class is for use only by QModManager.
@@ -79,7 +79,7 @@
             TooltipPatcher.Patch(harmony);
             SurvivalPatcher.Patch(harmony);
             CustomSoundPatcher.Patch(harmony);
-
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
 
 
             Logger.Debug("Saving TechType Cache");
@@ -91,4 +91,5 @@
 
         }
     }
+
 }
