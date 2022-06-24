@@ -27,9 +27,10 @@
 
             CraftData.BackgroundType backgroundType = (CraftData.BackgroundType)cache.Index;
 
-            cacheManager.Add(backgroundType, cache.Index, cache.Name);
-
-            Logger.Log($"Successfully added Backgroundtype: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            if(cacheManager.Add(backgroundType, cache.Index, cache.Name))
+                Logger.Log($"Successfully added Backgroundtype: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            else
+                Logger.Log($"Failed adding Backgroundtype: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
 
             return backgroundType;
         }

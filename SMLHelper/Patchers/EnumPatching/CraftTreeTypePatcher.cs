@@ -28,11 +28,13 @@
 
             craftTreeType = (CraftTree.Type)cache.Index;
 
-            cacheManager.Add(craftTreeType, cache.Index, cache.Name);
+            if(cacheManager.Add(craftTreeType, cache.Index, cache.Name))
+                Logger.Log($"Successfully added CraftTree Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            else
+                Logger.Log($"Failed adding CraftTree Type: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
 
-            Logger.Log($"Successfully added CraftTree Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
-
-            var customTreeRoot = new ModCraftTreeRoot(craftTreeType, name);
+            if(!CraftTreePatcher.CustomTrees.TryGetValue(craftTreeType, out var customTreeRoot))
+                customTreeRoot = new ModCraftTreeRoot(craftTreeType, name);
 
             CraftTreePatcher.CustomTrees[craftTreeType] = customTreeRoot;
 
