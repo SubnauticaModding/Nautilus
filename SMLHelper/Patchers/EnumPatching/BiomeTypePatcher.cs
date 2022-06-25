@@ -18,7 +18,7 @@ namespace SMLHelper.V2.Patchers.EnumPatching
                 startingIndex: startingIndex,
                 bannedIDs: ExtBannedIdManager.GetBannedIdsFor(BiomeTypeEnumName, new List<int>()));
 
-        internal static BiomeType AddBiomeGroup(string name)
+        internal static BiomeType AddBiomeType(string name)
         {
             EnumTypeCache cache = cacheManager.RequestCacheForTypeName(name) ?? new EnumTypeCache()
             {

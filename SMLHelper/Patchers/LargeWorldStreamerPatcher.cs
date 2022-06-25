@@ -22,36 +22,73 @@ namespace SMLHelper.V2.Patchers
     [HarmonyPatch]
     internal class LargeWorldStreamerPatcher
     {
-        private static readonly Regex pattern
-                = new Regex($@"^(?:[^\0]*(?:\/|\\))?(compiled-batch-(?<x>-?\d+)-(?<y>-?\d+)-(?<z>-?\d+)\.optoctrees)$");
-        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.GetCompiledOctreesCachePath))]
-        internal static class LargeWorldStreamer_GetCompiledOctreesCachePath_Patch
+        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.LoadBatchThreaded))]
+        internal static class LargeWorldStreamer_LoadBatchThreaded_Patch
         {
-            internal static bool Prefix(string filename,ref string __result)
+            [HarmonyPrefix]
+            internal static bool Prefix(BatchCells batchCells)
             {
-                var match = pattern.Match(filename);
-                Int3 batchId;
-                try
+                var shouldContinue = false;
+                BiomeThings.Biome containingBiome = null;
+                for (var e = 0; e < BiomeThings.Variables.biomes.Count; e++)
                 {
-                    int parse(string g) => int.Parse(match.Groups[g].Value);
-                    batchId = new Int3(parse("x"), parse("y"), parse("z"));
+                    var biome = BiomeThings.Variables.biomes[e];
+                    if (biome.batchIds.Contains(batchCells.batch))
+                    {
+                        shouldContinue = true;
+                        containingBiome = biome;
+                        break;
+                    }
                 }
-                catch
+                if (shouldContinue)
                 {
-                    Debug.LogError($"Game accessed batch file with invalid filename: '{filename}'");
+                    var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.batchroots[batchCells.batch]);
+                    LargeWorldStreamer.main.OnBatchObjectsLoaded(batchCells.batch, instantiatedgo);
                     return false;
                 }
-                for(int i = 0;i < BiomeThings.Variables.biomes.Count;i++)
+                return true;
+            }
+        }
+        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.CheckBatch))]
+        internal static class LargeWorldStreamer_CheckBatch_Patch
+        {
+            [HarmonyPostfix]
+            internal static void Postfix(ref bool __result,Int3 batch)
+            {
+                for(int e = 0;e < BiomeThings.Variables.biomes.Count; e++)
                 {
-                    var biome = BiomeThings.Variables.biomes[i];
-                    if(biome.batchIds.Contains(batchId))
+                    var biome = BiomeThings.Variables.biomes[e];
+                    if(biome.batchIds.Contains(batch))
                     {
-                        __result = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location),"BiomeOctreeCache");
+                        __result = true;
+                        break;
                     }
-                    else
+                }
+            }
+        }
+        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.FinalizeLoadBatchObjectsAsync))]
+        internal static class LargeWorldStreamer_FinializeLoadBatchObjectsAsync_Patch
+        {
+            [HarmonyPrefix]
+            internal static bool Prefix(Int3 index)
+            {
+                var shouldContinue = false;
+                BiomeThings.Biome containingBiome = null;
+                for (var e = 0; e < BiomeThings.Variables.biomes.Count; e++)
+                {
+                    var biome = BiomeThings.Variables.biomes[e];
+                    if (biome.batchIds.Contains(index))
                     {
-                        return true;
+                        shouldContinue = true;
+                        containingBiome = biome;
+                        break;
                     }
+                }
+                if (shouldContinue)
+                {
+                    var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.batchroots[index]);
+                    LargeWorldStreamer.main.OnBatchObjectsLoaded(index, instantiatedgo);
+                    return false;
                 }
                 return true;
             }
@@ -101,23 +138,25 @@ namespace SMLHelper.V2.Patchers
                 if (spawnInfos.Contains(savedSpawnInfo))
                     spawnInfos.Remove(savedSpawnInfo);
             }
-
-            InitializeSpawners();
-            Logger.Debug("Coordinated Spawns have been initialized in the current save.");
             foreach(var biome in BiomeThings.Variables.biomes)
             {
-                    for (var e = 0; e < biome.batchIds.Count(); e++)
+                Patchers.EnumPatching.BiomeTypePatcher.AddBiomeType(biome.BiomeName);
+                for (var e = 0; e < biome.batchTerrains.Count; e++)
                     {
-                    var prefab = new GameObject($"Batch {biome.batchIds[e].x},{biome.batchIds[e].y},{biome.batchIds[e].z}");
+                    var BatchTerrain = biome.batchTerrains.ElementAt(e);
+                   var prefab = BatchTerrain.Value;
+                    
                         var largeworldbatchroot = prefab.EnsureComponent<LargeWorldBatchRoot>();
                         largeworldbatchroot.atmospherePrefabClassId = biome.BiomeName;
+                   
                         var AtmoVolume = prefab.EnsureComponent<AtmosphereVolume>();
                         AtmoVolume.amb = biome.amblightsettings;
                         AtmoVolume.sun = biome.sunsettings;
                         AtmoVolume.fog = biome.fogsettings;
                         AtmoVolume.fadeRate = 0.1f;
                         AtmoVolume.overrideBiome = biome.BiomeName;
-                        largeworldbatchroot.batchId = biome.batchIds[e];
+                    AtmoVolume.affectsVisuals = true;                        
+                        largeworldbatchroot.batchId = BatchTerrain.Key;
                         largeworldbatchroot.amb = biome.amblightsettings;
                         largeworldbatchroot.sun = biome.sunsettings;
                         largeworldbatchroot.fog = biome.fogsettings;
@@ -147,20 +186,12 @@ namespace SMLHelper.V2.Patchers
                         capsuleCollider_.height = capsuleCollider.height;
                         capsuleCollider_.isTrigger = true;
                     }
-                    int x = LargeWorldStreamer.main.blocksPerBatch.x;
-                    Int3 @int = biome.batchIds[e] * x + new Int3(x / 2, x - 3, x / 2);
-                    largeworldbatchroot.transform.position = LargeWorldStreamer.main.land.transform.TransformPoint(@int.ToVector3());
-                        biome.batchroots.Add(prefab);
-                        for (int i = 0; i < Directory.GetFiles(biome.OctreesPath).Count(); i++)
-                        {
-                            var filename = Path.GetFileName(Directory.GetFiles(biome.OctreesPath)[i]);
-                            if (!File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "BiomeOctreeCache", filename)))
-                            {
-                                File.Copy(Directory.GetFiles(biome.OctreesPath)[i], Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "BiomeOctreeCache", filename));
-                            }
-                        }
+                    spawnInfos.AddRange(biome.SpawnInfos);
+                    biome.batchroots.Add(BatchTerrain.Key,prefab);
                     }
             }
+            InitializeSpawners();
+            Logger.Debug("Coordinated Spawns have been initialized in the current save.");
         }
 
         private static void SaveData()

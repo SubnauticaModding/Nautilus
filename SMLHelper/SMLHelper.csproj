@@ -295,7 +295,9 @@
     <Compile Include="Options\ModOptionTooltip.cs" />
     <Compile Include="Options\Utility\Validator.cs" />
     <Compile Include="Handlers\ConsoleCommandsHandler.cs" />
-    <Compile Include="Patchers\BatchOctreesStreamerPatcher.cs" />
+    <Compile Include="Patchers\AtmosphereVolumePatcher.cs" />
+    <Compile Include="Patchers\BatchCellsPatcher.cs" />
+    <Compile Include="Patchers\BatchOctreesPatcher.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
     <Compile Include="Patchers\ConsoleCommandsPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher.cs" />
@@ -303,6 +305,7 @@
     <Compile Include="Patchers\CraftDataPatcher_Subnautica.cs" />
     <Compile Include="Patchers\CraftTreePatcher.cs" />
     <Compile Include="Patchers\CustomSoundPatcher.cs" />
+    <Compile Include="Patchers\EntitySlotGeneratorPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\BackgroundTypePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\BiomeGroupPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\BiomeTypePatcher.cs" />

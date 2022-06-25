@@ -746,6 +746,11 @@
             A class for adding biomes.
               </summary>
         </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.SpawnInfos">
+            <summary>
+            SpawnInfos for what you want to initially spawn into your biome without initializing a coordinated spawn class.
+            </summary>
+        </member>
         <member name="P:SMLHelper.V2.BiomeThings.Biome.OctreesPath">
             <summary>
             The Path your octrees go in.
@@ -822,6 +827,11 @@
             The gameobject with the collider for registering when biome is entered
             </summary>
             <returns>A gameobject with collider applied</returns>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.batchTerrains">
+            <summary>
+            The Terrain for each batch of your biome, in format (BatchId,Terrain)
+            </summary>
         </member>
         <member name="T:SMLHelper.V2.Commands.ConsoleCommand">
             <summary>
