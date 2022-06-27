@@ -12,45 +12,36 @@ namespace SMLHelper.V2.Patchers
         internal static class ESG_Initialize_Patch
         {
             [HarmonyPrefix]
-            internal static bool Prefix(ref UnityEngine.Bounds bounds)
+            internal static bool Prefix(ref UnityEngine.Bounds wsBounds)
             {
-                bounds.size *= 1000;
+                wsBounds.size *= 1000;
                 return true;
             }
         }
         [HarmonyPatch(typeof(EntitySlotGenerator.GeneratorRule), nameof(EntitySlotGenerator.GeneratorRule.ShouldSpawn))]
         internal static class GeneratorRule_ShouldSpawn_Patch
         {
-            private static EntitySlotGenerator.GeneratorRule instance;
-            internal static bool Prefix(EntitySlotGenerator.GeneratorRule __instance)
-            {
-                instance = __instance;
-                return true;
-            }
             [HarmonyTranspiler]
             internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> list_)
             {
                 var list = new List<CodeInstruction>(list_);
                 for(var i = 0; i < list.Count;i++)
                 {
-                    if (list[i].Calls(typeof(EntitySlotGenerator.GeneratorRule).GetMethod(nameof(EntitySlotGenerator.GeneratorRule.Match))))
+                    if (list[i].Calls(typeof(EntitySlotGenerator.GeneratorRule).GetMethod(nameof(EntitySlotGenerator.GeneratorRule.Match),System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)))
                     {
-                        list[i].operand = typeof(GeneratorRule_ShouldSpawn_Patch).GetMethod(nameof(GeneratorRule_ShouldSpawn_Patch.MatchReplace));
+                        list[i].operand = typeof(GeneratorRule_ShouldSpawn_Patch).GetMethod(nameof(GeneratorRule_ShouldSpawn_Patch.MatchReplace), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
                     }
                 }
                 return list.AsEnumerable();
             }
-            internal static bool MatchReplace(string voxelBiome,string voxelMaterial)
+            internal static bool MatchReplace(EntitySlotGenerator.GeneratorRule __instance,string voxelBiome,string voxelMaterial)
             {
-                for(var i = 0;i < BiomeThings.Variables.biomes.Count;i++)
+                
+                if(BiomeThings.Variables.biomes.Exists(biome => biome.BiomeName == voxelBiome))
                 {
-                    var biome = BiomeThings.Variables.biomes[i];
-                    if(biome.BiomeName == voxelBiome)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
-               return instance.Match(voxelBiome, voxelMaterial);
+               return __instance.Match(voxelBiome, voxelMaterial);
             }
         }
     }

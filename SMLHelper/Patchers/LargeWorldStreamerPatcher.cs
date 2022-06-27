@@ -93,6 +93,27 @@ namespace SMLHelper.V2.Patchers
                 return true;
             }
         }
+        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.OnBatchFullyLoaded))]
+        internal static class LWS_OBFL_Patch
+        {
+            [HarmonyPostfix]
+            internal static void Postfix(Int3 batchId)
+            {
+                if(BiomeThings.Variables.biomes.Exists(biome => biome.batchIds.Contains(batchId)))
+                {
+                    LargeWorldStreamer.main.cellManager.InitializeBatchCells(batchId);
+                }
+            }
+        }
+        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.GetBlock))]
+        internal static class LWS_GetBlock_Patch
+        {
+            [HarmonyPostfix]
+            internal static void Postfix(ref Int3 __result)
+            {
+                __result -= Int3.Floor(FloatingOrigin.CurrentOffset);
+            }
+        }
         internal static void Patch(Harmony harmony)
         {
             var initializeOrig = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.Initialize));
@@ -155,6 +176,7 @@ namespace SMLHelper.V2.Patchers
                         AtmoVolume.fog = biome.fogsettings;
                         AtmoVolume.fadeRate = 0.1f;
                         AtmoVolume.overrideBiome = biome.BiomeName;
+
                     AtmoVolume.affectsVisuals = true;                        
                         largeworldbatchroot.batchId = BatchTerrain.Key;
                         largeworldbatchroot.amb = biome.amblightsettings;
@@ -188,7 +210,8 @@ namespace SMLHelper.V2.Patchers
                     }
                     spawnInfos.AddRange(biome.SpawnInfos);
                     biome.batchroots.Add(BatchTerrain.Key,prefab);
-                    }
+                    LargeWorldStreamer.main.cellManager.InitializeBatchCells(BatchTerrain.Key);
+                }
             }
             InitializeSpawners();
             Logger.Debug("Coordinated Spawns have been initialized in the current save.");

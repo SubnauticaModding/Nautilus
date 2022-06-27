@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HarmonyLib;
+using System.Reflection;
 namespace SMLHelper.V2.Patchers
 {
     internal class BatchCellsPatcher
@@ -18,7 +19,7 @@ namespace SMLHelper.V2.Patchers
                 __instance.cellsTier1 = new Array3<EntityCell>(50);
                 __instance.cellsTier2 = new Array3<EntityCell>(50);
                 __instance.cellsTier3 = new Array3<EntityCell>(50);
-                return true;
+                return false;
             }
         }
     }

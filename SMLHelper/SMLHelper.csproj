@@ -299,6 +299,7 @@
     <Compile Include="Patchers\BatchCellsPatcher.cs" />
     <Compile Include="Patchers\BatchOctreesPatcher.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
+    <Compile Include="Patchers\CellManagerPatcher.cs" />
     <Compile Include="Patchers\ConsoleCommandsPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher_BelowZero.cs" />
@@ -310,6 +311,7 @@
     <Compile Include="Patchers\EnumPatching\BiomeGroupPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\BiomeTypePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\CraftTreeTypePatcher.cs" />
+    <Compile Include="Patchers\EnumPatching\EntityCellPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\EnumPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\EquipmentTypePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\PingTypePatcher.cs" />
