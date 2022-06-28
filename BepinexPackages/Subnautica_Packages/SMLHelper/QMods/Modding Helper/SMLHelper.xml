@@ -746,19 +746,19 @@
             A class for adding biomes.
               </summary>
         </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.Sky">
+            <summary>
+            The sky of your biome.
+            </summary>
+        </member>
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.WaterScapeSettings">
+            <summary>
+            The Waterscape Volume Settings of your biome.
+            </summary>
+        </member>
         <member name="P:SMLHelper.V2.BiomeThings.Biome.SpawnInfos">
             <summary>
             SpawnInfos for what you want to initially spawn into your biome without initializing a coordinated spawn class.
-            </summary>
-        </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.OctreesPath">
-            <summary>
-            The Path your octrees go in.
-            </summary>
-        </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.BiomePos">
-            <summary>
-            The Position of added biome, must be a Vector3.
             </summary>
         </member>
         <member name="P:SMLHelper.V2.BiomeThings.Biome.BiomeName">
@@ -771,29 +771,9 @@
             The Rich Presence Message of the biome, must be a string.
             </summary>
         </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.ColorOnBiomeMap">
-            <summary>
-            The RGB value of the biome on the provided biome map.
-            </summary>
-        </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.BedRockType">
-            <summary>
-            The bedrock type of the biome (I'm actually not sure what this does)
-            </summary>
-        </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.GroundType">
-            <summary>
-            The Ground Type of the biome (I'm actually not sure what this does)
-            </summary>
-        </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.DebugType">
-            <summary>
-            The Debug Type of the biome (I'm actually not sure what this does)
-            </summary>
-        </member>
         <member name="P:SMLHelper.V2.BiomeThings.Biome.amblightsettings">
             <summary>
-            The Ambient Light Settings for the biome.
+            The Ambient Light Settings of your biome.
             </summary>
         </member>
         <member name="P:SMLHelper.V2.BiomeThings.Biome.fogsettings">

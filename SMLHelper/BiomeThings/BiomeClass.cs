@@ -17,17 +17,18 @@ namespace SMLHelper.V2.BiomeThings
     public abstract class Biome
     {
         /// <summary>
+        /// The sky of your biome.
+        /// </summary>
+        public abstract mset.Sky Sky { get; }
+        /// <summary>
+        /// The Waterscape Volume Settings of your biome.
+        /// </summary>
+        public abstract WaterscapeVolume.Settings WaterScapeSettings { get; }
+        /// <summary>
         /// SpawnInfos for what you want to initially spawn into your biome without initializing a coordinated spawn class.
         /// </summary>
         public abstract List<SMLHelper.V2.Handlers.SpawnInfo> SpawnInfos { get; }
-        /// <summary>
-        /// The Path your octrees go in.
-        /// </summary>
-        public abstract string OctreesPath { get; }
-        /// <summary>
-        /// The Position of added biome, must be a Vector3.
-        /// </summary>
-        public abstract Vector3 BiomePos { get; }
+        
         /// <summary>
         /// The name of the added biome, must be a string.
         /// </summary>
@@ -37,29 +38,7 @@ namespace SMLHelper.V2.BiomeThings
         /// </summary>
         public virtual string BiomeRichPresence { get; }
         /// <summary>
-        /// The RGB value of the biome on the provided biome map.
-        /// </summary>
-        public virtual Color32 ColorOnBiomeMap { get
-            {
-                return UnityEngine.Color.black;
-            } private set
-            {
-                ColorOnBiomeMap = value;
-            }}
-        /// <summary>
-        /// The bedrock type of the biome (I'm actually not sure what this does)
-        /// </summary>
-        public abstract int BedRockType { get; }
-        /// <summary>
-        /// The Ground Type of the biome (I'm actually not sure what this does)
-        /// </summary>
-        public abstract int GroundType { get; }
-        /// <summary>
-        /// The Debug Type of the biome (I'm actually not sure what this does)
-        /// </summary>
-        public abstract int DebugType { get; }
-        /// <summary>
-        /// The Ambient Light Settings for the biome.
+        /// The Ambient Light Settings of your biome.
         /// </summary>
         public abstract AmbientLightSettings amblightsettings { get; }
         /// <summary>

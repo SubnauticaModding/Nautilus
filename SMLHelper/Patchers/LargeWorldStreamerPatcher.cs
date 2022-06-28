@@ -163,42 +163,43 @@ namespace SMLHelper.V2.Patchers
             {
                 Patchers.EnumPatching.BiomeTypePatcher.AddBiomeType(biome.BiomeName);
                 for (var e = 0; e < biome.batchTerrains.Count; e++)
-                    {
+                {
+                    var biomemanagerindex = WaterBiomeManager.main.biomeSettings.Count + 1;
                     var BatchTerrain = biome.batchTerrains.ElementAt(e);
-                   var prefab = BatchTerrain.Value;
-                    
-                        var largeworldbatchroot = prefab.EnsureComponent<LargeWorldBatchRoot>();
-                        largeworldbatchroot.atmospherePrefabClassId = biome.BiomeName;
-                   
-                        var AtmoVolume = prefab.EnsureComponent<AtmosphereVolume>();
-                        AtmoVolume.amb = biome.amblightsettings;
-                        AtmoVolume.sun = biome.sunsettings;
-                        AtmoVolume.fog = biome.fogsettings;
-                        AtmoVolume.fadeRate = 0.1f;
-                        AtmoVolume.overrideBiome = biome.BiomeName;
+                    var prefab = BatchTerrain.Value;
 
-                    AtmoVolume.affectsVisuals = true;                        
-                        largeworldbatchroot.batchId = BatchTerrain.Key;
-                        largeworldbatchroot.amb = biome.amblightsettings;
-                        largeworldbatchroot.sun = biome.sunsettings;
-                        largeworldbatchroot.fog = biome.fogsettings;
-                        largeworldbatchroot.fadeRate = 0.1f;
+                    var largeworldbatchroot = prefab.EnsureComponent<LargeWorldBatchRoot>();
+                    largeworldbatchroot.atmospherePrefabClassId = biome.BiomeName;
+
+                    var AtmoVolume = prefab.EnsureComponent<AtmosphereVolume>();
+                    AtmoVolume.amb = biome.amblightsettings;
+                    AtmoVolume.sun = biome.sunsettings;
+                    AtmoVolume.fog = biome.fogsettings;
+                    AtmoVolume.fadeRate = 0.1f;
+                    AtmoVolume.overrideBiome = biome.BiomeName;
+
+                    AtmoVolume.affectsVisuals = true;
+                    largeworldbatchroot.batchId = BatchTerrain.Key;
+                    largeworldbatchroot.amb = biome.amblightsettings;
+                    largeworldbatchroot.sun = biome.sunsettings;
+                    largeworldbatchroot.fog = biome.fogsettings;
+                    largeworldbatchroot.fadeRate = 0.1f;
                     var collider = biome.GetCollider().GetComponent<Collider>();
-                    if(collider is SphereCollider)
+                    if (collider is SphereCollider)
                     {
                         var sphereCollider = collider as SphereCollider;
                         var sphereCollider_ = prefab.EnsureComponent<SphereCollider>();
                         sphereCollider_.center = sphereCollider.center;
                         sphereCollider_.radius = sphereCollider.radius;
                         sphereCollider_.isTrigger = true;
-                    }else if(collider is BoxCollider)
+                    } else if (collider is BoxCollider)
                     {
                         var boxCollider = collider as BoxCollider;
                         var boxCollider_ = prefab.EnsureComponent<BoxCollider>();
                         boxCollider_.center = boxCollider.center;
                         boxCollider_.size = boxCollider.size;
                         boxCollider_.isTrigger = true;
-                    }else if(collider is CapsuleCollider)
+                    } else if (collider is CapsuleCollider)
                     {
                         var capsuleCollider = collider as CapsuleCollider;
                         var capsuleCollider_ = prefab.EnsureComponent<CapsuleCollider>();
@@ -209,8 +210,9 @@ namespace SMLHelper.V2.Patchers
                         capsuleCollider_.isTrigger = true;
                     }
                     spawnInfos.AddRange(biome.SpawnInfos);
-                    biome.batchroots.Add(BatchTerrain.Key,prefab);
+                    biome.batchroots.Add(BatchTerrain.Key, prefab);
                     LargeWorldStreamer.main.cellManager.InitializeBatchCells(BatchTerrain.Key);
+                    
                 }
             }
             InitializeSpawners();

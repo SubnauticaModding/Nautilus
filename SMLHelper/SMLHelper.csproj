@@ -299,6 +299,7 @@
     <Compile Include="Patchers\BatchCellsPatcher.cs" />
     <Compile Include="Patchers\BatchOctreesPatcher.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
+    <Compile Include="Patchers\BuilderPatcher.cs" />
     <Compile Include="Patchers\CellManagerPatcher.cs" />
     <Compile Include="Patchers\ConsoleCommandsPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher.cs" />
@@ -324,7 +325,6 @@
     <Compile Include="Patchers\ItemsContainerPatcher.cs" />
     <Compile Include="Patchers\KnownTechPatcher.cs" />
     <Compile Include="Patchers\LanguagePatcher.cs" />
-    <Compile Include="Patchers\LargeWorldPatcher.cs" />
     <Compile Include="Patchers\LargeWorldStreamerPatcher.cs" />
     <Compile Include="Patchers\LootDistributionPatcher.cs" />
     <Compile Include="Patchers\OptionsPanelPatcher.cs" />
@@ -337,6 +337,7 @@
     <Compile Include="Patchers\SpritePatcher.cs" />
     <Compile Include="Patchers\SurvivalPatcher.cs" />
     <Compile Include="Patchers\TooltipPatcher.cs" />
+    <Compile Include="Patchers\WaterBiomeManagerPatcher.cs" />
     <Compile Include="Patchers\WorldEntityDatabasePatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AudioUtils.cs" />
