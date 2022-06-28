@@ -10,31 +10,22 @@ namespace SMLHelper.V2.Patchers
 {
     internal class PlayerPatcher
     {
-        [HarmonyPatch(typeof(Player), nameof(Player.Awake))]
-        internal static class Player_Awake_Patch
-        {
-            [HarmonyPostfix]
-            internal static void Postfix(Player __instance)
+            [HarmonyPatch(typeof(Player), nameof(Player.Awake))]
+            [PatchUtils.Postfix]
+            internal static void Player_Awake_Postfix(Player __instance)
             {
-                 __instance.gameObject.EnsureComponent<FloatingOrigin>().ReferenceObject = __instance.transform;
+                __instance.gameObject.EnsureComponent<FloatingOrigin>().ReferenceObject = __instance.transform;
             }
-        }
-        [HarmonyPatch(typeof(Player),nameof(Player.SetPosition),new Type[] {typeof(Vector3)})]
-        internal static class Player_SetPosition_Patch
-        {
-            [HarmonyPrefix]
-            internal static bool Prefix(ref Vector3 wsPos)
+            [HarmonyPatch(typeof(Player), nameof(Player.SetPosition), new Type[] { typeof(Vector3) })]
+            [PatchUtils.Prefix]
+            internal static bool Player_SetPosition_Prefix(ref Vector3 wsPos)
             {
                 wsPos -= FloatingOrigin.CurrentOffset;
                 return true;
             }
-        }
-        [HarmonyPatch(typeof(Player), nameof(Player.UpdateBiomeRichPresence))]
-        internal static class Player_UpdateBiomeRichPresence_Patch
-        {
-            internal static bool isWarping;
-            [HarmonyPostfix]
-            public static void Postfix(string biomeStr)
+            [HarmonyPatch(typeof(Player), nameof(Player.UpdateBiomeRichPresence))]
+            [PatchUtils.Postfix]
+            public static void Player_UBRP_Postfix(string biomeStr)
             {
                 foreach (var biome in BiomeThings.Variables.biomes)
                 {
@@ -49,9 +40,13 @@ namespace SMLHelper.V2.Patchers
                             PlatformUtils.main.GetServices().SetRichPresence($"Exploring {biome.BiomeName}");
                         }
                         return;
-                    }
                 }
             }
+        }
+        internal static void Patch(Harmony h)
+        {
+            PatchUtils.PatchClass(h);
+            Logger.Log("Patched Player");
         }
         
     }

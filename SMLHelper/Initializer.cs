@@ -79,9 +79,18 @@
             TooltipPatcher.Patch(harmony);
             SurvivalPatcher.Patch(harmony);
             CustomSoundPatcher.Patch(harmony);
-            harmony.PatchAll(Assembly.GetExecutingAssembly());
-
-
+            #region Biomes
+#if SUBNAUTICA_STABLE
+            AtmosphereVolumePatcher.Patch(harmony);
+            BatchCellsPatcher.Patch(harmony);
+            BatchOctreesPatcher.Patch(harmony);
+            BuilderPatcher.Patch(harmony);
+            CellManagerPatcher.Patch(harmony);
+            EntitySlotGeneratorPatcher.Patch(harmony);
+            WaterBiomeManagerPatcher.Patch(harmony);
+            PlayerPatcher.Patch(harmony);
+#endif
+            #endregion
             Logger.Debug("Saving TechType Cache");
             TechTypePatcher.cacheManager.SaveCache();
             Logger.Debug("Saving CraftTreeType Cache");

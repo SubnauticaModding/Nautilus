@@ -8,11 +8,9 @@ namespace SMLHelper.V2.Patchers
 {
     internal class CellManagerPatcher
     {
-        [HarmonyPatch(typeof(CellManager), nameof(CellManager.InitializeBatchCells))]
-        internal static class CellManager_IBC_Patch
-        {
-            [HarmonyPrefix]
-            internal static bool Prefix(CellManager __instance, Int3 index, ref BatchCells __result)
+            [HarmonyPatch(typeof(CellManager), nameof(CellManager.InitializeBatchCells))]
+            [PatchUtils.Prefix]
+            internal static bool CellManager_IBC_Prefix(CellManager __instance, Int3 index, ref BatchCells __result)
             {
                 if (BiomeThings.Variables.biomes.Exists(biome => biome.batchIds.Contains(index)))
                 {
@@ -24,6 +22,10 @@ namespace SMLHelper.V2.Patchers
                 }
                 return true;
             }
+      internal static void Patch(Harmony harmony)
+        {
+            PatchUtils.PatchClass(harmony);
+            Logger.Log("Patched CellManager");
         }
     }
 }

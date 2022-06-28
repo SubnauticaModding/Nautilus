@@ -168,11 +168,8 @@
     <Compile Include="Assets\BelowZeroModSprite.cs" />
     <Compile Include="Assets\PdaItem.cs" />
     <Compile Include="Assets\Spawnable.cs" />
-    <Compile Include="BiomeThings\BatchOctreesExtensions.cs" />
-    <Compile Include="BiomeThings\BatchOctreesStreamerExtensions.cs" />
     <Compile Include="BiomeThings\BiomeClass.cs" />
     <Compile Include="BiomeThings\FloatingOrigin.cs" />
-    <Compile Include="BiomeThings\OctreeExtensions.cs" />
     <Compile Include="Commands\Parameter.cs" />
     <Compile Include="Commands\ConsoleCommand.cs" />
     <Compile Include="Crafting\CraftingNode.cs" />
@@ -328,7 +325,6 @@
     <Compile Include="Patchers\LargeWorldStreamerPatcher.cs" />
     <Compile Include="Patchers\LootDistributionPatcher.cs" />
     <Compile Include="Patchers\OptionsPanelPatcher.cs" />
-    <Compile Include="Patchers\PAXTerrainControllerPatcher.cs" />
     <Compile Include="Patchers\PDAEncyclopediaPatcher.cs" />
     <Compile Include="Patchers\PDALogPatcher.cs" />
     <Compile Include="Patchers\PdaPatcher.cs" />

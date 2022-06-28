@@ -9,11 +9,9 @@ namespace SMLHelper.V2.Patchers
 {
     internal class WaterBiomeManagerPatcher
     {
-        [HarmonyPatch(typeof(WaterBiomeManager), nameof(WaterBiomeManager.Start))]
-        internal static class WBM_Start_Patch
-        {
-            [HarmonyPrefix]
-            internal static bool Prefix(WaterBiomeManager __instance)
+            [HarmonyPatch(typeof(WaterBiomeManager), nameof(WaterBiomeManager.Start))]
+            [PatchUtils.Prefix]
+            internal static bool WaterBiomeManager_Start_Prefix(WaterBiomeManager __instance)
             {
                 for (var i = 0; i < BiomeThings.Variables.biomes.Count; i++)
                 {
@@ -28,8 +26,9 @@ namespace SMLHelper.V2.Patchers
                 }
                 return true;
             }
-            [HarmonyTranspiler]
-            internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            [HarmonyPatch(typeof(WaterBiomeManager), nameof(WaterBiomeManager.Start))]
+            [PatchUtils.Transpiler]
+            internal static IEnumerable<CodeInstruction> WaterBiomeManager_Start_Transpiler(IEnumerable<CodeInstruction> instructions)
             {
 
                 return new CodeMatcher(instructions)
@@ -47,7 +46,7 @@ namespace SMLHelper.V2.Patchers
                 .RemoveInstruction()
                 .RemoveInstruction()
                 .SetOpcodeAndAdvance(OpCodes.Ldloc_0)
-                .SetAndAdvance(OpCodes.Call, AccessTools.Method(typeof(WBM_Start_Patch), nameof(WBM_Start_Patch.GetSkyReplace)))
+                .SetAndAdvance(OpCodes.Call, AccessTools.Method(typeof(WaterBiomeManagerPatcher), nameof(WaterBiomeManagerPatcher.GetSkyReplace)))
                 .InstructionEnumeration();
             }
 
@@ -79,6 +78,10 @@ namespace SMLHelper.V2.Patchers
                 }
                 return null;
             }
+        internal static void Patch(Harmony h)
+        {
+            PatchUtils.PatchClass(h);
+            Logger.Log("Patched WaterBiomeManager");
+        }
         }
     }
-}

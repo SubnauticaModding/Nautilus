@@ -9,11 +9,9 @@ namespace SMLHelper.V2.Patchers
 {
     internal class BatchOctreesPatcher
     {
-        [HarmonyPatch(typeof(BatchOctrees), nameof(BatchOctrees.LoadOctrees))]
-        internal static class BatchOctrees_LoadOctrees_Patch
-        {
-            [HarmonyPrefix]
-            internal static bool Prefix(BatchOctrees __instance)
+            [HarmonyPatch(typeof(BatchOctrees), nameof(BatchOctrees.LoadOctrees))]
+            [PatchUtils.Prefix]
+            internal static bool BatchOctrees_LoadOctrees_Prefix(BatchOctrees __instance)
             {
                 var shouldContinue = false;
                 BiomeThings.Biome containingBiome = null;
@@ -35,6 +33,10 @@ namespace SMLHelper.V2.Patchers
                 }
                 return true;
             }
+        internal static void Patch(Harmony h)
+        {
+            PatchUtils.PatchClass(h);
+            Logger.Log("Patched BatchOctrees");
         }
     }
 }

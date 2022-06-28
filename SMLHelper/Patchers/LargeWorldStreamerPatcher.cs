@@ -22,11 +22,9 @@ namespace SMLHelper.V2.Patchers
     [HarmonyPatch]
     internal class LargeWorldStreamerPatcher
     {
-        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.LoadBatchThreaded))]
-        internal static class LargeWorldStreamer_LoadBatchThreaded_Patch
-        {
-            [HarmonyPrefix]
-            internal static bool Prefix(BatchCells batchCells)
+            [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.LoadBatchThreaded))]
+            [PatchUtils.Prefix]
+            internal static bool LWS_LBT_Prefix(BatchCells batchCells)
             {
                 var shouldContinue = false;
                 BiomeThings.Biome containingBiome = null;
@@ -48,12 +46,9 @@ namespace SMLHelper.V2.Patchers
                 }
                 return true;
             }
-        }
-        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.CheckBatch))]
-        internal static class LargeWorldStreamer_CheckBatch_Patch
-        {
-            [HarmonyPostfix]
-            internal static void Postfix(ref bool __result,Int3 batch)
+            [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.CheckBatch))]
+            [PatchUtils.Postfix]
+            internal static void LWS_CheckBatch_Postfix(ref bool __result,Int3 batch)
             {
                 for(int e = 0;e < BiomeThings.Variables.biomes.Count; e++)
                 {
@@ -65,12 +60,9 @@ namespace SMLHelper.V2.Patchers
                     }
                 }
             }
-        }
-        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.FinalizeLoadBatchObjectsAsync))]
-        internal static class LargeWorldStreamer_FinializeLoadBatchObjectsAsync_Patch
-        {
-            [HarmonyPrefix]
-            internal static bool Prefix(Int3 index)
+            [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.FinalizeLoadBatchObjectsAsync))]
+            [PatchUtils.Prefix]
+            internal static bool LWS_FLBOA_Prefix(Int3 index)
             {
                 var shouldContinue = false;
                 BiomeThings.Biome containingBiome = null;
@@ -92,33 +84,27 @@ namespace SMLHelper.V2.Patchers
                 }
                 return true;
             }
-        }
-        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.OnBatchFullyLoaded))]
-        internal static class LWS_OBFL_Patch
+        [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.OnBatchFullyLoaded))]
+        [PatchUtils.Postfix]
+        internal static void LWS_OBFL_Postfix(Int3 batchId)
         {
-            [HarmonyPostfix]
-            internal static void Postfix(Int3 batchId)
+            if (BiomeThings.Variables.biomes.Exists(biome => biome.batchIds.Contains(batchId)))
             {
-                if(BiomeThings.Variables.biomes.Exists(biome => biome.batchIds.Contains(batchId)))
-                {
-                    LargeWorldStreamer.main.cellManager.InitializeBatchCells(batchId);
-                }
+                LargeWorldStreamer.main.cellManager.InitializeBatchCells(batchId);
             }
         }
-        [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.GetBlock))]
-        internal static class LWS_GetBlock_Patch
-        {
-            [HarmonyPostfix]
-            internal static void Postfix(ref Int3 __result)
+            [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.GetBlock))]
+            [PatchUtils.Postfix]
+            internal static void LWS_GetBlock_Postfix(ref Int3 __result)
             {
                 __result -= Int3.Floor(FloatingOrigin.CurrentOffset);
             }
-        }
         internal static void Patch(Harmony harmony)
         {
             var initializeOrig = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.Initialize));
             var initPostfix = new HarmonyMethod(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(InitializePostfix)));
             harmony.Patch(initializeOrig, postfix: initPostfix);
+            PatchUtils.PatchClass(harmony);
         }
 
         internal static readonly List<SpawnInfo> spawnInfos = new List<SpawnInfo>();

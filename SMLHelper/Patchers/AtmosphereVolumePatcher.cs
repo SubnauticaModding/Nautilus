@@ -10,10 +10,8 @@ namespace SMLHelper.V2.Patchers
 {
     internal class AtmosphereVolumePatcher
     {
-        [HarmonyPatch(typeof(AtmosphereVolume),nameof(AtmosphereVolume.Start))]
-        internal static class AtmosphereVolume_Start_Patch
-        {
-            [HarmonyTranspiler]
+            [HarmonyPatch(typeof(AtmosphereVolume), nameof(AtmosphereVolume.Start))]
+            [PatchUtils.Transpiler]
             internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> list_)
             {
                 var list = new List<CodeInstruction>(list_);
@@ -21,7 +19,7 @@ namespace SMLHelper.V2.Patchers
                 {
                     if (list[i].Calls(typeof(Component).GetMethod(nameof(Component.GetComponent),Type.EmptyTypes).MakeGenericMethod(typeof(Collider))))
                     {
-                        list[i].operand = typeof(AtmosphereVolume_Start_Patch).GetMethod(nameof(AtmosphereVolume_Start_Patch.GetComponentReplace),System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+                        list[i].operand = typeof(AtmosphereVolumePatcher).GetMethod(nameof(AtmosphereVolumePatcher.GetComponentReplace),System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
                     }
                 }
                 return list.AsEnumerable();
@@ -44,7 +42,12 @@ namespace SMLHelper.V2.Patchers
                 }
                 return collider;
             }
-                }
-            }
+        internal static void Patch(Harmony h)
+        {
+            PatchUtils.PatchClass(h);
+            Logger.Log("Patched AtmosphereVolume");
         }
+                }
+
+            }
    
