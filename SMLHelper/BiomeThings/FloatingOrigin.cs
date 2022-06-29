@@ -66,10 +66,11 @@ internal class FloatingOrigin : MonoBehaviour
             {
                 foreach (GameObject g in SceneManager.GetSceneAt(z).GetRootGameObjects())
                 {
-                    if(g.name == "MainCamera (UI)" || g.name == "MainCamera")
+                    if (g.name == "MainCamera (UI)" || g.name == "MainCamera")
                     {
                         continue;
-                    }else if(g.TryGetComponent<uGUI_BuilderMenu>(out var buildermenu))
+                    }
+                    else if (g.TryGetComponent<uGUI_BuilderMenu>(out var buildermenu))
                     {
                         continue;
                     }
