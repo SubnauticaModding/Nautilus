@@ -71,6 +71,14 @@
       <HintPath>$(Dependencies)\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Assembly-CSharp-firstpass_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\SteamLibrary\steamapps\common\Subnautica\Subnautica_Data\Managed\publicized_assemblies\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\SteamLibrary\steamapps\common\Subnautica\Subnautica_Data\Managed\publicized_assemblies\Assembly-CSharp_publicized.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>$(Dependencies)\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
@@ -280,7 +288,6 @@
     <Compile Include="Patchers\BatchCellsPatcher.cs" />
     <Compile Include="Patchers\BatchOctreesPatcher.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
-    <Compile Include="Patchers\BuilderPatcher.cs" />
     <Compile Include="Patchers\CellManagerPatcher.cs" />
     <Compile Include="Patchers\ConsoleCommandsPatcher.cs" />
     <Compile Include="Patchers\CraftDataPatcher.cs" />
@@ -293,7 +300,6 @@
     <Compile Include="Patchers\EnumPatching\BiomeGroupPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\BiomeTypePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\CraftTreeTypePatcher.cs" />
-    <Compile Include="Patchers\EnumPatching\EntityCellPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\EnumPatcher.cs" />
     <Compile Include="Patchers\EnumPatching\EquipmentTypePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\PingTypePatcher.cs" />

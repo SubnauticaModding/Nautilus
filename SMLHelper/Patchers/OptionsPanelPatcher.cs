@@ -103,6 +103,8 @@
                 "Mod name and item ID",
                 "Nothing"
             }, (int)TooltipPatcher.ExtraItemInfoOption, (i) => TooltipPatcher.SetExtraItemInfo((TooltipPatcher.ExtraItemInfo)i));
+            PlayerPatcher.InitFloatingOriginEnabled();
+            optionsPanel.AddToggleOption(modsTab, "Enable Floating Origin", PlayerPatcher.FloatingOriginEnabled, PlayerPatcher.SetFloatingOriginEnabled);
 
             // adding all other options here
             modOptions.Values.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));

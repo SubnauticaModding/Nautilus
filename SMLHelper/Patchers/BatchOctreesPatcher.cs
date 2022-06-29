@@ -28,6 +28,7 @@ namespace SMLHelper.V2.Patchers
                 if(shouldContinue)
                 {
                     var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.BatchRoots[__instance.id]);
+                instantiatedgo.layer = LayerID.TerrainCollider;
                     LargeWorldStreamer.main.OnBatchObjectsLoaded(__instance.id, instantiatedgo);
                     return false;
                 }

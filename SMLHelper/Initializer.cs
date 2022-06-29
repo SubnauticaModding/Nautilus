@@ -83,7 +83,6 @@
             AtmosphereVolumePatcher.Patch(harmony);
             BatchCellsPatcher.Patch(harmony);
             BatchOctreesPatcher.Patch(harmony);
-            BuilderPatcher.Patch(harmony);
             CellManagerPatcher.Patch(harmony);
             EntitySlotGeneratorPatcher.Patch(harmony);
             WaterBiomeManagerPatcher.Patch(harmony);

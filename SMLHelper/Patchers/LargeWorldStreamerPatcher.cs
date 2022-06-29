@@ -41,12 +41,35 @@ namespace SMLHelper.V2.Patchers
                 if (shouldContinue)
                 {
                     var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.BatchRoots[batchCells.batch]);
+                instantiatedgo.layer = LayerID.TerrainCollider;
                     LargeWorldStreamer.main.OnBatchObjectsLoaded(batchCells.batch, instantiatedgo);
                     return false;
                 }
                 return true;
             }
-            [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.CheckBatch))]
+        [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.FinalizeLoadBatchObjectsAsync))]
+        [PatchUtils.Prefix]
+        internal static bool LWS_FLBOA_Prefix(Int3 index)
+        {
+            var shouldContinue = false;
+            BiomeThings.Biome containingBiome = null;
+            for (var e = 0; e < BiomeThings.Variables.Biomes.Count; e++)
+            {
+                var biome = BiomeThings.Variables.Biomes[e];
+                if (biome.BatchIds.Contains(index))
+                {
+                    shouldContinue = true;
+                    containingBiome = biome;
+                    break;
+                }
+            }
+            if (shouldContinue)
+            {
+                return false;
+            }
+            return true;
+        }
+        [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.CheckBatch))]
             [PatchUtils.Postfix]
             internal static void LWS_CheckBatch_Postfix(ref bool __result,Int3 batch)
             {
@@ -59,30 +82,6 @@ namespace SMLHelper.V2.Patchers
                         break;
                     }
                 }
-            }
-            [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.FinalizeLoadBatchObjectsAsync))]
-            [PatchUtils.Prefix]
-            internal static bool LWS_FLBOA_Prefix(Int3 index)
-            {
-                var shouldContinue = false;
-                BiomeThings.Biome containingBiome = null;
-                for (var e = 0; e < BiomeThings.Variables.Biomes.Count; e++)
-                {
-                    var biome = BiomeThings.Variables.Biomes[e];
-                    if (biome.BatchIds.Contains(index))
-                    {
-                        shouldContinue = true;
-                        containingBiome = biome;
-                        break;
-                    }
-                }
-                if (shouldContinue)
-                {
-                    var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.BatchRoots[index]);
-                    LargeWorldStreamer.main.OnBatchObjectsLoaded(index, instantiatedgo);
-                    return false;
-                }
-                return true;
             }
         [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.OnBatchFullyLoaded))]
         [PatchUtils.Postfix]
@@ -198,7 +197,7 @@ namespace SMLHelper.V2.Patchers
                     spawnInfos.AddRange(biome.SpawnInfos);
                     biome.BatchRoots.Add(BatchTerrain.Key, prefab);
                     LargeWorldStreamer.main.cellManager.InitializeBatchCells(BatchTerrain.Key);
-                    
+                    LanguagePatcher.AddCustomLanguageLine("SMLHelper", $"PresenceExploring_biome_{biome.BiomeName}",biome.BiomeRichPresence ?? $"Exploring {biome.BiomeName}");
                 }
             }
             InitializeSpawners();

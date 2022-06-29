@@ -771,22 +771,22 @@
             The Rich Presence Message of the biome, must be a string.
             </summary>
         </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.amblightsettings">
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.AmbLightSettings">
             <summary>
             The Ambient Light Settings of your biome.
             </summary>
         </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.fogsettings">
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.FogSettings">
             <summary>
             The Fog Settings for the biome.
             </summary>
         </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.sunsettings">
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.SunSettings">
             <summary>
             Sunlight Settings for the biome.
             </summary>
         </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.batchIds">
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.BatchIds">
             <summary>
             The batch Ids, of the biome, must be the same as the ones in your .optoctrees files
             </summary>
@@ -808,7 +808,7 @@
             </summary>
             <returns>A gameobject with collider applied</returns>
         </member>
-        <member name="P:SMLHelper.V2.BiomeThings.Biome.batchTerrains">
+        <member name="P:SMLHelper.V2.BiomeThings.Biome.BatchTerrains">
             <summary>
             The Terrain for each batch of your biome, in format (BatchId,Terrain)
             </summary>
