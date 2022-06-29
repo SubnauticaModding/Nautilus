@@ -98,10 +98,5 @@ namespace SMLHelper.V2.BiomeThings
             }
             return result;
         }
-        internal static Texture2D finalbiomemap = SMLHelper.V2.Utility.ImageUtils.LoadTextureFromFile(Path.Combine(SNUtils.unmanagedDataDir,"Build18","biomeMap.png"));
-        internal static int finalbiomemapheight => finalbiomemap.height;
-        internal static int finalbiomemapwidth => finalbiomemap.width;
-        internal static bool ignoreHeader = false;
-        internal static List<Color> usedrandomcolors = new List<Color>();
     }
 }
