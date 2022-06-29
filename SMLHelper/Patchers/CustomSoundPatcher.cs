@@ -204,8 +204,7 @@ namespace SMLHelper.V2.Patchers
         {
             if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
 
-            channel.getChannelGroup(out var channelGroup);
-            channelGroup.stop();
+            channel.stop();
             __instance._playing = false;
             __instance.OnStop();
 
@@ -481,8 +480,7 @@ namespace SMLHelper.V2.Patchers
         {
             if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
 
-            channel.getChannelGroup(out var channelGroup);
-            channelGroup.stop();
+            channel.stop();
             __instance._playing = false;
             __instance.OnStop();
 
