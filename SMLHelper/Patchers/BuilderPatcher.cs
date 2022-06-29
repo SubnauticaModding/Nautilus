@@ -12,7 +12,7 @@ namespace SMLHelper.V2.Patchers
             [PatchUtils.Postfix]
             internal static void Builder_UpdateAllowed_Postfix(ref bool __result)
             {
-                if(BiomeThings.Variables.biomes.Exists(biome => biome.BiomeName == Player.main.GetBiomeString() && Player.main.IsInSub() is false))
+                if(BiomeThings.Variables.Biomes.Exists(biome => biome.BiomeName == Player.main.GetBiomeString() && Player.main.IsInSub() is false))
                 __result = true;
             }
         internal static void Patch(Harmony h)

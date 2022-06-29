@@ -28,10 +28,10 @@ namespace SMLHelper.V2.Patchers
             {
                 var shouldContinue = false;
                 BiomeThings.Biome containingBiome = null;
-                for (var e = 0; e < BiomeThings.Variables.biomes.Count; e++)
+                for (var e = 0; e < BiomeThings.Variables.Biomes.Count; e++)
                 {
-                    var biome = BiomeThings.Variables.biomes[e];
-                    if (biome.batchIds.Contains(batchCells.batch))
+                    var biome = BiomeThings.Variables.Biomes[e];
+                    if (biome.BatchIds.Contains(batchCells.batch))
                     {
                         shouldContinue = true;
                         containingBiome = biome;
@@ -40,7 +40,7 @@ namespace SMLHelper.V2.Patchers
                 }
                 if (shouldContinue)
                 {
-                    var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.batchroots[batchCells.batch]);
+                    var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.BatchRoots[batchCells.batch]);
                     LargeWorldStreamer.main.OnBatchObjectsLoaded(batchCells.batch, instantiatedgo);
                     return false;
                 }
@@ -50,10 +50,10 @@ namespace SMLHelper.V2.Patchers
             [PatchUtils.Postfix]
             internal static void LWS_CheckBatch_Postfix(ref bool __result,Int3 batch)
             {
-                for(int e = 0;e < BiomeThings.Variables.biomes.Count; e++)
+                for(int e = 0;e < BiomeThings.Variables.Biomes.Count; e++)
                 {
-                    var biome = BiomeThings.Variables.biomes[e];
-                    if(biome.batchIds.Contains(batch))
+                    var biome = BiomeThings.Variables.Biomes[e];
+                    if(biome.BatchIds.Contains(batch))
                     {
                         __result = true;
                         break;
@@ -66,10 +66,10 @@ namespace SMLHelper.V2.Patchers
             {
                 var shouldContinue = false;
                 BiomeThings.Biome containingBiome = null;
-                for (var e = 0; e < BiomeThings.Variables.biomes.Count; e++)
+                for (var e = 0; e < BiomeThings.Variables.Biomes.Count; e++)
                 {
-                    var biome = BiomeThings.Variables.biomes[e];
-                    if (biome.batchIds.Contains(index))
+                    var biome = BiomeThings.Variables.Biomes[e];
+                    if (biome.BatchIds.Contains(index))
                     {
                         shouldContinue = true;
                         containingBiome = biome;
@@ -78,7 +78,7 @@ namespace SMLHelper.V2.Patchers
                 }
                 if (shouldContinue)
                 {
-                    var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.batchroots[index]);
+                    var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.BatchRoots[index]);
                     LargeWorldStreamer.main.OnBatchObjectsLoaded(index, instantiatedgo);
                     return false;
                 }
@@ -88,7 +88,7 @@ namespace SMLHelper.V2.Patchers
         [PatchUtils.Postfix]
         internal static void LWS_OBFL_Postfix(Int3 batchId)
         {
-            if (BiomeThings.Variables.biomes.Exists(biome => biome.batchIds.Contains(batchId)))
+            if (BiomeThings.Variables.Biomes.Exists(biome => biome.BatchIds.Contains(batchId)))
             {
                 LargeWorldStreamer.main.cellManager.InitializeBatchCells(batchId);
             }
@@ -145,30 +145,30 @@ namespace SMLHelper.V2.Patchers
                 if (spawnInfos.Contains(savedSpawnInfo))
                     spawnInfos.Remove(savedSpawnInfo);
             }
-            foreach(var biome in BiomeThings.Variables.biomes)
+            foreach(var biome in BiomeThings.Variables.Biomes)
             {
                 Patchers.EnumPatching.BiomeTypePatcher.AddBiomeType(biome.BiomeName);
-                for (var e = 0; e < biome.batchTerrains.Count; e++)
+                for (var e = 0; e < biome.BatchTerrains.Count; e++)
                 {
                     var biomemanagerindex = WaterBiomeManager.main.biomeSettings.Count + 1;
-                    var BatchTerrain = biome.batchTerrains.ElementAt(e);
+                    var BatchTerrain = biome.BatchTerrains.ElementAt(e);
                     var prefab = BatchTerrain.Value;
 
                     var largeworldbatchroot = prefab.EnsureComponent<LargeWorldBatchRoot>();
                     largeworldbatchroot.atmospherePrefabClassId = biome.BiomeName;
 
                     var AtmoVolume = prefab.EnsureComponent<AtmosphereVolume>();
-                    AtmoVolume.amb = biome.amblightsettings;
-                    AtmoVolume.sun = biome.sunsettings;
-                    AtmoVolume.fog = biome.fogsettings;
+                    AtmoVolume.amb = biome.AmbLightSettings;
+                    AtmoVolume.sun = biome.SunSettings;
+                    AtmoVolume.fog = biome.FogSettings;
                     AtmoVolume.fadeRate = 0.1f;
                     AtmoVolume.overrideBiome = biome.BiomeName;
 
                     AtmoVolume.affectsVisuals = true;
                     largeworldbatchroot.batchId = BatchTerrain.Key;
-                    largeworldbatchroot.amb = biome.amblightsettings;
-                    largeworldbatchroot.sun = biome.sunsettings;
-                    largeworldbatchroot.fog = biome.fogsettings;
+                    largeworldbatchroot.amb = biome.AmbLightSettings;
+                    largeworldbatchroot.sun = biome.SunSettings;
+                    largeworldbatchroot.fog = biome.FogSettings;
                     largeworldbatchroot.fadeRate = 0.1f;
                     var collider = biome.GetCollider().GetComponent<Collider>();
                     if (collider is SphereCollider)
@@ -196,7 +196,7 @@ namespace SMLHelper.V2.Patchers
                         capsuleCollider_.isTrigger = true;
                     }
                     spawnInfos.AddRange(biome.SpawnInfos);
-                    biome.batchroots.Add(BatchTerrain.Key, prefab);
+                    biome.BatchRoots.Add(BatchTerrain.Key, prefab);
                     LargeWorldStreamer.main.cellManager.InitializeBatchCells(BatchTerrain.Key);
                     
                 }

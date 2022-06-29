@@ -27,7 +27,7 @@ namespace SMLHelper.V2.Patchers
             [PatchUtils.Postfix]
             public static void Player_UBRP_Postfix(string biomeStr)
             {
-                foreach (var biome in BiomeThings.Variables.biomes)
+                foreach (var biome in BiomeThings.Variables.Biomes)
                 {
                     if (biome.BiomeName == biomeStr)
                     {

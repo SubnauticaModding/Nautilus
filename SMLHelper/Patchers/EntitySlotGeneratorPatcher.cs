@@ -33,7 +33,7 @@ namespace SMLHelper.V2.Patchers
             internal static bool MatchReplace(EntitySlotGenerator.GeneratorRule __instance,string voxelBiome,string voxelMaterial)
             {
                 
-                if(BiomeThings.Variables.biomes.Exists(biome => biome.BiomeName == voxelBiome))
+                if(BiomeThings.Variables.Biomes.Exists(biome => biome.BiomeName == voxelBiome))
                 {
                     return true;
                 }

@@ -41,27 +41,27 @@ namespace SMLHelper.V2.BiomeThings
         /// <summary>
         /// The Ambient Light Settings of your biome.
         /// </summary>
-        public abstract AmbientLightSettings amblightsettings { get; }
+        public abstract AmbientLightSettings AmbLightSettings { get; }
         /// <summary>
         /// The Fog Settings for the biome.
         /// </summary>
-        public abstract FogSettings fogsettings { get; }
+        public abstract FogSettings FogSettings { get; }
         /// <summary>
         /// Sunlight Settings for the biome.
         /// </summary>
-        public abstract SunlightSettings sunsettings { get; }
+        public abstract SunlightSettings SunSettings { get; }
         /// <summary>
         /// The batch Ids, of the biome, must be the same as the ones in your .optoctrees files
         /// </summary>
-        public abstract List<Int3> batchIds { get; }
-        internal Dictionary<Int3, GameObject> batchroots = new Dictionary<Int3, GameObject>();
+        public abstract List<Int3> BatchIds { get; }
+        internal Dictionary<Int3, GameObject> BatchRoots = new Dictionary<Int3, GameObject>();
         /// <summary>
         /// Call this method to Finialize setting values, and add the biome to the game.
         /// </summary>
         public void Patch()
         { 
            
-            Variables.biomes.Add(this);
+            Variables.Biomes.Add(this);
             
             QModManager.Utility.Logger.Log(QModManager.Utility.Logger.Level.Info, $"Patched biome {BiomeName}");
         }
@@ -78,22 +78,22 @@ namespace SMLHelper.V2.BiomeThings
         /// <summary>
         /// The Terrain for each batch of your biome, in format (BatchId,Terrain)
         /// </summary>
-        public abstract Dictionary<Int3, GameObject> batchTerrains { get; }
+        public abstract Dictionary<Int3, GameObject> BatchTerrains { get; }
     }
 
     internal static class Variables
     {
-        internal static readonly List<Biome> biomes = new List<Biome>();
+        internal static readonly List<Biome> Biomes = new List<Biome>();
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static List<Int3> GetAllBiomeBatchIds()
         {
             var result = new List<Int3>();
-            for (var i = 0; i < biomes.Count; i++)
+            for (var i = 0; i < Biomes.Count; i++)
             {
-                var biome = biomes[i];
-                for (var e = 0; i < biome.batchIds.Count; e++)
+                var biome = Biomes[i];
+                for (var e = 0; i < biome.BatchIds.Count; e++)
                 {
-                    result.Add(biome.batchIds[e]);
+                    result.Add(biome.BatchIds[e]);
                 }
             }
             return result;

@@ -31,7 +31,7 @@ namespace SMLHelper.V2.Patchers.EnumPatching
                     var obj_ = obj as LargeWorldEntity;
                     var block = LargeWorldStreamer.main.GetBlock(obj_.transform.position);
                     var key = block / LargeWorldStreamer.main.blocksPerBatch;
-                    if(BiomeThings.Variables.biomes.Exists(biome => biome.batchIds.Contains(key)))
+                    if(BiomeThings.Variables.Biomes.Exists(biome => biome.BatchIds.Contains(key)))
                     {
                         return false;
                     }

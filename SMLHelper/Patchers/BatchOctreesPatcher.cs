@@ -15,10 +15,10 @@ namespace SMLHelper.V2.Patchers
             {
                 var shouldContinue = false;
                 BiomeThings.Biome containingBiome = null;
-                for (var e = 0; e < BiomeThings.Variables.biomes.Count; e++)
+                for (var e = 0; e < BiomeThings.Variables.Biomes.Count; e++)
                 {
-                    var biome = BiomeThings.Variables.biomes[e];
-                    if (biome.batchIds.Contains(__instance.id))
+                    var biome = BiomeThings.Variables.Biomes[e];
+                    if (biome.BatchIds.Contains(__instance.id))
                     {
                         shouldContinue = true;
                         containingBiome = biome;
@@ -27,7 +27,7 @@ namespace SMLHelper.V2.Patchers
                 }
                 if(shouldContinue)
                 {
-                    var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.batchroots[__instance.id]);
+                    var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.BatchRoots[__instance.id]);
                     LargeWorldStreamer.main.OnBatchObjectsLoaded(__instance.id, instantiatedgo);
                     return false;
                 }

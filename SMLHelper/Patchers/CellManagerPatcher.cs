@@ -12,7 +12,7 @@ namespace SMLHelper.V2.Patchers
             [PatchUtils.Prefix]
             internal static bool CellManager_IBC_Prefix(CellManager __instance, Int3 index, ref BatchCells __result)
             {
-                if (BiomeThings.Variables.biomes.Exists(biome => biome.batchIds.Contains(index)))
+                if (BiomeThings.Variables.Biomes.Exists(biome => biome.BatchIds.Contains(index)))
                 {
                     var batchcells = new BatchCells();
                     batchcells.Init(__instance, LargeWorldStreamer.main, index);
