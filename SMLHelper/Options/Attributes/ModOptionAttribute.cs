@@ -34,7 +34,7 @@
         private static int i = 0;
 
         /// <summary>
-        /// An optional tooltip to display for the field.
+        /// An optional tooltip to display for the field. If <see cref="TooltipLanguageId"/> is set, this will be ignored.
         /// </summary>
         public string Tooltip { get; set; }
 
@@ -45,6 +45,12 @@
         /// <seealso cref="LanguageHandler.SetLanguageLine(string, string)"/>
         /// <seealso cref="Language.Get(string)"/>
         public string LabelLanguageId { get; set; }
+
+        /// <summary>
+        /// An optional id to be parsed with <see cref="Language.Get(string)"/> for the tooltip, allowing for custom lanaguage-based strings
+        /// via the <see cref="LanguageHandler"/> API. If this is set, it will take precedence.
+        /// </summary>
+        public string TooltipLanguageId { get; set; }
 
         /// <summary>
         /// Signifies the decorated member should be represented in the mod's options menu as a <see cref="ModOption"/>
