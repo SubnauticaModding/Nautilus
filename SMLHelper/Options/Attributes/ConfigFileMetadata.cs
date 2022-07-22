@@ -467,7 +467,7 @@
         }
 
         /// <summary>
-        /// Generates tooltips for each <see cref="ModOption"/> with a specified <see cref="TooltipAttribute"/>, before
+        /// Generates tooltips as required for each <see cref="ModOption"/>, before
         /// invoking any relevant method(s) specified with <see cref="OnGameObjectCreatedAttribute"/>(s) and passes
         /// parameters when a <see cref="GameObject"/> is created in the options menu.
         /// </summary>
@@ -477,8 +477,14 @@
         {
             if (TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
             {
-                // Create a tooltip if there is a TooltipAttribute specified
-                if (modOptionMetadata.ModOptionAttribute.Tooltip is string tooltip)
+                string tooltip = Language.main.TryGet(modOptionMetadata.ModOptionAttribute.TooltipLanguageId, out string languageTooltip) switch
+                {
+                    true => languageTooltip,
+                    false => modOptionMetadata.ModOptionAttribute.Tooltip
+                };
+
+                // Create a tooltip if specified
+                if (tooltip is not null)
                 {
                     e.GameObject.GetComponentInChildren<Text>().gameObject.AddComponent<ModOptionTooltip>().Tooltip = tooltip;
                 }
