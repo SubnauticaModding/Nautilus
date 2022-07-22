@@ -28,7 +28,7 @@ namespace SMLHelper.V2.Patchers
                         list[i].operand = typeof(EntitySlotGeneratorPatcher).GetMethod(nameof(EntitySlotGeneratorPatcher.MatchReplace), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
                     }
                 }
-                return list.AsEnumerable();
+                return list;
             }
             internal static bool MatchReplace(EntitySlotGenerator.GeneratorRule __instance,string voxelBiome,string voxelMaterial)
             {
