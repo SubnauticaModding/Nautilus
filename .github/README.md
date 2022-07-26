@@ -10,7 +10,7 @@ To get started, first fork the repo and then clone it to your local environment.
 
 Make sure to use the **publicized** versions of `Assembly-CSharp.dll` and `Assembly-CSharp-firstpass.dll` (the originals being located in your `Subnautica_Data/Managed` folder).  
 
-To create your own publicized DLLs, install the [BepinEx Plugin](https://github.com/elliotttate/Bepinex-Tools/releases/tag/1.0.1-Publicizer) and run the game once to create the following files:
+To create your own publicized DLLs, install the [BepinEx Plugin](https://github.com/elliotttate/Bepinex-Tools/releases) and run the game once to create the following files:
 
 * `Subnautica_Data\Managed\publicized_assemblies\Assembly-CSharp_publicized.dll`
 * `Subnautica_Data\Managed\publicized_assemblies\Assembly-CSharp-firstpass_publicized.dll`
