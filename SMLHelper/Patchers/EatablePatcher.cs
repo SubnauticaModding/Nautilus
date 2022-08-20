@@ -5,25 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SMLHelper.V2.Handlers.EatableHandler;
 
 namespace SMLHelper.V2.Patchers
 {
     internal class EatablePatcher
     {
-        private static readonly IDictionary<TechType, EditedEatableValues> EditedEatables = new SelfCheckingDictionary<TechType, EditedEatableValues>("EditedEatableValues", TechTypeExtensions.sTechTypeComparer);
-
-        public class EditedEatableValues
-        {
-            public EditedEatableValues(int food, int water, TechType typeToEdit)
-            {
-                EditedEatables.Add(typeToEdit, this);
-                this.food = food;
-                this.water = water;
-            }
-
-            public readonly int food;
-            public readonly int water;
-        }
+        internal static readonly IDictionary<TechType, EditedEatableValues> EditedEatables = new SelfCheckingDictionary<TechType, EditedEatableValues>("EditedEatableValues", TechTypeExtensions.sTechTypeComparer);
 
         public static void Patch(Harmony harmony)
         {
@@ -44,6 +32,8 @@ namespace SMLHelper.V2.Patchers
                 {
                     __instance.foodValue = pair.Value.food;
                     __instance.waterValue = pair.Value.water;
+                    __instance.decomposes = pair.Value.decomposes;
+                    __instance.allowOverfill = pair.Value.allowOverfill;
                 }
             }
         }
