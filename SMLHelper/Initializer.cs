@@ -79,7 +79,7 @@
             TooltipPatcher.Patch(harmony);
             SurvivalPatcher.Patch(harmony);
             CustomSoundPatcher.Patch(harmony);
-
+            EatablePatcher.Patch(harmony);
 
 
             Logger.Debug("Saving TechType Cache");
