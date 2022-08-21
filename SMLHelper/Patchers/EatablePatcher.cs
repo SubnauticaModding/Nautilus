@@ -26,15 +26,12 @@ namespace SMLHelper.V2.Patchers
         public static void AwakePostfix(Eatable __instance)
         {
             TechType tt = CraftData.GetTechType(__instance.gameObject);
-            foreach(KeyValuePair<TechType, EditedEatableValues> pair in EditedEatables)
+            if (EditedEatables.TryGetValue(tt, out EditedEatableValues value)
             {
-                if(pair.Key == tt)
-                {
-                    __instance.foodValue = pair.Value.food;
-                    __instance.waterValue = pair.Value.water;
-                    __instance.decomposes = pair.Value.decomposes;
-                    __instance.allowOverfill = pair.Value.allowOverfill;
-                }
+                    __instance.foodValue = value.food;
+                    __instance.waterValue = value.water;
+                    __instance.decomposes = value.decomposes;
+                    __instance.allowOverfill = value.allowOverfill;
             }
         }
     }
