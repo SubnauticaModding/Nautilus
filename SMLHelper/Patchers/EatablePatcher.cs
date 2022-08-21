@@ -15,18 +15,15 @@ namespace SMLHelper.V2.Patchers
 
         public static void Patch(Harmony harmony)
         {
-            Type eatableType = typeof(Eatable);
-            Type thisType = typeof(EatablePatcher);
-
             harmony.Patch(AccessTools.Method(typeof(Eatable), nameof(Eatable.Awake)),
                             postfix: new HarmonyMethod(typeof(EatablePatcher), nameof(EatablePatcher.AwakePostfix)));
 
             Logger.Debug("EatablePatcher is done.");
         }
-        public static void AwakePostfix(Eatable __instance)
+        private static void AwakePostfix(Eatable __instance)
         {
             TechType tt = CraftData.GetTechType(__instance.gameObject);
-            if (EditedEatables.TryGetValue(tt, out EditedEatableValues value)
+            if (EditedEatables.TryGetValue(tt, out EditedEatableValues value))
             {
                     __instance.foodValue = value.food;
                     __instance.waterValue = value.water;
