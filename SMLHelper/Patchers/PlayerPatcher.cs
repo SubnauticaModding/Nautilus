@@ -19,25 +19,29 @@ namespace SMLHelper.V2.Patchers
             File.WriteAllText(configpath, value.ToString());
             FloatingOriginEnabled = value;
         }
+
         internal static void InitFloatingOriginEnabled()
         {
-            if(isInit is true)
+            if (isInit is true)
             {
                 return;
             }
+
             isInit = true;
             if (!File.Exists(configpath))
             {
                 File.Create(configpath).Dispose();
                 File.WriteAllText(configpath, FloatingOriginEnabled.ToString());
             }
+
             if (FloatingOriginEnabled is false)
-            { 
+            {
                 try
                 {
                     var contents = File.ReadAllText(configpath);
                     FloatingOriginEnabled = bool.Parse(contents);
-                } catch(Exception)
+                }
+                catch (Exception)
                 {
                     FloatingOriginEnabled = false;
                     File.WriteAllText(configpath, false.ToString());
@@ -45,22 +49,7 @@ namespace SMLHelper.V2.Patchers
                 }
             }
         }
-            [HarmonyPatch(typeof(Player), nameof(Player.Awake))]
-            [PatchUtils.Postfix]
-            internal static void Player_Awake_Postfix(Player __instance)
-            {
-            if (FloatingOriginEnabled)
-            {
-                __instance.gameObject.EnsureComponent<FloatingOrigin>().ReferenceObject = __instance.transform;
-            }
-            }
-            [HarmonyPatch(typeof(Player), nameof(Player.SetPosition), new Type[] { typeof(Vector3) })]
-            [PatchUtils.Prefix]
-            internal static bool Player_SetPosition_Prefix(ref Vector3 wsPos)
-            {
-                wsPos -= FloatingOrigin.CurrentOffset;
-                return true;
-            }
+
         internal static void Patch(Harmony h)
         {
             PatchUtils.PatchClass(h);

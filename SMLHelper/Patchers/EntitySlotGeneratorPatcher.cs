@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HarmonyLib;
+using SMLHelper.V2.Assets.Biomes;
+
 namespace SMLHelper.V2.Patchers
 {
     internal class EntitySlotGeneratorPatcher
@@ -33,7 +35,7 @@ namespace SMLHelper.V2.Patchers
             internal static bool MatchReplace(EntitySlotGenerator.GeneratorRule __instance,string voxelBiome,string voxelMaterial)
             {
                 
-                if(BiomeThings.Variables.Biomes.Exists(biome => biome.BiomeName == voxelBiome))
+                if(BiomeAssetsVariables.Biomes.Exists(biome => biome.BiomeName == voxelBiome))
                 {
                     return true;
                 }

@@ -10,7 +10,7 @@ using Logger = QModManager.Utility.Logger;
 using UWE;
 using WorldStreaming;
 using System.Runtime.CompilerServices;
-namespace SMLHelper.V2.BiomeThings
+namespace SMLHelper.V2.Assets.Biomes
 {
     ///    <summary>
     /// A class for adding biomes.
@@ -61,7 +61,7 @@ namespace SMLHelper.V2.BiomeThings
         public void Patch()
         { 
            
-            Variables.Biomes.Add(this);
+            BiomeAssetsVariables.Biomes.Add(this);
             
             QModManager.Utility.Logger.Log(QModManager.Utility.Logger.Level.Info, $"Patched biome {BiomeName}");
         }
@@ -81,7 +81,7 @@ namespace SMLHelper.V2.BiomeThings
         public abstract Dictionary<Int3, GameObject> BatchTerrains { get; }
     }
 
-    internal static class Variables
+    internal static class BiomeAssetsVariables
     {
         internal static readonly List<Biome> Biomes = new List<Biome>();
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

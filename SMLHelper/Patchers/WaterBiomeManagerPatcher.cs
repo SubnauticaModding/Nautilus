@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using HarmonyLib;
 using System.Reflection.Emit;
+using SMLHelper.V2.Assets.Biomes;
+
 namespace SMLHelper.V2.Patchers
 {
     internal class WaterBiomeManagerPatcher
@@ -13,14 +15,14 @@ namespace SMLHelper.V2.Patchers
             [PatchUtils.Prefix]
             internal static bool WaterBiomeManager_Start_Prefix(WaterBiomeManager __instance)
             {
-                for (var i = 0; i < BiomeThings.Variables.Biomes.Count; i++)
+                for (var i = 0; i < BiomeAssetsVariables.Biomes.Count; i++)
                 {
-                    var biome = BiomeThings.Variables.Biomes[i];
+                    var biome = BiomeAssetsVariables.Biomes[i];
                     var settings = new WaterBiomeManager.BiomeSettings()
                     {
                         name = biome.BiomeName,
                         settings = biome.WaterScapeSettings,
-                        skyPrefab = new UnityEngine.GameObject("Useless Junk.")
+                        skyPrefab = new UnityEngine.GameObject("Placeholder to pass a check")
                     };
                     __instance.biomeSettings.Add(settings);
                 }
@@ -57,9 +59,9 @@ namespace SMLHelper.V2.Patchers
             {
                 var name = WaterBiomeManager.main.biomeSettings[index].name;
                 QModManager.Utility.Logger.Log(QModManager.Utility.Logger.Level.Info, name);
-                if (BiomeThings.Variables.Biomes.Exists(biome => biome.BiomeName.ToLower() == name.ToLower()))
+                if (BiomeAssetsVariables.Biomes.Exists(biome => biome.BiomeName.ToLower() == name.ToLower()))
                 {
-                    var biome = BiomeThings.Variables.Biomes.First(biome => biome.BiomeName.ToLower() == name.ToLower());
+                    var biome = BiomeAssetsVariables.Biomes.First(biome => biome.BiomeName.ToLower() == name.ToLower());
                     UnityEngine.Object.Destroy(WaterBiomeManager.main.biomeSettings[index].skyPrefab);
                     var go = new UnityEngine.GameObject($"Sky for {biome.BiomeName}");
                     go.transform.SetParent(__instance.transform);

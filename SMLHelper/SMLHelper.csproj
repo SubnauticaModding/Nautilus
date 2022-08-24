@@ -146,6 +146,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Biomes\BiomeClass.cs" />
     <Compile Include="Assets\Buildable.cs" />
     <Compile Include="Assets\Craftable.cs" />
     <Compile Include="Assets\CustomFabricator.cs" />
@@ -159,8 +160,6 @@
     <Compile Include="Assets\BelowZeroModSprite.cs" />
     <Compile Include="Assets\PdaItem.cs" />
     <Compile Include="Assets\Spawnable.cs" />
-    <Compile Include="BiomeThings\BiomeClass.cs" />
-    <Compile Include="BiomeThings\FloatingOrigin.cs" />
     <Compile Include="Commands\Parameter.cs" />
     <Compile Include="Commands\ConsoleCommand.cs" />
     <Compile Include="Crafting\CraftingNode.cs" />

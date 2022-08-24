@@ -1,3 +1,5 @@
+using SMLHelper.V2.Assets.Biomes;
+
 namespace SMLHelper.V2.Patchers
 {
     using System;
@@ -16,6 +18,7 @@ namespace SMLHelper.V2.Patchers
     using Oculus.Newtonsoft.Json;
     using System.Collections;
     using System.Text.RegularExpressions;
+    using SMLHelper.V2.Assets.Biomes;
 #else
     using Newtonsoft.Json;
 #endif
@@ -27,10 +30,10 @@ namespace SMLHelper.V2.Patchers
             internal static bool LWS_LBT_Prefix(BatchCells batchCells)
             {
                 var shouldContinue = false;
-                BiomeThings.Biome containingBiome = null;
-                for (var e = 0; e < BiomeThings.Variables.Biomes.Count; e++)
+                Biome containingBiome = null;
+                for (var e = 0; e < BiomeAssetsVariables.Biomes.Count; e++)
                 {
-                    var biome = BiomeThings.Variables.Biomes[e];
+                    var biome = BiomeAssetsVariables.Biomes[e];
                     if (biome.BatchIds.Contains(batchCells.batch))
                     {
                         shouldContinue = true;
@@ -52,10 +55,10 @@ namespace SMLHelper.V2.Patchers
         internal static bool LWS_FLBOA_Prefix(Int3 index)
         {
             var shouldContinue = false;
-            BiomeThings.Biome containingBiome = null;
-            for (var e = 0; e < BiomeThings.Variables.Biomes.Count; e++)
+            Biome containingBiome = null;
+            for (var e = 0; e < BiomeAssetsVariables.Biomes.Count; e++)
             {
-                var biome = BiomeThings.Variables.Biomes[e];
+                var biome = BiomeAssetsVariables.Biomes[e];
                 if (biome.BatchIds.Contains(index))
                 {
                     shouldContinue = true;
@@ -73,9 +76,9 @@ namespace SMLHelper.V2.Patchers
             [PatchUtils.Postfix]
             internal static void LWS_CheckBatch_Postfix(ref bool __result,Int3 batch)
             {
-                for(int e = 0;e < BiomeThings.Variables.Biomes.Count; e++)
+                for(int e = 0;e < BiomeAssetsVariables.Biomes.Count; e++)
                 {
-                    var biome = BiomeThings.Variables.Biomes[e];
+                    var biome = BiomeAssetsVariables.Biomes[e];
                     if(biome.BatchIds.Contains(batch))
                     {
                         __result = true;
@@ -83,22 +86,18 @@ namespace SMLHelper.V2.Patchers
                     }
                 }
             }
-        [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.OnBatchFullyLoaded))]
-        [PatchUtils.Postfix]
-        internal static void LWS_OBFL_Postfix(Int3 batchId)
-        {
-            if (BiomeThings.Variables.Biomes.Exists(biome => biome.BatchIds.Contains(batchId)))
-            {
-                LargeWorldStreamer.main.cellManager.InitializeBatchCells(batchId);
-            }
-        }
-            [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.GetBlock))]
+
+            [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.OnBatchFullyLoaded))]
             [PatchUtils.Postfix]
-            internal static void LWS_GetBlock_Postfix(ref Int3 __result)
+            internal static void LWS_OBFL_Postfix(Int3 batchId)
             {
-                __result -= Int3.Floor(FloatingOrigin.CurrentOffset);
+                if (BiomeAssetsVariables.Biomes.Exists(biome => biome.BatchIds.Contains(batchId)))
+                {
+                    LargeWorldStreamer.main.cellManager.InitializeBatchCells(batchId);
+                }
             }
-        internal static void Patch(Harmony harmony)
+
+            internal static void Patch(Harmony harmony)
         {
             var initializeOrig = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.Initialize));
             var initPostfix = new HarmonyMethod(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(InitializePostfix)));
@@ -144,7 +143,7 @@ namespace SMLHelper.V2.Patchers
                 if (spawnInfos.Contains(savedSpawnInfo))
                     spawnInfos.Remove(savedSpawnInfo);
             }
-            foreach(var biome in BiomeThings.Variables.Biomes)
+            foreach(var biome in BiomeAssetsVariables.Biomes)
             {
                 Patchers.EnumPatching.BiomeTypePatcher.AddBiomeType(biome.BiomeName);
                 for (var e = 0; e < biome.BatchTerrains.Count; e++)

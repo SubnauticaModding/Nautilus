@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HarmonyLib;
 using WorldStreaming;
+using SMLHelper.V2.Assets.Biomes;
 namespace SMLHelper.V2.Patchers
 {
     internal class BatchOctreesPatcher
@@ -14,10 +15,10 @@ namespace SMLHelper.V2.Patchers
             internal static bool BatchOctrees_LoadOctrees_Prefix(BatchOctrees __instance)
             {
                 var shouldContinue = false;
-                BiomeThings.Biome containingBiome = null;
-                for (var e = 0; e < BiomeThings.Variables.Biomes.Count; e++)
+                Biome containingBiome = null;
+                for (var e = 0; e < BiomeAssetsVariables.Biomes.Count; e++)
                 {
-                    var biome = BiomeThings.Variables.Biomes[e];
+                    var biome = BiomeAssetsVariables.Biomes[e];
                     if (biome.BatchIds.Contains(__instance.id))
                     {
                         shouldContinue = true;

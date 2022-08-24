@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HarmonyLib;
+using SMLHelper.V2.Assets.Biomes;
 namespace SMLHelper.V2.Patchers
 {
     internal class CellManagerPatcher
@@ -12,7 +13,7 @@ namespace SMLHelper.V2.Patchers
             [PatchUtils.Prefix]
             internal static bool CellManager_IBC_Prefix(CellManager __instance, Int3 index, ref BatchCells __result)
             {
-                if (BiomeThings.Variables.Biomes.Exists(biome => biome.BatchIds.Contains(index)))
+                if (BiomeAssetsVariables.Biomes.Exists(biome => biome.BatchIds.Contains(index)))
                 {
                     var batchcells = new BatchCells();
                     batchcells.Init(__instance, LargeWorldStreamer.main, index);
