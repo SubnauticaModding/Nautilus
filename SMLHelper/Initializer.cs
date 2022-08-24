@@ -85,7 +85,6 @@
             BatchOctreesPatcher.Patch(harmony);
             CellManagerPatcher.Patch(harmony);
             EntitySlotGeneratorPatcher.Patch(harmony);
-            WaterBiomeManagerPatcher.Patch(harmony);
             PlayerPatcher.Patch(harmony);
 #endif
             #endregion

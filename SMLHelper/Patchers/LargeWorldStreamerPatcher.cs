@@ -25,89 +25,39 @@ namespace SMLHelper.V2.Patchers
     [HarmonyPatch]
     internal class LargeWorldStreamerPatcher
     {
-            [HarmonyPatch(typeof(LargeWorldStreamer),nameof(LargeWorldStreamer.LoadBatchThreaded))]
-            [PatchUtils.Prefix]
-            internal static bool LWS_LBT_Prefix(BatchCells batchCells)
-            {
-                var shouldContinue = false;
-                Biome containingBiome = null;
-                for (var e = 0; e < BiomeAssetsVariables.Biomes.Count; e++)
-                {
-                    var biome = BiomeAssetsVariables.Biomes[e];
-                    if (biome.BatchIds.Contains(batchCells.batch))
-                    {
-                        shouldContinue = true;
-                        containingBiome = biome;
-                        break;
-                    }
-                }
-                if (shouldContinue)
-                {
-                    var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.BatchRoots[batchCells.batch]);
-                instantiatedgo.layer = LayerID.TerrainCollider;
-                    LargeWorldStreamer.main.OnBatchObjectsLoaded(batchCells.batch, instantiatedgo);
-                    return false;
-                }
-                return true;
-            }
-        [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.FinalizeLoadBatchObjectsAsync))]
-        [PatchUtils.Prefix]
-        internal static bool LWS_FLBOA_Prefix(Int3 index)
-        {
-            var shouldContinue = false;
-            Biome containingBiome = null;
-            for (var e = 0; e < BiomeAssetsVariables.Biomes.Count; e++)
-            {
-                var biome = BiomeAssetsVariables.Biomes[e];
-                if (biome.BatchIds.Contains(index))
-                {
-                    shouldContinue = true;
-                    containingBiome = biome;
-                    break;
-                }
-            }
-            if (shouldContinue)
-            {
-                return false;
-            }
-            return true;
-        }
-        [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.CheckBatch))]
-            [PatchUtils.Postfix]
-            internal static void LWS_CheckBatch_Postfix(ref bool __result,Int3 batch)
-            {
-                for(int e = 0;e < BiomeAssetsVariables.Biomes.Count; e++)
-                {
-                    var biome = BiomeAssetsVariables.Biomes[e];
-                    if(biome.BatchIds.Contains(batch))
-                    {
-                        __result = true;
-                        break;
-                    }
-                }
-            }
 
-            [HarmonyPatch(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.OnBatchFullyLoaded))]
-            [PatchUtils.Postfix]
-            internal static void LWS_OBFL_Postfix(Int3 batchId)
-            {
-                if (BiomeAssetsVariables.Biomes.Exists(biome => biome.BatchIds.Contains(batchId)))
-                {
-                    LargeWorldStreamer.main.cellManager.InitializeBatchCells(batchId);
-                }
-            }
-
-            internal static void Patch(Harmony harmony)
+        internal static void Patch(Harmony harmony)
         {
             var initializeOrig = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.Initialize));
-            var initPostfix = new HarmonyMethod(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(InitializePostfix)));
+            var initPostfix =
+                new HarmonyMethod(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(InitializePostfix)));
             harmony.Patch(initializeOrig, postfix: initPostfix);
-            PatchUtils.PatchClass(harmony);
+            #region Biome related things
+
+            var lbtOrig = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.LoadBatchThreaded));
+            var lbtPrefix =
+                new HarmonyMethod(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(LWS_LBT_Prefix)));
+            harmony.Patch(lbtOrig, prefix: lbtPrefix);
+            var flboaOrig = AccessTools.Method(typeof(LargeWorldStreamer),
+                nameof(LargeWorldStreamer.FinalizeLoadBatchObjectsAsync));
+            var flboaPrefix = new HarmonyMethod(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(LWS_FLBOA_Prefix)));
+            harmony.Patch(flboaOrig, prefix: flboaPrefix);
+            var checkbatchOrig = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.CheckBatch));
+            var checkbatchPostfix =
+                new HarmonyMethod(AccessTools.Method(typeof(LargeWorldStreamerPatcher),
+                    nameof(LWS_CheckBatch_Postfix)));
+            harmony.Patch(checkbatchOrig, postfix: checkbatchPostfix);
+            var obflOrig =
+                AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.OnBatchFullyLoaded));
+            var obflPostfix =
+                new HarmonyMethod(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(LWS_OBFL_Postfix)));
+            harmony.Patch(obflOrig, postfix: obflPostfix);
+            #endregion
         }
 
         internal static readonly List<SpawnInfo> spawnInfos = new List<SpawnInfo>();
         internal static readonly List<SpawnInfo> savedSpawnInfos = new List<SpawnInfo>();
-        
+
         private static readonly List<SpawnInfo> initialSpawnInfos = new List<SpawnInfo>();
 
         private static bool initialized;
@@ -115,7 +65,7 @@ namespace SMLHelper.V2.Patchers
         private static void InitializePostfix()
         {
             InitializeSpawnInfos();
-            
+
             var file = Path.Combine(SaveLoadManager.GetTemporarySavePath(), "CoordinatedSpawnsInitialized.smlhelper");
             if (File.Exists(file))
             {
@@ -124,7 +74,8 @@ namespace SMLHelper.V2.Patchers
                 using var reader = new StreamReader(file);
                 try
                 {
-                    var deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd(), new Vector3Converter(), new QuaternionConverter());
+                    var deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd(),
+                        new Vector3Converter(), new QuaternionConverter());
                     if (deserializedList is not null)
                         savedSpawnInfos.AddRange(deserializedList);
 
@@ -132,7 +83,8 @@ namespace SMLHelper.V2.Patchers
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error($"Failed to load Saved spawn data from {file}\nSkipping static spawning until fixed!\n{ex}");
+                    Logger.Error(
+                        $"Failed to load Saved spawn data from {file}\nSkipping static spawning until fixed!\n{ex}");
                     reader.Close();
                     return;
                 }
@@ -143,7 +95,8 @@ namespace SMLHelper.V2.Patchers
                 if (spawnInfos.Contains(savedSpawnInfo))
                     spawnInfos.Remove(savedSpawnInfo);
             }
-            foreach(var biome in BiomeAssetsVariables.Biomes)
+
+            foreach (var biome in BiomeAssetsVariables.Biomes)
             {
                 Patchers.EnumPatching.BiomeTypePatcher.AddBiomeType(biome.BiomeName);
                 for (var e = 0; e < biome.BatchTerrains.Count; e++)
@@ -176,14 +129,16 @@ namespace SMLHelper.V2.Patchers
                         sphereCollider_.center = sphereCollider.center;
                         sphereCollider_.radius = sphereCollider.radius;
                         sphereCollider_.isTrigger = true;
-                    } else if (collider is BoxCollider)
+                    }
+                    else if (collider is BoxCollider)
                     {
                         var boxCollider = collider as BoxCollider;
                         var boxCollider_ = prefab.EnsureComponent<BoxCollider>();
                         boxCollider_.center = boxCollider.center;
                         boxCollider_.size = boxCollider.size;
                         boxCollider_.isTrigger = true;
-                    } else if (collider is CapsuleCollider)
+                    }
+                    else if (collider is CapsuleCollider)
                     {
                         var capsuleCollider = collider as CapsuleCollider;
                         var capsuleCollider_ = prefab.EnsureComponent<CapsuleCollider>();
@@ -193,12 +148,15 @@ namespace SMLHelper.V2.Patchers
                         capsuleCollider_.height = capsuleCollider.height;
                         capsuleCollider_.isTrigger = true;
                     }
+
                     spawnInfos.AddRange(biome.SpawnInfos);
                     biome.BatchRoots.Add(BatchTerrain.Key, prefab);
                     LargeWorldStreamer.main.cellManager.InitializeBatchCells(BatchTerrain.Key);
-                    LanguagePatcher.AddCustomLanguageLine("SMLHelper", $"PresenceExploring_biome_{biome.BiomeName}",biome.BiomeRichPresence ?? $"Exploring {biome.BiomeName}");
+                    LanguagePatcher.AddCustomLanguageLine("SMLHelper", $"PresenceExploring_biome_{biome.BiomeName}",
+                        biome.BiomeRichPresence ?? $"Exploring {biome.BiomeName}");
                 }
             }
+
             InitializeSpawners();
             Logger.Debug("Coordinated Spawns have been initialized in the current save.");
         }
@@ -209,7 +167,8 @@ namespace SMLHelper.V2.Patchers
             using var writer = new StreamWriter(file);
             try
             {
-                string data = JsonConvert.SerializeObject(savedSpawnInfos, Formatting.Indented, new Vector3Converter(), new QuaternionConverter());
+                string data = JsonConvert.SerializeObject(savedSpawnInfos, Formatting.Indented, new Vector3Converter(),
+                    new QuaternionConverter());
                 writer.Write(data);
                 writer.Flush();
                 writer.Close();
@@ -220,7 +179,7 @@ namespace SMLHelper.V2.Patchers
                 writer.Close();
             }
         }
-        
+
         // We keep an initial copy of the spawn infos so Coordinated Spawns also works if you quit to main menu.
         private static void InitializeSpawnInfos()
         {
@@ -232,9 +191,10 @@ namespace SMLHelper.V2.Patchers
                 {
                     spawnInfos.Add(spawnInfo);
                 }
+
                 return;
             }
-            
+
             initialSpawnInfos.AddRange(spawnInfos);
             IngameMenuHandler.RegisterOnSaveEvent(SaveData);
             initialized = true;
@@ -258,6 +218,72 @@ namespace SMLHelper.V2.Patchers
 
             var obj = new GameObject($"{keyToCheck}Spawner");
             obj.EnsureComponent<EntitySpawner>().spawnInfo = spawnInfo;
+        }
+        internal static bool LWS_LBT_Prefix(BatchCells batchCells)
+        {
+            var shouldContinue = false;
+            Biome containingBiome = null;
+            for (var e = 0; e < BiomeAssetsVariables.Biomes.Count; e++)
+            {
+                var biome = BiomeAssetsVariables.Biomes[e];
+                if (biome.BatchIds.Contains(batchCells.batch))
+                {
+                    shouldContinue = true;
+                    containingBiome = biome;
+                    break;
+                }
+            }
+
+            if (shouldContinue)
+            {
+                var instantiatedgo = UnityEngine.GameObject.Instantiate(containingBiome.BatchRoots[batchCells.batch]);
+                instantiatedgo.layer = LayerID.TerrainCollider;
+                LargeWorldStreamer.main.OnBatchObjectsLoaded(batchCells.batch, instantiatedgo);
+                return false;
+            }
+
+            return true;
+        }
+        internal static bool LWS_FLBOA_Prefix(Int3 index)
+        {
+            var shouldContinue = false;
+            Biome containingBiome = null;
+            for (var e = 0; e < BiomeAssetsVariables.Biomes.Count; e++)
+            {
+                var biome = BiomeAssetsVariables.Biomes[e];
+                if (biome.BatchIds.Contains(index))
+                {
+                    shouldContinue = true;
+                    containingBiome = biome;
+                    break;
+                }
+            }
+
+            if (shouldContinue)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        internal static void LWS_CheckBatch_Postfix(ref bool __result, Int3 batch)
+        {
+            for (int e = 0; e < BiomeAssetsVariables.Biomes.Count; e++)
+            {
+                var biome = BiomeAssetsVariables.Biomes[e];
+                if (biome.BatchIds.Contains(batch))
+                {
+                    __result = true;
+                    break;
+                }
+            }
+        }
+        internal static void LWS_OBFL_Postfix(Int3 batchId)
+        {
+            if (BiomeAssetsVariables.Biomes.Exists(biome => biome.BatchIds.Contains(batchId)))
+            {
+                LargeWorldStreamer.main.cellManager.InitializeBatchCells(batchId);
+            }
         }
     }
 }
