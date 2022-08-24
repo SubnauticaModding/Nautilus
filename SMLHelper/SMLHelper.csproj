@@ -112,13 +112,13 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule">
-      <HintPath>D:\SteamLibrary\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <HintPath>..\Dependencies\Subnautica.stable\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainModule">
-      <HintPath>D:\SteamLibrary\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.TerrainModule.dll</HintPath>
+      <HintPath>..\Dependencies\Subnautica.stable\UnityEngine.TerrainModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainPhysicsModule">
-      <HintPath>D:\SteamLibrary\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <HintPath>..\Dependencies\Subnautica.stable\UnityEngine.TerrainPhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
       <HintPath>$(Dependencies)\UnityEngine.TextRenderingModule.dll</HintPath>
