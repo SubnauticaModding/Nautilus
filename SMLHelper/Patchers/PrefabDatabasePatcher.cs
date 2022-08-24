@@ -1,5 +1,5 @@
 ﻿namespace SMLHelper.V2.Patchers
-{
+{ 
     using System;
     using System.Reflection;
     using System.Reflection.Emit;
@@ -11,10 +11,9 @@
     using UnityEngine;
     using UWE;
     using Logger = V2.Logger;
-
     internal static class PrefabDatabasePatcher
-    {
-            private static class PostPatches
+    { 
+        private static class PostPatches
             {
                 [PatchUtils.Postfix]
                 [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.LoadPrefabDatabase))]
