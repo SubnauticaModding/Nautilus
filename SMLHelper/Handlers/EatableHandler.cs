@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SMLHelper.V2.Interfaces;
 using SMLHelper.V2.Patchers;
 
 namespace SMLHelper.V2.Handlers
@@ -10,8 +11,22 @@ namespace SMLHelper.V2.Handlers
     /// <summary>
     /// a handler for editing values for eatable classes
     /// </summary>
-    public class EatableHandler
+    public class EatableHandler : IEatableHandler
     {
+        /// <summary>
+        /// Main entry point for all calls to this handler.
+        /// </summary>
+        public static IEatableHandler Main = new EatableHandler();
+
+        private EatableHandler()
+        {
+            //hides constructor. no idea if necessary, just saw it in bio reactor handler and threw it in because I thought it was good idea
+        }
+
+        void IEatableHandler.ModifyEatable(TechType item, int food, int water, bool decomposes, bool overfill)
+        {
+            ModifyEatable(item, food, water, decomposes, overfill);
+        }
         /// <summary>
         /// use this to change the values of a specific techtype
         /// </summary>
@@ -20,7 +35,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="water">the water value you want to change it to</param>
         /// <param name="decomposes">whether or not the item decomposes over time</param>
         /// <param name="overfill">whether or not this item allows the player's food to go above 100</param>
-        public static void ModifyEatable(TechType item, int food, int water, bool decomposes = true, bool overfill = false)
+        public static void ModifyEatable(TechType item, int food, int water, bool decomposes = true, bool overfill = true)
         {
             EatablePatcher.EditedEatables.Add(item, new EditedEatableValues()
             {

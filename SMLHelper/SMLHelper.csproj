@@ -162,6 +162,7 @@
     <Compile Include="Handlers\BackgroundTypeHandler.cs" />
     <Compile Include="Handlers\CoordinatedSpawnsHandler.cs" />
     <Compile Include="Handlers\CustomSoundHandler.cs" />
+    <Compile Include="Handlers\EatableHandler.cs" />
     <Compile Include="Handlers\EquipmentHandler.cs" />
     <Compile Include="Handlers\PDALogHandler.cs" />
     <Compile Include="Handlers\PingHandler.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Interfaces\IBackgroundTypeHandler.cs" />
     <Compile Include="Interfaces\ICoordinatedSpawnHandler.cs" />
     <Compile Include="Interfaces\ICustomSoundHandler.cs" />
+    <Compile Include="Interfaces\IEatableHandler.cs" />
     <Compile Include="Interfaces\IModOptionAttribute.cs" />
     <Compile Include="Interfaces\IModOptionEventAttribute.cs" />
     <Compile Include="Interfaces\IConsoleCommandHandler.cs" />
@@ -266,6 +268,7 @@
     <Compile Include="Options\ModOptionTooltip.cs" />
     <Compile Include="Options\Utility\Validator.cs" />
     <Compile Include="Patchers\CustomSoundPatcher.cs" />
+    <Compile Include="Patchers\EatablePatcher.cs" />
     <Compile Include="Patchers\EnumPatching\BackgroundTypePatcher.cs" />
     <Compile Include="Patchers\BioReactorPatcher.cs" />
     <Compile Include="Handlers\ConsoleCommandsHandler.cs" />
