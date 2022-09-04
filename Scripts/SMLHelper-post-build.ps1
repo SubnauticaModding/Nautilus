@@ -32,7 +32,7 @@ function Zip
     if ($Fresh -and (Test-Path $DestinationPath)) {
         $null = Remove-Item -Path $DestinationPath
     }
-
+    
     $7ZipPath = [System.IO.Path]::Combine($SolutionDir, "packages", "7-Zip.CommandLine.18.1.0", "tools", "7za.exe")
     if (Test-Path $7ZipPath)
     {   # Use 7Zip if available
@@ -50,7 +50,6 @@ function Zip
         }
     }
 }
-
 # Copy correct mod.json to target dir
 $modJsonSuffix = switch ($ConfigurationName.ToUpper())
 {
