@@ -75,7 +75,7 @@ namespace SMLHelper.V2.Handlers
             public float water;
 #if BELOWZERO
             public float health;
-            public int maxcharges;
+            public int maxCharges;
             public float coldValue;
 #endif
         }

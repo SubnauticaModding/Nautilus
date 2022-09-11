@@ -30,7 +30,7 @@ namespace SMLHelper.V2.Patchers
                 __instance.decomposes = value.decomposes;
 #if BELOWZERO
                 __instance.healthValue = value.health;
-                __instance.maxCharges = value.maxcharges;
+                __instance.maxCharges = value.maxCharges;
                 __instance.coldMeterValue = value.coldValue;
 #endif
             }
