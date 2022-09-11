@@ -23,9 +23,9 @@ namespace SMLHelper.V2.Handlers
             //hides constructor. no idea if necessary, just saw it in bio reactor handler and threw it in because I thought it was good idea
         }
 #if SUBNAUTICA
-        void IEatableHandler.ModifyEatable(TechType item, float food, float water, bool decomposes, bool overfill)
+        void IEatableHandler.ModifyEatable(TechType item, float food, float water, bool decomposes)
         {
-            ModifyEatable(item, food, water, decomposes, overfill);
+            ModifyEatable(item, food, water, decomposes);
         }
         /// <summary>
         /// use this to change the values of a specific techtype
@@ -34,15 +34,13 @@ namespace SMLHelper.V2.Handlers
         /// <param name="food">the food value you want to change it to</param>
         /// <param name="water">the water value you want to change it to</param>
         /// <param name="decomposes">whether or not the item decomposes over time</param>
-        /// <param name="overfill">whether or not this item allows the player's food to go above 100</param>
-        public static void ModifyEatable(TechType item, float food, float water, bool decomposes = true, bool overfill = true)
+        public static void ModifyEatable(TechType item, float food, float water, bool decomposes = true)
         {
             EatablePatcher.EditedEatables.Add(item, new EditedEatableValues()
             {
                 food = food,
                 water = water,
                 decomposes = decomposes,
-                allowOverfill = overfill
             });
         }
 #elif BELOWZERO 
@@ -75,9 +73,7 @@ namespace SMLHelper.V2.Handlers
             public bool decomposes;
             public float food;
             public float water;
-#if SUBNAUTICA
-            public bool allowOverfill;
-#elif BELOWZERO
+#if BELOWZERO
             public float health;
             public int maxcharges;
             public float coldValue;

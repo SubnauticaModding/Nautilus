@@ -19,8 +19,7 @@ namespace SMLHelper.V2.Interfaces
         /// <param name="food">The food value you want the item to have</param>
         /// <param name="water">The water value you want the item to have</param>
         /// <param name="decomposes">Whether or not the item decomposes over time, losing food and water values in the process</param>
-        /// <param name="overfill">Whether or not the item allows the player's food value to go above 100 when consumed</param>
-        void ModifyEatable(TechType item, float food, float water, bool decomposes = true, bool overfill = true);
+        void ModifyEatable(TechType item, float food, float water, bool decomposes = true);
 #elif BELOWZERO
         /// <summary>
         /// use this to change the values of a specific techtype
