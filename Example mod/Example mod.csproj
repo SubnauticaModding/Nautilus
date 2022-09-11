@@ -52,10 +52,6 @@
       <HintPath>$(Dependencies)\QModInstaller.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="SMLHelper">
-      <HintPath>..\SMLHelper\bin\$(Configuration)\SMLHelper.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(Dependencies)\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
@@ -64,6 +60,7 @@
       <HintPath>$(Dependencies)\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <ProjectReference Include="..\SMLHelper\SMLHelper.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="mod.json">
