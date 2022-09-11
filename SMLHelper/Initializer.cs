@@ -79,7 +79,11 @@
             TooltipPatcher.Patch(harmony);
             SurvivalPatcher.Patch(harmony);
             CustomSoundPatcher.Patch(harmony);
-            EatablePatcher.Patch(harmony);
+
+            if (PickupablePatcher.AddedEatables.Count > 0)
+                PickupablePatcher.Patch(harmony);
+            else
+                EatablePatcher.Patch(harmony);
 
 
             Logger.Debug("Saving TechType Cache");
