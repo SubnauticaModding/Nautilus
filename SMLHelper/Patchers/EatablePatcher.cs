@@ -1,14 +1,9 @@
-﻿using HarmonyLib;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static SMLHelper.V2.Handlers.EatableHandler;
-
-namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.V2.Patchers
 {
+    using HarmonyLib;
+    using System.Collections.Generic;
+    using static Handlers.EatableHandler;
+
     internal class EatablePatcher
     {
         internal static readonly IDictionary<TechType, EditedEatableValues> EditedEatables = new SelfCheckingDictionary<TechType, EditedEatableValues>("EditedEatableValues", TechTypeExtensions.sTechTypeComparer);
@@ -16,11 +11,11 @@ namespace SMLHelper.V2.Patchers
         public static void Patch(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(Eatable), nameof(Eatable.Awake)),
-                            postfix: new HarmonyMethod(typeof(EatablePatcher), nameof(EatablePatcher.AwakePostfix)));
+                new HarmonyMethod(typeof(EatablePatcher), nameof(AwakePrefix)));
 
             Logger.Debug("EatablePatcher is done.");
         }
-        private static void AwakePostfix(Eatable __instance)
+        private static void AwakePrefix(Eatable __instance)
         {
             TechType tt = CraftData.GetTechType(__instance.gameObject);
             if (EditedEatables.TryGetValue(tt, out EditedEatableValues value))

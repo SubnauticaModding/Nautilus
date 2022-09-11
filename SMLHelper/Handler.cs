@@ -136,5 +136,10 @@
         /// A handler for stuff related to the PDALog class.
         /// </summary>
         public static IPDALogHandler PDALogHandler => Handlers.PDALogHandler.Main;
+
+        /// <summary>
+        /// A handler for editing values for eatable classes
+        /// </summary>
+        public static IEatableHandler EatableHandler => Handlers.EatableHandler.Main;
     }
 }
