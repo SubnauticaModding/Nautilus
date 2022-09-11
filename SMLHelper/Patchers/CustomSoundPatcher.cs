@@ -26,6 +26,14 @@ namespace SMLHelper.V2.Patchers
             harmony.PatchAll(typeof(CustomSoundPatcher));
             Logger.Debug("CustomSoundPatcher is done.");
         }
+        
+        [HarmonyPatch(typeof(PDASounds), nameof(PDASounds.Deinitialize))]
+        [HarmonyPrefix]
+        public static void PDASounds_Deinitialize_Postfix()
+        {
+            EmitterPlayedChannels.Clear();
+            PlayedChannels.Clear();
+        }
 
 #if  SUBNAUTICA
         
@@ -196,8 +204,7 @@ namespace SMLHelper.V2.Patchers
         {
             if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
 
-            channel.getChannelGroup(out var channelGroup);
-            channelGroup.stop();
+            channel.stop();
             __instance._playing = false;
             __instance.OnStop();
 
@@ -473,8 +480,7 @@ namespace SMLHelper.V2.Patchers
         {
             if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
 
-            channel.getChannelGroup(out var channelGroup);
-            channelGroup.stop();
+            channel.stop();
             __instance._playing = false;
             __instance.OnStop();
 

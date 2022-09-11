@@ -2,10 +2,10 @@
   "Id": "SMLHelper",
   "DisplayName": "SMLHelper",
   "Author": "The SMLHelper Dev Team",
-  "Version": "2.13.3",
+  "Version": "2.14.0",
   "Enable": true,
   "Game": "Subnautica",
   "AssemblyName": "SMLHelper.dll",
-  "NexusId": { "Subnautica": "113" },
-  "VersionChecker": { "LatestVersionURL": "https://raw.githubusercontent.com/SubnauticaModding/SMLHelper/master/SMLHelper/mod_Subnautica.json" }
+  "VersionChecker": { "LatestVersionURL": "https://raw.githubusercontent.com/SubnauticaModding/SMLHelper/master/SMLHelper/mod_Subnautica.json" },
+  "NitroxCompat": true
 }

@@ -8,8 +8,15 @@ To get started, first fork the repo and then clone it to your local environment.
 
 - As of version 2.8, SMLHelper has been updated for QModManager v4.0 and uses [HarmonyX](https://github.com/BepInEx/HarmonyX).
 
-- As of version 2.2, SMLHelper is now using the _publicized_ versions of `Assembly-CSharp.dll` and `Assembly-CSharp-firstpass.dll` (the originals being located in your `Subnautica_Data/Managed` folder).  
-To create your own publiciezed DLLs, you will need to download or compile the [Assembly Publicizer](https://github.com/CabbageCrow/AssemblyPublicizer/releases) and follow the [instructions](https://github.com/CabbageCrow/AssemblyPublicizer/blob/master/README.md) to convert the original DLLs into `Assembly-CSharp_publicized.dll` and `Assembly-CSharp-firstpass_publicized.dll`.  
-You will need to copy these DLLs into the `Dependencies` folder of the solution before you can build it.
+Make sure to use the _publicized_ versions of `Assembly-CSharp.dll` and `Assembly-CSharp-firstpass.dll` (the originals being located in your `Subnautica_Data/Managed` folder).  
+
+To create your own publicized DLLs, install the [BepinEx Plugin](https://github.com/elliotttate/Bepinex-Tools/releases) and run the game once to create the following files:
+
+* `Subnautica_Data\Managed\publicized_assemblies\Assembly-CSharp_publicized.dll`
+* `Subnautica_Data\Managed\publicized_assemblies\Assembly-CSharp-firstpass_publicized.dll`
+
+Copy these DLLs into the `Dependencies` folder of SMLHelper so you can build it. Publicized version of the assemblies should make you able to call non-public members without reflection.
+
+- As of version 2.14, SMLHelper developers are required to have .NET 6 installed for the project to build.
 
 Then, load up the solution, make your edits, then create your Pull Request!

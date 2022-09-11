@@ -20,10 +20,10 @@
 
         internal static void RepatchCheck(ref Language __instance, string key)
         {
-            if (string.IsNullOrEmpty(key) || !customLines.ContainsKey(key))
+            if (string.IsNullOrEmpty(key) || !customLines.TryGetValue(key, out string customValue))
                 return;
 
-            if (!__instance.strings.ContainsKey(key))
+            if (!__instance.strings.TryGetValue(key, out string currentValue) || customValue != currentValue)
                 InsertCustomLines(ref __instance);
         }
 

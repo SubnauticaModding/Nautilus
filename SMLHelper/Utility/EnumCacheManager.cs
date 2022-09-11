@@ -140,10 +140,13 @@
             return entriesFromRequests.TryGetValue(value, out type);
         }
 
-        public void Add(T value, int backingValue, string name)
+        public bool Add(T value, int backingValue, string name)
         {
-            if (!entriesFromRequests.IsKnownKey(backingValue))
-                entriesFromRequests.Add(value, backingValue, name);
+            if (entriesFromRequests.IsKnownKey(backingValue))
+                return false;
+
+            entriesFromRequests.Add(value, backingValue, name);
+            return true;
         }
 
         public bool ContainsKey(T key)
@@ -196,26 +199,17 @@
                 return;
 
             ReadCacheFile(GetCachePath(), (index, name) => { entriesFromFile.Add(index, name); });
-
-            ReadCacheFile(GetDeactivatedCachePath(), (index, name) =>
-            {
-                entriesFromDeactivatedFile.Add(index, name);
-                entriesFromFile.Add(index, name);
-            });
-
+            ReadCacheFile(GetDeactivatedCachePath(), (index, name) => { entriesFromDeactivatedFile.Add(index, name); });
             cacheLoaded = true;
         }
 
         private void ReadCacheFile(string savePathDir, Action<int, string> loadParsedEntry)
         {
+
+            if (!File.Exists(savePathDir)) return;
+
             try
             {
-                if (!File.Exists(savePathDir))
-                {
-                    cacheLoaded = true;
-                    return;
-                }
-
                 string[] allText = File.ReadAllLines(savePathDir);
                 foreach (string line in allText)
                 {
@@ -252,15 +246,13 @@
                 stringBuilder = new StringBuilder();
 
                 foreach (KeyValuePair<int, string> entry in entriesFromFile)
-                {
-                    if (!entriesFromRequests.TryGetValue(entry.Value, out int v))
-                    {
-                        stringBuilder.AppendLine($"{entry.Value}:{entry.Key}");
-                    }
-                }
+                    entriesFromDeactivatedFile.Add(entry.Key, entry.Value);
+                entriesFromFile.Clear();
+
+                foreach (KeyValuePair<int, string> entry in entriesFromDeactivatedFile)
+                    stringBuilder.AppendLine($"{entry.Value}:{entry.Key}");
 
                 File.WriteAllText(savePathDir, stringBuilder.ToString());
-                entriesFromFile.Clear();
             }
             catch (Exception exception)
             {
@@ -279,16 +271,15 @@
 
             if (checkFiles)
             {
-                if (entriesFromFile.TryGetValue(name, out value))
+                if (entriesFromDeactivatedFile.TryGetValue(name, out value))
                 {
-                    entriesFromRequests.Add(value, name);
+                    entriesFromDeactivatedFile.Remove(value, name); 
                     return new EnumTypeCache(value, name);
                 }
 
-                if (entriesFromDeactivatedFile.TryGetValue(name, out value))
+                if (entriesFromFile.TryGetValue(name, out value))
                 {
-                    entriesFromRequests.Add(value, name);
-                    entriesFromDeactivatedFile.Remove(value, name);
+                    entriesFromFile.Remove(value, name);
                     return new EnumTypeCache(value, name);
                 }
             }

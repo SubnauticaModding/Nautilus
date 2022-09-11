@@ -40,7 +40,6 @@
             ConfigFileMetadata.BindEvents();
 
             ButtonClicked += EventHandler;
-            ButtonClicked += EventHandler;
             ChoiceChanged += EventHandler;
             KeybindChanged += EventHandler;
             SliderChanged += EventHandler;

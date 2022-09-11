@@ -47,16 +47,22 @@
             };
 
             var pingType = (PingType) cache.Index;
-            cacheManager.Add(pingType, cache.Index, cache.Name);
-            ModSprite.Add(SpriteManager.Group.Pings, cache.Name, sprite);
-            
-            if (PingManager.sCachedPingTypeStrings.valueToString.ContainsKey(pingType) == false)
-                PingManager.sCachedPingTypeStrings.valueToString.Add(pingType, name);
+            if(cacheManager.Add(pingType, cache.Index, cache.Name))
+            {
+                ModSprite.Add(SpriteManager.Group.Pings, cache.Name, sprite);
 
-            if (PingManager.sCachedPingTypeTranslationStrings.valueToString.ContainsKey(pingType) == false)
-                PingManager.sCachedPingTypeTranslationStrings.valueToString.Add(pingType, name);
-            
-            Logger.Log($"Successfully added PingType: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+                if (PingManager.sCachedPingTypeStrings.valueToString.ContainsKey(pingType) == false)
+                    PingManager.sCachedPingTypeStrings.valueToString.Add(pingType, name);
+
+                if (PingManager.sCachedPingTypeTranslationStrings.valueToString.ContainsKey(pingType) == false)
+                    PingManager.sCachedPingTypeTranslationStrings.valueToString.Add(pingType, name);
+
+                Logger.Log($"Successfully added PingType: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            }
+            else
+            {
+                Logger.Log($"Failed adding PingType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+            }
             return pingType;
         }
 

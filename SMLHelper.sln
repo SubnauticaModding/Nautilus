@@ -17,10 +17,42 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLHelper.Tests", "SMLHelpe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5152F028-6D03-43C0-88C5-986313017D4F}"
 	ProjectSection(SolutionItems) = preProject
-		BepinexPackages\Subnautica_Packages\SMLHelper_Exp\manifest.json = BepinexPackages\Subnautica_Packages\SMLHelper_Exp\manifest.json
-		BepinexPackages\Subnautica_Packages\SMLHelper\manifest.json = BepinexPackages\Subnautica_Packages\SMLHelper\manifest.json
-		BepinexPackages\BelowZero_Packages\SMLHelper_Exp\manifest.json = BepinexPackages\BelowZero_Packages\SMLHelper_Exp\manifest.json
-		BepinexPackages\BelowZero_Packages\SMLHelper\manifest.json = BepinexPackages\BelowZero_Packages\SMLHelper\manifest.json
+		common.props = common.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build scripts", "Build scripts", "{6EF72E95-EA2D-44C1-8FB4-F0FE4865FFC4}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\SMLHelper-post-build.ps1 = Scripts\SMLHelper-post-build.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Thunderstore Metadata", "Thunderstore Metadata", "{3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BZ.EXP", "BZ.EXP", "{1C8C260D-E424-4CBD-B47B-A26809385EB1}"
+	ProjectSection(SolutionItems) = preProject
+		SMLHelper\ThunderstoreMetadata\BZ.EXP\icon.png = SMLHelper\ThunderstoreMetadata\BZ.EXP\icon.png
+		SMLHelper\ThunderstoreMetadata\BZ.EXP\manifest.json = SMLHelper\ThunderstoreMetadata\BZ.EXP\manifest.json
+		SMLHelper\ThunderstoreMetadata\BZ.EXP\README.md = SMLHelper\ThunderstoreMetadata\BZ.EXP\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BZ.STABLE", "BZ.STABLE", "{A31ABC1E-22A8-4F0E-AD41-8627F45A2882}"
+	ProjectSection(SolutionItems) = preProject
+		SMLHelper\ThunderstoreMetadata\BZ.STABLE\icon.png = SMLHelper\ThunderstoreMetadata\BZ.STABLE\icon.png
+		SMLHelper\ThunderstoreMetadata\BZ.STABLE\manifest.json = SMLHelper\ThunderstoreMetadata\BZ.STABLE\manifest.json
+		SMLHelper\ThunderstoreMetadata\BZ.STABLE\README.md = SMLHelper\ThunderstoreMetadata\BZ.STABLE\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SN.EXP", "SN.EXP", "{D04E3334-8652-492C-BD21-5D294D6246D9}"
+	ProjectSection(SolutionItems) = preProject
+		SMLHelper\ThunderstoreMetadata\SN.EXP\icon.png = SMLHelper\ThunderstoreMetadata\SN.EXP\icon.png
+		SMLHelper\ThunderstoreMetadata\SN.EXP\manifest.json = SMLHelper\ThunderstoreMetadata\SN.EXP\manifest.json
+		SMLHelper\ThunderstoreMetadata\SN.EXP\README.md = SMLHelper\ThunderstoreMetadata\SN.EXP\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SN.STABLE", "SN.STABLE", "{708BB5A4-9239-47D8-B73A-D124E994630B}"
+	ProjectSection(SolutionItems) = preProject
+		SMLHelper\ThunderstoreMetadata\SN.STABLE\icon.png = SMLHelper\ThunderstoreMetadata\SN.STABLE\icon.png
+		SMLHelper\ThunderstoreMetadata\SN.STABLE\manifest.json = SMLHelper\ThunderstoreMetadata\SN.STABLE\manifest.json
+		SMLHelper\ThunderstoreMetadata\SN.STABLE\README.md = SMLHelper\ThunderstoreMetadata\SN.STABLE\README.md
 	EndProjectSection
 EndProject
 Global
@@ -56,6 +88,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6EF72E95-EA2D-44C1-8FB4-F0FE4865FFC4} = {5152F028-6D03-43C0-88C5-986313017D4F}
+		{3630BD6E-A8B0-4FE9-9027-E09666CFF9EA} = {5152F028-6D03-43C0-88C5-986313017D4F}
+		{1C8C260D-E424-4CBD-B47B-A26809385EB1} = {3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}
+		{A31ABC1E-22A8-4F0E-AD41-8627F45A2882} = {3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}
+		{D04E3334-8652-492C-BD21-5D294D6246D9} = {3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}
+		{708BB5A4-9239-47D8-B73A-D124E994630B} = {3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA2C5D3D-5F61-4EA3-9399-FDEF43184299}
