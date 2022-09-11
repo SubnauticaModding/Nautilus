@@ -25,10 +25,16 @@ namespace SMLHelper.V2.Patchers
             TechType tt = CraftData.GetTechType(__instance.gameObject);
             if (EditedEatables.TryGetValue(tt, out EditedEatableValues value))
             {
-                    __instance.foodValue = value.food;
-                    __instance.waterValue = value.water;
-                    __instance.decomposes = value.decomposes;
-                    __instance.allowOverfill = value.allowOverfill;
+                __instance.foodValue = value.food;
+                __instance.waterValue = value.water;
+                __instance.decomposes = value.decomposes;
+#if SUBNAUTICA
+                __instance.allowOverfill = value.allowOverfill;
+#elif BELOWZERO
+                __instance.healthValue = value.health;
+                __instance.maxCharges = value.maxcharges;
+                __instance.coldMeterValue = value.coldValue;
+#endif
             }
         }
     }
