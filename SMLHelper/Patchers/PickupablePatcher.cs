@@ -24,12 +24,8 @@ namespace SMLHelper.V2.Patchers
         {
             TechType tt = CraftData.GetTechType(__instance.gameObject);
 
-            EditedEatableValues value;
-            if(!AddedEatables.TryGetValue(tt, out value)) 
-                EatablePatcher.EditedEatables.TryGetValue(tt, out value);
-
-            if (value != null)
-            {
+            if (AddedEatables.TryGetValue(tt, out var value))
+                {
                 var eatable = __instance.gameObject.EnsureComponent<Eatable>();
                 eatable.foodValue = value.food;
                 eatable.waterValue = value.water;
