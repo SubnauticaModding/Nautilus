@@ -181,7 +181,7 @@
         /// </summary>
         protected PatchEvent OnFinishedPatching;
 
-        private readonly string modFolderLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        private string modFolderLocation => Path.GetDirectoryName(Mod.Location);
 
         /// <summary>
         /// Starts all patching code in SMLHelper.
