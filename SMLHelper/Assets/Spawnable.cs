@@ -41,7 +41,7 @@
         /// By default, this will point to the same folder where your mod DLL is.
         /// </summary>
         /// <example>"MyModAssembly/Assets"</example>
-        public virtual string AssetsFolder => modFolderLocation;
+        public virtual string AssetsFolder => ModFolderLocation;
 
         /// <summary>
         /// Override with the file name for this item's icon.
@@ -181,7 +181,7 @@
         /// </summary>
         protected PatchEvent OnFinishedPatching;
 
-        private string modFolderLocation => Path.GetDirectoryName(Mod.Location);
+        private string ModFolderLocation => Path.GetDirectoryName(Mod.Location);
 
         /// <summary>
         /// Starts all patching code in SMLHelper.
@@ -222,7 +222,7 @@
         protected virtual Sprite GetItemSprite()
         {
             // This is for backwards compatibility with mods that were using the "ModName/Assets" format
-            string path = this.AssetsFolder != modFolderLocation
+            string path = this.AssetsFolder != ModFolderLocation
                 ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
                 : Path.Combine(this.AssetsFolder, this.IconFileName);
 
