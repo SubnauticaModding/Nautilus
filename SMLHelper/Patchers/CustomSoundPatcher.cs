@@ -401,8 +401,12 @@ namespace SMLHelper.V2.Patchers
         {
             var instanceCurrent = __instance._current ?? default;
             if (string.IsNullOrEmpty(instanceCurrent.sound)  || !PlayedChannels.TryGetValue(instanceCurrent.sound, out var channel)) return true;
+#if BELOWZERO
+            if (SoundQueue.GetPlaybackState(__instance.eventInstance) is not PLAYBACK_STATE.STARTING or PLAYBACK_STATE.PLAYING) return true;
+#else
             if (!SoundQueue.GetIsStartingOrPlaying(__instance.eventInstance)) return true;
-
+#endif
+            
             ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
             channel.getPosition(out var position, TIMEUNIT.MS);
@@ -412,15 +416,25 @@ namespace SMLHelper.V2.Patchers
             return false;
         }
 
-        [HarmonyPatch(typeof(SoundQueue), nameof(SoundQueue.GetIsStartingOrPlaying))]
         [HarmonyPrefix]
-        public static bool SoundQueue_GetIsStartingOrPlaying_Prefix( ref bool __result)
+#if BELOWZERO
+        [HarmonyPatch(typeof(SoundQueue), nameof(SoundQueue.GetPlaybackState))]
+        public static bool SoundQueue_GetIsStartingOrPlaying_Prefix(ref PLAYBACK_STATE __result)
+#else
+        [HarmonyPatch(typeof(SoundQueue), nameof(SoundQueue.GetIsStartingOrPlaying))]
+        public static bool SoundQueue_GetIsStartingOrPlaying_Prefix(ref bool __result)
+#endif
         {
             var instanceCurrent = PDASounds.queue?._current ?? default;
             if (string.IsNullOrEmpty(instanceCurrent.sound)  || !PlayedChannels.TryGetValue(instanceCurrent.sound, out var channel)) return true;
 
+#if BELOWZERO
+            channel.isPlaying(out var isPlaying);
+            __result = isPlaying ? PLAYBACK_STATE.PLAYING : PLAYBACK_STATE.STOPPED;
+#else
             var result = channel.isPlaying(out __result);
             __result = __result && result == RESULT.OK;
+#endif
             return false;
         }
         
