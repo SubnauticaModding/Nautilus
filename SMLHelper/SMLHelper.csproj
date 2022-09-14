@@ -97,7 +97,7 @@
       <HintPath>$(Dependencies)\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FMODUnity" Condition="$(Configuration.Contains('.EXP'))">
+    <Reference Include="FMODUnity" Condition="$(Configuration.Contains('.EXP')) Or $(Configuration.Contains('BZ'))">
       <HintPath>$(Dependencies)\FMODUnity.dll</HintPath>
       <Private>False</Private>
     </Reference>
