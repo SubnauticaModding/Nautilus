@@ -169,11 +169,23 @@
         }
 
         private static readonly Assembly smlHelperAssembly = Assembly.GetExecutingAssembly();
+        
+        private static readonly HashSet<Assembly> assembliesToSkip = new HashSet<Assembly>(){
+            smlHelperAssembly,
+            Assembly.GetAssembly(typeof(LargeWorldEntity)), //Assembly-CSharp
+            Assembly.GetAssembly(typeof(FMODAsset)) //firstpass
+        };
+        
+        /** Adds an assembly to a set to be skipped when reflectively determining "calling mod". Usually used for 'core' mods. */
+        public static void addSkippedAssembly(Assembly a) {
+            assembliesToSkip.Add(a);
+        }
 
         internal static string CallingAssemblyNameByStackTrace()
         {
             return CallingAssemblyByStackTrace().GetName().Name;
         }
+        
         internal static Assembly CallingAssemblyByStackTrace()
         {
             var stackTrace = new StackTrace();
@@ -182,7 +194,7 @@
             foreach (StackFrame stackFrame in frames)
             {
                 Assembly ownerAssembly = stackFrame.GetMethod().DeclaringType.Assembly;
-                if (ownerAssembly != smlHelperAssembly)
+                if (ownerAssembly != smlHelperAssembly && !assembliesToSkip.Contains(ownerAssembly))
                     return ownerAssembly;
             }
 
