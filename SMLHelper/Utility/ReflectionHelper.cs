@@ -194,7 +194,7 @@
             foreach (StackFrame stackFrame in frames)
             {
                 Assembly ownerAssembly = stackFrame.GetMethod().DeclaringType.Assembly;
-                if (ownerAssembly != smlHelperAssembly && !assembliesToSkip.Contains(ownerAssembly))
+                if (!assembliesToSkip.Contains(ownerAssembly))
                     return ownerAssembly;
             }
 
