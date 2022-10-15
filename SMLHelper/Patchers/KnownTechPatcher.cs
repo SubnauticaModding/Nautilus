@@ -86,18 +86,28 @@
                     analysisTech.Add(tech);
             }
 
+            //makes sure the KnownTech class has the correct modded values
 
             List<KnownTech.CompoundTech> compoundTech = KnownTech.compoundTech;
-            IEnumerable<KnownTech.CompoundTech> compoundTechToAdd = CompoundTech.Values.Where(a => !compoundTech.Any(a2 => a.techType == a2.techType));
 
+
+            //gets all of the techtypes that are in the CompoundTech.Values collection but not in the KnownTech.compoundTech list
+            IEnumerable<KnownTech.CompoundTech> compoundTechToAdd = CompoundTech.Values.Where(a => !compoundTech.Any(a2 => a.techType == a2.techType));
+            
+
+            //go through each compound tech in KnownTech class
             foreach (KnownTech.CompoundTech tech in compoundTech)
             {
+                //as well as every custom compound tech in the CompoundTech dictionary
                 foreach (KnownTech.CompoundTech customTech in CompoundTech.Values)
                 {
-                    tech.dependencies = customTech.dependencies;
+                    //check if the two techtypes are the same
+                    if(tech.techType == customTech.techType) tech.dependencies = customTech.dependencies;
+                    //if so, set the dependencies appropriately 
                 }
             }
 
+            //make sure to add any missing custom compound tech to the KnownTech class
             foreach (KnownTech.CompoundTech tech in compoundTechToAdd)
             {
                 if (tech == null)
