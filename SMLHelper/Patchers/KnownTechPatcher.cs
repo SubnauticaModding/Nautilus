@@ -93,28 +93,32 @@
 
             // get all of the techtypes that are in the CompoundTech.Values collection but not in the KnownTech.compoundTech list
             IEnumerable<KnownTech.CompoundTech> compoundTechToAdd = CompoundTech.Values.Where(a => !compoundTech.Any(a2 => a.techType == a2.techType));
-            
 
-            // go through each compound tech in KnownTech class
-            foreach (KnownTech.CompoundTech tech in compoundTech)
-            {
-                // as well as every custom compound tech in the CompoundTech dictionary
-                foreach (KnownTech.CompoundTech customTech in CompoundTech.Values)
-                {
-                    // check if the two techtypes are the same
-                    if(tech.techType == customTech.techType) tech.dependencies = customTech.dependencies;
-                    // if so, set the dependencies appropriately 
-                }
-            }
 
-            // make sure to add any missing custom compound tech to the KnownTech class
-            foreach (KnownTech.CompoundTech tech in compoundTechToAdd)
+            // go through every custom compound tech in the CompoundTech dictionary
+            foreach (KnownTech.CompoundTech customTech in CompoundTech.Values)
             {
-                if (tech == null)
+                if (customTech == null)//is this even possible? Dunno, can't hurt to check
                     continue;
 
-                if (!KnownTech.Contains(tech.techType))
-                    compoundTech.Add(tech);
+
+                if (!KnownTech.Contains(customTech.techType))//if it's not already there, add it to known tech
+                    compoundTech.Add(customTech);
+
+
+                /*
+                 * following code seems unnecessary from my testing
+                 * however, my testing is incredibly limited and should not be relied upon
+                 * therefore, I'm keeping it here while I commit changes
+                 * then someone else can remove or uncomment as they see fit.
+
+                //find the tech in the compoundTech list
+                var foundTech = compoundTech.Find(tech => tech.techType == customTech.techType);
+
+
+                if(foundTech != null)//set its dependencies properly
+                    foundTech.dependencies = customTech.dependencies;
+                */
             }
         }
     }
