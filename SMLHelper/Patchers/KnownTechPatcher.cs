@@ -106,19 +106,11 @@
                     compoundTech.Add(customTech);
 
 
-                /*
-                 * following code seems unnecessary from my testing
-                 * however, my testing is incredibly limited and should not be relied upon
-                 * therefore, I'm keeping it here while I commit changes
-                 * then someone else can remove or uncomment as they see fit.
-
                 //find the tech in the compoundTech list
                 var foundTech = compoundTech.Find(tech => tech.techType == customTech.techType);
 
-
-                if(foundTech != null)//set its dependencies properly
+                if (foundTech != null)//set its dependencies properly
                     foundTech.dependencies = customTech.dependencies;
-                */
             }
         }
     }
