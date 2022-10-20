@@ -7,10 +7,13 @@
     using System.IO;
     using System.Reflection;
     using System.Text;
+    using System.Linq;
+    using System.Collections.Generic;
 
     internal class TooltipPatcher
     {
         internal static bool DisableEnumIsDefinedPatch = false;
+        private static List<TechType> vanillaTechTypes = new();
 
         internal static void Patch(Harmony harmony)
         {
@@ -104,7 +107,14 @@
 
         internal static bool IsVanillaTechType(TechType type)
         {
-            return type <= TechType.Databox;
+            if (vanillaTechTypes is {Count: 0})
+            {
+                var allTechTypes = (System.Enum.GetValues(typeof(TechType)) as TechType[])!.ToList();
+                allTechTypes.RemoveAll(tt => TechTypePatcher.cacheManager.ModdedKeys.Contains(tt));
+                vanillaTechTypes = allTechTypes;
+            }
+
+            return vanillaTechTypes.Contains(type);
         }
 
 #region Options
