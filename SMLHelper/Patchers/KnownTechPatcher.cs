@@ -86,30 +86,19 @@
                     analysisTech.Add(tech);
             }
 
-            // make sure the KnownTech class has the correct modded values
-
             List<KnownTech.CompoundTech> compoundTech = KnownTech.compoundTech;
-
-
-            // get all of the techtypes that are in the CompoundTech.Values collection but not in the KnownTech.compoundTech list
-            IEnumerable<KnownTech.CompoundTech> compoundTechToAdd = CompoundTech.Values.Where(a => !compoundTech.Any(a2 => a.techType == a2.techType));
-
-
-            // go through every custom compound tech in the CompoundTech dictionary
             foreach (KnownTech.CompoundTech customTech in CompoundTech.Values)
             {
-                if (customTech == null)//is this even possible? Dunno, can't hurt to check
+                if (customTech == null) // Safety check
                     continue;
 
-
-                if (!KnownTech.Contains(customTech.techType))//if it's not already there, add it to known tech
+                // Only add the new compound tech if it isn't unlocked yet 
+                if (!KnownTech.Contains(customTech.techType))
                     compoundTech.Add(customTech);
 
-
-                //find the tech in the compoundTech list
+                // If a compound tech already exists, set the dependencies correctly.
                 var foundTech = compoundTech.Find(tech => tech.techType == customTech.techType);
-
-                if (foundTech != null)//set its dependencies properly
+                if (foundTech != null)
                     foundTech.dependencies = customTech.dependencies;
             }
         }
