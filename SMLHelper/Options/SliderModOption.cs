@@ -7,11 +7,7 @@
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.Events;
-#if SUBNAUTICA
-    using Text = UnityEngine.UI.Text;
-#elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
-#endif
 
     /// <summary>
     /// Contains all the information about a slider changed event.
@@ -166,11 +162,7 @@
             });
 #endif
 
-#if SUBNAUTICA
-            panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, callback);
-#elif BELOWZERO
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, "0.0");
-#endif
 
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;

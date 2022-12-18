@@ -98,6 +98,8 @@ namespace SMLHelper.V2.Patchers
         {
             DictionaryPrefix(techType, CustomEatingSounds, CraftData.useEatSound);
         }
+
+        /*
         [PatchUtils.Prefix]
         [HarmonyPatch(typeof(CraftData), nameof(CraftData.IsInvUseable))]
         private static bool IsInvUseablePrefix(TechType techType, ref bool __result)
@@ -109,6 +111,14 @@ namespace SMLHelper.V2.Patchers
             }
             __result = false;
             return true;
+        }
+        */
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(Inventory), nameof(Inventory.GetAllItemActions))]
+        private static void GetAllItemActionsPostfix(InventoryItem item, ref ItemAction __result)
+        {
+            if (item != null && item.item != null && SurvivalPatcher.InventoryUseables.Contains(item.item.GetTechType()))
+                __result |= ItemAction.Use;
         }
 
         private static void DictionaryPrefix<T>(TechType techType, IDictionary<TechType, T> smlCollection, IDictionary<TechType, T> craftDataCollection)

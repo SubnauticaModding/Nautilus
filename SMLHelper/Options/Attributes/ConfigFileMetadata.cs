@@ -11,16 +11,8 @@
     using System.Reflection;
     using UnityEngine;
     using Logger = Logger;
-#if SUBNAUTICA
-    using Text = UnityEngine.UI.Text;
-#elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
-#endif
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
     using Newtonsoft.Json;
-#endif
 
     internal class ConfigFileMetadata<T> where T : ConfigFile, new()
     {

@@ -93,12 +93,16 @@
       <HintPath>$(Dependencies)\UnityEngine.UIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.TextMeshPro" Condition="$(Configuration.Contains('BZ.'))">
+    <Reference Include="Unity.TextMeshPro">
       <HintPath>$(Dependencies)\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FMODUnity" Condition="$(Configuration.Contains('.EXP')) Or $(Configuration.Contains('BZ'))">
+    <Reference Include="FMODUnity">
       <HintPath>$(Dependencies)\FMODUnity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.ResourceManager">
+      <HintPath>$(Dependencies)\Unity.ResourceManager.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

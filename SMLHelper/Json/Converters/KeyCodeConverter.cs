@@ -3,11 +3,7 @@
     using System;
     using SMLHelper.V2.Utility;
     using UnityEngine;
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
     using Newtonsoft.Json;
-#endif
 
     /// <summary>
     /// A <see cref="JsonConverter"/> for handling <see cref="KeyCode"/>s.

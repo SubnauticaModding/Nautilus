@@ -2,13 +2,8 @@
 using System.IO;
 using System.Reflection;
 using System.Linq;
-#if SUBNAUTICA_STABLE
-using Oculus.Newtonsoft.Json;
-using Oculus.Newtonsoft.Json.Converters;
-#else
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-#endif
 
 namespace SMLHelper.V2.Json
 {

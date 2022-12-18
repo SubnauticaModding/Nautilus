@@ -2,11 +2,7 @@
 using System;
 using System.IO;
 using System.Reflection;
-#if SUBNAUTICA_STABLE
-using Oculus.Newtonsoft.Json;
-#else
 using Newtonsoft.Json;
-#endif
 
 namespace SMLHelper.V2.Json
 {

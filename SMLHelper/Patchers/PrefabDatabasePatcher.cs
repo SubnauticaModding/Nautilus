@@ -42,7 +42,6 @@
             return false;
         }
 
-#if !SUBNAUTICA_STABLE
         [PatchUtils.Prefix]
         [HarmonyPatch(typeof(DeferredSpawner.AddressablesTask), nameof(DeferredSpawner.AddressablesTask.SpawnAsync))]
         internal static bool DeferredSpawner_AddressablesTask_Spawn_Prefix(DeferredSpawner.AddressablesTask __instance, ref IEnumerator __result)
@@ -69,20 +68,6 @@
             task.HandleLateCancelledSpawn();
             yield break;
         }
-#endif
-
-#if SUBNAUTICA_STABLE
-        [PatchUtils.Prefix] // SUBNAUTICA_EXP TODO: remove for SN after async update
-        [HarmonyPatch(typeof(PrefabDatabase), "GetPrefabForFilename")] // method can be absent
-        internal static bool GetPrefabForFilename_Prefix(string filename, ref GameObject __result)
-        {
-            if (!ModPrefab.TryGetFromFileName(filename, out ModPrefab prefab))
-                return true;
-
-            __result = prefab.GetGameObjectInternal();
-            return false;
-        }
-#endif
 
         private static IPrefabRequest GetModPrefabAsync(string classId)
         {
@@ -145,13 +130,12 @@
         {
             PatchUtils.PatchClass(harmony);
 
-#if !SUBNAUTICA_STABLE
-                // patching iterator method ProtobufSerializer.DeserializeObjectsAsync
-                MethodInfo DeserializeObjectsAsync = typeof(ProtobufSerializer).GetMethod(
-                    nameof(ProtobufSerializer.DeserializeObjectsAsync), BindingFlags.NonPublic | BindingFlags.Instance);
-                harmony.Patch(PatchUtils.GetIteratorMethod(DeserializeObjectsAsync), transpiler:
-                    new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(DeserializeObjectsAsync_Transpiler))));
-#endif
+            // patching iterator method ProtobufSerializer.DeserializeObjectsAsync
+            MethodInfo DeserializeObjectsAsync = typeof(ProtobufSerializer).GetMethod(
+                nameof(ProtobufSerializer.DeserializeObjectsAsync), BindingFlags.NonPublic | BindingFlags.Instance);
+            harmony.Patch(PatchUtils.GetIteratorMethod(DeserializeObjectsAsync), transpiler:
+                new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(DeserializeObjectsAsync_Transpiler))));
+
             Logger.Log("PrefabDatabasePatcher is done.", LogLevel.Debug);
         }
 

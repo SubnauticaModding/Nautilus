@@ -1,8 +1,6 @@
-﻿#if BELOWZERO
-using Text = TMPro.TextMeshPro;
+﻿using Text = TMPro.TextMeshPro;
 using Font = TMPro.TMP_FontAsset;
 using FontStyle = TMPro.FontStyles;
-#endif
 
 using UnityEngine;
 

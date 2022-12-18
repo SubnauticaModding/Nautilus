@@ -11,19 +11,10 @@
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using QModManager.API;
-
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
     using Newtonsoft.Json;
-#endif
 
-#if SUBNAUTICA
-    using Text = UnityEngine.UI.Text;
-#elif BELOWZERO
     using Text = TMPro.TextMeshProUGUI;
     using static SMLHelper.V2.Options.ModKeybindOption;
-#endif
 
     internal class OptionsPanelPatcher
     {
@@ -52,7 +43,6 @@
                 modsTabIndex = __result;
         }
 
-#if BELOWZERO
         [PatchUtils.Prefix]
         [HarmonyPatch(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue))]
         internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
@@ -64,7 +54,6 @@
             __instance.UpdateState();
             return false;
         }
-#endif
 
         [PatchUtils.Postfix]
         [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
@@ -107,40 +96,6 @@
             // adding all other options here
             modOptions.Values.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
         }
-
-#if SUBNAUTICA_STABLE
-        // fix for slider, check for zero divider added (in that case just return value unchanged)
-        // it happens when slider is in pre-awake state, so any given value snaps to default value
-        [PatchUtils.Transpiler]
-        [HarmonyPatch(typeof(uGUI_SnappingSlider), nameof(uGUI_SnappingSlider.SnapValue))]
-        internal static IEnumerable<CodeInstruction> SnapValue_Fix(IEnumerable<CodeInstruction> cins)
-        {
-            var list = new List<CodeInstruction>(cins);
-
-            int indexLabel = list.FindIndex(cin => cin.opcode == OpCodes.Starg_S && cin.operand.Equals((byte)1)) + 1;
-            if (indexLabel == 0 || list[indexLabel].labels.Count == 0)
-            {
-                V2.Logger.Log("SnapValue_Fix: indexLabel not found", LogLevel.Warn);
-                return cins;
-            }
-
-            int indexToInject = list.FindIndex(cin => cin.opcode == OpCodes.Stloc_1) + 1;
-            if (indexToInject == 0)
-            {
-                V2.Logger.Log("SnapValue_Fix: indexToInject not found", LogLevel.Warn);
-                return cins;
-            }
-
-            list.InsertRange(indexToInject, new List<CodeInstruction>
-            {
-                new CodeInstruction(OpCodes.Ldloc_1),
-                new CodeInstruction(OpCodes.Ldc_R4, 0f),
-                new CodeInstruction(OpCodes.Beq, list[indexLabel].labels[0])
-            });
-
-            return list;
-        }
-#endif
 
         // Class for collapsing/expanding options in 'Mods' tab
         // Options can be collapsed/expanded by clicking on mod's title or arrow button

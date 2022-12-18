@@ -151,15 +151,15 @@
         /// <returns></returns>
         public override GameObject GetGameObject()
         {
-#if SUBNAUTICA_EXP || BELOWZERO
+#if BELOWZERO
             return null;
 #else
             GameObject prefab = this.Model switch
             {
-                Models.Fabricator => GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Fabricator)),
-                Models.Workbench => GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Workbench)),
+                Models.Fabricator => GameObject.Instantiate(CraftData.GetPrefabForTechTypeAsync(TechType.Fabricator).GetResult()),
+                Models.Workbench => GameObject.Instantiate(CraftData.GetPrefabForTechTypeAsync(TechType.Workbench).GetResult()),
 #if SUBNAUTICA
-                Models.MoonPool => GameObject.Instantiate(Resources.Load<GameObject>("Submarine/Build/CyclopsFabricator")),
+                Models.MoonPool => GameObject.Instantiate(GetCyclopsFabricatorPrefab()),
 #endif
                 Models.Custom => GetCustomCrafterPreFab(),
                 _ => null
@@ -168,6 +168,20 @@
             return PreProcessPrefab(prefab);
 #endif
         }
+
+#if SUBNAUTICA
+        private static GameObject _loadedCyclopsFabricatorPrefab = null;
+        private GameObject GetCyclopsFabricatorPrefab(bool forceReload = false)
+        {
+            if (_loadedCyclopsFabricatorPrefab == null || forceReload)
+            {
+                var cyclopsFabricatorRequest = AddressablesUtility.LoadAsync<GameObject>("Submarine/Build/CyclopsFabricator.prefab");
+                cyclopsFabricatorRequest.WaitForCompletion();
+                _loadedCyclopsFabricatorPrefab = cyclopsFabricatorRequest.Result;
+            }
+            return _loadedCyclopsFabricatorPrefab;
+        }
+#endif
 
         /// <summary>
         /// The in-game <see cref="GameObject"/>, async way.
@@ -191,12 +205,7 @@
                     break;
 #if SUBNAUTICA
                 case Models.MoonPool:
-#pragma warning disable CS0618 // obsolete
-                    var request = UWE.PrefabDatabase.GetPrefabForFilenameAsync("Submarine/Build/CyclopsFabricator.prefab");
-#pragma warning restore CS0618
-                    yield return request;
-                    request.TryGetPrefab(out prefab);
-                    prefab = GameObject.Instantiate(prefab);
+                    prefab = GameObject.Instantiate(GetCyclopsFabricatorPrefab());
                     break;
 #endif
                 case Models.Custom:

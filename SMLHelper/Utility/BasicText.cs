@@ -2,11 +2,9 @@
 using UnityEngine.UI;
 using SMLHelper.V2.Interfaces;
 
-#if BELOWZERO
 using Text = TMPro.TextMeshProUGUI;
 using Font = TMPro.TMP_FontAsset;
 using FontStyle = TMPro.FontStyles;
-#endif
 
 namespace SMLHelper.V2.Utility
 {
@@ -317,7 +315,7 @@ namespace SMLHelper.V2.Utility
         /// Sets the font 
         /// </summary>
         /// <param name="useFont">The font to render the text as.</param>
-        public void SetFont(Font useFont)
+        public void SetFont(TMPro.TMP_FontAsset useFont)
         {
             CloneFont = false;
             Font = useFont;
@@ -345,7 +343,7 @@ namespace SMLHelper.V2.Utility
         /// Sets the font style.
         /// </summary>
         /// <param name="useStyle">The text font style to use</param>
-        public void SetFontStyle(FontStyle useStyle)
+        public void SetFontStyle(TMPro.FontStyles useStyle)
         {
             CloneStyle = false;
             Style = useStyle;
@@ -378,11 +376,7 @@ namespace SMLHelper.V2.Utility
             Align = useAlign;
             if (TextObject != null)
             {
-#if SUBNAUTICA
-                TextText.alignment = Align;
-#elif BELOWZERO
                 TextText.alignment = Convert(Align);
-#endif
                 DoAlignment();
             }
         }
@@ -463,7 +457,7 @@ namespace SMLHelper.V2.Utility
         {
             // Make our own text object
             TextObject = new GameObject("BasicText" + (++index));
-            TextFade = TextObject.EnsureComponent<uGUI_TextFade>(); // The uGUI's helpful automatic fade component           
+            TextFade = TextObject.EnsureComponent<uGUI_TextFade>(); // The uGUI's helpful automatic fade component
             TextText = TextFade?.text ?? TextObject.EnsureComponent<Text>(); // The text itself
 
             // This makes the text box fit the text (rather than the other way around)
@@ -475,11 +469,7 @@ namespace SMLHelper.V2.Utility
             TextText.font = CloneFont ? uGUI.main.intro.mainText.text.font : Font;
             TextText.fontSize = CloneSize ? uGUI.main.intro.mainText.text.fontSize : Size;
             TextText.fontStyle = CloneStyle ? uGUI.main.intro.mainText.text.fontStyle : Style;
-#if SUBNAUTICA
-            TextText.alignment = CloneAlign ? uGUI.main.intro.mainText.text.alignment : Align;
-#elif BELOWZERO
             TextText.alignment = CloneAlign ? uGUI.main.intro.mainText.text.alignment : Convert(Align);
-#endif
             TextText.color = CloneColor ? uGUI.main.intro.mainText.text.color : Color;
             TextText.material = CloneMaterial ? uGUI.main.intro.mainText.text.material : Material;
 
@@ -502,8 +492,8 @@ namespace SMLHelper.V2.Utility
         internal TextAnchor Align { get; set; }      // text alignment
         internal Color Color { get; set; }           // text color
         internal int Size { get; set; }              // text size
-        internal Font Font { get; set; }             // text font
-        internal FontStyle Style { get; set; }       // text font style
+        internal TMPro.TMP_FontAsset Font { get; set; } // text font
+        internal TMPro.FontStyles Style { get; set; }       // text font style
         internal Material Material { get; set; }     // text material
         internal GameObject TextObject { get; set; } = null;          // Our game object
         internal uGUI_TextFade TextFade { get; set; } = null;         // Our text fader
@@ -512,7 +502,6 @@ namespace SMLHelper.V2.Utility
 
         internal static int index = 0; // For giving unique names to the game objects
 
-#if BELOWZERO
         private static TMPro.TextAlignmentOptions Convert(TextAnchor textAnchor)
         {
             switch (textAnchor)
@@ -539,6 +528,5 @@ namespace SMLHelper.V2.Utility
                     return TMPro.TextAlignmentOptions.Center;
             }
         }
-#endif
     }
 }

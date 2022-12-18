@@ -21,11 +21,8 @@
 
             MethodInfo buildTech = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech));
             MethodInfo itemCommons = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemCommons));
-#if BELOWZERO
             MethodInfo recipe = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe));
-#else
-            MethodInfo recipe = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.Recipe));
-#endif
+
             HarmonyMethod customTooltip = new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.CustomTooltip)));
             HarmonyMethod techTypePostfix = new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.TechTypePostfix)));
 
@@ -193,25 +190,21 @@
             }
         }
 
-#endregion
+        #endregion
 
-#region Patches
+        #region Patches
 
-
-#if SUBNAUTICA
-        internal static void TechTypePostfix(TechType techType, ref string tooltipText)
-        {
-            StringBuilder stringBuilder = new StringBuilder(tooltipText);
-
-            CustomTooltip(stringBuilder, techType);
-            tooltipText = stringBuilder.ToString();
-        }
-#elif BELOWZERO
+#if BELOWZERO
         internal static void TechTypePostfix(TechType techType, TooltipData data)
         {
             CustomTooltip(data.prefix, techType);
         }
+#else
+        internal static void TechTypePostfix(TechType techType, bool locked, TooltipData data)
+        {
+            CustomTooltip(data.prefix, techType);
+        }
 #endif
-#endregion
+        #endregion
     }
 }

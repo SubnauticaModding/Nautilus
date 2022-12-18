@@ -10,11 +10,7 @@ namespace SMLHelper.V2.Patchers
     using Handlers;
     using MonoBehaviours;
     using UnityEngine;
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
     using Newtonsoft.Json;
-#endif
 
     internal class LargeWorldStreamerPatcher
     {
