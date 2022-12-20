@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using HarmonyLib;
+    using SMLHelper.V2.Utility;
     using System.Collections.Generic;
     using static Handlers.EatableHandler;
 
@@ -13,7 +14,7 @@
             harmony.Patch(AccessTools.Method(typeof(Eatable), nameof(Eatable.Awake)),
                 new HarmonyMethod(typeof(EatablePatcher), nameof(AwakePrefix)));
 
-            Logger.Debug("EatablePatcher is done.");
+            InternalLogger.Debug("EatablePatcher is done.");
         }
         private static void AwakePrefix(Eatable __instance)
         {

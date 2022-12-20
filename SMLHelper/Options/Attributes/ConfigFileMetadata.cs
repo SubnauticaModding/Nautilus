@@ -1,8 +1,9 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Options.Attributes
 {
     using Interfaces;
     using Json;
-    using QModManager.API;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -10,17 +11,9 @@
     using System.Linq;
     using System.Reflection;
     using UnityEngine;
-    using Logger = Logger;
-#if SUBNAUTICA
-    using Text = UnityEngine.UI.Text;
-#elif BELOWZERO
-    using Text = TMPro.TextMeshProUGUI;
-#endif
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
+    using InternalLogger = InternalLogger;
     using Newtonsoft.Json;
-#endif
+    using TMPro;
 
     internal class ConfigFileMetadata<T> where T : ConfigFile, new()
     {
@@ -28,7 +21,7 @@
 
         public bool Registered { get; set; } = false;
 
-        public IQMod QMod { get; } = QModServices.Main.GetMod(Assembly.GetAssembly(typeof(T)));
+        public string ModName { get; } = Assembly.GetAssembly(typeof(T)).GetName().Name;
 
         /// <summary>
         /// The <see cref="MenuAttribute"/> relating to this <see cref="ModOptions"/> menu.
@@ -47,18 +40,18 @@
         {
             Stopwatch stopwatch = new Stopwatch();
 
-            if (Logger.EnableDebugging)
+            if (InternalLogger.EnableDebugging)
                 stopwatch.Start();
 
-            MenuAttribute = typeof(T).GetCustomAttribute<MenuAttribute>(true) ?? new MenuAttribute(QMod.DisplayName);
+            MenuAttribute = typeof(T).GetCustomAttribute<MenuAttribute>(true) ?? new MenuAttribute(ModName);
             ModOptionAttributesMetadata = new Dictionary<string, ModOptionAttributeMetadata<T>>();
 
             processMetadata();
 
-            if (Logger.EnableDebugging)
+            if (InternalLogger.EnableDebugging)
             {
                 stopwatch.Stop();
-                Logger.Debug($"[{QMod.DisplayName}] [{typeof(T).Name}] OptionsMenuBuilder metadata parsed in {stopwatch.ElapsedMilliseconds}ms.");
+                InternalLogger.Debug($"[{ModName}] [{typeof(T).Name}] OptionsMenuBuilder metadata parsed in {stopwatch.ElapsedMilliseconds}ms.");
             }
         }
 
@@ -86,7 +79,7 @@
                 processMethod(method);
             }
 
-            Logger.Debug($"[{QMod.DisplayName}] [{typeof(T).Name}] Found {ModOptionAttributesMetadata.Count()} options to add to the menu.");
+            InternalLogger.Debug($"[{ModName}] [{typeof(T).Name}] Found {ModOptionAttributesMetadata.Count()} options to add to the menu.");
         }
 
         /// <summary>
@@ -227,7 +220,7 @@
             }
             catch (Exception ex)
             {
-                Logger.Error($"[OptionsMenuBuilder] {ex.Message}");
+                InternalLogger.Error($"[OptionsMenuBuilder] {ex.Message}");
             }
         }
 
@@ -486,7 +479,7 @@
                 // Create a tooltip if specified
                 if (tooltip is not null)
                 {
-                    e.GameObject.GetComponentInChildren<Text>().gameObject.AddComponent<ModOptionTooltip>().Tooltip = tooltip;
+                    e.GameObject.GetComponentInChildren<TextMeshProUGUI>().gameObject.AddComponent<ModOptionTooltip>().Tooltip = tooltip;
                 }
 
                 if (modOptionMetadata.OnGameObjectCreatedMetadata == null)
@@ -613,7 +606,7 @@
             if (!memberInfoMetadata.MethodValid)
             {
                 // Method not found, log error and skip.
-                Logger.Error($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{memberInfoMetadata.Name}");
+                InternalLogger.Error($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{memberInfoMetadata.Name}");
                 return;
             }
 

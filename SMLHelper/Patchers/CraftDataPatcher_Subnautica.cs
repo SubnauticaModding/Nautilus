@@ -2,7 +2,9 @@
 namespace SMLHelper.V2.Patchers
 {
     using HarmonyLib;
+    using SMLHelper.V2.Utility;
     using System.Collections.Generic;
+    using static RootMotion.FinalIK.InteractionTrigger.Range;
 
     internal partial class CraftDataPatcher
     {
@@ -98,17 +100,15 @@ namespace SMLHelper.V2.Patchers
         {
             DictionaryPrefix(techType, CustomEatingSounds, CraftData.useEatSound);
         }
-        [PatchUtils.Prefix]
-        [HarmonyPatch(typeof(CraftData), nameof(CraftData.IsInvUseable))]
-        private static bool IsInvUseablePrefix(TechType techType, ref bool __result)
+
+        [PatchUtils.Postfix]
+        [HarmonyPatch(typeof(Inventory), nameof(Inventory.GetAllItemActions))]
+        private static void GetAllItemActionsPostfix(InventoryItem item, ref ItemAction __result)
         {
-            if (SurvivalPatcher.InventoryUseables.Contains(techType))
+            if(SurvivalPatcher.InventoryUseables.Contains(item.techType) && (__result & ItemAction.Use) == ItemAction.None)
             {
-                __result = true;
-                return false;
+                __result |= ItemAction.Use;
             }
-            __result = false;
-            return true;
         }
 
         private static void DictionaryPrefix<T>(TechType techType, IDictionary<TechType, T> smlCollection, IDictionary<TechType, T> craftDataCollection)
@@ -258,7 +258,7 @@ namespace SMLHelper.V2.Patchers
                     if (techExists)
                     {
                         CraftData.techData.Remove(techType);
-                        Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
+                        InternalLogger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
                         replaced++;
                     }
                     else
@@ -270,10 +270,10 @@ namespace SMLHelper.V2.Patchers
             }
 
             if (added > 0)
-                Logger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
+                InternalLogger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
 
             if (replaced > 0)
-                Logger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Info);
+                InternalLogger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Info);
         }
 
         

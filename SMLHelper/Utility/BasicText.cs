@@ -1,12 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using SMLHelper.V2.Interfaces;
-
-#if BELOWZERO
-using Text = TMPro.TextMeshProUGUI;
-using Font = TMPro.TMP_FontAsset;
-using FontStyle = TMPro.FontStyles;
-#endif
+using TMPro;
 
 namespace SMLHelper.V2.Utility
 {
@@ -67,7 +62,7 @@ namespace SMLHelper.V2.Utility
         /// Creates a new instances of <see cref="IBasicText"/> at a specified <see cref="TextAnchor"/>.
         /// </summary>
         /// <param name="useAlign">The text anchor to align to</param>
-        public BasicText(TextAnchor useAlign) : this()
+        public BasicText(TextAlignmentOptions useAlign) : this()
         {
             CloneAlign = false;
             Align = useAlign;
@@ -111,7 +106,7 @@ namespace SMLHelper.V2.Utility
         /// </summary>
         /// <param name="useSize">The text size to use</param>
         /// <param name="useAlign">The text anchor to align to</param>
-        public BasicText(int useSize, TextAnchor useAlign) : this()
+        public BasicText(int useSize, TextAlignmentOptions useAlign) : this()
         {
             CloneAlign = false;
             Align = useAlign;
@@ -125,7 +120,7 @@ namespace SMLHelper.V2.Utility
         /// <param name="useSize">The text size to use</param>
         /// <param name="useColor">The text color to use</param>
         /// <param name="useAlign">The text anchor to align to</param>
-        public BasicText(int useSize, Color useColor, TextAnchor useAlign) : this()
+        public BasicText(int useSize, Color useColor, TextAlignmentOptions useAlign) : this()
         {
             CloneAlign = false;
             Align = useAlign;
@@ -143,7 +138,7 @@ namespace SMLHelper.V2.Utility
         /// <param name="useSize">The text size to use</param>
         /// <param name="useColor">The text color to use</param>
         /// <param name="useAlign">The text anchor to align to</param>
-        public BasicText(int set_x, int set_y, int useSize, Color useColor, TextAnchor useAlign) : this()
+        public BasicText(int set_x, int set_y, int useSize, Color useColor, TextAlignmentOptions useAlign) : this()
         {
             X = set_x;
             Y = set_y;
@@ -317,7 +312,7 @@ namespace SMLHelper.V2.Utility
         /// Sets the font 
         /// </summary>
         /// <param name="useFont">The font to render the text as.</param>
-        public void SetFont(Font useFont)
+        public void SetFont(TMP_FontAsset useFont)
         {
             CloneFont = false;
             Font = useFont;
@@ -345,7 +340,7 @@ namespace SMLHelper.V2.Utility
         /// Sets the font style.
         /// </summary>
         /// <param name="useStyle">The text font style to use</param>
-        public void SetFontStyle(FontStyle useStyle)
+        public void SetFontStyle(FontStyles useStyle)
         {
             CloneStyle = false;
             Style = useStyle;
@@ -372,7 +367,7 @@ namespace SMLHelper.V2.Utility
         /// Sets the text anchor.
         /// </summary>
         /// <param name="useAlign">The text anchor to align to</param>
-        public void SetAlign(TextAnchor useAlign)
+        public void SetAlign(TextAlignmentOptions useAlign)
         {
             CloneAlign = false;
             Align = useAlign;
@@ -417,15 +412,15 @@ namespace SMLHelper.V2.Utility
 
             switch (Align)
             {
-                case TextAnchor.UpperLeft:
-                case TextAnchor.MiddleLeft:
-                case TextAnchor.LowerLeft:
+                case TextAlignmentOptions.TopLeft:
+                case TextAlignmentOptions.Left:
+                case TextAlignmentOptions.BottomLeft:
 
                     displayX = X + width / 2;
                     break;
-                case TextAnchor.UpperRight:
-                case TextAnchor.MiddleRight:
-                case TextAnchor.LowerRight:
+                case TextAlignmentOptions.TopRight:
+                case TextAlignmentOptions.Right:
+                case TextAlignmentOptions.BottomRight:
                     displayX = X - width / 2;
                     break;
 
@@ -436,15 +431,15 @@ namespace SMLHelper.V2.Utility
 
             switch (Align)
             {
-                case TextAnchor.UpperLeft:
-                case TextAnchor.UpperCenter:
-                case TextAnchor.UpperRight:
+                case TextAlignmentOptions.TopLeft:
+                case TextAlignmentOptions.Top:
+                case TextAlignmentOptions.TopRight:
                     displayY = Y - height / 2;
                     break;
 
-                case TextAnchor.LowerLeft:
-                case TextAnchor.LowerCenter:
-                case TextAnchor.LowerRight:
+                case TextAlignmentOptions.BottomLeft:
+                case TextAlignmentOptions.Bottom:
+                case TextAlignmentOptions.BottomRight:
                     displayY = Y + height / 2;
                     break;
 
@@ -464,7 +459,7 @@ namespace SMLHelper.V2.Utility
             // Make our own text object
             TextObject = new GameObject("BasicText" + (++index));
             TextFade = TextObject.EnsureComponent<uGUI_TextFade>(); // The uGUI's helpful automatic fade component           
-            TextText = TextFade?.text ?? TextObject.EnsureComponent<Text>(); // The text itself
+            TextText = TextFade?.text ?? TextObject.EnsureComponent<TextMeshProUGUI>(); // The text itself
 
             // This makes the text box fit the text (rather than the other way around)
             TextFitter = TextObject.EnsureComponent<ContentSizeFitter>();
@@ -475,11 +470,7 @@ namespace SMLHelper.V2.Utility
             TextText.font = CloneFont ? uGUI.main.intro.mainText.text.font : Font;
             TextText.fontSize = CloneSize ? uGUI.main.intro.mainText.text.fontSize : Size;
             TextText.fontStyle = CloneStyle ? uGUI.main.intro.mainText.text.fontStyle : Style;
-#if SUBNAUTICA
             TextText.alignment = CloneAlign ? uGUI.main.intro.mainText.text.alignment : Align;
-#elif BELOWZERO
-            TextText.alignment = CloneAlign ? uGUI.main.intro.mainText.text.alignment : Convert(Align);
-#endif
             TextText.color = CloneColor ? uGUI.main.intro.mainText.text.color : Color;
             TextText.material = CloneMaterial ? uGUI.main.intro.mainText.text.material : Material;
 
@@ -499,46 +490,18 @@ namespace SMLHelper.V2.Utility
         internal bool CloneFont { get; set; }        // True if we're cloning Subnautica's "Press Any Button To Begin" font
         internal bool CloneStyle { get; set; }       // True if we're cloning Subnautica's "Press Any Button To Begin" font style
         internal bool CloneMaterial { get; set; }    // True if we're cloning Subnautica's "Press Any Button To Begin" material
-        internal TextAnchor Align { get; set; }      // text alignment
+        internal TextAlignmentOptions Align { get; set; }      // text alignment
         internal Color Color { get; set; }           // text color
         internal int Size { get; set; }              // text size
-        internal Font Font { get; set; }             // text font
-        internal FontStyle Style { get; set; }       // text font style
+        internal TMP_FontAsset Font { get; set; }             // text font
+        internal FontStyles Style { get; set; }       // text font style
         internal Material Material { get; set; }     // text material
         internal GameObject TextObject { get; set; } = null;          // Our game object
         internal uGUI_TextFade TextFade { get; set; } = null;         // Our text fader
-        internal Text TextText { get; set; } = null;                  // Our text object
+        internal TextMeshProUGUI TextText { get; set; } = null;                  // Our text object
         internal ContentSizeFitter TextFitter { get; set; } = null;   // Our content size fitter
 
         internal static int index = 0; // For giving unique names to the game objects
 
-#if BELOWZERO
-        private static TMPro.TextAlignmentOptions Convert(TextAnchor textAnchor)
-        {
-            switch (textAnchor)
-            {
-                case TextAnchor.UpperLeft:
-                    return TMPro.TextAlignmentOptions.TopLeft;
-                case TextAnchor.UpperCenter:
-                    return TMPro.TextAlignmentOptions.Top;
-                case TextAnchor.UpperRight:
-                    return TMPro.TextAlignmentOptions.TopRight;
-                case TextAnchor.MiddleLeft:
-                    return TMPro.TextAlignmentOptions.MidlineLeft;
-                case TextAnchor.MiddleCenter:
-                    return TMPro.TextAlignmentOptions.Midline;
-                case TextAnchor.MiddleRight:
-                    return TMPro.TextAlignmentOptions.MidlineRight;
-                case TextAnchor.LowerLeft:
-                    return TMPro.TextAlignmentOptions.BottomLeft;
-                case TextAnchor.LowerCenter:
-                    return TMPro.TextAlignmentOptions.Bottom;
-                case TextAnchor.LowerRight:
-                    return TMPro.TextAlignmentOptions.BottomRight;
-                default: // Fallback case should never happen
-                    return TMPro.TextAlignmentOptions.Center;
-            }
-        }
-#endif
     }
 }

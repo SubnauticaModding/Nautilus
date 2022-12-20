@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.UI;
-    using QModManager.API;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// Abstract class that provides the framework for your mod's in-game configuration options.
@@ -114,13 +114,13 @@
             if (parentOptions == null)
                 parentOptions = parent;
             else
-                V2.Logger.Log($"ModOption.SetParent: parent already setted for {Id}", LogLevel.Warn);
+                V2.Utility.InternalLogger.Log($"ModOption.SetParent: parent already setted for {Id}", LogLevel.Warn);
         }
 
         // adds UI GameObject to panel and updates OptionGameObject
         internal virtual void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            if (isNeedAdjusting && AdjusterComponent != null)
+            if (AdjusterComponent != null)
                 OptionGameObject.AddComponent(AdjusterComponent);
 
             parentOptions.OnGameObjectCreated(Id, OptionGameObject);
@@ -136,9 +136,6 @@
             Label = label;
             Id = id;
         }
-
-        // if ModsOptionsAdjusted mod is active, we don't add adjuster components
-        internal static readonly bool isNeedAdjusting = (QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable != true);
 
         // type of component derived from ModOptionAdjust (for using in base.AddToPanel)
         internal abstract Type AdjusterComponent { get; }
@@ -166,7 +163,7 @@
 
                 if (!caption)
                 {
-                    V2.Logger.Log($"ModOptionAdjust: caption gameobject '{gameObjectPath}' not found", LogLevel.Warn);
+                    V2.Utility.InternalLogger.Log($"ModOptionAdjust: caption gameobject '{gameObjectPath}' not found", LogLevel.Warn);
                     return;
                 }
 

@@ -11,7 +11,7 @@
         {
             PatchUtils.PatchClass(harmony);
 
-            Logger.Log("EnumPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log("EnumPatcher is done.", LogLevel.Debug);
         }
 
         [PatchUtils.Postfix]

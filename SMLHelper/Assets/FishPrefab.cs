@@ -47,7 +47,7 @@
         /// </summary>
         public sealed override GameObject GetGameObject()
         {
-            V2.Logger.Debug($"[FishFramework] Initializing fish: {this.ClassID}");
+            Utility.InternalLogger.Debug($"[FishFramework] Initializing fish: {this.ClassID}");
             GameObject mainObj = modelPrefab;
 
             Renderer[] renderers = mainObj.GetComponentsInChildren<Renderer>();
@@ -68,11 +68,7 @@
             forces.handleGravity = true;
             forces.underwaterDrag = 1f;
             forces.underwaterGravity = 0;
-#if BELOWZERO || SUBNAUTICA_EXP
             forces.waterDepth = Ocean.GetOceanLevel();
-#else
-            forces.waterDepth = Ocean.main.GetOceanLevel();
-#endif
             forces.enabled = false;
             forces.enabled = true;
 

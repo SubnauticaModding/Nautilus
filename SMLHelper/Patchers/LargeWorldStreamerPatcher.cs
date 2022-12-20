@@ -1,8 +1,10 @@
+using SMLHelper.V2.Utility;
+
 namespace SMLHelper.V2.Patchers
 {
     using System;
     using System.Linq;
-    using Logger = Logger;
+    using InternalLogger = InternalLogger;
     using Json.Converters;
     using System.Collections.Generic;
     using System.IO;
@@ -10,11 +12,8 @@ namespace SMLHelper.V2.Patchers
     using Handlers;
     using MonoBehaviours;
     using UnityEngine;
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
     using Newtonsoft.Json;
-#endif
+
 
     internal class LargeWorldStreamerPatcher
     {
@@ -39,7 +38,7 @@ namespace SMLHelper.V2.Patchers
             var file = Path.Combine(SaveLoadManager.GetTemporarySavePath(), "CoordinatedSpawnsInitialized.smlhelper");
             if (File.Exists(file))
             {
-                Logger.Debug("Coordinated Spawns already been spawned in the current save. Loading Data");
+                InternalLogger.Debug("Coordinated Spawns already been spawned in the current save. Loading Data");
 
                 using var reader = new StreamReader(file);
                 try
@@ -52,7 +51,7 @@ namespace SMLHelper.V2.Patchers
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error($"Failed to load Saved spawn data from {file}\nSkipping static spawning until fixed!\n{ex}");
+                    InternalLogger.Error($"Failed to load Saved spawn data from {file}\nSkipping static spawning until fixed!\n{ex}");
                     reader.Close();
                     return;
                 }
@@ -65,7 +64,7 @@ namespace SMLHelper.V2.Patchers
             }
 
             InitializeSpawners();
-            Logger.Debug("Coordinated Spawns have been initialized in the current save.");
+            InternalLogger.Debug("Coordinated Spawns have been initialized in the current save.");
         }
 
         private static void SaveData()
@@ -81,7 +80,7 @@ namespace SMLHelper.V2.Patchers
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to save spawn data to {file}\n{ex}");
+                InternalLogger.Error($"Failed to save spawn data to {file}\n{ex}");
                 writer.Close();
             }
         }

@@ -1,54 +1,67 @@
 ﻿namespace SMLHelper.V2
 {
     using System;
+    using System.Collections;
     using System.Reflection;
+    using BepInEx;
     using HarmonyLib;
     using Patchers;
     using Patchers.EnumPatching;
-    using QModManager.API.ModLoading;
+    using SMLHelper.V2.Utility;
+    using UnityEngine;
 
 
     /// <summary>
     /// WARNING: This class is for use only by QModManager.
     /// </summary>
-    [QModCore]
-    public class Initializer
+    [BepInPlugin(GUID, MODNAME, VERSION)]
+    public class Initializer: BaseUnityPlugin
     {
-        internal static readonly Harmony harmony = new Harmony("com.ahk1221.smlhelper");
+        private const string
+            MODNAME = "SMLHelper",
+            GUID = "com.mrpurple6411.smlhelper",
+            VERSION = "2.15.0.0";
+
+        internal static readonly Harmony harmony = new Harmony(GUID);
 
         /// <summary>
-        /// WARNING: This method is for use only by QModManager.
+        /// WARNING: This method is for use only by Bepinex.
         /// </summary>
-        [QModPrePatch]
-        [Obsolete("This method is for use only by QModManager.", true)]
-        public static void PrePatch()
+        [Obsolete("This method is for use only by Bepinex.", true)]
+        Initializer()
         {
-            Logger.Initialize();
+            InternalLogger.Initialize(Logger);
 #if SUBNAUTICA
-            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for Subnautica", LogLevel.Info);
+            InternalLogger.Info($"Loading v{VERSION} for Subnautica");
 #elif BELOWZERO
-            Logger.Log($"Loading v{Assembly.GetExecutingAssembly().GetName().Version} for BelowZero", LogLevel.Info);
+            InternalLogger.Info($"Loading v{VERSION} for BelowZero");
 #endif
 
-            Logger.Debug("Loading TechType Cache");
+            InternalLogger.Debug("Loading TechType Cache");
             TechTypePatcher.cacheManager.LoadCache();
-            Logger.Debug("Loading CraftTreeType Cache");
+            InternalLogger.Debug("Loading CraftTreeType Cache");
             CraftTreeTypePatcher.cacheManager.LoadCache();
-            Logger.Debug("Loading PingType Cache");
+            InternalLogger.Debug("Loading PingType Cache");
             PingTypePatcher.cacheManager.LoadCache();
 
             PrefabDatabasePatcher.PrePatch(harmony);
+            StartCoroutine(InitializePatches());
         }
 
-        /// <summary>
-        /// WARNING: This method is for use only by QModManager.
-        /// </summary>
-        [QModPostPatch("E3DC72597463233E62D01BD222AD0C96")]
-        [Obsolete("This method is for use only by QModManager.", true)]
-        public static void PostPatch()
-        {
-            FishPatcher.Patch(harmony);
 
+        private IEnumerator InitializePatches()
+        {
+            Type chainLoader = typeof(BepInEx.Bootstrap.Chainloader);
+
+            var _loaded = chainLoader.GetField("_loaded", BindingFlags.NonPublic | BindingFlags.Static);
+            while(!(bool)_loaded.GetValue(null))
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSecondsRealtime(2);
+
+            FishPatcher.Patch(harmony);
             TechTypePatcher.Patch();
             CraftTreeTypePatcher.Patch();
             PingTypePatcher.Patch();
@@ -82,13 +95,12 @@
             EatablePatcher.Patch(harmony);
 
 
-            Logger.Debug("Saving TechType Cache");
+            InternalLogger.Debug("Saving TechType Cache");
             TechTypePatcher.cacheManager.SaveCache();
-            Logger.Debug("Saving CraftTreeType Cache");
+            InternalLogger.Debug("Saving CraftTreeType Cache");
             CraftTreeTypePatcher.cacheManager.SaveCache();
-            Logger.Debug("Saving PingType Cache");
+            InternalLogger.Debug("Saving PingType Cache");
             PingTypePatcher.cacheManager.SaveCache();
-
         }
     }
 }

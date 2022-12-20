@@ -1,7 +1,6 @@
 ﻿namespace SMLHelper.V2.Commands
 {
     using HarmonyLib;
-    using QModManager.API;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -20,7 +19,7 @@
         /// <summary>
         /// The QMod that registered the command.
         /// </summary>
-        public IQMod QMod { get; }
+        public string ModName { get; }
 
         /// <summary>
         /// The parameters for the command.
@@ -53,7 +52,7 @@
             IsMethodStatic = targetMethod.IsStatic;
             IsDelegate = isDelegate;
             Instance = instance;
-            QMod = QModServices.Main.GetMod(DeclaringType.Assembly);
+            ModName = DeclaringType.Assembly.GetName().Name;
             Parameters = targetMethod.GetParameters().Select(param => new Parameter(param));
             ParameterTypes = Parameters.Select(param => param.ParameterType).ToArray();
         }
