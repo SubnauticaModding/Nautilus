@@ -146,33 +146,24 @@
 
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            Console.WriteLine("0");
             UnityAction<float> callback = new UnityAction<float>((value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value));
-            Console.WriteLine("1");
 
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, "0.0");
-            Console.WriteLine("2");
 
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;
-            Console.WriteLine("3");
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
-            Console.WriteLine("4");
 
             // if we using custom value format, we need to replace vanilla uGUI_SliderWithLabel with our component
             if (ValueFormat != null)
                 OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>().ValueFormat = ValueFormat;
-            Console.WriteLine("5");
 
             // fixing tooltip for slider
             OptionGameObject.transform.Find("Slider/Caption").GetComponent<TextMeshProUGUI>().raycastTarget = true;
-            Console.WriteLine("6");
 
             base.AddToPanel(panel, tabIndex);
-            Console.WriteLine("7");
 
             sliderValue = OptionGameObject.GetComponentInChildren<SliderValue>(); // we can also add custom SliderValue in OnGameObjectCreated event
-            Console.WriteLine("8");
         }
 
         /// <summary>
