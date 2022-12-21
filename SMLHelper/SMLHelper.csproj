@@ -57,6 +57,14 @@
       <HintPath>$(Dependencies)\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Addressables">
+      <HintPath>..\Dependencies\Subnautica.stable\Unity.Addressables.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.ResourceManager">
+      <HintPath>..\Dependencies\Subnautica.stable\Unity.ResourceManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>$(Dependencies)\UnityEngine.dll</HintPath>
       <Private>False</Private>

@@ -14,6 +14,9 @@ namespace SMLHelper.V2.Patchers
     using UWE;
     using InternalLogger = InternalLogger;
     using SMLHelper.V2.Utility;
+    using static SMLHelper.V2.PatchUtils;
+    using static TechStringCache;
+    using UnityEngine.ResourceManagement.AsyncOperations;
 
     internal static class PrefabDatabasePatcher
     {
@@ -99,6 +102,29 @@ namespace SMLHelper.V2.Patchers
             return __result == null;
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(AddressablesUtility), nameof(AddressablesUtility.InstantiateAsync), new Type[] 
+        { 
+            typeof(string), typeof(IOut<GameObject>), typeof(Transform), typeof(Vector3), typeof(Quaternion), typeof(bool)
+        })]
+        internal static bool InstantiateAsync_Prefix(ref IEnumerator __result,string key, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
+        {
+            if(!ModPrefab.TryGetFromFileName(key, out var prefab))
+                return true;
+
+            __result = InstantiateAsync(prefab, result, parent, position, rotation, awake);
+            return false;
+        }
+
+        internal static IEnumerator InstantiateAsync(ModPrefab modPrefab, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
+        {
+            TaskResult<GameObject> task = new TaskResult<GameObject>();
+            yield return modPrefab.GetGameObjectAsync(task);
+
+            var prefab = task.Get();
+            result.Set(GameObject.Instantiate(prefab, parent, position, rotation, awake));
+            yield break;
+        }
 
         // transpiler for ProtobufSerializer.DeserializeObjectsAsync
         private static IEnumerable<CodeInstruction> DeserializeObjectsAsync_Transpiler(IEnumerable<CodeInstruction> cins)
