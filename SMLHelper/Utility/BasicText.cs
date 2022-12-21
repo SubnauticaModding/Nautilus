@@ -373,11 +373,7 @@ namespace SMLHelper.V2.Utility
             Align = useAlign;
             if (TextObject != null)
             {
-#if SUBNAUTICA
                 TextText.alignment = Align;
-#elif BELOWZERO
-                TextText.alignment = Convert(Align);
-#endif
                 DoAlignment();
             }
         }

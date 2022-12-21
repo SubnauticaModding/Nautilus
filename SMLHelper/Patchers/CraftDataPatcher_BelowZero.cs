@@ -5,6 +5,7 @@ namespace SMLHelper.V2.Patchers
     using System.Collections.Generic;
     using System.Text;
     using HarmonyLib;
+    using SMLHelper.V2.Utility;
 
     internal partial class CraftDataPatcher
     {
@@ -65,13 +66,13 @@ namespace SMLHelper.V2.Patchers
 
             if (added.Count > 0)
             {
-                Logger.Log($"Added {added.Count} new entries to the TechData.entries dictionary.", LogLevel.Info);
+                InternalLogger.Log($"Added {added.Count} new entries to the TechData.entries dictionary.", LogLevel.Info);
                 LogEntries("Added the following TechTypes", added);
             }
 
             if (updated.Count > 0)
             {
-                Logger.Log($"Updated {updated.Count} existing entries to the TechData.entries dictionary.", LogLevel.Info);
+                InternalLogger.Log($"Updated {updated.Count} existing entries to the TechData.entries dictionary.", LogLevel.Info);
                 LogEntries("Updated the following TechTypes", updated);
             }
         }
@@ -84,7 +85,7 @@ namespace SMLHelper.V2.Patchers
                 builder.AppendLine($"{updated[i]}");
             }
 
-            Logger.Log($"{log}:{Environment.NewLine}{builder}", LogLevel.Debug);
+            InternalLogger.Log($"{log}:{Environment.NewLine}{builder}", LogLevel.Debug);
         }
     }
 }
