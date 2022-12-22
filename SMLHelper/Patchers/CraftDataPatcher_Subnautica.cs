@@ -190,7 +190,7 @@ namespace SMLHelper.V2.Patchers
                 ITechData smlTechData = CustomTechData[techType];
                 bool sameData = false;
 
-                if (techExists)
+                if (techExists && smlTechData != null)
                 {
 
                     sameData = smlTechData.craftAmount == techData.craftAmount &&
@@ -228,12 +228,12 @@ namespace SMLHelper.V2.Patchers
                     var techDataInstance = new CraftData.TechData
                     {
                         _techType = techType,
-                        _craftAmount = smlTechData.craftAmount
+                        _craftAmount = smlTechData?.craftAmount ?? 0
                     };
 
                     var ingredientsList = new CraftData.Ingredients();
 
-                    if (smlTechData.ingredientCount > 0)
+                    if (smlTechData?.ingredientCount > 0)
                     {
                         for (int i = 0; i < smlTechData.ingredientCount; i++)
                         {
@@ -245,7 +245,7 @@ namespace SMLHelper.V2.Patchers
                         techDataInstance._ingredients = ingredientsList;
                     }
 
-                    if (smlTechData.linkedItemCount > 0)
+                    if (smlTechData?.linkedItemCount > 0)
                     {
                         var linkedItems = new List<TechType>();
                         for (int l = 0; l < smlTechData.linkedItemCount; l++)
@@ -270,10 +270,10 @@ namespace SMLHelper.V2.Patchers
             }
 
             if (added > 0)
-                InternalLogger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
+                InternalLogger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Debug);
 
             if (replaced > 0)
-                InternalLogger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Info);
+                InternalLogger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Debug);
         }
 
         
