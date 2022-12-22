@@ -19,7 +19,7 @@
     {
         private const string
             MODNAME = "SMLHelper",
-            GUID = "com.mrpurple6411.smlhelper",
+            GUID = "com.ahk1221.smlhelper",
             VERSION = "2.15.0.0";
 
         internal static readonly Harmony harmony = new Harmony(GUID);
