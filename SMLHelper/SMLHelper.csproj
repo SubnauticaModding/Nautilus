@@ -107,9 +107,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="mod_BelowZero.json" Condition="$(Configuration.Contains('BZ.'))" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="7-Zip.CommandLine" Version="18.1.0" />
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
   </ItemGroup>
