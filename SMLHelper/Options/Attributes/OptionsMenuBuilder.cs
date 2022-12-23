@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Options.Attributes
 {
     using Json;
     using System;
@@ -6,7 +8,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using Logger = Logger;
+    using InternalLogger = InternalLogger;
 
     /// <summary>
     /// An internal derivative of <see cref="ModOptions"/> for use in auto-generating a menu based on attributes
@@ -115,9 +117,9 @@
                 if (Language.main.TryGet(modOptionMetadata.ModOptionAttribute.LabelLanguageId, out string languageLabel))
                     label = languageLabel;
 
-                Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
+                InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
                     $"{modOptionMetadata.ModOptionAttribute.GetType().Name}");
-                Logger.Debug($"[{ConfigFileMetadata.QMod.DisplayName}] [{typeof(T).Name}] Label: {label}");
+                InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] Label: {label}");
 
 
                 switch (modOptionMetadata.ModOptionAttribute)

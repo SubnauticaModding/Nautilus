@@ -1,10 +1,12 @@
-﻿namespace SMLHelper.V2.Handlers
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Handlers
 {
     using Interfaces;
     using Patchers;
     using System.Collections.Generic;
     using UnityEngine;
-    using Logger = V2.Logger;
+    using InternalLogger = InternalLogger;
 
     /// <summary>
     /// A handler class for configuring custom unlocking conditions for item blueprints.
@@ -66,7 +68,7 @@
             }
             else
             {
-                Logger.Error("Cannot Add Unlock to TechType.None!");
+                InternalLogger.Error("Cannot Add Unlock to TechType.None!");
             }
         }
 
@@ -74,25 +76,25 @@
         {
             if (techType == TechType.None)
             {
-                Logger.Error("Cannot Add Unlock to TechType.None!");
+                InternalLogger.Error("Cannot Add Unlock to TechType.None!");
                 return;
             }
 
             if (compoundTechsForUnlock.Contains(techType))
             {
-                Logger.Error("Cannot Add Compound Unlock that contains itself!");
+                InternalLogger.Error("Cannot Add Compound Unlock that contains itself!");
                 return;
             }
 
 
             if (KnownTechPatcher.CompoundTech.TryGetValue(techType, out KnownTech.CompoundTech compoundTech))
             {
-                Logger.Debug($"Compound Unlock already found for {techType.AsString()}, Overwriting.");
+                InternalLogger.Debug($"Compound Unlock already found for {techType.AsString()}, Overwriting.");
                 compoundTech.dependencies = compoundTechsForUnlock;
             }
             else
             {
-                Logger.Debug($"Adding Compound Unlock for {techType.AsString()}");
+                InternalLogger.Debug($"Adding Compound Unlock for {techType.AsString()}");
                 KnownTechPatcher.CompoundTech.Add(techType, new KnownTech.CompoundTech() { techType = techType, dependencies = compoundTechsForUnlock });
             }
         }
@@ -119,20 +121,20 @@
             {
                 if (tech.unlockTechTypes.Contains(targetTechType))
                 {
-                    Logger.Debug($"Removed {targetTechType.AsString()} from {tech.techType.AsString()} unlocks that was added by another mod!");
+                    InternalLogger.Debug($"Removed {targetTechType.AsString()} from {tech.techType.AsString()} unlocks that was added by another mod!");
                     tech.unlockTechTypes.Remove(targetTechType);
                 }
             }
 
             if (KnownTechPatcher.CompoundTech.TryGetValue(targetTechType, out var types))
             {
-                Logger.Debug($"Removed Compound Unlock for {targetTechType.AsString()} that was added by another mod!");
+                InternalLogger.Debug($"Removed Compound Unlock for {targetTechType.AsString()} that was added by another mod!");
                 KnownTechPatcher.CompoundTech.Remove(targetTechType);
             }
 
             if (KnownTechPatcher.UnlockedAtStart.Contains(targetTechType))
             {
-                Logger.Debug($"Removed UnlockedAtStart for {targetTechType.AsString()} that was added by another mod!");
+                InternalLogger.Debug($"Removed UnlockedAtStart for {targetTechType.AsString()} that was added by another mod!");
                 KnownTechPatcher.UnlockedAtStart.Remove(targetTechType);
             }
 

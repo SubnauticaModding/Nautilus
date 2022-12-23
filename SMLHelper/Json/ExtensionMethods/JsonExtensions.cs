@@ -1,11 +1,7 @@
 ﻿namespace SMLHelper.V2.Json.ExtensionMethods
 {
     using SMLHelper.V2.Utility;
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
     using Newtonsoft.Json;
-#endif
 
     /// <summary>
     /// Extension methods for parsing objects as JSON data.

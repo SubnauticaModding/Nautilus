@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using SMLHelper.V2.Handlers;
+    using SMLHelper.V2.Utility;
     using Utility;
 
     internal class TechTypePatcher
@@ -44,11 +45,11 @@
                 TechTypeExtensions.techTypeKeys[techType] = intKey;
                 TechTypeExtensions.keyTechTypes[intKey] = techType;
 
-                Logger.Log($"Successfully added Tech Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+                InternalLogger.Log($"Successfully added Tech Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             }
             else
             {
-                Logger.Log($"Failed adding Tech Type: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding Tech Type: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
             }
 
             return techType;
@@ -79,7 +80,7 @@
             }
 
             if (bannedIndices.Count > 0)
-                Logger.Log($"Finished known TechTypes exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Debug);
+                InternalLogger.Log($"Finished known TechTypes exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Debug);
 
             return bannedIndices;
         }
@@ -88,9 +89,9 @@
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-            Logger.Log($"Added {cacheManager.ModdedKeysCount} TechTypes succesfully into the game.", LogLevel.Info);
+            InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} TechTypes succesfully into the game.", LogLevel.Info);
 
-            Logger.Log("TechTypePatcher is done.", LogLevel.Debug);
+            InternalLogger.Log("TechTypePatcher is done.", LogLevel.Debug);
         }
     }
 }

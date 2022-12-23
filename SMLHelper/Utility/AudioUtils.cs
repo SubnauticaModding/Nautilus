@@ -15,11 +15,8 @@ namespace SMLHelper.V2.Utility
     /// </summary>
     public static partial class AudioUtils
     {
-#if SUBNAUTICA_STABLE
-        private static System FMOD_System => RuntimeManager.LowlevelSystem;
-#else
         private static System FMOD_System => RuntimeManager.CoreSystem;
-#endif
+
         /// <summary>
         /// Creates a <see cref="Sound"/> instance from a path. Can be stored and later used with <see cref="PlaySound(Sound)"/>
         /// </summary>

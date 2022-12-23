@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Handlers;
+    using SMLHelper.V2.Utility;
     using Utility;
 
     internal class BackgroundTypePatcher
@@ -28,9 +29,9 @@
             CraftData.BackgroundType backgroundType = (CraftData.BackgroundType)cache.Index;
 
             if(cacheManager.Add(backgroundType, cache.Index, cache.Name))
-                Logger.Log($"Successfully added Backgroundtype: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+                InternalLogger.Log($"Successfully added Backgroundtype: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             else
-                Logger.Log($"Failed adding Backgroundtype: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding Backgroundtype: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
 
             return backgroundType;
         }
@@ -63,7 +64,7 @@
                 bannedIndices.Add(realEnumValue);
             }
 
-            Logger.Log($"Finished known BackgroundType exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
+            InternalLogger.Log($"Finished known BackgroundType exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
 
             return bannedIndices;
         }
@@ -72,9 +73,9 @@
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-            Logger.Log($"Added {cacheManager.ModdedKeysCount} BackgroundTypes succesfully into the game.", LogLevel.Info);
+            InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} BackgroundTypes succesfully into the game.", LogLevel.Info);
 
-            Logger.Log("BackgroundTypePatcher is done.", LogLevel.Debug);
+            InternalLogger.Log("BackgroundTypePatcher is done.", LogLevel.Debug);
         }
     }
 }

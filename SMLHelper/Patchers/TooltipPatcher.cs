@@ -1,7 +1,6 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using HarmonyLib;
-    using QModManager.API;
     using SMLHelper.V2.Handlers;
     using SMLHelper.V2.Patchers.EnumPatching;
     using System.IO;
@@ -9,6 +8,7 @@
     using System.Text;
     using System.Linq;
     using System.Collections.Generic;
+    using SMLHelper.V2.Utility;
 
     internal class TooltipPatcher
     {
@@ -21,11 +21,7 @@
 
             MethodInfo buildTech = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech));
             MethodInfo itemCommons = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemCommons));
-#if BELOWZERO
             MethodInfo recipe = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe));
-#else
-            MethodInfo recipe = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.Recipe));
-#endif
             HarmonyMethod customTooltip = new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.CustomTooltip)));
             HarmonyMethod techTypePostfix = new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.TechTypePostfix)));
 
@@ -33,7 +29,7 @@
             harmony.Patch(recipe, postfix: techTypePostfix);
             harmony.Patch(buildTech, postfix: techTypePostfix);
 
-            Logger.Log("TooltipPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log("TooltipPatcher is done.", LogLevel.Debug);
         }
 
         internal static void CustomTooltip(StringBuilder sb, TechType techType)
@@ -74,17 +70,7 @@
 
             if (TechTypeHandler.TechTypesAddedBy.TryGetValue(type, out Assembly assembly))
             {
-                string modName = null;
-                
-                foreach (IQMod mod in QModServices.Main.GetAllMods())
-                {
-                    if (mod == null || mod.LoadedAssembly == null) continue;
-                    if (mod.LoadedAssembly == assembly)
-                    {
-                        modName = mod.DisplayName;
-                        break;
-                    }
-                }
+                string modName = assembly.GetName().Name;
 
                 if (string.IsNullOrEmpty(modName))
                 {
@@ -130,7 +116,7 @@
 
         internal static void SetExtraItemInfo(ExtraItemInfo value)
         {
-            string configPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "ExtraItemInfo.txt");
+            string configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "ExtraItemInfo.txt");
 
             string text;
             switch (value)
@@ -159,7 +145,7 @@
             if (Initialized) return;
             Initialized = true;
 
-            string configPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "ExtraItemInfo.txt");
+            string configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "ExtraItemInfo.txt");
 
             if (!File.Exists(configPath))
             {
@@ -175,43 +161,32 @@
             {
                 case "Mod name (default)":
                     ExtraItemInfoOption = ExtraItemInfo.ModName;
-                    Logger.Log($"Extra item info set to: {fileContents}", LogLevel.Info);
+                    InternalLogger.Log($"Extra item info set to: {fileContents}", LogLevel.Info);
                     break;
                 case "Mod name and item ID":
                     ExtraItemInfoOption = ExtraItemInfo.ModNameAndItemID;
-                    Logger.Log($"Extra item info set to: {fileContents}", LogLevel.Info);
+                    InternalLogger.Log($"Extra item info set to: {fileContents}", LogLevel.Info);
                     break;
                 case "Nothing":
                     ExtraItemInfoOption = ExtraItemInfo.Nothing;
-                    Logger.Log($"Extra item info set to: {fileContents}", LogLevel.Info);
+                    InternalLogger.Log($"Extra item info set to: {fileContents}", LogLevel.Info);
                     break;
                 default:
                     File.WriteAllText(configPath, "Mod name (default)");
                     ExtraItemInfoOption = ExtraItemInfo.ModName;
-                    Logger.Log("Error reading ExtraItemInfo.txt configuration file. Defaulted to mod name.", LogLevel.Warn);
+                    InternalLogger.Log("Error reading ExtraItemInfo.txt configuration file. Defaulted to mod name.", LogLevel.Warn);
                     break;
             }
         }
 
-#endregion
+        #endregion
 
-#region Patches
+        #region Patches
 
-
-#if SUBNAUTICA
-        internal static void TechTypePostfix(TechType techType, ref string tooltipText)
-        {
-            StringBuilder stringBuilder = new StringBuilder(tooltipText);
-
-            CustomTooltip(stringBuilder, techType);
-            tooltipText = stringBuilder.ToString();
-        }
-#elif BELOWZERO
         internal static void TechTypePostfix(TechType techType, TooltipData data)
         {
             CustomTooltip(data.prefix, techType);
         }
-#endif
 #endregion
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Assets
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Assets
 {
     using Handlers;
     using Interfaces;
@@ -10,7 +12,7 @@
     using System.Reflection;
     using UnityEngine;
     using UWE;
-    using Logger = Logger;
+    using InternalLogger = InternalLogger;
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
 #endif
@@ -113,7 +115,7 @@
         {
             if(string.IsNullOrEmpty(classId))
             {
-                Logger.Log($"ClassID for Spawnables must be a non-empty value.", LogLevel.Error);
+                InternalLogger.Log($"ClassID for Spawnables must be a non-empty value.", LogLevel.Error);
                 throw new ArgumentException($"Error patching Spawnable");
             }
 
@@ -222,8 +224,8 @@
         protected virtual Sprite GetItemSprite()
         {
             // This is for backwards compatibility with mods that were using the "ModName/Assets" format
-            string path = this.AssetsFolder != ModFolderLocation
-                ? IOUtilities.Combine(".", "QMods", this.AssetsFolder.Trim('/'), this.IconFileName)
+            string path = this.AssetsFolder != ModFolderLocation && !string.IsNullOrWhiteSpace(this.AssetsFolder)
+                ? IOUtilities.Combine(ModFolderLocation, this.AssetsFolder.Trim('/'), this.IconFileName)
                 : Path.Combine(this.AssetsFolder, this.IconFileName);
 
             if(File.Exists(path))
@@ -232,7 +234,7 @@
             }
 
             if(HasSprite)
-                Logger.Error($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+                InternalLogger.Error($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
 
             return SpriteManager.defaultSprite;
         }
