@@ -56,13 +56,13 @@ namespace SMLHelper.V2.Json
             {
                 JsonFilename = configFile.Filename;
                 JsonPath = Path.Combine(
-                    Path.GetDirectoryName(Assembly.GetCallingAssembly().Location),
+                    Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetCallingAssembly().GetName().Name),
                     configFile.Subfolder);
             }
             else
             {
                 JsonFilename = "config";
-                JsonPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+                JsonPath = Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetCallingAssembly().GetName().Name);
             }
         }
 
@@ -88,7 +88,7 @@ namespace SMLHelper.V2.Json
         {
             JsonFilename = fileName;
             JsonPath = Path.Combine(
-                Path.GetDirectoryName(Assembly.GetCallingAssembly().Location),
+                Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetCallingAssembly().GetName().Name),
                 string.IsNullOrEmpty(subfolder) ? string.Empty : subfolder);
         }
 

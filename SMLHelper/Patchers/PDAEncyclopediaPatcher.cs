@@ -24,12 +24,12 @@
                 if (!mapping.ContainsKey(customEntry.Key))
                 {
                     mapping.Add(customEntry.Key, customEntry.Value);
-                    Logger.Debug($"Adding PDAEncyclopedia EntryData for Key Value: {customEntry.Key}.");
+                    InternalLogger.Debug($"Adding PDAEncyclopedia EntryData for Key Value: {customEntry.Key}.");
                 }
                 else
                 {
                     mapping[customEntry.Key] = customEntry.Value;
-                    Logger.Debug($"PDAEncyclopedia already Contains EntryData for Key Value: {customEntry.Key}, Overwriting Original.");
+                    InternalLogger.Debug($"PDAEncyclopedia already Contains EntryData for Key Value: {customEntry.Key}, Overwriting Original.");
                 }
             }
         }

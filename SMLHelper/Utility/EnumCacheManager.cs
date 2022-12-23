@@ -174,7 +174,7 @@
 
         private string GetCacheDirectoryPath()
         {
-            string saveDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+            string saveDir = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name),
                 $"{EnumTypeName}Cache");
 
             if (!Directory.Exists(saveDir))
@@ -222,7 +222,7 @@
             }
             catch (Exception exception)
             {
-                Logger.Error($"Caught exception while reading {savePathDir}{Environment.NewLine}{exception}");
+                InternalLogger.Error($"Caught exception while reading {savePathDir}{Environment.NewLine}{exception}");
             }
         }
 
@@ -256,7 +256,7 @@
             }
             catch (Exception exception)
             {
-                Logger.Error($"Caught exception while saving cache!{Environment.NewLine}{exception}");
+                InternalLogger.Error($"Caught exception while saving cache!{Environment.NewLine}{exception}");
             }
         }
 

@@ -28,7 +28,7 @@
                     preRegistered.Add(typeCode);
                 }
             }
-            Logger.Log($"Finished known EquipmentType exclusion. {preRegistered.Count} IDs were added in ban list.");
+            InternalLogger.Log($"Finished known EquipmentType exclusion. {preRegistered.Count} IDs were added in ban list.");
             return preRegistered;
         }
 
@@ -41,17 +41,17 @@
             };
             var equipmentType = (EquipmentType) cache.Index;
             if(cacheManager.Add(equipmentType, cache.Index, cache.Name))
-                Logger.Log($"Successfully added EquipmentType: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+                InternalLogger.Log($"Successfully added EquipmentType: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             else
-                Logger.Log($"Failed adding EquipmentType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding EquipmentType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
             return equipmentType;
         }
 
         internal static void Patch()
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
-            Logger.Log($"Added {cacheManager.ModdedKeysCount} EquipmentTypes succesfully into the game.");
-            Logger.Log("EquipmentTypePatcher is done.", LogLevel.Debug);
+            InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} EquipmentTypes succesfully into the game.");
+            InternalLogger.Log("EquipmentTypePatcher is done.", LogLevel.Debug);
         }
     }
 }

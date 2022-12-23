@@ -57,8 +57,12 @@
       <HintPath>$(Dependencies)\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="QModInstaller">
-      <HintPath>$(Dependencies)\QModInstaller.dll</HintPath>
+    <Reference Include="Unity.Addressables">
+      <HintPath>..\Dependencies\Subnautica.stable\Unity.Addressables.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.ResourceManager">
+      <HintPath>..\Dependencies\Subnautica.stable\Unity.ResourceManager.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
@@ -107,11 +111,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="mod_Subnautica.json" Condition="$(Configuration.Contains('SN.'))" />
-    <None Include="mod_BelowZero.json" Condition="$(Configuration.Contains('BZ.'))" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="7-Zip.CommandLine" Version="18.1.0" />
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
   </ItemGroup>
   <Import Project="$(SolutionDir)PostBuild.targets" />
 </Project>

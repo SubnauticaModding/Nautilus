@@ -2,7 +2,7 @@
 {
     using Json;
     using System;
-    using QModManager.Utility;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// Attribute used to signify the decorated method should be represented in the mod's options menu
@@ -29,7 +29,7 @@
     /// </example>
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="ButtonClickedEventArgs"/>
-    /// <seealso cref="Logger"/>
+    /// <seealso cref="InternalLogger"/>
     /// <seealso cref="ConfigFile"/>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public sealed class ButtonAttribute : ModOptionAttribute

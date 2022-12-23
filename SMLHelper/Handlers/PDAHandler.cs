@@ -2,6 +2,7 @@
 {
     using Interfaces;
     using Patchers;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// A handler class for various scanner related data.
@@ -55,7 +56,7 @@
         void IPDAHandler.AddCustomScannerEntry(PDAScanner.EntryData entryData)
         {
             if (PDAPatcher.CustomEntryData.ContainsKey(entryData.key))
-                Logger.Log($"{entryData.key} already has custom PDAScanner.EntryData. Replacing with latest.", LogLevel.Debug);
+                InternalLogger.Log($"{entryData.key} already has custom PDAScanner.EntryData. Replacing with latest.", LogLevel.Debug);
 
             PDAPatcher.CustomEntryData[entryData.key] = entryData;
         }

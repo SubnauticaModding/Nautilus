@@ -2,7 +2,9 @@
 namespace SMLHelper.V2.Patchers
 {
     using HarmonyLib;
+    using SMLHelper.V2.Utility;
     using System.Collections.Generic;
+    using static RootMotion.FinalIK.InteractionTrigger.Range;
 
     internal partial class CraftDataPatcher
     {
@@ -99,20 +101,6 @@ namespace SMLHelper.V2.Patchers
             DictionaryPrefix(techType, CustomEatingSounds, CraftData.useEatSound);
         }
 
-        /*
-        [PatchUtils.Prefix]
-        [HarmonyPatch(typeof(CraftData), nameof(CraftData.IsInvUseable))]
-        private static bool IsInvUseablePrefix(TechType techType, ref bool __result)
-        {
-            if (SurvivalPatcher.InventoryUseables.Contains(techType))
-            {
-                __result = true;
-                return false;
-            }
-            __result = false;
-            return true;
-        }
-        */
         [PatchUtils.Postfix]
         [HarmonyPatch(typeof(Inventory), nameof(Inventory.GetAllItemActions))]
         private static void GetAllItemActionsPostfix(InventoryItem item, ref ItemAction __result)
@@ -200,7 +188,7 @@ namespace SMLHelper.V2.Patchers
                 ITechData smlTechData = CustomTechData[techType];
                 bool sameData = false;
 
-                if (techExists)
+                if (techExists && smlTechData != null)
                 {
 
                     sameData = smlTechData.craftAmount == techData.craftAmount &&
@@ -238,12 +226,12 @@ namespace SMLHelper.V2.Patchers
                     var techDataInstance = new CraftData.TechData
                     {
                         _techType = techType,
-                        _craftAmount = smlTechData.craftAmount
+                        _craftAmount = smlTechData?.craftAmount ?? 0
                     };
 
                     var ingredientsList = new CraftData.Ingredients();
 
-                    if (smlTechData.ingredientCount > 0)
+                    if (smlTechData?.ingredientCount > 0)
                     {
                         for (int i = 0; i < smlTechData.ingredientCount; i++)
                         {
@@ -255,7 +243,7 @@ namespace SMLHelper.V2.Patchers
                         techDataInstance._ingredients = ingredientsList;
                     }
 
-                    if (smlTechData.linkedItemCount > 0)
+                    if (smlTechData?.linkedItemCount > 0)
                     {
                         var linkedItems = new List<TechType>();
                         for (int l = 0; l < smlTechData.linkedItemCount; l++)
@@ -268,7 +256,7 @@ namespace SMLHelper.V2.Patchers
                     if (techExists)
                     {
                         CraftData.techData.Remove(techType);
-                        Logger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
+                        InternalLogger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
                         replaced++;
                     }
                     else
@@ -280,10 +268,10 @@ namespace SMLHelper.V2.Patchers
             }
 
             if (added > 0)
-                Logger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Info);
+                InternalLogger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Debug);
 
             if (replaced > 0)
-                Logger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Info);
+                InternalLogger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Debug);
         }
 
         

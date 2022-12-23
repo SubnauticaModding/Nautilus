@@ -1,4 +1,5 @@
 ﻿using SMLHelper.V2.FMod.Interfaces;
+using SMLHelper.V2.Utility;
 
 namespace SMLHelper.V2.Patchers
 {
@@ -9,8 +10,8 @@ namespace SMLHelper.V2.Patchers
     using FMOD.Studio;
     using Utility;
     using UnityEngine;
-    using Logger = Logger;
-    
+    using InternalLogger = InternalLogger;
+
     internal class CustomSoundPatcher
     {
         internal static readonly SelfCheckingDictionary<string, Sound> CustomSounds = new("CustomSounds");
@@ -24,7 +25,7 @@ namespace SMLHelper.V2.Patchers
         internal static void Patch(Harmony harmony)
         {
             harmony.PatchAll(typeof(CustomSoundPatcher));
-            Logger.Debug("CustomSoundPatcher is done.");
+            InternalLogger.Debug("CustomSoundPatcher is done.");
         }
         
         [HarmonyPatch(typeof(PDASounds), nameof(PDASounds.Deinitialize))]
@@ -97,6 +98,18 @@ namespace SMLHelper.V2.Patchers
             if (!string.IsNullOrEmpty(subtitles))
             {
                 Subtitles.Add(subtitles);
+            }
+                {
+                    main.Add(subtitles);
+                }
+            }
+                {
+                    main.Add(subtitles);
+                }
+            }
+                {
+                    main.Add(subtitles);
+                }
             }
             return false;
         }

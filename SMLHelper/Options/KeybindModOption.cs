@@ -6,7 +6,7 @@
     using SMLHelper.V2.Utility;
     using UnityEngine;
     using UnityEngine.Events;
-    using Text = TMPro.TextMeshProUGUI;
+    using TMPro;
 
     /// <summary>
     /// Contains all the information about a keybind changed event.
@@ -116,7 +116,7 @@
             OptionGameObject = panel.AddItem(tabIndex, panel.bindingOptionPrefab);
 
             // Update text
-            Text text = OptionGameObject.GetComponentInChildren<Text>();
+            TextMeshProUGUI text = OptionGameObject.GetComponentInChildren<TextMeshProUGUI>();
             if (text != null)
             {
                 OptionGameObject.GetComponentInChildren<TranslationLiveUpdate>().translationKey = Label;

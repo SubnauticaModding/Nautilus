@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Options.Utility
 {
     using System.Text.RegularExpressions;
+    using SMLHelper.V2.Utility;
 
     internal static class Validator
     {
@@ -8,17 +9,17 @@
         {
             if (!ValidateID(id, out string result))
             {
-                Logger.Log($"There was an error while trying to add choice option with id: {id}. {result}", LogLevel.Error);
+                InternalLogger.Log($"There was an error while trying to add choice option with id: {id}. {result}", LogLevel.Error);
                 return false;
             }
             if (!ValidateLabel(label, out result))
             {
-                Logger.Log($"There was an error while trying to add choice option with id: {id}. {result}", LogLevel.Error);
+                InternalLogger.Log($"There was an error while trying to add choice option with id: {id}. {result}", LogLevel.Error);
                 return false;
             }
             if (!ValidateArray(options, index, out result))
             {
-                Logger.Log($"There was an error while trying to add choice option with id: {id}. {result}", LogLevel.Error);
+                InternalLogger.Log($"There was an error while trying to add choice option with id: {id}. {result}", LogLevel.Error);
                 return false;
             }
             return true;

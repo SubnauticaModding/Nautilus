@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Patchers
 {
     using System;
     using System.Collections;
@@ -9,7 +11,7 @@
     using HarmonyLib;
     using UnityEngine;
     using UWE;
-    using Logger = Logger;
+    using InternalLogger = InternalLogger;
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
 #elif BELOWZERO
@@ -64,17 +66,17 @@
                 {
                     if (spriteAtlas.ContainsKey(sprite.Key))
                     {
-                        Logger.Debug($"Overwriting Sprite {sprite.Key} in {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
+                        InternalLogger.Debug($"Overwriting Sprite {sprite.Key} in {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
                         spriteAtlas[sprite.Key] = sprite.Value;
                     }
                     else
                     {
-                        Logger.Debug($"Adding Sprite {sprite.Key} to {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
+                        InternalLogger.Debug($"Adding Sprite {sprite.Key} to {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
                         spriteAtlas.Add(sprite.Key, sprite.Value);
                     }
                 }
             }
-            Logger.Debug("SpritePatcher is done.");
+            InternalLogger.Debug("SpritePatcher is done.");
         }
 
         private static bool PatchBackgrounds(CraftData.BackgroundType backgroundType, ref Sprite __result)
@@ -91,7 +93,7 @@
         {
             if (!SpriteManager.mapping.TryGetValue(groupKey, out string atlasName))
             {
-                Logger.Error($"SpritePatcher was unable to find a sprite mapping for {nameof(SpriteManager.Group)}.{groupKey}");
+                InternalLogger.Error($"SpritePatcher was unable to find a sprite mapping for {nameof(SpriteManager.Group)}.{groupKey}");
                 return null;
             }
 #if SUBNAUTICA
@@ -102,7 +104,7 @@
             if (SpriteManager.atlases.TryGetValue(atlasName, out var spriteGroup))
                     return spriteGroup;
 #endif
-            Logger.Error($"SpritePatcher was unable to find a sprite atlas for {nameof(SpriteManager.Group)}.{groupKey}");
+            InternalLogger.Error($"SpritePatcher was unable to find a sprite atlas for {nameof(SpriteManager.Group)}.{groupKey}");
             return null;
         }
     }

@@ -4,6 +4,7 @@
     using Interfaces;
     using Patchers;
     using SMLHelper.V2.Assets;
+    using SMLHelper.V2.Utility;
     using UWE;
 
     /// <summary>
@@ -165,7 +166,7 @@
         void ILootDistributionHandler.AddLootDistributionData(string classId, LootDistributionData.SrcData data)
         {
             if (LootDistributionPatcher.CustomSrcData.ContainsKey(classId))
-                Logger.Log($"{classId}-{data.prefabPath} already has custom distribution data. Replacing with latest.", LogLevel.Debug);
+                InternalLogger.Log($"{classId}-{data.prefabPath} already has custom distribution data. Replacing with latest.", LogLevel.Debug);
 
             LootDistributionPatcher.CustomSrcData[classId] = data;
         }

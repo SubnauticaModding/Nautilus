@@ -7,6 +7,6 @@ namespace SMLHelper.V2.MonoBehaviours
     [Obsolete("Use SMLHelper.V2.Assets.ModPrefabCache instead", true)]
     public class Fixer : MonoBehaviour
     {
-        private void Awake() => V2.Logger.Warn("Fixer component is obsolete.");
+        private void Awake() => Utility.InternalLogger.Warn("Fixer component is obsolete.");
     }
 }

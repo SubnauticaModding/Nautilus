@@ -16,7 +16,7 @@
         private static string GetDefaultPath<T>(Assembly assembly) where T : class
         {
             return Path.Combine(
-                Path.GetDirectoryName(assembly.Location),
+                Path.Combine(BepInEx.Paths.ConfigPath, assembly.GetName().Name),
                 $"{GetName<T>()}.json"
             );
         }
@@ -67,9 +67,9 @@
                 }
                 catch (Exception ex)
                 {
-                    Logger.Announce($"Could not parse JSON file, loading default values: {path}", LogLevel.Warn, true);
-                    Logger.Error(ex.Message);
-                    Logger.Error(ex.StackTrace);
+                    InternalLogger.Announce($"Could not parse JSON file, loading default values: {path}", LogLevel.Warn, true);
+                    InternalLogger.Error(ex.Message);
+                    InternalLogger.Error(ex.StackTrace);
                     return new T();
                 }
             }
@@ -121,9 +121,9 @@
                 }
                 catch (Exception ex)
                 {
-                    Logger.Announce($"Could not parse JSON file, instance values unchanged: {path}", LogLevel.Warn, true);
-                    Logger.Error(ex.Message);
-                    Logger.Error(ex.StackTrace);
+                    InternalLogger.Announce($"Could not parse JSON file, instance values unchanged: {path}", LogLevel.Warn, true);
+                    InternalLogger.Error(ex.Message);
+                    InternalLogger.Error(ex.StackTrace);
                 }
             }
             else if (createFileIfNotExist)

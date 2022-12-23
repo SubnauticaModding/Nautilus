@@ -2,6 +2,7 @@
 {
     using Interfaces;
     using Patchers;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// Handles Encyclopedia.
@@ -21,7 +22,7 @@
         void IPDAEncyclopediaHandler.AddCustomEntry(PDAEncyclopedia.EntryData entry)
         {
             if (PDAEncyclopediaPatcher.CustomEntryData.ContainsKey(entry.key))
-                Logger.Log($"{entry.key} already has custom PDAEncyclopedia.EntryData. Replacing with latest.", LogLevel.Debug);
+                InternalLogger.Log($"{entry.key} already has custom PDAEncyclopedia.EntryData. Replacing with latest.", LogLevel.Debug);
 
             PDAEncyclopediaPatcher.CustomEntryData[entry.key] = entry;
         }

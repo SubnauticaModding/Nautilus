@@ -7,7 +7,8 @@
     using UnityEngine;
     using UnityEngine.UI;
     using UnityEngine.Events;
-    using Text = TMPro.TextMeshProUGUI;
+    using TMPro;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// Contains all the information about a slider changed event.
@@ -143,24 +144,9 @@
 
         private SliderValue sliderValue = null;
 
-#if !BELOWZERO
-        private float previousValue;
-#endif
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-#if BELOWZERO
             UnityAction<float> callback = new UnityAction<float>((value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value));
-#else
-            UnityAction<float> callback = new UnityAction<float>((value) =>
-            {
-                value = sliderValue?.ConvertToDisplayValue(value) ?? value;
-                if (value != previousValue)
-                {
-                    previousValue = value;
-                    parentOptions.OnSliderChange(Id, value);
-                }
-            });
-#endif
 
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, "0.0");
 
@@ -168,23 +154,12 @@
             Transform options = panel.tabs[tabIndex].container.transform;
             OptionGameObject = options.GetChild(options.childCount - 1).gameObject; // last added game object
 
-#if BELOWZERO
             // if we using custom value format, we need to replace vanilla uGUI_SliderWithLabel with our component
             if (ValueFormat != null)
                 OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>().ValueFormat = ValueFormat;
 
             // fixing tooltip for slider
-            OptionGameObject.transform.Find("Slider/Caption").GetComponent<Text>().raycastTarget = true;
-#else
-            // if we using custom value format or step, we need to replace vanilla uGUI_SliderWithLabel with our component
-            if (ValueFormat != null || Step >= Mathf.Epsilon)
-            {
-                var sliderValue = OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>();
-                sliderValue.Step = Step;
-                if (ValueFormat != null)
-                    sliderValue.ValueFormat = ValueFormat;
-            }
-#endif
+            OptionGameObject.transform.Find("Slider/Caption").GetComponent<TextMeshProUGUI>().raycastTarget = true;
 
             base.AddToPanel(panel, tabIndex);
 
@@ -223,7 +198,7 @@
         public class SliderValue : MonoBehaviour
         {
             /// <summary> The value label of the <see cref="SliderValue"/> </summary>
-            protected Text label;
+            protected TextMeshProUGUI label;
 
             /// <summary> The slider controlling this <see cref="SliderValue"/> </summary>
             protected Slider slider;
@@ -300,7 +275,7 @@
                     Destroy(sliderLabel);
                 }
                 else
-                    V2.Logger.Log("uGUI_SliderWithLabel not found", LogLevel.Error);
+                    V2.Utility.InternalLogger.Log("uGUI_SliderWithLabel not found", LogLevel.Error);
 
                 if (GetComponent<uGUI_SnappingSlider>() is uGUI_SnappingSlider snappingSlider)
                 {
@@ -319,7 +294,7 @@
                     }
                 }
                 else
-                    V2.Logger.Log("uGUI_SnappingSlider not found", LogLevel.Error);
+                    V2.Utility.InternalLogger.Log("uGUI_SnappingSlider not found", LogLevel.Error);
 
                 slider.onValueChanged.AddListener(new UnityAction<float>(OnValueChanged));
                 UpdateLabel();
@@ -339,12 +314,12 @@
                 tempLabel.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 
                 // we'll add formatted min value to the label and skip one frame for updating ContentSizeFitter
-                tempLabel.GetComponent<Text>().text = string.Format(valueFormat, minValue);
+                tempLabel.GetComponent<TextMeshProUGUI>().text = string.Format(valueFormat, minValue);
                 yield return null;
                 float widthForMin = tempLabel.GetComponent<RectTransform>().rect.width;
 
                 // same for max value
-                tempLabel.GetComponent<Text>().text = string.Format(valueFormat, maxValue);
+                tempLabel.GetComponent<TextMeshProUGUI>().text = string.Format(valueFormat, maxValue);
                 yield return null;
                 float widthForMax = tempLabel.GetComponent<RectTransform>().rect.width;
 
