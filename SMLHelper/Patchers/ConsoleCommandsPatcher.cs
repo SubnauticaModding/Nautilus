@@ -1,15 +1,17 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Patchers
 {
     using Commands;
     using System;
     using System.Collections.Generic;
     using HarmonyLib;
-    using QModManager.API;
     using System.Reflection;
     using System.Linq;
     using System.Text.RegularExpressions;
     using UnityEngine;
-    using Logger = Logger;
+    using InternalLogger = InternalLogger;
+    using SMLHelper.V2.Utility;
 
     internal static class ConsoleCommandsPatcher
     {
@@ -25,7 +27,7 @@
         public static void Patch(Harmony harmony)
         {
             harmony.PatchAll(typeof(ConsoleCommandsPatcher));
-            Logger.Debug("ConsoleCommandsPatcher is done.");
+            InternalLogger.Debug("ConsoleCommandsPatcher is done.");
         }
 
         /// <summary>
@@ -43,8 +45,8 @@
             if (ConsoleCommands.TryGetValue(consoleCommand.Trigger, out ConsoleCommand alreadyDefinedCommand))
             {
                 string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
-                    $"{GetColoredString(consoleCommand.QMod)}\n" +
-                    $"{GetColoredString(alreadyDefinedCommand.QMod, ModConflictColor)} already registered this command!";
+                    $"{GetColoredString(consoleCommand.ModName, ModOriginColor)}\n" +
+                    $"{GetColoredString(alreadyDefinedCommand.ModName, ModConflictColor)} already registered this command!";
 
                 LogAndAnnounce(error, LogLevel.Error);
 
@@ -55,7 +57,7 @@
             if (!consoleCommand.HasValidInvoke())
             {
                 string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
-                    $"{GetColoredString(consoleCommand.QMod)}\n" +
+                    $"{GetColoredString(consoleCommand.ModName, ModOriginColor)}\n" +
                     "Target method must be static.";
 
                 LogAndAnnounce(error, LogLevel.Error);
@@ -67,7 +69,7 @@
             if (!consoleCommand.HasValidParameterTypes())
             {
                 string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
-                    $"{GetColoredString(consoleCommand.QMod)}\n" +
+                    $"{GetColoredString(consoleCommand.ModName, ModOriginColor)}\n" +
                     "The following parameters have unsupported types:\n" +
                     consoleCommand.GetInvalidParameters().Select(param => GetColoredString(param)).Join(delimiter: "\n") +
                     "Supported parameter types:\n" +
@@ -128,7 +130,7 @@
             if (string.IsNullOrWhiteSpace(input))
                 return false;
 
-            Logger.Debug($"Attempting to handle console command: {input}");
+            InternalLogger.Debug($"Attempting to handle console command: {input}");
 
             input = input.Trim();
             string[] components = input.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -137,7 +139,7 @@
 
             if (!ConsoleCommands.TryGetValue(trigger, out ConsoleCommand command))
             {
-                Logger.Debug($"No command listener registered for [{trigger}].");
+                InternalLogger.Debug($"No command listener registered for [{trigger}].");
                 return false;
             }
 
@@ -178,19 +180,19 @@
 
                 // Print a message detailing all received parameters.
                 if (parameters.Any())
-                    Logger.Announce($"Received parameters: {parameters.Join()}", LogLevel.Error, true);
+                    InternalLogger.Announce($"Received parameters: {parameters.Join()}", LogLevel.Error, true);
 
                 return true; // We've handled the command insofar as we've handled and reported the user error to them.
             }
 
-            Logger.Debug($"Handing command [{trigger}] to [{command.QMod.DisplayName}]...");
+            InternalLogger.Debug($"Handing command [{trigger}] to [{command.ModName}]...");
 
             string result = command.Invoke(parsedParameters); // Invoke the command with the parameters parsed from user input.
 
             if (!string.IsNullOrEmpty(result)) // If the command has a return, print it.
-                LogAndAnnounce($"{GetColoredString($"[{command.QMod.DisplayName}]", ModOriginColor)} {result}", LogLevel.Info);
+                LogAndAnnounce($"{GetColoredString($"[{command.ModName}]", ModOriginColor)} {result}", LogLevel.Info);
 
-            Logger.Debug($"Command [{trigger}] handled successfully by [{command.QMod.DisplayName}].");
+            InternalLogger.Debug($"Command [{trigger}] handled successfully by [{command.ModName}].");
 
             return true;
         }
@@ -202,18 +204,8 @@
         /// <param name="level">Log level.</param>
         private static void LogAndAnnounce(string message, LogLevel level)
         {
-            Logger.Announce(message);
-            Logger.Log(message.StripXML(), level);
-        }
-
-        private static string GetColoredString(IQMod mod)
-        {
-            return GetColoredString(mod, ModOriginColor);
-        }
-
-        private static string GetColoredString(IQMod mod, Color color)
-        {
-            return GetColoredString(mod.DisplayName, color);
+            InternalLogger.Announce(message);
+            InternalLogger.Log(message.StripXML(), level);
         }
 
         private static string GetColoredString(ConsoleCommand command)

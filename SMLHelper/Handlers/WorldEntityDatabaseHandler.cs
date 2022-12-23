@@ -2,6 +2,7 @@
 {
     using Interfaces;
     using SMLHelper.V2.Patchers;
+    using SMLHelper.V2.Utility;
     using UnityEngine;
     using UWE;
 
@@ -55,7 +56,7 @@
         void IWorldEntityDatabaseHandler.AddCustomInfo(string classId, WorldEntityInfo data)
         {
             if(WorldEntityDatabasePatcher.CustomWorldEntityInfos.ContainsKey(classId))
-                V2.Logger.Log($"{classId}-{data.techType} already has custom WorldEntityInfo. Replacing with latest.", LogLevel.Debug);
+                Utility.InternalLogger.Log($"{classId}-{data.techType} already has custom WorldEntityInfo. Replacing with latest.", LogLevel.Debug);
 
             WorldEntityDatabasePatcher.CustomWorldEntityInfos[classId] = data;
         }

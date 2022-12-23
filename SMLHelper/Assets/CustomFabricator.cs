@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Assets
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Assets
 {
     using System;
     using System.Collections;
@@ -6,7 +8,7 @@
     using SMLHelper.V2.Crafting;
     using SMLHelper.V2.Handlers;
     using UnityEngine;
-    using Logger = V2.Logger;
+    using InternalLogger = InternalLogger;
 
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
@@ -151,22 +153,7 @@
         /// <returns></returns>
         public override GameObject GetGameObject()
         {
-#if SUBNAUTICA_EXP || BELOWZERO
             return null;
-#else
-            GameObject prefab = this.Model switch
-            {
-                Models.Fabricator => GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Fabricator)),
-                Models.Workbench => GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Workbench)),
-#if SUBNAUTICA
-                Models.MoonPool => GameObject.Instantiate(Resources.Load<GameObject>("Submarine/Build/CyclopsFabricator")),
-#endif
-                Models.Custom => GetCustomCrafterPreFab(),
-                _ => null
-            };
-
-            return PreProcessPrefab(prefab);
-#endif
         }
 
         /// <summary>
@@ -350,7 +337,7 @@
         /// When this value is null, the craft node will be added to the root of the craft tree.</param>
         public void AddCraftNode(TechType techType, string parentTabId = null)
         {
-            Logger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{this.ClassID}'");
+            InternalLogger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{this.ClassID}'");
             OrderedCraftTreeActions.Add(() =>
             {
                 ModCraftTreeLinkingNode parentTab = CraftTreeLinkingNodes[parentTabId ?? RootNode];
@@ -367,7 +354,7 @@
         /// When this value is null, the craft node will be added to the root of the craft tree.</param>
         public void AddCraftNode(string moddedTechType, string parentTabId = null)
         {
-            Logger.Debug($"'{moddedTechType}' will be added to the custom craft tree '{this.ClassID}'");
+            InternalLogger.Debug($"'{moddedTechType}' will be added to the custom craft tree '{this.ClassID}'");
             OrderedCraftTreeActions.Add(() =>
             {
                 if (this.TechTypeHandler.TryGetModdedTechType(moddedTechType, out TechType techType))
@@ -377,7 +364,7 @@
                 }
                 else
                 {
-                    Logger.Info($"Did not find a TechType value for '{moddedTechType}' to add to the custom craft tree '{this.ClassID}'");
+                    InternalLogger.Info($"Did not find a TechType value for '{moddedTechType}' to add to the custom craft tree '{this.ClassID}'");
                 }
             });
         }
@@ -392,12 +379,12 @@
         /// The craft node will be added to the root of the craft tree if both are null.</param>
         public void AddCraftNode(Craftable item, string parentTabId = null)
         {
-            Logger.Debug($"'{item.ClassID}' will be added to the custom craft tree '{this.ClassID}'");
+            InternalLogger.Debug($"'{item.ClassID}' will be added to the custom craft tree '{this.ClassID}'");
             OrderedCraftTreeActions.Add(() =>
             {
                 if (item.TechType == TechType.None)
                 {
-                    Logger.Info($"'{item.ClassID} had to be patched early to obtain its TechType value for the custom craft tree '{this.ClassID}'");
+                    InternalLogger.Info($"'{item.ClassID} had to be patched early to obtain its TechType value for the custom craft tree '{this.ClassID}'");
                     item.Patch();
                 }
 

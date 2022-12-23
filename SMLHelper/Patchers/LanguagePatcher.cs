@@ -6,10 +6,11 @@
     using System.Reflection;
     using System.Text;
     using HarmonyLib;
+    using SMLHelper.V2.Utility;
 
     internal class LanguagePatcher
     {
-        private static readonly string LanguageDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Language");
+        private static readonly string LanguageDir = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "Language");
         private static readonly string LanguageOrigDir = Path.Combine(LanguageDir, "Originals");
         private static readonly string LanguageOverDir = Path.Combine(LanguageDir, "Overrides");
         private const char KeyValueSeparator = ':';
@@ -56,7 +57,7 @@
             harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.TryGet)), prefix: repatchCheckMethod);
             harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.Contains)), prefix: repatchCheckMethod);
 
-            Logger.Log("LanguagePatcher is done.", LogLevel.Debug);
+            InternalLogger.Log("LanguagePatcher is done.", LogLevel.Debug);
         }
 
         private static void WriteOriginalCustomLines()
@@ -73,15 +74,15 @@
                 if (!FileNeedsRewrite(modKey))
                     continue; // File is identical to captured lines. No need to rewrite it.
 
-                Logger.Log($"Writing original language lines file for {modKey}", LogLevel.Debug);
+                InternalLogger.Log($"Writing original language lines file for {modKey}", LogLevel.Debug);
                 if (WriteOriginalLinesFile(modKey))
                     filesWritten++;
                 else
-                    Logger.Log($"Error writing language lines file for {modKey}", LogLevel.Warn);
+                    InternalLogger.Log($"Error writing language lines file for {modKey}", LogLevel.Warn);
             }
 
             if (filesWritten > 0)
-                Logger.Log($"Updated {filesWritten} of {originalCustomLines.Count} original language files.", LogLevel.Debug);
+                InternalLogger.Log($"Updated {filesWritten} of {originalCustomLines.Count} original language files.", LogLevel.Debug);
         }
 
         private static bool WriteOriginalLinesFile(string modKey)
@@ -116,7 +117,7 @@
 
             string[] files = Directory.GetFiles(LanguageOverDir);
 
-            Logger.Log($"{files.Length} language override files found.", LogLevel.Debug);
+            InternalLogger.Log($"{files.Length} language override files found.", LogLevel.Debug);
 
             if (files.Length == 0)
                 return;
@@ -134,7 +135,7 @@
 
                 int overridesApplied = ExtractOverrideLines(modName, languageLines, originalLines);
 
-                Logger.Log($"Applied {overridesApplied} language overrides to mod {modName}.", LogLevel.Info);
+                InternalLogger.Log($"Applied {overridesApplied} language overrides to mod {modName}.", LogLevel.Info);
             }
         }
 
@@ -153,13 +154,13 @@
 
                 if (split.Length != SplitCount)
                 {
-                    Logger.Log($"Line '{lineIndex}' in language override file for '{modName}' was incorrectly formatted.", LogLevel.Warn);
+                    InternalLogger.Log($"Line '{lineIndex}' in language override file for '{modName}' was incorrectly formatted.", LogLevel.Warn);
                     continue; // Not correctly formatted
                 }
 
                 if (!originalLines.ContainsKey(key))
                 {
-                    Logger.Log($"Key '{key}' on line '{lineIndex}' in language override file for '{modName}' did not match an original key.", LogLevel.Warn);
+                    InternalLogger.Log($"Key '{key}' on line '{lineIndex}' in language override file for '{modName}' did not match an original key.", LogLevel.Warn);
                     continue; // Skip keys we don't recognize.
                 }
 

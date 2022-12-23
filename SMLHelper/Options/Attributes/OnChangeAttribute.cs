@@ -2,7 +2,7 @@
 {
     using Interfaces;
     using Json;
-    using QModManager.Utility;
+    using SMLHelper.V2.Utility;
     using System;
 
     /// <summary>
@@ -76,7 +76,7 @@
     /// <seealso cref="ToggleChangedEventArgs"/>
     /// <seealso cref="ConfigFile"/>
     /// <seealso cref="OnGameObjectCreatedAttribute"/>
-    /// <seealso cref="Logger"/>
+    /// <seealso cref="InternalLogger"/>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
     public sealed class OnChangeAttribute : ModOptionEventAttribute
     {

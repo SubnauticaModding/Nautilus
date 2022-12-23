@@ -1,9 +1,11 @@
-﻿namespace SMLHelper.V2.Assets
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Assets
 {
     using System;
     using System.Collections.Generic;
     using UnityEngine;
-    using Logger = V2.Logger;
+    using InternalLogger = InternalLogger;
 
     /// <summary>
     /// Class that used by <see cref="ModPrefab"/> to store game objects that used as prefabs.
@@ -29,7 +31,7 @@
                     if (Time.time < prefabs[i].Item1 + cleanDelay || Builder.prefab == prefabs[i].Item2)
                         continue;
 
-                    Logger.Debug($"ModPrefabCache: removing prefab {prefabs[i].Item2}");
+                    InternalLogger.Debug($"ModPrefabCache: removing prefab {prefabs[i].Item2}");
 
                     Destroy(prefabs[i].Item2);
                     prefabs.RemoveAt(i);
@@ -85,7 +87,7 @@
             if (autoremove)
                 prefabs.Add(Tuple.Create(Time.time, prefab));
 
-            Logger.Debug($"ModPrefabCache: adding prefab {prefab}");
+            InternalLogger.Debug($"ModPrefabCache: adding prefab {prefab}");
         }
     }
 }

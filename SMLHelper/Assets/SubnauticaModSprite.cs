@@ -3,6 +3,7 @@ namespace SMLHelper.V2.Assets
 {
     using System;
     using System.Collections.Generic;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// A class that handles a custom sprite and what item it is associated to.
@@ -20,7 +21,7 @@ namespace SMLHelper.V2.Assets
                 ModSprites.Add(group, new Dictionary<string, Atlas.Sprite>(StringComparer.InvariantCultureIgnoreCase));
 
             if(ModSprites[group].ContainsKey(name))
-                Logger.Debug($"ModSprite already registered for {group}/{name}.  Old sprite will be overwritten.");
+                InternalLogger.Debug($"ModSprite already registered for {group}/{name}.  Old sprite will be overwritten.");
             ModSprites[group][name] = sprite;
         }
 

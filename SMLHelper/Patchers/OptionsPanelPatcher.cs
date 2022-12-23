@@ -10,20 +10,10 @@
     using UnityEngine;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
-    using QModManager.API;
-
-#if SUBNAUTICA_STABLE
-    using Oculus.Newtonsoft.Json;
-#else
     using Newtonsoft.Json;
-#endif
-
-#if SUBNAUTICA
-    using Text = UnityEngine.UI.Text;
-#elif BELOWZERO
-    using Text = TMPro.TextMeshProUGUI;
     using static SMLHelper.V2.Options.ModKeybindOption;
-#endif
+    using TMPro;
+    using SMLHelper.V2.Utility;
 
     internal class OptionsPanelPatcher
     {
@@ -35,11 +25,7 @@
         {
             PatchUtils.PatchClass(harmony);
             PatchUtils.PatchClass(harmony, typeof(ScrollPosKeeper));
-
-            if (QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable == true)
-                V2.Logger.Log("ModOptionsAdjuster is not inited (ModsOptionsAdjusted mod is active)", LogLevel.Warn);
-            else
-                PatchUtils.PatchClass(harmony, typeof(ModOptionsHeadingsToggle));
+            PatchUtils.PatchClass(harmony, typeof(ModOptionsHeadingsToggle));
         }
 
 
@@ -52,7 +38,6 @@
                 modsTabIndex = __result;
         }
 
-#if BELOWZERO
         [PatchUtils.Prefix]
         [HarmonyPatch(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue))]
         internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
@@ -64,7 +49,6 @@
             __instance.UpdateState();
             return false;
         }
-#endif
 
         [PatchUtils.Postfix]
         [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
@@ -78,7 +62,7 @@
             for (int i = 0; i < optionsPanel.tabsContainer.childCount; i++)
             {
                 // Check if they are named "Mods"
-                var text = optionsPanel.tabsContainer.GetChild(i).GetComponentInChildren<Text>(true);
+                var text = optionsPanel.tabsContainer.GetChild(i).GetComponentInChildren<TextMeshProUGUI>(true);
 
                 if (text != null && text.text == "Mods")
                 {
@@ -96,7 +80,7 @@
 
             // Maybe this could be split into its own file to handle smlhelper options, or maybe it could be removed alltogether
             optionsPanel.AddHeading(modsTab, "SMLHelper");
-            optionsPanel.AddToggleOption(modsTab, "Enable debug logs", V2.Logger.EnableDebugging, V2.Logger.SetDebugging);
+            optionsPanel.AddToggleOption(modsTab, "Enable debug logs", Utility.InternalLogger.EnableDebugging, Utility.InternalLogger.SetDebugging);
             optionsPanel.AddChoiceOption(modsTab, "Extra item info", new string[]
             {
                 "Mod name (default)",
@@ -108,40 +92,6 @@
             modOptions.Values.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
         }
 
-#if SUBNAUTICA_STABLE
-        // fix for slider, check for zero divider added (in that case just return value unchanged)
-        // it happens when slider is in pre-awake state, so any given value snaps to default value
-        [PatchUtils.Transpiler]
-        [HarmonyPatch(typeof(uGUI_SnappingSlider), nameof(uGUI_SnappingSlider.SnapValue))]
-        internal static IEnumerable<CodeInstruction> SnapValue_Fix(IEnumerable<CodeInstruction> cins)
-        {
-            var list = new List<CodeInstruction>(cins);
-
-            int indexLabel = list.FindIndex(cin => cin.opcode == OpCodes.Starg_S && cin.operand.Equals((byte)1)) + 1;
-            if (indexLabel == 0 || list[indexLabel].labels.Count == 0)
-            {
-                V2.Logger.Log("SnapValue_Fix: indexLabel not found", LogLevel.Warn);
-                return cins;
-            }
-
-            int indexToInject = list.FindIndex(cin => cin.opcode == OpCodes.Stloc_1) + 1;
-            if (indexToInject == 0)
-            {
-                V2.Logger.Log("SnapValue_Fix: indexToInject not found", LogLevel.Warn);
-                return cins;
-            }
-
-            list.InsertRange(indexToInject, new List<CodeInstruction>
-            {
-                new CodeInstruction(OpCodes.Ldloc_1),
-                new CodeInstruction(OpCodes.Ldc_R4, 0f),
-                new CodeInstruction(OpCodes.Beq, list[indexLabel].labels[0])
-            });
-
-            return list;
-        }
-#endif
-
         // Class for collapsing/expanding options in 'Mods' tab
         // Options can be collapsed/expanded by clicking on mod's title or arrow button
         private static class ModOptionsHeadingsToggle
@@ -152,7 +102,7 @@
 
             private static class StoredHeadingStates
             {
-                private static readonly string configPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "headings_states.json");
+                private static readonly string configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "headings_states.json");
 
                 private class StatesConfig
                 {
@@ -225,7 +175,7 @@
                     if (childOptions != null)
                         return;
 
-                    headingName = transform.Find("Caption")?.GetComponent<Text>()?.text ?? "";
+                    headingName = transform.Find("Caption")?.GetComponent<TextMeshProUGUI>()?.text ?? "";
 
                     childOptions = new List<GameObject>();
 

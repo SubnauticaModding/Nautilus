@@ -1,10 +1,13 @@
+using SMLHelper.V2.Utility;
+
 namespace SMLHelper.V2.Patchers
 {
     using System;
     using System.Collections.Generic;
     using HarmonyLib;
+    using SMLHelper.V2.Utility;
     using UnityEngine;
-    using Logger = Logger;
+    using InternalLogger = InternalLogger;
 
     internal class SurvivalPatcher
     {
@@ -19,7 +22,7 @@ namespace SMLHelper.V2.Patchers
             harmony.Patch(AccessTools.Method(typeof(Survival), nameof(Survival.Eat)),
                 postfix: new HarmonyMethod(typeof(SurvivalPatcher), nameof(SurvivalPostfix)));
 
-            Logger.Log($"SurvivalPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log($"SurvivalPatcher is done.", LogLevel.Debug);
         }
         private static void SurvivalPostfix(GameObject useObj, ref bool __result)
         {

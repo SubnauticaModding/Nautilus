@@ -2,6 +2,7 @@
 {
     using HarmonyLib;
     using Json;
+    using SMLHelper.V2.Utility;
     using System;
     using System.Linq;
     using System.Reflection;
@@ -82,7 +83,7 @@
                 if (methodInfo == null)
                 {
                     // Method not found, log error and skip.
-                    Logger.Error($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{Name}");
+                    InternalLogger.Error($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{Name}");
                     return;
                 }
             }
@@ -104,7 +105,7 @@
             if (!MethodValid)
             {
                 // Method not found, log error and skip.
-                Logger.Error($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{Name}");
+                InternalLogger.Error($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{Name}");
                 return;
             }
 

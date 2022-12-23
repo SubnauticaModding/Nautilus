@@ -19,7 +19,7 @@
             harmony.Patch(AccessTools.Method(typeof(PDAScanner), nameof(PDAScanner.Initialize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAPatcher), nameof(PDAPatcher.InitializePostfix))));
 
-            Logger.Log($"PDAPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log($"PDAPatcher is done.", LogLevel.Debug);
         }
 
         private static void InitializePostfix()
@@ -44,12 +44,12 @@
                 if (!mapping.ContainsKey(customEntry.Key))
                 {
                     PDAScanner.mapping.Add(customEntry.Key, customEntry.Value);
-                    Logger.Debug($"Adding PDAScanner EntryData for TechType: {customEntry.Key.AsString()}");
+                    InternalLogger.Debug($"Adding PDAScanner EntryData for TechType: {customEntry.Key.AsString()}");
                 }
                 else
                 {
                     mapping[customEntry.Key] = customEntry.Value;
-                    Logger.Debug($"PDAScanner already Contains EntryData for TechType: {customEntry.Key.AsString()}, Overwriting Original.");
+                    InternalLogger.Debug($"PDAScanner already Contains EntryData for TechType: {customEntry.Key.AsString()}, Overwriting Original.");
                 }
             }
 
@@ -66,7 +66,7 @@
                 }
                 else
                 {
-                    Logger.Log($"Warning: TechType {fragmentEntry.Key} not known in PDAScanner.EntryData", LogLevel.Warn);
+                    InternalLogger.Log($"Warning: TechType {fragmentEntry.Key} not known in PDAScanner.EntryData", LogLevel.Warn);
                 }
             }
 
@@ -83,7 +83,7 @@
                 }
                 else
                 {
-                    Logger.Log($"Warning: TechType {fragmentEntry.Key} not known in PDAScanner.EntryData", LogLevel.Warn);
+                    InternalLogger.Log($"Warning: TechType {fragmentEntry.Key} not known in PDAScanner.EntryData", LogLevel.Warn);
                 }
             }
         }

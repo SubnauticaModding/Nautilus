@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Patchers
 {
     using System.Collections.Generic;
+    using SMLHelper.V2.Utility;
 
     internal class BioReactorPatcher
     {
@@ -12,7 +13,7 @@
             // See README.md for details.
             PatchUtils.PatchDictionary(BaseBioReactor.charge, CustomBioreactorCharges);
 
-            Logger.Log("BaseBioReactorPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log("BaseBioReactorPatcher is done.", LogLevel.Debug);
         }
     }
 }
