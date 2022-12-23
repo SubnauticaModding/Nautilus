@@ -99,18 +99,6 @@ namespace SMLHelper.V2.Patchers
             {
                 Subtitles.Add(subtitles);
             }
-                {
-                    main.Add(subtitles);
-                }
-            }
-                {
-                    main.Add(subtitles);
-                }
-            }
-                {
-                    main.Add(subtitles);
-                }
-            }
             return false;
         }
         
