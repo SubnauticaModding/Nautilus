@@ -91,7 +91,7 @@ namespace SMLHelper.V2.FMod
                 return AudioUtils.PlaySound(_sounds[Index], _bus);
             }
 
-            Logger.Error("MultiSounds must have some sounds.");
+            InternalLogger.Error("MultiSounds must have some sounds.");
             return default;
         }
     }

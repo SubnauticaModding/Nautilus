@@ -50,10 +50,8 @@
 
         public void Reset() {}
 
-#if BELOWZERO || SUBNAUTICA_EXP
         public void Release()
         {
         }
-#endif
     }
 }

@@ -21,7 +21,7 @@
             harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.NotifyResize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
 
-            Logger.Log($"ItemsContainerPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log($"ItemsContainerPatcher is done.", LogLevel.Debug);
         }
 
         private static bool HasRoomFor_XY_Prefix(ItemsContainer __instance, int width, int height, ref bool __result, ref Vector2int __state)

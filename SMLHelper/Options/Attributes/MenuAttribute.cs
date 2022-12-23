@@ -2,7 +2,7 @@
 {
     using Json;
     using System;
-    using QModManager.Utility;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// Attribute used to signify a <see cref="ModOptions"/> menu should be automatically generated from a
@@ -81,7 +81,7 @@
     /// <seealso cref="ButtonAttribute"/>
     /// <seealso cref="ModOptions"/>
     /// <seealso cref="ConfigFile"/>
-    /// <seealso cref="Logger"/>
+    /// <seealso cref="InternalLogger"/>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class MenuAttribute : Attribute
     {

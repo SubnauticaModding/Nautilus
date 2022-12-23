@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// This dictionary strtucture automatically checks for duplicate keys as they are being added to the collection.
@@ -145,7 +146,7 @@
         private void DupFoundAllDiscardedLog(K key)
         {
             string keyLogString = ToLogString(key);
-            Logger.Warn($"{CollectionName} already exists for '{keyLogString}'.{Environment.NewLine}" +
+            InternalLogger.Warn($"{CollectionName} already exists for '{keyLogString}'.{Environment.NewLine}" +
                         $"All entries will be removed so conflict can be noted and resolved.{Environment.NewLine}" +
                         $"So far we have discarded or overwritten {DuplicatesDiscarded[key]} entries for '{keyLogString}'.");
         }
@@ -157,7 +158,7 @@
         private void DupFoundLastDiscardedLog(K key)
         {
             string keyLogString = ToLogString(key);
-            Logger.Warn($"{CollectionName} already exists for '{keyLogString}'.{Environment.NewLine}" +
+            InternalLogger.Warn($"{CollectionName} already exists for '{keyLogString}'.{Environment.NewLine}" +
                         $"Original value has been overwritten by later entry.{Environment.NewLine}" +
                         $"So far we have discarded or overwritten {DuplicatesDiscarded[key]} entries for '{keyLogString}'.");
         }
