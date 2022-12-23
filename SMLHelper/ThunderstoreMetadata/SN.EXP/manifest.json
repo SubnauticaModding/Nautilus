@@ -3,5 +3,5 @@
     "version_number": "2.15.0",
     "website_url": "https://github.com/SubnauticaModding/SMLHelper/wiki",
     "description": "SMLHelper is a modding library that helps making mods easier by helping with adding new items, changing items, adding models, sprites, etc.",
-    "dependencies": [ "Subnautica_Modding-QModManager_Experimental-4.5.0" ]
+    "dependencies": [ "Subnautica_Modding-BepInExPack_Subnautica-5.4.21" ]
 }
