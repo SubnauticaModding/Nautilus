@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Patchers
 {
     using System;
     using System.Collections;
@@ -7,7 +9,7 @@
     using SMLHelper.V2.Handlers;
     using UnityEngine;
     using UWE;
-    using Logger = V2.Logger;
+    using InternalLogger = InternalLogger;
     using Random = UnityEngine.Random;
 
     internal static class FishPatcher
@@ -22,7 +24,7 @@
             harmony.Patch(AccessTools.Method(typeof(Creature), nameof(Creature.Start)),
                             postfix: new HarmonyMethod(typeof(FishPatcher), nameof(FishPatcher.CreatureStart_Postfix)));
 
-            Logger.Debug("CustomFishPatcher is done.");
+            InternalLogger.Debug("CustomFishPatcher is done.");
         }
 
         private static void CreatureStart_Postfix(Creature __instance)

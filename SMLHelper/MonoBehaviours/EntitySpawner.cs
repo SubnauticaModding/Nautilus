@@ -1,3 +1,5 @@
+using SMLHelper.V2.Utility;
+
 namespace SMLHelper.V2.MonoBehaviours
 {
     using System.Collections;
@@ -5,7 +7,7 @@ namespace SMLHelper.V2.MonoBehaviours
     using Patchers;
     using UnityEngine;
     using UWE;
-    using Logger = Logger;
+    using InternalLogger = InternalLogger;
 
     internal class EntitySpawner : MonoBehaviour
     {
@@ -31,7 +33,7 @@ namespace SMLHelper.V2.MonoBehaviours
 
             if (prefab == null)
             {
-                Logger.Error($"no prefab found for {stringToLog}; process for Coordinated Spawn canceled.");
+                InternalLogger.Error($"no prefab found for {stringToLog}; process for Coordinated Spawn canceled.");
                 Destroy(gameObject);
             }
 

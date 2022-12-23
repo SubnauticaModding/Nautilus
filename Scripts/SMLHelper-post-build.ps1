@@ -50,15 +50,6 @@ function Zip
         }
     }
 }
-# Copy correct mod.json to target dir
-$modJsonSuffix = switch ($ConfigurationName.ToUpper())
-{
-    {($_ -like "SN*")} { "Subnautica" }
-    {($_ -like "BZ*")} { "BelowZero" }
-    default { "Subnautica" }
-}
-$modJsonFilename = "mod_$($modJsonSuffix).json"
-Copy-Item $([System.IO.Path]::Combine($ProjectDir, $modJsonFilename)) -Destination $([System.IO.Path]::Combine($TargetDir, "mod.json"))
 
 $buildPath = switch ($ConfigurationName.ToUpper())
 {
@@ -67,18 +58,20 @@ $buildPath = switch ($ConfigurationName.ToUpper())
     default { "Modding Helper" }
 }
 
-$qmodsDir = [System.IO.Path]::Combine($TargetDir, "QMods")
-$buildDir = [System.IO.Path]::Combine($qmodsDir, $buildPath)
+$pluginsDir = [System.IO.Path]::Combine($TargetDir, "plugins")
 
 # Remove build dir and create fresh
-if (Test-Path $buildDir)
+if (Test-Path $pluginsDir)
 {
-    $null = Remove-Item -Path $buildDir -Force -Recurse
+    $null = Remove-Item -Path $pluginsDir -Force -Recurse
 }
+$null = New-Item -Path $pluginsDir -ItemType "directory"
+
+$buildDir = [System.IO.Path]::Combine($pluginsDir, $buildPath)
 $null = New-Item -Path $buildDir -ItemType "directory"
 
 # Copy core mod files to build dir
-foreach ($file in "mod.json", "SMLHelper.xml", "SMLHelper.dll")
+foreach ($file in "SMLHelper.xml", "SMLHelper.dll")
 {
     Copy-Item $([System.IO.Path]::Combine($TargetDir, $file)) -Destination $buildDir
 }
@@ -90,5 +83,5 @@ $null = Zip -Path $buildDir -DestinationPath $buildZipPath -Fresh
 # Zip the Thunderstore build
 $thunderstoreMetadataPath = [System.IO.Path]::Combine($ProjectDir, "ThunderstoreMetadata", $ConfigurationName, "*")
 $thunderstoreZipPath = [System.IO.Path]::Combine($TargetDir, "SMLHelper_$($ConfigurationName)_Thunderstore.zip")
-$null = Zip -Path $qmodsDir -DestinationPath $thunderstoreZipPath -Fresh
+$null = Zip -Path $pluginsDir -DestinationPath $thunderstoreZipPath -Fresh
 $null = Zip -Path $thunderstoreMetadataPath -DestinationPath $thunderstoreZipPath

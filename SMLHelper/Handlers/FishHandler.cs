@@ -5,6 +5,7 @@
     using System.IO;
     using SMLHelper.V2.Assets;
     using SMLHelper.V2.Interfaces;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// Class to manage registering of fish into the game
@@ -52,7 +53,7 @@
 
             PrefabHandler.RegisterPrefab(fishPrefab);
 
-            Logger.Debug($"Successfully registered fish: '{fish.displayName}' with Tech Type: '{fish.id}'");
+            InternalLogger.Debug($"Successfully registered fish: '{fish.displayName}' with Tech Type: '{fish.id}'");
 
             return type;
         }

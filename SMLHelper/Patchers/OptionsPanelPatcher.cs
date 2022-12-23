@@ -10,11 +10,10 @@
     using UnityEngine;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
-    using QModManager.API;
     using Newtonsoft.Json;
-
-    using Text = TMPro.TextMeshProUGUI;
     using static SMLHelper.V2.Options.ModKeybindOption;
+    using TMPro;
+    using SMLHelper.V2.Utility;
 
     internal class OptionsPanelPatcher
     {
@@ -26,11 +25,7 @@
         {
             PatchUtils.PatchClass(harmony);
             PatchUtils.PatchClass(harmony, typeof(ScrollPosKeeper));
-
-            if (QModServices.Main.FindModById("ModsOptionsAdjusted")?.Enable == true)
-                V2.Logger.Log("ModOptionsAdjuster is not inited (ModsOptionsAdjusted mod is active)", LogLevel.Warn);
-            else
-                PatchUtils.PatchClass(harmony, typeof(ModOptionsHeadingsToggle));
+            PatchUtils.PatchClass(harmony, typeof(ModOptionsHeadingsToggle));
         }
 
 
@@ -67,7 +62,7 @@
             for (int i = 0; i < optionsPanel.tabsContainer.childCount; i++)
             {
                 // Check if they are named "Mods"
-                var text = optionsPanel.tabsContainer.GetChild(i).GetComponentInChildren<Text>(true);
+                var text = optionsPanel.tabsContainer.GetChild(i).GetComponentInChildren<TextMeshProUGUI>(true);
 
                 if (text != null && text.text == "Mods")
                 {
@@ -85,7 +80,7 @@
 
             // Maybe this could be split into its own file to handle smlhelper options, or maybe it could be removed alltogether
             optionsPanel.AddHeading(modsTab, "SMLHelper");
-            optionsPanel.AddToggleOption(modsTab, "Enable debug logs", V2.Logger.EnableDebugging, V2.Logger.SetDebugging);
+            optionsPanel.AddToggleOption(modsTab, "Enable debug logs", Utility.InternalLogger.EnableDebugging, Utility.InternalLogger.SetDebugging);
             optionsPanel.AddChoiceOption(modsTab, "Extra item info", new string[]
             {
                 "Mod name (default)",
@@ -107,7 +102,7 @@
 
             private static class StoredHeadingStates
             {
-                private static readonly string configPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "headings_states.json");
+                private static readonly string configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "headings_states.json");
 
                 private class StatesConfig
                 {
@@ -180,7 +175,7 @@
                     if (childOptions != null)
                         return;
 
-                    headingName = transform.Find("Caption")?.GetComponent<Text>()?.text ?? "";
+                    headingName = transform.Find("Caption")?.GetComponent<TextMeshProUGUI>()?.text ?? "";
 
                     childOptions = new List<GameObject>();
 

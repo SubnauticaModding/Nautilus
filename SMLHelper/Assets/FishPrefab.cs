@@ -47,7 +47,7 @@
         /// </summary>
         public sealed override GameObject GetGameObject()
         {
-            V2.Logger.Debug($"[FishFramework] Initializing fish: {this.ClassID}");
+            Utility.InternalLogger.Debug($"[FishFramework] Initializing fish: {this.ClassID}");
             GameObject mainObj = modelPrefab;
 
             Renderer[] renderers = mainObj.GetComponentsInChildren<Renderer>();

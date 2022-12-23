@@ -1,13 +1,12 @@
-﻿using QModManager.API;
-using System;
-using System.IO;
-using System.Reflection;
-using Newtonsoft.Json;
-
-namespace SMLHelper.V2.Json
+﻿namespace SMLHelper.V2.Json
 {
     using Attributes;
     using Interfaces;
+    using System;
+    using System.IO;
+    using System.Reflection;
+    using Newtonsoft.Json;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// An abstract implementation of <see cref="IJsonFile"/> intended for use with caching per-save data.
@@ -36,7 +35,7 @@ namespace SMLHelper.V2.Json
         /// </summary>
         public SaveDataCache()
         {
-            QModId = QModServices.Main.FindModByAssembly(GetType().Assembly).Id;
+            QModId = GetType().Assembly.GetName().Name;
         }
 
         /// <summary>
@@ -52,7 +51,7 @@ namespace SMLHelper.V2.Json
             if (InGame)
             {
                 base.Load(createFileIfNotExist);
-                Logger.Log($"[{QModId}] Loaded save data from {JsonFileName}.json");
+                InternalLogger.Log($"[{QModId}] Loaded save data from {JsonFileName}.json");
             }
             else
             {
@@ -71,7 +70,7 @@ namespace SMLHelper.V2.Json
             if (InGame)
             {
                 base.Save();
-                Logger.Log($"[{QModId}] Saved save data to {JsonFileName}.json");
+                InternalLogger.Log($"[{QModId}] Saved save data to {JsonFileName}.json");
             }
             else
             {
@@ -94,7 +93,7 @@ namespace SMLHelper.V2.Json
             if (InGame)
             {
                 base.LoadWithConverters(createFileIfNotExist, jsonConverters);
-                Logger.Log($"[{QModId}] Loaded save data from {JsonFileName}.json");
+                InternalLogger.Log($"[{QModId}] Loaded save data from {JsonFileName}.json");
             }
             else
             {
@@ -115,7 +114,7 @@ namespace SMLHelper.V2.Json
             if (InGame)
             {
                 base.SaveWithConverters(jsonConverters);
-                Logger.Log($"[{QModId}] Saved save data to {JsonFileName}.json");
+                InternalLogger.Log($"[{QModId}] Saved save data to {JsonFileName}.json");
             }
             else
             {

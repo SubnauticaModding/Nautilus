@@ -5,6 +5,7 @@
     using Assets;
     using HarmonyLib;
     using SMLHelper.V2.Patchers.EnumPatching;
+    using SMLHelper.V2.Utility;
 
     internal partial class CraftDataPatcher
     {
@@ -21,19 +22,19 @@
             if (!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
             {
                 // Should never happen, but doesn't hurt to add it.
-                Logger.Log("Invalid TechGroup!", LogLevel.Error);
+                InternalLogger.Log("Invalid TechGroup!", LogLevel.Error);
                 return;
             }
 
             if (!techGroup.TryGetValue(category, out List<TechType> techCategory))
             {
-                Logger.Log($"{group} does not contain {category} as a registered group. Please ensure to register your TechCategory to the TechGroup using the TechCategoryHandler before using the combination.", LogLevel.Error);
+                InternalLogger.Log($"{group} does not contain {category} as a registered group. Please ensure to register your TechCategory to the TechGroup using the TechCategoryHandler before using the combination.", LogLevel.Error);
                 return;
             }
 
             if(techCategory.Contains(techType))
             {
-                Logger.Log($"\"{techType.AsString():G}\" Already exists at \"{group:G}->{category:G}\", Skipping Duplicate Entry", LogLevel.Debug);
+                InternalLogger.Log($"\"{techType.AsString():G}\" Already exists at \"{group:G}->{category:G}\", Skipping Duplicate Entry", LogLevel.Debug);
                 return;
             }
 
@@ -42,13 +43,13 @@
             if (index == -1) // Not found
             {
                 techCategory.Add(techType);
-                Logger.Log($"Added \"{techType.AsString():G}\" to groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
+                InternalLogger.Log($"Added \"{techType.AsString():G}\" to groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
             }
             else
             {
                 techCategory.Insert(index + 1, techType);
 
-                Logger.Log($"Added \"{techType.AsString():G}\" to groups under \"{group:G}->{category:G}\" after \"{after.AsString():G}\"", LogLevel.Debug);
+                InternalLogger.Log($"Added \"{techType.AsString():G}\" to groups under \"{group:G}->{category:G}\" after \"{after.AsString():G}\"", LogLevel.Debug);
             }
         }
 
@@ -64,7 +65,7 @@
                 return;
 
             techCategory.Remove(techType);
-            Logger.Log($"Successfully Removed \"{techType.AsString():G}\" from groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
+            InternalLogger.Log($"Successfully Removed \"{techType.AsString():G}\" from groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
         }
 
         #endregion
@@ -81,7 +82,7 @@
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
 
-            Logger.Log("CraftDataPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log("CraftDataPatcher is done.", LogLevel.Debug);
         }
 
         private static void CraftDataPrefabIDCachePostfix()

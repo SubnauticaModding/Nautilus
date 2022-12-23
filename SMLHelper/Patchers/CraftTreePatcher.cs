@@ -4,6 +4,7 @@
     using System.Reflection;
     using Crafting;
     using HarmonyLib;
+    using SMLHelper.V2.Utility;
 
     internal class CraftTreePatcher
     {
@@ -22,7 +23,7 @@
         {
             PatchUtils.PatchClass(harmony);
 
-            Logger.Log($"CraftTreePatcher is done.", LogLevel.Debug);
+            InternalLogger.Log($"CraftTreePatcher is done.", LogLevel.Debug);
         }
 
         [PatchUtils.Prefix]
@@ -132,7 +133,7 @@
                 for (int i = 0; i < tab.Path.Length; i++)
                 {
                     string currentPath = tab.Path[i];
-                    Logger.Log("Tab Current Path: " + currentPath + " Tab: " + tab.Name + " Crafter: " + tab.Scheme.ToString(), LogLevel.Debug);
+                    InternalLogger.Log("Tab Current Path: " + currentPath + " Tab: " + tab.Name + " Crafter: " + tab.Scheme.ToString(), LogLevel.Debug);
 
                     TreeNode node = currentNode[currentPath];
 
@@ -198,7 +199,7 @@
 
                 if (nodeToRemove.Path == null || nodeToRemove.Path.Length == 0)
                 {
-                    Logger.Warn($"An empty path in {nameof(RemoveNodes)} for '{scheme}' was skipped");
+                    InternalLogger.Warn($"An empty path in {nameof(RemoveNodes)} for '{scheme}' was skipped");
                     continue;
                 }
 
@@ -224,7 +225,7 @@
                 {
                     if (currentNode.parent == null)
                     {
-                        Logger.Warn($"Skipped removing craft tree node in {nameof(RemoveNodes)} for '{scheme}'. Could not identify the parent node.");
+                        InternalLogger.Warn($"Skipped removing craft tree node in {nameof(RemoveNodes)} for '{scheme}'. Could not identify the parent node.");
                     }
                     else
                     {

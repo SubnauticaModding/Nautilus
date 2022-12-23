@@ -2,7 +2,7 @@
 {
     using System.IO;
     using UnityEngine;
-    using Logger = V2.Logger;
+    using Logger = InternalLogger;
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
 #endif
