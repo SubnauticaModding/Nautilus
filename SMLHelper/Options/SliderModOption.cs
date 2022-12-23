@@ -343,11 +343,7 @@
 
         private class SliderOptionAdjust : ModOptionAdjust
         {
-#if SUBNAUTICA
-            private const string sliderBackground = "Slider/Background";
-#elif BELOWZERO
             private const string sliderBackground = "Slider/Slider/Background";
-#endif
             private const float spacing_MainMenu = 30f;
             private const float spacing_GameMenu = 10f;
             private const float valueSpacing = 15f; // used in game menu
