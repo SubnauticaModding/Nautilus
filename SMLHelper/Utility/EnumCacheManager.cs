@@ -27,6 +27,8 @@
     {
         private class DoubleKeyDictionary : IEnumerable<KeyValuePair<int, string>>
         {
+            private readonly Type _underlyingType = Enum.GetUnderlyingType(typeof(T)); 
+            
             private readonly SortedDictionary<int, string> MapIntString = new SortedDictionary<int, string>();
             private readonly SortedDictionary<T, string> MapEnumString = new SortedDictionary<T, string>();
 
@@ -53,7 +55,8 @@
 
             public void Add(int backingValue, string name)
             {
-                Add((T) (object) backingValue, backingValue, name);
+                var enumValue = (T)Convert.ChangeType(backingValue, _underlyingType);
+                Add(enumValue, backingValue, name);
             }
 
             public void Add(T enumValue, int backingValue, string name)
@@ -69,7 +72,8 @@
 
             public void Remove(int backingValue, string name)
             {
-                Remove((T) (object) backingValue, backingValue, name);
+                var enumValue = (T)Convert.ChangeType(backingValue, _underlyingType);
+                Remove(enumValue, backingValue, name);
             }
 
             public void Remove(T enumValue, int backingValue, string name)
