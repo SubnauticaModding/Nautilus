@@ -12,7 +12,7 @@
 
 
     /// <summary>
-    /// WARNING: This class is for use only by QModManager.
+    /// WARNING: This class is for use only by Bepinex.
     /// </summary>
     [BepInPlugin(GUID, MODNAME, VERSION)]
     public class Initializer: BaseUnityPlugin
