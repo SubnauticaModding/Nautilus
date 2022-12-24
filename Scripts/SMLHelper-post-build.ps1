@@ -58,9 +58,9 @@ $buildPath = switch ($ConfigurationName.ToUpper())
     default { "Modding Helper" }
 }
 
-$pluginsDir = [System.IO.Path]::Combine($TargetDir, "plugins")
+$pluginsDir = [System.IO.Path]::Combine($ProjectDir, "bin", $ConfigurationName, "plugins")
 
-# Remove build dir and create fresh
+# Remove prep dir and create fresh
 if (Test-Path $pluginsDir)
 {
     $null = Remove-Item -Path $pluginsDir -Force -Recurse
@@ -78,7 +78,7 @@ foreach ($file in "SMLHelper.xml", "SMLHelper.dll")
 
 # Zip the standard QMod build
 $buildZipPath = [System.IO.Path]::Combine($TargetDir, "SMLHelper_$($ConfigurationName).zip")
-$null = Zip -Path $buildDir -DestinationPath $buildZipPath -Fresh
+$null = Zip -Path $pluginsDir -DestinationPath $buildZipPath -Fresh
 
 # Zip the Thunderstore build
 $thunderstoreMetadataPath = [System.IO.Path]::Combine($ProjectDir, "ThunderstoreMetadata", $ConfigurationName, "*")
