@@ -48,8 +48,8 @@
       <HintPath>$(Dependencies)\Assembly-CSharp_publicized.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="QModInstaller">
-      <HintPath>$(Dependencies)\QModInstaller.dll</HintPath>
+    <Reference Include="UnityEngine">
+      <HintPath>$(Dependencies)\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
@@ -63,8 +63,6 @@
     <ProjectReference Include="..\SMLHelper\SMLHelper.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mod.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
   </ItemGroup>
 </Project>

@@ -1,22 +1,30 @@
-﻿using HarmonyLib;
-using QModManager.API.ModLoading;
-using SMLHelper.V2.Commands;
-using SMLHelper.V2.Handlers;
-using SMLHelper.V2.Interfaces;
-using SMLHelper.V2.Json;
-using SMLHelper.V2.Json.Attributes;
-using SMLHelper.V2.Options;
-using SMLHelper.V2.Options.Attributes;
-using System;
-using UnityEngine;
-using UnityEngine.UI;
-using Logger = QModManager.Utility.Logger;
-
-namespace SMLHelper.V2.Examples
+﻿namespace SMLHelper.V2.Examples
 {
-    [QModCore]
-    public static class ExampleMod
+    using HarmonyLib;
+    using SMLHelper.V2.Commands;
+    using SMLHelper.V2.Handlers;
+    using SMLHelper.V2.Interfaces;
+    using SMLHelper.V2.Json;
+    using SMLHelper.V2.Json.Attributes;
+    using SMLHelper.V2.Options;
+    using SMLHelper.V2.Options.Attributes;
+    using System;
+    using UnityEngine;
+    using UnityEngine.UI;
+    using BepInEx;
+    using BepInEx.Logging;
+
+    [BepInPlugin(GUID, MODNAME, VERSION)]
+    public class ExampleMod: BaseUnityPlugin
     {
+        private const string
+            MODNAME = "SMLHelper",
+            AUTHOR = "The SMLHelper Dev Team",
+            GUID = "SMLHelperExampleMod",
+            VERSION = "2.15.0.0";
+
+        internal static ManualLogSource LogSource { get; private set; }
+
         /// <summary>
         /// A simple SaveDataCache implementation, intended to save the players current position to disk.
         /// </summary>
@@ -26,9 +34,10 @@ namespace SMLHelper.V2.Examples
             public Vector3 PlayerPosition { get; set; }
         }
 
-        [QModPatch]
-        public static void Patch()
+        public void Awake()
         {
+            LogSource = base.Logger;
+
             /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an 
             /// options menu using Attributes. The values in this instance will be updated whenever the user changes 
             /// the corresponding option in the menu.
@@ -46,9 +55,9 @@ namespace SMLHelper.V2.Examples
                                                         // We can use polymorphism to convert it back into a SaveData
                                                         // instance, and access its members, such as PlayerPosition.
 
-                Logger.Log(Logger.Level.Info,
-                           $"loaded player position from save slot: {data.PlayerPosition}",
-                           showOnScreen: true);
+                string msg = $"loaded player position from save slot: {data.PlayerPosition}";
+                LogSource.LogInfo(msg);
+                ErrorMessage.AddMessage(msg);
             };
 
             // Update the player position before saving it
@@ -62,9 +71,9 @@ namespace SMLHelper.V2.Examples
             saveData.OnFinishedSaving += (object sender, JsonFileEventArgs e) =>
             {
                 SaveData data = e.Instance as SaveData;
-                Logger.Log(Logger.Level.Info,
-                           $"saved player position to save slot: {data.PlayerPosition}",
-                           showOnScreen: true);
+                string msg = $"saved player position to save slot: {data.PlayerPosition}";
+                LogSource.LogInfo(msg);
+                ErrorMessage.AddMessage(msg);
             };
 
             /// Here we are registering a console command by use of a delegate. The delegate will respond to the "delegatecommand"
@@ -90,7 +99,7 @@ namespace SMLHelper.V2.Examples
             /// for an example.
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(ExampleMod));
 
-            Logger.Log(Logger.Level.Info, "Patched successfully!");
+            LogSource.LogInfo("Patched successfully!");
         }
 
         private delegate string MyCommand(string myString, int myInt, bool myBool);
@@ -250,8 +259,8 @@ namespace SMLHelper.V2.Examples
         [Button("My button"), OnGameObjectCreated(nameof(MyGameObjectCreatedEvent))]
         public void MyButtonClickEvent(ButtonClickedEventArgs e)
         {
-            Logger.Log(Logger.Level.Info, "Button was clicked!");
-            Logger.Log(Logger.Level.Info, $"{e.Id}");
+            ExampleMod.LogSource.LogInfo("Button was clicked!");
+            ExampleMod.LogSource.LogInfo($"{e.Id}");
         }
 
         /// <summary>
@@ -264,8 +273,8 @@ namespace SMLHelper.V2.Examples
         /// parameter if you do not need the data it contains.</param>
         private void MyCheckboxToggleEvent(ToggleChangedEventArgs e)
         {
-            Logger.Log(Logger.Level.Info, "Checkbox value was changed!");
-            Logger.Log(Logger.Level.Info, $"{e.Value}");
+            ExampleMod.LogSource.LogInfo("Checkbox value was changed!");
+            ExampleMod.LogSource.LogInfo($"{e.Value}");
         }
 
         /// <summary>
@@ -283,22 +292,22 @@ namespace SMLHelper.V2.Examples
         /// it contains.</para></param>
         private void MyGenericValueChangedEvent(IModOptionEventArgs e)
         {
-            Logger.Log(Logger.Level.Info, "Generic value changed!");
-            Logger.Log(Logger.Level.Info, $"{e.Id}: {e.GetType()}");
+            ExampleMod.LogSource.LogInfo("Generic value changed!");
+            ExampleMod.LogSource.LogInfo($"{e.Id}: {e.GetType()}");
 
             switch (e)
             {
                 case KeybindChangedEventArgs keybindChangedEventArgs:
-                    Logger.Log(Logger.Level.Info, keybindChangedEventArgs.KeyName);
+                    ExampleMod.LogSource.LogInfo(keybindChangedEventArgs.KeyName);
                     break;
                 case ChoiceChangedEventArgs choiceChangedEventArgs:
-                    Logger.Log(Logger.Level.Info, $"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
+                    ExampleMod.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
                     break;
                 case SliderChangedEventArgs sliderChangedEventArgs:
-                    Logger.Log(Logger.Level.Info, sliderChangedEventArgs.Value.ToString());
+                    ExampleMod.LogSource.LogInfo(sliderChangedEventArgs.Value.ToString());
                     break;
                 case ToggleChangedEventArgs toggleChangedEventArgs:
-                    Logger.Log(Logger.Level.Info, toggleChangedEventArgs.Value.ToString());
+                    ExampleMod.LogSource.LogInfo(toggleChangedEventArgs.Value.ToString());
                     break;
             }
         }
@@ -313,8 +322,8 @@ namespace SMLHelper.V2.Examples
         /// as a string as well as the newly created <see cref="GameObject"/>.</param>
         private void MyGameObjectCreatedEvent(GameObjectCreatedEventArgs e)
         {
-            Logger.Log(Logger.Level.Info, "GameObject was created");
-            Logger.Log(Logger.Level.Info, $"{e.Id}: {e.GameObject}");
+            ExampleMod.LogSource.LogInfo("GameObject was created");
+            ExampleMod.LogSource.LogInfo($"{e.Id}: {e.GameObject}");
         }
     }
 }
