@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Patchers
 {
     using System;
     using System.Reflection;
@@ -10,7 +12,11 @@
     using HarmonyLib;
     using UnityEngine;
     using UWE;
-    using Logger = V2.Logger;
+    using InternalLogger = InternalLogger;
+    using SMLHelper.V2.Utility;
+    using static SMLHelper.V2.PatchUtils;
+    using static TechStringCache;
+    using UnityEngine.ResourceManagement.AsyncOperations;
 
     internal static class PrefabDatabasePatcher
     {
@@ -42,7 +48,6 @@
             return false;
         }
 
-#if !SUBNAUTICA_STABLE
         [PatchUtils.Prefix]
         [HarmonyPatch(typeof(DeferredSpawner.AddressablesTask), nameof(DeferredSpawner.AddressablesTask.SpawnAsync))]
         internal static bool DeferredSpawner_AddressablesTask_Spawn_Prefix(DeferredSpawner.AddressablesTask __instance, ref IEnumerator __result)
@@ -69,20 +74,6 @@
             task.HandleLateCancelledSpawn();
             yield break;
         }
-#endif
-
-#if SUBNAUTICA_STABLE
-        [PatchUtils.Prefix] // SUBNAUTICA_EXP TODO: remove for SN after async update
-        [HarmonyPatch(typeof(PrefabDatabase), "GetPrefabForFilename")] // method can be absent
-        internal static bool GetPrefabForFilename_Prefix(string filename, ref GameObject __result)
-        {
-            if (!ModPrefab.TryGetFromFileName(filename, out ModPrefab prefab))
-                return true;
-
-            __result = prefab.GetGameObjectInternal();
-            return false;
-        }
-#endif
 
         private static IPrefabRequest GetModPrefabAsync(string classId)
         {
@@ -97,7 +88,7 @@
             }
             catch (Exception e)
             {
-                Logger.Debug($"Caught exception while calling GetGameObject for {classId}, trying GetGameObjectAsync now. {Environment.NewLine}{e}");
+                InternalLogger.Debug($"Caught exception while calling GetGameObject for {classId}, trying GetGameObjectAsync now. {Environment.NewLine}{e}");
             }
 
             return new ModPrefabRequest(prefab);
@@ -111,6 +102,29 @@
             return __result == null;
         }
 
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(AddressablesUtility), nameof(AddressablesUtility.InstantiateAsync), new Type[] 
+        { 
+            typeof(string), typeof(IOut<GameObject>), typeof(Transform), typeof(Vector3), typeof(Quaternion), typeof(bool)
+        })]
+        internal static bool InstantiateAsync_Prefix(ref IEnumerator __result,string key, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
+        {
+            if(!ModPrefab.TryGetFromFileName(key, out var prefab))
+                return true;
+
+            __result = InstantiateAsync(prefab, result, parent, position, rotation, awake);
+            return false;
+        }
+
+        internal static IEnumerator InstantiateAsync(ModPrefab modPrefab, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
+        {
+            TaskResult<GameObject> task = new TaskResult<GameObject>();
+            yield return modPrefab.GetGameObjectAsync(task);
+
+            var prefab = task.Get();
+            result.Set(GameObject.Instantiate(prefab, parent, position, rotation, awake));
+            yield break;
+        }
 
         // transpiler for ProtobufSerializer.DeserializeObjectsAsync
         private static IEnumerable<CodeInstruction> DeserializeObjectsAsync_Transpiler(IEnumerable<CodeInstruction> cins)
@@ -145,21 +159,20 @@
         {
             PatchUtils.PatchClass(harmony);
 
-#if !SUBNAUTICA_STABLE
                 // patching iterator method ProtobufSerializer.DeserializeObjectsAsync
                 MethodInfo DeserializeObjectsAsync = typeof(ProtobufSerializer).GetMethod(
                     nameof(ProtobufSerializer.DeserializeObjectsAsync), BindingFlags.NonPublic | BindingFlags.Instance);
                 harmony.Patch(PatchUtils.GetIteratorMethod(DeserializeObjectsAsync), transpiler:
                     new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(DeserializeObjectsAsync_Transpiler))));
-#endif
-            Logger.Log("PrefabDatabasePatcher is done.", LogLevel.Debug);
+
+            InternalLogger.Log("PrefabDatabasePatcher is done.", LogLevel.Debug);
         }
 
         internal static void PostPatch(Harmony harmony)
         {
             PatchUtils.PatchClass(harmony, typeof(PostPatches));
 
-            Logger.Log("PrefabDatabasePostPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log("PrefabDatabasePostPatcher is done.", LogLevel.Debug);
         }
     }
 }

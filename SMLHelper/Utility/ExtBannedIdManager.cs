@@ -15,7 +15,7 @@
 
         private static readonly Dictionary<string, List<int>> BannedIdDictionary = new Dictionary<string, List<int>>();
 
-        private static readonly string BannedIdDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "RestrictedIDs");
+        private static readonly string BannedIdDirectory = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "RestrictedIDs");
 
         /// <summary>
         /// Gets the banned ids, reported by the external files, for the specified enum.
@@ -110,7 +110,7 @@
 
             foreach (string bannedIdType in BannedIdDictionary.Keys)
             {
-                Logger.Log($"{BannedIdDictionary[bannedIdType].Count} retricted IDs were registered for {bannedIdType}.", LogLevel.Info);
+                InternalLogger.Log($"{BannedIdDictionary[bannedIdType].Count} retricted IDs were registered for {bannedIdType}.", LogLevel.Info);
             }
 
             IsInitialized = true;
@@ -121,11 +121,11 @@
             try
             {
                 Directory.CreateDirectory(BannedIdDirectory);
-                Logger.Log("RetrictedIDs folder was not found. Folder created.", LogLevel.Debug);
+                InternalLogger.Log("RetrictedIDs folder was not found. Folder created.", LogLevel.Debug);
             }
             catch (Exception ex)
             {
-                Logger.Log($"RetrictedIDs folder was not found. Failed to create folder.{Environment.NewLine}" +
+                InternalLogger.Log($"RetrictedIDs folder was not found. Failed to create folder.{Environment.NewLine}" +
                            $"        Exception: {ex}", LogLevel.Error);
 
             }
@@ -133,7 +133,7 @@
 
         private static void LogBadEntry(string filePath, string line)
         {
-            Logger.Log($"Badly formatted entry for Retricted IDs{Environment.NewLine}" +
+            InternalLogger.Log($"Badly formatted entry for Retricted IDs{Environment.NewLine}" +
                        $"        File: '{filePath}{Environment.NewLine}'" +
                        $"        Line: '{line}'{Environment.NewLine}" +
                        $"        This entry has been skipped.", LogLevel.Warn);

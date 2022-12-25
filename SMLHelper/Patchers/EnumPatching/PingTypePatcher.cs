@@ -34,7 +34,7 @@
                 }
             }
             
-            Logger.Log($"Finished known PingType exclusion. {preRegistered.Count} IDs were added in ban list.");
+            InternalLogger.Log($"Finished known PingType exclusion. {preRegistered.Count} IDs were added in ban list.");
             return preRegistered;
         }
 
@@ -57,11 +57,11 @@
                 if (PingManager.sCachedPingTypeTranslationStrings.valueToString.ContainsKey(pingType) == false)
                     PingManager.sCachedPingTypeTranslationStrings.valueToString.Add(pingType, name);
 
-                Logger.Log($"Successfully added PingType: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+                InternalLogger.Log($"Successfully added PingType: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             }
             else
             {
-                Logger.Log($"Failed adding PingType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding PingType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
             }
             return pingType;
         }
@@ -70,9 +70,9 @@
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-            Logger.Log($"Added {cacheManager.ModdedKeysCount} PingTypes succesfully into the game.");
+            InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} PingTypes succesfully into the game.");
 
-            Logger.Log("PingTypePatcher is done.", LogLevel.Debug);
+            InternalLogger.Log("PingTypePatcher is done.", LogLevel.Debug);
         }
     }
 }

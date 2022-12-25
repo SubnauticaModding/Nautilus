@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-#if SUBNAUTICA_STABLE
-using Oculus.Newtonsoft.Json;
-#else
 using Newtonsoft.Json;
-#endif
 
 namespace SMLHelper.V2.Handlers
 {

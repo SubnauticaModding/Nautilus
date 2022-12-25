@@ -3,14 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLHelper", "SMLHelper\SMLHelper.csproj", "{418502DD-372D-4EF9-8021-B262552DFEDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMLHelper", "SMLHelper\SMLHelper.csproj", "{418502DD-372D-4EF9-8021-B262552DFEDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example mod", "Example mod\Example mod.csproj", "{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{418502DD-372D-4EF9-8021-B262552DFEDE} = {418502DD-372D-4EF9-8021-B262552DFEDE}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMLHelper.Tests", "SMLHelper.Tests\SMLHelper.Tests.csproj", "{EBC4AAF3-A13B-427E-BF99-3AE23EDEB4B8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{418502DD-372D-4EF9-8021-B262552DFEDE} = {418502DD-372D-4EF9-8021-B262552DFEDE}
 	EndProjectSection
@@ -18,6 +13,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5152F028-6D03-43C0-88C5-986313017D4F}"
 	ProjectSection(SolutionItems) = preProject
 		common.props = common.props
+		Version.targets = Version.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build scripts", "Build scripts", "{6EF72E95-EA2D-44C1-8FB4-F0FE4865FFC4}"
@@ -79,12 +75,6 @@ Global
 		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.SN.EXP|Any CPU.Build.0 = SN.EXP|Any CPU
 		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.SN.STABLE|Any CPU.ActiveCfg = SN.STABLE|Any CPU
 		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.SN.STABLE|Any CPU.Build.0 = SN.STABLE|Any CPU
-		{EBC4AAF3-A13B-427E-BF99-3AE23EDEB4B8}.BZ.EXP|Any CPU.ActiveCfg = BZ.STABLE|Any CPU
-		{EBC4AAF3-A13B-427E-BF99-3AE23EDEB4B8}.BZ.STABLE|Any CPU.ActiveCfg = BZ.STABLE|Any CPU
-		{EBC4AAF3-A13B-427E-BF99-3AE23EDEB4B8}.BZ.STABLE|Any CPU.Build.0 = BZ.STABLE|Any CPU
-		{EBC4AAF3-A13B-427E-BF99-3AE23EDEB4B8}.SN.EXP|Any CPU.ActiveCfg = SN.STABLE|Any CPU
-		{EBC4AAF3-A13B-427E-BF99-3AE23EDEB4B8}.SN.STABLE|Any CPU.ActiveCfg = SN.STABLE|Any CPU
-		{EBC4AAF3-A13B-427E-BF99-3AE23EDEB4B8}.SN.STABLE|Any CPU.Build.0 = SN.STABLE|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

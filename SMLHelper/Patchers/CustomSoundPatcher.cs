@@ -1,4 +1,5 @@
 ﻿using SMLHelper.V2.FMod.Interfaces;
+using SMLHelper.V2.Utility;
 
 namespace SMLHelper.V2.Patchers
 {
@@ -9,8 +10,8 @@ namespace SMLHelper.V2.Patchers
     using FMOD.Studio;
     using Utility;
     using UnityEngine;
-    using Logger = Logger;
-    
+    using InternalLogger = InternalLogger;
+
     internal class CustomSoundPatcher
     {
         internal static readonly SelfCheckingDictionary<string, Sound> CustomSounds = new("CustomSounds");
@@ -24,7 +25,7 @@ namespace SMLHelper.V2.Patchers
         internal static void Patch(Harmony harmony)
         {
             harmony.PatchAll(typeof(CustomSoundPatcher));
-            Logger.Debug("CustomSoundPatcher is done.");
+            InternalLogger.Debug("CustomSoundPatcher is done.");
         }
         
         [HarmonyPatch(typeof(PDASounds), nameof(PDASounds.Deinitialize))]
@@ -35,7 +36,7 @@ namespace SMLHelper.V2.Patchers
             PlayedChannels.Clear();
         }
 
-#if  SUBNAUTICA
+#if SUBNAUTICA
         
         [HarmonyPatch(typeof(FMODUWE), nameof(FMODUWE.PlayOneShotImpl))]
         [HarmonyPrefix]
@@ -96,11 +97,7 @@ namespace SMLHelper.V2.Patchers
             
             if (!string.IsNullOrEmpty(subtitles))
             {
-                Subtitles main = Subtitles.main;
-                if (main)
-                {
-                    main.Add(subtitles);
-                }
+                Subtitles.Add(subtitles);
             }
             return false;
         }
@@ -125,11 +122,7 @@ namespace SMLHelper.V2.Patchers
             if (!SoundQueue.GetIsStartingOrPlaying(__instance.eventInstance)) return true;
 
             ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
-#if SUBNAUTICA_STABLE
-            channel.set3DAttributes(ref attributes.position, ref attributes.velocity, ref attributes.forward);
-#elif SUBNAUTICA_EXP
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
-#endif
 
             channel.getPosition(out var position, TIMEUNIT.MS);
             __instance._position = (int)position;
@@ -609,24 +602,16 @@ namespace SMLHelper.V2.Patchers
         }
 #endif
 
-        private static void SetChannel3DAttributes(Channel channel, Transform transform)
+                private static void SetChannel3DAttributes(Channel channel, Transform transform)
         {
             var attributes = transform.To3DAttributes();
-#if SUBNAUTICA_STABLE
-            channel.set3DAttributes(ref attributes.position, ref attributes.velocity, ref attributes.forward);
-#else
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
-#endif
         }
         
         private static void SetChannel3DAttributes(Channel channel, Vector3 position)
         {
             var attributes = position.To3DAttributes();
-#if SUBNAUTICA_STABLE
-            channel.set3DAttributes(ref attributes.position, ref attributes.velocity, ref attributes.forward);
-#else
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
-#endif
         }
     }
 }

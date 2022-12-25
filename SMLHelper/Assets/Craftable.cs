@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.V2.Assets
 {
     using SMLHelper.V2.Interfaces;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// An item that can be crafted into the game world from a fabricator.
@@ -45,7 +46,7 @@
         {
             if (this.FabricatorType == CraftTree.Type.None)
             {
-                Logger.Debug($"Craftable '{this.ClassID}' was not automatically patched into a crafting tree.");
+                InternalLogger.Debug($"Craftable '{this.ClassID}' was not automatically patched into a crafting tree.");
             }
             else
             {

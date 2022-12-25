@@ -2,6 +2,7 @@
 {
     using Crafting;
     using SMLHelper.V2.Interfaces;
+    using SMLHelper.V2.Utility;
     using System.Collections.Generic;
 
     /// <summary>
@@ -117,7 +118,7 @@
                 }
                 else
                 {
-                    Logger.Error($"Failed to add {TechType} to {GroupForPDA}/{CategoryForPDA} as it is not a registered combination.");
+                    InternalLogger.Error($"Failed to add {TechType} to {GroupForPDA}/{CategoryForPDA} as it is not a registered combination.");
                 }
             }
 

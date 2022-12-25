@@ -19,7 +19,7 @@
         {
             harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.CaptureSaveScreenshot)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeSaveEvents))));
-            harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.BeginAsyncSceneLoad)),
+            harmony.Patch(AccessTools.Method(typeof(MainSceneLoading), nameof(MainSceneLoading.Launch)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeLoadEvents))));
             harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.QuitGameAsync)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeQuitEvents))));
@@ -52,19 +52,21 @@
             }
         }
 
-        internal static void InvokeLoadEvents(string sceneName)
+        internal static IEnumerator InvokeLoadEvents(IEnumerator enumerator)
         {
-            if (sceneName == "Main")
+            while (enumerator.MoveNext())
             {
-                OnLoadEvents?.Invoke();
+                yield return enumerator.Current;
+            }
 
-                if (oneTimeUseOnLoadEvents.Count > 0)
-                {
-                    foreach (Action action in oneTimeUseOnLoadEvents)
-                        action.Invoke();
+            OnLoadEvents?.Invoke();
 
-                    oneTimeUseOnLoadEvents.Clear();
-                }
+            if (oneTimeUseOnLoadEvents.Count > 0)
+            {
+                foreach (Action action in oneTimeUseOnLoadEvents)
+                    action.Invoke();
+
+                oneTimeUseOnLoadEvents.Clear();
             }
         }
 

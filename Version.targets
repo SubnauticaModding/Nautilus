@@ -2,6 +2,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <!-- The assembly uses this version number. !-->
-        <Version>2.14.1</Version>
+        <Version>2.15.0</Version>
     </PropertyGroup>
 </Project>

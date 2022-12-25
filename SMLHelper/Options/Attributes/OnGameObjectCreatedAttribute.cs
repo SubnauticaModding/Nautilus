@@ -2,7 +2,7 @@
 {
     using Interfaces;
     using System;
-    using QModManager.Utility;
+    using SMLHelper.V2.Utility;
 
     /// <summary>
     /// Attribute used to signify a method to call whenever the <see cref="UnityEngine.GameObject"/> for the 
@@ -44,7 +44,7 @@
     /// <seealso cref="IModOptionEventArgs"/>
     /// <seealso cref="GameObjectCreatedEventArgs"/>
     /// <seealso cref="OnChangeAttribute"/>
-    /// <seealso cref="Logger"/>
+    /// <seealso cref="InternalLogger"/>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class OnGameObjectCreatedAttribute : ModOptionEventAttribute
     {

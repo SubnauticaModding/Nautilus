@@ -2,6 +2,7 @@
 {
     using Crafting;
     using SMLHelper.V2.Handlers;
+    using SMLHelper.V2.Utility;
     using System;
     using System.Collections.Generic;
     using Utility;
@@ -29,9 +30,9 @@
             craftTreeType = (CraftTree.Type)cache.Index;
 
             if(cacheManager.Add(craftTreeType, cache.Index, cache.Name))
-                Logger.Log($"Successfully added CraftTree Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+                InternalLogger.Log($"Successfully added CraftTree Type: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             else
-                Logger.Log($"Failed adding CraftTree Type: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding CraftTree Type: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
 
             if(!CraftTreePatcher.CustomTrees.TryGetValue(craftTreeType, out var customTreeRoot))
                 customTreeRoot = new ModCraftTreeRoot(craftTreeType, name);
@@ -69,7 +70,7 @@
                 bannedIndices.Add(realEnumValue);
             }
 
-            Logger.Log($"Finished known CraftTreeType exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
+            InternalLogger.Log($"Finished known CraftTreeType exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
 
             return bannedIndices;
         }
@@ -78,8 +79,8 @@
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-            Logger.Log($"Added {cacheManager.ModdedKeysCount} CraftTreeTypes succesfully into the game.");
-            Logger.Log("CraftTreeTypePatcher is done.", LogLevel.Debug);
+            InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} CraftTreeTypes succesfully into the game.");
+            InternalLogger.Log("CraftTreeTypePatcher is done.", LogLevel.Debug);
         }
     }
 }

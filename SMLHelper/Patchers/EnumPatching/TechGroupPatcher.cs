@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using HarmonyLib;
     using SMLHelper.V2.Handlers;
+    using SMLHelper.V2.Utility;
     using Utility;
 
     internal class TechGroupPatcher
@@ -37,11 +38,11 @@
                 if (!CraftData.groups.ContainsKey(techGroup))
                     CraftData.groups[techGroup] = new Dictionary<TechCategory, List<TechType>>();
 
-                Logger.Log($"Successfully added TechGroup: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+                InternalLogger.Log($"Successfully added TechGroup: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             }
             else
             {
-                Logger.Log($"Failed adding TechGroup: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding TechGroup: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
             }
 
 
@@ -76,7 +77,7 @@
                 bannedIndices.Add(realEnumValue);
             }
 
-            Logger.Log($"Finished known TechGroup exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
+            InternalLogger.Log($"Finished known TechGroup exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
 
             return bannedIndices;
         }
@@ -85,8 +86,8 @@
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-            Logger.Log($"Added {cacheManager.ModdedKeysCount} TechGroups succesfully into the game.");
-            Logger.Log("TechGroupPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} TechGroups succesfully into the game.");
+            InternalLogger.Log("TechGroupPatcher is done.", LogLevel.Debug);
         }
     }
 }

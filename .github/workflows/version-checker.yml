@@ -26,8 +26,6 @@ jobs:
         with:
           files: |
             SMLHelper/Properties/AssemblyInfo.cs | /\[assembly: Assembly(?:File)?Version\("([0-9.]+)"\)\]/g
-            SMLHelper/mod_BelowZero.json         | /"Version": "([0-9.]+)",/g
-            SMLHelper/mod_Subnautica.json        | /"Version": "([0-9.]+)",/g
           master_repo_path: ./master
 
       - name: Add annotations

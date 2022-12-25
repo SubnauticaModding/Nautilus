@@ -86,25 +86,20 @@
                     analysisTech.Add(tech);
             }
 
-
             List<KnownTech.CompoundTech> compoundTech = KnownTech.compoundTech;
-            IEnumerable<KnownTech.CompoundTech> compoundTechToAdd = CompoundTech.Values.Where(a => !compoundTech.Any(a2 => a.techType == a2.techType));
-
-            foreach (KnownTech.CompoundTech tech in compoundTech)
+            foreach (KnownTech.CompoundTech customTech in CompoundTech.Values)
             {
-                foreach (KnownTech.CompoundTech customTech in CompoundTech.Values)
-                {
-                    tech.dependencies = customTech.dependencies;
-                }
-            }
-
-            foreach (KnownTech.CompoundTech tech in compoundTechToAdd)
-            {
-                if (tech == null)
+                if (customTech == null) // Safety check
                     continue;
 
-                if (!KnownTech.Contains(tech.techType))
-                    compoundTech.Add(tech);
+                // Only add the new compound tech if it isn't unlocked yet 
+                if (!KnownTech.Contains(customTech.techType))
+                    compoundTech.Add(customTech);
+
+                // If a compound tech already exists, set the dependencies correctly.
+                var foundTech = compoundTech.Find(tech => tech.techType == customTech.techType);
+                if (foundTech != null)
+                    foundTech.dependencies = customTech.dependencies;
             }
         }
     }

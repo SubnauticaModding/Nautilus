@@ -1,8 +1,11 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿using SMLHelper.V2.Utility;
+
+namespace SMLHelper.V2.Patchers
 {
     using System.Collections.Generic;
     using HarmonyLib;
-    using Logger = V2.Logger;
+    using SMLHelper.V2.Utility;
+    using InternalLogger = InternalLogger;
 
     internal class LootDistributionPatcher
     {
@@ -13,7 +16,7 @@
             harmony.Patch(AccessTools.Method(typeof(LootDistributionData), nameof(LootDistributionData.Initialize)),
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(LootDistributionPatcher), nameof(LootDistributionPatcher.InitializePostfix))));
 
-            Logger.Log("LootDistributionPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log("LootDistributionPatcher is done.", LogLevel.Debug);
         }
 
         private static void InitializePostfix(LootDistributionData __instance)

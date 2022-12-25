@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using SMLHelper.V2.Handlers;
+    using SMLHelper.V2.Utility;
     using Utility;
 
     internal class TechCategoryPatcher
@@ -28,9 +29,9 @@
             TechCategory TechCategory = (TechCategory)cache.Index;
 
             if(cacheManager.Add(TechCategory, cache.Index, cache.Name))
-                Logger.Log($"Successfully added TechCategory: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+                InternalLogger.Log($"Successfully added TechCategory: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             else
-                Logger.Log($"Failed adding TechCategory: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding TechCategory: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
 
 
             return TechCategory;
@@ -64,7 +65,7 @@
                 bannedIndices.Add(realEnumValue);
             }
 
-            Logger.Log($"Finished known TechCategory exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
+            InternalLogger.Log($"Finished known TechCategory exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Info);
 
             return bannedIndices;
         }
@@ -73,8 +74,8 @@
         {
             IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
-            Logger.Log($"Added {cacheManager.ModdedKeysCount} TechCategorys succesfully into the game.");
-            Logger.Log("TechCategoryPatcher is done.", LogLevel.Debug);
+            InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} TechCategorys succesfully into the game.");
+            InternalLogger.Log("TechCategoryPatcher is done.", LogLevel.Debug);
         }
     }
 }
