@@ -62,7 +62,10 @@ namespace SMLHelper.V2.Handlers
                         unlockMessage = UnlockMessage,
                         unlockSound = UnlockSound,
                         unlockPopup = UnlockSprite,
-                        unlockTechTypes = new List<TechType>(techTypesToUnlock)
+                        unlockTechTypes = new List<TechType>(techTypesToUnlock),
+                        //Secondary fix for null ref exception caused by Subnautica 2.0 moving story goal initialization
+                        //Maybe one day we expand this to actually be able to add list of StoryGoals from mods or base game???
+                        storyGoals = new()
                     });
                 }
             }

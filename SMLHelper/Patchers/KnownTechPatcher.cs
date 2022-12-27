@@ -74,7 +74,8 @@
                 }
             }
 
-            foreach (KnownTech.AnalysisTech tech in techToAdd)
+            List<KnownTech.AnalysisTech> validatedTechsToAdd = KnownTech.ValidateAnalysisTech(new(techToAdd));
+            foreach (KnownTech.AnalysisTech tech in validatedTechsToAdd)
             {
                 if (tech == null)
                     continue;
@@ -86,18 +87,18 @@
                     analysisTech.Add(tech);
             }
 
-            List<KnownTech.CompoundTech> compoundTech = KnownTech.compoundTech;
-            foreach (KnownTech.CompoundTech customTech in CompoundTech.Values)
+            List <KnownTech.CompoundTech> validatedCompoundTeches = KnownTech.ValidateCompoundTech(new(CompoundTech.Values));
+            foreach (KnownTech.CompoundTech customTech in validatedCompoundTeches)
             {
                 if (customTech == null) // Safety check
                     continue;
 
                 // Only add the new compound tech if it isn't unlocked yet 
                 if (!KnownTech.Contains(customTech.techType))
-                    compoundTech.Add(customTech);
+                    KnownTech.compoundTech.Add(customTech);
 
                 // If a compound tech already exists, set the dependencies correctly.
-                var foundTech = compoundTech.Find(tech => tech.techType == customTech.techType);
+                var foundTech = KnownTech.compoundTech.Find(tech => tech.techType == customTech.techType);
                 if (foundTech != null)
                     foundTech.dependencies = customTech.dependencies;
             }
