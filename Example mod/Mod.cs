@@ -21,7 +21,7 @@
             MODNAME = "SMLHelper",
             AUTHOR = "The SMLHelper Dev Team",
             GUID = "SMLHelperExampleMod",
-            VERSION = "2.15.0.0";
+            VERSION = "2.15.0.1";
 
         internal static ManualLogSource LogSource { get; private set; }
 
