@@ -1,6 +1,5 @@
-﻿namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.Options
 {
-    using Interfaces;
     using System;
     using System.Collections;
     using UnityEngine;
@@ -9,12 +8,12 @@
     /// <summary>
     /// Contains all the information about a toggle changed event.
     /// </summary>
-    public class ToggleChangedEventArgs : EventArgs, IModOptionEventArgs
+    public class ToggleChangedEventArgs : ModEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModToggleOption"/> that was changed.
         /// </summary>
-        public string Id { get; }
+        public override string Id { get; }
 
         /// <summary>
         /// The new value for the <see cref="ModToggleOption"/>.
@@ -74,7 +73,7 @@
 
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            var toggle = panel.AddToggleOption(tabIndex, Label, Value,
+            UnityEngine.UI.Toggle toggle = panel.AddToggleOption(tabIndex, Label, Value,
                 new UnityAction<bool>((bool value) => parentOptions.OnToggleChange(Id, value)));
 
             OptionGameObject = toggle.transform.parent.gameObject;
@@ -105,7 +104,9 @@
                 Transform check = gameObject.transform.Find("Toggle/Background");
 
                 if (CaptionWidth + spacing > check.localPosition.x)
+                {
                     check.localPosition = SetVec2x(check.localPosition, CaptionWidth + spacing);
+                }
 
                 Destroy(this);
             }

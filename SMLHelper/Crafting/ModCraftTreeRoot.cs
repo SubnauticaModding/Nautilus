@@ -1,9 +1,9 @@
-﻿namespace SMLHelper.V2.Crafting
+﻿namespace SMLHelper.Crafting
 {
     using System;
     using Patchers;
-    using SMLHelper.V2.Handlers;
-    using SMLHelper.V2.Patchers.EnumPatching;
+    using SMLHelper.Handlers;
+    using SMLHelper.Patchers.EnumPatching;
     using UnityEngine.Assertions;
 
     /// <summary>
@@ -51,7 +51,7 @@
                 if (node.action == TreeAction.Expand)
                 {
                     ModCraftTreeTab tab = root.AddTabNode(node.id);
-                    var thing = (ModCraftTreeLinkingNode)tab;
+                    ModCraftTreeLinkingNode thing = (ModCraftTreeLinkingNode)tab;
                     CreateFromExistingTree(node, ref thing);
                 }
 

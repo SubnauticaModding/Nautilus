@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using System.Collections.Generic;
     using HarmonyLib;
@@ -6,7 +6,7 @@
 
     internal class WorldEntityDatabasePatcher
     {
-        internal static readonly SelfCheckingDictionary<string, WorldEntityInfo> CustomWorldEntityInfos = new SelfCheckingDictionary<string, WorldEntityInfo>("CustomWorldEntityInfo");
+        internal static readonly SelfCheckingDictionary<string, WorldEntityInfo> CustomWorldEntityInfos = new("CustomWorldEntityInfo");
 
         internal static void Patch(Harmony harmony)
         {

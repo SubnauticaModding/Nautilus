@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Utility
+﻿namespace SMLHelper.Utility
 {
     using System;
     using System.Collections;
@@ -13,7 +13,7 @@
     {
         private static bool IsInitialized = false;
 
-        private static readonly Dictionary<string, List<int>> BannedIdDictionary = new Dictionary<string, List<int>>();
+        private static readonly Dictionary<string, List<int>> BannedIdDictionary = new();
 
         private static readonly string BannedIdDirectory = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "RestrictedIDs");
 
@@ -26,14 +26,19 @@
         internal static IEnumerable<int> GetBannedIdsFor(string enumName, params IList<int>[] combineWith)
         {
             if (!IsInitialized)
+            {
                 LoadFromFiles();
+            }
 
             if (!BannedIdDictionary.ContainsKey(enumName))
+            {
                 BannedIdDictionary.Add(enumName, new List<int>());
+            }
 
             foreach (IList<int> otherBannedIds in combineWith)
+            {
                 BannedIdDictionary[enumName].AddRange(otherBannedIds);
-
+            }
 
             return GetBannedIdsFor(enumName);
         }
@@ -46,10 +51,14 @@
         internal static IEnumerable<int> GetBannedIdsFor(string enumName)
         {
             if (!IsInitialized)
+            {
                 LoadFromFiles();
+            }
 
             if (!BannedIdDictionary.ContainsKey(enumName))
+            {
                 return new int[0]; // No entries
+            }
 
             return BannedIdDictionary[enumName].ToArray();
         }
@@ -102,7 +111,9 @@
                     }
 
                     if (!BannedIdDictionary.ContainsKey(key))
+                    {
                         BannedIdDictionary.Add(key, new List<int>());
+                    }
 
                     BannedIdDictionary[key].Add(id);
                 }

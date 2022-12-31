@@ -1,15 +1,13 @@
-﻿using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
+    using SMLHelper.Utility;
     using System.Collections.Generic;
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
-    using InternalLogger = InternalLogger;
+
 
     internal class LootDistributionPatcher
     {
-        internal static readonly SelfCheckingDictionary<string, LootDistributionData.SrcData> CustomSrcData = new SelfCheckingDictionary<string, LootDistributionData.SrcData>("CustomSrcData");
+        internal static readonly SelfCheckingDictionary<string, LootDistributionData.SrcData> CustomSrcData = new("CustomSrcData");
 
         internal static void Patch(Harmony harmony)
         {
@@ -123,7 +121,7 @@ namespace SMLHelper.V2.Patchers
                         dstDistribution.Add(biome, dstData);
                     }
 
-                    var prefabData = new LootDistributionData.PrefabData
+                    LootDistributionData.PrefabData prefabData = new()
                     {
                         classId = classId,
                         count = count,

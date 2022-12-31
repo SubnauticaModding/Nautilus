@@ -1,5 +1,7 @@
-﻿namespace SMLHelper.V2.Assets
+﻿namespace SMLHelper.Assets
 {
+    using SMLHelper.Handlers;
+
     /// <summary>
     /// An item that can be crafted and equipped.
     /// </summary>    

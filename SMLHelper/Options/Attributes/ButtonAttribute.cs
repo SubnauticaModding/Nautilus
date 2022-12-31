@@ -1,8 +1,8 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
     using Json;
     using System;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// Attribute used to signify the decorated method should be represented in the mod's options menu
@@ -11,8 +11,8 @@
     /// </summary>
     /// <example>
     /// <code>
-    /// using SMLHelper.V2.Json;
-    /// using SMLHelper.V2.Options;
+    /// using SMLHelper.Json;
+    /// using SMLHelper.Options;
     /// using QModManager.Utility;
     /// 
     /// [Menu("My Options Menu")]

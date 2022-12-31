@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Utility
+﻿namespace SMLHelper.Utility
 {
     using System;
     using System.IO;
@@ -29,7 +29,11 @@
 
         internal static void Initialize(ManualLogSource logger)
         {
-            if (Initialized) return;
+            if (Initialized)
+            {
+                return;
+            }
+
             logSource = logger;
             Initialized = true;
 
@@ -60,22 +64,55 @@
             }
         }
 
-        internal static void Debug(string text) => Log(text, LogLevel.Debug);
-        internal static void Info(string text) => Log(text, LogLevel.Info);
-        internal static void Warn(string text) => Log(text, LogLevel.Warn);
-        internal static void Error(string text) => Log(text, LogLevel.Error);
+        internal static void Debug(string text)
+        {
+            Log(text, LogLevel.Debug);
+        }
 
-        internal static void Debug(string text, params object[] args) => Log(text, LogLevel.Debug, args);
-        internal static void Info(string text, params object[] args) => Log(text, LogLevel.Info, args);
-        internal static void Warn(string text, params object[] args) => Log(text, LogLevel.Warn, args);
-        internal static void Error(string text, params object[] args) => Log(text, LogLevel.Error, args);
+        internal static void Info(string text)
+        {
+            Log(text, LogLevel.Info);
+        }
+
+        internal static void Warn(string text)
+        {
+            Log(text, LogLevel.Warn);
+        }
+
+        internal static void Error(string text)
+        {
+            Log(text, LogLevel.Error);
+        }
+
+        internal static void Debug(string text, params object[] args)
+        {
+            Log(text, LogLevel.Debug, args);
+        }
+
+        internal static void Info(string text, params object[] args)
+        {
+            Log(text, LogLevel.Info, args);
+        }
+
+        internal static void Warn(string text, params object[] args)
+        {
+            Log(text, LogLevel.Warn, args);
+        }
+
+        internal static void Error(string text, params object[] args)
+        {
+            Log(text, LogLevel.Error, args);
+        }
 
         internal static void Log(string text, LogLevel level = LogLevel.Info)
         {
             if(!Initialized)
             {
                 if(level >= LogLevel.Info || EnableDebugging)
+                {
                     Console.WriteLine($"[SMLHelper/{level}] {text}");
+                }
+
                 return;
             }
 
@@ -99,7 +136,9 @@
         internal static void Log(string text, LogLevel level = LogLevel.Info, params object[] args)
         {
             if(args != null && args.Length > 0)
+            {
                 text = string.Format(text, args);
+            }
 
             Log(text, level);
         }
@@ -109,7 +148,9 @@
             ErrorMessage.AddMessage(text);
 
             if (logToFile)
+            {
                 Log(text, level);
+            }
         }
 
         internal static void Announce(string text, LogLevel level = LogLevel.Info, bool logToFile = false, params object[] args)
@@ -117,7 +158,9 @@
             ErrorMessage.AddMessage(string.Format(text, args));
 
             if (logToFile)
+            {
                 Log(text, level, args);
+            }
         }
     }
 }

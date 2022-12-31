@@ -1,15 +1,14 @@
-﻿namespace SMLHelper.V2.Patchers.EnumPatching
+﻿namespace SMLHelper.Patchers.EnumPatching
 {
     using System.Collections.Generic;
-    using SMLHelper.V2.Handlers;
-    using SMLHelper.V2.Utility;
+    using Handlers;
     using Utility;
 
     internal class TechTypePatcher
     {
         private const string TechTypeEnumName = "TechType";
         internal static readonly int startingIndex = 11010;
-        internal static readonly List<int> bannedIndices = new List<int>
+        internal static readonly List<int> bannedIndices = new()
         {
             11110, //AutosortLocker 
             11111, //AutosortTarget
@@ -20,7 +19,7 @@
         };
 
         internal static readonly EnumCacheManager<TechType> cacheManager =
-            new EnumCacheManager<TechType>(
+            new(
                 enumTypeName: TechTypeEnumName,
                 startingIndex: startingIndex,
                 bannedIDs: ExtBannedIdManager.GetBannedIdsFor(TechTypeEnumName, bannedIndices, PreRegisteredTechTypes()));
@@ -33,7 +32,7 @@
                 Index = cacheManager.GetNextAvailableIndex()
             };
 
-            var techType = (TechType)cache.Index;
+            TechType techType = (TechType)cache.Index;
             if(cacheManager.Add(techType, cache.Index, cache.Name))
             {
                 TechTypeExtensions.stringsNormal[techType] = name;
@@ -62,7 +61,7 @@
             // Any mod that patches after this one will not be picked up by this method.
             // For those cases, there are additional ways of excluding these IDs.
 
-            var bannedIndices = new List<int>();
+            List<int> bannedIndices = new();
 
             Dictionary<string, TechType> knownTechTypes = TechTypeExtensions.keyTechTypes;
             foreach (TechType knownTechType in knownTechTypes.Values)
@@ -70,24 +69,30 @@
                 int currentTechTypeKey = (int)knownTechType;
 
                 if (currentTechTypeKey < startingIndex)
+                {
                     continue; // This is possibly a default TechType,
+                }
                 // Anything below this range we won't ever assign
 
                 if (bannedIndices.Contains(currentTechTypeKey))
+                {
                     continue; // Already exists in list
+                }
 
                 bannedIndices.Add(currentTechTypeKey);
             }
 
             if (bannedIndices.Count > 0)
+            {
                 InternalLogger.Log($"Finished known TechTypes exclusion. {bannedIndices.Count} IDs were added in ban list.", LogLevel.Debug);
+            }
 
             return bannedIndices;
         }
 
         internal static void Patch()
         {
-            IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
+            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
             InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} TechTypes succesfully into the game.", LogLevel.Info);
 

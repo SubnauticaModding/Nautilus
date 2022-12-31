@@ -1,18 +1,16 @@
-using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Patchers
+namespace SMLHelper.Patchers
 {
+    using SMLHelper.Utility;
     using System;
     using System.Collections.Generic;
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
     using UnityEngine;
-    using InternalLogger = InternalLogger;
+
 
     internal class SurvivalPatcher
     {
         internal static IDictionary<TechType, List<Action>> CustomSurvivalInventoryAction = new SelfCheckingDictionary<TechType, List<Action>>("CustomSurvivalInventoryAction", TechTypeExtensions.sTechTypeComparer);
-        internal static List<TechType> InventoryUseables = new List<TechType>();
+        internal static List<TechType> InventoryUseables = new();
 
         internal static void Patch(Harmony harmony)
         {
@@ -47,7 +45,9 @@ namespace SMLHelper.V2.Patchers
 #elif BELOWZERO
                 FMODAsset asset = Player.main.GetUseSound(TechData.GetSoundType(tt));
                 if(asset != null)
-                FMODUWE.PlayOneShot(asset, Player.main.transform.position); // only play the sound if its useable
+                {
+                    FMODUWE.PlayOneShot(asset, Player.main.transform.position); // only play the sound if its useable
+                }
 #endif
             }
         }

@@ -1,9 +1,7 @@
-﻿using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
-    using Interfaces;
-    using Json;
+    using SMLHelper.Utility;
+    using SMLHelper.Json;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -11,7 +9,7 @@ namespace SMLHelper.V2.Options.Attributes
     using System.Linq;
     using System.Reflection;
     using UnityEngine;
-    using InternalLogger = InternalLogger;
+
     using Newtonsoft.Json;
     using TMPro;
 
@@ -38,10 +36,12 @@ namespace SMLHelper.V2.Options.Attributes
         /// </summary>
         public void ProcessMetadata()
         {
-            Stopwatch stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new();
 
             if (InternalLogger.EnableDebugging)
+            {
                 stopwatch.Start();
+            }
 
             MenuAttribute = typeof(T).GetCustomAttribute<MenuAttribute>(true) ?? new MenuAttribute(ModName);
             ModOptionAttributesMetadata = new Dictionary<string, ModOptionAttributeMetadata<T>>();
@@ -57,7 +57,7 @@ namespace SMLHelper.V2.Options.Attributes
 
         private void processMetadata()
         {
-            var bindingFlags = BindingFlags.Instance | BindingFlags.Public;
+            BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public;
             foreach (PropertyInfo property in typeof(T).GetProperties(bindingFlags)
                 .Where(memberIsDeclaredInConfigFileSubclass) // Only care about members declared in a subclass of ConfigFile
                 .Where(memberIsNotIgnored)) // Filter out explicitly ignored members
@@ -88,7 +88,9 @@ namespace SMLHelper.V2.Options.Attributes
         /// <param name="memberInfo">The <see cref="MemberInfo"/> to check.</param>
         /// <returns>Whether the given <see cref="MemberInfo"/> is declared in any subclass of <see cref="ConfigFile"/>.</returns>
         private static bool memberIsDeclaredInConfigFileSubclass(MemberInfo memberInfo)
-            => memberInfo.DeclaringType.IsSubclassOf(typeof(ConfigFile));
+        {
+            return memberInfo.DeclaringType.IsSubclassOf(typeof(ConfigFile));
+        }
 
         /// <summary>
         /// Checks whether a given <see cref="MemberInfo"/> should be ignored when generating the options menu, based on whether
@@ -100,7 +102,9 @@ namespace SMLHelper.V2.Options.Attributes
         private bool memberIsNotIgnored(MemberInfo memberInfo)
         {
             if (Attribute.IsDefined(memberInfo, typeof(IgnoreMemberAttribute)))
+            {
                 return false;
+            }
 
             switch (MenuAttribute.MemberProcessing)
             {
@@ -108,7 +112,9 @@ namespace SMLHelper.V2.Options.Attributes
                     if (memberInfo is MethodInfo)
                     {
                         if (Attribute.IsDefined(memberInfo, typeof(ButtonAttribute), true))
+                        {
                             return true;
+                        }
 
                         IEnumerable<MemberInfoMetadata<T>> eventMetadatas
                             = ModOptionAttributesMetadata.Values.SelectMany(modOptionsMetadata =>
@@ -116,10 +122,14 @@ namespace SMLHelper.V2.Options.Attributes
                                 IEnumerable<MemberInfoMetadata<T>> result = new List<MemberInfoMetadata<T>>();
 
                                 if (modOptionsMetadata.OnChangeMetadata != null)
+                                {
                                     result.Concat(modOptionsMetadata.OnChangeMetadata);
+                                }
 
                                 if (modOptionsMetadata.OnGameObjectCreatedMetadata != null)
+                                {
                                     result.Concat(modOptionsMetadata.OnGameObjectCreatedMetadata);
+                                }
 
                                 return result;
                             });
@@ -195,10 +205,12 @@ namespace SMLHelper.V2.Options.Attributes
 
                 // If there is no label specified, just use the member's name.
                 if (string.IsNullOrEmpty(modOptionAttribute.Label))
+                {
                     modOptionAttribute.Label = memberInfo.Name;
+                }
 
                 // ModOptionMetadata needed for all ModOptions
-                var modOptionMetadata = new ModOptionAttributeMetadata<T>
+                ModOptionAttributeMetadata<T> modOptionMetadata = new()
                 {
                     ModOptionAttribute = modOptionAttribute,
                     MemberInfoMetadata = new MemberInfoMetadata<T>
@@ -211,10 +223,14 @@ namespace SMLHelper.V2.Options.Attributes
                 };
 
                 if (memberType == MemberType.Method)
+                {
                     modOptionMetadata.MemberInfoMetadata.ParseMethodParameterTypes(memberInfo as MethodInfo);
+                }
 
                 if (typeof(TAttribute) != typeof(ButtonAttribute))
+                {
                     modOptionMetadata.OnChangeMetadata = GetEventMetadata<OnChangeAttribute>(memberInfo);
+                }
 
                 ModOptionAttributesMetadata.Add(modOptionAttribute.Id, modOptionMetadata);
             }
@@ -235,10 +251,10 @@ namespace SMLHelper.V2.Options.Attributes
         private IEnumerable<MemberInfoMetadata<T>> GetEventMetadata<TAttribute>(MemberInfo memberInfo)
             where TAttribute : ModOptionEventAttribute
         {
-            var metadatas = new List<MemberInfoMetadata<T>>();
+            List<MemberInfoMetadata<T>> metadatas = new();
             foreach (TAttribute attribute in memberInfo.GetCustomAttributes<TAttribute>(true))
             {
-                var methodMetadata = new MemberInfoMetadata<T>
+                MemberInfoMetadata<T> methodMetadata = new()
                 {
                     MemberType = MemberType.Method,
                     Name = attribute.MethodName
@@ -309,11 +325,11 @@ namespace SMLHelper.V2.Options.Attributes
             if (TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata)
                 && modOptionMetadata.MemberInfoMetadata.MethodParameterTypes is Type[] parameterTypes)
             {
-                var parameters = new object[parameterTypes.Length];
-                var senderFound = false;
-                var eventArgsFound = false;
+                object[] parameters = new object[parameterTypes.Length];
+                bool senderFound = false;
+                bool eventArgsFound = false;
 
-                for (var i = 0; i < parameters.Length; i++)
+                for (int i = 0; i < parameters.Length; i++)
                 {
                     Type type = parameterTypes[i];
                     if (!senderFound && type == typeof(object))
@@ -328,7 +344,9 @@ namespace SMLHelper.V2.Options.Attributes
                     }
 
                     if (senderFound && eventArgsFound)
+                    {
                         break;
+                    }
                 }
 
                 modOptionMetadata.MemberInfoMetadata.InvokeMethod(Config, parameters);
@@ -378,7 +396,9 @@ namespace SMLHelper.V2.Options.Attributes
 
                 // Optionally save the Config to disk
                 if (MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                {
                     Config.Save();
+                }
 
                 // Invoke any OnChange methods specified
                 InvokeOnChangeEvents(modOptionMetadata, sender, e);
@@ -402,7 +422,9 @@ namespace SMLHelper.V2.Options.Attributes
 
                 // Optionally save the Config to disk
                 if (MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                {
                     Config.Save();
+                }
 
                 // Invoke any OnChange methods specified
                 InvokeOnChangeEvents(modOptionMetadata, sender, e);
@@ -428,7 +450,9 @@ namespace SMLHelper.V2.Options.Attributes
 
                 // Optionally save the Config to disk
                 if (MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                {
                     Config.Save();
+                }
 
                 // Invoke any OnChange methods specified
                 InvokeOnChangeEvents(modOptionMetadata, sender, e);
@@ -452,7 +476,9 @@ namespace SMLHelper.V2.Options.Attributes
 
                 // Optionally save the Config to disk
                 if (MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                {
                     Config.Save();
+                }
 
                 // Invoke any OnChange methods specified
                 InvokeOnChangeEvents(modOptionMetadata, sender, e);
@@ -483,7 +509,9 @@ namespace SMLHelper.V2.Options.Attributes
                 }
 
                 if (modOptionMetadata.OnGameObjectCreatedMetadata == null)
+                {
                     return; // Skip attempting to invoke events if there are no OnGameObjectCreatedAttributes set for the member.
+                }
 
                 foreach (MemberInfoMetadata<T> onGameObjectCreatedMetadata in modOptionMetadata.OnGameObjectCreatedMetadata)
                 {
@@ -517,7 +545,7 @@ namespace SMLHelper.V2.Options.Attributes
                     {
                         string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
                         string value = memberInfoMetadata.GetValue(Config).ToString();
-                        var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
+                        ChoiceChangedEventArgs eventArgs = new(id, Array.IndexOf(options, value), value);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -526,7 +554,7 @@ namespace SMLHelper.V2.Options.Attributes
                     {
                         string value = memberInfoMetadata.GetValue(Config).ToString();
                         int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
-                        var eventArgs = new ChoiceChangedEventArgs(id, index, value);
+                        ChoiceChangedEventArgs eventArgs = new(id, index, value);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -535,7 +563,7 @@ namespace SMLHelper.V2.Options.Attributes
                     {
                         string[] options = choiceAttribute.Options;
                         string value = memberInfoMetadata.GetValue<string>(Config);
-                        var eventArgs = new ChoiceChangedEventArgs(id, Array.IndexOf(options, value), value);
+                        ChoiceChangedEventArgs eventArgs = new(id, Array.IndexOf(options, value), value);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -544,28 +572,28 @@ namespace SMLHelper.V2.Options.Attributes
                     {
                         string[] options = choiceAttribute.Options;
                         int index = memberInfoMetadata.GetValue<int>(Config);
-                        var eventArgs = new ChoiceChangedEventArgs(id, index, options[index]);
+                        ChoiceChangedEventArgs eventArgs = new(id, index, options[index]);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
 
                 case KeybindAttribute _:
                     {
-                        var eventArgs = new KeybindChangedEventArgs(id, memberInfoMetadata.GetValue<KeyCode>(Config));
+                        KeybindChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<KeyCode>(Config));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
 
                 case SliderAttribute _:
                     {
-                        var eventArgs = new SliderChangedEventArgs(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
+                        SliderChangedEventArgs eventArgs = new(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
 
                 case ToggleAttribute _:
                     {
-                        var eventArgs = new ToggleChangedEventArgs(id, memberInfoMetadata.GetValue<bool>(Config));
+                        ToggleChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<bool>(Config));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -581,10 +609,12 @@ namespace SMLHelper.V2.Options.Attributes
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The event args from the OnChange event.</param>
         private void InvokeOnChangeEvents<TSource>(ModOptionAttributeMetadata<T> modOptionMetadata, object sender, TSource e)
-            where TSource : IModOptionEventArgs
+            where TSource : EventArgs
         {
             if (modOptionMetadata.OnChangeMetadata == null)
+            {
                 return; // Skip attempting to invoke events if there are no OnChangeAttributes set for the member.
+            }
 
             foreach (MemberInfoMetadata<T> onChangeMetadata in modOptionMetadata.OnChangeMetadata)
             {
@@ -601,7 +631,7 @@ namespace SMLHelper.V2.Options.Attributes
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The event args from the event.</param>
         private void InvokeEvent<TSource>(MemberInfoMetadata<T> memberInfoMetadata, object sender, TSource e)
-            where TSource : IModOptionEventArgs
+            where TSource : EventArgs
         {
             if (!memberInfoMetadata.MethodValid)
             {
@@ -612,12 +642,12 @@ namespace SMLHelper.V2.Options.Attributes
 
             if (memberInfoMetadata.MethodParameterTypes is Type[] parameterTypes)
             {
-                var parameters = new object[parameterTypes.Length];
-                var senderFound = false;
-                var eventArgsFound = false;
-                var modOptionEventFound = false;
+                object[] parameters = new object[parameterTypes.Length];
+                bool senderFound = false;
+                bool eventArgsFound = false;
+                bool modOptionEventFound = false;
 
-                for (var i = 0; i < parameterTypes.Length; i++)
+                for (int i = 0; i < parameterTypes.Length; i++)
                 {
                     if (!senderFound && parameterTypes[i] == typeof(object))
                     {
@@ -629,14 +659,16 @@ namespace SMLHelper.V2.Options.Attributes
                         eventArgsFound = true;
                         parameters[i] = e;
                     }
-                    else if (!modOptionEventFound && parameterTypes[i] == typeof(IModOptionEventArgs))
+                    else if (!modOptionEventFound && parameterTypes[i] == typeof(EventArgs))
                     {
                         modOptionEventFound = true;
                         parameters[i] = e;
                     }
 
                     if (senderFound && eventArgsFound && modOptionEventFound)
+                    {
                         break;
+                    }
                 }
 
                 memberInfoMetadata.InvokeMethod(Config, parameters);

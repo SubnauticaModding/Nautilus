@@ -1,10 +1,9 @@
-﻿namespace SMLHelper.V2.Patchers.EnumPatching
+﻿namespace SMLHelper.Patchers.EnumPatching
 {
     using System;
     using System.Collections.Generic;
     using HarmonyLib;
-    using SMLHelper.V2.Handlers;
-    using SMLHelper.V2.Utility;
+    using Handlers;
     using Utility;
 
     internal class TechGroupPatcher
@@ -14,7 +13,7 @@
         internal const int startingIndex = 15; // The default TechGroup contains indexes 0 through 14
 
         internal static readonly EnumCacheManager<TechGroup> cacheManager =
-            new EnumCacheManager<TechGroup>(
+            new(
                 enumTypeName: TechGroupEnumName,
                 startingIndex: startingIndex,
                 bannedIDs: ExtBannedIdManager.GetBannedIdsFor(TechGroupEnumName, PreRegisteredTechGroupTypes()));
@@ -33,10 +32,14 @@
             {
 
                 if (!uGUI_BlueprintsTab.groups.Contains(techGroup))
+                {
                     uGUI_BlueprintsTab.groups.Add(techGroup);
+                }
 
                 if (!CraftData.groups.ContainsKey(techGroup))
+                {
                     CraftData.groups[techGroup] = new Dictionary<TechCategory, List<TechType>>();
+                }
 
                 InternalLogger.Log($"Successfully added TechGroup: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
             }
@@ -56,23 +59,29 @@
             // Any mod that patches after this one will not be picked up by this method.
             // For those cases, there are additional ways of excluding these IDs.
 
-            var bannedIndices = new List<int>();
+            List<int> bannedIndices = new();
 
             Array enumValues = Enum.GetValues(typeof(TechGroup));
 
             foreach (object enumValue in enumValues)
             {
                 if (enumValue == null)
+                {
                     continue; // Saftey check
+                }
 
                 int realEnumValue = (int)enumValue;
 
                 if (realEnumValue < startingIndex)
+                {
                     continue; // This is possibly a default tree
+                }
                 // Anything below this range we won't ever assign
 
                 if (bannedIndices.Contains(realEnumValue))
+                {
                     continue;// Already exists in list
+                }
 
                 bannedIndices.Add(realEnumValue);
             }
@@ -84,7 +93,7 @@
 
         internal static void Patch()
         {
-            IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
+            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
             InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} TechGroups succesfully into the game.");
             InternalLogger.Log("TechGroupPatcher is done.", LogLevel.Debug);

@@ -1,12 +1,12 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
     using System.Collections.Generic;
 
     internal class PDAEncyclopediaPatcher
     {
-        internal static readonly SelfCheckingDictionary<string, PDAEncyclopedia.EntryData> CustomEntryData = new SelfCheckingDictionary<string, PDAEncyclopedia.EntryData>("CustomEntryData");
+        internal static readonly SelfCheckingDictionary<string, PDAEncyclopedia.EntryData> CustomEntryData = new("CustomEntryData");
 
         internal static void Patch(Harmony harmony)
         {

@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Utility
+﻿namespace SMLHelper.Utility
 {
     using System;
     using System.IO;
@@ -75,7 +75,7 @@
             }
             else if (createFileIfNotExist)
             {
-                T jsonObject = new T();
+                T jsonObject = new();
                 Save(jsonObject, path, jsonConverters);
                 return jsonObject;
             }
@@ -108,7 +108,7 @@
             {
                 try
                 {
-                    var jsonSerializerSettings = new JsonSerializerSettings()
+                    JsonSerializerSettings jsonSerializerSettings = new()
                     {
                         Converters = jsonConverters,
                         ObjectCreationHandling = ObjectCreationHandling.Replace
@@ -150,23 +150,23 @@
                 path = GetDefaultPath<T>(Assembly.GetCallingAssembly());
             }
 
-            var stringBuilder = new StringBuilder();
-            var stringWriter = new StringWriter(stringBuilder);
-            using (var jsonTextWriter = new JsonTextWriter(stringWriter)
+            StringBuilder stringBuilder = new();
+            StringWriter stringWriter = new(stringBuilder);
+            using (JsonTextWriter jsonTextWriter = new(stringWriter)
             {
                 Indentation = 4,
                 Formatting = Formatting.Indented
             })
             {
-                var jsonSerializer = new JsonSerializer();
-                foreach (var jsonConverter in jsonConverters)
+                JsonSerializer jsonSerializer = new();
+                foreach (JsonConverter jsonConverter in jsonConverters)
                 {
                     jsonSerializer.Converters.Add(jsonConverter);
                 }
                 jsonSerializer.Serialize(jsonTextWriter, jsonObject);
             }
 
-            var fileInfo = new FileInfo(path);
+            FileInfo fileInfo = new(path);
             fileInfo.Directory.Create(); // Only creates the directory if it doesn't already exist
             File.WriteAllText(path, stringBuilder.ToString());
         }

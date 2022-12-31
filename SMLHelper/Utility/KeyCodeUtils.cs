@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Utility
+﻿namespace SMLHelper.Utility
 {
     using System;
     using UnityEngine;
@@ -138,10 +138,10 @@
 
         internal static GameInput.InputState GetInputStateForKeyCode(KeyCode keyCode)
         {
-            var inputState = default(GameInput.InputState);
+            GameInput.InputState inputState = default(GameInput.InputState);
             if (!GameInput.clearInput && !GameInput.scanningInput)
             {
-                for (var i = 0; i < GameInput.inputs.Count; i++)
+                for (int i = 0; i < GameInput.inputs.Count; i++)
                 {
                     if (GameInput.inputs[i].keyCode == keyCode)
                     {
@@ -162,14 +162,20 @@
         /// <seealso cref="KeyCode"/>
         /// <seealso cref="GetKeyDown(string)"/>
         public static bool GetKeyDown(KeyCode keyCode)
-            => (GetInputStateForKeyCode(keyCode).flags & GameInput.InputStateFlags.Down) > 0U;
+        {
+            return (GetInputStateForKeyCode(keyCode).flags & GameInput.InputStateFlags.Down) > 0U;
+        }
+
         /// <summary>
         /// Check this is the first frame a key has been pressed.
         /// </summary>
         /// <param name="s"></param>
         /// <returns>True during the first frame a key has been pressed, otherwise false</returns>
         /// <seealso cref="GetKeyDown(KeyCode)"/>
-        public static bool GetKeyDown(string s) => GetKeyDown(StringToKeyCode(s));
+        public static bool GetKeyDown(string s)
+        {
+            return GetKeyDown(StringToKeyCode(s));
+        }
 
         /// <summary>
         /// Check a key is currently held down
@@ -179,14 +185,20 @@
         /// <seealso cref="KeyCode"/>
         /// <seealso cref="GetKeyHeld(string)"/>
         public static bool GetKeyHeld(KeyCode keyCode)
-            => (GetInputStateForKeyCode(keyCode).flags & GameInput.InputStateFlags.Held) > 0U;
+        {
+            return (GetInputStateForKeyCode(keyCode).flags & GameInput.InputStateFlags.Held) > 0U;
+        }
+
         /// <summary>
         /// Check a key is currently held down
         /// </summary>
         /// <param name="s"></param>
         /// <returns>True every frame a key is held down, otherwise false</returns>
         /// <seealso cref="GetKeyHeld(KeyCode)"/>
-        public static bool GetKeyHeld(string s) => GetKeyHeld(StringToKeyCode(s));
+        public static bool GetKeyHeld(string s)
+        {
+            return GetKeyHeld(StringToKeyCode(s));
+        }
 
         /// <summary>
         /// Check how long a key has been held down
@@ -197,7 +209,7 @@
         /// <seealso cref="GetKeyHeldTime(string)"/>
         public static float GetKeyHeldTime(KeyCode keyCode)
         {
-            var inputStateForKeyCode = GetInputStateForKeyCode(keyCode);
+            GameInput.InputState inputStateForKeyCode = GetInputStateForKeyCode(keyCode);
             if ((inputStateForKeyCode.flags & GameInput.InputStateFlags.Held) == 0U)
             {
                 return 0f;
@@ -210,7 +222,10 @@
         /// <param name="s"></param>
         /// <returns></returns>
         /// <seealso cref="GetKeyHeldTime(KeyCode)"/>
-        public static float GetKeyHeldTime(string s) => GetKeyHeldTime(StringToKeyCode(s));
+        public static float GetKeyHeldTime(string s)
+        {
+            return GetKeyHeldTime(StringToKeyCode(s));
+        }
 
         /// <summary>
         /// Check this is the frame a key has been released
@@ -220,14 +235,20 @@
         /// <seealso cref="KeyCode"/>
         /// <seealso cref="GetKeyUp(string)"/>
         public static bool GetKeyUp(KeyCode keyCode)
-            => (GetInputStateForKeyCode(keyCode).flags & GameInput.InputStateFlags.Up) > 0U;
+        {
+            return (GetInputStateForKeyCode(keyCode).flags & GameInput.InputStateFlags.Up) > 0U;
+        }
+
         /// <summary>
         /// Check this is the first frame a key has been released
         /// </summary>
         /// <param name="s"></param>
         /// <returns>True during the first frame a key has been released, otherwise false</returns>
         /// <seealso cref="GetKeyUp(KeyCode)"/>
-        public static bool GetKeyUp(string s) => GetKeyUp(StringToKeyCode(s));
+        public static bool GetKeyUp(string s)
+        {
+            return GetKeyUp(StringToKeyCode(s));
+        }
 
         /// <summary>
         /// Gets the analog value for a <seealso cref="KeyCode"/> following the same logic as
@@ -239,7 +260,7 @@
         /// <seealso cref="GetAnalogValueForKey(string)"/>
         public static float GetAnalogValueForKey(KeyCode keyCode)
         {
-            var inputStateForKeyCode = GetInputStateForKeyCode(keyCode);
+            GameInput.InputState inputStateForKeyCode = GetInputStateForKeyCode(keyCode);
             if ((inputStateForKeyCode.flags & GameInput.InputStateFlags.Held) != 0U)
             {
                 return 1f;
@@ -253,6 +274,9 @@
         /// <param name="s"></param>
         /// <returns>1f while a key is being held, otherwise 0f</returns>
         /// <seealso cref="GetAnalogValueForKey(KeyCode)"/>
-        public static float GetAnalogValueForKey(string s) => GetAnalogValueForKey(StringToKeyCode(s));
+        public static float GetAnalogValueForKey(string s)
+        {
+            return GetAnalogValueForKey(StringToKeyCode(s));
+        }
     }
 }

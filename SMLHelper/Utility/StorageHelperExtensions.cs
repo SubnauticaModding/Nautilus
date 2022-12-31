@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Utility
+﻿namespace SMLHelper.Utility
 {
     using System.Collections.Generic;
 
@@ -18,7 +18,7 @@
         /// </returns>
         public static bool HasRoomCached(this ItemsContainer container, int width, int height)
         {
-            return ItemStorageHelper.Main.HasRoomForCached(container, width, height);
+            return ItemStorageHelper.HasRoomForCached(container, width, height);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@
         /// </returns>
         public static bool HasRoomCached(this ItemsContainer container, Vector2int itemSize)
         {
-            return ItemStorageHelper.Main.HasRoomForCached(container, itemSize);
+            return ItemStorageHelper.HasRoomForCached(container, itemSize);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@
         /// </returns>
         public static bool IsEmpty(this ItemsContainer container)
         {
-            return ItemStorageHelper.Main.IsEmpty(container);
+            return ItemStorageHelper.IsEmpty(container);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@
         /// </returns>
         public static bool IsFull(this ItemsContainer container)
         {
-            return ItemStorageHelper.Main.IsFull(container);
+            return ItemStorageHelper.IsFull(container);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@
         /// <returns></returns>
         public static int GetTotalSlots(ItemsContainer container)
         {
-            return ItemStorageHelper.Main.GetTotalSlots(container);
+            return ItemStorageHelper.GetTotalSlots(container);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@
         /// </returns>
         public static string GetStorageLabel(ItemsContainer container)
         {
-            return ItemStorageHelper.Main.GetStorageLabel(container);
+            return ItemStorageHelper.GetStorageLabel(container);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@
         /// </returns>
         public static HashSet<TechType> GetAllowedTechTypes(ItemsContainer container)
         {
-            return ItemStorageHelper.Main.GetAllowedTechTypes(container);
+            return ItemStorageHelper.GetAllowedTechTypes(container);
         }
     }
 }

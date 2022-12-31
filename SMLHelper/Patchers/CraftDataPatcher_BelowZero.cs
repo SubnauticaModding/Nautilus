@@ -1,11 +1,11 @@
 ﻿#if BELOWZERO
-namespace SMLHelper.V2.Patchers
+namespace SMLHelper.Patchers
 {
     using System;
     using System.Collections.Generic;
     using System.Text;
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     internal partial class CraftDataPatcher
     {
@@ -34,8 +34,8 @@ namespace SMLHelper.V2.Patchers
 
         private static void AddCustomTechDataToOriginalDictionary()
         {
-            var added = new List<TechType>();
-            var updated = new List<TechType>();
+            List<TechType> added = new();
+            List<TechType> updated = new();
             foreach (KeyValuePair<TechType, JsonValue> customTechData in CustomTechData)
             {
                 JsonValue smlTechData = customTechData.Value;
@@ -79,7 +79,7 @@ namespace SMLHelper.V2.Patchers
 
         private static void LogEntries(string log, List<TechType> updated)
         {
-            var builder = new StringBuilder();
+            StringBuilder builder = new();
             for (int i = 0; i < updated.Count; i++)
             {
                 builder.AppendLine($"{updated[i]}");

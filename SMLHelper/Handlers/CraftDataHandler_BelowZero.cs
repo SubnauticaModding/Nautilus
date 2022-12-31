@@ -1,150 +1,15 @@
 ﻿#if BELOWZERO
-namespace SMLHelper.V2.Handlers
+namespace SMLHelper.Handlers
 {
     using Crafting;
-    using Interfaces;
     using Patchers;
     using System.Collections.Generic;
 
     /// <summary>
     /// A handler class for adding and editing crafted items.
     /// </summary>
-    public partial class CraftDataHandler : ICraftDataHandler
+    public static partial class CraftDataHandler
     {
-
-        #region BelowZero specific Static Methods
-
-        /// <summary>
-        /// <para>Allows you to edit recipes, i.e. RecipeData for TechTypes.</para>
-        /// <para>Can be used for existing TechTypes too.</para>
-        /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to edit.</param>
-        /// <param name="recipeData">The TechData for that TechType.</param>
-        /// <seealso cref="RecipeData"/>
-        public static void SetTechData(TechType techType, RecipeData recipeData)
-        {
-            Main.SetTechData(techType, recipeData);
-        }
-
-        /// <summary>
-        /// <para>Allows you to add ingredients for a TechType crafting recipe.</para>
-        /// <para>Can be used for existing TechTypes too.</para>
-        /// </summary>
-        /// <param name="techType">The TechType whose ingredient list you want to edit.</param>
-        /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
-        /// <seealso cref="Ingredient"/>
-        public static void SetIngredients(TechType techType, ICollection<Ingredient> ingredients)
-        {
-            Main.SetIngredients(techType, ingredients);
-        }
-
-
-        /// <summary>
-        /// <para>Allows you to edit the Cold Resistance for TechTypes.</para>
-        /// <para>Can be used for existing TechTypes too.</para>
-        /// </summary>
-        /// <param name="techType">The TechType whose Cold Resistance you want to edit.</param>
-        /// <param name="resistance">The int value for the Cold Resistance.</param>
-        public static void SetColdResistance(TechType techType, int resistance) 
-        {
-            Main.SetColdResistance(techType, resistance);
-        }
-
-        /// <summary>
-        /// <para>Allows you to add linked items for a TechType crafting recipe.</para>
-        /// <para>Can be used for existing TechTypes too.</para>
-        /// </summary>
-        /// <param name="techType">The TechType whose ingredient list you want to edit.</param>
-        /// <param name="linkedItems">The collection of linked items for that TechType</param>
-        public static void SetLinkedItems(TechType techType, ICollection<TechType> linkedItems)
-        {
-            Main.SetLinkedItems(techType, linkedItems);
-        }
-
-        /// <summary>
-        /// Safely accesses the crafting data from a modded or vanilla item.<para/>
-        /// WARNING: This method is highly dependent on mod load order. 
-        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
-        /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to access.</param>
-        /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        public static RecipeData GetRecipeData(TechType techType)
-        {
-            return Main.GetRecipeData(techType);
-        }
-
-
-        /// <summary>
-        /// Safely accesses the crafting data from a modded or vanilla item.<para/>
-        /// WARNING: This method is highly dependent on mod load order. 
-        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
-        /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to access.</param>
-        /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        public static RecipeData GetTechData(TechType techType)
-        {
-            return Main.GetTechData(techType);
-        }
-
-        /// <summary>
-        /// Safely accesses the crafting data from a modded item.<para/>
-        /// WARNING: This method is highly dependent on mod load order. 
-        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
-        /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to access.</param>
-        /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        public static RecipeData GetModdedRecipeData(TechType techType)
-        {
-            return Main.GetModdedRecipeData(techType);
-        }
-
-        /// <summary>
-        /// Safely accesses the crafting data from a modded item.<para/>
-        /// WARNING: This method is highly dependent on mod load order. 
-        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
-        /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to access.</param>
-        /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        public static RecipeData GetModdedTechData(TechType techType)
-        {
-            return Main.GetModdedRecipeData(techType);
-        }
-
-        /// <summary>
-        /// Sets the maximum charge.
-        /// </summary>
-        /// <param name="techType">The TechType whose MaxCharge you want to edit.</param>
-        /// <param name="maxCharge">The maximum charge.</param>
-        public static void SetMaxCharge(TechType techType, float maxCharge)
-        {
-            Main.SetMaxCharge(techType, maxCharge);
-        }
-
-        /// <summary>
-        /// Sets the energy cost.
-        /// </summary>
-        /// <param name="techType">The TechType whose EnergyCost you want to edit.</param>
-        /// <param name="energyCost">The energy cost.</param>
-        public static void SetEnergyCost(TechType techType, float energyCost)
-        {
-            Main.SetEnergyCost(techType, energyCost);
-        }
-
-
-        /// <summary>
-        /// Sets the type of the sound.
-        /// </summary>
-        /// <param name="techType">Type of the tech.</param>
-        /// <param name="soundType">Type of the sound.</param>
-        public static void SetSoundType(TechType techType, TechData.SoundType soundType)
-        {
-            Main.SetSoundType(techType, soundType);
-        }
-
-        #endregion
-
-        #region BelowZero specific implementations
-
         /// <summary>
         /// <para>Allows you to add or edit RecipeData for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
@@ -152,7 +17,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="recipeData">The TechData for that TechType.</param>
         /// <seealso cref="RecipeData"/>
-        void ICraftDataHandler.SetTechData(TechType techType, RecipeData recipeData)
+        public static void SetTechData(TechType techType, RecipeData recipeData)
         {
             if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue jsonValue))
             {
@@ -172,11 +37,11 @@ namespace SMLHelper.V2.Handlers
 
             if (recipeData.ingredientCount > 0)
             {
-                Main.SetIngredients(techType, recipeData.Ingredients);
+                SetIngredients(techType, recipeData.Ingredients);
             }
             if (recipeData.linkedItemCount > 0)
             {
-                Main.SetLinkedItems(techType, recipeData.LinkedItems);
+                SetLinkedItems(techType, recipeData.LinkedItems);
             }
         }
 
@@ -187,7 +52,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
         /// <seealso cref="Ingredient"/>
-        void ICraftDataHandler.SetIngredients(TechType techType, ICollection<Ingredient> ingredients)
+        public static void SetIngredients(TechType techType, ICollection<Ingredient> ingredients)
         {
             if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue smlJsonValue))
             {
@@ -229,7 +94,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="linkedItems">The collection of Ingredients for that TechType.</param>
         /// <seealso cref="Ingredient"/>
-        void ICraftDataHandler.SetLinkedItems(TechType techType, ICollection<TechType> linkedItems)
+        public static void SetLinkedItems(TechType techType, ICollection<TechType> linkedItems)
         {
             if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue smlJsonValue))
             {
@@ -265,7 +130,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>The RecipeData from the item if it exists; Otherwise, returns <c>null</c>.</returns>
-        RecipeData ICraftDataHandler.GetRecipeData(TechType techType)
+        public static RecipeData GetRecipeData(TechType techType)
         {
             RecipeData moddedRecipeData = GetModdedRecipeData(techType);
 
@@ -295,13 +160,14 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        RecipeData ICraftDataHandler.GetTechData(TechType techType)
+        public static RecipeData GetTechData(TechType techType)
         {
             return GetRecipeData(techType);
         }
+
         private static RecipeData ConvertToRecipeData(JsonValue techData)
         {
-            RecipeData currentRecipeData = new RecipeData
+            RecipeData currentRecipeData = new()
             {
                 craftAmount = techData.GetInt(TechData.propertyCraftAmount, out int craftAmount, 0) ? craftAmount : TechData.defaultCraftAmount
             };
@@ -346,7 +212,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>The RecipeData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        RecipeData ICraftDataHandler.GetModdedRecipeData(TechType techType)
+        public static RecipeData GetModdedRecipeData(TechType techType)
         {
             return CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue techData) ? ConvertToRecipeData(techData) : null;
         }
@@ -357,7 +223,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose EqiupmentType you want to edit.</param>
         /// <param name="equipmentType">The EquipmentType for that TechType.</param>
-        void ICraftDataHandler.SetEquipmentType(TechType techType, EquipmentType equipmentType)
+        public static void SetEquipmentType(TechType techType, EquipmentType equipmentType)
         {
             AddJsonProperty(techType, "equipmentType", new JsonValue((int)equipmentType));
         }
@@ -368,7 +234,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
-        void ICraftDataHandler.SetQuickSlotType(TechType techType, QuickSlotType slotType)
+        public static void SetQuickSlotType(TechType techType, QuickSlotType slotType)
         {
             AddJsonProperty(techType, "slotType", new JsonValue((int)slotType));
         }
@@ -379,7 +245,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose harvest output you want to edit.</param>
         /// <param name="harvestOutput">The harvest output for that TechType.</param>
-        void ICraftDataHandler.SetHarvestOutput(TechType techType, TechType harvestOutput)
+        public static void SetHarvestOutput(TechType techType, TechType harvestOutput)
         {
             AddJsonProperty(techType, "harvestOutput", new JsonValue((int)harvestOutput));
         }
@@ -390,7 +256,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose HarvestType you want to edit.</param>
         /// <param name="harvestType">The HarvestType for that TechType.</param>
-        void ICraftDataHandler.SetHarvestType(TechType techType, HarvestType harvestType)
+        public static void SetHarvestType(TechType techType, HarvestType harvestType)
         {
             AddJsonProperty(techType, "harvestType", new JsonValue((int)harvestType));
         }
@@ -401,7 +267,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose final cut bonus you want to edit.</param>
         /// <param name="bonus">The number of additional slices/seeds you'll receive on last cut.</param>
-        void ICraftDataHandler.SetHarvestFinalCutBonus(TechType techType, int bonus)
+        public static void SetHarvestFinalCutBonus(TechType techType, int bonus)
         {
             AddJsonProperty(techType, "harvestFinalCutBonus", new JsonValue(bonus));
         }
@@ -412,7 +278,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose item size you want to edit.</param>
         /// <param name="size">The item size for that TechType.</param>
-        void ICraftDataHandler.SetItemSize(TechType techType, Vector2int size)
+        public static void SetItemSize(TechType techType, Vector2int size)
         {
             SetItemSize(techType, size.x, size.y);
         }
@@ -424,9 +290,9 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techType">The TechType whose item size you want to edit.</param>
         /// <param name="x">The width of the item</param>
         /// <param name="y">The height of the item</param>
-        void ICraftDataHandler.SetItemSize(TechType techType, int x, int y)
+        public static void SetItemSize(TechType techType, int x, int y)
         {
-            JsonValue jsonValue = new JsonValue()
+            JsonValue jsonValue = new()
             {
                 {
                     TechData.propertyX,
@@ -446,7 +312,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose crafting time you want to edit.</param>
         /// <param name="time">The crafting time, in seconds, for that TechType.</param>
-        void ICraftDataHandler.SetCraftingTime(TechType techType, float time)
+        public static void SetCraftingTime(TechType techType, float time)
         {
             AddJsonProperty(techType, "craftTime", new JsonValue(time));
         }
@@ -457,7 +323,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="uncooked">The TechType whose cooked creature counterpart to edit.</param>
         /// <param name="cooked">The cooked creature counterpart for that TechType.</param>
-        void ICraftDataHandler.SetCookedVariant(TechType uncooked, TechType cooked)
+        public static void SetCookedVariant(TechType uncooked, TechType cooked)
         {
             AddJsonProperty(uncooked, "processed", new JsonValue((int)cooked));
         }
@@ -468,7 +334,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="uncooked">The TechType whose Cold Resistance to edit.</param>
         /// <param name="resistance">The Cold Resistance for that TechType.</param>
-        void ICraftDataHandler.SetColdResistance(TechType uncooked, int resistance)
+        public static void SetColdResistance(TechType uncooked, int resistance)
         {
             AddJsonProperty(uncooked, "coldResistance", new JsonValue((int)resistance));
         }
@@ -479,7 +345,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techType">The TechType whose BackgroundType you want to edit.</param>
         /// <param name="backgroundColor">The background color for that TechType.</param>
         /// <seealso cref="CraftData.BackgroundType"/>
-        void ICraftDataHandler.SetBackgroundType(TechType techType, CraftData.BackgroundType backgroundColor)
+        public static void SetBackgroundType(TechType techType, CraftData.BackgroundType backgroundColor)
         {
             AddJsonProperty(techType, "backgroundType", new JsonValue((int)backgroundColor));
         }
@@ -488,7 +354,7 @@ namespace SMLHelper.V2.Handlers
         /// Allows you to add items to the buildable list.
         /// </summary>
         /// <param name="techType">The TechType which you want to add to the buildable list.</param>
-        void ICraftDataHandler.AddBuildable(TechType techType)
+        public static void AddBuildable(TechType techType)
         {
             AddJsonProperty(techType, "buildable", new JsonValue(true));
         }
@@ -498,7 +364,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose MaxCharge you want to edit.</param>
         /// <param name="maxCharge">The maximum charge.</param>
-        void ICraftDataHandler.SetMaxCharge(TechType techType, float maxCharge)
+        public static void SetMaxCharge(TechType techType, float maxCharge)
         {
             AddJsonProperty(techType, "maxCharge", new JsonValue((double)maxCharge));
         }
@@ -508,7 +374,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose EnergyCost you want to edit.</param>
         /// <param name="energyCost">The energy cost.</param>
-        void ICraftDataHandler.SetEnergyCost(TechType techType, float energyCost)
+        public static void SetEnergyCost(TechType techType, float energyCost)
         {
             AddJsonProperty(techType, "energyCost", new JsonValue((double)energyCost));
         }
@@ -518,7 +384,7 @@ namespace SMLHelper.V2.Handlers
         /// </summary>
         /// <param name="techType">Type of the tech.</param>
         /// <param name="soundType">Type of the sound.</param>
-        void ICraftDataHandler.SetSoundType(TechType techType, TechData.SoundType soundType)
+        public static void SetSoundType(TechType techType, TechData.SoundType soundType)
         {
             AddJsonProperty(techType, "soundType", new JsonValue((int)soundType));
         }
@@ -544,8 +410,6 @@ namespace SMLHelper.V2.Handlers
                 };
             }
         }
-
-        #endregion
     }
 }
 #endif

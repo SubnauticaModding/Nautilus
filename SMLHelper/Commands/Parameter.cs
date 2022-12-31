@@ -1,5 +1,5 @@
 ﻿
-namespace SMLHelper.V2.Commands
+namespace SMLHelper.Commands
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace SMLHelper.V2.Commands
 
     internal struct Parameter
     {
-        private static Dictionary<Type, Func<string, object>> TypeConverters = new Dictionary<Type, Func<string, object>>()
+        private static Dictionary<Type, Func<string, object>> TypeConverters = new()
         {
             [typeof(string)] = (s) => s,
             [typeof(bool)] = (s) => bool.Parse(s),
@@ -34,6 +34,8 @@ namespace SMLHelper.V2.Commands
         }
 
         public object Parse(string input)
-            => TypeConverters[ParameterType](input);
+        {
+            return TypeConverters[ParameterType](input);
+        }
     }
 }

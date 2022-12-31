@@ -1,14 +1,14 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using HarmonyLib;
-    using SMLHelper.V2.Handlers;
-    using SMLHelper.V2.Patchers.EnumPatching;
+    using SMLHelper.Handlers;
+    using SMLHelper.Patchers.EnumPatching;
     using System.IO;
     using System.Reflection;
     using System.Text;
     using System.Linq;
     using System.Collections.Generic;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     internal class TooltipPatcher
     {
@@ -22,8 +22,8 @@
             MethodInfo buildTech = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech));
             MethodInfo itemCommons = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemCommons));
             MethodInfo recipe = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe));
-            HarmonyMethod customTooltip = new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.CustomTooltip)));
-            HarmonyMethod techTypePostfix = new HarmonyMethod(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.TechTypePostfix)));
+            HarmonyMethod customTooltip = new(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.CustomTooltip)));
+            HarmonyMethod techTypePostfix = new(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.TechTypePostfix)));
 
             harmony.Patch(itemCommons, postfix: customTooltip);
             harmony.Patch(recipe, postfix: techTypePostfix);
@@ -34,10 +34,19 @@
 
         internal static void CustomTooltip(StringBuilder sb, TechType techType)
         {
-            if (ExtraItemInfoOption == ExtraItemInfo.Nothing) return;
+            if (ExtraItemInfoOption == ExtraItemInfo.Nothing)
+            {
+                return;
+            }
 
-            if (ExtraItemInfoOption == ExtraItemInfo.ModNameAndItemID) WriteTechType(sb, techType);
-            else WriteSpace(sb);
+            if (ExtraItemInfoOption == ExtraItemInfo.ModNameAndItemID)
+            {
+                WriteTechType(sb, techType);
+            }
+            else
+            {
+                WriteSpace(sb);
+            }
 
             if (IsVanillaTechType(techType))
 #if SUBNAUTICA
@@ -46,9 +55,13 @@
                 WriteModName(sb, "BelowZero");
 #endif
             else if (TechTypePatcher.cacheManager.ContainsKey(techType))
+            {
                 WriteModNameFromTechType(sb, techType);
+            }
             else
+            {
                 WriteModNameError(sb, "Unknown Mod", "Item added without SMLHelper");
+            }
         }
         
         internal static void WriteTechType(StringBuilder sb, TechType techType)
@@ -95,7 +108,7 @@
         {
             if (vanillaTechTypes is {Count: 0})
             {
-                var allTechTypes = (System.Enum.GetValues(typeof(TechType)) as TechType[])!.ToList();
+                List<TechType> allTechTypes = (System.Enum.GetValues(typeof(TechType)) as TechType[])!.ToList();
                 allTechTypes.RemoveAll(tt => TechTypePatcher.cacheManager.ModdedKeys.Contains(tt));
                 vanillaTechTypes = allTechTypes;
             }
@@ -142,7 +155,11 @@
 
         internal static void Initialize()
         {
-            if (Initialized) return;
+            if (Initialized)
+            {
+                return;
+            }
+
             Initialized = true;
 
             string configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "ExtraItemInfo.txt");

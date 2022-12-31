@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Commands
+﻿namespace SMLHelper.Commands
 {
     using HarmonyLib;
     using System;
@@ -61,7 +61,10 @@
         /// Determines whether the targeted method is valid in terms of whether it is static or delegate.
         /// </summary>
         /// <returns></returns>
-        public bool HasValidInvoke() => IsDelegate || Instance != null || IsMethodStatic;
+        public bool HasValidInvoke()
+        {
+            return IsDelegate || Instance != null || IsMethodStatic;
+        }
 
         /// <summary>
         /// Determines whether the target methods parameters are valid.
@@ -72,7 +75,9 @@
             foreach (Parameter parameter in Parameters)
             {
                 if (!parameter.IsValidParameterType)
+                {
                     return false;
+                }
             }
 
             return true;
@@ -83,7 +88,9 @@
         /// </summary>
         /// <returns></returns>
         public IEnumerable<Parameter> GetInvalidParameters()
-            => Parameters.Where(param => !param.IsValidParameterType);
+        {
+            return Parameters.Where(param => !param.IsValidParameterType);
+        }
 
         /// <summary>
         /// Attempts to parse input parameters into appropriate types as defined in the target method.
@@ -136,9 +143,13 @@
         public string Invoke(object[] parameters)
         {
             if (Instance != null)
+            {
                 return Traverse.Create(Instance).Method(MethodName, ParameterTypes).GetValue(parameters)?.ToString();
+            }
             else
+            {
                 return Traverse.Create(DeclaringType).Method(MethodName, ParameterTypes).GetValue(parameters)?.ToString();
+            }
         }
     }
 }

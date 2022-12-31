@@ -1,18 +1,18 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
     using System.Collections.Generic;
 
     // Special thanks to Gorillazilla9 for sharing this method of fragment count patching
     // https://github.com/Gorillazilla9/SubnauticaFragReqBoost/blob/master/PDAScannerPatcher.cs
     internal class PDAPatcher
     {
-        internal static readonly SelfCheckingDictionary<TechType, int> FragmentCount = new SelfCheckingDictionary<TechType, int>("CustomFragmentCount");
-        internal static readonly SelfCheckingDictionary<TechType, float> FragmentScanTime = new SelfCheckingDictionary<TechType, float>("CustomFragmentScanTime");
-        internal static readonly SelfCheckingDictionary<TechType, PDAScanner.EntryData> CustomEntryData = new SelfCheckingDictionary<TechType, PDAScanner.EntryData>("CustomEntryData");
+        internal static readonly SelfCheckingDictionary<TechType, int> FragmentCount = new("CustomFragmentCount");
+        internal static readonly SelfCheckingDictionary<TechType, float> FragmentScanTime = new("CustomFragmentScanTime");
+        internal static readonly SelfCheckingDictionary<TechType, PDAScanner.EntryData> CustomEntryData = new("CustomEntryData");
 
-        private static readonly Dictionary<TechType, PDAScanner.EntryData> BlueprintToFragment = new Dictionary<TechType, PDAScanner.EntryData>();
+        private static readonly Dictionary<TechType, PDAScanner.EntryData> BlueprintToFragment = new();
 
         internal static void Patch(Harmony harmony)
         {

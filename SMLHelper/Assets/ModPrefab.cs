@@ -1,7 +1,6 @@
-﻿using System.Reflection;
-
-namespace SMLHelper.V2.Assets
+﻿namespace SMLHelper.Assets
 {
+    using System.Reflection;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -12,9 +11,9 @@ namespace SMLHelper.V2.Assets
     /// </summary>
     public abstract class ModPrefab
     {
-        private static readonly Dictionary<string, ModPrefab> FileNameDictionary = new Dictionary<string, ModPrefab>(StringComparer.InvariantCultureIgnoreCase);
-        private static readonly Dictionary<string, ModPrefab> ClassIdDictionary = new Dictionary<string, ModPrefab>(StringComparer.InvariantCultureIgnoreCase);
-        private static readonly List<ModPrefab> PreFabsList = new List<ModPrefab>();
+        private static readonly Dictionary<string, ModPrefab> FileNameDictionary = new(StringComparer.InvariantCultureIgnoreCase);
+        private static readonly Dictionary<string, ModPrefab> ClassIdDictionary = new(StringComparer.InvariantCultureIgnoreCase);
+        private static readonly List<ModPrefab> PreFabsList = new();
         internal static bool ModPrefabsPatched = false;
 
         internal static void Add(ModPrefab prefab)
@@ -85,7 +84,9 @@ namespace SMLHelper.V2.Assets
         {
             GameObject go = GetGameObject();
             if (go == null)
+            {
                 return null;
+            }
 
             ProcessPrefab(go);
             return go;
@@ -93,12 +94,14 @@ namespace SMLHelper.V2.Assets
 
         internal IEnumerator GetGameObjectInternalAsync(IOut<GameObject> gameObject)
         {
-            var taskResult = new TaskResult<GameObject>();
+            TaskResult<GameObject> taskResult = new();
             yield return GetGameObjectAsync(taskResult);
 
             GameObject go = taskResult.Get();
             if (go == null)
+            {
                 yield break;
+            }
 
             ProcessPrefab(go);
             gameObject.Set(go);
@@ -112,7 +115,9 @@ namespace SMLHelper.V2.Assets
         protected virtual void ProcessPrefab(GameObject go)
         {
             if (go.activeInHierarchy) // inactive prefabs don't need to be removed by cache
+            {
                 ModPrefabCache.AddPrefab(go);
+            }
 
             go.name = this.ClassID;
 
@@ -141,13 +146,19 @@ namespace SMLHelper.V2.Assets
         /// The <see cref="TechType"/> and ClassID are already handled.
         /// </summary>
         /// <returns>The game object to be instantiated into a new in-game entity.</returns>
-        public virtual GameObject GetGameObject() => null;
+        public virtual GameObject GetGameObject()
+        {
+            return null;
+        }
 
         /// <summary>
         /// Gets the prefab game object asynchronously. Set up your prefab components here.
         /// The <see cref="TechType"/> and ClassID are already handled.
         /// </summary>
         /// <param name="gameObject"> The game object to be instantiated into a new in-game entity. </param>
-        public virtual IEnumerator GetGameObjectAsync(IOut<GameObject> gameObject) => null;
+        public virtual IEnumerator GetGameObjectAsync(IOut<GameObject> gameObject)
+        {
+            return null;
+        }
     }
 }

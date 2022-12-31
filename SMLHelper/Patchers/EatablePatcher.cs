@@ -1,7 +1,7 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
     using System.Collections.Generic;
     using static Handlers.EatableHandler;
 

@@ -1,21 +1,20 @@
-﻿namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.Options
 {
-    using Interfaces;
     using System;
     using System.Collections;
-    using SMLHelper.V2.Options.Utility;
+    using SMLHelper.Options.Utility;
     using UnityEngine;
     using UnityEngine.Events;
 
     /// <summary>
     /// Contains all the information about a choice changed event.
     /// </summary>
-    public class ChoiceChangedEventArgs : EventArgs, IModOptionEventArgs
+    public class ChoiceChangedEventArgs : ModEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModChoiceOption"/> that was changed.
         /// </summary>
-        public string Id { get; }
+        public override string Id { get; }
 
         /// <summary>
         /// The new index for the <see cref="ModChoiceOption"/>.
@@ -89,7 +88,9 @@
         protected void AddChoiceOption(string id, string label, string[] options, int index)
         {
             if (Validator.ValidateChoiceOrDropdownOption(id, label, options, index))
+            {
                 AddOption(new ModChoiceOption(id, label, options, index));
+            }
         }
         /// <summary>
         /// Adds a new <see cref="ModChoiceOption"/> to this instance.
@@ -102,7 +103,9 @@
         {
             int index = Array.IndexOf(options, value);
             if (index < 0)
+            {
                 index = 0;
+            }
 
             AddChoiceOption(id, label, options, index);
         }
@@ -118,7 +121,9 @@
             string[] strOptions = new string[options.Length];
 
             for (int i = 0; i < options.Length; i++)
+            {
                 strOptions[i] = options[i].ToString();
+            }
 
             AddChoiceOption(id, label, strOptions, index);
         }
@@ -167,7 +172,7 @@
 
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            var choice = panel.AddChoiceOption(tabIndex, Label, Options, Index,
+            uGUI_Choice choice = panel.AddChoiceOption(tabIndex, Label, Options, Index,
                 new UnityAction<int>((int index) => parentOptions.OnChoiceChange(Id, index, Options[index])));
 
             OptionGameObject = choice.transform.parent.transform.parent.gameObject; // :(
@@ -204,7 +209,9 @@
                 float widthText = CaptionWidth + spacing;
 
                 if (widthText + widthChoice > widthAll)
+                {
                     rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthChoice);
+                }
 
                 Destroy(this);
             }

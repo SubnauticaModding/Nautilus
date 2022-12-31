@@ -1,9 +1,9 @@
 ﻿#if SUBNAUTICA
-namespace SMLHelper.V2.Assets
+namespace SMLHelper.Assets
 {
     using System;
     using System.Collections.Generic;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// A class that handles a custom sprite and what item it is associated to.
@@ -23,6 +23,21 @@ namespace SMLHelper.V2.Assets
             if(ModSprites[group].ContainsKey(name))
                 InternalLogger.Debug($"ModSprite already registered for {group}/{name}.  Old sprite will be overwritten.");
             ModSprites[group][name] = sprite;
+        }
+
+        internal static void Add(SpriteManager.Group group, string name, UnityEngine.Sprite sprite)
+        {
+            if(group == SpriteManager.Group.None)
+                group = SpriteManager.Group.Item;
+            // There are no calls for sprites in the None Group.
+            // All sprite calls for almost anything we don't manually group is in the Item group.
+
+            if(!ModSprites.ContainsKey(group))
+                ModSprites.Add(group, new Dictionary<string, Atlas.Sprite>(StringComparer.InvariantCultureIgnoreCase));
+
+            if(ModSprites[group].ContainsKey(name))
+                InternalLogger.Debug($"ModSprite already registered for {group}/{name}.  Old sprite will be overwritten.");
+            ModSprites[group][name] = new Atlas.Sprite(sprite);
         }
 
         internal static void Add(ModSprite sprite) => Add(sprite.Group, sprite.Id, sprite.Sprite);

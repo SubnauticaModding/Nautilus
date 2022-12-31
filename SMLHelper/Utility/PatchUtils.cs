@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2
+﻿namespace SMLHelper
 {
     using System;
     using System.Reflection;
@@ -52,12 +52,14 @@
 
             typeWithPatchMethods ??= new StackTrace().GetFrame(1).GetMethod().ReflectedType;
 
-            foreach (var method in typeWithPatchMethods.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
+            foreach (MethodInfo method in typeWithPatchMethods.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
             {
                 HarmonyMethod _method_if<H>() => method.IsDefined(typeof(H))? new HarmonyMethod(method): null;
 
                 if (method.GetCustomAttribute<HarmonyPatch>() is HarmonyPatch harmonyPatch && _getTargetMethod(harmonyPatch.info) is MethodInfo targetMethod)
+                {
                     harmony.Patch(targetMethod, _method_if<Prefix>(), _method_if<Postfix>(), _method_if<Transpiler>());
+                }
             }
         }
     }

@@ -1,8 +1,9 @@
 ﻿#if SUBNAUTICA
-namespace SMLHelper.V2.Patchers
+namespace SMLHelper.Patchers
 {
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
+    using SMLHelper;
     using System.Collections.Generic;
     using static RootMotion.FinalIK.InteractionTrigger.Range;
 

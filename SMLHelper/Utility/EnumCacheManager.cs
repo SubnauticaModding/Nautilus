@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Utility
+﻿namespace SMLHelper.Utility
 {
     using System;
     using System.Collections;
@@ -29,14 +29,14 @@
         {
             private readonly Type _underlyingType = Enum.GetUnderlyingType(typeof(T)); 
             
-            private readonly SortedDictionary<int, string> MapIntString = new SortedDictionary<int, string>();
-            private readonly SortedDictionary<T, string> MapEnumString = new SortedDictionary<T, string>();
+            private readonly SortedDictionary<int, string> MapIntString = new();
+            private readonly SortedDictionary<T, string> MapEnumString = new();
 
             private readonly SortedDictionary<string, T> MapStringEnum =
-                new SortedDictionary<string, T>(StringComparer.InvariantCultureIgnoreCase);
+                new(StringComparer.InvariantCultureIgnoreCase);
 
             private readonly SortedDictionary<string, int> MapStringInt =
-                new SortedDictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
+                new(StringComparer.InvariantCultureIgnoreCase);
 
             public bool TryGetValue(T enumValue, out string name)
             {
@@ -55,7 +55,7 @@
 
             public void Add(int backingValue, string name)
             {
-                var enumValue = (T)Convert.ChangeType(backingValue, _underlyingType);
+                T enumValue = (T)Convert.ChangeType(backingValue, _underlyingType);
                 Add(enumValue, backingValue, name);
             }
 
@@ -67,12 +67,14 @@
                 MapStringInt.Add(name, backingValue);
 
                 if (backingValue > this.LargestIntValue)
+                {
                     this.LargestIntValue = backingValue;
+                }
             }
 
             public void Remove(int backingValue, string name)
             {
-                var enumValue = (T)Convert.ChangeType(backingValue, _underlyingType);
+                T enumValue = (T)Convert.ChangeType(backingValue, _underlyingType);
                 Remove(enumValue, backingValue, name);
             }
 
@@ -126,9 +128,9 @@
         private readonly HashSet<int> BannedIDs;
         private readonly int LargestBannedID;
 
-        private readonly DoubleKeyDictionary entriesFromFile = new DoubleKeyDictionary();
-        private readonly DoubleKeyDictionary entriesFromDeactivatedFile = new DoubleKeyDictionary();
-        private readonly DoubleKeyDictionary entriesFromRequests = new DoubleKeyDictionary();
+        private readonly DoubleKeyDictionary entriesFromFile = new();
+        private readonly DoubleKeyDictionary entriesFromDeactivatedFile = new();
+        private readonly DoubleKeyDictionary entriesFromRequests = new();
 
         public IEnumerable<T> ModdedKeys => entriesFromRequests.KnownsEnumKeys;
 
@@ -147,7 +149,9 @@
         public bool Add(T value, int backingValue, string name)
         {
             if (entriesFromRequests.IsKnownKey(backingValue))
+            {
                 return false;
+            }
 
             entriesFromRequests.Add(value, backingValue, name);
             return true;
@@ -182,7 +186,9 @@
                 $"{EnumTypeName}Cache");
 
             if (!Directory.Exists(saveDir))
+            {
                 Directory.CreateDirectory(saveDir);
+            }
 
             return saveDir;
         }
@@ -200,7 +206,9 @@
         internal void LoadCache()
         {
             if (cacheLoaded)
+            {
                 return;
+            }
 
             ReadCacheFile(GetCachePath(), (index, name) => { entriesFromFile.Add(index, name); });
             ReadCacheFile(GetDeactivatedCachePath(), (index, name) => { entriesFromDeactivatedFile.Add(index, name); });
@@ -210,7 +218,10 @@
         private void ReadCacheFile(string savePathDir, Action<int, string> loadParsedEntry)
         {
 
-            if (!File.Exists(savePathDir)) return;
+            if (!File.Exists(savePathDir))
+            {
+                return;
+            }
 
             try
             {
@@ -236,7 +247,7 @@
             try
             {
                 string savePathDir = GetCachePath();
-                var stringBuilder = new StringBuilder();
+                StringBuilder stringBuilder = new();
 
                 foreach (KeyValuePair<int, string> entry in entriesFromRequests)
                 {
@@ -250,11 +261,16 @@
                 stringBuilder = new StringBuilder();
 
                 foreach (KeyValuePair<int, string> entry in entriesFromFile)
+                {
                     entriesFromDeactivatedFile.Add(entry.Key, entry.Value);
+                }
+
                 entriesFromFile.Clear();
 
                 foreach (KeyValuePair<int, string> entry in entriesFromDeactivatedFile)
+                {
                     stringBuilder.AppendLine($"{entry.Value}:{entry.Key}");
+                }
 
                 File.WriteAllText(savePathDir, stringBuilder.ToString());
             }

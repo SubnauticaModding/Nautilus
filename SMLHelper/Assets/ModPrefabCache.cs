@@ -1,11 +1,10 @@
-﻿using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Assets
+﻿namespace SMLHelper.Assets
 {
+    using SMLHelper.Utility;
     using System;
     using System.Collections.Generic;
     using UnityEngine;
-    using InternalLogger = InternalLogger;
+
 
     /// <summary>
     /// Class that used by <see cref="ModPrefab"/> to store game objects that used as prefabs.
@@ -17,7 +16,7 @@ namespace SMLHelper.V2.Assets
         private const float cleanDelay = 30.0f; // delay in secs before attempt to remove prefab from cache
 
         // list of prefabs for removing (Item1 - time of addition, Item2 - prefab gameobject)
-        private readonly static List<Tuple<float, GameObject>> prefabs = new List<Tuple<float, GameObject>>();
+        private readonly static List<Tuple<float, GameObject>> prefabs = new();
 
         private static GameObject root; // active root object with CacheCleaner component
         private static GameObject prefabRoot; // inactive child object, parent for added prefabs
@@ -29,7 +28,9 @@ namespace SMLHelper.V2.Assets
                 for (int i = prefabs.Count - 1; i >= 0; i--)
                 {
                     if (Time.time < prefabs[i].Item1 + cleanDelay || Builder.prefab == prefabs[i].Item2)
+                    {
                         continue;
+                    }
 
                     InternalLogger.Debug($"ModPrefabCache: removing prefab {prefabs[i].Item2}");
 
@@ -41,11 +42,14 @@ namespace SMLHelper.V2.Assets
 
         private static void Init()
         {
-            if (root)
+            if (root != null)
+            {
                 return;
+            }
 
             root = new GameObject("SMLHelper.PrefabCache", typeof(SceneCleanerPreserve), typeof(CacheCleaner));
             UnityEngine.Object.DontDestroyOnLoad(root);
+            root.EnsureComponent<SceneCleanerPreserve>();
 
             prefabRoot = new GameObject("PrefabRoot");
             prefabRoot.transform.parent = root.transform;
@@ -76,7 +80,7 @@ namespace SMLHelper.V2.Assets
         public static GameObject AddPrefabCopy(GameObject prefab, bool autoremove = true)
         {
             Init();
-            var prefabCopy = UnityEngine.Object.Instantiate(prefab, prefabRoot.transform);
+            GameObject prefabCopy = UnityEngine.Object.Instantiate(prefab, prefabRoot.transform);
 
             AddPrefabInternal(prefabCopy, autoremove);
             return prefabCopy;
@@ -85,7 +89,9 @@ namespace SMLHelper.V2.Assets
         private static void AddPrefabInternal(GameObject prefab, bool autoremove)
         {
             if (autoremove)
+            {
                 prefabs.Add(Tuple.Create(Time.time, prefab));
+            }
 
             InternalLogger.Debug($"ModPrefabCache: adding prefab {prefab}");
         }

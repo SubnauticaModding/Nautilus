@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Assets
+﻿namespace SMLHelper.Assets
 {
     using System.Collections;
     using UnityEngine;
@@ -21,7 +21,9 @@
         private void Init()
         {
             if (task != null)
+            {
                 return;
+            }
 
             taskResult = new TaskResult<GameObject>();
             task = new CoroutineTask<GameObject>(modPrefab.GetGameObjectInternalAsync(taskResult), taskResult);

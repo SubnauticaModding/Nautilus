@@ -1,8 +1,8 @@
-﻿namespace SMLHelper.V2.Assets
+﻿namespace SMLHelper.Assets
 {
     using Crafting;
-    using SMLHelper.V2.Interfaces;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Handlers;
+    using SMLHelper.Utility;
     using System.Collections.Generic;
 
     /// <summary>
@@ -11,10 +11,6 @@
     /// <seealso cref="Spawnable" />
     public abstract class PdaItem: Spawnable
     {
-        internal IKnownTechHandler KnownTechHandler { get; set; } = Handlers.KnownTechHandler.Main;
-        internal IPDAHandler PDAHandler { get; set; } = Handlers.PDAHandler.Main;
-        internal IPDAEncyclopediaHandler PDAEncyclopediaHandler { get; set; } = Handlers.PDAEncyclopediaHandler.Main;
-
         /// <summary>
         /// Override to set the <see cref="TechType"/> that must first be scanned or picked up to unlock the blueprint for this item.
         /// </summary>
@@ -110,7 +106,7 @@
 
             if(GroupForPDA != TechGroup.Uncategorized)
             {
-                List<TechCategory> categories = new List<TechCategory>();
+                List<TechCategory> categories = new();
                 CraftData.GetBuilderCategories(GroupForPDA, categories);
                 if(categories.Contains(CategoryForPDA))
                 {
@@ -124,12 +120,12 @@
 
             if(EncyclopediaEntryData != null)
             {
-                PDAEncyclopediaHandler.AddCustomEntry(EncyclopediaEntryData);
+                PDAHandler.AddEncyclopediaEntry(EncyclopediaEntryData);
             }
 
             if(!UnlockedAtStart)
             {
-                var unlockTech = RequiredForUnlock == TechType.None? this.TechType: RequiredForUnlock;
+                TechType unlockTech = RequiredForUnlock == TechType.None? this.TechType: RequiredForUnlock;
 
                 KnownTechHandler.SetAnalysisTechEntry(unlockTech, new TechType[1] { TechType }, DiscoverMessageResolved);
 
@@ -140,7 +136,7 @@
 
                 if (AddScannerEntry)
                 {
-                    PDAScanner.EntryData entryData = new PDAScanner.EntryData()
+                    PDAScanner.EntryData entryData = new()
                     {
                         key = unlockTech,
                         blueprint = TechType,

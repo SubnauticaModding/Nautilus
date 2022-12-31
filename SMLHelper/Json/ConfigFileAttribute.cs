@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Json
+﻿namespace SMLHelper.Json
 {
     using System;
 
@@ -10,7 +10,7 @@
     /// </remarks>
     /// <example>
     /// <code>
-    /// using SMLHelper.V2.Json;
+    /// using SMLHelper.Json;
     /// 
     /// [ConfigFile("options", "configs")]
     /// public class Config : ConfigFile
@@ -42,7 +42,9 @@
         public ConfigFileAttribute(string filename = "config")
         {
             if (string.IsNullOrEmpty(filename))
+            {
                 filename = "config";
+            }
 
             Filename = filename;
         }

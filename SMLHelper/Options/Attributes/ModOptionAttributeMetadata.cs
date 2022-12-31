@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
     using Json;
     using System.Collections.Generic;

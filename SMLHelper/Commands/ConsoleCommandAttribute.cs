@@ -1,6 +1,5 @@
-﻿namespace SMLHelper.V2.Commands
+﻿namespace SMLHelper.Commands
 {
-    using Interfaces;
     using Handlers;
     using System;
 
@@ -16,9 +15,9 @@
     /// 
     /// <para>If the method has a return type, it will be printed to both the screen and the log.</para>
     /// </remarks>
-    /// <seealso cref="IConsoleCommandHandler.RegisterConsoleCommand(string, Type, string, Type[])"/>
-    /// <seealso cref="IConsoleCommandHandler.RegisterConsoleCommand{T}(string, T)"/>
-    /// <seealso cref="IConsoleCommandHandler.RegisterConsoleCommands(Type)"/>
+    /// <seealso cref="ConsoleCommandsHandler.RegisterConsoleCommand(string, Type, string, Type[])"/>
+    /// <seealso cref="ConsoleCommandsHandler.RegisterConsoleCommand{T}(string, T)"/>
+    /// <seealso cref="ConsoleCommandsHandler.RegisterConsoleCommands(Type)"/>
     /// <seealso cref="ConsoleCommandsHandler"/>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class ConsoleCommandAttribute : Attribute
@@ -43,9 +42,9 @@
         /// </remarks>
         /// <param name="command">The unique, case-insensitive command that when entered into the dev console will call the
         /// decorated method.</param>
-        /// <seealso cref="IConsoleCommandHandler.RegisterConsoleCommand(string, Type, string, Type[])"/>
-        /// <seealso cref="IConsoleCommandHandler.RegisterConsoleCommand{T}(string, T)"/>
-        /// <seealso cref="IConsoleCommandHandler.RegisterConsoleCommands(Type)"/>
+        /// <seealso cref="ConsoleCommandsHandler.RegisterConsoleCommand(string, Type, string, Type[])"/>
+        /// <seealso cref="ConsoleCommandsHandler.RegisterConsoleCommand{T}(string, T)"/>
+        /// <seealso cref="ConsoleCommandsHandler.RegisterConsoleCommands(Type)"/>
         /// <seealso cref="ConsoleCommandsHandler"/>
         public ConsoleCommandAttribute(string command)
         {

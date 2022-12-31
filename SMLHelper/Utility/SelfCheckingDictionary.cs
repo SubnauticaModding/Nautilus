@@ -1,9 +1,9 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// This dictionary strtucture automatically checks for duplicate keys as they are being added to the collection.
@@ -61,9 +61,13 @@
                 if (UniqueEntries.ContainsKey(key))
                 {
                     if (DuplicatesDiscarded.ContainsKey(key))
+                    {
                         DuplicatesDiscarded[key]++;
+                    }
                     else
+                    {
                         DuplicatesDiscarded.Add(key, 1); // Original is overwritten.
+                    }
 
                     DupFoundLastDiscardedLog(key);
                 }
@@ -109,7 +113,10 @@
         /// If a duplicate key is found, all entries with that key will be excluded from the final collection.
         /// </summary>
         /// <param name="item">The key value pair.</param>
-        public void Add(KeyValuePair<K, V> item) => Add(item.Key, item.Value);
+        public void Add(KeyValuePair<K, V> item)
+        {
+            Add(item.Key, item.Value);
+        }
 
         public void Clear()
         {
@@ -117,9 +124,15 @@
             DuplicatesDiscarded.Clear();
         }
 
-        public bool Contains(KeyValuePair<K, V> item) => UniqueEntries.TryGetValue(item.Key, out V value) && value.Equals(item.Value);
+        public bool Contains(KeyValuePair<K, V> item)
+        {
+            return UniqueEntries.TryGetValue(item.Key, out V value) && value.Equals(item.Value);
+        }
 
-        public bool ContainsKey(K key) => UniqueEntries.ContainsKey(key) | DuplicatesDiscarded.ContainsKey(key);
+        public bool ContainsKey(K key)
+        {
+            return UniqueEntries.ContainsKey(key) | DuplicatesDiscarded.ContainsKey(key);
+        }
 
         public void CopyTo(KeyValuePair<K, V>[] array, int arrayIndex)
         {
@@ -129,15 +142,30 @@
             }
         }
 
-        public IEnumerator<KeyValuePair<K, V>> GetEnumerator() => UniqueEntries.GetEnumerator();
+        public IEnumerator<KeyValuePair<K, V>> GetEnumerator()
+        {
+            return UniqueEntries.GetEnumerator();
+        }
 
-        public bool Remove(K key) => UniqueEntries.Remove(key) | DuplicatesDiscarded.Remove(key);
+        public bool Remove(K key)
+        {
+            return UniqueEntries.Remove(key) | DuplicatesDiscarded.Remove(key);
+        }
 
-        public bool Remove(KeyValuePair<K, V> item) => UniqueEntries.Remove(item.Key) | DuplicatesDiscarded.Remove(item.Key);
+        public bool Remove(KeyValuePair<K, V> item)
+        {
+            return UniqueEntries.Remove(item.Key) | DuplicatesDiscarded.Remove(item.Key);
+        }
 
-        public bool TryGetValue(K key, out V value) => UniqueEntries.TryGetValue(key, out value);
+        public bool TryGetValue(K key, out V value)
+        {
+            return UniqueEntries.TryGetValue(key, out value);
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => UniqueEntries.GetEnumerator();         
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return UniqueEntries.GetEnumerator();
+        }
 
         /// <summary>
         /// Informs the user that all entries for the specified key have been discarded.

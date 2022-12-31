@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using SMLHelper.V2.Interfaces;
-using TMPro;
-
-namespace SMLHelper.V2.Utility
+﻿namespace SMLHelper.Utility
 {
+    using UnityEngine;
+    using UnityEngine.UI;
+    using TMPro;
+
     /// <summary>
     /// <para>
     /// Places a simple text object on the screen and keeps it there until either hidden (or a designated fade-to-black timer has passed). 
@@ -32,10 +31,10 @@ namespace SMLHelper.V2.Utility
     /// ... // other things happen, time goes by
     /// message.Hide(); // Hides the message
     /// </example>
-    public class BasicText : IBasicText
+    public class BasicText
     {
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> with all default options.
+        /// Creates a new instances of <see cref="BasicText"/> with all default options.
         /// </summary>
         public BasicText()
         {
@@ -48,7 +47,7 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> at the specified origin point.
+        /// Creates a new instances of <see cref="BasicText"/> at the specified origin point.
         /// </summary>
         /// <param name="set_x">The x coordinate to set</param>
         /// <param name="set_y">The y coordinate to set</param>
@@ -59,7 +58,7 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> at a specified <see cref="TextAnchor"/>.
+        /// Creates a new instances of <see cref="BasicText"/> at a specified <see cref="TextAnchor"/>.
         /// </summary>
         /// <param name="useAlign">The text anchor to align to</param>
         public BasicText(TextAlignmentOptions useAlign) : this()
@@ -69,7 +68,7 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> with a specified <see cref="UnityEngine.Color"/>.
+        /// Creates a new instances of <see cref="BasicText"/> with a specified <see cref="UnityEngine.Color"/>.
         /// </summary>
         /// <param name="useColor">The text color to use</param>
         public BasicText(Color useColor) : this()
@@ -79,7 +78,7 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> with a specified size.
+        /// Creates a new instances of <see cref="BasicText"/> with a specified size.
         /// </summary>
         /// <param name="useSize">The text size to uset</param>
         public BasicText(int useSize) : this()
@@ -89,7 +88,7 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> with a specified size and <see cref="UnityEngine.Color"/>.
+        /// Creates a new instances of <see cref="BasicText"/> with a specified size and <see cref="UnityEngine.Color"/>.
         /// </summary>
         /// <param name="useSize">The text size to use</param>
         /// <param name="useColor">The text color to use</param>
@@ -102,7 +101,7 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> with a specified size and <see cref="TextAnchor"/>.
+        /// Creates a new instances of <see cref="BasicText"/> with a specified size and <see cref="TextAnchor"/>.
         /// </summary>
         /// <param name="useSize">The text size to use</param>
         /// <param name="useAlign">The text anchor to align to</param>
@@ -115,7 +114,7 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> with a specified size, <see cref="UnityEngine.Color"/>, and <see cref="TextAnchor"/>.
+        /// Creates a new instances of <see cref="BasicText"/> with a specified size, <see cref="UnityEngine.Color"/>, and <see cref="TextAnchor"/>.
         /// </summary>
         /// <param name="useSize">The text size to use</param>
         /// <param name="useColor">The text color to use</param>
@@ -131,7 +130,7 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> with a specified origin point, size, <see cref="UnityEngine.Color"/>, and <see cref="TextAnchor"/>.
+        /// Creates a new instances of <see cref="BasicText"/> with a specified origin point, size, <see cref="UnityEngine.Color"/>, and <see cref="TextAnchor"/>.
         /// </summary>
         /// <param name="set_x">The x coordinate to set</param>
         /// <param name="set_y">The y coordinate to set</param>
@@ -151,7 +150,7 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> with a specified origin point, size, and <see cref="UnityEngine.Color"/>.
+        /// Creates a new instances of <see cref="BasicText"/> with a specified origin point, size, and <see cref="UnityEngine.Color"/>.
         /// </summary>
         /// <param name="set_x">The x coordinate to set</param>
         /// <param name="set_y">The y coordinate to set</param>
@@ -168,7 +167,7 @@ namespace SMLHelper.V2.Utility
         }
 
         /// <summary>
-        /// Creates a new instances of <see cref="IBasicText"/> with a specified origin point and size.
+        /// Creates a new instances of <see cref="BasicText"/> with a specified origin point and size.
         /// </summary>
         /// <param name="set_x">The x coordinate to set</param>
         /// <param name="set_y">The y coordinate to set</param>
@@ -215,7 +214,9 @@ namespace SMLHelper.V2.Utility
 
             // If specified, sets the fade-out timer
             if (seconds > 0)
+            {
                 TextFade.FadeOut(seconds, null);
+            }
         }
 
         /// <summary>

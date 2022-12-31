@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Utility
+﻿namespace SMLHelper.Utility
 {
     using System.IO;
     using UnityEngine;
@@ -30,7 +30,7 @@
             if(File.Exists(filePathToImage))
             {
                 byte[] imageBytes = File.ReadAllBytes(filePathToImage);
-                var texture2D = new Texture2D(2, 2, format, false);
+                Texture2D texture2D = new(2, 2, format, false);
                 try
                 {
                     texture2D.LoadImage(imageBytes);

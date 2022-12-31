@@ -1,13 +1,12 @@
-using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.MonoBehaviours
+namespace SMLHelper.MonoBehaviours
 {
+    using SMLHelper.Utility;
     using System.Collections;
-    using Handlers;
-    using Patchers;
+    using SMLHelper.Handlers;
+    using SMLHelper.Patchers;
     using UnityEngine;
     using UWE;
-    using InternalLogger = InternalLogger;
+
 
     internal class EntitySpawner : MonoBehaviour
     {
@@ -20,16 +19,16 @@ namespace SMLHelper.V2.MonoBehaviours
 
         IEnumerator SpawnAsync()
         {
-            var stringToLog = spawnInfo.Type switch
+            string stringToLog = spawnInfo.Type switch
             {
                 SpawnInfo.SpawnType.ClassId => spawnInfo.ClassId,
                 _ => spawnInfo.TechType.AsString()
             };
 
-            var task = new TaskResult<GameObject>();
+            TaskResult<GameObject> task = new();
             yield return GetPrefabAsync(task);
 
-            var prefab = task.Get();
+            GameObject prefab = task.Get();
 
             if (prefab == null)
             {
@@ -38,21 +37,21 @@ namespace SMLHelper.V2.MonoBehaviours
             }
 
 
-            var obj = Utils.InstantiateDeactivated(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
+            GameObject obj = Utils.InstantiateDeactivated(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
 
-            var lwe = obj.GetComponent<LargeWorldEntity>();
-            
-            var lws = LargeWorldStreamer.main;
+            LargeWorldEntity lwe = obj.GetComponent<LargeWorldEntity>();
+
+            LargeWorldStreamer lws = LargeWorldStreamer.main;
             yield return new WaitUntil(() => lws != null && lws.IsReady()); // first we make sure the world streamer is initialized
 
             // non-global objects cannot be spawned in unloaded terrain so we need to wait
             if (lwe is {cellLevel: not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global)})
             {
-                var batch = lws.GetContainingBatch(spawnInfo.SpawnPosition);
+                Int3 batch = lws.GetContainingBatch(spawnInfo.SpawnPosition);
                 yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch)); // then we wait until the terrain is fully loaded (must be checked on each frame for faster spawns)
             }
 
-            var lw = LargeWorld.main;
+            LargeWorld lw = LargeWorld.main;
 
             yield return new WaitUntil(() => lw != null && lw.streamer.globalRoot != null); // need to make sure global root is ready too for global spawns.
             
@@ -71,14 +70,14 @@ namespace SMLHelper.V2.MonoBehaviours
 
             if (spawnInfo.Type == SpawnInfo.SpawnType.ClassId) // Spawn is via ClassID.
             {
-                var request = PrefabDatabase.GetPrefabAsync(spawnInfo.ClassId);
+                IPrefabRequest request = PrefabDatabase.GetPrefabAsync(spawnInfo.ClassId);
                 yield return request;
 
                 request.TryGetPrefab(out obj);
             }
             else // spawn is via TechType.
             {
-                var task = CraftData.GetPrefabForTechTypeAsync(spawnInfo.TechType);
+                CoroutineTask<GameObject> task = CraftData.GetPrefabForTechTypeAsync(spawnInfo.TechType);
                 yield return task;
 
                 obj = task.GetResult();

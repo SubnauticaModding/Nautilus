@@ -1,8 +1,7 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
-    using Interfaces;
     using Json;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
     using System;
 
     /// <summary>
@@ -13,7 +12,7 @@
     /// <para>
     /// The specified method can take the following parameters in any order:<br/>
     /// - <see cref="object"/> sender: The sender of the event<br/>
-    /// - <see cref="IModOptionEventArgs"/> eventArgs: The generalized event arguments of the event<br/>
+    /// - <see cref="EventArgs"/> eventArgs: The generalized event arguments of the event<br/>
     /// - <see cref="ChoiceChangedEventArgs"/> choiceChangedEventArgs: Only when the member corresponds to a
     ///   <see cref="ModChoiceOption"/><br/>
     /// - <see cref="KeybindChangedEventArgs"/> keybindChangedEventArgs: Only when the member correspends to a
@@ -26,9 +25,8 @@
     /// </remarks>
     /// <example>
     /// <code>
-    /// using SMLHelper.V2.Interfaces;
-    /// using SMLHelper.V2.Json;
-    /// using SMLHelper.V2.Options;
+    /// using SMLHelper.Json;
+    /// using SMLHelper.Options;
     /// using QModManager.Utility;
     /// using UnityEngine;
     /// 
@@ -44,7 +42,7 @@
     ///         Logger.Log(Logger.Level.Info, $"{e.Value}");
     ///     }
     /// 
-    ///     private void MyGenericValueChangedEvent(IModOptionEventArgs e)
+    ///     private void MyGenericValueChangedEvent(ModOptionEventArgs e)
     ///     {
     ///         Logger.Log(Logger.Level.Info, "Generic value changed!");
     ///         Logger.Log(Logger.Level.Info, $"{e.Id}: {e.GetType()}");
@@ -69,7 +67,7 @@
     /// </example>
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="ToggleAttribute"/>
-    /// <seealso cref="IModOptionEventArgs"/>
+    /// <seealso cref="EventArgs"/>
     /// <seealso cref="ChoiceChangedEventArgs"/>
     /// <seealso cref="KeybindChangedEventArgs"/>
     /// <seealso cref="SliderChangedEventArgs"/>

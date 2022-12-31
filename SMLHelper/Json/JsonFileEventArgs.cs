@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SMLHelper.V2.Json
+﻿namespace SMLHelper.Json
 {
+    using System;
+
     /// <summary>
     /// Contains basic information for a <see cref="JsonFile"/> event.
     /// </summary>

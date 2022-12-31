@@ -1,5 +1,5 @@
 #if SUBNAUTICA
-namespace SMLHelper.V2.Utility
+namespace SMLHelper.Utility
 {
     public static partial class AudioUtils
     {

@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
     using Json;
     using System;
@@ -13,8 +13,8 @@
     /// </remarks>
     /// <example>
     /// <code>
-    /// using SMLHelper.V2.Json;
-    /// using SMLHelper.V2.Options;
+    /// using SMLHelper.Json;
+    /// using SMLHelper.Options;
     /// 
     /// public enum CustomChoice { One, Two, Three }
     /// 

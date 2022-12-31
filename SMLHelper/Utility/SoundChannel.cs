@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SMLHelper.V2.Utility
+﻿namespace SMLHelper.Utility
 {
+    using System;
+
     /// <summary>
     /// The a list the different volume controls in the game
     /// </summary>

@@ -1,15 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace SMLHelper.V2.Json
+﻿namespace SMLHelper.Json
 {
-    using Converters;
-    using ExtensionMethods;
-    using Interfaces;
+    using System;
+    using System.IO;
+    using System.Reflection;
+    using System.Linq;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+    using SMLHelper.Json.Converters;
+    using SMLHelper.Json.ExtensionMethods;
+    using SMLHelper.Json.Interfaces;
 
     /// <summary>
     /// A simple implementation of <see cref="IJsonFile"/> for use with config files.
@@ -73,7 +72,7 @@ namespace SMLHelper.V2.Json
         /// <param name="subfolder">Optional subfolder for the <see cref="ConfigFile"/>.</param>
         /// <example>
         /// <code>
-        /// using SMLHelper.V2.Options;
+        /// using SMLHelper.Options;
         /// using UnityEngine;
         /// 
         /// public class MyConfig : ConfigFile
@@ -123,7 +122,7 @@ namespace SMLHelper.V2.Json
         /// <seealso cref="LoadWithConverters(bool, JsonConverter[])"/>
         public void Load(bool createFileIfNotExist = true)
         {
-            var e = new ConfigFileEventArgs(this);
+            ConfigFileEventArgs e = new(this);
             OnStartedLoading?.Invoke(this, e);
             this.LoadJson(JsonFilePath, createFileIfNotExist, AlwaysIncludedJsonConverters.Distinct().ToArray());
             OnFinishedLoading?.Invoke(this, e);
@@ -136,7 +135,7 @@ namespace SMLHelper.V2.Json
         /// <seealso cref="SaveWithConverters(JsonConverter[])"/>
         public void Save()
         {
-            var e = new ConfigFileEventArgs(this);
+            ConfigFileEventArgs e = new(this);
             OnStartedSaving?.Invoke(this, e);
             this.SaveJson(JsonFilePath, AlwaysIncludedJsonConverters.Distinct().ToArray());
             OnFinishedSaving?.Invoke(this, e);
@@ -152,8 +151,10 @@ namespace SMLHelper.V2.Json
         /// <seealso cref="SaveWithConverters(JsonConverter[])"/>
         /// <seealso cref="Load(bool)"/>
         public void LoadWithConverters(bool createFileIfNotExist = true, params JsonConverter[] jsonConverters)
-            => this.LoadJson(JsonFilePath, true,
-                AlwaysIncludedJsonConverters.Concat(jsonConverters).Distinct().ToArray());
+        {
+            this.LoadJson(JsonFilePath, true,
+                        AlwaysIncludedJsonConverters.Concat(jsonConverters).Distinct().ToArray());
+        }
 
         /// <summary>
         /// Saves the current fields and properties of the <see cref="ConfigFile"/> as JSON properties to the file on disk.
@@ -163,7 +164,9 @@ namespace SMLHelper.V2.Json
         /// <seealso cref="LoadWithConverters(bool, JsonConverter[])"/>
         /// <seealso cref="Save"/>
         public void SaveWithConverters(params JsonConverter[] jsonConverters)
-            => this.SaveJson(JsonFilePath,
-                AlwaysIncludedJsonConverters.Concat(jsonConverters).Distinct().ToArray());
+        {
+            this.SaveJson(JsonFilePath,
+                        AlwaysIncludedJsonConverters.Concat(jsonConverters).Distinct().ToArray());
+        }
     }
 }

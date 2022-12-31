@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Crafting
+﻿namespace SMLHelper.Crafting
 {
     using Assets;
     using Patchers;
@@ -51,7 +51,10 @@
         {
             base.LinkToParent(parent);
 
-            if (IsExistingTab) return;
+            if (IsExistingTab)
+            {
+                return;
+            }
 
             LanguagePatcher.AddCustomLanguageLine(ModName, $"{base.SchemeAsString}Menu_{Name}", DisplayText);
 

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FMOD.Studio;
-
-namespace SMLHelper.V2.Utility
+﻿namespace SMLHelper.Utility
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Runtime.InteropServices;
     using FMOD;
+    using FMOD.Studio;
     using FMODUnity;
     using UnityEngine;
 
@@ -15,7 +14,7 @@ namespace SMLHelper.V2.Utility
     /// </summary>
     public static partial class AudioUtils
     {
-        private static System FMOD_System => RuntimeManager.CoreSystem;
+        private static FMOD.System FMOD_System => RuntimeManager.CoreSystem;
 
         /// <summary>
         /// Creates a <see cref="Sound"/> instance from a path. Can be stored and later used with <see cref="PlaySound(Sound)"/>
@@ -68,6 +67,7 @@ namespace SMLHelper.V2.Utility
         /// <param name="audio">The AudioClip of the sound.</param>
         /// <param name="mode"></param>
         /// <returns>The channel on which the sound was created.</returns>
+        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static Channel PlaySound(AudioClip audio, MODE mode = MODE.DEFAULT)
         {
             return PlaySound(CreateSound(audio, mode));
@@ -92,6 +92,7 @@ namespace SMLHelper.V2.Utility
         /// <param name="path">The path of the sound. Relative to the base game folder.</param>
         /// <param name="mode"></param>
         /// <returns>The channel on which the sound was created</returns>
+        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
         public static Channel PlaySound(string path, MODE mode = MODE.DEFAULT)
         {
             return PlaySound(CreateSound(path, mode));
@@ -143,7 +144,7 @@ namespace SMLHelper.V2.Utility
             };
 
             FMOD_System.getMasterChannelGroup(out ChannelGroup channels);
-            var newChannels = channels;
+            ChannelGroup newChannels = channels;
             newChannels.setVolume(volumeLevel);
             FMOD_System.playSound(sound, newChannels, false, out Channel channel);
 
@@ -158,21 +159,21 @@ namespace SMLHelper.V2.Utility
         /// <returns>The channel on which the sound was created.</returns>
         public static Channel PlaySound(Sound sound, Bus bus)
         {
-            bus.getChannelGroup(out var channelGroup);
-            channelGroup.getPaused(out var paused);
+            bus.getChannelGroup(out ChannelGroup channelGroup);
+            channelGroup.getPaused(out bool paused);
             FMOD_System.playSound(sound, channelGroup, paused, out Channel channel);
             return channel;
         }
         
         private static Sound CreateSoundFromAudioClip(AudioClip audioClip, MODE mode)
         {
-            var samplesSize = audioClip.samples * audioClip.channels;
-            var samples = new float[samplesSize];
+            int samplesSize = audioClip.samples * audioClip.channels;
+            float[] samples = new float[samplesSize];
             audioClip.GetData(samples, 0);
 
-            var bytesLength = (uint) (samplesSize * sizeof(float));
+            uint bytesLength = (uint) (samplesSize * sizeof(float));
 
-            var soundInfo = new CREATESOUNDEXINFO
+            CREATESOUNDEXINFO soundInfo = new()
             {
                 cbsize = Marshal.SizeOf(typeof(CREATESOUNDEXINFO)),
                 length = bytesLength,
@@ -181,11 +182,11 @@ namespace SMLHelper.V2.Utility
                 numchannels = audioClip.channels
             };
             
-            FMOD_System.createSound("", MODE.OPENUSER, ref soundInfo, out var sound);
+            FMOD_System.createSound("", MODE.OPENUSER, ref soundInfo, out Sound sound);
 
-            sound.@lock(0, bytesLength, out var ptr1, out var ptr2, out var len1, out var len2);
+            sound.@lock(0, bytesLength, out IntPtr ptr1, out IntPtr ptr2, out uint len1, out uint len2);
 
-            var samplesLength = (int) (len1 / sizeof(float));
+            int samplesLength = (int) (len1 / sizeof(float));
             Marshal.Copy(samples, 0, ptr1, samplesLength);
             if (len2 > 0)
             {

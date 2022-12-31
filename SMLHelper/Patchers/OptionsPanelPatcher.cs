@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using HarmonyLib;
     using Options;
@@ -11,13 +11,13 @@
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using Newtonsoft.Json;
-    using static SMLHelper.V2.Options.ModKeybindOption;
+    using static SMLHelper.Options.ModKeybindOption;
     using TMPro;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     internal class OptionsPanelPatcher
     {
-        internal static SortedList<string, ModOptions> modOptions = new SortedList<string, ModOptions>();
+        internal static SortedList<string, ModOptions> modOptions = new();
 
         private static int  modsTabIndex = -1;
 
@@ -35,7 +35,9 @@
         internal static void AddTab_Postfix(string label, int __result)
         {
             if (label == "Mods")
+            {
                 modsTabIndex = __result;
+            }
         }
 
         [PatchUtils.Prefix]
@@ -43,7 +45,9 @@
         internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
         {
             if (__instance.gameObject.GetComponent<ModBindingTag>() is null)
+            {
                 return true;
+            }
 
             __instance.currentText.text = (__instance.active || __instance.value == null) ? "" : __instance.value;
             __instance.UpdateState();
@@ -62,7 +66,7 @@
             for (int i = 0; i < optionsPanel.tabsContainer.childCount; i++)
             {
                 // Check if they are named "Mods"
-                var text = optionsPanel.tabsContainer.GetChild(i).GetComponentInChildren<TextMeshProUGUI>(true);
+                TextMeshProUGUI text = optionsPanel.tabsContainer.GetChild(i).GetComponentInChildren<TextMeshProUGUI>(true);
 
                 if (text != null && text.text == "Mods")
                 {
@@ -107,7 +111,7 @@
                 private class StatesConfig
                 {
                     [JsonProperty]
-                    private readonly Dictionary<string, HeadingState> states = new Dictionary<string, HeadingState>();
+                    private readonly Dictionary<string, HeadingState> states = new();
 
                     public HeadingState this[string name]
                     {
@@ -125,20 +129,33 @@
                 private static StatesConfig CreateConfig()
                 {
                     if (File.Exists(configPath))
+                    {
                         return JsonConvert.DeserializeObject<StatesConfig>(File.ReadAllText(configPath));
+                    }
                     else
+                    {
                         return new StatesConfig();
+                    }
                 }
 
-                public static HeadingState get(string name) => statesConfig[name];
-                public static void store(string name, HeadingState state) => statesConfig[name] = state;
+                public static HeadingState get(string name)
+                {
+                    return statesConfig[name];
+                }
+
+                public static void store(string name, HeadingState state)
+                {
+                    statesConfig[name] = state;
+                }
             }
 
             // we add arrow button from Choice ui element to the options headings for collapsing/expanding 
             private static void InitHeadingPrefab(uGUI_TabbedControlsPanel panel)
             {
                 if (headingPrefab)
+                {
                     return;
+                }
 
                 headingPrefab = Object.Instantiate(panel.headingPrefab);
                 headingPrefab.name = "OptionHeadingToggleable";
@@ -173,7 +190,9 @@
                 private void Init()
                 {
                     if (childOptions != null)
+                    {
                         return;
+                    }
 
                     headingName = transform.Find("Caption")?.GetComponent<TextMeshProUGUI>()?.text ?? "";
 
@@ -184,7 +203,9 @@
                         GameObject option = transform.parent.GetChild(i).gameObject;
 
                         if (option.GetComponent<HeadingToggle>())
+                        {
                             break;
+                        }
 
                         childOptions.Add(option);
                     }
@@ -230,7 +251,9 @@
                 public void OnPointerClick(PointerEventData _)
                 {
                     if (isRotating)
+                    {
                         return;
+                    }
 
                     headingState = headingState == HeadingState.Expanded? HeadingState.Collapsed: HeadingState.Expanded;
                     StartCoroutine(SmoothRotate(headingState == HeadingState.Expanded? -90: 90));
@@ -261,8 +284,10 @@
             // click handler for title, just redirects clicks to button click handler
             private class HeadingClickHandler: MonoBehaviour, IPointerClickHandler
             {
-                public void OnPointerClick(PointerEventData eventData) =>
+                public void OnPointerClick(PointerEventData eventData)
+                {
                     transform.parent.GetComponentInChildren<ToggleButtonClickHandler>()?.OnPointerClick(eventData);
+                }
             }
 #endregion
 
@@ -272,7 +297,9 @@
             private static bool AddHeading_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex, string label)
             {
                 if (tabIndex != modsTabIndex)
+                {
                     return true;
+                }
 
                 __instance.AddItem(tabIndex, headingPrefab, label);
                 return false;
@@ -290,7 +317,9 @@
             private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
             {
                 if (tabIndex != modsTabIndex)
+                {
                     return;
+                }
 
                 // just in case, for changing vertical spacing between ui elements
                 //__instance.tabs[tabIndex].container.GetComponent<VerticalLayoutGroup>().spacing = 15f; // default is 15f
@@ -298,7 +327,9 @@
                 Transform options = __instance.tabs[tabIndex].container.transform;
 
                 for (int i = 0; i < options.childCount; i++)
+                {
                     options.GetChild(i).GetComponent<HeadingToggle>()?.EnsureState();
+                }
             }
 #endregion
         }
@@ -309,21 +340,25 @@
         private static class ScrollPosKeeper
         {
             // key - tab index, value - scroll position
-            private static readonly Dictionary<int, float> devMenuScrollPos = new Dictionary<int, float>();
-            private static readonly Dictionary<int, float> optionsScrollPos = new Dictionary<int, float>();
+            private static readonly Dictionary<int, float> devMenuScrollPos = new();
+            private static readonly Dictionary<int, float> optionsScrollPos = new();
 
             private static void StorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
             {
-                var scrollPos = panel is uGUI_DeveloperPanel? devMenuScrollPos: optionsScrollPos;
+                Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? devMenuScrollPos: optionsScrollPos;
                 if (tabIndex >= 0 && tabIndex < panel.tabs.Count)
+                {
                     scrollPos[tabIndex] = panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition;
+                }
             }
 
             private static void RestorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
             {
-                var scrollPos = panel is uGUI_DeveloperPanel? devMenuScrollPos: optionsScrollPos;
+                Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? devMenuScrollPos: optionsScrollPos;
                 if (tabIndex >= 0 && tabIndex < panel.tabs.Count && scrollPos.TryGetValue(tabIndex, out float pos))
+                {
                     panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition = pos;
+                }
             }
 
             [PatchUtils.Prefix]
@@ -351,7 +386,9 @@
             private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
             {
                 if (tabIndex != __instance.currentTab)
+                {
                     StorePos(__instance, __instance.currentTab);
+                }
             }
 
             [PatchUtils.Postfix]

@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Json.Interfaces
+﻿namespace SMLHelper.Json.Interfaces
 {
     using Newtonsoft.Json;
 

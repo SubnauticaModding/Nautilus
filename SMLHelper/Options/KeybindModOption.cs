@@ -1,9 +1,8 @@
-﻿namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.Options
 {
-    using Interfaces;
     using System;
     using System.Collections;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
     using UnityEngine;
     using UnityEngine.Events;
     using TMPro;
@@ -11,12 +10,12 @@
     /// <summary>
     /// Contains all the information about a keybind changed event.
     /// </summary>
-    public class KeybindChangedEventArgs : EventArgs, IModOptionEventArgs
+    public class KeybindChangedEventArgs : ModEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModKeybindOption"/> that was changed.
         /// </summary>
-        public string Id { get; }
+        public override string Id { get; }
 
         /// <summary>
         /// The new value for the <see cref="ModKeybindOption"/>.
@@ -165,7 +164,9 @@
                 float widthText = CaptionWidth + spacing;
 
                 if (widthText + widthBinding > widthAll)
+                {
                     rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthBinding);
+                }
 
                 Destroy(this);
             }

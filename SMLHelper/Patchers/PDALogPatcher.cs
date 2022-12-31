@@ -1,7 +1,7 @@
-using HarmonyLib;
-
-namespace SMLHelper.V2.Patchers
+namespace SMLHelper.Patchers
 {
+    using HarmonyLib;
+
     internal class PDALogPatcher
     {
         internal static readonly SelfCheckingDictionary<string, PDALog.EntryData> CustomEntryData = new("CustomEntryData");
@@ -14,9 +14,9 @@ namespace SMLHelper.V2.Patchers
 
         private static void InitializePostfix()
         {
-            var mapping = PDALog.mapping;
+            System.Collections.Generic.Dictionary<string, PDALog.EntryData> mapping = PDALog.mapping;
 
-            foreach (var entryData in CustomEntryData)
+            foreach (System.Collections.Generic.KeyValuePair<string, PDALog.EntryData> entryData in CustomEntryData)
             {
                 mapping[entryData.Key] = entryData.Value;
             }

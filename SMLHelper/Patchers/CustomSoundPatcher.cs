@@ -1,21 +1,18 @@
-﻿using SMLHelper.V2.FMod.Interfaces;
-using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
+    using SMLHelper.FMod.Interfaces;
+    using SMLHelper.Utility;
     using FMOD;
     using FMODUnity;
     using HarmonyLib;
     using System.Collections.Generic;
     using FMOD.Studio;
-    using Utility;
     using UnityEngine;
-    using InternalLogger = InternalLogger;
+
 
     internal class CustomSoundPatcher
     {
         internal static readonly SelfCheckingDictionary<string, Sound> CustomSounds = new("CustomSounds");
-        internal static readonly SelfCheckingDictionary<string, SoundChannel> CustomSoundChannels = new("CustomSoundChannels");
         internal static readonly SelfCheckingDictionary<string, Bus> CustomSoundBuses = new("CustomSoundBuses");
         internal static readonly SelfCheckingDictionary<string, IFModSound> CustomFModSounds = new("CustoomFModSounds");
         internal static readonly Dictionary<int, Channel> EmitterPlayedChannels = new();
@@ -56,10 +53,7 @@ namespace SMLHelper.V2.Patchers
             }
             else
             {
-                if (!CustomSoundChannels.TryGetValue(eventPath, out SoundChannel soundChannel))
-                    soundChannel = SoundChannel.Master;
-                
-                channel = AudioUtils.PlaySound(soundEvent, soundChannel);
+                return false;
             }
             
             SetChannel3DAttributes(channel, position);
@@ -89,10 +83,7 @@ namespace SMLHelper.V2.Patchers
             }
             else
             {
-                if (!CustomSoundChannels.TryGetValue(sound, out SoundChannel soundChannel))
-                    soundChannel = SoundChannel.Master;
-                
-                PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, soundChannel);
+                return false;
             }
             
             if (!string.IsNullOrEmpty(subtitles))
@@ -178,10 +169,7 @@ namespace SMLHelper.V2.Patchers
             }
             else
             {
-                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
-                    soundChannel = SoundChannel.Master;
-                
-                EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(soundPath, soundChannel);
+                return false;
             }
 
             SetChannel3DAttributes(EmitterPlayedChannels[__instance.GetInstanceID()], __instance.transform);
@@ -265,10 +253,7 @@ namespace SMLHelper.V2.Patchers
             }
             else
             {
-                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
-                    soundChannel = SoundChannel.Master;
-                
-                channel = AudioUtils.PlaySound(soundPath, soundChannel);
+                return false;
             }
             
             SetChannel3DAttributes(channel, __instance.transform);
@@ -297,10 +282,7 @@ namespace SMLHelper.V2.Patchers
             }
             else
             {
-                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
-                    soundChannel = SoundChannel.Master;
-                
-                channel = AudioUtils.PlaySound(soundPath, soundChannel);
+                return false;
             }
             
             SetChannel3DAttributes(channel, __instance.transform);
@@ -312,13 +294,16 @@ namespace SMLHelper.V2.Patchers
 #elif BELOWZERO
         [HarmonyPatch(typeof(FMODUWE), nameof(FMODUWE.PlayOneShotImpl))]
         [HarmonyPrefix]
-        public static bool FMODUWE_PlayOneShotImpl_Prefix(string eventPath, Vector3 position, float volume)
+        public static bool FMODUWE_PlayOneShotImpl_Prefix(string eventPath, Vector3 position)
         {
-            if (string.IsNullOrEmpty(eventPath) || !CustomSounds.TryGetValue(eventPath, out Sound soundEvent) 
-                                                && !CustomFModSounds.ContainsKey(eventPath)) return true;
+            if (string.IsNullOrEmpty(eventPath) || (!CustomSounds.TryGetValue(eventPath, out Sound soundEvent) 
+                                                && !CustomFModSounds.ContainsKey(eventPath)))
+            {
+                return true;
+            }
 
             Channel channel;
-            if (CustomFModSounds.TryGetValue(eventPath, out var fModSound))
+            if (CustomFModSounds.TryGetValue(eventPath, out IFModSound fModSound))
             {
                 channel = fModSound.PlaySound();
             }
@@ -328,10 +313,7 @@ namespace SMLHelper.V2.Patchers
             }
             else
             {
-                if (!CustomSoundChannels.TryGetValue(eventPath, out SoundChannel soundChannel))
-                    soundChannel = SoundChannel.Master;
-                
-                channel = AudioUtils.PlaySound(soundEvent, soundChannel);
+                return false;
             }
             
             SetChannel3DAttributes(channel, position);
@@ -341,9 +323,12 @@ namespace SMLHelper.V2.Patchers
 
         [HarmonyPatch(typeof(SoundQueue), nameof(SoundQueue.PlayImpl))]
         [HarmonyPrefix]
-        public static bool SoundQueue_Play_Prefix(SoundQueue __instance, string sound, SoundHost host, string subtitles, int subtitlesLine, int timelinePosition = 0)
+        public static bool SoundQueue_Play_Prefix(SoundQueue __instance, string sound, SoundHost host, string subtitles, int subtitlesLine)
         {
-            if (string.IsNullOrEmpty(sound) || !CustomSounds.TryGetValue(sound, out Sound soundEvent) && !CustomFModSounds.ContainsKey(sound)) return true;
+            if (string.IsNullOrEmpty(sound) || (!CustomSounds.TryGetValue(sound, out Sound soundEvent) && !CustomFModSounds.ContainsKey(sound)))
+            {
+                return true;
+            }
 
             __instance.StopImpl();
             __instance._current =  new SoundQueue.Entry?(new SoundQueue.Entry
@@ -355,7 +340,7 @@ namespace SMLHelper.V2.Patchers
             });
             __instance._length = sound.Length;
             __instance._lengthSeconds = __instance._length * 0.001f;
-            if (CustomFModSounds.TryGetValue(sound, out var fModSound))
+            if (CustomFModSounds.TryGetValue(sound, out IFModSound fModSound))
             {
                 PlayedChannels[sound] = fModSound.PlaySound();
             }
@@ -365,10 +350,7 @@ namespace SMLHelper.V2.Patchers
             }
             else
             {
-                if (!CustomSoundChannels.TryGetValue(sound, out SoundChannel soundChannel))
-                    soundChannel = SoundChannel.Master;
-                
-                PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, soundChannel);
+                return false;
             }
             
             return false;
@@ -379,7 +361,10 @@ namespace SMLHelper.V2.Patchers
         public static bool SoundQueue_Stop_Prefix(SoundQueue __instance)
         {
             if (__instance._current is null || string.IsNullOrEmpty(__instance._current.Value.sound) 
-                                            || !PlayedChannels.TryGetValue(__instance._current.Value.sound, out var channel)) return true;
+                                            || !PlayedChannels.TryGetValue(__instance._current.Value.sound, out Channel channel))
+            {
+                return true;
+            }
 
             channel.stop();
             PlayedChannels.Remove(__instance._current.Value.sound);
@@ -392,17 +377,23 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool SoundQueue_Update_Prefix(SoundQueue __instance)
         {
-            var instanceCurrent = __instance._current ?? default;
-            if (string.IsNullOrEmpty(instanceCurrent.sound)  || !PlayedChannels.TryGetValue(instanceCurrent.sound, out var channel)) return true;
+            SoundQueue.Entry instanceCurrent = __instance._current ?? default;
+            if (string.IsNullOrEmpty(instanceCurrent.sound)  || !PlayedChannels.TryGetValue(instanceCurrent.sound, out Channel channel))
+            {
+                return true;
+            }
 #if BELOWZERO
-            if (SoundQueue.GetPlaybackState(__instance.eventInstance) is not PLAYBACK_STATE.STARTING or PLAYBACK_STATE.PLAYING) return true;
+            if (SoundQueue.GetPlaybackState(__instance.eventInstance) is not PLAYBACK_STATE.STARTING or PLAYBACK_STATE.PLAYING)
+            {
+                return true;
+            }
 #else
             if (!SoundQueue.GetIsStartingOrPlaying(__instance.eventInstance)) return true;
 #endif
-            
+
             ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
-            channel.getPosition(out var position, TIMEUNIT.MS);
+            channel.getPosition(out uint position, TIMEUNIT.MS);
             instanceCurrent.position = (int)position;
             __instance._positionSeconds = (float)instanceCurrent.position * 0.001f;
             __instance._current = instanceCurrent;
@@ -418,11 +409,14 @@ namespace SMLHelper.V2.Patchers
         public static bool SoundQueue_GetIsStartingOrPlaying_Prefix(ref bool __result)
 #endif
         {
-            var instanceCurrent = PDASounds.queue?._current ?? default;
-            if (string.IsNullOrEmpty(instanceCurrent.sound)  || !PlayedChannels.TryGetValue(instanceCurrent.sound, out var channel)) return true;
+            SoundQueue.Entry instanceCurrent = PDASounds.queue?._current ?? default;
+            if (string.IsNullOrEmpty(instanceCurrent.sound)  || !PlayedChannels.TryGetValue(instanceCurrent.sound, out Channel channel))
+            {
+                return true;
+            }
 
 #if BELOWZERO
-            channel.isPlaying(out var isPlaying);
+            channel.isPlaying(out bool isPlaying);
             __result = isPlaying ? PLAYBACK_STATE.PLAYING : PLAYBACK_STATE.STOPPED;
 #else
             var result = channel.isPlaying(out __result);
@@ -435,8 +429,11 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool SoundQueue_Position_Setter_Prefix(SoundQueue __instance, int value)
         {
-            var instanceCurrent = __instance._current ?? default;
-            if (!PlayedChannels.TryGetValue(instanceCurrent.sound, out var channel)) return true;
+            SoundQueue.Entry instanceCurrent = __instance._current ?? default;
+            if (!PlayedChannels.TryGetValue(instanceCurrent.sound, out Channel channel))
+            {
+                return true;
+            }
 
             channel.setPosition((uint)Mathf.Clamp(value, 0, __instance._length), TIMEUNIT.MS);
             
@@ -447,18 +444,21 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_Play_Prefix(FMOD_CustomEmitter __instance)
         {
-            if (string.IsNullOrEmpty(__instance.asset?.path) || !CustomSounds.TryGetValue(__instance.asset.path, out var sound) 
-                && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
+            if (string.IsNullOrEmpty(__instance.asset?.path) || (!CustomSounds.TryGetValue(__instance.asset.path, out Sound sound) 
+                && !CustomFModSounds.ContainsKey(__instance.asset.path)))
+            {
+                return true;
+            }
 
-            if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel) &&
-                channel.isPlaying(out var playing) == RESULT.OK && playing && !__instance.restartOnPlay) // already playing, no need to play it again
+            if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out Channel channel) &&
+                channel.isPlaying(out bool playing) == RESULT.OK && playing && !__instance.restartOnPlay) // already playing, no need to play it again
             {
                 return false;
             }
 
-            var soundPath = __instance.asset.path;
+            string soundPath = __instance.asset.path;
 
-            if (CustomFModSounds.TryGetValue(soundPath, out var fModSound))
+            if (CustomFModSounds.TryGetValue(soundPath, out IFModSound fModSound))
             {
                 EmitterPlayedChannels[__instance.GetInstanceID()] = fModSound.PlaySound();
             }
@@ -468,10 +468,7 @@ namespace SMLHelper.V2.Patchers
             }
             else
             {
-                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
-                    soundChannel = SoundChannel.Master;
-                
-                EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(soundPath, soundChannel);
+                return false;
             }
 
             SetChannel3DAttributes(EmitterPlayedChannels[__instance.GetInstanceID()], __instance.transform);
@@ -485,7 +482,10 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance)
         {
-            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
+            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out Channel channel))
+            {
+                return true;
+            }
 
             channel.stop();
             __instance._playing = false;
@@ -498,9 +498,12 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_ManagedUpdate_Prefix(FMOD_CustomEmitter __instance)
         {
-            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
+            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out Channel channel))
+            {
+                return true;
+            }
 
-            if (__instance.followParent && channel.isPlaying(out var playing) == RESULT.OK && playing)
+            if (__instance.followParent && channel.isPlaying(out bool playing) == RESULT.OK && playing)
             {
                 __instance.attributes = __instance.transform.To3DAttributes();
                 SetChannel3DAttributes(channel, __instance.transform);
@@ -513,8 +516,15 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_SetAsset_Prefix(FMOD_CustomEmitter __instance, FMODAsset newAsset)
         {
-            if (newAsset == null) return false;
-            if (!CustomSounds.ContainsKey(newAsset.path) && !CustomFModSounds.ContainsKey(newAsset.path)) return true;
+            if (newAsset == null)
+            {
+                return false;
+            }
+
+            if (!CustomSounds.ContainsKey(newAsset.path) && !CustomFModSounds.ContainsKey(newAsset.path))
+            {
+                return true;
+            }
 
             __instance.ReleaseEvent();
             __instance.asset = newAsset;
@@ -526,8 +536,15 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_ReleaseEvent_Prefix(FMOD_CustomEmitter __instance)
         {
-            if (__instance.asset == null || !CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
-            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return false; // known sound but not played yet
+            if (__instance.asset == null || (!CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path)))
+            {
+                return true;
+            }
+
+            if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out Channel channel))
+            {
+                return false; // known sound but not played yet
+            }
 
             channel.stop();
             EmitterPlayedChannels.Remove(__instance.GetInstanceID());
@@ -539,13 +556,20 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomLoopingEmitter_PlayStopSound_Prefix(FMOD_CustomLoopingEmitter __instance)
         {
-            if (__instance.assetStop == null) return true;
-            if (string.IsNullOrEmpty(__instance.assetStop.path) || !CustomSounds.TryGetValue(__instance.assetStop.path, out var sound) 
-                && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
-            
-            var soundPath = __instance.assetStop.path;
+            if (__instance.assetStop == null)
+            {
+                return true;
+            }
+
+            if (string.IsNullOrEmpty(__instance.assetStop.path) || (!CustomSounds.TryGetValue(__instance.assetStop.path, out Sound sound) 
+                && !CustomFModSounds.ContainsKey(__instance.asset.path)))
+            {
+                return true;
+            }
+
+            string soundPath = __instance.assetStop.path;
             Channel channel;
-            if (CustomFModSounds.TryGetValue(soundPath, out var fModSound))
+            if (CustomFModSounds.TryGetValue(soundPath, out IFModSound fModSound))
             {
                 channel = fModSound.PlaySound();
             }
@@ -555,10 +579,7 @@ namespace SMLHelper.V2.Patchers
             }
             else
             {
-                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
-                    soundChannel = SoundChannel.Master;
-                
-                channel = AudioUtils.PlaySound(soundPath, soundChannel);
+                return false;
             }
             
             SetChannel3DAttributes(channel, __instance.transform);
@@ -571,14 +592,21 @@ namespace SMLHelper.V2.Patchers
         [HarmonyPrefix]
         public static bool FMOD_CustomLoopingEmitter_OnPlay_Prefix(FMOD_CustomLoopingEmitter __instance)
         {
-            if (__instance.assetStart == null) return true;
-            if (string.IsNullOrEmpty(__instance.assetStart.path) || !CustomSounds.TryGetValue(__instance.assetStart.path, out var sound) 
-                && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
-            
-            var soundPath = __instance.assetStart.path;
+            if (__instance.assetStart == null)
+            {
+                return true;
+            }
+
+            if (string.IsNullOrEmpty(__instance.assetStart.path) || (!CustomSounds.TryGetValue(__instance.assetStart.path, out Sound sound) 
+                && !CustomFModSounds.ContainsKey(__instance.asset.path)))
+            {
+                return true;
+            }
+
+            string soundPath = __instance.assetStart.path;
             Channel channel;
             
-            if (CustomFModSounds.TryGetValue(soundPath, out var fModSound))
+            if (CustomFModSounds.TryGetValue(soundPath, out IFModSound fModSound))
             {
                 channel = fModSound.PlaySound();
             }
@@ -588,10 +616,7 @@ namespace SMLHelper.V2.Patchers
             }
             else
             {
-                if (!CustomSoundChannels.TryGetValue(soundPath, out SoundChannel soundChannel))
-                    soundChannel = SoundChannel.Master;
-                
-                channel = AudioUtils.PlaySound(soundPath, soundChannel);
+                return false;
             }
             
             SetChannel3DAttributes(channel, __instance.transform);
@@ -602,15 +627,15 @@ namespace SMLHelper.V2.Patchers
         }
 #endif
 
-                private static void SetChannel3DAttributes(Channel channel, Transform transform)
+        private static void SetChannel3DAttributes(Channel channel, Transform transform)
         {
-            var attributes = transform.To3DAttributes();
+            ATTRIBUTES_3D attributes = transform.To3DAttributes();
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
         }
         
         private static void SetChannel3DAttributes(Channel channel, Vector3 position)
         {
-            var attributes = position.To3DAttributes();
+            ATTRIBUTES_3D attributes = position.To3DAttributes();
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
         }
     }

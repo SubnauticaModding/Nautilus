@@ -1,9 +1,9 @@
-﻿using System;
-using UnityEngine;
-using Newtonsoft.Json;
-
-namespace SMLHelper.V2.Json.Converters
+﻿namespace SMLHelper.Json.Converters
 {
+    using System;
+    using UnityEngine;
+    using Newtonsoft.Json;
+
     /// <summary>
     /// A Quaternion json converter that simplifies the Vector3 to only x,y,z serialization.
     /// </summary>
@@ -27,7 +27,7 @@ namespace SMLHelper.V2.Json.Converters
         /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var quaternion = (Quaternion)value;
+            Quaternion quaternion = (Quaternion)value;
             serializer.Serialize(writer, (QuaternionJson)quaternion);
         }
 

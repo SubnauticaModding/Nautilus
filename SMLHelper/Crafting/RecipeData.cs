@@ -1,6 +1,6 @@
 ﻿#if BELOWZERO
 #pragma warning disable IDE1006 // Naming Styles - Ignored for backwards compatibility
-namespace SMLHelper.V2.Crafting
+namespace SMLHelper.Crafting
 {
     using System.Collections.Generic;
 
@@ -37,12 +37,12 @@ namespace SMLHelper.V2.Crafting
         /// <summary>
         /// The list of ingredients required for this recipe.
         /// </summary>
-        public List<Ingredient> Ingredients = new List<Ingredient>();
+        public List<Ingredient> Ingredients = new();
 
         /// <summary>
         /// The items that will also be created when this recipe is crafted.
         /// </summary>
-        public List<TechType> LinkedItems = new List<TechType>();
+        public List<TechType> LinkedItems = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TechData"/> class a custom recipe.
