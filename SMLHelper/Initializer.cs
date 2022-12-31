@@ -94,6 +94,7 @@
             SurvivalPatcher.Patch(harmony);
             CustomSoundPatcher.Patch(harmony);
             EatablePatcher.Patch(harmony);
+            MaterialUtils.Patch();
 
 
             InternalLogger.Debug("Saving TechType Cache");

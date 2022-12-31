@@ -85,6 +85,10 @@
       <HintPath>$(Dependencies)\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>$(Dependencies)\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>$(Dependencies)\UnityEngine.PhysicsModule.dll</HintPath>
       <Private>False</Private>
