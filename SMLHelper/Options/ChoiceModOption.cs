@@ -52,7 +52,7 @@
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             uGUI_Choice choice = panel.AddChoiceOption(tabIndex, Label, Options, Index,
-                new UnityAction<int>((int index) => parentOptions.OnChange<ChoiceChangedEventArgs, KeyValuePair<int, string>>(Id, (KeyValuePair<int, string>)Value)));
+                new UnityAction<int>((int index) => parentOptions.OnChange<ChoiceChangedEventArgs, KeyValuePair<int, string>>(Id, new KeyValuePair<int, string>(index, Options[index]))));
 
             OptionGameObject = choice.transform.parent.transform.parent.gameObject; // :(
 

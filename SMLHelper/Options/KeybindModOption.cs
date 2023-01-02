@@ -40,11 +40,6 @@
     public class ModKeybindOption : ModOption
     {
         /// <summary>
-        /// The currently selected <see cref="KeyCode"/> for the <see cref="ModKeybindOption"/>.
-        /// </summary>
-        public KeyCode Key { get; }
-
-        /// <summary>
         /// The currently select input source device for the <see cref="ModKeybindOption"/>.
         /// </summary>
         public GameInput.Device Device { get; }
@@ -59,7 +54,6 @@
         private ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id, typeof(KeyCode), key)
         {
             this.Device = device;
-            this.Key = key;
         }
 
         /// <summary>
@@ -109,7 +103,7 @@
 
             // Update bindings
             binding.device = Device;
-            binding.value = KeyCodeUtils.KeyCodeToString(Key);
+            binding.value = KeyCodeUtils.KeyCodeToString((KeyCode)Value);
             binding.gameObject.EnsureComponent<ModBindingTag>();
             binding.bindingSet = GameInput.BindingSet.Primary;
             binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>

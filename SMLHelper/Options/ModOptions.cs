@@ -72,7 +72,7 @@
         #nullable enable
         internal void OnChange<T, V>(string id, V? value) where T : EventArgs
         {
-            OnChanged(this, (T)Activator.CreateInstance(typeof(T), (id, value)));
+            OnChanged(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, value }));
         }
         #nullable disable
 
