@@ -7,7 +7,7 @@
     /// <summary>
     /// Contains all the information about a button click event.
     /// </summary>
-    public class ButtonClickedEventArgs : ModEventArgs
+    public class ButtonClickedEventArgs : ModEventArgs<bool?>
     {
         /// <summary>
         /// The ID of the <see cref="ModButtonOption"/> that was clicked.
@@ -15,36 +15,19 @@
         public override string Id { get; }
 
         /// <summary>
+        /// The new value for the <see cref="ModButtonOption"/>. Always null.
+        /// </summary>
+        public override bool? Value { get; }
+
+        /// <summary>
         /// Constructs a new <see cref="ButtonClickedEventArgs"/>.
         /// </summary>
         /// <param name="id">The ID of the <see cref="ModButtonOption"/> that was clicked.</param>
-        public ButtonClickedEventArgs(string id) { this.Id = id; }
-    }
-
-    public abstract partial class ModOptions
-    {
-        /// <summary>
-        /// The event that is called whenever a button is clicked. Subscribe to this in the constructor.
-        /// </summary>
-        protected event EventHandler<ButtonClickedEventArgs> ButtonClicked;
-
-        /// <summary>
-        /// Notifies button click to all subscribed event handlers.
-        /// </summary>
-        /// <param name="id">The internal ID for the button option.</param>
-        internal void OnButtonClicked(string id)
+        /// <param name="value">The value of the <see cref="ModButtonOption"/> that was clicked (null).</param>
+        public ButtonClickedEventArgs(string id, bool? value = null)
         {
-            ButtonClicked(this, new ButtonClickedEventArgs(id));
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="ModButtonOption"/> to this instance.
-        /// </summary>
-        /// <param name="id">The internal ID for the button option.</param>
-        /// <param name="label">The display text to use in the in-game menu.</param>
-        protected void AddButtonOption(string id, string label)
-        {
-            AddOption(new ModButtonOption(id, label));
+            this.Id = id;
+            this.Value = value;
         }
     }
 
@@ -67,19 +50,24 @@
                 // Apply "deselected" style to button right after it is clicked
                 componentInChildren.OnDeselect(null);
                 // Propagate button click event to parent
-                parentOptions.OnButtonClicked(Id);
+                parentOptions.OnChange<ButtonClickedEventArgs, bool?>(Id, null);
             }));
 
             // Add button to panel
             base.AddToPanel(panel, tabIndex);
         }
 
+        internal ModButtonOption(string id, string label) : base(label, id, typeof(bool?), null) { }
+
         /// <summary>
-        /// Instantiates a new <see cref="ModButtonOption"/> for handling a button that can be clicked.
+        /// Creates a new <see cref="ModButtonOption"/> for handling a button that can be clicked.
         /// </summary>
         /// <param name="id">The internal ID of this option.</param>
         /// <param name="label">The display text to show on the in-game menus.</param>
-        internal ModButtonOption(string id, string label) : base(label, id) { }
+        public static ModButtonOption Factory(string id, string label)
+        {
+            return new ModButtonOption(id, label);
+        }
 
         internal override Type AdjusterComponent => null;
     }

@@ -9,7 +9,7 @@
     /// <summary>
     /// Abstract class that provides the framework for your mod's in-game configuration options.
     /// </summary>
-    public abstract partial class ModOptions
+    public abstract class ModOptions
     {
         /// <summary>
         /// The name of this set of configuration options.
@@ -59,6 +59,23 @@
         /// </summary>
         public abstract void BuildModOptions();
 
+        /// <summary>
+        /// The event that is called whenever an option is changed. Subscribe to this in the constructor.
+        /// </summary>
+        public event EventHandler<EventArgs> OnChanged;
+
+        /// <summary>
+        /// Notifies an option change to all subscribed event handlers.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        #nullable enable
+        internal void OnChange<T, V>(string id, V? value) where T : EventArgs
+        {
+            OnChanged(this, (T)Activator.CreateInstance(typeof(T), (id, value)));
+        }
+        #nullable disable
+
         /// <summary> The event that is called whenever a game object created for the option </summary>
         protected event EventHandler<GameObjectCreatedEventArgs> GameObjectCreated;
 
@@ -69,13 +86,15 @@
     }
 
     /// <summary> Contains all the information about a created game object event </summary>
-    public class GameObjectCreatedEventArgs : EventArgs
+    public class GameObjectCreatedEventArgs : ModEventArgs<GameObject>
     {
         /// <summary> The ID of the <see cref="ModOption"/> for which game object was created </summary>
-        public string Id { get; }
+        public override string Id { get; }
 
         /// <summary> New game object for the <see cref="ModOption"/> </summary>
         public GameObject GameObject { get; }
+        /// <summary> New game object for the <see cref="ModOption"/> </summary>
+        public override GameObject Value => GameObject;
 
         /// <summary> Constructs a new <see cref="GameObjectCreatedEventArgs"/> </summary>
         /// <param name="id"> The ID of the <see cref="ModOption"/> for which game object was created </param>
@@ -101,6 +120,12 @@
         /// The display text to be shown for this option in the in-game menus.
         /// </summary>
         public string Label { get; }
+
+        private readonly Type MyType;
+
+        public Type GetValueType => MyType;
+
+        public object Value { get; }
 
         /// <summary> UI GameObject for this option </summary>
         public GameObject OptionGameObject { get; protected set; }
@@ -136,10 +161,12 @@
         /// </summary>
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="id">The internal ID if this option.</param>
-        internal ModOption(string label, string id)
+        internal ModOption(string label, string id, Type T, object value)
         {
             Label = label;
             Id = id;
+            MyType = T;
+            Value = value;
         }
 
         // type of component derived from ModOptionAdjust (for using in base.AddToPanel)

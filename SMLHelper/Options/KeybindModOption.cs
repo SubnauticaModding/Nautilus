@@ -10,7 +10,7 @@
     /// <summary>
     /// Contains all the information about a keybind changed event.
     /// </summary>
-    public class KeybindChangedEventArgs : ModEventArgs
+    public class KeybindChangedEventArgs : ModEventArgs<KeyCode>
     {
         /// <summary>
         /// The ID of the <see cref="ModKeybindOption"/> that was changed.
@@ -20,12 +20,7 @@
         /// <summary>
         /// The new value for the <see cref="ModKeybindOption"/>.
         /// </summary>
-        public KeyCode Key { get; }
-
-        /// <summary>
-        /// The new value for the <see cref="ModKeybindOption"/> parsed as a <see cref="string"/>
-        /// </summary>
-        public string KeyName { get; }
+        public override KeyCode Value { get; }
 
         /// <summary>
         /// Constructs a new <see cref="KeybindChangedEventArgs"/>.
@@ -35,49 +30,7 @@
         public KeybindChangedEventArgs(string id, KeyCode key)
         {
             this.Id = id;
-            this.Key = key;
-            this.KeyName = KeyCodeUtils.KeyCodeToString(key);
-        }
-    }
-
-    public abstract partial class ModOptions
-    {
-        /// <summary>
-        /// The event that is called whenever a keybind is changed. Subscribe to this in the constructor.
-        /// </summary>
-        protected event EventHandler<KeybindChangedEventArgs> KeybindChanged;
-
-        /// <summary>
-        /// Notifies a keybind change to all subscribed event handlers.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="key"></param>
-        internal void OnKeybindChange(string id, KeyCode key)
-        {
-            KeybindChanged(this, new KeybindChangedEventArgs(id, key));
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="ModKeybindOption"/> to this instance.
-        /// </summary>
-        /// <param name="id">The internal ID for the toggle option.</param>
-        /// <param name="label">The display text to use in the in-game menu.</param>
-        /// <param name="device">The device name.</param>
-        /// <param name="key">The starting keybind value.</param>
-        protected void AddKeybindOption(string id, string label, GameInput.Device device, KeyCode key)
-        {
-            AddOption(new ModKeybindOption(id, label, device, key));
-        }
-        /// <summary>
-        /// Adds a new <see cref="ModKeybindOption"/> to this instance.
-        /// </summary>
-        /// <param name="id">The internal ID for the toggle option.</param>
-        /// <param name="label">The display text to use in the in-game menu.</param>
-        /// <param name="device">The device name.</param>
-        /// <param name="key">The starting keybind value.</param>
-        protected void AddKeybindOption(string id, string label, GameInput.Device device, string key)
-        {
-            AddKeybindOption(id, label, device, KeyCodeUtils.StringToKeyCode(key));
+            this.Value = key;
         }
     }
 
@@ -103,10 +56,33 @@
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="device">The device name.</param>
         /// <param name="key">The starting keybind value.</param>
-        internal ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id)
+        internal ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id, typeof(KeyCode), key)
         {
             this.Device = device;
             this.Key = key;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="ModKeybindOption"/> for handling an option that is a keybind.
+        /// </summary>
+        /// <param name="id">The internal ID for the toggle option.</param>
+        /// <param name="label">The display text to use in the in-game menu.</param>
+        /// <param name="device">The device name.</param>
+        /// <param name="key">The starting keybind value.</param>
+        public static ModKeybindOption Factory(string id, string label, GameInput.Device device, KeyCode key)
+        {
+            return new ModKeybindOption(id, label, device, key);
+        }
+        /// <summary>
+        /// Creates a new <see cref="ModKeybindOption"/> for handling an option that is a keybind.
+        /// </summary>
+        /// <param name="id">The internal ID for the toggle option.</param>
+        /// <param name="label">The display text to use in the in-game menu.</param>
+        /// <param name="device">The device name.</param>
+        /// <param name="key">The starting keybind value.</param>
+        public static ModKeybindOption Factory(string id, string label, GameInput.Device device, string key)
+        {
+            return Factory(id, label, device, KeyCodeUtils.StringToKeyCode(key));
         }
 
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
@@ -139,7 +115,7 @@
             binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
             {
                 binding.value = s;
-                parentOptions.OnKeybindChange(Id, KeyCodeUtils.StringToKeyCode(s));
+                parentOptions.OnChange<KeybindChangedEventArgs, KeyCode>(Id, KeyCodeUtils.StringToKeyCode(s));
                 binding.RefreshValue();
             });
 
