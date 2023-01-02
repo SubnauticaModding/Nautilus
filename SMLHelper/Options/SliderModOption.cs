@@ -100,7 +100,7 @@
         /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
         /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
         /// <param name="step">Step for the slider, ie. round to nearest X</param>
-        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = null, float step = 0)
+        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = "{0:F0}", float step = 0)
         {
             AddOption(new ModSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, step));
         }
