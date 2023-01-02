@@ -57,7 +57,7 @@
             base.AddToPanel(panel, tabIndex);
         }
 
-        internal ModButtonOption(string id, string label) : base(label, id, typeof(bool?), null) { }
+        private ModButtonOption(string id, string label) : base(label, id, typeof(bool?), null) { }
 
         /// <summary>
         /// Creates a new <see cref="ModButtonOption"/> for handling a button that can be clicked.

@@ -42,11 +42,7 @@
         {
             ConfigFileMetadata.BindEvents();
 
-            ButtonClicked += EventHandler;
-            ChoiceChanged += EventHandler;
-            KeybindChanged += EventHandler;
-            SliderChanged += EventHandler;
-            ToggleChanged += EventHandler;
+            OnChanged += EventHandler;
             GameObjectCreated += EventHandler;
         }
 
@@ -155,7 +151,7 @@
         /// <param name="label"></param>
         private void BuildModButtonOption(string id, string label)
         {
-            AddButtonOption(id, label);
+            AddOption(ModButtonOption.Factory(id, label));
         }
 
         /// <summary>
@@ -173,7 +169,7 @@
                 // Enum-based choice where the values are parsed from the enum type
                 string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
                 string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
-                AddChoiceOption(id, label, options, value);
+                AddOption(ModChoiceOption.Factory(id, label, options, value));
             }
             else if (memberInfoMetadata.ValueType.IsEnum)
             {
@@ -181,21 +177,21 @@
                 string[] options = choiceAttribute.Options;
                 string name = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
                 int index = Math.Max(Array.IndexOf(Enum.GetNames(memberInfoMetadata.ValueType), name), 0);
-                AddChoiceOption(id, label, options, index);
+                AddOption(ModChoiceOption.Factory(id, label, options, index));
             }
             else if (memberInfoMetadata.ValueType == typeof(string))
             {
                 // string-based choice value
                 string[] options = choiceAttribute.Options;
                 string value = memberInfoMetadata.GetValue<string>(ConfigFileMetadata.Config);
-                AddChoiceOption(id, label, options, value);
+                AddOption(ModChoiceOption.Factory(id, label, options, value));
             }
             else if (memberInfoMetadata.ValueType == typeof(int))
             {
                 // index-based choice value
                 string[] options = choiceAttribute.Options;
                 int index = memberInfoMetadata.GetValue<int>(ConfigFileMetadata.Config);
-                AddChoiceOption(id, label, options, index);
+                AddOption(ModChoiceOption.Factory(id, label, options, index));
             }
         }
 
@@ -208,7 +204,7 @@
         private void BuildModKeybindOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
             KeyCode value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
-            AddKeybindOption(id, label, GameInput.Device.Keyboard, value);
+            AddOption(ModKeybindOption.Factory(id, label, GameInput.Device.Keyboard, value));
         }
 
         /// <summary>
@@ -229,9 +225,9 @@
                 step = Mathf.CeilToInt(step);
             }
 
-            AddSliderOption(id, label, sliderAttribute.Min, sliderAttribute.Max,
+            AddOption(ModSliderOption.Factory(id, label, sliderAttribute.Min, sliderAttribute.Max,
                 Convert.ToSingle(value), sliderAttribute.DefaultValue,
-                sliderAttribute.Format, step);
+                sliderAttribute.Format, step));
         }
 
         /// <summary>
@@ -243,7 +239,7 @@
         private void BuildModToggleOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
             bool value = memberInfoMetadata.GetValue<bool>(ConfigFileMetadata.Config);
-            AddToggleOption(id, label, value);
+            AddOption(ModToggleOption.Factory(id, label, value));
         }
         #endregion
     }

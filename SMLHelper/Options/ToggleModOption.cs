@@ -53,7 +53,7 @@
         /// <param name="id">The internal ID of this option.</param>
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="value">The starting value.</param>
-        internal ModToggleOption(string id, string label, bool value) : base(label, id, typeof(bool), value)
+        private ModToggleOption(string id, string label, bool value) : base(label, id, typeof(bool), value)
         { }
 
         /// <summary>

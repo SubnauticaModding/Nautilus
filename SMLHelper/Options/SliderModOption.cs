@@ -103,7 +103,7 @@
         /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
         /// <param name="valueFormat">Format for value field (<see cref="Factory(string, string, float, float, float, float?, string, float)"/>) </param>
         /// <param name="step">Step for the slider ie. round to nearest X</param>
-        internal ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = null, float step = 0) : base(label, id, typeof(float), value)
+        private ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = null, float step = 0) : base(label, id, typeof(float), value)
         {
             MinValue = minValue;
             MaxValue = maxValue;

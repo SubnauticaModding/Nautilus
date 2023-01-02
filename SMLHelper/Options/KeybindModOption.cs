@@ -56,7 +56,7 @@
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="device">The device name.</param>
         /// <param name="key">The starting keybind value.</param>
-        internal ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id, typeof(KeyCode), key)
+        private ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id, typeof(KeyCode), key)
         {
             this.Device = device;
             this.Key = key;

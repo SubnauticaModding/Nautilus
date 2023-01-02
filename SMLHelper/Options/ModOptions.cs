@@ -25,7 +25,7 @@
         // based on the provided ID.
         private Dictionary<string, ModOption> _options;
 
-        private void AddOption(ModOption option)
+        public void AddOption(ModOption option)
         {
             _options.Add(option.Id, option);
             option.SetParent(this);

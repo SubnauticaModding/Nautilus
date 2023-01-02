@@ -372,25 +372,25 @@
                 if (memberInfoMetadata.ValueType.IsEnum && (choiceAttribute.Options == null || !choiceAttribute.Options.Any()))
                 {
                     // Enum-based choice where the values are parsed from the enum type
-                    object value = Enum.Parse(memberInfoMetadata.ValueType, e.Value);
+                    object value = Enum.Parse(memberInfoMetadata.ValueType, e.Value.Value);
                     memberInfoMetadata.SetValue(Config, value);
                 }
                 else if (memberInfoMetadata.ValueType.IsEnum)
                 {
                     // Enum-based choice where the values are defined as custom strings
-                    object value = Enum.Parse(memberInfoMetadata.ValueType, Enum.GetNames(memberInfoMetadata.ValueType)[e.Index]);
+                    object value = Enum.Parse(memberInfoMetadata.ValueType, Enum.GetNames(memberInfoMetadata.ValueType)[e.Value.Key]);
                     memberInfoMetadata.SetValue(Config, value);
                 }
                 else if (memberInfoMetadata.ValueType == typeof(string))
                 {
                     // string-based choice value
-                    string value = e.Value;
+                    string value = e.Value.Value;
                     memberInfoMetadata.SetValue(Config, value);
                 }
                 else if (memberInfoMetadata.ValueType == typeof(int))
                 {
                     // index-based choice value
-                    int value = e.Index;
+                    int value = e.Value.Key;
                     memberInfoMetadata.SetValue(Config, value);
                 }
 
@@ -418,7 +418,7 @@
             if (TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
             {
                 // Set the value in the Config
-                modOptionMetadata.MemberInfoMetadata.SetValue(Config, e.Key);
+                modOptionMetadata.MemberInfoMetadata.SetValue(Config, e.Value);
 
                 // Optionally save the Config to disk
                 if (MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
@@ -545,7 +545,7 @@
                     {
                         string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
                         string value = memberInfoMetadata.GetValue(Config).ToString();
-                        ChoiceChangedEventArgs eventArgs = new(id, Array.IndexOf(options, value), value);
+                        ChoiceChangedEventArgs eventArgs = new(id, new KeyValuePair<int, string>(Array.IndexOf(options, value), value));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -554,7 +554,7 @@
                     {
                         string value = memberInfoMetadata.GetValue(Config).ToString();
                         int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
-                        ChoiceChangedEventArgs eventArgs = new(id, index, value);
+                        ChoiceChangedEventArgs eventArgs = new(id, new KeyValuePair<int, string>(index, value));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -563,7 +563,7 @@
                     {
                         string[] options = choiceAttribute.Options;
                         string value = memberInfoMetadata.GetValue<string>(Config);
-                        ChoiceChangedEventArgs eventArgs = new(id, Array.IndexOf(options, value), value);
+                        ChoiceChangedEventArgs eventArgs = new(id, new KeyValuePair<int, string>(Array.IndexOf(options, value), value));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -572,7 +572,7 @@
                     {
                         string[] options = choiceAttribute.Options;
                         int index = memberInfoMetadata.GetValue<int>(Config);
-                        ChoiceChangedEventArgs eventArgs = new(id, index, options[index]);
+                        ChoiceChangedEventArgs eventArgs = new(id, new KeyValuePair<int, string>(index, options[index]));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;

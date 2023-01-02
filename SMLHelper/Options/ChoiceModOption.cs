@@ -66,7 +66,7 @@
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="options">The collection of available values.</param>
         /// <param name="index">The starting value.</param>
-        internal ModChoiceOption(string id, string label, string[] options, int index) : base(label, id, typeof(KeyValuePair<int, string>), new KeyValuePair<int, string>(index, options[index]))
+        private ModChoiceOption(string id, string label, string[] options, int index) : base(label, id, typeof(KeyValuePair<int, string>), new KeyValuePair<int, string>(index, options[index]))
         {
             this.Options = options;
             this.Index = index;
