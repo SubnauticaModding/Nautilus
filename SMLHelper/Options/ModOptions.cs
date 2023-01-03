@@ -19,23 +19,26 @@
         /// <summary>
         /// Obtains the <see cref="ModOption"/>s that belong to this instance. Can be null.
         /// </summary>
-        public List<ModOption> Options => _options == null ? null : new List<ModOption>(_options.Values);
+        public List<OptionItem> Options => _options == null ? null : new List<OptionItem>(_options.Values);
 
         // This is a dictionary now in case we want to get the ModOption quickly
         // based on the provided ID.
-        private Dictionary<string, ModOption> _options;
+        private Dictionary<string, OptionItem> _options;
 
-        public void AddOption(ModOption option)
+        public void AddItem(OptionItem option)
         {
             _options.Add(option.Id, option);
             option.SetParent(this);
         }
 
+        [Obsolete("AddOption is obsoleted by AddItem")]
+        public void AddOption(ModOption option) { AddItem(option); }
+
         internal void AddOptionsToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             panel.AddHeading(tabIndex, Name);
 
-            _options = new Dictionary<string, ModOption>(); // we need to do this every time we adding options
+            _options = new Dictionary<string, OptionItem>(); // we need to do this every time we adding options
             BuildModOptions();
 
             _options.Values.ForEach(option => option.AddToPanel(panel, tabIndex));
@@ -62,19 +65,17 @@
         /// <summary>
         /// The event that is called whenever an option is changed. Subscribe to this in the constructor.
         /// </summary>
-        public event EventHandler<EventArgs> OnChanged;
+        public event EventHandler<OptionEventArgs> OnChanged;
 
         /// <summary>
         /// Notifies an option change to all subscribed event handlers.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
-        #nullable enable
-        internal void OnChange<T, V>(string id, V? value) where T : EventArgs
+        internal void OnChange<T, V>(string id, V value) where T : ConfigOptionEventArgs<V>
         {
             OnChanged(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, value }));
         }
-        #nullable disable
 
         /// <summary> The event that is called whenever a game object created for the option </summary>
         protected event EventHandler<GameObjectCreatedEventArgs> GameObjectCreated;
@@ -86,31 +87,59 @@
     }
 
     /// <summary> Contains all the information about a created game object event </summary>
-    public class GameObjectCreatedEventArgs : ModEventArgs<GameObject>
+    public class GameObjectCreatedEventArgs : ConfigOptionEventArgs<GameObject>
     {
-        /// <summary> The ID of the <see cref="ModOption"/> for which game object was created </summary>
-        public override string Id { get; }
-
-        /// <summary> New game object for the <see cref="ModOption"/> </summary>
-        public GameObject GameObject { get; }
-        /// <summary> New game object for the <see cref="ModOption"/> </summary>
-        public override GameObject Value => GameObject;
-
         /// <summary> Constructs a new <see cref="GameObjectCreatedEventArgs"/> </summary>
         /// <param name="id"> The ID of the <see cref="ModOption"/> for which game object was created </param>
         /// <param name="gameObject"> New game object for the <see cref="ModOption"/> </param>
-        public GameObjectCreatedEventArgs(string id, GameObject gameObject)
-        {
-            Id = id;
-            GameObject = gameObject;
-        }
+        public GameObjectCreatedEventArgs(string id, GameObject gameObject) : base(id, gameObject) { }
     }
 
     /// <summary>
     /// The common abstract class to all mod options.
     /// </summary>
-    public abstract class ModOption
+    public abstract class ModOption : OptionItem
     {
+        private readonly Type MyType;
+
+        public Type GetValueType => MyType;
+
+        public object Value { get; }
+
+        /// <summary>
+        /// Base constructor for all mod options.
+        /// </summary>
+        /// <param name="label">The display text to show on the in-game menus.</param>
+        /// <param name="id">The internal ID if this option.</param>
+        internal ModOption(string label, string id, Type T, object value) : base(label, id)
+        {
+            MyType = T;
+            Value = value;
+        }
+    }
+
+    /// <summary>
+    /// The common generic-typed abstract class to all mod options.
+    /// </summary>
+    public abstract class ModOption<T> : ModOption
+    {
+        public T Value { get; }
+
+        /// <summary>
+        /// Base constructor for all mod options.
+        /// </summary>
+        /// <param name="label">The display text to show on the in-game menus.</param>
+        /// <param name="id">The internal ID if this option.</param>
+        internal ModOption(string label, string id, T value) : base(label, id, typeof(T), value)
+        {
+            Value = value;
+        }
+    }
+
+    /// <summary>
+    /// The common abstract class to all items in the mod options page.
+    /// </summary>
+    public abstract class OptionItem {
         /// <summary>
         /// The internal ID that identifies this option.
         /// </summary>
@@ -120,12 +149,6 @@
         /// The display text to be shown for this option in the in-game menus.
         /// </summary>
         public string Label { get; }
-
-        private readonly Type MyType;
-
-        public Type GetValueType => MyType;
-
-        public object Value { get; }
 
         /// <summary> UI GameObject for this option </summary>
         public GameObject OptionGameObject { get; protected set; }
@@ -156,17 +179,10 @@
             parentOptions.OnGameObjectCreated(Id, OptionGameObject);
         }
 
-        /// <summary>
-        /// Base constructor for all mod options.
-        /// </summary>
-        /// <param name="label">The display text to show on the in-game menus.</param>
-        /// <param name="id">The internal ID if this option.</param>
-        internal ModOption(string label, string id, Type T, object value)
+        internal OptionItem(string label, string id)
         {
-            Label = label;
             Id = id;
-            MyType = T;
-            Value = value;
+            Label = label;
         }
 
         // type of component derived from ModOptionAdjust (for using in base.AddToPanel)

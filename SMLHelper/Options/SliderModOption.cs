@@ -12,28 +12,14 @@
     /// <summary>
     /// Contains all the information about a slider changed event.
     /// </summary>
-    public class SliderChangedEventArgs : ModEventArgs<float>
+    public class SliderChangedEventArgs : ConfigOptionEventArgs<float>
     {
-        /// <summary>
-        /// The ID of the <see cref="ModSliderOption"/> that was changed.
-        /// </summary>
-        public override string Id { get; }
-
-        /// <summary>
-        /// The new value for the <see cref="ModSliderOption"/>.
-        /// </summary>
-        public override float Value { get; }
-
         /// <summary>
         /// Constructs a new <see cref="SliderChangedEventArgs"/>.
         /// </summary>
         /// <param name="id">The ID of the <see cref="ModSliderOption"/> that was changed.</param>
         /// <param name="value">The new value for the <see cref="ModSliderOption"/>.</param>
-        public SliderChangedEventArgs(string id, float value)
-        {
-            this.Id = id;
-            this.Value = value;
-        }
+        public SliderChangedEventArgs(string id, float value) : base(id, value) { }
     }
 
     /// <summary>

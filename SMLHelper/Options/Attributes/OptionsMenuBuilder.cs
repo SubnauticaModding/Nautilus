@@ -125,8 +125,8 @@
 
                 switch (modOptionMetadata.ModOptionAttribute)
                 {
-                    case ButtonAttribute _:
-                        BuildModButtonOption(id, label);
+                    case ButtonAttribute buttonAttribute:
+                        BuildModButtonOption(id, label, modOptionMetadata.MemberInfoMetadata);
                         break;
                     case ChoiceAttribute choiceAttribute:
                         BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
@@ -149,9 +149,10 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="label"></param>
-        private void BuildModButtonOption(string id, string label)
+        private void BuildModButtonOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
-            AddOption(ModButtonOption.Factory(id, label));
+            if (memberInfoMetadata.MemberType == MemberType.Method)
+                AddItem(ModButtonOption.Factory(id, label, memberInfoMetadata.GetMethodAsAction<ButtonClickedEventArgs>(ConfigFileMetadata.Config)));
         }
 
         /// <summary>

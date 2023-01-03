@@ -505,7 +505,7 @@
                 // Create a tooltip if specified
                 if (tooltip is not null)
                 {
-                    e.GameObject.GetComponentInChildren<TextMeshProUGUI>().gameObject.AddComponent<ModOptionTooltip>().Tooltip = tooltip;
+                    e.Value.GetComponentInChildren<TextMeshProUGUI>().gameObject.AddComponent<ModOptionTooltip>().Tooltip = tooltip;
                 }
 
                 if (modOptionMetadata.OnGameObjectCreatedMetadata == null)

@@ -10,34 +10,20 @@
     /// <summary>
     /// Contains all the information about a choice changed event.
     /// </summary>
-    public class ChoiceChangedEventArgs : ModEventArgs<KeyValuePair<int, string>>
+    public class ChoiceChangedEventArgs : ConfigOptionEventArgs<KeyValuePair<int, string>>
     {
-        /// <summary>
-        /// The ID of the <see cref="ModChoiceOption"/> that was changed.
-        /// </summary>
-        public override string Id { get; }
-
-        /// <summary>
-        /// The value of the <see cref="ModChoiceOption"/> as a string.
-        /// </summary>
-        public override KeyValuePair<int, string> Value { get; }
-
         /// <summary>
         /// Constructs a new <see cref="ChoiceChangedEventArgs"/>.
         /// </summary>
         /// <param name="id">The ID of the <see cref="ModChoiceOption"/> that was changed.</param>
         /// <param name="value">The value of the <see cref="ModChoiceOption"/> as a string.</param>
-        public ChoiceChangedEventArgs(string id, KeyValuePair<int, string> value)
-        {
-            this.Id = id;
-            this.Value = value;
-        }
+        public ChoiceChangedEventArgs(string id, KeyValuePair<int, string> value) : base(id, value) { }
     }
 
     /// <summary>
     /// A mod option class for handling an option that can select one item from a list of values.
     /// </summary>
-    public class ModChoiceOption : ModOption
+    public class ModChoiceOption : ModOption<KeyValuePair<int, string>>
     {
         /// <summary>
         /// The array of readable string options to choose between in the <see cref="ModChoiceOption"/>.
@@ -66,7 +52,7 @@
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="options">The collection of available values.</param>
         /// <param name="index">The starting value.</param>
-        private ModChoiceOption(string id, string label, string[] options, int index) : base(label, id, typeof(KeyValuePair<int, string>), new KeyValuePair<int, string>(index, options[index]))
+        private ModChoiceOption(string id, string label, string[] options, int index) : base(label, id, new KeyValuePair<int, string>(index, options[index]))
         {
             this.Options = options;
             this.Index = index;

@@ -286,7 +286,7 @@
         /// 
         /// <para>As with the other events in this example, it is not necessary to define the parameter if you do not need the data
         /// it contains.</para></param>
-        private void MyGenericValueChangedEvent<T>(ModEventArgs<T> e)
+        private void MyGenericValueChangedEvent<T>(ConfigOptionEventArgs<T> e)
         {
             ExampleMod.LogSource.LogInfo("Generic value changed!");
             ExampleMod.LogSource.LogInfo($"{e.Id}: {e.GetType()}");
@@ -319,7 +319,7 @@
         private void MyGameObjectCreatedEvent(GameObjectCreatedEventArgs e)
         {
             ExampleMod.LogSource.LogInfo("GameObject was created");
-            ExampleMod.LogSource.LogInfo($"{e.Id}: {e.GameObject}");
+            ExampleMod.LogSource.LogInfo($"{e.Id}: {e.Value}");
         }
     }
 }

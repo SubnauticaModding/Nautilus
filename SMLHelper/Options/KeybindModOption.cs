@@ -10,28 +10,14 @@
     /// <summary>
     /// Contains all the information about a keybind changed event.
     /// </summary>
-    public class KeybindChangedEventArgs : ModEventArgs<KeyCode>
+    public class KeybindChangedEventArgs : ConfigOptionEventArgs<KeyCode>
     {
-        /// <summary>
-        /// The ID of the <see cref="ModKeybindOption"/> that was changed.
-        /// </summary>
-        public override string Id { get; }
-
-        /// <summary>
-        /// The new value for the <see cref="ModKeybindOption"/>.
-        /// </summary>
-        public override KeyCode Value { get; }
-
         /// <summary>
         /// Constructs a new <see cref="KeybindChangedEventArgs"/>.
         /// </summary>
         /// <param name="id">The ID of the <see cref="ModKeybindOption"/> that was changed.</param>
         /// <param name="key">The new value for the <see cref="ModKeybindOption"/>.</param>
-        public KeybindChangedEventArgs(string id, KeyCode key)
-        {
-            this.Id = id;
-            this.Value = key;
-        }
+        public KeybindChangedEventArgs(string id, KeyCode key) : base(id, key) { }
     }
 
     /// <summary>

@@ -8,38 +8,24 @@
     /// <summary>
     /// Contains all the information about a toggle changed event.
     /// </summary>
-    public class ToggleChangedEventArgs : ModEventArgs<bool>
+    public class ToggleChangedEventArgs : ConfigOptionEventArgs<bool>
     {
-        /// <summary>
-        /// The ID of the <see cref="ModToggleOption"/> that was changed.
-        /// </summary>
-        public override string Id { get; }
-
-        /// <summary>
-        /// The new value for the <see cref="ModToggleOption"/>.
-        /// </summary>
-        public override bool Value { get; }
-
         /// <summary>
         /// Constructs a new <see cref="ToggleChangedEventArgs"/>.
         /// </summary>
         /// <param name="id">The ID of the <see cref="ModToggleOption"/> that was changed.</param>
         /// <param name="value">The new value for the <see cref="ModToggleOption"/>.</param>
-        public ToggleChangedEventArgs(string id, bool value)
-        {
-            this.Id = id;
-            this.Value = value;
-        }
+        public ToggleChangedEventArgs(string id, bool value) : base(id, value) { }
     }
 
     /// <summary>
     /// A mod option class for handling an option that can be either ON or OFF.
     /// </summary>
-    public class ModToggleOption : ModOption
+    public class ModToggleOption : ModOption<bool>
     {
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            UnityEngine.UI.Toggle toggle = panel.AddToggleOption(tabIndex, Label, (bool)Value,
+            UnityEngine.UI.Toggle toggle = panel.AddToggleOption(tabIndex, Label, Value,
                 new UnityAction<bool>((bool value) => parentOptions.OnChange<ToggleChangedEventArgs, bool>(Id, value)));
 
             OptionGameObject = toggle.transform.parent.gameObject;
@@ -53,7 +39,7 @@
         /// <param name="id">The internal ID of this option.</param>
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="value">The starting value.</param>
-        private ModToggleOption(string id, string label, bool value) : base(label, id, typeof(bool), value)
+        private ModToggleOption(string id, string label, bool value) : base(label, id, value)
         { }
 
         /// <summary>
