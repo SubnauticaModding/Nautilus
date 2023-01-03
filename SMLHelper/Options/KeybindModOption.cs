@@ -65,7 +65,12 @@
             return Factory(id, label, device, KeyCodeUtils.StringToKeyCode(key));
         }
 
-        internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        /// <summary>
+        /// The base method for adding an object to the options panel
+        /// </summary>
+        /// <param name="panel">The panel to add the option to.</param>
+        /// <param name="tabIndex">Where in the panel to add the option.</param>
+        public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             // Add item
             OptionGameObject = panel.AddItem(tabIndex, panel.bindingOptionPrefab);
@@ -127,6 +132,9 @@
                 Destroy(this);
             }
         }
-        internal override Type AdjusterComponent => typeof(BindingOptionAdjust);
+        /// <summary>
+        /// The Adjuster for this <see cref="ModOption"/>.
+        /// </summary>
+        public override Type AdjusterComponent => typeof(BindingOptionAdjust);
     }
 }

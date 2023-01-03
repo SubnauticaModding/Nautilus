@@ -35,7 +35,12 @@
         /// </summary>
         public int Index { get; }
 
-        internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        /// <summary>
+        /// The base method for adding an object to the options panel
+        /// </summary>
+        /// <param name="panel">The panel to add the option to.</param>
+        /// <param name="tabIndex">Where in the panel to add the option.</param>
+        public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             uGUI_Choice choice = panel.AddChoiceOption(tabIndex, Label, Options, Index,
                 new UnityAction<int>((int index) => parentOptions.OnChange<ChoiceChangedEventArgs, KeyValuePair<int, string>>(Id, new KeyValuePair<int, string>(index, Options[index]))));
@@ -159,6 +164,9 @@
                 Destroy(this);
             }
         }
-        internal override Type AdjusterComponent => typeof(ChoiceOptionAdjust);
+        /// <summary>
+        /// The Adjuster for this <see cref="ModOption"/>.
+        /// </summary>
+        public override Type AdjusterComponent => typeof(ChoiceOptionAdjust);
     }
 }

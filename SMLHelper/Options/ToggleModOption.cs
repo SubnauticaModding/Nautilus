@@ -23,7 +23,12 @@
     /// </summary>
     public class ModToggleOption : ModOption<bool>
     {
-        internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        /// <summary>
+        /// The base method for adding an object to the options panel
+        /// </summary>
+        /// <param name="panel">The panel to add the option to.</param>
+        /// <param name="tabIndex">Where in the panel to add the option.</param>
+        public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             UnityEngine.UI.Toggle toggle = panel.AddToggleOption(tabIndex, Label, Value,
                 new UnityAction<bool>((bool value) => parentOptions.OnChange<ToggleChangedEventArgs, bool>(Id, value)));
@@ -72,6 +77,10 @@
                 Destroy(this);
             }
         }
-        internal override Type AdjusterComponent => typeof(ToggleOptionAdjust);
+
+        /// <summary>
+        /// The Adjuster for this <see cref="ModOption"/>.
+        /// </summary>
+        public override Type AdjusterComponent => typeof(ToggleOptionAdjust);
     }
 }

@@ -73,7 +73,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
-        internal void OnChange<T, V>(string id, V value) where T : ConfigOptionEventArgs<V>
+        public void OnChange<T, V>(string id, V value) where T : ConfigOptionEventArgs<V>
         {
             OnChanged(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, value }));
         }
@@ -120,7 +120,7 @@
         /// <param name="id">The internal ID if this option.</param>
         /// <param name="T">The type of the object for casting purposes if necessary.</param>
         /// <param name="value">The generic value of the <see cref="ModOption"/>.</param>
-        internal ModOption(string label, string id, Type T, object value) : base(label, id)
+        public ModOption(string label, string id, Type T, object value) : base(label, id)
         {
             MyType = T;
             Value = value;
@@ -138,12 +138,12 @@
         public new T Value { get; }
 
         /// <summary>
-        /// Base constructor for all mod options.
+        /// Base constructor for all typed mod options.
         /// </summary>
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="id">The internal ID if this option.</param>
         /// <param name="value">The typed value of the <see cref="ModOption"/></param>
-        internal ModOption(string label, string id, T value) : base(label, id, typeof(T), value)
+        public ModOption(string label, string id, T value) : base(label, id, typeof(T), value)
         {
             Value = value;
         }
@@ -182,7 +182,12 @@
         }
 
         // adds UI GameObject to panel and updates OptionGameObject
-        internal virtual void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        /// <summary>
+        /// The base method for adding an object to the options panel
+        /// </summary>
+        /// <param name="panel">The panel to add the option to.</param>
+        /// <param name="tabIndex">Where in the panel to add the option.</param>
+        public virtual void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             if (AdjusterComponent != null)
             {
@@ -192,35 +197,66 @@
             parentOptions.OnGameObjectCreated(Id, OptionGameObject);
         }
 
-        internal OptionItem(string label, string id)
+        /// <summary>
+        /// Base constructor for all items in the options.
+        /// </summary>
+        /// <param name="label">The display text to show on the in-game menus.</param>
+        /// <param name="id">The internal ID if this option.</param>
+        public OptionItem(string label, string id)
         {
             Id = id;
             Label = label;
         }
 
         // type of component derived from ModOptionAdjust (for using in base.AddToPanel)
-        internal abstract Type AdjusterComponent { get; }
+        /// <summary>
+        /// The Adjuster for this <see cref="ModOption"/>.
+        /// </summary>
+        public abstract Type AdjusterComponent { get; }
 
         // base class for 'adjuster' components (so ui elements don't overlap with their text labels)
         // reason for using components is to skip one frame before manually adjust ui elements to make sure that Unity UI Layout components is updated
-        internal abstract class ModOptionAdjust : MonoBehaviour
+        /// <summary>
+        /// The base 'adjuster' component to prevent UI elements overlapping
+        /// </summary>
+        public abstract class ModOptionAdjust : MonoBehaviour
         {
             private const float minCaptionWidth_MainMenu = 480f;
             private const float minCaptionWidth_GameMenu = 360f;
             private GameObject caption = null;
 
+            /// <summary>
+            /// The width of the caption for the component
+            /// </summary>
             protected float CaptionWidth { get => caption?.GetComponent<RectTransform>().rect.width ?? 0f; }
 
+            /// <summary>
+            /// Whether we are in the main menu or in game in the options
+            /// </summary>
             protected bool isMainMenu { get; private set; } = true; // is it main menu or game menu
 
+            /// <summary>
+            /// Sets the X coordinate of a <see cref="Vector2"/>.
+            /// </summary>
+            /// <param name="vec">The <see cref="Vector2"/> to set the value on.</param>
+            /// <param name="val">The value to set to the x coordinate.</param>
+            /// <returns></returns>
             protected static Vector2 SetVec2x(Vector2 vec, float val) { vec.x = val; return vec; }
 
+            /// <summary>
+            /// The function called after this <see cref="MonoBehaviour"/> is awakened.
+            /// </summary>
             public void Awake()
             {
                 isMainMenu = gameObject.GetComponentInParent<MainMenuOptions>() != null;
             }
 
             // we add ContentSizeFitter component to text label so it will change width in its Update() based on text
+            /// <summary>
+            /// Creates and adds a caption to this GameObject
+            /// </summary>
+            /// <param name="gameObjectPath"></param>
+            /// <param name="minWidth"></param>
             protected void SetCaptionGameObject(string gameObjectPath, float minWidth = 0f)
             {
                 caption = gameObject.transform.Find(gameObjectPath)?.gameObject;

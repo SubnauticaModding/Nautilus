@@ -23,7 +23,12 @@
     {
         private readonly Action<ButtonClickedEventArgs> Callback;
 
-        internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        /// <summary>
+        /// The base method for adding an object to the options panel
+        /// </summary>
+        /// <param name="panel">The panel to add the option to.</param>
+        /// <param name="tabIndex">Where in the panel to add the option.</param>
+        public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             // Add button to GUI
             Button componentInChildren = panel.AddItem(tabIndex, panel.buttonPrefab, Label).GetComponentInChildren<Button>();
@@ -60,6 +65,9 @@
             return new ModButtonOption(id, label, callback);
         }
 
-        internal override Type AdjusterComponent => null;
+        /// <summary>
+        /// The Adjuster for this <see cref="ModOption"/>.
+        /// </summary>
+        public override Type AdjusterComponent => null;
     }
 }

@@ -54,7 +54,12 @@
 
         private SliderValue sliderValue = null;
 
-        internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        /// <summary>
+        /// The base method for adding an object to the options panel
+        /// </summary>
+        /// <param name="panel">The panel to add the option to.</param>
+        /// <param name="tabIndex">Where in the panel to add the option.</param>
+        public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             UnityAction<float> callback = new((value) => parentOptions.OnChange<SliderChangedEventArgs, float>(Id, sliderValue?.ConvertToDisplayValue(value) ?? value));
 
@@ -379,6 +384,9 @@
                 Destroy(this);
             }
         }
-        internal override Type AdjusterComponent => typeof(SliderOptionAdjust);
+        /// <summary>
+        /// The Adjuster for this <see cref="ModOption"/>.
+        /// </summary>
+        public override Type AdjusterComponent => typeof(SliderOptionAdjust);
     }
 }
