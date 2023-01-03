@@ -25,14 +25,15 @@
         // based on the provided ID.
         private Dictionary<string, OptionItem> _options;
 
+        /// <summary>
+        /// <para>Attaches a <see cref="OptionItem"/> to the options menu.</para>
+        /// </summary>
+        /// <param name="option">The <see cref="OptionItem"/> to add to the options menu.</param>
         public void AddItem(OptionItem option)
         {
             _options.Add(option.Id, option);
             option.SetParent(this);
         }
-
-        [Obsolete("AddOption is obsoleted by AddItem")]
-        public void AddOption(ModOption option) { AddItem(option); }
 
         internal void AddOptionsToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
@@ -55,10 +56,10 @@
 
         /// <summary>
         /// <para>Builds up the configuration the options.</para>
-        /// <para>This method should be composed of calls into the following methods: 
-        /// <seealso cref="AddSliderOption(string, string, float, float, float)"/> | <seealso cref="AddToggleOption"/> | <seealso cref="AddChoiceOption(string, string, string[], int)"/> | <seealso cref="AddKeybindOption(string, string, GameInput.Device, KeyCode)"/>.</para>
+        /// <para>This method should be composed of calls into the following method: 
+        /// <seealso cref="AddItem"/> .</para>
         /// <para>Make sure you have subscribed to the events in the constructor to handle what happens when the value is changed:
-        /// <seealso cref="SliderChanged"/> | <seealso cref="ToggleChanged"/> | <seealso cref="ChoiceChanged"/> | <seealso cref="KeybindChanged"/>.</para>
+        /// <seealso cref="OnChanged"/>.</para>
         /// </summary>
         public abstract void BuildModOptions();
 
@@ -102,8 +103,14 @@
     {
         private readonly Type MyType;
 
+        /// <summary>
+        /// The type of the <see cref="Value"/> for the <see cref="ModOption"/>.
+        /// </summary>
         public Type GetValueType => MyType;
 
+        /// <summary>
+        /// The value for the <see cref="ModOption"/>.
+        /// </summary>
         public object Value { get; }
 
         /// <summary>
@@ -111,6 +118,8 @@
         /// </summary>
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="id">The internal ID if this option.</param>
+        /// <param name="T">The type of the object for casting purposes if necessary.</param>
+        /// <param name="value">The generic value of the <see cref="ModOption"/>.</param>
         internal ModOption(string label, string id, Type T, object value) : base(label, id)
         {
             MyType = T;
@@ -123,6 +132,9 @@
     /// </summary>
     public abstract class ModOption<T> : ModOption
     {
+        /// <summary>
+        /// The value for the <see cref="ModOption{T}"/>.
+        /// </summary>
         public new T Value { get; }
 
         /// <summary>
@@ -130,6 +142,7 @@
         /// </summary>
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="id">The internal ID if this option.</param>
+        /// <param name="value">The typed value of the <see cref="ModOption"/></param>
         internal ModOption(string label, string id, T value) : base(label, id, typeof(T), value)
         {
             Value = value;

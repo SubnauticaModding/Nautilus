@@ -54,6 +54,7 @@
         /// </summary>
         /// <param name="id">The internal ID of this option.</param>
         /// <param name="label">The display text to show on the in-game menus.</param>
+        /// <param name="callback">The callback to be executed when the button is pressed.</param>
         public static ModButtonOption Factory(string id, string label, Action<ButtonClickedEventArgs> callback)
         {
             return new ModButtonOption(id, label, callback);

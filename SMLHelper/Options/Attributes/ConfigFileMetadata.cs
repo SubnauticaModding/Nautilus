@@ -27,7 +27,7 @@
         public MenuAttribute MenuAttribute { get; private set; }
 
         /// <summary>
-        /// A dictionary of <see cref="ModOptionAttributeMetadata{T}"/>, indexed by <see cref="ModOption.Id"/>.
+        /// A dictionary of <see cref="ModOptionAttributeMetadata{T}"/>, indexed by <see cref="OptionItem.Id"/>.
         /// </summary>
         public Dictionary<string, ModOptionAttributeMetadata<T>> ModOptionAttributesMetadata { get; private set; }
 
