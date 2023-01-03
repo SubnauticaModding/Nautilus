@@ -123,7 +123,7 @@
     /// </summary>
     public abstract class ModOption<T> : ModOption
     {
-        public T Value { get; }
+        public new T Value { get; }
 
         /// <summary>
         /// Base constructor for all mod options.
