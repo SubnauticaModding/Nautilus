@@ -69,6 +69,12 @@
         public event EventHandler<OptionEventArgs> OnChanged;
 
         /// <summary>
+        /// Gets the Invocation List for the OnChanged event or returns null if none present.
+        /// </summary>
+        public Delegate[] GetDelegates => OnChanged?.GetInvocationList();
+
+
+        /// <summary>
         /// Notifies an option change to all subscribed event handlers.
         /// </summary>
         /// <param name="id"></param>
@@ -141,6 +147,12 @@
         /// The event that is called whenever an option is changed.
         /// </summary>
         public event EventHandler<OptionEventArgs> OnChanged;
+
+        /// <summary>
+        /// Gets the Invocation List for the OnChanged event or returns null if none present.
+        /// </summary>
+        public Delegate[] GetDelegates => OnChanged?.GetInvocationList();
+
 
         /// <summary>
         /// Notifies an option change to all subscribed event handlers.

@@ -29,6 +29,11 @@
         public event Action<ButtonClickedEventArgs> OnPressed;
 
         /// <summary>
+        /// Gets the Invocation List for the OnPressed event or returns null if none present.
+        /// </summary>
+        public Delegate[] GetDelegates => OnPressed?.GetInvocationList();
+
+        /// <summary>
         /// The base method for adding an object to the options panel
         /// </summary>
         /// <param name="panel">The panel to add the option to.</param>
