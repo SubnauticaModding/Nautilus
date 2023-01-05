@@ -163,6 +163,10 @@
             {
                 addModOptionMetadata<KeybindAttribute>(memberInfo, memberType, underlyingType);
             }
+            else if (underlyingType == typeof(Color) || Attribute.IsDefined(memberInfo, typeof(ColorPickerAttribute)))
+            {
+                addModOptionMetadata<ColorPickerAttribute>(memberInfo, memberType, underlyingType);
+            }
             else if (underlyingType.IsEnum || Attribute.IsDefined(memberInfo, typeof(ChoiceAttribute), true))
             {
                 addModOptionMetadata<ChoiceAttribute>(memberInfo, memberType, underlyingType);
@@ -280,12 +284,12 @@
         private string jsonConfig;
         public void OptionsMenuBuilder_Config_OnStartedLoading(object sender, ConfigFileEventArgs e)
         {
-            jsonConfig = JsonConvert.SerializeObject(e.Instance as T);
+            jsonConfig = JsonConvert.SerializeObject(e.Instance as T, Config.AlwaysIncludedJsonConverters);
         }
 
         private void OptionsMenuBuilder_Config_OnFinishedLoading(object sender, ConfigFileEventArgs e)
         {
-            T oldConfig = JsonConvert.DeserializeObject<T>(jsonConfig);
+            T oldConfig = JsonConvert.DeserializeObject<T>(jsonConfig, Config.AlwaysIncludedJsonConverters);
             T currentConfig = e.Instance as T;
 
             foreach (ModOptionAttributeMetadata<T> modOptionMetadata in ModOptionAttributesMetadata.Values)

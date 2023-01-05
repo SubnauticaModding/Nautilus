@@ -131,6 +131,9 @@
                     case ChoiceAttribute choiceAttribute:
                         BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
                         break;
+                    case ColorPickerAttribute colorAttribute:
+                        BuildModColorOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                        break;
                     case KeybindAttribute _:
                         BuildModKeybindOption(id, label, modOptionMetadata.MemberInfoMetadata);
                         break;
@@ -195,6 +198,18 @@
                 int index = memberInfoMetadata.GetValue<int>(ConfigFileMetadata.Config);
                 AddItem(ModChoiceOption.Factory(id, label, options, index));
             }
+        }
+
+        /// <summary>
+        /// Adds a <see cref="ModColorOption"/> to the <see cref="ModOptions"/> menu.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="label"></param>
+        /// <param name="memberInfoMetadata">The metadata of the corresponding member.</param>
+        private void BuildModColorOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
+        {
+            Color value = memberInfoMetadata.GetValue<Color>(ConfigFileMetadata.Config);
+            AddItem(ModColorOption.Factory(id, label, value));
         }
 
         /// <summary>
