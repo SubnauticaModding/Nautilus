@@ -56,7 +56,7 @@ namespace SMLHelper.Options
         /// <param name="label">The display text to use in the in-game menu.</param>
         public static ModColorOption Factory(string id, string label)
         {
-            return new ModColorOption(id, label, Color.white);
+            return Factory(id, label, Color.white);
         }
 
         /// <summary>
