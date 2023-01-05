@@ -140,7 +140,7 @@
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="value">The starting value</param>
         /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
-        public static ModChoiceOption Factory<T>(string id, string label, T value, string tooltip) where T : Enum
+        public static ModChoiceOption Factory<T>(string id, string label, T value, string tooltip = null) where T : Enum
         {
             string[] options = Enum.GetNames(typeof(T));
             string valueString = value.ToString();
