@@ -163,10 +163,6 @@
             {
                 addModOptionMetadata<KeybindAttribute>(memberInfo, memberType, underlyingType);
             }
-            else if (underlyingType == typeof(Color) || Attribute.IsDefined(memberInfo, typeof(ColorPickerAttribute)))
-            {
-                addModOptionMetadata<ColorPickerAttribute>(memberInfo, memberType, underlyingType);
-            }
             else if (underlyingType.IsEnum || Attribute.IsDefined(memberInfo, typeof(ChoiceAttribute), true))
             {
                 addModOptionMetadata<ChoiceAttribute>(memberInfo, memberType, underlyingType);

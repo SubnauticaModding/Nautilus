@@ -30,8 +30,7 @@
             new Vector4Converter(),
             new Vector2IntConverter(),
             new Vector3IntConverter(),
-            new QuaternionConverter(),
-            new ColorConverter()
+            new QuaternionConverter()
         };
 
         /// <summary>
