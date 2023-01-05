@@ -24,8 +24,8 @@ namespace SMLHelper.Json.Converters
         /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            Color vector3 = (Color)value;
-            serializer.Serialize(writer, (ColorJson)vector3);
+            Color color = (Color)value;
+            serializer.Serialize(writer, (ColorJson)color);
         }
 
         /// <summary>
