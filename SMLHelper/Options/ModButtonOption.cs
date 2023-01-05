@@ -66,7 +66,8 @@
         /// </summary>
         /// <param name="id">The internal ID of this option.</param>
         /// <param name="label">The display text to show on the in-game menus.</param>
-        public static ModButtonOption Factory(string id, string label,Action<ButtonClickedEventArgs> onPressed = null)
+        /// <param name="onPressed"> Action to trigger when button is pressed. Can leave as Null and then add events using the OnPressed += method;</param>
+        public static ModButtonOption Factory(string id, string label, Action<ButtonClickedEventArgs> onPressed = null)
         {
             return new ModButtonOption(id, label, onPressed);
         }
