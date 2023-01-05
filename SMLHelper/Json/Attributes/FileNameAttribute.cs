@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SMLHelper.V2.Json.Attributes
+﻿namespace SMLHelper.Json.Attributes
 {
+    using System;
+
     /// <summary>
     /// Attribute used to specify a file name for use with a <see cref="JsonFile"/>.
     /// </summary>

@@ -1,49 +1,26 @@
-﻿using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Handlers
+﻿namespace SMLHelper.Handlers
 {
-    using Interfaces;
-    using Patchers;
+    using SMLHelper.Utility;
+    using SMLHelper.Patchers;
     using System.Collections.Generic;
     using UnityEngine;
-    using InternalLogger = InternalLogger;
+
 
     /// <summary>
     /// A handler class for configuring custom unlocking conditions for item blueprints.
     /// </summary>
-    public class KnownTechHandler : IKnownTechHandler
+    public static class KnownTechHandler
     {
-        private static readonly KnownTechHandler singleton = new KnownTechHandler();
-
-        /// <summary>
-        /// Main entry point for all calls to this handler.
-        /// </summary>
-        public static IKnownTechHandler Main => singleton;
-
-        private KnownTechHandler()
-        {
-            // Hides constructor
-        }
-
         /// <summary>
         /// Allows you to unlock a TechType on game start.
         /// </summary>
         /// <param name="techType"></param>
         public static void UnlockOnStart(TechType techType)
         {
-            Main.UnlockOnStart(techType);
-        }
-
-        /// <summary>
-        /// Allows you to unlock a TechType on game start.
-        /// </summary>
-        /// <param name="techType"></param>
-        void IKnownTechHandler.UnlockOnStart(TechType techType)
-        {
             KnownTechPatcher.UnlockedAtStart.Add(techType);
         }
 
-        internal void AddAnalysisTech(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string UnlockMessage = "NotificationBlueprintUnlocked", FMODAsset UnlockSound = null, UnityEngine.Sprite UnlockSprite = null)
+        internal static void AddAnalysisTech(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string UnlockMessage = "NotificationBlueprintUnlocked", FMODAsset UnlockSound = null, UnityEngine.Sprite UnlockSprite = null)
         {
             if (techTypeToBeAnalysed != TechType.None)
             {
@@ -63,9 +40,11 @@ namespace SMLHelper.V2.Handlers
                         unlockSound = UnlockSound,
                         unlockPopup = UnlockSprite,
                         unlockTechTypes = new List<TechType>(techTypesToUnlock),
+#if SUBNAUTICA
                         //Secondary fix for null ref exception caused by Subnautica 2.0 moving story goal initialization
                         //Maybe one day we expand this to actually be able to add list of StoryGoals from mods or base game???
                         storyGoals = new()
+#endif
                     });
                 }
             }
@@ -75,7 +54,7 @@ namespace SMLHelper.V2.Handlers
             }
         }
 
-        internal void AddCompoundUnlock(TechType techType, List<TechType> compoundTechsForUnlock)
+        internal static void AddCompoundUnlock(TechType techType, List<TechType> compoundTechsForUnlock)
         {
             if (techType == TechType.None)
             {
@@ -102,14 +81,16 @@ namespace SMLHelper.V2.Handlers
             }
         }
 
-        internal void RemoveAnalysisSpecific(TechType targetTechType, List<TechType> techTypes)
+        internal static void RemoveAnalysisSpecific(TechType targetTechType, List<TechType> techTypes)
         {
             foreach (TechType techType in techTypes)
             {
-                if (KnownTechPatcher.RemoveFromSpecificTechs.TryGetValue(techType, out var types))
+                if (KnownTechPatcher.RemoveFromSpecificTechs.TryGetValue(techType, out List<TechType> types))
                 {
                     if (!types.Contains(targetTechType))
+                    {
                         types.Add(targetTechType);
+                    }
                 }
                 else
                 {
@@ -118,7 +99,7 @@ namespace SMLHelper.V2.Handlers
             }
         }
 
-        internal void RemoveAnalysisTechEntry(TechType targetTechType)
+        internal static void RemoveAnalysisTechEntry(TechType targetTechType)
         {
             foreach (KnownTech.AnalysisTech tech in KnownTechPatcher.AnalysisTech.Values)
             {
@@ -129,7 +110,7 @@ namespace SMLHelper.V2.Handlers
                 }
             }
 
-            if (KnownTechPatcher.CompoundTech.TryGetValue(targetTechType, out var types))
+            if (KnownTechPatcher.CompoundTech.TryGetValue(targetTechType, out KnownTech.CompoundTech types))
             {
                 InternalLogger.Debug($"Removed Compound Unlock for {targetTechType.AsString()} that was added by another mod!");
                 KnownTechPatcher.CompoundTech.Remove(targetTechType);
@@ -142,10 +123,62 @@ namespace SMLHelper.V2.Handlers
             }
 
             if (!KnownTechPatcher.RemovalTechs.Contains(targetTechType))
+            {
                 KnownTechPatcher.RemovalTechs.Add(targetTechType);
+            }
         }
 
-        #region StaticMethods
+
+        /// <summary>
+        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+        /// added to the existing AnalysisTech entry unlocks.
+        /// </summary>
+        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
+        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
+        public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock)
+        {
+            AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock);
+        }
+
+        /// <summary>
+        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+        /// added to the existing AnalysisTech entry unlocks.
+        /// </summary>
+        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
+        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
+        /// <param name="UnlockMessage">The message that shows up on the right when the blueprint is unlocked. </param>
+        public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string UnlockMessage)
+        {
+            AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, UnlockMessage);
+        }
+
+        /// <summary>
+        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+        /// added to the existing AnalysisTech entry unlocks.
+        /// </summary>
+        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
+        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
+        /// <param name="UnlockSound">The sound that plays when you unlock the blueprint.</param>
+        public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, FMODAsset UnlockSound)
+        {
+            AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, "NotificationBlueprintUnlocked", UnlockSound);
+        }
+
+        /// <summary>
+        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+        /// added to the existing AnalysisTech entry unlocks.
+        /// </summary>
+        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
+        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
+        /// <param name="UnlockSprite">The sprite that shows up when you unlock the blueprint.</param>
+        public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, Sprite UnlockSprite)
+        {
+            AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, "NotificationBlueprintUnlocked", null, UnlockSprite);
+        }
 
         /// <summary>
         /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -156,12 +189,38 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
         /// <param name="UnlockMessage">The message that shows up on the right when the blueprint is unlocked. </param>
         /// <param name="UnlockSound">The sound that plays when you unlock the blueprint.</param>
-        /// <param name="UnlockSprite">The sprite that shows up when you unlock the blueprint.</param>
-        public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string UnlockMessage = "NotificationBlueprintUnlocked", FMODAsset UnlockSound = null, UnityEngine.Sprite UnlockSprite = null)
+        public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string UnlockMessage, FMODAsset UnlockSound)
         {
-            singleton.AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, UnlockMessage, UnlockSound, UnlockSprite);
+            AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, UnlockMessage, UnlockSound, null);
         }
 
+        /// <summary>
+        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+        /// added to the existing AnalysisTech entry unlocks.
+        /// </summary>
+        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
+        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
+        /// <param name="UnlockMessage">The message that shows up on the right when the blueprint is unlocked. </param>
+        /// <param name="UnlockSprite">The sprite that shows up when you unlock the blueprint.</param>
+        public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string UnlockMessage, Sprite UnlockSprite)
+        {
+            AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, UnlockMessage, null, UnlockSprite);
+        }
+
+        /// <summary>
+        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+        /// added to the existing AnalysisTech entry unlocks.
+        /// </summary>
+        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
+        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
+        /// <param name="UnlockSound">The sound that plays when you unlock the blueprint.</param>
+        /// <param name="UnlockSprite">The sprite that shows up when you unlock the blueprint.</param>
+        public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, FMODAsset UnlockSound, Sprite UnlockSprite)
+        {
+            AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, "NotificationBlueprintUnlocked", UnlockSound, UnlockSprite);
+        }
 
         /// <summary>
         /// Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
@@ -171,7 +230,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="compoundTechsForUnlock"></param>
         public static void SetCompoundUnlock(TechType techType, List<TechType> compoundTechsForUnlock)
         {
-            singleton.AddCompoundUnlock(techType, compoundTechsForUnlock);
+            AddCompoundUnlock(techType, compoundTechsForUnlock);
         }
 
 
@@ -182,7 +241,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techTypes">List of <see cref="TechType"/> to remove the targetTechType from.</param>
         public static void RemoveAnalysisTechEntryFromSpecific(TechType targetTechType, List<TechType> techTypes)
         {
-            singleton.RemoveAnalysisSpecific(targetTechType, techTypes);
+            RemoveAnalysisSpecific(targetTechType, techTypes);
         }
 
         /// <summary>
@@ -192,136 +251,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="targetTechType">Target <see cref="TechType"/> to remove the unlocks for.</param>
         public static void RemoveAllCurrentAnalysisTechEntry(TechType targetTechType)
         {
-            singleton.RemoveAnalysisTechEntry(targetTechType);
+            RemoveAnalysisTechEntry(targetTechType);
         }
-
-        #endregion
-
-        #region InterfaceMethods
-        /// <summary>
-        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
-        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
-        /// added to the existing AnalysisTech entry unlocks.
-        /// </summary>
-        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
-        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-        void IKnownTechHandler.SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock)
-        {
-            singleton.AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock);
-        }
-
-        /// <summary>
-        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
-        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
-        /// added to the existing AnalysisTech entry unlocks.
-        /// </summary>
-        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
-        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-        /// <param name="UnlockMessage">The message that shows up on the right when the blueprint is unlocked. </param>
-        void IKnownTechHandler.SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string UnlockMessage)
-        {
-            singleton.AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, UnlockMessage);
-        }
-
-        /// <summary>
-        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
-        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
-        /// added to the existing AnalysisTech entry unlocks.
-        /// </summary>
-        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
-        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-        /// <param name="UnlockSound">The sound that plays when you unlock the blueprint.</param>
-        void IKnownTechHandler.SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, FMODAsset UnlockSound)
-        {
-            singleton.AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, "NotificationBlueprintUnlocked", UnlockSound);
-        }
-
-        /// <summary>
-        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
-        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
-        /// added to the existing AnalysisTech entry unlocks.
-        /// </summary>
-        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
-        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-        /// <param name="UnlockSprite">The sprite that shows up when you unlock the blueprint.</param>
-        void IKnownTechHandler.SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, Sprite UnlockSprite)
-        {
-            singleton.AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, "NotificationBlueprintUnlocked", null, UnlockSprite);
-        }
-
-        /// <summary>
-        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
-        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
-        /// added to the existing AnalysisTech entry unlocks.
-        /// </summary>
-        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
-        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-        /// <param name="UnlockMessage">The message that shows up on the right when the blueprint is unlocked. </param>
-        /// <param name="UnlockSound">The sound that plays when you unlock the blueprint.</param>
-        void IKnownTechHandler.SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string UnlockMessage, FMODAsset UnlockSound)
-        {
-            singleton.AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, UnlockMessage, UnlockSound, null);
-        }
-
-        /// <summary>
-        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
-        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
-        /// added to the existing AnalysisTech entry unlocks.
-        /// </summary>
-        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
-        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-        /// <param name="UnlockMessage">The message that shows up on the right when the blueprint is unlocked. </param>
-        /// <param name="UnlockSprite">The sprite that shows up when you unlock the blueprint.</param>
-        void IKnownTechHandler.SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string UnlockMessage, Sprite UnlockSprite)
-        {
-            singleton.AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, UnlockMessage, null, UnlockSprite);
-        }
-
-        /// <summary>
-        /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
-        /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
-        /// added to the existing AnalysisTech entry unlocks.
-        /// </summary>
-        /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
-        /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-        /// <param name="UnlockSound">The sound that plays when you unlock the blueprint.</param>
-        /// <param name="UnlockSprite">The sprite that shows up when you unlock the blueprint.</param>
-        void IKnownTechHandler.SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, FMODAsset UnlockSound, Sprite UnlockSprite)
-        {
-            singleton.AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, "NotificationBlueprintUnlocked", UnlockSound, UnlockSprite);
-        }
-
-        /// <summary>
-        /// Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
-        /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="IKnownTechHandler.RemoveAnalysisTechEntryFromSpecific"/> or <see cref="IKnownTechHandler.RemoveAllCurrentAnalysisTechEntry"/>
-        /// </summary>
-        /// <param name="techType"></param>
-        /// <param name="compoundTechsForUnlock"></param>
-        void IKnownTechHandler.SetCompoundUnlock(TechType techType, List<TechType> compoundTechsForUnlock)
-        {
-            singleton.AddCompoundUnlock(techType, compoundTechsForUnlock);
-        }
-
-
-        /// <summary>
-        /// Allows you to remove unlock entries for a <see cref="TechType"/> from specific entries.
-        /// </summary>
-        /// <param name="targetTechType">Target <see cref="TechType"/> to remove the unlocks for.</param>
-        /// <param name="techTypes">List of <see cref="TechType"/> to remove the targetTechType from.</param>
-        void IKnownTechHandler.RemoveAnalysisTechEntryFromSpecific(TechType targetTechType, List<TechType> techTypes)
-        {
-            singleton.RemoveAnalysisSpecific(targetTechType, techTypes);
-        }
-
-        /// <summary>
-        /// Allows you to remove all unlock entries from a <see cref="TechType"/> to be able to disable or change it to a new unlock.
-        /// ***Note: This is patch time specific so the LAST mod to call this on a techtype will be the only one to control what unlocks said type after its use.***
-        /// </summary>
-        /// <param name="targetTechType">Target <see cref="TechType"/> to remove the unlocks for.</param>
-        void IKnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType targetTechType)
-        {
-            singleton.RemoveAnalysisTechEntry(targetTechType);
-        }
-        #endregion
     }
 }

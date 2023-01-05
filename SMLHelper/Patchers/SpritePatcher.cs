@@ -1,21 +1,21 @@
-﻿using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
+    using SMLHelper.Utility;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Reflection;
-    using Assets;
-    using Handlers;
+    using SMLHelper.Assets;
+    using SMLHelper.Handlers;
     using HarmonyLib;
     using UnityEngine;
     using UWE;
-    using InternalLogger = InternalLogger;
+
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
 #elif BELOWZERO
     using Sprite = UnityEngine.Sprite;
+
 #endif
 
     internal class SpritePatcher
@@ -23,16 +23,22 @@ namespace SMLHelper.V2.Patchers
 
         internal static void PatchCheck(SpriteManager.Group group, string name)
         {
-            if (string.IsNullOrEmpty(name) || !ModSprite.ModSprites.TryGetValue(group, out var groupDict) || !groupDict.TryGetValue(name, out _))
+            if (string.IsNullOrEmpty(name) || !ModSprite.ModSprites.TryGetValue(group, out Dictionary<string, Sprite> groupDict) || !groupDict.TryGetValue(name, out _))
+            {
                 return;
+            }
 #if BELOWZERO
             if (!SpriteManager.hasInitialized)
+            {
                 return;
+            }
 #endif
             Dictionary<string, Sprite> atlas = GetSpriteAtlas(group);
             
             if (atlas != null && !atlas.TryGetValue(name, out _))
+            {
                 PatchSprites();
+            }
         }
 
         internal static void Patch(Harmony harmony)
@@ -45,24 +51,26 @@ namespace SMLHelper.V2.Patchers
 #endif
             MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
 
-            HarmonyMethod patchCheck = new HarmonyMethod(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
-            HarmonyMethod patchBackgrounds = new HarmonyMethod(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
+            HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
+            HarmonyMethod patchBackgrounds = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
             harmony.Patch(spriteManagerGet, prefix: patchCheck);
             harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
         }
 
         private static void PatchSprites()
         {
-            foreach (var moddedSpriteGroup in ModSprite.ModSprites)
+            foreach (KeyValuePair<SpriteManager.Group, Dictionary<string, Sprite>> moddedSpriteGroup in ModSprite.ModSprites)
             {
                 SpriteManager.Group moddedGroup = moddedSpriteGroup.Key;
 
                 Dictionary<string, Sprite> spriteAtlas = GetSpriteAtlas(moddedGroup);
                 if (spriteAtlas == null)
+                {
                     continue;
+                }
 
                 Dictionary<string, Sprite> moddedSprites = moddedSpriteGroup.Value;
-                foreach (var sprite in moddedSprites)
+                foreach (KeyValuePair<string, Sprite> sprite in moddedSprites)
                 {
                     if (spriteAtlas.ContainsKey(sprite.Key))
                     {
@@ -101,8 +109,10 @@ namespace SMLHelper.V2.Patchers
             if (atlas?.nameToSprite != null)
                 return atlas.nameToSprite;
 #elif BELOWZERO
-            if (SpriteManager.atlases.TryGetValue(atlasName, out var spriteGroup))
-                    return spriteGroup;
+            if (SpriteManager.atlases.TryGetValue(atlasName, out Dictionary<string, Sprite> spriteGroup))
+            {
+                return spriteGroup;
+            }
 #endif
             InternalLogger.Error($"SpritePatcher was unable to find a sprite atlas for {nameof(SpriteManager.Group)}.{groupKey}");
             return null;

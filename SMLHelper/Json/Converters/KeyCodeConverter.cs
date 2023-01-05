@@ -1,7 +1,7 @@
-﻿namespace SMLHelper.V2.Json.Converters
+﻿namespace SMLHelper.Json.Converters
 {
     using System;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
     using UnityEngine;
     using Newtonsoft.Json;
 
@@ -18,7 +18,7 @@
         /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var keyCode = (KeyCode)value;
+            KeyCode keyCode = (KeyCode)value;
             writer.WriteValue(KeyCodeUtils.KeyCodeToString(keyCode));
         }
 
@@ -33,7 +33,7 @@
         public override object ReadJson(JsonReader reader, Type objectType,
             object existingValue, JsonSerializer serializer)
         {
-            var s = (string)reader.Value;
+            string s = (string)reader.Value;
             return KeyCodeUtils.StringToKeyCode(s);
         }
 
@@ -43,6 +43,9 @@
         /// </summary>
         /// <param name="objectType"></param>
         /// <returns></returns>
-        public override bool CanConvert(Type objectType) => objectType == typeof(KeyCode);
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(KeyCode);
+        }
     }
 }

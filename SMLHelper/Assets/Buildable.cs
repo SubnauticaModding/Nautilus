@@ -1,6 +1,7 @@
-﻿namespace SMLHelper.V2.Assets
+﻿namespace SMLHelper.Assets
 {
     using System;
+    using SMLHelper.Handlers;
 
     /// <summary>
     /// An item that can be built into the game world.
@@ -29,7 +30,7 @@
 
         private void PatchBuildable()
         {
-            this.CraftDataHandler.AddBuildable(this.TechType);
+            CraftDataHandler.AddBuildable(this.TechType);
         }
     }
 }

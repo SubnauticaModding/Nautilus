@@ -1,11 +1,10 @@
-﻿namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.Options
 {
-    using Interfaces;
     using System;
     using System.Collections.Generic;
     using UnityEngine;
     using UnityEngine.UI;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// Abstract class that provides the framework for your mod's in-game configuration options.
@@ -70,7 +69,7 @@
     }
 
     /// <summary> Contains all the information about a created game object event </summary>
-    public class GameObjectCreatedEventArgs : EventArgs, IModOptionEventArgs
+    public class GameObjectCreatedEventArgs : EventArgs
     {
         /// <summary> The ID of the <see cref="ModOption"/> for which game object was created </summary>
         public string Id { get; }
@@ -112,16 +111,22 @@
         internal void SetParent(ModOptions parent)
         {
             if (parentOptions == null)
+            {
                 parentOptions = parent;
+            }
             else
-                V2.Utility.InternalLogger.Log($"ModOption.SetParent: parent already setted for {Id}", LogLevel.Warn);
+            {
+                InternalLogger.Log($"ModOption.SetParent: parent already setted for {Id}", LogLevel.Warn);
+            }
         }
 
         // adds UI GameObject to panel and updates OptionGameObject
         internal virtual void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             if (AdjusterComponent != null)
+            {
                 OptionGameObject.AddComponent(AdjusterComponent);
+            }
 
             parentOptions.OnGameObjectCreated(Id, OptionGameObject);
         }
@@ -154,7 +159,10 @@
 
             protected static Vector2 SetVec2x(Vector2 vec, float val) { vec.x = val; return vec; }
 
-            public void Awake() => isMainMenu = gameObject.GetComponentInParent<MainMenuOptions>() != null;
+            public void Awake()
+            {
+                isMainMenu = gameObject.GetComponentInParent<MainMenuOptions>() != null;
+            }
 
             // we add ContentSizeFitter component to text label so it will change width in its Update() based on text
             protected void SetCaptionGameObject(string gameObjectPath, float minWidth = 0f)
@@ -163,7 +171,7 @@
 
                 if (!caption)
                 {
-                    V2.Utility.InternalLogger.Log($"ModOptionAdjust: caption gameobject '{gameObjectPath}' not found", LogLevel.Warn);
+                    InternalLogger.Log($"ModOptionAdjust: caption gameobject '{gameObjectPath}' not found", LogLevel.Warn);
                     return;
                 }
 

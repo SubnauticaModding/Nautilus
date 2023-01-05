@@ -1,14 +1,13 @@
-﻿using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
-    using Json;
+    using SMLHelper.Utility;
+    using SMLHelper.Json;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using UnityEngine;
-    using InternalLogger = InternalLogger;
+
 
     /// <summary>
     /// An internal derivative of <see cref="ModOptions"/> for use in auto-generating a menu based on attributes
@@ -34,7 +33,9 @@ namespace SMLHelper.V2.Options.Attributes
 
             // Conditionally load the config
             if (ConfigFileMetadata.MenuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuRegistered))
+            {
                 ConfigFileMetadata.Config.Load();
+            }
         }
 
         private void BindEvents()
@@ -104,7 +105,9 @@ namespace SMLHelper.V2.Options.Attributes
         {
             // Conditionally load the config
             if (ConfigFileMetadata.MenuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuOpened))
+            {
                 ConfigFileMetadata.Config.Load();
+            }
 
             foreach (KeyValuePair<string, ModOptionAttributeMetadata<T>> entry in ConfigFileMetadata.ModOptionAttributesMetadata
                 .OrderBy(x => x.Value.ModOptionAttribute.Order)
@@ -115,7 +118,9 @@ namespace SMLHelper.V2.Options.Attributes
 
                 string label = modOptionMetadata.ModOptionAttribute.Label;
                 if (Language.main.TryGet(modOptionMetadata.ModOptionAttribute.LabelLanguageId, out string languageLabel))
+                {
                     label = languageLabel;
+                }
 
                 InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
                     $"{modOptionMetadata.ModOptionAttribute.GetType().Name}");
@@ -220,7 +225,9 @@ namespace SMLHelper.V2.Options.Attributes
 
             float step = sliderAttribute.Step;
             if (memberInfoMetadata.ValueType == typeof(int))
+            {
                 step = Mathf.CeilToInt(step);
+            }
 
             AddSliderOption(id, label, sliderAttribute.Min, sliderAttribute.Max,
                 Convert.ToSingle(value), sliderAttribute.DefaultValue,

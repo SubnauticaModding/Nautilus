@@ -1,8 +1,8 @@
-﻿namespace SMLHelper.V2.Crafting
+﻿namespace SMLHelper.Crafting
 {
     using System.Collections.Generic;
     using Patchers;
-    using SMLHelper.V2.Patchers.EnumPatching;
+    using SMLHelper.Patchers.EnumPatching;
     using UnityEngine;
     using UnityEngine.Assertions;
     using Utility;
@@ -16,7 +16,7 @@
         /// <summary>
         /// The child nodes linked bellow this node.
         /// </summary>
-        public readonly List<ModCraftTreeNode> ChildNodes = new List<ModCraftTreeNode>();
+        public readonly List<ModCraftTreeNode> ChildNodes = new();
 
         internal ModCraftTreeLinkingNode(string name, TreeAction action, TechType techType)
             : base(name, action, techType)
@@ -54,7 +54,7 @@
         {
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
 
-            var tabNode = new ModCraftTreeTab(modName, nameID, displayText, sprite);
+            ModCraftTreeTab tabNode = new(modName, nameID, displayText, sprite);
             tabNode.LinkToParent(this);
 
             ChildNodes.Add(tabNode);
@@ -71,7 +71,7 @@
         {
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
 
-            var tabNode = new ModCraftTreeTab(modName, nameID);
+            ModCraftTreeTab tabNode = new(modName, nameID);
             tabNode.LinkToParent(this);
 
             ChildNodes.Add(tabNode);
@@ -89,11 +89,13 @@
             foreach (ModCraftTreeTab node in ChildNodes)
             {
                 if (node == null)
+                {
                     continue;
+                }
 
                 if (node.Name == nameID && node.Action == TreeAction.Expand)
                 {
-                    var tab = node;
+                    ModCraftTreeTab tab = node;
                     return tab;
                 }
             }
@@ -111,11 +113,13 @@
             foreach (ModCraftTreeNode node in ChildNodes)
             {
                 if (node == null)
+                {
                     continue;
+                }
 
                 if (node.TechType == techType && node.Action == TreeAction.Craft)
                 {
-                    var craftNode = (ModCraftTreeCraft)node;
+                    ModCraftTreeCraft craftNode = (ModCraftTreeCraft)node;
                     return craftNode;
                 }
             }
@@ -133,10 +137,14 @@
             foreach (ModCraftTreeNode node in ChildNodes)
             {
                 if (node == null)
+                {
                     continue;
+                }
 
                 if (node.Name == nameID)
+                {
                     return node;
+                }
             }
 
             return null;
@@ -150,7 +158,7 @@
         {
             Assert.AreNotEqual(TechType.None, techType, "Attempt to add TechType.None as a crafting node.");
 
-            var craftNode = new ModCraftTreeCraft(techType);
+            ModCraftTreeCraft craftNode = new(techType);
             craftNode.LinkToParent(this);
 
             ChildNodes.Add(craftNode);
@@ -192,8 +200,8 @@
 
             if (cache != null)
             {
-                var techType = (TechType)cache.Index;
-                var craftNode = new ModCraftTreeCraft(techType);
+                TechType techType = (TechType)cache.Index;
+                ModCraftTreeCraft craftNode = new(techType);
                 craftNode.LinkToParent(this);
 
                 ChildNodes.Add(craftNode);

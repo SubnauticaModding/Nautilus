@@ -1,38 +1,26 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using Newtonsoft.Json;
-
-namespace SMLHelper.V2.Handlers
+namespace SMLHelper.Handlers
 {
-    using Interfaces;
-    using Patchers;
+    using System;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using Newtonsoft.Json;
+    using SMLHelper.Patchers;
 
     /// <summary>
     /// a Handler that handles and registers Coordinated (<see cref="Vector3"/> spawns).
     /// </summary>
-    public class CoordinatedSpawnsHandler : ICoordinatedSpawnHandler
+    public static class CoordinatedSpawnsHandler 
     {
-        /// <summary>
-        /// Main entry point for all calls to this handler.
-        /// </summary>
-        public static ICoordinatedSpawnHandler Main { get; } = new CoordinatedSpawnsHandler();
 
-        private CoordinatedSpawnsHandler()
-        {
-            // Hide Constructor
-        }
-
-        #region Interface Implementations
         /// <summary>
         /// Registers Multiple Coordinated spawns for one single passed TechType
         /// </summary>
         /// <param name="techTypeToSpawn">The TechType to spawn</param>
         /// <param name="coordinatesToSpawnTo">the coordinates the <see cref="TechType"/> should spawn to</param>
-        void ICoordinatedSpawnHandler.RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, List<Vector3> coordinatesToSpawnTo)
+        public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, List<Vector3> coordinatesToSpawnTo)
         {
-            var spawnInfos = new List<SpawnInfo>();
-            foreach (var coordinate in coordinatesToSpawnTo)
+            List<SpawnInfo> spawnInfos = new();
+            foreach (Vector3 coordinate in coordinatesToSpawnTo)
             {
                 spawnInfos.Add(new SpawnInfo(techTypeToSpawn, coordinate));
             }
@@ -43,7 +31,7 @@ namespace SMLHelper.V2.Handlers
         /// Registers a Coordinated Spawn
         /// </summary>
         /// <param name="spawnInfo">the SpawnInfo to spawn</param>
-        void ICoordinatedSpawnHandler.RegisterCoordinatedSpawn(SpawnInfo spawnInfo)
+        public static void RegisterCoordinatedSpawn(SpawnInfo spawnInfo)
         {
             LargeWorldStreamerPatcher.spawnInfos.Add(spawnInfo);
         }
@@ -52,56 +40,9 @@ namespace SMLHelper.V2.Handlers
         /// registers Many Coordinated Spawns.
         /// </summary>
         /// <param name="spawnInfos">The SpawnInfos to spawn.</param>
-        void ICoordinatedSpawnHandler.RegisterCoordinatedSpawns(List<SpawnInfo> spawnInfos)
-        {
-            LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
-        }
-
-        /// <summary>
-        /// Registers Multiple Coordinated spawns with rotations for one single passed TechType
-        /// </summary>
-        /// <param name="techTypeToSpawn">The TechType to spawn</param>
-        /// <param name="coordinatesAndRotationsToSpawnTo">the coordinates(Key) and the rotations(Value) the <see cref="TechType"/> should spawn to</param>
-        void ICoordinatedSpawnHandler.RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, Dictionary<Vector3, Vector3> coordinatesAndRotationsToSpawnTo)
-        {
-            var spawnInfos = new List<SpawnInfo>();
-            foreach (var kvp in coordinatesAndRotationsToSpawnTo)
-            {
-                spawnInfos.Add(new SpawnInfo(techTypeToSpawn, kvp.Key, kvp.Value));
-            }
-            LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
-        }
-
-        #endregion
-
-        #region Static Methods
-
-        /// <summary>
-        /// Registers a Coordinated Spawn
-        /// </summary>
-        /// <param name="spawnInfo">the SpawnInfo to spawn</param>
-        public static void RegisterCoordinatedSpawn(SpawnInfo spawnInfo)
-        {
-            Main.RegisterCoordinatedSpawn(spawnInfo);
-        }
-
-        /// <summary>
-        /// registers Many Coordinated Spawns.
-        /// </summary>
-        /// <param name="spawnInfos">The SpawnInfo to spawn.</param>
         public static void RegisterCoordinatedSpawns(List<SpawnInfo> spawnInfos)
         {
-            Main.RegisterCoordinatedSpawns(spawnInfos);
-        }
-
-        /// <summary>
-        /// Registers Multiple Coordinated spawns for one single passed TechType
-        /// </summary>
-        /// <param name="techTypeToSpawn">The TechType to spawn</param>
-        /// <param name="coordinatesToSpawnTo">the coordinates the <see cref="TechType"/> should spawn to</param>
-        public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, List<Vector3> coordinatesToSpawnTo)
-        {
-            Main.RegisterCoordinatedSpawnsForOneTechType(techTypeToSpawn, coordinatesToSpawnTo);
+            LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
         }
 
         /// <summary>
@@ -111,10 +52,14 @@ namespace SMLHelper.V2.Handlers
         /// <param name="coordinatesAndRotationsToSpawnTo">the coordinates(Key) and the rotations(Value) the <see cref="TechType"/> should spawn to</param>
         public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, Dictionary<Vector3, Vector3> coordinatesAndRotationsToSpawnTo)
         {
-            Main.RegisterCoordinatedSpawnsForOneTechType(techTypeToSpawn, coordinatesAndRotationsToSpawnTo);
+            List<SpawnInfo> spawnInfos = new();
+            foreach (KeyValuePair<Vector3, Vector3> kvp in coordinatesAndRotationsToSpawnTo)
+            {
+                spawnInfos.Add(new SpawnInfo(techTypeToSpawn, kvp.Key, kvp.Value));
+            }
+            LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
         }
 
-        #endregion
     }
 
     #region SpawnInfo
@@ -212,7 +157,10 @@ namespace SMLHelper.V2.Handlers
         /// <returns><see langword="true"/> if <paramref name="obj"/> is a <see cref="SpawnInfo"/> and represents the same
         /// value as this instance; otherwise, <see langword="false"/>.</returns>
         /// <seealso cref="Equals(SpawnInfo)"/>
-        public override bool Equals(object obj) => obj is SpawnInfo spawnInfo && Equals(spawnInfo);
+        public override bool Equals(object obj)
+        {
+            return obj is SpawnInfo spawnInfo && Equals(spawnInfo);
+        }
 
         /// <summary>
         /// A custom hash code algorithm that takes into account the values of each property of the <see cref="SpawnInfo"/> instance,
@@ -244,11 +192,14 @@ namespace SMLHelper.V2.Handlers
         /// <param name="other">The other <see cref="SpawnInfo"/>.</param>
         /// <returns><see langword="true"/> if the current <see cref="SpawnInfo"/> is equal to the <paramref name="other"/> parameter;
         /// otherwise <see langword="false"/>.</returns>
-        public bool Equals(SpawnInfo other) => other.TechType == TechType
+        public bool Equals(SpawnInfo other)
+        {
+            return other.TechType == TechType
                                             && other.ClassId == ClassId
                                             && other.SpawnPosition == SpawnPosition
                                             && other.Rotation == Rotation
                                             && other.Type == Type;
+        }
 
         internal enum SpawnType
         {

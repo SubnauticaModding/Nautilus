@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using System;
     using System.Collections;
@@ -7,9 +7,9 @@
 
     internal class IngameMenuPatcher
     {
-        private static readonly List<Action> oneTimeUseOnSaveEvents = new List<Action>();
-        private static readonly List<Action> oneTimeUseOnLoadEvents = new List<Action>();
-        private static readonly List<Action> oneTimeUseOnQuitEvents = new List<Action>();
+        private static readonly List<Action> oneTimeUseOnSaveEvents = new();
+        private static readonly List<Action> oneTimeUseOnLoadEvents = new();
+        private static readonly List<Action> oneTimeUseOnQuitEvents = new();
 
         internal static Action OnSaveEvents;
         internal static Action OnLoadEvents;
@@ -47,7 +47,10 @@
             if (oneTimeUseOnSaveEvents.Count > 0)
             {
                 foreach (Action action in oneTimeUseOnSaveEvents)
+                {
                     action.Invoke();
+                }
+
                 oneTimeUseOnSaveEvents.Clear();
             }
         }
@@ -64,7 +67,9 @@
             if (oneTimeUseOnLoadEvents.Count > 0)
             {
                 foreach (Action action in oneTimeUseOnLoadEvents)
+                {
                     action.Invoke();
+                }
 
                 oneTimeUseOnLoadEvents.Clear();
             }
@@ -82,7 +87,9 @@
             if (oneTimeUseOnQuitEvents.Count > 0)
             {
                 foreach (Action action in oneTimeUseOnQuitEvents)
+                {
                     action.Invoke();
+                }
 
                 oneTimeUseOnQuitEvents.Clear();
             }

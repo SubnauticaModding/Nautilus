@@ -1,6 +1,6 @@
-﻿namespace SMLHelper.V2.Json.ExtensionMethods
+﻿namespace SMLHelper.Json.ExtensionMethods
 {
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -18,9 +18,11 @@
         /// already exist.</param>
         /// <param name="jsonConverters">The <see cref="JsonConverter"/>s to be used for deserialization.</param>
         /// <seealso cref="SaveJson{T}(T, string, JsonConverter[])"/>
-        public static void LoadJson<T>(this T jsonObject, string path = null, 
+        public static void LoadJson<T>(this T jsonObject, string path = null,
             bool createIfNotExist = true, params JsonConverter[] jsonConverters) where T : class
-            => JsonUtils.Load(jsonObject, path, createIfNotExist, jsonConverters);
+        {
+            JsonUtils.Load(jsonObject, path, createIfNotExist, jsonConverters);
+        }
 
         /// <summary>
         /// Saves the fields and properties of the <paramref name="jsonObject"/> as JSON properties to the file on disk.
@@ -31,6 +33,8 @@
         /// <param name="jsonConverters">The <see cref="JsonConverter"/>s to be used for serialization.</param>
         public static void SaveJson<T>(this T jsonObject, string path = null,
             params JsonConverter[] jsonConverters) where T : class
-            => JsonUtils.Save(jsonObject, path, jsonConverters);
+        {
+            JsonUtils.Save(jsonObject, path, jsonConverters);
+        }
     }
 }

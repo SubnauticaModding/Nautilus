@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Json
+﻿namespace SMLHelper.Json
 {
     using Attributes;
     using Interfaces;
@@ -6,7 +6,7 @@
     using System.IO;
     using System.Reflection;
     using Newtonsoft.Json;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// An abstract implementation of <see cref="IJsonFile"/> intended for use with caching per-save data.

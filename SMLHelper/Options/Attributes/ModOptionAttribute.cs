@@ -1,7 +1,6 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
     using Handlers;
-    using Interfaces;
     using Json;
     using System;
 
@@ -10,7 +9,7 @@
     /// in a mod's options menu.
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = false)]
-    public abstract class ModOptionAttribute : Attribute, IModOptionAttribute
+    public abstract class ModOptionAttribute : Attribute
     {
         /// <summary>
         /// The label to use when displaying the field in the mod's options menu. If <see cref="LabelLanguageId"/> is set, this

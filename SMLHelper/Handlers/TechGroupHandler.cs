@@ -1,25 +1,13 @@
-﻿namespace SMLHelper.V2.Handlers
+﻿namespace SMLHelper.Handlers
 {
-    using SMLHelper.V2.Handlers;
-    using SMLHelper.V2.Interfaces;
-    using SMLHelper.V2.Patchers.EnumPatching;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Patchers.EnumPatching;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// A handler class for everything related to creating new TechGroups.
     /// </summary>
-    public class TechGroupHandler : ITechGroupHandler
+    public static class TechGroupHandler
     {
-        /// <summary>
-        /// Main entry point for all calls to this handler.
-        /// </summary>
-        public static ITechGroupHandler Main { get; } = new TechGroupHandler();
-
-        private TechGroupHandler()
-        {
-            // Hide constructor
-        }
-
         /// <summary>
         /// Adds a new <see cref="TechGroup" /> into the game.
         /// </summary>
@@ -28,12 +16,10 @@
         /// <returns>
         /// The new <see cref="TechGroup" /> that is created.
         /// </returns>
-        public TechGroup AddTechGroup(string techGroupName, string displayName)
+        public static TechGroup AddTechGroup(string techGroupName, string displayName)
         {
             TechGroup techGroup = TechGroupPatcher.AddTechGroup(techGroupName);
-
             LanguageHandler.SetLanguageLine("Group" + techGroupName, displayName);
-
             return techGroup;
         }
 
@@ -44,18 +30,9 @@
         /// <returns>
         ///   <c>True</c> if the item was found; Otherwise <c>false</c>.
         /// </returns>
-        public bool ModdedTechGroupExists(string techGroupString)
+        public static bool ModdedTechGroupExists(string techGroupString)
         {
-            EnumTypeCache cache = TechGroupPatcher.cacheManager.RequestCacheForTypeName(techGroupString, false);
-
-            if (cache != null) // Item Found
-            {
-                return true;
-            }
-            else // Mod not present or not yet loaded
-            {
-                return false;
-            }
+            return TechGroupPatcher.cacheManager.RequestCacheForTypeName(techGroupString, false) != null;
         }
 
         /// <summary>
@@ -66,11 +43,11 @@
         /// <returns>
         ///   <c>True</c> if the item was found; Otherwise <c>false</c>.
         /// </returns>
-        public bool TryGetModdedTechGroup(string techGroupString, out TechGroup modTechGroup)
+        public static bool TryGetModdedTechGroup(string techGroupString, out TechGroup modTechGroup)
         {
             EnumTypeCache cache = TechGroupPatcher.cacheManager.RequestCacheForTypeName(techGroupString, false);
 
-            if (cache != null) // Item Found
+            if(cache != null) // Item Found
             {
                 modTechGroup = (TechGroup)cache.Index;
                 return true;

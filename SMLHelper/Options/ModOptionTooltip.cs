@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.Options
 {
     using System.Collections.Generic;
     using UnityEngine;
@@ -8,7 +8,10 @@
     {
         public string Tooltip;
 
-        void Awake() => Destroy(GetComponent<LayoutElement>());
+        void Awake()
+        {
+            Destroy(GetComponent<LayoutElement>());
+        }
 
         public bool showTooltipOnDrag => true;
 

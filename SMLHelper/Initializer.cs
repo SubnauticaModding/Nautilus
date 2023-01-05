@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2
+﻿namespace SMLHelper
 {
     using System;
     using System.Collections;
@@ -7,7 +7,7 @@
     using HarmonyLib;
     using Patchers;
     using Patchers.EnumPatching;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
     using UnityEngine;
 
 
@@ -20,9 +20,9 @@
         private const string
             MODNAME = "SMLHelper",
             GUID = "com.ahk1221.smlhelper",
-            VERSION = "2.15.0.1";
+            VERSION = "2.15.0.2";
 
-        internal static readonly Harmony harmony = new Harmony(GUID);
+        internal static readonly Harmony harmony = new(GUID);
 
         /// <summary>
         /// WARNING: This method is for use only by Bepinex.
@@ -30,6 +30,9 @@
         [Obsolete("This method is for use only by Bepinex.", true)]
         Initializer()
         {
+            GameObject obj = UWE.Utils.GetEntityRoot(this.gameObject) ?? this.gameObject;
+            obj.EnsureComponent<SceneCleanerPreserve>();
+
             InternalLogger.Initialize(Logger);
 #if SUBNAUTICA
             InternalLogger.Info($"Loading v{VERSION} for Subnautica");
@@ -53,7 +56,7 @@
         {
             Type chainLoader = typeof(BepInEx.Bootstrap.Chainloader);
 
-            var _loaded = chainLoader.GetField("_loaded", BindingFlags.NonPublic | BindingFlags.Static);
+            FieldInfo _loaded = chainLoader.GetField("_loaded", BindingFlags.NonPublic | BindingFlags.Static);
             while(!(bool)_loaded.GetValue(null))
             {
                 yield return null;
@@ -61,7 +64,6 @@
 
             yield return new WaitForSecondsRealtime(2);
 
-            FishPatcher.Patch(harmony);
             TechTypePatcher.Patch();
             CraftTreeTypePatcher.Patch();
             PingTypePatcher.Patch();
@@ -78,7 +80,6 @@
             PrefabDatabasePatcher.PostPatch(harmony);
             SpritePatcher.Patch(harmony);
             KnownTechPatcher.Patch(harmony);
-            BioReactorPatcher.Patch();
             OptionsPanelPatcher.Patch(harmony);
             ItemsContainerPatcher.Patch(harmony);
             PDALogPatcher.Patch(harmony);
@@ -93,6 +94,7 @@
             SurvivalPatcher.Patch(harmony);
             CustomSoundPatcher.Patch(harmony);
             EatablePatcher.Patch(harmony);
+            MaterialUtils.Patch();
 
 
             InternalLogger.Debug("Saving TechType Cache");

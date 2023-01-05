@@ -1,13 +1,13 @@
-using System.Linq;
-using FMOD;
-using FMOD.Studio;
-using FMODUnity;
-using SMLHelper.V2.FMod.Interfaces;
-using SMLHelper.V2.Utility;
-using UnityEngine;
-
-namespace SMLHelper.V2.FMod
+namespace SMLHelper.FMod
 {
+    using System.Linq;
+    using FMOD;
+    using FMOD.Studio;
+    using FMODUnity;
+    using SMLHelper.FMod.Interfaces;
+    using SMLHelper.Utility;
+    using UnityEngine;
+
     /// <summary>
     /// This class is used to register FMOD events with multiple sounds in one event.
     /// </summary>

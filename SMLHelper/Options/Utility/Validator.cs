@@ -1,7 +1,7 @@
-﻿namespace SMLHelper.V2.Options.Utility
+﻿namespace SMLHelper.Options.Utility
 {
     using System.Text.RegularExpressions;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     internal static class Validator
     {
@@ -43,27 +43,58 @@
 
         private static string ValidateID(string id)
         {
-            if (id == null) return "The provided ID is null.";
-            if (string.IsNullOrEmpty(id.Trim())) return "The provided ID is empty or whitespace.";
+            if (id == null)
+            {
+                return "The provided ID is null.";
+            }
 
-            if (Regex.IsMatch(id, "[^a-z0-9_]", RegexOptions.IgnoreCase)) return $"The provided ID ({id}) contains invalid characters. (Use only alphanumeric characters and underscores)";
+            if (string.IsNullOrEmpty(id.Trim()))
+            {
+                return "The provided ID is empty or whitespace.";
+            }
+
+            if (Regex.IsMatch(id, "[^a-z0-9_]", RegexOptions.IgnoreCase))
+            {
+                return $"The provided ID ({id}) contains invalid characters. (Use only alphanumeric characters and underscores)";
+            }
 
             return null;
         }
         private static string ValidateLabel(string label)
         {
-            if (label == null) return "The provided label is null.";
-            if (string.IsNullOrEmpty(label.Trim())) return "The provided label is empty or whitespace.";
+            if (label == null)
+            {
+                return "The provided label is null.";
+            }
+
+            if (string.IsNullOrEmpty(label.Trim()))
+            {
+                return "The provided label is empty or whitespace.";
+            }
 
             return null;
         }
         private static string ValidateArray(string[] array, int index)
         {
-            if (array == null) return "The options array is null!";
-            if (array.Length <= 0) return "The options array is empty!";
+            if (array == null)
+            {
+                return "The options array is null!";
+            }
 
-            if (index <= -1) return $"The provided index ({index}) is negative.";
-            if (index >= array.Length) return $"The provided index ({index}) is outside of the array.";
+            if (array.Length <= 0)
+            {
+                return "The options array is empty!";
+            }
+
+            if (index <= -1)
+            {
+                return $"The provided index ({index}) is negative.";
+            }
+
+            if (index >= array.Length)
+            {
+                return $"The provided index ({index}) is outside of the array.";
+            }
 
             return null;
         }

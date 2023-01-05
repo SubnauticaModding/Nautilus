@@ -1,18 +1,14 @@
-﻿using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Assets
+﻿namespace SMLHelper.Assets
 {
-    using Handlers;
-    using Interfaces;
-    using Utility;
+    using SMLHelper.Handlers;
+    using SMLHelper.Utility;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
-    using System.Reflection;
     using UnityEngine;
     using UWE;
-    using InternalLogger = InternalLogger;
+
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
 #endif
@@ -24,14 +20,7 @@ namespace SMLHelper.V2.Assets
     /// <seealso cref="ModPrefab"/>
     public abstract class Spawnable: ModPrefab
     {
-        internal IPrefabHandler PrefabHandler { get; set; } = Handlers.PrefabHandler.Main;
-        internal ISpriteHandler SpriteHandler { get; set; } = Handlers.SpriteHandler.Main;
-        internal ICraftDataHandler CraftDataHandler { get; set; } = Handlers.CraftDataHandler.Main;
-        internal ITechTypeHandlerInternal TechTypeHandler { get; set; } = Handlers.TechTypeHandler.Singleton;
-        internal IWorldEntityDatabaseHandler WorldEntityDatabaseHandler { get; set; } = Handlers.WorldEntityDatabaseHandler.Main;
-        internal ILootDistributionHandler LootDistributionHandler { get; set; } = Handlers.LootDistributionHandler.Main;
-
-        private static readonly Vector2int defaultSize = new Vector2int(1, 1);
+        private static readonly Vector2int defaultSize = new(1, 1);
 
         /// <summary>
         /// A simple delegate type that takes no parameters and returns void.
@@ -139,14 +128,18 @@ namespace SMLHelper.V2.Assets
                 if(EntityInfo != null)
                 {
                     if(BiomesToSpawnIn != null)
+                    {
                         LootDistributionHandler.AddLootDistributionData(this, BiomesToSpawnIn, EntityInfo);
+                    }
                     else
+                    {
                         WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
+                    }
                 }
 
                 if (CoordinatedSpawns != null)
                 {
-                    foreach (var (position, eulerAngles) in CoordinatedSpawns)
+                    foreach ((Vector3 position, Vector3 eulerAngles) in CoordinatedSpawns)
                     {
                         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(TechType, position, eulerAngles));
                     }
@@ -158,7 +151,9 @@ namespace SMLHelper.V2.Assets
         private IEnumerator RegisterSpriteAsync()
         {
             while (!SpriteManager.hasInitialized)
+            {
                 yield return new WaitForSecondsRealtime(1);
+            }
 
             SpriteHandler.RegisterSprite(TechType, GetItemSprite());
             yield break;
@@ -234,7 +229,9 @@ namespace SMLHelper.V2.Assets
             }
 
             if(HasSprite)
+            {
                 InternalLogger.Error($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
+            }
 
             return SpriteManager.defaultSprite;
         }

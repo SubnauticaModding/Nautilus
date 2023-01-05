@@ -1,7 +1,7 @@
-﻿namespace SMLHelper.V2.Assets
+﻿namespace SMLHelper.Assets
 {
-    using SMLHelper.V2.Interfaces;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Handlers;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// An item that can be crafted into the game world from a fabricator.
@@ -10,8 +10,6 @@
     /// <seealso cref="Spawnable" />
     public abstract class Craftable : PdaItem
     {
-        internal ICraftTreeHandler CraftTreeHandler { get; set; } = Handlers.CraftTreeHandler.Main;
-
         /// <summary>
         /// Override with the vanilla fabricator that crafts this item.<para/>
         /// Leave this as <see cref="CraftTree.Type.None"/> if you are manually adding this item to a custom fabricator.
@@ -51,13 +49,19 @@
             else
             {
                 if (this.StepsToFabricatorTab == null || this.StepsToFabricatorTab.Length == 0)
-                    this.CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType);
+                {
+                    CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType);
+                }
                 else
-                    this.CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType, this.StepsToFabricatorTab);
+                {
+                    CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType, this.StepsToFabricatorTab);
+                }
             }
 
-            if (this.CraftingTime > 0f)
-                this.CraftDataHandler.SetCraftingTime(this.TechType, this.CraftingTime);
+            if (this.CraftingTime >= 0f)
+            {
+                CraftDataHandler.SetCraftingTime(this.TechType, this.CraftingTime);
+            }
         }
     }
 }

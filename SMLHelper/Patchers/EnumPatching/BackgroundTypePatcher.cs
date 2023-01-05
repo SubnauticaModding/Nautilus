@@ -1,9 +1,8 @@
-﻿namespace SMLHelper.V2.Patchers.EnumPatching
+﻿namespace SMLHelper.Patchers.EnumPatching
 {
     using System;
     using System.Collections.Generic;
     using Handlers;
-    using SMLHelper.V2.Utility;
     using Utility;
 
     internal class BackgroundTypePatcher
@@ -13,7 +12,7 @@
         internal static readonly int startingIndex = 7; // last vanilla index is 6
 
         internal static readonly EnumCacheManager<CraftData.BackgroundType> cacheManager =
-            new EnumCacheManager<CraftData.BackgroundType>(
+            new(
                 enumTypeName: BackgroundTypeEnumName,
                 startingIndex: startingIndex,
                 bannedIDs: ExtBannedIdManager.GetBannedIdsFor(BackgroundTypeEnumName, PreRegisteredBackgroundTypes()));
@@ -29,9 +28,13 @@
             CraftData.BackgroundType backgroundType = (CraftData.BackgroundType)cache.Index;
 
             if(cacheManager.Add(backgroundType, cache.Index, cache.Name))
+            {
                 InternalLogger.Log($"Successfully added Backgroundtype: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            }
             else
+            {
                 InternalLogger.Log($"Failed adding Backgroundtype: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+            }
 
             return backgroundType;
         }
@@ -43,23 +46,29 @@
             // Any mod that patches after this one will not be picked up by this method.
             // For those cases, there are additional ways of excluding these IDs.
 
-            var bannedIndices = new List<int>();
+            List<int> bannedIndices = new();
 
             Array enumValues = Enum.GetValues(typeof(CraftData.BackgroundType));
 
             foreach (object enumValue in enumValues)
             {
                 if (enumValue == null)
+                {
                     continue; // Saftey check
+                }
 
                 int realEnumValue = (byte)enumValue;
 
                 if (realEnumValue < startingIndex)
+                {
                     continue; // This is possibly a default Background
+                }
                 // Anything below this range we won't ever assign
 
                 if (bannedIndices.Contains(realEnumValue))
+                {
                     continue;// Already exists in list
+                }
 
                 bannedIndices.Add(realEnumValue);
             }
@@ -71,7 +80,7 @@
 
         internal static void Patch()
         {
-            IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
+            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
             InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} BackgroundTypes succesfully into the game.", LogLevel.Info);
 

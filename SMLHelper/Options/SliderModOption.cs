@@ -1,6 +1,5 @@
-﻿namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.Options
 {
-    using Interfaces;
     using System;
     using System.Reflection;
     using System.Collections;
@@ -8,17 +7,17 @@
     using UnityEngine.UI;
     using UnityEngine.Events;
     using TMPro;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// Contains all the information about a slider changed event.
     /// </summary>
-    public class SliderChangedEventArgs : EventArgs, IModOptionEventArgs
+    public class SliderChangedEventArgs : ModEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModSliderOption"/> that was changed.
         /// </summary>
-        public string Id { get; }
+        public override string Id { get; }
 
         /// <summary>
         /// The new value for the <see cref="ModSliderOption"/>.
@@ -101,7 +100,7 @@
         /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
         /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
         /// <param name="step">Step for the slider, ie. round to nearest X</param>
-        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = null, float step = 0)
+        protected void AddSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = "{0:F0}", float step = 0)
         {
             AddOption(new ModSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, step));
         }
@@ -146,7 +145,7 @@
 
         internal override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            UnityAction<float> callback = new UnityAction<float>((value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value));
+            UnityAction<float> callback = new((value) => parentOptions.OnSliderChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value));
 
             panel.AddSliderOption(tabIndex, Label, Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, "0.0");
 
@@ -156,7 +155,9 @@
 
             // if we using custom value format, we need to replace vanilla uGUI_SliderWithLabel with our component
             if (ValueFormat != null)
+            {
                 OptionGameObject.transform.Find("Slider").gameObject.AddComponent<SliderValue>().ValueFormat = ValueFormat;
+            }
 
             // fixing tooltip for slider
             OptionGameObject.transform.Find("Slider/Caption").GetComponent<TextMeshProUGUI>().raycastTarget = true;
@@ -242,19 +243,26 @@
             {
                 if (Step >= Mathf.Epsilon)
                 {
-                    var value = Mathf.Round(slider.value / Step) * Step;
+                    float value = Mathf.Round(slider.value / Step) * Step;
 
                     if (value != sliderValue)
+                    {
                         slider.value = value;
+                    }
 
                     return value;
                 }
                 else
+                {
                     return sliderValue;
+                }
             }
 
             /// <summary> Converts displayed value to internal slider value [0.0f : 1.0f] </summary>
-            public virtual float ConvertToSliderValue(float displayValue) => displayValue;
+            public virtual float ConvertToSliderValue(float displayValue)
+            {
+                return displayValue;
+            }
 
             /// <summary> Component initialization. If you overriding this, make sure that you calling base.Awake() </summary>
             protected virtual void Awake()
@@ -275,7 +283,9 @@
                     Destroy(sliderLabel);
                 }
                 else
-                    V2.Utility.InternalLogger.Log("uGUI_SliderWithLabel not found", LogLevel.Error);
+                {
+                    InternalLogger.Log("uGUI_SliderWithLabel not found", LogLevel.Error);
+                }
 
                 if (GetComponent<uGUI_SnappingSlider>() is uGUI_SnappingSlider snappingSlider)
                 {
@@ -294,14 +304,19 @@
                     }
                 }
                 else
-                    V2.Utility.InternalLogger.Log("uGUI_SnappingSlider not found", LogLevel.Error);
+                {
+                    InternalLogger.Log("uGUI_SnappingSlider not found", LogLevel.Error);
+                }
 
                 slider.onValueChanged.AddListener(new UnityAction<float>(OnValueChanged));
                 UpdateLabel();
             }
 
             /// <summary> <see cref="MonoBehaviour"/>.Start() </summary>
-            protected virtual IEnumerator Start() => UpdateValueWidth();
+            protected virtual IEnumerator Start()
+            {
+                return UpdateValueWidth();
+            }
 
             /// <summary>
             /// Method for calculating necessary label's width. Creates temporary label and compares widths of min and max values,
@@ -328,7 +343,10 @@
             }
 
             /// <summary> Called when user changes slider value </summary>
-            protected virtual void OnValueChanged(float value) => UpdateLabel();
+            protected virtual void OnValueChanged(float value)
+            {
+                UpdateLabel();
+            }
 
             /// <summary>
             /// Updates label's text with formatted and converted slider's value.
@@ -359,7 +377,9 @@
                 {
                     // wait while SliderValue calculating ValueWidth (one or two frames)
                     while (sliderValue.ValueWidth < 0)
+                    {
                         yield return null;
+                    }
 
                     sliderValueWidth = sliderValue.ValueWidth + (isMainMenu ? 0f : valueSpacing);
                 }
@@ -374,12 +394,16 @@
                     sliderValueRect.sizeDelta = SetVec2x(sliderValueRect.sizeDelta, sliderValueWidth);
                 }
                 else
+                {
                     sliderValueWidth = sliderValueRect.rect.width;
+                }
 
                 RectTransform rect = gameObject.transform.Find(sliderBackground) as RectTransform;
 
                 if (widthDelta != 0f)
+                {
                     rect.localPosition = SetVec2x(rect.localPosition, rect.localPosition.x - widthDelta);
+                }
 
                 // changing width for slider
                 float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
@@ -388,9 +412,13 @@
 
                 // it's not pixel-perfect, but it's good enough
                 if (widthText + widthSlider + sliderValueWidth > widthAll)
+                {
                     rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - sliderValueWidth - widthSlider);
+                }
                 else if (widthDelta > 0f)
+                {
                     rect.sizeDelta = SetVec2x(rect.sizeDelta, -widthDelta);
+                }
 
                 Destroy(this);
             }

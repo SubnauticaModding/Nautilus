@@ -1,8 +1,8 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
     using Json;
     using System;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// Attribute used to signify a <see cref="ModOptions"/> menu should be automatically generated from a
@@ -11,9 +11,8 @@
     /// </summary>
     /// <example>
     /// <code>
-    /// using SMLHelper.V2.Interfaces;
-    /// using SMLHelper.V2.Json;
-    /// using SMLHelper.V2.Options;
+    /// using SMLHelper.Json;
+    /// using SMLHelper.Options;
     /// using QModManager.Utility;
     /// using UnityEngine;
     /// 
@@ -49,7 +48,7 @@
     ///         Logger.Log(Logger.Level.Info, $"{e.Value}");
     ///     }
     /// 
-    ///     private void MyGenericValueChangedEvent(IModOptionEventArgs e)
+    ///     private void MyGenericValueChangedEvent(ModOptionEventArgs e)
     ///     {
     ///         Logger.Log(Logger.Level.Info, "Generic value changed!");
     ///         Logger.Log(Logger.Level.Info, $"{e.Id}: {e.GetType()}");

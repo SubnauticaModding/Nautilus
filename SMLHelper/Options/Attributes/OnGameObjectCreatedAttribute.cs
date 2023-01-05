@@ -1,8 +1,7 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
-    using Interfaces;
     using System;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// Attribute used to signify a method to call whenever the <see cref="UnityEngine.GameObject"/> for the 
@@ -13,15 +12,15 @@
     /// <para>
     /// The specified method can optionally take the following parameters in any order:<br/>
     /// - <see cref="object"/> sender: The sender of the event<br/>
-    /// - <see cref="IModOptionEventArgs"/> eventArgs: The generalized event arguments of the event<br/>
+    /// - <see cref="EventArgs"/> eventArgs: The generalized event arguments of the event<br/>
     /// - <see cref="GameObjectCreatedEventArgs"/> gameObjectCreatedEventArgs: The <see cref="GameObjectCreatedEventArgs"/>
     ///   for the event
     /// </para>
     /// </remarks>
     /// <example>
     /// <code>
-    /// using SMLHelper.V2.Json;
-    /// using SMLHelper.V2.Options;
+    /// using SMLHelper.Json;
+    /// using SMLHelper.Options;
     /// using QModManager.Utility;
     /// using UnityEngine;
     /// 
@@ -41,7 +40,7 @@
     /// </example>
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="ToggleAttribute"/>
-    /// <seealso cref="IModOptionEventArgs"/>
+    /// <seealso cref="EventArgs"/>
     /// <seealso cref="GameObjectCreatedEventArgs"/>
     /// <seealso cref="OnChangeAttribute"/>
     /// <seealso cref="InternalLogger"/>

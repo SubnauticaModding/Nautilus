@@ -1,6 +1,5 @@
-﻿namespace SMLHelper.V2.Options
+﻿namespace SMLHelper.Options
 {
-    using Interfaces;
     using System;
     using UnityEngine.Events;
     using UnityEngine.UI;
@@ -8,12 +7,12 @@
     /// <summary>
     /// Contains all the information about a button click event.
     /// </summary>
-    public class ButtonClickedEventArgs : EventArgs, IModOptionEventArgs
+    public class ButtonClickedEventArgs : ModEventArgs
     {
         /// <summary>
         /// The ID of the <see cref="ModButtonOption"/> that was clicked.
         /// </summary>
-        public string Id { get; }
+        public override string Id { get; }
 
         /// <summary>
         /// Constructs a new <see cref="ButtonClickedEventArgs"/>.
@@ -33,14 +32,20 @@
         /// Notifies button click to all subscribed event handlers.
         /// </summary>
         /// <param name="id">The internal ID for the button option.</param>
-        internal void OnButtonClicked(string id) => ButtonClicked(this, new ButtonClickedEventArgs(id));
+        internal void OnButtonClicked(string id)
+        {
+            ButtonClicked(this, new ButtonClickedEventArgs(id));
+        }
 
         /// <summary>
         /// Adds a new <see cref="ModButtonOption"/> to this instance.
         /// </summary>
         /// <param name="id">The internal ID for the button option.</param>
         /// <param name="label">The display text to use in the in-game menu.</param>
-        protected void AddButtonOption(string id, string label) => AddOption(new ModButtonOption(id, label));
+        protected void AddButtonOption(string id, string label)
+        {
+            AddOption(new ModButtonOption(id, label));
+        }
     }
 
     /// <summary>

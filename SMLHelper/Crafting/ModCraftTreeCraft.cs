@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Crafting
+﻿namespace SMLHelper.Crafting
 {
     /// <summary>
     /// A crafting node of a CraftTree. This is the last node on a tree; The one that actually crafts something.

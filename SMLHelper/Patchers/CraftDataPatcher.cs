@@ -1,11 +1,11 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using System;
     using System.Collections.Generic;
     using Assets;
     using HarmonyLib;
-    using SMLHelper.V2.Patchers.EnumPatching;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Patchers.EnumPatching;
+    using SMLHelper.Utility;
 
     internal partial class CraftDataPatcher
     {
@@ -56,13 +56,19 @@
         internal static void RemoveFromCustomGroup(TechGroup group, TechCategory category, TechType techType)
         {
             if(!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
+            {
                 return;
+            }
 
             if(!techGroup.TryGetValue(category, out List<TechType> techCategory))
+            {
                 return;
+            }
 
             if(!techCategory.Contains(techType))
+            {
                 return;
+            }
 
             techCategory.Remove(techType);
             InternalLogger.Log($"Successfully Removed \"{techType.AsString():G}\" from groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
@@ -87,7 +93,10 @@
 
         private static void CraftDataPrefabIDCachePostfix()
         {
-            if (ModPrefab.ModPrefabsPatched) return;
+            if (ModPrefab.ModPrefabsPatched)
+            {
+                return;
+            }
 
             Dictionary<TechType, string> techMapping = CraftData.techMapping;
             Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;

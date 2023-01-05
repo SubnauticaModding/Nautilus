@@ -1,7 +1,7 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -60,11 +60,17 @@
                 postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.ItemActions_Postfix))));
 
             if (MiddleClickActions.Count > 0 && LeftClickActions.Count > 0)
+            {
                 InternalLogger.Log($"Added {LeftClickActions.Count} left click actions and {MiddleClickActions.Count} middle click actions.");
+            }
             else if (LeftClickActions.Count > 0)
+            {
                 InternalLogger.Log($"Added {LeftClickActions.Count} left click actions.");
+            }
             else if (MiddleClickActions.Count > 0)
+            {
                 InternalLogger.Log($"Added {MiddleClickActions.Count} middle click actions.");
+            }
 
             InternalLogger.Log("ItemActionPatcher is done.", LogLevel.Debug);
         }
@@ -90,7 +96,10 @@
 
         internal static bool ExecuteItemAction_Prefix(ItemAction action, InventoryItem item)
         {
-            if (action != CustomLeftClickItemAction && action != CustomMiddleClickItemAction) return true;
+            if (action != CustomLeftClickItemAction && action != CustomMiddleClickItemAction)
+            {
+                return true;
+            }
 
             TechType itemTechType = item.item.GetTechType();
 
@@ -99,7 +108,9 @@
                 if (LeftClickActions.TryGetValue(itemTechType, out CustomItemAction customItemAction))
                 {
                     if (customItemAction.Condition(item))
+                    {
                         customItemAction.Action(item);
+                    }
                 }
                 return false;
             }
@@ -109,7 +120,9 @@
                 if (MiddleClickActions.TryGetValue(itemTechType, out CustomItemAction customItemAction))
                 {
                     if (customItemAction.Condition(item))
+                    {
                         customItemAction.Action(item);
+                    }
                 }
                 return false;
             }
@@ -137,7 +150,10 @@
                 if (action.Condition(item))
                 {
                     if (!hasLeftAction)
+                    {
                         sb.Append("\n");
+                    }
+
                     TooltipFactory.WriteAction(sb, MiddleClickMouseIcon, Language.main.Get(action.LanguageLineKey));
                 }
             }

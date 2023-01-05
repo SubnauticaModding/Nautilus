@@ -1,6 +1,6 @@
 ﻿#if SUBNAUTICA
 #pragma warning disable IDE1006 // Naming Styles - Ignored for backwards compatibility
-namespace SMLHelper.V2.Crafting
+namespace SMLHelper.Crafting
 {
     using System.Collections.Generic;
 

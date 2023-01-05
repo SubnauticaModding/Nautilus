@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Json.Converters
+﻿namespace SMLHelper.Json.Converters
 {
     using System;
     using System.Globalization;
@@ -67,7 +67,7 @@
         /// <returns></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var s = (string)reader.Value;
+            string s = (string)reader.Value;
             if (objectType == typeof(float))
             {
                 return float.Parse(s, CultureInfo.InvariantCulture.NumberFormat);
@@ -84,6 +84,9 @@
         /// </summary>
         /// <param name="objectType"></param>
         /// <returns></returns>
-        public override bool CanConvert(Type objectType) => objectType == typeof(float) || objectType == typeof(double);
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(float) || objectType == typeof(double);
+        }
     }
 }

@@ -1,8 +1,8 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
     using HarmonyLib;
     using Json;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
     using System;
     using System.Linq;
     using System.Reflection;
@@ -42,7 +42,10 @@
         /// </summary>
         /// <param name="config">The config to get the value from.</param>
         /// <returns>The value.</returns>
-        public object GetValue(T config) => GetValue<object>(config);
+        public object GetValue(T config)
+        {
+            return GetValue<object>(config);
+        }
 
         /// <summary>
         /// Uses the stored metadata to set the current value of the member.
@@ -74,7 +77,9 @@
         public void ParseMethodParameterTypes(MethodInfo methodInfo = null)
         {
             if (MemberType != MemberType.Method)
+            {
                 throw new InvalidOperationException($"Member must be a Method but is {MemberType}: {typeof(T).Name}.{Name}");
+            }
 
             if (methodInfo == null)
             {
@@ -100,7 +105,9 @@
         public void InvokeMethod(T config, params object[] arguments)
         {
             if (MemberType != MemberType.Method)
+            {
                 throw new InvalidOperationException($"Member must be a Method but is {MemberType}: {typeof(T).Name}.{Name}");
+            }
 
             if (!MethodValid)
             {

@@ -1,9 +1,9 @@
-using System;
-using UnityEngine;
-using Newtonsoft.Json;
-
-namespace SMLHelper.V2.Json.Converters
+namespace SMLHelper.Json.Converters
 {
+    using System;
+    using UnityEngine;
+    using Newtonsoft.Json;
+
     /// <summary>
     /// A Vector4 json converter that simplifies the Vector4 to only x,y,z,w serialization.
     /// </summary>
@@ -27,7 +27,7 @@ namespace SMLHelper.V2.Json.Converters
         /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var vector4 = (Vector4)value;
+            Vector4 vector4 = (Vector4)value;
             serializer.Serialize(writer, (Vector4Json)vector4);
         }
 

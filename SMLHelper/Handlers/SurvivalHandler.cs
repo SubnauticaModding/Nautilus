@@ -1,26 +1,14 @@
-namespace SMLHelper.V2.Handlers
+namespace SMLHelper.Handlers
 {
     using System;
     using System.Collections.Generic;
     using Patchers;
-    using Interfaces;
 
     /// <summary>
     /// a common handler for uses specified to the Survival component
     /// </summary>
-    public class SurvivalHandler : ISurvivalHandler
+    public static class SurvivalHandler 
     {
-        /// <summary>
-        /// Main entry point for all calls to this handler.
-        /// </summary>
-        public static ISurvivalHandler Main { get; } = new SurvivalHandler();
-
-        private SurvivalHandler()
-        {
-            // Hides constructor
-        }
-
-        #region Implementation Methods
         /// <summary>
         /// <para>makes the item gives oxygen on use.</para>
         /// </summary>
@@ -29,7 +17,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
         /// <para>defaults to <see langword="false" /></para>
         /// </param>
-        void ISurvivalHandler.GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible)
+        public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible)
         {
             if (SurvivalPatcher.CustomSurvivalInventoryAction.TryGetValue(techType, out List<Action> action))
             {
@@ -46,7 +34,9 @@ namespace SMLHelper.V2.Handlers
                 }
             };
             if (!isEdible)
+            {
                 SurvivalPatcher.InventoryUseables.Add(techType);
+            }
         }
         /// <summary>
         /// <para>makes the item Heal the player on consume.</para>
@@ -56,7 +46,7 @@ namespace SMLHelper.V2.Handlers
         /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
         /// <para>defaults to <see langword="false" /></para>
         /// </param>
-        void ISurvivalHandler.GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible)
+        public static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible)
         {
             if (SurvivalPatcher.CustomSurvivalInventoryAction.TryGetValue(techType, out List<Action> action))
             {
@@ -73,35 +63,9 @@ namespace SMLHelper.V2.Handlers
                 }
             };
             if (!isEdible)
+            {
                 SurvivalPatcher.InventoryUseables.Add(techType);
+            }
         }
-        #endregion
-
-        #region Static Methods
-        /// <summary>
-        /// <para>makes the item gives oxygen on use.</para>
-        /// </summary>
-        /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
-        /// <param name="oxygenGiven">the oxygen amount the item gives</param>
-        /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
-        /// <para>defaults to <see langword="false" /></para>
-        /// </param>
-        public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible = false)
-        {
-            Main.GiveOxygenOnConsume(techType, oxygenGiven, isEdible);
-        }
-        /// <summary>
-        /// <para>makes the item Heal the player on consume.</para>
-        /// </summary>
-        /// <param name="techType">the TechType that you want it to heal back</param>
-        /// <param name="healthBack">amount to heal the player</param>
-        /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
-        /// <para>defaults to <see langword="false" /></para>
-        /// </param>
-        public static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible = false)
-        {
-            Main.GiveHealthOnConsume(techType, healthBack, isEdible);
-        }
-        #endregion
     }
 }

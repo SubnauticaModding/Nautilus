@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Crafting
+﻿namespace SMLHelper.Crafting
 {
     using Assets;
     using Patchers;

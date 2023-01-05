@@ -1,30 +1,21 @@
-﻿namespace SMLHelper.V2.Handlers
+﻿namespace SMLHelper.Handlers
 {
-    using Interfaces;
     using Patchers;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
+    using UnityEngine;
 
     /// <summary>
     /// A handler class for various scanner related data.
     /// </summary>
-    public class PDAHandler : IPDAHandler
+    public static class PDAHandler 
     {
-        /// <summary>
-        /// Main entry point for all calls to this handler.
-        /// </summary>
-        public static IPDAHandler Main { get; } = new PDAHandler();
-
-        private PDAHandler()
-        {
-            // Hide constructor
-        }
 
         /// <summary>
         /// Edits how many fragments must be scanned before unlocking the techtype's blueprint.
         /// </summary>
         /// <param name="techType">Can be either techtype of the fragment or the crafted item.</param>
         /// <param name="fragmentCount">The number of fragments to scan.</param>
-        void IPDAHandler.EditFragmentsToScan(TechType techType, int fragmentCount)
+        public static void EditFragmentsToScan(TechType techType, int fragmentCount)
         {
             if (fragmentCount <= 0)
             {
@@ -39,7 +30,7 @@
         /// </summary>
         /// <param name="techType">Can be either techtype of the fragment or the crafted item.</param>
         /// <param name="scanTime">The relative time spent on scanning. Default value is 1.</param>
-        void IPDAHandler.EditFragmentScanTime(TechType techType, float scanTime)
+        public static void EditFragmentScanTime(TechType techType, float scanTime)
         {
             if (scanTime <= 0f)
             {
@@ -53,41 +44,14 @@
         /// Adds in a custom <see cref="PDAScanner.EntryData"/>. ***Cannot be used to Change the values of a techtype that has data already!***
         /// </summary>
         /// <param name="entryData">The <see cref="PDAScanner.EntryData"/> of the entry. Must be populated when passed in.</param>
-        void IPDAHandler.AddCustomScannerEntry(PDAScanner.EntryData entryData)
-        {
-            if (PDAPatcher.CustomEntryData.ContainsKey(entryData.key))
-                InternalLogger.Log($"{entryData.key} already has custom PDAScanner.EntryData. Replacing with latest.", LogLevel.Debug);
-
-            PDAPatcher.CustomEntryData[entryData.key] = entryData;
-        }
-
-        /// <summary>
-        /// Edits how many fragments must be scanned before unlocking the techtype's blueprint.
-        /// </summary>
-        /// <param name="techType">Can be either techtype of the fragment or the crafted item.</param>
-        /// <param name="fragmentCount">The number of fragments to scan.</param>
-        public static void EditFragmentsToScan(TechType techType, int fragmentCount)
-        {
-            Main.EditFragmentsToScan(techType, fragmentCount);
-        }
-
-        /// <summary>
-        /// Edits the time it takes to finish scanning a fragment.
-        /// </summary>
-        /// <param name="techType">Can be either techtype of the fragment or the crafted item.</param>
-        /// <param name="scanTime">The relative time spent on scanning. Default value is 1.</param>
-        public static void EditFragmentScanTime(TechType techType, float scanTime)
-        {
-            Main.EditFragmentScanTime(techType, scanTime);
-        }
-
-        /// <summary>
-        /// Adds in a custom <see cref="PDAScanner.EntryData"/>.
-        /// </summary>
-        /// <param name="entryData">The <see cref="PDAScanner.EntryData"/> of the entry. Must be populated when passed in.</param>
         public static void AddCustomScannerEntry(PDAScanner.EntryData entryData)
         {
-            Main.AddCustomScannerEntry(entryData);
+            if (PDAPatcher.CustomEntryData.ContainsKey(entryData.key))
+            {
+                InternalLogger.Log($"{entryData.key} already has custom PDAScanner.EntryData. Replacing with latest.", LogLevel.Debug);
+            }
+
+            PDAPatcher.CustomEntryData[entryData.key] = entryData;
         }
 
         /// <summary>
@@ -102,7 +66,7 @@
         /// <param name="encyclopediaKey">The key to the encyclopedia entry.</param>
         public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, string encyclopediaKey, int totalFragmentsRequired = 2, float scanTime = 2f, bool destroyAfterScan = true)
         {
-            Main.AddCustomScannerEntry(new PDAScanner.EntryData()
+            AddCustomScannerEntry(new PDAScanner.EntryData()
             {
                 key = key,
                 blueprint = blueprint,
@@ -111,6 +75,39 @@
                 scanTime = scanTime,
                 destroyAfterScan = destroyAfterScan
             });
+        }
+
+        /// <summary>
+        /// Adds a custom log entry.
+        /// </summary>
+        /// <param name="key">The key to refer to this entry.</param>
+        /// <param name="languageKey">The subtitles language key for this entry.</param>
+        /// <param name="icon">The icon that will be used in the Log tab for this entry. if <c>null</c> It will use the default log entry icon.</param>
+        /// <param name="sound">The sound that will be played once this entry is triggered or played in the Log tab.<br/>
+        /// If <c>null</c> the Play button in the Log tab will disappear and a sound wont play when this entry is triggered.</param>
+        public static void AddLogEntry(string key, string languageKey, Sprite icon, FMODAsset sound)
+        {
+            PDALog.EntryData entry = new()
+            {
+                key = languageKey,
+                icon = icon,
+                sound = sound
+            };
+            PDALogPatcher.CustomEntryData[key] = entry;
+        }
+
+        /// <summary>
+        /// Adds custom entry.
+        /// </summary>
+        /// <param name="entry">The <see cref="PDAEncyclopedia.EntryData"/> entry.</param>
+        public static void AddEncyclopediaEntry(PDAEncyclopedia.EntryData entry)
+        {
+            if(PDAEncyclopediaPatcher.CustomEntryData.ContainsKey(entry.key))
+            {
+                InternalLogger.Log($"{entry.key} already has custom PDAEncyclopedia.EntryData. Replacing with latest.", LogLevel.Debug);
+            }
+
+            PDAEncyclopediaPatcher.CustomEntryData[entry.key] = entry;
         }
     }
 }

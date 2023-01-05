@@ -1,6 +1,4 @@
-﻿using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using System;
     using System.Reflection;
@@ -12,11 +10,7 @@ namespace SMLHelper.V2.Patchers
     using HarmonyLib;
     using UnityEngine;
     using UWE;
-    using InternalLogger = InternalLogger;
-    using SMLHelper.V2.Utility;
-    using static SMLHelper.V2.PatchUtils;
-    using static TechStringCache;
-    using UnityEngine.ResourceManagement.AsyncOperations;
+    using SMLHelper.Utility;
 
     internal static class PrefabDatabasePatcher
     {
@@ -31,7 +25,7 @@ namespace SMLHelper.V2.Patchers
                     PrefabDatabase.prefabFiles[prefab.ClassID] = prefab.PrefabFileName;
                 }
 
-                var tryGetPrefabFilename = AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename));
+                MethodInfo tryGetPrefabFilename = AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename));
                 Initializer.harmony.Unpatch(tryGetPrefabFilename, HarmonyPatchType.Prefix, Initializer.harmony.Id);
             }
         }
@@ -41,7 +35,9 @@ namespace SMLHelper.V2.Patchers
         internal static bool TryGetPrefabFilename_Prefix(string classId, ref string filename, ref bool __result)
         {
             if (!ModPrefab.TryGetFromClassId(classId, out ModPrefab prefab))
+            {
                 return true;
+            }
 
             filename = prefab.PrefabFileName;
             __result = true;
@@ -53,7 +49,9 @@ namespace SMLHelper.V2.Patchers
         internal static bool DeferredSpawner_AddressablesTask_Spawn_Prefix(DeferredSpawner.AddressablesTask __instance, ref IEnumerator __result)
         {
             if (!ModPrefab.TryGetFromFileName(__instance.key, out ModPrefab prefab))
+            {
                 return true;
+            }
 
             __result = SpawnAsyncReplacement(__instance, prefab);
             return false;
@@ -61,15 +59,19 @@ namespace SMLHelper.V2.Patchers
 
         internal static IEnumerator SpawnAsyncReplacement(DeferredSpawner.AddressablesTask task, ModPrefab modPrefab)
         {
-            TaskResult<GameObject> prefabResult = new TaskResult<GameObject>();
+            TaskResult<GameObject> prefabResult = new();
             yield return modPrefab.GetGameObjectInternalAsync(prefabResult);
             GameObject prefab = prefabResult.Get();
 
             if(prefab != null)
+            {
                 task.spawnedObject = UnityEngine.Object.Instantiate<GameObject>(prefab, task.parent, task.position, task.rotation, task.instantiateActivated);
-                    
+            }
+
             if (task.spawnedObject == null)
+            {
                 task.forceCancelled = true;
+            }
 
             task.HandleLateCancelledSpawn();
             yield break;
@@ -78,13 +80,17 @@ namespace SMLHelper.V2.Patchers
         private static IPrefabRequest GetModPrefabAsync(string classId)
         {
             if (!ModPrefab.TryGetFromClassId(classId, out ModPrefab prefab))
+            {
                 return null;
+            }
 
             try
             {
                 // trying sync method first
                 if (prefab.GetGameObjectInternal() is GameObject go)
+                {
                     return new LoadedPrefabRequest(go);
+                }
             }
             catch (Exception e)
             {
@@ -109,8 +115,10 @@ namespace SMLHelper.V2.Patchers
         })]
         internal static bool InstantiateAsync_Prefix(ref IEnumerator __result,string key, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
         {
-            if(!ModPrefab.TryGetFromFileName(key, out var prefab))
+            if(!ModPrefab.TryGetFromFileName(key, out ModPrefab prefab))
+            {
                 return true;
+            }
 
             __result = InstantiateAsync(prefab, result, parent, position, rotation, awake);
             return false;
@@ -118,10 +126,10 @@ namespace SMLHelper.V2.Patchers
 
         internal static IEnumerator InstantiateAsync(ModPrefab modPrefab, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
         {
-            TaskResult<GameObject> task = new TaskResult<GameObject>();
+            TaskResult<GameObject> task = new();
             yield return modPrefab.GetGameObjectAsync(task);
 
-            var prefab = task.Get();
+            GameObject prefab = task.Get();
             result.Set(GameObject.Instantiate(prefab, parent, position, rotation, awake));
             yield break;
         }
@@ -129,7 +137,7 @@ namespace SMLHelper.V2.Patchers
         // transpiler for ProtobufSerializer.DeserializeObjectsAsync
         private static IEnumerable<CodeInstruction> DeserializeObjectsAsync_Transpiler(IEnumerable<CodeInstruction> cins)
         {
-            var originalMethod = AccessTools.Method(typeof(ProtobufSerializer), nameof(ProtobufSerializer.InstantiatePrefabAsync));
+            MethodInfo originalMethod = AccessTools.Method(typeof(ProtobufSerializer), nameof(ProtobufSerializer.InstantiatePrefabAsync));
 
             return new CodeMatcher(cins).
                 MatchForward(false, new CodeMatch(OpCodes.Call, originalMethod)).

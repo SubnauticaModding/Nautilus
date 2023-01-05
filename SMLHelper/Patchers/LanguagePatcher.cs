@@ -1,4 +1,4 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using System.Reflection;
     using System.Text;
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     internal class LanguagePatcher
     {
@@ -16,16 +16,20 @@
         private const char KeyValueSeparator = ':';
         private const int SplitCount = 2;
 
-        private static readonly Dictionary<string, Dictionary<string, string>> originalCustomLines = new Dictionary<string, Dictionary<string, string>>();
-        private static readonly Dictionary<string, string> customLines = new Dictionary<string, string>();
+        private static readonly Dictionary<string, Dictionary<string, string>> originalCustomLines = new();
+        private static readonly Dictionary<string, string> customLines = new();
 
         internal static void RepatchCheck(ref Language __instance, string key)
         {
             if (string.IsNullOrEmpty(key) || !customLines.TryGetValue(key, out string customValue))
+            {
                 return;
+            }
 
             if (!__instance.strings.TryGetValue(key, out string currentValue) || customValue != currentValue)
+            {
                 InsertCustomLines(ref __instance);
+            }
         }
 
         internal static void InsertCustomLines(ref Language __instance)
@@ -42,15 +46,17 @@
         internal static void Patch(Harmony harmony)
         {
             if (!Directory.Exists(LanguageDir))
+            {
                 Directory.CreateDirectory(LanguageDir);
+            }
 
             WriteOriginalCustomLines();
 
             ReadOverrideCustomLines();
 
 
-            HarmonyMethod repatchCheckMethod = new HarmonyMethod(AccessTools.Method(typeof(LanguagePatcher), nameof(LanguagePatcher.RepatchCheck)));
-            HarmonyMethod insertLinesMethod = new HarmonyMethod(AccessTools.Method(typeof(LanguagePatcher), nameof(LanguagePatcher.InsertCustomLines)));
+            HarmonyMethod repatchCheckMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(LanguagePatcher.RepatchCheck)));
+            HarmonyMethod insertLinesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(LanguagePatcher.InsertCustomLines)));
 
             harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.ParseMetaData)), prefix: insertLinesMethod);
             harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.GetKeysFor)), prefix: insertLinesMethod);
@@ -63,39 +69,55 @@
         private static void WriteOriginalCustomLines()
         {
             if (!Directory.Exists(LanguageOrigDir))
+            {
                 Directory.CreateDirectory(LanguageOrigDir);
+            }
 
             if (originalCustomLines.Count == 0)
+            {
                 return;
+            }
 
             int filesWritten = 0;
             foreach (string modKey in originalCustomLines.Keys)
             {
                 if (!FileNeedsRewrite(modKey))
+                {
                     continue; // File is identical to captured lines. No need to rewrite it.
+                }
 
                 InternalLogger.Log($"Writing original language lines file for {modKey}", LogLevel.Debug);
                 if (WriteOriginalLinesFile(modKey))
+                {
                     filesWritten++;
+                }
                 else
+                {
                     InternalLogger.Log($"Error writing language lines file for {modKey}", LogLevel.Warn);
+                }
             }
 
             if (filesWritten > 0)
+            {
                 InternalLogger.Log($"Updated {filesWritten} of {originalCustomLines.Count} original language files.", LogLevel.Debug);
+            }
         }
 
         private static bool WriteOriginalLinesFile(string modKey)
         {
             if (string.IsNullOrEmpty(modKey))
+            {
                 return false;
+            }
 
             Dictionary<string, string> modCustomLines = originalCustomLines[modKey];
-            var text = new StringBuilder();
+            StringBuilder text = new();
             foreach (string langLineKey in modCustomLines.Keys)
             {
                 if (!modCustomLines.TryGetValue(langLineKey, out string line) || string.IsNullOrEmpty(line))
+                {
                     continue;
+                }
 
                 string valueToWrite = line.Replace("\n", "\\n").Replace("\r", "\\r");
                 text.AppendLine($"{langLineKey}{KeyValueSeparator}{valueToWrite}");
@@ -113,21 +135,27 @@
         private static void ReadOverrideCustomLines()
         {
             if (!Directory.Exists(LanguageOverDir))
+            {
                 Directory.CreateDirectory(LanguageOverDir);
+            }
 
             string[] files = Directory.GetFiles(LanguageOverDir);
 
             InternalLogger.Log($"{files.Length} language override files found.", LogLevel.Debug);
 
             if (files.Length == 0)
+            {
                 return;
+            }
 
             foreach (string file in files)
             {
                 string modName = Path.GetFileNameWithoutExtension(file);
 
                 if (!originalCustomLines.ContainsKey(modName))
+                {
                     continue; // Not for a mod we know about
+                }
 
                 string[] languageLines = File.ReadAllLines(file, Encoding.UTF8);
 
@@ -146,7 +174,9 @@
             {
                 string line = languageLines[lineIndex];
                 if (string.IsNullOrEmpty(line))
+                {
                     continue; // Skip empty lines
+                }
 
                 string[] split = line.Split(new[] { KeyValueSeparator }, SplitCount, StringSplitOptions.RemoveEmptyEntries);
 
@@ -193,12 +223,16 @@
             string fileName = Path.Combine(LanguageOrigDir, $"{modKey}.txt");
 
             if (!File.Exists(fileName))
+            {
                 return true; // File not found
+            }
 
             string[] lines = File.ReadAllLines(fileName, Encoding.UTF8);
 
             if (lines.Length != modCustomLines.Count)
+            {
                 return true; // Difference in line count
+            }
 
             // Confirm if the file actually needs to be updated
             foreach (string line in lines)
@@ -232,7 +266,9 @@
         internal static void AddCustomLanguageLine(string modAssemblyName, string lineId, string text)
         {
             if (!originalCustomLines.ContainsKey(modAssemblyName))
+            {
                 originalCustomLines.Add(modAssemblyName, new Dictionary<string, string>());
+            }
 
             originalCustomLines[modAssemblyName][lineId] = text;
             customLines[lineId] = text;

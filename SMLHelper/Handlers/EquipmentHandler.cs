@@ -1,25 +1,13 @@
-﻿namespace SMLHelper.V2.Handlers
+﻿namespace SMLHelper.Handlers
 {
-    using SMLHelper.V2.Handlers;
-    using SMLHelper.V2.Interfaces;
-    using SMLHelper.V2.Patchers.EnumPatching;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Patchers.EnumPatching;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// A handler class for everything related to creating new Equipments.
     /// </summary>
-    public class EquipmentHandler : IEquipmentHandler
+    public static class EquipmentHandler
     {
-        /// <summary>
-        /// Main entry point for all calls to this handler.
-        /// </summary>
-        public static IEquipmentHandler Main { get; } = new EquipmentHandler();
-
-        private EquipmentHandler()
-        {
-            // Hide constructor
-        }
-
         /// <summary>
         /// Adds a new <see cref="Equipment" /> into the game.
         /// </summary>
@@ -27,7 +15,7 @@
         /// <returns>
         /// The new <see cref="Equipment" /> that is created.
         /// </returns>
-        public EquipmentType AddEquipmentType(string equipmentName)
+        public static EquipmentType AddEquipmentType(string equipmentName)
         {
             EquipmentType equipment = EquipmentTypePatcher.AddEquipmentType(equipmentName);
             return equipment;
@@ -40,11 +28,10 @@
         /// <returns>
         ///   <c>True</c> if the item was found; Otherwise <c>false</c>.
         /// </returns>
-        public bool ModdedEquipmentTypeExists(string equipmentString)
+        public static bool ModdedEquipmentTypeExists(string equipmentString)
         {
-            EnumTypeCache cache = EquipmentTypePatcher.cacheManager.RequestCacheForTypeName(equipmentString, false);
             // if we don't have it cached, the mod is not present or not yet loaded
-            return cache != null;
+            return EquipmentTypePatcher.cacheManager.RequestCacheForTypeName(equipmentString, false) != null;
         }
 
         /// <summary>
@@ -55,7 +42,7 @@
         /// <returns>
         ///   <c>True</c> if the item was found; Otherwise <c>false</c>.
         /// </returns>
-        public bool TryGetModdedEquipmentType(string equipmentString, out EquipmentType modEquipment)
+        public static bool TryGetModdedEquipmentType(string equipmentString, out EquipmentType modEquipment)
         {
             EnumTypeCache cache = EquipmentTypePatcher.cacheManager.RequestCacheForTypeName(equipmentString, false);
             if (cache != null) // Item Found

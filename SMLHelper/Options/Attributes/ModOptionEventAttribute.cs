@@ -1,6 +1,5 @@
-﻿namespace SMLHelper.V2.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes
 {
-    using Interfaces;
     using System;
 
     /// <summary>
@@ -10,7 +9,7 @@
     /// The method must be a member of the same class.
     /// </remarks>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = true)]
-    public abstract class ModOptionEventAttribute : Attribute, IModOptionEventAttribute
+    public abstract class ModOptionEventAttribute : Attribute
     {
         /// <summary>
         /// The name of the method to invoke.

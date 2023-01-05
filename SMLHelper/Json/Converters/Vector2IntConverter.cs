@@ -1,9 +1,9 @@
-using System;
-using UnityEngine;
-using Newtonsoft.Json;
-
-namespace SMLHelper.V2.Json.Converters
+namespace SMLHelper.Json.Converters
 {
+    using System;
+    using UnityEngine;
+    using Newtonsoft.Json;
+
     /// <summary>
     /// A Vector2Int json converter that simplifies the Vector2Int to only x,y serialization.
     /// </summary>
@@ -27,7 +27,7 @@ namespace SMLHelper.V2.Json.Converters
         /// <param name="serializer"></param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var vector2Int = (Vector2Int)value;
+            Vector2Int vector2Int = (Vector2Int)value;
             serializer.Serialize(writer, (Vector2IntJson)vector2Int);
         }
 

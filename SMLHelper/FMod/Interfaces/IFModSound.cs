@@ -1,7 +1,7 @@
-using FMOD;
-
-namespace SMLHelper.V2.FMod.Interfaces
+namespace SMLHelper.FMod.Interfaces
 {
+    using FMOD;
+
     /// <summary>
     /// This interface is used to integrate with <see cref="Handlers.CustomSoundHandler"/>.
     /// </summary>

@@ -1,6 +1,4 @@
-﻿using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using Commands;
     using System;
@@ -10,19 +8,19 @@ namespace SMLHelper.V2.Patchers
     using System.Linq;
     using System.Text.RegularExpressions;
     using UnityEngine;
-    using InternalLogger = InternalLogger;
-    using SMLHelper.V2.Utility;
+
+    using SMLHelper.Utility;
 
     internal static class ConsoleCommandsPatcher
     {
-        private static Dictionary<string, ConsoleCommand> ConsoleCommands = new Dictionary<string, ConsoleCommand>();
+        private static Dictionary<string, ConsoleCommand> ConsoleCommands = new();
 
-        private static Color CommandColor = new Color(1, 1, 0);
-        private static Color ParameterTypeColor = new Color(0, 1, 1);
-        private static Color ParameterInputColor = new Color(1, 0, 0);
-        private static Color ParameterOptionalColor = new Color(0, 1, 0);
-        private static Color ModOriginColor = new Color(0, 1, 0);
-        private static Color ModConflictColor = new Color(0.75f, 0.75f, 0.75f);
+        private static Color CommandColor = new(1, 1, 0);
+        private static Color ParameterTypeColor = new(0, 1, 1);
+        private static Color ParameterInputColor = new(1, 0, 0);
+        private static Color ParameterOptionalColor = new(0, 1, 0);
+        private static Color ModOriginColor = new(0, 1, 0);
+        private static Color ModConflictColor = new(0.75f, 0.75f, 0.75f);
 
         public static void Patch(Harmony harmony)
         {
@@ -39,7 +37,7 @@ namespace SMLHelper.V2.Patchers
         /// <param name="instance">The instance the method belongs to.</param>
         public static void AddCustomCommand(string command, MethodInfo targetMethod, bool isDelegate = false, object instance = null)
         {
-            var consoleCommand = new ConsoleCommand(command, targetMethod, isDelegate, instance);
+            ConsoleCommand consoleCommand = new(command, targetMethod, isDelegate, instance);
 
             // if this command string was already registered, print an error and don't add it
             if (ConsoleCommands.TryGetValue(consoleCommand.Trigger, out ConsoleCommand alreadyDefinedCommand))
@@ -92,9 +90,11 @@ namespace SMLHelper.V2.Patchers
         {
             foreach (MethodInfo targetMethod in type.GetMethods(BindingFlags.Public | BindingFlags.Static))
             {
-                var customCommandAttribute = targetMethod.GetCustomAttribute<ConsoleCommandAttribute>(false);
+                ConsoleCommandAttribute customCommandAttribute = targetMethod.GetCustomAttribute<ConsoleCommandAttribute>(false);
                 if (customCommandAttribute != null)
+                {
                     AddCustomCommand(customCommandAttribute.Command, targetMethod);
+                }
             }
         }
 
@@ -128,14 +128,16 @@ namespace SMLHelper.V2.Patchers
         private static bool HandleCommand(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
+            {
                 return false;
+            }
 
             InternalLogger.Debug($"Attempting to handle console command: {input}");
 
             input = input.Trim();
             string[] components = input.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var trigger = components[0].ToLowerInvariant();
+            string trigger = components[0].ToLowerInvariant();
 
             if (!ConsoleCommands.TryGetValue(trigger, out ConsoleCommand command))
             {
@@ -180,7 +182,9 @@ namespace SMLHelper.V2.Patchers
 
                 // Print a message detailing all received parameters.
                 if (parameters.Any())
+                {
                     InternalLogger.Announce($"Received parameters: {parameters.Join()}", LogLevel.Error, true);
+                }
 
                 return true; // We've handled the command insofar as we've handled and reported the user error to them.
             }
@@ -190,7 +194,9 @@ namespace SMLHelper.V2.Patchers
             string result = command.Invoke(parsedParameters); // Invoke the command with the parameters parsed from user input.
 
             if (!string.IsNullOrEmpty(result)) // If the command has a return, print it.
+            {
                 LogAndAnnounce($"{GetColoredString($"[{command.ModName}]", ModOriginColor)} {result}", LogLevel.Info);
+            }
 
             InternalLogger.Debug($"Command [{trigger}] handled successfully by [{command.ModName}].");
 
@@ -224,7 +230,7 @@ namespace SMLHelper.V2.Patchers
             return $"<color=#{ColorUtility.ToHtmlStringRGB(color)}>{str}</color>";
         }
 
-        private static Regex xmlRegex = new Regex("<.*?>", RegexOptions.Compiled);
+        private static Regex xmlRegex = new("<.*?>", RegexOptions.Compiled);
         public static string StripXML(this string source)
         {
             return xmlRegex.Replace(source, string.Empty);

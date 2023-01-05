@@ -1,14 +1,12 @@
-﻿using SMLHelper.V2.Utility;
-
-namespace SMLHelper.V2.Assets
+﻿namespace SMLHelper.Assets
 {
+    using SMLHelper.Utility;
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using SMLHelper.V2.Crafting;
-    using SMLHelper.V2.Handlers;
+    using SMLHelper.Crafting;
+    using SMLHelper.Handlers;
     using UnityEngine;
-    using InternalLogger = InternalLogger;
 
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
@@ -50,8 +48,8 @@ namespace SMLHelper.V2.Assets
         }
 
         private const string RootNode = "root";
-        internal readonly Dictionary<string, ModCraftTreeLinkingNode> CraftTreeLinkingNodes = new Dictionary<string, ModCraftTreeLinkingNode>();
-        internal readonly List<Action> OrderedCraftTreeActions = new List<Action>();
+        internal readonly Dictionary<string, ModCraftTreeLinkingNode> CraftTreeLinkingNodes = new();
+        internal readonly List<Action> OrderedCraftTreeActions = new();
 
         /// <summary>
         /// Initialized a new <see cref="CustomFabricator"/> based on the <see cref="Spawnable"/> asset class.
@@ -163,7 +161,7 @@ namespace SMLHelper.V2.Assets
         public override IEnumerator GetGameObjectAsync(IOut<GameObject> gameObject)
         {
             GameObject prefab;
-            var taskResult = new TaskResult<GameObject>();
+            TaskResult<GameObject> taskResult = new();
 
             switch (this.Model)
             {
@@ -245,7 +243,9 @@ namespace SMLHelper.V2.Assets
             crafter.handOverText = $"Use {this.FriendlyName}";
 
             if (constructible is null)
+            {
                 constructible = prefab.GetComponent<Constructable>();
+            }
 
             constructible.allowedInBase = this.AllowedInBase;
             constructible.allowedInSub = this.AllowedInCyclops;
@@ -308,7 +308,9 @@ namespace SMLHelper.V2.Assets
             // Since we shouldn't rely on attached events to be executed in any particular order,
             // this list of actions will ensure that the craft tree is built up in the order in which nodes were received.
             foreach (Action action in OrderedCraftTreeActions)
+            {
                 action.Invoke();
+            }
         }
 
         /// <summary>
@@ -357,7 +359,7 @@ namespace SMLHelper.V2.Assets
             InternalLogger.Debug($"'{moddedTechType}' will be added to the custom craft tree '{this.ClassID}'");
             OrderedCraftTreeActions.Add(() =>
             {
-                if (this.TechTypeHandler.TryGetModdedTechType(moddedTechType, out TechType techType))
+                if (TechTypeHandler.TryGetModdedTechType(moddedTechType, out TechType techType))
                 {
                     ModCraftTreeLinkingNode parentTab = CraftTreeLinkingNodes[parentTabId ?? RootNode];
                     parentTab.AddCraftingNode(techType);

@@ -1,9 +1,8 @@
-﻿namespace SMLHelper.V2.Patchers.EnumPatching
+﻿namespace SMLHelper.Patchers.EnumPatching
 {
     using System;
     using System.Collections.Generic;
-    using SMLHelper.V2.Handlers;
-    using SMLHelper.V2.Utility;
+    using Handlers;
     using Utility;
 
     internal class TechCategoryPatcher
@@ -13,7 +12,7 @@
         internal const int startingIndex = 25; 
 
         internal static readonly EnumCacheManager<TechCategory> cacheManager =
-            new EnumCacheManager<TechCategory>(
+            new(
                 enumTypeName: TechCategoryEnumName,
                 startingIndex: startingIndex,
                 bannedIDs: ExtBannedIdManager.GetBannedIdsFor(TechCategoryEnumName, PreRegisteredTechCategoryTypes()));
@@ -29,10 +28,13 @@
             TechCategory TechCategory = (TechCategory)cache.Index;
 
             if(cacheManager.Add(TechCategory, cache.Index, cache.Name))
+            {
                 InternalLogger.Log($"Successfully added TechCategory: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+            }
             else
+            {
                 InternalLogger.Log($"Failed adding TechCategory: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
-
+            }
 
             return TechCategory;
         }
@@ -44,23 +46,29 @@
             // Any mod that patches after this one will not be picked up by this method.
             // For those cases, there are additional ways of excluding these IDs.
 
-            var bannedIndices = new List<int>();
+            List<int> bannedIndices = new();
 
             Array enumValues = Enum.GetValues(typeof(TechCategory));
 
             foreach (object enumValue in enumValues)
             {
                 if (enumValue == null)
+                {
                     continue; // Saftey check
+                }
 
                 int realEnumValue = (int)enumValue;
 
                 if (realEnumValue < startingIndex)
+                {
                     continue; // This is possibly a default tree
+                }
                 // Anything below this range we won't ever assign
 
                 if (bannedIndices.Contains(realEnumValue))
+                {
                     continue;// Already exists in list
+                }
 
                 bannedIndices.Add(realEnumValue);
             }
@@ -72,7 +80,7 @@
 
         internal static void Patch()
         {
-            IngameMenuHandler.Main.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
+            IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => cacheManager.SaveCache());
 
             InternalLogger.Log($"Added {cacheManager.ModdedKeysCount} TechCategorys succesfully into the game.");
             InternalLogger.Log("TechCategoryPatcher is done.", LogLevel.Debug);

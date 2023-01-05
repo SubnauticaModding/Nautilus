@@ -1,14 +1,12 @@
-﻿namespace SMLHelper.V2.Examples
+﻿namespace SMLHelper.Examples
 {
     using HarmonyLib;
-    using SMLHelper.V2.Commands;
-    using SMLHelper.V2.Handlers;
-    using SMLHelper.V2.Interfaces;
-    using SMLHelper.V2.Json;
-    using SMLHelper.V2.Json.Attributes;
-    using SMLHelper.V2.Options;
-    using SMLHelper.V2.Options.Attributes;
-    using System;
+    using SMLHelper.Commands;
+    using SMLHelper.Handlers;
+    using SMLHelper.Json;
+    using SMLHelper.Json.Attributes;
+    using SMLHelper.Options;
+    using SMLHelper.Options.Attributes;
     using UnityEngine;
     using UnityEngine.UI;
     using BepInEx;
@@ -21,7 +19,7 @@
             MODNAME = "SMLHelper",
             AUTHOR = "The SMLHelper Dev Team",
             GUID = "SMLHelperExampleMod",
-            VERSION = "2.15.0.1";
+            VERSION = "2.15.0.2";
 
         internal static ManualLogSource LogSource { get; private set; }
 
@@ -41,12 +39,12 @@
             /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an 
             /// options menu using Attributes. The values in this instance will be updated whenever the user changes 
             /// the corresponding option in the menu.
-            Config config = OptionsPanelHandler.Main.RegisterModOptions<Config>();
+            Config config = OptionsPanelHandler.RegisterModOptions<Config>();
 
             /// In a similar manner to the above, here we set up an instance of <see cref="SaveData"/>, which will 
             /// automatically be saved and loaded to and from disk appropriately.
             /// The values in this instance will be updated automatically whenever the user switches between save slots.
-            SaveData saveData = SaveDataHandler.Main.RegisterSaveDataCache<SaveData>();
+            SaveData saveData = SaveDataHandler.RegisterSaveDataCache<SaveData>();
 
             // Simply display the recorded player position whenever the save data is loaded
             saveData.OnFinishedLoading += (object sender, JsonFileEventArgs e) =>
@@ -89,15 +87,12 @@
             /// 
             /// Note that a command can have a return type, but it is not necessary. If it does return any type, it will be printed
             /// both on-screen and in the log.
-            ConsoleCommandsHandler.Main.RegisterConsoleCommand<MyCommand>("delegatecommand", (myString, myInt, myBool) =>
-            {
-                return $"Parameters: {myString} {myInt} {myBool}";
-            });
+            ConsoleCommandsHandler.RegisterConsoleCommand<MyCommand>("delegatecommand", (myString, myInt, myBool) => $"Parameters: {myString} {myInt} {myBool}");
 
             /// Here we are registering all console commands defined in <see cref="ExampleMod"/>, defined by decorating them
             /// with the <see cref="ConsoleCommandAttribute"/>. See <see cref="MyAttributedCommand(string, int, bool)"/> below
             /// for an example.
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(ExampleMod));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(ExampleMod));
 
             LogSource.LogInfo("Patched successfully!");
         }
@@ -162,7 +157,7 @@
         /// updated in the instance of <see cref="Config"/> returned when registering it to the options menu.</para>
         /// 
         /// <para>Here, we are specifying the name of a method which can handle any OnChange event, for the purposes of demonstrating
-        /// its usage. See <see cref="MyGenericValueChangedEvent(IModOptionEventArgs)"/> for an example usage.</para>
+        /// its usage. See <see cref="MyGenericValueChangedEvent(ModOptionEventArgs)"/> for an example usage.</para>
         /// </summary>
         [Choice("My index-based choice", "One", "Two", "Three"), OnChange(nameof(MyGenericValueChangedEvent))]
         public int ChoiceIndex;
@@ -282,15 +277,15 @@
         /// In this example, every field above references it, so it will be called whenever any value in this class is changed by the
         /// user via the options menu.
         /// </summary>
-        /// <param name="e"><para>The data from the onchange event, passed as the interface <see cref="IModOptionEventArgs"/>.</para>
+        /// <param name="e"><para>The data from the onchange event, passed as the interface <see cref="ModOptionEventArgs"/>.</para>
         /// 
         /// <para>As this particular method is being used as an onchange event for various field types, the usage of the
-        /// <see cref="IModOptionEventArgs"/> interface here enables coercion to its original data type for correct handling, as
+        /// <see cref="ModOptionEventArgs"/> interface here enables coercion to its original data type for correct handling, as
         /// demonstrated by the <see langword="switch"/> statement below.</para>
         /// 
         /// <para>As with the other events in this example, it is not necessary to define the parameter if you do not need the data
         /// it contains.</para></param>
-        private void MyGenericValueChangedEvent(IModOptionEventArgs e)
+        private void MyGenericValueChangedEvent(ModEventArgs e)
         {
             ExampleMod.LogSource.LogInfo("Generic value changed!");
             ExampleMod.LogSource.LogInfo($"{e.Id}: {e.GetType()}");

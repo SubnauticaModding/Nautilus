@@ -1,25 +1,14 @@
-﻿namespace SMLHelper.V2.Handlers
-{
-    using SMLHelper.V2.Interfaces;
-    using SMLHelper.V2.Patchers.EnumPatching;
-    using SMLHelper.V2.Utility;
+﻿namespace SMLHelper.Handlers
+{    
+    using SMLHelper.Patchers.EnumPatching;
+    using SMLHelper.Utility;
     using System.Collections.Generic;
 
     /// <summary>
     /// A handler class for everything related to creating new TechCategories.
     /// </summary>
-    /// <seealso cref="SMLHelper.V2.Interfaces.ITechCategoryHandler" />
-    public class TechCategoryHandler: ITechCategoryHandler
+    public static class TechCategoryHandler
     {
-        /// <summary>
-        /// Main entry point for all calls to this handler.
-        /// </summary>
-        public static ITechCategoryHandler Main { get; } = new TechCategoryHandler();
-
-        private TechCategoryHandler()
-        {
-            // Hide constructor
-        }
 
         /// <summary>
         /// Adds a new <see cref="TechCategory" /> into the game.
@@ -29,7 +18,7 @@
         /// <returns>
         /// The new <see cref="TechCategory" /> that is created.
         /// </returns>
-        public TechCategory AddTechCategory(string techCatagoryName, string displayName)
+        public static TechCategory AddTechCategory(string techCatagoryName, string displayName)
         {
             TechCategory techCategory = TechCategoryPatcher.AddTechCategory(techCatagoryName);
 
@@ -49,7 +38,7 @@
         /// <returns>
         ///   <c>True</c> if the item was found; Otherwise <c>false</c>.
         /// </returns>
-        public bool ModdedTechCategoryExists(string techCategoryString)
+        public static bool ModdedTechCategoryExists(string techCategoryString)
         {
             EnumTypeCache cache = TechCategoryPatcher.cacheManager.RequestCacheForTypeName(techCategoryString, false);
 
@@ -71,7 +60,7 @@
         /// <returns>
         ///   <c>True</c> if the item was found; Otherwise <c>false</c>.
         /// </returns>
-        public bool TryGetModdedTechCategory(string techCategoryString, out TechCategory modTechCategory)
+        public static bool TryGetModdedTechCategory(string techCategoryString, out TechCategory modTechCategory)
         {
             EnumTypeCache cache = TechCategoryPatcher.cacheManager.RequestCacheForTypeName(techCategoryString, false);
 
@@ -93,16 +82,18 @@
         /// <param name="techGroup">The tech group.</param>
         /// <param name="techCategory">The tech category.</param>
         /// <returns></returns>
-        public bool TryRegisterTechCategoryToTechGroup(TechGroup techGroup, TechCategory techCategory)
+        public static bool TryRegisterTechCategoryToTechGroup(TechGroup techGroup, TechCategory techCategory)
         {
-            if(!CraftData.groups.TryGetValue(techGroup, out var techCategories))
+            if(!CraftData.groups.TryGetValue(techGroup, out Dictionary<TechCategory, List<TechType>> techCategories))
             {
                 //Should not even really be possible but just incase.
                 return false;
             }
 
             if(techCategories.ContainsKey(techCategory))
+            {
                 return true;
+            }
 
             techCategories[techCategory] = new List<TechType>();
             return true;

@@ -1,9 +1,9 @@
-﻿namespace SMLHelper.V2.Patchers.EnumPatching
+﻿namespace SMLHelper.Patchers.EnumPatching
 {
     using System;
     using System.Collections.Generic;
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     internal class EnumPatcher
     {
@@ -50,7 +50,7 @@
 
         private static T[] GetValues<T>(EnumCacheManager<T> cacheManager, Array __result) where T : Enum
         {
-            var list = new List<T>();
+            List<T> list = new();
             foreach (T type in __result)
             {
                 list.Add(type);
@@ -96,7 +96,7 @@
 
         private static string[] GetNames<T>(EnumCacheManager<T> cacheManager, Array __result) where T : Enum
         {
-            var list = new List<string>();
+            List<string> list = new();
             foreach (string type in __result)
             {
                 list.Add(type);
@@ -105,7 +105,9 @@
             foreach (T type in cacheManager.ModdedKeys)
             {
                 if (cacheManager.TryGetValue(type, out string name))
+                {
                     list.Add(name);
+                }
             }
 
             return list.ToArray();
@@ -231,27 +233,27 @@
                     __result = techTypeName;
                     return false;
 
-                case CraftTree.Type craftTreeType when CraftTreeTypePatcher.cacheManager.TryGetValue(craftTreeType, out var craftTreeTypeName):
+                case CraftTree.Type craftTreeType when CraftTreeTypePatcher.cacheManager.TryGetValue(craftTreeType, out string craftTreeTypeName):
                     __result = craftTreeTypeName;
                     return false;
 
-                case PingType pingType when PingTypePatcher.cacheManager.TryGetValue(pingType, out var pingTypeName):
+                case PingType pingType when PingTypePatcher.cacheManager.TryGetValue(pingType, out string pingTypeName):
                     __result = pingTypeName;
                     return false;
 
-                case TechGroup techGroup when TechGroupPatcher.cacheManager.TryGetValue(techGroup, out var techGroupName):
+                case TechGroup techGroup when TechGroupPatcher.cacheManager.TryGetValue(techGroup, out string techGroupName):
                     __result = techGroupName;
                     return false;
 
-                case TechCategory techCategory when TechCategoryPatcher.cacheManager.TryGetValue(techCategory, out var techCategoryName):
+                case TechCategory techCategory when TechCategoryPatcher.cacheManager.TryGetValue(techCategory, out string techCategoryName):
                     __result = techCategoryName;
                     return false;
 
-                case CraftData.BackgroundType backgroundType when BackgroundTypePatcher.cacheManager.TryGetValue(backgroundType, out var backgroundTypeName):
+                case CraftData.BackgroundType backgroundType when BackgroundTypePatcher.cacheManager.TryGetValue(backgroundType, out string backgroundTypeName):
                     __result = backgroundTypeName;
                     return false;
 
-                case EquipmentType equipmentType when EquipmentTypePatcher.cacheManager.TryGetValue(equipmentType, out var equipmentTypeName):
+                case EquipmentType equipmentType when EquipmentTypePatcher.cacheManager.TryGetValue(equipmentType, out string equipmentTypeName):
                     __result = equipmentTypeName;
                     return false;
 

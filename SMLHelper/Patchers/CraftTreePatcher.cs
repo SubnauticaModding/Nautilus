@@ -1,19 +1,19 @@
-﻿namespace SMLHelper.V2.Patchers
+﻿namespace SMLHelper.Patchers
 {
     using System.Collections.Generic;
     using System.Reflection;
     using Crafting;
     using HarmonyLib;
-    using SMLHelper.V2.Utility;
+    using SMLHelper.Utility;
 
     internal class CraftTreePatcher
     {
         #region Internal Fields
 
-        internal static Dictionary<CraftTree.Type, ModCraftTreeRoot> CustomTrees = new Dictionary<CraftTree.Type, ModCraftTreeRoot>();
-        internal static List<Node> NodesToRemove = new List<Node>();
-        internal static List<CraftingNode> CraftingNodes = new List<CraftingNode>();
-        internal static List<TabNode> TabNodes = new List<TabNode>();
+        internal static Dictionary<CraftTree.Type, ModCraftTreeRoot> CustomTrees = new();
+        internal static List<Node> NodesToRemove = new();
+        internal static List<CraftingNode> CraftingNodes = new();
+        internal static List<TabNode> TabNodes = new();
 
         #endregion
 
@@ -124,7 +124,9 @@
             {
                 // Wrong crafter, skip.
                 if (tab.Scheme != scheme)
+                {
                     continue;
+                }
 
                 TreeNode currentNode = default;
                 currentNode = nodes;
@@ -139,13 +141,17 @@
 
                     // Reached the end of the line.
                     if (node != null)
+                    {
                         currentNode = node;
+                    }
                     else
+                    {
                         break;
+                    }
                 }
 
                 // Add the new tab node.
-                var newNode = new CraftNode(tab.Name, TreeAction.Expand, TechType.None);
+                CraftNode newNode = new(tab.Name, TreeAction.Expand, TechType.None);
                 currentNode.AddNode(new TreeNode[]
                 {
                     newNode
@@ -159,7 +165,9 @@
             {
                 // Wrong crafter, just skip the node.
                 if (customNode.Scheme != scheme)
+                {
                     continue;
+                }
 
                 // Have to do this to make sure C# shuts up.
                 TreeNode node = default;
@@ -173,9 +181,13 @@
                     TreeNode currentNode = node[currentPath];
 
                     if (currentNode != null)
+                    {
                         node = currentNode;
+                    }
                     else
+                    {
                         break;
+                    }
                 }
 
                 // Add the node.
@@ -195,7 +207,9 @@
             {
                 // Not for this fabricator. Skip.
                 if (nodeToRemove.Scheme != scheme)
+                {
                     continue;
+                }
 
                 if (nodeToRemove.Path == null || nodeToRemove.Path.Length == 0)
                 {

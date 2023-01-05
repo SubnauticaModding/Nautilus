@@ -1,13 +1,16 @@
-﻿namespace SMLHelper.V2.Interfaces
+﻿namespace SMLHelper.Options
 {
+    using System;
+
     /// <summary>
     /// Interface for event arguments for a <see cref="Options.ModOption"/>.
     /// </summary>
-    public interface IModOptionEventArgs
+    public abstract class ModEventArgs: EventArgs
     {
         /// <summary>
         /// The ID of the <see cref="Options.ModOption"/> this event corresponds to.
         /// </summary>
-        string Id { get; }
+        public abstract string Id { get; }
+
     }
 }
