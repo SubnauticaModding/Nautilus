@@ -23,14 +23,14 @@
     /// <summary>
     /// A mod option class for handling an option that is a keybind.
     /// </summary>
-    public class ModKeybindOption : ModOption
+    public class ModKeybindOption : ModOption<KeyCode>
     {
         /// <summary>
         /// The currently select input source device for the <see cref="ModKeybindOption"/>.
         /// </summary>
         public GameInput.Device Device { get; }
 
-        private ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id, typeof(KeyCode), key)
+        private ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id, key)
         {
             Device = device;
         }
@@ -87,12 +87,13 @@
 
             // Update bindings
             binding.device = Device;
-            binding.value = KeyCodeUtils.KeyCodeToString((KeyCode)Value);
+            binding.value = KeyCodeUtils.KeyCodeToString(Value);
             binding.gameObject.EnsureComponent<ModBindingTag>();
             binding.bindingSet = GameInput.BindingSet.Primary;
             binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
             {
                 binding.value = s;
+                OnChange<KeybindChangedEventArgs, KeyCode>(Id, KeyCodeUtils.StringToKeyCode(s));
                 parentOptions.OnChange<KeybindChangedEventArgs, KeyCode>(Id, KeyCodeUtils.StringToKeyCode(s));
                 binding.RefreshValue();
             });

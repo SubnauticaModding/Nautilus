@@ -228,8 +228,7 @@
             }
 
             AddItem(ModSliderOption.Factory(id, label, sliderAttribute.Min, sliderAttribute.Max,
-                Convert.ToSingle(value), sliderAttribute.DefaultValue,
-                sliderAttribute.Format, step));
+                Convert.ToSingle(value), sliderAttribute.DefaultValue, sliderAttribute.Format, step, sliderAttribute.Tooltip));
         }
 
         /// <summary>

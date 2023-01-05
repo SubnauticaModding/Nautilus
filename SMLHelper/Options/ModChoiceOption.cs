@@ -36,6 +36,11 @@
         public int Index { get; }
 
         /// <summary>
+        /// The tooltip to show when hovering over the option.
+        /// </summary>
+        public string Tooltip { get; }
+
+        /// <summary>
         /// The base method for adding an object to the options panel
         /// </summary>
         /// <param name="panel">The panel to add the option to.</param>
@@ -43,17 +48,21 @@
         public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             uGUI_Choice choice = panel.AddChoiceOption(tabIndex, Label, Options, Index,
-                new UnityAction<int>((int index) => parentOptions.OnChange<ChoiceChangedEventArgs, KeyValuePair<int, string>>(Id, new KeyValuePair<int, string>(index, Options[index]))));
+                new UnityAction<int>((int index) => {
+                    OnChange<ChoiceChangedEventArgs, KeyValuePair<int, string>>(Id, new KeyValuePair<int, string>(index, Options[index]));
+                    parentOptions.OnChange<ChoiceChangedEventArgs, KeyValuePair<int, string>>(Id, new KeyValuePair<int, string>(index, Options[index])); 
+                }), Tooltip);
 
             OptionGameObject = choice.transform.parent.transform.parent.gameObject; // :(
 
             base.AddToPanel(panel, tabIndex);
         }
 
-        private ModChoiceOption(string id, string label, string[] options, int index) : base(label, id, new KeyValuePair<int, string>(index, options[index]))
+        private ModChoiceOption(string id, string label, string[] options, int index, string tooltip) : base(label, id, new KeyValuePair<int, string>(index, options[index]))
         {
             Options = options;
             Index = index;
+            Tooltip = tooltip;
         }
 
         /// <summary>
@@ -63,11 +72,12 @@
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="options">The collection of available values.</param>
         /// <param name="index">The starting value.</param>
-        public static ModChoiceOption Factory(string id, string label, string[] options, int index)
+        /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+        public static ModChoiceOption Factory(string id, string label, string[] options, int index, string tooltip = null)
         {
             if (Validator.ValidateChoiceOrDropdownOption(id, label, options, index))
             {
-                return new ModChoiceOption(id, label, options, index);
+                return new ModChoiceOption(id, label, options, index, tooltip);
             }
             // Should never happen
             throw new NotImplementedException("ModChoiceOption Factory could not create instance");
@@ -79,7 +89,8 @@
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="options">The collection of available values.</param>
         /// <param name="value">The starting value.</param>
-        public static ModChoiceOption Factory(string id, string label, string[] options, string value)
+        /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+        public static ModChoiceOption Factory(string id, string label, string[] options, string value, string tooltip = null)
         {
             int index = Array.IndexOf(options, value);
             if (index < 0)
@@ -87,7 +98,7 @@
                 index = 0;
             }
 
-            return Factory(id, label, options, index);
+            return Factory(id, label, options, index, tooltip);
         }
         /// <summary>
         /// Adds a new <see cref="ModChoiceOption"/> to this instance.
@@ -96,7 +107,8 @@
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="options">The collection of available values.</param>
         /// <param name="index">The starting value.</param>
-        public static ModChoiceOption Factory(string id, string label, object[] options, int index)
+        /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+        public static ModChoiceOption Factory(string id, string label, object[] options, int index, string tooltip = null)
         {
             string[] strOptions = new string[options.Length];
 
@@ -105,7 +117,7 @@
                 strOptions[i] = options[i].ToString();
             }
 
-            return Factory(id, label, strOptions, index);
+            return Factory(id, label, strOptions, index, tooltip);
         }
         /// <summary>
         /// Adds a new <see cref="ModChoiceOption"/> to this instance.
@@ -114,10 +126,11 @@
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="options">The collection of available values.</param>
         /// <param name="value">The starting value.</param>
-        public static ModChoiceOption Factory(string id, string label, object[] options, object value)
+        /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+        public static ModChoiceOption Factory(string id, string label, object[] options, object value, string tooltip = null)
         {
             int index = Array.IndexOf(options, value);
-            return Factory(id, label, options, index);
+            return Factory(id, label, options, index, tooltip);
         }
         /// <summary>
         /// Adds a new <see cref="ModChoiceOption"/> to this instance, automatically using the values of an enum
@@ -126,12 +139,13 @@
         /// <param name="id">The internal ID for the choice option.</param>
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="value">The starting value</param>
-        public static ModChoiceOption Factory<T>(string id, string label, T value) where T : Enum
+        /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+        public static ModChoiceOption Factory<T>(string id, string label, T value, string tooltip) where T : Enum
         {
             string[] options = Enum.GetNames(typeof(T));
             string valueString = value.ToString();
 
-            return Factory(id, label, options, valueString);
+            return Factory(id, label, options, valueString, tooltip);
         }
 
         private class ChoiceOptionAdjust: ModOptionAdjust

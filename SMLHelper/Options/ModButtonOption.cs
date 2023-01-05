@@ -1,6 +1,8 @@
 ﻿namespace SMLHelper.Options
 {
     using System;
+    using System.Collections.Generic;
+    using System.Reflection;
     using UnityEngine.Events;
     using UnityEngine.UI;
 
@@ -21,7 +23,10 @@
     /// </summary>
     public class ModButtonOption : OptionItem
     {
-        private readonly Action<ButtonClickedEventArgs> Callback;
+        /// <summary>
+        /// The event that is called whenever an option is changed.
+        /// </summary>
+        public event Action<ButtonClickedEventArgs> OnPressed;
 
         /// <summary>
         /// The base method for adding an object to the options panel
@@ -41,17 +46,19 @@
             {
                 // Apply "deselected" style to button right after it is clicked
                 componentInChildren.OnDeselect(null);
-                // Propagate button click event to parent
-                Callback(new ButtonClickedEventArgs(Id));
+                OnPressed?.Invoke(new ButtonClickedEventArgs(Id));
             }));
 
             // Add button to panel
             base.AddToPanel(panel, tabIndex);
         }
 
-        private ModButtonOption(string id, string label, Action<ButtonClickedEventArgs> callback) : base(label, id)
+        private ModButtonOption(string id, string label, Action<ButtonClickedEventArgs> onPressed) : base(label, id)
         {
-            Callback = callback;
+            if(onPressed != null)
+            {
+                OnPressed += onPressed;
+            }
         }
 
         /// <summary>
@@ -59,10 +66,9 @@
         /// </summary>
         /// <param name="id">The internal ID of this option.</param>
         /// <param name="label">The display text to show on the in-game menus.</param>
-        /// <param name="callback">The callback to be executed when the button is pressed.</param>
-        public static ModButtonOption Factory(string id, string label, Action<ButtonClickedEventArgs> callback)
+        public static ModButtonOption Factory(string id, string label,Action<ButtonClickedEventArgs> onPressed = null)
         {
-            return new ModButtonOption(id, label, callback);
+            return new ModButtonOption(id, label, onPressed);
         }
 
         /// <summary>

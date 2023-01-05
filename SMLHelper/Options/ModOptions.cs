@@ -64,7 +64,7 @@
         public abstract void BuildModOptions();
 
         /// <summary>
-        /// The event that is called whenever an option is changed. Subscribe to this in the constructor.
+        /// The event that is called whenever an option is changed.
         /// </summary>
         public event EventHandler<OptionEventArgs> OnChanged;
 
@@ -75,7 +75,7 @@
         /// <param name="value"></param>
         public void OnChange<T, V>(string id, V value) where T : ConfigOptionEventArgs<V>
         {
-            OnChanged(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, value }));
+            OnChanged?.Invoke(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, value }));
         }
 
         /// <summary> The event that is called whenever a game object created for the option </summary>
@@ -136,6 +136,21 @@
         /// The value for the <see cref="ModOption{T}"/>.
         /// </summary>
         public new T Value { get; }
+
+        /// <summary>
+        /// The event that is called whenever an option is changed.
+        /// </summary>
+        public event EventHandler<OptionEventArgs> OnChanged;
+
+        /// <summary>
+        /// Notifies an option change to all subscribed event handlers.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        public void OnChange<U, V>(string id, V value) where U : ConfigOptionEventArgs<V>
+        {
+            OnChanged?.Invoke(this, (U)Activator.CreateInstance(typeof(U), new object[] { id, value }));
+        }
 
         /// <summary>
         /// Base constructor for all typed mod options.

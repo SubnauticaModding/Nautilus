@@ -25,7 +25,7 @@
     /// <summary>
     /// A mod option class for handling an option that can have any floating point value between a minimum and maximum.
     /// </summary>
-    public class ModSliderOption : ModOption
+    public class ModSliderOption : ModOption<float>
     {
         /// <summary>
         /// The minimum value of the <see cref="ModSliderOption"/>.
@@ -44,13 +44,17 @@
         public float DefaultValue { get; }
 
         /// <summary>
-        /// The step value of the <see cref="ModSliderOption"/>.
-        /// Defaults to 0f for compatibility with older mods.
+        /// The step value of the <see cref="ModSliderOption"/> defaults to 1.
         /// </summary>
-        public float Step { get; } = 0;
+        public float Step { get; } = 1;
 
-        /// <summary> Format for value field (<see cref="Factory(string, string, float, float, float, float?, string)"/>) </summary>
+        /// <summary> Float Format for value field (<see cref="Factory(string, string, float, float, float, float?, string, float, string)"/>) </summary>
         public string ValueFormat { get; }
+
+        /// <summary>
+        /// The tooltip to show when hovering over the option.
+        /// </summary>
+        public string Tooltip { get; }
 
         private SliderValue sliderValue = null;
 
@@ -61,9 +65,12 @@
         /// <param name="tabIndex">Where in the panel to add the option.</param>
         public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            UnityAction<float> callback = new((value) => parentOptions.OnChange<SliderChangedEventArgs, float>(Id, sliderValue?.ConvertToDisplayValue(value) ?? value));
+            UnityAction<float> callback = new((value) => {
+                OnChange<SliderChangedEventArgs, float>(Id, sliderValue?.ConvertToDisplayValue(value) ?? value);
+                parentOptions.OnChange<SliderChangedEventArgs, float>(Id, sliderValue?.ConvertToDisplayValue(value) ?? value); 
+            });
 
-            panel.AddSliderOption(tabIndex, Label, (float)Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, "0.0");
+            panel.AddSliderOption(tabIndex, Label, (float)Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, ValueFormat, Tooltip);
 
             // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
             Transform options = panel.tabs[tabIndex].container.transform;
@@ -83,13 +90,14 @@
             sliderValue = OptionGameObject.GetComponentInChildren<SliderValue>(); // we can also add custom SliderValue in OnGameObjectCreated event
         }
 
-        private ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat, float step) : base(label, id, typeof(float), value)
+        private ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat, float step, string tooltip) : base(label, id, value)
         {
             MinValue = minValue;
             MaxValue = maxValue;
             DefaultValue = defaultValue ?? value;
             ValueFormat = valueFormat;
             Step = step;
+            Tooltip = tooltip;
         }
 
         /// <summary>
@@ -100,13 +108,14 @@
         /// <param name="minValue">The minimum value for the range.</param>
         /// <param name="maxValue">The maximum value for the range.</param>
         /// <param name="value">The starting value.</param>
-        /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
-        /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
+        /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.   uses value</param>
+        /// <param name="step">Step for the slider, ie. round to nearest X.   defaults to 1</param>
+        /// <param name="tooltip">The tooltip to show when hovering over the option. defaults to no tooltip.</param>
+        /// <param name="valueFormat"> format for values when labelMode is set to <see cref="SliderLabelMode.Float"/>, e.g. "{0:F2}" for 2 decimals or "{0:F0} for no decimals %"
         /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
-        /// <param name="step">Step for the slider, ie. round to nearest X</param>
-        public static ModSliderOption Factory(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = "{0:F0}", float step = 1)
+        public static ModSliderOption Factory(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = "{0:F0}", float step = 1, string tooltip = null)
         {
-            return new ModSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, step);
+            return new ModSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, step, tooltip);
         }
 
         /// <summary>

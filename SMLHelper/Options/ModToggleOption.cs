@@ -24,6 +24,11 @@
     public class ModToggleOption : ModOption<bool>
     {
         /// <summary>
+        /// The tooltip to show when hovering over the option.
+        /// </summary>
+        public string Tooltip { get; }
+
+        /// <summary>
         /// The base method for adding an object to the options panel
         /// </summary>
         /// <param name="panel">The panel to add the option to.</param>
@@ -31,14 +36,20 @@
         public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             UnityEngine.UI.Toggle toggle = panel.AddToggleOption(tabIndex, Label, Value,
-                new UnityAction<bool>((bool value) => parentOptions.OnChange<ToggleChangedEventArgs, bool>(Id, value)));
+                new UnityAction<bool>((bool value) => {
+                    OnChange<ToggleChangedEventArgs, bool>(Id, value);
+                    parentOptions.OnChange<ToggleChangedEventArgs, bool>(Id, value); 
+                }), Tooltip);
 
             OptionGameObject = toggle.transform.parent.gameObject;
 
             base.AddToPanel(panel, tabIndex);
         }
 
-        private ModToggleOption(string id, string label, bool value) : base(label, id, value) { }
+        private ModToggleOption(string id, string label, bool value, string tooltip) : base(label, id, value)
+        {
+            Tooltip = tooltip;
+        }
 
         /// <summary>
         /// Adds a new <see cref="ModToggleOption"/> to this instance.
@@ -46,9 +57,10 @@
         /// <param name="id">The internal ID for the toggle option.</param>
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="value">The starting value.</param>
-        public static ModToggleOption Factory(string id, string label, bool value)
+        /// <param name="tooltip">The tooltip to show when hovering over the option. defaults to no tooltip.</param>
+        public static ModToggleOption Factory(string id, string label, bool value, string tooltip = null)
         {
-            return new ModToggleOption(id, label, value);
+            return new ModToggleOption(id, label, value, tooltip);
         }
 
         private class ToggleOptionAdjust: ModOptionAdjust
