@@ -4,7 +4,6 @@
     using Options;
     using System.IO;
     using System.Reflection;
-    using System.Reflection.Emit;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -13,7 +12,6 @@
     using Newtonsoft.Json;
     using static SMLHelper.Options.ModKeybindOption;
     using TMPro;
-    using SMLHelper.Utility;
 
     internal class OptionsPanelPatcher
     {
@@ -32,8 +30,11 @@
         // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
         [PatchUtils.Postfix]
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddTab))]
-        internal static void AddTab_Postfix(string label, int __result)
+        internal static void AddTab_Postfix(uGUI_TabbedControlsPanel __instance, string label, int __result)
         {
+            if(__instance is not uGUI_OptionsPanel)
+                return;
+
             if (label == "Mods")
             {
                 modsTabIndex = __result;
@@ -296,18 +297,16 @@
             [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddHeading))]
             private static bool AddHeading_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex, string label)
             {
-                if (tabIndex != modsTabIndex)
-                {
+                if (tabIndex != modsTabIndex || __instance is not uGUI_OptionsPanel)
                     return true;
-                }
 
                 __instance.AddItem(tabIndex, headingPrefab, label);
                 return false;
             }
 
             [PatchUtils.Postfix]
-            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.OnEnable))]
-            private static void Awake_Postfix(uGUI_TabbedControlsPanel __instance)
+            [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.OnEnable))]
+            private static void Awake_Postfix(uGUI_OptionsPanel __instance)
             {
                 InitHeadingPrefab(__instance);
             }
@@ -316,10 +315,8 @@
             [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
             private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
             {
-                if (tabIndex != modsTabIndex)
-                {
-                    return;
-                }
+                if (tabIndex != modsTabIndex || __instance is not uGUI_OptionsPanel)
+                    return; 
 
                 // just in case, for changing vertical spacing between ui elements
                 //__instance.tabs[tabIndex].container.GetComponent<VerticalLayoutGroup>().spacing = 15f; // default is 15f
@@ -365,6 +362,8 @@
             [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.RemoveTabs))]
             private static void RemoveTabs_Prefix(uGUI_TabbedControlsPanel __instance)
             {
+                if(__instance is not uGUI_OptionsPanel)
+                    return;
                 StorePos(__instance, __instance.currentTab);
             }
 
@@ -372,6 +371,8 @@
             [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.HighlightCurrentTab))]
             private static void HighlightCurrentTab_Postfix(uGUI_TabbedControlsPanel __instance)
             {
+                if(__instance is not uGUI_OptionsPanel)
+                    return;
                 __instance.StartCoroutine(_restorePos());
 
                 IEnumerator _restorePos()
@@ -385,6 +386,8 @@
             [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
             private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
             {
+                if(__instance is not uGUI_OptionsPanel)
+                    return;
                 if (tabIndex != __instance.currentTab)
                 {
                     StorePos(__instance, __instance.currentTab);
@@ -395,6 +398,8 @@
             [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
             private static void SetVisibleTab_Postfix(uGUI_TabbedControlsPanel __instance, int tabIndex)
             {
+                if(__instance is not uGUI_OptionsPanel)
+                    return;
                 RestorePos(__instance, tabIndex);
             }
         }
