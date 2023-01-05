@@ -36,14 +36,7 @@ namespace SMLHelper.Options
             base.AddToPanel(panel, tabIndex);
         }
 
-        /// <summary>
-        /// Instantiates a new <see cref="ModToggleOption"/> for handling an option that can be either ON or OFF.
-        /// </summary>
-        /// <param name="id">The internal ID of this option.</param>
-        /// <param name="label">The display text to show on the in-game menus.</param>
-        /// <param name="value">The starting value.</param>
-        private ModColorOption(string id, string label, Color value) : base(label, id, value)
-        { }
+        private ModColorOption(string id, string label, Color value) : base(label, id, value) { }
 
         /// <summary>
         /// Creates a new <see cref="ModToggleOption"/> instance.

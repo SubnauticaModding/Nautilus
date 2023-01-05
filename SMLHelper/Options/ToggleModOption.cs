@@ -38,14 +38,7 @@
             base.AddToPanel(panel, tabIndex);
         }
 
-        /// <summary>
-        /// Instantiates a new <see cref="ModToggleOption"/> for handling an option that can be either ON or OFF.
-        /// </summary>
-        /// <param name="id">The internal ID of this option.</param>
-        /// <param name="label">The display text to show on the in-game menus.</param>
-        /// <param name="value">The starting value.</param>
-        private ModToggleOption(string id, string label, bool value) : base(label, id, value)
-        { }
+        private ModToggleOption(string id, string label, bool value) : base(label, id, value) { }
 
         /// <summary>
         /// Adds a new <see cref="ModToggleOption"/> to this instance.

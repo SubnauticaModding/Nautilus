@@ -30,16 +30,9 @@
         /// </summary>
         public GameInput.Device Device { get; }
 
-        /// <summary>
-        /// Instantiates a new <see cref="ModKeybindOption"/> for handling an option that is a keybind.
-        /// </summary>
-        /// <param name="id">The internal ID of this option.</param>
-        /// <param name="label">The display text to show on the in-game menus.</param>
-        /// <param name="device">The device name.</param>
-        /// <param name="key">The starting keybind value.</param>
         private ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id, typeof(KeyCode), key)
         {
-            this.Device = device;
+            Device = device;
         }
 
         /// <summary>

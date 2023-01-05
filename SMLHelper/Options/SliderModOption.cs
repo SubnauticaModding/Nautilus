@@ -83,18 +83,7 @@
             sliderValue = OptionGameObject.GetComponentInChildren<SliderValue>(); // we can also add custom SliderValue in OnGameObjectCreated event
         }
 
-        /// <summary>
-        /// Instantiates a new <see cref="ModSliderOption"/> for handling an option that can have any floating point value between a minimum and maximum.
-        /// </summary>
-        /// <param name="id">The internal ID of this option.</param>
-        /// <param name="label">The display text to show on the in-game menus.</param>
-        /// <param name="minValue">The minimum value for the range.</param>
-        /// <param name="maxValue">The maximum value for the range.</param>
-        /// <param name="value">The starting value.</param>
-        /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
-        /// <param name="valueFormat">Format for value field (<see cref="Factory(string, string, float, float, float, float?, string, float)"/>) </param>
-        /// <param name="step">Step for the slider ie. round to nearest X</param>
-        private ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = "{0:F0}", float step = 0) : base(label, id, typeof(float), value)
+        private ModSliderOption(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat, float step) : base(label, id, typeof(float), value)
         {
             MinValue = minValue;
             MaxValue = maxValue;
@@ -111,40 +100,11 @@
         /// <param name="minValue">The minimum value for the range.</param>
         /// <param name="maxValue">The maximum value for the range.</param>
         /// <param name="value">The starting value.</param>
-        public static ModSliderOption Factory(string id, string label, float minValue, float maxValue, float value)
-        {
-            return Factory(id, label, minValue, maxValue, value, null, null, 0);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="ModSliderOption"/> to this instance.
-        /// </summary>
-        /// <param name="id">The internal ID for the slider option.</param>
-        /// <param name="label">The display text to use in the in-game menu.</param>
-        /// <param name="minValue">The minimum value for the range.</param>
-        /// <param name="maxValue">The maximum value for the range.</param>
-        /// <param name="value">The starting value.</param>
-        /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
-        /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
-        /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
-        public static ModSliderOption Factory(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = "{0:F0}")
-        {
-            return Factory(id, label, minValue, maxValue, value, defaultValue, valueFormat, 0);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="ModSliderOption"/> to this instance.
-        /// </summary>
-        /// <param name="id">The internal ID for the slider option.</param>
-        /// <param name="label">The display text to use in the in-game menu.</param>
-        /// <param name="minValue">The minimum value for the range.</param>
-        /// <param name="maxValue">The maximum value for the range.</param>
-        /// <param name="value">The starting value.</param>
         /// <param name="defaultValue">The default value for the slider. If this is null then 'value' used as default.</param>
         /// <param name="valueFormat"> format for value, e.g. "{0:F2}" or "{0:F0} %"
         /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
         /// <param name="step">Step for the slider, ie. round to nearest X</param>
-        public static ModSliderOption Factory(string id, string label, float minValue, float maxValue, float value, float? defaultValue, string valueFormat = "{0:F0}", float step = 0)
+        public static ModSliderOption Factory(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = "{0:F0}", float step = 1)
         {
             return new ModSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, step);
         }

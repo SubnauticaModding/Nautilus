@@ -50,17 +50,10 @@
             base.AddToPanel(panel, tabIndex);
         }
 
-        /// <summary>
-        /// Instantiates a new <see cref="ModChoiceOption"/> for handling an option that can select one item from a list of values.
-        /// </summary>
-        /// <param name="id">The internal ID of this option.</param>
-        /// <param name="label">The display text to show on the in-game menus.</param>
-        /// <param name="options">The collection of available values.</param>
-        /// <param name="index">The starting value.</param>
         private ModChoiceOption(string id, string label, string[] options, int index) : base(label, id, new KeyValuePair<int, string>(index, options[index]))
         {
-            this.Options = options;
-            this.Index = index;
+            Options = options;
+            Index = index;
         }
 
         /// <summary>
