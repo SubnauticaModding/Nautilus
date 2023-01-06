@@ -99,52 +99,54 @@
         /// </summary>
         public override void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, List<OptionItem> options)
         {
-            foreach(var option in options)
-            {
-                RemoveItem(option.Id);
-            }
 
             // Conditionally load the config
             if (ConfigFileMetadata.MenuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuOpened))
             {
                 ConfigFileMetadata.Config.Load();
-            }
-
-            foreach (KeyValuePair<string, ModOptionAttributeMetadata<T>> entry in ConfigFileMetadata.ModOptionAttributesMetadata
-                .OrderBy(x => x.Value.ModOptionAttribute.Order)
-                .ThenBy(x => x.Value.MemberInfoMetadata.Name))
-            {
-                string id = entry.Key;
-                ModOptionAttributeMetadata<T> modOptionMetadata = entry.Value;
-
-                string label = modOptionMetadata.ModOptionAttribute.Label;
-                if (Language.main.TryGet(modOptionMetadata.ModOptionAttribute.LabelLanguageId, out string languageLabel))
+                foreach(var option in options)
                 {
-                    label = languageLabel;
+                    RemoveItem(option.Id);
                 }
-
-                InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
-                    $"{modOptionMetadata.ModOptionAttribute.GetType().Name}");
-                InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] Label: {label}");
-
-
-                switch (modOptionMetadata.ModOptionAttribute)
+            }
+            if(Options.Count == 0)
+            {
+                foreach(KeyValuePair<string, ModOptionAttributeMetadata<T>> entry in ConfigFileMetadata.ModOptionAttributesMetadata
+                    .OrderBy(x => x.Value.ModOptionAttribute.Order)
+                    .ThenBy(x => x.Value.MemberInfoMetadata.Name))
                 {
-                    case ButtonAttribute buttonAttribute:
-                        BuildModButtonOption(id, label, modOptionMetadata.MemberInfoMetadata);
-                        break;
-                    case ChoiceAttribute choiceAttribute:
-                        BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
-                        break;
-                    case KeybindAttribute _:
-                        BuildModKeybindOption(id, label, modOptionMetadata.MemberInfoMetadata);
-                        break;
-                    case SliderAttribute sliderAttribute:
-                        BuildModSliderOption(id, label, modOptionMetadata.MemberInfoMetadata, sliderAttribute);
-                        break;
-                    case ToggleAttribute _:
-                        BuildModToggleOption(id, label, modOptionMetadata.MemberInfoMetadata);
-                        break;
+                    string id = entry.Key;
+                    ModOptionAttributeMetadata<T> modOptionMetadata = entry.Value;
+
+                    string label = modOptionMetadata.ModOptionAttribute.Label;
+                    if(Language.main.TryGet(modOptionMetadata.ModOptionAttribute.LabelLanguageId, out string languageLabel))
+                    {
+                        label = languageLabel;
+                    }
+
+                    InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
+                        $"{modOptionMetadata.ModOptionAttribute.GetType().Name}");
+                    InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] Label: {label}");
+
+
+                    switch(modOptionMetadata.ModOptionAttribute)
+                    {
+                        case ButtonAttribute buttonAttribute:
+                            BuildModButtonOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                            break;
+                        case ChoiceAttribute choiceAttribute:
+                            BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
+                            break;
+                        case KeybindAttribute _:
+                            BuildModKeybindOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                            break;
+                        case SliderAttribute sliderAttribute:
+                            BuildModSliderOption(id, label, modOptionMetadata.MemberInfoMetadata, sliderAttribute);
+                            break;
+                        case ToggleAttribute _:
+                            BuildModToggleOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                            break;
+                    }
                 }
             }
             base.BuildModOptions(panel, modsTabIndex, Options);
