@@ -1,5 +1,6 @@
 namespace SMLHelper.FMod
 {
+    using System;
     using System.Linq;
     using FMOD;
     using FMOD.Studio;
@@ -7,6 +8,7 @@ namespace SMLHelper.FMod
     using SMLHelper.FMod.Interfaces;
     using SMLHelper.Utility;
     using UnityEngine;
+    using Random = UnityEngine.Random;
 
     /// <summary>
     /// This class is used to register FMOD events with multiple sounds in one event.
@@ -79,6 +81,7 @@ namespace SMLHelper.FMod
             this.randomizeSounds = randomizeSounds;
         }
 
+        [Obsolete("Deprecated. Use TryPlaySound instead.")]
         Channel IFModSound.PlaySound()
         {
             if (_sounds is {Length: > 0})
@@ -93,6 +96,24 @@ namespace SMLHelper.FMod
 
             InternalLogger.Error("MultiSounds must have some sounds.");
             return default;
+        }
+
+        bool IFModSound.TryPlaySound(out Channel channel)
+        {
+            channel = default;
+            if (_sounds is {Length: > 0})
+            {
+                if (randomizeSounds)
+                {
+                    int index = Random.Range(0, _sounds.Length-1);
+                    return AudioUtils.TryPlaySound(_sounds[index], _bus, out channel);
+                }
+
+                return AudioUtils.TryPlaySound(_sounds[Index], _bus, out channel);
+            }
+
+            InternalLogger.Error("MultiSounds must have some sounds.");
+            return false;
         }
     }
 }

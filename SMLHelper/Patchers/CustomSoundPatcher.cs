@@ -45,11 +45,13 @@
             Channel channel;
             if (CustomFModSounds.TryGetValue(eventPath, out var fModSound))
             {
-                channel = fModSound.PlaySound();
+                if(!fModSound.TryPlaySound(out channel))
+                    return false;
             }
             else if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
             {
-                channel = AudioUtils.PlaySound(soundEvent, bus);
+                if(!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                    return false;
             }
             else
             {
@@ -73,19 +75,23 @@
             soundEvent.getLength(out var length, TIMEUNIT.MS);
             __instance._length = (int)length;
             __instance._lengthSeconds = length * 0.001f;
+            Channel channel;
             if (CustomFModSounds.TryGetValue(sound, out var fModSound))
             {
-                PlayedChannels[sound] = fModSound.PlaySound();
+                if(!fModSound.TryPlaySound(out channel))
+                    return false;
             }
             else if (CustomSoundBuses.TryGetValue(sound, out Bus bus))
             {
-                PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, bus);
+                if(!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                    return false;
             }
             else
             {
                 return false;
             }
-            
+            PlayedChannels[sound] = channel;
+
             if (!string.IsNullOrEmpty(subtitles))
             {
                 Subtitles.Add(subtitles);
@@ -151,21 +157,25 @@
             if (string.IsNullOrEmpty(__instance.asset?.path) || !CustomSounds.TryGetValue(__instance.asset.path, out var sound) 
                                                              && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
 
-            if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel) &&
+            Channel channel;
+            if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out channel) &&
                 channel.isPlaying(out var playing) == RESULT.OK && playing && !__instance.restartOnPlay) // already playing, no need to play it again
             {
                 return false;
             }
 
             var soundPath = __instance.asset.path;
-
             if (CustomFModSounds.TryGetValue(soundPath, out var fModSound))
             {
-                EmitterPlayedChannels[__instance.GetInstanceID()] = fModSound.PlaySound();
+                if(!fModSound.TryPlaySound(out channel))
+                    return false;
+                EmitterPlayedChannels[__instance.GetInstanceID()] = channel;
             }
             else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
             {
-                EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(sound, bus);
+                if(!AudioUtils.TryPlaySound(sound, bus, out channel))
+                    return false;
+                EmitterPlayedChannels[__instance.GetInstanceID()] = channel;
             }
             else
             {
@@ -245,11 +255,13 @@
             Channel channel;
             if (CustomFModSounds.TryGetValue(soundPath, out var fModSound))
             {
-                channel = fModSound.PlaySound();
+                if(!fModSound.TryPlaySound(out channel)) 
+                    return false;
             }
             else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
             {
-                channel = AudioUtils.PlaySound(sound, bus);
+                if(!AudioUtils.TryPlaySound(sound, bus, out channel)) 
+                    return false;
             }
             else
             {
@@ -274,11 +286,13 @@
             Channel channel;
             if (CustomFModSounds.TryGetValue(soundPath, out var fModSound))
             {
-                channel = fModSound.PlaySound();
+                if(!fModSound.TryPlaySound(out channel))
+                    return false;                
             }
             else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
             {
-                channel = AudioUtils.PlaySound(sound, bus);
+                if(!AudioUtils.TryPlaySound(sound, bus, out channel))
+                    return false;
             }
             else
             {
