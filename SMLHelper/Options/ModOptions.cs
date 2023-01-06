@@ -19,30 +19,49 @@
         /// <summary>
         /// Obtains the <see cref="ModOption"/>s that belong to this instance. Can be null.
         /// </summary>
-        public List<OptionItem> Options => _options == null ? null : new List<OptionItem>(_options.Values);
+        public List<OptionItem> Options => new List<OptionItem>(_options.Values);
 
         // This is a dictionary now in case we want to get the ModOption quickly
         // based on the provided ID.
-        private Dictionary<string, OptionItem> _options;
+        private readonly Dictionary<string, OptionItem> _options = new Dictionary<string, OptionItem>();
 
         /// <summary>
         /// <para>Attaches a <see cref="OptionItem"/> to the options menu.</para>
         /// </summary>
         /// <param name="option">The <see cref="OptionItem"/> to add to the options menu.</param>
-        public void AddItem(OptionItem option)
+        public bool AddItem(OptionItem option)
         {
+            if(_options.ContainsKey(option.Id))
+            {
+                return false;
+            }
             _options.Add(option.Id, option);
             option.SetParent(this);
+            return true;
         }
 
-        internal void AddOptionsToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        /// <summary>
+        /// <para>Attaches a <see cref="OptionItem"/> to the options menu.</para>
+        /// </summary>
+        /// <param name="id">The id of the <see cref="OptionItem"/> to remove from the options menu.</param>
+        public bool RemoveItem(string id)
         {
-            panel.AddHeading(tabIndex, Name);
+            if(!_options.TryGetValue(id, out var optionItem))
+            {
+                return false;
+            }
 
-            _options = new Dictionary<string, OptionItem>(); // we need to do this every time we adding options
-            BuildModOptions();
+            _options.Remove(id);
+            optionItem.SetParent(null);
+            if(optionItem.OptionGameObject != null)
+                GameObject.Destroy(optionItem.OptionGameObject);
+            return true;
+        }
 
-            _options.Values.ForEach(option => option.AddToPanel(panel, tabIndex));
+
+        internal void AddOptionsToPanel(uGUI_TabbedControlsPanel panel, int modsTabIndex)
+        {
+            BuildModOptions(panel, modsTabIndex, Options);
         }
 
         /// <summary>
@@ -55,13 +74,13 @@
         }
 
         /// <summary>
-        /// <para>Builds up the configuration the options.</para>
-        /// <para>This method should be composed of calls into the following method: 
-        /// <seealso cref="AddItem"/> .</para>
-        /// <para>Make sure you have subscribed to the events in the constructor to handle what happens when the value is changed:
-        /// <seealso cref="OnChanged"/>.</para>
+        /// Builds up the configuration the options.
         /// </summary>
-        public abstract void BuildModOptions();
+        public virtual void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, List<OptionItem> options)
+        {
+            panel.AddHeading(modsTabIndex, Name);
+            options.ForEach(option => option.AddToPanel(panel, modsTabIndex));
+        }
 
         /// <summary>
         /// The event that is called whenever an option is changed.
