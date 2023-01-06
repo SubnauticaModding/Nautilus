@@ -11,6 +11,7 @@
     using UnityEngine;
     using UWE;
     using SMLHelper.Utility;
+    using BepInEx.Logging;
 
     internal static class PrefabDatabasePatcher
     {

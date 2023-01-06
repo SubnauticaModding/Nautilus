@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.Handlers
 {
     using System.Collections.Generic;
+    using BepInEx.Logging;
     using Patchers;
     using SMLHelper.Assets;
     using SMLHelper.Utility;

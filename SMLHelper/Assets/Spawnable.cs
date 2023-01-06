@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.Assets
 {
+    using BepInEx.Logging;
     using SMLHelper.Handlers;
     using SMLHelper.Utility;
     using System;

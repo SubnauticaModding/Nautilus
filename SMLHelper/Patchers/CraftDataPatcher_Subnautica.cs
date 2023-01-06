@@ -6,6 +6,7 @@ namespace SMLHelper.Patchers
     using SMLHelper;
     using System.Collections.Generic;
     using static RootMotion.FinalIK.InteractionTrigger.Range;
+    using BepInEx.Logging;
 
     internal partial class CraftDataPatcher
     {
@@ -257,7 +258,7 @@ namespace SMLHelper.Patchers
                     if (techExists)
                     {
                         CraftData.techData.Remove(techType);
-                        InternalLogger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warn);
+                        InternalLogger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warning);
                         replaced++;
                     }
                     else

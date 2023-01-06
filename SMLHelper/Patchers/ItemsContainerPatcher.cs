@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.Patchers
 {
+    using BepInEx.Logging;
     using HarmonyLib;
     using SMLHelper.Utility;
     using System;

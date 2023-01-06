@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+    using BepInEx.Logging;
 
     /// <summary>
     /// This class is tasked with checking external txt files for banned IDs that are not to be isssued when patching in new enum entries.
@@ -147,7 +148,7 @@
             InternalLogger.Log($"Badly formatted entry for Retricted IDs{Environment.NewLine}" +
                        $"        File: '{filePath}{Environment.NewLine}'" +
                        $"        Line: '{line}'{Environment.NewLine}" +
-                       $"        This entry has been skipped.", LogLevel.Warn);
+                       $"        This entry has been skipped.", LogLevel.Warning);
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.Patchers.EnumPatching
 {
     using System.Collections.Generic;
+    using BepInEx.Logging;
     using Handlers;
     using Utility;
 
@@ -48,7 +49,7 @@
             }
             else
             {
-                InternalLogger.Log($"Failed adding Tech Type: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding Tech Type: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warning);
             }
 
             return techType;

@@ -5,7 +5,7 @@ namespace SMLHelper.Patchers
     using System.Collections.Generic;
     using HarmonyLib;
     using UnityEngine;
-
+    using BepInEx.Logging;
 
     internal class SurvivalPatcher
     {

@@ -5,6 +5,7 @@
     using System.IO;
     using System.Reflection;
     using System.Text;
+    using BepInEx.Logging;
     using HarmonyLib;
     using SMLHelper.Utility;
 
@@ -93,7 +94,7 @@
                 }
                 else
                 {
-                    InternalLogger.Log($"Error writing language lines file for {modKey}", LogLevel.Warn);
+                    InternalLogger.Log($"Error writing language lines file for {modKey}", LogLevel.Warning);
                 }
             }
 
@@ -184,13 +185,13 @@
 
                 if (split.Length != SplitCount)
                 {
-                    InternalLogger.Log($"Line '{lineIndex}' in language override file for '{modName}' was incorrectly formatted.", LogLevel.Warn);
+                    InternalLogger.Log($"Line '{lineIndex}' in language override file for '{modName}' was incorrectly formatted.", LogLevel.Warning);
                     continue; // Not correctly formatted
                 }
 
                 if (!originalLines.ContainsKey(key))
                 {
-                    InternalLogger.Log($"Key '{key}' on line '{lineIndex}' in language override file for '{modName}' did not match an original key.", LogLevel.Warn);
+                    InternalLogger.Log($"Key '{key}' on line '{lineIndex}' in language override file for '{modName}' did not match an original key.", LogLevel.Warning);
                     continue; // Skip keys we don't recognize.
                 }
 

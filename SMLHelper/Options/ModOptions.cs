@@ -5,6 +5,7 @@
     using UnityEngine;
     using UnityEngine.UI;
     using SMLHelper.Utility;
+    using BepInEx.Logging;
 
     /// <summary>
     /// Abstract class that provides the framework for your mod's in-game configuration options.
@@ -110,14 +111,7 @@
 
         internal void SetParent(ModOptions parent)
         {
-            if (parentOptions == null)
-            {
-                parentOptions = parent;
-            }
-            else
-            {
-                InternalLogger.Log($"ModOption.SetParent: parent already setted for {Id}", LogLevel.Warn);
-            }
+            parentOptions = parent;
         }
 
         // adds UI GameObject to panel and updates OptionGameObject
@@ -171,7 +165,7 @@
 
                 if (!caption)
                 {
-                    InternalLogger.Log($"ModOptionAdjust: caption gameobject '{gameObjectPath}' not found", LogLevel.Warn);
+                    InternalLogger.Log($"ModOptionAdjust: caption gameobject '{gameObjectPath}' not found", LogLevel.Warning);
                     return;
                 }
 

@@ -5,6 +5,7 @@
     using HarmonyLib;
     using Handlers;
     using Utility;
+    using BepInEx.Logging;
 
     internal class TechGroupPatcher
     {
@@ -45,7 +46,7 @@
             }
             else
             {
-                InternalLogger.Log($"Failed adding TechGroup: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding TechGroup: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warning);
             }
 
 

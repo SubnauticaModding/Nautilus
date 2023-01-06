@@ -1,30 +1,59 @@
 ﻿namespace SMLHelper.Utility
 {
+    using System.Linq;
     using System;
-    using System.IO;
     using System.Reflection;
+    using BepInEx.Bootstrap;
+    using BepInEx.Configuration;
     using BepInEx.Logging;
-
-    internal enum LogLevel
-    {
-        Debug = 0,
-        Info = 1,
-        Warn = 2,
-        Error = 3,
-    }
 
     internal static class InternalLogger
     {
         internal static bool Initialized = false;
-        private static ManualLogSource logSource;
+        private static ManualLogSource Logger { get; set; }
+        private static FieldInfo ConfigConsoleDisplayedLevel { get; } = typeof(ConsoleLogListener).GetField("ConfigConsoleDisplayedLevel", BindingFlags.Static | BindingFlags.NonPublic);
+        private static ConfigEntry<LogLevel> consoleLogLevel { get; } = ConfigConsoleDisplayedLevel.GetValue(null) as ConfigEntry<LogLevel>;
+        private static FieldInfo ConfigDiskConsoleDisplayedLevel { get; } = typeof(Chainloader).GetField("ConfigDiskConsoleDisplayedLevel", BindingFlags.Static | BindingFlags.NonPublic);
+        private static ConfigEntry<LogLevel> diskLogLevel { get; } = ConfigDiskConsoleDisplayedLevel.GetValue(null) as ConfigEntry<LogLevel>;
+        internal static DiskLogListener DiskLogListener { get; private set; }
+        internal static bool EnableDebugging => (DiskLogListener != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) != LogLevel.None) || (consoleLogLevel != null && (consoleLogLevel.Value & LogLevel.Debug) != LogLevel.None);
 
-        internal static bool EnableDebugging { get; private set; }
         internal static void SetDebugging(bool value)
         {
-            string configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "EnableDebugLogs.txt");
+            if(value)
+            {
+                if(consoleLogLevel != null && (consoleLogLevel.Value & LogLevel.Debug) == LogLevel.None)
+                {
+                    consoleLogLevel.Value = consoleLogLevel.Value | LogLevel.Debug;
+                }
 
-            File.WriteAllText(configPath, value.ToString());
-            EnableDebugging = value;
+                if(diskLogLevel != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) == LogLevel.None)
+                {
+                    diskLogLevel.Value = diskLogLevel.Value | LogLevel.Debug;
+                }
+
+                if(DiskLogListener != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) == LogLevel.None)
+                {
+                    DiskLogListener.DisplayedLogLevel = DiskLogListener.DisplayedLogLevel | LogLevel.Debug;
+                }
+            }
+            else
+            {
+                if(consoleLogLevel != null && (consoleLogLevel.Value & LogLevel.Debug) != LogLevel.None)
+                {
+                    consoleLogLevel.Value = consoleLogLevel.Value & ~LogLevel.Debug;
+                }
+
+                if(diskLogLevel != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) != LogLevel.None)
+                {
+                    diskLogLevel.Value = diskLogLevel.Value & ~LogLevel.Debug;
+                }
+
+                if(DiskLogListener != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) != LogLevel.None)
+                {
+                    DiskLogListener.DisplayedLogLevel = DiskLogListener.DisplayedLogLevel & ~LogLevel.Debug;
+                }
+            }
         }
 
         internal static void Initialize(ManualLogSource logger)
@@ -34,34 +63,15 @@
                 return;
             }
 
-            logSource = logger;
+            if(BepInEx.Logging.Logger.Listeners.Where((x) => x is DiskLogListener).FirstOrFallback(DiskLogListener) is DiskLogListener logListener)
+            {
+                DiskLogListener = logListener;
+            }
+
+            Logger = logger;
+            Log($"Enable debug logs set to: {EnableDebugging}", LogLevel.Info);
+
             Initialized = true;
-
-            string configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "EnableDebugLogs.txt");
-
-            if (!File.Exists(configPath))
-            {
-                File.WriteAllText(configPath, "False");
-                EnableDebugging = false;
-
-                return;
-            }
-
-            string fileContents = File.ReadAllText(configPath);
-
-            try
-            {
-                EnableDebugging = bool.Parse(fileContents);
-
-                Log($"Enable debug logs set to: {EnableDebugging}", LogLevel.Info);
-            }
-            catch (Exception)
-            {
-                File.WriteAllText(configPath, "False");
-                EnableDebugging = false;
-
-                Log("Error reading EnableDebugLogs.txt configuration file. Defaulted to false", LogLevel.Warn);
-            }
         }
 
         internal static void Debug(string text)
@@ -76,7 +86,7 @@
 
         internal static void Warn(string text)
         {
-            Log(text, LogLevel.Warn);
+            Log(text, LogLevel.Warning);
         }
 
         internal static void Error(string text)
@@ -96,7 +106,7 @@
 
         internal static void Warn(string text, params object[] args)
         {
-            Log(text, LogLevel.Warn, args);
+            Log(text, LogLevel.Warning, args);
         }
 
         internal static void Error(string text, params object[] args)
@@ -116,21 +126,7 @@
                 return;
             }
 
-            switch(level)
-            {
-                case LogLevel.Debug when EnableDebugging:
-                    logSource.LogDebug(text);
-                    break;
-                case LogLevel.Info:
-                    logSource.LogInfo(text);
-                    break;
-                case LogLevel.Warn:
-                    logSource.LogWarning(text);
-                    break;
-                case LogLevel.Error:
-                    logSource.LogError(text);
-                    break;
-            }
+            Logger.Log(level, text);
         }
 
         internal static void Log(string text, LogLevel level = LogLevel.Info, params object[] args)

@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.Patchers
 {
+    using BepInEx.Logging;
     using HarmonyLib;
     using SMLHelper.Utility;
     using System.Collections.Generic;
@@ -66,7 +67,7 @@
                 }
                 else
                 {
-                    InternalLogger.Log($"Warning: TechType {fragmentEntry.Key} not known in PDAScanner.EntryData", LogLevel.Warn);
+                    InternalLogger.Log($"Warning: TechType {fragmentEntry.Key} not known in PDAScanner.EntryData", LogLevel.Warning);
                 }
             }
 
@@ -83,7 +84,7 @@
                 }
                 else
                 {
-                    InternalLogger.Log($"Warning: TechType {fragmentEntry.Key} not known in PDAScanner.EntryData", LogLevel.Warn);
+                    InternalLogger.Log($"Warning: TechType {fragmentEntry.Key} not known in PDAScanner.EntryData", LogLevel.Warning);
                 }
             }
         }

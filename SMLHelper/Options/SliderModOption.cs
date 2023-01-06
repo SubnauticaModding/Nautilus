@@ -8,6 +8,7 @@
     using UnityEngine.Events;
     using TMPro;
     using SMLHelper.Utility;
+    using BepInEx.Logging;
 
     /// <summary>
     /// Contains all the information about a slider changed event.

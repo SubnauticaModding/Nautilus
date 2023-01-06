@@ -7,6 +7,7 @@
     using System.Threading;
     using System.Reflection;
     using Newtonsoft.Json;
+    using BepInEx.Logging;
 
     /// <summary>
     /// A collection of utilities for interacting with JSON files.
@@ -67,7 +68,7 @@
                 }
                 catch (Exception ex)
                 {
-                    InternalLogger.Announce($"Could not parse JSON file, loading default values: {path}", LogLevel.Warn, true);
+                    InternalLogger.Announce($"Could not parse JSON file, loading default values: {path}", LogLevel.Warning, true);
                     InternalLogger.Error(ex.Message);
                     InternalLogger.Error(ex.StackTrace);
                     return new T();
@@ -121,7 +122,7 @@
                 }
                 catch (Exception ex)
                 {
-                    InternalLogger.Announce($"Could not parse JSON file, instance values unchanged: {path}", LogLevel.Warn, true);
+                    InternalLogger.Announce($"Could not parse JSON file, instance values unchanged: {path}", LogLevel.Warning, true);
                     InternalLogger.Error(ex.Message);
                     InternalLogger.Error(ex.StackTrace);
                 }

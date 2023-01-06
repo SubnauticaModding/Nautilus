@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using BepInEx.Logging;
     using HarmonyLib;
     using SMLHelper.Utility;
 
