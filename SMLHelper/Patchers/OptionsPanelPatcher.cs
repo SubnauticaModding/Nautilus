@@ -305,9 +305,12 @@
             }
 
             [PatchUtils.Postfix]
-            [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.OnEnable))]
-            private static void Awake_Postfix(uGUI_OptionsPanel __instance)
+            [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.OnEnable))]
+            private static void Awake_Postfix(uGUI_TabbedControlsPanel __instance)
             {
+                if(__instance is not uGUI_OptionsPanel)
+                    return;
+
                 InitHeadingPrefab(__instance);
             }
 
