@@ -158,8 +158,15 @@
         /// <param name="memberInfoMetadata">The metadata of the corresponding member.</param>
         private void BuildModButtonOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
-            if (memberInfoMetadata.MemberType != MemberType.Method || !AddItem(ModButtonOption.Factory(id, label, memberInfoMetadata.GetMethodAsAction<ButtonClickedEventArgs>(ConfigFileMetadata.Config))))
-                InternalLogger.Warn($"Failed to add ModButtonOption with id {id} to {Name}");
+            if (memberInfoMetadata.MemberType != MemberType.Method)
+            {
+                InternalLogger.Warn($"Failed to add ModButtonOption with id {id} to {Name} as the attribute is not a Method.");
+                return;
+            }
+            if(!AddItem(ModButtonOption.Factory(id, label, memberInfoMetadata.GetMethodAsAction<ButtonClickedEventArgs>(ConfigFileMetadata.Config))))
+                InternalLogger.Warn($"Failed to add ModButtonOption with id {id} to {Name} as an option with that id already exists.");
+
+            InternalLogger.Debug($"Added ModButtonOption with id {id} to {Name}");
         }
 
         /// <summary>
