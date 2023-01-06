@@ -85,7 +85,7 @@ namespace SMLHelper.FMod
             {
                 if (randomizeSounds)
                 {
-                    return AudioUtils.PlaySound(_sounds[Random.Range(0, _sounds.Length)], _bus);
+                    return AudioUtils.PlaySound(_sounds[Random.Range(0, _sounds.Length - 1)], _bus);
                 }
 
                 return AudioUtils.PlaySound(_sounds[Index], _bus);
