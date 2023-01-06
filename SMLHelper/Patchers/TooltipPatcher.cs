@@ -9,6 +9,7 @@
     using System.Linq;
     using System.Collections.Generic;
     using SMLHelper.Utility;
+    using BepInEx.Logging;
 
     internal class TooltipPatcher
     {
@@ -191,7 +192,7 @@
                 default:
                     File.WriteAllText(configPath, "Mod name (default)");
                     ExtraItemInfoOption = ExtraItemInfo.ModName;
-                    InternalLogger.Log("Error reading ExtraItemInfo.txt configuration file. Defaulted to mod name.", LogLevel.Warn);
+                    InternalLogger.Log("Error reading ExtraItemInfo.txt configuration file. Defaulted to mod name.", LogLevel.Warning);
                     break;
             }
         }

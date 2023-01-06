@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.Options.Utility
 {
     using System.Text.RegularExpressions;
+    using BepInEx.Logging;
     using SMLHelper.Utility;
 
     internal static class Validator

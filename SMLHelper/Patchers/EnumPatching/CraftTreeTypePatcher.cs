@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.Patchers.EnumPatching
 {
+    using BepInEx.Logging;
     using Crafting;
     using Handlers;
     using System;
@@ -34,7 +35,7 @@
             }
             else
             {
-                InternalLogger.Log($"Failed adding CraftTree Type: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding CraftTree Type: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warning);
             }
 
             if(!CraftTreePatcher.CustomTrees.TryGetValue(craftTreeType, out ModCraftTreeRoot customTreeRoot))

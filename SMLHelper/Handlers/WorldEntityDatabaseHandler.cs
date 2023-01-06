@@ -1,5 +1,6 @@
 ﻿namespace SMLHelper.Handlers
 {
+    using BepInEx.Logging;
     using SMLHelper.Patchers;
     using SMLHelper.Utility;
     using UnityEngine;

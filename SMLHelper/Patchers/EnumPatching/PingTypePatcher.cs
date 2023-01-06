@@ -6,6 +6,7 @@
     using Handlers;
     using Utility;
     using UnityEngine;
+    using BepInEx.Logging;
 
     internal class PingTypePatcher
     {
@@ -70,12 +71,12 @@
                 }
                 else
                 {
-                    InternalLogger.Log($"Failed adding PingType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                    InternalLogger.Log($"Failed adding PingType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warning);
                 }
             }
             else
             {
-                InternalLogger.Log($"Failed adding PingType: '{name}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding PingType: '{name}', Already Existed!", LogLevel.Warning);
             }
             return pingType;
         }
@@ -120,12 +121,12 @@
                 }
                 else
                 {
-                    InternalLogger.Log($"Failed adding PingType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                    InternalLogger.Log($"Failed adding PingType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warning);
                 }
             }
             else
             {
-                InternalLogger.Log($"Failed adding PingType: '{name}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding PingType: '{name}', Already Existed!", LogLevel.Warning);
             }
             return pingType;
         }

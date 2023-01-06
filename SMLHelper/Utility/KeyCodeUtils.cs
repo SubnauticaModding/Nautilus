@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.Utility
 {
     using System;
+    using BepInEx.Logging;
     using UnityEngine;
 
     /// <summary>

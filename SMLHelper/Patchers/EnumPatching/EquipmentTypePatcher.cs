@@ -5,6 +5,7 @@
     using SMLHelper.Assets;
     using Handlers;
     using Utility;
+    using BepInEx.Logging;
 
     internal class EquipmentTypePatcher
     {
@@ -46,7 +47,7 @@
             }
             else
             {
-                InternalLogger.Log($"Failed adding EquipmentType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding EquipmentType: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warning);
             }
 
             return equipmentType;

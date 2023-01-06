@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Assets;
+    using BepInEx.Logging;
     using HarmonyLib;
     using SMLHelper.Patchers.EnumPatching;
     using SMLHelper.Utility;

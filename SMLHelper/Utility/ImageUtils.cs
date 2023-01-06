@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.Utility
 {
     using System.IO;
+    using BepInEx.Logging;
     using UnityEngine;
     using Logger = InternalLogger;
 #if SUBNAUTICA

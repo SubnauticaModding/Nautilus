@@ -10,6 +10,7 @@
     using UnityEngine;
 
     using SMLHelper.Utility;
+    using BepInEx.Logging;
 
     internal static class ConsoleCommandsPatcher
     {

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using BepInEx.Logging;
     using Handlers;
     using Utility;
 
@@ -33,7 +34,7 @@
             }
             else
             {
-                InternalLogger.Log($"Failed adding TechCategory: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warn);
+                InternalLogger.Log($"Failed adding TechCategory: '{name}' to Index: '{cache.Index}', Already Existed!", LogLevel.Warning);
             }
 
             return TechCategory;

@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Reflection;
     using BepInEx;
+    using BepInEx.Logging;
     using HarmonyLib;
     using Patchers;
     using Patchers.EnumPatching;

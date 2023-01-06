@@ -3,7 +3,7 @@
     using SMLHelper.Utility;
     using System.Collections.Generic;
     using HarmonyLib;
-
+    using BepInEx.Logging;
 
     internal class LootDistributionPatcher
     {
