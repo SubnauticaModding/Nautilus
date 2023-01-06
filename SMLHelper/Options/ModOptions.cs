@@ -5,6 +5,7 @@
     using UnityEngine;
     using UnityEngine.UI;
     using SMLHelper.Utility;
+    using System.Linq;
 
     /// <summary>
     /// Abstract class that provides the framework for your mod's in-game configuration options.
@@ -46,7 +47,7 @@
         /// <param name="id">The id of the <see cref="OptionItem"/> to remove from the options menu.</param>
         public bool RemoveItem(string id)
         {
-            if(!_options.TryGetValue(id, out var optionItem))
+            if(!_options.TryGetValue(id, out OptionItem optionItem))
             {
                 return false;
             }
@@ -90,7 +91,7 @@
         /// <summary>
         /// Gets the Invocation List for the OnChanged event or returns null if none present.
         /// </summary>
-        public Delegate[] GetDelegates => OnChanged?.GetInvocationList();
+        public List<EventHandler<OptionEventArgs>> GetDelegates() => OnChanged?.GetInvocationList().Cast<EventHandler<OptionEventArgs>>().ToList();
 
 
         /// <summary>
@@ -170,7 +171,7 @@
         /// <summary>
         /// Gets the Invocation List for the OnChanged event or returns null if none present.
         /// </summary>
-        public Delegate[] GetDelegates => OnChanged?.GetInvocationList();
+        public List<EventHandler<OptionEventArgs>> GetDelegates() => OnChanged?.GetInvocationList().Cast<EventHandler<OptionEventArgs>>().ToList();
 
 
         /// <summary>

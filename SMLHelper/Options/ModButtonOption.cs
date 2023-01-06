@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using UnityEngine.Events;
     using UnityEngine.UI;
@@ -31,7 +32,7 @@
         /// <summary>
         /// Gets the Invocation List for the OnPressed event or returns null if none present.
         /// </summary>
-        public Delegate[] GetDelegates => OnPressed?.GetInvocationList();
+        public List<Action<ButtonClickedEventArgs>> GetDelegates() => OnPressed?.GetInvocationList().Cast<Action<ButtonClickedEventArgs>>().ToList();
 
         /// <summary>
         /// The base method for adding an object to the options panel
