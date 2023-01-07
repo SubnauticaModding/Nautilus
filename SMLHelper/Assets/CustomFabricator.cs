@@ -176,9 +176,7 @@
                     break;
 #if SUBNAUTICA
                 case Models.MoonPool:
-#pragma warning disable CS0618 // obsolete
                     var request = UWE.PrefabDatabase.GetPrefabForFilenameAsync("Submarine/Build/CyclopsFabricator.prefab");
-#pragma warning restore CS0618
                     yield return request;
                     request.TryGetPrefab(out prefab);
                     prefab = GameObject.Instantiate(prefab);

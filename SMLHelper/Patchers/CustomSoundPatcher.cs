@@ -157,8 +157,7 @@
             if (string.IsNullOrEmpty(__instance.asset?.path) || !CustomSounds.TryGetValue(__instance.asset.path, out var sound) 
                                                              && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
 
-            Channel channel;
-            if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out channel) &&
+            if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel) &&
                 channel.isPlaying(out var playing) == RESULT.OK && playing && !__instance.restartOnPlay) // already playing, no need to play it again
             {
                 return false;

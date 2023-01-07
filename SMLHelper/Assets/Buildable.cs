@@ -1,6 +1,5 @@
 ﻿namespace SMLHelper.Assets
 {
-    using System;
     using SMLHelper.Handlers;
 
     /// <summary>
@@ -10,12 +9,6 @@
     /// <seealso cref="Spawnable"/>
     public abstract class Buildable : PdaItem
     {
-        /// <summary>
-        /// Obsolete. No longer functional. Handle with a customized HandTarget instead.
-        /// </summary>
-        [Obsolete("No longer functional. Handle with a customized HandTarget instead.", true)]
-        public virtual string HandOverText => null;
-
         /// <summary>
         /// Initializes a new <see cref="Buildable"/>, the basic class for any item that can built using the Habitat Builder Tool.
         /// </summary>

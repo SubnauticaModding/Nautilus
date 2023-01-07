@@ -81,23 +81,6 @@ namespace SMLHelper.FMod
             this.randomizeSounds = randomizeSounds;
         }
 
-        [Obsolete("Deprecated. Use TryPlaySound instead.")]
-        Channel IFModSound.PlaySound()
-        {
-            if (_sounds is {Length: > 0})
-            {
-                if (randomizeSounds)
-                {
-                    return AudioUtils.PlaySound(_sounds[Random.Range(0, _sounds.Length)], _bus);
-                }
-
-                return AudioUtils.PlaySound(_sounds[Index], _bus);
-            }
-
-            InternalLogger.Error("MultiSounds must have some sounds.");
-            return default;
-        }
-
         bool IFModSound.TryPlaySound(out Channel channel)
         {
             channel = default;
