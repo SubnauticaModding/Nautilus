@@ -29,7 +29,7 @@
         }
 
         /// <summary>
-        /// Creates a <see cref="Sound"/> instance from an <see cref="AudioClip"/>. Can be stored and later used with <see cref="PlaySound(Sound)"/>
+        /// Creates a <see cref="Sound"/> instance from an <see cref="AudioClip"/>. Can be stored and later used with <see cref="TryPlaySound(Sound, out Channel)"/>
         /// </summary>
         /// <param name="audio">the AudioClip to make a Sound instance of.</param>
         /// <param name="mode"></param>
@@ -62,93 +62,19 @@
         }
 
         /// <summary>
-        /// Plays a <see cref="Sound"/> from an <see cref="AudioClip"/>.
+        /// Plays a <see cref="Sound"/> on the specified <see cref="Bus"/>.
         /// </summary>
-        /// <param name="audio">The AudioClip of the sound.</param>
-        /// <param name="mode"></param>
-        /// <returns>The channel on which the sound was created.</returns>
-        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
-        public static Channel PlaySound(AudioClip audio, MODE mode = MODE.DEFAULT)
+        /// <param name="sound">The sound which should be played.</param>
+        /// <param name="busPath">The path to the bus to play the sound on.</param>
+        /// <param name="channel">The channel on which the sound was created.</param>
+        /// <returns>If the sound was reported as played.</returns>
+        public static bool TryPlaySound(Sound sound, string busPath, out Channel channel)
         {
-            return PlaySound(CreateSound(audio, mode));
-        }
-
-        /// <summary>
-        /// Plays a <see cref="Sound"/> from an <see cref="AudioClip"/>. Has overload for controlling volume.
-        /// </summary>
-        /// <param name="audio">The AudioClip of the sound.</param>
-        /// <param name="mode"></param>
-        /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
-        /// <returns>The channel on which the sound was created</returns>
-        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
-        public static Channel PlaySound(AudioClip audio, SoundChannel volumeControl, MODE mode = MODE.DEFAULT)
-        {
-            return PlaySound(CreateSound(audio, mode), volumeControl);
-        }
-
-        /// <summary>
-        /// Plays a <see cref="Sound"/> globally from a path. Must be a .wav file
-        /// </summary>
-        /// <param name="path">The path of the sound. Relative to the base game folder.</param>
-        /// <param name="mode"></param>
-        /// <returns>The channel on which the sound was created</returns>
-        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
-        public static Channel PlaySound(string path, MODE mode = MODE.DEFAULT)
-        {
-            return PlaySound(CreateSound(path, mode));
-        }
-
-        /// <summary>
-        /// Plays a <see cref="Sound"/> globally from a path. Must be a .wav file. Has overload for controlling volume
-        /// </summary>
-        /// <param name="path">The path of the sound. Relative to the base game folder.</param>
-        /// <param name="mode"></param>
-        /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
-        /// <returns>The channel on which the sound was created</returns>
-        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
-        public static Channel PlaySound(string path, SoundChannel volumeControl, MODE mode = MODE.DEFAULT)
-        {
-            return PlaySound(CreateSound(path, mode), volumeControl);
-        }
-
-        /// <summary>
-        /// Plays a <see cref="Sound"/> globally
-        /// </summary>
-        /// <param name="sound">The sound which should be played</param>
-        /// <returns>The channel on which the sound was created</returns>
-        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
-        public static Channel PlaySound(Sound sound)
-        {
-            FMOD_System.getMasterChannelGroup(out ChannelGroup channels);
-            FMOD_System.playSound(sound, channels, false, out Channel channel);
-
-            return channel;
-        }
-
-        /// <summary>
-        /// Plays a <see cref="Sound"/> globally at specified volume
-        /// </summary>
-        /// <param name="sound">The sound which should be played</param>
-        /// <param name="volumeControl">Which volume control to adjust sound levels by. How loud sound is.</param>
-        /// <returns>The channel on which the sound was created</returns>
-        [Obsolete("Deprecated. Use PlaySound(FMOD.Sound, FMOD.Studio.Bus) instead.")]
-        public static Channel PlaySound(Sound sound, SoundChannel volumeControl)
-        {
-            float volumeLevel = volumeControl switch
-            {
-                SoundChannel.Master  => SoundSystem.masterVolume,
-                SoundChannel.Music   => SoundSystem.musicVolume,
-                SoundChannel.Voice   => SoundSystem.voiceVolume,
-                SoundChannel.Ambient => SoundSystem.ambientVolume,
-                _ => 1f,
-            };
-
-            FMOD_System.getMasterChannelGroup(out ChannelGroup channels);
-            ChannelGroup newChannels = channels;
-            newChannels.setVolume(volumeLevel);
-            FMOD_System.playSound(sound, newChannels, false, out Channel channel);
-
-            return channel;
+            channel = default;
+            Bus bus = RuntimeManager.GetBus(busPath);
+            return bus.getChannelGroup(out ChannelGroup channelGroup) == RESULT.OK &&
+                channelGroup.getPaused(out bool paused) == RESULT.OK &&
+                FMOD_System.playSound(sound, channelGroup, paused, out channel) == RESULT.OK;
         }
 
         /// <summary>
@@ -156,15 +82,16 @@
         /// </summary>
         /// <param name="sound">The sound which should be played.</param>
         /// <param name="bus">The bus to play the sound on.</param>
-        /// <returns>The channel on which the sound was created.</returns>
-        public static Channel PlaySound(Sound sound, Bus bus)
+        /// <param name="channel">The channel on which the sound was created.</param>
+        /// <returns>If the sound was reported as played.</returns>
+        public static bool TryPlaySound(Sound sound, Bus bus, out Channel channel)
         {
-            bus.getChannelGroup(out ChannelGroup channelGroup);
-            channelGroup.getPaused(out bool paused);
-            FMOD_System.playSound(sound, channelGroup, paused, out Channel channel);
-            return channel;
+            channel = default;
+            return bus.getChannelGroup(out ChannelGroup channelGroup) == RESULT.OK &&
+                channelGroup.getPaused(out bool paused) == RESULT.OK &&
+                FMOD_System.playSound(sound, channelGroup, paused, out channel) == RESULT.OK;
         }
-        
+
         private static Sound CreateSoundFromAudioClip(AudioClip audioClip, MODE mode)
         {
             int samplesSize = audioClip.samples * audioClip.channels;

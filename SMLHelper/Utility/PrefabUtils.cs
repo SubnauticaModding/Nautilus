@@ -31,18 +31,5 @@
             WorldForces forces = _object.AddComponent<WorldForces>();
             forces.useRigidbody = rb;
         }
-
-        /// <summary>
-        /// Will attempt to return <see cref="GameObject.GetComponent{T}"/>.<para/>
-        /// If the component is not found, it will be added through <see cref="GameObject.AddComponent{T}"/>.
-        /// </summary>
-        /// <typeparam name="T">A type of Unity <see cref="Component"/>.</typeparam>
-        /// <param name="obj">The gameobject that should have the component.</param>
-        /// <returns>The existing component attached to the gameobject or a newly created and attached one.</returns>
-        [Obsolete("This functionality can be found in Assembly-CSharp-firstpass as Radical.EnsureComponent<T>", true)]
-        public static T GetOrAddComponent<T>(this GameObject obj) where T : Component
-        {
-            return obj.GetComponent<T>() ?? obj.AddComponent<T>();
-        }
     }
 }
