@@ -105,7 +105,7 @@ namespace SMLHelper.FMod
             {
                 if (randomizeSounds)
                 {
-                    int index = Random.Range(0, _sounds.Length-1);
+                    int index = Random.Range(0, _sounds.Length);
                     return AudioUtils.TryPlaySound(_sounds[index], _bus, out channel);
                 }
 
