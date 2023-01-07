@@ -17,7 +17,7 @@
         private static FMOD.System FMOD_System => RuntimeManager.CoreSystem;
 
         /// <summary>
-        /// Creates a <see cref="Sound"/> instance from a path. Can be stored and later used with <see cref="PlaySound(Sound)"/>
+        /// Creates a <see cref="Sound"/> instance from a path. Can be stored and later used with <see cref="TryPlaySound(Sound, Bus, out Channel)"/>
         /// </summary>
         /// <param name="path">The path of the sound. Relative to the base game folder.</param>
         /// <param name="mode"></param>
@@ -29,7 +29,7 @@
         }
 
         /// <summary>
-        /// Creates a <see cref="Sound"/> instance from an <see cref="AudioClip"/>. Can be stored and later used with <see cref="TryPlaySound(Sound, out Channel)"/>
+        /// Creates a <see cref="Sound"/> instance from an <see cref="AudioClip"/>. Can be stored and later used with <see cref="TryPlaySound(Sound, Bus, out Channel)"/>
         /// </summary>
         /// <param name="audio">the AudioClip to make a Sound instance of.</param>
         /// <param name="mode"></param>
