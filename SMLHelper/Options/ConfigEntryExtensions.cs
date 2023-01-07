@@ -38,7 +38,7 @@
         {
             step = Mathf.Max(1, step);
             ModSliderOption optionItem = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}", 
-                configEntry.Definition.Key, minValue, maxValue, configEntry.Value, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key, minValue, maxValue, configEntry.Value, step: step, tooltip: configEntry.Description.Description);
             optionItem.OnChanged += (s, e) =>
             {
                 configEntry.Value = (int)e.Value;
@@ -59,7 +59,7 @@
         {
             step = Mathf.Max(0.0001f, step);
             ModSliderOption optionItem = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}", 
-                configEntry.Definition.Key, minValue, maxValue, configEntry.Value, valueFormat: floatFormat, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key, minValue, maxValue, configEntry.Value, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
             optionItem.OnChanged += (s, e) =>
             {
                 configEntry.Value = e.Value;
@@ -81,14 +81,14 @@
             var optionItems = new List<ModSliderOption>();
             step = Mathf.Max(0.01f, step);
             ModSliderOption optionItemX = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_X", 
-                configEntry.Definition.Key + " X", minValue, maxValue, configEntry.Value.x, valueFormat: floatFormat, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " X", minValue, maxValue, configEntry.Value.x, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
             optionItemX.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(e.Value, configEntry.Value.y);
             };
             optionItems.Add(optionItemX);
             ModSliderOption optionItemY = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Y", 
-                configEntry.Definition.Key + " Y", minValue, maxValue, configEntry.Value.y, valueFormat: floatFormat, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " Y", minValue, maxValue, configEntry.Value.y, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
             optionItemY.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.x, e.Value);
@@ -112,21 +112,21 @@
             var optionItems = new List<ModSliderOption>();
             step = Mathf.Max(0.01f, step);
             ModSliderOption optionItemX = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_X", 
-                configEntry.Definition.Key + " X", minValue, maxValue, configEntry.Value.x, valueFormat: floatFormat, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " X", minValue, maxValue, configEntry.Value.x, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
             optionItemX.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(e.Value, configEntry.Value.y, configEntry.Value.z);
             };
             optionItems.Add(optionItemX);
             ModSliderOption optionItemY = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Y", 
-                configEntry.Definition.Key + " Y", minValue, maxValue, configEntry.Value.y, valueFormat: floatFormat, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " Y", minValue, maxValue, configEntry.Value.y, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
             optionItemY.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.x, e.Value, configEntry.Value.z);
             };
             optionItems.Add(optionItemY);
             ModSliderOption optionItemZ = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Z", 
-                configEntry.Definition.Key + " Z", minValue, maxValue, configEntry.Value.z, valueFormat: floatFormat, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " Z", minValue, maxValue, configEntry.Value.z, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
             optionItemZ.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.x, configEntry.Value.y, e.Value);
@@ -150,28 +150,28 @@
             var optionItems = new List<ModSliderOption>();
             step = Mathf.Max(0.01f, step);
             ModSliderOption optionItemX = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_X", 
-                configEntry.Definition.Key + " X", minValue, maxValue, configEntry.Value.x, valueFormat: floatFormat, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " X", minValue, maxValue, configEntry.Value.x, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
             optionItemX.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(e.Value, configEntry.Value.y, configEntry.Value.z, configEntry.Value.w);
             };
             optionItems.Add(optionItemX);
             ModSliderOption optionItemY = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Y", 
-                configEntry.Definition.Key + " Y", minValue, maxValue, configEntry.Value.y, valueFormat: floatFormat, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " Y", minValue, maxValue, configEntry.Value.y, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
             optionItemY.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.x, e.Value, configEntry.Value.z, configEntry.Value.w);
             };
             optionItems.Add(optionItemY);
             ModSliderOption optionItemZ = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Z", 
-                configEntry.Definition.Key + " Z", minValue, maxValue, configEntry.Value.z, valueFormat: floatFormat, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " Z", minValue, maxValue, configEntry.Value.z, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
             optionItemZ.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.x, configEntry.Value.y, e.Value, configEntry.Value.w);
             };
             optionItems.Add(optionItemZ);
             ModSliderOption optionItemW = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_W", 
-                configEntry.Definition.Key + " W", minValue, maxValue, configEntry.Value.w, valueFormat: floatFormat, tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " W", minValue, maxValue, configEntry.Value.w, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
             optionItemW.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.x, configEntry.Value.y, configEntry.Value.z, e.Value);
@@ -190,28 +190,28 @@
         {
             var optionItems = new List<ModSliderOption>();
             ModSliderOption optionItemR = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_R", 
-                configEntry.Definition.Key + " R", 0f, 1f, configEntry.Value.r, valueFormat: "{0:F2}", tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " R", 0f, 1f, configEntry.Value.r, valueFormat: "{0:F2}", step: 0.01f, tooltip: configEntry.Description.Description);
             optionItemR.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(e.Value, configEntry.Value.g, configEntry.Value.b, configEntry.Value.a);
             };
             optionItems.Add(optionItemR);
             ModSliderOption optionItemY = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_G", 
-                configEntry.Definition.Key + " G", 0f, 1f, configEntry.Value.g, valueFormat: "{0:F2}", tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " G", 0f, 1f, configEntry.Value.g, valueFormat: "{0:F2}", step: 0.01f, tooltip: configEntry.Description.Description);
             optionItemY.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.r, e.Value, configEntry.Value.b, configEntry.Value.a);
             };
             optionItems.Add(optionItemY);
             ModSliderOption optionItemZ = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_B", 
-                configEntry.Definition.Key + " B", 0f, 1f, configEntry.Value.b, valueFormat: "{0:F2}", tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " B", 0f, 1f, configEntry.Value.b, valueFormat: "{0:F2}", step: 0.01f, tooltip: configEntry.Description.Description);
             optionItemZ.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.r, configEntry.Value.g, e.Value, configEntry.Value.a);
             };
             optionItems.Add(optionItemZ);
             ModSliderOption optionItemW = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_A", 
-                configEntry.Definition.Key + " A", 0f, 1f, configEntry.Value.a, valueFormat: "{0:F2}", tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " A", 0f, 1f, configEntry.Value.a, valueFormat: "{0:F2}", step: 0.01f, tooltip: configEntry.Description.Description);
             optionItemW.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.r, configEntry.Value.g, configEntry.Value.b, e.Value);
