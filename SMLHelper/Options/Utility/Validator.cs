@@ -54,11 +54,6 @@
                 return "The provided ID is empty or whitespace.";
             }
 
-            if (Regex.IsMatch(id, "[^a-z0-9_]", RegexOptions.IgnoreCase))
-            {
-                return $"The provided ID ({id}) contains invalid characters. (Use only alphanumeric characters and underscores)";
-            }
-
             return null;
         }
         private static string ValidateLabel(string label)
