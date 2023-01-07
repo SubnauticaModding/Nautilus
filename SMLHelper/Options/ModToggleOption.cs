@@ -21,7 +21,7 @@
     /// <summary>
     /// A mod option class for handling an option that can be either ON or OFF.
     /// </summary>
-    public class ModToggleOption : ModOption<bool>
+    public class ModToggleOption : ModOption<bool, ToggleChangedEventArgs>
     {
         /// <summary>
         /// The tooltip to show when hovering over the option.

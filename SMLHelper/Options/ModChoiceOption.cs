@@ -23,7 +23,7 @@
     /// <summary>
     /// A mod option class for handling an option that can select one item from a list of values.
     /// </summary>
-    public class ModChoiceOption : ModOption<KeyValuePair<int, string>>
+    public class ModChoiceOption : ModOption<KeyValuePair<int, string>, ChoiceChangedEventArgs>
     {
         /// <summary>
         /// The array of readable string options to choose between in the <see cref="ModChoiceOption"/>.

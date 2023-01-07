@@ -157,17 +157,17 @@
     /// <summary>
     /// The common generic-typed abstract class to all mod options.
     /// </summary>
-    public abstract class ModOption<T> : ModOption
+    public abstract class ModOption<T, E> : ModOption
     {
         /// <summary>
-        /// The value for the <see cref="ModOption{T}"/>.
+        /// The value for the <see cref="ModOption{T, E}"/>.
         /// </summary>
         public new T Value { get; }
 
         /// <summary>
         /// The event that is called whenever an option is changed.
         /// </summary>
-        public event EventHandler<OptionEventArgs> OnChanged;
+        public event EventHandler<E> OnChanged;
 
         /// <summary>
         /// Gets the Invocation List for the OnChanged event or returns null if none present.
@@ -180,7 +180,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
-        public void OnChange<U, V>(string id, V value) where U : ConfigOptionEventArgs<V>
+        public void OnChange<U, V>(string id, V value) where U : E
         {
             OnChanged?.Invoke(this, (U)Activator.CreateInstance(typeof(U), new object[] { id, value }));
         }

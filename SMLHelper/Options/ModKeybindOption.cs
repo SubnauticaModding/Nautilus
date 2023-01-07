@@ -23,7 +23,7 @@
     /// <summary>
     /// A mod option class for handling an option that is a keybind.
     /// </summary>
-    public class ModKeybindOption : ModOption<KeyCode>
+    public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     {
         /// <summary>
         /// The currently select input source device for the <see cref="ModKeybindOption"/>.

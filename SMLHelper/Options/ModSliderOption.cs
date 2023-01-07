@@ -26,7 +26,7 @@
     /// <summary>
     /// A mod option class for handling an option that can have any floating point value between a minimum and maximum.
     /// </summary>
-    public class ModSliderOption : ModOption<float>
+    public class ModSliderOption : ModOption<float, SliderChangedEventArgs>
     {
         /// <summary>
         /// The minimum value of the <see cref="ModSliderOption"/>.
