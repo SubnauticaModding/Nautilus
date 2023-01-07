@@ -172,8 +172,10 @@
         /// <summary>
         /// Gets the Invocation List for the OnChanged event or returns null if none present.
         /// </summary>
-        public List<EventHandler<OptionEventArgs>> GetDelegates() => OnChanged?.GetInvocationList().Cast<EventHandler<OptionEventArgs>>().ToList();
-
+        public IEnumerable<EventHandler<E>> GetDelegates()
+        {
+            return OnChanged?.GetInvocationList().Cast<EventHandler<E>>();
+        }
 
         /// <summary>
         /// Notifies an option change to all subscribed event handlers.

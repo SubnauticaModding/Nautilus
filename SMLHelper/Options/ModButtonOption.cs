@@ -32,7 +32,10 @@
         /// <summary>
         /// Gets the Invocation List for the OnPressed event or returns null if none present.
         /// </summary>
-        public List<Action<ButtonClickedEventArgs>> GetDelegates() => OnPressed?.GetInvocationList().Cast<Action<ButtonClickedEventArgs>>().ToList();
+        public IEnumerable<Action<ButtonClickedEventArgs>> GetDelegates()
+        {
+            return OnPressed?.GetInvocationList().Cast<Action<ButtonClickedEventArgs>>();
+        }
 
         /// <summary>
         /// The base method for adding an object to the options panel
