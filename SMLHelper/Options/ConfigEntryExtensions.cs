@@ -53,9 +53,9 @@
         /// <param name="minValue">Sets the lowest allowed value of the slider. default: 0f</param>
         /// <param name="maxValue">Sets the highest allowed value of the slider. default: 1f</param>
         /// <param name="step">The snapping value of the slider. Minimum value: 0.0001f, Default  0.01f</param>
-        /// <param name="floatFormat">The formatting string used on the float value. Default value: "0:F2" shows 2 decimals</param>
+        /// <param name="floatFormat">The formatting string used on the float value. Default value: "{0:F2}" shows 2 decimals</param>
         /// <returns><see cref="ModSliderOption"/></returns>
-        public static ModSliderOption ToModSliderOption(this ConfigEntry<float> configEntry, float minValue = 0f, float maxValue = 1f, float step = 0.01f, string floatFormat = "0:F2")
+        public static ModSliderOption ToModSliderOption(this ConfigEntry<float> configEntry, float minValue = 0f, float maxValue = 1f, float step = 0.01f, string floatFormat = "{0:F2}")
         {
             step = Mathf.Max(0.0001f, step);
             ModSliderOption optionItem = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}", 
@@ -74,9 +74,9 @@
         /// <param name="minValue">Sets the lowest allowed value of the slider. default: 0f</param>
         /// <param name="maxValue">Sets the highest allowed value of the slider. default: 1f</param>
         /// <param name="step">The snapping value of the slider. Minimum value: 0.01f</param>
-        /// <param name="floatFormat">The formatting string used on the float value. Default value: "0:F2" shows 2 decimals</param>
+        /// <param name="floatFormat">The formatting string used on the float value. Default value: "{0:F2}" shows 2 decimals</param>
         /// <returns><see cref="ModSliderOption"/></returns>
-        public static List<ModSliderOption> ToModSliderOptions(this ConfigEntry<Vector2> configEntry, float minValue, float maxValue, float step, string floatFormat = "0:F2")
+        public static List<ModSliderOption> ToModSliderOptions(this ConfigEntry<Vector2> configEntry, float minValue, float maxValue, float step, string floatFormat = "{0:F2}")
         {
             var optionItems = new List<ModSliderOption>();
             step = Mathf.Max(0.01f, step);
@@ -105,9 +105,9 @@
         /// <param name="minValue">Sets the lowest allowed value of the slider. default: 0f</param>
         /// <param name="maxValue">Sets the highest allowed value of the slider. default: 1f</param>
         /// <param name="step">The snapping value of the slider. Minimum value: 0.01f</param>
-        /// <param name="floatFormat">The formatting string used on the float value. Default value: "0:F2" shows 2 decimals</param>
+        /// <param name="floatFormat">The formatting string used on the float value. Default value: "{0:F2}" shows 2 decimals</param>
         /// <returns><see cref="ModSliderOption"/></returns>
-        public static List<ModSliderOption> ToModSliderOptions(this ConfigEntry<Vector3> configEntry, float minValue, float maxValue, float step, string floatFormat = "0:F2")
+        public static List<ModSliderOption> ToModSliderOptions(this ConfigEntry<Vector3> configEntry, float minValue, float maxValue, float step, string floatFormat = "{0:F2}")
         {
             var optionItems = new List<ModSliderOption>();
             step = Mathf.Max(0.01f, step);
@@ -143,9 +143,9 @@
         /// <param name="minValue">Sets the lowest allowed value of the slider. default: 0f</param>
         /// <param name="maxValue">Sets the highest allowed value of the slider. default: 1f</param>
         /// <param name="step">The snapping value of the slider. Minimum value: 0.01f</param>
-        /// <param name="floatFormat">The formatting string used on the float value. Default value: "0:F2" shows 2 decimals</param>
+        /// <param name="floatFormat">The formatting string used on the float value. Default value: "{0:F2}" shows 2 decimals</param>
         /// <returns><see cref="ModSliderOption"/></returns>
-        public static List<ModSliderOption> ToModSliderOptions(this ConfigEntry<Vector4> configEntry, float minValue, float maxValue, float step, string floatFormat = "0:F2")
+        public static List<ModSliderOption> ToModSliderOptions(this ConfigEntry<Vector4> configEntry, float minValue, float maxValue, float step, string floatFormat = "{0:F2}")
         {
             var optionItems = new List<ModSliderOption>();
             step = Mathf.Max(0.01f, step);
@@ -190,28 +190,28 @@
         {
             var optionItems = new List<ModSliderOption>();
             ModSliderOption optionItemR = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_R", 
-                configEntry.Definition.Key + " R", 0f, 1f, configEntry.Value.r, valueFormat: "0:F2", tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " R", 0f, 1f, configEntry.Value.r, valueFormat: "{0:F2}", tooltip: configEntry.Description.Description);
             optionItemR.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(e.Value, configEntry.Value.g, configEntry.Value.b, configEntry.Value.a);
             };
             optionItems.Add(optionItemR);
             ModSliderOption optionItemY = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_G", 
-                configEntry.Definition.Key + " G", 0f, 1f, configEntry.Value.g, valueFormat: "0:F2", tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " G", 0f, 1f, configEntry.Value.g, valueFormat: "{0:F2}", tooltip: configEntry.Description.Description);
             optionItemY.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.r, e.Value, configEntry.Value.b, configEntry.Value.a);
             };
             optionItems.Add(optionItemY);
             ModSliderOption optionItemZ = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_B", 
-                configEntry.Definition.Key + " B", 0f, 1f, configEntry.Value.b, valueFormat: "0:F2", tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " B", 0f, 1f, configEntry.Value.b, valueFormat: "{0:F2}", tooltip: configEntry.Description.Description);
             optionItemZ.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.r, configEntry.Value.g, e.Value, configEntry.Value.a);
             };
             optionItems.Add(optionItemZ);
             ModSliderOption optionItemW = ModSliderOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_A", 
-                configEntry.Definition.Key + " A", 0f, 1f, configEntry.Value.a, valueFormat: "0:F2", tooltip: configEntry.Description.Description);
+                configEntry.Definition.Key + " A", 0f, 1f, configEntry.Value.a, valueFormat: "{0:F2}", tooltip: configEntry.Description.Description);
             optionItemW.OnChanged += (s, e) =>
             {
                 configEntry.Value = new(configEntry.Value.r, configEntry.Value.g, configEntry.Value.b, e.Value);
