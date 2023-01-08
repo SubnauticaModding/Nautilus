@@ -13,8 +13,8 @@
     /// The specified method can take the following parameters in any order:<br/>
     /// - <see cref="object"/> sender: The sender of the event<br/>
     /// - <see cref="EventArgs"/> eventArgs: The generalized event arguments of the event<br/>
-    /// - <see cref="ChoiceChangedEventArgs"/> choiceChangedEventArgs: Only when the member corresponds to a
-    ///   <see cref="ModChoiceOption"/><br/>
+    /// - <see cref="ChoiceChangedEventArgs{T}"/> choiceChangedEventArgs: Only when the member corresponds to a
+    ///   <see cref="ModChoiceOption{T}"/><br/>
     /// - <see cref="KeybindChangedEventArgs"/> keybindChangedEventArgs: Only when the member correspends to a
     ///   <see cref="ModKeybindOption"/><br/>
     /// - <see cref="SliderChangedEventArgs"/> sliderChangedEventArgs: Only when the member corresponds to a
@@ -68,7 +68,7 @@
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="ToggleAttribute"/>
     /// <seealso cref="EventArgs"/>
-    /// <seealso cref="ChoiceChangedEventArgs"/>
+    /// <seealso cref="ChoiceChangedEventArgs{T}"/>
     /// <seealso cref="KeybindChangedEventArgs"/>
     /// <seealso cref="SliderChangedEventArgs"/>
     /// <seealso cref="ToggleChangedEventArgs"/>

@@ -6,7 +6,7 @@
 
     internal static class Validator
     {
-        internal static bool ValidateChoiceOrDropdownOption(string id, string label, string[] options, int index)
+        internal static bool ValidateChoiceOrDropdownOption<T>(string id, string label, T[] options, int index)
         {
             if (!ValidateID(id, out string result))
             {
@@ -18,7 +18,7 @@
                 InternalLogger.Log($"There was an error while trying to add choice option with id: {id}. {result}", LogLevel.Error);
                 return false;
             }
-            if (!ValidateArray(options, index, out result))
+            if (!ValidateArray<T>(options, index, out result))
             {
                 InternalLogger.Log($"There was an error while trying to add choice option with id: {id}. {result}", LogLevel.Error);
                 return false;
@@ -36,9 +36,9 @@
             result = ValidateLabel(id);
             return result == null;
         }
-        internal static bool ValidateArray(string[] array, int index, out string result)
+        internal static bool ValidateArray<T>(T[] array, int index, out string result)
         {
-            result = ValidateArray(array, index);
+            result = ValidateArray<T>(array, index);
             return result == null;
         }
 
@@ -70,7 +70,7 @@
 
             return null;
         }
-        private static string ValidateArray(string[] array, int index)
+        private static string ValidateArray<T>(T[] array, int index)
         {
             if (array == null)
             {

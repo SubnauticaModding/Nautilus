@@ -75,7 +75,7 @@
                 case ButtonClickedEventArgs buttonClickedEventArgs:
                     ConfigFileMetadata.HandleButtonClick(sender, buttonClickedEventArgs);
                     break;
-                case ChoiceChangedEventArgs choiceChangedEventArgs:
+                case ChoiceChangedEventArgs<T> choiceChangedEventArgs:
                     ConfigFileMetadata.HandleChoiceChanged(sender, choiceChangedEventArgs);
                     break;
                 case KeybindChangedEventArgs keybindChangedEventArgs:
@@ -172,7 +172,7 @@
         }
 
         /// <summary>
-        /// Adds a <see cref="ModChoiceOption"/> to the <see cref="ModOptions"/> menu.
+        /// Adds a <see cref="ModChoiceOption{T}"/> to the <see cref="ModOptions"/> menu.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="label"></param>
@@ -186,7 +186,7 @@
                 // Enum-based choice where the values are parsed from the enum type
                 string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
                 string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
-                if(!AddItem(ModChoiceOption.Factory(id, label, options, value)))
+                if(!AddItem(ModChoiceOption<string>.Factory(id, label, options, value)))
                     InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
 
             }
@@ -196,7 +196,7 @@
                 string[] options = choiceAttribute.Options;
                 string name = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
                 int index = Math.Max(Array.IndexOf(Enum.GetNames(memberInfoMetadata.ValueType), name), 0);
-                if(!AddItem(ModChoiceOption.Factory(id, label, options, index)))
+                if(!AddItem(ModChoiceOption<string>.Factory(id, label, options, index)))
                     InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
             }
             else if (memberInfoMetadata.ValueType == typeof(string))
@@ -204,7 +204,7 @@
                 // string-based choice value
                 string[] options = choiceAttribute.Options;
                 string value = memberInfoMetadata.GetValue<string>(ConfigFileMetadata.Config);
-                if(!AddItem(ModChoiceOption.Factory(id, label, options, value)))
+                if(!AddItem(ModChoiceOption<string>.Factory(id, label, options, value)))
                     InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
             }
             else if (memberInfoMetadata.ValueType == typeof(int))
@@ -212,7 +212,7 @@
                 // index-based choice value
                 string[] options = choiceAttribute.Options;
                 int index = memberInfoMetadata.GetValue<int>(ConfigFileMetadata.Config);
-                if(!AddItem(ModChoiceOption.Factory(id, label, options, index)))
+                if(!AddItem(ModChoiceOption<string>.Factory(id, label, options, index)))
                     InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
             }
         }

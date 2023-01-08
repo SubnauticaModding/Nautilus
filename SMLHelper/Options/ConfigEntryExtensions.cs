@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using BepInEx.Configuration;
-    using SMLHelper.Utility;
     using UnityEngine;
 
     /// <summary>
@@ -16,7 +15,7 @@
         /// Converts a Bepinex ConfigEntry/<int/> into a ModSliderOption that will update the value when the slider changes.
         /// </summary>
         /// <param name="configEntry">A </param>
-        /// <returns><see cref="ModChoiceOption"/></returns>
+        /// <returns><see cref="ModToggleOption"/></returns>
         public static ModToggleOption ToModToggleOption(this ConfigEntry<bool> configEntry)
         {
             ModToggleOption optionItem = ModToggleOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}", 
@@ -266,43 +265,50 @@
         }
 
         /// <summary>
-        /// Converts a Bepinex ConfigEntry/<Enum/> into a ModChoiceOption that will update the value when the choice changes.
+        /// Converts an Enum ConfigEntry into a ModChoiceOption that will update the value when the choice changes.
         /// </summary>
         /// <param name="configEntry">A </param>
+        /// <param name="options">Array of valid options if not using the whole Enum</param>
         /// <returns><see cref="ModKeybindOption"/></returns>
-        public static ModChoiceOption ToModChoiceOption<T>(this ConfigEntry<T> configEntry) where T : Enum
+        public static ModChoiceOption<T> ToModChoiceOption<T>(this ConfigEntry<T> configEntry, Array options = null) where T : Enum
         {
-            ModChoiceOption optionItem = ModChoiceOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-                configEntry.Definition.Key, configEntry.Value);
+            options ??= Enum.GetValues(typeof(T));
+            ModChoiceOption<T> optionItem = ModChoiceOption<T>.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
+                configEntry.Definition.Key, (T[])options, configEntry.Value);
             optionItem.OnChanged += (_, e) =>
             {
-                configEntry.Value = (T)Enum.Parse(typeof(T), e.Value.Value);
+                configEntry.Value = (T)Enum.Parse(typeof(T), e.Value.ToString());
             };
 
             return optionItem;
         }
 
-        // TODO: Check for AcceptableValueList of *any* type, not sure how exactly to do it
-        //public static ModChoiceOption ToModChoiceOption<T>(this ConfigEntry<T> configEntry, T[] options = null, object defaultValue = null) where T : IEquatable<T>
-        //{
-        //    ModChoiceOption optionItem;
 
-        //    if (configEntry.Description.AcceptableValues is AcceptableValueList<T> valueList)
-        //        options = valueList.AcceptableValues;
+        /// <summary>
+        /// Converts a ConfigEntry into a ModChoiceOption that will update the value when the choice changes.
+        /// </summary>
+        /// <param name="configEntry">A </param>
+        /// <param name="options"></param>
+        /// <returns><see cref="ModKeybindOption"/></returns>
+        public static ModChoiceOption<T> ToModChoiceOption<T>(this ConfigEntry<T> configEntry, T[] options = null) where T : IEquatable<T>
+        {
+            ModChoiceOption<T> optionItem;
 
-        //    if (options == null)
-        //        throw new ArgumentException("Could not get values from ConfigEntry");
+            if(configEntry.Description.AcceptableValues is AcceptableValueList<T> valueList)
+                options = valueList.AcceptableValues;
 
-        //    optionItem = ModChoiceOption.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-        //        configEntry.Definition.Key, options.Cast<object>().ToArray(), defaultValue ?? options[0]);
+            if(options == null)
+                throw new ArgumentException("Could not get values from ConfigEntry");
 
-        //    optionItem.OnChanged += (_, e) =>
-        //    {
-        //        configEntry.Value = e.Value.Value; // ERROR
-        //        InternalLogger.Error("NOT DONE YET");
-        //    };
+            optionItem = ModChoiceOption<T>.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
+                configEntry.Definition.Key, options, (T)configEntry.DefaultValue ?? options[0]);
 
-        //    return optionItem;
-        //}
+            optionItem.OnChanged += (_, e) =>
+            {
+                configEntry.Value = (T)e.Value; 
+            };
+
+            return optionItem;
+        }
     }
 }

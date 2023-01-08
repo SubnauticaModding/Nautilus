@@ -7,6 +7,7 @@
     using SMLHelper.Utility;
     using System.Linq;
     using BepInEx.Logging;
+    using static UnityEngine.SpookyHash;
 
     /// <summary>
     /// Abstract class that provides the framework for your mod's in-game configuration options.
@@ -102,6 +103,11 @@
         /// <param name="value"></param>
         public void OnChange<T, V>(string id, V value) where T : ConfigOptionEventArgs<V>
         {
+            if(this is ModChoiceOption<T> modChoiceOption)
+            {
+                OnChanged?.Invoke(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, modChoiceOption.Index, value }));
+                return;
+            }
             OnChanged?.Invoke(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, value }));
         }
 
@@ -184,6 +190,12 @@
         /// <param name="value"></param>
         public void OnChange<U, V>(string id, V value) where U : E
         {
+            if(this is ModChoiceOption<T> modChoiceOption)
+            {
+                OnChanged?.Invoke(this, (U)Activator.CreateInstance(typeof(U), new object[] { id, modChoiceOption.Index, value }));
+                return;
+            }
+
             OnChanged?.Invoke(this, (U)Activator.CreateInstance(typeof(U), new object[] { id, value }));
         }
 

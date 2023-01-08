@@ -360,8 +360,8 @@
         /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original choice changed event.</param>
-        /// <param name="e">The <see cref="ChoiceChangedEventArgs"/> for the choice changed event.</param>
-        public void HandleChoiceChanged(object sender, ChoiceChangedEventArgs e)
+        /// <param name="e">The <see cref="ChoiceChangedEventArgs{T}"/> for the choice changed event.</param>
+        public void HandleChoiceChanged(object sender, ChoiceChangedEventArgs<T> e)
         {
             if (TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
             {
@@ -372,25 +372,25 @@
                 if (memberInfoMetadata.ValueType.IsEnum && (choiceAttribute.Options == null || !choiceAttribute.Options.Any()))
                 {
                     // Enum-based choice where the values are parsed from the enum type
-                    object value = Enum.Parse(memberInfoMetadata.ValueType, e.Value.Value);
+                    object value = Enum.Parse(memberInfoMetadata.ValueType, e.Value.ToString());
                     memberInfoMetadata.SetValue(Config, value);
                 }
                 else if (memberInfoMetadata.ValueType.IsEnum)
                 {
                     // Enum-based choice where the values are defined as custom strings
-                    object value = Enum.Parse(memberInfoMetadata.ValueType, Enum.GetNames(memberInfoMetadata.ValueType)[e.Value.Key]);
+                    object value = Enum.Parse(memberInfoMetadata.ValueType, Enum.GetNames(memberInfoMetadata.ValueType)[e.Index]);
                     memberInfoMetadata.SetValue(Config, value);
                 }
                 else if (memberInfoMetadata.ValueType == typeof(string))
                 {
                     // string-based choice value
-                    string value = e.Value.Value;
+                    string value = e.Value.ToString();
                     memberInfoMetadata.SetValue(Config, value);
                 }
                 else if (memberInfoMetadata.ValueType == typeof(int))
                 {
                     // index-based choice value
-                    int value = e.Value.Key;
+                    int value = e.Index;
                     memberInfoMetadata.SetValue(Config, value);
                 }
 
@@ -544,8 +544,8 @@
                     // Enum-based choice where the values are parsed from the enum type
                     {
                         string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
-                        string value = memberInfoMetadata.GetValue(Config).ToString();
-                        ChoiceChangedEventArgs eventArgs = new(id, new KeyValuePair<int, string>(Array.IndexOf(options, value), value));
+                        var value = (T)memberInfoMetadata.GetValue(Config);
+                        ChoiceChangedEventArgs<T> eventArgs = new(id, Array.IndexOf(options, value), value);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -554,7 +554,7 @@
                     {
                         string value = memberInfoMetadata.GetValue(Config).ToString();
                         int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
-                        ChoiceChangedEventArgs eventArgs = new(id, new KeyValuePair<int, string>(index, value));
+                        ChoiceChangedEventArgs<string> eventArgs = new(id, index, value);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -563,7 +563,7 @@
                     {
                         string[] options = choiceAttribute.Options;
                         string value = memberInfoMetadata.GetValue<string>(Config);
-                        ChoiceChangedEventArgs eventArgs = new(id, new KeyValuePair<int, string>(Array.IndexOf(options, value), value));
+                        ChoiceChangedEventArgs<string> eventArgs = new(id, Array.IndexOf(options, value), value);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
@@ -572,7 +572,7 @@
                     {
                         string[] options = choiceAttribute.Options;
                         int index = memberInfoMetadata.GetValue<int>(Config);
-                        ChoiceChangedEventArgs eventArgs = new(id, new KeyValuePair<int, string>(index, options[index]));
+                        ChoiceChangedEventArgs<string> eventArgs = new(id, index, options[index]);
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;

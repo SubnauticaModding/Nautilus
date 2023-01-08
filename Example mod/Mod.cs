@@ -296,8 +296,11 @@
                 case KeybindChangedEventArgs keybindChangedEventArgs:
                     ExampleMod.LogSource.LogInfo(KeyCodeUtils.KeyCodeToString(keybindChangedEventArgs.Value));
                     break;
-                case ChoiceChangedEventArgs choiceChangedEventArgs:
-                    ExampleMod.LogSource.LogInfo($"{choiceChangedEventArgs.Value.Key}: {choiceChangedEventArgs.Value.Value}");
+                case ChoiceChangedEventArgs<int> choiceChangedEventArgs:
+                    ExampleMod.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
+                    break;
+                case ChoiceChangedEventArgs<T> choiceChangedEventArgs:
+                    ExampleMod.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
                     break;
                 case SliderChangedEventArgs sliderChangedEventArgs:
                     ExampleMod.LogSource.LogInfo(sliderChangedEventArgs.Value.ToString());
