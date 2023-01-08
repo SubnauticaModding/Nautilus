@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using BepInEx.Configuration;
     using UnityEngine;
 
@@ -270,11 +271,12 @@
         /// <param name="configEntry">A </param>
         /// <param name="options">Array of valid options if not using the whole Enum</param>
         /// <returns><see cref="ModKeybindOption"/></returns>
-        public static ModChoiceOption<T> ToModChoiceOption<T>(this ConfigEntry<T> configEntry, Array options = null) where T : Enum
+        public static ModChoiceOption<T> ToModChoiceOption<T>(this ConfigEntry<T> configEntry, IEnumerable<T> options = null) where T : Enum
         {
-            options ??= Enum.GetValues(typeof(T));
+            T[] viableValues = options?.ToArray<T>() ?? (T[])Enum.GetValues(typeof(T));
+
             ModChoiceOption<T> optionItem = ModChoiceOption<T>.Factory($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-                configEntry.Definition.Key, (T[])options, configEntry.Value);
+                configEntry.Definition.Key, viableValues, configEntry.Value);
             optionItem.OnChanged += (_, e) =>
             {
                 configEntry.Value = (T)Enum.Parse(typeof(T), e.Value.ToString());
