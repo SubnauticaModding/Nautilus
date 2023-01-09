@@ -49,7 +49,7 @@
         /// </summary>
         public float Step { get; } = 1;
 
-        /// <summary> Float Format for value field (<see cref="Factory(string, string, float, float, float, float?, string, float, string)"/>) </summary>
+        /// <summary> Float Format for value field (<see cref="Create(string, string, float, float, float, float?, string, float, string)"/>) </summary>
         public string ValueFormat { get; }
 
         /// <summary>
@@ -114,7 +114,7 @@
         /// <param name="tooltip">The tooltip to show when hovering over the option. defaults to no tooltip.</param>
         /// <param name="valueFormat"> format for values when labelMode is set to <see cref="SliderLabelMode.Float"/>, e.g. "{0:F2}" for 2 decimals or "{0:F0} for no decimals %"
         /// (more on this <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings">here</see>)</param>
-        public static ModSliderOption Factory(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = "{0:F0}", float step = 1, string tooltip = null)
+        public static ModSliderOption Create(string id, string label, float minValue, float maxValue, float value, float? defaultValue = null, string valueFormat = "{0:F0}", float step = 1, string tooltip = null)
         {
             return new ModSliderOption(id, label, minValue, maxValue, value, defaultValue, valueFormat, step, tooltip);
         }

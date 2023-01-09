@@ -58,7 +58,7 @@
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="value">The starting value.</param>
         /// <param name="tooltip">The tooltip to show when hovering over the option. defaults to no tooltip.</param>
-        public static ModToggleOption Factory(string id, string label, bool value, string tooltip = null)
+        public static ModToggleOption Create(string id, string label, bool value, string tooltip = null)
         {
             return new ModToggleOption(id, label, value, tooltip);
         }

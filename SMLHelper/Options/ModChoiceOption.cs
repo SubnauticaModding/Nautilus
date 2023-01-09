@@ -92,14 +92,14 @@
         /// <param name="options">The collection of available values.</param>
         /// <param name="index">The starting value.</param>
         /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
-        public static ModChoiceOption<T> Factory(string id, string label, T[] options, int index, string tooltip = null)
+        public static ModChoiceOption<T> Create(string id, string label, T[] options, int index, string tooltip = null)
         {
             if (Validator.ValidateChoiceOrDropdownOption<T>(id, label, options, index))
             {
                 return new ModChoiceOption<T>(id, label, options, index, tooltip);
             }
             // Should never happen
-            throw new NotImplementedException("ModChoiceOption Factory could not create instance");
+            throw new ArgumentException("ModChoiceOption - could not create instance");
         }
         /// <summary>
         /// Adds a new <see cref="ModChoiceOption{T}"/> to this instance.
@@ -109,7 +109,7 @@
         /// <param name="options">The collection of available values.</param>
         /// <param name="value">The starting value.</param>
         /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
-        public static ModChoiceOption<T> Factory(string id, string label, T[] options, T value, string tooltip = null)
+        public static ModChoiceOption<T> Create(string id, string label, T[] options, T value, string tooltip = null)
         {
             int index = Array.IndexOf(options, value);
             if (index < 0)
@@ -117,7 +117,7 @@
                 index = 0;
             }
 
-            return Factory(id, label, options, index, tooltip);
+            return Create(id, label, options, index, tooltip);
         }
 
         private class ChoiceOptionAdjust: ModOptionAdjust

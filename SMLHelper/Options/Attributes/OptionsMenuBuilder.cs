@@ -165,7 +165,7 @@
                 InternalLogger.Warn($"Failed to add ModButtonOption with id {id} to {Name} as the attribute is not a Method.");
                 return;
             }
-            if(!AddItem(ModButtonOption.Factory(id, label, memberInfoMetadata.GetMethodAsAction<ButtonClickedEventArgs>(ConfigFileMetadata.Config))))
+            if(!AddItem(ModButtonOption.Create(id, label, memberInfoMetadata.GetMethodAsAction<ButtonClickedEventArgs>(ConfigFileMetadata.Config))))
                 InternalLogger.Warn($"Failed to add ModButtonOption with id {id} to {Name} as an option with that id already exists.");
 
             InternalLogger.Debug($"Added ModButtonOption with id {id} to {Name}");
@@ -186,7 +186,7 @@
                 // Enum-based choice where the values are parsed from the enum type
                 string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
                 string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
-                if(!AddItem(ModChoiceOption<string>.Factory(id, label, options, value)))
+                if(!AddItem(ModChoiceOption<string>.Create(id, label, options, value)))
                     InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
 
             }
@@ -196,7 +196,7 @@
                 string[] options = choiceAttribute.Options;
                 string name = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
                 int index = Math.Max(Array.IndexOf(Enum.GetNames(memberInfoMetadata.ValueType), name), 0);
-                if(!AddItem(ModChoiceOption<string>.Factory(id, label, options, index)))
+                if(!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
                     InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
             }
             else if (memberInfoMetadata.ValueType == typeof(string))
@@ -204,7 +204,7 @@
                 // string-based choice value
                 string[] options = choiceAttribute.Options;
                 string value = memberInfoMetadata.GetValue<string>(ConfigFileMetadata.Config);
-                if(!AddItem(ModChoiceOption<string>.Factory(id, label, options, value)))
+                if(!AddItem(ModChoiceOption<string>.Create(id, label, options, value)))
                     InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
             }
             else if (memberInfoMetadata.ValueType == typeof(int))
@@ -212,7 +212,7 @@
                 // index-based choice value
                 string[] options = choiceAttribute.Options;
                 int index = memberInfoMetadata.GetValue<int>(ConfigFileMetadata.Config);
-                if(!AddItem(ModChoiceOption<string>.Factory(id, label, options, index)))
+                if(!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
                     InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
             }
         }
@@ -226,7 +226,7 @@
         private void BuildModKeybindOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
             KeyCode value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
-            if(!AddItem(ModKeybindOption.Factory(id, label, GameInput.Device.Keyboard, value)))
+            if(!AddItem(ModKeybindOption.Create(id, label, GameInput.Device.Keyboard, value)))
                 InternalLogger.Warn($"Failed to add ModKeybindOption with id {id} to {Name}");
         }
 
@@ -248,7 +248,7 @@
                 step = Mathf.CeilToInt(step);
             }
 
-            if(!AddItem(ModSliderOption.Factory(id, label, sliderAttribute.Min, sliderAttribute.Max,
+            if(!AddItem(ModSliderOption.Create(id, label, sliderAttribute.Min, sliderAttribute.Max,
                 Convert.ToSingle(value), sliderAttribute.DefaultValue, sliderAttribute.Format, step, sliderAttribute.Tooltip)))
                 InternalLogger.Warn($"Failed to add ModSliderOption with id {id} to {Name}");
         }
@@ -262,7 +262,7 @@
         private void BuildModToggleOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
             bool value = memberInfoMetadata.GetValue<bool>(ConfigFileMetadata.Config);
-            if(!AddItem(ModToggleOption.Factory(id, label, value)))
+            if(!AddItem(ModToggleOption.Create(id, label, value)))
                 InternalLogger.Warn($"Failed to add ModToggleOption with id {id} to {Name}");
         }
         #endregion

@@ -42,7 +42,7 @@
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="device">The device name.</param>
         /// <param name="key">The starting keybind value.</param>
-        public static ModKeybindOption Factory(string id, string label, GameInput.Device device, KeyCode key)
+        public static ModKeybindOption Create(string id, string label, GameInput.Device device, KeyCode key)
         {
             return new ModKeybindOption(id, label, device, key);
         }
@@ -53,9 +53,9 @@
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="device">The device name.</param>
         /// <param name="key">The starting keybind value.</param>
-        public static ModKeybindOption Factory(string id, string label, GameInput.Device device, string key)
+        public static ModKeybindOption Create(string id, string label, GameInput.Device device, string key)
         {
-            return Factory(id, label, device, KeyCodeUtils.StringToKeyCode(key));
+            return Create(id, label, device, KeyCodeUtils.StringToKeyCode(key));
         }
 
         /// <summary>
