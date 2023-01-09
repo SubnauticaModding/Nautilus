@@ -103,7 +103,7 @@
         /// <param name="value"></param>
         public void OnChange<T, V>(string id, V value) where T : ConfigOptionEventArgs<V>
         {
-            if(this is ModChoiceOption<T> modChoiceOption)
+            if(_options.TryGetValue(id, out var option) && option is ModChoiceOption<V> modChoiceOption)
             {
                 OnChanged?.Invoke(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, modChoiceOption.Index, value }));
                 return;
@@ -195,7 +195,6 @@
                 OnChanged?.Invoke(this, (U)Activator.CreateInstance(typeof(U), new object[] { id, modChoiceOption.Index, value }));
                 return;
             }
-
             OnChanged?.Invoke(this, (U)Activator.CreateInstance(typeof(U), new object[] { id, value }));
         }
 
