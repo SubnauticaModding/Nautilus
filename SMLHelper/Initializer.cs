@@ -77,7 +77,7 @@ namespace SMLHelper
             LootDistributionPatcher.Patch(harmony);
             WorldEntityDatabasePatcher.Patch(harmony);
             LargeWorldStreamerPatcher.Patch(harmony);
-            IngameMenuPatcher.Patch(harmony);
+            SaveUtilsPatcher.Patch(harmony);
             TooltipPatcher.Patch(harmony);
             SurvivalPatcher.Patch(harmony);
             CustomSoundPatcher.Patch(harmony);

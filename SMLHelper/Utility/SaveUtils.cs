@@ -21,7 +21,7 @@
         /// <param name="onSaveAction">The method to invoke.</param>
         public static void RegisterOnSaveEvent(Action onSaveAction)
         {
-            IngameMenuPatcher.OnSaveEvents += onSaveAction;
+            SaveUtilsPatcher.OnSaveEvents += onSaveAction;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@
         /// <param name="onLoadAction">The method to invoke. This action will not be invoked a second time.</param>
         public static void RegisterOnLoadEvent(Action onLoadAction)
         {
-            IngameMenuPatcher.OnLoadEvents += onLoadAction;
+            SaveUtilsPatcher.OnLoadEvents += onLoadAction;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@
         /// <param name="onQuitAction">The method to invoke.</param>
         public static void RegisterOnQuitEvent(Action onQuitAction)
         {
-            IngameMenuPatcher.OnQuitEvents += onQuitAction;
+            SaveUtilsPatcher.OnQuitEvents += onQuitAction;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@
         /// <param name="onSaveAction">The method invoked.</param>
         public static void UnregisterOnSaveEvent(Action onSaveAction)
         {
-            IngameMenuPatcher.OnSaveEvents -= onSaveAction;
+            SaveUtilsPatcher.OnSaveEvents -= onSaveAction;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@
         /// <param name="onLoadAction">The method invoked.</param>
         public static void UnregisterOnLoadEvent(Action onLoadAction)
         {
-            IngameMenuPatcher.OnLoadEvents -= onLoadAction;
+            SaveUtilsPatcher.OnLoadEvents -= onLoadAction;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@
         /// <param name="onQuitAction">The method invoked.</param>
         public static void UnregisterOnQuitEvent(Action onQuitAction)
         {
-            IngameMenuPatcher.OnQuitEvents -= onQuitAction;
+            SaveUtilsPatcher.OnQuitEvents -= onQuitAction;
         }
 
         /// <summary>
@@ -78,7 +78,7 @@
         /// <param name="onSaveAction">The method to invoke. This action will not be invoked a second time.</param>
         public static void RegisterOneTimeUseOnSaveEvent(Action onSaveAction)
         {
-            IngameMenuPatcher.AddOneTimeUseSaveEvent(onSaveAction);
+            SaveUtilsPatcher.AddOneTimeUseSaveEvent(onSaveAction);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@
         /// <param name="onLoadAction">The method to invoke. This action will not be invoked a second time.</param>
         public static void RegisterOneTimeUseOnLoadEvent(Action onLoadAction)
         {
-            IngameMenuPatcher.AddOneTimeUseLoadEvent(onLoadAction);
+            SaveUtilsPatcher.AddOneTimeUseLoadEvent(onLoadAction);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@
         /// <param name="onQuitAction">The method to invoke. This action will not be invoked a second time.</param>
         public static void RegisterOneTimeUseOnQuitEvent(Action onQuitAction)
         {
-            IngameMenuPatcher.AddOneTimeUseQuitEvent(onQuitAction);
+            SaveUtilsPatcher.AddOneTimeUseQuitEvent(onQuitAction);
         }
     }
 }
