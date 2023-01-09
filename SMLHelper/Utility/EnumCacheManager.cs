@@ -117,7 +117,7 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         public void Remove(int backingValue, string name)
         {
             var enumValue = ConvertToObject(backingValue);
-            Add(enumValue, backingValue, name);
+            Remove(enumValue, backingValue, name);
         }
 
         public void Remove(TEnum enumValue, int backingValue, string name)
