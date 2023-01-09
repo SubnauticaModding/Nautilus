@@ -5,6 +5,7 @@
     using Patchers;
     using Json;
     using System.Reflection;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// A handler class for registering your custom in-game mod options.
@@ -41,12 +42,12 @@
 
             if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.SaveGame))
             {
-                IngameMenuHandler.RegisterOnSaveEvent(() => optionsMenuBuilder.ConfigFileMetadata.Config.Save());
+                SaveUtils.RegisterOnSaveEvent(() => optionsMenuBuilder.ConfigFileMetadata.Config.Save());
             }
 
             if (menuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.QuitGame))
             {
-                IngameMenuHandler.RegisterOnQuitEvent(() => optionsMenuBuilder.ConfigFileMetadata.Config.Save());
+                SaveUtils.RegisterOnQuitEvent(() => optionsMenuBuilder.ConfigFileMetadata.Config.Save());
             }
 
             return optionsMenuBuilder.ConfigFileMetadata.Config;

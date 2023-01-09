@@ -102,7 +102,7 @@ namespace SMLHelper.Patchers
             }
             
             initialSpawnInfos.AddRange(spawnInfos);
-            IngameMenuHandler.RegisterOnSaveEvent(SaveData);
+            SaveUtils.RegisterOnSaveEvent(SaveData);
             initialized = true;
         }
 

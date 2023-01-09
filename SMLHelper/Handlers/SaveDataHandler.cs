@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.Handlers
 {
     using Json;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// A handler class for registering your <see cref="SaveDataCache"/>.
@@ -17,8 +18,8 @@
         {
             T cache = new();
 
-            IngameMenuHandler.RegisterOnLoadEvent(() => cache.Load());
-            IngameMenuHandler.RegisterOnSaveEvent(() => cache.Save());
+            SaveUtils.RegisterOnLoadEvent(() => cache.Load());
+            SaveUtils.RegisterOnSaveEvent(() => cache.Save());
 
             return cache;
         }
