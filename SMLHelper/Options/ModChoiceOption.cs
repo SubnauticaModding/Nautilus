@@ -6,6 +6,7 @@
     using SMLHelper.Options.Utility;
     using UnityEngine;
     using UnityEngine.Events;
+    using static SMLHelper.Options.OptionItem;
 
     /// <summary>
     /// Contains all the information about a choice changed event.
@@ -120,32 +121,32 @@
             return Create(id, label, options, index, tooltip);
         }
 
-        private class ChoiceOptionAdjust: ModOptionAdjust
-        {
-            private const float spacing = 10f;
-
-            public IEnumerator Start()
-            {
-                SetCaptionGameObject("Choice/Caption");
-                yield return null; // skip one frame
-
-                RectTransform rect = gameObject.transform.Find("Choice/Background") as RectTransform;
-
-                float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
-                float widthChoice = rect.rect.width;
-                float widthText = CaptionWidth + spacing;
-
-                if (widthText + widthChoice > widthAll)
-                {
-                    rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthChoice);
-                }
-
-                Destroy(this);
-            }
-        }
         /// <summary>
         /// The Adjuster for this <see cref="ModOption"/>.
         /// </summary>
         public override Type AdjusterComponent => typeof(ChoiceOptionAdjust);
+    }
+    internal class ChoiceOptionAdjust: ModOptionAdjust
+    {
+        private const float spacing = 10f;
+
+        public IEnumerator Start()
+        {
+            SetCaptionGameObject("Choice/Caption");
+            yield return null; // skip one frame
+
+            RectTransform rect = gameObject.transform.Find("Choice/Background") as RectTransform;
+
+            float widthAll = gameObject.GetComponent<RectTransform>().rect.width;
+            float widthChoice = rect.rect.width;
+            float widthText = CaptionWidth + spacing;
+
+            if(widthText + widthChoice > widthAll)
+            {
+                rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthChoice);
+            }
+
+            Destroy(this);
+        }
     }
 }
