@@ -25,9 +25,6 @@
                 {
                     PrefabDatabase.prefabFiles[prefab.ClassID] = prefab.PrefabFileName;
                 }
-
-                MethodInfo tryGetPrefabFilename = AccessTools.Method(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename));
-                Initializer.harmony.Unpatch(tryGetPrefabFilename, HarmonyPatchType.Prefix, Initializer.harmony.Id);
             }
         }
 
