@@ -158,7 +158,7 @@
 
         internal sealed override void PatchTechType()
         {
-            TechType = TechTypeHandler.AddTechType(Mod, ClassID, FriendlyName, Description, UnlockedAtStart);
+            TechType = EnumHandler.AddEntry<TechType>(ClassID).WithPdaInfo(Mod, FriendlyName, Description, UnlockedAtStart);
         }
     }
 }

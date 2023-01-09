@@ -1,15 +1,11 @@
 ﻿namespace SMLHelper.Crafting
 {
     using System;
-    using Patchers;
-    using SMLHelper.Handlers;
-    using SMLHelper.Patchers.EnumPatching;
-    using UnityEngine.Assertions;
 
     /// <summary>
     /// The root node of a CraftTree. The whole tree starts here.<para/>
     /// Build up your custom crafting tree from this root node using the AddCraftingNode and AddTabNode methods.<br/>
-    /// This tree will be automatically patched into the game. No further calls into <see cref="CraftTreeHandler"/> required.<para/>
+    /// This tree will be automatically patched into the game.<para/>
     /// For more advanced usage, you can replace the default value of <see cref="CraftTreeCreation"/> with your own custom function.        
     /// </summary>    
     /// <seealso cref="ModCraftTreeLinkingNode" />
@@ -24,8 +20,6 @@
         internal ModCraftTreeRoot(CraftTree.Type scheme, string schemeAsString)
             : base("Root", TreeAction.None, TechType.None)
         {
-            Assert.IsTrue((int)scheme > CraftTreeTypePatcher.startingIndex, "Custom CraftTree types must have an index higher than the in-game types.");
-
             _schemeAsString = schemeAsString;
             _scheme = scheme;
             HasCustomTrees = true;

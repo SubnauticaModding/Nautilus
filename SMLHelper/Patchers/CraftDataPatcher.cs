@@ -5,8 +5,7 @@
     using Assets;
     using BepInEx.Logging;
     using HarmonyLib;
-    using SMLHelper.Patchers.EnumPatching;
-    using SMLHelper.Utility;
+    using Utility;
 
     internal partial class CraftDataPatcher
     {

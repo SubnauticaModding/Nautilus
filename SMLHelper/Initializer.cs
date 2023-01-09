@@ -1,14 +1,14 @@
-﻿namespace SMLHelper
+﻿using SMLHelper.Handlers;
+
+namespace SMLHelper
 {
     using System;
     using System.Collections;
     using System.Reflection;
     using BepInEx;
-    using BepInEx.Logging;
     using HarmonyLib;
     using Patchers;
-    using Patchers.EnumPatching;
-    using SMLHelper.Utility;
+    using Utility;
     using UnityEngine;
 
 
@@ -41,13 +41,6 @@
             InternalLogger.Info($"Loading v{VERSION} for BelowZero");
 #endif
 
-            InternalLogger.Debug("Loading TechType Cache");
-            TechTypePatcher.cacheManager.LoadCache();
-            InternalLogger.Debug("Loading CraftTreeType Cache");
-            CraftTreeTypePatcher.cacheManager.LoadCache();
-            InternalLogger.Debug("Loading PingType Cache");
-            PingTypePatcher.cacheManager.LoadCache();
-
             PrefabDatabasePatcher.PrePatch(harmony);
             StartCoroutine(InitializePatches());
         }
@@ -65,13 +58,7 @@
 
             yield return new WaitForSecondsRealtime(2);
 
-            TechTypePatcher.Patch();
-            CraftTreeTypePatcher.Patch();
-            PingTypePatcher.Patch();
-            TechCategoryPatcher.Patch();
-            TechGroupPatcher.Patch();
-            BackgroundTypePatcher.Patch();
-            EquipmentTypePatcher.Patch();
+            EnumHandler.InitializeAll();
             EnumPatcher.Patch(harmony);
 
             CraftDataPatcher.Patch(harmony);
@@ -96,14 +83,6 @@
             CustomSoundPatcher.Patch(harmony);
             EatablePatcher.Patch(harmony);
             MaterialUtils.Patch();
-
-
-            InternalLogger.Debug("Saving TechType Cache");
-            TechTypePatcher.cacheManager.SaveCache();
-            InternalLogger.Debug("Saving CraftTreeType Cache");
-            CraftTreeTypePatcher.cacheManager.SaveCache();
-            InternalLogger.Debug("Saving PingType Cache");
-            PingTypePatcher.cacheManager.SaveCache();
         }
     }
 }

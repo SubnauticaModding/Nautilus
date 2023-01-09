@@ -89,7 +89,7 @@
 
         private static bool PatchBackgrounds(CraftData.BackgroundType backgroundType, ref Sprite __result)
         {
-            if (BackgroundTypeHandler.BackgroundSprites.TryGetValue(backgroundType, out Sprite value))
+            if (EnumExtensions.BackgroundSprites.TryGetValue(backgroundType, out Sprite value))
             {
                 __result = value;
                 return false;

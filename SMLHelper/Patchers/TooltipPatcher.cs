@@ -1,14 +1,13 @@
 ﻿namespace SMLHelper.Patchers
 {
     using HarmonyLib;
-    using SMLHelper.Handlers;
-    using SMLHelper.Patchers.EnumPatching;
+    using Handlers;
     using System.IO;
     using System.Reflection;
     using System.Text;
     using System.Linq;
     using System.Collections.Generic;
-    using SMLHelper.Utility;
+    using Utility;
     using BepInEx.Logging;
 
     internal class TooltipPatcher
@@ -55,7 +54,7 @@
 #elif BELOWZERO
                 WriteModName(sb, "BelowZero");
 #endif
-            else if (TechTypePatcher.cacheManager.ContainsKey(techType))
+            else if (EnumCacheProvider.TryGetManager(typeof(TechType), out var manager) && manager.ContainsKey(techType))
             {
                 WriteModNameFromTechType(sb, techType);
             }
@@ -82,7 +81,7 @@
             // if (MissingTechTypes.Contains(type)) WriteModNameError(sb, "Mod Missing");
             // This is for something else I am going to do
 
-            if (TechTypeHandler.TechTypesAddedBy.TryGetValue(type, out Assembly assembly))
+            if (EnumExtensions.TechTypesAddedBy.TryGetValue(type, out Assembly assembly))
             {
                 string modName = assembly.GetName().Name;
 
@@ -107,10 +106,10 @@
 
         internal static bool IsVanillaTechType(TechType type)
         {
-            if (vanillaTechTypes is {Count: 0})
+            if (vanillaTechTypes is {Count: 0} && EnumCacheProvider.TryGetManager(typeof(TechType), out var manager))
             {
-                List<TechType> allTechTypes = (System.Enum.GetValues(typeof(TechType)) as TechType[])!.ToList();
-                allTechTypes.RemoveAll(tt => TechTypePatcher.cacheManager.ModdedKeys.Contains(tt));
+                var allTechTypes = (System.Enum.GetValues(typeof(TechType)) as TechType[])!.ToList();
+                allTechTypes.RemoveAll(tt => manager.ModdedKeys.Contains(tt));
                 vanillaTechTypes = allTechTypes;
             }
 

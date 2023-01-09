@@ -299,8 +299,8 @@
         /// <param name="craftTreeType"></param>
         internal virtual void CreateCustomCraftTree(out CraftTree.Type craftTreeType)
         {
-            ModCraftTreeRoot root = CraftTreeHandler.CreateCustomCraftTreeAndType(this.ClassID, out craftTreeType);
-            this.Root = root;
+            craftTreeType = EnumHandler.AddEntry<CraftTree.Type>(ClassID).CreateCraftTreeRoot(out var root);
+            Root = root;
             CraftTreeLinkingNodes.Add(RootNode, root);
 
             // Since we shouldn't rely on attached events to be executed in any particular order,
@@ -357,7 +357,7 @@
             InternalLogger.Debug($"'{moddedTechType}' will be added to the custom craft tree '{this.ClassID}'");
             OrderedCraftTreeActions.Add(() =>
             {
-                if (TechTypeHandler.TryGetModdedTechType(moddedTechType, out TechType techType))
+                if (EnumHandler.TryGetModdedEnum(moddedTechType, out TechType techType))
                 {
                     ModCraftTreeLinkingNode parentTab = CraftTreeLinkingNodes[parentTabId ?? RootNode];
                     parentTab.AddCraftingNode(techType);
