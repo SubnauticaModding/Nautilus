@@ -6,6 +6,7 @@
     using BepInEx.Logging;
     using HarmonyLib;
     using Utility;
+    using UnityEngine;
 
     internal partial class CraftDataPatcher
     {
@@ -87,8 +88,42 @@
 #endif
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
+            PatchUtils.PatchClass(harmony);
 
             InternalLogger.Log("CraftDataPatcher is done.", LogLevel.Debug);
+        }
+
+        [PatchUtils.Prefix]
+        [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetTechType), new Type[] { typeof(GameObject), typeof(GameObject) }, argumentVariations: new ArgumentType[] { ArgumentType.Normal, ArgumentType.Out })]
+        private static void CraftDataGetTechTypePrefix(GameObject obj, out GameObject go, ref TechType __result)
+        {
+            CraftData.PreparePrefabIDCache();
+            Transform transform = obj.transform;
+            TechTag techTag = null;
+            PrefabIdentifier prefabIdentifier = null;
+
+            while(transform != null && !transform.TryGetComponent(out prefabIdentifier) && !transform.TryGetComponent(out techTag))
+            {
+                transform = transform.parent;
+            }
+
+            if(prefabIdentifier != null)
+            {
+                go = prefabIdentifier.gameObject;
+                __result = CraftData.entClassTechTable.GetOrDefault(prefabIdentifier.ClassId, TechType.None);
+                return;
+            }
+
+            if(techTag != null)
+            {
+                go = techTag.gameObject;
+                __result = techTag.type;
+                return;
+            }
+
+            go = null;
+            __result = TechType.None;
+            return;
         }
 
         private static void CraftDataPrefabIDCachePostfix()
