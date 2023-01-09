@@ -8,9 +8,7 @@ using SMLHelper.Utility;
 namespace SMLHelper.Handlers;
 
 public static partial class EnumExtensions
-{
-    internal static readonly Dictionary<TechType, Assembly> TechTypesAddedBy = new();
-    
+{    
     /// <summary>
     /// Adds a display name, tooltip to this instance.
     /// </summary>
@@ -27,9 +25,6 @@ public static partial class EnumExtensions
         EnsureAsStringSupport(techType);
 
         var modName = ownerAssembly.GetName().Name;
-        
-        // Remember which Assembly added it
-        TechTypesAddedBy[techType] = ownerAssembly;
         
         if (displayName is not null) 
             LanguagePatcher.AddCustomLanguageLine(modName, name, displayName);

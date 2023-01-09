@@ -30,22 +30,21 @@ public static partial class EnumExtensions
     /// <param name="builder">The current custom enum object instance.</param>
     /// <param name="techGroup">The Tech Group to add this TechCategory to.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static bool TryRegisterToTechGroup(this EnumBuilder<TechCategory> builder,
+    public static EnumBuilder<TechCategory> RegisterToTechGroup(this EnumBuilder<TechCategory> builder,
         TechGroup techGroup)
     {
-        var category = (TechCategory)builder;
+        TechCategory category = builder.Value;
         
         if (!CraftData.groups.TryGetValue(techGroup, out var techCategories))
         {
-            // Should not even really be possible but just in-case.
-            InternalLogger.Log($"TechGroup: {category.ToString()} is not registered.", LogLevel.Error);
-            return false;
+            InternalLogger.Error($"Cannot Register to {techGroup} as it does not have PDAInfo set. Use EnumBuilder<TechGroup>.WithPdaInfo(\"Description\") to setup the Modded TechGroup before trying to register to it.");
+            return builder;
         }
 
         if (techCategories.ContainsKey(category))
-            return true;
+            return builder;
 
         techCategories[category] = new List<TechType>();
-        return true;
+        return builder;
     }
 }

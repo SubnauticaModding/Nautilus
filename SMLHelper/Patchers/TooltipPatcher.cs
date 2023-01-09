@@ -9,6 +9,7 @@
     using System.Collections.Generic;
     using Utility;
     using BepInEx.Logging;
+    using System;
 
     internal class TooltipPatcher
     {
@@ -54,9 +55,9 @@
 #elif BELOWZERO
                 WriteModName(sb, "BelowZero");
 #endif
-            else if (EnumCacheProvider.TryGetManager(typeof(TechType), out var manager) && manager.ContainsKey(techType))
+            else if (EnumHandler.TryGetModAssembly(techType, out Assembly assembly))
             {
-                WriteModNameFromTechType(sb, techType);
+                WriteModNameFromAssembly(sb, assembly);
             }
             else
             {
@@ -76,27 +77,17 @@
         {
             sb.AppendFormat("\n<size=23><color=#ff0000ff>{0}</color></size>\n<size=17><color=#808080FF>({1})</color></size>", text, reason);
         }
-        internal static void WriteModNameFromTechType(StringBuilder sb, TechType type)
+        internal static void WriteModNameFromAssembly(StringBuilder sb, Assembly assembly)
         {
-            // if (MissingTechTypes.Contains(type)) WriteModNameError(sb, "Mod Missing");
-            // This is for something else I am going to do
+            string modName = assembly.GetName().Name;
 
-            if (EnumExtensions.TechTypesAddedBy.TryGetValue(type, out Assembly assembly))
+            if(string.IsNullOrEmpty(modName))
             {
-                string modName = assembly.GetName().Name;
-
-                if (string.IsNullOrEmpty(modName))
-                {
-                    WriteModNameError(sb, "Unknown Mod", "Mod could not be determined");
-                }
-                else
-                {
-                    WriteModName(sb, modName);
-                }
+                WriteModNameError(sb, "Unknown Mod", "Mod could not be determined");
             }
             else
             {
-                WriteModNameError(sb, "Unknown Mod", "Assembly could not be determined");
+                WriteModName(sb, modName);
             }
         }
         internal static void WriteSpace(StringBuilder sb)
@@ -108,9 +99,17 @@
         {
             if (vanillaTechTypes is {Count: 0} && EnumCacheProvider.TryGetManager(typeof(TechType), out var manager))
             {
-                var allTechTypes = (System.Enum.GetValues(typeof(TechType)) as TechType[])!.ToList();
-                allTechTypes.RemoveAll(tt => manager.ModdedKeys.Contains(tt));
-                vanillaTechTypes = allTechTypes;
+                var array = System.Enum.GetValues(typeof(TechType));
+                if(array is TechType[] techtypeArray)
+                {
+                    var allTechTypes = techtypeArray.ToList();
+                    allTechTypes.RemoveAll(tt => manager.ModdedKeys.Contains(tt));
+                    vanillaTechTypes = allTechTypes;
+                }
+                else
+                {
+                    Console.WriteLine($"{array.GetType()}");
+                }
             }
 
             return vanillaTechTypes.Contains(type);

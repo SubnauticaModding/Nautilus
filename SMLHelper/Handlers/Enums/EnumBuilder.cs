@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using BepInEx.Logging;
 using SMLHelper.Utility;
 
@@ -12,7 +14,8 @@ namespace SMLHelper.Handlers;
 public sealed class EnumBuilder<TEnum> where TEnum : Enum
 {
     internal static EnumCacheManager<TEnum> CacheManager { get; } = (EnumCacheManager<TEnum>)EnumCacheProvider.EnsureManager<TEnum>();
-    
+    private static bool _initialized = false;
+
     private TEnum _enumValue;
 
     /// <summary>
@@ -44,41 +47,59 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
         return _enumValue.ToString();
     }
     
-    internal static EnumBuilder<TEnum> CreateInstance(string name)
+    internal static EnumBuilder<TEnum> CreateInstance(string name, Assembly addedBy)
     {
         var builder = new EnumBuilder<TEnum>();
-        builder.AddEntry(name);
-        return builder;
+        if(builder.TryAddEnum(name, addedBy, out TEnum enumValue))
+        {
+            return builder;
+        }
+
+        InternalLogger.Announce($"{name} already exists in {nameof(TEnum)}!", LogLevel.Error, true);
+        return null;
     }
 
-    private TEnum AddEntry(string name)
-    {
-        return EnumHandler.TryGetModdedEnum(name, out _enumValue) ? _enumValue : AddEnum(name);
-    }
+    private bool TryAddEnum(string name, Assembly addedBy, out TEnum enumValue)
+    {                
+        if(CacheManager.RequestCacheForTypeName(name, false, true) != null)
+        {
+            enumValue = default;
+            return false;
+        }
 
-    private TEnum AddEnum(string name)
-    {
-        // enum name with parent type and no char qualifiers
-        var enumName = typeof(TEnum).DeclaringType is { } d
-            ? $"{d.Name}{typeof(TEnum).Name}"
-            : $"{typeof(TEnum).Name}";
-        
+        if(Enum.GetNames(typeof(TEnum)).Any((x)=> x.ToLowerInvariant() == name.ToLowerInvariant()))
+        {
+            enumValue = default;
+            return false;
+        }
+
         EnumTypeCache cache = CacheManager.RequestCacheForTypeName(name) ?? new EnumTypeCache()
         {
             Name = name,
             Index = CacheManager.GetNextAvailableIndex()
         };
 
-         _enumValue = (TEnum)Convert.ChangeType(cache.Index, Enum.GetUnderlyingType(typeof(TEnum)));
+        if(!_initialized)
+        {
+            Initialize();
+        }
 
-        CacheManager.Add(_enumValue, cache.Index, cache.Name);
+        enumValue = (TEnum)Convert.ChangeType(cache.Index, Enum.GetUnderlyingType(typeof(TEnum)));
+
+        CacheManager.Add(enumValue, cache.Index, cache.Name, addedBy);
+
+        // enum name with parent type and no char qualifiers
+        var enumName = typeof(TEnum).DeclaringType is { } d
+            ? $"{d.Name}{typeof(TEnum).Name}"
+            : $"{typeof(TEnum).Name}";
 
         InternalLogger.Log($"Successfully added {enumName}: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
+        _enumValue = enumValue;
 
-        return _enumValue;
+        return true;
     }
 
-    internal static void Initialize()
+    internal void Initialize()
     {
         // enum name with parent type and no char qualifiers
         var enumName = typeof(TEnum).DeclaringType is { } d
@@ -87,5 +108,6 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
         
         SaveUtils.RegisterOnSaveEvent(() => CacheManager.SaveCache());
         InternalLogger.Log($"{enumName}Patcher is initialized.", LogLevel.Debug);
+        _initialized = true;
     }
 }

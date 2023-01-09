@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using BepInEx.Logging;
 using HarmonyLib;
 using SMLHelper.Utility;
@@ -21,7 +23,7 @@ internal static class EnumPatcher
     {
         if (EnumCacheProvider.TryGetManager(enumType, out var manager))
         {
-            __result = GetValues(manager, __result);
+            __result = GetValues(enumType, manager, __result);
         }
     }
     
@@ -93,16 +95,23 @@ internal static class EnumPatcher
         return true;
     }
     
-    private static Array GetValues(IEnumCache cacheManager, Array __result)
+    private static Array GetValues(Type enumType, IEnumCache cacheManager, Array __result)
     {
-        var list = new List<object>();
+        Type genericListType = typeof(List<>).MakeGenericType(enumType);
+        IList list = (IList)Activator.CreateInstance(genericListType);
         foreach (var type in __result)
         {
             list.Add(type);
         }
+        foreach(var type2 in cacheManager.ModdedKeys)
+        {
+            list.Add(type2);
+        }
 
-        list.AddRange(cacheManager.ModdedKeys);
-        return list.ToArray();
+        Array array = Array.CreateInstance(enumType, list.Count);
+        list.CopyTo(array, 0);
+
+        return array;
     }
 
     private static Array GetNames(IEnumCache cacheManager, Array __result)

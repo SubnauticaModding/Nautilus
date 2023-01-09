@@ -42,6 +42,8 @@ namespace SMLHelper
 #endif
 
             PrefabDatabasePatcher.PrePatch(harmony);
+            EnumPatcher.Patch(harmony);
+
             StartCoroutine(InitializePatches());
         }
 
@@ -57,9 +59,6 @@ namespace SMLHelper
             }
 
             yield return new WaitForSecondsRealtime(2);
-
-            EnumHandler.InitializeAll();
-            EnumPatcher.Patch(harmony);
 
             CraftDataPatcher.Patch(harmony);
             CraftTreePatcher.Patch(harmony);

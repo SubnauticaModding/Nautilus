@@ -1,11 +1,10 @@
-﻿using System.Linq;
-
-namespace SMLHelper.Utility;
+﻿namespace SMLHelper.Utility;
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -61,12 +60,13 @@ internal static class EnumCacheProvider
 
 internal interface IEnumCache
 {
+    Dictionary<string, Assembly> TypesAddedBy { get; }
     IEnumerable<object> ModdedKeys { get; }
     int ModdedKeysCount { get; }
     bool TryGetValue(object key, out string name);
     bool ContainsKey(object key);
     bool TryParse(string value, out object type);
-    EnumTypeCache RequestCacheForTypeName(string name, bool checkDeactivated = true);
+    EnumTypeCache RequestCacheForTypeName(string name, bool checkDeactivated = true, bool checkRequestedOnly = false);
 }
 
 internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
@@ -183,6 +183,9 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
 
     public int ModdedKeysCount => entriesFromRequests.KnownsEnumCount;
 
+    private readonly Dictionary<string, Assembly> _typesAddedBy = new();
+    public Dictionary<string, Assembly> TypesAddedBy => _typesAddedBy;
+
     bool IEnumCache.TryGetValue(object value, out string name)
     {
         return TryGetValue(ConvertToObject(Convert.ToInt32(value)), out name);
@@ -210,10 +213,13 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         return false;
     }
 
-    public void Add(TEnum value, int backingValue, string name)
+    public void Add(TEnum value, int backingValue, string name, Assembly addedBy)
     {
         if (!entriesFromRequests.IsKnownKey(backingValue))
+        {
             entriesFromRequests.Add(value, backingValue, name);
+            TypesAddedBy[name] = addedBy;   
+        }
     }
 
     bool IEnumCache.ContainsKey(object key)
@@ -366,12 +372,12 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         }
     }
 
-    EnumTypeCache IEnumCache.RequestCacheForTypeName(string name, bool checkDeactivated)
+    EnumTypeCache IEnumCache.RequestCacheForTypeName(string name, bool checkDeactivated, bool checkRequestedOnly)
     {
         return RequestCacheForTypeName(name, checkDeactivated);
     }
 
-    internal EnumTypeCache RequestCacheForTypeName(string name, bool checkDeactivated = true)
+    internal EnumTypeCache RequestCacheForTypeName(string name, bool checkDeactivated = true, bool checkRequestedOnly = false)
     {
         LoadCache();
 
@@ -379,12 +385,12 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         {
             return new EnumTypeCache(value, name);
         }
-        else if (entriesFromFile.TryGetValue(name, out value))
+        else if (!checkRequestedOnly && entriesFromFile.TryGetValue(name, out value))
         {
             entriesFromRequests.Add(value, name);
             return new EnumTypeCache(value, name);
         }
-        else if (checkDeactivated && entriesFromDeactivatedFile.TryGetValue(name, out value))
+        else if (!checkRequestedOnly && checkDeactivated && entriesFromDeactivatedFile.TryGetValue(name, out value))
         {
             entriesFromRequests.Add(value, name);
             entriesFromDeactivatedFile.Remove(value, name);
