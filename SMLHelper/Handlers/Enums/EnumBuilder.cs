@@ -85,7 +85,7 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
             ? $"{d.Name}{typeof(TEnum).Name}"
             : $"{typeof(TEnum).Name}";
         
-        IngameMenuHandler.RegisterOneTimeUseOnSaveEvent(() => CacheManager.SaveCache());
+        IngameMenuHandler.RegisterOnSaveEvent(() => CacheManager.SaveCache());
 
         InternalLogger.Log($"Added {CacheManager.ModdedKeysCount} {enumName}s successfully into the game.", LogLevel.Info);
 
