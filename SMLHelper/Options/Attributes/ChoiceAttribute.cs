@@ -5,7 +5,7 @@
 
     /// <summary>
     /// Attribute used to signify the decorated member should be represented in the mod's options menu as a
-    /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
+    /// <see cref="ModChoiceOption{T}"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
     /// <see cref="Enum"/>-based members.
     /// </summary>
     /// <remarks>
@@ -30,7 +30,7 @@
     /// </code>
     /// </example>
     /// <seealso cref="MenuAttribute"/>
-    /// <seealso cref="ModChoiceOption"/>
+    /// <seealso cref="ModChoiceOption{T}"/>
     /// <seealso cref="ConfigFile"/>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
     public sealed class ChoiceAttribute : ModOptionAttribute
@@ -42,7 +42,7 @@
 
         /// <summary>
         /// Attribute used to signify the decorated member should be represented in the mod's options menu as a
-        /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
+        /// <see cref="ModChoiceOption{T}"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
         /// <see cref="Enum"/>-based members.
         /// </summary>
         /// <remarks>
@@ -57,7 +57,7 @@
 
         /// <summary>
         /// Attribute used to signify the decorated member should be represented in the mod's options menu as a
-        /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
+        /// <see cref="ModChoiceOption{T}"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
         /// <see cref="Enum"/>-based members.
         /// </summary>
         /// <remarks>
@@ -68,7 +68,7 @@
 
         /// <summary>
         /// Attribute used to signify the decorated member should be represented in the mod's options menu as a
-        /// <see cref="ModChoiceOption"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
+        /// <see cref="ModChoiceOption{T}"/>. Works for either <see cref="int"/> index-based, <see cref="string"/>-based, or
         /// <see cref="Enum"/>-based members.
         /// </summary>
         public ChoiceAttribute() { }

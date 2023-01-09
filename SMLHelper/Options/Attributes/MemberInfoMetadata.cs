@@ -118,5 +118,20 @@
 
             Traverse.Create(config).Method(Name, MethodParameterTypes).GetValue(arguments);
         }
+
+        public Action<V> GetMethodAsAction<V>(T config)
+        {
+            if (MemberType != MemberType.Method)
+            {
+                throw new InvalidOperationException($"Member must be a Method but is {MemberType}: {typeof(T).Name}.{Name}");
+            }
+
+            if (!MethodValid)
+            {
+                // Method not found, error and skip.
+                throw new InvalidOperationException($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{Name}");
+            }
+            return (Action<V>)Delegate.CreateDelegate(typeof(Action<V>), config, Name);
+        }
     }
 }
