@@ -11,6 +11,7 @@
     using UnityEngine.UI;
     using BepInEx;
     using BepInEx.Logging;
+    using SMLHelper.Utility;
 
     [BepInPlugin(GUID, MODNAME, VERSION)]
     public class ExampleMod: BaseUnityPlugin
@@ -285,7 +286,7 @@
         /// 
         /// <para>As with the other events in this example, it is not necessary to define the parameter if you do not need the data
         /// it contains.</para></param>
-        private void MyGenericValueChangedEvent(ModEventArgs e)
+        private void MyGenericValueChangedEvent<T>(ConfigOptionEventArgs<T> e)
         {
             ExampleMod.LogSource.LogInfo("Generic value changed!");
             ExampleMod.LogSource.LogInfo($"{e.Id}: {e.GetType()}");
@@ -293,9 +294,12 @@
             switch (e)
             {
                 case KeybindChangedEventArgs keybindChangedEventArgs:
-                    ExampleMod.LogSource.LogInfo(keybindChangedEventArgs.KeyName);
+                    ExampleMod.LogSource.LogInfo(KeyCodeUtils.KeyCodeToString(keybindChangedEventArgs.Value));
                     break;
-                case ChoiceChangedEventArgs choiceChangedEventArgs:
+                case ChoiceChangedEventArgs<int> choiceChangedEventArgs:
+                    ExampleMod.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
+                    break;
+                case ChoiceChangedEventArgs<T> choiceChangedEventArgs:
                     ExampleMod.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
                     break;
                 case SliderChangedEventArgs sliderChangedEventArgs:
@@ -318,7 +322,7 @@
         private void MyGameObjectCreatedEvent(GameObjectCreatedEventArgs e)
         {
             ExampleMod.LogSource.LogInfo("GameObject was created");
-            ExampleMod.LogSource.LogInfo($"{e.Id}: {e.GameObject}");
+            ExampleMod.LogSource.LogInfo($"{e.Id}: {e.Value}");
         }
     }
 }

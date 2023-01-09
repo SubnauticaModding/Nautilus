@@ -5,12 +5,14 @@
     using UnityEngine;
     using UnityEngine.UI;
     using SMLHelper.Utility;
+    using System.Linq;
     using BepInEx.Logging;
+    using static UnityEngine.SpookyHash;
 
     /// <summary>
     /// Abstract class that provides the framework for your mod's in-game configuration options.
     /// </summary>
-    public abstract partial class ModOptions
+    public abstract class ModOptions
     {
         /// <summary>
         /// The name of this set of configuration options.
@@ -20,26 +22,49 @@
         /// <summary>
         /// Obtains the <see cref="ModOption"/>s that belong to this instance. Can be null.
         /// </summary>
-        public List<ModOption> Options => _options == null ? null : new List<ModOption>(_options.Values);
+        public List<OptionItem> Options => new List<OptionItem>(_options.Values);
 
         // This is a dictionary now in case we want to get the ModOption quickly
         // based on the provided ID.
-        private Dictionary<string, ModOption> _options;
+        private readonly Dictionary<string, OptionItem> _options = new Dictionary<string, OptionItem>();
 
-        private void AddOption(ModOption option)
+        /// <summary>
+        /// <para>Attaches a <see cref="OptionItem"/> to the options menu.</para>
+        /// </summary>
+        /// <param name="option">The <see cref="OptionItem"/> to add to the options menu.</param>
+        public bool AddItem(OptionItem option)
         {
+            if(_options.ContainsKey(option.Id))
+            {
+                return false;
+            }
             _options.Add(option.Id, option);
             option.SetParent(this);
+            return true;
         }
 
-        internal void AddOptionsToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        /// <summary>
+        /// <para>Attaches a <see cref="OptionItem"/> to the options menu.</para>
+        /// </summary>
+        /// <param name="id">The id of the <see cref="OptionItem"/> to remove from the options menu.</param>
+        public bool RemoveItem(string id)
         {
-            panel.AddHeading(tabIndex, Name);
+            if(!_options.TryGetValue(id, out OptionItem optionItem))
+            {
+                return false;
+            }
 
-            _options = new Dictionary<string, ModOption>(); // we need to do this every time we adding options
-            BuildModOptions();
+            _options.Remove(id);
+            optionItem.SetParent(null);
+            if(optionItem.OptionGameObject != null)
+                GameObject.Destroy(optionItem.OptionGameObject);
+            return true;
+        }
 
-            _options.Values.ForEach(option => option.AddToPanel(panel, tabIndex));
+
+        internal void AddOptionsToPanel(uGUI_TabbedControlsPanel panel, int modsTabIndex)
+        {
+            BuildModOptions(panel, modsTabIndex, Options);
         }
 
         /// <summary>
@@ -52,13 +77,39 @@
         }
 
         /// <summary>
-        /// <para>Builds up the configuration the options.</para>
-        /// <para>This method should be composed of calls into the following methods: 
-        /// <seealso cref="AddSliderOption(string, string, float, float, float)"/> | <seealso cref="AddToggleOption"/> | <seealso cref="AddChoiceOption(string, string, string[], int)"/> | <seealso cref="AddKeybindOption(string, string, GameInput.Device, KeyCode)"/>.</para>
-        /// <para>Make sure you have subscribed to the events in the constructor to handle what happens when the value is changed:
-        /// <seealso cref="SliderChanged"/> | <seealso cref="ToggleChanged"/> | <seealso cref="ChoiceChanged"/> | <seealso cref="KeybindChanged"/>.</para>
+        /// Builds up the configuration the options.
         /// </summary>
-        public abstract void BuildModOptions();
+        public virtual void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, List<OptionItem> options)
+        {
+            panel.AddHeading(modsTabIndex, Name);
+            options.ForEach(option => option.AddToPanel(panel, modsTabIndex));
+        }
+
+        /// <summary>
+        /// The event that is called whenever an option is changed.
+        /// </summary>
+        public event EventHandler<OptionEventArgs> OnChanged;
+
+        /// <summary>
+        /// Gets the Invocation List for the OnChanged event or returns null if none present.
+        /// </summary>
+        public List<EventHandler<OptionEventArgs>> GetDelegates() => OnChanged?.GetInvocationList().Cast<EventHandler<OptionEventArgs>>().ToList();
+
+
+        /// <summary>
+        /// Notifies an option change to all subscribed event handlers.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        public void OnChange<T, V>(string id, V value) where T : ConfigOptionEventArgs<V>
+        {
+            if(this is ModChoiceOption<T> modChoiceOption)
+            {
+                OnChanged?.Invoke(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, modChoiceOption.Index, value }));
+                return;
+            }
+            OnChanged?.Invoke(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, value }));
+        }
 
         /// <summary> The event that is called whenever a game object created for the option </summary>
         protected event EventHandler<GameObjectCreatedEventArgs> GameObjectCreated;
@@ -70,29 +121,100 @@
     }
 
     /// <summary> Contains all the information about a created game object event </summary>
-    public class GameObjectCreatedEventArgs : EventArgs
+    public class GameObjectCreatedEventArgs : ConfigOptionEventArgs<GameObject>
     {
-        /// <summary> The ID of the <see cref="ModOption"/> for which game object was created </summary>
-        public string Id { get; }
-
-        /// <summary> New game object for the <see cref="ModOption"/> </summary>
-        public GameObject GameObject { get; }
-
         /// <summary> Constructs a new <see cref="GameObjectCreatedEventArgs"/> </summary>
         /// <param name="id"> The ID of the <see cref="ModOption"/> for which game object was created </param>
         /// <param name="gameObject"> New game object for the <see cref="ModOption"/> </param>
-        public GameObjectCreatedEventArgs(string id, GameObject gameObject)
-        {
-            Id = id;
-            GameObject = gameObject;
-        }
+        public GameObjectCreatedEventArgs(string id, GameObject gameObject) : base(id, gameObject) { }
     }
 
     /// <summary>
     /// The common abstract class to all mod options.
     /// </summary>
-    public abstract class ModOption
+    public abstract class ModOption : OptionItem
     {
+        private readonly Type MyType;
+
+        /// <summary>
+        /// The type of the <see cref="Value"/> for the <see cref="ModOption"/>.
+        /// </summary>
+        public Type GetValueType => MyType;
+
+        /// <summary>
+        /// The value for the <see cref="ModOption"/>.
+        /// </summary>
+        public object Value { get; }
+
+        /// <summary>
+        /// Base constructor for all mod options.
+        /// </summary>
+        /// <param name="label">The display text to show on the in-game menus.</param>
+        /// <param name="id">The internal ID if this option.</param>
+        /// <param name="T">The type of the object for casting purposes if necessary.</param>
+        /// <param name="value">The generic value of the <see cref="ModOption"/>.</param>
+        public ModOption(string label, string id, Type T, object value) : base(label, id)
+        {
+            MyType = T;
+            Value = value;
+        }
+    }
+
+    /// <summary>
+    /// The common generic-typed abstract class to all mod options.
+    /// </summary>
+    public abstract class ModOption<T, E> : ModOption
+    {
+        /// <summary>
+        /// The value for the <see cref="ModOption{T, E}"/>.
+        /// </summary>
+        public new T Value { get; }
+
+        /// <summary>
+        /// The event that is called whenever an option is changed.
+        /// </summary>
+        public event EventHandler<E> OnChanged;
+
+        /// <summary>
+        /// Gets the Invocation List for the OnChanged event or returns null if none present.
+        /// </summary>
+        public IEnumerable<EventHandler<E>> GetDelegates()
+        {
+            return OnChanged?.GetInvocationList().Cast<EventHandler<E>>();
+        }
+
+        /// <summary>
+        /// Notifies an option change to all subscribed event handlers.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
+        public void OnChange<U, V>(string id, V value) where U : E
+        {
+            if(this is ModChoiceOption<T> modChoiceOption)
+            {
+                OnChanged?.Invoke(this, (U)Activator.CreateInstance(typeof(U), new object[] { id, modChoiceOption.Index, value }));
+                return;
+            }
+
+            OnChanged?.Invoke(this, (U)Activator.CreateInstance(typeof(U), new object[] { id, value }));
+        }
+
+        /// <summary>
+        /// Base constructor for all typed mod options.
+        /// </summary>
+        /// <param name="label">The display text to show on the in-game menus.</param>
+        /// <param name="id">The internal ID if this option.</param>
+        /// <param name="value">The typed value of the <see cref="ModOption"/></param>
+        public ModOption(string label, string id, T value) : base(label, id, typeof(T), value)
+        {
+            Value = value;
+        }
+    }
+
+    /// <summary>
+    /// The common abstract class to all items in the mod options page.
+    /// </summary>
+    public abstract class OptionItem {
         /// <summary>
         /// The internal ID that identifies this option.
         /// </summary>
@@ -115,7 +237,12 @@
         }
 
         // adds UI GameObject to panel and updates OptionGameObject
-        internal virtual void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
+        /// <summary>
+        /// The base method for adding an object to the options panel
+        /// </summary>
+        /// <param name="panel">The panel to add the option to.</param>
+        /// <param name="tabIndex">Where in the panel to add the option.</param>
+        public virtual void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             if (AdjusterComponent != null)
             {
@@ -126,39 +253,65 @@
         }
 
         /// <summary>
-        /// Base constructor for all mod options.
+        /// Base constructor for all items in the options.
         /// </summary>
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="id">The internal ID if this option.</param>
-        internal ModOption(string label, string id)
+        public OptionItem(string label, string id)
         {
-            Label = label;
             Id = id;
+            Label = label;
         }
 
         // type of component derived from ModOptionAdjust (for using in base.AddToPanel)
-        internal abstract Type AdjusterComponent { get; }
+        /// <summary>
+        /// The Adjuster for this <see cref="ModOption"/>.
+        /// </summary>
+        public abstract Type AdjusterComponent { get; }
 
         // base class for 'adjuster' components (so ui elements don't overlap with their text labels)
         // reason for using components is to skip one frame before manually adjust ui elements to make sure that Unity UI Layout components is updated
-        internal abstract class ModOptionAdjust : MonoBehaviour
+        /// <summary>
+        /// The base 'adjuster' component to prevent UI elements overlapping
+        /// </summary>
+        public abstract class ModOptionAdjust : MonoBehaviour
         {
             private const float minCaptionWidth_MainMenu = 480f;
             private const float minCaptionWidth_GameMenu = 360f;
             private GameObject caption = null;
 
+            /// <summary>
+            /// The width of the caption for the component
+            /// </summary>
             protected float CaptionWidth { get => caption?.GetComponent<RectTransform>().rect.width ?? 0f; }
 
+            /// <summary>
+            /// Whether we are in the main menu or in game in the options
+            /// </summary>
             protected bool isMainMenu { get; private set; } = true; // is it main menu or game menu
 
+            /// <summary>
+            /// Sets the X coordinate of a <see cref="Vector2"/>.
+            /// </summary>
+            /// <param name="vec">The <see cref="Vector2"/> to set the value on.</param>
+            /// <param name="val">The value to set to the x coordinate.</param>
+            /// <returns></returns>
             protected static Vector2 SetVec2x(Vector2 vec, float val) { vec.x = val; return vec; }
 
+            /// <summary>
+            /// The function called after this <see cref="MonoBehaviour"/> is awakened.
+            /// </summary>
             public void Awake()
             {
                 isMainMenu = gameObject.GetComponentInParent<MainMenuOptions>() != null;
             }
 
             // we add ContentSizeFitter component to text label so it will change width in its Update() based on text
+            /// <summary>
+            /// Creates and adds a caption to this GameObject
+            /// </summary>
+            /// <param name="gameObjectPath"></param>
+            /// <param name="minWidth"></param>
             protected void SetCaptionGameObject(string gameObjectPath, float minWidth = 0f)
             {
                 caption = gameObject.transform.Find(gameObjectPath)?.gameObject;

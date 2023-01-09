@@ -42,11 +42,7 @@
         {
             ConfigFileMetadata.BindEvents();
 
-            ButtonClicked += EventHandler;
-            ChoiceChanged += EventHandler;
-            KeybindChanged += EventHandler;
-            SliderChanged += EventHandler;
-            ToggleChanged += EventHandler;
+            OnChanged += EventHandler;
             GameObjectCreated += EventHandler;
         }
 
@@ -79,7 +75,7 @@
                 case ButtonClickedEventArgs buttonClickedEventArgs:
                     ConfigFileMetadata.HandleButtonClick(sender, buttonClickedEventArgs);
                     break;
-                case ChoiceChangedEventArgs choiceChangedEventArgs:
+                case ChoiceChangedEventArgs<T> choiceChangedEventArgs:
                     ConfigFileMetadata.HandleChoiceChanged(sender, choiceChangedEventArgs);
                     break;
                 case KeybindChangedEventArgs keybindChangedEventArgs:
@@ -101,51 +97,59 @@
         /// <summary>
         /// Adds options to the menu based on the <see cref="ConfigFileMetadata"/>.
         /// </summary>
-        public override void BuildModOptions()
+        public override void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, List<OptionItem> options)
         {
+
             // Conditionally load the config
             if (ConfigFileMetadata.MenuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuOpened))
             {
                 ConfigFileMetadata.Config.Load();
+                foreach(var option in options)
+                {
+                    RemoveItem(option.Id);
+                }
             }
-
-            foreach (KeyValuePair<string, ModOptionAttributeMetadata<T>> entry in ConfigFileMetadata.ModOptionAttributesMetadata
-                .OrderBy(x => x.Value.ModOptionAttribute.Order)
-                .ThenBy(x => x.Value.MemberInfoMetadata.Name))
+            if(Options.Count == 0)
             {
-                string id = entry.Key;
-                ModOptionAttributeMetadata<T> modOptionMetadata = entry.Value;
-
-                string label = modOptionMetadata.ModOptionAttribute.Label;
-                if (Language.main.TryGet(modOptionMetadata.ModOptionAttribute.LabelLanguageId, out string languageLabel))
+                foreach(KeyValuePair<string, ModOptionAttributeMetadata<T>> entry in ConfigFileMetadata.ModOptionAttributesMetadata
+                    .OrderBy(x => x.Value.ModOptionAttribute.Order)
+                    .ThenBy(x => x.Value.MemberInfoMetadata.Name))
                 {
-                    label = languageLabel;
-                }
+                    string id = entry.Key;
+                    ModOptionAttributeMetadata<T> modOptionMetadata = entry.Value;
 
-                InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
-                    $"{modOptionMetadata.ModOptionAttribute.GetType().Name}");
-                InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] Label: {label}");
+                    string label = modOptionMetadata.ModOptionAttribute.Label;
+                    if(Language.main.TryGet(modOptionMetadata.ModOptionAttribute.LabelLanguageId, out string languageLabel))
+                    {
+                        label = languageLabel;
+                    }
+
+                    InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] {modOptionMetadata.MemberInfoMetadata.Name}: " +
+                        $"{modOptionMetadata.ModOptionAttribute.GetType().Name}");
+                    InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] Label: {label}");
 
 
-                switch (modOptionMetadata.ModOptionAttribute)
-                {
-                    case ButtonAttribute _:
-                        BuildModButtonOption(id, label);
-                        break;
-                    case ChoiceAttribute choiceAttribute:
-                        BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
-                        break;
-                    case KeybindAttribute _:
-                        BuildModKeybindOption(id, label, modOptionMetadata.MemberInfoMetadata);
-                        break;
-                    case SliderAttribute sliderAttribute:
-                        BuildModSliderOption(id, label, modOptionMetadata.MemberInfoMetadata, sliderAttribute);
-                        break;
-                    case ToggleAttribute _:
-                        BuildModToggleOption(id, label, modOptionMetadata.MemberInfoMetadata);
-                        break;
+                    switch(modOptionMetadata.ModOptionAttribute)
+                    {
+                        case ButtonAttribute buttonAttribute:
+                            BuildModButtonOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                            break;
+                        case ChoiceAttribute choiceAttribute:
+                            BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
+                            break;
+                        case KeybindAttribute _:
+                            BuildModKeybindOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                            break;
+                        case SliderAttribute sliderAttribute:
+                            BuildModSliderOption(id, label, modOptionMetadata.MemberInfoMetadata, sliderAttribute);
+                            break;
+                        case ToggleAttribute _:
+                            BuildModToggleOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                            break;
+                    }
                 }
             }
+            base.BuildModOptions(panel, modsTabIndex, Options);
         }
 
         /// <summary>
@@ -153,13 +157,22 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="label"></param>
-        private void BuildModButtonOption(string id, string label)
+        /// <param name="memberInfoMetadata">The metadata of the corresponding member.</param>
+        private void BuildModButtonOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
-            AddButtonOption(id, label);
+            if (memberInfoMetadata.MemberType != MemberType.Method)
+            {
+                InternalLogger.Warn($"Failed to add ModButtonOption with id {id} to {Name} as the attribute is not a Method.");
+                return;
+            }
+            if(!AddItem(ModButtonOption.Create(id, label, memberInfoMetadata.GetMethodAsAction<ButtonClickedEventArgs>(ConfigFileMetadata.Config))))
+                InternalLogger.Warn($"Failed to add ModButtonOption with id {id} to {Name} as an option with that id already exists.");
+
+            InternalLogger.Debug($"Added ModButtonOption with id {id} to {Name}");
         }
 
         /// <summary>
-        /// Adds a <see cref="ModChoiceOption"/> to the <see cref="ModOptions"/> menu.
+        /// Adds a <see cref="ModChoiceOption{T}"/> to the <see cref="ModOptions"/> menu.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="label"></param>
@@ -173,7 +186,9 @@
                 // Enum-based choice where the values are parsed from the enum type
                 string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
                 string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
-                AddChoiceOption(id, label, options, value);
+                if(!AddItem(ModChoiceOption<string>.Create(id, label, options, value)))
+                    InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
+
             }
             else if (memberInfoMetadata.ValueType.IsEnum)
             {
@@ -181,21 +196,24 @@
                 string[] options = choiceAttribute.Options;
                 string name = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
                 int index = Math.Max(Array.IndexOf(Enum.GetNames(memberInfoMetadata.ValueType), name), 0);
-                AddChoiceOption(id, label, options, index);
+                if(!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
+                    InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
             }
             else if (memberInfoMetadata.ValueType == typeof(string))
             {
                 // string-based choice value
                 string[] options = choiceAttribute.Options;
                 string value = memberInfoMetadata.GetValue<string>(ConfigFileMetadata.Config);
-                AddChoiceOption(id, label, options, value);
+                if(!AddItem(ModChoiceOption<string>.Create(id, label, options, value)))
+                    InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
             }
             else if (memberInfoMetadata.ValueType == typeof(int))
             {
                 // index-based choice value
                 string[] options = choiceAttribute.Options;
                 int index = memberInfoMetadata.GetValue<int>(ConfigFileMetadata.Config);
-                AddChoiceOption(id, label, options, index);
+                if(!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
+                    InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
             }
         }
 
@@ -208,7 +226,8 @@
         private void BuildModKeybindOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
             KeyCode value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
-            AddKeybindOption(id, label, GameInput.Device.Keyboard, value);
+            if(!AddItem(ModKeybindOption.Create(id, label, GameInput.Device.Keyboard, value)))
+                InternalLogger.Warn($"Failed to add ModKeybindOption with id {id} to {Name}");
         }
 
         /// <summary>
@@ -229,9 +248,9 @@
                 step = Mathf.CeilToInt(step);
             }
 
-            AddSliderOption(id, label, sliderAttribute.Min, sliderAttribute.Max,
-                Convert.ToSingle(value), sliderAttribute.DefaultValue,
-                sliderAttribute.Format, step);
+            if(!AddItem(ModSliderOption.Create(id, label, sliderAttribute.Min, sliderAttribute.Max,
+                Convert.ToSingle(value), sliderAttribute.DefaultValue, sliderAttribute.Format, step, sliderAttribute.Tooltip)))
+                InternalLogger.Warn($"Failed to add ModSliderOption with id {id} to {Name}");
         }
 
         /// <summary>
@@ -243,7 +262,8 @@
         private void BuildModToggleOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
             bool value = memberInfoMetadata.GetValue<bool>(ConfigFileMetadata.Config);
-            AddToggleOption(id, label, value);
+            if(!AddItem(ModToggleOption.Create(id, label, value)))
+                InternalLogger.Warn($"Failed to add ModToggleOption with id {id} to {Name}");
         }
         #endregion
     }
