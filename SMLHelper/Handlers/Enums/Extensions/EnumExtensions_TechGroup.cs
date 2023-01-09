@@ -11,7 +11,7 @@ public static partial class EnumExtensions
     /// <param name="builder">The current custom enum object instance.</param>
     /// <param name="displayName">The display name of the Tech Group. Can be anything.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static EnumBuilder<TechGroup> WithPdaInfo(EnumBuilder<TechGroup> builder, string displayName)
+    public static EnumBuilder<TechGroup> WithPdaInfo(this EnumBuilder<TechGroup> builder, string displayName)
     {
         var techGroup = (TechGroup)builder;
         var name = builder.ToString();
