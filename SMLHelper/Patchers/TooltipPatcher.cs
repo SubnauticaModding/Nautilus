@@ -97,18 +97,19 @@
 
         internal static bool IsVanillaTechType(TechType type)
         {
-            if (vanillaTechTypes is {Count: 0} && EnumCacheProvider.TryGetManager(typeof(TechType), out var manager))
+            if (vanillaTechTypes.Count == 0)
             {
-                var array = System.Enum.GetValues(typeof(TechType));
+                var array = Enum.GetValues(typeof(TechType));
                 if(array is TechType[] techtypeArray)
                 {
                     var allTechTypes = techtypeArray.ToList();
+                    if(EnumCacheProvider.TryGetManager(typeof(TechType), out var manager))
                     allTechTypes.RemoveAll(tt => manager.ModdedKeys.Contains(tt));
                     vanillaTechTypes = allTechTypes;
                 }
                 else
                 {
-                    Console.WriteLine($"{array.GetType()}");
+                    InternalLogger.Error($"SMLHelper.TooltipPatcher.IsVanillaTechType ArrayType is {array.GetType()} but should be TechType[]!");
                 }
             }
 
