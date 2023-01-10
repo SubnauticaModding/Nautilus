@@ -63,8 +63,8 @@
         {
             uGUI_Choice choice = panel.AddChoiceOption(tabIndex, Label, OptionStrings, Index,
                 new UnityAction<int>((int index) => {
-                    OnChange<ChoiceChangedEventArgs<T>>(Id, Options[index]);
-                    parentOptions.OnChange<ChoiceChangedEventArgs<T>, T>(Id, Options[index]); 
+                    OnChange(Id, Options[index]);
+                    parentOptions.OnChange<T, ChoiceChangedEventArgs<T>>(Id, Options[index]); 
                 }), Tooltip);
 
             OptionGameObject = choice.transform.parent.transform.parent.gameObject; // :(
