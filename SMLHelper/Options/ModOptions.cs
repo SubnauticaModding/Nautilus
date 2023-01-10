@@ -100,7 +100,7 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
-        public void OnChange<E, T>(string id, T value) where E : ConfigOptionEventArgs<T>
+        public void OnChange<T, E>(string id, T value) where E : ConfigOptionEventArgs<T>
         {
             if(_options.TryGetValue(id, out var option) && option is ModChoiceOption<T> modChoiceOption)
             {
