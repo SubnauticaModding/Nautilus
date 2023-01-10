@@ -233,7 +233,7 @@
 
         // type of component derived from ModOptionAdjust (for using in base.AddToPanel)
         /// <summary>
-        /// The Adjuster for this <see cref="ModOption"/>.
+        /// The Adjuster for this <see cref="OptionItem"/>.
         /// </summary>
         public abstract Type AdjusterComponent { get; }
 

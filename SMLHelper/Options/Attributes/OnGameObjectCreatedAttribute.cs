@@ -5,7 +5,7 @@
 
     /// <summary>
     /// Attribute used to signify a method to call whenever the <see cref="UnityEngine.GameObject"/> for the 
-    /// <see cref="ModOption"/> corresponding to the decorated member is created.
+    /// <see cref="OptionItem"/> corresponding to the decorated member is created.
     /// </summary>
     /// <remarks>
     /// The method must be a member of the same class. Can be specified multiple times to call multiple methods.
@@ -49,7 +49,7 @@
     {
         /// <summary>
         /// Signifies a method to call whenever the <see cref="UnityEngine.GameObject"/> for the 
-        /// <see cref="ModOption"/> corresponding to the decorated member is created.
+        /// <see cref="OptionItem"/> corresponding to the decorated member is created.
         /// </summary>
         /// <remarks>
         /// The method must be a member of the same class.
