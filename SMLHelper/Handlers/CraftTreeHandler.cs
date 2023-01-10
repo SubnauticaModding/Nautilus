@@ -22,7 +22,6 @@
         /// </param>        
         public static void AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem, params string[] stepsToTab)
         {
-            ValidateStandardCraftTree(craftTree);
             CraftTreePatcher.CraftingNodes.Add(new CraftingNode(stepsToTab, craftTree, craftingItem));
         }
 
@@ -34,7 +33,6 @@
 
         public static void AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem)
         {
-            ValidateStandardCraftTree(craftTree);
             CraftTreePatcher.CraftingNodes.Add(new CraftingNode(new string[0], craftTree, craftingItem));
         }
 
@@ -48,9 +46,7 @@
         /// <param name="sprite">The sprite of the tab.</param>        
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite)
         {
-            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, modName, name, displayName));
         }
 
@@ -64,9 +60,7 @@
 
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
         {
-            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, new Atlas.Sprite(sprite), modName, name, displayName));
         }
 
@@ -84,9 +78,7 @@
         /// </param>        
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite, params string[] stepsToTab)
         {
-            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, modName, name, displayName));
         }
 
@@ -103,10 +95,8 @@
         /// <para>Do not include "root" in this path.</para>
         /// </param>        
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite, params string[] stepsToTab)
-        {
-            ValidateStandardCraftTree(craftTree);            
+        {      
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, new Atlas.Sprite(sprite), modName, name, displayName));
         }
 
@@ -120,9 +110,7 @@
         /// <param name="sprite">The sprite of the tab.</param>        
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Sprite sprite)
         {
-            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, modName, name, displayName));
         }
 
@@ -140,9 +128,7 @@
         /// </param>        
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Sprite sprite, params string[] stepsToTab)
         {
-            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, modName, name, displayName));
         }
 
@@ -162,33 +148,7 @@
 
         public static void RemoveNode(CraftTree.Type craftTree, params string[] stepsToNode)
         {
-            ValidateStandardCraftTree(craftTree);
             CraftTreePatcher.NodesToRemove.Add(new Node(stepsToNode, craftTree));
-        }
-
-        private static void ValidateStandardCraftTree(CraftTree.Type craftTree)
-        {
-            switch (craftTree)
-            {
-                case CraftTree.Type.Fabricator:
-                case CraftTree.Type.Constructor:
-                case CraftTree.Type.Workbench:
-                case CraftTree.Type.SeamothUpgrades:
-                case CraftTree.Type.MapRoom:
-                case CraftTree.Type.Centrifuge:
-                case CraftTree.Type.CyclopsFabricator:
-                case CraftTree.Type.Rocket:
-#if BELOWZERO
-                case CraftTree.Type.SeaTruckFabricator:
-#endif
-                    break; // Okay
-                case CraftTree.Type.Unused1:
-                case CraftTree.Type.Unused2:
-                case CraftTree.Type.None:
-                default:
-                    throw new ArgumentException($"{nameof(craftTree)} value of '{craftTree}' does not correspond to a standard crafting tree.{Environment.NewLine}" +
-                                            $"This method is intended for use only with standard crafting trees, not custom ones or unused ones.");
-            }
         }
     }
 }
