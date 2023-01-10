@@ -20,7 +20,7 @@ namespace SMLHelper.Options
     /// <summary>
     /// A mod option class for handling an option that can be either ON or OFF.
     /// </summary>
-    public class ModColorOption : ModOption<Color>
+    public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
     {
         /// <summary>
         /// The base method for adding an object to the options panel
