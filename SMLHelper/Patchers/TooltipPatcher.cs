@@ -14,7 +14,6 @@
     internal class TooltipPatcher
     {
         internal static bool DisableEnumIsDefinedPatch = false;
-        private static List<TechType> vanillaTechTypes = new();
 
         internal static void Patch(Harmony harmony)
         {
@@ -49,7 +48,7 @@
                 WriteSpace(sb);
             }
 
-            if (IsVanillaTechType(techType))
+            if (techType.IsVanillaTechType())
 #if SUBNAUTICA
                 WriteModName(sb, "Subnautica");
 #elif BELOWZERO
@@ -93,27 +92,6 @@
         internal static void WriteSpace(StringBuilder sb)
         {
             sb.AppendFormat("\n<size=19></size>");
-        }
-
-        internal static bool IsVanillaTechType(TechType type)
-        {
-            if (vanillaTechTypes.Count == 0)
-            {
-                var array = Enum.GetValues(typeof(TechType));
-                if(array is TechType[] techtypeArray)
-                {
-                    var allTechTypes = techtypeArray.ToList();
-                    if(EnumCacheProvider.TryGetManager(typeof(TechType), out var manager))
-                    allTechTypes.RemoveAll(tt => manager.ModdedKeys.Contains(tt));
-                    vanillaTechTypes = allTechTypes;
-                }
-                else
-                {
-                    InternalLogger.Error($"SMLHelper.TooltipPatcher.IsVanillaTechType ArrayType is {array.GetType()} but should be TechType[]!");
-                }
-            }
-
-            return vanillaTechTypes.Contains(type);
         }
 
 #region Options
