@@ -122,7 +122,7 @@
         }
 
         /// <summary>
-        /// The Adjuster for this <see cref="ModOption"/>.
+        /// The Adjuster for this <see cref="OptionItem"/>.
         /// </summary>
         public override Type AdjusterComponent => typeof(ChoiceOptionAdjust);
     }

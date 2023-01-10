@@ -190,7 +190,7 @@
         /// Generates a <see cref="ModOptionAttributeMetadata{T}"/> based on the member and its attributes, then adds it to the
         /// <see cref="ModOptionAttributesMetadata"/> dictionary.
         /// </summary>
-        /// <typeparam name="TAttribute">The type of the <see cref="ModOption"/> to generate for this member.</typeparam>
+        /// <typeparam name="TAttribute">The type of the <see cref="OptionItem"/> to generate for this member.</typeparam>
         /// <param name="memberInfo">The <see cref="MemberInfo"/> of the member.</param>
         /// <param name="memberType">The <see cref="MemberType"/> of the member.</param>
         /// <param name="underlyingType">The underlying <see cref="Type"/> of the member.</param>
@@ -486,7 +486,7 @@
         }
 
         /// <summary>
-        /// Generates tooltips as required for each <see cref="ModOption"/>, before
+        /// Generates tooltips as required for each <see cref="OptionItem"/>, before
         /// invoking any relevant method(s) specified with <see cref="OnGameObjectCreatedAttribute"/>(s) and passes
         /// parameters when a <see cref="GameObject"/> is created in the options menu.
         /// </summary>
