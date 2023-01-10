@@ -5,7 +5,7 @@
 
     /// <summary>
     /// Attribute used to signify the decorated <see cref="UnityEngine.Color"/> should be represented in the mod's
-    /// option menu as a <see cref="ModColorOption"/>.
+    /// option menu as a <see cref="ModBasicColorOption"/>.
     /// </summary>
     /// <example>
     /// <code>
@@ -27,14 +27,14 @@
     {
         /// <summary>
         /// Signifies the decorated <see cref="UnityEngine.Color"/> should be represented in the mod's option menu
-        /// as a <see cref="ModColorOption"/>.
+        /// as a <see cref="ModBasicColorOption"/>.
         /// </summary>
         /// <param name="label">The label for the toggle.</param>
         public ColorPickerAttribute(string label = null) : base(label) { }
 
         /// <summary>
         /// Signifies the decorated <see cref="UnityEngine.Color"/> should be represented in the mod's option menu
-        /// as a <see cref="ModColorOption"/>.
+        /// as a <see cref="ModBasicColorOption"/>.
         /// </summary>
         public ColorPickerAttribute() { }
     }

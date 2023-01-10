@@ -221,7 +221,7 @@
         }
 
         /// <summary>
-        /// Adds a <see cref="ModColorOption"/> to the <see cref="ModOptions"/> menu.
+        /// Adds a <see cref="ModBasicColorOption"/> to the <see cref="ModOptions"/> menu.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="label"></param>
@@ -229,7 +229,7 @@
         private void BuildModColorOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
             Color value = memberInfoMetadata.GetValue<Color>(ConfigFileMetadata.Config);
-            AddItem(ModColorOption.Factory(id, label, value));
+            AddItem(ModBasicColorOption.Factory(id, label, value));
         }
 
         /// <summary>
