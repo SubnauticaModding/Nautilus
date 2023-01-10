@@ -37,8 +37,8 @@
         {
             UnityEngine.UI.Toggle toggle = panel.AddToggleOption(tabIndex, Label, Value,
                 new UnityAction<bool>((bool value) => {
-                    OnChange<ToggleChangedEventArgs, bool>(Id, value);
-                    parentOptions.OnChange<ToggleChangedEventArgs, bool>(Id, value); 
+                    OnChange(Id, value);
+                    parentOptions.OnChange<bool, ToggleChangedEventArgs>(Id, value); 
                 }), Tooltip);
 
             OptionGameObject = toggle.transform.parent.gameObject;

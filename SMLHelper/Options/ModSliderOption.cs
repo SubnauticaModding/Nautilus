@@ -67,7 +67,7 @@
         public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
             UnityAction<float> callback = new((value) => {
-                OnChange<SliderChangedEventArgs, float>(Id, sliderValue?.ConvertToDisplayValue(value) ?? value);
+                OnChange<SliderChangedEventArgs>(Id, sliderValue?.ConvertToDisplayValue(value) ?? value);
                 parentOptions.OnChange<SliderChangedEventArgs, float>(Id, sliderValue?.ConvertToDisplayValue(value) ?? value); 
             });
 
