@@ -20,7 +20,7 @@
         public ConfigFileMetadata<T> ConfigFileMetadata { get; } = new ConfigFileMetadata<T>();
 
         /// <summary>
-        /// Instantiates a new <see cref="OptionsMenuBuilder{T}"/>, generating <see cref="ModOption"/>s by parsing the fields,
+        /// Instantiates a new <see cref="OptionsMenuBuilder{T}"/>, generating <see cref="OptionItem"/>s by parsing the fields,
         /// properties and methods declared in the class.
         /// </summary>
         public OptionsMenuBuilder() : base(null)

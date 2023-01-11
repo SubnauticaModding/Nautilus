@@ -93,8 +93,8 @@
             binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
             {
                 binding.value = s;
-                OnChange<KeybindChangedEventArgs, KeyCode>(Id, KeyCodeUtils.StringToKeyCode(s));
-                parentOptions.OnChange<KeybindChangedEventArgs, KeyCode>(Id, KeyCodeUtils.StringToKeyCode(s));
+                OnChange(Id, KeyCodeUtils.StringToKeyCode(s));
+                parentOptions.OnChange<KeyCode, KeybindChangedEventArgs>(Id, KeyCodeUtils.StringToKeyCode(s));
                 binding.RefreshValue();
             });
 
@@ -127,7 +127,7 @@
             }
         }
         /// <summary>
-        /// The Adjuster for this <see cref="ModOption"/>.
+        /// The Adjuster for this <see cref="OptionItem"/>.
         /// </summary>
         public override Type AdjusterComponent => typeof(BindingOptionAdjust);
     }

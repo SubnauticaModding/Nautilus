@@ -7,7 +7,6 @@
     using SMLHelper.Utility;
     using System.Linq;
     using BepInEx.Logging;
-    using static UnityEngine.SpookyHash;
 
     /// <summary>
     /// Abstract class that provides the framework for your mod's in-game configuration options.
@@ -20,7 +19,7 @@
         public string Name;
 
         /// <summary>
-        /// Obtains the <see cref="ModOption"/>s that belong to this instance. Can be null.
+        /// Obtains the <see cref="OptionItem"/>s that belong to this instance. Can be null.
         /// </summary>
         public List<OptionItem> Options => new List<OptionItem>(_options.Values);
 
@@ -101,14 +100,14 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
-        public void OnChange<T, V>(string id, V value) where T : ConfigOptionEventArgs<V>
+        public void OnChange<T, E>(string id, T value) where E : ConfigOptionEventArgs<T>
         {
-            if(_options.TryGetValue(id, out var option) && option is ModChoiceOption<V> modChoiceOption)
+            if(_options.TryGetValue(id, out var option) && option is ModChoiceOption<T> modChoiceOption)
             {
-                OnChanged?.Invoke(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, modChoiceOption.Index, value }));
+                OnChanged?.Invoke(this, (E)Activator.CreateInstance(typeof(E), new object[] { id, modChoiceOption.Index, value }));
                 return;
             }
-            OnChanged?.Invoke(this, (T)Activator.CreateInstance(typeof(T), new object[] { id, value }));
+            OnChanged?.Invoke(this, (E)Activator.CreateInstance(typeof(E), new object[] { id, value }));
         }
 
         /// <summary> The event that is called whenever a game object created for the option </summary>
@@ -124,51 +123,20 @@
     public class GameObjectCreatedEventArgs : ConfigOptionEventArgs<GameObject>
     {
         /// <summary> Constructs a new <see cref="GameObjectCreatedEventArgs"/> </summary>
-        /// <param name="id"> The ID of the <see cref="ModOption"/> for which game object was created </param>
-        /// <param name="gameObject"> New game object for the <see cref="ModOption"/> </param>
+        /// <param name="id"> The ID of the <see cref="OptionItem"/> for which game object was created </param>
+        /// <param name="gameObject"> New game object for the <see cref="OptionItem"/> </param>
         public GameObjectCreatedEventArgs(string id, GameObject gameObject) : base(id, gameObject) { }
-    }
-
-    /// <summary>
-    /// The common abstract class to all mod options.
-    /// </summary>
-    public abstract class ModOption : OptionItem
-    {
-        private readonly Type MyType;
-
-        /// <summary>
-        /// The type of the <see cref="Value"/> for the <see cref="ModOption"/>.
-        /// </summary>
-        public Type GetValueType => MyType;
-
-        /// <summary>
-        /// The value for the <see cref="ModOption"/>.
-        /// </summary>
-        public object Value { get; }
-
-        /// <summary>
-        /// Base constructor for all mod options.
-        /// </summary>
-        /// <param name="label">The display text to show on the in-game menus.</param>
-        /// <param name="id">The internal ID if this option.</param>
-        /// <param name="T">The type of the object for casting purposes if necessary.</param>
-        /// <param name="value">The generic value of the <see cref="ModOption"/>.</param>
-        public ModOption(string label, string id, Type T, object value) : base(label, id)
-        {
-            MyType = T;
-            Value = value;
-        }
     }
 
     /// <summary>
     /// The common generic-typed abstract class to all mod options.
     /// </summary>
-    public abstract class ModOption<T, E> : ModOption
+    public abstract class ModOption<T, E> : OptionItem where E: ConfigOptionEventArgs<T>
     {
         /// <summary>
         /// The value for the <see cref="ModOption{T, E}"/>.
         /// </summary>
-        public new T Value { get; }
+        public T Value { get; set; }
 
         /// <summary>
         /// The event that is called whenever an option is changed.
@@ -188,14 +156,15 @@
         /// </summary>
         /// <param name="id"></param>
         /// <param name="value"></param>
-        public void OnChange<U, V>(string id, V value) where U : E
+        public void OnChange(string id, T value)
         {
+            Value = value;
             if(this is ModChoiceOption<T> modChoiceOption)
             {
-                OnChanged?.Invoke(this, (U)Activator.CreateInstance(typeof(U), new object[] { id, modChoiceOption.Index, value }));
+                OnChanged?.Invoke(this, (E)Activator.CreateInstance(typeof(E), new object[] { id, modChoiceOption.Index, value }));
                 return;
             }
-            OnChanged?.Invoke(this, (U)Activator.CreateInstance(typeof(U), new object[] { id, value }));
+            OnChanged?.Invoke(this, (E)Activator.CreateInstance(typeof(E), new object[] { id, value }));
         }
 
         /// <summary>
@@ -203,8 +172,8 @@
         /// </summary>
         /// <param name="label">The display text to show on the in-game menus.</param>
         /// <param name="id">The internal ID if this option.</param>
-        /// <param name="value">The typed value of the <see cref="ModOption"/></param>
-        public ModOption(string label, string id, T value) : base(label, id, typeof(T), value)
+        /// <param name="value">The typed value of the <see cref="OptionItem"/></param>
+        public ModOption(string label, string id, T value) : base(label, id)
         {
             Value = value;
         }
@@ -264,7 +233,7 @@
 
         // type of component derived from ModOptionAdjust (for using in base.AddToPanel)
         /// <summary>
-        /// The Adjuster for this <see cref="ModOption"/>.
+        /// The Adjuster for this <see cref="OptionItem"/>.
         /// </summary>
         public abstract Type AdjusterComponent { get; }
 
