@@ -1,8 +1,8 @@
-﻿namespace SMLHelper.Crafting
+﻿using SMLHelper.Handlers;
+
+namespace SMLHelper.Crafting
 {
     using System.Collections.Generic;
-    using Patchers;
-    using SMLHelper.Patchers.EnumPatching;
     using UnityEngine;
     using UnityEngine.Assertions;
     using Utility;
@@ -196,11 +196,8 @@
         /// </remarks>
         public void AddModdedCraftingNode(string moddedTechTypeName)
         {
-            EnumTypeCache cache = TechTypePatcher.cacheManager.RequestCacheForTypeName(moddedTechTypeName);
-
-            if (cache != null)
+            if (EnumHandler.TryGetModAddedEnumValue(moddedTechTypeName, out TechType techType))
             {
-                TechType techType = (TechType)cache.Index;
                 ModCraftTreeCraft craftNode = new(techType);
                 craftNode.LinkToParent(this);
 

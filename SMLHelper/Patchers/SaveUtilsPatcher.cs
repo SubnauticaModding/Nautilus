@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using HarmonyLib;
 
-    internal class IngameMenuPatcher
+    internal class SaveUtilsPatcher
     {
         private static readonly List<Action> oneTimeUseOnSaveEvents = new();
         private static readonly List<Action> oneTimeUseOnLoadEvents = new();
@@ -18,11 +18,11 @@
         public static void Patch(Harmony harmony)
         {
             harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.CaptureSaveScreenshot)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeSaveEvents))));
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeSaveEvents))));
             harmony.Patch(AccessTools.Method(typeof(MainSceneLoading), nameof(MainSceneLoading.Launch)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeLoadEvents))));
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeLoadEvents))));
             harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.QuitGameAsync)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(IngameMenuPatcher), nameof(InvokeQuitEvents))));
+                postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeQuitEvents))));
         }
 
         internal static void AddOneTimeUseSaveEvent(Action onSaveAction)

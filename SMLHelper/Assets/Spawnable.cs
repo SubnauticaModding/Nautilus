@@ -209,7 +209,7 @@
 
         internal virtual void PatchTechType()
         {
-            TechType = TechTypeHandler.AddTechType(Mod, ClassID, FriendlyName, Description, false);
+            TechType = EnumHandler.AddEntry<TechType>(ClassID, Mod).WithPdaInfo(Mod, FriendlyName, Description, false);
         }
 
         /// <summary>

@@ -1,20 +1,19 @@
 ﻿namespace SMLHelper.Patchers
 {
     using HarmonyLib;
-    using SMLHelper.Handlers;
-    using SMLHelper.Patchers.EnumPatching;
+    using Handlers;
     using System.IO;
     using System.Reflection;
     using System.Text;
     using System.Linq;
     using System.Collections.Generic;
-    using SMLHelper.Utility;
+    using Utility;
     using BepInEx.Logging;
+    using System;
 
     internal class TooltipPatcher
     {
         internal static bool DisableEnumIsDefinedPatch = false;
-        private static List<TechType> vanillaTechTypes = new();
 
         internal static void Patch(Harmony harmony)
         {
@@ -49,15 +48,15 @@
                 WriteSpace(sb);
             }
 
-            if (IsVanillaTechType(techType))
+            if (techType.IsVanillaTechType())
 #if SUBNAUTICA
                 WriteModName(sb, "Subnautica");
 #elif BELOWZERO
                 WriteModName(sb, "BelowZero");
 #endif
-            else if (TechTypePatcher.cacheManager.ContainsKey(techType))
+            else if (EnumHandler.TryGetModAssembly(techType, out Assembly assembly))
             {
-                WriteModNameFromTechType(sb, techType);
+                WriteModNameFromAssembly(sb, assembly);
             }
             else
             {
@@ -77,44 +76,22 @@
         {
             sb.AppendFormat("\n<size=23><color=#ff0000ff>{0}</color></size>\n<size=17><color=#808080FF>({1})</color></size>", text, reason);
         }
-        internal static void WriteModNameFromTechType(StringBuilder sb, TechType type)
+        internal static void WriteModNameFromAssembly(StringBuilder sb, Assembly assembly)
         {
-            // if (MissingTechTypes.Contains(type)) WriteModNameError(sb, "Mod Missing");
-            // This is for something else I am going to do
+            string modName = assembly.GetName().Name;
 
-            if (TechTypeHandler.TechTypesAddedBy.TryGetValue(type, out Assembly assembly))
+            if(string.IsNullOrEmpty(modName))
             {
-                string modName = assembly.GetName().Name;
-
-                if (string.IsNullOrEmpty(modName))
-                {
-                    WriteModNameError(sb, "Unknown Mod", "Mod could not be determined");
-                }
-                else
-                {
-                    WriteModName(sb, modName);
-                }
+                WriteModNameError(sb, "Unknown Mod", "Mod could not be determined");
             }
             else
             {
-                WriteModNameError(sb, "Unknown Mod", "Assembly could not be determined");
+                WriteModName(sb, modName);
             }
         }
         internal static void WriteSpace(StringBuilder sb)
         {
             sb.AppendFormat("\n<size=19></size>");
-        }
-
-        internal static bool IsVanillaTechType(TechType type)
-        {
-            if (vanillaTechTypes is {Count: 0})
-            {
-                List<TechType> allTechTypes = (System.Enum.GetValues(typeof(TechType)) as TechType[])!.ToList();
-                allTechTypes.RemoveAll(tt => TechTypePatcher.cacheManager.ModdedKeys.Contains(tt));
-                vanillaTechTypes = allTechTypes;
-            }
-
-            return vanillaTechTypes.Contains(type);
         }
 
 #region Options

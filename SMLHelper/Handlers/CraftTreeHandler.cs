@@ -4,52 +4,12 @@
     using Crafting;
     using Patchers;
     using Utility;
-    using UnityEngine;
-    using SMLHelper.Patchers.EnumPatching;
 
     /// <summary>
     /// A handler class for creating and editing of crafting trees.
     /// </summary>
     public static class CraftTreeHandler 
     {
-        /// <summary>
-        /// Your first method call to start a new custom crafting tree.<br/>
-        /// Creating a new CraftTree only makes sense if you're going to use it in a new type of <see cref="GhostCrafter"/>.
-        /// </summary>
-        /// <param name="name">The name for the new <see cref="CraftTree.Type" /> enum.</param>
-        /// <param name="craftTreeType">The new enum instance for your custom craft tree type.</param>
-        /// <returns>
-        /// Returns the root node for your custom craft tree, as a new <see cref="ModCraftTreeRoot"/> instance.<br/>
-        /// Build up your custom crafting tree from this root node.<br/>
-        /// This tree will be automatically patched into the game. No further calls into <see cref="CraftTreeHandler"/> required.<para/>
-        /// For more advanced usage, you can replace the default value of <see cref="ModCraftTreeRoot.CraftTreeCreation"/> with your own custom function.        
-        /// </returns>
-        /// <seealso cref="ModCraftTreeNode"/>
-        /// <seealso cref="ModCraftTreeLinkingNode"/>
-        /// <seealso cref="ModCraftTreeTab"/>
-        /// <seealso cref="ModCraftTreeCraft"/>
-        public static ModCraftTreeRoot CreateCustomCraftTreeAndType(string name, out CraftTree.Type craftTreeType)
-        {
-            return CraftTreeTypePatcher.CreateCustomCraftTreeAndType(name, out craftTreeType);
-        }
-
-        /// <summary>
-        /// Safely looks for a modded CraftTree Type from another mod in the SMLHelper CraftTreeTypeCache.
-        /// </summary>
-        /// <param name="craftTreeString">The string used to define the modded item's new techtype.</param>
-        /// <returns>
-        ///   <c>True</c> if the craft tree was found; Otherwise <c>false</c>.
-        /// </returns>
-        /// <remarks>
-        /// There's no guarantee in which order SMLHelper dependent mods are loaded,
-        /// so if two mods are added at the same time, it may take a second game load for both to be visible to each other.
-        /// </remarks>
-        public static bool ModdedCraftTreeTypeExists(string craftTreeString)
-        {
-            EnumTypeCache cache = CraftTreeTypePatcher.cacheManager.RequestCacheForTypeName(craftTreeString, false);
-            return cache != null;
-        }
-
         /// <summary>
         /// Adds a new crafting node to the root of the specified crafting tree, at the provided tab location.
         /// </summary>
@@ -62,7 +22,6 @@
         /// </param>        
         public static void AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem, params string[] stepsToTab)
         {
-            ValidateStandardCraftTree(craftTree);
             CraftTreePatcher.CraftingNodes.Add(new CraftingNode(stepsToTab, craftTree, craftingItem));
         }
 
@@ -74,7 +33,6 @@
 
         public static void AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem)
         {
-            ValidateStandardCraftTree(craftTree);
             CraftTreePatcher.CraftingNodes.Add(new CraftingNode(new string[0], craftTree, craftingItem));
         }
 
@@ -88,9 +46,7 @@
         /// <param name="sprite">The sprite of the tab.</param>        
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite)
         {
-            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, modName, name, displayName));
         }
 
@@ -104,9 +60,7 @@
 
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
         {
-            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, new Atlas.Sprite(sprite), modName, name, displayName));
         }
 
@@ -124,9 +78,7 @@
         /// </param>        
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite, params string[] stepsToTab)
         {
-            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, modName, name, displayName));
         }
 
@@ -143,10 +95,8 @@
         /// <para>Do not include "root" in this path.</para>
         /// </param>        
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite, params string[] stepsToTab)
-        {
-            ValidateStandardCraftTree(craftTree);            
+        {      
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, new Atlas.Sprite(sprite), modName, name, displayName));
         }
 
@@ -160,9 +110,7 @@
         /// <param name="sprite">The sprite of the tab.</param>        
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Sprite sprite)
         {
-            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, modName, name, displayName));
         }
 
@@ -180,9 +128,7 @@
         /// </param>        
         public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Sprite sprite, params string[] stepsToTab)
         {
-            ValidateStandardCraftTree(craftTree);
             string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
             CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, modName, name, displayName));
         }
 
@@ -202,33 +148,7 @@
 
         public static void RemoveNode(CraftTree.Type craftTree, params string[] stepsToNode)
         {
-            ValidateStandardCraftTree(craftTree);
             CraftTreePatcher.NodesToRemove.Add(new Node(stepsToNode, craftTree));
-        }
-
-        private static void ValidateStandardCraftTree(CraftTree.Type craftTree)
-        {
-            switch (craftTree)
-            {
-                case CraftTree.Type.Fabricator:
-                case CraftTree.Type.Constructor:
-                case CraftTree.Type.Workbench:
-                case CraftTree.Type.SeamothUpgrades:
-                case CraftTree.Type.MapRoom:
-                case CraftTree.Type.Centrifuge:
-                case CraftTree.Type.CyclopsFabricator:
-                case CraftTree.Type.Rocket:
-#if BELOWZERO
-                case CraftTree.Type.SeaTruckFabricator:
-#endif
-                    break; // Okay
-                case CraftTree.Type.Unused1:
-                case CraftTree.Type.Unused2:
-                case CraftTree.Type.None:
-                default:
-                    throw new ArgumentException($"{nameof(craftTree)} value of '{craftTree}' does not correspond to a standard crafting tree.{Environment.NewLine}" +
-                                            $"This method is intended for use only with standard crafting trees, not custom ones or unused ones.");
-            }
         }
     }
 }
