@@ -137,8 +137,8 @@
                         case ChoiceAttribute choiceAttribute:
                             BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
                             break;
-                        case ColorPickerAttribute colorAttribute:
-                            BuildModColorOption(id, label, modOptionMetadata.MemberInfoMetadata);
+                        case ColorAttribute colorAttribute:
+                            BuildModColorOption(id, label, modOptionMetadata.MemberInfoMetadata, colorAttribute);
                             break;
                         case KeybindAttribute _:
                             BuildModKeybindOption(id, label, modOptionMetadata.MemberInfoMetadata);
@@ -226,10 +226,15 @@
         /// <param name="id"></param>
         /// <param name="label"></param>
         /// <param name="memberInfoMetadata">The metadata of the corresponding member.</param>
-        private void BuildModColorOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
+        /// <param name="colorAttribute">The defined or generated <see cref="ColorAttribute"/> of the member.</param>
+        private void BuildModColorOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata, ColorAttribute colorAttribute)
         {
+            InternalLogger.Debug($"Attribute has basic value {colorAttribute.Basic}");
             Color value = memberInfoMetadata.GetValue<Color>(ConfigFileMetadata.Config);
-            AddItem(ModBasicColorOption.Create(id, label, value));
+            if (colorAttribute.Basic)
+                AddItem(ModBasicColorOption.Create(id, label, value));
+            else
+                AddItem(ModColorOption.Create(id, label, value));
         }
 
         /// <summary>

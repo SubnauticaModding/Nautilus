@@ -163,9 +163,9 @@
             {
                 addModOptionMetadata<KeybindAttribute>(memberInfo, memberType, underlyingType);
             }
-            else if (underlyingType == typeof(Color) || Attribute.IsDefined(memberInfo, typeof(ColorPickerAttribute)))
+            else if (underlyingType == typeof(Color) || Attribute.IsDefined(memberInfo, typeof(ColorAttribute)))
             {
-                addModOptionMetadata<ColorPickerAttribute>(memberInfo, memberType, underlyingType);
+                addModOptionMetadata<ColorAttribute>(memberInfo, memberType, underlyingType);
             }
             else if (underlyingType.IsEnum || Attribute.IsDefined(memberInfo, typeof(ChoiceAttribute), true))
             {
@@ -577,6 +577,12 @@
                         string[] options = choiceAttribute.Options;
                         int index = memberInfoMetadata.GetValue<int>(Config);
                         ChoiceChangedEventArgs<string> eventArgs = new(id, index, options[index]);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                    }
+                    break;
+                case ColorAttribute _:
+                    {
+                        ColorChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<Color>(Config));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;

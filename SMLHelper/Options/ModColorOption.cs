@@ -17,31 +17,36 @@ namespace SMLHelper.Options
         /// <param name="tabIndex">Where in the panel to add the option.</param>
         public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            GameObject colorPicker = panel.AddColorOption(tabIndex, Label, Value,
-                new UnityAction<Color>((Color value) => parentOptions.OnChange<ColorChangedEventArgs, Color>(Id, value)));
-            
+            // Used as display only
+            GameObject colorPicker = panel.AddColorOption(tabIndex, Label, Value, null);
 
-            GameObject redSlider = panel.AddSliderOption(tabIndex, Label + "Red", Value.r, 0, 1, 0, 0.01f,
+            UnityEngine.Object.Destroy(colorPicker.transform.Find("Choice/Background/ButtonLeft").gameObject);
+            UnityEngine.Object.Destroy(colorPicker.transform.Find("Choice/Background/ButtonRight").gameObject);
+
+            GameObject redSlider = panel.AddSliderOption(tabIndex, "Red", Value.r, 0, 1, 0, 0.01f,
                 new UnityAction<float>((float value) => {
                     Color color = new Color(value, Value.g, Value.b);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
-                    parentOptions.OnChange<ColorChangedEventArgs, Color>(Id, color);
+                    OnChange(Id, color);
+                    parentOptions.OnChange<Color, ColorChangedEventArgs> (Id, color);
                 }),
                 SliderLabelMode.Percent, "{0:F0}");
 
-            GameObject greenSlider = panel.AddSliderOption(tabIndex, Label + "Green", Value.g, 0, 1, 0, 0.01f,
+            GameObject greenSlider = panel.AddSliderOption(tabIndex, "Green", Value.g, 0, 1, 0, 0.01f,
                 new UnityAction<float>((float value) => {
                     Color color = new Color(Value.r, value, Value.b);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
-                    parentOptions.OnChange<ColorChangedEventArgs, Color>(Id, color);
+                    OnChange(Id, color);
+                    parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
                 SliderLabelMode.Percent, "{0:F0}");
 
-            GameObject blueSlider = panel.AddSliderOption(tabIndex, Label + "Blue", Value.b, 0, 1, 0, 0.01f,
+            GameObject blueSlider = panel.AddSliderOption(tabIndex, "Blue", Value.b, 0, 1, 0, 0.01f,
                 new UnityAction<float>((float value) => {
                     Color color = new Color(Value.r, Value.g, value);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
-                    parentOptions.OnChange<ColorChangedEventArgs, Color>(Id, color);
+                    OnChange(Id, color);
+                    parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
                 SliderLabelMode.Percent, "{0:F0}");
 
@@ -73,7 +78,7 @@ namespace SMLHelper.Options
         }
 
         /// <summary>
-        /// The Adjuster for this <see cref="ModOption"/>.
+        /// The Adjuster for this <see cref="OptionItem"/>.
         /// </summary>
         public override Type AdjusterComponent => null;
     }

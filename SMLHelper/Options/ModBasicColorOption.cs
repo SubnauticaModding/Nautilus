@@ -29,8 +29,12 @@ namespace SMLHelper.Options
         /// <param name="tabIndex">Where in the panel to add the option.</param>
         public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            GameObject colorPicker = panel.AddColorOption(tabIndex, Label, Value,
-                new UnityAction<Color>((Color value) => parentOptions.OnChange<ColorChangedEventArgs, Color>(Id, value)));
+            UnityAction<Color> callback = new UnityAction<Color>((Color value) => {
+                OnChange(Id, value);
+                parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, value);
+            });
+
+            GameObject colorPicker = panel.AddColorOption(tabIndex, Label, Value, callback);
             OptionGameObject = colorPicker.transform.parent.gameObject;
 
             base.AddToPanel(panel, tabIndex);
@@ -60,7 +64,7 @@ namespace SMLHelper.Options
         }
 
         /// <summary>
-        /// The Adjuster for this <see cref="ModOption"/>.
+        /// The Adjuster for this <see cref="OptionItem"/>.
         /// </summary>
         public override Type AdjusterComponent => null;
     }
