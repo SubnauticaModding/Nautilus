@@ -1,10 +1,13 @@
-﻿using Newtonsoft.Json;
-using System;
-using UnityEngine;
-
-namespace SMLHelper.Json.Converters
+﻿namespace SMLHelper.Json.Converters
 {
-    internal class ColorConverter : JsonConverter
+    using System;
+    using UnityEngine;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// A Color json converter that simplifies the Color to only r,g,b,a serialization.
+    /// </summary>
+    public class ColorConverter : JsonConverter
     {
         /// <summary>
         /// A method that determines when this converter should process.
