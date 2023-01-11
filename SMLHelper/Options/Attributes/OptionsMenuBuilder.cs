@@ -229,7 +229,7 @@
         private void BuildModColorOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
         {
             Color value = memberInfoMetadata.GetValue<Color>(ConfigFileMetadata.Config);
-            AddItem(ModBasicColorOption.Factory(id, label, value));
+            AddItem(ModBasicColorOption.Create(id, label, value));
         }
 
         /// <summary>

@@ -18,9 +18,9 @@ namespace SMLHelper.Options
     }
 
     /// <summary>
-    /// A mod option class for handling an option that can be either ON or OFF.
+    /// A basic mod option class for handling an option that can be any <seealso cref="Color"/>.
     /// </summary>
-    public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
+    public class ModBasicColorOption : ModOption<Color, ColorChangedEventArgs>
     {
         /// <summary>
         /// The base method for adding an object to the options panel
@@ -36,7 +36,7 @@ namespace SMLHelper.Options
             base.AddToPanel(panel, tabIndex);
         }
 
-        private ModColorOption(string id, string label, Color value) : base(label, id, value) { }
+        private ModBasicColorOption(string id, string label, Color value) : base(label, id, value) { }
 
         /// <summary>
         /// Creates a new <see cref="ModToggleOption"/> instance.
@@ -44,19 +44,19 @@ namespace SMLHelper.Options
         /// <param name="id">The internal ID for the Color option.</param>
         /// <param name="label">The display text to use in the in-game menu.</param>
         /// <param name="value">The starting value.</param>
-        public static ModColorOption Factory(string id, string label, Color value)
+        public static ModBasicColorOption Create(string id, string label, Color value)
         {
-            return new ModColorOption(id, label, value);
+            return new ModBasicColorOption(id, label, value);
         }
 
         /// <summary>
-        /// Creates a new <see cref="ModColorOption"/> instance.
+        /// Creates a new <see cref="ModBasicColorOption"/> instance.
         /// </summary>
         /// <param name="id">The internal ID for the Color option.</param>
         /// <param name="label">The display text to use in the in-game menu.</param>
-        public static ModColorOption Factory(string id, string label)
+        public static ModBasicColorOption Create(string id, string label)
         {
-            return Factory(id, label, Color.white);
+            return Create(id, label, Color.white);
         }
 
         /// <summary>
