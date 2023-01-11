@@ -78,6 +78,9 @@
                 case ChoiceChangedEventArgs<T> choiceChangedEventArgs:
                     ConfigFileMetadata.HandleChoiceChanged(sender, choiceChangedEventArgs);
                     break;
+                case ColorChangedEventArgs colorChangedEventArgs:
+                    ConfigFileMetadata.HandleColorChanged(sender, colorChangedEventArgs);
+                    break;
                 case KeybindChangedEventArgs keybindChangedEventArgs:
                     ConfigFileMetadata.HandleKeybindChanged(sender, keybindChangedEventArgs);
                     break;

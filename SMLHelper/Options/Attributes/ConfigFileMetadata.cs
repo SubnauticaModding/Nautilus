@@ -409,6 +409,21 @@
             }
         }
 
+        public void HandleColorChanged(object sender, ColorChangedEventArgs e)
+        {
+            if (TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
+            {
+                modOptionMetadata.MemberInfoMetadata.SetValue(Config, e.Value);
+
+                if (MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                {
+                    Config.Save();
+                }
+
+                InvokeOnChangeEvents(modOptionMetadata, sender, e);
+            }
+        }
+
         /// <summary>
         /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
         /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
