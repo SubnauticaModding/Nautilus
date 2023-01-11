@@ -12,8 +12,8 @@ namespace SMLHelper.Options
         /// <summary>
         /// Constructs a new <see cref="ToggleChangedEventArgs"/>.
         /// </summary>
-        /// <param name="id">The ID of the <see cref="ModToggleOption"/> that was changed.</param>
-        /// <param name="value">The new value for the <see cref="ModToggleOption"/>.</param>
+        /// <param name="id">The ID of the <see cref="ModColorOption"/> that was changed.</param>
+        /// <param name="value">The new value for the <see cref="ModColorOption"/>.</param>
         public ColorChangedEventArgs(string id, Color value) : base(id, value) { }
     }
 
@@ -84,7 +84,7 @@ namespace SMLHelper.Options
         }
 
         /// <summary>
-        /// Creates a new <see cref="ModToggleOption"/> instance.
+        /// Creates a new <see cref="ModColorOption"/> instance.
         /// </summary>
         /// <param name="id">The internal ID for the Color option.</param>
         /// <param name="label">The display text to use in the in-game menu.</param>
