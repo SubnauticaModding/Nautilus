@@ -77,7 +77,7 @@
     /// <seealso cref="KeybindAttribute"/>
     /// <seealso cref="SliderAttribute"/>
     /// <seealso cref="ToggleAttribute"/>
-    /// <seealso cref="ColorAttribute"/>
+    /// <seealso cref="ColorPickerAttribute"/>
     /// <seealso cref="ButtonAttribute"/>
     /// <seealso cref="ModOptions"/>
     /// <seealso cref="ConfigFile"/>

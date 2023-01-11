@@ -5,7 +5,7 @@
 
     /// <summary>
     /// Attribute used to signify the decorated <see cref="UnityEngine.Color"/> should be represented in the mod's
-    /// option menu as a <see cref="ModBasicColorOption"/>.
+    /// option menu as a <see cref="ModColorOption"/>.
     /// </summary>
     /// <example>
     /// <code>
@@ -23,24 +23,24 @@
     /// <seealso cref="MenuAttribute"/>
     /// <seealso cref="ConfigFile"/>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class ColorAttribute : ModOptionAttribute
+    public sealed class ColorPickerAttribute : ModOptionAttribute
     {
         /// <summary>
         /// Which type of color picker to use.
         /// </summary>
-        public bool Basic { get; set; } = true;
+        public bool Advanced { get; set; } = false;
 
         /// <summary>
         /// Signifies the decorated <see cref="UnityEngine.Color"/> should be represented in the mod's option menu
-        /// as a <see cref="ModBasicColorOption"/>.
+        /// as a <see cref="ModColorOption"/>.
         /// </summary>
         /// <param name="label">The label for the toggle.</param>
-        public ColorAttribute(string label = null) : base(label) { }
+        public ColorPickerAttribute(string label = null) : base(label) { }
 
         /// <summary>
         /// Signifies the decorated <see cref="UnityEngine.Color"/> should be represented in the mod's option menu
-        /// as a <see cref="ModBasicColorOption"/>.
+        /// as a <see cref="ModColorOption"/>.
         /// </summary>
-        public ColorAttribute() { }
+        public ColorPickerAttribute() { }
     }
 }

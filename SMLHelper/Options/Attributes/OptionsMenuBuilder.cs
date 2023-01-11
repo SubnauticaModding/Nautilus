@@ -137,7 +137,7 @@
                         case ChoiceAttribute choiceAttribute:
                             BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
                             break;
-                        case ColorAttribute colorAttribute:
+                        case ColorPickerAttribute colorAttribute:
                             BuildModColorOption(id, label, modOptionMetadata.MemberInfoMetadata, colorAttribute);
                             break;
                         case KeybindAttribute _:
@@ -221,20 +221,17 @@
         }
 
         /// <summary>
-        /// Adds a <see cref="ModBasicColorOption"/> to the <see cref="ModOptions"/> menu.
+        /// Adds a <see cref="ModColorOption"/> to the <see cref="ModOptions"/> menu.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="label"></param>
         /// <param name="memberInfoMetadata">The metadata of the corresponding member.</param>
-        /// <param name="colorAttribute">The defined or generated <see cref="ColorAttribute"/> of the member.</param>
-        private void BuildModColorOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata, ColorAttribute colorAttribute)
+        /// <param name="colorAttribute">The defined or generated <see cref="ColorPickerAttribute"/> of the member.</param>
+        private void BuildModColorOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata, ColorPickerAttribute colorAttribute)
         {
-            InternalLogger.Debug($"Attribute has basic value {colorAttribute.Basic}");
             Color value = memberInfoMetadata.GetValue<Color>(ConfigFileMetadata.Config);
-            if (colorAttribute.Basic)
-                AddItem(ModBasicColorOption.Create(id, label, value));
-            else
-                AddItem(ModColorOption.Create(id, label, value));
+            if (!AddItem(ModColorOption.Create(id, label, value, colorAttribute.Advanced)))
+                InternalLogger.Warn($"Failed to add ModColorOption with id {id} to {Name}");
         }
 
         /// <summary>
