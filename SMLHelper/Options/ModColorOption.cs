@@ -73,14 +73,14 @@ namespace SMLHelper.Options
                     }),
                     SliderLabelMode.Percent, "{0:F0}");
 
-                GameObject alphaSlider = panel.AddSliderOption(tabIndex, "Transparency", (1 - Value.a), 0, 1, 0, 0.01f,
+                GameObject alphaSlider = panel.AddSliderOption(tabIndex, "Alpha", Value.a, 0, 1, 1, 0.01f,
                     new UnityAction<float>((float value) => {
-                        Color color = new Color(Value.r, Value.g, Value.b, 1 - value);
+                        Color color = new Color(Value.r, Value.g, Value.b, value);
                         colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                         OnChange(Id, color);
                         parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                     }),
-                    SliderLabelMode.Percent, "{0:F0}");
+                    SliderLabelMode.Percent, "{0:F0}", tooltip: "Opaqueness. The lower the value the more transparent.");
             }
 
             OptionGameObject = colorPicker.transform.parent.gameObject;
