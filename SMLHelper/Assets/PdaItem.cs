@@ -129,7 +129,7 @@
 
         internal sealed override void PatchTechType()
         {
-            ModPrefabBuilder.Create(this).SetTechType(FriendlyName, Description, UnlockedAtStart);
+            ModPrefabBuilder.Create(this).SetTechType(UnlockedAtStart).SetLanguageLines(FriendlyName, Description);
         }
     }
 }

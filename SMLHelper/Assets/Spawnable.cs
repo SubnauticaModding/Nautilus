@@ -160,7 +160,7 @@
 
         internal virtual void PatchTechType()
         {
-            ModPrefabBuilder.Create(this).SetTechType(FriendlyName, Description, false);
+            ModPrefabBuilder.Create(this).SetTechType(false).SetLanguageLines(FriendlyName, Description);
         }
 
         /// <summary>

@@ -3,6 +3,8 @@
     using Handlers;
     using Utility;
     using UnityEngine;
+    using SMLHelper.Patchers;
+    using static HandReticle;
 
     /// <summary>
     /// Extensions for the ModPrefab class to set things up without having to use Inheritance based prefabs.
@@ -60,11 +62,9 @@
         /// Generates a Techtype using the ModPrefabs <see cref="ModPrefab.ClassID"/> with optional ability to set PDA info for the created TechType.
         /// </summary>
         /// <param name="modPrefabBuilder">The prefab to handle</param>
-        /// <param name="displayName"></param>
-        /// <param name="toolTip"></param>
         /// <param name="unlockAtStart"></param>
         /// <returns>The original Modprefab so these can be called in sequence.</returns>
-        public static ModPrefabBuilder SetTechType(this ModPrefabBuilder modPrefabBuilder, string displayName = null, string toolTip = null, bool unlockAtStart = true)
+        public static ModPrefabBuilder SetTechType(this ModPrefabBuilder modPrefabBuilder, bool unlockAtStart = true)
         {
             ModPrefab modPrefab = modPrefabBuilder.ModPrefab;
             if(modPrefab.TechType != TechType.None)
@@ -77,13 +77,45 @@
             if(builder == null)
                 return modPrefabBuilder;
 
-            if(displayName != null && toolTip != null)
-            {
-                builder.WithPdaInfo(displayName, toolTip, unlockAtStart);
-            }
+            if(unlockAtStart)
+                KnownTechPatcher.UnlockedAtStart.Add(builder.Value);
+
             modPrefab.TechType = builder.Value;
             return modPrefabBuilder;
         }
+
+        /// <summary>
+        /// Generates a Techtype using the ModPrefabs <see cref="ModPrefab.ClassID"/> with optional ability to set PDA info for the created TechType.
+        /// </summary>
+        /// <param name="modPrefabBuilder">The prefab to handle</param>
+        /// <param name="displayName"></param>
+        /// <param name="tooltip"></param>
+        /// <returns>The original Modprefab so these can be called in sequence.</returns>
+        public static ModPrefabBuilder SetLanguageLines(this ModPrefabBuilder modPrefabBuilder, string displayName = null, string tooltip = null)
+        {
+            ModPrefab modPrefab = modPrefabBuilder.ModPrefab;
+            if(modPrefab.TechType == TechType.None)
+            {
+                InternalLogger.Error($"Cannot set language lines for {modPrefab.ClassID} as it does not have a TechType.");
+                return modPrefabBuilder;
+            }
+
+
+            var modName = ReflectionHelper.CallingAssemblyByStackTrace().GetName().Name;
+
+            if(displayName is not null)
+                LanguagePatcher.AddCustomLanguageLine(modName, modPrefab.ClassID, displayName);
+
+            if(tooltip is not null)
+            {
+                LanguagePatcher.AddCustomLanguageLine(modName, "Tooltip_" + modPrefab.ClassID, tooltip);
+                var valueToString = TooltipFactory.techTypeTooltipStrings.valueToString;
+                valueToString[modPrefab.TechType] = "Tooltip_" + modPrefab.ClassID;
+            }
+            modPrefab.TechType = modPrefab.TechType;
+            return modPrefabBuilder;
+        }
+
 
 #if SUBNAUTICA
         /// <summary>
