@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.Patchers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using BepInEx.Logging;
     using Crafting;
@@ -151,6 +152,12 @@
                     }
                 }
 
+                if(currentNode.nodes.Any(node=> node is CraftNode craftNode && craftNode.action == TreeAction.Craft))
+                {
+                    InternalLogger.Error($"Cannot add tab: {tab.Name} as it is being added to a parent node that contains crafting nodes.");
+                    continue;
+                }
+
                 // Add the new tab node.
                 CraftNode newNode = new(tab.Name, TreeAction.Expand, TechType.None);
                 currentNode.AddNode(new TreeNode[]
@@ -189,6 +196,12 @@
                     {
                         break;
                     }
+                }
+
+                if(node.nodes.Any(x => x is CraftNode craftNode && craftNode.action == TreeAction.Expand))
+                {
+                    InternalLogger.Error($"Cannot Crafting node: {customNode.TechType.AsString()} as it is being added to {node.id} that contains Tab nodes.");
+                    continue;
                 }
 
                 // Add the node.
