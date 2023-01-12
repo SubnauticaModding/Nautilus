@@ -22,7 +22,7 @@
         /// <param name="ingredients">The ingredients cost.</param>
         /// <param name="linkedItems">Any other TechTypes that should be gived to the player when this one is crafted. (like how you get gloves and helm with the suits)</param>
         /// <returns>The original Modprefab so these can be called in sequence.</returns>
-        public static ModPrefabBuilder SetRecipe(this ModPrefabBuilder modPrefabBuilder, int count, List<Ingredient> ingredients, List<TechType> linkedItems)
+        public static ModPrefabBuilder SetRecipe(this ModPrefabBuilder modPrefabBuilder, int count, List<Ingredient> ingredients, List<TechType> linkedItems = null)
         {
             ModPrefab modPrefab = modPrefabBuilder.ModPrefab;
             if(modPrefab.TechType == TechType.None)

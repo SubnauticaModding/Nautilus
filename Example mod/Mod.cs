@@ -12,6 +12,10 @@
     using BepInEx;
     using BepInEx.Logging;
     using SMLHelper.Utility;
+    using Example_mod;
+    using SMLHelper.Assets;
+    using System.Collections.Generic;
+    using Crafting;
 
     [BepInPlugin(GUID, MODNAME, VERSION)]
     public class ExampleMod: BaseUnityPlugin
@@ -36,6 +40,15 @@
         public void Awake()
         {
             LogSource = base.Logger;
+
+            new MyFirstPrefab().RegisterPrefab()
+                .SetTechType()
+                .SetQuickSlotType(QuickSlotType.Passive)
+                .SetRecipe(4, new List<Ingredient>() { 
+                    new Ingredient(TechType.Titanium, 1),
+                    new Ingredient(TechType.Quartz, 1)
+                }).SetInventorySize(4,7);
+
 
             /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an 
             /// options menu using Attributes. The values in this instance will be updated whenever the user changes 
