@@ -3,6 +3,7 @@ using System.Reflection;
 using SMLHelper.Assets;
 using SMLHelper.Patchers;
 using SMLHelper.Utility;
+using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 namespace SMLHelper.Handlers;
@@ -62,6 +63,24 @@ public static partial class EnumExtensions
     /// <param name="builder">The current custom enum object instance.</param>
     /// <param name="sprite">The icon to add for this instance.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
+    public static EnumBuilder<TechType> WithIcon(this EnumBuilder<TechType> builder, Sprite sprite)
+    {
+        TechType tt = builder;
+        EnsureAsStringSupport(tt);
+
+        if(sprite != null)
+            ModSprite.Add(SpriteManager.Group.None, tt.ToString(), sprite);
+
+        return builder;
+    }
+
+#if SUBNAUTICA
+    /// <summary>
+    /// Adds an icon for this instance.
+    /// </summary>
+    /// <param name="builder">The current custom enum object instance.</param>
+    /// <param name="sprite">The icon to add for this instance.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
     public static EnumBuilder<TechType> WithIcon(this EnumBuilder<TechType> builder, Atlas.Sprite sprite)
     {
         TechType tt = builder;
@@ -72,6 +91,7 @@ public static partial class EnumExtensions
 
         return builder;
     }
+#endif
 
     private static void EnsureAsStringSupport(TechType techType)
     {

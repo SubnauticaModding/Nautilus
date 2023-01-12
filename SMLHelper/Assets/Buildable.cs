@@ -3,7 +3,7 @@
     using SMLHelper.Handlers;
 
     /// <summary>
-    /// An item that can be built into the game world.
+    /// An item that can be built into the game world using the builder tool.
     /// </summary>
     /// <seealso cref="PdaItem" />
     /// <seealso cref="Spawnable"/>
@@ -18,12 +18,7 @@
         protected Buildable(string classId, string friendlyName, string description)
             : base(classId, friendlyName, description)
         {
-            CorePatchEvents += PatchBuildable;
-        }
-
-        private void PatchBuildable()
-        {
-            CraftDataHandler.AddBuildable(this.TechType);
+            CorePatchEvents += ()=> ModPrefabBuilder.Create(this).SetBuildableFlag();
         }
     }
 }

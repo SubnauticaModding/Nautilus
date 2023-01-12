@@ -34,8 +34,7 @@
         protected Equipable(string classId, string friendlyName, string description)
             : base(classId, friendlyName, description)
         {
-            CorePatchEvents += () => CraftDataHandler.SetEquipmentType(TechType, EquipmentType);
-            CorePatchEvents += () => CraftDataHandler.SetQuickSlotType(TechType, QuickSlotType);
+            CorePatchEvents += () => ModPrefabBuilder.Create(this).SetEquipmentType(EquipmentType).SetQuickSlotType(QuickSlotType);
         }
     }
 }

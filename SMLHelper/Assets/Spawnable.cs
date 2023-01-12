@@ -1,13 +1,10 @@
 ﻿namespace SMLHelper.Assets
 {
     using BepInEx.Logging;
-    using SMLHelper.Handlers;
     using SMLHelper.Utility;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
-    using UnityEngine;
     using UWE;
 
 #if SUBNAUTICA
@@ -65,13 +62,6 @@
         public virtual Vector2int SizeInInventory { get; } = defaultSize;
         
         /// <summary>
-        /// A lightweight class used to specify the position of a Coordinated Spawn and optionally set its rotation.
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="eulerAngles"></param>
-        public record SpawnLocation(Vector3 position, Vector3 eulerAngles = default);
-        
-        /// <summary>
         /// Returns the list of <see cref="SpawnLocation"/>s that specify the prefab's Coordinated Spawns.<br/>
         /// By default this will be null.
         /// </summary>
@@ -105,8 +95,8 @@
         {
             if(string.IsNullOrEmpty(classId))
             {
-                InternalLogger.Log($"ClassID for Spawnables must be a non-empty value.", LogLevel.Error);
-                throw new ArgumentException($"Error patching Spawnable");
+                InternalLogger.Log($"ClassID for must be a non-empty value.", LogLevel.Error);
+                throw new ArgumentException($"Error patching {this.GetType()}");
             }
 
             FriendlyName = friendlyName;
@@ -114,52 +104,13 @@
 
             CorePatchEvents += () =>
             {
-                PrefabHandler.RegisterPrefab(this);
-
-#if SUBNAUTICA
-                SpriteHandler.RegisterSprite(TechType, GetItemSprite());
-#elif BELOWZERO
-                CoroutineHost.StartCoroutine(RegisterSpriteAsync());
-#endif
-                if (!SizeInInventory.Equals(defaultSize))
-                {
-                    CraftDataHandler.SetItemSize(TechType, SizeInInventory);
-                }
-
-                if(EntityInfo != null)
-                {
-                    if(BiomesToSpawnIn != null)
-                    {
-                        LootDistributionHandler.AddLootDistributionData(this, BiomesToSpawnIn, EntityInfo);
-                    }
-                    else
-                    {
-                        WorldEntityDatabaseHandler.AddCustomInfo(ClassID, EntityInfo);
-                    }
-                }
-
-                if (CoordinatedSpawns != null)
-                {
-                    foreach ((Vector3 position, Vector3 eulerAngles) in CoordinatedSpawns)
-                    {
-                        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(TechType, position, eulerAngles));
-                    }
-                }
+                this.RegisterPrefab()
+                .SetSprite(GetItemSprite())
+                .SetInventorySize(SizeInInventory)
+                .SetWorldEntityInfo(EntityInfo, BiomesToSpawnIn)
+                .SetStaticSpawnLocations(CoordinatedSpawns);
             };
         }
-
-#if BELOWZERO
-        private IEnumerator RegisterSpriteAsync()
-        {
-            while (!SpriteManager.hasInitialized)
-            {
-                yield return new WaitForSecondsRealtime(1);
-            }
-
-            SpriteHandler.RegisterSprite(TechType, GetItemSprite());
-            yield break;
-        }
-#endif
 
         /// <summary>
         /// This event triggers <c>before</c> the core patching methods begins.
@@ -209,28 +160,26 @@
 
         internal virtual void PatchTechType()
         {
-            TechType = EnumHandler.AddEntry<TechType>(ClassID, Mod).WithPdaInfo(Mod, FriendlyName, Description, false);
+            ModPrefabBuilder.Create(this).SetTechType(FriendlyName, Description, false);
         }
 
         /// <summary>
-        /// Determines thee <see cref="Sprite"/> to be used for this spawnable's icon.<para/>
-        /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/>.
+        /// Determines the <see cref="Sprite"/> to be used for this spawnable's icon.<para/>
+        /// Default behavior will look for a PNG file named <see cref="IconFileName"/> inside <see cref="AssetsFolder"/> if <see cref="HasSprite"/> is true and return the games default sprite if false.
         /// </summary>
         /// <returns>Returns the <see cref="Sprite"/> that will be used in the <see cref="SpriteHandler.RegisterSprite(TechType, Sprite)"/> call.</returns>
         protected virtual Sprite GetItemSprite()
         {
-            // This is for backwards compatibility with mods that were using the "ModName/Assets" format
-            string path = this.AssetsFolder != ModFolderLocation && !string.IsNullOrWhiteSpace(this.AssetsFolder)
-                ? IOUtilities.Combine(ModFolderLocation, this.AssetsFolder.Trim('/'), this.IconFileName)
-                : Path.Combine(this.AssetsFolder, this.IconFileName);
-
-            if(File.Exists(path))
-            {
-                return ImageUtils.LoadSpriteFromFile(path);
-            }
-
             if(HasSprite)
             {
+                string path = this.AssetsFolder != ModFolderLocation && !string.IsNullOrWhiteSpace(this.AssetsFolder)
+                    ? IOUtilities.Combine(ModFolderLocation, this.AssetsFolder.Trim('/'), this.IconFileName)
+                    : Path.Combine(this.AssetsFolder, this.IconFileName);
+
+                if(File.Exists(path))
+                {
+                    return ImageUtils.LoadSpriteFromFile(path);
+                }
                 InternalLogger.Error($"Sprite for '{this.PrefabFileName}'{Environment.NewLine}Did not find an image file at '{path}'");
             }
 

@@ -15,7 +15,7 @@
         /// <param name="callback">The method which will be called when a matching <see cref="InventoryItem"/> with the specified <see cref="TechType"/> was left-clicked</param>
         /// <param name="tooltip">The secondary tooltip which will appear in the description of the item</param>
         /// <param name="condition">The condition which must return <see langword="true"/> for the action to be called when the item is clicked<para/>If ommited, the action will always be called</param>
-        public static void RegisterLeftClickAction(TechType targetTechType, Action<InventoryItem> callback, string tooltip, Predicate<InventoryItem> condition)
+        public static void RegisterLeftClickAction(TechType targetTechType, Action<InventoryItem> callback, string tooltip, Predicate<InventoryItem> condition = null)
         {
             string languageLine = $"LeftClickAction_{targetTechType.AsString()}";
             LanguageHandler.SetLanguageLine(languageLine, tooltip);
@@ -31,7 +31,7 @@
         /// <param name="callback">The method which will be called when a matching <see cref="InventoryItem"/> with the specified <see cref="TechType"/> was middle-clicked</param>
         /// <param name="tooltip">The secondary tooltip which will appear in the description of the item</param>
         /// <param name="condition">The condition which must return <see langword="true"/> for the action to be called when the item is clicked<para/>If ommited, the action will always be called</param>
-        public static void RegisterMiddleClickAction(TechType targetTechType, Action<InventoryItem> callback, string tooltip, Predicate<InventoryItem> condition)
+        public static void RegisterMiddleClickAction(TechType targetTechType, Action<InventoryItem> callback, string tooltip, Predicate<InventoryItem> condition = null)
         {
             string languageLine = $"MiddleClickAction_{targetTechType.AsString()}";
             LanguageHandler.SetLanguageLine(languageLine, tooltip);

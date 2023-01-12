@@ -128,19 +128,19 @@
 
         private static void CraftDataPrefabIDCachePostfix()
         {
-            if (ModPrefab.ModPrefabsPatched)
+            if (ModPrefabCache.ModPrefabsPatched)
             {
                 return;
             }
 
             Dictionary<TechType, string> techMapping = CraftData.techMapping;
             Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
-            foreach (ModPrefab prefab in ModPrefab.Prefabs)
+            foreach (ModPrefab prefab in ModPrefabCache.Prefabs)
             {
                 techMapping[prefab.TechType] = prefab.ClassID;
                 entClassTechTable[prefab.ClassID] = prefab.TechType;
             }
-            ModPrefab.ModPrefabsPatched = true;
+            ModPrefabCache.ModPrefabsPatched = true;
         }
         #endregion
     }

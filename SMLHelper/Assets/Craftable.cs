@@ -42,26 +42,9 @@
 
         private void PatchCraftingData()
         {
-            if (this.FabricatorType == CraftTree.Type.None)
-            {
-                InternalLogger.Debug($"Craftable '{this.ClassID}' was not automatically patched into a crafting tree.");
-            }
-            else
-            {
-                if (this.StepsToFabricatorTab == null || this.StepsToFabricatorTab.Length == 0)
-                {
-                    CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType);
-                }
-                else
-                {
-                    CraftTreeHandler.AddCraftingNode(this.FabricatorType, this.TechType, this.StepsToFabricatorTab);
-                }
-            }
-
-            if (this.CraftingTime >= 0f)
-            {
-                CraftDataHandler.SetCraftingTime(this.TechType, this.CraftingTime);
-            }
+            ModPrefabBuilder.Create(this)
+                .SetCraftingNode(FabricatorType, StepsToFabricatorTab)
+                .SetCraftingTime(CraftingTime);
         }
     }
 }

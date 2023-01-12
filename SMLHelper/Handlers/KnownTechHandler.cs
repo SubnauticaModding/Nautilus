@@ -68,17 +68,9 @@
                 return;
             }
 
-
-            if (KnownTechPatcher.CompoundTech.TryGetValue(techType, out KnownTech.CompoundTech compoundTech))
-            {
-                InternalLogger.Debug($"Compound Unlock already found for {techType.AsString()}, Overwriting.");
-                compoundTech.dependencies = compoundTechsForUnlock;
-            }
-            else
-            {
-                InternalLogger.Debug($"Adding Compound Unlock for {techType.AsString()}");
-                KnownTechPatcher.CompoundTech.Add(techType, new KnownTech.CompoundTech() { techType = techType, dependencies = compoundTechsForUnlock });
-            }
+            RemoveAllCurrentAnalysisTechEntry(techType);
+            InternalLogger.Debug($"Adding Compound Unlock for {techType.AsString()}");
+            KnownTechPatcher.CompoundTech[techType] = new KnownTech.CompoundTech() { techType = techType, dependencies = compoundTechsForUnlock };
         }
 
         internal static void RemoveAnalysisSpecific(TechType targetTechType, List<TechType> techTypes)
@@ -224,7 +216,6 @@
 
         /// <summary>
         /// Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
-        /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAnalysisTechEntryFromSpecific"/> or <see cref="RemoveAllCurrentAnalysisTechEntry"/>
         /// </summary>
         /// <param name="techType"></param>
         /// <param name="compoundTechsForUnlock"></param>

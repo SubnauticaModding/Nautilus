@@ -11,39 +11,6 @@
     /// </summary>
     public abstract class ModPrefab
     {
-        private static readonly Dictionary<string, ModPrefab> FileNameDictionary = new(StringComparer.InvariantCultureIgnoreCase);
-        private static readonly Dictionary<string, ModPrefab> ClassIdDictionary = new(StringComparer.InvariantCultureIgnoreCase);
-        private static readonly List<ModPrefab> PreFabsList = new();
-        internal static bool ModPrefabsPatched = false;
-
-        internal static void Add(ModPrefab prefab)
-        {
-            FileNameDictionary.Add(prefab.PrefabFileName, prefab);
-            ClassIdDictionary.Add(prefab.ClassID, prefab);
-            PreFabsList.Add(prefab);
-            ModPrefabsPatched = false;
-        }
-
-        internal static IEnumerable<ModPrefab> Prefabs => PreFabsList;
-        internal static bool TryGetFromFileName(string classId, out ModPrefab prefab)
-        {
-            if (string.IsNullOrEmpty(classId))
-            {
-                prefab = null;
-                return false;
-            }
-            return FileNameDictionary.TryGetValue(classId, out prefab);
-        }
-
-        internal static bool TryGetFromClassId(string classId, out ModPrefab prefab)
-        {
-            if (string.IsNullOrEmpty(classId))
-            {
-                prefab = null;
-                return false;
-            }
-            return ClassIdDictionary.TryGetValue(classId, out prefab);
-        }
 
         internal readonly Assembly Mod;
 
@@ -61,7 +28,7 @@
         /// The <see cref="TechType"/> of the corresponding item.
         /// Used for <see cref="TechTag" />, and <see cref="Constructable" /> components whenever applicable.
         /// </summary>
-        public TechType TechType { get; protected set; }
+        public TechType TechType { get; internal set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ModPrefab" /> class.

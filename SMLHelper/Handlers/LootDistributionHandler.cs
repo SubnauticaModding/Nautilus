@@ -22,8 +22,8 @@
         public static void AddLootDistributionData(string classId, LootDistributionData.SrcData data, WorldEntityInfo info)
         {
             AddLootDistributionData(classId, data);
-
-            WorldEntityDatabaseHandler.AddCustomInfo(classId, info);
+            if(!WorldEntityDatabasePatcher.CustomWorldEntityInfos.TryGetValue(classId, out var currentInfo) || currentInfo != info)
+                WorldEntityDatabaseHandler.AddCustomInfo(classId, info);
         }
 
         /// <summary>
@@ -70,7 +70,8 @@
         {
             AddLootDistributionData(prefab.ClassID, prefab.PrefabFileName, biomeDistribution);
 
-            WorldEntityDatabaseHandler.AddCustomInfo(prefab.ClassID, info);
+            if(!WorldEntityDatabasePatcher.CustomWorldEntityInfos.TryGetValue(prefab.ClassID, out var currentInfo) || currentInfo != info)
+                WorldEntityDatabaseHandler.AddCustomInfo(prefab.ClassID, info);
         }
 
         /// <summary>

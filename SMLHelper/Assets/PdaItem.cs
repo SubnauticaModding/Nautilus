@@ -1,9 +1,10 @@
 ﻿namespace SMLHelper.Assets
 {
     using Crafting;
-    using SMLHelper.Handlers;
-    using SMLHelper.Utility;
     using System.Collections.Generic;
+#if SUBNAUTICA
+    using RecipeData = Crafting.TechData;
+#endif
 
     /// <summary>
     /// A <see cref="Spawnable"/> item that appears in the PDA blueprints.
@@ -74,8 +75,6 @@
         /// </summary>
         public virtual string DiscoverMessage => null;
 
-        internal string DiscoverMessageResolved => DiscoverMessage == null ? "NotificationBlueprintUnlocked" : $"{TechType.AsString()}_DiscoverMessage";
-
         /// <summary>
         /// Initializes a new <see cref="PdaItem"/>, the basic class for any item that appears among your PDA blueprints.
         /// </summary>
@@ -88,51 +87,22 @@
             CorePatchEvents += PatchTechDataEntry;
         }
 
-#if SUBNAUTICA
-        /// <summary>
-        /// This provides the <see cref="TechData"/> instance used to designate how this item is crafted or constructed.
-        /// </summary>
-        protected abstract TechData GetBlueprintRecipe();
-#elif BELOWZERO
         /// <summary>
         /// This provides the <see cref="RecipeData"/> instance used to designate how this item is crafted or constructed.
         /// </summary>
         protected abstract RecipeData GetBlueprintRecipe();
-#endif
+
         private void PatchTechDataEntry()
         {
-            CraftDataHandler.SetTechData(TechType, GetBlueprintRecipe());
-
-
-            if(GroupForPDA != TechGroup.Uncategorized)
-            {
-                List<TechCategory> categories = new();
-                CraftData.GetBuilderCategories(GroupForPDA, categories);
-                if(categories.Contains(CategoryForPDA))
-                {
-                    CraftDataHandler.AddToGroup(GroupForPDA, CategoryForPDA, TechType);
-                }
-                else
-                {
-                    InternalLogger.Error($"Failed to add {TechType} to {GroupForPDA}/{CategoryForPDA} as it is not a registered combination.");
-                }
-            }
-
-            if(EncyclopediaEntryData != null)
-            {
-                PDAHandler.AddEncyclopediaEntry(EncyclopediaEntryData);
-            }
+            var builder = ModPrefabBuilder.Create(this)
+                .SetRecipe(GetBlueprintRecipe())
+                .SetTechCategory(GroupForPDA, CategoryForPDA)
+                .SetEncyclopediaEntry(EncyclopediaEntryData);
 
             if(!UnlockedAtStart)
             {
                 TechType unlockTech = RequiredForUnlock == TechType.None? this.TechType: RequiredForUnlock;
-
-                KnownTechHandler.SetAnalysisTechEntry(unlockTech, new TechType[1] { TechType }, DiscoverMessageResolved);
-
-                if(CompoundTechsForUnlock != null && CompoundTechsForUnlock.Count > 0)
-                {
-                    KnownTechHandler.SetCompoundUnlock(this.TechType, CompoundTechsForUnlock);
-                }
+                builder.SetUnlockTech(unlockTech, DiscoverMessage).SetCompoundUnlock(CompoundTechsForUnlock);
 
                 if (AddScannerEntry)
                 {
@@ -151,14 +121,15 @@
                     {
                         entryData.encyclopedia = EncyclopediaEntryData.key;
                     }
-                    PDAHandler.AddCustomScannerEntry(entryData);
+
+                    builder.SetScannerEntry(entryData);
                 }
             }
         }
 
         internal sealed override void PatchTechType()
         {
-            TechType = EnumHandler.AddEntry<TechType>(ClassID, Mod).WithPdaInfo(Mod, FriendlyName, Description, UnlockedAtStart);
+            ModPrefabBuilder.Create(this).SetTechType(FriendlyName, Description, UnlockedAtStart);
         }
     }
 }

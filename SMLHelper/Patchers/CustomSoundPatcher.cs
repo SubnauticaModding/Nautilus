@@ -316,19 +316,21 @@
             }
 
             Channel channel;
-            if (CustomFModSounds.TryGetValue(eventPath, out IFModSound fModSound))
+            if(CustomFModSounds.TryGetValue(eventPath, out var fModSound))
             {
-                channel = fModSound.PlaySound();
+                if(!fModSound.TryPlaySound(out channel))
+                    return false;
             }
-            else if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
+            else if(CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
             {
-                channel = AudioUtils.PlaySound(soundEvent, bus);
+                if(!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                    return false;
             }
             else
             {
                 return false;
             }
-            
+
             SetChannel3DAttributes(channel, position);
             
             return false;
@@ -353,19 +355,22 @@
             });
             __instance._length = sound.Length;
             __instance._lengthSeconds = __instance._length * 0.001f;
-            if (CustomFModSounds.TryGetValue(sound, out IFModSound fModSound))
+            Channel channel;
+            if(CustomFModSounds.TryGetValue(sound, out var fModSound))
             {
-                PlayedChannels[sound] = fModSound.PlaySound();
+                if(!fModSound.TryPlaySound(out channel))
+                    return false;
             }
-            else if (CustomSoundBuses.TryGetValue(sound, out Bus bus))
+            else if(CustomSoundBuses.TryGetValue(sound, out Bus bus))
             {
-                PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, bus);
+                if(!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                    return false;
             }
             else
             {
                 return false;
             }
-            
+
             return false;
         }
         
@@ -395,14 +400,10 @@
             {
                 return true;
             }
-#if BELOWZERO
             if (SoundQueue.GetPlaybackState(__instance.eventInstance) is not PLAYBACK_STATE.STARTING or PLAYBACK_STATE.PLAYING)
             {
                 return true;
             }
-#else
-            if (!SoundQueue.GetIsStartingOrPlaying(__instance.eventInstance)) return true;
-#endif
 
             ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
@@ -414,13 +415,8 @@
         }
 
         [HarmonyPrefix]
-#if BELOWZERO
         [HarmonyPatch(typeof(SoundQueue), nameof(SoundQueue.GetPlaybackState))]
         public static bool SoundQueue_GetIsStartingOrPlaying_Prefix(ref PLAYBACK_STATE __result)
-#else
-        [HarmonyPatch(typeof(SoundQueue), nameof(SoundQueue.GetIsStartingOrPlaying))]
-        public static bool SoundQueue_GetIsStartingOrPlaying_Prefix(ref bool __result)
-#endif
         {
             SoundQueue.Entry instanceCurrent = PDASounds.queue?._current ?? default;
             if (string.IsNullOrEmpty(instanceCurrent.sound)  || !PlayedChannels.TryGetValue(instanceCurrent.sound, out Channel channel))
@@ -428,13 +424,8 @@
                 return true;
             }
 
-#if BELOWZERO
             channel.isPlaying(out bool isPlaying);
             __result = isPlaying ? PLAYBACK_STATE.PLAYING : PLAYBACK_STATE.STOPPED;
-#else
-            var result = channel.isPlaying(out __result);
-            __result = __result && result == RESULT.OK;
-#endif
             return false;
         }
         
@@ -470,14 +461,17 @@
             }
 
             string soundPath = __instance.asset.path;
-
-            if (CustomFModSounds.TryGetValue(soundPath, out IFModSound fModSound))
+            if(CustomFModSounds.TryGetValue(soundPath, out var fModSound))
             {
-                EmitterPlayedChannels[__instance.GetInstanceID()] = fModSound.PlaySound();
+                if(!fModSound.TryPlaySound(out channel))
+                    return false;
+                EmitterPlayedChannels[__instance.GetInstanceID()] = channel;
             }
-            else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
+            else if(CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
             {
-                EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(sound, bus);
+                if(!AudioUtils.TryPlaySound(sound, bus, out channel))
+                    return false;
+                EmitterPlayedChannels[__instance.GetInstanceID()] = channel;
             }
             else
             {
@@ -582,19 +576,21 @@
 
             string soundPath = __instance.assetStop.path;
             Channel channel;
-            if (CustomFModSounds.TryGetValue(soundPath, out IFModSound fModSound))
+            if(CustomFModSounds.TryGetValue(soundPath, out var fModSound))
             {
-                channel = fModSound.PlaySound();
+                if(!fModSound.TryPlaySound(out channel))
+                    return false;
             }
-            else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
+            else if(CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
             {
-                channel = AudioUtils.PlaySound(sound, bus);
+                if(!AudioUtils.TryPlaySound(sound, bus, out channel))
+                    return false;
             }
             else
             {
                 return false;
             }
-            
+
             SetChannel3DAttributes(channel, __instance.transform);
             __instance.timeLastStopSound = Time.time;
 
@@ -618,20 +614,21 @@
 
             string soundPath = __instance.assetStart.path;
             Channel channel;
-            
-            if (CustomFModSounds.TryGetValue(soundPath, out IFModSound fModSound))
+            if(CustomFModSounds.TryGetValue(soundPath, out var fModSound))
             {
-                channel = fModSound.PlaySound();
+                if(!fModSound.TryPlaySound(out channel))
+                    return false;
             }
-            else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
+            else if(CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
             {
-                channel = AudioUtils.PlaySound(sound, bus);
+                if(!AudioUtils.TryPlaySound(sound, bus, out channel))
+                    return false;
             }
             else
             {
                 return false;
             }
-            
+
             SetChannel3DAttributes(channel, __instance.transform);
             __instance.timeLastStopSound = Time.time;
             BehaviourUpdateUtils.Register(__instance);
