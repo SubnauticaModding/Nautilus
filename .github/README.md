@@ -17,6 +17,6 @@ To create your own publicized DLLs, install the [BepinEx Plugin](https://github.
 
 Copy these DLLs into the `Dependencies` folder of SMLHelper so you can build it. Publicized version of the assemblies should make you able to call non-public members without reflection.
 
-- As of version 2.14, SMLHelper developers are required to have .NET 6 installed for the project to build.
+- As of version 3.0, SMLHelper developers are required to have .NET 7 installed for the project to build.
 
 Then, load up the solution, make your edits, then create your Pull Request!
