@@ -131,6 +131,7 @@
 
                 if(CompoundTechsForUnlock != null && CompoundTechsForUnlock.Count > 0)
                 {
+                    KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(this.TechType);
                     KnownTechHandler.SetCompoundUnlock(this.TechType, CompoundTechsForUnlock);
                 }
 
