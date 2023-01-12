@@ -125,7 +125,7 @@
         internal static IEnumerator InstantiateAsync(ModPrefab modPrefab, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
         {
             TaskResult<GameObject> task = new();
-            yield return modPrefab.GetGameObjectAsync(task);
+            yield return modPrefab.GetGameObjectInternalAsync(task);
 
             GameObject prefab = task.Get();
             result.Set(GameObject.Instantiate(prefab, parent, position, rotation, awake));
