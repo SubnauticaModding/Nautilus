@@ -48,7 +48,7 @@ namespace SMLHelper.Options
 
                 GameObject redSlider = panel.AddSliderOption(tabIndex, "Red", Value.r, 0, 1, 0, 0.01f,
                     new UnityAction<float>((float value) => {
-                        Color color = new Color(value, Value.g, Value.b);
+                        Color color = new Color(value, Value.g, Value.b, Value.a);
                         colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                         OnChange(Id, color);
                         parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
@@ -57,7 +57,7 @@ namespace SMLHelper.Options
 
                 GameObject greenSlider = panel.AddSliderOption(tabIndex, "Green", Value.g, 0, 1, 0, 0.01f,
                     new UnityAction<float>((float value) => {
-                        Color color = new Color(Value.r, value, Value.b);
+                        Color color = new Color(Value.r, value, Value.b, Value.a);
                         colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                         OnChange(Id, color);
                         parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
@@ -66,7 +66,16 @@ namespace SMLHelper.Options
 
                 GameObject blueSlider = panel.AddSliderOption(tabIndex, "Blue", Value.b, 0, 1, 0, 0.01f,
                     new UnityAction<float>((float value) => {
-                        Color color = new Color(Value.r, Value.g, value);
+                        Color color = new Color(Value.r, Value.g, value, Value.a);
+                        colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
+                        OnChange(Id, color);
+                        parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
+                    }),
+                    SliderLabelMode.Percent, "{0:F0}");
+
+                GameObject alphaSlider = panel.AddSliderOption(tabIndex, "Transparency", (1 - Value.a), 0, 1, 0, 0.01f,
+                    new UnityAction<float>((float value) => {
+                        Color color = new Color(Value.r, Value.g, Value.b, 1 - value);
                         colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                         OnChange(Id, color);
                         parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
