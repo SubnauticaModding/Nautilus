@@ -211,41 +211,18 @@
         /// <summary>
         /// Converts a Bepinex ConfigEntry/<Color/> into 4 ModSliderOption that will update the value when the slider changes.
         /// </summary>
-        /// <param name="configEntry">A </param>
+        /// <param name="configEntry">A bepinex config entry</param>
+        /// <param name="basic">Whether to use the basic or advanced color picker</param>
         /// <returns><see cref="ModSliderOption"/></returns>
-        public static List<ModSliderOption> ToModSliderOptions(this ConfigEntry<Color> configEntry)
+        public static ModColorOption ToModSliderOptions(this ConfigEntry<Color> configEntry, bool basic = false)
         {
-            var optionItems = new List<ModSliderOption>();
-            ModSliderOption optionItemR = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_R", 
-                configEntry.Definition.Key + " R", 0f, 1f, configEntry.Value.r, valueFormat: "{0:F2}", step: 0.01f, tooltip: configEntry.Description.Description);
-            optionItemR.OnChanged += (_, e) =>
+            ModColorOption optionItem = ModColorOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
+                configEntry.Definition.Key, configEntry.Value, basic);
+            optionItem.OnChanged += (_, e) =>
             {
-                configEntry.Value = new(e.Value, configEntry.Value.g, configEntry.Value.b, configEntry.Value.a);
+                configEntry.Value = e.Value;
             };
-            optionItems.Add(optionItemR);
-            ModSliderOption optionItemY = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_G", 
-                configEntry.Definition.Key + " G", 0f, 1f, configEntry.Value.g, valueFormat: "{0:F2}", step: 0.01f, tooltip: configEntry.Description.Description);
-            optionItemY.OnChanged += (_, e) =>
-            {
-                configEntry.Value = new(configEntry.Value.r, e.Value, configEntry.Value.b, configEntry.Value.a);
-            };
-            optionItems.Add(optionItemY);
-            ModSliderOption optionItemZ = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_B", 
-                configEntry.Definition.Key + " B", 0f, 1f, configEntry.Value.b, valueFormat: "{0:F2}", step: 0.01f, tooltip: configEntry.Description.Description);
-            optionItemZ.OnChanged += (_, e) =>
-            {
-                configEntry.Value = new(configEntry.Value.r, configEntry.Value.g, e.Value, configEntry.Value.a);
-            };
-            optionItems.Add(optionItemZ);
-            ModSliderOption optionItemW = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_A", 
-                configEntry.Definition.Key + " A", 0f, 1f, configEntry.Value.a, valueFormat: "{0:F2}", step: 0.01f, tooltip: configEntry.Description.Description);
-            optionItemW.OnChanged += (_, e) =>
-            {
-                configEntry.Value = new(configEntry.Value.r, configEntry.Value.g, configEntry.Value.b, e.Value);
-            };
-            optionItems.Add(optionItemW);
-
-            return optionItems;
+            return optionItem;
         }
 
         /// <summary>
