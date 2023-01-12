@@ -14,7 +14,7 @@
         /// <seealso cref="ModPrefab"/>
         public static void RegisterPrefab(ModPrefab prefab)
         {
-            foreach (ModPrefab modPrefab in ModPrefab.Prefabs)
+            foreach (ModPrefab modPrefab in ModPrefabCache.Prefabs)
             {
                 if (modPrefab.TechType == prefab.TechType || modPrefab.ClassID == prefab.ClassID || modPrefab.PrefabFileName == prefab.PrefabFileName)
                 {
@@ -22,7 +22,7 @@
                 }
             }
 
-            ModPrefab.Add(prefab);
+            ModPrefabCache.Add(prefab);
         }
     }
 }

@@ -21,7 +21,7 @@
             [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.LoadPrefabDatabase))]
             internal static void LoadPrefabDatabase_Postfix()
             {
-                foreach (ModPrefab prefab in ModPrefab.Prefabs)
+                foreach (ModPrefab prefab in ModPrefabCache.Prefabs)
                 {
                     PrefabDatabase.prefabFiles[prefab.ClassID] = prefab.PrefabFileName;
                 }
@@ -32,7 +32,7 @@
         [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename))]
         internal static bool TryGetPrefabFilename_Prefix(string classId, ref string filename, ref bool __result)
         {
-            if (!ModPrefab.TryGetFromClassId(classId, out ModPrefab prefab))
+            if (!ModPrefabCache.TryGetFromClassId(classId, out ModPrefab prefab))
             {
                 return true;
             }
@@ -46,7 +46,7 @@
         [HarmonyPatch(typeof(DeferredSpawner.AddressablesTask), nameof(DeferredSpawner.AddressablesTask.SpawnAsync))]
         internal static bool DeferredSpawner_AddressablesTask_Spawn_Prefix(DeferredSpawner.AddressablesTask __instance, ref IEnumerator __result)
         {
-            if (!ModPrefab.TryGetFromFileName(__instance.key, out ModPrefab prefab))
+            if (!ModPrefabCache.TryGetFromFileName(__instance.key, out ModPrefab prefab))
             {
                 return true;
             }
@@ -77,7 +77,7 @@
 
         private static IPrefabRequest GetModPrefabAsync(string classId)
         {
-            if (!ModPrefab.TryGetFromClassId(classId, out ModPrefab prefab))
+            if (!ModPrefabCache.TryGetFromClassId(classId, out ModPrefab prefab))
             {
                 return null;
             }
@@ -113,7 +113,7 @@
         })]
         internal static bool InstantiateAsync_Prefix(ref IEnumerator __result,string key, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
         {
-            if(!ModPrefab.TryGetFromFileName(key, out ModPrefab prefab))
+            if(!ModPrefabCache.TryGetFromFileName(key, out ModPrefab prefab))
             {
                 return true;
             }
