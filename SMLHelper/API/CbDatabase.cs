@@ -7,6 +7,9 @@ using System.Reflection;
 using UnityEngine;
 using Assets;
 using System.Linq;
+using static BepInEx.Bootstrap.Chainloader;
+using BepInEx;
+using SMLHelper.Utility;
 
 internal static class CbDatabase
 {
@@ -28,33 +31,58 @@ internal static class CbDatabase
 
     public static HashSet<TechType> TrackItems { get; } = new HashSet<TechType>();
 
-    private static bool? _placeBatteriesFeatureEnabled = null;
+    private static bool _decoModDetectionRun = false;
+    private static FieldInfo enablePlaceBatteriesField { get; set; }
 
     public static bool PlaceBatteriesFeatureEnabled
     {
         get
         {
-            if(_placeBatteriesFeatureEnabled == null || !_placeBatteriesFeatureEnabled.HasValue)
+            if(!_decoModDetectionRun)
             {
-                var decorationsMod = BepInEx.Bootstrap.Chainloader.PluginInfos.Values.Where((x) => x.Metadata.Name == "DecorationsMod" && x.Instance.enabled).FirstOrFallback(null);
-                Assembly decorationsModAssembly = null;
-                if(decorationsMod != null)
-                {
-                    decorationsModAssembly = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.Location == decorationsMod.Location).FirstOrFallback(decorationsModAssembly);
-                }
-                if(decorationsModAssembly != null)
-                {
-                    Type decorationsModConfig = decorationsModAssembly.GetType("DecorationsMod.ConfigSwitcher", false);
-                    if(decorationsModConfig != null)
-                    {
-                        FieldInfo enablePlaceBatteriesField = decorationsModConfig.GetField("EnablePlaceBatteries", BindingFlags.Public | BindingFlags.Static);
-                        if(enablePlaceBatteriesField != null)
-                            _placeBatteriesFeatureEnabled = (bool)enablePlaceBatteriesField.GetValue(null);
-                    }
-                }
+                DecorationsModCheck();
             }
-            return _placeBatteriesFeatureEnabled != null && _placeBatteriesFeatureEnabled.Value;
+
+            return enablePlaceBatteriesField != null ? (bool)enablePlaceBatteriesField.GetValue(null) : false;
         }
+    }
+
+    private static void DecorationsModCheck()
+    {
+        PluginInfo puginInfo = PluginInfos.Values.Where((x) => x.Metadata.Name == "DecorationsMod" && x.Instance.enabled).FirstOrFallback(null);
+        Assembly decorationsModAssembly = null;
+        if(puginInfo == null)
+        {
+            _decoModDetectionRun = true;
+            InternalLogger.Debug($"DecorationsMod not detected.");
+            return;
+        }
+
+        decorationsModAssembly = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.Location == puginInfo.Location).FirstOrFallback(decorationsModAssembly);
+        if(decorationsModAssembly == null)
+        {
+            InternalLogger.Debug($"DecorationsMod detected but unable to find assembly.");
+            _decoModDetectionRun = true;
+            return;
+        }
+
+        Type decorationsModConfig = decorationsModAssembly.GetType("DecorationsMod.ConfigSwitcher", false);
+        if(decorationsModConfig == null)
+        {
+            InternalLogger.Debug($"DecorationsMod assembly found but unable to find DecorationsMod.ConfigSwitcher Type.");
+            _decoModDetectionRun = true;
+            return;
+        }
+
+        enablePlaceBatteriesField = decorationsModConfig.GetField("EnablePlaceBatteries", BindingFlags.Public | BindingFlags.Static);
+        if(enablePlaceBatteriesField == null || !enablePlaceBatteriesField.IsStatic)
+        {
+            InternalLogger.Debug($"DecorationsMod.ConfigSwitcher Type found but unable to find Static EnablePlaceBatteries Field.");
+            enablePlaceBatteriesField = null;
+            _decoModDetectionRun = true;
+            return;
+        }
+        _decoModDetectionRun = true;
     }
 
     private static GameObject _precursorionbattery;
