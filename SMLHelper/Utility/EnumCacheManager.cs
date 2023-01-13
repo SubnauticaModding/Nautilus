@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using BepInEx;
 
 internal class EnumTypeCache
 {
@@ -275,8 +276,7 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
 
     private string GetCacheDirectoryPath()
     {
-        string saveDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-            $"{EnumTypeName}Cache");
+        string saveDir = Path.Combine(Paths.ConfigPath , Assembly.GetExecutingAssembly().GetName().Name, $"{EnumTypeName}Cache");
 
         if (!Directory.Exists(saveDir))
             Directory.CreateDirectory(saveDir);
