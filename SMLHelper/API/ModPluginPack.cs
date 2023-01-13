@@ -5,7 +5,7 @@ internal class ModPluginPack : CustomPack
     internal ModPluginPack(IModPluginPack pluginPack, bool ionCellSkin)
         : base(pluginPack, ionCellSkin, false)
     {
-        _customBattery.Sprite = pluginPack.BatteryIcon;
-        _customPowerCell.Sprite = pluginPack.PowerCellIcon;
+        CustomBattery.Sprite = pluginPack.BatteryIcon;
+        CustomPowerCell.Sprite = pluginPack.PowerCellIcon;
     }
 }

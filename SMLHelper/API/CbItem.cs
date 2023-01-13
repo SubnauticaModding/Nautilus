@@ -121,10 +121,7 @@ public abstract class CbItem
         var item = new CustomItem(this, itemType)
         {
             PluginPackName = name,
-            FriendlyName = this.Name,
-            Description = this.FlavorText,
             PowerCapacity = this.EnergyCapacity,
-            RequiredForUnlock = this.UnlocksWith,
             Parts = this.CraftingMaterials
         };
 

@@ -7,6 +7,7 @@
     using HarmonyLib;
     using Utility;
     using UnityEngine;
+    using System.Linq;
 
     internal partial class CraftDataPatcher
     {
@@ -87,6 +88,7 @@
             PatchForBelowZero(harmony);
 #endif
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePrefix))),
                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
             PatchUtils.PatchClass(harmony);
 
@@ -126,12 +128,17 @@
             return;
         }
 
+        private static bool NeedsPatching = true;
+
+        private static void CraftDataPrefabIDCachePrefix()
+        {
+            NeedsPatching = CraftData.cacheInitialized;
+        }
+
         private static void CraftDataPrefabIDCachePostfix()
         {
-            if (ModPrefabCache.ModPrefabsPatched)
-            {
+            if(!NeedsPatching && ModPrefabCache.ModPrefabsPatched)
                 return;
-            }
 
             Dictionary<TechType, string> techMapping = CraftData.techMapping;
             Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;

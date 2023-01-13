@@ -73,7 +73,7 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
             return false;
         }
 
-        EnumTypeCache cache = CacheManager.RequestCacheForTypeName(name) ?? new EnumTypeCache()
+        EnumTypeCache cache = CacheManager.RequestCacheForTypeName(name, addedBy: addedBy) ?? new EnumTypeCache()
         {
             Name = name,
             Index = CacheManager.GetNextAvailableIndex()

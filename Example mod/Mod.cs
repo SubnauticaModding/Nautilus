@@ -13,6 +13,10 @@
     using BepInEx.Logging;
     using SMLHelper.Utility;
     using SMLHelper.DependencyInjection;
+    using SMLHelper.Assets;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
 
     [BepInPlugin(GUID, MODNAME, VERSION)]
     [BepInDependency("com.ahk1221.smlhelper", BepInDependency.DependencyFlags.HardDependency)]
@@ -46,6 +50,18 @@
             builder.Build();
             // Get Service
             builder.GetService<IGreeting>().Greetings();
+
+
+            new EasyBattery("nuke2", "Nuclear Battery 2.0", "OOP Battery Test", true)
+            {
+                PluginFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                PowerCapacity = 69420,
+                AddToFabricator = true,
+                Parts = new List<TechType>() { TechType.Copper, TechType.AcidMushroom, TechType.AcidMushroom, TechType.AcidMushroom },
+            }.Patch();
+
+            
+
 
             LogSource = base.Logger;
 

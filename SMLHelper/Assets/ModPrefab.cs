@@ -5,6 +5,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using SMLHelper.Utility;
 
     /// <summary>
     /// The abstract class to inherit when you want to add new PreFabs into the game.
@@ -44,7 +45,7 @@
             this.TechType = techType;
             this.PrefabInfo = new PrefabInfo() { ClassID = classId, PrefabPath = prefabFileName, TechType = techType };
 
-            Mod = GetType().Assembly;
+            Mod = ReflectionHelper.CallingAssemblyByStackTrace();
         }
     }
 }

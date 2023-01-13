@@ -78,7 +78,7 @@ public static class EnumHandler
         if (!EnumCacheProvider.TryGetManager(typeof(TEnum), out var manager))
             return false;
 
-        var cache = manager.RequestCacheForTypeName(name, false);
+        var cache = manager.RequestCacheForTypeName(name, false, true);
 
         if (cache != null) // Item Found
         {
@@ -132,7 +132,7 @@ public static class EnumHandler
         if(!EnumCacheProvider.TryGetManager(typeof(TEnum), out IEnumCache manager))
             return false;
 
-        var cache = manager.RequestCacheForTypeName(name, false);
+        var cache = manager.RequestCacheForTypeName(name, false, true);
 
         if(cache != null) // Item Found
         {

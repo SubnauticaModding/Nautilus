@@ -1,6 +1,6 @@
 ﻿namespace SMLHelper.API;
 
-internal enum ItemTypes
+public enum ItemTypes
 {
     Battery,
     PowerCell

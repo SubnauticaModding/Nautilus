@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.Assets;
 
 using System;
+using System.Reflection;
 using SMLHelper.Handlers;
 
 public class PrefabInfo : IEquatable<PrefabInfo>
@@ -13,7 +14,7 @@ public class PrefabInfo : IEquatable<PrefabInfo>
     {
         return new PrefabInfo
         {
-            TechType = EnumHandler.AddEntry<TechType>(classId).WithPdaInfo(displayName, description),
+            TechType = EnumHandler.AddEntry<TechType>(classId, Assembly.GetCallingAssembly()).WithPdaInfo(displayName, description),
             ClassID = classId,
             PrefabPath = classId + "Prefab"
         };

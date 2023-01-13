@@ -8,8 +8,8 @@ using SMLHelper.Utility;
 /// </summary>
 public abstract class CustomPack
 {
-    internal readonly CustomBattery _customBattery;
-    internal readonly CustomPowerCell _customPowerCell;
+    private readonly EasyBattery _customBattery;
+    private readonly EasyPowerCell _customPowerCell;
 
     /// <summary>
     /// Gets the original plugin pack.
@@ -25,7 +25,7 @@ public abstract class CustomPack
     /// <value>
     /// The custom battery.
     /// </value>
-    public ModPrefab CustomBattery => _customBattery;
+    public EasyBattery CustomBattery => _customBattery;
 
     /// <summary>
     /// Gets the custom power cell.
@@ -33,7 +33,7 @@ public abstract class CustomPack
     /// <value>
     /// The custom power cell.
     /// </value>
-    public ModPrefab CustomPowerCell => _customPowerCell;
+    public EasyPowerCell CustomPowerCell => _customPowerCell;
 
     /// <summary>
     /// Gets a value indicating whether the <see cref="CustomBattery"/> and <see cref="CustomPowerCell"/> have been patched.
@@ -55,36 +55,41 @@ public abstract class CustomPack
     /// <value><c>True</c> if using mod provided custom textures; Otherwise <c>false</c>.</value>
     public bool UsingCustomTextures { get; protected set; }
 
-    internal CustomPack(IPluginPack pluginPack, bool ionCellSkins, bool customSkin)
+    /// <summary>
+    /// Used to make custom pack systems like CustomBatteries mod reads batteries from text files.
+    /// </summary>
+    /// <param name="pluginPack"></param>
+    /// <param name="ionCellSkins"></param>
+    /// <param name="customSkin"></param>
+    public CustomPack(IPluginPack pluginPack, bool ionCellSkins, bool customSkin)
     {
         this.OriginalPlugInPack = pluginPack;
         this.UsingIonCellSkins = ionCellSkins;
         this.UsingCustomTextures = customSkin;
 
-        _customBattery = new CustomBattery(pluginPack.BatteryID, ionCellSkins)
+        _customBattery = new EasyBattery(pluginPack.BatteryID, pluginPack.BatteryName, pluginPack.BatteryFlavorText, ionCellSkins)
         {
             PluginPackName = pluginPack.PluginPackName,
-            FriendlyName = pluginPack.BatteryName,
-            Description = pluginPack.BatteryFlavorText,
 
             PowerCapacity = pluginPack.BatteryCapacity,
-            RequiredForUnlock = pluginPack.UnlocksWith,
+            UnlocksWith = pluginPack.UnlocksWith,
             Parts = pluginPack.BatteryParts
         };
 
-        _customPowerCell = new CustomPowerCell(pluginPack.PowerCellID, ionCellSkins, _customBattery)
+        _customPowerCell = new EasyPowerCell(pluginPack.PowerCellID, pluginPack.PowerCellName, pluginPack.PowerCellFlavorText, _customBattery)
         {
             PluginPackName = pluginPack.PluginPackName,
-            FriendlyName = pluginPack.PowerCellName,
-            Description = pluginPack.PowerCellFlavorText,
 
             PowerCapacity = pluginPack.BatteryCapacity * 2f, // Power Cell capacity is always 2x the battery capacity
-            RequiredForUnlock = pluginPack.UnlocksWith,
+            UnlocksWith = pluginPack.UnlocksWith,
             Parts = pluginPack.PowerCellAdditionalParts
         };
     }
 
-    internal void Patch()
+    /// <summary>
+    /// Patch the Battery and PowerCell into the game.
+    /// </summary>
+    public void Patch()
     {
         InternalLogger.Info($"Patching plugin pack '{this.OriginalPlugInPack.PluginPackName}'");
         // Batteries must always patch before Power Cells
