@@ -78,6 +78,9 @@
                 case ChoiceChangedEventArgs<T> choiceChangedEventArgs:
                     ConfigFileMetadata.HandleChoiceChanged(sender, choiceChangedEventArgs);
                     break;
+                case ColorChangedEventArgs colorChangedEventArgs:
+                    ConfigFileMetadata.HandleColorChanged(sender, colorChangedEventArgs);
+                    break;
                 case KeybindChangedEventArgs keybindChangedEventArgs:
                     ConfigFileMetadata.HandleKeybindChanged(sender, keybindChangedEventArgs);
                     break;
@@ -136,6 +139,9 @@
                             break;
                         case ChoiceAttribute choiceAttribute:
                             BuildModChoiceOption(id, label, modOptionMetadata.MemberInfoMetadata, choiceAttribute);
+                            break;
+                        case ColorPickerAttribute colorAttribute:
+                            BuildModColorOption(id, label, modOptionMetadata.MemberInfoMetadata, colorAttribute);
                             break;
                         case KeybindAttribute _:
                             BuildModKeybindOption(id, label, modOptionMetadata.MemberInfoMetadata);
@@ -215,6 +221,20 @@
                 if(!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
                     InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
             }
+        }
+
+        /// <summary>
+        /// Adds a <see cref="ModColorOption"/> to the <see cref="ModOptions"/> menu.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="label"></param>
+        /// <param name="memberInfoMetadata">The metadata of the corresponding member.</param>
+        /// <param name="colorAttribute">The defined or generated <see cref="ColorPickerAttribute"/> of the member.</param>
+        private void BuildModColorOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata, ColorPickerAttribute colorAttribute)
+        {
+            Color value = memberInfoMetadata.GetValue<Color>(ConfigFileMetadata.Config);
+            if (!AddItem(ModColorOption.Create(id, label, value, colorAttribute.Advanced)))
+                InternalLogger.Warn($"Failed to add ModColorOption with id {id} to {Name}");
         }
 
         /// <summary>

@@ -163,6 +163,10 @@
             {
                 addModOptionMetadata<KeybindAttribute>(memberInfo, memberType, underlyingType);
             }
+            else if (underlyingType == typeof(Color) || Attribute.IsDefined(memberInfo, typeof(ColorPickerAttribute)))
+            {
+                addModOptionMetadata<ColorPickerAttribute>(memberInfo, memberType, underlyingType);
+            }
             else if (underlyingType.IsEnum || Attribute.IsDefined(memberInfo, typeof(ChoiceAttribute), true))
             {
                 addModOptionMetadata<ChoiceAttribute>(memberInfo, memberType, underlyingType);
@@ -412,6 +416,29 @@
         /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
         /// </summary>
         /// <param name="sender">The sender of the original keybind changed event.</param>
+        /// <param name="e">The <see cref="ColorChangedEventArgs"/> for the keybind changed event.</param>
+        public void HandleColorChanged(object sender, ColorChangedEventArgs e)
+        {
+            if (TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
+            {
+                modOptionMetadata.MemberInfoMetadata.SetValue(Config, e.Value);
+
+                if (MenuAttribute.SaveOn.HasFlag(MenuAttribute.SaveEvents.ChangeValue))
+                {
+                    Config.Save();
+                }
+
+                InvokeOnChangeEvents(modOptionMetadata, sender, e);
+            }
+        }
+
+        /// <summary>
+        /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
+        /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
+        /// <see cref="InvokeOnChangeEvents{TSource}(ModOptionAttributeMetadata{T}, object, TSource)"/>
+        /// to invoke any methods specified with an <see cref="OnChangeAttribute"/>.
+        /// </summary>
+        /// <param name="sender">The sender of the original keybind changed event.</param>
         /// <param name="e">The <see cref="KeybindChangedEventArgs"/> for the keybind changed event.</param>
         public void HandleKeybindChanged(object sender, KeybindChangedEventArgs e)
         {
@@ -573,6 +600,12 @@
                         string[] options = choiceAttribute.Options;
                         int index = memberInfoMetadata.GetValue<int>(Config);
                         ChoiceChangedEventArgs<string> eventArgs = new(id, index, options[index]);
+                        InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                    }
+                    break;
+                case ColorPickerAttribute _:
+                    {
+                        ColorChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<Color>(Config));
                         InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
                     }
                     break;
