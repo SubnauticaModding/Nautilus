@@ -10,6 +10,7 @@
 
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
+    using System.Linq;
 #elif BELOWZERO
     using Sprite = UnityEngine.Sprite;
 #endif
@@ -297,7 +298,7 @@
         /// - <see cref="AddCraftNode(Craftable, string)"/><para/>
         /// </summary>
         /// <param name="craftTreeType"></param>
-        internal virtual void CreateCustomCraftTree(out CraftTree.Type craftTreeType)
+        public virtual void CreateCustomCraftTree(out CraftTree.Type craftTreeType)
         {
             craftTreeType = EnumHandler.AddEntry<CraftTree.Type>(ClassID, Mod).CreateCraftTreeRoot(out var root);
             Root = root;
@@ -324,8 +325,15 @@
             OrderedCraftTreeActions.Add(() =>
             {
                 ModCraftTreeLinkingNode parentNode = CraftTreeLinkingNodes[parentTabId ?? RootNode];
-                ModCraftTreeTab tab = parentNode.AddTabNode(tabId, displayText, tabSprite);
-                CraftTreeLinkingNodes[tabId] = tab;
+                if(!parentNode.ChildNodes.Any(node => node.Action == TreeAction.Craft))
+                {
+                    ModCraftTreeTab tab = parentNode.AddTabNode(tabId, displayText, tabSprite);
+                    CraftTreeLinkingNodes[tabId] = tab;
+                }
+                else
+                {
+                    InternalLogger.Error($"Cannot add tab: {tabId} as it is being added to a parent node that contains crafting nodes.");
+                }
             });
         }
 
@@ -341,7 +349,15 @@
             OrderedCraftTreeActions.Add(() =>
             {
                 ModCraftTreeLinkingNode parentTab = CraftTreeLinkingNodes[parentTabId ?? RootNode];
-                parentTab.AddCraftingNode(techType);
+                if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Expand))
+                {
+                    InternalLogger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{this.ClassID}'");
+                    parentTab.AddCraftingNode(techType);
+                }
+                else
+                {
+                    InternalLogger.Error($"Cannot add crafting node: {techType} as it is being added to a parent node that contains tab nodes.");
+                }
             });
         }
 
@@ -360,7 +376,15 @@
                 if (EnumHandler.TryGetModAddedEnumValue(moddedTechType, out TechType techType))
                 {
                     ModCraftTreeLinkingNode parentTab = CraftTreeLinkingNodes[parentTabId ?? RootNode];
-                    parentTab.AddCraftingNode(techType);
+                    if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Expand))
+                    {
+                        InternalLogger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{this.ClassID}'");
+                        parentTab.AddCraftingNode(techType);
+                    }
+                    else
+                    {
+                        InternalLogger.Error($"Cannot add crafting node: {techType} as it is being added to a parent node that contains tab nodes.");
+                    }
                 }
                 else
                 {
@@ -384,8 +408,8 @@
             {
                 if (item.TechType == TechType.None)
                 {
-                    InternalLogger.Info($"'{item.ClassID} had to be patched early to obtain its TechType value for the custom craft tree '{this.ClassID}'");
-                    item.Patch();
+                    InternalLogger.Info($"'{item.ClassID} has to be patched before '{this.ClassID}' to obtain its TechType value for the custom craft tree");
+                    return;
                 }
 
                 string[] stepsToParent = item.StepsToFabricatorTab;
@@ -404,7 +428,16 @@
                 }
 
                 ModCraftTreeLinkingNode parentTab = CraftTreeLinkingNodes[parentTabId];
-                parentTab.AddCraftingNode(item.TechType);
+                var techType = item.TechType;
+                if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Expand))
+                {
+                    InternalLogger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{this.ClassID}'");
+                    parentTab.AddCraftingNode(techType);
+                }
+                else
+                {
+                    InternalLogger.Error($"Cannot add crafting node: {techType} as it is being added to a parent node that contains tab nodes.");
+                }
             });
         }
     }
