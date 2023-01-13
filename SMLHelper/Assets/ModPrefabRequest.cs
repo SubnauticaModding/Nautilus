@@ -7,13 +7,13 @@
     // request for getting ModPrefab asynchronously
     internal class ModPrefabRequest: IPrefabRequest, IEnumerator
     {
-        private readonly ModPrefab modPrefab;
+        private readonly ModPrefabRoot modPrefab;
 
         private int state = 0;
         private CoroutineTask<GameObject> task;
         private TaskResult<GameObject> taskResult;
 
-        public ModPrefabRequest(ModPrefab modPrefab)
+        public ModPrefabRequest(ModPrefabRoot modPrefab)
         {
             this.modPrefab = modPrefab;
         }

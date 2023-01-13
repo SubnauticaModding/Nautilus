@@ -12,8 +12,10 @@
     using BepInEx;
     using BepInEx.Logging;
     using SMLHelper.Utility;
+    using SMLHelper.DependencyInjection;
 
     [BepInPlugin(GUID, MODNAME, VERSION)]
+    [BepInDependency("com.ahk1221.smlhelper", BepInDependency.DependencyFlags.HardDependency)]
     public class ExampleMod: BaseUnityPlugin
     {
         private const string
@@ -35,6 +37,16 @@
 
         public void Awake()
         {
+            // Create
+            var builder = PrefabManager.CreateBuilder(this);
+            // Add
+            builder.Assets.AddCustomPrefab(new NuclearBattery());
+            builder.Assets.AddService<IGreeting, SayHi>();
+            // Run
+            builder.Build();
+            // Get Service
+            builder.GetService<IGreeting>().Greetings();
+
             LogSource = base.Logger;
 
             /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an 

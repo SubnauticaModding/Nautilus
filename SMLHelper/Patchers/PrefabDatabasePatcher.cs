@@ -21,9 +21,9 @@
             [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.LoadPrefabDatabase))]
             internal static void LoadPrefabDatabase_Postfix()
             {
-                foreach (ModPrefab prefab in ModPrefabCache.Prefabs)
+                foreach (ModPrefabRoot prefab in ModPrefabCache.Prefabs)
                 {
-                    PrefabDatabase.prefabFiles[prefab.ClassID] = prefab.PrefabFileName;
+                    PrefabDatabase.prefabFiles[prefab.PrefabInfo.ClassID] = prefab.PrefabInfo.PrefabPath;
                 }
             }
         }
@@ -32,12 +32,12 @@
         [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename))]
         internal static bool TryGetPrefabFilename_Prefix(string classId, ref string filename, ref bool __result)
         {
-            if (!ModPrefabCache.TryGetFromClassId(classId, out ModPrefab prefab))
+            if (!ModPrefabCache.TryGetFromClassId(classId, out ModPrefabRoot prefab))
             {
                 return true;
             }
 
-            filename = prefab.PrefabFileName;
+            filename = prefab.PrefabInfo.PrefabPath;
             __result = true;
             return false;
         }
@@ -46,7 +46,7 @@
         [HarmonyPatch(typeof(DeferredSpawner.AddressablesTask), nameof(DeferredSpawner.AddressablesTask.SpawnAsync))]
         internal static bool DeferredSpawner_AddressablesTask_Spawn_Prefix(DeferredSpawner.AddressablesTask __instance, ref IEnumerator __result)
         {
-            if (!ModPrefabCache.TryGetFromFileName(__instance.key, out ModPrefab prefab))
+            if (!ModPrefabCache.TryGetFromFileName(__instance.key, out ModPrefabRoot prefab))
             {
                 return true;
             }
@@ -55,7 +55,7 @@
             return false;
         }
 
-        internal static IEnumerator SpawnAsyncReplacement(DeferredSpawner.AddressablesTask task, ModPrefab modPrefab)
+        internal static IEnumerator SpawnAsyncReplacement(DeferredSpawner.AddressablesTask task, ModPrefabRoot modPrefab)
         {
             TaskResult<GameObject> prefabResult = new();
             yield return modPrefab.GetGameObjectInternalAsync(prefabResult);
@@ -77,7 +77,7 @@
 
         private static IPrefabRequest GetModPrefabAsync(string classId)
         {
-            if (!ModPrefabCache.TryGetFromClassId(classId, out ModPrefab prefab))
+            if (!ModPrefabCache.TryGetFromClassId(classId, out ModPrefabRoot prefab))
             {
                 return null;
             }
@@ -113,7 +113,7 @@
         })]
         internal static bool InstantiateAsync_Prefix(ref IEnumerator __result,string key, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
         {
-            if(!ModPrefabCache.TryGetFromFileName(key, out ModPrefab prefab))
+            if(!ModPrefabCache.TryGetFromFileName(key, out ModPrefabRoot prefab))
             {
                 return true;
             }
@@ -122,7 +122,7 @@
             return false;
         }
 
-        internal static IEnumerator InstantiateAsync(ModPrefab modPrefab, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
+        internal static IEnumerator InstantiateAsync(ModPrefabRoot modPrefab, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
         {
             TaskResult<GameObject> task = new();
             yield return modPrefab.GetGameObjectInternalAsync(task);

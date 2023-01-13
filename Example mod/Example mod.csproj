@@ -60,7 +60,9 @@
       <HintPath>$(Dependencies)\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <ProjectReference Include="..\SMLHelper\SMLHelper.csproj" />
+    <ProjectReference Include="..\SMLHelper\SMLHelper.csproj">
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
