@@ -291,11 +291,12 @@
         }
 
         /// <summary>
-        /// Override this method if you want full control over how your custom craft tree is built up.<para/>
-        /// To use this method's default behavior, you must use the following methods to build up your crafting tree.<para/>
+        /// Use the following methods to build up your crafting tree.<para/>
+        /// - <see cref="AddTabNode(string, string, Sprite, string)"/><para/>
         /// - <see cref="AddCraftNode(TechType, string)"/><para/>
         /// - <see cref="AddCraftNode(string, string)"/><para/>
         /// - <see cref="AddCraftNode(Craftable, string)"/><para/>
+        /// If you must, override this method for full control over how your custom craft tree is built up.<para/>
         /// </summary>
         /// <param name="craftTreeType"></param>
         public virtual void CreateCustomCraftTree(out CraftTree.Type craftTreeType)
