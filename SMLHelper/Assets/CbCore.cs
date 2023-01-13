@@ -162,12 +162,13 @@ public abstract class CbCore: Equipable
         }
 
         SkyApplier skyApplier = prefab.EnsureComponent<SkyApplier>();
-        skyApplier.renderers = prefab.GetComponentsInChildren<Renderer>(true);
+        var renderers = prefab.GetComponentsInChildren<Renderer>(true);
+        skyApplier.renderers = renderers;
         skyApplier.anchorSky = Skies.Auto;
 
         if(CustomModelData != null)
         {
-            foreach(Renderer renderer in prefab.GetComponentsInChildren<Renderer>(true))
+            foreach(Renderer renderer in renderers)
             {
                 if(CustomModelData.CustomTexture != null)
                     renderer.material.SetTexture(ShaderPropertyID._MainTex, CustomModelData.CustomTexture);
