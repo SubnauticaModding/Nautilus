@@ -54,10 +54,9 @@ public class EnergySourceTemplate : IPrefabTemplate
     private IEnumerator CreateEnergySource(IOut<GameObject> gameObject)
     {
         var tt = GetReferenceType();
-        var task = CraftData.GetPrefabForTechTypeAsync(tt, false);
-        yield return task;
-
-        var obj = task.GetResult();
+        var task = new TaskResult<GameObject>();
+        yield return CraftData.InstantiateFromPrefabAsync(tt, task);
+        var obj = task.Get();
         
         if (ModelData != null)
         {
