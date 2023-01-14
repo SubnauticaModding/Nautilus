@@ -34,7 +34,7 @@
         /// A simple SaveDataCache implementation, intended to save the players current position to disk.
         /// </summary>
         [FileName("player_position")]
-        internal class SaveData : SaveDataCache
+        internal class SaveData: SaveDataCache
         {
             public Vector3 PlayerPosition { get; set; }
         }
@@ -45,23 +45,22 @@
             var builder = PrefabManager.CreateBuilder(this);
             // Add
             builder.Assets.AddCustomPrefab(new NuclearBattery());
-            builder.Assets.AddService<IGreeting, SayHi>();
-            // Run
-            builder.Build();
-            // Get Service
-            builder.GetService<IGreeting>().Greetings();
 
-
-            new EasyBattery("nuke2", "Nuclear Battery 2.0", "OOP Battery Test", true)
+            var nuke2 = new EasyBattery("nuke2", "Nuclear Battery 2.0", "OOP Battery Test", true)
             {
                 PluginFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                 PowerCapacity = 69420,
                 AddToFabricator = true,
                 Parts = new List<TechType>() { TechType.Copper, TechType.AcidMushroom, TechType.AcidMushroom, TechType.AcidMushroom },
-            }.Patch();
+            };
 
-            
+            builder.Assets.AddPrefab(nuke2);
+            builder.Assets.AddService<IGreeting, SayHi>();
 
+            // Run
+            builder.Build();
+            // Get Service
+            builder.GetService<IGreeting>().Greetings();
 
             LogSource = base.Logger;
 
@@ -170,7 +169,7 @@
     /// (defaults to "config") and an optional subfolder for the config file to reside in.</para>
     /// </summary>
     [Menu("SMLHelper Example Mod")]
-    public class Config : ConfigFile
+    public class Config: ConfigFile
     {
         /// <summary>
         /// <para>A <see cref="ChoiceAttribute"/> is represented by a group of options where only one can be selected at a time,
@@ -319,7 +318,7 @@
             ExampleMod.LogSource.LogInfo("Generic value changed!");
             ExampleMod.LogSource.LogInfo($"{e.Id}: {e.GetType()}");
 
-            switch (e)
+            switch(e)
             {
                 case KeybindChangedEventArgs keybindChangedEventArgs:
                     ExampleMod.LogSource.LogInfo(KeyCodeUtils.KeyCodeToString(keybindChangedEventArgs.Value));

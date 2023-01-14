@@ -97,20 +97,30 @@ public class AssetBuilder
         }
     }
 
-    private void RegisterPrefab(CustomPrefab customPrefab)
+    private void RegisterPrefab(ModPrefabRoot modPrefabRoot)
     {
-        PrefabHandler.RegisterPrefab(customPrefab);
-        
-        foreach (var (position, angles) in customPrefab.CoordinatedSpawns ?? Enumerable.Empty<Spawnable.SpawnLocation>())
+        switch(modPrefabRoot)
         {
-            CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(customPrefab.PrefabInfo.ClassID, position, angles));
-        }
+            case Spawnable spawnable:
+                spawnable.Patch();
+                break;
+            case CustomPrefab customPrefab:
+                PrefabHandler.RegisterPrefab(customPrefab);
+                foreach(var (position, angles) in customPrefab.CoordinatedSpawns ?? Enumerable.Empty<Spawnable.SpawnLocation>())
+                {
+                    CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(customPrefab.PrefabInfo.ClassID, position, angles));
+                }
 
-        if (customPrefab.BiomesToSpawnIn != null)
-            LootDistributionHandler.AddLootDistributionData(customPrefab.PrefabInfo.ClassID, customPrefab.PrefabInfo.PrefabPath, customPrefab.BiomesToSpawnIn);
-            
-        if (customPrefab.Recipe != null)
-            CraftDataHandler.SetTechData(customPrefab.PrefabInfo.TechType, customPrefab.Recipe);
+                if(customPrefab.BiomesToSpawnIn != null)
+                    LootDistributionHandler.AddLootDistributionData(customPrefab.PrefabInfo.ClassID, customPrefab.PrefabInfo.PrefabPath, customPrefab.BiomesToSpawnIn);
+
+                if(customPrefab.Recipe != null)
+                    CraftDataHandler.SetTechData(customPrefab.PrefabInfo.TechType, customPrefab.Recipe);
+                break;
+            case ModPrefab modPrefab:
+                PrefabHandler.RegisterPrefab(modPrefab);
+                break;
+        }
     }
     
     private object ResolveParam(ParameterInfo param)
