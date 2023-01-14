@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using SMLHelper.Crafting;
 using SMLHelper.DependencyInjection;
 using UnityEngine;
+using UWE;
 
 #if SUBNAUTICA
 using RecipeData = Crafting.TechData;
@@ -16,6 +17,8 @@ public abstract class CustomPrefab: ModPrefabRoot, IEquatable<CustomPrefab>
 {
     public List<Spawnable.SpawnLocation> CoordinatedSpawns { get; set; }
     public List<LootDistributionData.BiomeData> BiomesToSpawnIn { get; set; }
+    public WorldEntityInfo WorldEntityInfo { get; set; }
+
     public RecipeData Recipe { get; set; }
 
     public override PrefabInfo PrefabInfo { get; protected set; }

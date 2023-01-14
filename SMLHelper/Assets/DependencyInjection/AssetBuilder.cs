@@ -111,7 +111,10 @@ public class AssetBuilder
                     CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(customPrefab.PrefabInfo.ClassID, position, angles));
                 }
 
-                if(customPrefab.BiomesToSpawnIn != null)
+                if(customPrefab.WorldEntityInfo != null)
+                    WorldEntityDatabaseHandler.AddCustomInfo(customPrefab.PrefabInfo.ClassID, customPrefab.WorldEntityInfo);
+
+                if(customPrefab.BiomesToSpawnIn != null && customPrefab.WorldEntityInfo != null)
                     LootDistributionHandler.AddLootDistributionData(customPrefab.PrefabInfo.ClassID, customPrefab.PrefabInfo.PrefabPath, customPrefab.BiomesToSpawnIn);
 
                 if(customPrefab.Recipe != null)
