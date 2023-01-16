@@ -2,7 +2,7 @@
 {
     using SMLHelper.API;
 
-    public interface ICustomBattery: ICraftable
+    public interface ICustomBattery
     {
         /// <summary>
         /// Is it to be registered as a Battery, PowerCell or Both?
