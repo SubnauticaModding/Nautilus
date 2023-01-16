@@ -5,10 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BepInEx;
+using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using HarmonyLib;
+using SMLHelper.API;
 using SMLHelper.Assets;
+using SMLHelper.Assets.Interfaces;
+using SMLHelper.Crafting;
 using SMLHelper.Handlers;
+using SMLHelper.Utility;
 
 public class AssetBuilder
 {
@@ -94,34 +99,53 @@ public class AssetBuilder
         {
             ResolveSetup(customPrefab);
             RegisterPrefab(customPrefab);
+            HandleInterfaces(customPrefab);
         }
     }
 
-    private void RegisterPrefab(ModPrefabRoot modPrefabRoot)
+    private void HandleInterfaces(IModPrefab customPrefab)
     {
-        switch(modPrefabRoot)
+        var techType = customPrefab.PrefabInfo.TechType;
+
+        if(customPrefab is ICraftable craftable && techType != TechType.None && craftable.FabricatorType != CraftTree.Type.None)
+        {
+            InternalLogger.Debug($"{customPrefab.PrefabInfo.ClassID} is ICraftable, Registering Craft Node, Recipe and Craft Speed.");
+
+            if(craftable.StepsToFabricatorTab == null || craftable.StepsToFabricatorTab.Length == 0)
+                CraftTreeHandler.AddCraftingNode(craftable.FabricatorType, techType);
+            else
+                CraftTreeHandler.AddCraftingNode(craftable.FabricatorType, techType, craftable.StepsToFabricatorTab);
+            if(craftable.CraftingTime >= 0f)
+                CraftDataHandler.SetCraftingTime(techType, craftable.CraftingTime);
+
+            if(craftable.RecipeData != null)
+                CraftDataHandler.SetTechData(techType, craftable.RecipeData);
+            else
+                CraftDataHandler.SetTechData(techType, new RecipeData() { craftAmount = 1, Ingredients = new() { new(TechType.Titanium) } });
+
+        }
+
+        if(customPrefab is ICustomBattery customBattery)
+        {
+            InternalLogger.Debug($"{customPrefab.PrefabInfo.ClassID} is ICustomBattery, Adding to the Battery Registry.");
+            var batteryType = customBattery.BatteryType;
+            if(batteryType == API.BatteryType.Battery || batteryType == API.BatteryType.Both)
+                CustomBatteryHandler.RegisterCustomBattery(techType);
+
+            if(batteryType == API.BatteryType.PowerCell || batteryType == API.BatteryType.Both)
+                CustomBatteryHandler.RegisterCustomPowerCell(techType);
+        }
+    }
+
+    private void RegisterPrefab(IModPrefab prefab)
+    {
+        switch(prefab.PrefabInfo.ModPrefab)
         {
             case Spawnable spawnable:
                 spawnable.Patch();
                 break;
-            case CustomPrefab customPrefab:
-                PrefabHandler.RegisterPrefab(customPrefab);
-                foreach(var (position, angles) in customPrefab.CoordinatedSpawns ?? Enumerable.Empty<Spawnable.SpawnLocation>())
-                {
-                    CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(customPrefab.PrefabInfo.ClassID, position, angles));
-                }
-
-                if(customPrefab.WorldEntityInfo != null)
-                    WorldEntityDatabaseHandler.AddCustomInfo(customPrefab.PrefabInfo.ClassID, customPrefab.WorldEntityInfo);
-
-                if(customPrefab.BiomesToSpawnIn != null && customPrefab.WorldEntityInfo != null)
-                    LootDistributionHandler.AddLootDistributionData(customPrefab.PrefabInfo.ClassID, customPrefab.PrefabInfo.PrefabPath, customPrefab.BiomesToSpawnIn);
-
-                if(customPrefab.Recipe != null)
-                    CraftDataHandler.SetTechData(customPrefab.PrefabInfo.TechType, customPrefab.Recipe);
-                break;
-            case ModPrefab modPrefab:
-                PrefabHandler.RegisterPrefab(modPrefab);
+            default:
+                PrefabHandler.RegisterPrefab(prefab.PrefabInfo);
                 break;
         }
     }

@@ -117,7 +117,7 @@ namespace SMLHelper
             UpdateCollection(PowerCellCharger.compatibleTech, CbDatabase.PowerCellItems);
         }
 
-        private static void UpdateCollection(HashSet<TechType> compatibleTech, List<CbCore> toBeAdded)
+        private static void UpdateCollection(HashSet<TechType> compatibleTech, List<TechType> toBeAdded)
         {
             if(toBeAdded.Count == 0)
                 return;
@@ -125,9 +125,7 @@ namespace SMLHelper
             // Make sure all custom batteries are allowed in the battery charger
             for(int i = toBeAdded.Count - 1; i >= 0; i--)
             {
-                CbCore cbCoreItem = toBeAdded[i];
-
-                TechType entry = cbCoreItem.TechType;
+                TechType entry = toBeAdded[i];
 
                 if(compatibleTech.Contains(entry))
                     continue;

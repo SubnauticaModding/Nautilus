@@ -114,7 +114,7 @@
 
             CorePatchEvents += () =>
             {
-                PrefabHandler.RegisterPrefab(this);
+                PrefabHandler.RegisterPrefab(PrefabInfo);
 
 #if SUBNAUTICA
                 SpriteHandler.RegisterSprite(TechType, GetItemSprite());
@@ -209,8 +209,10 @@
 
         internal virtual void PatchTechType()
         {
-            TechType = EnumHandler.AddEntry<TechType>(ClassID, Mod).WithPdaInfo(Mod, FriendlyName, Description, false);
-            PrefabInfo.TechType= TechType;
+            if(TechType == TechType.None)
+                PrefabInfo.CreateTechType();
+
+            PrefabInfo.WithPdaInfo(FriendlyName, Description, false);
         }
 
         /// <summary>

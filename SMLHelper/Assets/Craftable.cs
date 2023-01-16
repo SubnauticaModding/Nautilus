@@ -1,5 +1,7 @@
 ﻿namespace SMLHelper.Assets
 {
+    using SMLHelper.Assets.Interfaces;
+    using SMLHelper.Crafting;
     using SMLHelper.Handlers;
     using SMLHelper.Utility;
 

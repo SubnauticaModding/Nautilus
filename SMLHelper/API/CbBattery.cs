@@ -10,6 +10,6 @@ public class CbBattery : CbItem
     /// </summary>
     public void Patch()
     {
-        Patch(ItemTypes.Battery);
+        Patch(BatteryType.Battery);
     }
 }

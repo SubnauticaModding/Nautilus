@@ -90,7 +90,7 @@ public abstract class CbItem
         }
     }            
 
-    internal void Patch(ItemTypes itemType)
+    internal void Patch(BatteryType itemType)
     {
         string name = this.GetType().Assembly.GetName().Name;
         InternalLogger.Info($"Received Custom {itemType} pack from '{name}'");

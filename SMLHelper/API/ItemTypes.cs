@@ -1,7 +1,8 @@
 ﻿namespace SMLHelper.API;
 
-public enum ItemTypes
+public enum BatteryType
 {
     Battery,
-    PowerCell
+    PowerCell,
+    Both
 }

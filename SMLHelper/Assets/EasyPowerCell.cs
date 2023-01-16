@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Crafting;
 using API;
 #if SUBNAUTICA
-using RecipeData = Crafting.TechData;
+using static CraftData;
 #endif
 
 /// <summary>

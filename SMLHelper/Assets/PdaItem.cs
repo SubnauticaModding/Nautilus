@@ -90,9 +90,9 @@
 
 #if SUBNAUTICA
         /// <summary>
-        /// This provides the <see cref="TechData"/> instance used to designate how this item is crafted or constructed.
+        /// This provides the <see cref="RecipeData"/> instance used to designate how this item is crafted or constructed.
         /// </summary>
-        protected abstract TechData GetBlueprintRecipe();
+        protected abstract RecipeData GetBlueprintRecipe();
 #elif BELOWZERO
         /// <summary>
         /// This provides the <see cref="RecipeData"/> instance used to designate how this item is crafted or constructed.
@@ -159,8 +159,10 @@
 
         internal sealed override void PatchTechType()
         {
-            TechType = EnumHandler.AddEntry<TechType>(ClassID, Mod).WithPdaInfo(Mod, FriendlyName, Description, UnlockedAtStart);
-            PrefabInfo.TechType = TechType;
+            if(TechType == TechType.None)
+                PrefabInfo.CreateTechType();
+
+            PrefabInfo.WithPdaInfo(FriendlyName, Description, UnlockedAtStart);
         }
     }
 }

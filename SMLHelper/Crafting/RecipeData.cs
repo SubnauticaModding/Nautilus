@@ -1,14 +1,17 @@
-﻿#if BELOWZERO
-#pragma warning disable IDE1006 // Naming Styles - Ignored for backwards compatibility
-namespace SMLHelper.Crafting
+﻿namespace SMLHelper.Crafting
 {
     using System.Collections.Generic;
+#if SUBNAUTICA
+    using static CraftData;
+#endif
 
     /// <summary>
     /// A class that fully describes a recipe for a <see cref="TechType"/> identified item.
     /// </summary>
-    /// <seealso cref="TechData" />
     public class RecipeData
+#if SUBNAUTICA
+        : ITechData
+#endif
     {
         /// <summary>
         /// Gets or sets the how many copies of the item are created when crafting this recipe.
@@ -85,6 +88,13 @@ namespace SMLHelper.Crafting
             return null;
         }
 
+#if SUBNAUTICA
+        IIngredient ITechData.GetIngredient(int index)
+        {
+            return GetIngredient(index);
+        }
+#endif
+
         /// <summary>
         /// Gets the linked item at the specified index.
         /// </summary>
@@ -100,5 +110,3 @@ namespace SMLHelper.Crafting
         }
     }
 }
-#pragma warning restore IDE1006 // Naming Styles
-#endif

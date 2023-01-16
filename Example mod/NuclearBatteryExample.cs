@@ -5,30 +5,47 @@ using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using SMLHelper.API;
 using SMLHelper.Assets;
+using SMLHelper.Assets.Interfaces;
 using SMLHelper.Assets.PrefabTemplates;
+using SMLHelper.Crafting;
 using SMLHelper.DependencyInjection;
 using SMLHelper.Handlers;
 using UnityEngine;
+using static CraftData;
 
-public class NuclearBattery : CustomPrefab
+public class NuclearBattery: IModPrefab, ICraftable, ICustomBattery
 {
-    public override PrefabInfo PrefabInfo { get; protected set; } = PrefabInfo.WithTechType("NuclearBattery", "Nuclear Battery", "Nuclear Battery that makes me go yes")
+    public PrefabInfo PrefabInfo { get; }
+
+    public RecipeData RecipeData { get; } = new RecipeData()
+    {
+        craftAmount = 1,
+        Ingredients = new() { new Ingredient(TechType.ReactorRod), new Ingredient(TechType.Lead, 2) },
+        LinkedItems = new() { TechType.DepletedReactorRod }
+    };
+
+    public CraftTree.Type FabricatorType { get; } = CraftTree.Type.Fabricator;
+
+    public string[] StepsToFabricatorTab { get; } = CustomBatteryHandler.BatteryCraftPath;
+
+    public float CraftingTime { get; } = 1;
+
+    public BatteryType BatteryType { get; } = BatteryType.Battery;
+
+    public NuclearBattery()
+    {
+        PrefabInfo = PrefabInfo.Create("NuclearBattery", GetGameObjectAsync)
+            .CreateTechType().WithPdaInfo("Nuclear Battery", "Nuclear Battery that makes me go yes")
         .WithIcon(SpriteManager.Get(TechType.PrecursorIonBattery));
+    }
 
     [InjectionSetup]
     private void Setup(ManualLogSource logger)
     {
-        if (Chainloader.PluginInfos.ContainsKey("DecorationsMod"))
-        {
-            logger.LogDebug("Found Decorations mod. Adding compatibility patch");
-            CraftDataHandler.SetEquipmentType(PrefabInfo.TechType, EquipmentType.Hand);
-            CraftDataHandler.SetQuickSlotType(PrefabInfo.TechType, QuickSlotType.Selectable);
-        }
-        
         logger.LogDebug($"{nameof(NuclearBattery)} Patched.");
     }
 
-    public override IEnumerator GetGameObjectAsync(IOut<GameObject> gameObject)
+    public IEnumerator GetGameObjectAsync(IOut<GameObject> gameObject)
     {
         var battery = new EnergySourceTemplate(69420)
         {

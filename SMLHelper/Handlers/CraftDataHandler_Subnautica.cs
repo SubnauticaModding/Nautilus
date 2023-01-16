@@ -3,6 +3,9 @@ namespace SMLHelper.Handlers
 {
     using Crafting;
     using Patchers;
+#if SUBNAUTICA
+    using static CraftData;
+#endif
 
     /// <summary>
     /// A handler class for adding and editing crafted items.
@@ -15,7 +18,7 @@ namespace SMLHelper.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="techData">The TechData for that TechType.</param>
-        /// <seealso cref="TechData"/>
+        /// <seealso cref="RecipeData"/>
         public static void SetTechData(TechType techType, ITechData techData)
         {
             CraftDataPatcher.CustomTechData[techType] = techData;
@@ -27,8 +30,8 @@ namespace SMLHelper.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to edit.</param>
         /// <param name="techData">The TechData for that TechType.</param>
-        /// <seealso cref="TechData"/>
-        public static void SetTechData(TechType techType, TechData techData)
+        /// <seealso cref="RecipeData"/>
+        public static void SetTechData(TechType techType, RecipeData techData)
         {
             CraftDataPatcher.CustomTechData[techType] = techData;
         }
@@ -46,7 +49,7 @@ namespace SMLHelper.Handlers
 
         /// <summary>
         /// <para>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</para>
-        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, ITechData)"/> and <see cref="SetTechData(TechType, TechData)"/>.</para>
+        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, ITechData)"/> and <see cref="SetTechData(TechType, RecipeData)"/>.</para>
         /// </summary>
         /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
@@ -195,7 +198,7 @@ namespace SMLHelper.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>Returns TechData if it exists; Otherwise, returns <c>null</c>.</returns>
-        public static TechData GetTechData(TechType techType)
+        public static RecipeData GetTechData(TechType techType)
         {
             if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData iTechData))
             {
@@ -219,7 +222,7 @@ namespace SMLHelper.Handlers
         /// </summary>
         /// <param name="techType">The TechType whose TechData you want to access.</param>
         /// <returns>Returns TechData if it exists; Otherwise, returns <c>null</c>.</returns>
-        public static TechData GetRecipeData(TechType techType)
+        public static RecipeData GetRecipeData(TechType techType)
         {
             if(CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData iTechData))
             {
@@ -236,9 +239,9 @@ namespace SMLHelper.Handlers
             return null;
         }
 
-        private static TechData ConvertToTechData(ITechData iTechData)
+        private static RecipeData ConvertToTechData(ITechData iTechData)
         {
-            var techData = new TechData() { craftAmount = iTechData.craftAmount };
+            var techData = new RecipeData() { craftAmount = iTechData.craftAmount };
 
             for (int i = 0; i < iTechData.ingredientCount; i++)
             {

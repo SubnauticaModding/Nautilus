@@ -7,27 +7,27 @@
 
 
     /// <summary>
-    /// Class that used by <see cref="ModPrefabRoot"/> to store game objects that used as prefabs.
-    /// Also it can be used by mods directly, e.g. in <see cref="ModPrefabRoot.GetGameObjectAsync(IOut{GameObject})"/> to store prefab before returning.
+    /// Class that used by <see cref="PrefabInfo"/> to store game objects that used as prefabs.
+    /// Also it can be used by mods directly, e.g. in <see cref="PrefabInfo.GetGameObjectAsync"/> to store prefab before returning.
     /// Game objects in cache are inactive and will not be on scene.
     /// </summary>
     public static class ModPrefabCache
     {
-        private static readonly Dictionary<string, ModPrefabRoot> FileNameDictionary = new(StringComparer.InvariantCultureIgnoreCase);
-        private static readonly Dictionary<string, ModPrefabRoot> ClassIdDictionary = new(StringComparer.InvariantCultureIgnoreCase);
-        private static readonly List<ModPrefabRoot> PreFabsList = new();
+        private static readonly Dictionary<string, PrefabInfo> FileNameDictionary = new(StringComparer.InvariantCultureIgnoreCase);
+        private static readonly Dictionary<string, PrefabInfo> ClassIdDictionary = new(StringComparer.InvariantCultureIgnoreCase);
+        private static readonly List<PrefabInfo> PreFabsList = new();
         internal static bool ModPrefabsPatched = false;
 
-        internal static void Add(ModPrefabRoot prefab)
+        internal static void Add(PrefabInfo prefabInfo)
         {
-            FileNameDictionary.Add(prefab.PrefabInfo.PrefabPath, prefab);
-            ClassIdDictionary.Add(prefab.PrefabInfo.ClassID, prefab);
-            PreFabsList.Add(prefab);
+            FileNameDictionary.Add(prefabInfo.PrefabFileName, prefabInfo);
+            ClassIdDictionary.Add(prefabInfo.ClassID, prefabInfo);
+            PreFabsList.Add(prefabInfo);
             ModPrefabsPatched = false;
         }
 
-        internal static IEnumerable<ModPrefabRoot> Prefabs => PreFabsList;
-        internal static bool TryGetFromFileName(string classId, out ModPrefabRoot prefab)
+        internal static IEnumerable<PrefabInfo> Prefabs => PreFabsList;
+        internal static bool TryGetFromFileName(string classId, out PrefabInfo prefab)
         {
             if(string.IsNullOrEmpty(classId))
             {
@@ -37,7 +37,7 @@
             return FileNameDictionary.TryGetValue(classId, out prefab);
         }
 
-        internal static bool TryGetFromClassId(string classId, out ModPrefabRoot prefab)
+        internal static bool TryGetFromClassId(string classId, out PrefabInfo prefab)
         {
             if(string.IsNullOrEmpty(classId))
             {

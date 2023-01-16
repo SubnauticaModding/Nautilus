@@ -22,7 +22,6 @@ public static partial class EnumExtensions
     {
         TechType techType = builder;
         var name = techType.ToString();
-        EnsureAsStringSupport(techType);
 
         var modName = ownerAssembly.GetName().Name;
         
@@ -65,24 +64,10 @@ public static partial class EnumExtensions
     public static EnumBuilder<TechType> WithIcon(this EnumBuilder<TechType> builder, Atlas.Sprite sprite)
     {
         TechType tt = builder;
-        EnsureAsStringSupport(tt);
         
         if (sprite != null)
             ModSprite.Add(SpriteManager.Group.None, tt.ToString(), sprite);
 
         return builder;
-    }
-
-    private static void EnsureAsStringSupport(TechType techType)
-    {
-        var name = techType.ToString();
-        var intKey = ((int)techType).ToString();
-        
-        TechTypeExtensions.stringsNormal[techType] = name;
-        TechTypeExtensions.stringsLowercase[techType] = name.ToLowerInvariant();
-        TechTypeExtensions.techTypesNormal[name] = techType;
-        TechTypeExtensions.techTypesIgnoreCase[name] = techType;
-        TechTypeExtensions.techTypeKeys[techType] = intKey;
-        TechTypeExtensions.keyTechTypes[intKey] = techType;
     }
 }

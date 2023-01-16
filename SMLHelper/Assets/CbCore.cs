@@ -10,8 +10,8 @@ using Handlers;
 using Utility;
 using UnityEngine;
 #if SUBNAUTICA
-using RecipeData = Crafting.TechData;
 using Sprite = Atlas.Sprite;
+using static CraftData;
 #endif
 
 /// <summary>
@@ -143,7 +143,7 @@ public abstract class CbCore: Equipable
     /// WARNING! if you override this you will have to do all this yourself or call base.ProcessPrefab(GameObject prefab) so that this can do its work!.
     /// </summary>
     /// <param name="prefab"></param>
-    protected override void ProcessPrefab(GameObject prefab)
+    public override void ProcessPrefab(GameObject prefab)
     {
         prefab.SetActive(false);
         Battery battery = prefab.GetComponent<Battery>();
@@ -192,7 +192,10 @@ public abstract class CbCore: Equipable
         EnhanceGameObject?.Invoke(prefab);
     }
 
-
+    /// <summary>
+    /// Simply Instantiates a copy of the <see cref="prefabType"/> and returns the copy to be modified by <see cref="ProcessPrefab(GameObject)"/>
+    /// </summary>
+    /// <param name="gameObject"></param>
     public override IEnumerator GetGameObjectAsync(IOut<GameObject> gameObject)
     {
         TaskResult<GameObject> task = new TaskResult<GameObject>();
@@ -216,11 +219,7 @@ public abstract class CbCore: Equipable
             Ingredient priorIngredient = partsList.Find(i => i.techType == part);
 
             if(priorIngredient != null)
-#if SUBNAUTICA
-                priorIngredient.amount++;
-#elif BELOWZERO
                 priorIngredient._amount++;
-#endif
             else
                 partsList.Add(new Ingredient(part, 1));
         }
@@ -228,18 +227,18 @@ public abstract class CbCore: Equipable
 
     private void PatchBatteryData()
     {
-        if(EquipmentType == EquipmentType.BatteryCharger)
+        switch(EquipmentType)
         {
-            CbDatabase.BatteryItems.Add(this);
-            CbDatabase.BatteryModels[TechType] = CustomModelData;
+            case EquipmentType.BatteryCharger:
+                CustomBatteryHandler.RegisterCustomBattery(TechType, CustomModelData);
+                break;
+            case EquipmentType.PowerCellCharger:
+                CustomBatteryHandler.RegisterCustomPowerCell(TechType, CustomModelData);
+                break;
+            default:
+                InternalLogger.Debug($"{ClassID} was not automatically registered as a Battery or PowerCell as its EquipmentType is {EquipmentType}.");
+                break;
         }
-        else if(EquipmentType == EquipmentType.PowerCellCharger)
-        {
-            CbDatabase.PowerCellModels[TechType] = CustomModelData;
-            CbDatabase.PowerCellItems.Add(this);
-        }
-
-        CbDatabase.TrackItems.Add(TechType);
     }
 
     /// <summary>

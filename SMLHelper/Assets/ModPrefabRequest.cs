@@ -7,15 +7,15 @@
     // request for getting ModPrefab asynchronously
     internal class ModPrefabRequest: IPrefabRequest, IEnumerator
     {
-        private readonly ModPrefabRoot modPrefab;
+        private readonly PrefabInfo prefabInfo;
 
         private int state = 0;
         private CoroutineTask<GameObject> task;
         private TaskResult<GameObject> taskResult;
 
-        public ModPrefabRequest(ModPrefabRoot modPrefab)
+        public ModPrefabRequest(PrefabInfo prefabInfo)
         {
-            this.modPrefab = modPrefab;
+            this.prefabInfo = prefabInfo;
         }
 
         private void Init()
@@ -26,7 +26,7 @@
             }
 
             taskResult = new TaskResult<GameObject>();
-            task = new CoroutineTask<GameObject>(modPrefab.GetGameObjectInternalAsync(taskResult), taskResult);
+            task = new CoroutineTask<GameObject>(prefabInfo.GetGameObjectInternalAsync(taskResult), taskResult);
         }
 
         public object Current

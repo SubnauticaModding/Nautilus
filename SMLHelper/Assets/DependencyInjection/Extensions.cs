@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using SMLHelper.Assets;
+using SMLHelper.Assets.Interfaces;
 using SMLHelper.Handlers;
 
 namespace SMLHelper.DependencyInjection;
@@ -26,14 +27,14 @@ public static partial class Extensions
 
 
     public static IAssetCollection AddPrefab<TCustomPrefab>(this IAssetCollection assets)
-        where TCustomPrefab : ModPrefabRoot, new()
+        where TCustomPrefab : IModPrefab, new()
     {
         var prefab = new TCustomPrefab();
         assets.AddCustomPrefab(prefab);
         return assets;
     }
     
-    public static IAssetCollection AddPrefab(this IAssetCollection assets, ModPrefabRoot customPrefab)
+    public static IAssetCollection AddPrefab(this IAssetCollection assets, IModPrefab customPrefab)
     {
         assets.AddCustomPrefab(customPrefab);
         return assets;

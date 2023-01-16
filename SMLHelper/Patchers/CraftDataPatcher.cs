@@ -142,10 +142,10 @@
 
             Dictionary<TechType, string> techMapping = CraftData.techMapping;
             Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
-            foreach (ModPrefabRoot prefab in ModPrefabCache.Prefabs)
+            foreach (PrefabInfo prefabInfo in ModPrefabCache.Prefabs)
             {
-                techMapping[prefab.PrefabInfo.TechType] = prefab.PrefabInfo.ClassID;
-                entClassTechTable[prefab.PrefabInfo.ClassID] = prefab.PrefabInfo.TechType;
+                techMapping[prefabInfo.TechType] = prefabInfo.ClassID;
+                entClassTechTable[prefabInfo.ClassID] = prefabInfo.TechType;
             }
             ModPrefabCache.ModPrefabsPatched = true;
         }

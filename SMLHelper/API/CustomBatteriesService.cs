@@ -58,9 +58,9 @@ public class CustomBatteriesService : ICustomBatteriesService
         }
         else if (CbDatabase.TrackItems.Contains(techType))
         {
-            if (CbDatabase.BatteryItems.FindIndex(cb => cb.TechType == techType) > -1)
+            if (CbDatabase.BatteryItems.FindIndex(x => x == techType) > -1)
                 return EquipmentType.BatteryCharger; // Batteries that do not go into chargers
-            else if (CbDatabase.PowerCellItems.FindIndex(cb => cb.TechType == techType) > -1)
+            else if (CbDatabase.PowerCellItems.FindIndex(x => x == techType) > -1)
                 return EquipmentType.PowerCellCharger; // Power cells that do not go into chargers
         }
 

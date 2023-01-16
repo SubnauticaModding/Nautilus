@@ -23,8 +23,8 @@ internal static class CbDatabase
 
     public static string ExecutingFolder { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-    public static List<CbCore> BatteryItems { get; } = new List<CbCore>();
-    public static List<CbCore> PowerCellItems { get; } = new List<CbCore>();
+    public static List<TechType> BatteryItems { get; } = new List<TechType>();
+    public static List<TechType> PowerCellItems { get; } = new List<TechType>();
 
     public static Dictionary<TechType, CBModelData> BatteryModels { get; } = new Dictionary<TechType, CBModelData>();
     public static Dictionary<TechType, CBModelData> PowerCellModels { get; } = new Dictionary<TechType, CBModelData>();

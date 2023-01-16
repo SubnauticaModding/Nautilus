@@ -10,6 +10,6 @@ public class CbPowerCell : CbItem
     /// </summary>
     public void Patch()
     {
-        Patch(ItemTypes.PowerCell);
+        Patch(BatteryType.PowerCell);
     }
 }

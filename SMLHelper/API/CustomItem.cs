@@ -1,16 +1,16 @@
-﻿namespace SMLHelper.Assets;
+﻿namespace SMLHelper.API;
 
-using SMLHelper.API;
+using SMLHelper.Assets;
 
 internal class CustomItem : CbCore
 {
 
-    public CustomItem(CbItem packItem, ItemTypes itemType) : base(packItem)
+    public CustomItem(CbItem packItem, BatteryType itemType) : base(packItem)
     {
         PackItem = packItem;
         ItemType = itemType;
         UnlocksWith = packItem.UnlocksWith;
-        PrefabType = ItemType == ItemTypes.Battery ? UsingIonCellSkins ? TechType.PrecursorIonBattery : TechType.Battery : UsingIonCellSkins ? TechType.PrecursorIonPowerCell : TechType.PowerCell;
+        PrefabType = ItemType == BatteryType.Battery ? UsingIonCellSkins ? TechType.PrecursorIonBattery : TechType.Battery : UsingIonCellSkins ? TechType.PrecursorIonPowerCell : TechType.PowerCell;
     }
 
     /// <summary>
@@ -23,9 +23,9 @@ internal class CustomItem : CbCore
     /// </summary>
     public sealed override TechType RequiredForUnlock => UnlocksWith;
 
-    public ItemTypes ItemType { get; }
+    public BatteryType ItemType { get; }
 
     public CbItem PackItem { get; }
 
-    public override string[] StepsToFabricatorTab => ItemType == ItemTypes.Battery ? CbDatabase.BatteryCraftPath : CbDatabase.PowCellCraftPath;
+    public override string[] StepsToFabricatorTab => ItemType == BatteryType.Battery ? CbDatabase.BatteryCraftPath : CbDatabase.PowCellCraftPath;
 }
