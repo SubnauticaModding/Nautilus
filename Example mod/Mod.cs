@@ -12,11 +12,6 @@
     using BepInEx;
     using BepInEx.Logging;
     using SMLHelper.Utility;
-    using SMLHelper.DependencyInjection;
-    using SMLHelper.Assets;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Reflection;
 
     [BepInPlugin(GUID, MODNAME, VERSION)]
     [BepInDependency("com.ahk1221.smlhelper", BepInDependency.DependencyFlags.HardDependency)]
@@ -41,26 +36,7 @@
 
         public void Awake()
         {
-            // Create
-            var builder = PrefabManager.CreateBuilder(this);
-            // Add
-            builder.Assets.AddCustomPrefab(new NuclearBattery());
-
-            var nuke2 = new EasyBattery("nuke2", "Nuclear Battery 2.0", "OOP Battery Test", true)
-            {
-                PluginFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
-                PowerCapacity = 69420,
-                AddToFabricator = true,
-                Parts = new List<TechType>() { TechType.Copper, TechType.AcidMushroom, TechType.AcidMushroom, TechType.AcidMushroom },
-            };
-
-            builder.Assets.AddPrefab(nuke2);
-            builder.Assets.AddService<IGreeting, SayHi>();
-
-            // Run
-            builder.Build();
-            // Get Service
-            builder.GetService<IGreeting>().Greetings();
+            NuclearBattery.CreateAndRegister();
 
             LogSource = base.Logger;
 
