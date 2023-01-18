@@ -12,6 +12,7 @@
     using BepInEx;
     using BepInEx.Logging;
     using SMLHelper.Utility;
+    using SMLHelper.Assets;
 
     [BepInPlugin(GUID, MODNAME, VERSION)]
     [BepInDependency("com.ahk1221.smlhelper", BepInDependency.DependencyFlags.HardDependency)]
@@ -36,7 +37,9 @@
 
         public void Awake()
         {
-            NuclearBattery.CreateAndRegister();
+            PrefabInfo.Create("NuclearBattery")
+                .CreateTechType().WithLanguageLines("Nuclear Battery", "Nuclear Battery that makes me go yes")
+                .WithIcon(SpriteManager.Get(TechType.PrecursorIonBattery)).RegisterPrefab(new NuclearBattery());
 
             LogSource = base.Logger;
 

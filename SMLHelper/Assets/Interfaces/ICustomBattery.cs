@@ -1,17 +1,37 @@
 ﻿namespace SMLHelper.Assets.Interfaces
 {
-    using SMLHelper.API;
+    public enum BatteryType
+    {
+        Battery,
+        PowerCell
+    }
+
+    public enum BatteryModel
+    {
+        Battery,
+        IonBattery,
+        PowerCell,
+        IonPowerCell,
+        Custom,
+        IonCustom
+    }
 
     public interface ICustomBattery
     {
+        /// <summary>
+        /// Sets the Game Prefab to use as this prefabs basic model.<br/>
+        /// Use Custom for SMLHelper to run your <see cref="IModPrefab.GetGameObjectAsync"/> to get your custom prefab.
+        /// </summary>
+        public BatteryModel BatteryModel { get; }
+
         /// <summary>
         /// Is it to be registered as a Battery, PowerCell or Both?
         /// </summary>
         public BatteryType BatteryType { get; }
 
         /// <summary>
-        /// The PrefabInfo associated with this ModPrefab.
+        /// The Max Power that this battery can hold when fully charged.
         /// </summary>
-        public PrefabInfo PrefabInfo { get; }
+        public float PowerCapacity { get; }
     }
 }

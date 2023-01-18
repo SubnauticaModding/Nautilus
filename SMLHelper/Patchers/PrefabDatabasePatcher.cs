@@ -82,19 +82,6 @@
                 return null;
             }
 
-            try
-            {
-                // trying sync method first
-                if (prefabInfo.GetGameObjectInternal() is GameObject go)
-                {
-                    return new LoadedPrefabRequest(go);
-                }
-            }
-            catch (Exception e)
-            {
-                InternalLogger.Debug($"Caught exception while calling GetGameObject for {classId}, trying GetGameObjectAsync now. {Environment.NewLine}{e}");
-            }
-
             return new ModPrefabRequest(prefabInfo);
         }
 

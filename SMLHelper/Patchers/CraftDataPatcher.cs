@@ -19,7 +19,7 @@
 
         #region Group Handling
 
-        internal static void AddToCustomGroup(TechGroup group, TechCategory category, TechType techType, TechType after)
+        internal static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType after)
         {
             if (!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
             {
@@ -36,7 +36,6 @@
 
             if(techCategory.Contains(techType))
             {
-                InternalLogger.Log($"\"{techType.AsString():G}\" Already exists at \"{group:G}->{category:G}\", Skipping Duplicate Entry", LogLevel.Debug);
                 return;
             }
 
@@ -55,7 +54,7 @@
             }
         }
 
-        internal static void RemoveFromCustomGroup(TechGroup group, TechCategory category, TechType techType)
+        internal static void RemoveFromGroup(TechGroup group, TechCategory category, TechType techType)
         {
             if(!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
             {

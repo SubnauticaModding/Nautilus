@@ -7,14 +7,14 @@
 
 
     /// <summary>
-    /// Class that used by <see cref="PrefabInfo"/> to store game objects that used as prefabs.
-    /// Also it can be used by mods directly, e.g. in <see cref="PrefabInfo.GetGameObjectAsync"/> to store prefab before returning.
+    /// Class used by <see cref="PrefabInfo"/> to store game objects that used as prefabs.
     /// Game objects in cache are inactive and will not be on scene.
     /// </summary>
     public static class ModPrefabCache
     {
         private static readonly Dictionary<string, PrefabInfo> FileNameDictionary = new(StringComparer.InvariantCultureIgnoreCase);
         private static readonly Dictionary<string, PrefabInfo> ClassIdDictionary = new(StringComparer.InvariantCultureIgnoreCase);
+        private static readonly Dictionary<string, PrefabInfo> TechTypeDictionary = new(StringComparer.InvariantCultureIgnoreCase);
         private static readonly List<PrefabInfo> PreFabsList = new();
         internal static bool ModPrefabsPatched = false;
 
@@ -22,6 +22,7 @@
         {
             FileNameDictionary.Add(prefabInfo.PrefabFileName, prefabInfo);
             ClassIdDictionary.Add(prefabInfo.ClassID, prefabInfo);
+            TechTypeDictionary.Add(prefabInfo.TechType.ToString(), prefabInfo);
             PreFabsList.Add(prefabInfo);
             ModPrefabsPatched = false;
         }
@@ -47,29 +48,35 @@
             return ClassIdDictionary.TryGetValue(classId, out prefab);
         }
 
-        private const float cleanDelay = 30.0f; // delay in secs before attempt to remove prefab from cache
-
-        // list of prefabs for removing (Item1 - time of addition, Item2 - prefab gameobject)
-        private readonly static List<Tuple<float, GameObject>> prefabs = new();
+        //Stored prefabs and their destruction timers. Keyed by ClassID.
+        internal readonly static Dictionary<string, Tuple<bool, GameObject>> CachedPrefabs = new();
 
         private static GameObject root; // active root object with CacheCleaner component
         private static GameObject prefabRoot; // inactive child object, parent for added prefabs
 
         private class CacheCleaner : MonoBehaviour
         {
+            private float lastClean = 0f;
+
             public void Update()
             {
-                for (int i = prefabs.Count - 1; i >= 0; i--)
+                lastClean += Time.deltaTime;
+
+                if(lastClean >= 5)
                 {
-                    if (Time.time < prefabs[i].Item1 + cleanDelay || Builder.prefab == prefabs[i].Item2)
+                    foreach(var pair in CachedPrefabs)
                     {
-                        continue;
+                        if(!pair.Value.Item1 || Builder.prefab == pair.Value.Item2)
+                        {
+                            continue;
+                        }
+
+                        InternalLogger.Debug($"ModPrefabCache: removing prefab {pair.Value.Item2}");
+                        Destroy(pair.Value.Item2);
+                        CachedPrefabs.Remove(pair.Key);
+                        lastClean = 0f;
+                        break;
                     }
-
-                    InternalLogger.Debug($"ModPrefabCache: removing prefab {prefabs[i].Item2}");
-
-                    Destroy(prefabs[i].Item2);
-                    prefabs.RemoveAt(i);
                 }
             }
         }
@@ -122,12 +129,21 @@
 
         private static void AddPrefabInternal(GameObject prefab, bool autoremove)
         {
-            if (autoremove)
+            PrefabIdentifier identifier = prefab.GetComponent<PrefabIdentifier>();
+            if(identifier == null)
             {
-                prefabs.Add(Tuple.Create(Time.time, prefab));
+                InternalLogger.Warn($"ModPrefabCache: prefab is missing a PrefabIdentifier! Unable to add to cache.");
+                return;
             }
-
-            InternalLogger.Debug($"ModPrefabCache: adding prefab {prefab}");
+            if(!CachedPrefabs.ContainsKey(identifier.classId))
+            {
+                CachedPrefabs.Add(identifier.classId ,Tuple.Create(autoremove, prefab));
+                InternalLogger.Debug($"ModPrefabCache: adding prefab {prefab}");
+            }
+            else
+            {
+                InternalLogger.Warn($"ModPrefabCache: prefab {identifier.classId} already existed in cache!");
+            }
         }
     }
 }

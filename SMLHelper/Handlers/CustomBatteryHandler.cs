@@ -1,12 +1,9 @@
 ﻿namespace SMLHelper.Handlers
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using SMLHelper.API;
     using SMLHelper.Assets;
+    using SMLHelper.Assets.Interfaces;
+    using SMLHelper.Patchers;
     using SMLHelper.Utility;
 
     /// <summary>
@@ -14,56 +11,122 @@
     /// </summary>
     public static class CustomBatteryHandler
     {
+
         /// <summary>
         /// Gets the steps to for the default fabricator that Custom Batteries are normally placed into.
         /// </summary>
-        public static string[] BatteryCraftPath => CbDatabase.BatteryCraftPath;
+        public static string[] BatteryCraftPath => CustomBatteriesPatcher.BatteryCraftPath;
 
         /// <summary>
         /// Gets the steps to for the default fabricator that Custom PowerCells are normally placed into.
         /// </summary>
-        public static string[] PowerCellCraftPath => CbDatabase.PowCellCraftPath;
+        public static string[] PowerCellCraftPath => CustomBatteriesPatcher.PowCellCraftPath;
 
         /// <summary>
-        /// Adds a <see cref="TechType"/> to be registered as a valid battery.
+        /// Gets the full collection of <see cref="TechType" />s for all batteries, both vanilla and modded.
         /// </summary>
-        /// <param name="techType">The techtype to register.</param>
-        /// <param name="customModelData">Any custom model data to use for the battery when placed in tools and chargers</param>
-        public static void RegisterCustomBattery(TechType techType, CBModelData customModelData = null)
+        /// <returns>
+        /// The full collection of battery <see cref="TechType" />s.
+        /// </returns>
+        /// <seealso cref="BatteryCharger" />
+        public static HashSet<TechType> GetAllBatteries()
         {
+            return new HashSet<TechType>(BatteryCharger.compatibleTech);
+        }
+
+        /// <summary>
+        /// Gets the full collection of <see cref="TechType" />s for all power cells, both vanilla and modded.
+        /// </summary>
+        /// <returns>
+        /// The full collection of power cell <see cref="TechType" />s.
+        /// </returns>
+        /// <seealso cref="PowerCellCharger" />
+        public static HashSet<TechType> GetAllPowerCells()
+        {
+            return new HashSet<TechType>(PowerCellCharger.compatibleTech);
+        }
+
+
+        /// <summary>
+        /// Returns the <see cref="EquipmentType"/> associated to the provided <see cref="TechType"/>.<br/>
+        /// This is intended to identify if a given <see cref="TechType"/> is a Battery, Power Cell, or something else.
+        /// </summary>
+        /// <param name="techType">The item techtype to check</param>
+        /// <returns>
+        /// <see cref="EquipmentType.BatteryCharger"/> if the TechType is a Battery,
+        /// <see cref="EquipmentType.PowerCellCharger"/> if the TechType is a Power Cell,
+        /// or the resulting value from the game's GetEquipmentType method.
+        /// </returns>
+        public static EquipmentType GetEquipmentType(TechType techType)
+        {
+            if(BatteryCharger.compatibleTech.Contains(techType))
+            {
+                return EquipmentType.BatteryCharger;
+            }
+            else if(PowerCellCharger.compatibleTech.Contains(techType))
+            {
+                return EquipmentType.PowerCellCharger;
+            }
+            else if(CustomBatteriesPatcher.TrackItems.Contains(techType))
+            {
+                if(CustomBatteriesPatcher.BatteryItems.FindIndex(x => x == techType) > -1)
+                    return EquipmentType.BatteryCharger; // Batteries that do not go into chargers
+                else if(CustomBatteriesPatcher.PowerCellItems.FindIndex(x => x == techType) > -1)
+                    return EquipmentType.PowerCellCharger; // Power cells that do not go into chargers
+            }
+
+#if SUBNAUTICA
+            return CraftData.GetEquipmentType(techType);
+#elif BELOWZERO
+            return TechData.GetEquipmentType(techType);
+#endif
+        }
+
+        /// <summary>
+        /// Adds a <see cref="IModPrefab"/> to be registered as a valid battery.
+        /// </summary>
+        public static void RegisterCustomBattery(PrefabInfo prefabInfo, ICustomBattery modPrefab)
+        {
+            var techType = prefabInfo.TechType;
+
             if(techType == TechType.None)
             {
                 InternalLogger.Error($"{ReflectionHelper.CallingAssemblyNameByStackTrace()} tried to register TechType.None as a Battery!");
                 return;
             }
 
-            if(!CbDatabase.BatteryItems.Contains(techType))
-                CbDatabase.BatteryItems.Add(techType);
-            if(!CbDatabase.TrackItems.Contains(techType))
-                CbDatabase.TrackItems.Add(techType);
+            if(!CustomBatteriesPatcher.BatteryItems.Contains(techType))
+                CustomBatteriesPatcher.BatteryItems.Add(techType);
+            if(!CustomBatteriesPatcher.TrackItems.Contains(techType))
+                CustomBatteriesPatcher.TrackItems.Add(techType);
 
-            CbDatabase.BatteryModels[techType] = customModelData;
+            CustomBatteriesPatcher.BatteryModels[techType] = modPrefab;
+
+            if(!BatteryCharger.compatibleTech.Contains(techType))
+                BatteryCharger.compatibleTech.Add(techType);
         }
 
         /// <summary>
-        /// Adds a <see cref="TechType"/> to be registered as a valid PowerCell.
+        /// Adds a <see cref="IModPrefab"/> to be registered as a valid PowerCell.
         /// </summary>
-        /// <param name="techType">The techtype to register.</param>
-        /// <param name="customModelData">Any custom model data to use for the PowerCell when placed in tools, vehicles and chargers</param>
-        public static void RegisterCustomPowerCell(TechType techType, CBModelData customModelData = null)
+        public static void RegisterCustomPowerCell(PrefabInfo prefabInfo, ICustomBattery modPrefab)
         {
+            var techType = prefabInfo.TechType;
             if(techType == TechType.None)
             {
                 InternalLogger.Error($"{ReflectionHelper.CallingAssemblyNameByStackTrace()} tried to register TechType.None as a PowerCell!");
                 return;
             }
 
-            if(!CbDatabase.PowerCellItems.Contains(techType))
-                CbDatabase.PowerCellItems.Add(techType);
-            if(!CbDatabase.TrackItems.Contains(techType))
-                CbDatabase.TrackItems.Add(techType);
+            if(!CustomBatteriesPatcher.PowerCellItems.Contains(techType))
+                CustomBatteriesPatcher.PowerCellItems.Add(techType);
+            if(!CustomBatteriesPatcher.TrackItems.Contains(techType))
+                CustomBatteriesPatcher.TrackItems.Add(techType);
 
-            CbDatabase.PowerCellModels[techType] = customModelData;
+            CustomBatteriesPatcher.PowerCellModels[techType] = modPrefab;
+
+            if(!PowerCellCharger.compatibleTech.Contains(techType))
+                PowerCellCharger.compatibleTech.Add(techType);
         }
     }
 }

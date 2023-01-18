@@ -55,6 +55,7 @@ public static partial class EnumExtensions
         return WithPdaInfo(builder, callingAssembly, displayName, tooltip, unlockAtStart);
     }
 
+#if SUBNAUTICA
     /// <summary>
     /// Adds an icon for this instance.
     /// </summary>
@@ -64,8 +65,25 @@ public static partial class EnumExtensions
     public static EnumBuilder<TechType> WithIcon(this EnumBuilder<TechType> builder, Atlas.Sprite sprite)
     {
         TechType tt = builder;
-        
-        if (sprite != null)
+
+        if(sprite != null)
+            ModSprite.Add(SpriteManager.Group.None, tt.ToString(), sprite);
+
+        return builder;
+    }
+#endif
+
+    /// <summary>
+    /// Adds an icon for this instance.
+    /// </summary>
+    /// <param name="builder">The current custom enum object instance.</param>
+    /// <param name="sprite">The icon to add for this instance.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public static EnumBuilder<TechType> WithIcon(this EnumBuilder<TechType> builder, UnityEngine.Sprite sprite)
+    {
+        TechType tt = builder;
+
+        if(sprite != null)
             ModSprite.Add(SpriteManager.Group.None, tt.ToString(), sprite);
 
         return builder;

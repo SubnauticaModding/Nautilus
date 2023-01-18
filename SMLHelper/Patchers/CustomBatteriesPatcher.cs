@@ -1,39 +1,184 @@
 ﻿namespace SMLHelper.Patchers;
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using API;
-using Assets;
+using BepInEx;
+using BepInEx.Bootstrap;
 using HarmonyLib;
+using SMLHelper.Assets;
+using SMLHelper.Assets.Interfaces;
+using SMLHelper.Handlers;
 using SMLHelper.Utility;
 using UnityEngine;
 using UWE;
+using static Charger;
 using static EnergyMixin;
 
-internal static class EnergyMixinPatcher
+internal static class CustomBatteriesPatcher
 {
+    public const string BatteryCraftTab = "BatteryTab";
+    public const string PowCellCraftTab = "PowCellTab";
+    public const string ElecCraftTab = "Electronics";
+    public const string ResCraftTab = "Resources";
+
+    public static readonly string[] BatteryCraftPath = new[] { ResCraftTab, BatteryCraftTab };
+    public static readonly string[] PowCellCraftPath = new[] { ResCraftTab, PowCellCraftTab };
+
+    public static string ExecutingFolder { get; } = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+    public static List<TechType> BatteryItems { get; } = new List<TechType>();
+    public static List<TechType> PowerCellItems { get; } = new List<TechType>();
+
+    public static Dictionary<TechType, ICustomBattery> BatteryModels { get; } = new Dictionary<TechType, ICustomBattery>();
+    public static Dictionary<TechType, ICustomBattery> PowerCellModels { get; } = new Dictionary<TechType, ICustomBattery>();
+
+    public static HashSet<TechType> TrackItems { get; } = new HashSet<TechType>();
+
+    private static bool _decoModDetectionRun = false;
+    private static FieldInfo enablePlaceBatteriesField { get; set; }
+
+    public static bool PlaceBatteriesFeatureEnabled
+    {
+        get
+        {
+            if(!_decoModDetectionRun)
+            {
+                DecorationsModCheck();
+            }
+
+            return enablePlaceBatteriesField != null ? (bool)enablePlaceBatteriesField.GetValue(null) : false;
+        }
+    }
+
+    private static void DecorationsModCheck()
+    {
+        PluginInfo puginInfo = Chainloader.PluginInfos.Values.Where((x) => x.Metadata.Name == "DecorationsMod" && x.Instance.enabled).FirstOrFallback(null);
+        Assembly decorationsModAssembly = null;
+        if(puginInfo == null)
+        {
+            _decoModDetectionRun = true;
+            InternalLogger.Debug($"DecorationsMod not detected.");
+            return;
+        }
+
+        decorationsModAssembly = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.Location == puginInfo.Location).FirstOrFallback(decorationsModAssembly);
+        if(decorationsModAssembly == null)
+        {
+            InternalLogger.Debug($"DecorationsMod detected but unable to find assembly.");
+            _decoModDetectionRun = true;
+            return;
+        }
+
+        Type decorationsModConfig = decorationsModAssembly.GetType("DecorationsMod.ConfigSwitcher", false);
+        if(decorationsModConfig == null)
+        {
+            InternalLogger.Debug($"DecorationsMod assembly found but unable to find DecorationsMod.ConfigSwitcher Type.");
+            _decoModDetectionRun = true;
+            return;
+        }
+
+        enablePlaceBatteriesField = decorationsModConfig.GetField("EnablePlaceBatteries", BindingFlags.Public | BindingFlags.Static);
+        if(enablePlaceBatteriesField == null || !enablePlaceBatteriesField.IsStatic)
+        {
+            InternalLogger.Debug($"DecorationsMod.ConfigSwitcher Type found but unable to find Static EnablePlaceBatteries Field.");
+            enablePlaceBatteriesField = null;
+            _decoModDetectionRun = true;
+            return;
+        }
+        _decoModDetectionRun = true;
+    }
+
     internal static void Patch(Harmony harmony)
     {
-        InternalLogger.Debug($"{nameof(EnergyMixinPatcher)} Applying Harmony Patches");
+        InternalLogger.Debug($"{nameof(CustomBatteriesPatcher)} Applying Harmony Patches");
 
         MethodInfo energyMixinNotifyHasBattery = AccessTools.Method(typeof(EnergyMixin), nameof(EnergyMixin.NotifyHasBattery));
-        MethodInfo notifyHasBatteryPostfixMethod = AccessTools.Method(typeof(EnergyMixinPatcher), nameof(NotifyHasBatteryPostfix));
+        MethodInfo notifyHasBatteryPostfixMethod = AccessTools.Method(typeof(CustomBatteriesPatcher), nameof(NotifyHasBatteryPostfix));
 
         var harmonyNotifyPostfix = new HarmonyMethod(notifyHasBatteryPostfixMethod);
         harmony.Patch(energyMixinNotifyHasBattery, postfix: harmonyNotifyPostfix); // Patches the EnergyMixin NotifyHasBattery method
 
         MethodInfo energyMixStartMethod = AccessTools.Method(typeof(EnergyMixin), nameof(EnergyMixin.Awake));
-        MethodInfo startPrefixMethod = AccessTools.Method(typeof(EnergyMixinPatcher), nameof(AwakePrefix));
+        MethodInfo startPrefixMethod = AccessTools.Method(typeof(CustomBatteriesPatcher), nameof(AwakePrefix));
 
         var harmonyStartPrefix = new HarmonyMethod(startPrefixMethod);
         harmony.Patch(energyMixStartMethod, prefix: harmonyStartPrefix); // Patches the EnergyMixin Awake method
+
+        MethodInfo chargerPatcherOnEquipMethod = AccessTools.Method(typeof(Charger), nameof(Charger.OnEquip));
+        MethodInfo chargerPatcherOnEquipPostfixMethod = AccessTools.Method(typeof(CustomBatteriesPatcher), nameof(OnEquipPostfix));
+
+        var harmonyOnEquipPostfix = new HarmonyMethod(chargerPatcherOnEquipPostfixMethod);
+        harmony.Patch(chargerPatcherOnEquipMethod, postfix: harmonyOnEquipPostfix); // Patches the ChargerPatcher OnEquipPostfix method.
+
+        PatchCraftingTabs();
+
+        InternalLogger.Debug($"{nameof(CustomBatteriesPatcher)} Patched.");
+    }
+
+
+    internal static void PatchCraftingTabs()
+    {
+        InternalLogger.Info("Separating batteries and power cells into their own fabricator crafting tabs");
+
+        // Remove original crafting nodes
+        CraftTreeHandler.RemoveNode(CraftTree.Type.Fabricator, ResCraftTab, ElecCraftTab, TechType.Battery.ToString());
+        CraftTreeHandler.RemoveNode(CraftTree.Type.Fabricator, ResCraftTab, ElecCraftTab, TechType.PrecursorIonBattery.ToString());
+        CraftTreeHandler.RemoveNode(CraftTree.Type.Fabricator, ResCraftTab, ElecCraftTab, TechType.PowerCell.ToString());
+        CraftTreeHandler.RemoveNode(CraftTree.Type.Fabricator, ResCraftTab, ElecCraftTab, TechType.PrecursorIonPowerCell.ToString());
+
+        // Add a new set of tab nodes for batteries and power cells
+        CraftTreeHandler.AddTabNode(CraftTree.Type.Fabricator, BatteryCraftTab, "Batteries", SpriteManager.Get(TechType.Battery), ResCraftTab);
+        CraftTreeHandler.AddTabNode(CraftTree.Type.Fabricator, PowCellCraftTab, "Power Cells", SpriteManager.Get(TechType.PowerCell), ResCraftTab);
+
+        // Move the original batteries and power cells into these new tabs
+        CraftTreeHandler.AddCraftingNode(CraftTree.Type.Fabricator, TechType.Battery, BatteryCraftPath);
+        CraftTreeHandler.AddCraftingNode(CraftTree.Type.Fabricator, TechType.PrecursorIonBattery, BatteryCraftPath);
+        CraftTreeHandler.AddCraftingNode(CraftTree.Type.Fabricator, TechType.PowerCell, PowCellCraftPath);
+        CraftTreeHandler.AddCraftingNode(CraftTree.Type.Fabricator, TechType.PrecursorIonPowerCell, PowCellCraftPath);
+    }
+
+    private static void OnEquipPostfix(Charger __instance, string slot, InventoryItem item, Dictionary<string, SlotDefinition> ___slots)
+    {
+        if(___slots.TryGetValue(slot, out SlotDefinition slotDefinition))
+        {
+            GameObject battery = slotDefinition.battery;
+            Pickupable pickupable = item.item;
+            if(battery != null && pickupable != null)
+            {
+                GameObject model;
+                switch(__instance)
+                {
+                    case BatteryCharger _:
+                        model = pickupable.gameObject.transform.Find("model/battery_01")?.gameObject ?? pickupable.gameObject.transform.Find("model/battery_ion")?.gameObject;
+                        if(model != null && model.TryGetComponent(out Renderer renderer) && battery.TryGetComponent(out Renderer renderer1))
+                            renderer1.material.CopyPropertiesFromMaterial(renderer.material);
+                        break;
+                    case PowerCellCharger _:
+                        model = pickupable.gameObject.FindChild("engine_power_cell_01") ?? pickupable.gameObject.FindChild("engine_power_cell_ion");
+
+                        bool modelmesh = model.TryGetComponent(out MeshFilter modelMeshFilter);
+                        bool chargermesh = battery.TryGetComponent(out MeshFilter chargerMeshFilter);
+                        bool modelRenderer = model.TryGetComponent(out renderer);
+                        bool chargerRenderer = battery.TryGetComponent(out renderer1);
+
+                        if(chargermesh && modelmesh && chargerRenderer && modelRenderer)
+                        {
+                            chargerMeshFilter.mesh = modelMeshFilter.mesh;
+                            renderer1.material.CopyPropertiesFromMaterial(renderer.material);
+                        }
+                        break;
+                }
+            }
+        }
     }
 
     public static void NotifyHasBatteryPostfix(ref EnergyMixin __instance, InventoryItem item)
     {
-        if (CbDatabase.PowerCellItems.Count == 0)
+        if (PowerCellItems.Count == 0)
             return;
 
         // For vehicles that show a battery model when one is equipped,
@@ -46,7 +191,7 @@ internal static class EnergyMixinPatcher
             return; // Nothing here
 
         TechType powerCellTechType = itemInSlot.Value;
-        bool isKnownModdedPowerCell = CbDatabase.PowerCellItems.Find(techType => techType == powerCellTechType) != TechType.None;
+        bool isKnownModdedPowerCell = PowerCellItems.Find(techType => techType == powerCellTechType) != TechType.None;
 
         if (isKnownModdedPowerCell)
         {
@@ -74,7 +219,7 @@ internal static class EnergyMixinPatcher
         if(!__instance.allowBatteryReplacement)
             return; // Battery replacement not allowed - No need to make changes
 
-        if(CbDatabase.BatteryItems.Count == 0 && CbDatabase.PowerCellItems.Count == 0)
+        if(BatteryItems.Count == 0 && PowerCellItems.Count == 0)
             return;
 
         CoroutineHost.StartCoroutine(PatchAllowedBatteriesAsync(__instance));
@@ -229,24 +374,24 @@ internal static class EnergyMixinPatcher
         if(compatibleBatteries.Contains(TechType.Battery) || compatibleBatteries.Contains(TechType.PrecursorIonBattery))
         {
             // If the regular Battery or Ion Battery is compatible with this item, then modded batteries should also be compatible
-            AddMissingTechTypesToList(compatibleBatteries, CbDatabase.BatteryItems);
+            AddMissingTechTypesToList(compatibleBatteries, BatteryItems);
 
             if(batteryModel != null && ionBatteryModel != null)
             {
                 //If we have enough information to make custom models for this tool or vehicle then create them.
-                AddCustomModels(batteryModel, ionBatteryModel, ref Models, CbDatabase.BatteryModels, existingTechtypes);
+                AddCustomModels(batteryModel, ionBatteryModel, ref Models, BatteryModels, existingTechtypes);
             }
         }
 
         if(compatibleBatteries.Contains(TechType.PowerCell) || compatibleBatteries.Contains(TechType.PrecursorIonPowerCell))
         {
             // If the regular Power Cell or Ion Power Cell is compatible with this item, then modded power cells should also be compatible
-            AddMissingTechTypesToList(compatibleBatteries, CbDatabase.PowerCellItems);
+            AddMissingTechTypesToList(compatibleBatteries, PowerCellItems);
 
             if(powerCellModel != null && ionPowerCellModel != null)
             {
                 //If we have enough information to make custom models for this tool or vehicle then create them.
-                AddCustomModels(powerCellModel, ionPowerCellModel, ref Models, CbDatabase.PowerCellModels, existingTechtypes);
+                AddCustomModels(powerCellModel, ionPowerCellModel, ref Models, PowerCellModels, existingTechtypes);
             }
         }
 
@@ -254,7 +399,7 @@ internal static class EnergyMixinPatcher
         yield break;
     }
 
-    private static void AddCustomModels(GameObject originalModel, GameObject ionModel, ref List<BatteryModels> Models, Dictionary<TechType, CBModelData> customModels, List<TechType> existingTechtypes)
+    private static void AddCustomModels(GameObject originalModel, GameObject ionModel, ref List<BatteryModels> Models, Dictionary<TechType, ICustomBattery> customModels, List<TechType> existingTechtypes)
     {
         var originalModelState = originalModel.activeSelf;
         originalModel.SetActive(false);
@@ -281,15 +426,24 @@ internal static class EnergyMixinPatcher
                 break;
         }
 
-        foreach (KeyValuePair<TechType, CBModelData> pair in customModels)
+        foreach (KeyValuePair<TechType, ICustomBattery> pair in customModels)
         {
             //dont add models that already exist.
             if (existingTechtypes.Contains(pair.Key))
                 continue;
 
+            CustomModelData modelData = null;
+            bool UseIonModelsAsBase = false;
+
+            var modPrefab = pair.Value;
             //check which model to base the new model from
-            CBModelData modelData = pair.Value;
-            GameObject modelBase = modelData?.UseIonModelsAsBase ?? false ? ionModel : originalModel;
+            if(modPrefab is ICustomBattery customBattery)
+                UseIonModelsAsBase = customBattery.BatteryModel == BatteryModel.IonBattery || customBattery.BatteryModel == BatteryModel.IonPowerCell || customBattery.BatteryModel == BatteryModel.IonCustom;
+            
+            if(modPrefab is ICustomModelData customModelData)
+                modelData = customModelData.ModelDatas?.FirstOrFallback(null);
+
+            GameObject modelBase = UseIonModelsAsBase ? ionModel : originalModel;
 
             //create the new model and set it to have the same parent as the original
             GameObject obj = GameObject.Instantiate(modelBase, modelBase.transform.parent);

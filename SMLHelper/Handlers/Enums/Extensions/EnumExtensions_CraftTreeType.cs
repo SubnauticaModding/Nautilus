@@ -1,8 +1,7 @@
-﻿using SMLHelper.Crafting;
-using SMLHelper.Patchers;
+﻿namespace SMLHelper.Handlers;
 
-// ReSharper disable once CheckNamespace
-namespace SMLHelper.Handlers;
+using SMLHelper.Crafting;
+using SMLHelper.Patchers;
 
 public static partial class EnumExtensions
 {
@@ -21,9 +20,8 @@ public static partial class EnumExtensions
     public static EnumBuilder<CraftTree.Type> CreateCraftTreeRoot(this EnumBuilder<CraftTree.Type> builder,
         out ModCraftTreeRoot craftTreeRoot)
     {
-        var craftTreeType = (CraftTree.Type)builder;
-        var name = craftTreeType.ToString();
-        
+        CraftTree.Type craftTreeType = builder.Value;
+        string name = craftTreeType.ToString();        
         craftTreeRoot = new ModCraftTreeRoot(craftTreeType, name);
         CraftTreePatcher.CustomTrees[craftTreeType] = craftTreeRoot;
 

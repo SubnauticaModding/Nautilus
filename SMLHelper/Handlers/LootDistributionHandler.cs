@@ -63,14 +63,14 @@
         /// <summary>
         /// Adds in a custom entry into the Loot Distribution of the game.
         /// </summary>
-        /// <param name="prefab">The custom prefab which you want to spawn naturally in the game.</param>
+        /// <param name="prefabInfo">The custom prefab which you want to spawn naturally in the game.</param>
         /// <param name="biomeDistribution">The <see cref="LootDistributionData.BiomeData"/> dictating how the prefab should spawn in the world.</param>
         /// <param name="info">The WorldEntityInfo of the prefab. For more information on how to set this up, see <see cref="WorldEntityDatabaseHandler"/>.</param>
-        public static void AddLootDistributionData(ModPrefab prefab, IEnumerable<LootDistributionData.BiomeData> biomeDistribution, WorldEntityInfo info)
+        public static void AddLootDistributionData(PrefabInfo prefabInfo, IEnumerable<LootDistributionData.BiomeData> biomeDistribution, WorldEntityInfo info)
         {
-            AddLootDistributionData(prefab.ClassID, prefab.PrefabFileName, biomeDistribution);
+            AddLootDistributionData(prefabInfo.ClassID, prefabInfo.PrefabFileName, biomeDistribution);
 
-            WorldEntityDatabaseHandler.AddCustomInfo(prefab.ClassID, info);
+            WorldEntityDatabaseHandler.AddCustomInfo(prefabInfo.ClassID, info);
         }
 
         /// <summary>
