@@ -38,6 +38,11 @@
     public class ModChoiceOption<T> : ModOption<T, ChoiceChangedEventArgs<T>>
     {
         /// <summary>
+        /// The actual <see cref="uGUI_Choice"/> when the menu is open.
+        /// </summary>
+        public uGUI_Choice Choice { get; private set; }
+
+        /// <summary>
         /// The array of readable string options to choose between in the <see cref="ModChoiceOption{T}"/>.
         /// </summary>
         public T[] Options { get; }
@@ -47,7 +52,7 @@
         /// <summary>
         /// The currently selected index among the options array.
         /// </summary>
-        public int Index { get; }
+        public int Index { get; private set; }
 
         /// <summary>
         /// The tooltip to show when hovering over the option.
@@ -61,13 +66,14 @@
         /// <param name="tabIndex">Where in the panel to add the option.</param>
         public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            uGUI_Choice choice = panel.AddChoiceOption(tabIndex, Label, OptionStrings, Index,
+            Choice = panel.AddChoiceOption(tabIndex, Label, OptionStrings, Index,
                 new UnityAction<int>((int index) => {
+                    Index = index;
                     OnChange(Id, Options[index]);
                     parentOptions.OnChange<T, ChoiceChangedEventArgs<T>>(Id, Options[index]); 
                 }), Tooltip);
 
-            OptionGameObject = choice.transform.parent.transform.parent.gameObject; // :(
+            OptionGameObject = Choice.transform.parent.transform.parent.gameObject; // :(
 
             base.AddToPanel(panel, tabIndex);
         }
