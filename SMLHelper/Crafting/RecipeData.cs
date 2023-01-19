@@ -48,12 +48,12 @@
         public List<TechType> LinkedItems = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TechData"/> class a custom recipe.
+        /// Initializes a new instance of the <see cref="RecipeData"/> class a custom recipe.
         /// </summary>
         public RecipeData() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TechData"/> class for a custom recipe with a list of ingridients.
+        /// Initializes a new instance of the <see cref="RecipeData"/> class for a custom recipe with a list of ingridients.
         /// </summary>
         /// <param name="ingredients">The ingredients.</param>
         public RecipeData(List<Ingredient> ingredients)
@@ -62,7 +62,7 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TechData"/> class for a custom recipe with a collection of ingridients.
+        /// Initializes a new instance of the <see cref="RecipeData"/> class for a custom recipe with a collection of ingridients.
         /// </summary>
         /// <param name="ingredients">The ingredients.</param>
         public RecipeData(params Ingredient[] ingredients)

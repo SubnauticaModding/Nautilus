@@ -332,7 +332,7 @@ public class PrefabInfo: IEquatable<PrefabInfo>
         if(customPrefab is ICraftable craftable && techType != TechType.None && craftable.FabricatorType != CraftTree.Type.None)
         {
             InternalLogger.Debug($"{ClassID} is ICraftable, Registering Craft Node, Recipe and Craft Speed.");
-
+            InternalLogger.Debug($"{craftable.FabricatorType} : {string.Join(", ", craftable.StepsToFabricatorTab)}");
             if(craftable.StepsToFabricatorTab == null || craftable.StepsToFabricatorTab.Length == 0)
                 CraftTreeHandler.AddCraftingNode(craftable.FabricatorType, techType);
             else
@@ -341,9 +341,9 @@ public class PrefabInfo: IEquatable<PrefabInfo>
                 CraftDataHandler.SetCraftingTime(techType, craftable.CraftingTime);
 
             if(craftable.RecipeData != null)
-                CraftDataHandler.SetTechData(techType, craftable.RecipeData);
+                CraftDataHandler.SetRecipeData(techType, craftable.RecipeData);
             else
-                CraftDataHandler.SetTechData(techType, new RecipeData() { craftAmount = 1, Ingredients = new() { new(TechType.Titanium, 1) } });
+                CraftDataHandler.SetRecipeData(techType, new RecipeData() { craftAmount = 1, Ingredients = new() { new(TechType.Titanium, 1) } });
 
         }
 
@@ -365,9 +365,15 @@ public class PrefabInfo: IEquatable<PrefabInfo>
             if(info.GroupForPDA != TechGroup.Uncategorized)
             {
                 CraftDataHandler.AddToGroup(info.GroupForPDA, info.CategoryForPDA, techType);
-                if(customPrefab is IBuildable)
+                if(customPrefab is IBuildable buildable)
                 {
                     InternalLogger.Debug($"{ClassID} is IBuildable. Adding to buildables list.");
+
+                    if(buildable.RecipeData != null)
+                        CraftDataHandler.SetRecipeData(techType, buildable.RecipeData);
+                    else
+                        CraftDataHandler.SetRecipeData(techType, new RecipeData() { craftAmount = 1, Ingredients = new() { new(TechType.Titanium, 1) } });
+
                     CraftDataHandler.AddBuildable(techType);
                 }
             }
@@ -613,8 +619,6 @@ public class PrefabInfo: IEquatable<PrefabInfo>
             return;
         }
 
-        ModPrefabCache.AddPrefab(prefab, false);
-
         prefab.name = this.ClassID;
         var tech = TechType;
 
@@ -636,6 +640,8 @@ public class PrefabInfo: IEquatable<PrefabInfo>
         {
             pid.ClassId = ClassID;
         }
+
+        ModPrefabCache.AddPrefab(prefab, false);
 
         if(ModPrefab is ICustomBattery customBattery)
         {
@@ -690,7 +696,6 @@ public class PrefabInfo: IEquatable<PrefabInfo>
 
         if(ModPrefab is ICustomFabricator customFabricator)
         {
-
             Constructable constructible = null;
             GhostCrafter crafter;
             switch(customFabricator.FabricatorModel)

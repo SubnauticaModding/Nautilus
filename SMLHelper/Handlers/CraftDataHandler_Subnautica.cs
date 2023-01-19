@@ -13,27 +13,27 @@ namespace SMLHelper.Handlers
     public partial class CraftDataHandler
     {
         /// <summary>
-        /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
+        /// <para>Allows you to edit recipes, i.e. RecipeData for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to edit.</param>
-        /// <param name="techData">The TechData for that TechType.</param>
+        /// <param name="techType">The TechType whose RecipeData you want to edit.</param>
+        /// <param name="techData">The ITechData for that TechType.</param>
         /// <seealso cref="RecipeData"/>
-        public static void SetTechData(TechType techType, ITechData techData)
+        public static void SetRecipeData(TechType techType, ITechData techData)
         {
-            CraftDataPatcher.CustomTechData[techType] = techData;
+            CraftDataPatcher.CustomRecipeData[techType] = techData;
         }
 
         /// <summary>
-        /// <para>Allows you to edit recipes, i.e. TechData for TechTypes.</para>
+        /// <para>Allows you to edit recipes, i.e. RecipeData for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to edit.</param>
-        /// <param name="techData">The TechData for that TechType.</param>
+        /// <param name="techType">The TechType whose RecipeData you want to edit.</param>
+        /// <param name="recipeData">The RecipeData for that TechType.</param>
         /// <seealso cref="RecipeData"/>
-        public static void SetTechData(TechType techType, RecipeData techData)
+        public static void SetRecipeData(TechType techType, RecipeData recipeData)
         {
-            CraftDataPatcher.CustomTechData[techType] = techData;
+            CraftDataPatcher.CustomRecipeData[techType] = recipeData;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace SMLHelper.Handlers
 
         /// <summary>
         /// <para>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</para>
-        /// <para>Careful: This has to be called after <see cref="SetTechData(TechType, ITechData)"/> and <see cref="SetTechData(TechType, RecipeData)"/>.</para>
+        /// <para>Careful: This has to be called after <see cref="SetRecipeData(TechType, ITechData)"/> and <see cref="SetRecipeData(TechType, RecipeData)"/>.</para>
         /// </summary>
         /// <param name="techType">The TechType whose QuickSlotType you want to edit.</param>
         /// <param name="slotType">The QuickSlotType for that TechType.</param>
@@ -178,84 +178,64 @@ namespace SMLHelper.Handlers
         /// <summary>
         /// Safely accesses the crafting data from a modded item.<para/>
         /// WARNING: This method is highly dependent on mod load order. 
-        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// Make sure your mod is loading after the mod whose RecipeData you are trying to access.
         /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to access.</param>
-        /// <returns>The ITechData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        public static ITechData GetModdedTechData(TechType techType)
+        /// <param name="techType">The TechType whose RecipeData you want to access.</param>
+        /// <returns>The RecipeData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
+        public static RecipeData GetModdedRecipeData(TechType techType)
         {
-            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData moddedTechData))
+            if (!CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out ITechData moddedTechData))
             {
                 return null;
             }
-            return moddedTechData;
+            return ConvertToRecipeData(moddedTechData);
         }
 
         /// <summary>
         /// Safely accesses the crafting data from any item.<para/>
         /// WARNING: This method is highly dependent on mod load order. 
-        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// Make sure your mod is loading after the mod whose RecipeData you are trying to access.
         /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to access.</param>
-        /// <returns>Returns TechData if it exists; Otherwise, returns <c>null</c>.</returns>
-        public static RecipeData GetTechData(TechType techType)
-        {
-            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData iTechData))
-            {
-                return ConvertToTechData(iTechData);
-            }
-
-            iTechData = CraftData.Get(techType, true);
-
-            if (iTechData != null)
-            {
-                return ConvertToTechData(iTechData);
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Safely accesses the crafting data from any item.<para/>
-        /// WARNING: This method is highly dependent on mod load order. 
-        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
-        /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to access.</param>
-        /// <returns>Returns TechData if it exists; Otherwise, returns <c>null</c>.</returns>
+        /// <param name="techType">The TechType whose RecipeData you want to access.</param>
+        /// <returns>Returns RecipeData if it exists; Otherwise, returns <c>null</c>.</returns>
         public static RecipeData GetRecipeData(TechType techType)
         {
-            if(CraftDataPatcher.CustomTechData.TryGetValue(techType, out ITechData iTechData))
+            if(CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out ITechData iTechData))
             {
-                return ConvertToTechData(iTechData);
+                return ConvertToRecipeData(iTechData);
             }
 
             iTechData = CraftData.Get(techType, true);
 
             if(iTechData != null)
             {
-                return ConvertToTechData(iTechData);
+                return ConvertToRecipeData(iTechData);
             }
 
             return null;
         }
 
-        private static RecipeData ConvertToTechData(ITechData iTechData)
+        /// <summary>
+        /// Converts the games ITechData into SMLHelpers RecipeData.
+        /// </summary>
+        /// <param name="iTechData"></param>
+        public static RecipeData ConvertToRecipeData(ITechData iTechData)
         {
-            var techData = new RecipeData() { craftAmount = iTechData.craftAmount };
+            var recipeData = new RecipeData() { craftAmount = iTechData.craftAmount };
 
             for (int i = 0; i < iTechData.ingredientCount; i++)
             {
                 IIngredient ingredient = iTechData.GetIngredient(i);
                 var smlingredient = new Ingredient(ingredient.techType, ingredient.amount);
-                techData.Ingredients.Add(smlingredient);
+                recipeData.Ingredients.Add(smlingredient);
             }
 
             for (int i = 0; i < iTechData.linkedItemCount; i++)
             {
-                techData.LinkedItems.Add(iTechData.GetLinkedItem(i));
+                recipeData.LinkedItems.Add(iTechData.GetLinkedItem(i));
             }
 
-            return techData;
+            return recipeData;
         }
     }
 }

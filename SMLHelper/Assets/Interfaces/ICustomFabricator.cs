@@ -45,7 +45,7 @@
         /// <see cref="ModCraftTreeRoot.AddTabNode(string, string, Atlas.Sprite, string)"/>
         /// <see cref="ModCraftTreeRoot.AddCraftNode(string, string)"/>
         /// <see cref="ModCraftTreeRoot.AddCraftNode(TechType, string)"/>
-        /// <see cref="ModCraftTreeRoot.AddCraftNode(ICraftable, string)"/>
+        /// <see cref="ModCraftTreeRoot.AddCraftNode(PrefabInfo, string)"/>
         /// </summary>
         public CraftTree.Type TreeTypeID { get; }
     }

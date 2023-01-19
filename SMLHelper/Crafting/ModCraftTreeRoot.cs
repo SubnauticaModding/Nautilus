@@ -89,7 +89,7 @@
                 throw new ArgumentNullException($"{this.SchemeAsString} tried to add a tab without an id! tabid cannot be null or empty spaces!");
 
             ModCraftTreeLinkingNode parentTab;
-            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId, out parentTab))
+            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
                 parentTab = CraftTreeLinkingNodes[RootNode];
 
             if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Craft))
@@ -119,7 +119,7 @@
                 throw new ArgumentNullException($"{this.SchemeAsString} tried to add a tab without an id! tabid cannot be null or empty spaces!");
 
             ModCraftTreeLinkingNode parentTab;
-            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId, out parentTab))
+            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
                 parentTab = CraftTreeLinkingNodes[RootNode];
 
             if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Craft))
@@ -143,7 +143,7 @@
         public ModCraftTreeRoot AddCraftNode(TechType techType, string parentTabId = null)
         {
             ModCraftTreeLinkingNode parentTab;
-            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId, out parentTab))
+            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
                 parentTab = CraftTreeLinkingNodes[RootNode];
 
             if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Expand))
@@ -153,7 +153,7 @@
             }
             else
             {
-                InternalLogger.Error($"Cannot add crafting node: {techType} as it is being added to a parent node that contains tab nodes.");
+                InternalLogger.Error($"Cannot add crafting node: {techType} as it is being added to {parentTab.Name} that contains tab nodes. {string.Join(", ",parentTab.ChildNodes.Where(node=> node.Action == TreeAction.Expand).Select(x=>x.Name))} ");
             }
             return this;
         }
@@ -170,7 +170,7 @@
             if(EnumHandler.TryGetModAddedEnumValue(moddedTechType, out TechType techType))
             {
                 ModCraftTreeLinkingNode parentTab;
-                if(!CraftTreeLinkingNodes.TryGetValue(parentTabId, out parentTab))
+                if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
                     parentTab = CraftTreeLinkingNodes[RootNode];
 
                 if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Expand))
@@ -227,7 +227,7 @@
             }
 
             ModCraftTreeLinkingNode parentTab;
-            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId, out parentTab))
+            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
                 parentTab = CraftTreeLinkingNodes[RootNode];
 
             var techType = item.TechType;

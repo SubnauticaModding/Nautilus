@@ -5,12 +5,11 @@ namespace SMLHelper.Patchers
     using SMLHelper.Utility;
     using SMLHelper;
     using System.Collections.Generic;
-    using static RootMotion.FinalIK.InteractionTrigger.Range;
     using BepInEx.Logging;
 
     internal partial class CraftDataPatcher
     {
-        internal static IDictionary<TechType, ITechData> CustomTechData = new SelfCheckingDictionary<TechType, ITechData>("CustomTechData", AsStringFunction);
+        internal static IDictionary<TechType, ITechData> CustomRecipeData = new SelfCheckingDictionary<TechType, ITechData>("CustomRecipeData", AsStringFunction);
         internal static IDictionary<TechType, TechType> CustomHarvestOutputList = new SelfCheckingDictionary<TechType, TechType>("CustomHarvestOutputList", AsStringFunction);
         internal static IDictionary<TechType, HarvestType> CustomHarvestTypeList = new SelfCheckingDictionary<TechType, HarvestType>("CustomHarvestTypeList", AsStringFunction);
         internal static IDictionary<TechType, int> CustomFinalCutBonusList = new SelfCheckingDictionary<TechType, int>("CustomFinalCutBonusList", TechTypeExtensions.sTechTypeComparer, AsStringFunction);
@@ -23,9 +22,9 @@ namespace SMLHelper.Patchers
         internal static IDictionary<TechType, string> CustomEatingSounds = new SelfCheckingDictionary<TechType, string>("CustomEatingSounds", AsStringFunction);
         internal static List<TechType> CustomBuildables = new List<TechType>();
 
-        internal static void AddToCustomTechData(TechType techType, ITechData techData)
+        internal static void AddToCustomRecipeData(TechType techType, ITechData techData)
         {
-            CustomTechData.Add(techType, techData);
+            CustomRecipeData.Add(techType, techData);
         }
 
         private static void PatchForSubnautica(Harmony harmony)
@@ -142,7 +141,7 @@ namespace SMLHelper.Patchers
             bool techExists = CraftData.techData.TryGetValue(techType, out CraftData.TechData techData);
 
             bool sameData = false;
-            if (techExists && CustomTechData.TryGetValue(techType, out ITechData smlTechData))
+            if (techExists && CustomRecipeData.TryGetValue(techType, out ITechData smlTechData))
             {
                 sameData = smlTechData.craftAmount == techData.craftAmount &&
                     smlTechData.ingredientCount == techData.ingredientCount &&
@@ -184,10 +183,10 @@ namespace SMLHelper.Patchers
         {
             short added = 0;
             short replaced = 0;
-            foreach (TechType techType in CustomTechData.Keys)
+            foreach (TechType techType in CustomRecipeData.Keys)
             {
                 bool techExists = CraftData.techData.TryGetValue(techType, out CraftData.TechData techData);
-                ITechData smlTechData = CustomTechData[techType];
+                ITechData smlTechData = CustomRecipeData[techType];
                 bool sameData = false;
 
                 if (techExists && smlTechData != null)
