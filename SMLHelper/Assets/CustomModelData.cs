@@ -7,10 +7,13 @@ using UnityEngine;
 /// </summary>
 public class CustomModelData
 {
+    //TODO: Expand on this to include keyword settings and other settings for Renderers/Shaders/Materials
+
+
     /// <summary>
     /// Name of the model to target with these changes.
     /// </summary>
-    public string TargetName { get; init; } = "";
+    public string TargetPath { get; init; } = "";
 
     /// <summary>
     /// The custom skin for the item.<br/>
@@ -47,9 +50,8 @@ public class CustomModelData
     /// </summary>
     public static class Targets
     {
+        //TODO: ADD MORE Targets.... Maybe a dictionary to get target list based on techtype?
 #pragma warning disable 1591
-        //TODO..... ADD MORE.
-
         #region Buildables
 
         public static string Fabricator = "submarine_fabricator_01/fabricator_01";
@@ -84,9 +86,6 @@ public class CustomModelData
         public static string BeaconFP = "model_FP/beacon_fp/beacon_geo1";
 
         #endregion
-
-
-
 #pragma warning restore
     }
 }

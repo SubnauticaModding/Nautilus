@@ -11,6 +11,7 @@ using SMLHelper.Handlers;
 using SMLHelper.Patchers;
 using SMLHelper.Utility;
 using UnityEngine;
+using UWE;
 
 /// <summary>
 /// The core of the new Prefab system. <br/>
@@ -506,8 +507,11 @@ public class PrefabInfo: IEquatable<PrefabInfo>
     {
         if(ModPrefabCache.CachedPrefabs.TryGetValue(ClassID, out var cache))
         {
-            gameObject.Set(cache.Item2);
-            yield break;
+            if(!cache.Item1)
+            {
+                gameObject.Set(cache.Item2);
+                yield break;
+            }
         }
 
         GameObject prefab = null;
@@ -595,8 +599,70 @@ public class PrefabInfo: IEquatable<PrefabInfo>
             }
         }
 
+        if(ModPrefab is ICloneTechType cloneTech)
+        {
+            if(cloneTech.TypeToClone != TechType.None)
+            {
+                yield return CraftData.InstantiateFromPrefabAsync(cloneTech.TypeToClone, taskResult);
+                prefab = taskResult.Get();
+                if(prefab != null)
+                {
+                    ProcessPrefabInternal(prefab);
+                    gameObject.Set(prefab);
+                    yield break;
+                }
+            }
+            else
+            {
+                InternalLogger.Warn($"{ClassID} is a ICloneTechType but TypeToClone is returning TechType.None");
+            }
+        }
+
+        if(ModPrefab is ICloneClassID cloneID)
+        {
+            if(!string.IsNullOrWhiteSpace(cloneID.ClassID))
+            {
+                var request = PrefabDatabase.GetPrefabAsync(cloneID.ClassID);
+                yield return request;
+
+                if(request.TryGetPrefab(out prefab))
+                {
+                    ProcessPrefabInternal(prefab);
+                    gameObject.Set(prefab);
+                    yield break;
+                }
+            }
+            else
+            {
+                InternalLogger.Warn($"{ClassID} is a ICloneClassID but ClassID is null or whitespaces.");
+            }
+        }
+
+        if(ModPrefab is ICloneFileName clonePath)
+        {
+            if(!string.IsNullOrWhiteSpace(clonePath.FileName))
+            {
+                var request = PrefabDatabase.GetPrefabForFilenameAsync(clonePath.FileName);
+                yield return request;
+
+                if(request.TryGetPrefab(out prefab))
+                {
+                    ProcessPrefabInternal(prefab);
+                    gameObject.Set(prefab);
+                    yield break;
+                }
+            }
+            else
+            {
+                InternalLogger.Warn($"{ClassID} is a IClonePath but clonePath is null or whitespaces.");
+            }
+        }
+
         if(ModPrefab is not IModPrefab modPrefab || modPrefab.GetGameObjectAsync == null)
+        {
+            InternalLogger.Error($"{ClassID} has no valid way to produce a GameObject currently set!");
             yield break;
+        }
 
         yield return modPrefab.GetGameObjectAsync(taskResult);
 
@@ -641,8 +707,6 @@ public class PrefabInfo: IEquatable<PrefabInfo>
             pid.ClassId = ClassID;
         }
 
-        ModPrefabCache.AddPrefab(prefab, false);
-
         if(ModPrefab is ICustomBattery customBattery)
         {
             Battery battery = prefab.EnsureComponent<Battery>();
@@ -666,29 +730,36 @@ public class PrefabInfo: IEquatable<PrefabInfo>
             CustomModelData[] modelDatas = CustomModelData.ModelDatas;
             if(modelDatas != null)
             {
-                var renderers = prefab.GetComponentsInChildren<Renderer>(true) ?? Array.Empty<Renderer>();
-                foreach(Renderer renderer in renderers)
+                foreach(var modelData in modelDatas)
                 {
-                    foreach(var modelData in modelDatas)
+                    if(string.IsNullOrWhiteSpace(modelData.TargetPath))
                     {
-                        if(modelData.TargetName != renderer.name)
-                            continue;
+                        TargetAll(prefab, modelData);
+                        continue;
+                    }
 
-                        if(modelData.CustomTexture != null)
-                            renderer.material.SetTexture(ShaderPropertyID._MainTex, modelData.CustomTexture);
+                    Renderer renderer = prefab.transform.Find(modelData.TargetPath)?.gameObject.GetComponent<Renderer>();
 
-                        if(modelData.CustomNormalMap != null)
-                            renderer.material.SetTexture(ShaderPropertyID._BumpMap, modelData.CustomNormalMap);
+                    if(renderer != null)
+                    {
+                        InternalLogger.Warn($"{ClassID} unable to find {modelData.TargetPath} on {prefab.name} when trying to apply CustomModelData.");
+                        continue;
+                    }
 
-                        if(modelData.CustomSpecMap != null)
-                            renderer.material.SetTexture(ShaderPropertyID._SpecTex, modelData.CustomSpecMap);
+                    if(modelData.CustomTexture != null)
+                        renderer.material.SetTexture(ShaderPropertyID._MainTex, modelData.CustomTexture);
 
-                        if(modelData.CustomIllumMap != null)
-                        {
-                            renderer.material.SetTexture(ShaderPropertyID._Illum, modelData.CustomIllumMap);
-                            renderer.material.SetFloat(ShaderPropertyID._GlowStrength, modelData.CustomIllumStrength);
-                            renderer.material.SetFloat(ShaderPropertyID._GlowStrengthNight, modelData.CustomIllumStrength);
-                        }
+                    if(modelData.CustomNormalMap != null)
+                        renderer.material.SetTexture(ShaderPropertyID._BumpMap, modelData.CustomNormalMap);
+
+                    if(modelData.CustomSpecMap != null)
+                        renderer.material.SetTexture(ShaderPropertyID._SpecTex, modelData.CustomSpecMap);
+
+                    if(modelData.CustomIllumMap != null)
+                    {
+                        renderer.material.SetTexture(ShaderPropertyID._Illum, modelData.CustomIllumMap);
+                        renderer.material.SetFloat(ShaderPropertyID._GlowStrength, modelData.CustomIllumStrength);
+                        renderer.material.SetFloat(ShaderPropertyID._GlowStrengthNight, modelData.CustomIllumStrength);
                     }
                 }
             }
@@ -770,6 +841,43 @@ public class PrefabInfo: IEquatable<PrefabInfo>
 
             crafter.powerRelay = PowerSource.FindRelay(prefab.transform);
         }
+
+        if(ModPrefab is IPrefabEnhancer enhancer)
+        {
+            if(enhancer.EnhancePrefab != null)
+            {
+                enhancer.EnhancePrefab(prefab);
+            }
+            else
+            {
+                InternalLogger.Warn($"{ClassID} is a IPrefabEnhancer but EnhancePrefab returned null!");
+            }
+        }
+
+        ModPrefabCache.AddPrefab(prefab, false);
     }
-#endregion
+
+    private void TargetAll(GameObject prefab, CustomModelData modelData)
+    {
+        var renderers = prefab.GetComponentsInChildren<Renderer>(true) ?? Array.Empty<Renderer>();
+        foreach(Renderer renderer in renderers)
+        {
+            if(modelData.CustomTexture != null)
+                renderer.material.SetTexture(ShaderPropertyID._MainTex, modelData.CustomTexture);
+
+            if(modelData.CustomNormalMap != null)
+                renderer.material.SetTexture(ShaderPropertyID._BumpMap, modelData.CustomNormalMap);
+
+            if(modelData.CustomSpecMap != null)
+                renderer.material.SetTexture(ShaderPropertyID._SpecTex, modelData.CustomSpecMap);
+
+            if(modelData.CustomIllumMap != null)
+            {
+                renderer.material.SetTexture(ShaderPropertyID._Illum, modelData.CustomIllumMap);
+                renderer.material.SetFloat(ShaderPropertyID._GlowStrength, modelData.CustomIllumStrength);
+                renderer.material.SetFloat(ShaderPropertyID._GlowStrengthNight, modelData.CustomIllumStrength);
+            }
+        }    
+    }
+    #endregion
 }
