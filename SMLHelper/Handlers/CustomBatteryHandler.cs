@@ -83,7 +83,7 @@
         }
 
         /// <summary>
-        /// Adds a <see cref="IModPrefab"/> to be registered as a valid battery.
+        /// Adds a <see cref="ICustomPrefabAsync"/> to be registered as a valid battery.
         /// </summary>
         public static void RegisterCustomBattery(PrefabInfo prefabInfo, ICustomBattery modPrefab)
         {
@@ -107,7 +107,7 @@
         }
 
         /// <summary>
-        /// Adds a <see cref="IModPrefab"/> to be registered as a valid PowerCell.
+        /// Adds a <see cref="ICustomPrefabAsync"/> to be registered as a valid PowerCell.
         /// </summary>
         public static void RegisterCustomPowerCell(PrefabInfo prefabInfo, ICustomBattery modPrefab)
         {

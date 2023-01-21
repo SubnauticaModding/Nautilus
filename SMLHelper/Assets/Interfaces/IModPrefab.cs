@@ -1,15 +1,19 @@
 ﻿namespace SMLHelper.Assets.Interfaces
 {
     using System;
-    using System.Collections;
-    using UnityEngine;
 
+    /// <summary>
+    /// ***Use one of the following instead!***<br/>
+    /// <see cref="ICustomPrefabAsync"/>, <br/>
+    /// <see cref="ICustomPrefabSync"/>, <br/>
+    /// <see cref="ICustomBattery"/>, <br/>
+    /// <see cref="ICustomFabricator"/>, <br/>
+    /// <see cref="IClonePrefabTechType"/>, <br/>
+    /// <see cref="IClonePrefabClassID"/>, <br/>
+    /// <see cref="IClonePrefabFileName"/>
+    /// </summary>
+    [Obsolete("Do not use this interface directly!")]
     public interface IModPrefab
     {
-        /// <summary>
-        /// The Coroutine Method used to generate the GameObject when the game requests this item.
-        /// </summary>
-        public Func<IOut<GameObject>, IEnumerator> GetGameObjectAsync { get; }
-
     }
 }

@@ -3,7 +3,9 @@
     /// <summary>
     /// A prefab that gets its prefab by copying one using the value set. 
     /// </summary>
-    public interface ICloneTechType
+#pragma warning disable 0618
+    public interface IClonePrefabTechType: IModPrefab
+#pragma warning restore 0618
     {
         /// <summary>
         /// The techtype to get the prefab for.
@@ -14,7 +16,9 @@
     /// <summary>
     /// A prefab that gets its prefab by copying one using the value set. 
     /// </summary>
-    public interface ICloneClassID
+#pragma warning disable 0618
+    public interface IClonePrefabClassID: IModPrefab
+#pragma warning restore 0618
     {
         /// <summary>
         /// The ClassID to get the prefab for.
@@ -25,7 +29,9 @@
     /// <summary>
     /// A prefab that gets its prefab by copying one using the value set.
     /// </summary>
-    public interface ICloneFileName
+#pragma warning disable 0618
+    public interface IClonePrefabFileName: IModPrefab
+#pragma warning restore 0618
     {
         /// <summary>
         /// The target prefabs full file name including path.

@@ -25,12 +25,14 @@
 #endif
         /// <summary>
         /// Use this option only if you want to provide your own custom model for your fabricator.<para/>
-        /// To use this value, you must override the <see cref="IModPrefab.GetGameObjectAsync"/> method.
+        /// To use this value, you must override the <see cref="ICustomPrefabAsync.GetGameObjectAsync"/> method.
         /// </summary>
         Custom
     }
 
-    public interface ICustomFabricator
+#pragma warning disable 0618
+    public interface ICustomFabricator: IModPrefab
+#pragma warning restore 0618
     {
         /// <summary>
         /// This value determines if the game uses your <see cref="FabricatorModel.Custom"/> model or one of the default ones from the game.

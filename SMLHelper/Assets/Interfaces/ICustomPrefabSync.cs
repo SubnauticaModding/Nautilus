@@ -6,7 +6,9 @@
     /// <summary>
     /// Only use this if you can setup your GameObject without needing to use any of the games Async Coroutines.
     /// </summary>
-    public interface IModPrefabSync
+#pragma warning disable 0618
+    public interface ICustomPrefabSync: IModPrefab
+#pragma warning restore 0618
     {
         /// <summary>
         /// Gets the prefab game object. Set up your prefab components here.

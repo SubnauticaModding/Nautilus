@@ -16,11 +16,13 @@
         IonCustom
     }
 
-    public interface ICustomBattery
+#pragma warning disable 0618
+    public interface ICustomBattery: IModPrefab
+#pragma warning restore 0618
     {
         /// <summary>
         /// Sets the Game Prefab to use as this prefabs basic model.<br/>
-        /// Use Custom for SMLHelper to run your <see cref="IModPrefab.GetGameObjectAsync"/> to get your custom prefab.
+        /// Use Custom for SMLHelper to run your <see cref="ICustomPrefabAsync.GetGameObjectAsync"/> to get your custom prefab.
         /// </summary>
         public BatteryModel BatteryModel { get; }
 

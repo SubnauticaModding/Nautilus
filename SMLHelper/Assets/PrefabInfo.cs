@@ -102,10 +102,19 @@ public class PrefabInfo: IEquatable<PrefabInfo>
     }
 
     /// <summary>
-    /// The <see cref="IModPrefab"/> that is registered to this PrefabInfo if there is one.
-    /// When this is set it will set <see cref="IModPrefabSync.GetGameObject"/>, and <see cref="IProcessPrefabOverride.ProcessPrefab"/> if set.
+    /// The <see cref="IModPrefab"/> that is registered by <see cref="PrefabInfo.RegisterPrefab(IModPrefab)"/> to this PrefabInfo.<br/>
+    /// ***REQUIRED to have one of the following so the game knows how to create the GameObject.***<br/>
+    /// <see cref="ICustomPrefabAsync"/>, <br/>
+    /// <see cref="ICustomPrefabSync"/>, <br/>
+    /// <see cref="ICustomBattery"/>, <br/>
+    /// <see cref="ICustomFabricator"/>, <br/>
+    /// <see cref="IClonePrefabTechType"/>, <br/>
+    /// <see cref="IClonePrefabClassID"/>, <br/>
+    /// <see cref="IClonePrefabFileName"/>
     /// </summary>
-    public object ModPrefab { get; private set; }
+#pragma warning disable 0618
+    public IModPrefab ModPrefab { get; private set; }
+#pragma warning restore 0618
 
     #endregion
 
@@ -300,7 +309,9 @@ public class PrefabInfo: IEquatable<PrefabInfo>
     /// <summary>
     /// Registers a ModPrefab into the game.
     /// </summary>
-    public PrefabInfo RegisterPrefab(object prefab)
+#pragma warning disable 0618
+    public PrefabInfo RegisterPrefab(IModPrefab prefab)
+#pragma warning restore 0618
     {
         if(ModPrefab != null)
         {
@@ -580,7 +591,7 @@ public class PrefabInfo: IEquatable<PrefabInfo>
             }
         }
 
-        if(ModPrefab is IModPrefabSync sync && sync.GetGameObject != null)
+        if(ModPrefab is ICustomPrefabSync sync && sync.GetGameObject != null)
         {
             try
             {
@@ -599,7 +610,7 @@ public class PrefabInfo: IEquatable<PrefabInfo>
             }
         }
 
-        if(ModPrefab is ICloneTechType cloneTech)
+        if(ModPrefab is IClonePrefabTechType cloneTech)
         {
             if(cloneTech.TypeToClone != TechType.None)
             {
@@ -618,7 +629,7 @@ public class PrefabInfo: IEquatable<PrefabInfo>
             }
         }
 
-        if(ModPrefab is ICloneClassID cloneID)
+        if(ModPrefab is IClonePrefabClassID cloneID)
         {
             if(!string.IsNullOrWhiteSpace(cloneID.ClassID))
             {
@@ -638,7 +649,7 @@ public class PrefabInfo: IEquatable<PrefabInfo>
             }
         }
 
-        if(ModPrefab is ICloneFileName clonePath)
+        if(ModPrefab is IClonePrefabFileName clonePath)
         {
             if(!string.IsNullOrWhiteSpace(clonePath.FileName))
             {
@@ -658,7 +669,7 @@ public class PrefabInfo: IEquatable<PrefabInfo>
             }
         }
 
-        if(ModPrefab is not IModPrefab modPrefab || modPrefab.GetGameObjectAsync == null)
+        if(ModPrefab is not ICustomPrefabAsync modPrefab || modPrefab.GetGameObjectAsync == null)
         {
             InternalLogger.Error($"{ClassID} has no valid way to produce a GameObject currently set!");
             yield break;
