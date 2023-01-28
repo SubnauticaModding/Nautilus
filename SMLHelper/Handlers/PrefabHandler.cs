@@ -33,6 +33,16 @@ public static class PrefabCollectionExtensions
     {
         collection.Add(customPrefab.Info, customPrefab.Prefab);
     }
+
+    /// <summary>
+    /// Unregisters a <see cref="CustomPrefab"/> from the game.
+    /// </summary>
+    /// <param name="collection">The collection to unregister from.</param>
+    /// <param name="customPrefab">The custom prefab to unregister.</param>
+    public static void UnregisterPrefab(this PrefabCollection collection, CustomPrefab customPrefab)
+    {
+        collection.Remove(customPrefab.Info);
+    }
 }
 
 /// <summary>
@@ -64,6 +74,24 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, Func<TaskRe
         _fileNamePrefabs.Add(info.PrefabFileName, info);
         _techTypePrefabs.Add(info.TechType.AsString(), info);
         CraftDataPatcher.ModPrefabsPatched = false;
+    }
+
+    /// <summary>
+    /// Removes a prefab info from the game. This leads to unregistering the specified prefab info from the game.
+    /// </summary>
+    /// <param name="info">The prefab info to unregister.</param>
+    /// <returns>True if the element is successfully found and removed; otherwise, false. This method returns false if the prefab info is not found.</returns>
+    public bool Remove(PrefabInfo info)
+    {
+        var result = _prefabs.Remove(info);
+        if (result)
+        {
+            _classIdPrefabs.Remove(info.ClassID);
+            _fileNamePrefabs.Remove(info.PrefabFileName);
+            _techTypePrefabs.Remove(info.TechType.AsString());
+        }
+
+        return result;
     }
 
     /// <summary>
