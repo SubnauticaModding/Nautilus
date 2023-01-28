@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.Patchers
+﻿using SMLHelper.Handlers;
+
+namespace SMLHelper.Patchers
 {
     using System;
     using System.Reflection;
@@ -10,7 +12,7 @@
     using HarmonyLib;
     using UnityEngine;
     using UWE;
-    using SMLHelper.Utility;
+    using Utility;
     using BepInEx.Logging;
 
     internal static class PrefabDatabasePatcher
@@ -21,9 +23,9 @@
             [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.LoadPrefabDatabase))]
             internal static void LoadPrefabDatabase_Postfix()
             {
-                foreach (PrefabInfo prefab in ModPrefabCache.Prefabs)
+                foreach (var prefab in PrefabHandler.Prefabs)
                 {
-                    PrefabDatabase.prefabFiles[prefab.ClassID] = prefab.PrefabFileName;
+                    PrefabDatabase.prefabFiles[prefab.Key.ClassID] = prefab.Key.PrefabFileName;
                 }
             }
         }
@@ -32,7 +34,7 @@
         [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename))]
         internal static bool TryGetPrefabFilename_Prefix(string classId, ref string filename, ref bool __result)
         {
-            if (!ModPrefabCache.TryGetFromClassId(classId, out PrefabInfo prefabInfo))
+            if (!PrefabHandler.Prefabs.TryGetInfoForClassId(classId, out PrefabInfo prefabInfo))
             {
                 return true;
             }
@@ -46,7 +48,7 @@
         [HarmonyPatch(typeof(DeferredSpawner.AddressablesTask), nameof(DeferredSpawner.AddressablesTask.SpawnAsync))]
         internal static bool DeferredSpawner_AddressablesTask_Spawn_Prefix(DeferredSpawner.AddressablesTask __instance, ref IEnumerator __result)
         {
-            if (!ModPrefabCache.TryGetFromFileName(__instance.key, out PrefabInfo prefabInfo))
+            if (!PrefabHandler.Prefabs.TryGetInfoForFileName(__instance.key, out PrefabInfo prefabInfo))
             {
                 return true;
             }
@@ -58,12 +60,18 @@
         internal static IEnumerator SpawnAsyncReplacement(DeferredSpawner.AddressablesTask task, PrefabInfo prefabInfo)
         {
             TaskResult<GameObject> prefabResult = new();
-            yield return prefabInfo.GetGameObjectInternalAsync(prefabResult);
+            if (!PrefabHandler.Prefabs.TryGetPrefabForInfo(prefabInfo, out var prefabFactory))
+            {
+                InternalLogger.Error($"Couldn't find a prefab factory for the following prefab info: {prefabInfo}");
+                yield break;
+            }
+            
+            yield return prefabFactory.Invoke(prefabResult);
             GameObject prefab = prefabResult.Get();
 
             if(prefab != null)
             {
-                task.spawnedObject = UnityEngine.Object.Instantiate<GameObject>(prefab, task.parent, task.position, task.rotation, task.instantiateActivated);
+                task.spawnedObject = UnityEngine.Object.Instantiate(prefab, task.parent, task.position, task.rotation, task.instantiateActivated);
             }
 
             if (task.spawnedObject == null)
@@ -72,12 +80,11 @@
             }
 
             task.HandleLateCancelledSpawn();
-            yield break;
         }
 
         private static IPrefabRequest GetModPrefabAsync(string classId)
         {
-            if (!ModPrefabCache.TryGetFromClassId(classId, out PrefabInfo prefabInfo))
+            if (!PrefabHandler.Prefabs.TryGetInfoForClassId(classId, out PrefabInfo prefabInfo))
             {
                 return null;
             }
@@ -100,7 +107,7 @@
         })]
         internal static bool InstantiateAsync_Prefix(ref IEnumerator __result,string key, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
         {
-            if(!ModPrefabCache.TryGetFromFileName(key, out PrefabInfo prefabInfo))
+            if(!PrefabHandler.Prefabs.TryGetInfoForFileName(key, out PrefabInfo prefabInfo))
             {
                 return true;
             }
@@ -112,11 +119,16 @@
         internal static IEnumerator InstantiateAsync(PrefabInfo prefabInfo, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
         {
             TaskResult<GameObject> task = new();
-            yield return prefabInfo.GetGameObjectInternalAsync(task);
+            if (!PrefabHandler.Prefabs.TryGetPrefabForInfo(prefabInfo, out var prefabFactory))
+            {
+                InternalLogger.Error($"Couldn't find a prefab factory for the following prefab info: {prefabInfo}");
+                yield break;
+            }
+            
+            yield return prefabFactory.Invoke(task);
 
             GameObject prefab = task.Get();
             result.Set(GameObject.Instantiate(prefab, parent, position, rotation, awake));
-            yield break;
         }
 
         // transpiler for ProtobufSerializer.DeserializeObjectsAsync

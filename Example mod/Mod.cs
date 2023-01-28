@@ -37,9 +37,6 @@
 
         public void Awake()
         {
-            PrefabInfo.Create("NuclearBattery")
-                .CreateTechType().WithLanguageLines("Nuclear Battery", "Nuclear Battery that makes me go yes")
-                .WithIcon(SpriteManager.Get(TechType.PrecursorIonBattery)).RegisterPrefab(new NuclearBattery());
 
             LogSource = base.Logger;
 

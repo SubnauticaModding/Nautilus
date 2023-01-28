@@ -1,4 +1,7 @@
-﻿namespace SMLHelper.Assets
+﻿using SMLHelper.Handlers;
+using SMLHelper.Utility;
+
+namespace SMLHelper.Assets
 {
     using System.Collections;
     using UnityEngine;
@@ -26,7 +29,13 @@
             }
 
             taskResult = new TaskResult<GameObject>();
-            task = new CoroutineTask<GameObject>(prefabInfo.GetGameObjectInternalAsync(taskResult), taskResult);
+            if (!PrefabHandler.Prefabs.TryGetPrefabForInfo(prefabInfo, out var factory))
+            {
+                InternalLogger.Error("Couldn't find a prefab for the prefab info specified.");
+                return;
+            }
+            
+            task = new CoroutineTask<GameObject>(factory.Invoke(taskResult), taskResult);
         }
 
         public object Current

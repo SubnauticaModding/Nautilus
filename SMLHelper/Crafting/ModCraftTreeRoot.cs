@@ -191,59 +191,6 @@
         }
 
         /// <summary>
-        /// Safely adds a new crafting node to the custom crafting tree of this fabricator.<para/>
-        /// </summary>
-        /// <param name="item">The <see cref="PrefabInfo"/> that has a registered <see cref="ICraftable"/> to craft from this fabricator.</param>
-        /// <param name="parentTabId">Optional. The parent tab of this craft node.<para/>
-        /// When this value is null, the item's <see cref="ICraftable.StepsToFabricatorTab"/> property will be checked instead.<para/>
-        /// The craft node will be added to the root of the craft tree if both are null.</param>
-        public ModCraftTreeRoot AddCraftNode(PrefabInfo item, string parentTabId = null)
-        {
-            if(item.TechType == TechType.None)
-            {
-                InternalLogger.Error($"'{item.ClassID} has to Create its TechType before '{this.SchemeAsString}' can add it to the custom craft tree");
-                return this;
-            }
-
-            if(item.ModPrefab is not ICraftable craftable)
-            {
-                InternalLogger.Error($"'{item.ClassID} has to register a ICraftable before '{this.SchemeAsString}' can add it to the custom craft tree");
-                return this;
-            }
-
-            string[] stepsToParent = craftable.StepsToFabricatorTab;
-
-            if(parentTabId == null)
-            {
-                if(stepsToParent != null && stepsToParent.Length > 0)
-                {
-                    int last = stepsToParent.Length - 1;
-                    parentTabId = stepsToParent[last];
-                }
-                else
-                {
-                    parentTabId = RootNode;
-                }
-            }
-
-            ModCraftTreeLinkingNode parentTab;
-            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
-                parentTab = CraftTreeLinkingNodes[RootNode];
-
-            var techType = item.TechType;
-            if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Expand))
-            {
-                InternalLogger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{this.SchemeAsString}'");
-                parentTab.AddCraftingNode(techType);
-            }
-            else
-            {
-                InternalLogger.Error($"Cannot add crafting node: {techType} as it is being added to a parent node that contains tab nodes.");
-            }
-            return this;
-        }
-
-        /// <summary>
         /// Gets the tab node at the specified path from the root.
         /// </summary>
         /// <param name="stepsToTab">

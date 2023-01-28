@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.Patchers
+﻿using SMLHelper.Handlers;
+
+namespace SMLHelper.Patchers
 {
     using System;
     using System.Collections.Generic;
@@ -18,6 +20,8 @@
         #endregion
 
         #region Group Handling
+
+        internal static bool ModPrefabsPatched;
 
         internal static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType after)
         {
@@ -136,17 +140,17 @@
 
         private static void CraftDataPrefabIDCachePostfix()
         {
-            if(!NeedsPatching && ModPrefabCache.ModPrefabsPatched)
+            if(!NeedsPatching && ModPrefabsPatched)
                 return;
 
             Dictionary<TechType, string> techMapping = CraftData.techMapping;
             Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
-            foreach (PrefabInfo prefabInfo in ModPrefabCache.Prefabs)
+            foreach (var prefab in PrefabHandler.Prefabs)
             {
-                techMapping[prefabInfo.TechType] = prefabInfo.ClassID;
-                entClassTechTable[prefabInfo.ClassID] = prefabInfo.TechType;
+                techMapping[prefab.Key.TechType] = prefab.Key.ClassID;
+                entClassTechTable[prefab.Key.ClassID] = prefab.Key.TechType;
             }
-            ModPrefabCache.ModPrefabsPatched = true;
+            ModPrefabsPatched = true;
         }
         #endregion
     }

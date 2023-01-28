@@ -12,42 +12,6 @@
     /// </summary>
     public static class ModPrefabCache
     {
-        private static readonly Dictionary<string, PrefabInfo> FileNameDictionary = new(StringComparer.InvariantCultureIgnoreCase);
-        private static readonly Dictionary<string, PrefabInfo> ClassIdDictionary = new(StringComparer.InvariantCultureIgnoreCase);
-        private static readonly Dictionary<string, PrefabInfo> TechTypeDictionary = new(StringComparer.InvariantCultureIgnoreCase);
-        private static readonly List<PrefabInfo> PreFabsList = new();
-        internal static bool ModPrefabsPatched = false;
-
-        internal static void Add(PrefabInfo prefabInfo)
-        {
-            FileNameDictionary.Add(prefabInfo.PrefabFileName, prefabInfo);
-            ClassIdDictionary.Add(prefabInfo.ClassID, prefabInfo);
-            TechTypeDictionary.Add(prefabInfo.TechType.ToString(), prefabInfo);
-            PreFabsList.Add(prefabInfo);
-            ModPrefabsPatched = false;
-        }
-
-        internal static IEnumerable<PrefabInfo> Prefabs => PreFabsList;
-        internal static bool TryGetFromFileName(string classId, out PrefabInfo prefab)
-        {
-            if(string.IsNullOrEmpty(classId))
-            {
-                prefab = null;
-                return false;
-            }
-            return FileNameDictionary.TryGetValue(classId, out prefab);
-        }
-
-        internal static bool TryGetFromClassId(string classId, out PrefabInfo prefab)
-        {
-            if(string.IsNullOrEmpty(classId))
-            {
-                prefab = null;
-                return false;
-            }
-            return ClassIdDictionary.TryGetValue(classId, out prefab);
-        }
-
         //Stored prefabs and their destruction timers. Keyed by ClassID.
         internal readonly static Dictionary<string, Tuple<bool, GameObject>> CachedPrefabs = new();
 
