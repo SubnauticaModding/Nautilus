@@ -62,7 +62,11 @@ public static partial class EnumExtensions
     /// <param name="builder">The current custom enum object instance.</param>
     /// <param name="sprite">The icon to add for this instance.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static EnumBuilder<TechType> WithIcon(this EnumBuilder<TechType> builder, Atlas.Sprite sprite)
+    #if SUBNAUTICA
+    public static EnumBuilder<TechType> WithIcon(this EnumBuilder<TechType> builder, Atlas.Sprite sprite) 
+    #elif BELOWZERO
+    public static EnumBuilder<TechType> WithIcon(this EnumBuilder<TechType> builder, UnityEngine.Sprite sprite)
+    #endif
     {
         TechType tt = builder;
         EnsureAsStringSupport(tt);

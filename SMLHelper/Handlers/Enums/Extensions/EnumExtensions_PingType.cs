@@ -11,7 +11,11 @@ public static partial class EnumExtensions
     /// <param name="builder">The current custom enum object instance.</param>
     /// <param name="sprite">The icon to add for this instance.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
+    #if SUBNAUTICA
     public static EnumBuilder<PingType> WithIcon(this EnumBuilder<PingType> builder, Atlas.Sprite sprite)
+    #elif BELOWZERO
+    public static EnumBuilder<PingType> WithIcon(this EnumBuilder<PingType> builder, UnityEngine.Sprite sprite)
+    #endif
     {
         PingType pingType = builder;
         var name = pingType.ToString();

@@ -13,6 +13,7 @@
     using System.Linq;
 #elif BELOWZERO
     using Sprite = UnityEngine.Sprite;
+    using System.Linq;
 #endif
 
     /// <summary>

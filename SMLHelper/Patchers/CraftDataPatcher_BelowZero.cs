@@ -4,6 +4,7 @@ namespace SMLHelper.Patchers
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using BepInEx.Logging;
     using HarmonyLib;
     using SMLHelper.Utility;
 

@@ -318,11 +318,11 @@
             Channel channel;
             if (CustomFModSounds.TryGetValue(eventPath, out IFModSound fModSound))
             {
-                channel = fModSound.PlaySound();
+                fModSound.TryPlaySound(out channel);
             }
             else if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
             {
-                channel = AudioUtils.PlaySound(soundEvent, bus);
+                AudioUtils.TryPlaySound(soundEvent, bus, out channel);
             }
             else
             {
@@ -355,17 +355,19 @@
             __instance._lengthSeconds = __instance._length * 0.001f;
             if (CustomFModSounds.TryGetValue(sound, out IFModSound fModSound))
             {
-                PlayedChannels[sound] = fModSound.PlaySound();
+                if(fModSound.TryPlaySound(out Channel channel))
+                    PlayedChannels[sound] = channel;
             }
             else if (CustomSoundBuses.TryGetValue(sound, out Bus bus))
             {
-                PlayedChannels[sound] = AudioUtils.PlaySound(soundEvent, bus);
+                if (AudioUtils.TryPlaySound(soundEvent, bus, out Channel channel))
+                    PlayedChannels[sound] = channel;
             }
             else
             {
                 return false;
             }
-            
+
             return false;
         }
         
@@ -473,11 +475,13 @@
 
             if (CustomFModSounds.TryGetValue(soundPath, out IFModSound fModSound))
             {
-                EmitterPlayedChannels[__instance.GetInstanceID()] = fModSound.PlaySound();
+                if (fModSound.TryPlaySound(out Channel played_channel))
+                    EmitterPlayedChannels[__instance.GetInstanceID()] = channel;
             }
             else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
             {
-                EmitterPlayedChannels[__instance.GetInstanceID()] = AudioUtils.PlaySound(sound, bus);
+                if (AudioUtils.TryPlaySound(sound, bus, out Channel played_channel))
+                    EmitterPlayedChannels[__instance.GetInstanceID()] = played_channel;
             }
             else
             {
@@ -584,11 +588,11 @@
             Channel channel;
             if (CustomFModSounds.TryGetValue(soundPath, out IFModSound fModSound))
             {
-                channel = fModSound.PlaySound();
+                fModSound.TryPlaySound(out channel);
             }
             else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
             {
-                channel = AudioUtils.PlaySound(sound, bus);
+                AudioUtils.TryPlaySound(sound, bus, out channel);
             }
             else
             {
@@ -621,11 +625,11 @@
             
             if (CustomFModSounds.TryGetValue(soundPath, out IFModSound fModSound))
             {
-                channel = fModSound.PlaySound();
+                fModSound.TryPlaySound(out channel);
             }
             else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
             {
-                channel = AudioUtils.PlaySound(sound, bus);
+                AudioUtils.TryPlaySound(sound, bus, out channel);
             }
             else
             {
