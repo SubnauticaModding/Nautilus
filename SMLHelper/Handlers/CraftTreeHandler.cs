@@ -3,8 +3,11 @@
     using System;
     using Crafting;
     using Patchers;
-    using UnityEngine;
     using Utility;
+
+#if BELOWZERO
+    using UnityEngine;
+#endif
 
     /// <summary>
     /// A handler class for creating and editing of crafting trees.
