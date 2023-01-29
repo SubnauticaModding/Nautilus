@@ -7,13 +7,12 @@
     using SMLHelper.Crafting;
     using SMLHelper.Handlers;
     using UnityEngine;
+    using System.Linq;
 
 #if SUBNAUTICA
     using Sprite = Atlas.Sprite;
-    using System.Linq;
 #elif BELOWZERO
     using Sprite = UnityEngine.Sprite;
-    using System.Linq;
 #endif
 
     /// <summary>
