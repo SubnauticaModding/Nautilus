@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(Configuration)'=='SN.STABLE'">
-    <Dependencies>..\Dependencies\Subnautica.stable</Dependencies>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)'=='BZ.STABLE'">
-    <Dependencies>..\Dependencies\BelowZero.stable</Dependencies>
-  </PropertyGroup>
+  <ItemGroup Condition="'$(Configuration)'=='SN.STABLE'">
+    <PackageReference Include="Subnautica.GameLibs" Version="71137.0.0.1-r.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='BZ.STABLE'">
+    <PackageReference Include="Subnautica.BelowZero.GameLibs" Version="49371.0.0.1-r.0" />
+  </ItemGroup>
   <!-- using Contains so VS won't auto add this configs to all projects -->
   <PropertyGroup Condition="$(Configuration.Contains('SN.EXP'))">
     <Dependencies>..\Dependencies\Subnautica.exp</Dependencies>
