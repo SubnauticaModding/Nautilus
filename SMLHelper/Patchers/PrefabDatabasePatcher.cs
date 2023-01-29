@@ -63,7 +63,7 @@
 
             if(prefab != null)
             {
-                task.spawnedObject = UnityEngine.Object.Instantiate<GameObject>(prefab, task.parent, task.position, task.rotation, task.instantiateActivated);
+                task.spawnedObject = EditorModifications.Instantiate<GameObject>(prefab, task.parent, task.position, task.rotation, task.instantiateActivated);
             }
 
             if (task.spawnedObject == null)
@@ -128,7 +128,7 @@
             yield return modPrefab.GetGameObjectInternalAsync(task);
 
             GameObject prefab = task.Get();
-            result.Set(GameObject.Instantiate(prefab, parent, position, rotation, awake));
+            result.Set(EditorModifications.Instantiate(prefab, parent, position, rotation, awake));
             yield break;
         }
 
