@@ -48,9 +48,9 @@ public static class PrefabCollectionExtensions
 /// <summary>
 /// Represents a collection of <see cref="PrefabInfo"/> as keys and prefab factory as values.
 /// </summary>
-public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, Func<TaskResult<GameObject>, IEnumerator>>>
+public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFactoryAsync>>
 {
-    private readonly Dictionary<PrefabInfo, Func<TaskResult<GameObject>, IEnumerator>> _prefabs = new();
+    private readonly Dictionary<PrefabInfo, PrefabFactoryAsync> _prefabs = new();
     
     private readonly Dictionary<string, PrefabInfo> _classIdPrefabs = new(StringComparer.InvariantCultureIgnoreCase);
     private readonly Dictionary<string, PrefabInfo> _fileNamePrefabs = new(StringComparer.InvariantCultureIgnoreCase);
@@ -61,7 +61,7 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, Func<TaskRe
     /// </summary>
     /// <param name="info">The prefab info to register.</param>
     /// <param name="prefabFactory">The function that constructs the game object for this prefab info.</param>
-    public void Add(PrefabInfo info, Func<TaskResult<GameObject>, IEnumerator> prefabFactory)
+    public void Add(PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
         if (_prefabs.ContainsKey(info) || info.TechType == TechType.None)
         {
@@ -89,6 +89,7 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, Func<TaskRe
             _classIdPrefabs.Remove(info.ClassID);
             _fileNamePrefabs.Remove(info.PrefabFileName);
             _techTypePrefabs.Remove(info.TechType.AsString());
+            CraftDataPatcher.ModPrefabsPatched = false;
         }
 
         return result;
@@ -110,7 +111,7 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, Func<TaskRe
     /// <param name="info">The info of the prefab factory to get.</param>
     /// <param name="prefabFactory">The returned prefab factory. If nothing was found for the prefab info specified, this will be set to the default initialization instead.</param>
     /// <returns>True if found; otherwise false.</returns>
-    public bool TryGetPrefabForInfo(PrefabInfo info, out Func<TaskResult<GameObject>, IEnumerator> prefabFactory)
+    public bool TryGetPrefabForInfo(PrefabInfo info, out PrefabFactoryAsync prefabFactory)
     {
         return _prefabs.TryGetValue(info, out prefabFactory);
     }
@@ -166,7 +167,7 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, Func<TaskRe
         return _techTypePrefabs.TryGetValue(techType, out info);
     }
 
-    IEnumerator<KeyValuePair<PrefabInfo, Func<TaskResult<GameObject>, IEnumerator>>> IEnumerable<KeyValuePair<PrefabInfo, Func<TaskResult<GameObject>, IEnumerator>>>.GetEnumerator()
+    IEnumerator<KeyValuePair<PrefabInfo, PrefabFactoryAsync>> IEnumerable<KeyValuePair<PrefabInfo, PrefabFactoryAsync>>.GetEnumerator()
     {
         return _prefabs.GetEnumerator();
     }

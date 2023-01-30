@@ -9,6 +9,8 @@ using UnityEngine;
 
 namespace SMLHelper.Assets;
 
+public delegate IEnumerator PrefabFactoryAsync(TaskResult<GameObject> gameObject);
+
 /// <summary>
 /// Specifies the contract for a custom prefab.
 /// </summary>
@@ -17,12 +19,12 @@ public interface ICustomPrefab
     /// <summary>
     /// The prefab info for this custom prefab.
     /// </summary>
-    PrefabInfo Info { get; set; }
+    PrefabInfo Info { get; }
     
     /// <summary>
     /// Function which constructs a game object as this prefab.
     /// </summary>
-    Func<TaskResult<GameObject>, IEnumerator> Prefab { get; }
+    PrefabFactoryAsync Prefab { get; }
     
     /// <summary>
     /// Adds a gadget for this custom prefab.
@@ -51,7 +53,7 @@ public class CustomPrefab : ICustomPrefab
     public required PrefabInfo Info { get; set; }
     
     /// <inheritdoc/>
-    public Func<TaskResult<GameObject>, IEnumerator> Prefab { get; private set; }
+    public PrefabFactoryAsync Prefab { get; private set; }
 
     /// <summary>
     /// Constructs a custom prefab object.
@@ -84,7 +86,7 @@ public class CustomPrefab : ICustomPrefab
     /// Sets a function as the game object constructor of this custom prefab.
     /// </summary>
     /// <param name="prefab">The Function to set.</param>
-    public void SetPrefab(Func<IOut<GameObject>, IEnumerator> prefab) => Prefab = prefab;
+    public void SetPrefab(Func<IOut<GameObject>, IEnumerator> prefab) => Prefab = obj => prefab(obj);
 
     /// <summary>
     /// Sets a prefab template as the game object constructor of this custom prefab.

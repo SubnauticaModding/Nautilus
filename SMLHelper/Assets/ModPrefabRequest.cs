@@ -31,7 +31,7 @@ namespace SMLHelper.Assets
             taskResult = new TaskResult<GameObject>();
             if (!PrefabHandler.Prefabs.TryGetPrefabForInfo(prefabInfo, out var factory))
             {
-                InternalLogger.Error("Couldn't find a prefab for the prefab info specified.");
+                InternalLogger.Error($"Couldn't find a prefab for the following prefab info: {prefabInfo}.");
                 return;
             }
             
