@@ -69,6 +69,22 @@ public static class GadgetExtensions
 
         return equipmentGadget;
     }
+
+    /// <summary>
+    /// Creates a craft tree for this prefab. The created craft tree is immediately returned after this method is executed. 
+    /// </summary>
+    /// <param name="customPrefab">The custom prefab to set equipment slot for.</param>
+    /// <param name="treeType">The created custom craft tree type.</param>
+    /// <returns>An instance to the created <see cref="FabricatorGadget"/> to continue the fabricator settings on.</returns>
+    public static FabricatorGadget CreateFabricator(this ICustomPrefab customPrefab, out CraftTree.Type treeType)
+    {
+        var fabricatorGadget = new FabricatorGadget(customPrefab);
+        customPrefab.AddGadget(fabricatorGadget);
+
+        treeType = fabricatorGadget.CraftTreeType;
+
+        return fabricatorGadget;
+    }
     
     /// <summary>
     /// Adds coordinated spawns for this custom prefab.
