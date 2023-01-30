@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using SMLHelper.Assets.Gadgets;
+using SMLHelper.Crafting;
 using SMLHelper.Handlers;
 using SMLHelper.Utility;
 
@@ -14,7 +15,7 @@ public class CraftingGadget : Gadget
     /// <summary>
     /// The crafting recipe to add.
     /// </summary>
-    public required CraftData.TechData TechData { get; set; }
+    public required RecipeData RecipeData { get; set; }
     
     /// <summary>
     /// Craft Tree this node will appear in.
@@ -39,9 +40,9 @@ public class CraftingGadget : Gadget
     /// <param name="prefab"><inheritdoc cref="Gadget(ICustomPrefab)"/></param>
     /// <param name="techData">The crafting recipe to add.</param>
     [SetsRequiredMembers]
-    public CraftingGadget(ICustomPrefab prefab, CraftData.TechData techData) : base(prefab)
+    public CraftingGadget(ICustomPrefab prefab, RecipeData recipeData) : base(prefab)
     {
-        TechData = techData;
+        RecipeData = recipeData;
     }
 
     /// <summary>
@@ -81,7 +82,7 @@ public class CraftingGadget : Gadget
 
     protected internal override void Build()
     {
-        CraftDataHandler.SetRecipeData(prefab.Info.TechType, TechData);
+        CraftDataHandler.SetRecipeData(prefab.Info.TechType, RecipeData);
         
         if (FabricatorType == CraftTree.Type.None)
         {

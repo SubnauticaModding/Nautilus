@@ -175,7 +175,7 @@ public class ScanningGadget : Gadget
         {
             List<TechCategory> categories = new();
             CraftData.GetBuilderCategories(GroupForPda, categories);
-            if(categories.Contains(CategoryForPda))
+            if (categories.Contains(CategoryForPda))
             {
                 CraftDataHandler.AddToGroup(GroupForPda, CategoryForPda, prefab.Info.TechType);
             }
@@ -183,6 +183,9 @@ public class ScanningGadget : Gadget
             {
                 InternalLogger.Error($"Failed to add {prefab.Info.TechType.AsString()} to {GroupForPda}/{CategoryForPda} as it is not a registered combination.");
             }
+            
+            if (uGUI_BuilderMenu.groups.Contains(GroupForPda))
+                CraftDataHandler.AddBuildable(prefab.Info.TechType);
         }
 
         if (EncyclopediaEntryData is { })

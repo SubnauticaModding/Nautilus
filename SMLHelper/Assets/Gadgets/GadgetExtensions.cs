@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using SMLHelper.Assets.Interfaces;
+using SMLHelper.Crafting;
 using SMLHelper.Handlers;
 using UnityEngine;
 using UWE;
@@ -15,11 +16,11 @@ public static class GadgetExtensions
     /// Adds recipe to this custom prefab.
     /// </summary>
     /// <param name="customPrefab">The custom prefab to add recipe to.</param>
-    /// <param name="techData">The recipe to add.</param>
+    /// <param name="recipeData">The recipe to add.</param>
     /// <returns>An instance to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
-    public static CraftingGadget SetRecipe(this ICustomPrefab customPrefab, CraftData.TechData techData)
+    public static CraftingGadget SetRecipe(this ICustomPrefab customPrefab, RecipeData recipeData)
     {
-        var craftingGadget = new CraftingGadget(customPrefab, techData);
+        var craftingGadget = new CraftingGadget(customPrefab, recipeData);
         customPrefab.AddGadget(craftingGadget);
         
         return craftingGadget;
@@ -33,8 +34,8 @@ public static class GadgetExtensions
     /// <returns>An instance to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
     public static CraftingGadget SetRecipeFromJson(this ICustomPrefab customPrefab, string filePath)
     {
-        var techData = JsonConvert.DeserializeObject<CraftData.TechData>(filePath);
-        var craftingGadget = new CraftingGadget(customPrefab, techData);
+        var recipeData = JsonConvert.DeserializeObject<RecipeData>(filePath);
+        var craftingGadget = new CraftingGadget(customPrefab, recipeData);
         customPrefab.AddGadget(craftingGadget);
         
         return craftingGadget;
