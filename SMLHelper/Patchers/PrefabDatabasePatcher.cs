@@ -65,8 +65,8 @@ namespace SMLHelper.Patchers
                 InternalLogger.Error($"Couldn't find a prefab factory for the following prefab info: {prefabInfo}");
                 yield break;
             }
-            
-            yield return prefabFactory.Invoke(prefabResult);
+
+            yield return PrefabHandler.ProcessPrefabAsync(prefabResult, prefabInfo, prefabFactory);
             GameObject prefab = prefabResult.Get();
 
             if(prefab != null)
@@ -124,8 +124,8 @@ namespace SMLHelper.Patchers
                 InternalLogger.Error($"Couldn't find a prefab factory for the following prefab info: {prefabInfo}");
                 yield break;
             }
-            
-            yield return prefabFactory.Invoke(task);
+
+            yield return PrefabHandler.ProcessPrefabAsync(task, prefabInfo, prefabFactory);
 
             GameObject prefab = task.Get();
             result.Set(GameObject.Instantiate(prefab, parent, position, rotation, awake));

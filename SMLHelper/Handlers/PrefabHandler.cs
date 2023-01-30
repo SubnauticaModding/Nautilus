@@ -17,6 +17,34 @@ public static class PrefabHandler
     /// A collection of custom prefabs to add to the game.
     /// </summary>
     public static PrefabCollection Prefabs { get; } = new();
+
+    internal static IEnumerator ProcessPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
+    {
+        yield return prefabFactory(gameObject);
+        
+        var obj = gameObject.Get();
+        var techType = info.TechType;
+        var classId = info.ClassID;
+        
+        if (techType != TechType.None)
+        {
+
+            if (obj.GetComponent<TechTag>() is { } tag)
+            {
+                tag.type = techType;
+            }
+
+            if (obj.GetComponent<Constructable>() is { } cs)
+            {
+                cs.techType = techType;
+            }
+        }
+
+        if (obj.GetComponent<PrefabIdentifier>() is { } pid)
+        {
+            pid.ClassId = classId;
+        }
+    }
 }
 
 /// <summary>

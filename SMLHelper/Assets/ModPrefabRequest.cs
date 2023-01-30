@@ -35,7 +35,7 @@ namespace SMLHelper.Assets
                 return;
             }
             
-            task = new CoroutineTask<GameObject>(factory.Invoke(taskResult), taskResult);
+            task = new CoroutineTask<GameObject>(PrefabHandler.ProcessPrefabAsync(taskResult, prefabInfo, factory), taskResult);
         }
 
         public object Current
