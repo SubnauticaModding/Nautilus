@@ -88,4 +88,16 @@ public static partial class EnumExtensions
 
         return builder;
     }
+
+    /// <summary>
+    /// Sets the size in inventory for this instance.
+    /// </summary>
+    /// <param name="builder">The current custom enum object instance.</param>
+    /// <param name="size">The 2x2 vector size</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public static EnumBuilder<TechType> WithSizeInInventory(this EnumBuilder<TechType> builder, Vector2int size)
+    {
+        CraftDataHandler.SetItemSize(builder, size);
+        return builder;
+    }
 }
