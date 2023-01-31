@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="7-Zip.CommandLine" Version="18.1.0" />
+    <PackageReference Include="PolySharp" Version="1.12.1" />
   </ItemGroup>
   <Import Project="$(SolutionDir)PostBuild.targets" />
 </Project>
