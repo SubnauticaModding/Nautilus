@@ -83,12 +83,18 @@ foreach ($file in "mod.json", "SMLHelper.xml", "SMLHelper.dll")
     Copy-Item $([System.IO.Path]::Combine($TargetDir, $file)) -Destination $buildDir
 }
 
+$zipPostfix = switch ($ConfigurationName.ToUpper())
+{
+    {($_ -like "SN*")} { "SN.LEGACY" }
+    {($_ -like "BZ*")} { "BZ.LEGACY" }
+}
+
 # Zip the standard QMod build
-$buildZipPath = [System.IO.Path]::Combine($TargetDir, "SMLHelper_$($ConfigurationName).zip")
+$buildZipPath = [System.IO.Path]::Combine($TargetDir, "SMLHelper_$($zipPostfix).zip")
 $null = Zip -Path $buildDir -DestinationPath $buildZipPath -Fresh
 
 # Zip the Thunderstore build
 $thunderstoreMetadataPath = [System.IO.Path]::Combine($ProjectDir, "ThunderstoreMetadata", $ConfigurationName, "*")
-$thunderstoreZipPath = [System.IO.Path]::Combine($TargetDir, "SMLHelper_$($ConfigurationName)_Thunderstore.zip")
+$thunderstoreZipPath = [System.IO.Path]::Combine($TargetDir, "SMLHelper_$($zipPostfix)_Thunderstore.zip")
 $null = Zip -Path $qmodsDir -DestinationPath $thunderstoreZipPath -Fresh
 $null = Zip -Path $thunderstoreMetadataPath -DestinationPath $thunderstoreZipPath

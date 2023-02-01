@@ -11,12 +11,12 @@ namespace SMLHelper.V2.MonoBehaviours
     {
         internal SpawnInfo spawnInfo;
 
-        void Start()
+        private void Start()
         {
             StartCoroutine(SpawnAsync());
         }
 
-        IEnumerator SpawnAsync()
+        private IEnumerator SpawnAsync()
         {
             var stringToLog = spawnInfo.Type switch
             {
@@ -57,13 +57,15 @@ namespace SMLHelper.V2.MonoBehaviours
             lw.streamer.cellManager.RegisterEntity(obj);
 
             obj.SetActive(true);
+            
+            spawnInfo.OnSpawned?.Invoke(obj);
 
             LargeWorldStreamerPatcher.savedSpawnInfos.Add(spawnInfo);
 
             Destroy(gameObject);
         }
 
-        IEnumerator GetPrefabAsync(IOut<GameObject> gameObject)
+        private IEnumerator GetPrefabAsync(IOut<GameObject> gameObject)
         {
             GameObject obj;
 

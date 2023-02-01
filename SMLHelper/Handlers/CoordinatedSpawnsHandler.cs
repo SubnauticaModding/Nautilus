@@ -137,6 +137,8 @@ namespace SMLHelper.V2.Handlers
         internal Quaternion Rotation { get; }
         [JsonProperty]
         internal SpawnType Type { get; }
+        [JsonIgnore] 
+        internal Action<GameObject> OnSpawned { get; }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -144,7 +146,16 @@ namespace SMLHelper.V2.Handlers
         /// <param name="techType">TechType to spawn.</param>
         /// <param name="spawnPosition">Position to spawn into.</param>
         public SpawnInfo(TechType techType, Vector3 spawnPosition)
-            : this(default, techType, spawnPosition, Quaternion.identity) { }
+            : this(default, techType, spawnPosition, Quaternion.identity, null) { }
+        
+        /// <summary>
+        /// Initializes a new <see cref="SpawnInfo"/>.
+        /// </summary>
+        /// <param name="techType">TechType to spawn.</param>
+        /// <param name="spawnPosition">Position to spawn into.</param>
+        /// <param name="onSpawned">Delegate to call when the object is successfully spawned.</param>
+        public SpawnInfo(TechType techType, Vector3 spawnPosition, Action<GameObject> onSpawned)
+            : this(default, techType, spawnPosition, Quaternion.identity, onSpawned) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -152,7 +163,16 @@ namespace SMLHelper.V2.Handlers
         /// <param name="classId">ClassID to spawn.</param>
         /// <param name="spawnPosition">Position to spawn into.</param>
         public SpawnInfo(string classId, Vector3 spawnPosition)
-            : this(classId, default, spawnPosition, Quaternion.identity) { }
+            : this(classId, default, spawnPosition, Quaternion.identity, null) { }
+        
+        /// <summary>
+        /// Initializes a new <see cref="SpawnInfo"/>.
+        /// </summary>
+        /// <param name="classId">ClassID to spawn.</param>
+        /// <param name="spawnPosition">Position to spawn into.</param>
+        /// <param name="onSpawned">Delegate to call when the object is successfully spawned.</param>
+        public SpawnInfo(string classId, Vector3 spawnPosition, Action<GameObject> onSpawned)
+            : this(classId, default, spawnPosition, Quaternion.identity, onSpawned) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -161,7 +181,17 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation)
-            : this(default, techType, spawnPosition, rotation) { }
+            : this(default, techType, spawnPosition, rotation, null) { }
+        
+        /// <summary>
+        /// Initializes a new <see cref="SpawnInfo"/>.
+        /// </summary>
+        /// <param name="techType">TechType to spawn.</param>
+        /// <param name="spawnPosition">Position to spawn into.</param>
+        /// <param name="rotation">Rotation to spawn at.</param>
+        /// <param name="onSpawned">Delegate to call when the object is successfully spawned.</param>
+        public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation, Action<GameObject> onSpawned)
+            : this(default, techType, spawnPosition, rotation, onSpawned) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -170,7 +200,17 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation)
-            : this(classId, default, spawnPosition, rotation) { }
+            : this(classId, default, spawnPosition, rotation, null) { }
+        
+        /// <summary>
+        /// Initializes a new <see cref="SpawnInfo"/>.
+        /// </summary>
+        /// <param name="classId">ClassID to spawn.</param>
+        /// <param name="spawnPosition">Position to spawn into.</param>
+        /// <param name="rotation">Rotation to spawn at.</param>
+        /// <param name="onSpawned">Delegate to call when the object is successfully spawned.</param>
+        public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation, Action<GameObject> onSpawned)
+            : this(classId, default, spawnPosition, rotation, onSpawned) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -179,7 +219,17 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(TechType techType, Vector3 spawnPosition, Vector3 rotation)
-            : this(default, techType, spawnPosition, Quaternion.Euler(rotation)) { }
+            : this(default, techType, spawnPosition, Quaternion.Euler(rotation), null) { }
+
+        /// <summary>
+        /// Initializes a new <see cref="SpawnInfo"/>.
+        /// </summary>
+        /// <param name="techType">TechType to spawn.</param>
+        /// <param name="spawnPosition">Position to spawn into.</param>
+        /// <param name="rotation">Rotation to spawn at.</param>
+        /// <param name="onSpawned">Delegate to call when the object is successfully spawned.</param>
+        public SpawnInfo(TechType techType, Vector3 spawnPosition, Vector3 rotation, Action<GameObject> onSpawned)
+            : this(default, techType, spawnPosition, Quaternion.Euler(rotation), onSpawned) { }
 
         /// <summary>
         /// Initializes a new <see cref="SpawnInfo"/>.
@@ -188,15 +238,16 @@ namespace SMLHelper.V2.Handlers
         /// <param name="spawnPosition">Position to spawn into.</param>
         /// <param name="rotation">Rotation to spawn at.</param>
         public SpawnInfo(string classId, Vector3 spawnPosition, Vector3 rotation)
-            : this(classId, default, spawnPosition, Quaternion.Euler(rotation)) { }
+            : this(classId, default, spawnPosition, Quaternion.Euler(rotation), null) { }
 
         [JsonConstructor]
-        internal SpawnInfo(string classId, TechType techType, Vector3 spawnPosition, Quaternion rotation)
+        internal SpawnInfo(string classId, TechType techType, Vector3 spawnPosition, Quaternion rotation, Action<GameObject> onSpawned)
         {
             ClassId = classId;
             TechType = techType;
             SpawnPosition = spawnPosition;
             Rotation = rotation;
+            OnSpawned = onSpawned;
             Type = TechType switch
             {
                 default(TechType) => SpawnType.ClassId,
