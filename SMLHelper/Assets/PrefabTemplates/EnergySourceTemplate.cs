@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using SMLHelper.Utility;
 using UnityEngine;
 
 namespace SMLHelper.Assets.PrefabTemplates;
@@ -27,6 +28,7 @@ public class EnergySourceTemplate : PrefabTemplate
     /// <summary>
     /// Creates an <see cref="EnergySourceTemplate"/> instance.
     /// </summary>
+    /// <param name="info">The prefab info to base this template off of.</param>
     /// <param name="energyAmount">The amount of energy this source should have.</param>
     public EnergySourceTemplate(PrefabInfo info, int energyAmount) : base(info)
     {
@@ -58,7 +60,7 @@ public class EnergySourceTemplate : PrefabTemplate
         var task = CraftData.GetPrefabForTechTypeAsync(tt, false);
         yield return task;
 
-        var obj = task.GetResult();
+        var obj = GameObject.Instantiate(task.GetResult());
         
         if (ModelData != null)
         {
@@ -89,7 +91,6 @@ public class EnergySourceTemplate : PrefabTemplate
 
     private TechType GetReferenceType()
     {
-        var modelData = ModelData ?? new CustomModelData();
         return IsPowerCell switch
         {
             false when !UseIonModelAsBase => TechType.Battery,
@@ -102,6 +103,7 @@ public class EnergySourceTemplate : PrefabTemplate
 
     private void ModifyPrefab(GameObject obj)
     {
+        PrefabUtils.AddBasicComponents(obj, info.ClassID, info.TechType, LargeWorldEntity.CellLevel.Medium);
         var battery = obj.EnsureComponent<Battery>();
         battery._capacity = _energyAmount;
     }

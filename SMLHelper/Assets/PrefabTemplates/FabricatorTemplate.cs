@@ -5,6 +5,7 @@ using SMLHelper.Utility;
 using UnityEngine;
 using UWE;
 using SMLHelper.Utility;
+using Object = UnityEngine.Object;
 
 namespace SMLHelper.Assets.PrefabTemplates;
 
@@ -121,7 +122,8 @@ public class FabricatorTemplate : PrefabTemplate
         
         yield return task;
         
-        task.TryGetPrefab(out var obj);
+        task.TryGetPrefab(out var prefab);
+        var obj = Object.Instantiate(prefab);
         ModifyPrefab(obj);
         gameObject.Set(obj);
     }
