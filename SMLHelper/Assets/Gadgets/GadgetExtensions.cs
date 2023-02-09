@@ -103,6 +103,26 @@ public static class GadgetExtensions
 
         return customPrefab;
     }
+    
+    /// <summary>
+    /// Adds biome spawns for this custom prefab with default <see cref="WorldEntityInfo"/> values.
+    /// </summary>
+    /// <param name="customPrefab">The custom prefab to add biome spawns for.</param>
+    /// <param name="biomesToSpawnIn">The biomes to spawn in.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public static ICustomPrefab SetSpawns(this ICustomPrefab customPrefab, params LootDistributionData.BiomeData[] biomesToSpawnIn)
+    {
+        var entityInfo = new WorldEntityInfo
+        {
+            classId = customPrefab.Info.ClassID,
+            techType = customPrefab.Info.TechType,
+            localScale = Vector3.one,
+            cellLevel = LargeWorldEntity.CellLevel.Medium,
+            slotType = EntitySlot.Type.Medium
+        };
+
+        return SetSpawns(customPrefab, entityInfo, biomesToSpawnIn);
+    }
 
     /// <summary>
     /// Adds biome spawns for this custom prefab.
