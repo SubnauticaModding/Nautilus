@@ -12,9 +12,9 @@ using BepInEx;
 using BepInEx.Logging;
 using Utility;
 
-[BepInPlugin("com.sm.smlhelper.example", "SMLHelper Example Mod", PluginInfo.PLUGIN_VERSION)]
+[BepInPlugin("com.sm.smlhelper.configexample", "SMLHelper Config Example Mod", PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.sm.smlhelper")]
-public class ExampleMod: BaseUnityPlugin
+public class ConfigExamples : BaseUnityPlugin
 {
     internal static ManualLogSource LogSource { get; private set; }
 
@@ -88,7 +88,7 @@ public class ExampleMod: BaseUnityPlugin
         /// Here we are registering all console commands defined in <see cref="ExampleMod"/>, defined by decorating them
         /// with the <see cref="ConsoleCommandAttribute"/>. See <see cref="MyAttributedCommand(string, int, bool)"/> below
         /// for an example.
-        ConsoleCommandsHandler.RegisterConsoleCommands(typeof(ExampleMod));
+        ConsoleCommandsHandler.RegisterConsoleCommands(typeof(ConfigExamples));
 
         LogSource.LogInfo("Patched successfully!");
     }
@@ -250,8 +250,8 @@ public class Config: ConfigFile
     [Button("My button"), OnGameObjectCreated(nameof(MyGameObjectCreatedEvent))]
     public void MyButtonClickEvent(ButtonClickedEventArgs e)
     {
-        ExampleMod.LogSource.LogInfo("Button was clicked!");
-        ExampleMod.LogSource.LogInfo($"{e.Id}");
+        ConfigExamples.LogSource.LogInfo("Button was clicked!");
+        ConfigExamples.LogSource.LogInfo($"{e.Id}");
     }
 
     /// <summary>
@@ -264,8 +264,8 @@ public class Config: ConfigFile
     /// parameter if you do not need the data it contains.</param>
     private void MyCheckboxToggleEvent(ToggleChangedEventArgs e)
     {
-        ExampleMod.LogSource.LogInfo("Checkbox value was changed!");
-        ExampleMod.LogSource.LogInfo($"{e.Value}");
+        ConfigExamples.LogSource.LogInfo("Checkbox value was changed!");
+        ConfigExamples.LogSource.LogInfo($"{e.Value}");
     }
 
     /// <summary>
@@ -283,25 +283,25 @@ public class Config: ConfigFile
     /// it contains.</para></param>
     private void MyGenericValueChangedEvent<T>(ConfigOptionEventArgs<T> e)
     {
-        ExampleMod.LogSource.LogInfo("Generic value changed!");
-        ExampleMod.LogSource.LogInfo($"{e.Id}: {e.GetType()}");
+        ConfigExamples.LogSource.LogInfo("Generic value changed!");
+        ConfigExamples.LogSource.LogInfo($"{e.Id}: {e.GetType()}");
 
         switch(e)
         {
             case KeybindChangedEventArgs keybindChangedEventArgs:
-                ExampleMod.LogSource.LogInfo(KeyCodeUtils.KeyCodeToString(keybindChangedEventArgs.Value));
+                ConfigExamples.LogSource.LogInfo(KeyCodeUtils.KeyCodeToString(keybindChangedEventArgs.Value));
                 break;
             case ChoiceChangedEventArgs<int> choiceChangedEventArgs:
-                ExampleMod.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
+                ConfigExamples.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
                 break;
             case ChoiceChangedEventArgs<T> choiceChangedEventArgs:
-                ExampleMod.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
+                ConfigExamples.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
                 break;
             case SliderChangedEventArgs sliderChangedEventArgs:
-                ExampleMod.LogSource.LogInfo(sliderChangedEventArgs.Value.ToString());
+                ConfigExamples.LogSource.LogInfo(sliderChangedEventArgs.Value.ToString());
                 break;
             case ToggleChangedEventArgs toggleChangedEventArgs:
-                ExampleMod.LogSource.LogInfo(toggleChangedEventArgs.Value.ToString());
+                ConfigExamples.LogSource.LogInfo(toggleChangedEventArgs.Value.ToString());
                 break;
         }
     }
@@ -316,7 +316,7 @@ public class Config: ConfigFile
     /// as a string as well as the newly created <see cref="GameObject"/>.</param>
     private void MyGameObjectCreatedEvent(GameObjectCreatedEventArgs e)
     {
-        ExampleMod.LogSource.LogInfo("GameObject was created");
-        ExampleMod.LogSource.LogInfo($"{e.Id}: {e.Value}");
+        ConfigExamples.LogSource.LogInfo("GameObject was created");
+        ConfigExamples.LogSource.LogInfo($"{e.Id}: {e.Value}");
     }
 }
