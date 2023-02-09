@@ -61,7 +61,9 @@ public class CustomPrefabExamples : BaseUnityPlugin
         
         /*
          * And finally, we register it to the game.
-         * Refrain from modifying the item further more after Register is called as they will not be called.
+         * Now we can spawn our item to the world manually by using the command 'spawn titaniumclone', or
+         * simply looking around in the Safe shallows.
+         * Refrain from modifying the item further more or adding more gadgets after Register is called as they will not be called.
          */
         titaniumClone.Register();
     }
