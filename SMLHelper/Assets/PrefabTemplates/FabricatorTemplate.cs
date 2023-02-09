@@ -9,6 +9,9 @@ using Object = UnityEngine.Object;
 
 namespace SMLHelper.Assets.PrefabTemplates;
 
+/// <summary>
+/// Represents an fabricator template. This template is capable of returning a Fabricator or a Workbench.
+/// </summary>
 public class FabricatorTemplate : PrefabTemplate
 {
     /// <summary>
