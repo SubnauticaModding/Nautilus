@@ -64,9 +64,8 @@ public class CloneTemplate : PrefabTemplate
 
         if (_spawnType == SpawnType.TechType)
         {
-            var task = new TaskResult<GameObject>();
-            yield return CraftData.InstantiateFromPrefabAsync(_techTypeToClone, task);
-            var obj = task.Get();
+            yield return CraftData.InstantiateFromPrefabAsync(_techTypeToClone, gameObject);
+            var obj = gameObject.Get();
             ModifyPrefab?.Invoke(obj);
             gameObject.Set(obj);
         }
