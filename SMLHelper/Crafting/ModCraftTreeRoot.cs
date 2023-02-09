@@ -6,8 +6,7 @@
     using SMLHelper.Utility;
     using System.Linq;
     using SMLHelper.Handlers;
-    using SMLHelper.Assets.Interfaces;
-
+    
     /// <summary>
     /// The root node of a CraftTree. The whole tree starts here.<para/>
     /// Build up your custom crafting tree from this root node using the AddCraftingNode and AddTabNode methods.<br/>

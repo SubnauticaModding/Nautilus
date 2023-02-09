@@ -1,5 +1,4 @@
 using Newtonsoft.Json;
-using SMLHelper.Assets.Interfaces;
 using SMLHelper.Crafting;
 using SMLHelper.Handlers;
 using UnityEngine;
