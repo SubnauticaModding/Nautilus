@@ -67,6 +67,6 @@
   <ItemGroup>
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
-    <PackageReference Include="PolySharp" Version="1.8.3" />
+    <PackageReference Include="PolySharp" Version="1.12.1" />
   </ItemGroup>
 </Project>
