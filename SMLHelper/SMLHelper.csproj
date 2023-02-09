@@ -6,6 +6,7 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <RootNamespace>SMLHelper</RootNamespace>
     <AssemblyName>SMLHelper</AssemblyName>
+    <BepInExPluginGuid>com.sm.smlhelper</BepInExPluginGuid>
     <LangVersion>11</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
@@ -117,6 +118,7 @@
   <ItemGroup>
     <PackageReference Include="7-Zip.CommandLine" Version="18.1.0" />
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
     <PackageReference Include="PolySharp" Version="1.8.3" />
   </ItemGroup>
   <Import Project="$(SolutionDir)PostBuild.targets" />

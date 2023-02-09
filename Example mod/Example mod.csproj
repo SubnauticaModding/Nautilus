@@ -4,8 +4,8 @@
     <TargetFramework>net472</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <RootNamespace>Example_mod</RootNamespace>
-    <AssemblyName>Example mod</AssemblyName>
+    <RootNamespace>SMLHelper.Examples</RootNamespace>
+    <AssemblyName>ExampleMod</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
     <PackageReference Include="PolySharp" Version="1.8.3" />
   </ItemGroup>
 </Project>

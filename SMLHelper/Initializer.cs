@@ -11,15 +11,10 @@
     /// <summary>
     /// WARNING: This class is for use only by Bepinex.
     /// </summary>
-    [BepInPlugin(GUID, MODNAME, VERSION)]
-    public class Initializer: BaseUnityPlugin
+    [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+    public class Initializer : BaseUnityPlugin
     {
-        private const string
-            MODNAME = "SMLHelper",
-            GUID = "com.ahk1221.smlhelper",
-            VERSION = "2.15.0.2";
-
-        internal static readonly Harmony harmony = new(GUID);
+        internal static readonly Harmony harmony = new(PluginInfo.PLUGIN_GUID);
 
         /// <summary>
         /// WARNING: This method is for use only by Bepinex.
@@ -32,14 +27,13 @@
 
             InternalLogger.Initialize(Logger);
 #if SUBNAUTICA
-            InternalLogger.Info($"Loading v{VERSION} for Subnautica");
+            InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for Subnautica");
 #elif BELOWZERO
-            InternalLogger.Info($"Loading v{VERSION} for BelowZero");
+            InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for BelowZero");
 #endif
 
             PrefabDatabasePatcher.PrePatch(harmony);
             EnumPatcher.Patch(harmony);
-            CustomBatteriesPatcher.Patch(harmony);
             CraftDataPatcher.Patch(harmony);
             CraftTreePatcher.Patch(harmony);
             ConsoleCommandsPatcher.Patch(harmony);
