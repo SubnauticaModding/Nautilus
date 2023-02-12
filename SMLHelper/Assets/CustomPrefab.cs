@@ -83,10 +83,25 @@ public class CustomPrefab : ICustomPrefab
     }
 
     /// <summary>
-    /// Sets a function as the game object constructor of this custom prefab.
+    /// Sets a function as the game object constructor of this custom prefab. This is a synchronous version.
     /// </summary>
     /// <param name="prefab">The Function to set.</param>
-    public void SetPrefab(Func<IOut<GameObject>, IEnumerator> prefab) => Prefab = obj => prefab(obj);
+    public void SetPrefab(Func<GameObject> prefab)
+    {
+        IEnumerator SyncPrefab(IOut<GameObject> obj)
+        {
+            obj.Set(prefab?.Invoke());
+            yield break;
+        }
+
+        Prefab = SyncPrefab;
+    }
+
+    /// <summary>
+    /// Sets a function as the game object constructor of this custom prefab. This is an asynchronous version.
+    /// </summary>
+    /// <param name="prefabAsync">The Function to set.</param>
+    public void SetPrefab(Func<IOut<GameObject>, IEnumerator> prefabAsync) => Prefab = obj => prefabAsync(obj);
 
     /// <summary>
     /// Sets a prefab template as the game object constructor of this custom prefab.
