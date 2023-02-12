@@ -62,7 +62,7 @@ public static class PrefabCollectionExtensions
     /// </summary>
     /// <param name="collection">The collection to register to.</param>
     /// <param name="customPrefab">The custom prefab to register.</param>
-    public static void RegisterPrefab(this PrefabCollection collection, CustomPrefab customPrefab)
+    public static void RegisterPrefab(this PrefabCollection collection, ICustomPrefab customPrefab)
     {
         collection.Add(customPrefab.Info, customPrefab.Prefab);
     }
@@ -72,7 +72,7 @@ public static class PrefabCollectionExtensions
     /// </summary>
     /// <param name="collection">The collection to unregister from.</param>
     /// <param name="customPrefab">The custom prefab to unregister.</param>
-    public static void UnregisterPrefab(this PrefabCollection collection, CustomPrefab customPrefab)
+    public static void UnregisterPrefab(this PrefabCollection collection, ICustomPrefab customPrefab)
     {
         collection.Remove(customPrefab.Info);
     }
@@ -96,9 +96,21 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
     /// <param name="prefabFactory">The function that constructs the game object for this prefab info.</param>
     public void Add(PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
-        if (_prefabs.ContainsKey(info) || info.TechType == TechType.None)
+        if (_prefabs.ContainsKey(info))
         {
             InternalLogger.Error($"Another modded prefab already registered the following prefab: {info}");
+            return;
+        }
+
+        if (_classIdPrefabs.ContainsKey(info.ClassID) || string.IsNullOrWhiteSpace(info.ClassID))
+        {
+            InternalLogger.Error($"Class ID is required and must be unique for prefab: {info}");
+            return;
+        }
+        
+        if (_fileNamePrefabs.ContainsKey(info.PrefabFileName) || string.IsNullOrWhiteSpace(info.PrefabFileName))
+        {
+            InternalLogger.Error($"PrefabFileName is required and must be unique for prefab: {info}");
             return;
         }
         
