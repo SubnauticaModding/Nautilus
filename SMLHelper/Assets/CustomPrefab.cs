@@ -33,10 +33,10 @@ public interface ICustomPrefab
     void AddGadget(Gadget gadget);
     
     /// <summary>
-    /// Adds a post register action that will be called on post register event.
+    /// Adds an action that will be called during the registration of the prefab.
     /// </summary>
-    /// <param name="postRegisterCallback">The action that will be called.</param>
-    void AddPostRegister(Action postRegisterCallback);
+    /// <param name="onRegisterCallback">The action that will be called.</param>
+    void AddOnRegister(Action onRegisterCallback);
 }
 
 /// <summary>
@@ -45,7 +45,7 @@ public interface ICustomPrefab
 public class CustomPrefab : ICustomPrefab
 {
     private readonly Dictionary<Type, Gadget> _gadgets = new();
-    private readonly List<Action> _postRegister = new();
+    private readonly List<Action> _onRegister = new();
 
     private bool _registered;
 
@@ -77,9 +77,9 @@ public class CustomPrefab : ICustomPrefab
     }
 
     /// <inheritdoc/>
-    public void AddPostRegister(Action postRegisterCallback)
+    public void AddOnRegister(Action onRegisterCallback)
     {
-        _postRegister.Add(postRegisterCallback);
+        _onRegister.Add(onRegisterCallback);
     }
 
     /// <summary>
@@ -113,10 +113,8 @@ public class CustomPrefab : ICustomPrefab
     {
         if (_registered)
             return;
-        
-        PrefabHandler.Prefabs.RegisterPrefab(this);
 
-        foreach (var reg in _postRegister)
+        foreach (var reg in _onRegister)
         {
             reg?.Invoke();
         }
@@ -125,6 +123,8 @@ public class CustomPrefab : ICustomPrefab
         {
             gadget.Value.Build();
         }
+        
+        PrefabHandler.Prefabs.RegisterPrefab(this);
 
         _registered = true;
     }

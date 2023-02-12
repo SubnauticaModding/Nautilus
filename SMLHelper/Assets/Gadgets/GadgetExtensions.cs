@@ -93,7 +93,7 @@ public static class GadgetExtensions
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public static ICustomPrefab SetSpawns(this ICustomPrefab customPrefab, params SpawnLocation[] spawnLocations)
     {
-        customPrefab.AddPostRegister(() =>
+        customPrefab.AddOnRegister(() =>
         {
             foreach ((Vector3 position, Vector3 eulerAngles) in spawnLocations)
             {
@@ -134,7 +134,7 @@ public static class GadgetExtensions
     public static ICustomPrefab SetSpawns(this ICustomPrefab customPrefab, WorldEntityInfo entityInfo,
         params LootDistributionData.BiomeData[] biomesToSpawnIn)
     {
-        customPrefab.AddPostRegister(() =>
+        customPrefab.AddOnRegister(() =>
         {
             LootDistributionHandler.AddLootDistributionData(customPrefab.Info.ClassID,
                 customPrefab.Info.PrefabFileName, biomesToSpawnIn, entityInfo);
