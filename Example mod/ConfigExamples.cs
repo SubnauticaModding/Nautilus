@@ -12,8 +12,8 @@ using BepInEx;
 using BepInEx.Logging;
 using Utility;
 
-[BepInPlugin("com.sm.smlhelper.configexample", "SMLHelper Config Example Mod", PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.sm.smlhelper")]
+[BepInPlugin("com.snmodding.smlhelper.configexample", "SMLHelper Config Example Mod", PluginInfo.PLUGIN_VERSION)]
+[BepInDependency("com.snmodding.smlhelper")]
 public class ConfigExamples : BaseUnityPlugin
 {
     internal static ManualLogSource LogSource { get; private set; }

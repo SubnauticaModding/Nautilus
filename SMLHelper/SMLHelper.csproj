@@ -6,7 +6,7 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <RootNamespace>SMLHelper</RootNamespace>
     <AssemblyName>SMLHelper</AssemblyName>
-    <BepInExPluginGuid>com.sm.smlhelper</BepInExPluginGuid>
+    <BepInExPluginGuid>com.snmodding.smlhelper</BepInExPluginGuid>
     <LangVersion>11</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>

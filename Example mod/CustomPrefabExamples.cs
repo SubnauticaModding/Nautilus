@@ -7,8 +7,8 @@ using BiomeData = LootDistributionData.BiomeData;
 
 namespace SMLHelper.Examples;
 
-[BepInPlugin("com.sm.smlhelper.customprefab", "SMLHelper Custom Prefab Example Mod", PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.sm.smlhelper")]
+[BepInPlugin("com.snmodding.smlhelper.customprefab", "SMLHelper Custom Prefab Example Mod", PluginInfo.PLUGIN_VERSION)]
+[BepInDependency("com.snmodding.smlhelper")]
 public class CustomPrefabExamples : BaseUnityPlugin
 {
     private void Awake()
