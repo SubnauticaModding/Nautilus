@@ -83,24 +83,9 @@ public class CustomPrefab : ICustomPrefab
     }
 
     /// <summary>
-    /// Sets a function as the game object constructor of this custom prefab. This is a synchronous version.
-    /// </summary>
-    /// <param name="prefab">The Function to set.</param>
-    public void SetPrefab(Func<GameObject> prefab)
-    {
-        IEnumerator SyncPrefab(IOut<GameObject> obj)
-        {
-            obj.Set(prefab?.Invoke());
-            yield break;
-        }
-
-        Prefab = SyncPrefab;
-    }
-
-    /// <summary>
     /// Sets a function as the game object constructor of this custom prefab. This is an asynchronous version.
     /// </summary>
-    /// <param name="prefabAsync">The Function to set.</param>
+    /// <param name="prefabAsync">The function to set.</param>
     public void SetPrefab(Func<IOut<GameObject>, IEnumerator> prefabAsync) => Prefab = obj => prefabAsync(obj);
 
     /// <summary>
@@ -108,6 +93,18 @@ public class CustomPrefab : ICustomPrefab
     /// </summary>
     /// <param name="prefabTemplate">The prefab template object to set.</param>
     public void SetPrefab(PrefabTemplate prefabTemplate) => Prefab = prefabTemplate.GetPrefabAsync;
+    
+    /// <summary>
+    /// Sets a game object as the prefab of this custom prefab.
+    /// </summary>
+    /// <param name="prefab">The game object to set.</param>
+    public void SetPrefab(GameObject prefab) => Prefab = obj => SyncPrefab(obj, prefab);
+    
+    /// <summary>
+    /// Sets a function as the game object constructor of this custom prefab. This is a synchronous version.
+    /// </summary>
+    /// <param name="prefab">The function to set.</param>
+    public void SetPrefab(Func<GameObject> prefab) => Prefab = obj => SyncPrefab(obj, prefab?.Invoke());
 
     /// <summary>
     /// Registers this custom prefab into the game.
@@ -130,5 +127,11 @@ public class CustomPrefab : ICustomPrefab
         }
 
         _registered = true;
+    }
+    
+    private IEnumerator SyncPrefab(IOut<GameObject> obj, GameObject prefab)
+    {
+        obj.Set(prefab);
+        yield break;
     }
 }
