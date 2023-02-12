@@ -1,6 +1,8 @@
+using System.IO;
 using Newtonsoft.Json;
 using SMLHelper.Crafting;
 using SMLHelper.Handlers;
+using SMLHelper.Utility;
 using UnityEngine;
 using UWE;
 
@@ -33,6 +35,12 @@ public static class GadgetExtensions
     /// <returns>An instance to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
     public static CraftingGadget SetRecipeFromJson(this ICustomPrefab customPrefab, string filePath)
     {
+        if (!File.Exists(filePath))
+        {
+            InternalLogger.Error($"Couldn't find recipe json file at {filePath}. Skipping addition.");
+            return null;
+        }
+        
         var recipeData = JsonConvert.DeserializeObject<RecipeData>(filePath);
         var craftingGadget = new CraftingGadget(customPrefab, recipeData);
         customPrefab.AddGadget(craftingGadget);
