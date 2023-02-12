@@ -137,7 +137,9 @@ public class FabricatorTemplate : PrefabTemplate
         {
             Model.Fabricator => PrefabDatabase.GetPrefabAsync(CraftData.GetClassIdForTechType(TechType.Fabricator)),
             Model.Workbench => PrefabDatabase.GetPrefabAsync(CraftData.GetClassIdForTechType(TechType.Workbench)),
+#if SUBNAUTICA
             Model.MoonPool => PrefabDatabase.GetPrefabForFilenameAsync("Submarine/Build/CyclopsFabricator.prefab"),
+#endif
             _ => null,
         };
     }
