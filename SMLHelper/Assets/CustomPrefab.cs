@@ -28,10 +28,48 @@ public interface ICustomPrefab
     PrefabFactoryAsync Prefab { get; }
     
     /// <summary>
-    /// Adds a gadget for this custom prefab.
+    /// Adds a gadget to this custom prefab.
     /// </summary>
     /// <param name="gadget">The gadget to add</param>
     void AddGadget(Gadget gadget);
+
+    /// <summary>
+    /// Gets the gadget instance associated with the specified gadget type attached to this custom prefab.
+    /// </summary>
+    /// <param name="gadgetType">The type of the gadget to get.</param>
+    /// <returns>The gadget instance if found, otherwise; <c>null</c>."/></returns>
+    Gadget GetGadget(Type gadgetType);
+
+    /// <summary>
+    /// Gets the gadget instance associated with the specified gadget type attached to this custom prefab.
+    /// </summary>
+    /// <typeparam name="TGadget">The type of the gadget to get.</typeparam>
+    /// <returns>The gadget instance if found, otherwise; <c>null</c>."/></returns>
+    Gadget GetGadget<TGadget>() where TGadget : Gadget;
+
+    /// <summary>
+    /// Gets the gadget instance associated with the specified gadget type attached to this custom prefab.
+    /// </summary>
+    /// <param name="gadget">The instance of the gadget found associated with the type. If not found, this will be <c>null</c> instead.</param>
+    /// <typeparam name="TGadget">The type of the gadget to get.</typeparam>
+    /// <returns><see langword="true"/> if the gadget associated with type was found, otherwise; <see langword="false"/>.</returns>
+    bool TryGetGadget<TGadget>(out TGadget gadget) where TGadget : Gadget;
+
+    /// <summary>
+    /// Removes the gadget with the specified type.
+    /// </summary>
+    /// <param name="gadget">The type of the gadget to remove.</param>
+    /// <returns><see langword="true"/> if the gadget was successfully found and removed, otherwise; <see langword="false"/>.<br/>
+    /// This method returns <see langword="false"/> if the gadget type was not found in this custom prefab.</returns>
+    bool RemoveGadget(Type gadget);
+
+    /// <summary>
+    /// Removes the gadget with the specified type.
+    /// </summary>
+    /// <typeparam name="TGadget">The type of the gadget to remove.</typeparam>
+    /// <returns><see langword="true"/> if the gadget was successfully found and removed, otherwise; <see langword="false"/>.<br/>
+    /// This method returns <see langword="false"/> if the gadget type was not found in this custom prefab.</returns>
+    bool RemoveGadget<TGadget>() where TGadget : Gadget;
     
     /// <summary>
     /// Adds an action that will be called during the registration of the prefab.
@@ -75,6 +113,38 @@ public class CustomPrefab : ICustomPrefab
     public void AddGadget(Gadget gadget)
     {
         _gadgets[gadget.GetType()] = gadget;
+    }
+
+    /// <inheritdoc/>
+    public Gadget GetGadget(Type gadgetType)
+    {
+        return _gadgets.TryGetValue(gadgetType, out var gadget) ? gadget : null;
+    }
+
+    /// <inheritdoc/>
+    public Gadget GetGadget<TGadget>() where TGadget : Gadget
+    {
+        return GetGadget(typeof(TGadget));
+    }
+
+    /// <inheritdoc/>
+    public bool TryGetGadget<TGadget>(out TGadget gadget) where TGadget : Gadget
+    {
+        var result = _gadgets.TryGetValue(typeof(TGadget), out var g);
+        gadget = (TGadget)g;
+        return result;
+    }
+
+    /// <inheritdoc/>
+    public bool RemoveGadget(Type gadget)
+    {
+        return _gadgets.Remove(gadget);
+    }
+
+    /// <inheritdoc/>
+    public bool RemoveGadget<TGadget>() where TGadget : Gadget
+    {
+        return _gadgets.Remove(typeof(TGadget));
     }
 
     /// <inheritdoc/>
