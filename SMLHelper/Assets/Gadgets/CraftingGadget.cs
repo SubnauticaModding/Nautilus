@@ -82,6 +82,12 @@ public class CraftingGadget : Gadget
 
     protected internal override void Build()
     {
+        if (prefab.Info.TechType is TechType.None)
+        {
+            InternalLogger.Error($"Prefab '{prefab.Info}' does not contain a TechType. Skipping {nameof(CraftingGadget)} build.");
+            return;
+        }
+        
         CraftDataHandler.SetRecipeData(prefab.Info.TechType, RecipeData);
         
         if (FabricatorType == CraftTree.Type.None)

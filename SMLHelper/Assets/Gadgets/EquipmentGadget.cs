@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using SMLHelper.Handlers;
+using SMLHelper.Utility;
 
 namespace SMLHelper.Assets.Gadgets;
 
@@ -49,6 +50,12 @@ public class EquipmentGadget : Gadget
 
     protected internal override void Build()
     {
+        if (prefab.Info.TechType is TechType.None)
+        {
+            InternalLogger.Error($"Prefab '{prefab.Info}' does not contain a TechType. Skipping {nameof(EquipmentGadget)} build.");
+            return;
+        }
+        
         CraftDataHandler.SetEquipmentType(prefab.Info.TechType, EquipmentType);
         CraftDataHandler.SetQuickSlotType(prefab.Info.TechType, QuickSlotType);
     }

@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using SMLHelper.Assets.Gadgets;
 using SMLHelper.Assets.PrefabTemplates;
 using SMLHelper.Handlers;
+using SMLHelper.Utility;
 using UnityEngine;
 
 namespace SMLHelper.Assets;
@@ -113,6 +114,22 @@ public class CustomPrefab : ICustomPrefab
     {
         if (_registered)
             return;
+        
+        // Every prefab must have a class ID and a PrefabFileName, so if they don't exist, registration should be cancelled.
+        if (string.IsNullOrEmpty(Info.ClassID) || string.IsNullOrEmpty(Info.PrefabFileName))
+        {
+            InternalLogger.Error($"Prefab '{Info}' does not contain a class ID or a PrefabFileName. Skipping registration.");
+            return;
+        }
+
+        /*
+         * It is fine for some prefabs to not have a tech type (E.G: world decorators, or anything that isn't scannable),
+         * so just warn it in-case people forgot to add one.
+         */
+        if (Info.TechType is TechType.None)
+        {
+            InternalLogger.Warn($"Prefab '{Info}' does not contain a TechType.");
+        }
 
         foreach (var reg in _onRegister)
         {

@@ -171,6 +171,12 @@ public class ScanningGadget : Gadget
 
     protected internal override void Build()
     {
+        if (prefab.Info.TechType is TechType.None)
+        {
+            InternalLogger.Error($"Prefab '{prefab.Info}' does not contain a TechType. Skipping {nameof(ScanningGadget)} build.");
+            return;
+        }
+        
         if (GroupForPda != TechGroup.Uncategorized)
         {
             List<TechCategory> categories = new();

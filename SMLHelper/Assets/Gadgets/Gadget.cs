@@ -1,3 +1,5 @@
+using SMLHelper.Utility;
+
 namespace SMLHelper.Assets.Gadgets;
 
 /// <summary>
@@ -13,6 +15,11 @@ public abstract class Gadget
     /// <param name="prefab">The custom prefab to operate on.</param>
     public Gadget(ICustomPrefab prefab)
     {
+        if (string.IsNullOrEmpty(prefab.Info.ClassID) || string.IsNullOrEmpty(prefab.Info.PrefabFileName))
+        {
+            InternalLogger.Error("Specified PrefabInfo must contain valid class ID and PrefabFileName.");
+        }
+        
         this.prefab = prefab;
     }
 
