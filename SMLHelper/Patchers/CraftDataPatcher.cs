@@ -147,6 +147,9 @@ namespace SMLHelper.Patchers
             Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
             foreach (var prefab in PrefabHandler.Prefabs)
             {
+                if (prefab.Key.TechType is TechType.None)
+                    continue;
+                
                 techMapping[prefab.Key.TechType] = prefab.Key.ClassID;
                 entClassTechTable[prefab.Key.ClassID] = prefab.Key.TechType;
             }

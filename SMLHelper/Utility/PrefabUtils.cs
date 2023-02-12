@@ -102,6 +102,12 @@
         /// <param name="constructableFlags">A bitmask comprised of one or more <see cref="ConstructableFlags"/> that specify how the prefab should be treated during placement.</param>
         public static void AddConstructable(GameObject prefab, TechType techType, ConstructableFlags constructableFlags)
         {
+            if (techType is TechType.None)
+            {
+                InternalLogger.Error($"TechType is required for constructable and cannot be null. Skipping {nameof(AddConstructable)}.");
+                return;
+            }
+            
             var constructable = prefab.EnsureComponent<Constructable>();
             constructable.controlModelState = true;
             constructable.techType = techType;
