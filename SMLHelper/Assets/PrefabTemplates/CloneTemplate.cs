@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using SMLHelper.Utility;
 using UnityEngine;
 using UWE;
@@ -13,13 +14,17 @@ public class CloneTemplate : PrefabTemplate
     private string _classIdToClone;
     private TechType _techTypeToClone;
     private SpawnType _spawnType;
+
+    /// <summary>
+    /// Reskinning model data to apply to the clone.
+    /// </summary>
+    public List<CustomModelData> ModelDatas { get; } = new();
     
     /// <summary>
     /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
     /// </summary>
     public System.Action<GameObject> ModifyPrefab { get; set; }
-
-
+    
     /// <summary>
     /// Creates a <see cref="CloneTemplate"/> instance.
     /// </summary>
@@ -58,6 +63,7 @@ public class CloneTemplate : PrefabTemplate
         var org = gameObject.Get();
         if (org)
         {
+            ApplySkin(org);
             ModifyPrefab?.Invoke(org);
             yield break;
         }
@@ -66,6 +72,7 @@ public class CloneTemplate : PrefabTemplate
         {
             yield return CraftData.InstantiateFromPrefabAsync(_techTypeToClone, gameObject);
             var obj = gameObject.Get();
+            ApplySkin(org);
             ModifyPrefab?.Invoke(obj);
             gameObject.Set(obj);
         }
@@ -81,8 +88,47 @@ public class CloneTemplate : PrefabTemplate
             }
 
             var obj = Object.Instantiate(prefab);
+            ApplySkin(org);
             ModifyPrefab?.Invoke(obj);
             gameObject.Set(obj);
+        }
+    }
+
+    private void ApplySkin(GameObject obj)
+    {
+        if (ModelDatas.Count <= 0) 
+            return;
+
+        foreach (var modelData in ModelDatas)
+        {
+            var renderers = string.IsNullOrWhiteSpace(modelData.TargetPath)
+                ? obj.GetAllComponentsInChildren<Renderer>()
+                : obj.transform.Find(modelData.TargetPath)?.gameObject.GetComponentsInChildren<Renderer>();
+            
+            if (renderers == null)
+            {
+                InternalLogger.Warn($"{info.ClassID} unable to find {modelData.TargetPath} on {obj.name} when trying to apply CustomModelData.");
+                continue;
+            }
+            
+            foreach (var renderer in renderers)
+            {
+                if (modelData.CustomTexture != null)
+                    renderer.material.SetTexture(ShaderPropertyID._MainTex, modelData.CustomTexture);
+
+                if (modelData.CustomNormalMap != null)
+                    renderer.material.SetTexture(ShaderPropertyID._BumpMap, modelData.CustomNormalMap);
+
+                if (modelData.CustomSpecMap != null)
+                    renderer.material.SetTexture(ShaderPropertyID._SpecTex, modelData.CustomSpecMap);
+
+                if (modelData.CustomIllumMap != null)
+                {
+                    renderer.material.SetTexture(ShaderPropertyID._Illum, modelData.CustomIllumMap);
+                    renderer.material.SetFloat(ShaderPropertyID._GlowStrength, modelData.CustomIllumStrength);
+                    renderer.material.SetFloat(ShaderPropertyID._GlowStrengthNight, modelData.CustomIllumStrength);
+                }
+            }
         }
     }
 

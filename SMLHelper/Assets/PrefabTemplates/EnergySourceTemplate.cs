@@ -15,13 +15,11 @@ public class EnergySourceTemplate : PrefabTemplate
     /// </summary>
     public bool IsPowerCell { get; set; }
 
-    public bool UseIonModelAsBase { get; set; }
-    
     /// <summary>
-    /// Skin data for this energy source.<br/>
-    /// This property is optional and will default to the standard model of the energy source.
+    /// Determines which model to use as the base. If <c>true</c>, this template will use the Precursor Ion Battery or Power cell.<br/>
+    /// Otherwise; uses the default Battery or Power Cell models.
     /// </summary>
-    public CustomModelData ModelData { get; set; }
+    public bool UseIonModelAsBase { get; set; }
 
     private readonly int _energyAmount;
 
@@ -61,29 +59,7 @@ public class EnergySourceTemplate : PrefabTemplate
         yield return task;
 
         var obj = GameObject.Instantiate(task.GetResult());
-        
-        if (ModelData != null)
-        {
-            foreach (var renderer in obj.GetAllComponentsInChildren<Renderer>())
-            {
-                if (ModelData.CustomTexture != null)
-                    renderer.material.SetTexture(ShaderPropertyID._MainTex, ModelData.CustomTexture);
 
-                if (ModelData.CustomNormalMap != null)
-                    renderer.material.SetTexture(ShaderPropertyID._BumpMap, ModelData.CustomNormalMap);
-
-                if (ModelData.CustomSpecMap != null)
-                    renderer.material.SetTexture(ShaderPropertyID._SpecTex, ModelData.CustomSpecMap);
-
-                if (ModelData.CustomIllumMap != null)
-                {
-                    renderer.material.SetTexture(ShaderPropertyID._Illum, ModelData.CustomIllumMap);
-                    renderer.material.SetFloat(ShaderPropertyID._GlowStrength, ModelData.CustomIllumStrength);
-                    renderer.material.SetFloat(ShaderPropertyID._GlowStrengthNight, ModelData.CustomIllumStrength);
-                }
-            }
-        }
-        
         ModifyPrefab(obj);
         
         gameObject.Set(obj);
