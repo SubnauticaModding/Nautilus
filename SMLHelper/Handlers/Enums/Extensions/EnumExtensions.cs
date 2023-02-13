@@ -12,30 +12,26 @@ using System.Collections.Generic;
 /// </summary>
 public static partial class EnumExtensions
 {
-
-    private static Dictionary<Type, IList> vanillaTypes = new();
-
     /// <summary>
-    /// Checks if a TEnum is from from the game and not added by any mod using SMLHelper.
+    /// Checks if an enum value is defined by default or added using SMLHelper.
     /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
-    public static bool IsVanillaTechType<TEnum>(this TEnum type) where TEnum : Enum
+    /// <param name="enumValue">The enum value to look for.</param>
+    /// <typeparam name="TEnum">The type of the enum.</typeparam>
+    /// <returns><see langword="true"/> if the specified enum value is defined by default, otherwise; <see langword="false"/>.</returns>
+    public static bool IsDefinedByDefault<TEnum>(this TEnum enumValue) where TEnum : Enum
     {
-        if(!EnumCacheProvider.TryGetManager(typeof(TEnum), out var manager))
+        // We have not added any values to this enum so it must be vanilla or someone not using SMLHelper.
+        if (!EnumCacheProvider.TryGetManager(typeof(TEnum), out var manager))
         {
-            // We have not added any values to this enum so it must be Vanilla or someone not using SMLHelper.
             return true;
         }
-        if(!vanillaTypes.TryGetValue(typeof(TEnum), out IList vanillaTypeList) || vanillaTypeList.Count == 0)
+        
+        if (manager.ModdedKeys.Contains(enumValue))
         {
-            var array = (TEnum[])Enum.GetValues(typeof(TEnum));
-            var allTechTypes = new List<TEnum>(array);
-            allTechTypes.RemoveAll(tt => manager.ModdedKeys.Contains(tt));
-            vanillaTypeList = allTechTypes;
-            vanillaTypes[typeof(TEnum)] = vanillaTypeList;
+            return false;
         }
-        return vanillaTypeList.Contains(type);
+
+        return true;
     }
 
 }

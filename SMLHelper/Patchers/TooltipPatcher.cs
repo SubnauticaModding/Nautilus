@@ -48,7 +48,7 @@
                 WriteSpace(sb);
             }
 
-            if (techType.IsVanillaTechType())
+            if (techType.IsDefinedByDefault())
 #if SUBNAUTICA
                 WriteModName(sb, "Subnautica");
 #elif BELOWZERO
