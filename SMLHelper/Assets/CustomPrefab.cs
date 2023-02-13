@@ -10,7 +10,15 @@ using UnityEngine;
 
 namespace SMLHelper.Assets;
 
+/// <summary>
+/// A delegate for prefab construction used by SMLHelper to create game objects dynamically.
+/// </summary>
 public delegate IEnumerator PrefabFactoryAsync(TaskResult<GameObject> gameObject);
+
+/// <summary>
+/// Delegate used for SMLHelper's prefab post processing event to modify the processed prefab via a dynamic method.
+/// </summary>
+public delegate IEnumerator PrefabPostProcessorAsync(GameObject gameObject);
 
 /// <summary>
 /// Specifies the contract for a custom prefab.
@@ -26,6 +34,11 @@ public interface ICustomPrefab
     /// Function which constructs a game object as this prefab.
     /// </summary>
     PrefabFactoryAsync Prefab { get; }
+    
+    /// <summary>
+    /// Function that will be executed after the SMLHelper's basic processing for <see cref="Prefab"/> has been completed.
+    /// </summary>
+    PrefabPostProcessorAsync OnPrefabPostProcess { get; }
     
     /// <summary>
     /// Adds a gadget to this custom prefab.
@@ -92,7 +105,10 @@ public class CustomPrefab : ICustomPrefab
     public required PrefabInfo Info { get; set; }
     
     /// <inheritdoc/>
-    public PrefabFactoryAsync Prefab { get; private set; }
+    public PrefabFactoryAsync Prefab { get; protected set; }
+
+    /// <inheritdoc/>
+    public PrefabPostProcessorAsync OnPrefabPostProcess { get; protected set; }
 
     /// <summary>
     /// Constructs a custom prefab object.
@@ -178,6 +194,18 @@ public class CustomPrefab : ICustomPrefab
     public void SetPrefab(Func<GameObject> prefab) => Prefab = obj => SyncPrefab(obj, prefab?.Invoke());
 
     /// <summary>
+    /// Sets a post processor for the <see cref="Prefab"/>. This is an asynchronous version.
+    /// </summary>
+    /// <param name="postProcessorAsync">The post processor to set.</param>
+    public void SetPrefabPostProcessor(Func<GameObject, IEnumerator> postProcessorAsync) => OnPrefabPostProcess = obj => postProcessorAsync(obj);
+
+    /// <summary>
+    /// Sets a post processor for the <see cref="Prefab"/>. This is a synchronous version.
+    /// </summary>
+    /// <param name="postProcessor">The post processor to set.</param>
+    public void SetPrefabPostProcessor(Action<GameObject> postProcessor) => OnPrefabPostProcess = obj => SyncPostProcessor(obj, postProcessor);
+
+    /// <summary>
     /// Registers this custom prefab into the game.
     /// </summary>
     public void Register()
@@ -219,6 +247,12 @@ public class CustomPrefab : ICustomPrefab
     private IEnumerator SyncPrefab(IOut<GameObject> obj, GameObject prefab)
     {
         obj.Set(prefab);
+        yield break;
+    }
+
+    private IEnumerator SyncPostProcessor(GameObject prefab, Action<GameObject> postProcessor)
+    {
+        postProcessor?.Invoke(prefab);
         yield break;
     }
 }

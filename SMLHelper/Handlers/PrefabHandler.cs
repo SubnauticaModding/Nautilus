@@ -49,6 +49,9 @@ public static class PrefabHandler
         {
             pid.ClassId = classId;
         }
+
+        if (Prefabs.TryGetPostProcessorForInfo(info, out var postProcessor))
+            postProcessor?.Invoke(obj);
     }
 }
 
@@ -84,7 +87,8 @@ public static class PrefabCollectionExtensions
 public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFactoryAsync>>
 {
     private readonly Dictionary<PrefabInfo, PrefabFactoryAsync> _prefabs = new();
-    
+    private readonly Dictionary<PrefabInfo, PrefabPostProcessorAsync> _prefabPostProcessors = new();
+
     private readonly Dictionary<string, PrefabInfo> _classIdPrefabs = new(StringComparer.InvariantCultureIgnoreCase);
     private readonly Dictionary<string, PrefabInfo> _fileNamePrefabs = new(StringComparer.InvariantCultureIgnoreCase);
     private readonly Dictionary<string, PrefabInfo> _techTypePrefabs = new(StringComparer.InvariantCultureIgnoreCase);
@@ -94,7 +98,8 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
     /// </summary>
     /// <param name="info">The prefab info to register.</param>
     /// <param name="prefabFactory">The function that constructs the game object for this prefab info.</param>
-    public void Add(PrefabInfo info, PrefabFactoryAsync prefabFactory)
+    /// <param name="postProcessor">The prefab post processor that will be invoked after SMLHelper's prefab processing.</param>
+    public void Add(PrefabInfo info, PrefabFactoryAsync prefabFactory, PrefabPostProcessorAsync postProcessor = null)
     {
         if (_prefabs.ContainsKey(info))
         {
@@ -113,6 +118,9 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
             InternalLogger.Error($"PrefabFileName is required and must be unique for prefab: {info}");
             return;
         }
+
+        if (postProcessor is {})
+            _prefabPostProcessors.Add(info, postProcessor);
         
         _prefabs.Add(info, prefabFactory);
         _classIdPrefabs.Add(info.ClassID, info);
@@ -125,12 +133,14 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
     /// Removes a prefab info from the game. This leads to unregistering the specified prefab info from the game.
     /// </summary>
     /// <param name="info">The prefab info to unregister.</param>
-    /// <returns>True if the element is successfully found and removed; otherwise, false. This method returns false if the prefab info is not found.</returns>
+    /// <returns><see keyword="true"/> if the element is successfully found and removed; otherwise, <see keyword="false"/>.
+    /// This method returns <see keyword="false"/> if the prefab info is not found.</returns>
     public bool Remove(PrefabInfo info)
     {
         var result = _prefabs.Remove(info);
         if (result)
         {
+            _prefabPostProcessors.Remove(info);
             _classIdPrefabs.Remove(info.ClassID);
             _fileNamePrefabs.Remove(info.PrefabFileName);
             _techTypePrefabs.Remove(info.TechType.AsString());
@@ -144,7 +154,7 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
     /// Determines whether the provided prefab info is registered.
     /// </summary>
     /// <param name="info">The prefab info to look for</param>
-    /// <returns>true if found; otherwise false.</returns>
+    /// <returns><see langword="true"/> if found; otherwise, <see keyword="false"/>.</returns>
     public bool ContainsPrefabInfo(PrefabInfo info)
     {
         return _prefabs.ContainsKey(info);
@@ -155,10 +165,21 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
     /// </summary>
     /// <param name="info">The info of the prefab factory to get.</param>
     /// <param name="prefabFactory">The returned prefab factory. If nothing was found for the prefab info specified, this will be set to the default initialization instead.</param>
-    /// <returns>True if found; otherwise false.</returns>
+    /// <returns><see langword="true"/> if found; otherwise, <see keyword="false"/>.</returns>
     public bool TryGetPrefabForInfo(PrefabInfo info, out PrefabFactoryAsync prefabFactory)
     {
         return _prefabs.TryGetValue(info, out prefabFactory);
+    }
+
+    /// <summary>
+    /// Gets the prefab post processor associated with the provided info.
+    /// </summary>
+    /// <param name="info">The info of the post processor to get.</param>
+    /// <param name="postProcessor">The returned post processor. If nothing was found for the prefab info specified, this will be set to the default initialization instead.</param>
+    /// <returns><see langword="true"/> if found; otherwise, <see keyword="false"/>.</returns>
+    public bool TryGetPostProcessorForInfo(PrefabInfo info, out PrefabPostProcessorAsync postProcessor)
+    {
+        return _prefabPostProcessors.TryGetValue(info, out postProcessor);
     }
 
     /// <summary>
