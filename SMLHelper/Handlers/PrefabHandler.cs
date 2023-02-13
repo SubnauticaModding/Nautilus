@@ -67,7 +67,7 @@ public static class PrefabCollectionExtensions
     /// <param name="customPrefab">The custom prefab to register.</param>
     public static void RegisterPrefab(this PrefabCollection collection, ICustomPrefab customPrefab)
     {
-        collection.Add(customPrefab.Info, customPrefab.Prefab);
+        collection.Add(customPrefab.Info, customPrefab.Prefab, customPrefab.OnPrefabPostProcess);
     }
 
     /// <summary>
