@@ -1,6 +1,7 @@
 ﻿namespace SMLHelper.Crafting
 {
     using System.Collections.Generic;
+    using Newtonsoft.Json;
 #if SUBNAUTICA
     using static CraftData;
 #endif
@@ -19,6 +20,7 @@
         /// <value>
         /// The quantity of the item this recipe yields.
         /// </value>
+        [JsonProperty]
         public int craftAmount { get; set; }
 
         /// <summary>
@@ -27,6 +29,7 @@
         /// <value>
         /// The number of ingredients for this recipe.
         /// </value>
+        [JsonIgnore]
         public int ingredientCount => Ingredients.Count;
 
         /// <summary>
@@ -35,16 +38,19 @@
         /// <value>
         /// The number of linked items.
         /// </value>
+        [JsonIgnore]
         public int linkedItemCount => LinkedItems.Count;
 
         /// <summary>
         /// The list of ingredients required for this recipe.
         /// </summary>
+        [JsonProperty]
         public List<Ingredient> Ingredients = new();
 
         /// <summary>
         /// The items that will also be created when this recipe is crafted.
         /// </summary>
+        [JsonProperty]
         public List<TechType> LinkedItems = new();
 
         /// <summary>
@@ -71,6 +77,14 @@
             {
                 Ingredients.Add(ingredient);
             }
+        }
+
+        [JsonConstructor]
+        internal RecipeData(int craftAmount, List<Ingredient> ingredients, List<TechType> linkedItems)
+        {
+            this.craftAmount = craftAmount;
+            Ingredients = ingredients ?? new();
+            LinkedItems = linkedItems ?? new();
         }
 
         /// <summary>

@@ -1,7 +1,10 @@
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using SMLHelper.Crafting;
 using SMLHelper.Handlers;
+using SMLHelper.Json.Converters;
 using SMLHelper.Utility;
 using UnityEngine;
 using UWE;
@@ -31,17 +34,27 @@ public static class GadgetExtensions
     /// Adds recipe from a json file to this custom prefab.
     /// </summary>
     /// <param name="customPrefab">The custom prefab to add recipe to.</param>
-    /// <param name="filePath">The path to the recipe json file.</param>
+    /// <param name="filePath">The path to the recipe json file. A string with valid recipe data json is also acceptable.</param>
     /// <returns>An instance to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
     public static CraftingGadget SetRecipeFromJson(this ICustomPrefab customPrefab, string filePath)
     {
-        if (!File.Exists(filePath))
+        RecipeData recipeData;
+        if (File.Exists(filePath))
         {
-            InternalLogger.Error($"Couldn't find recipe json file at {filePath}. Skipping addition.");
+            var content = File.ReadAllText(filePath);
+            recipeData = JsonConvert.DeserializeObject<RecipeData>(content, new CustomEnumConverter());
+        }
+        else
+        {
+            recipeData = JsonConvert.DeserializeObject<RecipeData>(filePath, new CustomEnumConverter());
+        }
+        
+        if (recipeData is null)
+        {
+            InternalLogger.Error($"File '{filePath} is not a valid RecipeData json file. Skipping recipe addition.'");
             return null;
         }
         
-        var recipeData = JsonConvert.DeserializeObject<RecipeData>(filePath);
         var craftingGadget = new CraftingGadget(customPrefab, recipeData);
         customPrefab.AddGadget(craftingGadget);
         
