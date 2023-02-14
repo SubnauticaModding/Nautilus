@@ -71,7 +71,7 @@ public static class EnumHandler
     /// <remarks>
     /// Make sure to set a [BepInDependency("otherModGUID", BepInDependency.DependencyFlags.SoftDependency)] on your plugin to ensure theirs loads first.
     /// </remarks>
-    public static bool TryGetModAddedEnumValue<TEnum>(string name, out TEnum enumValue) where TEnum : Enum
+    public static bool TryGetValue<TEnum>(string name, out TEnum enumValue) where TEnum : Enum
     {
         enumValue = default;
         
@@ -124,7 +124,7 @@ public static class EnumHandler
     /// <remarks>
     /// Make sure to set a [BepInDependency("otherModGUID", BepInDependency.DependencyFlags.SoftDependency)] on your plugin to ensure theirs loads first.
     /// </remarks>
-    public static bool TryGetModAddedEnumValue<TEnum>(string name, out TEnum enumValue, out Assembly addedBy) where TEnum : Enum
+    public static bool TryGetValue<TEnum>(string name, out TEnum enumValue, out Assembly addedBy) where TEnum : Enum
     {
         enumValue = default;
         addedBy = null;
@@ -136,8 +136,8 @@ public static class EnumHandler
 
         if(cache != null) // Item Found
         {
-            addedBy = manager.TypesAddedBy[enumValue.ToString()];
             enumValue = (TEnum)Convert.ChangeType(cache.Index, Enum.GetUnderlyingType(typeof(TEnum)));
+            addedBy = manager.TypesAddedBy[enumValue.ToString()];
             return true;
         }
 
@@ -151,8 +151,8 @@ public static class EnumHandler
     /// <param name="name">The name of the custom enum object.</param>
     /// <typeparam name="TEnum">Type of the enum to search for.</typeparam>
     /// <returns><see langword="true"/> if the object was found; otherwise <see langword="false"/>.</returns>
-    public static bool ModAddedEnumValueExists<TEnum>(string name) where TEnum : Enum
+    public static bool ModdedEnumExists<TEnum>(string name) where TEnum : Enum
     {
-        return TryGetModAddedEnumValue<TEnum>(name, out _);
+        return TryGetValue<TEnum>(name, out _);
     }    
 }

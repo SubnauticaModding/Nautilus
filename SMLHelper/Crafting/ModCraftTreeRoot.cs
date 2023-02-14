@@ -166,7 +166,7 @@
         /// When this value is null, the craft node will be added to the root of the craft tree.</param>
         public ModCraftTreeRoot AddCraftNode(string moddedTechType, string parentTabId = null)
         {
-            if(EnumHandler.TryGetModAddedEnumValue(moddedTechType, out TechType techType))
+            if(EnumHandler.TryGetValue(moddedTechType, out TechType techType))
             {
                 ModCraftTreeLinkingNode parentTab;
                 if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))

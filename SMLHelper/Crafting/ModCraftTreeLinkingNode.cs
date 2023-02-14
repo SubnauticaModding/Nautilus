@@ -196,7 +196,7 @@ namespace SMLHelper.Crafting
         /// </remarks>
         public void AddModdedCraftingNode(string moddedTechTypeName)
         {
-            if (EnumHandler.TryGetModAddedEnumValue(moddedTechTypeName, out TechType techType))
+            if (EnumHandler.TryGetValue(moddedTechTypeName, out TechType techType))
             {
                 ModCraftTreeCraft craftNode = new(techType);
                 craftNode.LinkToParent(this);

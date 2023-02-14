@@ -91,7 +91,7 @@ public class FabricatorGadget : Gadget
         InternalLogger.Debug($"'{moddedTechType}' will be added to the custom craft tree '{prefab.Info.ClassID}'");
         _orderedCraftTreeActions.Add(() =>
         {
-            if (EnumHandler.TryGetModAddedEnumValue(moddedTechType, out TechType techType))
+            if (EnumHandler.TryGetValue(moddedTechType, out TechType techType))
             {
                 ModCraftTreeLinkingNode parentTab = _craftTreeLinkingNodes[parentTabId ?? RootNode];
                 parentTab.AddCraftingNode(techType);
