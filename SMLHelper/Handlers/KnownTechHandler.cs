@@ -49,7 +49,16 @@ namespace SMLHelper.Handlers
             }
         }
 
-        internal static void AddAnalysisTech(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string unlockMessage = "NotificationBlueprintUnlocked", FMODAsset unlockSound = null, UnityEngine.Sprite unlockSprite = null, List<StoryGoal> storyGoals = null)
+        internal static void AddAnalysisTech(
+            TechType techTypeToBeAnalysed, 
+            IEnumerable<TechType> techTypesToUnlock, 
+            string unlockMessage = "NotificationBlueprintUnlocked",
+            FMODAsset unlockSound = null, 
+            UnityEngine.Sprite unlockSprite = null
+#if SUBNAUTICA
+            ,List<StoryGoal> storyGoals = null
+#endif
+            )
         {
             AddAnalysisTech(new KnownTech.AnalysisTech
             {
@@ -58,7 +67,9 @@ namespace SMLHelper.Handlers
                 unlockSound = unlockSound,
                 unlockPopup = unlockSprite,
                 unlockTechTypes = techTypesToUnlock.ToList(),
+#if SUBNAUTICA
                 storyGoals = storyGoals,
+#endif
             });
         }
 

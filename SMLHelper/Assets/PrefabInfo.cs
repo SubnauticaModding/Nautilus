@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.Assets;
+﻿using UnityEngine;
+
+namespace SMLHelper.Assets;
 
 using Handlers;
 
@@ -27,12 +29,25 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
         );
     }
 
+#if SUBNAUTICA
     /// <summary>
     /// Adds an icon for <see cref="TechType"/>.
     /// </summary>
     /// <param name="sprite"></param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public PrefabInfo WithIcon(Atlas.Sprite sprite)
+    {
+        ModSprite.Add(SpriteManager.Group.None, TechType.ToString(), sprite);
+        return this;
+    }
+#endif
+    
+    /// <summary>
+    /// Adds an icon for <see cref="TechType"/>.
+    /// </summary>
+    /// <param name="sprite"></param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public PrefabInfo WithIcon(Sprite sprite)
     {
         ModSprite.Add(SpriteManager.Group.None, TechType.ToString(), sprite);
         return this;

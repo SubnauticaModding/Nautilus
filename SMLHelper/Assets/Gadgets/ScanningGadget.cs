@@ -153,14 +153,18 @@ public class ScanningGadget : Gadget
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public ScanningGadget WithAnalysisTech(
         Sprite popupSprite, 
+#if SUBNAUTICA
         List<StoryGoal> storyGoalsToTrigger = null,
+#endif
         FMODAsset unlockSound = null, 
         string unlockMessage = "NotficationBlueprintUnlocked"
         )
     {
         AnalysisTech ??= new KnownTech.AnalysisTech();
         AnalysisTech.unlockPopup = popupSprite;
+#if SUBNAUTICA
         AnalysisTech.storyGoals = storyGoalsToTrigger ?? new();
+#endif
         AnalysisTech.unlockSound = unlockSound;
         AnalysisTech.unlockMessage = unlockMessage == DefaultUnlockMessage
             ? unlockMessage
