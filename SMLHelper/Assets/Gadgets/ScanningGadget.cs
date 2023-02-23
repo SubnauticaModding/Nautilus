@@ -13,7 +13,9 @@ namespace SMLHelper.Assets.Gadgets;
 public class ScanningGadget : Gadget
 {
     private const string DefaultUnlockMessage = "NotficationBlueprintUnlocked";
-    
+
+    private bool _isBuildable;
+
     /// <summary>
     /// The blueprint that must first be scanned or picked up to unlocked this item.
     /// </summary>
@@ -89,11 +91,28 @@ public class ScanningGadget : Gadget
     /// </summary>
     /// <param name="group">The main group in the PDA blueprints where this item appears</param>
     /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
-    /// <returns></returns>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
+    /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="SetBuildable"/> method.</remarks>
     public ScanningGadget WithPdaGroupCategory(TechGroup group, TechCategory category)
     {
         GroupForPda = group;
         CategoryForPda = category;
+        if (uGUI_BuilderMenu.groups.Contains(group))
+        {
+            SetBuildable();
+        }
+        return this;
+    }
+
+    /// <summary>
+    /// Classifies this item as buildable via the habitat builder.
+    /// </summary>
+    /// <param name="isBuildable">Should this item be buildable?</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public ScanningGadget SetBuildable(bool isBuildable = true)
+    {
+        _isBuildable = isBuildable;
         return this;
     }
 
@@ -194,7 +213,7 @@ public class ScanningGadget : Gadget
                 InternalLogger.Error($"Failed to add {prefab.Info.TechType.AsString()} to {GroupForPda}/{CategoryForPda} as it is not a registered combination.");
             }
             
-            if (uGUI_BuilderMenu.groups.Contains(GroupForPda))
+            if (_isBuildable)
                 CraftDataHandler.AddBuildable(prefab.Info.TechType);
         }
 
