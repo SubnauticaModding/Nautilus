@@ -4,8 +4,7 @@ using SMLHelper.Crafting;
 using SMLHelper.Handlers;
 using SMLHelper.Utility;
 
-// ReSharper disable once CheckNamespace
-namespace SMLHelper.Assets;
+namespace SMLHelper.Assets.Gadgets;
 
 /// <summary>
 /// Represents a crafting gadget
