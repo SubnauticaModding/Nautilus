@@ -44,7 +44,9 @@ public interface ICustomPrefab
     /// Adds a gadget to this custom prefab.
     /// </summary>
     /// <param name="gadget">The gadget to add</param>
-    void AddGadget(Gadget gadget);
+    /// <typeparam name="TGadget">Type of the gadget.</typeparam>
+    /// <returns>A reference to the added gadget.</returns>
+    TGadget AddGadget<TGadget>(TGadget gadget) where TGadget : Gadget;
 
     /// <summary>
     /// Gets the gadget instance associated with the specified gadget type attached to this custom prefab.
@@ -58,7 +60,7 @@ public interface ICustomPrefab
     /// </summary>
     /// <typeparam name="TGadget">The type of the gadget to get.</typeparam>
     /// <returns>The gadget instance if found, otherwise; <c>null</c>."/></returns>
-    Gadget GetGadget<TGadget>() where TGadget : Gadget;
+    TGadget GetGadget<TGadget>() where TGadget : Gadget;
 
     /// <summary>
     /// Gets the gadget instance associated with the specified gadget type attached to this custom prefab.
@@ -126,9 +128,10 @@ public class CustomPrefab : ICustomPrefab
     }
     
     /// <inheritdoc/>
-    public void AddGadget(Gadget gadget)
+    public TGadget AddGadget<TGadget>(TGadget gadget) where TGadget : Gadget
     {
         _gadgets[gadget.GetType()] = gadget;
+        return gadget;
     }
 
     /// <inheritdoc/>
@@ -138,9 +141,9 @@ public class CustomPrefab : ICustomPrefab
     }
 
     /// <inheritdoc/>
-    public Gadget GetGadget<TGadget>() where TGadget : Gadget
+    public TGadget GetGadget<TGadget>() where TGadget : Gadget
     {
-        return GetGadget(typeof(TGadget));
+        return GetGadget(typeof(TGadget)) as TGadget;
     }
 
     /// <inheritdoc/>
