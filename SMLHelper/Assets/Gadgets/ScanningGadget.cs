@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using SMLHelper.Handlers;
+using SMLHelper.Patchers;
 using SMLHelper.Utility;
 using Story;
 using UnityEngine;
@@ -227,7 +228,7 @@ public class ScanningGadget : Gadget
             KnownTechHandler.SetAnalysisTechEntry(AnalysisTech);
         }
 
-        if (CompoundTechsForUnlock is {Count: > 0})
+        if (CompoundTechsForUnlock is { Count: > 0 })
         {
             KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(prefab.Info.TechType);
             KnownTechHandler.SetCompoundUnlock(prefab.Info.TechType, CompoundTechsForUnlock);
@@ -236,6 +237,11 @@ public class ScanningGadget : Gadget
         if (ScannerEntryData is { })
         {
             PDAHandler.AddCustomScannerEntry(ScannerEntryData);
+        }
+
+        if (CompoundTechsForUnlock is { Count: > 0 } || RequiredForUnlock is not TechType.None)
+        {
+            KnownTechPatcher.UnlockedAtStart.Remove(prefab.Info.TechType);
         }
     }
 }
