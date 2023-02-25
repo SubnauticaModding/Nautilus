@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reflection;
 using BepInEx.Logging;
 using SMLHelper.Utility;
-using static HandReticle;
 
 // ReSharper disable once CheckNamespace
 namespace SMLHelper.Handlers;

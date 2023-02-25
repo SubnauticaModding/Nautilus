@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics;
+using System.Reflection;
+using SMLHelper.Utility;
+using UnityEngine;
 
 namespace SMLHelper.Assets;
 
@@ -18,14 +21,20 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
     /// <param name="classId">The class identifier used for the <see cref="PrefabIdentifier"/> component whenever applicable.</param>
     /// <param name="displayName">The display name for this tech type.</param>
     /// <param name="description">The description for this tech type.</param>
+    /// <param name="unlockAtStart">Whether this tech type should be unlocked on game start or not. Default to <see langword="true"/>.</param>
+    /// <param name="techTypeOwner">The assembly that owns the created tech type. The name of this assembly will be shown in the PDA.</param>
     /// <returns>An instance of the constructed <see cref="PrefabInfo"/>.</returns>
-    public static PrefabInfo WithTechType(string classId, string displayName, string description)
+    public static PrefabInfo WithTechType(string classId, string displayName, string description, bool unlockAtStart = true, Assembly techTypeOwner = null)
     {
+        techTypeOwner ??= Assembly.GetCallingAssembly();
+        techTypeOwner = techTypeOwner == Assembly.GetExecutingAssembly()
+            ? ReflectionHelper.CallingAssemblyByStackTrace()
+            : techTypeOwner;
         return new PrefabInfo
         (
             classId, 
             classId + "Prefab",
-            EnumHandler.AddEntry<TechType>(classId).WithPdaInfo(displayName, description)
+            EnumHandler.AddEntry<TechType>(classId, techTypeOwner).WithPdaInfo(displayName, description, unlockAtStart)
         );
     }
 

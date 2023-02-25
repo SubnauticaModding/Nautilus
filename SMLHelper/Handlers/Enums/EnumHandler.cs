@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.Handlers;
+﻿using System.Diagnostics;
+
+namespace SMLHelper.Handlers;
 
 using System;
 using System.Reflection;
@@ -31,7 +33,12 @@ public static class EnumHandler
     /// <returns>A reference to the created custom enum object or if the name is already in use it will return null</returns>
     public static EnumBuilder<TEnum> AddEntry<TEnum>(string name) where TEnum : Enum
     {
-        return AddEntry<TEnum>(name, Assembly.GetCallingAssembly());
+        var callingAssembly = Assembly.GetCallingAssembly();
+        callingAssembly = callingAssembly == Assembly.GetExecutingAssembly()
+            ? ReflectionHelper.CallingAssemblyByStackTrace()
+            : callingAssembly;
+        
+        return AddEntry<TEnum>(name, callingAssembly);
     }
 
     /// <summary>
@@ -100,13 +107,13 @@ public static class EnumHandler
     /// <remarks>
     /// Make sure to set a [BepInDependency("otherModGUID", BepInDependency.DependencyFlags.SoftDependency)] on your plugin to ensure theirs loads first.
     /// </remarks>
-    public static bool TryGetModAssembly<TEnum>(TEnum modEnumValue, out Assembly addedBy) where TEnum : Enum
+    public static bool TryGetOwnerAssembly<TEnum>(TEnum modEnumValue, out Assembly addedBy) where TEnum : Enum
     {
         addedBy = null;
-        if(!EnumCacheProvider.TryGetManager(typeof(TEnum), out IEnumCache manager))
+        if (!EnumCacheProvider.TryGetManager(typeof(TEnum), out IEnumCache manager))
             return false;
 
-        if(manager.TypesAddedBy.TryGetValue(modEnumValue.ToString(), out addedBy)) // Assembly Found
+        if (manager.TypesAddedBy.TryGetValue(modEnumValue.ToString(), out addedBy)) // Assembly Found
             return true;
 
         // Was not added by a mod using SMLHelper.
