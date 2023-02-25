@@ -14,6 +14,7 @@ public static partial class MaterialUtils
         CoroutineHost.StartCoroutine(LoadStasisFieldMaterial());
         CoroutineHost.StartCoroutine(LoadAirWaterBarrierMaterial());
         CoroutineHost.StartCoroutine(LoadForcefieldMaterial());
+        CoroutineHost.StartCoroutine(LoadGhostMaterial());
     }
 
     /// <summary>
@@ -40,6 +41,11 @@ public static partial class MaterialUtils
     /// Gets the Material used by Alien Bases for the transition between water and air.
     /// </summary>
     public static Material AirWaterBarrierMaterial { get; private set; }
+    
+    /// <summary>
+    /// Gets the material used by unfinished constructions.
+    /// </summary>
+    public static Material GhostMaterial { get; private set; }
 
     private static IEnumerator LoadIonCubeMaterial()
     {
@@ -106,6 +112,20 @@ public static partial class MaterialUtils
             PrecursorGlassMaterial = new Material(glassPanel.GetComponentInChildren<MeshRenderer>().material);
             PrecursorGlassMaterial.SetColor("_Color", new Color(1f, 1f, 1f, 0.7f));
             PrecursorGlassMaterial.SetFloat("_SpecInt", 1f);
+        }
+    }
+
+    private static IEnumerator LoadGhostMaterial()
+    {
+        if (GhostMaterial)
+            yield break;
+
+        var task = PrefabDatabase.GetPrefabAsync("cf1df719-905c-4385-98da-b638fdfd53f7");
+        yield return task;
+
+        if (task.TryGetPrefab(out var wallShelf))
+        {
+            GhostMaterial = wallShelf.GetComponentInChildren<Constructable>().ghostMaterial;
         }
     }
 }

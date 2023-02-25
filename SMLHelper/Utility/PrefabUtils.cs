@@ -100,16 +100,18 @@
         /// <param name="prefab">The prefab to operate on.</param>
         /// <param name="techType">The tech type associated with the specified prefab.</param>
         /// <param name="constructableFlags">A bitmask comprised of one or more <see cref="ConstructableFlags"/> that specify how the prefab should be treated during placement.</param>
-        public static void AddConstructable(GameObject prefab, TechType techType, ConstructableFlags constructableFlags)
+        /// <returns>The added constructable component.</returns>
+        public static Constructable AddConstructable(GameObject prefab, TechType techType, ConstructableFlags constructableFlags)
         {
             if (techType is TechType.None)
             {
                 InternalLogger.Error($"TechType is required for constructable and cannot be null. Skipping {nameof(AddConstructable)}.");
-                return;
+                return null;
             }
-            
+
             var constructable = prefab.EnsureComponent<Constructable>();
             constructable.controlModelState = true;
+            constructable.ghostMaterial = MaterialUtils.GhostMaterial;
             constructable.techType = techType;
             constructable.allowedInBase = constructableFlags.HasFlag(ConstructableFlags.Base);
             constructable.allowedInSub = constructableFlags.HasFlag(ConstructableFlags.Submarine);
@@ -117,6 +119,8 @@
             constructable.allowedOnCeiling = constructableFlags.HasFlag(ConstructableFlags.Ceiling);
             constructable.allowedOnConstructables = constructableFlags.HasFlag(ConstructableFlags.AllowedOnConstructable);
             constructable.allowedOnWall = constructableFlags.HasFlag(ConstructableFlags.Wall);
+
+            return constructable;
         }
     }
 }
