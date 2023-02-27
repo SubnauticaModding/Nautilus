@@ -42,12 +42,15 @@
     <DocumentationFile>bin\BZ.EXP\SMLHelper.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="UnityEngine.Modules" Version="2019.4.36"/>
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.0" />
+    <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
     <PackageReference Include="7-Zip.CommandLine" Version="18.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
     <PackageReference Include="PolySharp" Version="1.12.1" />
+
+    <Publicize Include="Newtonsoft.Json" />
   </ItemGroup>
   <Import Project="$(SolutionDir)PostBuild.targets" />
 </Project>
