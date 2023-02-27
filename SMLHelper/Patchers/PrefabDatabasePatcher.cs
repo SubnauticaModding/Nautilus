@@ -71,7 +71,7 @@ namespace SMLHelper.Patchers
 
             if(prefab != null)
             {
-                task.spawnedObject = UnityEngine.Object.Instantiate(prefab, task.parent, task.position, task.rotation, task.instantiateActivated);
+                task.spawnedObject = EditorModifications.Instantiate(prefab, task.parent, task.position, task.rotation, task.instantiateActivated);
             }
 
             if (task.spawnedObject == null)
@@ -128,7 +128,7 @@ namespace SMLHelper.Patchers
             yield return PrefabHandler.ProcessPrefabAsync(task, prefabInfo, prefabFactory);
 
             GameObject prefab = task.Get();
-            result.Set(GameObject.Instantiate(prefab, parent, position, rotation, awake));
+            result.Set(EditorModifications.Instantiate(prefab, parent, position, rotation, awake));
         }
 
         // transpiler for ProtobufSerializer.DeserializeObjectsAsync
