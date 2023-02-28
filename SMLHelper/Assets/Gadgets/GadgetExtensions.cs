@@ -24,7 +24,13 @@ public static class GadgetExtensions
     /// <returns>An instance to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
     public static CraftingGadget SetRecipe(this ICustomPrefab customPrefab, RecipeData recipeData)
     {
-        var craftingGadget = new CraftingGadget(customPrefab, recipeData);
+        if (customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
+        { 
+            craftingGadget = new CraftingGadget(customPrefab, recipeData);
+        }
+
+        craftingGadget.RecipeData = recipeData;
+        
         customPrefab.AddGadget(craftingGadget);
         
         return craftingGadget;
@@ -54,8 +60,14 @@ public static class GadgetExtensions
             InternalLogger.Error($"File '{filePath} is not a valid RecipeData json file. Skipping recipe addition.'");
             return null;
         }
+
+        if (customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
+        { 
+            craftingGadget = new CraftingGadget(customPrefab, recipeData);
+        }
+
+        craftingGadget.RecipeData = recipeData;
         
-        var craftingGadget = new CraftingGadget(customPrefab, recipeData);
         customPrefab.AddGadget(craftingGadget);
         
         return craftingGadget;
@@ -70,7 +82,14 @@ public static class GadgetExtensions
     /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
     public static ScanningGadget SetUnlock(this ICustomPrefab customPrefab, TechType requiredForUnlock, int fragmentsToScan = 1)
     {
-        var scanningGadget = new ScanningGadget(customPrefab, requiredForUnlock, fragmentsToScan);
+        if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
+        {
+            scanningGadget = new ScanningGadget(customPrefab, requiredForUnlock, fragmentsToScan);
+        }
+        
+        scanningGadget.RequiredForUnlock = requiredForUnlock;
+        scanningGadget.FragmentsToScan = fragmentsToScan;
+        
         customPrefab.AddGadget(scanningGadget);
 
         return scanningGadget;
@@ -84,7 +103,13 @@ public static class GadgetExtensions
     /// <returns>An instance to the created <see cref="EquipmentGadget"/> to continue the equipment settings on.</returns>
     public static EquipmentGadget SetEquipment(this ICustomPrefab customPrefab, EquipmentType equipmentType)
     {
-        var equipmentGadget = new EquipmentGadget(customPrefab, equipmentType);
+        if (!customPrefab.TryGetGadget(out EquipmentGadget equipmentGadget))
+        {
+            equipmentGadget = new EquipmentGadget(customPrefab, equipmentType);
+        }
+
+        equipmentGadget.EquipmentType = equipmentType;
+        
         customPrefab.AddGadget(equipmentGadget);
 
         return equipmentGadget;
@@ -98,10 +123,14 @@ public static class GadgetExtensions
     /// <returns>An instance to the created <see cref="FabricatorGadget"/> to continue the fabricator settings on.</returns>
     public static FabricatorGadget CreateFabricator(this ICustomPrefab customPrefab, out CraftTree.Type treeType)
     {
-        var fabricatorGadget = new FabricatorGadget(customPrefab);
-        customPrefab.AddGadget(fabricatorGadget);
+        if (!customPrefab.TryGetGadget(out FabricatorGadget fabricatorGadget))
+        {
+            fabricatorGadget = new FabricatorGadget(customPrefab);
+        }
 
         treeType = fabricatorGadget.CraftTreeType;
+        
+        customPrefab.AddGadget(fabricatorGadget);
 
         return fabricatorGadget;
     }
