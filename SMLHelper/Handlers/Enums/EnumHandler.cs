@@ -30,7 +30,7 @@ public static class EnumHandler
     /// <param name="name">The name for this instance. Must be unique and not contain any special characters.<br/>
     /// </param>
     /// <typeparam name="TEnum">Type of the enum to add an entry for.</typeparam>
-    /// <returns>A reference to the created custom enum object or if the name is already in use it will return null</returns>
+    /// <returns>A reference to the created custom enum object or if the name is already in use it will return null.</returns>
     public static EnumBuilder<TEnum> AddEntry<TEnum>(string name) where TEnum : Enum
     {
         var callingAssembly = Assembly.GetCallingAssembly();
@@ -47,9 +47,9 @@ public static class EnumHandler
     /// <param name="name">The name for this instance. Must be unique and not contain any special characters.<br/>
     /// </param>
     /// <param name="ownerAssembly">The owner of this TechType instance.</param>
-    /// <param name="builder">The reference to the created custom enum object</param>
+    /// <param name="builder">The reference to the created custom enum object.</param>
     /// <typeparam name="TEnum">Type of the enum to add an entry for.</typeparam>
-    /// <returns><see langword="true"/>if successfull otherwise <see langword="false"/></returns>
+    /// <returns><see langword="true"/>if successful otherwise; <see langword="false"/>.</returns>
     public static bool TryAddEntry<TEnum>(string name, Assembly ownerAssembly, out EnumBuilder<TEnum> builder) where TEnum : Enum
     {
         return (builder = AddEntry<TEnum>(name, ownerAssembly)) != null;
@@ -60,9 +60,9 @@ public static class EnumHandler
     /// </summary>
     /// <param name="name">The name for this instance. Must be unique and not contain any special characters.<br/>
     /// </param>
-    /// <param name="builder">The reference to the created custom enum object</param>
+    /// <param name="builder">The reference to the created custom enum object.</param>
     /// <typeparam name="TEnum">Type of the enum to add an entry for.</typeparam>
-    /// <returns><see langword="true"/>if successfull otherwise <see langword="false"/></returns>
+    /// <returns><see langword="true"/>if successful; otherwise, <see langword="false"/>.</returns>
     public static bool TryAddEntry<TEnum>(string name, out EnumBuilder<TEnum> builder) where TEnum : Enum
     {
         return (builder = AddEntry<TEnum>(name)) != null;
@@ -74,7 +74,7 @@ public static class EnumHandler
     /// <param name="name">The name of the custom enum object.</param>
     /// <param name="enumValue">The custom enum object value.</param>
     /// <typeparam name="TEnum">Type of the enum to search for.</typeparam>
-    /// <returns><see langword="true"/> if the object was found; otherwise <see langword="false"/>.</returns>
+    /// <returns><see langword="true"/> if the object was found; otherwise, <see langword="false"/>.</returns>
     /// <remarks>
     /// Make sure to set a [BepInDependency("otherModGUID", BepInDependency.DependencyFlags.SoftDependency)] on your plugin to ensure theirs loads first.
     /// </remarks>

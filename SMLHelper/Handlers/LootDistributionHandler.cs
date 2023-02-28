@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using BepInEx.Logging;
     using Patchers;
-    using SMLHelper.Assets;
-    using SMLHelper.Utility;
+    using Assets;
+    using Utility;
     using UWE;
 
     /// <summary>
@@ -76,6 +76,8 @@
         /// <summary>
         /// Adds in a custom entry into the Loot Distribution of the game.
         /// </summary>
+        /// <param name="classId">The classId of the prefab.</param>
+        /// <param name="data">The <see cref="LootDistributionData.SrcData"/> that contains data related to the spawning of a prefab, also contains the path to the prefab.</param>
         public static void AddLootDistributionData(string classId, LootDistributionData.SrcData data)
         {
             if (LootDistributionPatcher.CustomSrcData.ContainsKey(classId))
@@ -84,6 +86,40 @@
             }
 
             LootDistributionPatcher.CustomSrcData[classId] = data;
+        }
+
+        /// <summary>
+        /// Adds in a custom entry into Loot Distribution of the game.
+        /// </summary>
+        /// <param name="classId">The classId of the prefab.</param>
+        /// <param name="biomeDistribution">The <see cref="LootDistributionData.BiomeData"/> dictating how the prefab should spawn in the world.</param>
+        public static void AddLootDistributionData(string classId, params LootDistributionData.BiomeData[] biomeDistribution)
+        {
+            if (!PrefabDatabase.TryGetPrefabFilename(classId, out var filename))
+            {
+                InternalLogger.Error($"Could not find prefab file path for class ID '{classId}'. Cancelling loot distribution addition.");
+                return;
+            }
+            
+            AddLootDistributionData(classId, filename, biomeDistribution);
+        }
+        
+        /// <summary>
+        /// Adds in a custom entry into Loot Distribution of the game.
+        /// </summary>
+        /// <param name="classId">The classId of the prefab.</param>
+        /// <param name="info">The WorldEntityInfo of the prefab. For more information on how to set this up, see <see cref="WorldEntityDatabaseHandler"/>.</param>
+        /// <param name="biomeDistribution">The <see cref="LootDistributionData.BiomeData"/> dictating how the prefab should spawn in the world.</param>
+        public static void AddLootDistributionData(string classId, WorldEntityInfo info, params LootDistributionData.BiomeData[] biomeDistribution)
+        {
+            if (!PrefabDatabase.TryGetPrefabFilename(classId, out var filename))
+            {
+                InternalLogger.Error($"Could not find prefab file path for class ID '{classId}'. Cancelling loot distribution addition.");
+                return;
+            }
+            
+            AddLootDistributionData(classId, filename, biomeDistribution);
+            WorldEntityDatabaseHandler.AddCustomInfo(classId, info);
         }
 
 
