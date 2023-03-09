@@ -34,7 +34,7 @@ public static partial class MaterialUtils
     /// <param name="shininess">'_Shininess' value of the shader. Recommended range of 1.0f-8.0f.</param>
     /// <param name="specularIntensity">'_SpecularInt' value of the shader. Values around 1f are recommended.</param>
     /// <param name="glowStrength">'_GlowStrength' and '_GlowStrengthNight' value of the shader. Should not be absurdly high.</param>
-    /// <param name="modifiers">Optional array of classes that inherit from the <see cref="MaterialModifier"/> class. This allows for extensive customization of the method. Called in ascending order.</param>
+    /// <param name="modifiers">Optional array of classes that inherit from the <see cref="MaterialModifier"/> class. This allows for extensive customization of the method. Called in ascending order on every material.</param>
     public static void ApplySNShaders(GameObject gameObject, float shininess = 4f, float specularIntensity = 1f, float glowStrength = 1f, params MaterialModifier[] modifiers)
     {
         var renderers = gameObject.GetComponentsInChildren<Renderer>(true);
