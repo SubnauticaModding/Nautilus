@@ -3,7 +3,7 @@
 namespace SMLHelper.Utility.MaterialModifiers;
 
 /// <summary>
-/// Sets the <see cref="Material.color"/> property on all materials.
+/// Basic material modifier that sets the <see cref="Material.color"/> property on all materials.
 /// </summary>
 public class ColorModifier : MaterialModifier 
 {
