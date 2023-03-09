@@ -22,10 +22,7 @@ public class MaterialModifier
     /// <param name="materialType">The type of material that this can be expected to be. Determined in <see cref="MaterialUtils.ApplySNShaders"/> based on specific keywords.</param>
     public void EditMaterial(Material material, Renderer renderer, MaterialUtils.MaterialType materialType)
     {
-        if (renderer is ParticleSystemRenderer)
-        {
-            ApplyChangesToMaterial(material, renderer, materialType);
-        }
+        ApplyChangesToMaterial(material, renderer, materialType);
     }
 
     /// <summary>
@@ -37,15 +34,15 @@ public class MaterialModifier
     }
 
     /// <summary>
-    /// Method called before any shader conversions and material modifiers are applied.<br/>
-    /// If <see langword="true"/> is returned from any MaterialModifier, the shader of <paramref name="material"/> will <i>not</i> be converted to MarmosetUBER. However, all modifiers will still be applied normally.
+    /// Method called before any shader conversions and material modifiers are applied. By default returns false.<br/>
+    /// If <see langword="true"/> is returned from ANY MaterialModifier, the shader of <paramref name="material"/> will <i>not</i> be converted to MarmosetUBER. However, all modifiers will still be applied normally.
     /// </summary>
     /// <param name="material">The material being evalauted.</param>
     /// <param name="renderer">The renderer using the <paramref name="material"/>.</param>
     /// <param name="materialType">The type of material that this can be expected to be. Determined in <see cref="MaterialUtils.ApplySNShaders"/> based on specific keywords.</param>
     /// <returns></returns>
-    public bool BlockShaderConversion(Material material, Renderer renderer, MaterialUtils.MaterialType materialType)
+    public virtual bool BlockShaderConversion(Material material, Renderer renderer, MaterialUtils.MaterialType materialType)
     {
-        return renderer is ParticleSystemRenderer;
+        return false;
     }
 }
