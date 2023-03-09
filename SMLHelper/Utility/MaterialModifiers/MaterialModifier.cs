@@ -10,18 +10,20 @@ public abstract class MaterialModifier
     /// <summary>
     /// Method called after all other material conversions have finished.
     /// </summary>
-    /// <param name="material">The material being modified.</param>
-    /// <param name="renderer">The renderer using the <paramref name="material"/>.</param>
-    /// <param name="materialType">The type of material that this can be expected to be. Determined in <see cref="MaterialUtils.ApplySNShaders"/> based on specific keywords.</param>
-    public void EditMaterial(Material material, Renderer renderer, MaterialUtils.MaterialType materialType)
+    public void EditMaterial(Material material, Renderer renderer, int materialIndex, MaterialUtils.MaterialType materialType)
     {
-        ApplyChangesToMaterial(material, renderer, materialType);
+        ApplyChangesToMaterial(material, renderer, materialIndex, materialType);
     }
 
     /// <summary>
     /// Method called after all other material conversions have finished. Override to implement your own custom behaviour, such as property changes or shader conversions.
     /// </summary>
-    protected virtual void ApplyChangesToMaterial(Material material, Renderer renderer, MaterialUtils.MaterialType materialType)
+    /// <param name="material">The material being modified.</param>
+    /// <param name="renderer">The renderer using the <paramref name="material"/>.</param>
+    /// <param name="materialIndex">The index of the given <paramref name="material"/> in its <see cref="Renderer"/>.</param>
+    /// <param name="materialType">The type of material that this can be expected to be. Determined in <see cref="MaterialUtils.ApplySNShaders"/> based on specific keywords.</param>
+
+    protected virtual void ApplyChangesToMaterial(Material material, Renderer renderer, int materialIndex, MaterialUtils.MaterialType materialType)
     {
 
     }

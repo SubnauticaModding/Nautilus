@@ -78,7 +78,7 @@ public static partial class MaterialUtils
                 {
                     foreach (var modifier in modifiers)
                     {
-                        modifier.EditMaterial(material, renderers[i], materialType);
+                        modifier.EditMaterial(material, renderers[i], j, materialType);
                     }
                 }
             }
