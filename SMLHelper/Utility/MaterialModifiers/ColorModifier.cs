@@ -28,16 +28,4 @@ public class ColorModifier : MaterialModifier
     {
         material.color = color;
     }
-
-    /// <summary>
-    /// Does not block shader conversions by default.
-    /// </summary>
-    /// <param name="material"></param>
-    /// <param name="renderer"></param>
-    /// <param name="materialType"></param>
-    /// <returns></returns>
-    public sealed override bool BlockShaderConversion(Material material, Renderer renderer, MaterialUtils.MaterialType materialType)
-    {
-        return false;
-    }
 }
