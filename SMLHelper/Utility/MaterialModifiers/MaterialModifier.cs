@@ -3,12 +3,12 @@
 using UnityEngine;
 
 /// <summary>
-/// Basic Material Modifier that only affects Particle Systems. By default ignores these materials completely. Can be overriden to implement custom behaviour.
+/// Base class for material modifiers. Can be overriden to implement custom behaviour.
 /// </summary>
-public class MaterialModifier
+public abstract class MaterialModifier
 {
     /// <summary>
-    /// Basic Material Modifier that only affects Particle Systems. By default ignores these materials completely. Can be overriden to implement custom behaviour.
+    /// Base class for material modifiers. Can be overriden to implement custom behaviour.
     /// </summary>
     public MaterialModifier()
     {

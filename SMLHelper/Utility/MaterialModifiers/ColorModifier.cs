@@ -3,14 +3,14 @@
 namespace SMLHelper.Utility.MaterialModifiers;
 
 /// <summary>
-/// Applies a color
+/// Sets the <see cref="Material.color"/> property on all materials.
 /// </summary>
 public class ColorModifier : MaterialModifier 
 {
     private Color color;
 
     /// <summary>
-    /// Constructor.
+    /// Sets the <see cref="Material.color"/> property on all materials.
     /// </summary>
     /// <param name="color"></param>
     public ColorModifier(Color color)
