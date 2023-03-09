@@ -19,7 +19,7 @@ public class ColorModifier : MaterialModifier
     }
 
     /// <summary>
-    /// Applies changes to the material.
+    /// Applies the color changes to the material.
     /// </summary>
     /// <param name="material"></param>
     /// <param name="renderer"></param>

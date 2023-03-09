@@ -8,13 +8,6 @@ using UnityEngine;
 public abstract class MaterialModifier
 {
     /// <summary>
-    /// Base class for material modifiers. Can be overriden to implement custom behaviour.
-    /// </summary>
-    public MaterialModifier()
-    {
-    }
-
-    /// <summary>
     /// Method called after all other material conversions have finished.
     /// </summary>
     /// <param name="material">The material being modified.</param>
@@ -26,7 +19,7 @@ public abstract class MaterialModifier
     }
 
     /// <summary>
-    /// Only called for Materials on ParticleRenderers. Override to implement your own custom behaviour, such as shader conversions.
+    /// Method called after all other material conversions have finished. Override to implement your own custom behaviour, such as property changes or shader conversions.
     /// </summary>
     protected virtual void ApplyChangesToMaterial(Material material, Renderer renderer, MaterialUtils.MaterialType materialType)
     {
