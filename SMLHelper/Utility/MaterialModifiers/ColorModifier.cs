@@ -5,7 +5,7 @@ namespace SMLHelper.Utility.MaterialModifiers;
 /// <summary>
 /// Basic material modifier that sets the <see cref="Material.color"/> property on all materials.
 /// </summary>
-public class ColorModifier : MaterialModifier 
+public sealed class ColorModifier : MaterialModifier 
 {
     private Color color;
 
@@ -21,7 +21,7 @@ public class ColorModifier : MaterialModifier
     /// <summary>
     /// Applies the color changes to the material.
     /// </summary>
-    protected sealed override void ApplyChangesToMaterial(Material material, Renderer renderer, int materialIndex, MaterialUtils.MaterialType materialType)
+    protected override void ApplyChangesToMaterial(Material material, Renderer renderer, int materialIndex, MaterialUtils.MaterialType materialType)
     {
         material.color = color;
     }
