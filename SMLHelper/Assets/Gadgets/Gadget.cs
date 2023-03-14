@@ -7,6 +7,9 @@ namespace SMLHelper.Assets.Gadgets;
 /// </summary>
 public abstract class Gadget
 {
+    /// <summary>
+    /// The custom prefab to operate on
+    /// </summary>
     protected readonly ICustomPrefab prefab;
 
     /// <summary>
