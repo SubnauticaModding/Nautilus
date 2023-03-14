@@ -21,7 +21,7 @@ public sealed class ColorModifier : MaterialModifier
     /// <summary>
     /// Applies the color changes to the material.
     /// </summary>
-    protected override void ApplyChangesToMaterial(Material material, Renderer renderer, int materialIndex, MaterialUtils.MaterialType materialType)
+    public override void EditMaterial(Material material, Renderer renderer, int materialIndex, MaterialUtils.MaterialType materialType)
     {
         material.color = color;
     }
