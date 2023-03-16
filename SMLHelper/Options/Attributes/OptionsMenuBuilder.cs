@@ -100,7 +100,7 @@
         /// <summary>
         /// Adds options to the menu based on the <see cref="ConfigFileMetadata"/>.
         /// </summary>
-        public override void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, List<OptionItem> options)
+        public override void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, IReadOnlyCollection<OptionItem> options)
         {
 
             // Conditionally load the config
