@@ -100,7 +100,7 @@
         /// <summary>
         /// Adds options to the menu based on the <see cref="ConfigFileMetadata"/>.
         /// </summary>
-        public override void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, IEnumerable<OptionItem> options)
+        public override void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, List<OptionItem> options)
         {
 
             // Conditionally load the config
@@ -112,7 +112,7 @@
                     RemoveItem(option.Id);
                 }
             }
-            if(Options.Count() == 0)
+            if(Options.Count == 0)
             {
                 foreach(KeyValuePair<string, ModOptionAttributeMetadata<T>> entry in ConfigFileMetadata.ModOptionAttributesMetadata
                     .OrderBy(x => x.Value.ModOptionAttribute.Order)
