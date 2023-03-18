@@ -21,7 +21,7 @@
         /// <summary>
         /// Obtains the <see cref="OptionItem"/>s that belong to this instance. Can be null.
         /// </summary>
-        public List<OptionItem> Options => new List<OptionItem>(_options.Values);
+        public IReadOnlyCollection<OptionItem> Options => _options.Values;
 
         // This is a dictionary now in case we want to get the ModOption quickly
         // based on the provided ID.
@@ -78,7 +78,7 @@
         /// <summary>
         /// Builds up the configuration the options.
         /// </summary>
-        public virtual void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, List<OptionItem> options)
+        public virtual void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, IReadOnlyCollection<OptionItem> options)
         {
             panel.AddHeading(modsTabIndex, Name);
             options.ForEach(option => option.AddToPanel(panel, modsTabIndex));
