@@ -16,11 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Version.targets = Version.targets
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build scripts", "Build scripts", "{6EF72E95-EA2D-44C1-8FB4-F0FE4865FFC4}"
-	ProjectSection(SolutionItems) = preProject
-		Scripts\SMLHelper-post-build.ps1 = Scripts\SMLHelper-post-build.ps1
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Thunderstore Metadata", "Thunderstore Metadata", "{3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BZ.EXP", "BZ.EXP", "{1C8C260D-E424-4CBD-B47B-A26809385EB1}"
@@ -80,7 +75,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6EF72E95-EA2D-44C1-8FB4-F0FE4865FFC4} = {5152F028-6D03-43C0-88C5-986313017D4F}
 		{3630BD6E-A8B0-4FE9-9027-E09666CFF9EA} = {5152F028-6D03-43C0-88C5-986313017D4F}
 		{1C8C260D-E424-4CBD-B47B-A26809385EB1} = {3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}
 		{A31ABC1E-22A8-4F0E-AD41-8627F45A2882} = {3630BD6E-A8B0-4FE9-9027-E09666CFF9EA}
