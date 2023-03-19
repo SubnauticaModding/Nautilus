@@ -51,7 +51,7 @@ public class CustomPrefabExamples : BaseUnityPlugin
         /*
          * Here we are setting the Titanium clone we created earlier as our item's prefab.
          */
-        titaniumClone.SetPrefab(cloneTemplate);
+        titaniumClone.SetGameObject(cloneTemplate);
 
         /*
          * Then we added biome spawns for our item.

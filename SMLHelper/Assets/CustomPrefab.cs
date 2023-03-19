@@ -31,10 +31,10 @@ public interface ICustomPrefab
     PrefabInfo Info { get; }
     
     /// <summary>
-    /// Function which constructs a game object as this prefab.
+    /// Function which constructs a game object for this prefab.
     /// </summary>
     PrefabFactoryAsync Prefab { get; }
-    
+
     /// <summary>
     /// Function that will be executed after the SMLHelper's basic processing for <see cref="Prefab"/> has been completed.
     /// </summary>
@@ -91,6 +91,12 @@ public interface ICustomPrefab
     /// </summary>
     /// <param name="onRegisterCallback">The action that will be called.</param>
     void AddOnRegister(Action onRegisterCallback);
+    
+    /// <summary>
+    /// Adds an action that will be called when this prefab has performed an unregister operation.
+    /// </summary>
+    /// <param name="onUnregisterCallback">The action that will be called.</param>
+    void AddOnUnregister(Action onUnregisterCallback);
 }
 
 /// <summary>
@@ -100,6 +106,7 @@ public class CustomPrefab : ICustomPrefab
 {
     private readonly Dictionary<Type, Gadget> _gadgets = new();
     private readonly List<Action> _onRegister = new();
+    private readonly List<Action> _onUnregister = new();
 
     private bool _registered;
 
@@ -204,29 +211,35 @@ public class CustomPrefab : ICustomPrefab
         _onRegister.Add(onRegisterCallback);
     }
 
+    /// <inheritdoc/>
+    public void AddOnUnregister(Action onUnregisterCallback)
+    {
+        _onUnregister.Add(onUnregisterCallback);
+    }
+
     /// <summary>
     /// Sets a function as the game object constructor of this custom prefab. This is an asynchronous version.
     /// </summary>
     /// <param name="prefabAsync">The function to set.</param>
-    public void SetPrefab(Func<IOut<GameObject>, IEnumerator> prefabAsync) => Prefab = obj => prefabAsync(obj);
+    public void SetGameObject(Func<IOut<GameObject>, IEnumerator> prefabAsync) => Prefab = obj => prefabAsync(obj);
 
     /// <summary>
     /// Sets a prefab template as the game object constructor of this custom prefab.
     /// </summary>
     /// <param name="prefabTemplate">The prefab template object to set.</param>
-    public void SetPrefab(PrefabTemplate prefabTemplate) => Prefab = prefabTemplate.GetPrefabAsync;
+    public void SetGameObject(PrefabTemplate prefabTemplate) => Prefab = prefabTemplate.GetPrefabAsync;
     
     /// <summary>
     /// Sets a game object as the prefab of this custom prefab.
     /// </summary>
     /// <param name="prefab">The game object to set.</param>
-    public void SetPrefab(GameObject prefab) => Prefab = obj => SyncPrefab(obj, prefab);
+    public void SetGameObject(GameObject prefab) => Prefab = obj => SyncPrefab(obj, prefab);
     
     /// <summary>
     /// Sets a function as the game object constructor of this custom prefab. This is a synchronous version.
     /// </summary>
     /// <param name="prefab">The function to set.</param>
-    public void SetPrefab(Func<GameObject> prefab) => Prefab = obj => SyncPrefab(obj, prefab?.Invoke());
+    public void SetGameObject(Func<GameObject> prefab) => Prefab = obj => SyncPrefab(obj, prefab?.Invoke());
 
     /// <summary>
     /// Sets a post processor for the <see cref="Prefab"/>. This is an asynchronous version.
@@ -277,6 +290,31 @@ public class CustomPrefab : ICustomPrefab
         PrefabHandler.Prefabs.RegisterPrefab(this);
 
         _registered = true;
+    }
+
+    /// <summary>
+    /// Unregisters this custom prefab from the game.
+    /// </summary>
+    /// <remarks>The class ID reference will be completely erased, however, the TechType instance will remain in the game.</remarks>
+    public void Unregister()
+    {
+        if (!_registered)
+            return;
+
+        if (string.IsNullOrEmpty(Info.ClassID) || string.IsNullOrEmpty(Info.PrefabFileName))
+        {
+            InternalLogger.Info($"Prefab '{Info}' is invalid or unknown. Skipping unregister operation.");
+            return;
+        }
+        
+        foreach (var unReg in _onUnregister)
+        {
+            unReg?.Invoke();
+        }
+        
+        PrefabHandler.Prefabs.UnregisterPrefab(this);
+
+        _registered = false;
     }
     
     private IEnumerator SyncPrefab(IOut<GameObject> obj, GameObject prefab)

@@ -19,7 +19,7 @@ public class CustomFabricatorExample : BaseUnityPlugin
 	    PrefabInfo stoneInfo = PrefabInfo.WithTechType("Stone", "Stone", "A good looking stone")
 		    .WithIcon(SpriteManager.Get(TechType.Nickel));
 	    CustomPrefab stone = new CustomPrefab(stoneInfo);
-	    stone.SetPrefab(new CloneTemplate(stone.Info, TechType.Nickel));
+	    stone.SetGameObject(new CloneTemplate(stone.Info, TechType.Nickel));
 	    stone.Register();
 	    
 	    /*
@@ -49,7 +49,7 @@ public class CustomFabricatorExample : BaseUnityPlugin
         {
 	        FabricatorModel = FabricatorTemplate.Model.Workbench
         };
-        customFab.SetPrefab(fabPrefab);
+        customFab.SetGameObject(fabPrefab);
 
         /*
          * This is a string example of how a RecipeData may look like in a json file. TechTypes can be
