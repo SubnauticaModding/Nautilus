@@ -193,6 +193,7 @@ public class ScanningGadget : Gadget
         return this;
     }
 
+    /// <inheritdoc/>
     protected internal override void Build()
     {
         if (prefab.Info.TechType is TechType.None)
