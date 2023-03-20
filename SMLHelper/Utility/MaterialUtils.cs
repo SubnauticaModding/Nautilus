@@ -14,6 +14,82 @@ public static partial class MaterialUtils
         PatchInternal();
 #endif
     }
+    
+    /// <summary>
+    /// Contains references to various shaders.
+    /// </summary>
+    public static class Shaders
+    {
+        private static Shader _marmosetUber;
+
+        /// <summary>
+        /// The <see cref="Shader"/> that is used for most materials in the game.
+        /// </summary>
+        public static Shader MarmosetUBER
+        {
+            get
+            {
+                if (_marmosetUber == null)
+                {
+                    _marmosetUber = Shader.Find("MarmosetUBER");
+                }
+                return _marmosetUber;
+            }
+        }
+
+        private static Shader _particlesUber;
+
+        /// <summary>
+        /// The <see cref="Shader"/> that is used for most particle systems.
+        /// </summary>
+        public static Shader ParticlesUBER
+        {
+            get
+            {
+                if (_particlesUber == null)
+                {
+                    _particlesUber = Shader.Find("UWE/Particles/UBER");
+                }
+                return _particlesUber;
+            }
+        }
+
+        private static Shader _ionCube;
+
+        /// <summary>
+        /// The <see cref="Shader"/> that is used for Ion Cubes.
+        /// </summary>
+        public static Shader IonCube
+        {
+            get
+            {
+                if (_ionCube == null)
+                {
+                    _ionCube = Shader.Find("UWE/Marmoset/IonCrystal");
+                }
+                return _ionCube;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Enum for some generic types of Materials.
+    /// </summary>
+    public enum MaterialType
+    {
+        /// <summary>
+        /// Solid material with no transparency.
+        /// </summary>
+        Opaque,
+        /// <summary>
+        /// See-through material.
+        /// </summary>
+        Transparent,
+        /// <summary>
+        /// Transparent pixels on the texture are not renderered. Useful for decals.
+        /// </summary>
+        Cutout
+    }
 
     /// <summary>
     /// Render queue used by opaque objects.
@@ -201,81 +277,5 @@ public static partial class MaterialUtils
         {
             material.DisableKeyword("MARMO_ALPHA_CLIP");
         }
-    }
-
-    /// <summary>
-    /// Contains references to various shaders.
-    /// </summary>
-    public static class Shaders
-    {
-        private static Shader _marmosetUber;
-
-        /// <summary>
-        /// The <see cref="Shader"/> that is used for most materials in the game.
-        /// </summary>
-        public static Shader MarmosetUBER
-        {
-            get
-            {
-                if (_marmosetUber == null)
-                {
-                    _marmosetUber = Shader.Find("MarmosetUBER");
-                }
-                return _marmosetUber;
-            }
-        }
-
-        private static Shader _particlesUber;
-
-        /// <summary>
-        /// The <see cref="Shader"/> that is used for most particle systems.
-        /// </summary>
-        public static Shader ParticlesUBER
-        {
-            get
-            {
-                if (_particlesUber == null)
-                {
-                    _particlesUber = Shader.Find("UWE/Particles/UBER");
-                }
-                return _particlesUber;
-            }
-        }
-
-        private static Shader _ionCube;
-
-        /// <summary>
-        /// The <see cref="Shader"/> that is used for Ion Cubes.
-        /// </summary>
-        public static Shader IonCube
-        {
-            get
-            {
-                if (_ionCube == null)
-                {
-                    _ionCube = Shader.Find("UWE/Marmoset/IonCrystal");
-                }
-                return _ionCube;
-            }
-        }
-    }
-    
-    /// <summary>
-    /// Enum for some generic types of Materials.
-    /// </summary>
-    public enum MaterialType
-    {
-        /// <summary>
-        /// Solid material with no transparency.
-        /// </summary>
-        Opaque,
-        /// <summary>
-        /// See-through material.
-        /// </summary>
-        Transparent,
-        /// <summary>
-        /// Transparent pixels on the texture are not renderered. Useful for decals.
-        /// </summary>
-        Cutout
     }
 }

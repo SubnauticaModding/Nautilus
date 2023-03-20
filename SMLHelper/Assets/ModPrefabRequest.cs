@@ -1,4 +1,7 @@
-﻿namespace SMLHelper.Assets
+﻿using SMLHelper.Handlers;
+using SMLHelper.Utility;
+
+namespace SMLHelper.Assets
 {
     using System.Collections;
     using UnityEngine;
@@ -7,15 +10,15 @@
     // request for getting ModPrefab asynchronously
     internal class ModPrefabRequest: IPrefabRequest, IEnumerator
     {
-        private readonly ModPrefab modPrefab;
+        private readonly PrefabInfo prefabInfo;
 
         private int state = 0;
         private CoroutineTask<GameObject> task;
         private TaskResult<GameObject> taskResult;
 
-        public ModPrefabRequest(ModPrefab modPrefab)
+        public ModPrefabRequest(PrefabInfo prefabInfo)
         {
-            this.modPrefab = modPrefab;
+            this.prefabInfo = prefabInfo;
         }
 
         private void Init()
@@ -26,7 +29,13 @@
             }
 
             taskResult = new TaskResult<GameObject>();
-            task = new CoroutineTask<GameObject>(modPrefab.GetGameObjectInternalAsync(taskResult), taskResult);
+            if (!PrefabHandler.Prefabs.TryGetPrefabForInfo(prefabInfo, out var factory))
+            {
+                InternalLogger.Error($"Couldn't find a prefab for the following prefab info: {prefabInfo}.");
+                return;
+            }
+            
+            task = new CoroutineTask<GameObject>(PrefabHandler.ProcessPrefabAsync(taskResult, prefabInfo, factory), taskResult);
         }
 
         public object Current

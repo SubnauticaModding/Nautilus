@@ -4,12 +4,13 @@ namespace SMLHelper.Patchers
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using BepInEx.Logging;
     using HarmonyLib;
     using SMLHelper.Utility;
 
     internal partial class CraftDataPatcher
     {
-        internal static readonly IDictionary<TechType, JsonValue> CustomTechData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
+        internal static readonly IDictionary<TechType, JsonValue> CustomRecipeData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
 
         private static void PatchForBelowZero(Harmony harmony)
         {
@@ -22,7 +23,7 @@ namespace SMLHelper.Patchers
 
         private static void CheckPatchRequired(TechType techType)
         {
-            if (CustomTechData.TryGetValue(techType, out JsonValue smlTechData))
+            if (CustomRecipeData.TryGetValue(techType, out JsonValue smlTechData))
             {
                 if (!TechData.entries.TryGetValue(techType, out JsonValue techData) ||
                     smlTechData != techData)
@@ -36,7 +37,7 @@ namespace SMLHelper.Patchers
         {
             List<TechType> added = new();
             List<TechType> updated = new();
-            foreach (KeyValuePair<TechType, JsonValue> customTechData in CustomTechData)
+            foreach (KeyValuePair<TechType, JsonValue> customTechData in CustomRecipeData)
             {
                 JsonValue smlTechData = customTechData.Value;
                 TechType techType = customTechData.Key;
@@ -61,7 +62,7 @@ namespace SMLHelper.Patchers
             for (int i = 0; i < updated.Count; i++)
             {
                 TechType updatedTechData = updated[i];
-                CustomTechData[updatedTechData] = TechData.entries[updatedTechData];
+                CustomRecipeData[updatedTechData] = TechData.entries[updatedTechData];
             }
 
             if (added.Count > 0)

@@ -14,12 +14,12 @@ namespace SMLHelper.Handlers
         /// <para>Allows you to add or edit RecipeData for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to edit.</param>
-        /// <param name="recipeData">The TechData for that TechType.</param>
+        /// <param name="techType">The TechType whose RecipeData you want to edit.</param>
+        /// <param name="recipeData">The RecipeData for that TechType.</param>
         /// <seealso cref="RecipeData"/>
-        public static void SetTechData(TechType techType, RecipeData recipeData)
+        public static void SetRecipeData(TechType techType, RecipeData recipeData)
         {
-            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue jsonValue))
+            if (CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue jsonValue))
             {
                 jsonValue[TechData.PropertyToID("techType")] = new JsonValue((int)techType);
                 jsonValue[TechData.PropertyToID("craftAmount")] = new JsonValue(recipeData.craftAmount);
@@ -32,7 +32,7 @@ namespace SMLHelper.Handlers
                     { TechData.PropertyToID("craftAmount"), new JsonValue(recipeData.craftAmount) }
                 };
 
-                CraftDataPatcher.CustomTechData.Add(techType, jsonValue);
+                CraftDataPatcher.CustomRecipeData.Add(techType, jsonValue);
             }
 
             if (recipeData.ingredientCount > 0)
@@ -49,15 +49,15 @@ namespace SMLHelper.Handlers
         /// <para>Allows you to edit recipes for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to edit.</param>
+        /// <param name="techType">The TechType whose RecipeData you want to edit.</param>
         /// <param name="ingredients">The collection of Ingredients for that TechType.</param>
         /// <seealso cref="Ingredient"/>
         public static void SetIngredients(TechType techType, ICollection<Ingredient> ingredients)
         {
-            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue smlJsonValue))
+            if (!CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue smlJsonValue))
             {
                 smlJsonValue = new JsonValue();
-                CraftDataPatcher.CustomTechData.Add(techType, smlJsonValue);
+                CraftDataPatcher.CustomRecipeData.Add(techType, smlJsonValue);
             }
 
             if (!smlJsonValue.Contains(TechData.PropertyToID("ingredients")))
@@ -91,15 +91,15 @@ namespace SMLHelper.Handlers
         /// <para>Allows you to edit Linked Items for TechTypes.</para>
         /// <para>Can be used for existing TechTypes too.</para>
         /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to edit.</param>
+        /// <param name="techType">The TechType whose RecipeData you want to edit.</param>
         /// <param name="linkedItems">The collection of Ingredients for that TechType.</param>
         /// <seealso cref="Ingredient"/>
         public static void SetLinkedItems(TechType techType, ICollection<TechType> linkedItems)
         {
-            if (!CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue smlJsonValue))
+            if (!CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue smlJsonValue))
             {
-                CraftDataPatcher.CustomTechData.Add(techType, new JsonValue());
-                smlJsonValue = CraftDataPatcher.CustomTechData[techType];
+                CraftDataPatcher.CustomRecipeData.Add(techType, new JsonValue());
+                smlJsonValue = CraftDataPatcher.CustomRecipeData[techType];
             }
 
             if (!smlJsonValue.Contains(TechData.PropertyToID("linkedItems")))
@@ -126,9 +126,9 @@ namespace SMLHelper.Handlers
         /// <summary>
         /// Safely accesses the crafting data from a Modded or Vanilla item.<para/>
         /// WARNING: This method is highly dependent on mod load order. 
-        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// Make sure your mod is loading after the mod whose RecipeData you are trying to access.
         /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to access.</param>
+        /// <param name="techType">The TechType whose RecipeData you want to access.</param>
         /// <returns>The RecipeData from the item if it exists; Otherwise, returns <c>null</c>.</returns>
         public static RecipeData GetRecipeData(TechType techType)
         {
@@ -152,20 +152,11 @@ namespace SMLHelper.Handlers
             return null;
         }
 
-
         /// <summary>
-        /// Safely accesses the crafting data from a modded or vanilla item.<para/>
-        /// WARNING: This method is highly dependent on mod load order. 
-        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// Converts the Games JsonValue data into SMLHelpers RecipeData.
         /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to access.</param>
-        /// <returns>The JsonValue from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
-        public static RecipeData GetTechData(TechType techType)
-        {
-            return GetRecipeData(techType);
-        }
-
-        private static RecipeData ConvertToRecipeData(JsonValue techData)
+        /// <param name="techData"></param
+        public static RecipeData ConvertToRecipeData(JsonValue techData)
         {
             RecipeData currentRecipeData = new()
             {
@@ -208,13 +199,13 @@ namespace SMLHelper.Handlers
         /// <summary>
         /// Safely accesses the crafting data from a Modded item.<para/>
         /// WARNING: This method is highly dependent on mod load order. 
-        /// Make sure your mod is loading after the mod whose TechData you are trying to access.
+        /// Make sure your mod is loading after the mod whose RecipeData you are trying to access.
         /// </summary>
-        /// <param name="techType">The TechType whose TechData you want to access.</param>
+        /// <param name="techType">The TechType whose RecipeData you want to access.</param>
         /// <returns>The RecipeData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
         public static RecipeData GetModdedRecipeData(TechType techType)
         {
-            return CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue techData) ? ConvertToRecipeData(techData) : null;
+            return CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue techData) ? ConvertToRecipeData(techData) : null;
         }
 
         /// <summary>
@@ -391,13 +382,13 @@ namespace SMLHelper.Handlers
 
         private static void AddJsonProperty(TechType techType, string key, JsonValue newValue)
         {
-            if (CraftDataPatcher.CustomTechData.TryGetValue(techType, out JsonValue techData))
+            if (CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue techData))
             {
                 techData[TechData.PropertyToID(key)] = newValue;
             }
             else
             {
-                CraftDataPatcher.CustomTechData[techType] = new JsonValue
+                CraftDataPatcher.CustomRecipeData[techType] = new JsonValue
                 {
                     {
                         TechData.PropertyToID("techType"),

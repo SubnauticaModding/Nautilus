@@ -17,7 +17,7 @@
         /// <param name="techType">The TechType you want to add.</param>
         public static void AddToGroup(TechGroup group, TechCategory category, TechType techType)
         {
-            CraftDataPatcher.AddToCustomGroup(group, category, techType, TechType.None);
+            CraftDataPatcher.AddToGroup(group, category, techType, TechType.None);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@
         /// <param name="after">Added TechType will be added after this TechType, for sorting purposes.</param>
         public static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType after)
         {
-            CraftDataPatcher.AddToCustomGroup(group, category, techType, after);
+            CraftDataPatcher.AddToGroup(group, category, techType, after);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@
         /// <param name="techType">The TechType which you want to remove.</param>
         public static void RemoveFromGroup(TechGroup group, TechCategory category, TechType techType)
         {
-            CraftDataPatcher.RemoveFromCustomGroup(group, category, techType);
+            CraftDataPatcher.RemoveFromGroup(group, category, techType);
         }
     }
 }

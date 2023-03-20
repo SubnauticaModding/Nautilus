@@ -48,13 +48,13 @@
                 WriteSpace(sb);
             }
 
-            if (techType.IsVanillaTechType())
+            if (techType.IsDefinedByDefault())
 #if SUBNAUTICA
                 WriteModName(sb, "Subnautica");
 #elif BELOWZERO
                 WriteModName(sb, "BelowZero");
 #endif
-            else if (EnumHandler.TryGetModAssembly(techType, out Assembly assembly))
+            else if (EnumHandler.TryGetOwnerAssembly(techType, out Assembly assembly))
             {
                 WriteModNameFromAssembly(sb, assembly);
             }

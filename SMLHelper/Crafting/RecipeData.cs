@@ -1,14 +1,18 @@
-﻿#if BELOWZERO
-#pragma warning disable IDE1006 // Naming Styles - Ignored for backwards compatibility
-namespace SMLHelper.Crafting
+﻿namespace SMLHelper.Crafting
 {
     using System.Collections.Generic;
+    using Newtonsoft.Json;
+#if SUBNAUTICA
+    using static CraftData;
+#endif
 
     /// <summary>
     /// A class that fully describes a recipe for a <see cref="TechType"/> identified item.
     /// </summary>
-    /// <seealso cref="TechData" />
     public class RecipeData
+#if SUBNAUTICA
+        : ITechData
+#endif
     {
         /// <summary>
         /// Gets or sets the how many copies of the item are created when crafting this recipe.
@@ -16,6 +20,7 @@ namespace SMLHelper.Crafting
         /// <value>
         /// The quantity of the item this recipe yields.
         /// </value>
+        [JsonProperty]
         public int craftAmount { get; set; }
 
         /// <summary>
@@ -24,6 +29,7 @@ namespace SMLHelper.Crafting
         /// <value>
         /// The number of ingredients for this recipe.
         /// </value>
+        [JsonIgnore]
         public int ingredientCount => Ingredients.Count;
 
         /// <summary>
@@ -32,25 +38,28 @@ namespace SMLHelper.Crafting
         /// <value>
         /// The number of linked items.
         /// </value>
+        [JsonIgnore]
         public int linkedItemCount => LinkedItems.Count;
 
         /// <summary>
         /// The list of ingredients required for this recipe.
         /// </summary>
+        [JsonProperty]
         public List<Ingredient> Ingredients = new();
 
         /// <summary>
         /// The items that will also be created when this recipe is crafted.
         /// </summary>
+        [JsonProperty]
         public List<TechType> LinkedItems = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TechData"/> class a custom recipe.
+        /// Initializes a new instance of the <see cref="RecipeData"/> class a custom recipe.
         /// </summary>
         public RecipeData() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TechData"/> class for a custom recipe with a list of ingridients.
+        /// Initializes a new instance of the <see cref="RecipeData"/> class for a custom recipe with a list of ingridients.
         /// </summary>
         /// <param name="ingredients">The ingredients.</param>
         public RecipeData(List<Ingredient> ingredients)
@@ -59,7 +68,7 @@ namespace SMLHelper.Crafting
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TechData"/> class for a custom recipe with a collection of ingridients.
+        /// Initializes a new instance of the <see cref="RecipeData"/> class for a custom recipe with a collection of ingridients.
         /// </summary>
         /// <param name="ingredients">The ingredients.</param>
         public RecipeData(params Ingredient[] ingredients)
@@ -68,6 +77,14 @@ namespace SMLHelper.Crafting
             {
                 Ingredients.Add(ingredient);
             }
+        }
+
+        [JsonConstructor]
+        internal RecipeData(int craftAmount, List<Ingredient> ingredients, List<TechType> linkedItems)
+        {
+            this.craftAmount = craftAmount;
+            Ingredients = ingredients ?? new();
+            LinkedItems = linkedItems ?? new();
         }
 
         /// <summary>
@@ -85,6 +102,13 @@ namespace SMLHelper.Crafting
             return null;
         }
 
+#if SUBNAUTICA
+        IIngredient ITechData.GetIngredient(int index)
+        {
+            return GetIngredient(index);
+        }
+#endif
+
         /// <summary>
         /// Gets the linked item at the specified index.
         /// </summary>
@@ -100,5 +124,3 @@ namespace SMLHelper.Crafting
         }
     }
 }
-#pragma warning restore IDE1006 // Naming Styles
-#endif

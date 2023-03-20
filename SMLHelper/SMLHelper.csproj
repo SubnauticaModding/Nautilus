@@ -6,6 +6,7 @@
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <RootNamespace>SMLHelper</RootNamespace>
     <AssemblyName>SMLHelper</AssemblyName>
+    <BepInExPluginGuid>com.snmodding.smlhelper</BepInExPluginGuid>
     <LangVersion>11</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
@@ -45,10 +46,14 @@
   </ItemDefinitionGroup>
 
   <ItemGroup>
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.0" />
     <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
-    <PackageReference Include="PolySharp" Version="1.8.3" />
+    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
+    <PackageReference Include="PolySharp" Version="1.12.1" />
+
+    <Publicize Include="Newtonsoft.Json" />
   </ItemGroup>
   <Import Project="$(SolutionDir)PostBuild.targets" />
 </Project>

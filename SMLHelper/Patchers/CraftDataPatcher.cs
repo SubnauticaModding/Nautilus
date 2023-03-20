@@ -1,4 +1,6 @@
-﻿namespace SMLHelper.Patchers
+﻿using SMLHelper.Handlers;
+
+namespace SMLHelper.Patchers
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +9,7 @@
     using HarmonyLib;
     using Utility;
     using UnityEngine;
+    using System.Linq;
 
     internal partial class CraftDataPatcher
     {
@@ -18,7 +21,9 @@
 
         #region Group Handling
 
-        internal static void AddToCustomGroup(TechGroup group, TechCategory category, TechType techType, TechType after)
+        internal static bool ModPrefabsPatched;
+
+        internal static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType after)
         {
             if (!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
             {
@@ -35,7 +40,6 @@
 
             if(techCategory.Contains(techType))
             {
-                InternalLogger.Log($"\"{techType.AsString():G}\" Already exists at \"{group:G}->{category:G}\", Skipping Duplicate Entry", LogLevel.Debug);
                 return;
             }
 
@@ -54,7 +58,7 @@
             }
         }
 
-        internal static void RemoveFromCustomGroup(TechGroup group, TechCategory category, TechType techType)
+        internal static void RemoveFromGroup(TechGroup group, TechCategory category, TechType techType)
         {
             if(!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
             {
@@ -87,6 +91,7 @@
             PatchForBelowZero(harmony);
 #endif
             harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
+                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePrefix))),
                postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
             PatchUtils.PatchClass(harmony);
 
@@ -126,21 +131,29 @@
             return;
         }
 
+        private static bool NeedsPatching = true;
+
+        private static void CraftDataPrefabIDCachePrefix()
+        {
+            NeedsPatching = CraftData.cacheInitialized;
+        }
+
         private static void CraftDataPrefabIDCachePostfix()
         {
-            if (ModPrefabCache.ModPrefabsPatched)
-            {
+            if(!NeedsPatching && ModPrefabsPatched)
                 return;
-            }
 
             Dictionary<TechType, string> techMapping = CraftData.techMapping;
             Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
-            foreach (ModPrefab prefab in ModPrefabCache.Prefabs)
+            foreach (var prefab in PrefabHandler.Prefabs)
             {
-                techMapping[prefab.TechType] = prefab.ClassID;
-                entClassTechTable[prefab.ClassID] = prefab.TechType;
+                if (prefab.Key.TechType is TechType.None)
+                    continue;
+                
+                techMapping[prefab.Key.TechType] = prefab.Key.ClassID;
+                entClassTechTable[prefab.Key.ClassID] = prefab.Key.TechType;
             }
-            ModPrefabCache.ModPrefabsPatched = true;
+            ModPrefabsPatched = true;
         }
         #endregion
     }

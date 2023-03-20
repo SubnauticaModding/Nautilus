@@ -67,7 +67,7 @@ internal interface IEnumCache
     bool TryGetValue(object key, out string name);
     bool ContainsKey(object key);
     bool TryParse(string value, out object type);
-    EnumTypeCache RequestCacheForTypeName(string name, bool checkDeactivated = true, bool checkRequestedOnly = false);
+    EnumTypeCache RequestCacheForTypeName(string name, bool checkDeactivated = true, bool checkRequestedOnly = false, Assembly addedBy = null);
 }
 
 internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
@@ -372,12 +372,12 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         }
     }
 
-    EnumTypeCache IEnumCache.RequestCacheForTypeName(string name, bool checkDeactivated, bool checkRequestedOnly)
+    EnumTypeCache IEnumCache.RequestCacheForTypeName(string name, bool checkDeactivated, bool checkRequestedOnly, Assembly addedBy)
     {
-        return RequestCacheForTypeName(name, checkDeactivated);
+        return RequestCacheForTypeName(name, checkDeactivated, checkRequestedOnly, addedBy);
     }
 
-    internal EnumTypeCache RequestCacheForTypeName(string name, bool checkDeactivated = true, bool checkRequestedOnly = false)
+    internal EnumTypeCache RequestCacheForTypeName(string name, bool checkDeactivated = true, bool checkRequestedOnly = false, Assembly addedBy = null)
     {
         LoadCache();
 
@@ -388,11 +388,15 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         else if (!checkRequestedOnly && entriesFromFile.TryGetValue(name, out value))
         {
             entriesFromRequests.Add(value, name);
+            if(addedBy != null)
+                TypesAddedBy[name] = addedBy;
             return new EnumTypeCache(value, name);
         }
         else if (!checkRequestedOnly && checkDeactivated && entriesFromDeactivatedFile.TryGetValue(name, out value))
         {
             entriesFromRequests.Add(value, name);
+            if(addedBy != null)
+                TypesAddedBy[name] = addedBy;
             entriesFromDeactivatedFile.Remove(value, name);
             return new EnumTypeCache(value, name);
         }

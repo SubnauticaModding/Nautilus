@@ -1,7 +1,12 @@
 ﻿namespace SMLHelper.Crafting
 {
     using System;
-
+    using System.Collections.Generic;
+    using SMLHelper.Assets;
+    using SMLHelper.Utility;
+    using System.Linq;
+    using SMLHelper.Handlers;
+    
     /// <summary>
     /// The root node of a CraftTree. The whole tree starts here.<para/>
     /// Build up your custom crafting tree from this root node using the AddCraftingNode and AddTabNode methods.<br/>
@@ -9,10 +14,13 @@
     /// For more advanced usage, you can replace the default value of <see cref="CraftTreeCreation"/> with your own custom function.        
     /// </summary>    
     /// <seealso cref="ModCraftTreeLinkingNode" />
-    public class ModCraftTreeRoot : ModCraftTreeLinkingNode
+    public class ModCraftTreeRoot: ModCraftTreeLinkingNode
     {
         private readonly string _schemeAsString;
         private readonly CraftTree.Type _scheme;
+
+        private const string RootNode = "root";
+        internal Dictionary<string, ModCraftTreeLinkingNode> CraftTreeLinkingNodes { get; } = new();
 
         internal override string SchemeAsString => _schemeAsString;
         internal override CraftTree.Type Scheme => _scheme;
@@ -23,7 +31,7 @@
             _schemeAsString = schemeAsString;
             _scheme = scheme;
             HasCustomTrees = true;
-
+            CraftTreeLinkingNodes.Add(RootNode, this);
             CraftTreeCreation = () => new CraftTree(_schemeAsString, CraftNode);
         }
 
@@ -40,16 +48,16 @@
         /// <param name="root"></param>
         internal static void CreateFromExistingTree(CraftNode tree, ref ModCraftTreeLinkingNode root)
         {
-            foreach (CraftNode node in tree)
+            foreach(CraftNode node in tree)
             {
-                if (node.action == TreeAction.Expand)
+                if(node.action == TreeAction.Expand)
                 {
                     ModCraftTreeTab tab = root.AddTabNode(node.id);
                     ModCraftTreeLinkingNode thing = (ModCraftTreeLinkingNode)tab;
                     CreateFromExistingTree(node, ref thing);
                 }
 
-                if (node.action == TreeAction.Craft)
+                if(node.action == TreeAction.Craft)
                 {
                     TechTypeExtensions.FromString(node.id, out TechType techType, false);
 
@@ -65,6 +73,122 @@
         /// </summary>
         public Func<CraftTree> CraftTreeCreation;
 
+#if SUBNAUTICA
+        /// <summary>
+        /// Adds a new tab node to the custom crafting tree of this fabricator.
+        /// </summary>
+        /// <param name="tabId">The internal ID for the tab node.</param>
+        /// <param name="displayText">The in-game text shown for the tab node.</param>
+        /// <param name="tabSprite">The sprite used for the tab node.</param>
+        /// <param name="parentTabId">Optional. The parent tab of this tab.<para/>
+        /// When this value is null, the tab will be added to the root of the craft tree.</param>
+        public ModCraftTreeRoot AddTabNode(string tabId, string displayText, Atlas.Sprite tabSprite, string parentTabId = null)
+        {
+            if(string.IsNullOrWhiteSpace(tabId))
+                throw new ArgumentNullException($"{this.SchemeAsString} tried to add a tab without an id! tabid cannot be null or empty spaces!");
+
+            ModCraftTreeLinkingNode parentTab;
+            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
+                parentTab = CraftTreeLinkingNodes[RootNode];
+
+            if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Craft))
+            {
+                ModCraftTreeTab tab = parentTab.AddTabNode(tabId, displayText, tabSprite);
+                CraftTreeLinkingNodes[tabId] = tab;
+            }
+            else
+            {
+                InternalLogger.Error($"Cannot add tab: {tabId} as it is being added to a parent node that contains crafting nodes.");
+            }
+            return this;
+        }
+#endif
+
+        /// <summary>
+        /// Adds a new tab node to the custom crafting tree of this fabricator.
+        /// </summary>
+        /// <param name="tabId">The internal ID for the tab node.</param>
+        /// <param name="displayText">The in-game text shown for the tab node.</param>
+        /// <param name="tabSprite">The sprite used for the tab node.</param>
+        /// <param name="parentTabId">Optional. The parent tab of this tab.<para/>
+        /// When this value is null, the tab will be added to the root of the craft tree.</param>
+        public ModCraftTreeRoot AddTabNode(string tabId, string displayText, UnityEngine.Sprite tabSprite, string parentTabId = null)
+        {
+            if(string.IsNullOrWhiteSpace(tabId))
+                throw new ArgumentNullException($"{this.SchemeAsString} tried to add a tab without an id! tabid cannot be null or empty spaces!");
+
+            ModCraftTreeLinkingNode parentTab;
+            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
+                parentTab = CraftTreeLinkingNodes[RootNode];
+
+            if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Craft))
+            {
+                ModCraftTreeTab tab = parentTab.AddTabNode(tabId, displayText, tabSprite);
+                CraftTreeLinkingNodes[tabId] = tab;
+            }
+            else
+            {
+                InternalLogger.Error($"Cannot add tab: {tabId} as it is being added to a parent node that contains crafting nodes.");
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// Adds a new crafting node to the custom crafting tree of this fabricator.
+        /// </summary>
+        /// <param name="techType">The item to craft.</param>
+        /// <param name="parentTabId">Optional. The parent tab of this craft node.<para/>
+        /// When this value is null, the craft node will be added to the root of the craft tree.</param>
+        public ModCraftTreeRoot AddCraftNode(TechType techType, string parentTabId = null)
+        {
+            ModCraftTreeLinkingNode parentTab;
+            if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
+                parentTab = CraftTreeLinkingNodes[RootNode];
+
+            if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Expand))
+            {
+                InternalLogger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{this.SchemeAsString}'");
+                parentTab.AddCraftingNode(techType);
+            }
+            else
+            {
+                InternalLogger.Error($"Cannot add crafting node: {techType} as it is being added to {parentTab.Name} that contains tab nodes. {string.Join(", ",parentTab.ChildNodes.Where(node=> node.Action == TreeAction.Expand).Select(x=>x.Name))} ");
+            }
+            return this;
+        }
+
+        /// <summary>
+        /// Safely attempts to add a new crafting node to the custom crafting tree of this fabricator.<para/>
+        /// If the modded TechType is not found, the craft node will not be added.
+        /// </summary>
+        /// <param name="moddedTechType">The modded item to craft.</param>
+        /// <param name="parentTabId">Optional. The parent tab of this craft node.<para/>
+        /// When this value is null, the craft node will be added to the root of the craft tree.</param>
+        public ModCraftTreeRoot AddCraftNode(string moddedTechType, string parentTabId = null)
+        {
+            if(EnumHandler.TryGetValue(moddedTechType, out TechType techType))
+            {
+                ModCraftTreeLinkingNode parentTab;
+                if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
+                    parentTab = CraftTreeLinkingNodes[RootNode];
+
+                if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Expand))
+                {
+                    InternalLogger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{this.SchemeAsString}'");
+                    parentTab.AddCraftingNode(techType);
+                }
+                else
+                {
+                    InternalLogger.Error($"Cannot add crafting node: {techType} as it is being added to a parent node that contains tab nodes.");
+                }
+            }
+            else
+            {
+                InternalLogger.Info($"Did not find a TechType value for '{moddedTechType}' to add to the custom craft tree '{this.SchemeAsString}'");
+            }
+            return this;
+        }
+
         /// <summary>
         /// Gets the tab node at the specified path from the root.
         /// </summary>
@@ -78,7 +202,7 @@
         {
             ModCraftTreeTab tab = base.GetTabNode(stepsToTab[0]);
 
-            for (int i = 1; i < stepsToTab.Length && tab != null; i++)
+            for(int i = 1; i < stepsToTab.Length && tab != null; i++)
             {
                 tab = tab.GetTabNode(stepsToTab[i]);
             }
@@ -97,7 +221,7 @@
         /// <returns>If the specified tab node is found, returns that <see cref="ModCraftTreeNode"/>; Otherwise, returns null.</returns>
         public ModCraftTreeNode GetNode(params string[] stepsToNode)
         {
-            if (stepsToNode.Length == 1)
+            if(stepsToNode.Length == 1)
             {
                 return base.GetNode(stepsToNode[0]);
             }

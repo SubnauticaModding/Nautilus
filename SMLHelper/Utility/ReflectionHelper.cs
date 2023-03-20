@@ -202,6 +202,9 @@
             foreach (StackFrame stackFrame in frames)
             {
                 Assembly ownerAssembly = stackFrame.GetMethod().DeclaringType.Assembly;
+                if(ownerAssembly.GetName().Name.StartsWith("Unity"))
+                    return smlHelperAssembly;
+
                 if (ownerAssembly != smlHelperAssembly)
                 {
                     return ownerAssembly;
