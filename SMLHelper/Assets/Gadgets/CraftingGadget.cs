@@ -36,8 +36,8 @@ public class CraftingGadget : Gadget
     /// <summary>
     /// Constructs a crafting gadget.
     /// </summary>
-    /// <param name="prefab"><inheritdoc cref="Gadget(ICustomPrefab)"/></param>
-    /// <param name="techData">The crafting recipe to add.</param>
+    /// <param name="prefab">The custom prefab to operate on.</param>
+    /// <param name="recipeData">The crafting recipe to add.</param>
     [SetsRequiredMembers]
     public CraftingGadget(ICustomPrefab prefab, RecipeData recipeData) : base(prefab)
     {

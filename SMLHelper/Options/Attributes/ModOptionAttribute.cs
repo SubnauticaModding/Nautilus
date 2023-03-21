@@ -41,7 +41,7 @@
         /// An optional id to be parsed with <see cref="Language.Get(string)"/> for the label, allowing for custom language-based strings
         /// via the <see cref="LanguageHandler"/> API. If this is set, it will take precedence.
         /// </summary>
-        /// <seealso cref="LanguageHandler.SetLanguageLine(string, string)"/>
+        /// <seealso cref="LanguageHandler.SetLanguageLine(string, string, string)"/>
         /// <seealso cref="Language.Get(string)"/>
         public string LabelLanguageId { get; set; }
 

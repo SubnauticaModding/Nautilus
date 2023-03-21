@@ -1,7 +1,5 @@
 using System.IO;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 using SMLHelper.Crafting;
 using SMLHelper.Handlers;
 using SMLHelper.Json.Converters;
@@ -24,7 +22,7 @@ public static class GadgetExtensions
     /// <returns>An instance to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
     public static CraftingGadget SetRecipe(this ICustomPrefab customPrefab, RecipeData recipeData)
     {
-        if (customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
+        if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
         { 
             craftingGadget = new CraftingGadget(customPrefab, recipeData);
         }
@@ -61,7 +59,7 @@ public static class GadgetExtensions
             return null;
         }
 
-        if (customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
+        if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
         { 
             craftingGadget = new CraftingGadget(customPrefab, recipeData);
         }

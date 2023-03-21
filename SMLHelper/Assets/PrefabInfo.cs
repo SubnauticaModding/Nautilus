@@ -19,12 +19,13 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
     /// Constructs a new <see cref="PrefabInfo"/> instance with automatically set <see cref="PrefabFileName"/> and <see cref="TechType"/>.
     /// </summary>
     /// <param name="classId">The class identifier used for the <see cref="PrefabIdentifier"/> component whenever applicable.</param>
-    /// <param name="displayName">The display name for this tech type.</param>
-    /// <param name="description">The description for this tech type.</param>
+    /// <param name="displayName">The display name of this Tech Type, can be anything. If null or empty, this will use the language line "{enumName}" instead.</param>
+    /// <param name="description">The tooltip displayed when hovered in the PDA, can be anything. If null or empty, this will use the language line "Tooltip_{enumName}" instead.</param>
+    /// <param name="language">The language for this entry. Defaults to English.</param>
     /// <param name="unlockAtStart">Whether this tech type should be unlocked on game start or not. Default to <see langword="true"/>.</param>
     /// <param name="techTypeOwner">The assembly that owns the created tech type. The name of this assembly will be shown in the PDA.</param>
     /// <returns>An instance of the constructed <see cref="PrefabInfo"/>.</returns>
-    public static PrefabInfo WithTechType(string classId, string displayName, string description, bool unlockAtStart = true, Assembly techTypeOwner = null)
+    public static PrefabInfo WithTechType(string classId, string displayName, string description, string language = "English", bool unlockAtStart = true, Assembly techTypeOwner = null)
     {
         techTypeOwner ??= Assembly.GetCallingAssembly();
         techTypeOwner = techTypeOwner == Assembly.GetExecutingAssembly()
@@ -34,7 +35,7 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
         (
             classId, 
             classId + "Prefab",
-            EnumHandler.AddEntry<TechType>(classId, techTypeOwner).WithPdaInfo(displayName, description, unlockAtStart)
+            EnumHandler.AddEntry<TechType>(classId, techTypeOwner).WithPdaInfo(displayName, description, language, unlockAtStart)
         );
     }
 

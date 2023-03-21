@@ -27,14 +27,13 @@ namespace SMLHelper.Crafting
         /// Creates a new tab node for the crafting tree and links it to the calling node.
         /// </summary>
         /// <param name="nameID">The name/ID of this node.</param>
-        /// <param name="displayText">The hover text to display in-game.</param>
+        /// <param name="displayText">The hover text to display in-game. If null or empty, this will use the language line "{CraftTreeName}_{<paramref name="nameID"/>}" instead.</param>
         /// <param name="sprite">The custom sprite to display on this tab node.</param>
+        /// <param name="language">The language for the display name. Defaults to English.</param>
         /// <returns>A new tab node linked to the root node and ready to use.</returns>
-        public ModCraftTreeTab AddTabNode(string nameID, string displayText, Atlas.Sprite sprite)
+        public ModCraftTreeTab AddTabNode(string nameID, string displayText, Atlas.Sprite sprite, string language = "English")
         {
-            string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
-            var tabNode = new ModCraftTreeTab(modName, nameID, displayText, sprite);
+            var tabNode = new ModCraftTreeTab(nameID, displayText, language, sprite);
             tabNode.LinkToParent(this);
 
             ChildNodes.Add(tabNode);
@@ -47,14 +46,13 @@ namespace SMLHelper.Crafting
         /// Creates a new tab node for the crafting tree and links it to the calling node.
         /// </summary>
         /// <param name="nameID">The name/ID of this node.</param>
-        /// <param name="displayText">The hover text to display in-game.</param>
+        /// <param name="displayText">The hover text to display in-game. If null or empty, this will use the language line "{CraftTreeName}_{<paramref name="nameID"/>}" instead.</param>
         /// <param name="sprite">The custom sprite to display on this tab node.</param>
+        /// <param name="language">The language for the display name. Defaults to English.</param>
         /// <returns>A new tab node linked to the root node and ready to use.</returns>
-        public ModCraftTreeTab AddTabNode(string nameID, string displayText, Sprite sprite)
+        public ModCraftTreeTab AddTabNode(string nameID, string displayText, Sprite sprite, string language = "English")
         {
-            string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
-            ModCraftTreeTab tabNode = new(modName, nameID, displayText, sprite);
+            ModCraftTreeTab tabNode = new(nameID, displayText, language, sprite);
             tabNode.LinkToParent(this);
 
             ChildNodes.Add(tabNode);
@@ -69,9 +67,7 @@ namespace SMLHelper.Crafting
         /// <returns>A new tab node linked to the root node and ready to use.</returns>
         public ModCraftTreeTab AddTabNode(string nameID)
         {
-            string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-
-            ModCraftTreeTab tabNode = new(modName, nameID);
+            ModCraftTreeTab tabNode = new(nameID);
             tabNode.LinkToParent(this);
 
             ChildNodes.Add(tabNode);

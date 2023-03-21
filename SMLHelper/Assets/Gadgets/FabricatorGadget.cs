@@ -45,16 +45,17 @@ public class FabricatorGadget : Gadget
     /// Adds a new tab node to the custom crafting tree of this fabricator.
     /// </summary>
     /// <param name="tabId">The internal ID for the tab node.</param>
-    /// <param name="displayText">The in-game text shown for the tab node.</param>
+    /// <param name="displayText">The in-game text shown for the tab node. If null or empty, this will use the language line "{CraftTreeTypeName}_{<paramref name="tabId"/>}" instead.</param>
     /// <param name="tabIcon">The sprite used for the tab node.</param>
+    /// <param name="language">The language for the display name. Defaults to English.</param>
     /// <param name="parentTabId">Optional. The parent tab of this tab.
     /// When this value is null, the tab will be added to the root of the craft tree.</param>
-    public FabricatorGadget AddTabNode(string tabId, string displayText, Sprite tabIcon, string parentTabId = null)
+    public FabricatorGadget AddTabNode(string tabId, string displayText, Sprite tabIcon, string language = "English", string parentTabId = null)
     {
         _orderedCraftTreeActions.Add(() =>
         {
             var parentNode = _craftTreeLinkingNodes[parentTabId ?? RootNode];
-            var tab = parentNode.AddTabNode(tabId, displayText, tabIcon);
+            var tab = parentNode.AddTabNode(tabId, displayText, tabIcon, language);
             _craftTreeLinkingNodes[tabId] = tab;
         });
 

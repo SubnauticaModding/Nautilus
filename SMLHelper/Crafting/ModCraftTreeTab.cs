@@ -1,4 +1,7 @@
-﻿namespace SMLHelper.Crafting
+﻿using SMLHelper.Handlers;
+using SMLHelper.Utility;
+
+namespace SMLHelper.Crafting
 {
     using Assets;
     using Patchers;
@@ -10,65 +13,72 @@
     /// <seealso cref="ModCraftTreeLinkingNode" />
     public class ModCraftTreeTab : ModCraftTreeLinkingNode
     {
-        private readonly string DisplayText;
+        private readonly string _displayText;
+        private readonly string _language;
 #if SUBNAUTICA
-        private readonly Atlas.Sprite Asprite;
+        private readonly Atlas.Sprite _aSprite;
 #endif
-        private readonly Sprite Usprite;
-        private readonly bool IsExistingTab;
-        private readonly string ModName;
+        private readonly Sprite _uSprite;
+        private readonly bool _isExistingTab;
 
 #if SUBNAUTICA
-        internal ModCraftTreeTab(string modName, string nameID, string displayText, Atlas.Sprite sprite)
+        internal ModCraftTreeTab(string nameID, string displayText, string language, Atlas.Sprite sprite)
             : base(nameID, TreeAction.Expand, TechType.None)
         {
-            DisplayText = displayText;
-            Asprite = sprite;
-            Usprite = null;
-            ModName = modName;
+            _displayText = displayText;
+            _aSprite = sprite;
+            _uSprite = null;
+            _language = language;
         }
 #endif
 
-        internal ModCraftTreeTab(string modName, string nameID, string displayText, Sprite sprite)
+        internal ModCraftTreeTab(string nameID, string displayText, string language, Sprite sprite)
             : base(nameID, TreeAction.Expand, TechType.None)
         {
-            DisplayText = displayText;
+            _displayText = displayText;
+            _language = language;
 #if SUBNAUTICA
-            Asprite = null;
+            _aSprite = null;
 #endif
-            Usprite = sprite;
-            ModName = modName;
+            _uSprite = sprite;
         }
 
-        internal ModCraftTreeTab(string modName, string nameID)
+        internal ModCraftTreeTab(string nameID)
             : base(nameID, TreeAction.Expand, TechType.None)
         {
-            IsExistingTab = true;
-            ModName = modName;
+            _isExistingTab = true;
         }
 
         internal override void LinkToParent(ModCraftTreeLinkingNode parent)
         {
             base.LinkToParent(parent);
 
-            if (IsExistingTab)
+            if (_isExistingTab)
             {
                 return;
             }
 
-            LanguagePatcher.AddCustomLanguageLine(ModName, $"{base.SchemeAsString}Menu_{Name}", DisplayText);
+            var langKey = $"{base.SchemeAsString}Menu_{Name}";
+            if (!string.IsNullOrEmpty(_displayText))
+            {
+                LanguageHandler.SetLanguageLine(langKey, _displayText, _language);
+            }
+            else if (string.IsNullOrEmpty(Language.main.Get(langKey)))
+            {
+                InternalLogger.Warn($"Display name was not specified and no existing language line has been found for CraftTree tab '{Name}'.");
+            }
 
             string spriteID = $"{SchemeAsString}_{Name}";
 
 #if SUBNAUTICA
             ModSprite modSprite;
-            if (Asprite != null)
+            if (_aSprite != null)
             {
-                modSprite = new ModSprite(SpriteManager.Group.Category, spriteID, Asprite);
+                modSprite = new ModSprite(SpriteManager.Group.Category, spriteID, _aSprite);
             }
             else
             {
-                modSprite = new ModSprite(SpriteManager.Group.Category, spriteID, Usprite);
+                modSprite = new ModSprite(SpriteManager.Group.Category, spriteID, _uSprite);
 
             }
 

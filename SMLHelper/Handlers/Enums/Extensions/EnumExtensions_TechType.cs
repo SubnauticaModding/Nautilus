@@ -10,38 +10,41 @@ using SMLHelper.Utility;
 namespace SMLHelper.Handlers;
 
 public static partial class EnumExtensions
-{    
+{
     /// <summary>
     /// Adds a display name, tooltip to this instance.
     /// </summary>
     /// <param name="builder">The current custom enum object instance.</param>
-    /// <param name="ownerAssembly">The owner of this TechType instance. Will be shown under the tooltip.</param>
-    /// <param name="displayName">The display name of this Tech Type. Can be anything.</param>
-    /// <param name="tooltip">The tooltip displayed when hovered in the PDA. Can be anything.</param>
+    /// <param name="displayName">The display name of this Tech Type, can be anything. If null or empty, this will use the language line "{enumName}" instead.</param>
+    /// <param name="tooltip">The tooltip displayed when hovered in the PDA, can be anything. If null or empty, this will use the language line "Tooltip_{enumName}" instead.</param>
+    /// <param name="language">The language for this entry. Defaults to English.</param>
     /// <param name="unlockAtStart">Whether this instance should be unlocked on game start or not.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static EnumBuilder<TechType> WithPdaInfo(this EnumBuilder<TechType> builder, string displayName, string tooltip, bool unlockAtStart = true)
+    public static EnumBuilder<TechType> WithPdaInfo(this EnumBuilder<TechType> builder, string displayName, string tooltip, string language = "English", bool unlockAtStart = true)
     {
         TechType techType = builder;
         var name = techType.ToString();
-
-        if (!EnumHandler.TryGetOwnerAssembly(builder.Value, out var ownerAssembly))
-        {
-            InternalLogger.Error($"Could not find the owner assembly for Tech Type '{builder.Value.AsString()}'");
-            return builder;
-        }
-
-        var modName = ownerAssembly.GetName().Name;
         
-        if (displayName is not null) 
-            LanguagePatcher.AddCustomLanguageLine(modName, name, displayName);
-
-        if (tooltip is not null)
+        
+        if (!string.IsNullOrEmpty(displayName))
         {
-            LanguagePatcher.AddCustomLanguageLine(modName, "Tooltip_" + name, tooltip);
-            var valueToString = TooltipFactory.techTypeTooltipStrings.valueToString;
-            valueToString[techType] = "Tooltip_" + name;
+            LanguageHandler.SetLanguageLine(name, displayName, language);
         }
+        else if (string.IsNullOrEmpty(Language.main.Get(name)))
+        {
+            InternalLogger.Warn($"Display name was not specified and no existing language line has been found for TechType '{name}'.");
+        }
+
+        if (!string.IsNullOrEmpty(tooltip))
+        {
+            LanguageHandler.SetLanguageLine("Tooltip_" + name, tooltip, language);
+        }
+        else if (string.IsNullOrEmpty(Language.main.Get("Tooltip_" + name)))
+        {
+            InternalLogger.Warn($"Tooltip was not specified and no existing language line has been found for TechType '{name}'.");
+        }
+        
+        TooltipFactory.techTypeTooltipStrings.valueToString[techType] = "Tooltip_" + name;
         
         if (unlockAtStart)
             KnownTechPatcher.UnlockedAtStart.Add(techType);
