@@ -20,7 +20,7 @@ namespace SMLHelper.Handlers
         /// <param name="lineId">The ID of the entry, this is what is used to get the actual text.</param>
         /// <param name="text">The actual text related to the entry.</param>
         /// <param name="language">The language for this specific entry. Defaults to English.</param>
-        public static void SetLanguageLine(string lineId, string text, string language)
+        public static void SetLanguageLine(string lineId, string text, string language = "English")
         {
             LanguagePatcher.AddCustomLanguageLine(lineId, text, language);
         }
@@ -57,7 +57,7 @@ namespace SMLHelper.Handlers
         /// Registers language entries for a specific language.
         /// </summary>
         /// <param name="language">The language to register the entries to.</param>
-        /// <param name="languageStrings">The language entries to register. K</param>
+        /// <param name="languageStrings">The language entries to register.</param>
         public static void RegisterLocalization(string language, Dictionary<string, string> languageStrings)
         {
             if (string.IsNullOrEmpty(language) || languageStrings is null || languageStrings.Count <= 0)
@@ -75,7 +75,7 @@ namespace SMLHelper.Handlers
         /// <param name="techType">The <see cref="TechType"/> whose display name that is to be changed.</param>
         /// <param name="text">The new display name for the chosen <see cref="TechType"/>.</param>
         /// <param name="language">The language for this entry. Defaults to English.</param>
-        public static void SetTechTypeName(TechType techType, string text, string language)
+        public static void SetTechTypeName(TechType techType, string text, string language = "English")
         {
             LanguagePatcher.AddCustomLanguageLine(techType.AsString(), text, language);
         }
@@ -86,7 +86,7 @@ namespace SMLHelper.Handlers
         /// <param name="techType">The <see cref="TechType"/> whose tooltip that is to be changed.</param>
         /// <param name="text">The new tooltip for the chosen <see cref="TechType"/>.</param>
         /// <param name="language">The language for this entry. Defaults to English.</param>
-        public static void SetTechTypeTooltip(TechType techType, string text, string language)
+        public static void SetTechTypeTooltip(TechType techType, string text, string language = "English")
         {
             LanguagePatcher.AddCustomLanguageLine($"Tooltip_{techType.AsString()}", text, language);
         }
