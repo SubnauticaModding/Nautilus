@@ -23,48 +23,48 @@ public class CustomPrefabExamples : BaseUnityPlugin
          * Every custom prefab will require an instance of PrefabInfo, which ultimately has all the info required to
          * make this item work in the game.
          */
-        PrefabInfo titaniumCloneInfo = PrefabInfo.WithTechType("TitaniumClone", "Titanium Clone", "Titanium clone that makes me go yes.");
+        PrefabInfo copperCloneInfo = PrefabInfo.WithTechType("CopperClone", "Copper Ore Clone", "Copper Ore clone that makes me go yes.");
         
         /*
-         * Here we're assigning the Titanium icon for our item.
+         * Here we're assigning the Copper icon for our item.
          * You may also use a custom image as your icon by calling the ImageUtils.LoadSpriteFromFile method.
          */
-        titaniumCloneInfo.WithIcon(SpriteManager.Get(TechType.Titanium));
+        copperCloneInfo.WithIcon(SpriteManager.Get(TechType.Copper));
         
         /*
          * Here we are setting up an instance of CustomPrefab.
          * CustomPrefab is where you actually add logic and birth to your item.
          * Here you will be able to add a game object for your item, set spawns, recipe, etc.. for your item.
          */
-        CustomPrefab titaniumClone = new CustomPrefab(titaniumCloneInfo);
+        CustomPrefab copperClone = new CustomPrefab(copperCloneInfo);
 
         /*
-         * Here we are creating a clone of the Titanium game object.
+         * Here we are creating a clone of the Copper game object.
          * Additionally, we are also changing the color of the clone to red.
          */
-        PrefabTemplate cloneTemplate = new CloneTemplate(titaniumCloneInfo, TechType.Titanium)
+        PrefabTemplate cloneTemplate = new CloneTemplate(copperCloneInfo, TechType.Copper)
         {
             // Callback to change all material colors of this clone to red.
             ModifyPrefab = prefab => prefab.GetComponentsInChildren<Renderer>().ForEach(r => r.materials.ForEach(m => m.color = Color.red))
         };
         
         /*
-         * Here we are setting the Titanium clone we created earlier as our item's prefab.
+         * Here we are setting the Copper clone we created earlier as our item's prefab.
          */
-        titaniumClone.SetGameObject(cloneTemplate);
+        copperClone.SetGameObject(cloneTemplate);
 
         /*
          * Then we added biome spawns for our item.
          */
-        titaniumClone.SetSpawns(new BiomeData { biome = BiomeType.SafeShallows_Grass, count = 4, probability = 0.1f },
+        copperClone.SetSpawns(new BiomeData { biome = BiomeType.SafeShallows_Grass, count = 4, probability = 0.1f },
             new BiomeData { biome = BiomeType.SafeShallows_CaveFloor, count = 1, probability = 0.4f });
         
         /*
          * And finally, we register it to the game.
-         * Now we can spawn our item to the world manually by using the command 'spawn titaniumclone', or
+         * Now we can spawn our item to the world manually by using the command 'spawn copperclone', or
          * simply looking around in the Safe shallows.
          * Refrain from modifying the item further more or adding more gadgets after Register is called as they will not be called.
          */
-        titaniumClone.Register();
+        copperClone.Register();
     }
 }

@@ -94,16 +94,23 @@ public class CustomFabricatorExample : BaseUnityPlugin
 	        }
         };
 
+#if JSONRECIPE
         /*
          * Set the recipe to the json object we made earlier.
          */
         customFab.SetRecipeFromJson(recipeJson);
-        
-        /*
-         * Make the modification station a requirement for our custom fabricator blueprint.
-         * Additionally we also add our custom fabricator to the Interior modules PDA group and category.
-         * Setting the tech group to a group that exists in the habitat builder will make our item buildable.
-         */
+#else
+	    /*
+	     * Set the recipe.
+	     */
+	    customFab.SetRecipe(recipe);
+#endif
+
+	    /*
+	     * Make the modification station a requirement for our custom fabricator blueprint.
+	     * Additionally we also add our custom fabricator to the Interior modules PDA group and category.
+	     * Setting the tech group to a group that exists in the habitat builder will make our item buildable.
+	     */
         customFab.SetUnlock(TechType.Workbench)
             .WithPdaGroupCategory(TechGroup.InteriorModules, TechCategory.InteriorModule);
         
