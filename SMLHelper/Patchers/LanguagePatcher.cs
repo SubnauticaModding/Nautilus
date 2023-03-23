@@ -14,12 +14,9 @@ namespace SMLHelper.Patchers
     internal static class LanguagePatcher
     {
         private const string FallbackLanguage = "English";
-
-        internal static readonly List<string> LanguagePaths = new();
-        private static readonly Dictionary<string, string> _currentLanguageStrings = new();
-        private static readonly Dictionary<string, string> _fallbackLanguageStrings = new();
+        
         private static readonly Dictionary<string, Dictionary<string, string>> _customLines = new();
-        private static string _currentLanguage = "English";
+        private static string _currentLanguage = FallbackLanguage;
 
         static LanguagePatcher()
         {
@@ -78,57 +75,6 @@ namespace SMLHelper.Patchers
         private static void LoadLanguageFilePrefix(string language)
         {
             _currentLanguage = Path.GetFileNameWithoutExtension(language);
-            LoadLanguages(language);
-        }
-
-        internal static void LoadLanguages(string language = FallbackLanguage)
-        {
-            foreach (var languagePath in LanguagePaths)
-            {
-                LoadLanguageImpl(language, languagePath);
-            }
-        }
-        
-        internal static void LoadLanguageImpl(string language, string languageFolder)
-        {
-            string fallbackPath = Path.Combine(languageFolder, $"{FallbackLanguage}.json");
-            var file = Path.Combine(languageFolder, language + ".json");
-            if (!File.Exists(file)) // if the preferred language doesn't have a file, use english, and return.
-            {
-                file = fallbackPath;
-                if (File.Exists(file))
-                {
-                    SetLanguages(file, false);
-                    return;
-                }
-            }
-            
-            SetLanguages(file, false); // load the preferred language
-            
-            if (language != FallbackLanguage) SetLanguages(fallbackPath, true); // if the current language is not already the fallback, then load the fallback language. some mixed in english is much better than raw language keys.
-
-            void SetLanguages(string fileToSet, bool loadIntoFallback)
-            {
-                var deserialize = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(fileToSet));
-                if (deserialize is null)
-                    return;
-
-                var dictionary = loadIntoFallback
-                    ? _fallbackLanguageStrings
-                    : _currentLanguageStrings;
-                
-                dictionary.Clear();
-
-                foreach (var kvp in deserialize)
-                {
-                    dictionary[kvp.Key] = kvp.Value;
-                    // If we are loading a fallback language, we should ONLY set a language line if a translation for the key doesn't already exist. Fallback should never override current language.
-                    if (!loadIntoFallback || _currentLanguageStrings.ContainsKey(kvp.Key))
-                    {
-                        LanguageHandler.SetLanguageLine(kvp.Key, kvp.Value, _currentLanguage);
-                    }
-                }
-            }
         }
 
         internal static void Patch(Harmony harmony)

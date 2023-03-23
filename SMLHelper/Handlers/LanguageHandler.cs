@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace SMLHelper.Handlers
@@ -43,13 +44,18 @@ namespace SMLHelper.Handlers
                 InternalLogger.Error($"Directory '{path}' does not exist. Skipping localization registration.");
                 return;
             }
-            
-            LanguagePatcher.LanguagePaths.Add(path);
 
-            var lang = Path.GetFileNameWithoutExtension(PlayerPrefs.GetString("Language"));
-            if (!string.IsNullOrEmpty(lang))
+            foreach (var file in Directory.GetFiles(path))
             {
-                LanguagePatcher.LoadLanguageImpl(lang, path);
+                var content = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(file));
+                if (content is null)
+                {
+                    InternalLogger.Warn($"Localization file '{file}' is empty, skipping registration.");
+                    continue;
+                }
+                
+                var languageName = Path.GetFileNameWithoutExtension(file);
+                RegisterLocalization(languageName, content);
             }
         }
 
