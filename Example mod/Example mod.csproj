@@ -69,4 +69,13 @@
     <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
     <PackageReference Include="PolySharp" Version="1.12.1" />
   </ItemGroup>
+  <Target Name="CopyToOutputPath" AfterTargets="Build">
+    <ItemGroup>
+      <LocalizationFiles Include="Localization\*.*" />
+    </ItemGroup>
+    <Copy
+            SourceFiles="@(LocalizationFiles)"
+            DestinationFolder="$(OutDir)\Localization"
+            SkipUnchangedFiles="true" />
+  </Target>
 </Project>

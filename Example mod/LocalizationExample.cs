@@ -33,12 +33,22 @@ public class LocalizationExample : BaseUnityPlugin
 
     private void Awake()
     {
+#if LOCALIZATION_FOLDER
+        /*
+         * Registers a folder as localization folder.
+         * This folder must contain json files that are named after the language they translate.
+         * For example, English translation must be named English.json and Spanish translation must be named Spanish.json.
+         * SML expects this folder to be located in the mod folder at ModName/Localization by default.
+         */
+        LanguageHandler.RegisterLocalizationFolder();
+#else
         // Register our English language entries to the English language
         LanguageHandler.RegisterLocalization("English", _languageEntriesEng);
         
         // Register our Spanish language entries to the Spanish language
         LanguageHandler.RegisterLocalization("Spanish", _languageEntriesEsp);
-        
+#endif
+
         /*
          * Create a CustomPrefab instance for our Titanium Clone. Must be set to null or empty if you registered language entries
          * for them earlier like we did.
