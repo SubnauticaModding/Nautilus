@@ -29,7 +29,7 @@ public class EquipmentGadget : Gadget
     /// <summary>
     /// Constructs an equipment gadget.
     /// </summary>
-    /// <param name="prefab"><inheritdoc cref="Gadget(ICustomPrefab)"/></param>
+    /// <param name="prefab">The custom prefab to operate on.</param>
     /// <param name="equipmentType">The type of equipment slot this item can fit into.</param>
     [SetsRequiredMembers]
     public EquipmentGadget(ICustomPrefab prefab, EquipmentType equipmentType) : base(prefab)

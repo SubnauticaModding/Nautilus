@@ -78,11 +78,12 @@
         /// Adds a new tab node to the custom crafting tree of this fabricator.
         /// </summary>
         /// <param name="tabId">The internal ID for the tab node.</param>
-        /// <param name="displayText">The in-game text shown for the tab node.</param>
+        /// <param name="displayText">The in-game text shown for the tab node. If null or empty, this will use the language line "{CraftTreeName}_{<paramref name="tabId"/>}" instead.</param>
         /// <param name="tabSprite">The sprite used for the tab node.</param>
+        /// <param name="language">The language for the display name. Defaults to English.</param>
         /// <param name="parentTabId">Optional. The parent tab of this tab.<para/>
         /// When this value is null, the tab will be added to the root of the craft tree.</param>
-        public ModCraftTreeRoot AddTabNode(string tabId, string displayText, Atlas.Sprite tabSprite, string parentTabId = null)
+        public ModCraftTreeRoot AddTabNode(string tabId, string displayText, Atlas.Sprite tabSprite, string language = "English", string parentTabId = null)
         {
             if(string.IsNullOrWhiteSpace(tabId))
                 throw new ArgumentNullException($"{this.SchemeAsString} tried to add a tab without an id! tabid cannot be null or empty spaces!");
@@ -93,7 +94,7 @@
 
             if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Craft))
             {
-                ModCraftTreeTab tab = parentTab.AddTabNode(tabId, displayText, tabSprite);
+                ModCraftTreeTab tab = parentTab.AddTabNode(tabId, displayText, tabSprite, language);
                 CraftTreeLinkingNodes[tabId] = tab;
             }
             else
@@ -108,11 +109,12 @@
         /// Adds a new tab node to the custom crafting tree of this fabricator.
         /// </summary>
         /// <param name="tabId">The internal ID for the tab node.</param>
-        /// <param name="displayText">The in-game text shown for the tab node.</param>
+        /// <param name="displayText">The in-game text shown for the tab node. If null or empty, this will use the language line "{CraftTreeName}_{<paramref name="tabId"/>}" instead.</param>
         /// <param name="tabSprite">The sprite used for the tab node.</param>
+        /// <param name="language">The language for the display name. Defaults to English.</param>
         /// <param name="parentTabId">Optional. The parent tab of this tab.<para/>
         /// When this value is null, the tab will be added to the root of the craft tree.</param>
-        public ModCraftTreeRoot AddTabNode(string tabId, string displayText, UnityEngine.Sprite tabSprite, string parentTabId = null)
+        public ModCraftTreeRoot AddTabNode(string tabId, string displayText, UnityEngine.Sprite tabSprite, string language = "English", string parentTabId = null)
         {
             if(string.IsNullOrWhiteSpace(tabId))
                 throw new ArgumentNullException($"{this.SchemeAsString} tried to add a tab without an id! tabid cannot be null or empty spaces!");
@@ -123,7 +125,7 @@
 
             if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Craft))
             {
-                ModCraftTreeTab tab = parentTab.AddTabNode(tabId, displayText, tabSprite);
+                ModCraftTreeTab tab = parentTab.AddTabNode(tabId, displayText, tabSprite, language);
                 CraftTreeLinkingNodes[tabId] = tab;
             }
             else

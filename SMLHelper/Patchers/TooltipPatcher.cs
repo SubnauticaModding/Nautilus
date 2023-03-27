@@ -139,8 +139,11 @@
             }
 
             Initialized = true;
+            
+            var smlFolder = Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name);
+            Directory.CreateDirectory(smlFolder);
 
-            string configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "ExtraItemInfo.txt");
+            var configPath = Path.Combine(smlFolder, "ExtraItemInfo.txt");
 
             if (!File.Exists(configPath))
             {
@@ -150,7 +153,7 @@
                 return;
             }
 
-            string fileContents = File.ReadAllText(configPath);
+            var fileContents = File.ReadAllText(configPath);
 
             switch (fileContents)
             {
