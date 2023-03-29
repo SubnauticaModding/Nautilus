@@ -242,6 +242,11 @@ public class ScanningGadget : Gadget
 
         if (CompoundTechsForUnlock is { Count: > 0 } || RequiredForUnlock is not TechType.None)
         {
+            if (AnalysisTech is null)
+            {
+                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, DefaultUnlockMessage);
+            }
+
             KnownTechPatcher.UnlockedAtStart.Remove(prefab.Info.TechType);
         }
     }
