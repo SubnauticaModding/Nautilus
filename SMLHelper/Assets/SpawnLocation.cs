@@ -3,8 +3,7 @@ using UnityEngine;
 namespace SMLHelper.Assets;
 
 /// <summary>
-/// Returns the list of <see cref="SpawnLocation"/>s that specify the prefab's Coordinated Spawns.<br/>
-/// By default this will be null.
+/// Defines the spawn location with world position and optional euler angles. Used in the Coordinated Spawns system.
 /// </summary>
 /// <param name="Position">The world position.</param>
 /// <param name="EulerAngles">Euler angles for the rotation the spawned object will appear with.</param>
