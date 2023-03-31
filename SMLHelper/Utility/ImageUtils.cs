@@ -1,87 +1,86 @@
-﻿namespace SMLHelper.Utility
-{
-    using System.IO;
-    using BepInEx.Logging;
-    using UnityEngine;
-    using Logger = InternalLogger;
+﻿namespace SMLHelper.Utility;
+
+using System.IO;
+using BepInEx.Logging;
+using UnityEngine;
+using Logger = InternalLogger;
 #if SUBNAUTICA
-    using Sprite = Atlas.Sprite;
+using Sprite = Atlas.Sprite;
 #endif
 
+/// <summary>
+/// A collection of image loading utility methods that can create Unity objects from image files at runtime.
+/// </summary>
+public static class ImageUtils
+{
     /// <summary>
-    /// A collection of image loading utility methods that can create Unity objects from image files at runtime.
+    /// Creates a new <see cref="Texture2D" /> from an image file.
     /// </summary>
-    public static class ImageUtils
+    /// <param name="filePathToImage">The path to the image file.</param>
+    /// <param name="format">
+    /// <para>The texture format. By default, this uses <see cref="TextureFormat.BC7" />.</para>
+    /// <para>https://docs.unity3d.com/ScriptReference/TextureFormat.BC7.html</para>
+    /// <para>Don't change this unless you really know what you're doing.</para>
+    /// </param>
+    /// <returns>Will return a new <see cref="Texture2D"/> instance if the file exists; Otherwise returns null.</returns>
+    /// <remarks>
+    /// Ripped from: https://github.com/RandyKnapp/SubnauticaModSystem/blob/master/SubnauticaModSystem/Common/Utility/ImageUtils.cs
+    /// </remarks>
+    public static Texture2D LoadTextureFromFile(string filePathToImage, TextureFormat format = TextureFormat.BC7)
     {
-        /// <summary>
-        /// Creates a new <see cref="Texture2D" /> from an image file.
-        /// </summary>
-        /// <param name="filePathToImage">The path to the image file.</param>
-        /// <param name="format">
-        /// <para>The texture format. By default, this uses <see cref="TextureFormat.BC7" />.</para>
-        /// <para>https://docs.unity3d.com/ScriptReference/TextureFormat.BC7.html</para>
-        /// <para>Don't change this unless you really know what you're doing.</para>
-        /// </param>
-        /// <returns>Will return a new <see cref="Texture2D"/> instance if the file exists; Otherwise returns null.</returns>
-        /// <remarks>
-        /// Ripped from: https://github.com/RandyKnapp/SubnauticaModSystem/blob/master/SubnauticaModSystem/Common/Utility/ImageUtils.cs
-        /// </remarks>
-        public static Texture2D LoadTextureFromFile(string filePathToImage, TextureFormat format = TextureFormat.BC7)
+        if(File.Exists(filePathToImage))
         {
-            if(File.Exists(filePathToImage))
+            byte[] imageBytes = File.ReadAllBytes(filePathToImage);
+            Texture2D texture2D = new(2, 2, format, false);
+            try
             {
-                byte[] imageBytes = File.ReadAllBytes(filePathToImage);
-                Texture2D texture2D = new(2, 2, format, false);
-                try
-                {
-                    texture2D.LoadImage(imageBytes);
-                    return texture2D;
-                }
-                catch(UnityException uex)
-                {
-                    Logger.Error("Error on LoadTextureFromFile call. Texture cannot be loaded: " + uex);
-                }
-
+                texture2D.LoadImage(imageBytes);
+                return texture2D;
             }
-            else
+            catch(UnityException uex)
             {
-                Logger.Log("Error on LoadTextureFromFile call. File not found at " + filePathToImage, LogLevel.Error);
+                Logger.Error("Error on LoadTextureFromFile call. Texture cannot be loaded: " + uex);
             }
 
-            return null;
+        }
+        else
+        {
+            Logger.Log("Error on LoadTextureFromFile call. File not found at " + filePathToImage, LogLevel.Error);
         }
 
-        /// <summary>
-        /// Creates a new <see cref="Sprite" /> from an image file.
-        /// </summary>
-        /// <param name="filePathToImage">The path to the image file.</param>
-        /// <param name="format">
-        /// The texture format. By default, this uses <see cref="TextureFormat.BC7" />.<br/>
-        /// https://docs.unity3d.com/ScriptReference/TextureFormat.BC7.html <br/>
-        /// Don't change this unless you really know what you're doing.
-        /// </param>
-        /// <returns>Will return a new <see cref="Sprite"/> instance if the file exists; Otherwise returns null.</returns>
-        public static Sprite LoadSpriteFromFile(string filePathToImage, TextureFormat format = TextureFormat.BC7)
-        {
-            Texture2D texture2D = LoadTextureFromFile(filePathToImage, format);
-            return LoadSpriteFromTexture(texture2D);
-        }
+        return null;
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="Sprite" /> from an image file.
+    /// </summary>
+    /// <param name="filePathToImage">The path to the image file.</param>
+    /// <param name="format">
+    /// The texture format. By default, this uses <see cref="TextureFormat.BC7" />.<br/>
+    /// https://docs.unity3d.com/ScriptReference/TextureFormat.BC7.html <br/>
+    /// Don't change this unless you really know what you're doing.
+    /// </param>
+    /// <returns>Will return a new <see cref="Sprite"/> instance if the file exists; Otherwise returns null.</returns>
+    public static Sprite LoadSpriteFromFile(string filePathToImage, TextureFormat format = TextureFormat.BC7)
+    {
+        Texture2D texture2D = LoadTextureFromFile(filePathToImage, format);
+        return LoadSpriteFromTexture(texture2D);
+    }
 
 
-        /// <summary>
-        /// Creates a new <see cref="Sprite" /> from an image file.
-        /// </summary>
-        /// <param name="texture2D">The 2D texture to convert into a sprite.</param>
-        /// <returns>
-        /// Will return a new <see cref="Sprite" /> instance using the provided texture.
-        /// </returns>
-        public static Sprite LoadSpriteFromTexture(Texture2D texture2D)
-        {
+    /// <summary>
+    /// Creates a new <see cref="Sprite" /> from an image file.
+    /// </summary>
+    /// <param name="texture2D">The 2D texture to convert into a sprite.</param>
+    /// <returns>
+    /// Will return a new <see cref="Sprite" /> instance using the provided texture.
+    /// </returns>
+    public static Sprite LoadSpriteFromTexture(Texture2D texture2D)
+    {
 #if SUBNAUTICA
-            return new Sprite(texture2D);
+        return new Sprite(texture2D);
 #elif BELOWZERO
             return Sprite.Create(texture2D, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
 #endif
-        }
     }
 }

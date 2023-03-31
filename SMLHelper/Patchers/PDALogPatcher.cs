@@ -1,25 +1,24 @@
-namespace SMLHelper.Patchers
+namespace SMLHelper.Patchers;
+
+using HarmonyLib;
+
+internal class PDALogPatcher
 {
-    using HarmonyLib;
+    internal static readonly SelfCheckingDictionary<string, PDALog.EntryData> CustomEntryData = new("CustomEntryData");
 
-    internal class PDALogPatcher
+    internal static void Patch(Harmony harmony)
     {
-        internal static readonly SelfCheckingDictionary<string, PDALog.EntryData> CustomEntryData = new("CustomEntryData");
+        harmony.Patch(AccessTools.Method(typeof(PDALog), nameof(PDALog.Initialize)), 
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(PDALogPatcher), nameof(InitializePostfix))));
+    }
 
-        internal static void Patch(Harmony harmony)
+    private static void InitializePostfix()
+    {
+        System.Collections.Generic.Dictionary<string, PDALog.EntryData> mapping = PDALog.mapping;
+
+        foreach (System.Collections.Generic.KeyValuePair<string, PDALog.EntryData> entryData in CustomEntryData)
         {
-            harmony.Patch(AccessTools.Method(typeof(PDALog), nameof(PDALog.Initialize)), 
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(PDALogPatcher), nameof(InitializePostfix))));
-        }
-
-        private static void InitializePostfix()
-        {
-            System.Collections.Generic.Dictionary<string, PDALog.EntryData> mapping = PDALog.mapping;
-
-            foreach (System.Collections.Generic.KeyValuePair<string, PDALog.EntryData> entryData in CustomEntryData)
-            {
-                mapping[entryData.Key] = entryData.Value;
-            }
+            mapping[entryData.Key] = entryData.Value;
         }
     }
 }

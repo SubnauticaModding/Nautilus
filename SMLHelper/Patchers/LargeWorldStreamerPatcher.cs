@@ -1,129 +1,128 @@
-namespace SMLHelper.Patchers
+namespace SMLHelper.Patchers;
+
+using SMLHelper.Utility;
+using System;
+using System.Linq;
+
+using SMLHelper.Json.Converters;
+using System.Collections.Generic;
+using System.IO;
+using HarmonyLib;
+using SMLHelper.Handlers;
+using SMLHelper.MonoBehaviours;
+using UnityEngine;
+using Newtonsoft.Json;
+
+internal class LargeWorldStreamerPatcher
 {
-    using SMLHelper.Utility;
-    using System;
-    using System.Linq;
-
-    using SMLHelper.Json.Converters;
-    using System.Collections.Generic;
-    using System.IO;
-    using HarmonyLib;
-    using SMLHelper.Handlers;
-    using SMLHelper.MonoBehaviours;
-    using UnityEngine;
-    using Newtonsoft.Json;
-
-    internal class LargeWorldStreamerPatcher
+    internal static void Patch(Harmony harmony)
     {
-        internal static void Patch(Harmony harmony)
-        {
-            System.Reflection.MethodInfo initializeOrig = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.Initialize));
-            HarmonyMethod initPostfix = new(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(InitializePostfix)));
-            harmony.Patch(initializeOrig, postfix: initPostfix);
-        }
+        System.Reflection.MethodInfo initializeOrig = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.Initialize));
+        HarmonyMethod initPostfix = new(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(InitializePostfix)));
+        harmony.Patch(initializeOrig, postfix: initPostfix);
+    }
 
-        internal static readonly List<SpawnInfo> spawnInfos = new();
-        internal static readonly List<SpawnInfo> savedSpawnInfos = new();
+    internal static readonly List<SpawnInfo> spawnInfos = new();
+    internal static readonly List<SpawnInfo> savedSpawnInfos = new();
         
-        private static readonly List<SpawnInfo> initialSpawnInfos = new();
+    private static readonly List<SpawnInfo> initialSpawnInfos = new();
 
-        private static bool initialized;
+    private static bool initialized;
 
-        private static void InitializePostfix()
+    private static void InitializePostfix()
+    {
+        InitializeSpawnInfos();
+
+        string file = Path.Combine(SaveLoadManager.GetTemporarySavePath(), "CoordinatedSpawnsInitialized.smlhelper");
+        if (File.Exists(file))
         {
-            InitializeSpawnInfos();
+            InternalLogger.Debug("Coordinated Spawns already been spawned in the current save. Loading Data");
 
-            string file = Path.Combine(SaveLoadManager.GetTemporarySavePath(), "CoordinatedSpawnsInitialized.smlhelper");
-            if (File.Exists(file))
-            {
-                InternalLogger.Debug("Coordinated Spawns already been spawned in the current save. Loading Data");
-
-                using StreamReader reader = new(file);
-                try
-                {
-                    List<SpawnInfo> deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd(), new Vector3Converter(), new QuaternionConverter());
-                    if (deserializedList is not null)
-                    {
-                        savedSpawnInfos.AddRange(deserializedList);
-                    }
-
-                    reader.Close();
-                }
-                catch (Exception ex)
-                {
-                    InternalLogger.Error($"Failed to load Saved spawn data from {file}\nSkipping static spawning until fixed!\n{ex}");
-                    reader.Close();
-                    return;
-                }
-            }
-
-            foreach (SpawnInfo savedSpawnInfo in savedSpawnInfos)
-            {
-                if (spawnInfos.Contains(savedSpawnInfo))
-                {
-                    spawnInfos.Remove(savedSpawnInfo);
-                }
-            }
-
-            InitializeSpawners();
-            InternalLogger.Debug("Coordinated Spawns have been initialized in the current save.");
-        }
-
-        private static void SaveData()
-        {
-            string file = Path.Combine(SaveLoadManager.GetTemporarySavePath(), "CoordinatedSpawnsInitialized.smlhelper");
-            using StreamWriter writer = new(file);
+            using StreamReader reader = new(file);
             try
             {
-                string data = JsonConvert.SerializeObject(savedSpawnInfos, Formatting.Indented, new Vector3Converter(), new QuaternionConverter());
-                writer.Write(data);
-                writer.Flush();
-                writer.Close();
+                List<SpawnInfo> deserializedList = JsonConvert.DeserializeObject<List<SpawnInfo>>(reader.ReadToEnd(), new Vector3Converter(), new QuaternionConverter());
+                if (deserializedList is not null)
+                {
+                    savedSpawnInfos.AddRange(deserializedList);
+                }
+
+                reader.Close();
             }
             catch (Exception ex)
             {
-                InternalLogger.Error($"Failed to save spawn data to {file}\n{ex}");
-                writer.Close();
-            }
-        }
-        
-        // We keep an initial copy of the spawn infos so Coordinated Spawns also works if you quit to main menu.
-        private static void InitializeSpawnInfos()
-        {
-            if (initialized)
-            {
-                // we already have an initialSpawnInfos initialized, refresh our spawnInfos List.
-                savedSpawnInfos.Clear();
-                foreach (SpawnInfo spawnInfo in initialSpawnInfos.Where(spawnInfo => !spawnInfos.Contains(spawnInfo)))
-                {
-                    spawnInfos.Add(spawnInfo);
-                }
+                InternalLogger.Error($"Failed to load Saved spawn data from {file}\nSkipping static spawning until fixed!\n{ex}");
+                reader.Close();
                 return;
             }
-            
-            initialSpawnInfos.AddRange(spawnInfos);
-            SaveUtils.RegisterOnSaveEvent(SaveData);
-            initialized = true;
         }
 
-        private static void InitializeSpawners()
+        foreach (SpawnInfo savedSpawnInfo in savedSpawnInfos)
         {
-            foreach (SpawnInfo spawnInfo in spawnInfos)
+            if (spawnInfos.Contains(savedSpawnInfo))
             {
-                CreateSpawner(spawnInfo);
+                spawnInfos.Remove(savedSpawnInfo);
             }
         }
 
-        private static void CreateSpawner(SpawnInfo spawnInfo)
-        {
-            string keyToCheck = spawnInfo.Type switch
-            {
-                SpawnInfo.SpawnType.TechType => spawnInfo.TechType.AsString(),
-                _ => spawnInfo.ClassId
-            };
+        InitializeSpawners();
+        InternalLogger.Debug("Coordinated Spawns have been initialized in the current save.");
+    }
 
-            GameObject obj = new($"{keyToCheck}Spawner");
-            obj.EnsureComponent<EntitySpawner>().spawnInfo = spawnInfo;
+    private static void SaveData()
+    {
+        string file = Path.Combine(SaveLoadManager.GetTemporarySavePath(), "CoordinatedSpawnsInitialized.smlhelper");
+        using StreamWriter writer = new(file);
+        try
+        {
+            string data = JsonConvert.SerializeObject(savedSpawnInfos, Formatting.Indented, new Vector3Converter(), new QuaternionConverter());
+            writer.Write(data);
+            writer.Flush();
+            writer.Close();
         }
+        catch (Exception ex)
+        {
+            InternalLogger.Error($"Failed to save spawn data to {file}\n{ex}");
+            writer.Close();
+        }
+    }
+        
+    // We keep an initial copy of the spawn infos so Coordinated Spawns also works if you quit to main menu.
+    private static void InitializeSpawnInfos()
+    {
+        if (initialized)
+        {
+            // we already have an initialSpawnInfos initialized, refresh our spawnInfos List.
+            savedSpawnInfos.Clear();
+            foreach (SpawnInfo spawnInfo in initialSpawnInfos.Where(spawnInfo => !spawnInfos.Contains(spawnInfo)))
+            {
+                spawnInfos.Add(spawnInfo);
+            }
+            return;
+        }
+            
+        initialSpawnInfos.AddRange(spawnInfos);
+        SaveUtils.RegisterOnSaveEvent(SaveData);
+        initialized = true;
+    }
+
+    private static void InitializeSpawners()
+    {
+        foreach (SpawnInfo spawnInfo in spawnInfos)
+        {
+            CreateSpawner(spawnInfo);
+        }
+    }
+
+    private static void CreateSpawner(SpawnInfo spawnInfo)
+    {
+        string keyToCheck = spawnInfo.Type switch
+        {
+            SpawnInfo.SpawnType.TechType => spawnInfo.TechType.AsString(),
+            _ => spawnInfo.ClassId
+        };
+
+        GameObject obj = new($"{keyToCheck}Spawner");
+        obj.EnsureComponent<EntitySpawner>().spawnInfo = spawnInfo;
     }
 }

@@ -1,23 +1,22 @@
-﻿namespace SMLHelper.Options
+﻿namespace SMLHelper.Options;
+
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+internal class ModOptionTooltip : MonoBehaviour, ITooltip
 {
-    using System.Collections.Generic;
-    using UnityEngine;
-    using UnityEngine.UI;
+    public string Tooltip;
 
-    internal class ModOptionTooltip : MonoBehaviour, ITooltip
+    void Awake()
     {
-        public string Tooltip;
+        Destroy(GetComponent<LayoutElement>());
+    }
 
-        void Awake()
-        {
-            Destroy(GetComponent<LayoutElement>());
-        }
+    public bool showTooltipOnDrag => true;
 
-        public bool showTooltipOnDrag => true;
-
-        public void GetTooltip(TooltipData tooltip)
-        {
-            tooltip.prefix.Append(Tooltip);
-        }
+    public void GetTooltip(TooltipData tooltip)
+    {
+        tooltip.prefix.Append(Tooltip);
     }
 }

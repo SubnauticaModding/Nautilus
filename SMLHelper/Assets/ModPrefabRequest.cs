@@ -1,68 +1,67 @@
 ﻿using SMLHelper.Handlers;
 using SMLHelper.Utility;
 
-namespace SMLHelper.Assets
+namespace SMLHelper.Assets;
+
+using System.Collections;
+using UnityEngine;
+using UWE;
+
+// request for getting ModPrefab asynchronously
+internal class ModPrefabRequest: IPrefabRequest, IEnumerator
 {
-    using System.Collections;
-    using UnityEngine;
-    using UWE;
+    private readonly PrefabInfo prefabInfo;
 
-    // request for getting ModPrefab asynchronously
-    internal class ModPrefabRequest: IPrefabRequest, IEnumerator
+    private int state = 0;
+    private CoroutineTask<GameObject> task;
+    private TaskResult<GameObject> taskResult;
+
+    public ModPrefabRequest(PrefabInfo prefabInfo)
     {
-        private readonly PrefabInfo prefabInfo;
+        this.prefabInfo = prefabInfo;
+    }
 
-        private int state = 0;
-        private CoroutineTask<GameObject> task;
-        private TaskResult<GameObject> taskResult;
-
-        public ModPrefabRequest(PrefabInfo prefabInfo)
+    private void Init()
+    {
+        if (task != null)
         {
-            this.prefabInfo = prefabInfo;
+            return;
         }
 
-        private void Init()
+        taskResult = new TaskResult<GameObject>();
+        if (!PrefabHandler.Prefabs.TryGetPrefabForInfo(prefabInfo, out var factory))
         {
-            if (task != null)
-            {
-                return;
-            }
-
-            taskResult = new TaskResult<GameObject>();
-            if (!PrefabHandler.Prefabs.TryGetPrefabForInfo(prefabInfo, out var factory))
-            {
-                InternalLogger.Error($"Couldn't find a prefab for the following prefab info: {prefabInfo}.");
-                return;
-            }
+            InternalLogger.Error($"Couldn't find a prefab for the following prefab info: {prefabInfo}.");
+            return;
+        }
             
-            task = new CoroutineTask<GameObject>(PrefabHandler.ProcessPrefabAsync(taskResult, prefabInfo, factory), taskResult);
-        }
+        task = new CoroutineTask<GameObject>(PrefabHandler.ProcessPrefabAsync(taskResult, prefabInfo, factory), taskResult);
+    }
 
-        public object Current
-        {
-            get
-            {
-                Init();
-                return task;
-            }
-        }
-
-        public bool TryGetPrefab(out GameObject result)
-        {
-            result = taskResult.Get();
-            return result != null;
-        }
-
-        public bool MoveNext()
+    public object Current
+    {
+        get
         {
             Init();
-            return state++ == 0;
+            return task;
         }
+    }
 
-        public void Reset() {}
+    public bool TryGetPrefab(out GameObject result)
+    {
+        result = taskResult.Get();
+        return result != null;
+    }
 
-        public void Release()
-        {
-        }
+    public bool MoveNext()
+    {
+        Init();
+        return state++ == 0;
+    }
+
+    public void Reset() {}
+
+    public void Release()
+    {
     }
 }

@@ -1,89 +1,88 @@
-namespace SMLHelper.MonoBehaviours
+namespace SMLHelper.MonoBehaviours;
+
+using SMLHelper.Utility;
+using System.Collections;
+using SMLHelper.Handlers;
+using SMLHelper.Patchers;
+using UnityEngine;
+using UWE;
+
+
+internal class EntitySpawner : MonoBehaviour
 {
-    using SMLHelper.Utility;
-    using System.Collections;
-    using SMLHelper.Handlers;
-    using SMLHelper.Patchers;
-    using UnityEngine;
-    using UWE;
+    internal SpawnInfo spawnInfo;
 
-
-    internal class EntitySpawner : MonoBehaviour
+    void Start()
     {
-        internal SpawnInfo spawnInfo;
+        StartCoroutine(SpawnAsync());
+    }
 
-        void Start()
+    IEnumerator SpawnAsync()
+    {
+        string stringToLog = spawnInfo.Type switch
         {
-            StartCoroutine(SpawnAsync());
-        }
+            SpawnInfo.SpawnType.ClassId => spawnInfo.ClassId,
+            _ => spawnInfo.TechType.AsString()
+        };
 
-        IEnumerator SpawnAsync()
+        TaskResult<GameObject> task = new();
+        yield return GetPrefabAsync(task);
+
+        GameObject prefab = task.Get();
+
+        if (prefab == null)
         {
-            string stringToLog = spawnInfo.Type switch
-            {
-                SpawnInfo.SpawnType.ClassId => spawnInfo.ClassId,
-                _ => spawnInfo.TechType.AsString()
-            };
-
-            TaskResult<GameObject> task = new();
-            yield return GetPrefabAsync(task);
-
-            GameObject prefab = task.Get();
-
-            if (prefab == null)
-            {
-                InternalLogger.Error($"no prefab found for {stringToLog}; process for Coordinated Spawn canceled.");
-                Destroy(gameObject);
-            }
-
-
-            GameObject obj = Utils.InstantiateDeactivated(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
-
-            LargeWorldEntity lwe = obj.GetComponent<LargeWorldEntity>();
-
-            LargeWorldStreamer lws = LargeWorldStreamer.main;
-            yield return new WaitUntil(() => lws != null && lws.IsReady()); // first we make sure the world streamer is initialized
-
-            // non-global objects cannot be spawned in unloaded terrain so we need to wait
-            if (lwe is {cellLevel: not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global)})
-            {
-                Int3 batch = lws.GetContainingBatch(spawnInfo.SpawnPosition);
-                yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch)); // then we wait until the terrain is fully loaded (must be checked on each frame for faster spawns)
-            }
-
-            LargeWorld lw = LargeWorld.main;
-
-            yield return new WaitUntil(() => lw != null && lw.streamer.globalRoot != null); // need to make sure global root is ready too for global spawns.
-            
-            lw.streamer.cellManager.RegisterEntity(obj);
-
-            obj.SetActive(true);
-
-            LargeWorldStreamerPatcher.savedSpawnInfos.Add(spawnInfo);
-
+            InternalLogger.Error($"no prefab found for {stringToLog}; process for Coordinated Spawn canceled.");
             Destroy(gameObject);
         }
 
-        IEnumerator GetPrefabAsync(IOut<GameObject> gameObject)
+
+        GameObject obj = Utils.InstantiateDeactivated(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
+
+        LargeWorldEntity lwe = obj.GetComponent<LargeWorldEntity>();
+
+        LargeWorldStreamer lws = LargeWorldStreamer.main;
+        yield return new WaitUntil(() => lws != null && lws.IsReady()); // first we make sure the world streamer is initialized
+
+        // non-global objects cannot be spawned in unloaded terrain so we need to wait
+        if (lwe is {cellLevel: not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global)})
         {
-            GameObject obj;
-
-            if (spawnInfo.Type == SpawnInfo.SpawnType.ClassId) // Spawn is via ClassID.
-            {
-                IPrefabRequest request = PrefabDatabase.GetPrefabAsync(spawnInfo.ClassId);
-                yield return request;
-
-                request.TryGetPrefab(out obj);
-            }
-            else // spawn is via TechType.
-            {
-                CoroutineTask<GameObject> task = CraftData.GetPrefabForTechTypeAsync(spawnInfo.TechType);
-                yield return task;
-
-                obj = task.GetResult();
-            }
-
-            gameObject.Set(obj);
+            Int3 batch = lws.GetContainingBatch(spawnInfo.SpawnPosition);
+            yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch)); // then we wait until the terrain is fully loaded (must be checked on each frame for faster spawns)
         }
+
+        LargeWorld lw = LargeWorld.main;
+
+        yield return new WaitUntil(() => lw != null && lw.streamer.globalRoot != null); // need to make sure global root is ready too for global spawns.
+            
+        lw.streamer.cellManager.RegisterEntity(obj);
+
+        obj.SetActive(true);
+
+        LargeWorldStreamerPatcher.savedSpawnInfos.Add(spawnInfo);
+
+        Destroy(gameObject);
+    }
+
+    IEnumerator GetPrefabAsync(IOut<GameObject> gameObject)
+    {
+        GameObject obj;
+
+        if (spawnInfo.Type == SpawnInfo.SpawnType.ClassId) // Spawn is via ClassID.
+        {
+            IPrefabRequest request = PrefabDatabase.GetPrefabAsync(spawnInfo.ClassId);
+            yield return request;
+
+            request.TryGetPrefab(out obj);
+        }
+        else // spawn is via TechType.
+        {
+            CoroutineTask<GameObject> task = CraftData.GetPrefabForTechTypeAsync(spawnInfo.TechType);
+            yield return task;
+
+            obj = task.GetResult();
+        }
+
+        gameObject.Set(obj);
     }
 }

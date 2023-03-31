@@ -1,24 +1,23 @@
-﻿namespace SMLHelper.Json
+﻿namespace SMLHelper.Json;
+
+using System;
+
+/// <summary>
+/// Contains basic information for a <see cref="JsonFile"/> event.
+/// </summary>
+public class JsonFileEventArgs : EventArgs
 {
-    using System;
+    /// <summary>
+    /// The instance of the <see cref="JsonFile"/> this event pertains to.
+    /// </summary>
+    public JsonFile Instance { get; }
 
     /// <summary>
-    /// Contains basic information for a <see cref="JsonFile"/> event.
+    /// Instantiates a new <see cref="JsonFileEventArgs"/>.
     /// </summary>
-    public class JsonFileEventArgs : EventArgs
+    /// <param name="instance">The <see cref="JsonFile"/> instance the event pertains to.</param>
+    public JsonFileEventArgs(JsonFile instance)
     {
-        /// <summary>
-        /// The instance of the <see cref="JsonFile"/> this event pertains to.
-        /// </summary>
-        public JsonFile Instance { get; }
-
-        /// <summary>
-        /// Instantiates a new <see cref="JsonFileEventArgs"/>.
-        /// </summary>
-        /// <param name="instance">The <see cref="JsonFile"/> instance the event pertains to.</param>
-        public JsonFileEventArgs(JsonFile instance)
-        {
-            Instance = instance;
-        }
+        Instance = instance;
     }
 }

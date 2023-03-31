@@ -3,6 +3,9 @@ using SMLHelper.Assets;
 using SMLHelper.Assets.Gadgets;
 using SMLHelper.Assets.PrefabTemplates;
 using SMLHelper.Crafting;
+#if SUBNAUTICA
+using Ingredient = CraftData.Ingredient;
+#endif
 
 namespace SMLHelper.Examples;
 
@@ -88,9 +91,9 @@ public class CustomFabricatorExample : BaseUnityPlugin
 	        craftAmount = 1,
 	        Ingredients =
 	        {
-		        new CraftData.Ingredient(TechType.Titanium, 1),
-		        new CraftData.Ingredient(TechType.Nickel, 1),
-		        new CraftData.Ingredient(stone.Info.TechType, 1)
+		        new Ingredient(TechType.Titanium, 1),
+		        new Ingredient(TechType.Nickel, 1),
+		        new Ingredient(stone.Info.TechType, 1)
 	        }
         };
 

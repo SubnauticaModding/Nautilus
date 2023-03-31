@@ -1,31 +1,30 @@
-﻿namespace SMLHelper.Options.Attributes
+﻿namespace SMLHelper.Options.Attributes;
+
+using System;
+
+/// <summary>
+/// Abstract base attribute used to signify a method to call whenever the derivative event is invoked for the decorated member.
+/// </summary>
+/// <remarks>
+/// The method must be a member of the same class.
+/// </remarks>
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = true)]
+public abstract class ModOptionEventAttribute : Attribute
 {
-    using System;
+    /// <summary>
+    /// The name of the method to invoke.
+    /// </summary>
+    public string MethodName { get; }
 
     /// <summary>
-    /// Abstract base attribute used to signify a method to call whenever the derivative event is invoked for the decorated member.
+    /// Signifies a method to call whenever the derivative event is invoked for the decorated member.
     /// </summary>
     /// <remarks>
     /// The method must be a member of the same class.
     /// </remarks>
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = true)]
-    public abstract class ModOptionEventAttribute : Attribute
+    /// <param name="methodName">The name of the method within the same class to invoke.</param>
+    public ModOptionEventAttribute(string methodName)
     {
-        /// <summary>
-        /// The name of the method to invoke.
-        /// </summary>
-        public string MethodName { get; }
-
-        /// <summary>
-        /// Signifies a method to call whenever the derivative event is invoked for the decorated member.
-        /// </summary>
-        /// <remarks>
-        /// The method must be a member of the same class.
-        /// </remarks>
-        /// <param name="methodName">The name of the method within the same class to invoke.</param>
-        public ModOptionEventAttribute(string methodName)
-        {
-            MethodName = methodName;
-        }
+        MethodName = methodName;
     }
 }

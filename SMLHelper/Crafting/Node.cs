@@ -1,14 +1,13 @@
-﻿namespace SMLHelper.Crafting
-{
-    internal class Node
-    {
-        internal string[] Path { get; set; }
-        internal CraftTree.Type Scheme { get; set; }
+﻿namespace SMLHelper.Crafting;
 
-        internal Node(string[] path, CraftTree.Type scheme)
-        {
-            Path = path;
-            Scheme = scheme;
-        }
+internal class Node
+{
+    internal string[] Path { get; set; }
+    internal CraftTree.Type Scheme { get; set; }
+
+    internal Node(string[] path, CraftTree.Type scheme)
+    {
+        Path = path;
+        Scheme = scheme;
     }
 }

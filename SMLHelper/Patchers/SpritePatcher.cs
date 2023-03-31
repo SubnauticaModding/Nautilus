@@ -1,121 +1,120 @@
-﻿namespace SMLHelper.Patchers
-{
-    using SMLHelper.Utility;
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using SMLHelper.Assets;
-    using SMLHelper.Handlers;
-    using HarmonyLib;
-    using UnityEngine;
-    using UWE;
+﻿namespace SMLHelper.Patchers;
+
+using SMLHelper.Utility;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using SMLHelper.Assets;
+using SMLHelper.Handlers;
+using HarmonyLib;
+using UnityEngine;
+using UWE;
 
 #if SUBNAUTICA
-    using Sprite = Atlas.Sprite;
+using Sprite = Atlas.Sprite;
 #elif BELOWZERO
     using Sprite = UnityEngine.Sprite;
 
 #endif
 
-    internal class SpritePatcher
-    {
+internal class SpritePatcher
+{
 
-        internal static void PatchCheck(SpriteManager.Group group, string name)
+    internal static void PatchCheck(SpriteManager.Group group, string name)
+    {
+        if (string.IsNullOrEmpty(name) || !ModSprite.ModSprites.TryGetValue(group, out Dictionary<string, Sprite> groupDict) || !groupDict.TryGetValue(name, out _))
         {
-            if (string.IsNullOrEmpty(name) || !ModSprite.ModSprites.TryGetValue(group, out Dictionary<string, Sprite> groupDict) || !groupDict.TryGetValue(name, out _))
-            {
-                return;
-            }
+            return;
+        }
 #if BELOWZERO
             if (!SpriteManager.hasInitialized)
             {
                 return;
             }
 #endif
-            Dictionary<string, Sprite> atlas = GetSpriteAtlas(group);
+        Dictionary<string, Sprite> atlas = GetSpriteAtlas(group);
             
-            if (atlas != null && !atlas.TryGetValue(name, out _))
-            {
-                PatchSprites();
-            }
-        }
-
-        internal static void Patch(Harmony harmony)
+        if (atlas != null && !atlas.TryGetValue(name, out _))
         {
             PatchSprites();
+        }
+    }
+
+    internal static void Patch(Harmony harmony)
+    {
+        PatchSprites();
 #if SUBNAUTICA
-            MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
+        MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
 #elif BELOWZERO
             MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
 #endif
-            MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
+        MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
 
-            HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
-            HarmonyMethod patchBackgrounds = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
-            harmony.Patch(spriteManagerGet, prefix: patchCheck);
-            harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
-        }
+        HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
+        HarmonyMethod patchBackgrounds = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
+        harmony.Patch(spriteManagerGet, prefix: patchCheck);
+        harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
+    }
 
-        private static void PatchSprites()
+    private static void PatchSprites()
+    {
+        foreach (KeyValuePair<SpriteManager.Group, Dictionary<string, Sprite>> moddedSpriteGroup in ModSprite.ModSprites)
         {
-            foreach (KeyValuePair<SpriteManager.Group, Dictionary<string, Sprite>> moddedSpriteGroup in ModSprite.ModSprites)
-            {
-                SpriteManager.Group moddedGroup = moddedSpriteGroup.Key;
+            SpriteManager.Group moddedGroup = moddedSpriteGroup.Key;
 
-                Dictionary<string, Sprite> spriteAtlas = GetSpriteAtlas(moddedGroup);
-                if (spriteAtlas == null)
+            Dictionary<string, Sprite> spriteAtlas = GetSpriteAtlas(moddedGroup);
+            if (spriteAtlas == null)
+            {
+                continue;
+            }
+
+            Dictionary<string, Sprite> moddedSprites = moddedSpriteGroup.Value;
+            foreach (KeyValuePair<string, Sprite> sprite in moddedSprites)
+            {
+                if (spriteAtlas.ContainsKey(sprite.Key))
                 {
-                    continue;
+                    InternalLogger.Debug($"Overwriting Sprite {sprite.Key} in {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
+                    spriteAtlas[sprite.Key] = sprite.Value;
                 }
-
-                Dictionary<string, Sprite> moddedSprites = moddedSpriteGroup.Value;
-                foreach (KeyValuePair<string, Sprite> sprite in moddedSprites)
+                else
                 {
-                    if (spriteAtlas.ContainsKey(sprite.Key))
-                    {
-                        InternalLogger.Debug($"Overwriting Sprite {sprite.Key} in {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
-                        spriteAtlas[sprite.Key] = sprite.Value;
-                    }
-                    else
-                    {
-                        InternalLogger.Debug($"Adding Sprite {sprite.Key} to {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
-                        spriteAtlas.Add(sprite.Key, sprite.Value);
-                    }
+                    InternalLogger.Debug($"Adding Sprite {sprite.Key} to {nameof(SpriteManager.Group)}.{moddedSpriteGroup.Key}");
+                    spriteAtlas.Add(sprite.Key, sprite.Value);
                 }
             }
-            InternalLogger.Debug("SpritePatcher is done.");
         }
+        InternalLogger.Debug("SpritePatcher is done.");
+    }
 
-        private static bool PatchBackgrounds(CraftData.BackgroundType backgroundType, ref Sprite __result)
+    private static bool PatchBackgrounds(CraftData.BackgroundType backgroundType, ref Sprite __result)
+    {
+        if (EnumExtensions.BackgroundSprites.TryGetValue(backgroundType, out Sprite value))
         {
-            if (EnumExtensions.BackgroundSprites.TryGetValue(backgroundType, out Sprite value))
-            {
-                __result = value;
-                return false;
-            }
-            return true;
+            __result = value;
+            return false;
         }
+        return true;
+    }
 
-        private static Dictionary<string, Sprite> GetSpriteAtlas(SpriteManager.Group groupKey)
+    private static Dictionary<string, Sprite> GetSpriteAtlas(SpriteManager.Group groupKey)
+    {
+        if (!SpriteManager.mapping.TryGetValue(groupKey, out string atlasName))
         {
-            if (!SpriteManager.mapping.TryGetValue(groupKey, out string atlasName))
-            {
-                InternalLogger.Error($"SpritePatcher was unable to find a sprite mapping for {nameof(SpriteManager.Group)}.{groupKey}");
-                return null;
-            }
+            InternalLogger.Error($"SpritePatcher was unable to find a sprite mapping for {nameof(SpriteManager.Group)}.{groupKey}");
+            return null;
+        }
 #if SUBNAUTICA
-            var atlas = Atlas.GetAtlas(atlasName);
-            if (atlas?.nameToSprite != null)
-                return atlas.nameToSprite;
+        var atlas = Atlas.GetAtlas(atlasName);
+        if (atlas?.nameToSprite != null)
+            return atlas.nameToSprite;
 #elif BELOWZERO
             if (SpriteManager.atlases.TryGetValue(atlasName, out Dictionary<string, Sprite> spriteGroup))
             {
                 return spriteGroup;
             }
 #endif
-            InternalLogger.Error($"SpritePatcher was unable to find a sprite atlas for {nameof(SpriteManager.Group)}.{groupKey}");
-            return null;
-        }
+        InternalLogger.Error($"SpritePatcher was unable to find a sprite atlas for {nameof(SpriteManager.Group)}.{groupKey}");
+        return null;
     }
 }

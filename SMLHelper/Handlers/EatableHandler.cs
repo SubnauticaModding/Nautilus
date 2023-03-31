@@ -1,29 +1,29 @@
-﻿namespace SMLHelper.Handlers
-{
-    using Patchers;
+﻿namespace SMLHelper.Handlers;
 
-    /// <summary>
-    /// A handler for editing values for eatable classes
-    /// </summary>
-    public static class EatableHandler 
-    {
+using Patchers;
+
+/// <summary>
+/// A handler for editing values for eatable classes
+/// </summary>
+public static class EatableHandler 
+{
 #if SUBNAUTICA
-        /// <summary>
-        /// Use this to change the values of a specific TechType.
-        /// </summary>
-        /// <param name="item">The TechType of the item you want to change.</param>
-        /// <param name="food">The food value you want to change it to.</param>
-        /// <param name="water">The water value you want to change it to.</param>
-        /// <param name="decomposes">Whether or not the item decomposes over time</param>
-        public static void ModifyEatable(TechType item, float food, float water, bool decomposes)
+    /// <summary>
+    /// Use this to change the values of a specific TechType.
+    /// </summary>
+    /// <param name="item">The TechType of the item you want to change.</param>
+    /// <param name="food">The food value you want to change it to.</param>
+    /// <param name="water">The water value you want to change it to.</param>
+    /// <param name="decomposes">Whether or not the item decomposes over time</param>
+    public static void ModifyEatable(TechType item, float food, float water, bool decomposes)
+    {
+        EatablePatcher.EditedEatables.Add(item, new EditedEatableValues()
         {
-            EatablePatcher.EditedEatables.Add(item, new EditedEatableValues()
-            {
-                food = food,
-                water = water,
-                decomposes = decomposes,
-            });
-        }
+            food = food,
+            water = water,
+            decomposes = decomposes,
+        });
+    }
 
 #elif BELOWZERO 
         /// <summary>
@@ -50,16 +50,15 @@
             });
         }
 #endif
-        internal class EditedEatableValues
-        {
-            public bool decomposes;
-            public float food;
-            public float water;
+    internal class EditedEatableValues
+    {
+        public bool decomposes;
+        public float food;
+        public float water;
 #if BELOWZERO
             public float health;
             public int maxCharges;
             public float coldValue;
 #endif
-        }
     }
 }

@@ -1,32 +1,31 @@
-﻿namespace SMLHelper.Patchers
+﻿namespace SMLHelper.Patchers;
+
+using System.Collections.Generic;
+using HarmonyLib;
+using UWE;
+
+internal class WorldEntityDatabasePatcher
 {
-    using System.Collections.Generic;
-    using HarmonyLib;
-    using UWE;
+    internal static readonly SelfCheckingDictionary<string, WorldEntityInfo> CustomWorldEntityInfos = new("CustomWorldEntityInfo");
 
-    internal class WorldEntityDatabasePatcher
+    internal static void Patch(Harmony harmony)
     {
-        internal static readonly SelfCheckingDictionary<string, WorldEntityInfo> CustomWorldEntityInfos = new("CustomWorldEntityInfo");
+        harmony.Patch(AccessTools.Method(typeof(WorldEntityDatabase), nameof(WorldEntityDatabase.TryGetInfo)),
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), nameof(WorldEntityDatabasePatcher.Prefix))));
+    }
 
-        internal static void Patch(Harmony harmony)
+    private static bool Prefix(string classId, ref WorldEntityInfo info, ref bool __result)
+    {
+        foreach (KeyValuePair<string, WorldEntityInfo> entry in CustomWorldEntityInfos)
         {
-            harmony.Patch(AccessTools.Method(typeof(WorldEntityDatabase), nameof(WorldEntityDatabase.TryGetInfo)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), nameof(WorldEntityDatabasePatcher.Prefix))));
-        }
-
-        private static bool Prefix(string classId, ref WorldEntityInfo info, ref bool __result)
-        {
-            foreach (KeyValuePair<string, WorldEntityInfo> entry in CustomWorldEntityInfos)
+            if (entry.Key == classId)
             {
-                if (entry.Key == classId)
-                {
-                    __result = true;
-                    info = entry.Value;
-                    return false;
-                }
+                __result = true;
+                info = entry.Value;
+                return false;
             }
-
-            return true;
         }
+
+        return true;
     }
 }

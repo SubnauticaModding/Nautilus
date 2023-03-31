@@ -1,98 +1,97 @@
-﻿namespace SMLHelper.Patchers
+﻿namespace SMLHelper.Patchers;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using HarmonyLib;
+
+internal class SaveUtilsPatcher
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using HarmonyLib;
+    private static readonly List<Action> oneTimeUseOnSaveEvents = new();
+    private static readonly List<Action> oneTimeUseOnLoadEvents = new();
+    private static readonly List<Action> oneTimeUseOnQuitEvents = new();
 
-    internal class SaveUtilsPatcher
+    internal static Action OnSaveEvents;
+    internal static Action OnLoadEvents;
+    internal static Action OnQuitEvents;
+
+    public static void Patch(Harmony harmony)
     {
-        private static readonly List<Action> oneTimeUseOnSaveEvents = new();
-        private static readonly List<Action> oneTimeUseOnLoadEvents = new();
-        private static readonly List<Action> oneTimeUseOnQuitEvents = new();
+        harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.CaptureSaveScreenshot)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeSaveEvents))));
+        harmony.Patch(AccessTools.Method(typeof(MainSceneLoading), nameof(MainSceneLoading.Launch)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeLoadEvents))));
+        harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.QuitGameAsync)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeQuitEvents))));
+    }
 
-        internal static Action OnSaveEvents;
-        internal static Action OnLoadEvents;
-        internal static Action OnQuitEvents;
+    internal static void AddOneTimeUseSaveEvent(Action onSaveAction)
+    {
+        oneTimeUseOnSaveEvents.Add(onSaveAction);
+    }
 
-        public static void Patch(Harmony harmony)
-        {
-            harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.CaptureSaveScreenshot)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeSaveEvents))));
-            harmony.Patch(AccessTools.Method(typeof(MainSceneLoading), nameof(MainSceneLoading.Launch)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeLoadEvents))));
-            harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.QuitGameAsync)),
-                postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeQuitEvents))));
-        }
+    internal static void AddOneTimeUseLoadEvent(Action onLoadAction)
+    {
+        oneTimeUseOnLoadEvents.Add(onLoadAction);
+    }
 
-        internal static void AddOneTimeUseSaveEvent(Action onSaveAction)
-        {
-            oneTimeUseOnSaveEvents.Add(onSaveAction);
-        }
+    internal static void AddOneTimeUseQuitEvent(Action onQuitAction)
+    {
+        oneTimeUseOnQuitEvents.Add(onQuitAction);
+    }
 
-        internal static void AddOneTimeUseLoadEvent(Action onLoadAction)
-        {
-            oneTimeUseOnLoadEvents.Add(onLoadAction);
-        }
-
-        internal static void AddOneTimeUseQuitEvent(Action onQuitAction)
-        {
-            oneTimeUseOnQuitEvents.Add(onQuitAction);
-        }
-
-        internal static void InvokeSaveEvents()
-        {
-            OnSaveEvents?.Invoke();
+    internal static void InvokeSaveEvents()
+    {
+        OnSaveEvents?.Invoke();
             
-            if (oneTimeUseOnSaveEvents.Count > 0)
+        if (oneTimeUseOnSaveEvents.Count > 0)
+        {
+            foreach (Action action in oneTimeUseOnSaveEvents)
             {
-                foreach (Action action in oneTimeUseOnSaveEvents)
-                {
-                    action.Invoke();
-                }
-
-                oneTimeUseOnSaveEvents.Clear();
+                action.Invoke();
             }
+
+            oneTimeUseOnSaveEvents.Clear();
+        }
+    }
+
+    internal static IEnumerator InvokeLoadEvents(IEnumerator enumerator)
+    {
+        while (enumerator.MoveNext())
+        {
+            yield return enumerator.Current;
         }
 
-        internal static IEnumerator InvokeLoadEvents(IEnumerator enumerator)
+        OnLoadEvents?.Invoke();
+
+        if (oneTimeUseOnLoadEvents.Count > 0)
         {
-            while (enumerator.MoveNext())
+            foreach (Action action in oneTimeUseOnLoadEvents)
             {
-                yield return enumerator.Current;
+                action.Invoke();
             }
 
-            OnLoadEvents?.Invoke();
-
-            if (oneTimeUseOnLoadEvents.Count > 0)
-            {
-                foreach (Action action in oneTimeUseOnLoadEvents)
-                {
-                    action.Invoke();
-                }
-
-                oneTimeUseOnLoadEvents.Clear();
-            }
+            oneTimeUseOnLoadEvents.Clear();
         }
+    }
 
-        internal static IEnumerator InvokeQuitEvents(IEnumerator enumerator)
+    internal static IEnumerator InvokeQuitEvents(IEnumerator enumerator)
+    {
+        while (enumerator.MoveNext())
         {
-            while (enumerator.MoveNext())
-            {
-                yield return enumerator.Current;
-            }
+            yield return enumerator.Current;
+        }
             
-            OnQuitEvents?.Invoke();
+        OnQuitEvents?.Invoke();
 
-            if (oneTimeUseOnQuitEvents.Count > 0)
+        if (oneTimeUseOnQuitEvents.Count > 0)
+        {
+            foreach (Action action in oneTimeUseOnQuitEvents)
             {
-                foreach (Action action in oneTimeUseOnQuitEvents)
-                {
-                    action.Invoke();
-                }
-
-                oneTimeUseOnQuitEvents.Clear();
+                action.Invoke();
             }
+
+            oneTimeUseOnQuitEvents.Clear();
         }
     }
 }
