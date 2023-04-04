@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public static partial class MaterialUtils
 {
+    private static readonly int _emissionMap = Shader.PropertyToID("_EmissionMap");
+
     internal static void Patch()
     {
 #if SUBNAUTICA
@@ -171,8 +173,8 @@ public static partial class MaterialUtils
     /// <param name="materialType">Controls various settings including alpha clipping and transparency.</param>
     public static void ApplyUBERShader(Material material, float shininess, float specularIntensity, float glowStrength, MaterialType materialType)
     {
-        var specularTexture = material.GetTexture("_SpecGlossMap");
-        var emissionTexture = material.GetTexture("_EmissionMap");
+        var specularTexture = material.HasProperty(ShaderPropertyID._SpecGlossMap) ? material.GetTexture(ShaderPropertyID._SpecGlossMap) : null;
+        var emissionTexture = material.HasProperty(_emissionMap) ? material.GetTexture(_emissionMap) : null;
         var emissionColor = material.GetColor(ShaderPropertyID._EmissionColor);
         material.shader = Shaders.MarmosetUBER;
 
