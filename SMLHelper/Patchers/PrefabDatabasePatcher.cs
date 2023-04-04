@@ -107,7 +107,7 @@ internal static class PrefabDatabasePatcher
     })]
     internal static bool InstantiateAsync_Prefix(ref IEnumerator __result,string key, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
     {
-        if(!PrefabHandler.Prefabs.TryGetInfoForFileName(key, out PrefabInfo prefabInfo))
+        if (!PrefabHandler.Prefabs.TryGetInfoForFileName(key, out var prefabInfo) && !PrefabHandler.Prefabs.TryGetInfoForClassId(key, out prefabInfo))
         {
             return true;
         }

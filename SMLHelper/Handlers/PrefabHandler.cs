@@ -215,22 +215,22 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
 
         return _fileNamePrefabs.TryGetValue(fileName, out info);
     }
-    
+
     /// <summary>
     /// Gets the prefab info associated with the provided tech type.
     /// </summary>
     /// <param name="techType">The tech type of the prefab info to get.</param>
     /// <param name="info">The returned prefab info. If nothing was found for the tech type specified, this will be set to the default initialization instead.</param>
     /// <returns>True if found; otherwise false.</returns>
-    public bool TryGetInfoForTechType(string techType, out PrefabInfo info)
+    public bool TryGetInfoForTechType(TechType techType, out PrefabInfo info)
     {
-        if (string.IsNullOrEmpty(techType))
+        if (techType is TechType.None)
         {
             info = default;
             return false;
         }
 
-        return _techTypePrefabs.TryGetValue(techType, out info);
+        return _techTypePrefabs.TryGetValue(techType.AsString(), out info);
     }
 
     IEnumerator<KeyValuePair<PrefabInfo, PrefabFactoryAsync>> IEnumerable<KeyValuePair<PrefabInfo, PrefabFactoryAsync>>.GetEnumerator()
