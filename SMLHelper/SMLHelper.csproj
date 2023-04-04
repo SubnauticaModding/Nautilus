@@ -13,12 +13,7 @@
     <Configurations>SN.STABLE;BZ.STABLE;SN.EXP;BZ.EXP</Configurations>
     <Platforms>AnyCPU</Platforms>
     <Copyright>Copyright @ 2019</Copyright>
-    <Authors>SMLHelperDevs</Authors>
     <Description>A library that helps making mods for Subnautica easier.</Description>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>None</DebugType>
   </PropertyGroup>
   <Import Project="$(SolutionDir)Version.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">

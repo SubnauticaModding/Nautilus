@@ -1,0 +1,12 @@
+<Project>
+    <PropertyGroup>
+        <Authors>SMLHelperDevs</Authors>
+        <DebugType>embedded</DebugType>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageProjectUrl>https://github.com/SubnauticaModding/SMLHelper</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/SubnauticaModding/SMLHelper</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    </PropertyGroup>
+</Project>
