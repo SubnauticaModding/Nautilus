@@ -271,7 +271,7 @@ public abstract class OptionItem {
         /// </summary>
         public void Awake()
         {
-            isMainMenu = gameObject.GetComponentInParent<MainMenuOptions>() != null;
+            isMainMenu = gameObject.GetComponentInParent<uGUI_MainMenu>() != null;
         }
 
         // we add ContentSizeFitter component to text label so it will change width in its Update() based on text
