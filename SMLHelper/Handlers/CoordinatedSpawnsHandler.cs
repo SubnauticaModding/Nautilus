@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
-using SMLHelper.Patchers;
+using Patchers;
 
 /// <summary>
 /// a Handler that handles and registers Coordinated (<see cref="Vector3"/> spawns).
@@ -155,7 +155,7 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
         {
             int hash = 13;
             hash = (hash * 7) + TechType.GetHashCode();
-            hash = (hash * 7) + ClassId.GetHashCode();
+            hash = (hash * 7) + (ClassId?.GetHashCode() ?? 0);
             hash = (hash * 7) + SpawnPosition.GetHashCode();
             hash = (hash * 7) + Rotation.GetHashCode();
             hash = (hash * 7) + Type.GetHashCode();

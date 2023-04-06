@@ -13,6 +13,7 @@ using SMLHelper.MonoBehaviours;
 using UnityEngine;
 using Newtonsoft.Json;
 
+// TODO: Add immediate spawner spawning to completely remove dependency before world init
 internal class LargeWorldStreamerPatcher
 {
     internal static void Patch(Harmony harmony)
@@ -22,10 +23,10 @@ internal class LargeWorldStreamerPatcher
         harmony.Patch(initializeOrig, postfix: initPostfix);
     }
 
-    internal static readonly List<SpawnInfo> spawnInfos = new();
-    internal static readonly List<SpawnInfo> savedSpawnInfos = new();
+    internal static readonly HashSet<SpawnInfo> spawnInfos = new();
+    internal static readonly HashSet<SpawnInfo> savedSpawnInfos = new();
         
-    private static readonly List<SpawnInfo> initialSpawnInfos = new();
+    private static readonly HashSet<SpawnInfo> initialSpawnInfos = new();
 
     private static bool initialized;
 
@@ -57,13 +58,7 @@ internal class LargeWorldStreamerPatcher
             }
         }
 
-        foreach (SpawnInfo savedSpawnInfo in savedSpawnInfos)
-        {
-            if (spawnInfos.Contains(savedSpawnInfo))
-            {
-                spawnInfos.Remove(savedSpawnInfo);
-            }
-        }
+        spawnInfos.RemoveWhere(s => savedSpawnInfos.Contains(s));
 
         InitializeSpawners();
         InternalLogger.Debug("Coordinated Spawns have been initialized in the current save.");
