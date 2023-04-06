@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Target Name="ZipPlugin" AfterTargets="Build">
         <PropertyGroup>
-            <BuildPath Condition="$(Configuration.Contains('SN'))">Modding Helper</BuildPath>
+            <BuildPath Condition="$(Configuration.Contains('SN'))">SMLib</BuildPath>
             <BuildPath Condition="$(Configuration.Contains('BZ'))">SMLHelper_BZ</BuildPath>
             <PluginsDir>$(OutDir)\plugins</PluginsDir>
             <BuildDir>$([System.IO.Path]::Combine('$(PluginsDir)', '$(BuildPath)'))</BuildDir>
@@ -19,9 +19,9 @@
         <MakeDir Directories="$(BuildDir)" />
 
         <!-- Copy core mod files to build dir -->
-        <Copy SourceFiles="$([System.IO.Path]::Combine($(TargetDir), 'SMLHelper.xml'))"
+        <Copy SourceFiles="$([System.IO.Path]::Combine($(TargetDir), $(AssemblyName).xml))"
               DestinationFolder="$(BuildDir)" />
-        <Copy SourceFiles="$([System.IO.Path]::Combine($(TargetDir), 'SMLHelper.dll'))"
+        <Copy SourceFiles="$([System.IO.Path]::Combine($(TargetDir), $(AssemblyName).dll))"
               DestinationFolder="$(BuildDir)" />
 
         <!-- Include all files that we will move to temporary dirs for multiple files copy -->
