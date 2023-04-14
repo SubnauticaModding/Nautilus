@@ -246,7 +246,8 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     private void BuildModKeybindOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
     {
         KeyCode value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
-        if(!AddItem(ModKeybindOption.Create(id, label, GameInput.Device.Keyboard, value)))
+        GameInput.Device primaryDevice = GameInput.IsPrimaryDeviceGamepad() ? GameInput.Device.Controller : GameInput.Device.Keyboard;
+        if(!AddItem(ModKeybindOption.Create(id, label, primaryDevice, value)))
             InternalLogger.Warn($"Failed to add ModKeybindOption with id {id} to {Name}");
     }
 

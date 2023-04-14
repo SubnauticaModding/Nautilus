@@ -164,6 +164,7 @@ internal class OptionsPanelPatcher
 
             Transform captionTransform = headingPrefab.transform.Find("Caption");
             captionTransform.localPosition = new Vector3(45f, 0f, 0f);
+            // TODO: Add controller handler
             captionTransform.gameObject.AddComponent<HeadingClickHandler>();
             captionTransform.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 
@@ -182,7 +183,8 @@ internal class OptionsPanelPatcher
 
         #region components
         // main component for headings toggling
-        private class HeadingToggle: MonoBehaviour
+        // FIXME: When heading is selected by controller, there is no background highlight
+        private class HeadingToggle: Selectable
         {
             private HeadingState headingState = HeadingState.Expanded;
             private string headingName = null;
