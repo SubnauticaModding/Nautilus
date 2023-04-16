@@ -60,7 +60,7 @@ public static class PrefabHandler
         }
 
         if (Prefabs.TryGetPostProcessorForInfo(info, out var postProcessor))
-            postProcessor?.Invoke(obj);
+            yield return postProcessor?.Invoke(obj);
     }
 }
 
