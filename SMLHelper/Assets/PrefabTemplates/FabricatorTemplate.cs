@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using SMLHelper.Handlers;
 using SMLHelper.Utility;
 using UnityEngine;
 using UWE;
-using SMLHelper.Utility;
 using Object = UnityEngine.Object;
 
 namespace SMLHelper.Assets.PrefabTemplates;

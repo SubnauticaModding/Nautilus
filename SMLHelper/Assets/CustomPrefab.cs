@@ -52,14 +52,14 @@ public interface ICustomPrefab
     /// Gets the gadget instance associated with the specified gadget type attached to this custom prefab.
     /// </summary>
     /// <param name="gadgetType">The type of the gadget to get.</param>
-    /// <returns>The gadget instance if found, otherwise; <c>null</c>."/></returns>
+    /// <returns>The gadget instance if found, otherwise; <c>null</c>.</returns>
     Gadget GetGadget(Type gadgetType);
 
     /// <summary>
     /// Gets the gadget instance associated with the specified gadget type attached to this custom prefab.
     /// </summary>
     /// <typeparam name="TGadget">The type of the gadget to get.</typeparam>
-    /// <returns>The gadget instance if found, otherwise; <c>null</c>."/></returns>
+    /// <returns>The gadget instance if found, otherwise; <c>null</c>.</returns>
     TGadget GetGadget<TGadget>() where TGadget : Gadget;
 
     /// <summary>
