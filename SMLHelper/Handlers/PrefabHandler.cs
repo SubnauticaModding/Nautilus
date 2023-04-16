@@ -31,6 +31,8 @@ public static class PrefabHandler
 
         obj.name = classId;
 
+        var constructable = obj.GetComponent<Constructable>();
+        
         if (techType != TechType.None)
         {
 
@@ -38,12 +40,19 @@ public static class PrefabHandler
             {
                 tag.type = techType;
             }
-
-            if (obj.GetComponent<Constructable>() is { } cs)
+            
+            if (constructable)
             {
-                cs.techType = techType;
+                constructable.techType = techType;
             }
         }
+
+#if SUBNAUTICA
+        if (constructable && !constructable.ghostMaterial)
+        {
+            constructable.ghostMaterial = MaterialUtils.GhostMaterial;
+        }
+#endif
 
         if (obj.GetComponent<PrefabIdentifier>() is { } pid)
         {
