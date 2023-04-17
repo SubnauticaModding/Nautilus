@@ -8,7 +8,8 @@ namespace SMLHelper.Assets;
 using Handlers;
 
 /// <summary>
-/// Data class that represents information about a prefab.
+/// <para>Data class that represents information about a prefab.</para>
+/// <para>Also see <see cref="WithTechType"/>, which may be more convenient than directly calling the constructor.</para>
 /// </summary>
 /// <param name="ClassID">The class identifier used for the <see cref="PrefabIdentifier"/> component whenever applicable.</param>
 /// <param name="PrefabFileName">Name of the prefab file.</param>
