@@ -13,7 +13,7 @@ using Handlers;
 /// </summary>
 /// <param name="ClassID">The class identifier used for the <see cref="PrefabIdentifier"/> component whenever applicable.</param>
 /// <param name="PrefabFileName">Name of the prefab file.</param>
-/// <param name="TechType">The <see cref="TechType"/> of the corresponding item.</param>
+/// <param name="TechType">The <see cref="global::TechType"/> of the corresponding item.</param>
 public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType TechType)
 {
     /// <summary>
