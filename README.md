@@ -1,5 +1,7 @@
 # Nautilus: Subnautica Modding API
 
+![banner](https://user-images.githubusercontent.com/71298690/233505405-e89fbc70-31c9-45a2-bb31-64e1f498d4a7.png)
+
 ## About
 Nautilus is a modding library that aims on enhancing developer productivity by offering common helper utilities as easy to use and robust as possible.
 
@@ -20,4 +22,4 @@ If you got trouble installing the mod, please join our [Discord server](https://
 
 ## Contributing
 Please read through our [Contribution Guidelines](CONTRIBUTING.md) before submitting a pull request. We welcome all kinds of contributions.  
-If you have an idea for a feature or a bug fix to report but are not capable of writing code, [submit an issue](https://github.com/SubnauticaModding/Nautilus/issues/new) instead.
+If you have an idea for a feature or a bug to report but are not capable of writing code, [submit an issue](https://github.com/SubnauticaModding/Nautilus/issues/new) instead.
