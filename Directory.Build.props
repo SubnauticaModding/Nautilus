@@ -1,10 +1,10 @@
 <Project>
     <PropertyGroup>
-        <Authors>SMLHelperDevs</Authors>
+        <Authors>Subnautica Modding</Authors>
         <DebugType>embedded</DebugType>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageProjectUrl>https://github.com/SubnauticaModding/SMLHelper</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/SubnauticaModding/SMLHelper</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/SubnauticaModding/Nautilus</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/SubnauticaModding/Nautilus</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>

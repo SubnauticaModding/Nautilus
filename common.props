@@ -6,11 +6,4 @@
   <ItemGroup Condition="'$(Configuration)'=='BZ.STABLE'">
     <PackageReference Include="Subnautica.BelowZero.GameLibs" Version="49371.0.0.1-r.0" />
   </ItemGroup>
-  <!-- using Contains so VS won't auto add this configs to all projects -->
-  <PropertyGroup Condition="$(Configuration.Contains('SN.EXP'))">
-    <Dependencies>..\Dependencies\Subnautica.exp</Dependencies>
-  </PropertyGroup>
-  <PropertyGroup Condition="$(Configuration.Contains('BZ.EXP'))">
-    <Dependencies>..\Dependencies\BelowZero.exp</Dependencies>
-  </PropertyGroup>
 </Project>

@@ -2,15 +2,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Target Name="ZipPlugin" AfterTargets="Build">
         <PropertyGroup>
-            <BuildPath Condition="$(Configuration.Contains('SN'))">SMLib</BuildPath>
-            <BuildPath Condition="$(Configuration.Contains('BZ'))">SMLHelper_BZ</BuildPath>
+            <BuildPath>Nautilus</BuildPath>
             <PluginsDir>$(OutDir)\plugins</PluginsDir>
             <BuildDir>$([System.IO.Path]::Combine('$(PluginsDir)', '$(BuildPath)'))</BuildDir>
-            <BuildZipPath>$([System.IO.Path]::Combine('$(TargetDir)', 'SMLHelper_$(ConfigurationName).zip'))</BuildZipPath>
-            <ThunderstoreZipPath>$([System.IO.Path]::Combine('$(TargetDir)', 'SMLHelper_$(ConfigurationName)_Thunderstore.zip'))</ThunderstoreZipPath>
+            <BuildZipPath>$([System.IO.Path]::Combine('$(TargetDir)', 'Nautilus_$(ConfigurationName).zip'))</BuildZipPath>
             <TemporaryDir>$([System.IO.Path]::Combine('$(OutDir)', 'TemporaryDir'))</TemporaryDir>
             <TemporaryBuildDir>$([System.IO.Path]::Combine('$(TemporaryDir)', 'Build'))</TemporaryBuildDir>
-            <TemporaryThunderstoreDir>$([System.IO.Path]::Combine('$(TemporaryDir)', 'Thunderstore'))</TemporaryThunderstoreDir>
         </PropertyGroup>
 
         <!-- Remove prep dir and create fresh -->
@@ -27,28 +24,18 @@
         <!-- Include all files that we will move to temporary dirs for multiple files copy -->
         <ItemGroup>
             <PluginsFiles Include="$(PluginsDir)\**\*.*" />
-            <ThunderstoreMetadataFiles Include="ThunderstoreMetadata\$(ConfigurationName)\*.*" />
         </ItemGroup>
 
         <!-- Temporary folders for our two zip files for custom structure -->
         <MakeDir Directories="$(TemporaryDir)" />
         <MakeDir Directories="$(TemporaryBuildDir)" />
-        <MakeDir Directories="$(TemporaryThunderstoreDir)" />
 
         <!-- Main zip file -->
         <Copy SourceFiles="@(PluginsFiles)" DestinationFolder="$(TemporaryBuildDir)\plugins\%(RecursiveDir)" SkipUnchangedFiles="true" />
-
-        <Copy SourceFiles="@(PluginsFiles)" DestinationFolder="$(TemporaryThunderstoreDir)\plugins\%(RecursiveDir)" SkipUnchangedFiles="true" />
-        <Copy SourceFiles="@(ThunderstoreMetadataFiles)" DestinationFolder="$(TemporaryThunderstoreDir)" SkipUnchangedFiles="true" />
-
+        
         <!-- Main build zip file -->
         <ZipDirectory SourceDirectory="$(TemporaryBuildDir)"
                       DestinationFile="$(BuildZipPath)"
-                      Overwrite="true"/>
-
-        <!-- Thunderstore zip file -->
-        <ZipDirectory SourceDirectory="$(TemporaryThunderstoreDir)"
-                      DestinationFile="$(ThunderstoreZipPath)"
                       Overwrite="true"/>
 
         <RemoveDir Directories="$(TemporaryDir)" />

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using BepInEx;
-using SMLHelper.Assets;
-using SMLHelper.Assets.PrefabTemplates;
-using SMLHelper.Handlers;
+using Nautilus.Assets;
+using Nautilus.Assets.PrefabTemplates;
+using Nautilus.Handlers;
 
-namespace SMLHelper.Examples;
+namespace Nautilus.Examples;
 
-[BepInPlugin("com.snmodding.smlhelper.localizaion", "SMLHelper Localization Example Mod", PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.smlhelper")]
+[BepInPlugin("com.snmodding.nautilus.localizaion", "Nautilus Localization Example Mod", Nautilus.PluginInfo.PLUGIN_VERSION)]
+[BepInDependency("com.snmodding.nautilus")]
 public class LocalizationExample : BaseUnityPlugin
 {
     /*
@@ -38,7 +38,7 @@ public class LocalizationExample : BaseUnityPlugin
          * Registers a folder as localization folder.
          * This folder must contain json files that are named after the language they translate.
          * For example, English translation must be named English.json and Spanish translation must be named Spanish.json.
-         * SML expects this folder to be located in the mod folder at ModName/Localization by default.
+         * Nautilus expects this folder to be located in the mod folder at ModName/Localization by default.
          */
         LanguageHandler.RegisterLocalizationFolder();
 #else

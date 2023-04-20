@@ -1,16 +1,16 @@
 using BepInEx;
-using SMLHelper.Assets;
-using SMLHelper.Assets.Gadgets;
-using SMLHelper.Assets.PrefabTemplates;
-using SMLHelper.Crafting;
+using Nautilus.Assets;
+using Nautilus.Assets.Gadgets;
+using Nautilus.Assets.PrefabTemplates;
+using Nautilus.Crafting;
 #if SUBNAUTICA
 using Ingredient = CraftData.Ingredient;
 #endif
 
-namespace SMLHelper.Examples;
+namespace Nautilus.Examples;
 
-[BepInPlugin("com.snmodding.smlhelper.customfabricator", "SMLHelper Custom Fabricator Example Mod", PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.smlhelper")]
+[BepInPlugin("com.snmodding.nautilus.customfabricator", "Nautilus Custom Fabricator Example Mod", PluginInfo.PLUGIN_VERSION)]
+[BepInDependency("com.snmodding.nautilus")]
 public class CustomFabricatorExample : BaseUnityPlugin
 {
     private void Awake()

@@ -4,78 +4,44 @@
     <TargetFramework>net472</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <RootNamespace>SMLHelper.Examples</RootNamespace>
-    <AssemblyName>ExampleMod</AssemblyName>
+    <RootNamespace>Nautilus.Examples</RootNamespace>
+    <AssemblyName>Nautilus.Example</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
-    <Configurations>SN.STABLE;BZ.EXP;SN.EXP;BZ.STABLE</Configurations>
+    <Configurations>SN.STABLE;BZ.STABLE</Configurations>
     <Platforms>AnyCPU</Platforms>
-    <Copyright>Copyright ©  2019</Copyright>
+    <Copyright>Copyright ©  2023</Copyright>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>None</DebugType>
   </PropertyGroup>
   <Import Project="$(SolutionDir)Version.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
     <OutputPath>bin\SN.STABLE\</OutputPath>
     <DefineConstants>SUBNAUTICA;SUBNAUTICA_STABLE</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.EXP|AnyCPU'">
-    <OutputPath>bin\SN.EXP\</OutputPath>
-    <DefineConstants>SUBNAUTICA;SUBNAUTICA_EXP</DefineConstants>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
     <OutputPath>bin\BZ.STABLE\</OutputPath>
     <DefineConstants>BELOWZERO;BELOWZERO_STABLE</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.EXP|AnyCPU'">
-    <OutputPath>bin\BZ.EXP\</OutputPath>
-    <DefineConstants>BELOWZERO;BELOWZERO_EXP</DefineConstants>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>$(Dependencies)\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass_publicized">
-      <HintPath>$(Dependencies)\Assembly-CSharp-firstpass_publicized.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp_publicized">
-      <HintPath>$(Dependencies)\Assembly-CSharp_publicized.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>$(Dependencies)\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(Dependencies)\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>$(Dependencies)\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <ProjectReference Include="..\SMLHelper\SMLHelper.csproj">
+    <ProjectReference Include="..\Nautilus\Nautilus.csproj">
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
-    <PackageReference Include="PolySharp" Version="1.12.1" />
+    <PackageReference Include="PolySharp" Version="1.13.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <Target Name="CopyToOutputPath" AfterTargets="Build">
     <ItemGroup>
       <LocalizationFiles Include="Localization\*.*" />
     </ItemGroup>
-    <Copy
-            SourceFiles="@(LocalizationFiles)"
-            DestinationFolder="$(OutDir)\Localization"
-            SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(OutDir)\Localization" SkipUnchangedFiles="true" />
   </Target>
 </Project>
