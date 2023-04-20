@@ -24,5 +24,5 @@ We expect submitted PRs to be functional and thoroughly tested in the game. Plea
 If you are new to pull requests, read through [GitHub's Guide](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
 
 ## Docs Contribution
-If you're looking to contribute to the [docs](https://subnauticamodding.github.io/Nautilus), refer to our [Docs Guidelines](Documentation/README.md).
+If you're looking to contribute to the [docs](https://subnauticamodding.github.io/Nautilus), refer to our [Docs Guidelines](Nautilus/Documentation/README.md).
 
