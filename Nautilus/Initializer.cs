@@ -11,6 +11,7 @@ namespace Nautilus;
 /// WARNING: This class is for use only by BepInEx.
 /// </summary>
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 public class Initializer : BaseUnityPlugin
 {
     private static readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
