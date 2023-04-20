@@ -15,7 +15,7 @@
     <Copyright>Copyright @ 2023</Copyright>
     <Description>Core library for modding Subnautica.</Description>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)Version.targets" />
+  <Import Project="..\Version.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
     <OutputPath>bin\SN.STABLE\</OutputPath>
     <DefineConstants>SUBNAUTICA;SUBNAUTICA_STABLE</DefineConstants>
@@ -40,5 +40,5 @@
 
     <Publicize Include="Newtonsoft.Json" />
   </ItemGroup>
-  <Import Project="$(SolutionDir)PostBuild.targets" />
+  <Import Project="..\PostBuild.targets" />
 </Project>

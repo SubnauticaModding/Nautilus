@@ -1,0 +1,16 @@
+- name: API Documentation
+  href: api/
+  
+- name: Guides
+  href: guides/
+  topicHref: guides/overview.md
+  
+- name: Tutorials
+  href: tutorials/
+  topicHref: tutorials/overview.md
+
+- name: Discord
+  href: https://discord.gg/UpWuWwq
+
+- name: GitHub
+  href: https://github.com/SubnauticaModding/Nautilus
