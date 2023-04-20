@@ -1,0 +1,1041 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class BasicText
+ </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class BasicText
+ ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Nautilus.Utility.BasicText">
+
+
+
+  <h1 id="Nautilus_Utility_BasicText" data-uid="Nautilus.Utility.BasicText" class="text-break">Class BasicText
+</h1>
+  <div class="markdown level0 summary"><p>
+Places a simple text object on the screen and keeps it there until either hidden (or a designated fade-to-black timer has passed). 
+By default uses the same font/size/color as the "Press Any Button To Begin" message at the beginning of the game, and appears 
+centered about 1/3 down the screen, but all parameters can be reconfigured.
+</p>
+<p>
+The idea of the defaults is that new modders don't have to bootstrap a bunch of irritating Unity stuff -- don't have to understand
+what a "Material" is or how to make one, don't have to know to initialize a font, or even a color. Can just start adding text and
+then can always custom and configure on further revision.
+</p></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">BasicText</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a></h6>
+  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
+  <h5 id="Nautilus_Utility_BasicText_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BasicText</code></pre>
+  </div>
+  <h5 id="Nautilus_Utility_BasicText_examples"><strong>Examples</strong></h5>
+  SIMPLE USAGE EXAMPLE:
+BasicText message = new BasicText();
+message.ShowMessage("This Message Will Fade In 10 Seconds", 10);
+
+COMPLEX USAGE EXAMPLE:
+BasicText message = new BasicText(TextAnchor.UpperLeft); // Note many other properties could also be set as constructor parameters
+message.setColor(Color.red); // Set Color
+message.setSize(20);         // Set Font Size
+message.setLoc(200, 400);    // Set x/y position (0,0 is center of screen)
+message.setFontStyle(FontStyle.Bold); // Bold 
+message.ShowMessage("This message stays on screen until hidden"); // Display message; if fadeout seconds not specified, it just keeps showing
+... // other things happen, time goes by
+message.Hide(); // Hides the message
+  <h3 id="constructors">Constructors
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L39">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor" data-uid="Nautilus.Utility.BasicText.#ctor">BasicText()</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with all default options.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor(System.Int32%2CSystem.Int32%2CSystem.Int32%2CUnityEngine.Color%2CTMPro.TextAlignmentOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L140">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)">BasicText(int, int, int, Color, TextAlignmentOptions)</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified origin point, size, <span class="xref">UnityEngine.Color</span>, and <span class="xref">UnityEngine.TextAnchor</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int set_x, int set_y, int useSize, Color useColor, TextAlignmentOptions useAlign)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">set_x</span></td>
+        <td>The x coordinate to set</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">set_y</span></td>
+        <td>The y coordinate to set</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">useSize</span></td>
+        <td>The text size to use</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Color</span></td>
+        <td><span class="parametername">useColor</span></td>
+        <td>The text color to use</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TextAlignmentOptions</span></td>
+        <td><span class="parametername">useAlign</span></td>
+        <td>The text anchor to align to</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor(System.Int32%2CSystem.Int32%2CSystem.Int32%2CUnityEngine.Color)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L159">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color)">BasicText(int, int, int, Color)</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified origin point, size, and <span class="xref">UnityEngine.Color</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int set_x, int set_y, int useSize, Color useColor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">set_x</span></td>
+        <td>The x coordinate to set</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">set_y</span></td>
+        <td>The y coordinate to set</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">useSize</span></td>
+        <td>The text size to use</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Color</span></td>
+        <td><span class="parametername">useColor</span></td>
+        <td>The text color to use</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor(System.Int32%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L175">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32)">BasicText(int, int, int)</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified origin point and size.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int set_x, int set_y, int useSize)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">set_x</span></td>
+        <td>The x coordinate to set</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">set_y</span></td>
+        <td>The y coordinate to set</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">useSize</span></td>
+        <td>The text size to use</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor(System.Int32%2CSystem.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L54">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32)">BasicText(int, int)</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> at the specified origin point.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int set_x, int set_y)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">set_x</span></td>
+        <td>The x coordinate to set</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">set_y</span></td>
+        <td>The y coordinate to set</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor_System_Int32_TMPro_TextAlignmentOptions_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor(System.Int32%2CTMPro.TextAlignmentOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L108">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor_System_Int32_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,TMPro.TextAlignmentOptions)">BasicText(int, TextAlignmentOptions)</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size and <span class="xref">UnityEngine.TextAnchor</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int useSize, TextAlignmentOptions useAlign)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">useSize</span></td>
+        <td>The text size to use</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TextAlignmentOptions</span></td>
+        <td><span class="parametername">useAlign</span></td>
+        <td>The text anchor to align to</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor(System.Int32%2CUnityEngine.Color%2CTMPro.TextAlignmentOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L122">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)">BasicText(int, Color, TextAlignmentOptions)</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size, <span class="xref">UnityEngine.Color</span>, and <span class="xref">UnityEngine.TextAnchor</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int useSize, Color useColor, TextAlignmentOptions useAlign)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">useSize</span></td>
+        <td>The text size to use</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Color</span></td>
+        <td><span class="parametername">useColor</span></td>
+        <td>The text color to use</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TextAlignmentOptions</span></td>
+        <td><span class="parametername">useAlign</span></td>
+        <td>The text anchor to align to</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor(System.Int32%2CUnityEngine.Color)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L95">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color)">BasicText(int, Color)</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size and <span class="xref">UnityEngine.Color</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int useSize, Color useColor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">useSize</span></td>
+        <td>The text size to use</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Color</span></td>
+        <td><span class="parametername">useColor</span></td>
+        <td>The text color to use</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor_System_Int32_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor(System.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L84">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor_System_Int32_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32)">BasicText(int)</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int useSize)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">useSize</span></td>
+        <td>The text size to uset</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor_TMPro_TextAlignmentOptions_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor(TMPro.TextAlignmentOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L64">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(TMPro.TextAlignmentOptions)">BasicText(TextAlignmentOptions)</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> at a specified <span class="xref">UnityEngine.TextAnchor</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(TextAlignmentOptions useAlign)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TextAlignmentOptions</span></td>
+        <td><span class="parametername">useAlign</span></td>
+        <td>The text anchor to align to</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText__ctor_UnityEngine_Color_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.%23ctor(UnityEngine.Color)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L74">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+  <h4 id="Nautilus_Utility_BasicText__ctor_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.#ctor(UnityEngine.Color)">BasicText(Color)</h4>
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified <span class="xref">UnityEngine.Color</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(Color useColor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Color</span></td>
+        <td><span class="parametername">useColor</span></td>
+        <td>The text color to use</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_ClearAlign.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.ClearAlign%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L385">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_ClearAlign_" data-uid="Nautilus.Utility.BasicText.ClearAlign*"></a>
+  <h4 id="Nautilus_Utility_BasicText_ClearAlign" data-uid="Nautilus.Utility.BasicText.ClearAlign">ClearAlign()</h4>
+  <div class="markdown level1 summary">Resets to using "cloned" font style of Subnautica default</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearAlign()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_ClearColor.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.ClearColor%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L275">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_ClearColor_" data-uid="Nautilus.Utility.BasicText.ClearColor*"></a>
+  <h4 id="Nautilus_Utility_BasicText_ClearColor" data-uid="Nautilus.Utility.BasicText.ClearColor">ClearColor()</h4>
+  <div class="markdown level1 summary">Resets to using "cloned" color of Subnautica default.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearColor()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_ClearFont.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.ClearFont%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L330">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_ClearFont_" data-uid="Nautilus.Utility.BasicText.ClearFont*"></a>
+  <h4 id="Nautilus_Utility_BasicText_ClearFont" data-uid="Nautilus.Utility.BasicText.ClearFont">ClearFont()</h4>
+  <div class="markdown level1 summary">Resets to using "cloned" font of Subnautica default.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearFont()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_ClearFontStyle.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.ClearFontStyle%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L358">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_ClearFontStyle_" data-uid="Nautilus.Utility.BasicText.ClearFontStyle*"></a>
+  <h4 id="Nautilus_Utility_BasicText_ClearFontStyle" data-uid="Nautilus.Utility.BasicText.ClearFontStyle">ClearFontStyle()</h4>
+  <div class="markdown level1 summary">Resets to using "cloned" font style of Subnautica default.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearFontStyle()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_ClearSize.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.ClearSize%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L302">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_ClearSize_" data-uid="Nautilus.Utility.BasicText.ClearSize*"></a>
+  <h4 id="Nautilus_Utility_BasicText_ClearSize" data-uid="Nautilus.Utility.BasicText.ClearSize">ClearSize()</h4>
+  <div class="markdown level1 summary">Resets to using "cloned" size of Subnautica default.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearSize()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_GetText.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.GetText%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L240">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_GetText_" data-uid="Nautilus.Utility.BasicText.GetText*"></a>
+  <h4 id="Nautilus_Utility_BasicText_GetText" data-uid="Nautilus.Utility.BasicText.GetText">GetText()</h4>
+  <div class="markdown level1 summary">Returns our current text.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetText()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_Hide.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.Hide%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L225">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_Hide_" data-uid="Nautilus.Utility.BasicText.Hide*"></a>
+  <h4 id="Nautilus_Utility_BasicText_Hide" data-uid="Nautilus.Utility.BasicText.Hide">Hide()</h4>
+  <div class="markdown level1 summary">Hides our text item if it is displaying.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Hide()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_SetAlign_TMPro_TextAlignmentOptions_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.SetAlign(TMPro.TextAlignmentOptions)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L371">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_SetAlign_" data-uid="Nautilus.Utility.BasicText.SetAlign*"></a>
+  <h4 id="Nautilus_Utility_BasicText_SetAlign_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.SetAlign(TMPro.TextAlignmentOptions)">SetAlign(TextAlignmentOptions)</h4>
+  <div class="markdown level1 summary">Sets the text anchor.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetAlign(TextAlignmentOptions useAlign)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TextAlignmentOptions</span></td>
+        <td><span class="parametername">useAlign</span></td>
+        <td>The text anchor to align to</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_SetColor_UnityEngine_Color_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.SetColor(UnityEngine.Color)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L261">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_SetColor_" data-uid="Nautilus.Utility.BasicText.SetColor*"></a>
+  <h4 id="Nautilus_Utility_BasicText_SetColor_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.SetColor(UnityEngine.Color)">SetColor(Color)</h4>
+  <div class="markdown level1 summary">Sets the text color</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetColor(Color useColor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Color</span></td>
+        <td><span class="parametername">useColor</span></td>
+        <td>The text color to use</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_SetFont_TMPro_TMP_FontAsset_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.SetFont(TMPro.TMP_FontAsset)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L316">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_SetFont_" data-uid="Nautilus.Utility.BasicText.SetFont*"></a>
+  <h4 id="Nautilus_Utility_BasicText_SetFont_TMPro_TMP_FontAsset_" data-uid="Nautilus.Utility.BasicText.SetFont(TMPro.TMP_FontAsset)">SetFont(TMP_FontAsset)</h4>
+  <div class="markdown level1 summary">Sets the font</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetFont(TMP_FontAsset useFont)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TMP_FontAsset</span></td>
+        <td><span class="parametername">useFont</span></td>
+        <td>The font to render the text as.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_SetFontStyle_TMPro_FontStyles_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.SetFontStyle(TMPro.FontStyles)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L344">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_SetFontStyle_" data-uid="Nautilus.Utility.BasicText.SetFontStyle*"></a>
+  <h4 id="Nautilus_Utility_BasicText_SetFontStyle_TMPro_FontStyles_" data-uid="Nautilus.Utility.BasicText.SetFontStyle(TMPro.FontStyles)">SetFontStyle(FontStyles)</h4>
+  <div class="markdown level1 summary">Sets the font style.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetFontStyle(FontStyles useStyle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FontStyles</span></td>
+        <td><span class="parametername">useStyle</span></td>
+        <td>The text font style to use</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_SetLocation_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.SetLocation(System.Single%2CSystem.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L250">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_SetLocation_" data-uid="Nautilus.Utility.BasicText.SetLocation*"></a>
+  <h4 id="Nautilus_Utility_BasicText_SetLocation_System_Single_System_Single_" data-uid="Nautilus.Utility.BasicText.SetLocation(System.Single,System.Single)">SetLocation(float, float)</h4>
+  <div class="markdown level1 summary">Sets screen display location (position relative to the actual text is determined by the alignment)</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetLocation(float set_x, float set_y)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">set_x</span></td>
+        <td>The x coordinate to set</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">set_y</span></td>
+        <td>The y coordinate to set</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_SetSize_System_Int32_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.SetSize(System.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L288">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_SetSize_" data-uid="Nautilus.Utility.BasicText.SetSize*"></a>
+  <h4 id="Nautilus_Utility_BasicText_SetSize_System_Int32_" data-uid="Nautilus.Utility.BasicText.SetSize(System.Int32)">SetSize(int)</h4>
+  <div class="markdown level1 summary">Sets the font size.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSize(int useSize)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">useSize</span></td>
+        <td>The text size to use</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_ShowMessage_System_String_System_Single_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.ShowMessage(System.String%2CSystem.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L197">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_ShowMessage_" data-uid="Nautilus.Utility.BasicText.ShowMessage*"></a>
+  <h4 id="Nautilus_Utility_BasicText_ShowMessage_System_String_System_Single_" data-uid="Nautilus.Utility.BasicText.ShowMessage(System.String,System.Single)">ShowMessage(string, float)</h4>
+  <div class="markdown level1 summary">Shows our text item, fading after a specified number of seconds (or stays on indefinitely if 0 seconds)</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ShowMessage(string s, float seconds)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">s</span></td>
+        <td>The text to display</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">seconds</span></td>
+        <td>The duration to hold before fading</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText_ShowMessage_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText.ShowMessage(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L187">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_BasicText_ShowMessage_" data-uid="Nautilus.Utility.BasicText.ShowMessage*"></a>
+  <h4 id="Nautilus_Utility_BasicText_ShowMessage_System_String_" data-uid="Nautilus.Utility.BasicText.ShowMessage(System.String)">ShowMessage(string)</h4>
+  <div class="markdown level1 summary">Shows our text item, with no schedule fade (i.e. indefinitely)</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ShowMessage(string s)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">s</span></td>
+        <td>The text to display</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_CopyFields__1___0___0_System_Reflection_BindingFlags_">ReflectionHelper.CopyFields&lt;T&gt;(T, T, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetInstanceField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetInstanceField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L34" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

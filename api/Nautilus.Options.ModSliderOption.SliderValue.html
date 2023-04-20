@@ -1,0 +1,1051 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ModSliderOption.SliderValue
+ </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ModSliderOption.SliderValue
+ ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Nautilus.Options.ModSliderOption.SliderValue">
+
+
+
+  <h1 id="Nautilus_Options_ModSliderOption_SliderValue" data-uid="Nautilus.Options.ModSliderOption.SliderValue" class="text-break">Class ModSliderOption.SliderValue
+</h1>
+  <div class="markdown level0 summary">Component for customizing slider's value behaviour.
+If you need more complex behaviour than just custom value format then you can inherit this component 
+and add it to "Slider" game object in OnGameObjectCreated event (see <a class="xref" href="Nautilus.Options.ModSliderOption.html#Nautilus_Options_ModSliderOption_AddToPanel_uGUI_TabbedControlsPanel_System_Int32_">AddToPanel(uGUI_TabbedControlsPanel, int)</a> for details on adding component)
+You can override value converters <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_ConvertToDisplayValue_System_Single_">ConvertToDisplayValue(float)</a> and <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_ConvertToSliderValue_System_Single_">ConvertToSliderValue(float)</a>,
+in that case internal range for slider will be changed to [0.0f : 1.0f] and you can control displayed value with these converters
+(also this value will be passed to <a class="xref" href="Nautilus.Options.ModOptions.html#Nautilus_Options_ModOptions_OnChange__2_System_String___0_">OnChange&lt;T, E&gt;(string, T)</a> event)</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">Object</span></div>
+    <div class="level2"><span class="xref">Component</span></div>
+    <div class="level3"><span class="xref">Behaviour</span></div>
+    <div class="level4"><span class="xref">MonoBehaviour</span></div>
+    <div class="level5"><span class="xref">ModSliderOption.SliderValue</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">MonoBehaviour.IsInvoking()</span>
+    </div>
+    <div>
+      <span class="xref">MonoBehaviour.CancelInvoke()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.Invoke(string, float)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.InvokeRepeating(string, float, float)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.CancelInvoke(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.IsInvoking(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.StartCoroutine(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.StartCoroutine(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">MonoBehaviour.StartCoroutine(IEnumerator)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">MonoBehaviour.StartCoroutine_Auto(IEnumerator)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">MonoBehaviour.StopCoroutine(IEnumerator)</a>
+    </div>
+    <div>
+      <span class="xref">MonoBehaviour.StopCoroutine(Coroutine)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.StopCoroutine(string)</a>
+    </div>
+    <div>
+      <span class="xref">MonoBehaviour.StopAllCoroutines()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">MonoBehaviour.print(object)</a>
+    </div>
+    <div>
+      <span class="xref">MonoBehaviour.Internal_CancelInvokeAll(MonoBehaviour)</span>
+    </div>
+    <div>
+      <span class="xref">MonoBehaviour.Internal_IsInvokingAll(MonoBehaviour)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.InvokeDelayed(MonoBehaviour, string, float, float)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.CancelInvoke(MonoBehaviour, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.IsInvoking(MonoBehaviour, string)</a>
+    </div>
+    <div>
+      <span class="xref">MonoBehaviour.IsObjectMonoBehaviour(Object)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">MonoBehaviour.StartCoroutineManaged(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">MonoBehaviour.StartCoroutineManaged2(IEnumerator)</a>
+    </div>
+    <div>
+      <span class="xref">MonoBehaviour.StopCoroutineManaged(Coroutine)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">MonoBehaviour.StopCoroutineFromEnumeratorManaged(IEnumerator)</a>
+    </div>
+    <div>
+      <span class="xref">MonoBehaviour.GetScriptClassName()</span>
+    </div>
+    <div>
+      <span class="xref">MonoBehaviour.useGUILayout</span>
+    </div>
+    <div>
+      <span class="xref">Behaviour.enabled</span>
+    </div>
+    <div>
+      <span class="xref">Behaviour.isActiveAndEnabled</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponent(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponentFastPath(Type, IntPtr)</a>
+    </div>
+    <div>
+      <span class="xref">Component.GetComponent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.TryGetComponent(Type, out Component)</a>
+    </div>
+    <div>
+      <span class="xref">Component.TryGetComponent&lt;T&gt;(out T)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.GetComponent(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponentInChildren(Type, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponentInChildren(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Component.GetComponentInChildren&lt;T&gt;(bool)</a>
+    </div>
+    <div>
+      <span class="xref">Component.GetComponentInChildren&lt;T&gt;()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponentsInChildren(Type, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponentsInChildren(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Component.GetComponentsInChildren&lt;T&gt;(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Component.GetComponentsInChildren&lt;T&gt;(bool, List&lt;T&gt;)</a>
+    </div>
+    <div>
+      <span class="xref">Component.GetComponentsInChildren&lt;T&gt;()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">Component.GetComponentsInChildren&lt;T&gt;(List&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponentInParent(Type)</a>
+    </div>
+    <div>
+      <span class="xref">Component.GetComponentInParent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponentsInParent(Type, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponentsInParent(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Component.GetComponentsInParent&lt;T&gt;(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Component.GetComponentsInParent&lt;T&gt;(bool, List&lt;T&gt;)</a>
+    </div>
+    <div>
+      <span class="xref">Component.GetComponentsInParent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponents(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponentsForListInternal(Type, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Component.GetComponents(Type, List&lt;Component&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">Component.GetComponents&lt;T&gt;(List&lt;T&gt;)</a>
+    </div>
+    <div>
+      <span class="xref">Component.GetComponents&lt;T&gt;()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.CompareTag(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.SendMessageUpwards(string, object, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.SendMessageUpwards(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.SendMessageUpwards(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.SendMessageUpwards(string, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.SendMessage(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.SendMessage(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.SendMessage(string, object, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.SendMessage(string, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.BroadcastMessage(string, object, SendMessageOptions)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.BroadcastMessage(string, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.BroadcastMessage(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Component.BroadcastMessage(string, SendMessageOptions)</a>
+    </div>
+    <div>
+      <span class="xref">Component.transform</span>
+    </div>
+    <div>
+      <span class="xref">Component.gameObject</span>
+    </div>
+    <div>
+      <span class="xref">Component.tag</span>
+    </div>
+    <div>
+      <span class="xref">Object.m_CachedPtr</span>
+    </div>
+    <div>
+      <span class="xref">Object.OffsetOfInstanceIDInCPlusPlusObject</span>
+    </div>
+    <div>
+      <span class="xref">Object.objectIsNullMessage</span>
+    </div>
+    <div>
+      <span class="xref">Object.cloneDestroyedMessage</span>
+    </div>
+    <div>
+      <span class="xref">Object.GetInstanceID()</span>
+    </div>
+    <div>
+      <span class="xref">Object.GetHashCode()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object.Equals(object)</a>
+    </div>
+    <div>
+      <span class="xref">Object.CompareBaseObjects(Object, Object)</span>
+    </div>
+    <div>
+      <span class="xref">Object.EnsureRunningOnMainThread()</span>
+    </div>
+    <div>
+      <span class="xref">Object.IsNativeObjectAlive(Object)</span>
+    </div>
+    <div>
+      <span class="xref">Object.GetCachedPtr()</span>
+    </div>
+    <div>
+      <span class="xref">Object.Instantiate(Object, Vector3, Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">Object.Instantiate(Object, Vector3, Quaternion, Transform)</span>
+    </div>
+    <div>
+      <span class="xref">Object.Instantiate(Object)</span>
+    </div>
+    <div>
+      <span class="xref">Object.Instantiate(Object, Transform)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Object.Instantiate(Object, Transform, bool)</a>
+    </div>
+    <div>
+      <span class="xref">Object.Instantiate&lt;T&gt;(T)</span>
+    </div>
+    <div>
+      <span class="xref">Object.Instantiate&lt;T&gt;(T, Vector3, Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">Object.Instantiate&lt;T&gt;(T, Vector3, Quaternion, Transform)</span>
+    </div>
+    <div>
+      <span class="xref">Object.Instantiate&lt;T&gt;(T, Transform)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Object.Instantiate&lt;T&gt;(T, Transform, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">Object.Destroy(Object, float)</a>
+    </div>
+    <div>
+      <span class="xref">Object.Destroy(Object)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Object.DestroyImmediate(Object, bool)</a>
+    </div>
+    <div>
+      <span class="xref">Object.DestroyImmediate(Object)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Object.FindObjectsOfType(Type)</a>
+    </div>
+    <div>
+      <span class="xref">Object.DontDestroyOnLoad(Object)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">Object.DestroyObject(Object, float)</a>
+    </div>
+    <div>
+      <span class="xref">Object.DestroyObject(Object)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Object.FindSceneObjectsOfType(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Object.FindObjectsOfTypeIncludingAssets(Type)</a>
+    </div>
+    <div>
+      <span class="xref">Object.FindObjectsOfType&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">Object.FindObjectOfType&lt;T&gt;()</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Object.FindObjectsOfTypeAll(Type)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object.CheckNullArgument(object, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Object.FindObjectOfType(Type)</a>
+    </div>
+    <div>
+      <span class="xref">Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">Object.GetOffsetOfInstanceIDInCPlusPlusObject()</span>
+    </div>
+    <div>
+      <span class="xref">Object.CurrentThreadIsMainThread()</span>
+    </div>
+    <div>
+      <span class="xref">Object.Internal_CloneSingle(Object)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Object.Internal_CloneSingleWithParent(Object, Transform, bool)</a>
+    </div>
+    <div>
+      <span class="xref">Object.Internal_InstantiateSingle(Object, Vector3, Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">Object.Internal_InstantiateSingleWithParent(Object, Transform, Vector3, Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">Object.ToString(Object)</span>
+    </div>
+    <div>
+      <span class="xref">Object.GetName(Object)</span>
+    </div>
+    <div>
+      <span class="xref">Object.IsPersistent(Object)</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Object.SetName(Object, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Object.DoesObjectWithInstanceIDExist(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Object.FindObjectFromInstanceID(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Object.ForceLoadFromInstanceID(int)</a>
+    </div>
+    <div>
+      <span class="xref">Object.Internal_InstantiateSingle_Injected(Object, ref Vector3, ref Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">Object.Internal_InstantiateSingleWithParent_Injected(Object, Transform, ref Vector3, ref Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">Object.name</span>
+    </div>
+    <div>
+      <span class="xref">Object.hideFlags</span>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Options.html">Options</a></h6>
+  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
+  <h5 id="Nautilus_Options_ModSliderOption_SliderValue_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ModSliderOption.SliderValue : MonoBehaviour</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_label.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.label%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L133">View Source</a>
+  </span>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_label" data-uid="Nautilus.Options.ModSliderOption.SliderValue.label">label</h4>
+  <div class="markdown level1 summary">The value label of the <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html">ModSliderOption.SliderValue</a></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected TextMeshProUGUI label</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TextMeshProUGUI</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_maxValue.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.maxValue%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L148">View Source</a>
+  </span>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_maxValue" data-uid="Nautilus.Options.ModSliderOption.SliderValue.maxValue">maxValue</h4>
+  <div class="markdown level1 summary">The maximum value of the <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html">ModSliderOption.SliderValue</a>.
+In case of custom value converters it can be not equal to internal maximum value for slider</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float maxValue</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_minValue.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.minValue%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L142">View Source</a>
+  </span>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_minValue" data-uid="Nautilus.Options.ModSliderOption.SliderValue.minValue">minValue</h4>
+  <div class="markdown level1 summary">The minimum value of the <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html">ModSliderOption.SliderValue</a>.
+In case of custom value converters it can be not equal to internal minimum value for slider</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float minValue</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_slider.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.slider%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L136">View Source</a>
+  </span>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_slider" data-uid="Nautilus.Options.ModSliderOption.SliderValue.slider">slider</h4>
+  <div class="markdown level1 summary">The slider controlling this <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html">ModSliderOption.SliderValue</a></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Slider slider</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Slider</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_valueFormat.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.valueFormat%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L158">View Source</a>
+  </span>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_valueFormat" data-uid="Nautilus.Options.ModSliderOption.SliderValue.valueFormat">valueFormat</h4>
+  <div class="markdown level1 summary">Custom value format</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string valueFormat</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_ValueFormat.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.ValueFormat%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L151">View Source</a>
+  </span>
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_ValueFormat_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ValueFormat*"></a>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_ValueFormat" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ValueFormat">ValueFormat</h4>
+  <div class="markdown level1 summary">Custom value format property. Set it right after adding component to game object for proper behaviour</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ValueFormat { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_ValueWidth.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.ValueWidth%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L167">View Source</a>
+  </span>
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_ValueWidth_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ValueWidth*"></a>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_ValueWidth" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ValueWidth">ValueWidth</h4>
+  <div class="markdown level1 summary">Width for value text field. Used by <a class="xref" href="Nautilus.Options.ModSliderOption.html">ModSliderOption.SliderOptionAdjust</a> to adjust label width.
+It is calculated in <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_UpdateValueWidth">UpdateValueWidth()</a>, but you can override this property.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual float ValueWidth { get; protected set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_Awake.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.Awake%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L199">View Source</a>
+  </span>
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_Awake_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.Awake*"></a>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_Awake" data-uid="Nautilus.Options.ModSliderOption.SliderValue.Awake">Awake()</h4>
+  <div class="markdown level1 summary">Component initialization. If you overriding this, make sure that you calling base.Awake()</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Awake()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_ConvertToDisplayValue_System_Single_.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.ConvertToDisplayValue(System.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L173">View Source</a>
+  </span>
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_ConvertToDisplayValue_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ConvertToDisplayValue*"></a>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_ConvertToDisplayValue_System_Single_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ConvertToDisplayValue(System.Single)">ConvertToDisplayValue(float)</h4>
+  <div class="markdown level1 summary">Converts internal slider value [0.0f : 1.0f] to displayed value</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual float ConvertToDisplayValue(float sliderValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">sliderValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_ConvertToSliderValue_System_Single_.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.ConvertToSliderValue(System.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L193">View Source</a>
+  </span>
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_ConvertToSliderValue_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ConvertToSliderValue*"></a>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_ConvertToSliderValue_System_Single_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ConvertToSliderValue(System.Single)">ConvertToSliderValue(float)</h4>
+  <div class="markdown level1 summary">Converts displayed value to internal slider value [0.0f : 1.0f]</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual float ConvertToSliderValue(float displayValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">displayValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_InitConverters.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.InitConverters%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L170">View Source</a>
+  </span>
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_InitConverters_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.InitConverters*"></a>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_InitConverters" data-uid="Nautilus.Options.ModSliderOption.SliderValue.InitConverters">InitConverters()</h4>
+  <div class="markdown level1 summary">Override this if you need to initialize custom value converters</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void InitConverters()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_OnValueChanged_System_Single_.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.OnValueChanged(System.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L277">View Source</a>
+  </span>
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_OnValueChanged_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.OnValueChanged*"></a>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_OnValueChanged_System_Single_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.OnValueChanged(System.Single)">OnValueChanged(float)</h4>
+  <div class="markdown level1 summary">Called when user changes slider value</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnValueChanged(float value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_Start.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.Start%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L247">View Source</a>
+  </span>
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_Start_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.Start*"></a>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_Start" data-uid="Nautilus.Options.ModSliderOption.SliderValue.Start">Start()</h4>
+  <div class="markdown level1 summary"><span class="xref">UnityEngine.MonoBehaviour</span>.Start()</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual IEnumerator Start()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_UpdateLabel.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.UpdateLabel%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L286">View Source</a>
+  </span>
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_UpdateLabel_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.UpdateLabel*"></a>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_UpdateLabel" data-uid="Nautilus.Options.ModSliderOption.SliderValue.UpdateLabel">UpdateLabel()</h4>
+  <div class="markdown level1 summary">Updates label's text with formatted and converted slider's value.
+Override this if you need even more control on slider's value behaviour.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void UpdateLabel()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue_UpdateValueWidth.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue.UpdateValueWidth%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L256">View Source</a>
+  </span>
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_UpdateValueWidth_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.UpdateValueWidth*"></a>
+  <h4 id="Nautilus_Options_ModSliderOption_SliderValue_UpdateValueWidth" data-uid="Nautilus.Options.ModSliderOption.SliderValue.UpdateValueWidth">UpdateValueWidth()</h4>
+  <div class="markdown level1 summary">Method for calculating necessary label's width. Creates temporary label and compares widths of min and max values,
+then sets <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_ValueWidth">ValueWidth</a> to the wider. Be aware that in case of using custom converters some intermediate value may be wider than min/max values.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual IEnumerator UpdateValueWidth()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_CopyFields__1___0___0_System_Reflection_BindingFlags_">ReflectionHelper.CopyFields&lt;T&gt;(T, T, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetInstanceField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetInstanceField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_ModSliderOption_SliderValue.md&amp;value=---%0Auid%3A%20Nautilus.Options.ModSliderOption.SliderValue%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModSliderOption.cs/#L130" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

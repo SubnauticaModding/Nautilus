@@ -1,0 +1,1023 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class CraftDataHandler
+ </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class CraftDataHandler
+ ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Nautilus.Handlers.CraftDataHandler">
+
+
+
+  <h1 id="Nautilus_Handlers_CraftDataHandler" data-uid="Nautilus.Handlers.CraftDataHandler" class="text-break">Class CraftDataHandler
+</h1>
+  <div class="markdown level0 summary">A handler class for adding and editing crafted items.</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">CraftDataHandler</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></h6>
+  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
+  <h5 id="Nautilus_Handlers_CraftDataHandler_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class CraftDataHandler</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_AddBuildable_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.AddBuildable(TechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L174">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_AddBuildable_" data-uid="Nautilus.Handlers.CraftDataHandler.AddBuildable*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_AddBuildable_TechType_" data-uid="Nautilus.Handlers.CraftDataHandler.AddBuildable(TechType)">AddBuildable(TechType)</h4>
+  <div class="markdown level1 summary">Allows you to add items to the buildable list.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddBuildable(TechType techType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType which you want to add to the buildable list.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup%2CTechCategory%2CTechType%2CTechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler.cs/#L31">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_AddToGroup_" data-uid="Nautilus.Handlers.CraftDataHandler.AddToGroup*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_TechType_" data-uid="Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType,TechType)">AddToGroup(TechGroup, TechCategory, TechType, TechType)</h4>
+  <div class="markdown level1 summary">Allows you to add items to the game's internal grouping system.
+Required if you want to make buildable items show up in the Habitat Builder or show in the Blueprints Tab of the PDA.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType after)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechGroup</span></td>
+        <td><span class="parametername">group</span></td>
+        <td>The TechGroup you want to add your TechType to.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechCategory</span></td>
+        <td><span class="parametername">category</span></td>
+        <td>The TechCategory (in the TechGroup) you want to add your TechType to.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType you want to add.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">after</span></td>
+        <td>Added TechType will be added after this TechType, for sorting purposes.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup%2CTechCategory%2CTechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler.cs/#L18">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_AddToGroup_" data-uid="Nautilus.Handlers.CraftDataHandler.AddToGroup*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_" data-uid="Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType)">AddToGroup(TechGroup, TechCategory, TechType)</h4>
+  <div class="markdown level1 summary">Allows you to add items to the game's internal grouping system.
+Required if you want to make buildable items show up in the Habitat Builder or show in the Blueprints Tab of the PDA.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddToGroup(TechGroup group, TechCategory category, TechType techType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechGroup</span></td>
+        <td><span class="parametername">group</span></td>
+        <td>The TechGroup you want to add your TechType to.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechCategory</span></td>
+        <td><span class="parametername">category</span></td>
+        <td>The TechCategory (in the TechGroup) you want to add your TechType to.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType you want to add.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_ConvertToRecipeData_ITechData_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.ConvertToRecipeData(ITechData)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L223">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_ConvertToRecipeData_" data-uid="Nautilus.Handlers.CraftDataHandler.ConvertToRecipeData*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_ConvertToRecipeData_ITechData_" data-uid="Nautilus.Handlers.CraftDataHandler.ConvertToRecipeData(ITechData)">ConvertToRecipeData(ITechData)</h4>
+  <div class="markdown level1 summary">Converts the games ITechData into Nautilus RecipeData.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RecipeData ConvertToRecipeData(ITechData iTechData)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ITechData</span></td>
+        <td><span class="parametername">iTechData</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_GetModdedRecipeData_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.GetModdedRecipeData(TechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L186">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_GetModdedRecipeData_" data-uid="Nautilus.Handlers.CraftDataHandler.GetModdedRecipeData*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_GetModdedRecipeData_TechType_" data-uid="Nautilus.Handlers.CraftDataHandler.GetModdedRecipeData(TechType)">GetModdedRecipeData(TechType)</h4>
+  <div class="markdown level1 summary">Safely accesses the crafting data from a modded item.<p></p>
+WARNING: This method is highly dependent on mod load order. 
+Make sure your mod is loading after the mod whose RecipeData you are trying to access.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RecipeData GetModdedRecipeData(TechType techType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose RecipeData you want to access.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a></td>
+        <td>The RecipeData from the modded item if it exists; Otherwise, returns <code>null</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_GetRecipeData_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.GetRecipeData(TechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L202">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_GetRecipeData_" data-uid="Nautilus.Handlers.CraftDataHandler.GetRecipeData*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_GetRecipeData_TechType_" data-uid="Nautilus.Handlers.CraftDataHandler.GetRecipeData(TechType)">GetRecipeData(TechType)</h4>
+  <div class="markdown level1 summary">Safely accesses the crafting data from any item.<p></p>
+WARNING: This method is highly dependent on mod load order. 
+Make sure your mod is loading after the mod whose RecipeData you are trying to access.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RecipeData GetRecipeData(TechType techType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose RecipeData you want to access.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a></td>
+        <td>Returns RecipeData if it exists; Otherwise, returns <code>null</code>.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_RemoveFromGroup_TechGroup_TechCategory_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.RemoveFromGroup(TechGroup%2CTechCategory%2CTechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler.cs/#L42">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_RemoveFromGroup_" data-uid="Nautilus.Handlers.CraftDataHandler.RemoveFromGroup*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_RemoveFromGroup_TechGroup_TechCategory_TechType_" data-uid="Nautilus.Handlers.CraftDataHandler.RemoveFromGroup(TechGroup,TechCategory,TechType)">RemoveFromGroup(TechGroup, TechCategory, TechType)</h4>
+  <div class="markdown level1 summary">Allows you to remove an existing TechType from the game's internal group system.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RemoveFromGroup(TechGroup group, TechCategory category, TechType techType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechGroup</span></td>
+        <td><span class="parametername">group</span></td>
+        <td>The TechGroup in which the TechType is located.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechCategory</span></td>
+        <td><span class="parametername">category</span></td>
+        <td>The TechCategory in which the TechType is located.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType which you want to remove.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetBackgroundType_TechType_CraftData_BackgroundType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetBackgroundType(TechType%2CCraftData.BackgroundType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L146">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetBackgroundType_" data-uid="Nautilus.Handlers.CraftDataHandler.SetBackgroundType*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetBackgroundType_TechType_CraftData_BackgroundType_" data-uid="Nautilus.Handlers.CraftDataHandler.SetBackgroundType(TechType,CraftData.BackgroundType)">SetBackgroundType(TechType, BackgroundType)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit inventory background colors for TechTypes.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetBackgroundType(TechType techType, CraftData.BackgroundType backgroundColor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose BackgroundType you want to edit.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">CraftData</span>.<span class="xref">BackgroundType</span></td>
+        <td><span class="parametername">backgroundColor</span></td>
+        <td>The background color for that TechType.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Handlers_CraftDataHandler_SetBackgroundType_TechType_CraftData_BackgroundType__seealso">See Also</h5>
+  <div class="seealso">
+      <div><span class="xref">CraftData</span>.<span class="xref">BackgroundType</span></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetCookedVariant_TechType_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetCookedVariant(TechType%2CTechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L135">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetCookedVariant_" data-uid="Nautilus.Handlers.CraftDataHandler.SetCookedVariant*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetCookedVariant_TechType_TechType_" data-uid="Nautilus.Handlers.CraftDataHandler.SetCookedVariant(TechType,TechType)">SetCookedVariant(TechType, TechType)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit the cooked creature list, i.e. associate the unedible TechType to the cooked TechType.</p>
+<p>Can be used for existing TechTypes too.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetCookedVariant(TechType uncooked, TechType cooked)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">uncooked</span></td>
+        <td>The TechType whose cooked creature counterpart to edit.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">cooked</span></td>
+        <td>The cooked creature counterpart for that TechType.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetCraftingTime_TechType_System_Single_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetCraftingTime(TechType%2CSystem.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L124">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetCraftingTime_" data-uid="Nautilus.Handlers.CraftDataHandler.SetCraftingTime*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetCraftingTime_TechType_System_Single_" data-uid="Nautilus.Handlers.CraftDataHandler.SetCraftingTime(TechType,System.Single)">SetCraftingTime(TechType, float)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit crafting times for TechTypes.</p>
+<p>Can be used for existing TechTypes too.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetCraftingTime(TechType techType, float time)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose crafting time you want to edit.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">time</span></td>
+        <td>The crafting time, in seconds, for that TechType.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetEatingSound_TechType_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetEatingSound(TechType%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L165">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetEatingSound_" data-uid="Nautilus.Handlers.CraftDataHandler.SetEatingSound*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetEatingSound_TechType_System_String_" data-uid="Nautilus.Handlers.CraftDataHandler.SetEatingSound(TechType,System.String)">SetEatingSound(TechType, string)</h4>
+  <div class="markdown level1 summary">Sets the eating sound for the provided TechType.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetEatingSound(TechType consumable, string soundPath)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">consumable</span></td>
+        <td>The item being consumed during <span class="xref">Survival.Eat(UnityEngine.GameObject)</span>.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">soundPath</span></td>
+        <td>The sound path.
+<p>
+Value values are
+- "event:/player/drink"
+- "event:/player/drink_stillsuit"
+- "event:/player/use_first_aid"
+- "event:/player/eat" (default)
+</p></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetEquipmentType_TechType_EquipmentType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetEquipmentType(TechType%2CEquipmentType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L46">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetEquipmentType_" data-uid="Nautilus.Handlers.CraftDataHandler.SetEquipmentType*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetEquipmentType_TechType_EquipmentType_" data-uid="Nautilus.Handlers.CraftDataHandler.SetEquipmentType(TechType,EquipmentType)">SetEquipmentType(TechType, EquipmentType)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit EquipmentTypes for TechTypes.</p>
+<p>Can be used for existing TechTypes too.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetEquipmentType(TechType techType, EquipmentType equipmentType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose EqiupmentType you want to edit.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">EquipmentType</span></td>
+        <td><span class="parametername">equipmentType</span></td>
+        <td>The EquipmentType for that TechType.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetHarvestFinalCutBonus_TechType_System_Int32_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetHarvestFinalCutBonus(TechType%2CSystem.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L90">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetHarvestFinalCutBonus_" data-uid="Nautilus.Handlers.CraftDataHandler.SetHarvestFinalCutBonus*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetHarvestFinalCutBonus_TechType_System_Int32_" data-uid="Nautilus.Handlers.CraftDataHandler.SetHarvestFinalCutBonus(TechType,System.Int32)">SetHarvestFinalCutBonus(TechType, int)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit how much additional slices/seeds are given upon last knife hit.</p>
+<p>Can be used for existing TechTypes too.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetHarvestFinalCutBonus(TechType techType, int bonus)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose final cut bonus you want to edit.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">bonus</span></td>
+        <td>The number of additional slices/seeds you'll receive on last cut.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetHarvestOutput_TechType_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetHarvestOutput(TechType%2CTechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L68">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetHarvestOutput_" data-uid="Nautilus.Handlers.CraftDataHandler.SetHarvestOutput*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetHarvestOutput_TechType_TechType_" data-uid="Nautilus.Handlers.CraftDataHandler.SetHarvestOutput(TechType,TechType)">SetHarvestOutput(TechType, TechType)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit harvest output, i.e. what TechType you get when you "harvest" a TechType.</p>
+<p>Can be used for existing TechTypes too.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetHarvestOutput(TechType techType, TechType harvestOutput)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose harvest output you want to edit.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">harvestOutput</span></td>
+        <td>The harvest output for that TechType.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetHarvestType_TechType_HarvestType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetHarvestType(TechType%2CHarvestType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L79">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetHarvestType_" data-uid="Nautilus.Handlers.CraftDataHandler.SetHarvestType*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetHarvestType_TechType_HarvestType_" data-uid="Nautilus.Handlers.CraftDataHandler.SetHarvestType(TechType,HarvestType)">SetHarvestType(TechType, HarvestType)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit how TechTypes are harvested.</p>
+<p>Can be used for existing TechTypes too.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetHarvestType(TechType techType, HarvestType harvestType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose HarvestType you want to edit.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">HarvestType</span></td>
+        <td><span class="parametername">harvestType</span></td>
+        <td>The HarvestType for that TechType.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetItemSize_TechType_System_Int32_System_Int32_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetItemSize(TechType%2CSystem.Int32%2CSystem.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L113">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetItemSize_" data-uid="Nautilus.Handlers.CraftDataHandler.SetItemSize*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetItemSize_TechType_System_Int32_System_Int32_" data-uid="Nautilus.Handlers.CraftDataHandler.SetItemSize(TechType,System.Int32,System.Int32)">SetItemSize(TechType, int, int)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit item sizes for TechTypes.</p>
+<p>Can be used for existing TechTypes too.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetItemSize(TechType techType, int x, int y)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose item size you want to edit.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">x</span></td>
+        <td>The width of the item</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">y</span></td>
+        <td>The height of the item</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetItemSize_TechType_Vector2int_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetItemSize(TechType%2CVector2int)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L101">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetItemSize_" data-uid="Nautilus.Handlers.CraftDataHandler.SetItemSize*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetItemSize_TechType_Vector2int_" data-uid="Nautilus.Handlers.CraftDataHandler.SetItemSize(TechType,Vector2int)">SetItemSize(TechType, Vector2int)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit item sizes for TechTypes.</p>
+<p>Can be used for existing TechTypes too.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetItemSize(TechType techType, Vector2int size)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose item size you want to edit.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Vector2int</span></td>
+        <td><span class="parametername">size</span></td>
+        <td>The item size for that TechType.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetQuickSlotType_TechType_QuickSlotType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetQuickSlotType(TechType%2CQuickSlotType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L57">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetQuickSlotType_" data-uid="Nautilus.Handlers.CraftDataHandler.SetQuickSlotType*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetQuickSlotType_TechType_QuickSlotType_" data-uid="Nautilus.Handlers.CraftDataHandler.SetQuickSlotType(TechType,QuickSlotType)">SetQuickSlotType(TechType, QuickSlotType)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit QuickSlotType for TechTypes. Can be used for existing TechTypes too.</p>
+<p>Careful: This has to be called after <a class="xref" href="Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_SetRecipeData_TechType_ITechData_">SetRecipeData(TechType, ITechData)</a> and <a class="xref" href="Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_SetRecipeData_TechType_Nautilus_Crafting_RecipeData_">SetRecipeData(TechType, RecipeData)</a>.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetQuickSlotType(TechType techType, QuickSlotType slotType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose QuickSlotType you want to edit.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">QuickSlotType</span></td>
+        <td><span class="parametername">slotType</span></td>
+        <td>The QuickSlotType for that TechType.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetRecipeData_TechType_ITechData_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetRecipeData(TechType%2CITechData)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L23">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetRecipeData_" data-uid="Nautilus.Handlers.CraftDataHandler.SetRecipeData*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetRecipeData_TechType_ITechData_" data-uid="Nautilus.Handlers.CraftDataHandler.SetRecipeData(TechType,ITechData)">SetRecipeData(TechType, ITechData)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit recipes, i.e. RecipeData for TechTypes.</p>
+<p>Can be used for existing TechTypes too.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetRecipeData(TechType techType, ITechData techData)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose RecipeData you want to edit.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">ITechData</span></td>
+        <td><span class="parametername">techData</span></td>
+        <td>The ITechData for that TechType.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Handlers_CraftDataHandler_SetRecipeData_TechType_ITechData__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_SetRecipeData_TechType_Nautilus_Crafting_RecipeData_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.SetRecipeData(TechType%2CNautilus.Crafting.RecipeData)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L35">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_SetRecipeData_" data-uid="Nautilus.Handlers.CraftDataHandler.SetRecipeData*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_SetRecipeData_TechType_Nautilus_Crafting_RecipeData_" data-uid="Nautilus.Handlers.CraftDataHandler.SetRecipeData(TechType,Nautilus.Crafting.RecipeData)">SetRecipeData(TechType, RecipeData)</h4>
+  <div class="markdown level1 summary"><p>Allows you to edit recipes, i.e. RecipeData for TechTypes.</p>
+<p>Can be used for existing TechTypes too.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetRecipeData(TechType techType, RecipeData recipeData)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose RecipeData you want to edit.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a></td>
+        <td><span class="parametername">recipeData</span></td>
+        <td>The RecipeData for that TechType.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Handlers_CraftDataHandler_SetRecipeData_TechType_Nautilus_Crafting_RecipeData__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a></div>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler_Subnautica.cs/#L14" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,409 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class JsonUtils
+ </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class JsonUtils
+ ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Nautilus.Utility.JsonUtils">
+
+
+
+  <h1 id="Nautilus_Utility_JsonUtils" data-uid="Nautilus.Utility.JsonUtils" class="text-break">Class JsonUtils
+</h1>
+  <div class="markdown level0 summary">A collection of utilities for interacting with JSON files.</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">JsonUtils</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a></h6>
+  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
+  <h5 id="Nautilus_Utility_JsonUtils_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class JsonUtils</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___.md&amp;value=---%0Auid%3A%20Nautilus.Utility.JsonUtils.Load%60%601(%60%600%2CSystem.String%2CSystem.Boolean%2CNewtonsoft.Json.JsonConverter%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/JsonUtils.cs/#L100">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_JsonUtils_Load_" data-uid="Nautilus.Utility.JsonUtils.Load*"></a>
+  <h4 id="Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.Load``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">Load&lt;T&gt;(T, string, bool, params JsonConverter[])</h4>
+  <div class="markdown level1 summary">Loads data from the JSON file at <code class="paramref">path</code> into the <code class="paramref">jsonObject</code>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Load&lt;T&gt;(T jsonObject, string path = null, bool createFileIfNotExist = true, params JsonConverter[] jsonConverters) where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">jsonObject</span></td>
+        <td>The <code class="typeparamref">T</code> instance to popular with JSON data.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">path</span></td>
+        <td>The path on disk at which the JSON file can be found.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">createFileIfNotExist</span></td>
+        <td>Whether a new JSON file should be created with default values if it does not
+    already exist.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">JsonConverter</span>[]</td>
+        <td><span class="parametername">jsonConverters</span></td>
+        <td>An array of <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for deserialization.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td>The type of <code class="paramref">jsonObject</code> to populate with JSON data.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter____seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(string, bool, params JsonConverter[])</a></div>
+      <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___">Save&lt;T&gt;(T, string, params JsonConverter[])</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___.md&amp;value=---%0Auid%3A%20Nautilus.Utility.JsonUtils.Load%60%601(System.String%2CSystem.Boolean%2CNewtonsoft.Json.JsonConverter%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/JsonUtils.cs/#L52">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_JsonUtils_Load_" data-uid="Nautilus.Utility.JsonUtils.Load*"></a>
+  <h4 id="Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.Load``1(System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">Load&lt;T&gt;(string, bool, params JsonConverter[])</h4>
+  <div class="markdown level1 summary">Create an instance of <code class="typeparamref">T</code>, populated with data from the JSON file at the given 
+<code class="paramref">path</code>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T Load&lt;T&gt;(string path = null, bool createFileIfNotExist = true, params JsonConverter[] jsonConverters) where T : class, new()</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">path</span></td>
+        <td>The path on disk at which the JSON file can be found.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">createFileIfNotExist</span></td>
+        <td>Whether a new JSON file should be created with default values if it does not 
+    already exist.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">JsonConverter</span>[]</td>
+        <td><span class="parametername">jsonConverters</span></td>
+        <td>An array of <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for deserialization.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td>The <code class="typeparamref">T</code> instance populated with data from the JSON file at
+    <code class="paramref">path</code>, or default values if it cannot be found or an error is encountered while parsing the
+    file.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td>The type of object to initialise and populate with JSON data.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter____seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(T, string, bool, params JsonConverter[])</a></div>
+      <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___">Save&lt;T&gt;(T, string, params JsonConverter[])</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___.md&amp;value=---%0Auid%3A%20Nautilus.Utility.JsonUtils.Save%60%601(%60%600%2CSystem.String%2CNewtonsoft.Json.JsonConverter%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/JsonUtils.cs/#L146">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_JsonUtils_Save_" data-uid="Nautilus.Utility.JsonUtils.Save*"></a>
+  <h4 id="Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.Save``1(``0,System.String,Newtonsoft.Json.JsonConverter[])">Save&lt;T&gt;(T, string, params JsonConverter[])</h4>
+  <div class="markdown level1 summary">Saves the <code class="paramref">jsonObject</code> parsed as JSON data to the JSON file at <code class="paramref">path</code>,
+creating it if it does not exist.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Save&lt;T&gt;(T jsonObject, string path = null, params JsonConverter[] jsonConverters) where T : class</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">jsonObject</span></td>
+        <td>The <code class="typeparamref">T</code> instance to parse into JSON data.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">path</span></td>
+        <td>The path on disk at which to store the JSON file.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">JsonConverter</span>[]</td>
+        <td><span class="parametername">jsonConverters</span></td>
+        <td>An array of <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for serialization.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td>The type of <code class="paramref">jsonObject</code> to parse into JSON data.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter____seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(T, string, bool, params JsonConverter[])</a></div>
+      <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(string, bool, params JsonConverter[])</a></div>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_JsonUtils.md&amp;value=---%0Auid%3A%20Nautilus.Utility.JsonUtils%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/JsonUtils.cs/#L15" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

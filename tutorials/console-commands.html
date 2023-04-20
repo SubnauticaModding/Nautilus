@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Adding Custom Console Commands </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Adding Custom Console Commands ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-custom-console-commands">Adding Custom Console Commands</h1>
+
+<p>Nautilus provides a simple API for allowing you to define custom console commands for your mod to respond to when the user types them into the in-game dev console, with simple parameter type checking to enable user- and developer-friendly error reporting, both on-screen and in the log.</p>
+<p><img src="../Documentation/images/tutorials/command-results.png" alt="An example error message"></p>
+<h2 id="supported-parameter-types">Supported Parameter Types</h2>
+<p>Currently, only the following types are supported by the API:</p>
+<ul>
+<li><code>string</code></li>
+<li><code>bool</code></li>
+<li><code>int</code></li>
+<li><code>float</code></li>
+<li><code>double</code></li>
+</ul>
+<p>If you wish to use a type not in this list, it is recommended to use <code>string</code> (as that is what the value coming from the user will be anyway) and handle converting and error-checking the value for yourself.</p>
+<p>If the user provides incorrect parameters for a command, they will be notified of the expected parameters on-screen and in the log file.</p>
+<h2 id="registering-a-custom-console-command">Registering a Custom Console Command</h2>
+<p>There are three ways to register custom console commands, so you can use whichever suits your purpose or coding-style best.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Registered commands must be unique. If any mod has already added the command, your command will be rejected.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A command can have a return type, but it is not necessary. If it does return any type, it will be printed on-screen and in the log file.</p>
+</div>
+<h3 id="registering-a-delegate-callback-as-a-command">Registering a <code>delegate</code> (Callback) as a Command</h3>
+<p>By calling <code>ConsoleCommandsHandler.RegisterConsoleCommand&lt;T&gt;(string command, T callback)</code>, you can pass an instance of the delegate, whether it is an anonymous lambda or reference to a method that implements the delegate signature to register your callback as a response to the command.</p>
+<p>Note that with a <code>delegate</code> command, it is not possible to use optional parameters.
+If you want optional parameters, it is recommended to <a href="#registering-a-public-static-method-as-a-command">register a <code>public static</code> method as a command</a> instead.</p>
+<p>In the example below, we are registering a console command by the use of a delegate. The delegate will respond to the &quot;delegatecommand&quot;
+command from the dev console in the game.</p>
+<p>You can also use <code>System.Func</code> or <code>System.Action</code> delegates to define the signature for your command signature.</p>
+<pre><code class="lang-csharp">using BepInEx;
+using Nautilus.Handlers;
+
+[BepInPlugin(PluginInfo.GUID, PluginInfo.MOD_NAME, PluginInfo.VERSION)]
+public class MyPlugin : BaseUnityPlugin
+{
+    private void Start()
+    {
+        ConsoleCommandsHandler.RegisterConsoleCommand&lt;MyCommand&gt;(&quot;delegatecommand&quot;, (myString, myInt, myBool) =&gt;
+        {
+            return $&quot;Parameters: {myString} {myInt} {myBool}&quot;;
+        });
+    }
+
+    private delegate string MyCommand(string myString, int myInt, bool myBool);
+}
+</code></pre>
+<p>The command: <code>delegatecommand foo 3 true</code> is a valid signature for the code above.</p>
+<h3 id="registering-a-public-static-method-as-a-command">Registering a <code>public static</code> Method as a Command</h3>
+<p>By calling <code>ConsoleCommandsHandler.RegisterConsoleCommand(string command, Type declaringType, string methodName, Type[] parameters = null)</code>, you can specify a <code>public static</code> method as a response to the command. The API here is similar to Harmony in that it will search for the method in the given type, using the optional <code>Type[] parameters</code> to target overloads.</p>
+<p>In the example below, we are registering a console command by specifying a target method. The method will respond to the &quot;methodcommand&quot;
+command from the dev console in the game.</p>
+<pre><code class="lang-csharp">using BepInEx;
+using Nautilus.Handlers;
+
+[BepInPlugin(PluginInfo.GUID, PluginInfo.MOD_NAME, PluginInfo.VERSION)]
+public class MyPlugin : BaseUnityPlugin
+{
+    private void Start()
+    {
+        ConsoleCommandsHandler.RegisterConsoleCommand(&quot;methodcommand&quot;, typeof(MyMod), nameof(MyCommand));
+
+        Logger.LogInfo(&quot;Patched successfully!&quot;);
+    }
+
+    public static string MyCommand(string myString, int myInt, bool myBool = false)
+    {
+        return $&quot;Parameters: {myString} {myInt} {myBool}&quot;;
+    }
+}
+</code></pre>
+<p>The command: <code>methodcommand foo 3 true</code> is a valid signature for the code above.</p>
+<h3 id="registering-multiple-public-static-methods-within-a-class-as-commands">Registering Multiple <code>public static</code> Methods Within a Class as Commands</h3>
+<p>By calling <code>ConsoleCommandsHandler.RegisterConsoleCommands(Type type)</code>, you can register all <code>public static</code> methods decorated with the <code>ConsoleCommandAttribute</code> as console commands.</p>
+<p>In the example below, we are registering all console commands specified in the <code>MyConsoleCommands</code> types as console commands.<br>
+Methods decorated with the <code>ConsoleCommandAttribute</code> will respond to the specified command from the dev console in the game.</p>
+<pre><code class="lang-csharp">using BepInEx;
+using Nautilus.Commands;
+using Nautilus.Handlers;
+
+[BepInPlugin(PluginInfo.GUID, PluginInfo.MOD_NAME, PluginInfo.VERSION)]
+public class MyPlugin : BaseUnityPlugin
+{
+    private void Start()
+    {
+        ConsoleCommandsHandler.RegisterConsoleCommands(typeof(MyConsoleCommands));
+
+        Logger.Log(Logger.Level.Info, &quot;Patched successfully!&quot;);
+    }
+}
+
+public static class MyConsoleCommands
+{
+    /// The MyAttributedCommand method will respond to the &quot;attributedcommand&quot; command from the dev console.
+    [ConsoleCommand(&quot;attributedcommand&quot;)]
+    public static string MyAttributedCommand(string myString, int myInt, bool myBool = false)
+    {
+        return $&quot;Parameters: {myString} {myInt} {myBool}&quot;;
+    }
+}
+</code></pre>
+<p>The commands:</p>
+<ul>
+<li><code>attributedcommand foo 3 true</code></li>
+<li><code>attributedcommand foo 3</code>
+are both valid signatures for the code above.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p><a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments#optional-arguments">Optional arguments</a> can be ignored when executing a command in the dev console.
+When ignored, the specified default value will be used instead.</p>
+</div>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/console-commands.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

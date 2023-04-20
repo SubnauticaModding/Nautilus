@@ -1,0 +1,519 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AudioUtils
+ </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AudioUtils
+ ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Nautilus.Utility.AudioUtils">
+
+
+
+  <h1 id="Nautilus_Utility_AudioUtils" data-uid="Nautilus.Utility.AudioUtils" class="text-break">Class AudioUtils
+</h1>
+  <div class="markdown level0 summary">Utilities for audio and sound</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">AudioUtils</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a></h6>
+  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
+  <h5 id="Nautilus_Utility_AudioUtils_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class AudioUtils</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_AudioUtils_CreateSound_System_String_FMOD_MODE_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.AudioUtils.CreateSound(System.String%2CFMOD.MODE)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L25">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_AudioUtils_CreateSound_" data-uid="Nautilus.Utility.AudioUtils.CreateSound*"></a>
+  <h4 id="Nautilus_Utility_AudioUtils_CreateSound_System_String_FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSound(System.String,FMOD.MODE)">CreateSound(string, MODE)</h4>
+  <div class="markdown level1 summary">Creates a <span class="xref">FMOD.Sound</span> instance from a path. Can be stored and later used with <a class="xref" href="Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__">TryPlaySound(Sound, Bus, out Channel)</a></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Sound CreateSound(string path, MODE mode = MODE.DEFAULT)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">path</span></td>
+        <td>The path of the sound. Relative to the base game folder.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MODE</span></td>
+        <td><span class="parametername">mode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Sound</span></td>
+        <td>The <span class="xref">FMOD.Sound</span> instance</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_AudioUtils_CreateSound_UnityEngine_AudioClip_FMOD_MODE_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.AudioUtils.CreateSound(UnityEngine.AudioClip%2CFMOD.MODE)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L37">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_AudioUtils_CreateSound_" data-uid="Nautilus.Utility.AudioUtils.CreateSound*"></a>
+  <h4 id="Nautilus_Utility_AudioUtils_CreateSound_UnityEngine_AudioClip_FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSound(UnityEngine.AudioClip,FMOD.MODE)">CreateSound(AudioClip, MODE)</h4>
+  <div class="markdown level1 summary">Creates a <span class="xref">FMOD.Sound</span> instance from an <span class="xref">UnityEngine.AudioClip</span>. Can be stored and later used with <a class="xref" href="Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__">TryPlaySound(Sound, Bus, out Channel)</a></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Sound CreateSound(AudioClip audio, MODE mode = MODE.DEFAULT)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">AudioClip</span></td>
+        <td><span class="parametername">audio</span></td>
+        <td>the AudioClip to make a Sound instance of.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MODE</span></td>
+        <td><span class="parametername">mode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Sound</span></td>
+        <td>The <span class="xref">FMOD.Sound</span> instance.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_AudioUtils_CreateSounds_System_Collections_Generic_IEnumerable_System_String__FMOD_MODE_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.AudioUtils.CreateSounds(System.Collections.Generic.IEnumerable%7BSystem.String%7D%2CFMOD.MODE)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L59">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_AudioUtils_CreateSounds_" data-uid="Nautilus.Utility.AudioUtils.CreateSounds*"></a>
+  <h4 id="Nautilus_Utility_AudioUtils_CreateSounds_System_Collections_Generic_IEnumerable_System_String__FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSounds(System.Collections.Generic.IEnumerable{System.String},FMOD.MODE)">CreateSounds(IEnumerable&lt;string&gt;, MODE)</h4>
+  <div class="markdown level1 summary">Converts a sound paths collection to an FMOD <span class="xref">FMOD.Sound</span> collection.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;Sound&gt; CreateSounds(IEnumerable&lt;string&gt; soundPaths, MODE mode = MODE.DEFAULT)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">soundPaths</span></td>
+        <td>Sound paths to create from. Relative to the base game folder</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MODE</span></td>
+        <td><span class="parametername">mode</span></td>
+        <td>The mode to set the sound to</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">Sound</span>&gt;</td>
+        <td>A collection of FMOD Sounds.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_AudioUtils_CreateSounds_System_Collections_Generic_IEnumerable_UnityEngine_AudioClip__FMOD_MODE_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.AudioUtils.CreateSounds(System.Collections.Generic.IEnumerable%7BUnityEngine.AudioClip%7D%2CFMOD.MODE)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L48">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_AudioUtils_CreateSounds_" data-uid="Nautilus.Utility.AudioUtils.CreateSounds*"></a>
+  <h4 id="Nautilus_Utility_AudioUtils_CreateSounds_System_Collections_Generic_IEnumerable_UnityEngine_AudioClip__FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSounds(System.Collections.Generic.IEnumerable{UnityEngine.AudioClip},FMOD.MODE)">CreateSounds(IEnumerable&lt;AudioClip&gt;, MODE)</h4>
+  <div class="markdown level1 summary">Creates an FMOD <span class="xref">FMOD.Sound</span> collection from an <span class="xref">UnityEngine.AudioClip</span> collection.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;Sound&gt; CreateSounds(IEnumerable&lt;AudioClip&gt; clips, MODE mode = MODE.DEFAULT)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">AudioClip</span>&gt;</td>
+        <td><span class="parametername">clips</span></td>
+        <td>AudioClips to create from.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">MODE</span></td>
+        <td><span class="parametername">mode</span></td>
+        <td>The mode to set the sound to</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">Sound</span>&gt;</td>
+        <td>A collection of FMOD Sounds.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__.md&amp;value=---%0Auid%3A%20Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound%2CFMOD.Studio.Bus%2CFMOD.Channel%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L87">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_AudioUtils_TryPlaySound_" data-uid="Nautilus.Utility.AudioUtils.TryPlaySound*"></a>
+  <h4 id="Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__" data-uid="Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound,FMOD.Studio.Bus,FMOD.Channel@)">TryPlaySound(Sound, Bus, out Channel)</h4>
+  <div class="markdown level1 summary">Plays a <span class="xref">FMOD.Sound</span> on the specified <span class="xref">FMOD.Studio.Bus</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryPlaySound(Sound sound, Bus bus, out Channel channel)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Sound</span></td>
+        <td><span class="parametername">sound</span></td>
+        <td>The sound which should be played.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Bus</span></td>
+        <td><span class="parametername">bus</span></td>
+        <td>The bus to play the sound on.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Channel</span></td>
+        <td><span class="parametername">channel</span></td>
+        <td>The channel on which the sound was created.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td>If the sound was reported as played.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_System_String_FMOD_Channel__.md&amp;value=---%0Auid%3A%20Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound%2CSystem.String%2CFMOD.Channel%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L71">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_AudioUtils_TryPlaySound_" data-uid="Nautilus.Utility.AudioUtils.TryPlaySound*"></a>
+  <h4 id="Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_System_String_FMOD_Channel__" data-uid="Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound,System.String,FMOD.Channel@)">TryPlaySound(Sound, string, out Channel)</h4>
+  <div class="markdown level1 summary">Plays a <span class="xref">FMOD.Sound</span> on the specified <span class="xref">FMOD.Studio.Bus</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryPlaySound(Sound sound, string busPath, out Channel channel)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Sound</span></td>
+        <td><span class="parametername">sound</span></td>
+        <td>The sound which should be played.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">busPath</span></td>
+        <td>The path to the bus to play the sound on.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Channel</span></td>
+        <td><span class="parametername">channel</span></td>
+        <td>The channel on which the sound was created.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td>If the sound was reported as played.</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_AudioUtils.md&amp;value=---%0Auid%3A%20Nautilus.Utility.AudioUtils%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils_Subnautica.cs/#L4" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

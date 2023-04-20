@@ -1,0 +1,1661 @@
+{
+  "homepages": [],
+  "source_base_path": "/home/runner/work/Nautilus/Nautilus/Nautilus",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "DocFX/favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "favicon.ico"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "DocFX/logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "logo.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.CustomModelData.Targets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.CustomModelData.Targets.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.CustomModelData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.CustomModelData.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.CustomPrefab.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.CustomPrefab.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.CraftingGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.CraftingGadget.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.EquipmentGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.EquipmentGadget.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.FabricatorGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.FabricatorGadget.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.Gadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.Gadget.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.GadgetExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.GadgetExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.ScanningGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.ScanningGadget.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.ICustomPrefab.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.ICustomPrefab.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.ModPrefabCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.ModPrefabCache.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabFactoryAsync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabFactoryAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabPostProcessorAsync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabPostProcessorAsync.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.CloneTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.CloneTemplate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.Model.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.Model.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.PrefabTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.PrefabTemplate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.SpawnLocation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.SpawnLocation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Commands.ConsoleCommandAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Commands.ConsoleCommandAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Commands.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Commands.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.ModCraftTreeCraft.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.ModCraftTreeCraft.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.ModCraftTreeLinkingNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.ModCraftTreeLinkingNode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.ModCraftTreeNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.ModCraftTreeNode.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.ModCraftTreeRoot.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.ModCraftTreeRoot.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.ModCraftTreeTab.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.ModCraftTreeTab.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.RecipeData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.RecipeData.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.FModMultiSounds.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.FModMultiSounds.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.Interfaces.IFModSound.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.Interfaces.IFModSound.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.Interfaces.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.ConsoleCommandsHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.ConsoleCommandsHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.CoordinatedSpawnsHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.CoordinatedSpawnsHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.CraftDataHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.CraftDataHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.CraftTreeHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.CraftTreeHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.CustomSoundHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.CustomSoundHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.EatableHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.EatableHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.EnumBuilder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.EnumBuilder-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.EnumExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.EnumExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.EnumHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.EnumHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.ItemActionHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.ItemActionHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.KnownTechHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.KnownTechHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.LanguageHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.LanguageHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.LootDistributionHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.LootDistributionHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.OptionsPanelHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.OptionsPanelHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.PDAHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.PDAHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.PrefabCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.PrefabCollection.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.PrefabCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.PrefabCollectionExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.PrefabHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.PrefabHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.SaveDataHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.SaveDataHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.SpawnInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.SpawnInfo.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.SpriteHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.SpriteHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.SurvivalHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.SurvivalHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.WorldEntityDatabaseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.WorldEntityDatabaseHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Initializer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Initializer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Attributes.FileNameAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Attributes.FileNameAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Attributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Attributes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.ConfigFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.ConfigFile.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.ConfigFileAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.ConfigFileAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.ConfigFileEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.ConfigFileEventArgs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.ColorConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.ColorConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.CustomEnumConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.CustomEnumConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.FloatConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.FloatConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.KeyCodeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.KeyCodeConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.QuaternionConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.QuaternionConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.Vector2Converter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.Vector2Converter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.Vector2IntConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.Vector2IntConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.Vector3Converter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.Vector3Converter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.Vector3IntConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.Vector3IntConverter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.Vector4Converter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.Vector4Converter.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.ExtensionMethods.JsonExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.ExtensionMethods.JsonExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.ExtensionMethods.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.ExtensionMethods.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Interfaces.IJsonFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Interfaces.IJsonFile.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Interfaces.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.JsonFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.JsonFile.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.JsonFileEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.JsonFileEventArgs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.SaveDataCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.SaveDataCache.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ButtonAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ButtonAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ChoiceAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ChoiceAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ColorPickerAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ColorPickerAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.IgnoreMemberAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.IgnoreMemberAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.KeybindAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.KeybindAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.MenuAttribute.LoadEvents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.MenuAttribute.LoadEvents.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.MenuAttribute.Members.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.MenuAttribute.Members.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.MenuAttribute.SaveEvents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.MenuAttribute.SaveEvents.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.MenuAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.MenuAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ModOptionAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ModOptionAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ModOptionEventAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ModOptionEventAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.OnChangeAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.OnChangeAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.OnGameObjectCreatedAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.OnGameObjectCreatedAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.SliderAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.SliderAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ToggleAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ToggleAttribute.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ButtonClickedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ButtonClickedEventArgs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ChoiceChangedEventArgs-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ChoiceChangedEventArgs-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ColorChangedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ColorChangedEventArgs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ConfigEntryExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ConfigEntryExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ConfigOptionEventArgs-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ConfigOptionEventArgs-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.GameObjectCreatedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.GameObjectCreatedEventArgs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.KeybindChangedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.KeybindChangedEventArgs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModButtonOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModButtonOption.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModChoiceOption-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModChoiceOption-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModColorOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModColorOption.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModKeybindOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModKeybindOption.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModOption-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModOption-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModOptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModSliderOption.SliderValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModSliderOption.SliderValue.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModSliderOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModSliderOption.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModToggleOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModToggleOption.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.OptionEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.OptionEventArgs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.OptionItem.ModOptionAdjust.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.OptionItem.ModOptionAdjust.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.OptionItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.OptionItem.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.SliderChangedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.SliderChangedEventArgs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ToggleChangedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ToggleChangedEventArgs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AudioUtils.BusPaths.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AudioUtils.BusPaths.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AudioUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AudioUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.BasicText.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.BasicText.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ConstructableFlags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ConstructableFlags.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.IOUtilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.IOUtilities.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ImageUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ImageUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ItemStorageHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ItemStorageHelper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.JsonUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.JsonUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.KeyCodeUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.KeyCodeUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.ColorModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.ColorModifier.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.MaterialModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.MaterialModifier.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialUtils.MaterialType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialUtils.MaterialType.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialUtils.Shaders.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialUtils.Shaders.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.PlayerPrefsExtra.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.PlayerPrefsExtra.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.PrefabUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.PrefabUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ReflectionHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ReflectionHelper.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.SaveUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.SaveUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.SelfCheckingDictionary-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.SelfCheckingDictionary-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.StorageHelperExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.StorageHelperExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Documentation/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/guides/overview.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/overview.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/guides/sml2-to-nautilus.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/sml2-to-nautilus.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Documentation/guides/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "guides/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/command-results.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/command-results.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Documentation/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/background-type.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/background-type.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/console-commands.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/console-commands.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/crafting-recipes.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/crafting-recipes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/equipment-type.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/equipment-type.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/localization.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/localization.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/overview.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/overview.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/spawns.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/spawns.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Documentation/tutorials/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/toc.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

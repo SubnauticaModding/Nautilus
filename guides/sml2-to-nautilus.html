@@ -1,0 +1,495 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Updating to Nautilus </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Updating to Nautilus ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="updating-to-nautilus">Updating to Nautilus</h1>
+
+<p>In this article, we will be talking about the necessary changes you must apply to update your mod to Nautilus from SMLHelper 2.0.</p>
+<h2 id="namespace">Namespace</h2>
+<p>The root namespace for Nautilus is not the same as SMLHelper 2.0.</p>
+<pre>
+<span class="lang-diff-rem">- &lt;RootNamespace&gt;SMLHelper.V2&lt;/RootNamespace&gt;</span>
+<span class="lang-diff-add">+ &lt;RootNamespace&gt;SMLHelper&lt;/RootNamespace&gt;</span>
+</pre>
+<h2 id="handlers">Handlers</h2>
+<p>Handlers no longer implement an interface matching their name. Additionally, they're now <code>public static</code>.<br>
+This means they also no longer have a public static <code>Main</code> property anymore, so you will have to drop it from anywhere
+mentioned in your code.</p>
+<h3 id="handlercs">Handler.cs</h3>
+<p>Following the handler interfaces change, the overly under-used <code>Handler</code> class will leave us in Nautilus</p>
+<pre>
+// Handler.cs
+<span class="lang-diff-rem">
+- namespace SMLHelper.V2
+- {
+-     using Interfaces;
+- 
+-     /// &lt;summary&gt;
+-     /// A simple location where every SMLHelper handler class can be accessed.
+-     /// &lt;/summary&gt;
+-     public static class Handler
+-     {
+-         public static IBioReactorHandler BioReactorHandler => Handlers.BioReactorHandler.Main;
+- 
+-         public static ICraftDataHandler CraftDataHandler => Handlers.CraftDataHandler.Main;
+- 
+-         public static ICraftTreeHandler CraftTreeHandler => Handlers.CraftTreeHandler.Main;
+- 
+-         public static IIngameMenuHandler IngameMenuHandler => Handlers.IngameMenuHandler.Main;
+-         ...
+-     }
+</span>
+</pre>  
+<h3 id="bioreactorhandler">BioReactorHandler</h3>
+<p>The <code>BioReactorHandler</code> class is removed in Nautilus because it only had one very simple method to patch, and was forcing patch-time. That means if you tried to modify a bio charge <em>after</em>
+SML's entry point, it didn't get applied.</p>
+<p>The following example demonstrates how you can implement the same functionality the <code>BioReactorHandler</code> class offered.</p>
+<pre>
+<span class="lang-diff-rem">- BioReactorHandler.SetBioreactorCharge(TechType.Peeper, 69f);</span>
+<span class="lang-diff-add">+ BaseBioReactor.charge[TechType.Peeper] = 69f;</span>
+</pre>
+<h3 id="fishhandler">FishHandler</h3>
+<p>Ever since this class has been added, it never received any further updates due to unpopularity among modders, and unfamiliarity with how creatures worked in general and thus, has been broken for a long time.<br>
+The <code>FishHandler</code> has been removed in Nautilus. At the time being, we have not added a system to replace it, so stay tuned for that.</p>
+<h3 id="pdaencyclopediahandler-and-pdaloghandler">PDAEncyclopediaHandler And PDALogHandler</h3>
+<p>Beginning with Nautilus, both of these handler methods were moved to <code>PDAHandler</code> as they only had one method each.</p>
+<pre>
+PDAEncyclopedia.EntryData entry = new PDAEncyclopedia.EntryData()
+{
+  key = "SomeEncy",
+  path = "Tech/Tools",
+  nodes = new[] { "Tech", "Tools" }
+};
+
+<span class="lang-diff-rem">- PDAEncyclopediaHandler.AddCustomEntry(entry);</span>
+<span class="lang-diff-add">+ PDAHandler.AddEncyclopediaEntry(entry);</span>
+
+<span class="lang-diff-rem">- PDALogHandler.AddCustomEntry("SomeLog", "SomeLanguageKey");</span>
+<span class="lang-diff-add">+ PDAHandler.AddLogEntry("SomeLog", "SomeLanguageKey");</span>
+</pre>
+<h2 id="enum-handlers">Enum Handlers</h2>
+<p>Beginning with Nautilus, enum handling will be made generic. Instead of working with individual handlers associated with the enum type (E.G: For <code>TechType</code> we had <code>TechTypeHandler</code>),
+Now you can add a new enum value to any enum type by using <code>EnumHandler.AddEntry&lt;TEnum&gt;(string enumName)</code>.</p>
+<p>This means the following handlers are removed:</p>
+<ul>
+<li><code>TechTypeHandler</code></li>
+<li><code>BackgroundTypeHandler</code></li>
+<li><code>EquipmentHandler</code></li>
+<li><code>PingTypeHandler</code></li>
+<li><code>TechCategoryHandler</code></li>
+<li><code>TechGroupHandler</code></li>
+<li><code>CraftTreeTypeHandler</code> - Only the methods below are removed:
+<ol>
+<li><code>CreateCustomCraftTreeAndType</code></li>
+<li><code>ModdedCraftTreeTypeExists</code></li>
+</ol>
+</li>
+</ul>
+<p>The <a class="xref" href="../api/Nautilus.Handlers.EnumHandler.html">EnumHandler</a> class contains the following methods, all of them can be used for any enum type:</p>
+<table>
+<thead>
+<tr>
+<th>Signature</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EnumBuilder&lt;TEnum&gt; AddEntry&lt;TEnum&gt;(string name)</code></td>
+<td>Adds a new enum value instance of TEnum type.</td>
+</tr>
+<tr>
+<td><code>bool ModdedEnumExists&lt;TEnum&gt;(string name)</code></td>
+<td>Safely looks for a custom enum object from another mod.</td>
+</tr>
+<tr>
+<td><code>bool TryGetValue&lt;TEnum&gt;(string name, out TEnum enumValue)</code></td>
+<td>Safely looks for a custom enum object from another mod and outputs the instance if found.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The <a class="xref" href="../api/Nautilus.Handlers.EnumHandler.html">EnumHandler</a> class only takes care of registering a new enum object for an enum type. Further configuration is now handled via extension methods for the <a class="xref" href="../api/Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder<tenum></tenum></a> type.</p>
+</div>
+<p>Below we will talk about the necessary changes you will need to make your custom enum values work for each of the aforementioned handlers.</p>
+<h3 id="configuring-custom-techtype-objects">Configuring Custom TechType Objects</h3>
+<pre>
+<span class="lang-diff-rem">- TechType customTech = TechTypeHandler.AddTechType("CustomTech", "Custom Tech", "Custom Tech that makes me go yes.", SpriteManager.Get(TechType.Titanium), unlockedAtStart: false);</span>
+<span class="lang-diff-add">+ TechType customTech = EnumHandler.AddEntry&lt;TechType&gt;("CustomTech")
++             .WithPdaInfo("Custom Tech", "Custom Tech that makes me go yes.", unlockedAtStart: false)
++             .WithIcon(SpriteManager.Get(TechType.Titanium));</span>
+</pre>
+<h3 id="configuring-custom-craftdatabackgroundtype-objects">Configuring Custom CraftData.BackgroundType Objects</h3>
+<pre>
+<span class="lang-diff-rem">- CraftData.BackgroundType customBG = BackgroundTypeHandler.AddBackgroundType("CustomBackground", SpriteManager.GetBackground(TechType.Battery));</span>
+<span class="lang-diff-add">+ CraftData.BackgroundType customBG = EnumHandler.AddEntry&lt;CraftData.BackgroundType&gt;("CustomBackground")
++             .WithBackground(SpriteManager.GetBackground(TechType.Battery));</span>
+</pre>
+<h3 id="configuring-custom-equipmenttype-objects">Configuring Custom EquipmentType Objects</h3>
+<pre>
+<span class="lang-diff-rem">- EquipmentType customEquipment = EquipmentHandler.AddEquipmentType("CustomEquipment");</span>
+<span class="lang-diff-add">+ EquipmentType customEquipment = EnumHandler.AddEntry&lt;EquipmentType&gt;("CustomEquipment");</span>
+</pre>
+<h3 id="configuring-custom-pingtype-objects">Configuring Custom PingType Objects</h3>
+<pre>
+<span class="lang-diff-rem">- PingType customPing = PingHandler.RegisterNewPingType("CustomPing", SpriteManager.Get(SpriteManager.Group.Pings, PingType.Signal.ToString()));</span>
+<span class="lang-diff-add">+ PingType customPing = EnumHandler.AddEntry&lt;PingType&gt;("CustomPing")
++             .WithIcon(SpriteManager.Get(SpriteManager.Group.Pings, PingType.Signal.ToString()));</span>
+</pre>
+<h3 id="configuring-custom-techcategory-and-techgroup-objects">Configuring Custom TechCategory and TechGroup Objects</h3>
+<pre>
+<span class="lang-diff-rem">- TechGroup customGroup = TechGroupHandler.AddTechCategory("CustomGroup", "Custom Group");</span>
+<span class="lang-diff-add">+ TechGroup customGroup = EnumHandler.AddEntry&lt;TechCategory&gt;("CustomGroup").WithPdaInfo("Custom Group");</span>
+
+<span class="lang-diff-rem">- TechCategory customCategory = TechCategoryHandler.AddTechCategory("CustomCategory", "Custom Category");
+- TechCategoryHandler.TryRegisterTechCategoryToTechGroup(customGroup, customCategory);</span>
+<span class="lang-diff-add">+ TechCategory customCategory = EnumHandler.AddEntry&lt;TechCategory&gt;("CustomCategory").WithPdaInfo("Custom Group")
++             .RegisterToTechGroup(customGroup);</span>
+</pre>
+<h3 id="configuring-custom-crafttreetype-objects">Configuring Custom CraftTree.Type Objects</h3>
+<pre>
+<span class="lang-diff-rem">- ModCraftTreeRoot root = CraftTreeHandler.CreateCustomCraftTreeAndType(CustomTree, out CraftTree.Type customTree);</span>
+<span class="lang-diff-add">+ CraftTree.Type customTree = EnumHandler.AddEntry&lt;CraftTree.Type&gt;("CustomTree")
++             .CreateCraftTreeRoot(out ModCraftTreeRoot root);</span>
+
+root.AddTabNode("SomeTab");
+</pre>
+<hr>
+<h2 id="options">Options</h2>
+<p>Lorem ipsum dolor sit amet. Qui error architecto in officiis molestiae sit molestiae perspiciatis non necessitatibus voluptatibus sit fugiat veritatis eos aliquam rerum. Et ducimus provident est veniam magni nam veniam possimus aut molestiae explicabo cum doloribus atque? Ut adipisci aspernatur eos modi adipisci in sapiente rerum. Qui velit quis sed quia nobis et aspernatur repudiandae.</p>
+<p>Qui internos autem id recusandae inventore est autem voluptas et repudiandae vitae qui dolorem sapiente aut corporis dolor. Cum earum voluptate ut odit mollitia sit veritatis quos vel maiores fuga sit omnis nisi et quos repellat qui magnam mollitia.</p>
+<hr>
+<h2 id="assets">Assets</h2>
+<p>The Assets system received a complete rewrite in Nautilus, making it the biggest change of this version.</p>
+<p>With this rewrite, asset classes are no longer an inherited chain mess, meaning <code>Buildable</code>, <code>Craftable</code>, <code>CustomFabricator</code>, <code>Equipable</code>, <code>FishPrefab</code>, <code>PdaItem</code>, <code>Spawnable</code> and <code>ModPrefab</code> classes have been removed.</p>
+<p>As of Nautilus, the asset system will have three main parts: Custom Prefabs, Gadgets, and Prefab Templates.</p>
+<p>The following table represents all the previous asset classes and what they have been replaced with in Nautilus.</p>
+<table>
+<thead>
+<tr>
+<th>SML 2.0 (old)</th>
+<th>Nautilus (new)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ModPrefab</code></td>
+<td><a class="xref" href="../api/Nautilus.Assets.CustomPrefab.html">CustomPrefab</a></td>
+</tr>
+<tr>
+<td><code>Buildable</code>, <code>PdaItem</code></td>
+<td><a class="xref" href="../api/Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></td>
+</tr>
+<tr>
+<td><code>Equipable</code></td>
+<td><a class="xref" href="../api/Nautilus.Assets.Gadgets.EquipmentGadget.html">EquipmentGadget</a></td>
+</tr>
+<tr>
+<td><code>CustomFabricator</code></td>
+<td><a class="xref" href="../api/Nautilus.Assets.Gadgets.FabricatorGadget.html">FabricatorGadget</a></td>
+</tr>
+<tr>
+<td><code>Craftable</code></td>
+<td><a class="xref" href="../api/Nautilus.Assets.Gadgets.GadgetExtensions.html#">CraftingGadget</a></td>
+</tr>
+<tr>
+<td><code>Spawnable</code></td>
+<td><code>ICustomPrefab.SetSpawns</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="custom-prefabs">Custom Prefabs</h3>
+<p><code>CustomPrefab</code> is a class that takes care of registering gadgets and also the game object into the game.<br>
+This class is essentially equivalent to the previous <code>ModPrefab</code> class. It is what you will use to actually make a custom prefab.</p>
+<h3 id="gadgets">Gadgets</h3>
+<p>To put it simply, Gadgets are classes that take certain data and register them to the game for our custom prefab item.<br>
+They are pretty much equivalent to the different asset classes and their properties we had before.<br>
+Gadgets will be our primary way of interacting with game systems and to add functionality to a tech type and/or class ID.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Gadgets only interact with tech types and/or class IDs. They don't have any business with a prefab's game object.</p>
+</div>
+<h3 id="prefab-templates">Prefab Templates</h3>
+<p>Previously on SML 2.0, asset classes optionally also provided game objects (E.G: <code>CustomFabricator</code>). To allow for diversity in the game object template you choose from
+and also to make it easier to manage such functionality and modularize game objects, we have moved game object templates to their own system: Prefab templates.</p>
+<p>Prefab templates will be our main way of providing a base game object for custom prefabs. There are a couple of options you can choose from that suit your needs, however, it is not enforced to choose one;
+you can still build up a game object from scratch.</p>
+<p>A couple of prefab templates that will be available in Nautilus are the following:</p>
+<ul>
+<li>CloneTemplate</li>
+<li>EnergySourceTemplate</li>
+<li>FabricatorTemplate</li>
+</ul>
+<h2 id="custom-prefab-examples">Custom Prefab Examples</h2>
+<p>In this example, we will demonstrate how you can change an SML 2.0 custom prefab to the Nautilus system.</p>
+<h3 id="sml-20">SML 2.0</h3>
+<pre><code class="lang-csharp">public class SeamothBrineResistanceModule : Equipable
+{
+    public static TechType TechTypeID { get; protected set; }
+    public SeamothBrineResistanceModule()
+        : base(&quot;SeamothBrineResistModule&quot;,
+              &quot;Seamoth brine resistant coating&quot;,
+              &quot;Makes the Seamoth resistant to corrosive brine pools, by means of a protective coating.&quot;)
+    {
+        OnFinishedPatching += () =&gt;
+        {
+            TechTypeID = this.TechType;
+        };
+    }
+    public override EquipmentType EquipmentType =&gt; EquipmentType.SeamothModule;
+    public override TechType RequiredForUnlock =&gt; TechType.BaseUpgradeConsole;
+    public override TechGroup GroupForPDA =&gt; TechGroup.VehicleUpgrades;
+    public override TechCategory CategoryForPDA =&gt; TechCategory.VehicleUpgrades;
+    public override CraftTree.Type FabricatorType =&gt; CraftTree.Type.SeamothUpgrades;
+    public override string[] StepsToFabricatorTab =&gt; new string[] { &quot;SeamothModules&quot; };
+    public override QuickSlotType QuickSlotType =&gt; QuickSlotType.Passive;
+    public override GameObject GetGameObject()
+    {
+        var prefab = CraftData.GetPrefabForTechType(TechType.SeamothElectricalDefense);
+        var obj = GameObject.Instantiate(prefab);
+        return obj;
+    }
+    protected override TechData GetBlueprintRecipe()
+    {
+        return new TechData()
+        {
+            craftAmount = 1,
+            Ingredients =
+            {
+                new Ingredient(TechType.Polyaniline, 1),
+                new Ingredient(TechType.CopperWire, 2),
+                new Ingredient(TechType.AluminumOxide, 2),
+                new Ingredient(TechType.Nickel, 1),
+            },
+        };
+    }
+}
+</code></pre>
+<h3 id="nautilus">Nautilus</h3>
+<pre><code class="lang-csharp">// Create a custom prefab instance and set the class ID, friendly name, and description respectively
+var seamothBrineResistanceModule = new CustomPrefab(
+            &quot;SeamothBrineResistModule&quot;,
+            &quot;Seamoth brine resistant coating&quot;,
+            &quot;Makes the Seamoth resistant to corrosive brine pools, by means of a protective coating.&quot;);
+        
+// Set our prefab to a clone of the Seamoth electrical defense module
+seamothBrineResistanceModule.SetPrefab(new CloneTemplate(seamothBrineResistanceModule.Info, TechType.SeamothElectricalDefense));
+
+// Make our item compatible with the seamoth module slot
+seamothBrineResistanceModule.SetEquipment(EquipmentType.SeamothModule)
+    .WithQuickSlotType(QuickSlotType.Passive);
+
+// Make the Vehicle upgrade console a requirement for our item's blueprint
+ScanningGadget scanning = seamothBrineResistanceModule.SetUnlock(TechType.BaseUpgradeConsole)
+
+// Add our item to the Vehicle upgrades category
+scanning.WithPdaGroupCategory(TechGroup.VehicleUpgrades, TechCategory.VehicleUpgrades);
+
+var recipe = new RecipeData()
+{
+    craftAmount = 1,
+    Ingredients =
+    {
+        new CraftData.Ingredient(TechType.Polyaniline, 1),
+        new CraftData.Ingredient(TechType.CopperWire, 2),
+        new CraftData.Ingredient(TechType.AluminumOxide, 2),
+        new CraftData.Ingredient(TechType.Nickel, 1),
+    },
+};
+
+// Add a recipe for our item, as well as add it to the Moonpool fabricator and Seamoth modules tab
+seamothBrineResistanceModule.SetRecipe(recipe)
+    .WithFabricatorType(CraftTree.Type.SeamothUpgrades)
+    .WithStepsToFabricatorTab(&quot;SeamothModules&quot;);
+
+// Register our item to the game
+seamothBrineResistanceModule.Register();
+</code></pre>
+<p>This example is based off of a real mod. You can get access to the full source code <a href="https://github.com/Metious/MetiousSubnauticaMods/tree/master/SeamothBrineResist">here</a>.</p>
+<hr>
+<h2 id="audio-and-fmod">Audio and FMOD</h2>
+<p>In the last few versions of SML 2, we made a lot of changes to the audio system SML offered, this was because of FMOD.<br>
+FMOD is the sound engine Subnautica uses. It is more advanced and flexible compared to the built-in Unity audio system.</p>
+<p>Since we discovered the best practices and better ways to deal with custom sounds, we have deleted a bunch of previously-obsolete methods from
+<code>CustomSoundHandler</code> and <code>AudioUtils</code> classes, as well as the <code>SoundChannel</code> enumeration in Nautilus.</p>
+<p>Beginning with Nautilus, all custom sounds will require a bus instead of a SoundChannel to determine the effects (E.G: reverb, muffling, low-pass, etc..) and the volume slider.<br>
+Additionally, the <code>PlaySound</code> signature was also modified and renamed to <code>TryPlaySound</code>.</p>
+<pre>
+<span class="lang-diff-rem">- Channel channel = AudioUtils.PlaySound(soundPath, SoundChannel.Music);</span>
+<span class="lang-diff-add">+ if (AudioUtils.TryPlaySound(soundPath, AudioUtils.BusPaths.Music, out Channel channel))
++ {
++   // do something with channel
++ }
+</span>
+
+<span class="lang-diff-rem">- Channel channel = AudioUtils.PlaySound(soundPath, SoundChannel.Voice);</span>
+<span class="lang-diff-add">+ if (AudioUtils.TryPlaySound(soundPath, AudioUtils.BusPaths.PDAVoice, out Channel channel))
++ {
++   // do something with channel
++ }
+</span>
+
+<span class="lang-diff-rem">- Channel channel = AudioUtils.PlaySound(soundPath, SoundChannel.Ambient);</span>
+<span class="lang-diff-add">+ if (AudioUtils.TryPlaySound(soundPath, AudioUtils.BusPaths.UnderwaterAmbient, out Channel channel))
++ {
++   // do something with channel
++ }
+</span>
+
+<span class="lang-diff-rem">- Channel channel = AudioUtils.PlaySound(soundPath, SoundChannel.Master);</span>
+<span class="lang-diff-add">+ if (AudioUtils.TryPlaySound(soundPath, "bus:/", out Channel channel))
++ {
++   // do something with channel
++ }
+</span>
+</pre>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Creating or playing a custom sound on the master bus is il-advised as it is dangerous and has the possibility of breaking the audio for a game session.<br>
+Try to set an appropriate bus for your sound instead of the master one.</p>
+</div>
+<hr>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/guides/sml2-to-nautilus.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

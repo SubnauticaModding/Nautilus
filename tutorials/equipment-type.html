@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>What are equipment types? </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="What are equipment types? ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h2 id="what-are-equipment-types">What are equipment types?</h2>
+
+<p><code>EquipmentType</code> is an enum that handles special items. The possible values for this enum are listed below.</p>
+<pre><code class="lang-csharp">public enum EquipmentType
+{
+    None, // Normal item
+    Hand, // The item can be equipped in the Hand slot
+    Head, // The item can be equipped in the Head slot
+    Body, // The item can be equipped in the Body slot
+    Gloves, // The item can be equipped in the Gloves slot
+    Foots, // The item can be equipped in the Feet slot
+    Tank, // The item can be equipped in the Oxygen Tank slot
+    Chip, // The item can be equipped in the Chip slots
+    CyclopsModule, // The item can be equipped in the Cyclops as an upgrade module
+    VehicleModule, // The item can be equipped both in the Seamoth and in the Prawn Suit as an upgrade module
+    NuclearReactor, // The item can be used in a Nuclear Reactor
+    BatteryCharger, // When batteries are thrown in it, they get charged (for buildables)
+    PowerCellCharger, // When power cells are thrown in it, they get charged (for buildables)
+    SeamothModule, // The item can be equipped in the Seamoth as an upgrade module
+    ExosuitModule, // The item can be equipped in the Prawn Suit as an upgrade module
+    ExosuitArm, // The item can be equipped in the Prawn Suit as an arm
+    DecoySlot // (Need actual name) Possibly for the decoy tube thing in the cyclops
+}
+</code></pre>
+<h2 id="how-can-i-create-a-custom-background-type">How can I create a custom background type?</h2>
+<p>Since equipment types are simply just enums, we can use the enum handler to create a new instance.</p>
+<pre><code class="lang-csharp">private void Awake()
+{
+    var myCustomEquipmentType = EnumHandler.AddEntry&lt;EquipmentType&gt;(&quot;CustomEquipmentType&quot;);
+}
+</code></pre>
+<p>And that's it. Now you can use the new <code>CraftData.BackgroundType</code> instance anywhere you want.</p>
+<h2 id="how-can-edit-an-items-equipment-type">How can edit an item's equipment type?</h2>
+<p>To edit an item's equipment type, you need to call the <code>CraftDataHandler.SetEquipmentType</code> method sitting in the <code>Nautilus.Handlers</code> namespace</p>
+<h3 id="examples">Examples</h3>
+<p>The following example demonstrates the usage of <code>SetEquipmentType</code> that enables the player to wear titanium on their head.</p>
+<pre><code class="lang-csharp">CraftDataHandler.SetEquipmentType(TechType.Titanium, EquipmentType.Head);
+</code></pre>
+<p>Similarly, if we wanted to set the titanium's equipment type to our custom equipment type from earlier, it would look like the following:</p>
+<pre><code class="lang-csharp">CraftDataHandler.SetBackgroundType(TechType.Titanium, myCustomEquipmentType);
+</code></pre>
+<p>If you're setting the equipment type for a custom prefab, we recommend using the <code>ICustomPrefab.SetEquipment</code> method instead.</p>
+<pre><code class="lang-csharp">var customPrefab = new CustomPrefab(&quot;CustomItem&quot;, &quot;.&quot;, &quot;.&quot;);
+customPrefab.SetEquipment(EquipmentType.Head);
+// rest of the custom prefab configuration is omitted for brevity.
+</code></pre>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>It is dangerous to edit equipment types for items that already have one, because they can break.<br>
+For instance, modifying the equipment type for the Radiation Helmet will disable the player from wearing it.</p>
+</div>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/equipment-type.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

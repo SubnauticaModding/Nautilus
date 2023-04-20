@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class PDAHandler
+ </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class PDAHandler
+ ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Nautilus.Handlers.PDAHandler">
+
+
+
+  <h1 id="Nautilus_Handlers_PDAHandler" data-uid="Nautilus.Handlers.PDAHandler" class="text-break">Class PDAHandler
+</h1>
+  <div class="markdown level0 summary">A handler class for various scanner related data.</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PDAHandler</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></h6>
+  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
+  <h5 id="Nautilus_Handlers_PDAHandler_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class PDAHandler</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_PDAScanner_EntryData_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(PDAScanner.EntryData)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L48">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry*"></a>
+  <h4 id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_PDAScanner_EntryData_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(PDAScanner.EntryData)">AddCustomScannerEntry(EntryData)</h4>
+  <div class="markdown level1 summary">Adds in a custom <span class="xref">PDAScanner.EntryData</span>. ***Cannot be used to Change the values of a techtype that has data already!***</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddCustomScannerEntry(PDAScanner.EntryData entryData)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PDAScanner</span>.<span class="xref">EntryData</span></td>
+        <td><span class="parametername">entryData</span></td>
+        <td>The <span class="xref">PDAScanner.EntryData</span> of the entry. Must be populated when passed in.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_TechType_TechType_System_Boolean_System_String_System_Int32_System_Single_System_Boolean_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType%2CTechType%2CSystem.Boolean%2CSystem.String%2CSystem.Int32%2CSystem.Single%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L68">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry*"></a>
+  <h4 id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_TechType_TechType_System_Boolean_System_String_System_Int32_System_Single_System_Boolean_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,TechType,System.Boolean,System.String,System.Int32,System.Single,System.Boolean)">AddCustomScannerEntry(TechType, TechType, bool, string, int, float, bool)</h4>
+  <div class="markdown level1 summary">Adds in a custom <span class="xref">PDAScanner.EntryData</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, string encyclopediaKey, int totalFragmentsRequired = 2, float scanTime = 2, bool destroyAfterScan = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">key</span></td>
+        <td>The scanned object's <span class="xref">TechType</span>. In case of fragments, the fragment <span class="xref">TechType</span> is the key.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">blueprint</span></td>
+        <td>The <code class="paramref">blueprint</code> when unlocked when scanned. In case of fragments, this is the actual <span class="xref">TechType</span> that unlocks when all fragments are scanned.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isFragment</span></td>
+        <td>Whether the <code class="paramref">key</code> is a fragment or not.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">encyclopediaKey</span></td>
+        <td>The key to the encyclopedia entry.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">totalFragmentsRequired</span></td>
+        <td>The total amount of objects of <code class="paramref">key</code> that need to be scanned to unlock the <code class="paramref">blueprint</code> and <code class="paramref">encyclopediaKey</code>.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">scanTime</span></td>
+        <td>The amount of time it takes to finish one scan. In seconds.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">destroyAfterScan</span></td>
+        <td>Whether the object should be destroyed after the scan is finished.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_PDAEncyclopedia_EntryData_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(PDAEncyclopedia.EntryData)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L104">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry*"></a>
+  <h4 id="Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_PDAEncyclopedia_EntryData_" data-uid="Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(PDAEncyclopedia.EntryData)">AddEncyclopediaEntry(EntryData)</h4>
+  <div class="markdown level1 summary">Adds custom entry.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddEncyclopediaEntry(PDAEncyclopedia.EntryData entry)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">PDAEncyclopedia</span>.<span class="xref">EntryData</span></td>
+        <td><span class="parametername">entry</span></td>
+        <td>The <span class="xref">PDAEncyclopedia.EntryData</span> entry.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_UnityEngine_Sprite_FMODAsset_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PDAHandler.AddLogEntry(System.String%2CSystem.String%2CUnityEngine.Sprite%2CFMODAsset)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L89">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_PDAHandler_AddLogEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry*"></a>
+  <h4 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_UnityEngine_Sprite_FMODAsset_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,UnityEngine.Sprite,FMODAsset)">AddLogEntry(string, string, Sprite, FMODAsset)</h4>
+  <div class="markdown level1 summary">Adds a custom log entry.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLogEntry(string key, string languageKey, Sprite icon, FMODAsset sound)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td>The key to refer to this entry.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">languageKey</span></td>
+        <td>The subtitles language key for this entry.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Sprite</span></td>
+        <td><span class="parametername">icon</span></td>
+        <td>The icon that will be used in the Log tab for this entry. if <code>null</code> It will use the default log entry icon.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">FMODAsset</span></td>
+        <td><span class="parametername">sound</span></td>
+        <td>The sound that will be played once this entry is triggered or played in the Log tab.<br>
+    If <code>null</code> the Play button in the Log tab will disappear and a sound wont play when this entry is triggered.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PDAHandler_EditFragmentScanTime_TechType_System_Single_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PDAHandler.EditFragmentScanTime(TechType%2CSystem.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L34">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_PDAHandler_EditFragmentScanTime_" data-uid="Nautilus.Handlers.PDAHandler.EditFragmentScanTime*"></a>
+  <h4 id="Nautilus_Handlers_PDAHandler_EditFragmentScanTime_TechType_System_Single_" data-uid="Nautilus.Handlers.PDAHandler.EditFragmentScanTime(TechType,System.Single)">EditFragmentScanTime(TechType, float)</h4>
+  <div class="markdown level1 summary">Edits the time it takes to finish scanning a fragment.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void EditFragmentScanTime(TechType techType, float scanTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>Can be either techtype of the fragment or the crafted item.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">scanTime</span></td>
+        <td>The relative time spent on scanning. Default value is 1.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PDAHandler_EditFragmentsToScan_TechType_System_Int32_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PDAHandler.EditFragmentsToScan(TechType%2CSystem.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L19">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_PDAHandler_EditFragmentsToScan_" data-uid="Nautilus.Handlers.PDAHandler.EditFragmentsToScan*"></a>
+  <h4 id="Nautilus_Handlers_PDAHandler_EditFragmentsToScan_TechType_System_Int32_" data-uid="Nautilus.Handlers.PDAHandler.EditFragmentsToScan(TechType,System.Int32)">EditFragmentsToScan(TechType, int)</h4>
+  <div class="markdown level1 summary">Edits how many fragments must be scanned before unlocking the techtype's blueprint.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void EditFragmentsToScan(TechType techType, int fragmentCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>Can be either techtype of the fragment or the crafted item.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">fragmentCount</span></td>
+        <td>The number of fragments to scan.</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PDAHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PDAHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L11" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

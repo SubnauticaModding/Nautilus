@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Adding Spawns </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Adding Spawns ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="adding-spawns">Adding Spawns</h1>
+
+<p>Most of the time in Subnautica, the game uses two different ways to spawn objects; static spawns that always have a fixed position in the world to spawn in,
+and loot distribution which is biome-based and sudo-random.</p>
+<p>Nautilus offers modders to add spawns to either systems. You can add spawns for your own custom item, you can also edit vanilla spawns,
+or straight up remove them.</p>
+<h2 id="coordinated-spawns">Coordinated Spawns</h2>
+<p>Coordinated spawns is Nautilus' version of the aforementioned static spawns. With this system, you are allowed to specify exact world position and rotation spawns for an item.<br>
+You may register one or more coordinated spawn(s) for any item by providing either their class ID, or their tech type.</p>
+<h3 id="examples">Examples</h3>
+<p>The following examples demonstrate the usage of <a class="xref" href="../api/Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a> methods.</p>
+<pre><code class="lang-csharp">private void Awake()
+{
+    // Adds a Reaper Leviathan to the lava lakes
+    SpawnInfo reaperInfo = new SpawnInfo(TechType.ReaperLeviathan, new Vector3(280f, -1400f, 47f)); // Lava Lakes
+    CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(reaperInfo);
+	
+	// Adds multiple spawn infos at once
+	
+	// Sand Shark's class ID
+	string sandSharkId = &quot;5e5f00b4-1531-45c0-8aca-84cbd3b580a4&quot;;
+		
+	var spawnInfos = new List&lt;SpawnInfo&gt;() 
+	{
+		new SpawnInfo(TechType.Seamoth, Vector3.zero),
+		new SpawnInfo(sandSharkId, new Vector3(10, -4, 5), Vector3.up * 90f) // rotate its Y axis 90 degrees
+	}
+	CoordinatedSpawnsHandler.RegisterCoordinatedSpawns(spawnInfos);
+	
+	// Spawns a batch of titaniums around 10, -3, 15 world position
+	var randomPositions = RandomPositions(new Vector3(10f, -3f, 15f));
+	CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(
+		TechType.Titanium, randomPositions);
+}
+
+private List&lt;Vector3&gt; RandomPositions(Vector3 centerPosition)
+{
+    var result = new List&lt;Vector3&gt;();
+    for (int i = 0; i &lt; 5; i++)
+    {
+        result.Add(centerPosition + (Random.insideUnitSphere * i));
+    }
+    return result;
+}
+</code></pre>
+<p>For custom prefabs, it is advised to use the <a class="xref" href="../api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(SpawnLocation[])</a> method instead of directly interacting with the <a class="xref" href="../api/Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a> class.</p>
+<p>The example below demonstrates the usage of the <code>SetSpawns</code> method.</p>
+<pre><code class="lang-csharp">var blueReaper = new CustomPrefab(PrefabInfo.WithTechType(&quot;BlueReaper&quot;, &quot;Blue Reaper Leviathan&quot;, null));
+           
+// Creates a clone of the Reaper Leviathan prefab and colors it blue, then set the new prefab as our Blue Reaper's game object.          
+var blueReaperPrefab = new CloneTemplate(blueReaper.Info, TechType.ReaperLeviathan)
+{
+    ModifyPrefab = prefab =&gt; prefab.GetComponentsInChildren&lt;Renderer&gt;().ForEach(r =&gt; r.materials.ForEach(m =&gt; m.color = Color.blue))
+};                                               
+blueReaper.SetPrefab(blueReaperPrefab);
+
+// Adds a spawn for our Blue Reaper Leviathan in the lava lakes.
+blueReaper.SetSpawns(new SpawnLocation(280f, -1400, 47f));
+
+// Register the Blue Reaper Leviathan to the game.
+blueReaper.Register();
+</code></pre>
+<h2 id="loot-distribution">Loot Distribution</h2>
+<p>Loot distribution system is by far the most widely used spawning system in the game. Unlike static spawns, Nautilus does not have it's own version of this system, so
+we will be registering distributions into the game's system.<br>
+Loot distribution only allows adding or editing distributions using a class ID and prefab file name. You normally will also need to provide a biome type, probability, and count for each loot you want to add.</p>
+<p>Below is a table of all the parameters you may interact with in the loot distribution system.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>classId</td>
+<td>string</td>
+<td>The classId of the entity to add loot for.</td>
+</tr>
+<tr>
+<td>prefabFileName</td>
+<td>string</td>
+<td>The internal file path of the entity to add.</td>
+</tr>
+<tr>
+<td>biomeDistribution</td>
+<td>LootDistributionData.BiomeData</td>
+<td>The biome data in which this entity might spawn in.</td>
+</tr>
+<tr>
+<td>probability</td>
+<td>float</td>
+<td>The chance of this entity spawning. This value can only be between 0-1 inclusive. 0 being no chance of spawning, while 1 is guaranteed to spawn.</td>
+</tr>
+<tr>
+<td>count</td>
+<td>float</td>
+<td>Multiplies 1 with this value. This multiplication is accounted everytime this entity has the highest chance to spawn, not a global count.</td>
+</tr>
+<tr>
+<td>srcData</td>
+<td>LootDistributionData.SrcData</td>
+<td>A class that combines the prefab file name and biome distribution to one data type.</td>
+</tr>
+<tr>
+<td>entityInfo</td>
+<td>WorldEntityInfo</td>
+<td>Contains information on how to spawn this entity. E.G: The size it should spawn in as, and how far it can stay before unloading.</td>
+</tr>
+</tbody>
+</table>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>An Entity Info for each class ID to spawn via loot distribution is required. If an entity info does not have one, the loot distribution will ignore it.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Usually, vanilla prefabs do have a world entity info assigned to them. While you can, you don't have to register a new one for those that already have one.</p>
+</div>
+<h3 id="examples-1">Examples</h3>
+<p>The following examples demonstrate the usage of <a class="xref" href="../api/Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a> methods.</p>
+<pre><code class="lang-csharp">// Drillable Sulphur's class ID
+string drillableSulphurClassId = &quot;697beac5-e39a-4809-854d-9163da9f997e&quot;;
+
+var biomes = new LootDistribution.BiomeData[]
+{
+ // Lost river's bones field ground
+ new LootDistributionData.BiomeData { biome = BiomeType.BonesField_Ground, count = 1, probability = 0.07f },
+ 
+ // Inactive Lava Zone floor, near the lava
+ new LootDistributionData.BiomeData { biome = BiomeType.InactiveLavaZone_Chamber_Floor_Far, count = 1, probability = 0.05f }
+};
+
+// Add spawn for the drillable sulphur
+LootDistributionHandler.AddLootDistributionData(drillableSulphurClassId, biomes);
+
+string rockgrubClassId = CraftData.GetClassIdForTechType(TechType.Rockgrub);
+
+// Prevents the rockgrub from spawning in the Bulb zone caves.
+LootDistributionHandler.EditLootDistributionData(rockgrubClassId, BiomeType.KooshZone_CaveWall, 0f, 0);
+</code></pre>
+<p>For custom prefabs, it is advised to use the <a class="xref" href="../api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(LootDistributionData.BiomeData[])</a> method instead of directly interacting with the <a class="xref" href="../api/Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a> class.</p>
+<p>The example below demonstrates the usage of the <code>SetSpawns</code> method.</p>
+<pre><code class="lang-csharp">PrefabInfo titaniumCloneInfo = PrefabInfo.WithTechType(&quot;TitaniumClone&quot;, &quot;Titanium Clone&quot;, &quot;Titanium clone that makes me go yes.&quot;);
+        
+// Set the vanilla titanium icon for our item
+titaniumCloneInfo.WithIcon(SpriteManager.Get(TechType.Titanium));
+
+CustomPrefab titaniumClone = new CustomPrefab(titaniumCloneInfo);
+
+// Creates a clone of the Titanium prefab and colors it red, then set the new prefab as our Titanium Clone's game object.  
+PrefabTemplate cloneTemplate = new CloneTemplate(titaniumCloneInfo, TechType.Titanium)
+{
+    // Callback to change all material colors of this clone to red.
+    ModifyPrefab = prefab =&gt; prefab.GetComponentsInChildren&lt;Renderer&gt;().ForEach(r =&gt; r.materials.ForEach(m =&gt; m.color = Color.red))
+};
+titaniumClone.SetPrefab(cloneTemplate);
+
+titaniumClone.SetSpawns(
+        // Adds a chance for our titanium clone to spawn in Safe shallows grass, x4 each time.
+        new BiomeData { biome = BiomeType.SafeShallows_Grass, count = 4, probability = 0.1f },
+        // Adds a chance for our titanium clone to spawn in Safe shallows caves, once each time.
+        new BiomeData { biome = BiomeType.SafeShallows_CaveFloor, count = 1, probability = 0.4f });
+
+// Register the Titanium Clone to the game.
+titaniumClone.Register();
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a class="xref" href="../api/Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a></li>
+<li><a class="xref" href="../api/Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a></li>
+</ul>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/spawns.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

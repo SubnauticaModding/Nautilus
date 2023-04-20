@@ -1,0 +1,1191 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class PlayerPrefsExtra
+ </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class PlayerPrefsExtra
+ ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Nautilus.Utility.PlayerPrefsExtra">
+
+
+
+  <h1 id="Nautilus_Utility_PlayerPrefsExtra" data-uid="Nautilus.Utility.PlayerPrefsExtra" class="text-break">Class PlayerPrefsExtra
+</h1>
+  <div class="markdown level0 summary">A collection of utility methods that simplify calls into <span class="xref">UnityEngine.PlayerPrefs</span> for quick custom save data.</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">PlayerPrefsExtra</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a></h6>
+  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
+  <h5 id="Nautilus_Utility_PlayerPrefsExtra_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class PlayerPrefsExtra</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetBool_System_String_System_Boolean_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetBool(System.String%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L16">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetBool_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetBool*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetBool_System_String_System_Boolean_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetBool(System.String,System.Boolean)">GetBool(string, bool)</h4>
+  <div class="markdown level1 summary">Get a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool GetBool(string key, bool defaultValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetColor_System_String_UnityEngine_Color_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetColor(System.String%2CUnityEngine.Color)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L63">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetColor_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetColor*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetColor_System_String_UnityEngine_Color_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetColor(System.String,UnityEngine.Color)">GetColor(string, Color)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.Color</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Color GetColor(string key, Color defaultValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Color</span></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Color</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetColor_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetColor(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L54">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetColor_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetColor*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetColor_System_String_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetColor(System.String)">GetColor(string)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.Color</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Color GetColor(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Color</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetKeyCode_System_String_UnityEngine_KeyCode_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetKeyCode(System.String%2CUnityEngine.KeyCode)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L36">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetKeyCode_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetKeyCode*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetKeyCode_System_String_UnityEngine_KeyCode_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetKeyCode(System.String,UnityEngine.KeyCode)">GetKeyCode(string, KeyCode)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.KeyCode</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static KeyCode GetKeyCode(string key, KeyCode defaultValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">KeyCode</span></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">KeyCode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetQuaternion_System_String_UnityEngine_Quaternion_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(System.String%2CUnityEngine.Quaternion)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L238">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetQuaternion_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetQuaternion*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetQuaternion_System_String_UnityEngine_Quaternion_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(System.String,UnityEngine.Quaternion)">GetQuaternion(string, Quaternion)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.Quaternion</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion GetQuaternion(string key, Quaternion defaultValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Quaternion</span></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Quaternion</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetQuaternion_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L228">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetQuaternion_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetQuaternion*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetQuaternion_System_String_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(System.String)">GetQuaternion(string)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.Quaternion</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Quaternion GetQuaternion(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Quaternion</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetVector2_System_String_UnityEngine_Vector2_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetVector2(System.String%2CUnityEngine.Vector2)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L100">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetVector2_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector2*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetVector2_System_String_UnityEngine_Vector2_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector2(System.String,UnityEngine.Vector2)">GetVector2(string, Vector2)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.Vector2</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector2 GetVector2(string key, Vector2 defaultValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Vector2</span></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Vector2</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetVector2_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetVector2(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L90">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetVector2_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector2*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetVector2_System_String_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector2(System.String)">GetVector2(string)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.Vector2</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector2 GetVector2(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Vector2</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetVector2int_System_String_Vector2int_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetVector2int(System.String%2CVector2int)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L133">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetVector2int_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector2int*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetVector2int_System_String_Vector2int_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector2int(System.String,Vector2int)">GetVector2int(string, Vector2int)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">Vector2int</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector2int GetVector2int(string key, Vector2int defaultValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Vector2int</span></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Vector2int</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetVector2int_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetVector2int(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L123">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetVector2int_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector2int*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetVector2int_System_String_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector2int(System.String)">GetVector2int(string)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">Vector2int</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector2int GetVector2int(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Vector2int</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetVector3_System_String_UnityEngine_Vector3_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetVector3(System.String%2CUnityEngine.Vector3)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L166">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetVector3_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector3*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetVector3_System_String_UnityEngine_Vector3_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector3(System.String,UnityEngine.Vector3)">GetVector3(string, Vector3)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.Vector3</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector3 GetVector3(string key, Vector3 defaultValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Vector3</span></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Vector3</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetVector3_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetVector3(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L156">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetVector3_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector3*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetVector3_System_String_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector3(System.String)">GetVector3(string)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.Vector3</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector3 GetVector3(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Vector3</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetVector4_System_String_UnityEngine_Vector4_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetVector4(System.String%2CUnityEngine.Vector4)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L201">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetVector4_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector4*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetVector4_System_String_UnityEngine_Vector4_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector4(System.String,UnityEngine.Vector4)">GetVector4(string, Vector4)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.Vector4</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector4 GetVector4(string key, Vector4 defaultValue)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Vector4</span></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Vector4</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_GetVector4_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.GetVector4(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L191">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_GetVector4_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector4*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_GetVector4_System_String_" data-uid="Nautilus.Utility.PlayerPrefsExtra.GetVector4(System.String)">GetVector4(string)</h4>
+  <div class="markdown level1 summary">Get a <span class="xref">UnityEngine.Vector4</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Vector4 GetVector4(string key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Vector4</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_SetBool_System_String_System_Boolean_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.SetBool(System.String%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L25">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_SetBool_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetBool*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_SetBool_System_String_System_Boolean_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetBool(System.String,System.Boolean)">SetBool(string, bool)</h4>
+  <div class="markdown level1 summary">Set a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetBool(string key, bool value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_SetColor_System_String_UnityEngine_Color_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.SetColor(System.String%2CUnityEngine.Color)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L77">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_SetColor_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetColor*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_SetColor_System_String_UnityEngine_Color_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetColor(System.String,UnityEngine.Color)">SetColor(string, Color)</h4>
+  <div class="markdown level1 summary">Set a <span class="xref">UnityEngine.Color</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetColor(string key, Color value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Color</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_SetKeyCode_System_String_UnityEngine_KeyCode_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.SetKeyCode(System.String%2CUnityEngine.KeyCode)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L45">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_SetKeyCode_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetKeyCode*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_SetKeyCode_System_String_UnityEngine_KeyCode_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetKeyCode(System.String,UnityEngine.KeyCode)">SetKeyCode(string, KeyCode)</h4>
+  <div class="markdown level1 summary">Set a <span class="xref">UnityEngine.KeyCode</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetKeyCode(string key, KeyCode value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">KeyCode</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_SetQuaternion_System_String_UnityEngine_Quaternion_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.SetQuaternion(System.String%2CUnityEngine.Quaternion)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L252">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_SetQuaternion_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetQuaternion*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_SetQuaternion_System_String_UnityEngine_Quaternion_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetQuaternion(System.String,UnityEngine.Quaternion)">SetQuaternion(string, Quaternion)</h4>
+  <div class="markdown level1 summary">Set a <span class="xref">UnityEngine.Quaternion</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetQuaternion(string key, Quaternion value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Quaternion</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_SetVector2_System_String_UnityEngine_Vector2_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.SetVector2(System.String%2CUnityEngine.Vector2)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L112">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_SetVector2_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetVector2*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_SetVector2_System_String_UnityEngine_Vector2_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetVector2(System.String,UnityEngine.Vector2)">SetVector2(string, Vector2)</h4>
+  <div class="markdown level1 summary">Set a <span class="xref">UnityEngine.Vector2</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetVector2(string key, Vector2 value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Vector2</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_SetVector2int_System_String_Vector2int_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.SetVector2int(System.String%2CVector2int)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L145">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_SetVector2int_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetVector2int*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_SetVector2int_System_String_Vector2int_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetVector2int(System.String,Vector2int)">SetVector2int(string, Vector2int)</h4>
+  <div class="markdown level1 summary">Set a <span class="xref">Vector2int</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetVector2int(string key, Vector2int value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Vector2int</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_SetVector3_System_String_UnityEngine_Vector3_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.SetVector3(System.String%2CUnityEngine.Vector3)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L179">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_SetVector3_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetVector3*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_SetVector3_System_String_UnityEngine_Vector3_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetVector3(System.String,UnityEngine.Vector3)">SetVector3(string, Vector3)</h4>
+  <div class="markdown level1 summary">Set a <span class="xref">UnityEngine.Vector3</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetVector3(string key, Vector3 value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Vector3</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra_SetVector4_System_String_UnityEngine_Vector4_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra.SetVector4(System.String%2CUnityEngine.Vector4)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L215">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_PlayerPrefsExtra_SetVector4_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetVector4*"></a>
+  <h4 id="Nautilus_Utility_PlayerPrefsExtra_SetVector4_System_String_UnityEngine_Vector4_" data-uid="Nautilus.Utility.PlayerPrefsExtra.SetVector4(System.String,UnityEngine.Vector4)">SetVector4(string, Vector4)</h4>
+  <div class="markdown level1 summary">Set a <span class="xref">UnityEngine.Vector4</span> value using <span class="xref">UnityEngine.PlayerPrefs</span></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetVector4(string key, Vector4 value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Vector4</span></td>
+        <td><span class="parametername">value</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_PlayerPrefsExtra.md&amp;value=---%0Auid%3A%20Nautilus.Utility.PlayerPrefsExtra%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PlayerPrefsExtra.cs/#L8" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,765 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class ModCraftTreeLinkingNode
+ </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class ModCraftTreeLinkingNode
+ ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode">
+
+
+
+  <h1 id="Nautilus_Crafting_ModCraftTreeLinkingNode" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode" class="text-break">Class ModCraftTreeLinkingNode
+</h1>
+  <div class="markdown level0 summary">Abstract class that provides methods for adding new nodes into the crafting tree.</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+    <div class="level2"><span class="xref">ModCraftTreeLinkingNode</span></div>
+      <div class="level3"><a class="xref" href="Nautilus.Crafting.ModCraftTreeRoot.html">ModCraftTreeRoot</a></div>
+      <div class="level3"><a class="xref" href="Nautilus.Crafting.ModCraftTreeTab.html">ModCraftTreeTab</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html#Nautilus_Crafting_ModCraftTreeNode_Action">ModCraftTreeNode.Action</a>
+    </div>
+    <div>
+      <a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html#Nautilus_Crafting_ModCraftTreeNode_TechType">ModCraftTreeNode.TechType</a>
+    </div>
+    <div>
+      <a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html#Nautilus_Crafting_ModCraftTreeNode_Name">ModCraftTreeNode.Name</a>
+    </div>
+    <div>
+      <a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html#Nautilus_Crafting_ModCraftTreeNode_CraftNode">ModCraftTreeNode.CraftNode</a>
+    </div>
+    <div>
+      <a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html#Nautilus_Crafting_ModCraftTreeNode_RemoveNode">ModCraftTreeNode.RemoveNode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Crafting.html">Crafting</a></h6>
+  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_ChildNodes.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.ChildNodes%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L17">View Source</a>
+  </span>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_ChildNodes" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.ChildNodes">ChildNodes</h4>
+  <div class="markdown level1 summary">The child nodes linked bellow this node.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly List&lt;ModCraftTreeNode&gt; ChildNodes</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_ChildNodes_seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_System_Collections_Generic_IEnumerable_TechType__.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.AddCraftingNode(System.Collections.Generic.IEnumerable%7BTechType%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L174">View Source</a>
+  </span>
+  <a id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddCraftingNode*"></a>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_System_Collections_Generic_IEnumerable_TechType__" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddCraftingNode(System.Collections.Generic.IEnumerable{TechType})">AddCraftingNode(IEnumerable&lt;TechType&gt;)</h4>
+  <div class="markdown level1 summary">Creates a collection of new crafting nodes for the crafting tree and links it to the calling node.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddCraftingNode(IEnumerable&lt;TechType&gt; techTypes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">TechType</span>&gt;</td>
+        <td><span class="parametername">techTypes</span></td>
+        <td>The TechTypes to be crafted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_System_Collections_Generic_IEnumerable_TechType___seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.AddCraftingNode(TechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L151">View Source</a>
+  </span>
+  <a id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddCraftingNode*"></a>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_TechType_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddCraftingNode(TechType)">AddCraftingNode(TechType)</h4>
+  <div class="markdown level1 summary">Creates a new crafting node for the crafting tree and links it to the calling node.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddCraftingNode(TechType techType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType to be crafted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_TechType__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_TechType___.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.AddCraftingNode(TechType%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L165">View Source</a>
+  </span>
+  <a id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddCraftingNode*"></a>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_TechType___" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddCraftingNode(TechType[])">AddCraftingNode(params TechType[])</h4>
+  <div class="markdown level1 summary">Creates a collection of new crafting nodes for the crafting tree and links it to the calling node.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddCraftingNode(params TechType[] techTypes)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span>[]</td>
+        <td><span class="parametername">techTypes</span></td>
+        <td>The TechTypes to be crafted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddCraftingNode_TechType____seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_AddModdedCraftingNode_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.AddModdedCraftingNode(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L191">View Source</a>
+  </span>
+  <a id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddModdedCraftingNode_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddModdedCraftingNode*"></a>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddModdedCraftingNode_System_String_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddModdedCraftingNode(System.String)">AddModdedCraftingNode(string)</h4>
+  <div class="markdown level1 summary"><p>Creates a new crafting node for a modded item and links it to the calling node.</p>
+<p>If the modded item isn't present for the player, this call is safely ignored.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddModdedCraftingNode(string moddedTechTypeName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">moddedTechTypeName</span></td>
+        <td>The internal name of the custom TechType to be crafted.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddModdedCraftingNode_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks">If the player doesn't have the mod for this TechType installed, then nothing will happen.</div>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddModdedCraftingNode_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_System_String_Atlas_Sprite_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String%2CSystem.String%2CAtlas.Sprite%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L32">View Source</a>
+  </span>
+  <a id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode*"></a>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_System_String_Atlas_Sprite_System_String_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String,System.String,Atlas.Sprite,System.String)">AddTabNode(string, string, Sprite, string)</h4>
+  <div class="markdown level1 summary">Creates a new tab node for the crafting tree and links it to the calling node.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModCraftTreeTab AddTabNode(string nameID, string displayText, Atlas.Sprite sprite, string language = &quot;English&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">nameID</span></td>
+        <td>The name/ID of this node.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">displayText</span></td>
+        <td>The hover text to display in-game. If null or empty, this will use the language line "{CraftTreeName}_{<code class="paramref">nameID</code>}" instead.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Atlas</span>.<span class="xref">Sprite</span></td>
+        <td><span class="parametername">sprite</span></td>
+        <td>The custom sprite to display on this tab node.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">language</span></td>
+        <td>The language for the display name. Defaults to English.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Nautilus.Crafting.ModCraftTreeTab.html">ModCraftTreeTab</a></td>
+        <td>A new tab node linked to the root node and ready to use.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_System_String_Atlas_Sprite_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_System_String_UnityEngine_Sprite_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String%2CSystem.String%2CUnityEngine.Sprite%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L51">View Source</a>
+  </span>
+  <a id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode*"></a>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_System_String_UnityEngine_Sprite_System_String_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String,System.String,UnityEngine.Sprite,System.String)">AddTabNode(string, string, Sprite, string)</h4>
+  <div class="markdown level1 summary">Creates a new tab node for the crafting tree and links it to the calling node.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModCraftTreeTab AddTabNode(string nameID, string displayText, Sprite sprite, string language = &quot;English&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">nameID</span></td>
+        <td>The name/ID of this node.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">displayText</span></td>
+        <td>The hover text to display in-game. If null or empty, this will use the language line "{CraftTreeName}_{<code class="paramref">nameID</code>}" instead.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Sprite</span></td>
+        <td><span class="parametername">sprite</span></td>
+        <td>The custom sprite to display on this tab node.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">language</span></td>
+        <td>The language for the display name. Defaults to English.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Nautilus.Crafting.ModCraftTreeTab.html">ModCraftTreeTab</a></td>
+        <td>A new tab node linked to the root node and ready to use.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_System_String_UnityEngine_Sprite_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L66">View Source</a>
+  </span>
+  <a id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode*"></a>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String)">AddTabNode(string)</h4>
+  <div class="markdown level1 summary">Creates a new tab node for the crafting tree and links it to the calling node.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModCraftTreeTab AddTabNode(string nameID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">nameID</span></td>
+        <td>The name/ID of this node.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Nautilus.Crafting.ModCraftTreeTab.html">ModCraftTreeTab</a></td>
+        <td>A new tab node linked to the root node and ready to use.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_GetCraftingNode_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.GetCraftingNode(TechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L105">View Source</a>
+  </span>
+  <a id="Nautilus_Crafting_ModCraftTreeLinkingNode_GetCraftingNode_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.GetCraftingNode*"></a>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_GetCraftingNode_TechType_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.GetCraftingNode(TechType)">GetCraftingNode(TechType)</h4>
+  <div class="markdown level1 summary">Gets the crafting node from the calling node.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModCraftTreeCraft GetCraftingNode(TechType techType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType whose node to get.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Nautilus.Crafting.ModCraftTreeCraft.html">ModCraftTreeCraft</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_GetCraftingNode_TechType__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_GetNode_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.GetNode(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L129">View Source</a>
+  </span>
+  <a id="Nautilus_Crafting_ModCraftTreeLinkingNode_GetNode_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.GetNode*"></a>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_GetNode_System_String_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.GetNode(System.String)">GetNode(string)</h4>
+  <div class="markdown level1 summary">Gets the node associated with the ID specified. Used if you don't know whether node is a tab or a craft node.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModCraftTreeNode GetNode(string nameID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">nameID</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_GetNode_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode_GetTabNode_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode.GetTabNode(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L81">View Source</a>
+  </span>
+  <a id="Nautilus_Crafting_ModCraftTreeLinkingNode_GetTabNode_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.GetTabNode*"></a>
+  <h4 id="Nautilus_Crafting_ModCraftTreeLinkingNode_GetTabNode_System_String_" data-uid="Nautilus.Crafting.ModCraftTreeLinkingNode.GetTabNode(System.String)">GetTabNode(string)</h4>
+  <div class="markdown level1 summary">Gets the tab from the calling node.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ModCraftTreeTab GetTabNode(string nameID)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">nameID</span></td>
+        <td>The name id of the tab to get.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Nautilus.Crafting.ModCraftTreeTab.html">ModCraftTreeTab</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Nautilus_Crafting_ModCraftTreeLinkingNode_GetTabNode_System_String__seealso">See Also</h5>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_CopyFields__1___0___0_System_Reflection_BindingFlags_">ReflectionHelper.CopyFields&lt;T&gt;(T, T, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetInstanceField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetInstanceField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  <h3 id="seealso">See Also</h3>
+  <div class="seealso">
+      <div><a class="xref" href="Nautilus.Crafting.ModCraftTreeNode.html">ModCraftTreeNode</a></div>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Crafting_ModCraftTreeLinkingNode.md&amp;value=---%0Auid%3A%20Nautilus.Crafting.ModCraftTreeLinkingNode%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeLinkingNode.cs/#L12" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
