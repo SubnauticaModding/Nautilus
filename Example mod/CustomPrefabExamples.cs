@@ -1,14 +1,14 @@
 using BepInEx;
-using SMLHelper.Assets;
-using SMLHelper.Assets.Gadgets;
-using SMLHelper.Assets.PrefabTemplates;
+using Nautilus.Assets;
+using Nautilus.Assets.Gadgets;
+using Nautilus.Assets.PrefabTemplates;
 using UnityEngine;
 using BiomeData = LootDistributionData.BiomeData;
 
-namespace SMLHelper.Examples;
+namespace Nautilus.Examples;
 
-[BepInPlugin("com.snmodding.smlhelper.customprefab", "SMLHelper Custom Prefab Example Mod", PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.smlhelper")]
+[BepInPlugin("com.snmodding.nautilus.customprefab", "Nautilus Custom Prefab Example Mod", Nautilus.PluginInfo.PLUGIN_VERSION)]
+[BepInDependency("com.snmodding.nautilus")]
 public class CustomPrefabExamples : BaseUnityPlugin
 {
     private void Awake()

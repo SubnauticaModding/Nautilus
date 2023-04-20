@@ -1,19 +1,21 @@
-﻿namespace SMLHelper.Examples;
+﻿using Nautilus.Commands;
+using Nautilus.Handlers;
+using Nautilus.Json;
+using Nautilus.Json.Attributes;
+using Nautilus.Options;
+using Nautilus.Options.Attributes;
+using Nautilus.Utility;
+
+namespace Nautilus.Examples;
 
 using HarmonyLib;
-using Commands;
 using Handlers;
-using Json;
-using Json.Attributes;
-using Options;
-using Options.Attributes;
 using UnityEngine;
 using BepInEx;
 using BepInEx.Logging;
-using Utility;
 
-[BepInPlugin("com.snmodding.smlhelper.configexample", "SMLHelper Config Example Mod", PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.smlhelper")]
+[BepInPlugin("com.snmodding.nautilus.configexample", "Nautilus Config Example Mod", PluginInfo.PLUGIN_VERSION)]
+[BepInDependency("com.snmodding.nautilus")]
 public class ConfigExamples : BaseUnityPlugin
 {
     internal static ManualLogSource LogSource { get; private set; }
@@ -130,13 +132,13 @@ public enum CustomChoice { One, Two, Three }
 /// launch and is the recommended setting.</para>
 /// 
 /// <para>Both of these values allow for bitwise combinations of their options, so
-/// <c>[Menu("SMLHelper Example Mod", LoadOn = MenuAttribute.LoadEvents.MenuRegistered | MenuAttribute.LoadEvents.MenuOpened)]</c>
+/// <c>[Menu("Nautilus Example Mod", LoadOn = MenuAttribute.LoadEvents.MenuRegistered | MenuAttribute.LoadEvents.MenuOpened)]</c>
 /// is valid and will result in the values being loaded both on game start and also whenever the menu is opened.</para>
 /// 
 /// <para>We could also specify a <see cref="ConfigFileAttribute"/> here to customise the name of the config file
 /// (defaults to "config") and an optional subfolder for the config file to reside in.</para>
 /// </summary>
-[Menu("SMLHelper Example Mod")]
+[Menu("Nautilus Example Mod")]
 public class Config: ConfigFile
 {
     /// <summary>
