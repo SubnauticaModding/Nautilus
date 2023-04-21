@@ -643,16 +643,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "Documentation/api/Nautilus.Initializer.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Nautilus.Initializer.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Json.Attributes.FileNameAttribute.yml",
       "output": {
         ".html": {
@@ -1487,16 +1477,6 @@
       "output": {
         ".html": {
           "relative_path": "api/Nautilus.Utility.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "Documentation/api/Nautilus.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Nautilus.html"
         }
       },
       "version": ""

@@ -1,12 +1,6 @@
 ### YamlMime:XRefMap
 sorted: true
 references:
-- uid: Nautilus
-  name: Nautilus
-  href: api/Nautilus.html
-  commentId: N:Nautilus
-  fullName: Nautilus
-  nameWithType: Nautilus
 - uid: Nautilus.Assets
   name: Nautilus.Assets
   href: api/Nautilus.Assets.html
@@ -4375,12 +4369,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.WorldEntityDatabaseHandler.AddCustomInfo
   nameWithType: WorldEntityDatabaseHandler.AddCustomInfo
-- uid: Nautilus.Initializer
-  name: Initializer
-  href: api/Nautilus.Initializer.html
-  commentId: T:Nautilus.Initializer
-  fullName: Nautilus.Initializer
-  nameWithType: Initializer
 - uid: Nautilus.Json
   name: Nautilus.Json
   href: api/Nautilus.Json.html
