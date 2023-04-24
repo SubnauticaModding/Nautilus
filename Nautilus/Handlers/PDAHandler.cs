@@ -10,6 +10,21 @@ namespace Nautilus.Handlers;
 /// </summary>
 public static class PDAHandler 
 {
+    /// <summary>
+    /// Sound asset used for unlocking most PDA entries, which is a short but pleasant sound. Path is '<c>event:/tools/scanner/new_encyclopediea</c>'.
+    /// </summary>
+    public static FMODAsset UnlockBasic { get; } = AudioUtils.GetFmodAsset("event:/tools/scanner/new_encyclopediea");
+
+    /// <summary>
+    /// <para>Subnautica:<br/>Sound asset for unlocking important PDA entries, where PDA says "Integrating new PDA data." Path is '<c>event:/loot/new_PDA_data</c>'.</para>
+    /// <para>Below Zero:<br/>Sound asset for unlocking more important (generally story related) PDA entries. Path is '<c>event:/bz/ui/story_unlocked</c>'.</para>
+    /// </summary>
+#if SUBNAUTICA
+    public static FMODAsset UnlockImportant { get; } = AudioUtils.GetFmodAsset("event:/loot/new_PDA_data");
+#else
+    public static FMODAsset UnlockImportant { get; } = AudioUtils.GetFmodAsset("event:/bz/ui/story_unlocked");
+#endif
+    
 
     /// <summary>
     /// Edits how many fragments must be scanned before unlocking the techtype's blueprint.
@@ -114,11 +129,11 @@ public static class PDAHandler
     }
 
     /// <summary>
-    /// Registers a single encylopedia entry into the game.
+    /// Registers a single encyclopedia entry into the game.
     /// </summary>
     /// <param name="key">Key (internal ID) of this PDA entry, primarily used for the language system.</param>
     /// <param name="path"><para>Path to this entry in the databank.</para>
-    /// <para>To find examples of this string, open "...Subnautica\Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".</para>
+    /// <para>To find examples of this string, open "Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".</para>
     /// </param>
     /// <param name="title">Displayed title of the PDA entry in English. If set to null, you must implement your own translations. Language key is 'Ency_{<paramref name="key"/>}'.</param>
     /// <param name="desc">Displayed description of the PDA entry in English. If set to null, you must implement your own translations. Language key is 'EncyDesc_{<paramref name="key"/>}'.</param>
@@ -134,11 +149,7 @@ public static class PDAHandler
             return;
         }
 
-        string[] encyNodes;
-        if (string.IsNullOrEmpty(path))
-            encyNodes = new string[0];
-        else
-            encyNodes = path.Split('/');
+        var encyNodes = path.Split('/');
 
         if (unlockSound == null)
         {
@@ -161,19 +172,4 @@ public static class PDAHandler
 
         AddEncyclopediaEntry(encyEntryData);
     }
-
-    /// <summary>
-    /// Sound asset used for unlocking most PDA entries, which is a short but pleasant sound. Path is '<c>event:/tools/scanner/new_encyclopediea</c>'.
-    /// </summary>
-    public static FMODAsset UnlockBasic { get; } = AudioUtils.GetFmodAsset("event:/tools/scanner/new_encyclopediea");
-
-    /// <summary>
-    /// <para>Subnautica:<br/>Sound asset for unlocking important PDA entries, where PDA says "Integrating new PDA data." Path is '<c>event:/loot/new_PDA_data</c>'.</para>
-    /// <para>Below Zero:<br/>Sound asset for unlocking more important (generally story related) PDA entries. Path is '<c>event:/bz/ui/story_unlocked</c>'.</para>
-    /// </summary>
-#if SUBNAUTICA
-    public static FMODAsset UnlockImportant { get; } = AudioUtils.GetFmodAsset("event:/loot/new_PDA_data");
-#else
-    public static FMODAsset UnlockImportant { get; } = AudioUtils.GetFmodAsset("event:/bz/ui/story_unlocked");
-#endif
 }
