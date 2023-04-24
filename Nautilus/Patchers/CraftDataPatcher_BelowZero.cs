@@ -1,93 +1,92 @@
 ﻿#if BELOWZERO
-namespace Nautilus.Patchers
+namespace Nautilus.Patchers;
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using BepInEx.Logging;
+using HarmonyLib;
+using Nautilus.Utility;
+
+internal partial class CraftDataPatcher
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using BepInEx.Logging;
-    using HarmonyLib;
-    using Nautilus.Utility;
+    internal static readonly IDictionary<TechType, JsonValue> CustomRecipeData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
 
-    internal partial class CraftDataPatcher
+    private static void PatchForBelowZero(Harmony harmony)
     {
-        internal static readonly IDictionary<TechType, JsonValue> CustomRecipeData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
+        harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.TryGetValue)),
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CheckPatchRequired))));
 
-        private static void PatchForBelowZero(Harmony harmony)
+        harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
+    }
+
+    private static void CheckPatchRequired(TechType techType)
+    {
+        if (CustomRecipeData.TryGetValue(techType, out JsonValue customTechData))
         {
-            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.TryGetValue)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CheckPatchRequired))));
-
-            harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
-                prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
-        }
-
-        private static void CheckPatchRequired(TechType techType)
-        {
-            if (CustomRecipeData.TryGetValue(techType, out JsonValue customTechData))
+            if (!TechData.entries.TryGetValue(techType, out JsonValue techData) ||
+                customTechData != techData)
             {
-                if (!TechData.entries.TryGetValue(techType, out JsonValue techData) ||
-                    customTechData != techData)
-                {
-                    AddCustomTechDataToOriginalDictionary();
-                }
+                AddCustomTechDataToOriginalDictionary();
             }
         }
+    }
 
-        private static void AddCustomTechDataToOriginalDictionary()
+    private static void AddCustomTechDataToOriginalDictionary()
+    {
+        List<TechType> added = new();
+        List<TechType> updated = new();
+        foreach (KeyValuePair<TechType, JsonValue> customRecipe in CustomRecipeData)
         {
-            List<TechType> added = new();
-            List<TechType> updated = new();
-            foreach (KeyValuePair<TechType, JsonValue> customRecipe in CustomRecipeData)
+            JsonValue jsonValue = customRecipe.Value;
+            TechType techType = customRecipe.Key;
+            if (TechData.entries.TryGetValue(techType, out JsonValue techData))
             {
-                JsonValue jsonValue = customRecipe.Value;
-                TechType techType = customRecipe.Key;
-                if (TechData.entries.TryGetValue(techType, out JsonValue techData))
+                if (techData != jsonValue)
                 {
-                    if (techData != jsonValue)
+                    updated.Add(techType);
+                    foreach (int key in jsonValue.Keys)
                     {
-                        updated.Add(techType);
-                        foreach (int key in jsonValue.Keys)
-                        {
-                            techData[key] = jsonValue[key];
-                        }
+                        techData[key] = jsonValue[key];
                     }
                 }
-                else
-                {
-                    TechData.entries.Add(techType, jsonValue);
-                    added.Add(techType);
-                }
             }
-
-            for (int i = 0; i < updated.Count; i++)
+            else
             {
-                TechType updatedTechData = updated[i];
-                CustomRecipeData[updatedTechData] = TechData.entries[updatedTechData];
-            }
-
-            if (added.Count > 0)
-            {
-                InternalLogger.Log($"Added {added.Count} new entries to the TechData.entries dictionary.", LogLevel.Info);
-                LogEntries("Added the following TechTypes", added);
-            }
-
-            if (updated.Count > 0)
-            {
-                InternalLogger.Log($"Updated {updated.Count} existing entries to the TechData.entries dictionary.", LogLevel.Info);
-                LogEntries("Updated the following TechTypes", updated);
+                TechData.entries.Add(techType, jsonValue);
+                added.Add(techType);
             }
         }
 
-        private static void LogEntries(string log, List<TechType> updated)
+        for (int i = 0; i < updated.Count; i++)
         {
-            StringBuilder builder = new();
-            for (int i = 0; i < updated.Count; i++)
-            {
-                builder.AppendLine($"{updated[i]}");
-            }
-
-            InternalLogger.Log($"{log}:{Environment.NewLine}{builder}", LogLevel.Debug);
+            TechType updatedTechData = updated[i];
+            CustomRecipeData[updatedTechData] = TechData.entries[updatedTechData];
         }
+
+        if (added.Count > 0)
+        {
+            InternalLogger.Log($"Added {added.Count} new entries to the TechData.entries dictionary.", LogLevel.Info);
+            LogEntries("Added the following TechTypes", added);
+        }
+
+        if (updated.Count > 0)
+        {
+            InternalLogger.Log($"Updated {updated.Count} existing entries to the TechData.entries dictionary.", LogLevel.Info);
+            LogEntries("Updated the following TechTypes", updated);
+        }
+    }
+
+    private static void LogEntries(string log, List<TechType> updated)
+    {
+        StringBuilder builder = new();
+        for (int i = 0; i < updated.Count; i++)
+        {
+            builder.AppendLine($"{updated[i]}");
+        }
+
+        InternalLogger.Log($"{log}:{Environment.NewLine}{builder}", LogLevel.Debug);
     }
 }
 #endif
