@@ -1,4 +1,4 @@
-﻿using BepInEx.Logging;
+using BepInEx.Logging;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
@@ -110,4 +110,68 @@ public static class PDAHandler
 
         PDAEncyclopediaPatcher.CustomEntryData[entry.key] = entry;
     }
+
+    /// <summary>
+    /// Registers a single encylopedia entry into the game.
+    /// </summary>
+    /// <param name="key">Key (internal ID) of this PDA entry, primarily used for the language system.</param>
+    /// <param name="path"><para>Path to this entry in the databank.</para>
+    /// <para>To find examples of this string, open "...Subnautica\Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".</para>
+    /// </param>
+    /// <param name="title">Displayed title of the PDA entry in English. If set to null, you must implement your own translations. Language key is 'Ency_{<paramref name="key"/>}'.</param>
+    /// <param name="desc">Displayed description of the PDA entry in English. If set to null, you must implement your own translations. Language key is 'EncyDesc_{<paramref name="key"/>}'.</param>
+    /// <param name="image">Databank entry image. Can be null.</param>
+    /// <param name="popupImage">Small popup image in the notification. Can be null.</param>
+    /// <param name="unlockSound">Sound on unlock. Typical values are <see cref="UnlockBasic"/> and <see cref="UnlockImportant"/>. If unassigned, will have a default value of <see cref="UnlockBasic"/>.</param>
+    /// <param name="voiceLog">Audio player that will be displayed inside this PDA entry, typically used for voice logs. Can be null.</param>
+    public static void AddEncyclopediaEntry(string key, string path, string title, string desc, Texture2D image, Sprite popupImage, FMODAsset unlockSound = null, FMODAsset voiceLog = null)
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ClassId '{key}'!");
+            return;
+        }
+
+        string[] encyNodes;
+        if (string.IsNullOrEmpty(path))
+            encyNodes = new string[0];
+        else
+            encyNodes = path.Split('/');
+
+        if (unlockSound == null)
+        {
+            unlockSound = UnlockBasic;
+        }
+
+        var encyEntryData = new PDAEncyclopedia.EntryData()
+        {
+            key = key,
+            nodes = encyNodes,
+            path = path,
+            image = image,
+            popup = popupImage,
+            sound = unlockSound,
+            audio = voiceLog
+        };
+
+        if (!string.IsNullOrEmpty(title)) LanguageHandler.SetLanguageLine("Ency_" + key, title);
+        if (!string.IsNullOrEmpty(desc)) LanguageHandler.SetLanguageLine("EncyDesc_" + key, desc);
+
+        AddEncyclopediaEntry(encyEntryData);
+    }
+
+    /// <summary>
+    /// Sound asset used for unlocking most PDA entries, which is a short but pleasant sound. Path is '<c>event:/tools/scanner/new_encyclopediea</c>'.
+    /// </summary>
+    public static FMODAsset UnlockBasic { get; } = AudioUtils.GetFmodAsset("event:/tools/scanner/new_encyclopediea");
+
+    /// <summary>
+    /// <para>Subnautica:<br/>Sound asset for unlocking important PDA entries, where PDA says "Integrating new PDA data." Path is '<c>event:/loot/new_PDA_data</c>'.</para>
+    /// <para>Below Zero:<br/>Sound asset for unlocking more important (generally story related) PDA entries. Path is '<c>event:/bz/ui/story_unlocked</c>'.</para>
+    /// </summary>
+#if SUBNAUTICA
+    public static FMODAsset UnlockImportant { get; } = AudioUtils.GetFmodAsset("event:/loot/new_PDA_data");
+#else
+    public static FMODAsset UnlockImportant { get; } = AudioUtils.GetFmodAsset("event:/bz/ui/story_unlocked");
+#endif
 }

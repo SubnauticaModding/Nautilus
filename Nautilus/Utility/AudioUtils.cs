@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -90,6 +90,30 @@ public static partial class AudioUtils
         return bus.getChannelGroup(out ChannelGroup channelGroup) == RESULT.OK &&
                channelGroup.getPaused(out bool paused) == RESULT.OK &&
                FMOD_System.playSound(sound, channelGroup, paused, out channel) == RESULT.OK;
+    }
+
+    /// <summary>
+    /// Returns a new <see cref="FMODAsset"/> with the given parameters. An FMODAsset is a data object that is required for various audio-related classes and methods, since it holds references to internal sound IDs.
+    /// </summary>
+    /// <param name="path">
+    /// <para>An FMOD Event's 'path' is the part read by most audio systems within Subnautica.</para>
+    /// <para>For custom sounds, should be identical to the ID passed into the methods when creating sounds with the <see cref="Handlers.CustomSoundHandler"/> class.</para>
+    /// <para>A list of vanilla sound paths for SN1 can also be viewed at this URL: <see href="https://github.com/SubnauticaModding/Nautilus/tree/master/Nautilus/Documentation/resources/SN1-FMODEvents.txt"/>.</para></param>
+    /// <param name="id">The internal sound ID, typically unused but occasionally required. Will be set as <paramref name="path"/> if unassigned.</param>
+    /// <returns></returns>
+    public static FMODAsset GetFmodAsset(string path, string id = null)
+    {
+        var asset = ScriptableObject.CreateInstance<FMODAsset>();
+        asset.path = path;
+        if (string.IsNullOrEmpty(id))
+        {
+            asset.id = path;
+        }
+        else
+        {
+            asset.id = id;
+        }
+        return asset;
     }
 
     private static Sound CreateSoundFromAudioClip(AudioClip audioClip, MODE mode)
