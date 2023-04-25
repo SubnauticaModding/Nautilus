@@ -19,7 +19,8 @@ public static class CoordinatedSpawnsHandler
     /// <param name="spawnInfo">the SpawnInfo to spawn.</param>
     public static void RegisterCoordinatedSpawn(SpawnInfo spawnInfo)
     {
-        LargeWorldStreamerPatcher.spawnInfos.Add(spawnInfo);
+        if (!LargeWorldStreamerPatcher.spawnInfos.Add(spawnInfo))
+            return;
         
         if (uGUI.isMainLevel)
             LargeWorldStreamerPatcher.CreateSpawner(spawnInfo);
