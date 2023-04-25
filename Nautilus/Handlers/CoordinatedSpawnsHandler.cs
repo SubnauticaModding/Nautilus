@@ -20,6 +20,9 @@ public static class CoordinatedSpawnsHandler
     public static void RegisterCoordinatedSpawn(SpawnInfo spawnInfo)
     {
         LargeWorldStreamerPatcher.spawnInfos.Add(spawnInfo);
+        
+        if (uGUI.isMainLevel)
+            LargeWorldStreamerPatcher.CreateSpawner(spawnInfo);
     }
 
     /// <summary>
@@ -28,7 +31,10 @@ public static class CoordinatedSpawnsHandler
     /// <param name="spawnInfos">The SpawnInfos to spawn.</param>
     public static void RegisterCoordinatedSpawns(List<SpawnInfo> spawnInfos)
     {
-        LargeWorldStreamerPatcher.spawnInfos.AddRange(spawnInfos);
+        foreach (var spawnInfo in spawnInfos)
+        {
+            RegisterCoordinatedSpawn(spawnInfo);
+        }
     }
 
     /// <summary>

@@ -13,7 +13,7 @@ internal class PDALogPatcher
             postfix: new HarmonyMethod(AccessTools.Method(typeof(PDALogPatcher), nameof(InitializePostfix))));
     }
 
-    private static void InitializePostfix()
+    internal static void InitializePostfix()
     {
         System.Collections.Generic.Dictionary<string, PDALog.EntryData> mapping = PDALog.mapping;
 

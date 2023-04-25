@@ -45,6 +45,9 @@ public static class KnownTechHandler
         {
             InternalLogger.Error("Cannot Add Unlock to TechType.None!");
         }
+        
+        if (uGUI.isMainLevel)
+            KnownTechPatcher.InitializePostfix();
     }
 
     internal static void AddAnalysisTech(
@@ -96,6 +99,9 @@ public static class KnownTechHandler
             InternalLogger.Debug($"Adding Compound Unlock for {techType.AsString()}");
             KnownTechPatcher.CompoundTech.Add(techType, new KnownTech.CompoundTech() { techType = techType, dependencies = compoundTechsForUnlock });
         }
+        
+        if (uGUI.isMainLevel)
+            KnownTechPatcher.InitializePostfix();
     }
 
     internal static void RemoveAnalysisSpecific(TechType targetTechType, List<TechType> techTypes)
@@ -114,6 +120,9 @@ public static class KnownTechHandler
                 KnownTechPatcher.RemoveFromSpecificTechs[techType] = new List<TechType>() { targetTechType };
             }
         }
+        
+        if (uGUI.isMainLevel)
+            KnownTechPatcher.InitializePostfix();
     }
 
     internal static void RemoveAnalysisTechEntry(TechType targetTechType)
@@ -143,6 +152,9 @@ public static class KnownTechHandler
         {
             KnownTechPatcher.RemovalTechs.Add(targetTechType);
         }
+        
+        if (uGUI.isMainLevel)
+            KnownTechPatcher.InitializePostfix();
     }
 
 

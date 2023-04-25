@@ -23,7 +23,7 @@ internal class PDAPatcher
         InternalLogger.Log($"PDAPatcher is done.", LogLevel.Debug);
     }
 
-    private static void InitializePostfix()
+    internal static void InitializePostfix()
     {
         BlueprintToFragment.Clear();
 

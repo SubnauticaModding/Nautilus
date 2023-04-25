@@ -39,6 +39,9 @@ public static class PDAHandler
         }
 
         PDAPatcher.FragmentCount[techType] = fragmentCount;
+        
+        if (uGUI.isMainLevel)
+            PDAPatcher.InitializePostfix();
     }
 
     /// <summary>
@@ -54,6 +57,9 @@ public static class PDAHandler
         }
 
         PDAPatcher.FragmentScanTime[techType] = scanTime;
+        
+        if (uGUI.isMainLevel)
+            PDAPatcher.InitializePostfix();
     }
 
     /// <summary>
@@ -68,6 +74,9 @@ public static class PDAHandler
         }
 
         PDAPatcher.CustomEntryData[entryData.key] = entryData;
+        
+        if (uGUI.isMainLevel)
+            PDAPatcher.InitializePostfix();
     }
 
     /// <summary>
@@ -111,7 +120,11 @@ public static class PDAHandler
             icon = icon,
             sound = sound
         };
+        
         PDALogPatcher.CustomEntryData[key] = entry;
+        
+        if (uGUI.isMainLevel)
+            PDALogPatcher.InitializePostfix();
     }
 
     /// <summary>
@@ -126,6 +139,9 @@ public static class PDAHandler
         }
 
         PDAEncyclopediaPatcher.CustomEntryData[entry.key] = entry;
+        
+        if (uGUI.isMainLevel)
+            PDAEncyclopediaPatcher.InitializePostfix();
     }
 
     /// <summary>

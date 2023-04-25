@@ -108,7 +108,7 @@ internal class LargeWorldStreamerPatcher
         }
     }
 
-    private static void CreateSpawner(SpawnInfo spawnInfo)
+    internal static void CreateSpawner(SpawnInfo spawnInfo)
     {
         string keyToCheck = spawnInfo.Type switch
         {

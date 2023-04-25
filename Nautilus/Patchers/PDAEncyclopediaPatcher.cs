@@ -14,7 +14,7 @@ internal class PDAEncyclopediaPatcher
             postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAEncyclopediaPatcher), nameof(PDAEncyclopediaPatcher.InitializePostfix))));
     }
 
-    private static void InitializePostfix()
+    internal static void InitializePostfix()
     {
         Dictionary<string, PDAEncyclopedia.EntryData> mapping = PDAEncyclopedia.mapping;
 
