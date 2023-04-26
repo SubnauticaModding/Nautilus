@@ -71,6 +71,11 @@ internal class CustomStoryGoalManager : MonoBehaviour, IStoryGoalListener
                 customEvent.Value.ForEach(x => x?.Invoke());
         }
     }
+    
+#if BELOWZERO
+    void IStoryGoalListener.NotifyGoalReset(string key) {}
+    void IStoryGoalListener.NotifyGoalsDeserialized() {}
+#endif
 
     // allows the IStoryGoalListener.NotifyGoalComplete method to be called
     private void OnEnable()
