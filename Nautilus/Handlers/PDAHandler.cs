@@ -149,7 +149,8 @@ public static class PDAHandler
     /// </summary>
     /// <param name="key">Key (internal ID) of this PDA entry, primarily used for the language system.</param>
     /// <param name="path"><para>Path to this entry in the databank.</para>
-    /// <para>To find examples of this string, open "Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".</para>
+    /// <para>To find examples of this string, open "Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".
+    /// Remember to omit the "EncyPath_" prefix from these language keys. An example of a proper value is: "Lifeforms/Fauna/Leviathans".</para>
     /// </param>
     /// <param name="title">Displayed title of the PDA entry in English. If set to null, you must implement your own translations. Language key is 'Ency_{<paramref name="key"/>}'.</param>
     /// <param name="desc">Displayed description of the PDA entry in English. If set to null, you must implement your own translations. Language key is 'EncyDesc_{<paramref name="key"/>}'.</param>
@@ -157,7 +158,7 @@ public static class PDAHandler
     /// <param name="popupImage">Small popup image in the notification. Can be null.</param>
     /// <param name="unlockSound">Sound on unlock. Typical values are <see cref="UnlockBasic"/> and <see cref="UnlockImportant"/>. If unassigned, will have a default value of <see cref="UnlockBasic"/>.</param>
     /// <param name="voiceLog">Audio player that will be displayed inside this PDA entry, typically used for voice logs. Can be null.</param>
-    public static void AddEncyclopediaEntry(string key, string path, string title, string desc, Texture2D image, Sprite popupImage, FMODAsset unlockSound = null, FMODAsset voiceLog = null)
+    public static void AddEncyclopediaEntry(string key, string path, string title, string desc, Texture2D image = null, Sprite popupImage = null, FMODAsset unlockSound = null, FMODAsset voiceLog = null)
     {
         if (string.IsNullOrEmpty(path))
         {
