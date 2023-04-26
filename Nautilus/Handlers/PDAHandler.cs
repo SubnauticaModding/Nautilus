@@ -112,7 +112,7 @@ public static class PDAHandler
     /// <param name="icon">The icon that will be used in the Log tab for this entry. if <c>null</c> It will use the default log entry icon.</param>
     /// <param name="sound">The sound that will be played once this entry is triggered or played in the Log tab.<br/>
     /// If <c>null</c> the Play button in the Log tab will disappear and a sound wont play when this entry is triggered.</param>
-    public static void AddLogEntry(string key, string languageKey, Sprite icon, FMODAsset sound)
+    public static void AddLogEntry(string key, string languageKey, FMODAsset sound, Sprite icon = null)
     {
         PDALog.EntryData entry = new()
         {
