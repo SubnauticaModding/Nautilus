@@ -157,6 +157,49 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup%2CTechCategory%2CTechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler.cs/#L18">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_CraftDataHandler_AddToGroup_" data-uid="Nautilus.Handlers.CraftDataHandler.AddToGroup*"></a>
+  <h4 id="Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_" data-uid="Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType)">AddToGroup(TechGroup, TechCategory, TechType)</h4>
+  <div class="markdown level1 summary">Allows you to add items to the game's internal grouping system.
+Required if you want to make buildable items show up in the Habitat Builder or show in the Blueprints Tab of the PDA.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddToGroup(TechGroup group, TechCategory category, TechType techType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TechGroup</span></td>
+        <td><span class="parametername">group</span></td>
+        <td>The TechGroup you want to add your TechType to.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechCategory</span></td>
+        <td><span class="parametername">category</span></td>
+        <td>The TechCategory (in the TechGroup) you want to add your TechType to.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType you want to add.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup%2CTechCategory%2CTechType%2CTechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
@@ -200,49 +243,6 @@ Required if you want to make buildable items show up in the Habitat Builder or s
         <td><span class="xref">TechType</span></td>
         <td><span class="parametername">after</span></td>
         <td>Added TechType will be added after this TechType, for sorting purposes.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup%2CTechCategory%2CTechType)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CraftDataHandler.cs/#L18">View Source</a>
-  </span>
-  <a id="Nautilus_Handlers_CraftDataHandler_AddToGroup_" data-uid="Nautilus.Handlers.CraftDataHandler.AddToGroup*"></a>
-  <h4 id="Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_" data-uid="Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType)">AddToGroup(TechGroup, TechCategory, TechType)</h4>
-  <div class="markdown level1 summary">Allows you to add items to the game's internal grouping system.
-Required if you want to make buildable items show up in the Habitat Builder or show in the Blueprints Tab of the PDA.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void AddToGroup(TechGroup group, TechCategory category, TechType techType)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TechGroup</span></td>
-        <td><span class="parametername">group</span></td>
-        <td>The TechGroup you want to add your TechType to.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">TechCategory</span></td>
-        <td><span class="parametername">category</span></td>
-        <td>The TechCategory (in the TechGroup) you want to add your TechType to.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">TechType</span></td>
-        <td><span class="parametername">techType</span></td>
-        <td>The TechType you want to add.</td>
       </tr>
     </tbody>
   </table>

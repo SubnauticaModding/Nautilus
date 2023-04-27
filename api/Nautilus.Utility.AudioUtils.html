@@ -333,6 +333,61 @@
   </table>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Utility.AudioUtils.GetFmodAsset(System.String%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L106">View Source</a>
+  </span>
+  <a id="Nautilus_Utility_AudioUtils_GetFmodAsset_" data-uid="Nautilus.Utility.AudioUtils.GetFmodAsset*"></a>
+  <h4 id="Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_" data-uid="Nautilus.Utility.AudioUtils.GetFmodAsset(System.String,System.String)">GetFmodAsset(string, string)</h4>
+  <div class="markdown level1 summary"><p>Returns a new <span class="xref">FMODAsset</span> with the given parameters. An FMODAsset is a data object that is required for various audio-related classes and methods, since it holds references to internal sound IDs.</p>
+<p>A list of vanilla sound paths for SN1 can also be viewed at this URL: <a href="https://github.com/SubnauticaModding/Nautilus/tree/master/Nautilus/Documentation/resources/SN1-FMODEvents.txt">https://github.com/SubnauticaModding/Nautilus/tree/master/Nautilus/Documentation/resources/SN1-FMODEvents.txt</a>.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static FMODAsset GetFmodAsset(string path, string id = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">path</span></td>
+        <td><p>An FMOD Event's 'path' is the part read by most audio systems within Subnautica.</p>
+<p>For custom sounds, should be identical to the ID passed into the methods when creating sounds with the <a class="xref" href="Nautilus.Handlers.CustomSoundHandler.html">CustomSoundHandler</a> class.</p>
+<p>For vanilla sounds, please refer to the list of all sound events.</p></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td>The internal sound ID, typically unused but occasionally required. Will be set as <code class="paramref">path</code> if unassigned.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">FMODAsset</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__.md&amp;value=---%0Auid%3A%20Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound%2CFMOD.Studio.Bus%2CFMOD.Channel%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">

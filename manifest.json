@@ -613,6 +613,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.StoryGoalHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.StoryGoalHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Handlers.SurvivalHandler.yml",
       "output": {
         ".html": {
@@ -1297,6 +1307,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Nautilus.Utility.ConstructableFlags.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.FontUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.FontUtils.html"
         }
       },
       "version": ""

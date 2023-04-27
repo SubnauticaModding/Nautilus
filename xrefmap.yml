@@ -3825,6 +3825,15 @@ references:
   commentId: M:Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(PDAEncyclopedia.EntryData)
   fullName: Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(PDAEncyclopedia.EntryData)
   nameWithType: PDAHandler.AddEncyclopediaEntry(PDAEncyclopedia.EntryData)
+- uid: Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(System.String,System.String,System.String,System.String,UnityEngine.Texture2D,UnityEngine.Sprite,FMODAsset,FMODAsset)
+  name: AddEncyclopediaEntry(string, string, string, string, Texture2D, Sprite, FMODAsset, FMODAsset)
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_System_String_System_String_System_String_System_String_UnityEngine_Texture2D_UnityEngine_Sprite_FMODAsset_FMODAsset_
+  commentId: M:Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(System.String,System.String,System.String,System.String,UnityEngine.Texture2D,UnityEngine.Sprite,FMODAsset,FMODAsset)
+  name.vb: AddEncyclopediaEntry(String, String, String, String, Texture2D, Sprite, FMODAsset, FMODAsset)
+  fullName: Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(string, string, string, string, UnityEngine.Texture2D, UnityEngine.Sprite, FMODAsset, FMODAsset)
+  fullName.vb: Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(String, String, String, String, UnityEngine.Texture2D, UnityEngine.Sprite, FMODAsset, FMODAsset)
+  nameWithType: PDAHandler.AddEncyclopediaEntry(string, string, string, string, Texture2D, Sprite, FMODAsset, FMODAsset)
+  nameWithType.vb: PDAHandler.AddEncyclopediaEntry(String, String, String, String, Texture2D, Sprite, FMODAsset, FMODAsset)
 - uid: Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry*
   name: AddEncyclopediaEntry
   href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_
@@ -3832,15 +3841,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry
   nameWithType: PDAHandler.AddEncyclopediaEntry
-- uid: Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,UnityEngine.Sprite,FMODAsset)
-  name: AddLogEntry(string, string, Sprite, FMODAsset)
-  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_UnityEngine_Sprite_FMODAsset_
-  commentId: M:Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,UnityEngine.Sprite,FMODAsset)
-  name.vb: AddLogEntry(String, String, Sprite, FMODAsset)
-  fullName: Nautilus.Handlers.PDAHandler.AddLogEntry(string, string, UnityEngine.Sprite, FMODAsset)
-  fullName.vb: Nautilus.Handlers.PDAHandler.AddLogEntry(String, String, UnityEngine.Sprite, FMODAsset)
-  nameWithType: PDAHandler.AddLogEntry(string, string, Sprite, FMODAsset)
-  nameWithType.vb: PDAHandler.AddLogEntry(String, String, Sprite, FMODAsset)
+- uid: Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMODAsset,UnityEngine.Sprite)
+  name: AddLogEntry(string, string, FMODAsset, Sprite)
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_FMODAsset_UnityEngine_Sprite_
+  commentId: M:Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMODAsset,UnityEngine.Sprite)
+  name.vb: AddLogEntry(String, String, FMODAsset, Sprite)
+  fullName: Nautilus.Handlers.PDAHandler.AddLogEntry(string, string, FMODAsset, UnityEngine.Sprite)
+  fullName.vb: Nautilus.Handlers.PDAHandler.AddLogEntry(String, String, FMODAsset, UnityEngine.Sprite)
+  nameWithType: PDAHandler.AddLogEntry(string, string, FMODAsset, Sprite)
+  nameWithType.vb: PDAHandler.AddLogEntry(String, String, FMODAsset, Sprite)
 - uid: Nautilus.Handlers.PDAHandler.AddLogEntry*
   name: AddLogEntry
   href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry_
@@ -3880,6 +3889,32 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.PDAHandler.EditFragmentsToScan
   nameWithType: PDAHandler.EditFragmentsToScan
+- uid: Nautilus.Handlers.PDAHandler.UnlockBasic
+  name: UnlockBasic
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_UnlockBasic
+  commentId: P:Nautilus.Handlers.PDAHandler.UnlockBasic
+  fullName: Nautilus.Handlers.PDAHandler.UnlockBasic
+  nameWithType: PDAHandler.UnlockBasic
+- uid: Nautilus.Handlers.PDAHandler.UnlockBasic*
+  name: UnlockBasic
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_UnlockBasic_
+  commentId: Overload:Nautilus.Handlers.PDAHandler.UnlockBasic
+  isSpec: "True"
+  fullName: Nautilus.Handlers.PDAHandler.UnlockBasic
+  nameWithType: PDAHandler.UnlockBasic
+- uid: Nautilus.Handlers.PDAHandler.UnlockImportant
+  name: UnlockImportant
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_UnlockImportant
+  commentId: P:Nautilus.Handlers.PDAHandler.UnlockImportant
+  fullName: Nautilus.Handlers.PDAHandler.UnlockImportant
+  nameWithType: PDAHandler.UnlockImportant
+- uid: Nautilus.Handlers.PDAHandler.UnlockImportant*
+  name: UnlockImportant
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_UnlockImportant_
+  commentId: Overload:Nautilus.Handlers.PDAHandler.UnlockImportant
+  isSpec: "True"
+  fullName: Nautilus.Handlers.PDAHandler.UnlockImportant
+  nameWithType: PDAHandler.UnlockImportant
 - uid: Nautilus.Handlers.PrefabCollection
   name: PrefabCollection
   href: api/Nautilus.Handlers.PrefabCollection.html
@@ -4300,6 +4335,124 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.SpriteHandler.RegisterSprite
   nameWithType: SpriteHandler.RegisterSprite
+- uid: Nautilus.Handlers.StoryGoalHandler
+  name: StoryGoalHandler
+  href: api/Nautilus.Handlers.StoryGoalHandler.html
+  commentId: T:Nautilus.Handlers.StoryGoalHandler
+  fullName: Nautilus.Handlers.StoryGoalHandler
+  nameWithType: StoryGoalHandler
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal(System.String,Story.GoalType,System.String,System.Single,System.Single)
+  name: RegisterBiomeGoal(string, GoalType, string, float, float)
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterBiomeGoal_System_String_Story_GoalType_System_String_System_Single_System_Single_
+  commentId: M:Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal(System.String,Story.GoalType,System.String,System.Single,System.Single)
+  name.vb: RegisterBiomeGoal(String, GoalType, String, Single, Single)
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal(string, Story.GoalType, string, float, float)
+  fullName.vb: Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal(String, Story.GoalType, String, Single, Single)
+  nameWithType: StoryGoalHandler.RegisterBiomeGoal(string, GoalType, string, float, float)
+  nameWithType.vb: StoryGoalHandler.RegisterBiomeGoal(String, GoalType, String, Single, Single)
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal*
+  name: RegisterBiomeGoal
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterBiomeGoal_
+  commentId: Overload:Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal
+  isSpec: "True"
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal
+  nameWithType: StoryGoalHandler.RegisterBiomeGoal
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal(System.String,Story.GoalType,System.Single,System.String[])
+  name: RegisterCompoundGoal(string, GoalType, float, params string[])
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterCompoundGoal_System_String_Story_GoalType_System_Single_System_String___
+  commentId: M:Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal(System.String,Story.GoalType,System.Single,System.String[])
+  name.vb: RegisterCompoundGoal(String, GoalType, Single, ParamArray String())
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal(string, Story.GoalType, float, params string[])
+  fullName.vb: Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal(String, Story.GoalType, Single, ParamArray String())
+  nameWithType: StoryGoalHandler.RegisterCompoundGoal(string, GoalType, float, params string[])
+  nameWithType.vb: StoryGoalHandler.RegisterCompoundGoal(String, GoalType, Single, ParamArray String())
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal*
+  name: RegisterCompoundGoal
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterCompoundGoal_
+  commentId: Overload:Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal
+  isSpec: "True"
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal
+  nameWithType: StoryGoalHandler.RegisterCompoundGoal
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.String,System.Action)
+  name: RegisterCustomEvent(string, Action)
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_System_String_System_Action_
+  commentId: M:Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.String,System.Action)
+  name.vb: RegisterCustomEvent(String, Action)
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(string, System.Action)
+  fullName.vb: Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(String, System.Action)
+  nameWithType: StoryGoalHandler.RegisterCustomEvent(string, Action)
+  nameWithType.vb: StoryGoalHandler.RegisterCustomEvent(String, Action)
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent*
+  name: RegisterCustomEvent
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_
+  commentId: Overload:Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent
+  isSpec: "True"
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent
+  nameWithType: StoryGoalHandler.RegisterCustomEvent
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal(System.String,Story.GoalType,TechType,System.Single)
+  name: RegisterItemGoal(string, GoalType, TechType, float)
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterItemGoal_System_String_Story_GoalType_TechType_System_Single_
+  commentId: M:Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal(System.String,Story.GoalType,TechType,System.Single)
+  name.vb: RegisterItemGoal(String, GoalType, TechType, Single)
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal(string, Story.GoalType, TechType, float)
+  fullName.vb: Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal(String, Story.GoalType, TechType, Single)
+  nameWithType: StoryGoalHandler.RegisterItemGoal(string, GoalType, TechType, float)
+  nameWithType.vb: StoryGoalHandler.RegisterItemGoal(String, GoalType, TechType, Single)
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal*
+  name: RegisterItemGoal
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterItemGoal_
+  commentId: Overload:Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal
+  isSpec: "True"
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal
+  nameWithType: StoryGoalHandler.RegisterItemGoal
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal(System.String,Story.GoalType,UnityEngine.Vector3,System.Single,System.Single,System.Single)
+  name: RegisterLocationGoal(string, GoalType, Vector3, float, float, float)
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterLocationGoal_System_String_Story_GoalType_UnityEngine_Vector3_System_Single_System_Single_System_Single_
+  commentId: M:Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal(System.String,Story.GoalType,UnityEngine.Vector3,System.Single,System.Single,System.Single)
+  name.vb: RegisterLocationGoal(String, GoalType, Vector3, Single, Single, Single)
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal(string, Story.GoalType, UnityEngine.Vector3, float, float, float)
+  fullName.vb: Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal(String, Story.GoalType, UnityEngine.Vector3, Single, Single, Single)
+  nameWithType: StoryGoalHandler.RegisterLocationGoal(string, GoalType, Vector3, float, float, float)
+  nameWithType.vb: StoryGoalHandler.RegisterLocationGoal(String, GoalType, Vector3, Single, Single, Single)
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal*
+  name: RegisterLocationGoal
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterLocationGoal_
+  commentId: Overload:Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal
+  isSpec: "True"
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal
+  nameWithType: StoryGoalHandler.RegisterLocationGoal
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData(System.String,Story.UnlockBlueprintData[],Story.UnlockSignalData[],Story.UnlockItemData[],GameAchievements.Id[])
+  name: RegisterOnGoalUnlockData(string, UnlockBlueprintData[], UnlockSignalData[], UnlockItemData[], Id[])
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_System_String_Story_UnlockBlueprintData___Story_UnlockSignalData___Story_UnlockItemData___GameAchievements_Id___
+  commentId: M:Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData(System.String,Story.UnlockBlueprintData[],Story.UnlockSignalData[],Story.UnlockItemData[],GameAchievements.Id[])
+  name.vb: RegisterOnGoalUnlockData(String, UnlockBlueprintData(), UnlockSignalData(), UnlockItemData(), Id())
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData(string, Story.UnlockBlueprintData[], Story.UnlockSignalData[], Story.UnlockItemData[], GameAchievements.Id[])
+  fullName.vb: Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData(String, Story.UnlockBlueprintData(), Story.UnlockSignalData(), Story.UnlockItemData(), GameAchievements.Id())
+  nameWithType: StoryGoalHandler.RegisterOnGoalUnlockData(string, UnlockBlueprintData[], UnlockSignalData[], UnlockItemData[], GameAchievements.Id[])
+  nameWithType.vb: StoryGoalHandler.RegisterOnGoalUnlockData(String, UnlockBlueprintData(), UnlockSignalData(), UnlockItemData(), GameAchievements.Id())
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData*
+  name: RegisterOnGoalUnlockData
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_
+  commentId: Overload:Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData
+  isSpec: "True"
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData
+  nameWithType: StoryGoalHandler.RegisterOnGoalUnlockData
+- uid: Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.String,System.Action)
+  name: UnregisterCustomEvent(string, Action)
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_UnregisterCustomEvent_System_String_System_Action_
+  commentId: M:Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.String,System.Action)
+  name.vb: UnregisterCustomEvent(String, Action)
+  fullName: Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(string, System.Action)
+  fullName.vb: Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(String, System.Action)
+  nameWithType: StoryGoalHandler.UnregisterCustomEvent(string, Action)
+  nameWithType.vb: StoryGoalHandler.UnregisterCustomEvent(String, Action)
+- uid: Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent*
+  name: UnregisterCustomEvent
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_UnregisterCustomEvent_
+  commentId: Overload:Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent
+  isSpec: "True"
+  fullName: Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent
+  nameWithType: StoryGoalHandler.UnregisterCustomEvent
 - uid: Nautilus.Handlers.SurvivalHandler
   name: SurvivalHandler
   href: api/Nautilus.Handlers.SurvivalHandler.html
@@ -7937,6 +8090,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.AudioUtils.CreateSounds
   nameWithType: AudioUtils.CreateSounds
+- uid: Nautilus.Utility.AudioUtils.GetFmodAsset(System.String,System.String)
+  name: GetFmodAsset(string, string)
+  href: api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_
+  commentId: M:Nautilus.Utility.AudioUtils.GetFmodAsset(System.String,System.String)
+  name.vb: GetFmodAsset(String, String)
+  fullName: Nautilus.Utility.AudioUtils.GetFmodAsset(string, string)
+  fullName.vb: Nautilus.Utility.AudioUtils.GetFmodAsset(String, String)
+  nameWithType: AudioUtils.GetFmodAsset(string, string)
+  nameWithType.vb: AudioUtils.GetFmodAsset(String, String)
+- uid: Nautilus.Utility.AudioUtils.GetFmodAsset*
+  name: GetFmodAsset
+  href: api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_GetFmodAsset_
+  commentId: Overload:Nautilus.Utility.AudioUtils.GetFmodAsset
+  isSpec: "True"
+  fullName: Nautilus.Utility.AudioUtils.GetFmodAsset
+  nameWithType: AudioUtils.GetFmodAsset
 - uid: Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound,FMOD.Studio.Bus,FMOD.Channel@)
   name: TryPlaySound(Sound, Bus, out Channel)
   href: api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__
@@ -8343,6 +8512,51 @@ references:
   commentId: F:Nautilus.Utility.ConstructableFlags.Wall
   fullName: Nautilus.Utility.ConstructableFlags.Wall
   nameWithType: ConstructableFlags.Wall
+- uid: Nautilus.Utility.FontUtils
+  name: FontUtils
+  href: api/Nautilus.Utility.FontUtils.html
+  commentId: T:Nautilus.Utility.FontUtils
+  fullName: Nautilus.Utility.FontUtils
+  nameWithType: FontUtils
+- uid: Nautilus.Utility.FontUtils.Aller_Rg
+  name: Aller_Rg
+  href: api/Nautilus.Utility.FontUtils.html#Nautilus_Utility_FontUtils_Aller_Rg
+  commentId: P:Nautilus.Utility.FontUtils.Aller_Rg
+  fullName: Nautilus.Utility.FontUtils.Aller_Rg
+  nameWithType: FontUtils.Aller_Rg
+- uid: Nautilus.Utility.FontUtils.Aller_Rg*
+  name: Aller_Rg
+  href: api/Nautilus.Utility.FontUtils.html#Nautilus_Utility_FontUtils_Aller_Rg_
+  commentId: Overload:Nautilus.Utility.FontUtils.Aller_Rg
+  isSpec: "True"
+  fullName: Nautilus.Utility.FontUtils.Aller_Rg
+  nameWithType: FontUtils.Aller_Rg
+- uid: Nautilus.Utility.FontUtils.Aller_W_Bd
+  name: Aller_W_Bd
+  href: api/Nautilus.Utility.FontUtils.html#Nautilus_Utility_FontUtils_Aller_W_Bd
+  commentId: P:Nautilus.Utility.FontUtils.Aller_W_Bd
+  fullName: Nautilus.Utility.FontUtils.Aller_W_Bd
+  nameWithType: FontUtils.Aller_W_Bd
+- uid: Nautilus.Utility.FontUtils.Aller_W_Bd*
+  name: Aller_W_Bd
+  href: api/Nautilus.Utility.FontUtils.html#Nautilus_Utility_FontUtils_Aller_W_Bd_
+  commentId: Overload:Nautilus.Utility.FontUtils.Aller_W_Bd
+  isSpec: "True"
+  fullName: Nautilus.Utility.FontUtils.Aller_W_Bd
+  nameWithType: FontUtils.Aller_W_Bd
+- uid: Nautilus.Utility.FontUtils.SetFontInChildren(UnityEngine.GameObject,TMPro.TMP_FontAsset)
+  name: SetFontInChildren(GameObject, TMP_FontAsset)
+  href: api/Nautilus.Utility.FontUtils.html#Nautilus_Utility_FontUtils_SetFontInChildren_UnityEngine_GameObject_TMPro_TMP_FontAsset_
+  commentId: M:Nautilus.Utility.FontUtils.SetFontInChildren(UnityEngine.GameObject,TMPro.TMP_FontAsset)
+  fullName: Nautilus.Utility.FontUtils.SetFontInChildren(UnityEngine.GameObject, TMPro.TMP_FontAsset)
+  nameWithType: FontUtils.SetFontInChildren(GameObject, TMP_FontAsset)
+- uid: Nautilus.Utility.FontUtils.SetFontInChildren*
+  name: SetFontInChildren
+  href: api/Nautilus.Utility.FontUtils.html#Nautilus_Utility_FontUtils_SetFontInChildren_
+  commentId: Overload:Nautilus.Utility.FontUtils.SetFontInChildren
+  isSpec: "True"
+  fullName: Nautilus.Utility.FontUtils.SetFontInChildren
+  nameWithType: FontUtils.SetFontInChildren
 - uid: Nautilus.Utility.ImageUtils
   name: ImageUtils
   href: api/Nautilus.Utility.ImageUtils.html

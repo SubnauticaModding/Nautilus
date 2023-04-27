@@ -1,0 +1,529 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class StoryGoalHandler
+ </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class StoryGoalHandler
+ ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Nautilus.Handlers.StoryGoalHandler">
+
+
+
+  <h1 id="Nautilus_Handlers_StoryGoalHandler" data-uid="Nautilus.Handlers.StoryGoalHandler" class="text-break">Class StoryGoalHandler
+</h1>
+  <div class="markdown level0 summary"><p>A handler class for interacting with all of the major goal systems in Subnautica, which are essential in the game progression. Utilizes the following systems:</p>
+<ul><li><span class="term"><span class="xref">Story.ItemGoalTracker</span></span>Completes an <span class="xref">Story.ItemGoal</span> (or multiple) when an object with the given TechType is picked up, equipped, or crafted through the Mobile Vehicle Bay.</li><li><span class="term"><span class="xref">Story.BiomeGoalTracker</span></span>Completes a <span class="xref">Story.BiomeGoal</span> when the player stays in a given biome for a specified period of time.</li><li><span class="term"><span class="xref">Story.LocationGoalTracker</span></span>Completes a <span class="xref">Story.LocationGoal</span> when the player stays within range of a certain position for a specified period of time.</li><li><span class="term"><span class="xref">Story.CompoundGoalTracker</span></span>Completes a <span class="xref">Story.CompoundGoal</span> when all required "precondition" goals have been completed.</li><li><span class="term"><span class="xref">Story.OnGoalUnlockTracker</span></span>Handles the completion of a goal with the data defined in an <span class="xref">Story.OnGoalUnlock</span> object. Defines the unlocked blueprints, signals, items, and achievements that should be unlocked.</li><li><span class="term"><span class="xref">StoryGoalCustomEventHandler</span></span>Handles arbitrary code that is executed after completing a goal, for use in more specific story events.</li></ul></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">StoryGoalHandler</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></h6>
+  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
+  <h5 id="Nautilus_Handlers_StoryGoalHandler_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class StoryGoalHandler</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_StoryGoalHandler_RegisterBiomeGoal_System_String_Story_GoalType_System_String_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal(System.String%2CStory.GoalType%2CSystem.String%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L68">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_StoryGoalHandler_RegisterBiomeGoal_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal*"></a>
+  <h4 id="Nautilus_Handlers_StoryGoalHandler_RegisterBiomeGoal_System_String_Story_GoalType_System_String_System_Single_System_Single_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal(System.String,Story.GoalType,System.String,System.Single,System.Single)">RegisterBiomeGoal(string, GoalType, string, float, float)</h4>
+  <div class="markdown level1 summary">Registers a goal that is completed when the player stays in a given biome for a specified period of time.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterBiomeGoal(string key, GoalType goalType, string biomeName, float minStayDuration, float delay = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td>The unique identifier, required for all types of StoryGoals.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">GoalType</span></td>
+        <td><span class="parametername">goalType</span></td>
+        <td>If assigned a value other than 'Story', this will determine the automatic response to being triggered. Can add a PDA log, Radio message or Databank entry.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">biomeName</span></td>
+        <td>The biome that must be entered to trigger this goal.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">minStayDuration</span></td>
+        <td>The minimum amount of time the player must stay in the given biome.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">delay</span></td>
+        <td>StoryGoal listeners will not be notified until this many seconds after the goal is completed.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_StoryGoalHandler_RegisterCompoundGoal_System_String_Story_GoalType_System_Single_System_String___.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal(System.String%2CStory.GoalType%2CSystem.Single%2CSystem.String%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L107">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_StoryGoalHandler_RegisterCompoundGoal_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal*"></a>
+  <h4 id="Nautilus_Handlers_StoryGoalHandler_RegisterCompoundGoal_System_String_Story_GoalType_System_Single_System_String___" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal(System.String,Story.GoalType,System.Single,System.String[])">RegisterCompoundGoal(string, GoalType, float, params string[])</h4>
+  <div class="markdown level1 summary">Registers a goal that is completed when all required "precondition" goals have been completed</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterCompoundGoal(string key, GoalType goalType, float delay, params string[] requiredGoals)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td>The unique identifier, required for all types of StoryGoals.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">GoalType</span></td>
+        <td><span class="parametername">goalType</span></td>
+        <td>If assigned a value other than 'Story', this will determine the automatic response to being triggered. Can add a PDA log, Radio message or Databank entry.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">delay</span></td>
+        <td>StoryGoal listeners will not be notified until this many seconds after the goal is completed.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</td>
+        <td><span class="parametername">requiredGoals</span></td>
+        <td>The list of all goals that must be completed before this goal is marked as complete.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_System_String_System_Action_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.String%2CSystem.Action)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L152">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent*"></a>
+  <h4 id="Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_System_String_System_Action_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.String,System.Action)">RegisterCustomEvent(string, Action)</h4>
+  <div class="markdown level1 summary">Registers a given <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a> to be performed when its associated goal is completed.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterCustomEvent(string key, Action customEventCallback)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td>The key of the goal that triggers the <code class="paramref">customEventCallback</code>.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></td>
+        <td><span class="parametername">customEventCallback</span></td>
+        <td>The method that is called when the associated goal is completed. The name of the goal will be passed as a parameter.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_StoryGoalHandler_RegisterItemGoal_System_String_Story_GoalType_TechType_System_Single_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal(System.String%2CStory.GoalType%2CTechType%2CSystem.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L49">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_StoryGoalHandler_RegisterItemGoal_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal*"></a>
+  <h4 id="Nautilus_Handlers_StoryGoalHandler_RegisterItemGoal_System_String_Story_GoalType_TechType_System_Single_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal(System.String,Story.GoalType,TechType,System.Single)">RegisterItemGoal(string, GoalType, TechType, float)</h4>
+  <div class="markdown level1 summary"><p>Registers a goal that is completed when an object with the given TechType is picked up, equipped, or crafted through the Mobile Vehicle Bay.</p>
+<p><b>Important:</b> This method can be called <b>as many times as needed</b> to add different goals to the same TechType.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterItemGoal(string key, GoalType goalType, TechType techType, float delay = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td>The unique identifier, required for all types of StoryGoals.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">GoalType</span></td>
+        <td><span class="parametername">goalType</span></td>
+        <td>If assigned a value other than 'Story', this will determine the automatic response to being triggered. Can add a PDA log, Radio message or Databank entry.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TechType</span></td>
+        <td><span class="parametername">techType</span></td>
+        <td>The TechType that causes this goal to trigger, when picked up, equipped or crafted through the Mobile Vehicle Bay.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">delay</span></td>
+        <td>StoryGoal listeners will not be notified until this many seconds after the goal is completed.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_StoryGoalHandler_RegisterLocationGoal_System_String_Story_GoalType_UnityEngine_Vector3_System_Single_System_Single_System_Single_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal(System.String%2CStory.GoalType%2CUnityEngine.Vector3%2CSystem.Single%2CSystem.Single%2CSystem.Single)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L88">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_StoryGoalHandler_RegisterLocationGoal_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal*"></a>
+  <h4 id="Nautilus_Handlers_StoryGoalHandler_RegisterLocationGoal_System_String_Story_GoalType_UnityEngine_Vector3_System_Single_System_Single_System_Single_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal(System.String,Story.GoalType,UnityEngine.Vector3,System.Single,System.Single,System.Single)">RegisterLocationGoal(string, GoalType, Vector3, float, float, float)</h4>
+  <div class="markdown level1 summary">Registers a goal that is completed when the player stays within range of a certain position for a specified period of time.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterLocationGoal(string key, GoalType goalType, Vector3 position, float range, float minStayDuration, float delay = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td>The unique identifier, required for all types of StoryGoals.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">GoalType</span></td>
+        <td><span class="parametername">goalType</span></td>
+        <td>If assigned a value other than 'Story', this will determine the automatic response to being triggered. Can add a PDA log, Radio message or Databank entry.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Vector3</span></td>
+        <td><span class="parametername">position</span></td>
+        <td>The center of the sphere that must be occupied.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">range</span></td>
+        <td>The radius of the sphere that must be occupied.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">minStayDuration</span></td>
+        <td>The minimum amount of time the player must stay for this goal to be completed.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">delay</span></td>
+        <td>StoryGoal listeners will not be notified until this many seconds after the goal is completed.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_System_String_Story_UnlockBlueprintData___Story_UnlockSignalData___Story_UnlockItemData___GameAchievements_Id___.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData(System.String%2CStory.UnlockBlueprintData%5B%5D%2CStory.UnlockSignalData%5B%5D%2CStory.UnlockItemData%5B%5D%2CGameAchievements.Id%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L128">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData*"></a>
+  <h4 id="Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_System_String_Story_UnlockBlueprintData___Story_UnlockSignalData___Story_UnlockItemData___GameAchievements_Id___" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData(System.String,Story.UnlockBlueprintData[],Story.UnlockSignalData[],Story.UnlockItemData[],GameAchievements.Id[])">RegisterOnGoalUnlockData(string, UnlockBlueprintData[], UnlockSignalData[], UnlockItemData[], Id[])</h4>
+  <div class="markdown level1 summary"><p>Registers a new <span class="xref">Story.OnGoalUnlock</span> object for an existing goal. Handles complex actions that occur with the goal's completion.</p>
+<p><b>Important:</b> Since these are stored in a dictionary, only <b>one</b> <span class="xref">Story.OnGoalUnlock</span> object can be added for each specific goal key. Therefore, be careful when adding unlock data to base-game features.</p></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterOnGoalUnlockData(string goal, UnlockBlueprintData[] blueprints = null, UnlockSignalData[] signals = null, UnlockItemData[] items = null, GameAchievements.Id[] achievements = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">goal</span></td>
+        <td>The goal that is associated with this action.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">UnlockBlueprintData</span>[]</td>
+        <td><span class="parametername">blueprints</span></td>
+        <td>Array of blueprints that are unlocked alongside the given goal. The class has no constructor, so make sure you assign every field properly.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">UnlockSignalData</span>[]</td>
+        <td><span class="parametername">signals</span></td>
+        <td>Array of signals that are unlocked alongside the given goal. The class has no constructor, so make sure you assign every field properly.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">UnlockItemData</span>[]</td>
+        <td><span class="parametername">items</span></td>
+        <td>Array of items that are unlocked alongside the given goal. The class has no constructor, so make sure you assign every field properly.</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Id</span>[]</td>
+        <td><span class="parametername">achievements</span></td>
+        <td>Array of achievements that are unlocked alongside the given goal.</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_StoryGoalHandler_UnregisterCustomEvent_System_String_System_Action_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.String%2CSystem.Action)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L162">View Source</a>
+  </span>
+  <a id="Nautilus_Handlers_StoryGoalHandler_UnregisterCustomEvent_" data-uid="Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent*"></a>
+  <h4 id="Nautilus_Handlers_StoryGoalHandler_UnregisterCustomEvent_System_String_System_Action_" data-uid="Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.String,System.Action)">UnregisterCustomEvent(string, Action)</h4>
+  <div class="markdown level1 summary">Unregisters a custom event.</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void UnregisterCustomEvent(string key, Action customEventCallback)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">key</span></td>
+        <td>The key of the goal that triggers the <code class="paramref">customEventCallback</code>.</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></td>
+        <td><span class="parametername">customEventCallback</span></td>
+        <td>The method to unregister.</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_StoryGoalHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.StoryGoalHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L39" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="toggle-mode">
+                <div class="icon">
+                  <i aria-hidden="true">☀</i>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="switch-style">
+                  <span class="slider round"></span>
+                </label>
+                <div class="icon">
+                  <i aria-hidden="true">☾</i>
+                </div>
+              </div>
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In This Article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>
+            <div class="toggle-mode pull-right visible-sm visible-xs">
+              <div class="icon">
+                <i aria-hidden="true">☀</i>
+              </div>
+              <label class="switch">
+                <input type="checkbox" id="switch-style-m">
+                <span class="slider round"></span>
+              </label>
+              <div class="icon">
+                <i aria-hidden="true">☾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
