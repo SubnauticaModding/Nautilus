@@ -11,12 +11,12 @@ internal static class EnumPatcher
 {
     internal static void Patch(Harmony harmony)
     {
-        PatchUtils.PatchClass(harmony);
+        harmony.PatchAll(typeof(EnumPatcher));
 
         InternalLogger.Log("EnumPatcher is done.", LogLevel.Debug);
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(Enum), nameof(Enum.GetValues))]
     private static void Postfix_GetValues(Type enumType, ref Array __result)
     {
@@ -27,7 +27,7 @@ internal static class EnumPatcher
     }
     
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(Enum), nameof(Enum.GetNames))]
     private static void Postfix_GetNames(Type enumType, ref Array __result)
     {
@@ -37,7 +37,7 @@ internal static class EnumPatcher
         }
     }
     
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(Enum), nameof(Enum.GetName))]
     private static bool Prefix_GetName(Type enumType, object value, ref string __result)
     {
@@ -51,7 +51,7 @@ internal static class EnumPatcher
     }
 
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(Enum), nameof(Enum.IsDefined))]
     private static bool Prefix_IsDefined(Type enumType, object value, ref bool __result)
     {
@@ -69,7 +69,7 @@ internal static class EnumPatcher
         return cacheManager.ContainsKey(value);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(Enum), nameof(Enum.Parse), new[] { typeof(Type), typeof(string), typeof(bool) })]
     private static bool Prefix_Parse(Type enumType, string value, bool ignoreCase, ref object __result)
     {
@@ -81,7 +81,7 @@ internal static class EnumPatcher
         return true;
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(Enum), nameof(Enum.ToString), new Type[] { })]
     private static bool Prefix_ToString(Enum __instance, ref string __result)
     {

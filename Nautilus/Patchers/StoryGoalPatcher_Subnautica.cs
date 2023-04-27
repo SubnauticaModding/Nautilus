@@ -17,18 +17,18 @@ internal static class StoryGoalPatcher
 
     internal static void Patch(Harmony harmony)
     {
-        PatchUtils.PatchClass(harmony);
+        harmony.PatchAll(typeof(StoryGoalPatcher));
         SaveUtils.RegisterOnQuitEvent(() => LocationGoals.ForEach(x => x.timeRangeEntered = -1f));
     }
     
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(StoryGoalManager), nameof(StoryGoalManager.Awake))]
     private static void StoryGoalManagerAwakePostfix(StoryGoalManager __instance)
     {
         __instance.gameObject.EnsureComponent<CustomStoryGoalManager>();
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(ItemGoalTracker), nameof(ItemGoalTracker.Start))]
     private static void ItemGoalTrackerStartPostfix(ItemGoalTracker __instance)
     {
@@ -39,7 +39,7 @@ internal static class StoryGoalPatcher
         }
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(BiomeGoalTracker), nameof(BiomeGoalTracker.Start))]
     private static void BiomeGoalTrackerStartPostfix(BiomeGoalTracker __instance)
     {
@@ -49,7 +49,7 @@ internal static class StoryGoalPatcher
         }
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(LocationGoalTracker), nameof(LocationGoalTracker.Start))]
     private static void LocationGoalTrackerStartPostfix(LocationGoalTracker __instance)
     {
@@ -60,7 +60,7 @@ internal static class StoryGoalPatcher
     }
 
     // must be a prefix because we want to add all these goals BEFORE NotifyGoalComplete is called at the end of the method
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CompoundGoalTracker), nameof(CompoundGoalTracker.Initialize))]
     private static void CompoundGoalTrackerInitializePrefix(CompoundGoalTracker __instance, HashSet<string> completedGoals)
     {
@@ -73,7 +73,7 @@ internal static class StoryGoalPatcher
         }
     }
     
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(OnGoalUnlockTracker), nameof(OnGoalUnlockTracker.Initialize))]
     private static void OnGoalUnlockTrackerInitializePostfix(OnGoalUnlockTracker __instance, HashSet<string> completedGoals)
     {

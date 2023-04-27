@@ -23,12 +23,12 @@ internal class CraftTreePatcher
 
     internal static void Patch(Harmony harmony)
     {
-        PatchUtils.PatchClass(harmony);
+        harmony.PatchAll(typeof(CraftTreePatcher));
 
         InternalLogger.Log($"CraftTreePatcher is done.", LogLevel.Debug);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.GetTree))]
     private static bool GetTreePreFix(CraftTree.Type treeType, ref CraftTree __result)
     {
@@ -41,7 +41,7 @@ internal class CraftTreePatcher
         return true;
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.Initialize))]
     private static void InitializePostFix()
     {
@@ -58,42 +58,42 @@ internal class CraftTreePatcher
         }
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.FabricatorScheme))]
     private static void FabricatorSchemePostfix(ref CraftNode __result)
     {
         PatchCraftTree(ref __result, CraftTree.Type.Fabricator);
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.ConstructorScheme))]
     private static void ConstructorSchemePostfix(ref CraftNode __result)
     {
         PatchCraftTree(ref __result, CraftTree.Type.Constructor);
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.WorkbenchScheme))]
     private static void WorkbenchSchemePostfix(ref CraftNode __result)
     {
         PatchCraftTree(ref __result, CraftTree.Type.Workbench);
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.SeamothUpgradesScheme))]
     private static void SeamothUpgradesSchemePostfix(ref CraftNode __result)
     {
         PatchCraftTree(ref __result, CraftTree.Type.SeamothUpgrades);
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.MapRoomSheme))]
     private static void MapRoomSchemePostfix(ref CraftNode __result)
     {
         PatchCraftTree(ref __result, CraftTree.Type.MapRoom);
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.CyclopsFabricatorScheme))]
     private static void CyclopsFabricatorSchemePostfix(ref CraftNode __result)
     {
@@ -101,7 +101,7 @@ internal class CraftTreePatcher
     }
 
 #if BELOWZERO
-        [PatchUtils.Postfix]
+        [HarmonyPostfix]
         [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.SeaTruckFabricatorScheme))]
         private static void SeaTruckFabricatorSchemePostfix(ref CraftNode __result)
         {

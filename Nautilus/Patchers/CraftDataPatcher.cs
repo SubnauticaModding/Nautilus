@@ -90,12 +90,11 @@ internal partial class CraftDataPatcher
         harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
             prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePrefix))),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
-        PatchUtils.PatchClass(harmony);
 
         InternalLogger.Log("CraftDataPatcher is done.", LogLevel.Debug);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetTechType), new Type[] { typeof(GameObject), typeof(GameObject) }, argumentVariations: new ArgumentType[] { ArgumentType.Normal, ArgumentType.Out })]
     private static void CraftDataGetTechTypePrefix(GameObject obj, out GameObject go, ref TechType __result)
     {

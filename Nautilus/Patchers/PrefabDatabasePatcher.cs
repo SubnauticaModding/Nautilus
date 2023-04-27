@@ -17,7 +17,7 @@ internal static class PrefabDatabasePatcher
 {
     private static class PostPatches
     {
-        [PatchUtils.Postfix]
+        [HarmonyPostfix]
         [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.LoadPrefabDatabase))]
         internal static void LoadPrefabDatabase_Postfix()
         {
@@ -28,7 +28,7 @@ internal static class PrefabDatabasePatcher
         }
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename))]
     internal static bool TryGetPrefabFilename_Prefix(string classId, ref string filename, ref bool __result)
     {
@@ -42,7 +42,7 @@ internal static class PrefabDatabasePatcher
         return false;
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(DeferredSpawner.AddressablesTask), nameof(DeferredSpawner.AddressablesTask.SpawnAsync))]
     internal static bool DeferredSpawner_AddressablesTask_Spawn_Prefix(DeferredSpawner.AddressablesTask __instance, ref IEnumerator __result)
     {
@@ -90,7 +90,7 @@ internal static class PrefabDatabasePatcher
         return new ModPrefabRequest(prefabInfo);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.GetPrefabAsync))]
     internal static bool GetPrefabAsync_Prefix(ref IPrefabRequest __result, string classId)
     {
@@ -98,7 +98,7 @@ internal static class PrefabDatabasePatcher
         return __result == null;
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(AddressablesUtility), nameof(AddressablesUtility.InstantiateAsync), new Type[] 
     { 
         typeof(string), typeof(IOut<GameObject>), typeof(Transform), typeof(Vector3), typeof(Quaternion), typeof(bool)
@@ -160,7 +160,7 @@ internal static class PrefabDatabasePatcher
 
     internal static void PrePatch(Harmony harmony)
     {
-        PatchUtils.PatchClass(harmony);
+        harmony.PatchAll(typeof(PrefabDatabasePatcher));
 
         // patching iterator method ProtobufSerializer.DeserializeObjectsAsync
         MethodInfo DeserializeObjectsAsync = typeof(ProtobufSerializer).GetMethod(
@@ -173,7 +173,7 @@ internal static class PrefabDatabasePatcher
 
     internal static void PostPatch(Harmony harmony)
     {
-        PatchUtils.PatchClass(harmony, typeof(PostPatches));
+        harmony.PatchAll(typeof(PostPatches));
 
         InternalLogger.Log("PrefabDatabasePostPatcher is done.", LogLevel.Debug);
     }

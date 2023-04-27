@@ -23,14 +23,14 @@ internal class OptionsPanelPatcher
 
     internal static void Patch(Harmony harmony)
     {
-        PatchUtils.PatchClass(harmony);
-        PatchUtils.PatchClass(harmony, typeof(ScrollPosKeeper));
-        PatchUtils.PatchClass(harmony, typeof(ModOptionsHeadingsToggle));
+        harmony.PatchAll(typeof(OptionsPanelPatcher));
+        harmony.PatchAll(typeof(ScrollPosKeeper));
+        harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
     }
 
 
     // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddTab))]
     internal static void AddTab_Postfix(uGUI_TabbedControlsPanel __instance, string label, int __result)
     {
@@ -43,7 +43,7 @@ internal class OptionsPanelPatcher
         }
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue))]
     internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
     {
@@ -57,7 +57,7 @@ internal class OptionsPanelPatcher
         return false;
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
     internal static void AddTabs_Postfix(uGUI_OptionsPanel __instance)
     {
@@ -295,7 +295,7 @@ internal class OptionsPanelPatcher
         #endregion
 
         #region patches for uGUI_TabbedControlsPanel
-        [PatchUtils.Prefix]
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddHeading))]
         private static bool AddHeading_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex, string label)
         {
@@ -306,7 +306,7 @@ internal class OptionsPanelPatcher
             return false;
         }
 
-        [PatchUtils.Postfix]
+        [HarmonyPostfix]
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.OnEnable))]
         private static void Awake_Postfix(uGUI_TabbedControlsPanel __instance)
         {
@@ -316,7 +316,7 @@ internal class OptionsPanelPatcher
             InitHeadingPrefab(__instance);
         }
 
-        [PatchUtils.Prefix]
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
         private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {
@@ -363,7 +363,7 @@ internal class OptionsPanelPatcher
             }
         }
 
-        [PatchUtils.Prefix]
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.RemoveTabs))]
         private static void RemoveTabs_Prefix(uGUI_TabbedControlsPanel __instance)
         {
@@ -372,7 +372,7 @@ internal class OptionsPanelPatcher
             StorePos(__instance, __instance.currentTab);
         }
 
-        [PatchUtils.Postfix]
+        [HarmonyPostfix]
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.HighlightCurrentTab))]
         private static void HighlightCurrentTab_Postfix(uGUI_TabbedControlsPanel __instance)
         {
@@ -387,7 +387,7 @@ internal class OptionsPanelPatcher
             }
         }
 
-        [PatchUtils.Prefix]
+        [HarmonyPrefix]
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
         private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {
@@ -399,7 +399,7 @@ internal class OptionsPanelPatcher
             }
         }
 
-        [PatchUtils.Postfix]
+        [HarmonyPostfix]
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
         private static void SetVisibleTab_Postfix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {

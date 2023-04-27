@@ -28,80 +28,80 @@ internal partial class CraftDataPatcher
 
     private static void PatchForSubnautica(Harmony harmony)
     {
-        PatchUtils.PatchClass(harmony);
+        harmony.PatchAll(typeof(CraftDataPatcher));
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetHarvestOutputData))]
     private static void GetHarvestOutputPrefix(TechType techType)
     {
         DictionaryPrefix(techType, CustomHarvestOutputList, CraftData.harvestOutputList);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetHarvestTypeFromTech))]
     private static void GetHarvestTypePrefix(TechType techType)
     {
         DictionaryPrefix(techType, CustomHarvestTypeList, CraftData.harvestTypeList);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetHarvestFinalCutBonus))]
     private static void GetFinalCutBonusPrefix(TechType techType)
     {
         DictionaryPrefix(techType, CustomFinalCutBonusList, CraftData.harvestFinalCutBonusList);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetItemSize))]
     private static void GetItemSizePrefix(TechType techType)
     {
         DictionaryPrefix(techType, CustomItemSizes, CraftData.itemSizes);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetEquipmentType))]
     private static void GetEquipmentTypePrefix(TechType techType)
     {
         DictionaryPrefix(techType, CustomEquipmentTypes, CraftData.equipmentTypes);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetQuickSlotType))]
     private static void GetSlotTypePrefix(TechType techType)
     {
         DictionaryPrefix(techType, CustomSlotTypes, CraftData.slotTypes);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetCraftTime))]
     private static void GetCraftTimePrefix(TechType techType)
     {
         DictionaryPrefix(techType, CustomCraftingTimes, CraftData.craftingTimes);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetCookedData))]
     private static void GetCookedCreaturePrefix(TechType techType)
     {
         DictionaryPrefix(techType, CustomCookedCreatureList, CraftData.cookedCreatureList);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetBackgroundType))]
     private static void GetBackgroundTypesPrefix(TechType techType)
     {
         DictionaryPrefix(techType, CustomBackgroundTypes, CraftData.backgroundTypes);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetUseEatSound))]
     private static void GetUseEatSoundPrefix(TechType techType)
     {
         DictionaryPrefix(techType, CustomEatingSounds, CraftData.useEatSound);
     }
 
-    [PatchUtils.Postfix]
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(Inventory), nameof(Inventory.GetAllItemActions))]
     private static void GetAllItemActionsPostfix(InventoryItem item, ref ItemAction __result)
     {
@@ -125,7 +125,7 @@ internal partial class CraftDataPatcher
         }
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.IsBuildableTech))]
     private static void GetBuildablePrefix(TechType recipe)
     {
@@ -133,7 +133,7 @@ internal partial class CraftDataPatcher
             PatchUtils.PatchList(CraftData.buildables, CustomBuildables);
     }
 
-    [PatchUtils.Prefix]
+    [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.Get))]
     private static void NeedsPatchingCheckPrefix(TechType techType)
     {
