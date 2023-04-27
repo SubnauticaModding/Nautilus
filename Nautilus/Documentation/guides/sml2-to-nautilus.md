@@ -73,6 +73,13 @@ PDAEncyclopedia.EntryData entry = new PDAEncyclopedia.EntryData()
 <span class="lang-diff-add">+ PDAHandler.AddLogEntry("SomeLog", "SomeLanguageKey");</span>
 </pre>
 
+### InGameMenuHandler
+The methods `InGameMenuHandler` class had have been moved to the `Nautilus.Utility` namespace and the class has been renamed to `SaveUtils`.
+<pre>
+<span class="lang-diff-rem">- InGameMenuHandler.RegisterOnSaveEvent(() => ErrorMessage.AddMessage("We do be saving!"));</span>
+<span class="lang-diff-add">+ SaveUtils.RegisterOnSaveEvent(() => ErrorMessage.AddMessage("We do be saving!"));</span>
+</pre>
+
 ## Enum Handlers
 Beginning with Nautilus, enum handling will be made generic. Instead of working with individual handlers associated with the enum type (E.G: For `TechType` we had `TechTypeHandler`),
 Now you can add a new enum value to any enum type by using `EnumHandler.AddEntry<TEnum>(string enumName)`.  
