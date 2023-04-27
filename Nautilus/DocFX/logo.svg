@@ -4,7 +4,7 @@
 <svg
    width="100%"
    height="100%"
-   viewBox="0 0 13.405555 13.405556"
+   viewBox="0 0 255.99999 256"
    version="1.1"
    id="svg1594"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -37,7 +37,7 @@
     <linearGradient
        id="linearGradient20380">
       <stop
-         style="stop-color:#0082ca;stop-opacity:1;"
+         style="stop-color:#ffffff;stop-opacity:1;"
          offset="0"
          id="stop20376" />
       <stop
@@ -110,27 +110,27 @@
   </g>
   <g
      id="layer2"
-     style="display:inline;stroke:none;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1"
-     transform="matrix(0.07268788,0,0,0.07268788,-4.4720622,-2.4906806)">
+     style="display:inline;stroke:#f2f2f2;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1"
+     transform="matrix(1.3707666,0,0,1.3707666,-82.835717,-46.228573)">
     <circle
-       style="fill:url(#radialGradient20384);fill-opacity:1;stroke:none;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:url(#radialGradient20384);fill-opacity:1;stroke:#f2f2f2;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:0"
        id="path8341"
        cx="166.50018"
        cy="148.65715"
        r="27.039434" />
     <g
        id="g12820"
-       style="display:inline;fill:url(#linearGradient2672);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1">
+       style="display:inline;fill:url(#linearGradient2672);fill-opacity:1;fill-rule:nonzero;stroke:#f2f2f2;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1">
       <path
-         style="fill:url(#linearGradient592);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:url(#linearGradient592);fill-opacity:1;fill-rule:nonzero;stroke:#f2f2f2;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:0"
          d="m 149.35685,118.60708 c 0.98696,-20.929495 1.65871,-37.057325 4.27393,-55.198937 -52.07294,7.878573 -51.89583,37.163807 -91.076302,47.049747 0.131856,5.15868 20.51204,11.24233 35.425035,12.98036 14.913757,1.73812 38.238887,2.00264 51.377337,-4.83117 z"
          id="path10217" />
       <path
-         style="fill:url(#linearGradient594);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:url(#linearGradient594);fill-opacity:1;fill-rule:nonzero;stroke:#f2f2f2;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:0"
          d="m 154.31149,117.19322 c -0.50656,-14.22288 4.04374,-53.70674 4.04374,-53.70674 31.40353,1.52297 55.90425,8.956806 71.67194,30.821096 12.65649,17.711554 15.04869,36.084974 15.04869,36.084974 0,0 -11.29365,7.20853 -20.60524,11.76577 -13.52276,6.61825 -24.52979,9.22288 -24.52979,9.22288 0,0 1.83744,-17.41316 -12.29516,-28.82828 -13.80217,-11.14823 -33.33418,-5.3597 -33.33418,-5.3597 z"
          id="path10473" />
       <path
-         style="fill:url(#linearGradient596);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1"
+         style="fill:url(#linearGradient596);fill-opacity:1;fill-rule:nonzero;stroke:#f2f2f2;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:0"
          d="m 165.81425,184.54667 c 17.55475,-4.06139 29.00733,-10.0463 33.99747,-27.58427 17.1858,-4.77602 31.78236,-11.01923 45.23679,-20.49701 -6.82853,25.90709 -11.43523,39.81371 -29.76505,50.7634 -18.32981,10.94969 -49.46921,-2.68212 -49.46921,-2.68212 z"
          id="path10547" />
     </g>

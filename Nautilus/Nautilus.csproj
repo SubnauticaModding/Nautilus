@@ -12,8 +12,9 @@
     <Optimize>true</Optimize>
     <Configurations>SN.STABLE;BZ.STABLE</Configurations>
     <Platforms>AnyCPU</Platforms>
-    <Copyright>Copyright @ 2023</Copyright>
+    <Copyright>Copyright @ 2023 Subnautica Modding Community</Copyright>
     <Description>Core library for modding Subnautica.</Description>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
   <Import Project="..\Version.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
@@ -39,6 +40,10 @@
     <PackageReference Include="PolySharp" Version="1.13.1" />
 
     <Publicize Include="Newtonsoft.Json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="DocFX\logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
   <Import Project="..\PostBuild.targets" />
 </Project>

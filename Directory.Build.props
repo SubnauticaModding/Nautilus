@@ -6,6 +6,7 @@
         <PackageProjectUrl>https://github.com/SubnauticaModding/Nautilus</PackageProjectUrl>
         <RepositoryUrl>https://github.com/SubnauticaModding/Nautilus</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
+        <PackageTags>Subnautica Modding Library;Subnautica Modding API;Subnautica;Modding;Library;API</PackageTags>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     </PropertyGroup>
