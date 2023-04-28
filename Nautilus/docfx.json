@@ -62,7 +62,8 @@
     "dest": "_site",
     "template": [
        "default",
-      "DocFX/darkfx"
+       "modern",
+       "DocFX/template"
     ]
   }
 }
