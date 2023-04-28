@@ -12,6 +12,7 @@ To start developing, you will need to install some tools first:
 1. Latest .NET SDK
 2. An integrated development environment (IDE)
 3. BepInEx 5.4.21
+4. Nautilus
 
 
 ## .NET SDK
@@ -67,6 +68,14 @@ You can also install extensions separately.
 
 ---
 
+## Installing BepInEx
+BepInEx is a mod loader that we use to load Subnautica mods to the game. We recommend using the [Subnautica BepInEx Pack](https://www.nexusmods.com/subnautica/mods/1108) as it's configured specifically for the game.
+The installation process is explained in the provided link.
+
+## Installing Nautilus
+1. Download Nautilus from one of [Nexus Mods](https://www.youtube.com/watch?v=dQw4w9WgXcQ), [Submodica](https://www.youtube.com/watch?v=dQw4w9WgXcQ) or [GitHub Releases](https://github.com/SubnauticaModding/Nautilus/releases).
+2. Drop and drop the `plugins` folder in the zip file to: `PathToSubnautica\BepInEx\`
+
 ## Installing Subnautica Modding templates
 Since the project setup can be quite tedious for experienced developers and confusing for new-comers, we have published a series of templates to help you setup your projects more easily.  
 
@@ -96,10 +105,11 @@ Below is a description of what each of these templates represent:
 | Subnautica Empty Template        | snmod_empty     | Contains all the essential configurations and dependencies with no additional files.                                                      |
 | Subnautica Nautilus Template     | snmod_nautilus  | Contains all the essential configurations, dependencies with Nautilus installed and a simple example demonstrating the usage of Nautilus. |
 
-The Subnautica: Below Zero contain the exact same configurations as their corresponding Subnautica versions, except they install BZ dependencies instead.
+The Subnautica: Below Zero templates contain the exact same configurations as their corresponding Subnautica versions, except they install BZ dependencies instead.
 
 ## Creating a new mod project
-Once you installed the templates, they will appear among other templates in the "Create new project" section of your favorite IDE. ![vs-template-default](../images/guides/vs-template-default.png)  
+Once you installed the templates, they will appear among other templates in the "Create new project" section of your favorite IDE. 
+![vs-template-default](../images/guides/vs-template-default.png)
 
 You can also create the project using CLI:
 
@@ -108,11 +118,11 @@ You can also create the project using CLI:
 dotnet new snmod -n MyBeautifulMod
 ```
 
-And that's it! Now you can add more code to the project, then build and put the compiled dll in Subnautica/BepInEx/plugins/.
+Now you can add more code to the project, then build and put the compiled dll in Subnautica/BepInEx/plugins/.
 
 # [Subnautica: Below Zero](#tab/bz)
 ```bash
 dotnet new bzmod -n MyBeautifulMod
 ```
 
-And that's it! Now you can add more code to the project, then build and put the compiled dll in SubnauticaZero/BepInEx/plugins/.
+Now you can add more code to the project, then build and put the compiled dll in SubnauticaZero/BepInEx/plugins/.

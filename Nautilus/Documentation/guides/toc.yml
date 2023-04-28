@@ -3,5 +3,7 @@
 
 - name: Development Setup Guide
   href: dev-setup.md
+- name: Simple Mod Guide
+  href: simple-mod.md
 - name: Updating to Nautilus
   href: sml2-to-nautilus.md
