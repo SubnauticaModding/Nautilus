@@ -13,7 +13,6 @@
     <Configurations>SN.STABLE;BZ.STABLE</Configurations>
     <Platforms>AnyCPU</Platforms>
     <Copyright>Copyright @ 2023 Subnautica Modding Community</Copyright>
-    <Description>Core library for modding Subnautica.</Description>
     <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
   <Import Project="..\Version.targets" />
@@ -21,11 +20,17 @@
     <OutputPath>bin\SN.STABLE\</OutputPath>
     <DefineConstants>SUBNAUTICA;SUBNAUTICA_STABLE</DefineConstants>
     <DocumentationFile>bin\SN.STABLE\Nautilus.xml</DocumentationFile>
+    <Description>Core library for modding Subnautica.</Description>
+    <PackageId>Subnautica.Nautilus</PackageId>
+    <PackageTags>Nautilus;Subnautica Modding Library;Subnautica Modding API;Subnautica;SN1;Modding;Library;API</PackageTags>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
     <OutputPath>bin\BZ.STABLE\</OutputPath>
     <DefineConstants>BELOWZERO;BELOWZERO_STABLE</DefineConstants>
     <DocumentationFile>bin\BZ.STABLE\Nautilus.xml</DocumentationFile>
+    <Description>Core library for modding Subnautica: Below Zero.</Description>
+    <PackageId>SubnauticaZero.Nautilus</PackageId>
+    <PackageTags>Nautilus;Subnautica Below Zero Modding Library;Subnautica Below Zero Modding API;SubnauticaZero;BZ;Modding;Library;API</PackageTags>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <PackageReference ExcludeAssets="runtime" />
