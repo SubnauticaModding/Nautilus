@@ -767,7 +767,7 @@
   "index.html": {
     "href": "index.html",
     "title": "Nautilus: Subnautica Modding Library",
-    "keywords": "Nautilus: Subnautica Modding Library Nautilus is a modding library that aims to enhance developer productivity by offering common helper utilities as easy to use and robust as possible. Notable systems which Nautilus offers include but not limited to: Adding/editing items, implementing custom sprites & textures, custom audio, Subnautica-style configuration menu, and so much more! ⚠️ Nautilus is only supported on the latest version of Subnautica and Below Zero. If you're playing on the Legacy branch of Steam, use SMLHelper instead. GitHub - Contributing - Issues"
+    "keywords": "Nautilus: Subnautica Modding Library Nautilus is a modding library that aims to enhance developer productivity by offering common helper utilities as easy to use and robust as possible. Notable systems which Nautilus offers include but not limited to: Adding/editing items, implementing custom sprites & textures, custom audio, Subnautica-style configuration menu, and so much more! ⚠️ Nautilus is only supported on the latest version of Subnautica and Below Zero. If you're playing on the Legacy branch of Steam, use SMLHelper instead. Contributing - Issues"
   },
   "README.html": {
     "href": "README.html",
