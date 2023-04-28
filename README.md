@@ -2,6 +2,7 @@
 
 ![banner](https://user-images.githubusercontent.com/71298690/233505405-e89fbc70-31c9-45a2-bb31-64e1f498d4a7.png)
 
+![NuGet](https://img.shields.io/nuget/vpre/Subnautica.Nautilus)
 [![Discord](https://img.shields.io/discord/324207629784186882?logo=discord&logoColor=white)](https://discord.gg/UpWuWwq)
 [![GitHub contributors](https://img.shields.io/github/contributors/SubnauticaModding/Nautilus?style=flat-square)](https://github.com/SubnauticaModding/Nautilus/graphs/contributors)
 [![License](https://img.shields.io/github/license/SubnauticaModding/Nautilus?style=flat-square)](https://github.com/SubnauticaModding/Nautilus/blob/master/LICENSE.md)
@@ -31,9 +32,8 @@ We hope to keep improving the modding experience in Subnautica to allow develope
    - Epic Games - `C:\Program Files\Epic Games\Subnautica` (default path)
    - Xbox  PC - `C:\XboxGames\Subnautica\Content` (default path)
    
-2. Download Nautilus from one of [Nexus Mods](https://www.youtube.com/watch?v=dQw4w9WgXcQ), [Submodica](https://www.youtube.com/watch?v=dQw4w9WgXcQ) or GitHub Releases.  
-   Drag and drop the `plugins` folder in the zip into your `BepInEx` folder.
-   1. Drop the `plugins` folder here: `PathToSubnautica\BepInEx\`
+2. Download Nautilus from one of [Nexus Mods](https://www.youtube.com/watch?v=dQw4w9WgXcQ), [Submodica](https://www.youtube.com/watch?v=dQw4w9WgXcQ) or GitHub Releases.
+   1. Drag and drop the `plugins` folder in the zip into your `BepInEx`folder located in `PathToSubnautica\BepInEx\`.
    2. It should end up like this: `PathToSubnautica\BepInEx\plugins\Nautilus\`
 
 If you have any trouble installing the mod, please join our [Discord server](https://discord.gg/UpWuWwq), and explain your issue in one of the help and support channels.
@@ -41,7 +41,7 @@ If you have any trouble installing the mod, please join our [Discord server](htt
 ## Links
 * Developer resources:
   * [Documentation](https://subnauticamodding.github.io/Nautilus) ([source](https://github.com/SubnauticaModding/Nautilus/tree/docs/Nautilus/Documentation))
-  * [Updating to Nautilis from SMLHelper](https://subnauticamodding.github.io/Nautilus/guides/sml2-to-nautilus.html)
+  * [Updating to Nautilus from SMLHelper](https://subnauticamodding.github.io/Nautilus/guides/sml2-to-nautilus.html)
 * Other links:
   * [Subnautica Modding Discord Server](https://discord.gg/UpWuWwq)
 
