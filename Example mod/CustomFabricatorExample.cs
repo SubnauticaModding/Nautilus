@@ -19,18 +19,15 @@ public class CustomFabricatorExample : BaseUnityPlugin
 	     * Here we create a very simple clone of the Nickel ore. We will be using this item for the recipe of our
 	     * Custom fabricator later.
 	     */
-	    PrefabInfo stoneInfo = PrefabInfo.WithTechType("Stone", "Stone", "A good looking stone")
-		    .WithIcon(SpriteManager.Get(TechType.Nickel));
-	    CustomPrefab stone = new CustomPrefab(stoneInfo);
+        CustomPrefab stone = new CustomPrefab("Stone", "Stone", "A good looking stone", SpriteManager.Get(TechType.Nickel));
 	    stone.SetGameObject(new CloneTemplate(stone.Info, TechType.Nickel));
 	    stone.Register();
 	    
 	    /*
 	     * To create a custom fabricator, as usual, we will be starting by initializing our CustomPrefab object.
 	     */
-        CustomPrefab customFab = new CustomPrefab(PrefabInfo.WithTechType("CustomFab", "Custom Fabricator", "My awesome custom fabricator!")
-            .WithIcon(SpriteManager.Get(TechType.Fabricator)));
-        
+        CustomPrefab customFab = new CustomPrefab("CustomFab", "Custom Fabricator", "My awesome custom fabricator!", SpriteManager.Get(TechType.Fabricator));
+
         /*
          * If we need our custom fabricator to use a new crafting tree (I.E; with new tabs and crafting nodes),
          * We will have to make our own CraftTree.Type. This is simply done by using the CustomPrefab.CreateFabricator method.

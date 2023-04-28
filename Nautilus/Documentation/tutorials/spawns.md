@@ -53,7 +53,7 @@ For custom prefabs, it is advised to use the [ICustomPrefab.SetSpawns(SpawnLocat
 
 The example below demonstrates the usage of the `SetSpawns` method.
 ```csharp
-var blueReaper = new CustomPrefab(PrefabInfo.WithTechType("BlueReaper", "Blue Reaper Leviathan", null));
+var blueReaper = new CustomPrefab("BlueReaper", "Blue Reaper Leviathan", null);
            
 // Creates a clone of the Reaper Leviathan prefab and colors it blue, then set the new prefab as our Blue Reaper's game object.          
 var blueReaperPrefab = new CloneTemplate(blueReaper.Info, TechType.ReaperLeviathan)
@@ -121,15 +121,11 @@ For custom prefabs, it is advised to use the [ICustomPrefab.SetSpawns(LootDistri
 
 The example below demonstrates the usage of the `SetSpawns` method.
 ```csharp
-PrefabInfo titaniumCloneInfo = PrefabInfo.WithTechType("TitaniumClone", "Titanium Clone", "Titanium clone that makes me go yes.");
-        
 // Set the vanilla titanium icon for our item
-titaniumCloneInfo.WithIcon(SpriteManager.Get(TechType.Titanium));
-
-CustomPrefab titaniumClone = new CustomPrefab(titaniumCloneInfo);
+CustomPrefab titaniumClone = new CustomPrefab("TitaniumClone", "Titanium Clone", "Titanium clone that makes me go yes.", SpriteManager.Get(TechType.Titanium));
 
 // Creates a clone of the Titanium prefab and colors it red, then set the new prefab as our Titanium Clone's game object.  
-PrefabTemplate cloneTemplate = new CloneTemplate(titaniumCloneInfo, TechType.Titanium)
+PrefabTemplate cloneTemplate = new CloneTemplate(titaniumClone.Info, TechType.Titanium)
 {
     // Callback to change all material colors of this clone to red.
     ModifyPrefab = prefab => prefab.GetComponentsInChildren<Renderer>().ForEach(r => r.materials.ForEach(m => m.color = Color.red))
