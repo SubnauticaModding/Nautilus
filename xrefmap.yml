@@ -2377,6 +2377,120 @@ references:
   commentId: F:Nautilus.Crafting.RecipeData.LinkedItems
   fullName: Nautilus.Crafting.RecipeData.LinkedItems
   nameWithType: RecipeData.LinkedItems
+- uid: Nautilus.Extensions
+  name: Nautilus.Extensions
+  href: api/Nautilus.Extensions.html
+  commentId: N:Nautilus.Extensions
+  fullName: Nautilus.Extensions
+  nameWithType: Nautilus.Extensions
+- uid: Nautilus.Extensions.GameObjectExtensions
+  name: GameObjectExtensions
+  href: api/Nautilus.Extensions.GameObjectExtensions.html
+  commentId: T:Nautilus.Extensions.GameObjectExtensions
+  fullName: Nautilus.Extensions.GameObjectExtensions
+  nameWithType: GameObjectExtensions
+- uid: Nautilus.Extensions.GameObjectExtensions.AddAndCopyComponent*
+  name: AddAndCopyComponent
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_AddAndCopyComponent_
+  commentId: Overload:Nautilus.Extensions.GameObjectExtensions.AddAndCopyComponent
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GameObjectExtensions.AddAndCopyComponent
+  nameWithType: GameObjectExtensions.AddAndCopyComponent
+- uid: Nautilus.Extensions.GameObjectExtensions.AddAndCopyComponent``2(UnityEngine.GameObject)
+  name: AddAndCopyComponent<TNewComponent, TCopiedComponent>(GameObject)
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_AddAndCopyComponent__2_UnityEngine_GameObject_
+  commentId: M:Nautilus.Extensions.GameObjectExtensions.AddAndCopyComponent``2(UnityEngine.GameObject)
+  name.vb: AddAndCopyComponent(Of TNewComponent, TCopiedComponent)(GameObject)
+  fullName: Nautilus.Extensions.GameObjectExtensions.AddAndCopyComponent<TNewComponent, TCopiedComponent>(UnityEngine.GameObject)
+  fullName.vb: Nautilus.Extensions.GameObjectExtensions.AddAndCopyComponent(Of TNewComponent, TCopiedComponent)(UnityEngine.GameObject)
+  nameWithType: GameObjectExtensions.AddAndCopyComponent<TNewComponent, TCopiedComponent>(GameObject)
+  nameWithType.vb: GameObjectExtensions.AddAndCopyComponent(Of TNewComponent, TCopiedComponent)(GameObject)
+- uid: Nautilus.Extensions.GameObjectExtensions.CopyComponent*
+  name: CopyComponent
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_CopyComponent_
+  commentId: Overload:Nautilus.Extensions.GameObjectExtensions.CopyComponent
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GameObjectExtensions.CopyComponent
+  nameWithType: GameObjectExtensions.CopyComponent
+- uid: Nautilus.Extensions.GameObjectExtensions.CopyComponent``2(``0,``1)
+  name: CopyComponent<TSelfComponent, TCopiedComponent>(TSelfComponent, TCopiedComponent)
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_CopyComponent__2___0___1_
+  commentId: M:Nautilus.Extensions.GameObjectExtensions.CopyComponent``2(``0,``1)
+  name.vb: CopyComponent(Of TSelfComponent, TCopiedComponent)(TSelfComponent, TCopiedComponent)
+  fullName: Nautilus.Extensions.GameObjectExtensions.CopyComponent<TSelfComponent, TCopiedComponent>(TSelfComponent, TCopiedComponent)
+  fullName.vb: Nautilus.Extensions.GameObjectExtensions.CopyComponent(Of TSelfComponent, TCopiedComponent)(TSelfComponent, TCopiedComponent)
+  nameWithType: GameObjectExtensions.CopyComponent<TSelfComponent, TCopiedComponent>(TSelfComponent, TCopiedComponent)
+  nameWithType.vb: GameObjectExtensions.CopyComponent(Of TSelfComponent, TCopiedComponent)(TSelfComponent, TCopiedComponent)
+- uid: Nautilus.Extensions.GameObjectExtensions.EnsureAndCopyComponent*
+  name: EnsureAndCopyComponent
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_EnsureAndCopyComponent_
+  commentId: Overload:Nautilus.Extensions.GameObjectExtensions.EnsureAndCopyComponent
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GameObjectExtensions.EnsureAndCopyComponent
+  nameWithType: GameObjectExtensions.EnsureAndCopyComponent
+- uid: Nautilus.Extensions.GameObjectExtensions.EnsureAndCopyComponent``2(UnityEngine.GameObject)
+  name: EnsureAndCopyComponent<TNewComponent, TCopiedComponent>(GameObject)
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_EnsureAndCopyComponent__2_UnityEngine_GameObject_
+  commentId: M:Nautilus.Extensions.GameObjectExtensions.EnsureAndCopyComponent``2(UnityEngine.GameObject)
+  name.vb: EnsureAndCopyComponent(Of TNewComponent, TCopiedComponent)(GameObject)
+  fullName: Nautilus.Extensions.GameObjectExtensions.EnsureAndCopyComponent<TNewComponent, TCopiedComponent>(UnityEngine.GameObject)
+  fullName.vb: Nautilus.Extensions.GameObjectExtensions.EnsureAndCopyComponent(Of TNewComponent, TCopiedComponent)(UnityEngine.GameObject)
+  nameWithType: GameObjectExtensions.EnsureAndCopyComponent<TNewComponent, TCopiedComponent>(GameObject)
+  nameWithType.vb: GameObjectExtensions.EnsureAndCopyComponent(Of TNewComponent, TCopiedComponent)(GameObject)
+- uid: Nautilus.Extensions.GameObjectExtensions.Exists*
+  name: Exists
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_Exists_
+  commentId: Overload:Nautilus.Extensions.GameObjectExtensions.Exists
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GameObjectExtensions.Exists
+  nameWithType: GameObjectExtensions.Exists
+- uid: Nautilus.Extensions.GameObjectExtensions.Exists``1(``0)
+  name: Exists<T>(T)
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_Exists__1___0_
+  commentId: M:Nautilus.Extensions.GameObjectExtensions.Exists``1(``0)
+  name.vb: Exists(Of T)(T)
+  fullName: Nautilus.Extensions.GameObjectExtensions.Exists<T>(T)
+  fullName.vb: Nautilus.Extensions.GameObjectExtensions.Exists(Of T)(T)
+  nameWithType: GameObjectExtensions.Exists<T>(T)
+  nameWithType.vb: GameObjectExtensions.Exists(Of T)(T)
+- uid: Nautilus.Extensions.GeneralExtensions
+  name: GeneralExtensions
+  href: api/Nautilus.Extensions.GeneralExtensions.html
+  commentId: T:Nautilus.Extensions.GeneralExtensions
+  fullName: Nautilus.Extensions.GeneralExtensions
+  nameWithType: GeneralExtensions
+- uid: Nautilus.Extensions.GeneralExtensions.Add*
+  name: Add
+  href: api/Nautilus.Extensions.GeneralExtensions.html#Nautilus_Extensions_GeneralExtensions_Add_
+  commentId: Overload:Nautilus.Extensions.GeneralExtensions.Add
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GeneralExtensions.Add
+  nameWithType: GeneralExtensions.Add
+- uid: Nautilus.Extensions.GeneralExtensions.Add``1(``0[],``0)
+  name: Add<T>(T[], T)
+  href: api/Nautilus.Extensions.GeneralExtensions.html#Nautilus_Extensions_GeneralExtensions_Add__1___0_____0_
+  commentId: M:Nautilus.Extensions.GeneralExtensions.Add``1(``0[],``0)
+  name.vb: Add(Of T)(T(), T)
+  fullName: Nautilus.Extensions.GeneralExtensions.Add<T>(T[], T)
+  fullName.vb: Nautilus.Extensions.GeneralExtensions.Add(Of T)(T(), T)
+  nameWithType: GeneralExtensions.Add<T>(T[], T)
+  nameWithType.vb: GeneralExtensions.Add(Of T)(T(), T)
+- uid: Nautilus.Extensions.GeneralExtensions.TrimClone(System.String)
+  name: TrimClone(string)
+  href: api/Nautilus.Extensions.GeneralExtensions.html#Nautilus_Extensions_GeneralExtensions_TrimClone_System_String_
+  commentId: M:Nautilus.Extensions.GeneralExtensions.TrimClone(System.String)
+  name.vb: TrimClone(String)
+  fullName: Nautilus.Extensions.GeneralExtensions.TrimClone(string)
+  fullName.vb: Nautilus.Extensions.GeneralExtensions.TrimClone(String)
+  nameWithType: GeneralExtensions.TrimClone(string)
+  nameWithType.vb: GeneralExtensions.TrimClone(String)
+- uid: Nautilus.Extensions.GeneralExtensions.TrimClone*
+  name: TrimClone
+  href: api/Nautilus.Extensions.GeneralExtensions.html#Nautilus_Extensions_GeneralExtensions_TrimClone_
+  commentId: Overload:Nautilus.Extensions.GeneralExtensions.TrimClone
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GeneralExtensions.TrimClone
+  nameWithType: GeneralExtensions.TrimClone
 - uid: Nautilus.FMod
   name: Nautilus.FMod
   href: api/Nautilus.FMod.html

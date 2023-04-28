@@ -1,97 +1,115 @@
 ﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
 <html>
-
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Struct SpawnInfo
+      <title>Struct SpawnInfo
  </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Struct SpawnInfo
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Struct SpawnInfo
  ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  
-  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
-    <div id="wrapper">
-      <header>
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.min.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+      <script>
+        MathJax = {
+          options: {
+            processHtmlClass: ['tex2jax_process', 'math']
+          }
+        };
+      </script>
 
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../logo.svg" alt="">
-              </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar">
-              <form class="navbar-form navbar-right" role="search" id="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
-                </div>
+      <script type="text/javascript" src="../styles/docfx.min.js"></script>
+      <script type="text/javascript" src="../styles/main.js"></script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
               </form>
             </div>
           </div>
-        </nav>
-
-        <div class="subnav navbar navbar-default">
-          <div class="container hide-when-search" id="breadcrumb">
-            <ul class="breadcrumb">
-              <li></li>
-            </ul>
-          </div>
         </div>
-      </header>
-      <div class="container body-content">
+      </nav>
+    </header>
 
-        <div id="search-results">
-          <div class="search-list">Search Results for <span></span></div>
-          <div class="sr-items">
-            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
         </div>
       </div>
-      <div role="main" class="container body-content hide-when-search">
 
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
-        <div class="article row grid-right">
-          <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Nautilus.Handlers.SpawnInfo">
+
+        <article data-uid="Nautilus.Handlers.SpawnInfo">
 
 
 
-  <h1 id="Nautilus_Handlers_SpawnInfo" data-uid="Nautilus.Handlers.SpawnInfo" class="text-break">Struct SpawnInfo
-</h1>
-  <div class="markdown level0 summary">A basic struct that provides enough info for the <a class="xref" href="Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a> System to function.</div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="implements">
-    <h5>Implements</h5>
-    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>&gt;</div>
+  <h1 id="Nautilus_Handlers_SpawnInfo" data-uid="Nautilus.Handlers.SpawnInfo" class="text-break">
+    Struct SpawnInfo
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
+
+  <div class="markdown summary">A basic struct that provides enough info for the <a class="xref" href="Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a> System to function.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct SpawnInfo : IEquatable&lt;SpawnInfo&gt;</code></pre>
+  </div>
+
+
+
+
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>&gt;</div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.tostring">ValueType.ToString()</a>
     </div>
@@ -104,591 +122,474 @@
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
     </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></h6>
-  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
-  <h5 id="Nautilus_Handlers_SpawnInfo_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public struct SpawnInfo : IEquatable&lt;SpawnInfo&gt;</code></pre>
-  </div>
-  <h3 id="constructors">Constructors
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.%23ctor(System.String%2CUnityEngine.Vector3)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L83">View Source</a>
-  </span>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
   <a id="Nautilus_Handlers_SpawnInfo__ctor_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3)">SpawnInfo(string, Vector3)</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3)">
+  SpawnInfo(string, Vector3)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L83"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public SpawnInfo(string classId, Vector3 spawnPosition)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>ClassID to spawn.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Vector3</span></td>
-        <td><span class="parametername">spawnPosition</span></td>
-        <td>Position to spawn into.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Quaternion_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.%23ctor(System.String%2CUnityEngine.Vector3%2CUnityEngine.Quaternion)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L101">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>ClassID to spawn.</dd>
+    <dt><code>spawnPosition</code> <span class="xref">Vector3</span></dt>
+    <dd>Position to spawn into.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_SpawnInfo__ctor_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Quaternion_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion)">SpawnInfo(string, Vector3, Quaternion)</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Quaternion_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion)">
+  SpawnInfo(string, Vector3, Quaternion)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L101"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>ClassID to spawn.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Vector3</span></td>
-        <td><span class="parametername">spawnPosition</span></td>
-        <td>Position to spawn into.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Quaternion</span></td>
-        <td><span class="parametername">rotation</span></td>
-        <td>Rotation to spawn at.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Vector3_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.%23ctor(System.String%2CUnityEngine.Vector3%2CUnityEngine.Vector3)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L119">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>ClassID to spawn.</dd>
+    <dt><code>spawnPosition</code> <span class="xref">Vector3</span></dt>
+    <dd>Position to spawn into.</dd>
+    <dt><code>rotation</code> <span class="xref">Quaternion</span></dt>
+    <dd>Rotation to spawn at.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_SpawnInfo__ctor_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Vector3)">SpawnInfo(string, Vector3, Vector3)</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Vector3)">
+  SpawnInfo(string, Vector3, Vector3)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public SpawnInfo(string classId, Vector3 spawnPosition, Vector3 rotation)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>ClassID to spawn.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Vector3</span></td>
-        <td><span class="parametername">spawnPosition</span></td>
-        <td>Position to spawn into.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Vector3</span></td>
-        <td><span class="parametername">rotation</span></td>
-        <td>Rotation to spawn at.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.%23ctor(TechType%2CUnityEngine.Vector3)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L75">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>ClassID to spawn.</dd>
+    <dt><code>spawnPosition</code> <span class="xref">Vector3</span></dt>
+    <dd>Position to spawn into.</dd>
+    <dt><code>rotation</code> <span class="xref">Vector3</span></dt>
+    <dd>Rotation to spawn at.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_SpawnInfo__ctor_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3)">SpawnInfo(TechType, Vector3)</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3)">
+  SpawnInfo(TechType, Vector3)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public SpawnInfo(TechType techType, Vector3 spawnPosition)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TechType</span></td>
-        <td><span class="parametername">techType</span></td>
-        <td>TechType to spawn.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Vector3</span></td>
-        <td><span class="parametername">spawnPosition</span></td>
-        <td>Position to spawn into.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Quaternion_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.%23ctor(TechType%2CUnityEngine.Vector3%2CUnityEngine.Quaternion)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L92">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd>TechType to spawn.</dd>
+    <dt><code>spawnPosition</code> <span class="xref">Vector3</span></dt>
+    <dd>Position to spawn into.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_SpawnInfo__ctor_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Quaternion_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion)">SpawnInfo(TechType, Vector3, Quaternion)</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Quaternion_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion)">
+  SpawnInfo(TechType, Vector3, Quaternion)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TechType</span></td>
-        <td><span class="parametername">techType</span></td>
-        <td>TechType to spawn.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Vector3</span></td>
-        <td><span class="parametername">spawnPosition</span></td>
-        <td>Position to spawn into.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Quaternion</span></td>
-        <td><span class="parametername">rotation</span></td>
-        <td>Rotation to spawn at.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Vector3_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.%23ctor(TechType%2CUnityEngine.Vector3%2CUnityEngine.Vector3)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L110">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd>TechType to spawn.</dd>
+    <dt><code>spawnPosition</code> <span class="xref">Vector3</span></dt>
+    <dd>Position to spawn into.</dd>
+    <dt><code>rotation</code> <span class="xref">Quaternion</span></dt>
+    <dd>Rotation to spawn at.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_SpawnInfo__ctor_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Vector3)">SpawnInfo(TechType, Vector3, Vector3)</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Vector3)">
+  SpawnInfo(TechType, Vector3, Vector3)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L110"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public SpawnInfo(TechType techType, Vector3 spawnPosition, Vector3 rotation)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TechType</span></td>
-        <td><span class="parametername">techType</span></td>
-        <td>TechType to spawn.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Vector3</span></td>
-        <td><span class="parametername">spawnPosition</span></td>
-        <td>Position to spawn into.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Vector3</span></td>
-        <td><span class="parametername">rotation</span></td>
-        <td>Rotation to spawn at.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo_Equals_Nautilus_Handlers_SpawnInfo_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.Equals(Nautilus.Handlers.SpawnInfo)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L183">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd>TechType to spawn.</dd>
+    <dt><code>spawnPosition</code> <span class="xref">Vector3</span></dt>
+    <dd>Position to spawn into.</dd>
+    <dt><code>rotation</code> <span class="xref">Vector3</span></dt>
+    <dd>Rotation to spawn at.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
   <a id="Nautilus_Handlers_SpawnInfo_Equals_" data-uid="Nautilus.Handlers.SpawnInfo.Equals*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo_Equals_Nautilus_Handlers_SpawnInfo_" data-uid="Nautilus.Handlers.SpawnInfo.Equals(Nautilus.Handlers.SpawnInfo)">Equals(SpawnInfo)</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo_Equals_Nautilus_Handlers_SpawnInfo_" data-uid="Nautilus.Handlers.SpawnInfo.Equals(Nautilus.Handlers.SpawnInfo)">
+  Equals(SpawnInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L183"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Indicates whether the current <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> is equal to another.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public bool Equals(SpawnInfo other)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a></td>
-        <td><span class="parametername">other</span></td>
-        <td>The other <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the current <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> is equal to the <code class="paramref">other</code> parameter;
-    otherwise <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Nautilus_Handlers_SpawnInfo_Equals_Nautilus_Handlers_SpawnInfo__remarks">Remarks</h5>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a></dt>
+    <dd>The other <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the current <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> is equal to the <code class="paramref">other</code> parameter;
+    otherwise <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Handlers_SpawnInfo_Equals_Nautilus_Handlers_SpawnInfo__remarks">Remarks</h4>
   <div class="markdown level1 remarks">It is worth noting that we use Unity's <span class="xref">UnityEngine.Vector3.operator ==(UnityEngine.Vector3, UnityEngine.Vector3)</span> and <span class="xref">UnityEngine.Quaternion.operator ==(UnityEngine.Quaternion, UnityEngine.Quaternion)</span>
 operator comparisons for comparing the <a class="xref" href="Nautilus.Handlers.SpawnInfo.html#Nautilus.Handlers.SpawnInfo.SpawnPosition">SpawnPosition</a> and <a class="xref" href="Nautilus.Handlers.SpawnInfo.html#Nautilus.Handlers.SpawnInfo.Rotation">Rotation</a> properties of each instance, 
 to allow for an approximate comparison of these values.</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo_Equals_System_Object_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.Equals(System.Object)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L148">View Source</a>
-  </span>
+
+
+
+
   <a id="Nautilus_Handlers_SpawnInfo_Equals_" data-uid="Nautilus.Handlers.SpawnInfo.Equals*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo_Equals_System_Object_" data-uid="Nautilus.Handlers.SpawnInfo.Equals(System.Object)">Equals(object)</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo_Equals_System_Object_" data-uid="Nautilus.Handlers.SpawnInfo.Equals(System.Object)">
+  Equals(object)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L148"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Indicates whether this instance and a specified object are equal.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
-        <td><span class="parametername">obj</span></td>
-        <td>The object to compare with the current instance.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if <code class="paramref">obj</code> is a <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> and represents the same
-    value as this instance; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.equals">ValueType.Equals(object)</a></div>
-  <h5 id="Nautilus_Handlers_SpawnInfo_Equals_System_Object__remarks">Remarks</h5>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd>The object to compare with the current instance.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if <code class="paramref">obj</code> is a <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> and represents the same
+    value as this instance; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Handlers_SpawnInfo_Equals_System_Object__remarks">Remarks</h4>
   <div class="markdown level1 remarks">It is worth noting that we use Unity's <span class="xref">UnityEngine.Vector3.operator ==(UnityEngine.Vector3, UnityEngine.Vector3)</span> and <span class="xref">UnityEngine.Quaternion.operator ==(UnityEngine.Quaternion, UnityEngine.Quaternion)</span>
 operator comparisons for comparing the <a class="xref" href="Nautilus.Handlers.SpawnInfo.html#Nautilus.Handlers.SpawnInfo.SpawnPosition">SpawnPosition</a> and <a class="xref" href="Nautilus.Handlers.SpawnInfo.html#Nautilus.Handlers.SpawnInfo.Rotation">Rotation</a> properties of each instance, 
 to allow for an approximate comparison of these values.</div>
-  <h5 id="Nautilus_Handlers_SpawnInfo_Equals_System_Object__seealso">See Also</h5>
-  <div class="seealso">
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div>
       <div><a class="xref" href="Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo_Equals_Nautilus_Handlers_SpawnInfo_">Equals(SpawnInfo)</a></div>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo_GetHashCode.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.GetHashCode%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L158">View Source</a>
-  </span>
+    </div>
+    </dd>
+  </dl>
+
+
   <a id="Nautilus_Handlers_SpawnInfo_GetHashCode_" data-uid="Nautilus.Handlers.SpawnInfo.GetHashCode*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo_GetHashCode" data-uid="Nautilus.Handlers.SpawnInfo.GetHashCode">GetHashCode()</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo_GetHashCode" data-uid="Nautilus.Handlers.SpawnInfo.GetHashCode">
+  GetHashCode()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L158"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">A custom hash code algorithm that takes into account the values of each property of the <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> instance,
 and attempts to reduce diagonal collisions.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
   </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td>A 32-bit signed integer that is the hash code for this instance.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode">ValueType.GetHashCode()</a></div>
-  <h3 id="operators">Operators
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo_op_Equality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.op_Equality(Nautilus.Handlers.SpawnInfo%2CNautilus.Handlers.SpawnInfo)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L206">View Source</a>
-  </span>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>A 32-bit signed integer that is the hash code for this instance.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="operators">Operators
+</h2>
+
+
   <a id="Nautilus_Handlers_SpawnInfo_op_Equality_" data-uid="Nautilus.Handlers.SpawnInfo.op_Equality*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo_op_Equality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo_" data-uid="Nautilus.Handlers.SpawnInfo.op_Equality(Nautilus.Handlers.SpawnInfo,Nautilus.Handlers.SpawnInfo)">operator ==(SpawnInfo, SpawnInfo)</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo_op_Equality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo_" data-uid="Nautilus.Handlers.SpawnInfo.op_Equality(Nautilus.Handlers.SpawnInfo,Nautilus.Handlers.SpawnInfo)">
+  operator ==(SpawnInfo, SpawnInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L206"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Indicates whether two <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> instances are equal.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static bool operator ==(SpawnInfo a, SpawnInfo b)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a></td>
-        <td><span class="parametername">a</span></td>
-        <td>The first instance to compare.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a></td>
-        <td><span class="parametername">b</span></td>
-        <td>The second instance to compare.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> instances are equal; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Nautilus_Handlers_SpawnInfo_op_Equality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo__seealso">See Also</h5>
-  <div class="seealso">
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>a</code> <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a></dt>
+    <dd>The first instance to compare.</dd>
+    <dt><code>b</code> <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a></dt>
+    <dd>The second instance to compare.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> instances are equal; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div>
       <div><a class="xref" href="Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo_op_Inequality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo_">operator !=(SpawnInfo, SpawnInfo)</a></div>
+    </div>
+    <div>
       <div><a class="xref" href="Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo_Equals_Nautilus_Handlers_SpawnInfo_">Equals(SpawnInfo)</a></div>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo_op_Inequality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo.op_Inequality(Nautilus.Handlers.SpawnInfo%2CNautilus.Handlers.SpawnInfo)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L216">View Source</a>
-  </span>
+    </div>
+    </dd>
+  </dl>
+
+
   <a id="Nautilus_Handlers_SpawnInfo_op_Inequality_" data-uid="Nautilus.Handlers.SpawnInfo.op_Inequality*"></a>
-  <h4 id="Nautilus_Handlers_SpawnInfo_op_Inequality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo_" data-uid="Nautilus.Handlers.SpawnInfo.op_Inequality(Nautilus.Handlers.SpawnInfo,Nautilus.Handlers.SpawnInfo)">operator !=(SpawnInfo, SpawnInfo)</h4>
+
+  <h3 id="Nautilus_Handlers_SpawnInfo_op_Inequality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo_" data-uid="Nautilus.Handlers.SpawnInfo.op_Inequality(Nautilus.Handlers.SpawnInfo,Nautilus.Handlers.SpawnInfo)">
+  operator !=(SpawnInfo, SpawnInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L216"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Indicates whether two <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> instances are not equal.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static bool operator !=(SpawnInfo a, SpawnInfo b)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a></td>
-        <td><span class="parametername">a</span></td>
-        <td>The first instance to compare.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a></td>
-        <td><span class="parametername">b</span></td>
-        <td>The second instance to compare.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> instances are not equal; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Nautilus_Handlers_SpawnInfo_op_Inequality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo__seealso">See Also</h5>
-  <div class="seealso">
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>a</code> <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a></dt>
+    <dd>The first instance to compare.</dd>
+    <dt><code>b</code> <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a></dt>
+    <dd>The second instance to compare.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> instances are not equal; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div>
       <div><a class="xref" href="Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo_op_Equality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo_">operator ==(SpawnInfo, SpawnInfo)</a></div>
+    </div>
+    <div>
       <div><a class="xref" href="Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo_Equals_Nautilus_Handlers_SpawnInfo_">Equals(SpawnInfo)</a></div>
-  </div>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;T&gt;</a>
-  </div>
+    </div>
+    </dd>
+  </dl>
+
+
 
 </article>
-          </div>
 
-          <div class="hidden-sm col-md-2" role="complementary">
-            <div class="sideaffix">
-              <div class="contribution">
-                <ul class="nav">
-                  <li>
-                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpawnInfo.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpawnInfo%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L57" class="contribution-link">View Source</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="toggle-mode">
-                <div class="icon">
-                  <i aria-hidden="true">☀</i>
-                </div>
-                <label class="switch">
-                  <input type="checkbox" id="switch-style">
-                  <span class="slider round"></span>
-                </label>
-                <div class="icon">
-                  <i aria-hidden="true">☾</i>
-                </div>
-              </div>
-
-              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-              <h5>In This Article</h5>
-              <div></div>
-              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
-              </nav>
-            </div>
-          </div>
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L57" class="edit-link">Edit this page</a>
         </div>
+
+        
       </div>
 
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            <div class="pull-left">
-        
-        <span>Generated by <strong>DocFX</strong></span>
-            </div>
-            <div class="toggle-mode pull-right visible-sm visible-xs">
-              <div class="icon">
-                <i aria-hidden="true">☀</i>
-              </div>
-              <label class="switch">
-                <input type="checkbox" id="switch-style-m">
-                <span class="slider round"></span>
-              </label>
-              <div class="icon">
-                <i aria-hidden="true">☾</i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
-      </footer>    </div>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

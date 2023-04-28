@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Simple Mod Guide </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Simple Mod Guide ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.min.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/guides/simple-mod.md/#L1">
+
+      <script>
+        MathJax = {
+          options: {
+            processHtmlClass: ['tex2jax_process', 'math']
+          }
+        };
+      </script>
+
+      <script type="text/javascript" src="../styles/docfx.min.js"></script>
+      <script type="text/javascript" src="../styles/main.js"></script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="simple-mod-guide">Simple Mod Guide</h1>
+
+<p>In this guide we will make a new knife using Nautilus that knock-backs enemies on-hit. Additionally, we will also create a new mineral and add it
+to our knife's recipe.</p>
+<p>Firstly, we will need to setup a development environment. If you haven't already, check out our <a href="dev-setup.html">Development setup guide</a>.</p>
+<p>Now that we have a development environment, we can create a project using the <a href="dev-setup.html#installing-subnautica-modding-templates">Subnautica Templates</a>.</p>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_vs" role="tab" aria-controls="tabpanel_bHGHmlrG6S_vs" data-tab="vs" tabindex="0" aria-selected="true">Visual Studio 2022</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_rider" role="tab" aria-controls="tabpanel_bHGHmlrG6S_rider" data-tab="rider" tabindex="-1">JetBrains Rider</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_cli" role="tab" aria-controls="tabpanel_bHGHmlrG6S_cli" data-tab="cli" tabindex="-1">.NET CLI</a>
+</li>
+</ul>
+<section id="tabpanel_bHGHmlrG6S_vs" role="tabpanel" data-tab="vs">
+
+<ol>
+<li>Open Visual Studio</li>
+<li>Click on &quot;Create new project&quot;<br>
+<img src="../Documentation/images/guides/vs-create-project.png" alt="vs-create-project"></li>
+<li>Search for &quot;Nautilus&quot;, click on &quot;Subnautica Nautilus Template&quot; or &quot;Subnautica: Below Zero Nautilus Template&quot; depending on the game you're trying to mod then hit next
+<img src="../Documentation/images/guides/vs-choose-template.png" alt="vs-choose-template"></li>
+<li>Choose a name for your project, then create the project</li>
+</ol>
+</section>
+<section id="tabpanel_bHGHmlrG6S_rider" role="tabpanel" data-tab="rider" aria-hidden="true" hidden="hidden">
+
+<ol>
+<li>Open JetBrains Rider</li>
+<li>Click on &quot;New solution&quot;</li>
+<li>At the left section choose &quot;Subnautica Nautilus Template&quot; or &quot;Subnautica: Below Zero Nautilus Template&quot; depending on the game you're trying to mod</li>
+<li>Pick a name for your project, then create the project
+<img src="../Documentation/images/guides/rider-create-project.png" alt="rider-create-project"></li>
+</ol>
+</section>
+<section id="tabpanel_bHGHmlrG6S_cli" role="tabpanel" data-tab="cli" aria-hidden="true" hidden="hidden">
+
+<ol>
+<li>Open a terminal</li>
+<li>Create a folder for where your project will be stored</li>
+</ol>
+<pre><code class="lang-powershell">mkdir YourProjectName
+</code></pre>
+<ol start="3">
+<li>Navigate to the new folder using <code>cd YourProjectName</code></li>
+<li>Create the project<br>
+Subnautica:</li>
+</ol>
+<pre><code class="lang-powershell">dotnet new snmod_nautilus
+</code></pre>
+<p>Subnautica Below Zero:</p>
+<pre><code class="lang-powershell">dotnet new bzmod_nautilus
+</code></pre>
+</section>
+</div>
+
+<p>The new project should contain the following structure:</p>
+<pre><code class="lang-bash">MyAwesomeMod/Items/Equipment/YeetKnifePrefab.cs
+MyAwesomeMod/Plugin.cs
+</code></pre>
+<p><img src="../Documentation/images/guides/project-structure.png" alt="project-structure"></p>
+<p>This template contains the code of a functional knife that knock-backs enemies on strike. This knife can be found in the Modification station.
+Now that we have the code for the knife, we will make our new custom mineral.</p>
+<p>Begin by creating a new directory under <code>MyAwesomeMod/Items/</code> and name it <code>Minerals</code>. Create a new C# file by right clicking on the <code>Minerals</code> folder and call it <code>Coal.cs</code>.
+The project structure now should look like this:<br>
+<img src="../Documentation/images/guides/project-structure-minerals.png" alt="project-structure-minerals"></p>
+<p>Our Coal mineral will be using the same model as the Nickel Ore. The Coal.cs file should end up looking something like this:</p>
+<pre><code class="lang-csharp">public class Coal
+{
+    // To access the TechType anywhere in the project
+    public static PrefabInfo Info { get; private set; }
+
+    public static void Register()
+    {
+        Info = PrefabInfo.WithTechType(&quot;Coal&quot;, &quot;Coal&quot;, &quot;Coal that makes me go yes.&quot;);
+        var coalPrefab = new CustomPrefab(Info);
+
+        // The model of our coal will use the same one as Nickel's.
+        var coalObj = new CloneTemplate(Info, TechType.Nickel);
+        coalPrefab.SetGameObject(coalObj);
+        
+        // register the coal to the game
+        coalPrefab.Register();
+    }
+}
+</code></pre>
+<p>Now we need to register this new Coal object into the game. To do that, open the Plugin.cs file and edit it to call the <code>Coal.Register()</code> method</p>
+<pre><code class="lang-csharp">// Plugin.cs
+
+private void InitializePrefabs()
+{
+    Coal.Register();
+    YeetKnifePrefab.Register();
+}
+</code></pre>
+<p>At this point, our Coal mineral is successfully added to the game. To add it as a recipe to our Yeet Knife, all we'll need to do is to edit the <code>SetRecipe</code> method
+of the <code>YeetKnifePrefab</code> object.</p>
+<pre><code class="lang-csharp">// YeetKnifePrefab.cs
+...
+
+public static void Register()
+{
+    var customPrefab = new CustomPrefab(Info);
+
+    var yeetKnifeObj = new CloneTemplate(Info, TechType.HeatBlade);
+    yeetKnifeObj.ModifyPrefab += obj =&gt;
+    {
+        var heatBlade = obj.GetComponent&lt;HeatBlade&gt;();
+        var yeetKnife = obj.AddComponent&lt;YeetKnife&gt;().CopyComponent(heatBlade);
+        Object.DestroyImmediate(heatBlade);
+        yeetKnife.damage *= 2f;
+    };
+    customPrefab.SetGameObject(yeetKnifeObj);
+    
+    // Recipe requires 1 Heat blade and 4 Coal.
+    var recipe = new RecipeData(new Ingredient(TechType.HeatBlade), new Ingredient(Coal.Info.TechType, 4));
+        customPrefab.SetRecipe(recipe)
+            .WithFabricatorType(CraftTree.Type.Workbench);
+    customPrefab.SetEquipment(EquipmentType.Hand);
+    customPrefab.Register();
+}
+</code></pre>
+<p>Now we can build the project, then put the compiled .dll file into <code>Subnautica/BepInEx/plugins/</code> and launch the game to run our mod.
+<img src="../Documentation/images/guides/yeet-knife.png" alt="yeet-knife"></p>
+<p>As can be seen, the Coal does not have an icon and uses the default &quot;?&quot; sprite. To set an icon, we can simply call the <code>WithIcon</code> method on our PrefabInfo object.</p>
+<pre><code class="lang-csharp">// Coal.cs
+
+public static void Register()
+{
+    // Uses the Nickel Ore icon for the Coal item.
+    Info = PrefabInfo.WithTechType(&quot;Coal&quot;, &quot;Coal&quot;, &quot;Coal that makes me go yes.&quot;).WithIcon(SpriteManager.Get(TechType.Nickel));
+    var coalPrefab = new CustomPrefab(Info);
+
+    // The model of our coal will use the same one as Nickel's.
+    var coalObj = new CloneTemplate(Info, TechType.Nickel);
+    coalPrefab.SetGameObject(coalObj);
+    
+    // register the coal to the game
+    coalPrefab.Register();
+}
+</code></pre>
+<p>You can also set the icon to a .png file by using the <a class="xref" href="../api/Nautilus.Utility.ImageUtils.html">ImageUtils</a> class.</p>
+<p>This reaches the end of this guide. Please check out our <a href="../tutorials/overview.html">Tutorials</a> section to learn more about this library.<br>
+For more examples, check out our <a href="https://github.com/SubnauticaModding/Nautilus/tree/master/Example%20mod">Example mod</a>.</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/guides/simple-mod.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

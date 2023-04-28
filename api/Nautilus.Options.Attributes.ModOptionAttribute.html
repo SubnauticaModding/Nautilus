@@ -1,110 +1,136 @@
 ﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
 <html>
-
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class ModOptionAttribute
+      <title>Class ModOptionAttribute
  </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class ModOptionAttribute
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ModOptionAttribute
  ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  
-  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
-    <div id="wrapper">
-      <header>
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.min.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+      <script>
+        MathJax = {
+          options: {
+            processHtmlClass: ['tex2jax_process', 'math']
+          }
+        };
+      </script>
 
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../logo.svg" alt="">
-              </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar">
-              <form class="navbar-form navbar-right" role="search" id="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
-                </div>
+      <script type="text/javascript" src="../styles/docfx.min.js"></script>
+      <script type="text/javascript" src="../styles/main.js"></script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
               </form>
             </div>
           </div>
-        </nav>
-
-        <div class="subnav navbar navbar-default">
-          <div class="container hide-when-search" id="breadcrumb">
-            <ul class="breadcrumb">
-              <li></li>
-            </ul>
-          </div>
         </div>
-      </header>
-      <div class="container body-content">
+      </nav>
+    </header>
 
-        <div id="search-results">
-          <div class="search-list">Search Results for <span></span></div>
-          <div class="sr-items">
-            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
         </div>
       </div>
-      <div role="main" class="container body-content hide-when-search">
 
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
-        <div class="article row grid-right">
-          <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Nautilus.Options.Attributes.ModOptionAttribute">
+
+        <article data-uid="Nautilus.Options.Attributes.ModOptionAttribute">
 
 
 
-  <h1 id="Nautilus_Options_Attributes_ModOptionAttribute" data-uid="Nautilus.Options.Attributes.ModOptionAttribute" class="text-break">Class ModOptionAttribute
-</h1>
-  <div class="markdown level0 summary">Abstract base attribute used to signify the decorated public member should generate a <a class="xref" href="Nautilus.Options.OptionItem.html">OptionItem</a>
+  <h1 id="Nautilus_Options_Attributes_ModOptionAttribute" data-uid="Nautilus.Options.Attributes.ModOptionAttribute" class="text-break">
+    Class ModOptionAttribute
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Options.html">Options</a>.<a class="xref" href="Nautilus.Options.Attributes.html">Attributes</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">Abstract base attribute used to signify the decorated public member should generate a <a class="xref" href="Nautilus.Options.OptionItem.html">OptionItem</a>
 in a mod's options menu.</div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.attribute">Attribute</a></div>
-    <div class="level2"><span class="xref">ModOptionAttribute</span></div>
-      <div class="level3"><a class="xref" href="Nautilus.Options.Attributes.ButtonAttribute.html">ButtonAttribute</a></div>
-      <div class="level3"><a class="xref" href="Nautilus.Options.Attributes.ChoiceAttribute.html">ChoiceAttribute</a></div>
-      <div class="level3"><a class="xref" href="Nautilus.Options.Attributes.ColorPickerAttribute.html">ColorPickerAttribute</a></div>
-      <div class="level3"><a class="xref" href="Nautilus.Options.Attributes.KeybindAttribute.html">KeybindAttribute</a></div>
-      <div class="level3"><a class="xref" href="Nautilus.Options.Attributes.SliderAttribute.html">SliderAttribute</a></div>
-      <div class="level3"><a class="xref" href="Nautilus.Options.Attributes.ToggleAttribute.html">ToggleAttribute</a></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Method|AttributeTargets.Property|AttributeTargets.Field, AllowMultiple = false)]
+public abstract class ModOptionAttribute : Attribute, _Attribute</code></pre>
   </div>
-  <div class="implements">
-    <h5>Implements</h5>
-    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.interopservices._attribute">_Attribute</a></div>
-  </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.attribute">Attribute</a></div>
+      <div><span class="xref">ModOptionAttribute</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.interopservices._attribute">_Attribute</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="Nautilus.Options.Attributes.ButtonAttribute.html">ButtonAttribute</a></div>
+      <div><a class="xref" href="Nautilus.Options.Attributes.ChoiceAttribute.html">ChoiceAttribute</a></div>
+      <div><a class="xref" href="Nautilus.Options.Attributes.ColorPickerAttribute.html">ColorPickerAttribute</a></div>
+      <div><a class="xref" href="Nautilus.Options.Attributes.KeybindAttribute.html">KeybindAttribute</a></div>
+      <div><a class="xref" href="Nautilus.Options.Attributes.SliderAttribute.html">SliderAttribute</a></div>
+      <div><a class="xref" href="Nautilus.Options.Attributes.ToggleAttribute.html">ToggleAttribute</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.attribute.getcustomattributes#system-attribute-getcustomattributes(system-reflection-memberinfo-system-type)">Attribute.GetCustomAttributes(MemberInfo, Type)</a>
     </div>
@@ -231,249 +257,11 @@ in a mod's options menu.</div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Options.html">Options</a>.<a class="xref" href="Nautilus.Options.Attributes.html">Attributes</a></h6>
-  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
-  <h5 id="Nautilus_Options_Attributes_ModOptionAttribute_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Method|AttributeTargets.Property|AttributeTargets.Field, AllowMultiple = false)]
-public abstract class ModOptionAttribute : Attribute, _Attribute</code></pre>
-  </div>
-  <h3 id="constructors">Constructors
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute__ctor_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute.%23ctor(System.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L60">View Source</a>
-  </span>
-  <a id="Nautilus_Options_Attributes_ModOptionAttribute__ctor_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.#ctor*"></a>
-  <h4 id="Nautilus_Options_Attributes_ModOptionAttribute__ctor_System_String_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.#ctor(System.String)">ModOptionAttribute(string)</h4>
-  <div class="markdown level1 summary">Signifies the decorated member should be represented in the mod's options menu as a <a class="xref" href="Nautilus.Options.OptionItem.html">OptionItem</a>
-with an optional label.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected ModOptionAttribute(string label = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">label</span></td>
-        <td>The label to display. If none is set, the name of the member will be used. If <a class="xref" href="Nautilus.Options.Attributes.ModOptionAttribute.html#Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId">LabelLanguageId</a>
-    is set, this will be ignored.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute_Id.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute.Id%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L26">View Source</a>
-  </span>
-  <a id="Nautilus_Options_Attributes_ModOptionAttribute_Id_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Id*"></a>
-  <h4 id="Nautilus_Options_Attributes_ModOptionAttribute_Id" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Id">Id</h4>
-  <div class="markdown level1 summary">The Id to be used for the field in the mod's option menu. If none is specified, one will be automatically generated when
-your <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a> is registered to the <a class="xref" href="Nautilus.Handlers.OptionsPanelHandler.html">OptionsPanelHandler</a>. This means it will
-change every time the game is launched, but is guaranteed to be unique. If you would like to specify an Id to use for
-internal comparisons, you can do so here.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Id { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute_Label.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute.Label%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L18">View Source</a>
-  </span>
-  <a id="Nautilus_Options_Attributes_ModOptionAttribute_Label_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Label*"></a>
-  <h4 id="Nautilus_Options_Attributes_ModOptionAttribute_Label" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Label">Label</h4>
-  <div class="markdown level1 summary">The label to use when displaying the field in the mod's options menu. If <a class="xref" href="Nautilus.Options.Attributes.ModOptionAttribute.html#Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId">LabelLanguageId</a> is set, this
-will be ignored.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Label { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute.LabelLanguageId%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L46">View Source</a>
-  </span>
-  <a id="Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.LabelLanguageId*"></a>
-  <h4 id="Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.LabelLanguageId">LabelLanguageId</h4>
-  <div class="markdown level1 summary">An optional id to be parsed with <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Get(string)</a> for the label, allowing for custom language-based strings
-via the <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a> API. If this is set, it will take precedence.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string LabelLanguageId { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId_seealso">See Also</h5>
-  <div class="seealso">
-      <div><a class="xref" href="Nautilus.Handlers.LanguageHandler.html#Nautilus.Handlers.LanguageHandler.SetLanguageLine(System.String,System.String,System.String)">SetLanguageLine</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>)</div>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Get</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>)</div>
-  </div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute_Order.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute.Order%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L32">View Source</a>
-  </span>
-  <a id="Nautilus_Options_Attributes_ModOptionAttribute_Order_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Order*"></a>
-  <h4 id="Nautilus_Options_Attributes_ModOptionAttribute_Order" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Order">Order</h4>
-  <div class="markdown level1 summary">The order in which to display fields in the mod's option menu, in ascending order. If none is specified, the order will be
-automatically set.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int Order { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute_Tooltip.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute.Tooltip%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L38">View Source</a>
-  </span>
-  <a id="Nautilus_Options_Attributes_ModOptionAttribute_Tooltip_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Tooltip*"></a>
-  <h4 id="Nautilus_Options_Attributes_ModOptionAttribute_Tooltip" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Tooltip">Tooltip</h4>
-  <div class="markdown level1 summary">An optional tooltip to display for the field. If <a class="xref" href="Nautilus.Options.Attributes.ModOptionAttribute.html#Nautilus_Options_Attributes_ModOptionAttribute_TooltipLanguageId">TooltipLanguageId</a> is set, this will be ignored.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Tooltip { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute_TooltipLanguageId.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute.TooltipLanguageId%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L52">View Source</a>
-  </span>
-  <a id="Nautilus_Options_Attributes_ModOptionAttribute_TooltipLanguageId_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.TooltipLanguageId*"></a>
-  <h4 id="Nautilus_Options_Attributes_ModOptionAttribute_TooltipLanguageId" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.TooltipLanguageId">TooltipLanguageId</h4>
-  <div class="markdown level1 summary">An optional id to be parsed with <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Get(string)</a> for the tooltip, allowing for custom lanaguage-based strings
-via the <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a> API. If this is set, it will take precedence.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string TooltipLanguageId { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.runtime.interopservices._attribute">_Attribute</a>
-  </div>
-  <h3 id="extensionmethods">Extension Methods</h3>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
   <div>
       <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
   </div>
@@ -501,75 +289,280 @@ via the <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHa
   <div>
       <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
   </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Nautilus_Options_Attributes_ModOptionAttribute__ctor_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.#ctor*"></a>
+
+  <h3 id="Nautilus_Options_Attributes_ModOptionAttribute__ctor_System_String_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.#ctor(System.String)">
+  ModOptionAttribute(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Signifies the decorated member should be represented in the mod's options menu as a <a class="xref" href="Nautilus.Options.OptionItem.html">OptionItem</a>
+with an optional label.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ModOptionAttribute(string label = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>label</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The label to display. If none is set, the name of the member will be used. If <a class="xref" href="Nautilus.Options.Attributes.ModOptionAttribute.html#Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId">LabelLanguageId</a>
+    is set, this will be ignored.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Nautilus_Options_Attributes_ModOptionAttribute_Id_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Id*"></a>
+
+  <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_Id" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Id">
+  Id
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">The Id to be used for the field in the mod's option menu. If none is specified, one will be automatically generated when
+your <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a> is registered to the <a class="xref" href="Nautilus.Handlers.OptionsPanelHandler.html">OptionsPanelHandler</a>. This means it will
+change every time the game is launched, but is guaranteed to be unique. If you would like to specify an Id to use for
+internal comparisons, you can do so here.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Id { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_Attributes_ModOptionAttribute_Label_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Label*"></a>
+
+  <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_Label" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Label">
+  Label
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">The label to use when displaying the field in the mod's options menu. If <a class="xref" href="Nautilus.Options.Attributes.ModOptionAttribute.html#Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId">LabelLanguageId</a> is set, this
+will be ignored.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Label { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.LabelLanguageId*"></a>
+
+  <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.LabelLanguageId">
+  LabelLanguageId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">An optional id to be parsed with <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Get(string)</a> for the label, allowing for custom language-based strings
+via the <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a> API. If this is set, it will take precedence.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string LabelLanguageId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div>
+      <div><a class="xref" href="Nautilus.Handlers.LanguageHandler.html#Nautilus.Handlers.LanguageHandler.SetLanguageLine(System.String,System.String,System.String)">SetLanguageLine</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>)</div>
+    </div>
+    <div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Get</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>)</div>
+    </div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Options_Attributes_ModOptionAttribute_Order_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Order*"></a>
+
+  <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_Order" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Order">
+  Order
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">The order in which to display fields in the mod's option menu, in ascending order. If none is specified, the order will be
+automatically set.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Order { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_Attributes_ModOptionAttribute_Tooltip_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Tooltip*"></a>
+
+  <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_Tooltip" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Tooltip">
+  Tooltip
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">An optional tooltip to display for the field. If <a class="xref" href="Nautilus.Options.Attributes.ModOptionAttribute.html#Nautilus_Options_Attributes_ModOptionAttribute_TooltipLanguageId">TooltipLanguageId</a> is set, this will be ignored.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Tooltip { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_Attributes_ModOptionAttribute_TooltipLanguageId_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.TooltipLanguageId*"></a>
+
+  <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_TooltipLanguageId" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.TooltipLanguageId">
+  TooltipLanguageId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">An optional id to be parsed with <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Get(string)</a> for the tooltip, allowing for custom lanaguage-based strings
+via the <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a> API. If this is set, it will take precedence.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TooltipLanguageId { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
 
 </article>
-          </div>
 
-          <div class="hidden-sm col-md-2" role="complementary">
-            <div class="sideaffix">
-              <div class="contribution">
-                <ul class="nav">
-                  <li>
-                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L11" class="contribution-link">View Source</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="toggle-mode">
-                <div class="icon">
-                  <i aria-hidden="true">☀</i>
-                </div>
-                <label class="switch">
-                  <input type="checkbox" id="switch-style">
-                  <span class="slider round"></span>
-                </label>
-                <div class="icon">
-                  <i aria-hidden="true">☾</i>
-                </div>
-              </div>
-
-              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-              <h5>In This Article</h5>
-              <div></div>
-              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
-              </nav>
-            </div>
-          </div>
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L11" class="edit-link">Edit this page</a>
         </div>
+
+        
       </div>
 
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            <div class="pull-left">
-        
-        <span>Generated by <strong>DocFX</strong></span>
-            </div>
-            <div class="toggle-mode pull-right visible-sm visible-xs">
-              <div class="icon">
-                <i aria-hidden="true">☀</i>
-              </div>
-              <label class="switch">
-                <input type="checkbox" id="switch-style-m">
-                <span class="slider round"></span>
-              </label>
-              <div class="icon">
-                <i aria-hidden="true">☾</i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
-      </footer>    </div>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

@@ -1,99 +1,117 @@
 ﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
 <html>
-
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class ScanningGadget
+      <title>Class ScanningGadget
  </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class ScanningGadget
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ScanningGadget
  ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  
-  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
-    <div id="wrapper">
-      <header>
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.min.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+      <script>
+        MathJax = {
+          options: {
+            processHtmlClass: ['tex2jax_process', 'math']
+          }
+        };
+      </script>
 
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../logo.svg" alt="">
-              </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar">
-              <form class="navbar-form navbar-right" role="search" id="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
-                </div>
+      <script type="text/javascript" src="../styles/docfx.min.js"></script>
+      <script type="text/javascript" src="../styles/main.js"></script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
               </form>
             </div>
           </div>
-        </nav>
-
-        <div class="subnav navbar navbar-default">
-          <div class="container hide-when-search" id="breadcrumb">
-            <ul class="breadcrumb">
-              <li></li>
-            </ul>
-          </div>
         </div>
-      </header>
-      <div class="container body-content">
+      </nav>
+    </header>
 
-        <div id="search-results">
-          <div class="search-list">Search Results for <span></span></div>
-          <div class="sr-items">
-            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
         </div>
       </div>
-      <div role="main" class="container body-content hide-when-search">
 
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
-        <div class="article row grid-right">
-          <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Nautilus.Assets.Gadgets.ScanningGadget">
+
+        <article data-uid="Nautilus.Assets.Gadgets.ScanningGadget">
 
 
 
-  <h1 id="Nautilus_Assets_Gadgets_ScanningGadget" data-uid="Nautilus.Assets.Gadgets.ScanningGadget" class="text-break">Class ScanningGadget
-</h1>
-  <div class="markdown level0 summary">Represents a scanning gadget.</div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><a class="xref" href="Nautilus.Assets.Gadgets.Gadget.html">Gadget</a></div>
-    <div class="level2"><span class="xref">ScanningGadget</span></div>
+  <h1 id="Nautilus_Assets_Gadgets_ScanningGadget" data-uid="Nautilus.Assets.Gadgets.ScanningGadget" class="text-break">
+    Class ScanningGadget
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Assets.html">Assets</a>.<a class="xref" href="Nautilus.Assets.Gadgets.html">Gadgets</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
+
+  <div class="markdown summary">Represents a scanning gadget.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ScanningGadget : Gadget</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><a class="xref" href="Nautilus.Assets.Gadgets.Gadget.html">Gadget</a></div>
+      <div><span class="xref">ScanningGadget</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
     <div>
       <a class="xref" href="Nautilus.Assets.Gadgets.Gadget.html#Nautilus_Assets_Gadgets_Gadget_prefab">Gadget.prefab</a>
     </div>
@@ -118,687 +136,11 @@
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Assets.html">Assets</a>.<a class="xref" href="Nautilus.Assets.Gadgets.html">Gadgets</a></h6>
-  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
-  <h5 id="Nautilus_Assets_Gadgets_ScanningGadget_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class ScanningGadget : Gadget</code></pre>
-  </div>
-  <h3 id="constructors">Constructors
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget__ctor_Nautilus_Assets_ICustomPrefab_.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.%23ctor(Nautilus.Assets.ICustomPrefab)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L64">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget__ctor_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.#ctor*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget__ctor_Nautilus_Assets_ICustomPrefab_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.#ctor(Nautilus.Assets.ICustomPrefab)">ScanningGadget(ICustomPrefab)</h4>
-  <div class="markdown level1 summary">Constructs a scanning gadget.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ScanningGadget(ICustomPrefab prefab)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.ICustomPrefab.html">ICustomPrefab</a></td>
-        <td><span class="parametername">prefab</span></td>
-        <td>The custom prefab to operate on.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget__ctor_Nautilus_Assets_ICustomPrefab_TechType_System_Int32_.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.%23ctor(Nautilus.Assets.ICustomPrefab%2CTechType%2CSystem.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L72">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget__ctor_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.#ctor*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget__ctor_Nautilus_Assets_ICustomPrefab_TechType_System_Int32_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.#ctor(Nautilus.Assets.ICustomPrefab,TechType,System.Int32)">ScanningGadget(ICustomPrefab, TechType, int)</h4>
-  <div class="markdown level1 summary">Constructs a scanning gadget.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ScanningGadget(ICustomPrefab prefab, TechType requiredForUnlock, int fragmentsToScan = 1)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.ICustomPrefab.html">ICustomPrefab</a></td>
-        <td><span class="parametername">prefab</span></td>
-        <td>The custom prefab to operate on.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">TechType</span></td>
-        <td><span class="parametername">requiredForUnlock</span></td>
-        <td>The blueprint that must first be unlocked to unlock this item.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td><span class="parametername">fragmentsToScan</span></td>
-        <td>The amount of <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_RequiredForUnlock">RequiredForUnlock</a> that must be scanned to unlock this item.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="properties">Properties
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_AnalysisTech.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.AnalysisTech%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L58">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_AnalysisTech_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.AnalysisTech*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_AnalysisTech" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.AnalysisTech">AnalysisTech</h4>
-  <div class="markdown level1 summary">Additional logic on what will happen when this item is unlocked.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public KnownTech.AnalysisTech AnalysisTech { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">KnownTech</span>.<span class="xref">AnalysisTech</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_CategoryForPda.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.CategoryForPda%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L43">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_CategoryForPda_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.CategoryForPda*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_CategoryForPda" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.CategoryForPda">CategoryForPda</h4>
-  <div class="markdown level1 summary">The category within the group in the PDA blueprints where this item appears.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TechCategory CategoryForPda { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TechCategory</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_CompoundTechsForUnlock.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.CompoundTechsForUnlock%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L28">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_CompoundTechsForUnlock_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.CompoundTechsForUnlock*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_CompoundTechsForUnlock" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.CompoundTechsForUnlock">CompoundTechsForUnlock</h4>
-  <div class="markdown level1 summary">Multiple blueprints that must first be scanned or picked up to unlocked this item.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public List&lt;TechType&gt; CompoundTechsForUnlock { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">TechType</span>&gt;</td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_EncyclopediaEntryData.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.EncyclopediaEntryData%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L48">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_EncyclopediaEntryData_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.EncyclopediaEntryData*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_EncyclopediaEntryData" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.EncyclopediaEntryData">EncyclopediaEntryData</h4>
-  <div class="markdown level1 summary">Adds an encyclopedia entry for this item in the PDA.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public PDAEncyclopedia.EntryData EncyclopediaEntryData { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">PDAEncyclopedia</span>.<span class="xref">EntryData</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_FragmentsToScan.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.FragmentsToScan%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L33">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_FragmentsToScan_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.FragmentsToScan*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_FragmentsToScan" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.FragmentsToScan">FragmentsToScan</h4>
-  <div class="markdown level1 summary">Amount of <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_RequiredForUnlock">RequiredForUnlock</a> that must be scanned to unlock this item.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public int FragmentsToScan { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_GroupForPda.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.GroupForPda%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L38">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_GroupForPda_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.GroupForPda*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_GroupForPda" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.GroupForPda">GroupForPda</h4>
-  <div class="markdown level1 summary">The main group in the PDA blueprints where this item appears.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TechGroup GroupForPda { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TechGroup</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_RequiredForUnlock.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.RequiredForUnlock%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L23">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_RequiredForUnlock_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.RequiredForUnlock*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_RequiredForUnlock" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.RequiredForUnlock">RequiredForUnlock</h4>
-  <div class="markdown level1 summary">The blueprint that must first be scanned or picked up to unlocked this item.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public required TechType RequiredForUnlock { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TechType</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_ScannerEntryData.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.ScannerEntryData%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L53">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_ScannerEntryData_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.ScannerEntryData*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_ScannerEntryData" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.ScannerEntryData">ScannerEntryData</h4>
-  <div class="markdown level1 summary">Additional logic on how the Scanner tool will interact with this item.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public PDAScanner.EntryData ScannerEntryData { get; set; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">PDAScanner</span>.<span class="xref">EntryData</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="methods">Methods
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_Build.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.Build%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L197">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_Build_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.Build*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_Build" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.Build">Build()</h4>
-  <div class="markdown level1 summary">Where the data actually gets registered to the game.<br>
-This is called after prefab register and PostRegisters in <a class="xref" href="Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab_Register">Register()</a>.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void Build()</code></pre>
-  </div>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="Nautilus.Assets.Gadgets.Gadget.html#Nautilus_Assets_Gadgets_Gadget_Build">Gadget.Build()</a></div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_SetBuildable_System_Boolean_.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.SetBuildable(System.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L114">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_SetBuildable_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.SetBuildable*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_SetBuildable_System_Boolean_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.SetBuildable(System.Boolean)">SetBuildable(bool)</h4>
-  <div class="markdown level1 summary">Classifies this item as buildable via the habitat builder.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ScanningGadget SetBuildable(bool isBuildable = true)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">isBuildable</span></td>
-        <td>Should this item be buildable?</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></td>
-        <td>A reference to this instance after the operation has completed.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_WithAnalysisTech_UnityEngine_Sprite_System_Collections_Generic_List_Story_StoryGoal__FMODAsset_System_String_.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech(UnityEngine.Sprite%2CSystem.Collections.Generic.List%7BStory.StoryGoal%7D%2CFMODAsset%2CSystem.String)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L174">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_WithAnalysisTech_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_WithAnalysisTech_UnityEngine_Sprite_System_Collections_Generic_List_Story_StoryGoal__FMODAsset_System_String_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech(UnityEngine.Sprite,System.Collections.Generic.List{Story.StoryGoal},FMODAsset,System.String)">WithAnalysisTech(Sprite, List&lt;StoryGoal&gt;, FMODAsset, string)</h4>
-  <div class="markdown level1 summary">Adds additional info on what should happen when this item is unlocked.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ScanningGadget WithAnalysisTech(Sprite popupSprite, List&lt;StoryGoal&gt; storyGoalsToTrigger = null, FMODAsset unlockSound = null, string unlockMessage = &quot;NotficationBlueprintUnlocked&quot;)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">Sprite</span></td>
-        <td><span class="parametername">popupSprite</span></td>
-        <td>The sprite that should popup on unlock.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">StoryGoal</span>&gt;</td>
-        <td><span class="parametername">storyGoalsToTrigger</span></td>
-        <td>The story goals that should be triggered on unlock.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">FMODAsset</span></td>
-        <td><span class="parametername">unlockSound</span></td>
-        <td>The sound that will be played on unlock.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">unlockMessage</span></td>
-        <td>Message which should be shown on unlock.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></td>
-        <td>A reference to this instance after the operation has completed.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_WithCompoundTechsForUnlock_System_Collections_Generic_List_TechType__.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.WithCompoundTechsForUnlock(System.Collections.Generic.List%7BTechType%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L84">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_WithCompoundTechsForUnlock_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithCompoundTechsForUnlock*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_WithCompoundTechsForUnlock_System_Collections_Generic_List_TechType__" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithCompoundTechsForUnlock(System.Collections.Generic.List{TechType})">WithCompoundTechsForUnlock(List&lt;TechType&gt;)</h4>
-  <div class="markdown level1 summary">Adds multiple blueprints that must first be scanned or picked up to unlocked this item.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ScanningGadget WithCompoundTechsForUnlock(List&lt;TechType&gt; compoundTechs)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">TechType</span>&gt;</td>
-        <td><span class="parametername">compoundTechs</span></td>
-        <td>The compound blueprints.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></td>
-        <td>A reference to this instance after the operation has completed.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_WithEncyclopediaEntry_System_String_UnityEngine_Sprite_UnityEngine_Texture2D_FMODAsset_.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(System.String%2CUnityEngine.Sprite%2CUnityEngine.Texture2D%2CFMODAsset)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L128">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_WithEncyclopediaEntry_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_WithEncyclopediaEntry_System_String_UnityEngine_Sprite_UnityEngine_Texture2D_FMODAsset_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(System.String,UnityEngine.Sprite,UnityEngine.Texture2D,FMODAsset)">WithEncyclopediaEntry(string, Sprite, Texture2D, FMODAsset)</h4>
-  <div class="markdown level1 summary">Adds an encyclopedia entry for this item in the PDA.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ScanningGadget WithEncyclopediaEntry(string path, Sprite popupSprite, Texture2D encyImage = null, FMODAsset encyAudio = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">path</span></td>
-        <td>The path this entry will appear in.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Sprite</span></td>
-        <td><span class="parametername">popupSprite</span></td>
-        <td>The sprite that will popup once this entry is unlocked.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">Texture2D</span></td>
-        <td><span class="parametername">encyImage</span></td>
-        <td>The entry image that will appear in the encyclopedia entry</td>
-      </tr>
-      <tr>
-        <td><span class="xref">FMODAsset</span></td>
-        <td><span class="parametername">encyAudio</span></td>
-        <td>The audio that can be played in the entry.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></td>
-        <td>A reference to this instance after the operation has completed.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategory_TechGroup_TechCategory_.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategory(TechGroup%2CTechCategory)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L98">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategory_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategory*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategory_TechGroup_TechCategory_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategory(TechGroup,TechCategory)">WithPdaGroupCategory(TechGroup, TechCategory)</h4>
-  <div class="markdown level1 summary">Adds this item into a blueprint category to appear in.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ScanningGadget WithPdaGroupCategory(TechGroup group, TechCategory category)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TechGroup</span></td>
-        <td><span class="parametername">group</span></td>
-        <td>The main group in the PDA blueprints where this item appears</td>
-      </tr>
-      <tr>
-        <td><span class="xref">TechCategory</span></td>
-        <td><span class="parametername">category</span></td>
-        <td>The category within the group in the PDA blueprints where this item appears.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></td>
-        <td>A reference to this instance after the operation has completed.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategory_TechGroup_TechCategory__remarks">Remarks</h5>
-  <div class="markdown level1 remarks">If the specified <code class="paramref">group</code> is a tech group that is present in the <span class="xref">uGUI_BuilderMenu.groups</span> list, this item will automatically
-    become buildable. To avoid this, or make this item a buildable manually, use the <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_SetBuildable_System_Boolean_">SetBuildable(bool)</a> method.</div>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget_WithScannerEntry_System_Single_System_Boolean_System_String_System_Boolean_.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(System.Single%2CSystem.Boolean%2CSystem.String%2CSystem.Boolean)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L150">View Source</a>
-  </span>
-  <a id="Nautilus_Assets_Gadgets_ScanningGadget_WithScannerEntry_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry*"></a>
-  <h4 id="Nautilus_Assets_Gadgets_ScanningGadget_WithScannerEntry_System_Single_System_Boolean_System_String_System_Boolean_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(System.Single,System.Boolean,System.String,System.Boolean)">WithScannerEntry(float, bool, string, bool)</h4>
-  <div class="markdown level1 summary">Adds additional info on how the Scanner tool should treat this item when scanning it.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ScanningGadget WithScannerEntry(float scanTime, bool isFragment = false, string encyKey = null, bool destroyAfterScan = false)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
-        <td><span class="parametername">scanTime</span></td>
-        <td>The amount of seconds it takes to scan this item.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">isFragment</span></td>
-        <td>Is this a fragment?</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">encyKey</span></td>
-        <td>The encyclopedia key to unlock once the scanning is completed.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">destroyAfterScan</span></td>
-        <td>Should this object be destroyed after a successful scan?</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></td>
-        <td>A reference to this instance after the operation has completed.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="extensionmethods">Extension Methods</h3>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
   <div>
       <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
   </div>
@@ -826,75 +168,627 @@ This is called after prefab register and PostRegisters in <a class="xref" href="
   <div>
       <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
   </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget__ctor_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.#ctor*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget__ctor_Nautilus_Assets_ICustomPrefab_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.#ctor(Nautilus.Assets.ICustomPrefab)">
+  ScanningGadget(ICustomPrefab)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L64"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Constructs a scanning gadget.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScanningGadget(ICustomPrefab prefab)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefab</code> <a class="xref" href="Nautilus.Assets.ICustomPrefab.html">ICustomPrefab</a></dt>
+    <dd>The custom prefab to operate on.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget__ctor_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.#ctor*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget__ctor_Nautilus_Assets_ICustomPrefab_TechType_System_Int32_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.#ctor(Nautilus.Assets.ICustomPrefab,TechType,System.Int32)">
+  ScanningGadget(ICustomPrefab, TechType, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Constructs a scanning gadget.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScanningGadget(ICustomPrefab prefab, TechType requiredForUnlock, int fragmentsToScan = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefab</code> <a class="xref" href="Nautilus.Assets.ICustomPrefab.html">ICustomPrefab</a></dt>
+    <dd>The custom prefab to operate on.</dd>
+    <dt><code>requiredForUnlock</code> <span class="xref">TechType</span></dt>
+    <dd>The blueprint that must first be unlocked to unlock this item.</dd>
+    <dt><code>fragmentsToScan</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The amount of <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_RequiredForUnlock">RequiredForUnlock</a> that must be scanned to unlock this item.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_AnalysisTech_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.AnalysisTech*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_AnalysisTech" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.AnalysisTech">
+  AnalysisTech
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Additional logic on what will happen when this item is unlocked.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public KnownTech.AnalysisTech AnalysisTech { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">KnownTech</span>.<span class="xref">AnalysisTech</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_CategoryForPda_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.CategoryForPda*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_CategoryForPda" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.CategoryForPda">
+  CategoryForPda
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">The category within the group in the PDA blueprints where this item appears.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TechCategory CategoryForPda { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TechCategory</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_CompoundTechsForUnlock_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.CompoundTechsForUnlock*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_CompoundTechsForUnlock" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.CompoundTechsForUnlock">
+  CompoundTechsForUnlock
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Multiple blueprints that must first be scanned or picked up to unlocked this item.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;TechType&gt; CompoundTechsForUnlock { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_EncyclopediaEntryData_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.EncyclopediaEntryData*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_EncyclopediaEntryData" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.EncyclopediaEntryData">
+  EncyclopediaEntryData
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds an encyclopedia entry for this item in the PDA.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PDAEncyclopedia.EntryData EncyclopediaEntryData { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">PDAEncyclopedia</span>.<span class="xref">EntryData</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_FragmentsToScan_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.FragmentsToScan*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_FragmentsToScan" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.FragmentsToScan">
+  FragmentsToScan
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Amount of <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_RequiredForUnlock">RequiredForUnlock</a> that must be scanned to unlock this item.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int FragmentsToScan { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_GroupForPda_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.GroupForPda*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_GroupForPda" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.GroupForPda">
+  GroupForPda
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">The main group in the PDA blueprints where this item appears.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TechGroup GroupForPda { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TechGroup</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_RequiredForUnlock_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.RequiredForUnlock*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_RequiredForUnlock" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.RequiredForUnlock">
+  RequiredForUnlock
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">The blueprint that must first be scanned or picked up to unlocked this item.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public required TechType RequiredForUnlock { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TechType</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_ScannerEntryData_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.ScannerEntryData*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_ScannerEntryData" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.ScannerEntryData">
+  ScannerEntryData
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Additional logic on how the Scanner tool will interact with this item.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PDAScanner.EntryData ScannerEntryData { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">PDAScanner</span>.<span class="xref">EntryData</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_Build_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.Build*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_Build" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.Build">
+  Build()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L197"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Where the data actually gets registered to the game.<br>
+This is called after prefab register and PostRegisters in <a class="xref" href="Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab_Register">Register()</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Build()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_SetBuildable_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.SetBuildable*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_SetBuildable_System_Boolean_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.SetBuildable(System.Boolean)">
+  SetBuildable(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L114"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Classifies this item as buildable via the habitat builder.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScanningGadget SetBuildable(bool isBuildable = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>isBuildable</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Should this item be buildable?</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
+    <dd>A reference to this instance after the operation has completed.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_WithAnalysisTech_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_WithAnalysisTech_UnityEngine_Sprite_System_Collections_Generic_List_Story_StoryGoal__FMODAsset_System_String_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech(UnityEngine.Sprite,System.Collections.Generic.List{Story.StoryGoal},FMODAsset,System.String)">
+  WithAnalysisTech(Sprite, List&lt;StoryGoal&gt;, FMODAsset, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L174"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds additional info on what should happen when this item is unlocked.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScanningGadget WithAnalysisTech(Sprite popupSprite, List&lt;StoryGoal&gt; storyGoalsToTrigger = null, FMODAsset unlockSound = null, string unlockMessage = &quot;NotficationBlueprintUnlocked&quot;)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>popupSprite</code> <span class="xref">Sprite</span></dt>
+    <dd>The sprite that should popup on unlock.</dd>
+    <dt><code>storyGoalsToTrigger</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">StoryGoal</span>&gt;</dt>
+    <dd>The story goals that should be triggered on unlock.</dd>
+    <dt><code>unlockSound</code> <span class="xref">FMODAsset</span></dt>
+    <dd>The sound that will be played on unlock.</dd>
+    <dt><code>unlockMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>Message which should be shown on unlock.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
+    <dd>A reference to this instance after the operation has completed.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_WithCompoundTechsForUnlock_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithCompoundTechsForUnlock*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_WithCompoundTechsForUnlock_System_Collections_Generic_List_TechType__" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithCompoundTechsForUnlock(System.Collections.Generic.List{TechType})">
+  WithCompoundTechsForUnlock(List&lt;TechType&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L84"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds multiple blueprints that must first be scanned or picked up to unlocked this item.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScanningGadget WithCompoundTechsForUnlock(List&lt;TechType&gt; compoundTechs)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>compoundTechs</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The compound blueprints.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
+    <dd>A reference to this instance after the operation has completed.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_WithEncyclopediaEntry_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_WithEncyclopediaEntry_System_String_UnityEngine_Sprite_UnityEngine_Texture2D_FMODAsset_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(System.String,UnityEngine.Sprite,UnityEngine.Texture2D,FMODAsset)">
+  WithEncyclopediaEntry(string, Sprite, Texture2D, FMODAsset)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds an encyclopedia entry for this item in the PDA.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScanningGadget WithEncyclopediaEntry(string path, Sprite popupSprite, Texture2D encyImage = null, FMODAsset encyAudio = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The path this entry will appear in.</dd>
+    <dt><code>popupSprite</code> <span class="xref">Sprite</span></dt>
+    <dd>The sprite that will popup once this entry is unlocked.</dd>
+    <dt><code>encyImage</code> <span class="xref">Texture2D</span></dt>
+    <dd>The entry image that will appear in the encyclopedia entry</dd>
+    <dt><code>encyAudio</code> <span class="xref">FMODAsset</span></dt>
+    <dd>The audio that can be played in the entry.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
+    <dd>A reference to this instance after the operation has completed.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategory_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategory*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategory_TechGroup_TechCategory_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategory(TechGroup,TechCategory)">
+  WithPdaGroupCategory(TechGroup, TechCategory)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L98"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds this item into a blueprint category to appear in.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScanningGadget WithPdaGroupCategory(TechGroup group, TechCategory category)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>group</code> <span class="xref">TechGroup</span></dt>
+    <dd>The main group in the PDA blueprints where this item appears</dd>
+    <dt><code>category</code> <span class="xref">TechCategory</span></dt>
+    <dd>The category within the group in the PDA blueprints where this item appears.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
+    <dd>A reference to this instance after the operation has completed.</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategory_TechGroup_TechCategory__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">If the specified <code class="paramref">group</code> is a tech group that is present in the <span class="xref">uGUI_BuilderMenu.groups</span> list, this item will automatically
+    become buildable. To avoid this, or make this item a buildable manually, use the <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_SetBuildable_System_Boolean_">SetBuildable(bool)</a> method.</div>
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_ScanningGadget_WithScannerEntry_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_ScanningGadget_WithScannerEntry_System_Single_System_Boolean_System_String_System_Boolean_" data-uid="Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(System.Single,System.Boolean,System.String,System.Boolean)">
+  WithScannerEntry(float, bool, string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L150"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds additional info on how the Scanner tool should treat this item when scanning it.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ScanningGadget WithScannerEntry(float scanTime, bool isFragment = false, string encyKey = null, bool destroyAfterScan = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>scanTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The amount of seconds it takes to scan this item.</dd>
+    <dt><code>isFragment</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Is this a fragment?</dd>
+    <dt><code>encyKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The encyclopedia key to unlock once the scanning is completed.</dd>
+    <dt><code>destroyAfterScan</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Should this object be destroyed after a successful scan?</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
+    <dd>A reference to this instance after the operation has completed.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
-          </div>
 
-          <div class="hidden-sm col-md-2" role="complementary">
-            <div class="sideaffix">
-              <div class="contribution">
-                <ul class="nav">
-                  <li>
-                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_Gadgets_ScanningGadget.md&amp;value=---%0Auid%3A%20Nautilus.Assets.Gadgets.ScanningGadget%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L14" class="contribution-link">View Source</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="toggle-mode">
-                <div class="icon">
-                  <i aria-hidden="true">☀</i>
-                </div>
-                <label class="switch">
-                  <input type="checkbox" id="switch-style">
-                  <span class="slider round"></span>
-                </label>
-                <div class="icon">
-                  <i aria-hidden="true">☾</i>
-                </div>
-              </div>
-
-              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-              <h5>In This Article</h5>
-              <div></div>
-              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
-              </nav>
-            </div>
-          </div>
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/ScanningGadget.cs/#L14" class="edit-link">Edit this page</a>
         </div>
+
+        
       </div>
 
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            <div class="pull-left">
-        
-        <span>Generated by <strong>DocFX</strong></span>
-            </div>
-            <div class="toggle-mode pull-right visible-sm visible-xs">
-              <div class="icon">
-                <i aria-hidden="true">☀</i>
-              </div>
-              <label class="switch">
-                <input type="checkbox" id="switch-style-m">
-                <span class="slider round"></span>
-              </label>
-              <div class="icon">
-                <i aria-hidden="true">☾</i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
-      </footer>    </div>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

@@ -1,98 +1,116 @@
 ﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
 <html>
-
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class LootDistributionHandler
+      <title>Class LootDistributionHandler
  </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class LootDistributionHandler
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class LootDistributionHandler
  ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  
-  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
-    <div id="wrapper">
-      <header>
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.min.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+      <script>
+        MathJax = {
+          options: {
+            processHtmlClass: ['tex2jax_process', 'math']
+          }
+        };
+      </script>
 
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../logo.svg" alt="">
-              </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar">
-              <form class="navbar-form navbar-right" role="search" id="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
-                </div>
+      <script type="text/javascript" src="../styles/docfx.min.js"></script>
+      <script type="text/javascript" src="../styles/main.js"></script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
               </form>
             </div>
           </div>
-        </nav>
-
-        <div class="subnav navbar navbar-default">
-          <div class="container hide-when-search" id="breadcrumb">
-            <ul class="breadcrumb">
-              <li></li>
-            </ul>
-          </div>
         </div>
-      </header>
-      <div class="container body-content">
+      </nav>
+    </header>
 
-        <div id="search-results">
-          <div class="search-list">Search Results for <span></span></div>
-          <div class="sr-items">
-            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
         </div>
       </div>
-      <div role="main" class="container body-content hide-when-search">
 
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
-        <div class="article row grid-right">
-          <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Nautilus.Handlers.LootDistributionHandler">
+
+        <article data-uid="Nautilus.Handlers.LootDistributionHandler">
 
 
 
-  <h1 id="Nautilus_Handlers_LootDistributionHandler" data-uid="Nautilus.Handlers.LootDistributionHandler" class="text-break">Class LootDistributionHandler
-</h1>
-  <div class="markdown level0 summary">A handler that manages Loot Distribution.</div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">LootDistributionHandler</span></div>
+  <h1 id="Nautilus_Handlers_LootDistributionHandler" data-uid="Nautilus.Handlers.LootDistributionHandler" class="text-break">
+    Class LootDistributionHandler
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
+
+  <div class="markdown summary">A handler that manages Loot Distribution.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class LootDistributionHandler</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">LootDistributionHandler</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
@@ -114,459 +132,355 @@
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></h6>
-  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
-  <h5 id="Nautilus_Handlers_LootDistributionHandler_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class LootDistributionHandler</code></pre>
-  </div>
-  <h3 id="methods">Methods
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_Nautilus_Assets_PrefabInfo_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__UWE_WorldEntityInfo_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(Nautilus.Assets.PrefabInfo%2CSystem.Collections.Generic.IEnumerable%7BLootDistributionData.BiomeData%7D%2CUWE.WorldEntityInfo)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L69">View Source</a>
-  </span>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
   <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
-  <h4 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_Nautilus_Assets_PrefabInfo_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__UWE_WorldEntityInfo_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(Nautilus.Assets.PrefabInfo,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData},UWE.WorldEntityInfo)">AddLootDistributionData(PrefabInfo, IEnumerable&lt;BiomeData&gt;, WorldEntityInfo)</h4>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_Nautilus_Assets_PrefabInfo_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__UWE_WorldEntityInfo_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(Nautilus.Assets.PrefabInfo,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData},UWE.WorldEntityInfo)">
+  AddLootDistributionData(PrefabInfo, IEnumerable&lt;BiomeData&gt;, WorldEntityInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Adds in a custom entry into the Loot Distribution of the game.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(PrefabInfo prefabInfo, IEnumerable&lt;LootDistributionData.BiomeData&gt; biomeDistribution, WorldEntityInfo info)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></td>
-        <td><span class="parametername">prefabInfo</span></td>
-        <td>The custom prefab which you want to spawn naturally in the game.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</td>
-        <td><span class="parametername">biomeDistribution</span></td>
-        <td>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">WorldEntityInfo</span></td>
-        <td><span class="parametername">info</span></td>
-        <td>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_BiomeData___.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String%2CLootDistributionData.BiomeData%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L96">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefabInfo</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The custom prefab which you want to spawn naturally in the game.</dd>
+    <dt><code>biomeDistribution</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</dt>
+    <dd>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</dd>
+    <dt><code>info</code> <span class="xref">WorldEntityInfo</span></dt>
+    <dd>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
-  <h4 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_BiomeData___" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.BiomeData[])">AddLootDistributionData(string, params BiomeData[])</h4>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_BiomeData___" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.BiomeData[])">
+  AddLootDistributionData(string, params BiomeData[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Adds in a custom entry into Loot Distribution of the game.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, params LootDistributionData.BiomeData[] biomeDistribution)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>The classId of the prefab.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">BiomeData</span>[]</td>
-        <td><span class="parametername">biomeDistribution</span></td>
-        <td>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String%2CLootDistributionData.SrcData)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L81">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>biomeDistribution</code> <span class="xref">BiomeData</span>[]</dt>
+    <dd>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
-  <h4 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData)">AddLootDistributionData(string, SrcData)</h4>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData)">
+  AddLootDistributionData(string, SrcData)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Adds in a custom entry into the Loot Distribution of the game.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, LootDistributionData.SrcData data)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>The classId of the prefab.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">LootDistributionData</span>.<span class="xref">SrcData</span></td>
-        <td><span class="parametername">data</span></td>
-        <td>The <span class="xref">LootDistributionData.SrcData</span> that contains data related to the spawning of a prefab, also contains the path to the prefab.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_UWE_WorldEntityInfo_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String%2CLootDistributionData.SrcData%2CUWE.WorldEntityInfo)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L22">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>data</code> <span class="xref">LootDistributionData</span>.<span class="xref">SrcData</span></dt>
+    <dd>The <span class="xref">LootDistributionData.SrcData</span> that contains data related to the spawning of a prefab, also contains the path to the prefab.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
-  <h4 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_UWE_WorldEntityInfo_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData,UWE.WorldEntityInfo)">AddLootDistributionData(string, SrcData, WorldEntityInfo)</h4>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_UWE_WorldEntityInfo_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData,UWE.WorldEntityInfo)">
+  AddLootDistributionData(string, SrcData, WorldEntityInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Adds in a custom entry into the Loot Distribution of the game.
 You must also add the <span class="xref">UWE.WorldEntityInfo</span> into the <span class="xref">UWE.WorldEntityDatabase</span> using <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, LootDistributionData.SrcData data, WorldEntityInfo info)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>The classId of the prefab.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">LootDistributionData</span>.<span class="xref">SrcData</span></td>
-        <td><span class="parametername">data</span></td>
-        <td>The <span class="xref">LootDistributionData.SrcData</span> that contains data related to the spawning of a prefab, also contains the path to the prefab.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">WorldEntityInfo</span></td>
-        <td><span class="parametername">info</span></td>
-        <td>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String%2CSystem.String%2CSystem.Collections.Generic.IEnumerable%7BLootDistributionData.BiomeData%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L36">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>data</code> <span class="xref">LootDistributionData</span>.<span class="xref">SrcData</span></dt>
+    <dd>The <span class="xref">LootDistributionData.SrcData</span> that contains data related to the spawning of a prefab, also contains the path to the prefab.</dd>
+    <dt><code>info</code> <span class="xref">WorldEntityInfo</span></dt>
+    <dd>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
-  <h4 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData})">AddLootDistributionData(string, string, IEnumerable&lt;BiomeData&gt;)</h4>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData})">
+  AddLootDistributionData(string, string, IEnumerable&lt;BiomeData&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L36"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Adds in a custom entry into the Loot Distribution of the game.
 You must also add the <span class="xref">UWE.WorldEntityInfo</span> into the <span class="xref">UWE.WorldEntityDatabase</span> using <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, string prefabPath, IEnumerable&lt;LootDistributionData.BiomeData&gt; biomeDistribution)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>The classId of the prefab.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">prefabPath</span></td>
-        <td>The prefab path of the prefab.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</td>
-        <td><span class="parametername">biomeDistribution</span></td>
-        <td>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__UWE_WorldEntityInfo_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String%2CSystem.String%2CSystem.Collections.Generic.IEnumerable%7BLootDistributionData.BiomeData%7D%2CUWE.WorldEntityInfo)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L52">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>prefabPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The prefab path of the prefab.</dd>
+    <dt><code>biomeDistribution</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</dt>
+    <dd>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
-  <h4 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__UWE_WorldEntityInfo_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData},UWE.WorldEntityInfo)">AddLootDistributionData(string, string, IEnumerable&lt;BiomeData&gt;, WorldEntityInfo)</h4>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__UWE_WorldEntityInfo_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData},UWE.WorldEntityInfo)">
+  AddLootDistributionData(string, string, IEnumerable&lt;BiomeData&gt;, WorldEntityInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Adds in a custom entry into the Loot Distribution of the game.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, string prefabPath, IEnumerable&lt;LootDistributionData.BiomeData&gt; biomeDistribution, WorldEntityInfo info)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>The classId of the prefab.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">prefabPath</span></td>
-        <td>The prefab path of the prefab.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</td>
-        <td><span class="parametername">biomeDistribution</span></td>
-        <td>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">WorldEntityInfo</span></td>
-        <td><span class="parametername">info</span></td>
-        <td>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_UWE_WorldEntityInfo_LootDistributionData_BiomeData___.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String%2CUWE.WorldEntityInfo%2CLootDistributionData.BiomeData%5B%5D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L113">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>prefabPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The prefab path of the prefab.</dd>
+    <dt><code>biomeDistribution</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</dt>
+    <dd>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</dd>
+    <dt><code>info</code> <span class="xref">WorldEntityInfo</span></dt>
+    <dd>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
-  <h4 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_UWE_WorldEntityInfo_LootDistributionData_BiomeData___" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,UWE.WorldEntityInfo,LootDistributionData.BiomeData[])">AddLootDistributionData(string, WorldEntityInfo, params BiomeData[])</h4>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_UWE_WorldEntityInfo_LootDistributionData_BiomeData___" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,UWE.WorldEntityInfo,LootDistributionData.BiomeData[])">
+  AddLootDistributionData(string, WorldEntityInfo, params BiomeData[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L113"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Adds in a custom entry into Loot Distribution of the game.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, WorldEntityInfo info, params LootDistributionData.BiomeData[] biomeDistribution)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>The classId of the prefab.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">WorldEntityInfo</span></td>
-        <td><span class="parametername">info</span></td>
-        <td>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">BiomeData</span>[]</td>
-        <td><span class="parametername">biomeDistribution</span></td>
-        <td>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_System_String_BiomeType_System_Single_System_Int32_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData(System.String%2CBiomeType%2CSystem.Single%2CSystem.Int32)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L133">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>info</code> <span class="xref">WorldEntityInfo</span></dt>
+    <dd>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</dd>
+    <dt><code>biomeDistribution</code> <span class="xref">BiomeData</span>[]</dt>
+    <dd>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData*"></a>
-  <h4 id="Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_System_String_BiomeType_System_Single_System_Int32_" data-uid="Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData(System.String,BiomeType,System.Single,System.Int32)">EditLootDistributionData(string, BiomeType, float, int)</h4>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_System_String_BiomeType_System_Single_System_Int32_" data-uid="Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData(System.String,BiomeType,System.Single,System.Int32)">
+  EditLootDistributionData(string, BiomeType, float, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L133"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Edits Loot Distribution data for existing prefabs.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void EditLootDistributionData(string classId, BiomeType biome, float probability, int count)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>The ClassID of the prefab. If unsure, use CraftData.GetClassIdForTechType.</td>
-      </tr>
-      <tr>
-        <td><span class="xref">BiomeType</span></td>
-        <td><span class="parametername">biome</span></td>
-        <td>The <span class="xref">BiomeType</span>to change the data for.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
-        <td><span class="parametername">probability</span></td>
-        <td>The desired probability.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td><span class="parametername">count</span></td>
-        <td>The number to spawn at a time when spawning happens.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData(System.String%2CSystem.Collections.Generic.IEnumerable%7BLootDistributionData.BiomeData%7D)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L182">View Source</a>
-  </span>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The ClassID of the prefab. If unsure, use CraftData.GetClassIdForTechType.</dd>
+    <dt><code>biome</code> <span class="xref">BiomeType</span></dt>
+    <dd>The <span class="xref">BiomeType</span>to change the data for.</dd>
+    <dt><code>probability</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The desired probability.</dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The number to spawn at a time when spawning happens.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData*"></a>
-  <h4 id="Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__" data-uid="Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData(System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData})">EditLootDistributionData(string, IEnumerable&lt;BiomeData&gt;)</h4>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__" data-uid="Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData(System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData})">
+  EditLootDistributionData(string, IEnumerable&lt;BiomeData&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
   <div class="markdown level1 summary">Edits Loot Distribution data for existing prefabs, for e.g. original game prefabs.</div>
   <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
+
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void EditLootDistributionData(string classId, IEnumerable&lt;LootDistributionData.BiomeData&gt; biomeDistribution)</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>The ClassID of the prefab. If unsure, use CraftData.GetClassIdForTechType.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</td>
-        <td><span class="parametername">biomeDistribution</span></td>
-        <td>The list of <span class="xref">LootDistributionData.BiomeData</span> that contains information about how/when it should spawn in biomes.</td>
-      </tr>
-    </tbody>
-  </table>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The ClassID of the prefab. If unsure, use CraftData.GetClassIdForTechType.</dd>
+    <dt><code>biomeDistribution</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</dt>
+    <dd>The list of <span class="xref">LootDistributionData.BiomeData</span> that contains information about how/when it should spawn in biomes.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
-          </div>
 
-          <div class="hidden-sm col-md-2" role="complementary">
-            <div class="sideaffix">
-              <div class="contribution">
-                <ul class="nav">
-                  <li>
-                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_LootDistributionHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.LootDistributionHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L13" class="contribution-link">View Source</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="toggle-mode">
-                <div class="icon">
-                  <i aria-hidden="true">☀</i>
-                </div>
-                <label class="switch">
-                  <input type="checkbox" id="switch-style">
-                  <span class="slider round"></span>
-                </label>
-                <div class="icon">
-                  <i aria-hidden="true">☾</i>
-                </div>
-              </div>
-
-              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-              <h5>In This Article</h5>
-              <div></div>
-              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
-              </nav>
-            </div>
-          </div>
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LootDistributionHandler.cs/#L13" class="edit-link">Edit this page</a>
         </div>
+
+        
       </div>
 
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            <div class="pull-left">
-        
-        <span>Generated by <strong>DocFX</strong></span>
-            </div>
-            <div class="toggle-mode pull-right visible-sm visible-xs">
-              <div class="icon">
-                <i aria-hidden="true">☀</i>
-              </div>
-              <label class="switch">
-                <input type="checkbox" id="switch-style-m">
-                <span class="slider round"></span>
-              </label>
-              <div class="icon">
-                <i aria-hidden="true">☾</i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
-      </footer>    </div>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

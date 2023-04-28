@@ -1,103 +1,123 @@
 ﻿<!DOCTYPE html>
-<!--[if IE]><![endif]-->
 <html>
-
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Class PrefabCollection
+      <title>Class PrefabCollection
  </title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Class PrefabCollection
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class PrefabCollection
  ">
-    <meta name="generator" content="docfx ">
-  
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
-    <link rel="stylesheet" href="../styles/docfx.css">
-    <link rel="stylesheet" href="../styles/main.css">
-    <meta property="docfx:navrel" content="../toc.html">
-    <meta property="docfx:tocrel" content="toc.html">
-  
-  <meta property="docfx:rel" content="../">
-  
-  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
-    <div id="wrapper">
-      <header>
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.min.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PrefabCollection.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PrefabCollection%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+      <script>
+        MathJax = {
+          options: {
+            processHtmlClass: ['tex2jax_process', 'math']
+          }
+        };
+      </script>
 
-              <a class="navbar-brand" href="../index.html">
-                <img id="logo" class="svg" src="../logo.svg" alt="">
-              </a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar">
-              <form class="navbar-form navbar-right" role="search" id="search">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
-                </div>
+      <script type="text/javascript" src="../styles/docfx.min.js"></script>
+      <script type="text/javascript" src="../styles/main.js"></script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
               </form>
             </div>
           </div>
-        </nav>
-
-        <div class="subnav navbar navbar-default">
-          <div class="container hide-when-search" id="breadcrumb">
-            <ul class="breadcrumb">
-              <li></li>
-            </ul>
-          </div>
         </div>
-      </header>
-      <div class="container body-content">
+      </nav>
+    </header>
 
-        <div id="search-results">
-          <div class="search-list">Search Results for <span></span></div>
-          <div class="sr-items">
-            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
           </div>
-          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
         </div>
       </div>
-      <div role="main" class="container body-content hide-when-search">
 
-        <div class="sidenav hide-when-search">
-          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-          <div class="sidetoggle collapse" id="sidetoggle">
-            <div id="sidetoc"></div>
-          </div>
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
         </div>
-        <div class="article row grid-right">
-          <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Nautilus.Handlers.PrefabCollection">
+
+        <article data-uid="Nautilus.Handlers.PrefabCollection">
 
 
 
-  <h1 id="Nautilus_Handlers_PrefabCollection" data-uid="Nautilus.Handlers.PrefabCollection" class="text-break">Class PrefabCollection
-</h1>
-  <div class="markdown level0 summary">Represents a collection of <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a> as keys and prefab factory as values.</div>
-  <div class="markdown level0 conceptual"></div>
-  <div class="inheritance">
-    <h5>Inheritance</h5>
-    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">PrefabCollection</span></div>
+  <h1 id="Nautilus_Handlers_PrefabCollection" data-uid="Nautilus.Handlers.PrefabCollection" class="text-break">
+    Class PrefabCollection
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
-  <div class="implements">
-    <h5>Implements</h5>
-    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a>, <a class="xref" href="Nautilus.Assets.PrefabFactoryAsync.html">PrefabFactoryAsync</a>&gt;&gt;</div>
-    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+
+  <div class="markdown summary">Represents a collection of <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a> as keys and prefab factory as values.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PrefabCollection : IEnumerable&lt;KeyValuePair&lt;PrefabInfo, PrefabFactoryAsync&gt;&gt;, IEnumerable</code></pre>
   </div>
-  <div class="inheritedMembers">
-    <h5>Inherited Members</h5>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">PrefabCollection</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;<a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a>, <a class="xref" href="Nautilus.Assets.PrefabFactoryAsync.html">PrefabFactoryAsync</a>&gt;&gt;</div>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist derived">
+    <dt>Inherited Members</dt>
+    <dd>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
@@ -119,420 +139,11 @@
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
-  </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></h6>
-  <h6><strong>Assembly</strong>: Nautilus.dll</h6>
-  <h5 id="Nautilus_Handlers_PrefabCollection_syntax">Syntax</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class PrefabCollection : IEnumerable&lt;KeyValuePair&lt;PrefabInfo, PrefabFactoryAsync&gt;&gt;, IEnumerable</code></pre>
-  </div>
-  <h3 id="methods">Methods
-</h3>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PrefabCollection_Add_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabFactoryAsync_Nautilus_Assets_PrefabPostProcessorAsync_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PrefabCollection.Add(Nautilus.Assets.PrefabInfo%2CNautilus.Assets.PrefabFactoryAsync%2CNautilus.Assets.PrefabPostProcessorAsync)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L111">View Source</a>
-  </span>
-  <a id="Nautilus_Handlers_PrefabCollection_Add_" data-uid="Nautilus.Handlers.PrefabCollection.Add*"></a>
-  <h4 id="Nautilus_Handlers_PrefabCollection_Add_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabFactoryAsync_Nautilus_Assets_PrefabPostProcessorAsync_" data-uid="Nautilus.Handlers.PrefabCollection.Add(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabFactoryAsync,Nautilus.Assets.PrefabPostProcessorAsync)">Add(PrefabInfo, PrefabFactoryAsync, PrefabPostProcessorAsync)</h4>
-  <div class="markdown level1 summary">Adds a prefab info with the function that constructs the game object into the game.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Add(PrefabInfo info, PrefabFactoryAsync prefabFactory, PrefabPostProcessorAsync postProcessor = null)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></td>
-        <td><span class="parametername">info</span></td>
-        <td>The prefab info to register.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabFactoryAsync.html">PrefabFactoryAsync</a></td>
-        <td><span class="parametername">prefabFactory</span></td>
-        <td>The function that constructs the game object for this prefab info.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabPostProcessorAsync.html">PrefabPostProcessorAsync</a></td>
-        <td><span class="parametername">postProcessor</span></td>
-        <td>The prefab post processor that will be invoked after Nautilus's prefab processing.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PrefabCollection_ContainsPrefabInfo_Nautilus_Assets_PrefabInfo_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PrefabCollection.ContainsPrefabInfo(Nautilus.Assets.PrefabInfo)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L167">View Source</a>
-  </span>
-  <a id="Nautilus_Handlers_PrefabCollection_ContainsPrefabInfo_" data-uid="Nautilus.Handlers.PrefabCollection.ContainsPrefabInfo*"></a>
-  <h4 id="Nautilus_Handlers_PrefabCollection_ContainsPrefabInfo_Nautilus_Assets_PrefabInfo_" data-uid="Nautilus.Handlers.PrefabCollection.ContainsPrefabInfo(Nautilus.Assets.PrefabInfo)">ContainsPrefabInfo(PrefabInfo)</h4>
-  <div class="markdown level1 summary">Determines whether the provided prefab info is registered.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool ContainsPrefabInfo(PrefabInfo info)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></td>
-        <td><span class="parametername">info</span></td>
-        <td>The prefab info to look for</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if found; otherwise, <see keyword="false"></see>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PrefabCollection_Remove_Nautilus_Assets_PrefabInfo_.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PrefabCollection.Remove(Nautilus.Assets.PrefabInfo)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L147">View Source</a>
-  </span>
-  <a id="Nautilus_Handlers_PrefabCollection_Remove_" data-uid="Nautilus.Handlers.PrefabCollection.Remove*"></a>
-  <h4 id="Nautilus_Handlers_PrefabCollection_Remove_Nautilus_Assets_PrefabInfo_" data-uid="Nautilus.Handlers.PrefabCollection.Remove(Nautilus.Assets.PrefabInfo)">Remove(PrefabInfo)</h4>
-  <div class="markdown level1 summary">Removes a prefab info from the game. This leads to unregistering the specified prefab info from the game.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Remove(PrefabInfo info)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></td>
-        <td><span class="parametername">info</span></td>
-        <td>The prefab info to unregister.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><see keyword="true"></see> if the element is successfully found and removed; otherwise, <see keyword="false"></see>.
-    This method returns <see keyword="false"></see> if the prefab info is not found.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PrefabCollection_TryGetInfoForClassId_System_String_Nautilus_Assets_PrefabInfo__.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PrefabCollection.TryGetInfoForClassId(System.String%2CNautilus.Assets.PrefabInfo%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L200">View Source</a>
-  </span>
-  <a id="Nautilus_Handlers_PrefabCollection_TryGetInfoForClassId_" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForClassId*"></a>
-  <h4 id="Nautilus_Handlers_PrefabCollection_TryGetInfoForClassId_System_String_Nautilus_Assets_PrefabInfo__" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForClassId(System.String,Nautilus.Assets.PrefabInfo@)">TryGetInfoForClassId(string, out PrefabInfo)</h4>
-  <div class="markdown level1 summary">Gets the prefab info associated with the provided class ID.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryGetInfoForClassId(string classId, out PrefabInfo info)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">classId</span></td>
-        <td>The class ID of the prefab info to get.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></td>
-        <td><span class="parametername">info</span></td>
-        <td>The returned prefab info. If nothing was found for the class ID specified, this will be set to the default initialization instead.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td>True if found; otherwise false.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PrefabCollection_TryGetInfoForFileName_System_String_Nautilus_Assets_PrefabInfo__.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PrefabCollection.TryGetInfoForFileName(System.String%2CNautilus.Assets.PrefabInfo%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L217">View Source</a>
-  </span>
-  <a id="Nautilus_Handlers_PrefabCollection_TryGetInfoForFileName_" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForFileName*"></a>
-  <h4 id="Nautilus_Handlers_PrefabCollection_TryGetInfoForFileName_System_String_Nautilus_Assets_PrefabInfo__" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForFileName(System.String,Nautilus.Assets.PrefabInfo@)">TryGetInfoForFileName(string, out PrefabInfo)</h4>
-  <div class="markdown level1 summary">Gets the prefab info associated with the provided file name.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryGetInfoForFileName(string fileName, out PrefabInfo info)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">fileName</span></td>
-        <td>The file name of the prefab info to get.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></td>
-        <td><span class="parametername">info</span></td>
-        <td>The returned prefab info. If nothing was found for the file name specified, this will be set to the default initialization instead.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td>True if found; otherwise false.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PrefabCollection_TryGetInfoForTechType_TechType_Nautilus_Assets_PrefabInfo__.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PrefabCollection.TryGetInfoForTechType(TechType%2CNautilus.Assets.PrefabInfo%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L234">View Source</a>
-  </span>
-  <a id="Nautilus_Handlers_PrefabCollection_TryGetInfoForTechType_" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForTechType*"></a>
-  <h4 id="Nautilus_Handlers_PrefabCollection_TryGetInfoForTechType_TechType_Nautilus_Assets_PrefabInfo__" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForTechType(TechType,Nautilus.Assets.PrefabInfo@)">TryGetInfoForTechType(TechType, out PrefabInfo)</h4>
-  <div class="markdown level1 summary">Gets the prefab info associated with the provided tech type.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryGetInfoForTechType(TechType techType, out PrefabInfo info)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="xref">TechType</span></td>
-        <td><span class="parametername">techType</span></td>
-        <td>The tech type of the prefab info to get.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></td>
-        <td><span class="parametername">info</span></td>
-        <td>The returned prefab info. If nothing was found for the tech type specified, this will be set to the default initialization instead.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td>True if found; otherwise false.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PrefabCollection_TryGetPostProcessorForInfo_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabPostProcessorAsync__.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PrefabCollection.TryGetPostProcessorForInfo(Nautilus.Assets.PrefabInfo%2CNautilus.Assets.PrefabPostProcessorAsync%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L189">View Source</a>
-  </span>
-  <a id="Nautilus_Handlers_PrefabCollection_TryGetPostProcessorForInfo_" data-uid="Nautilus.Handlers.PrefabCollection.TryGetPostProcessorForInfo*"></a>
-  <h4 id="Nautilus_Handlers_PrefabCollection_TryGetPostProcessorForInfo_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabPostProcessorAsync__" data-uid="Nautilus.Handlers.PrefabCollection.TryGetPostProcessorForInfo(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabPostProcessorAsync@)">TryGetPostProcessorForInfo(PrefabInfo, out PrefabPostProcessorAsync)</h4>
-  <div class="markdown level1 summary">Gets the prefab post processor associated with the provided info.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryGetPostProcessorForInfo(PrefabInfo info, out PrefabPostProcessorAsync postProcessor)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></td>
-        <td><span class="parametername">info</span></td>
-        <td>The info of the post processor to get.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabPostProcessorAsync.html">PrefabPostProcessorAsync</a></td>
-        <td><span class="parametername">postProcessor</span></td>
-        <td>The returned post processor. If nothing was found for the prefab info specified, this will be set to the default initialization instead.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if found; otherwise, <see keyword="false"></see>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <span class="small pull-right mobile-hide">
-    <span class="divider">|</span>
-    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PrefabCollection_TryGetPrefabForInfo_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabFactoryAsync__.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PrefabCollection.TryGetPrefabForInfo(Nautilus.Assets.PrefabInfo%2CNautilus.Assets.PrefabFactoryAsync%40)%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L178">View Source</a>
-  </span>
-  <a id="Nautilus_Handlers_PrefabCollection_TryGetPrefabForInfo_" data-uid="Nautilus.Handlers.PrefabCollection.TryGetPrefabForInfo*"></a>
-  <h4 id="Nautilus_Handlers_PrefabCollection_TryGetPrefabForInfo_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabFactoryAsync__" data-uid="Nautilus.Handlers.PrefabCollection.TryGetPrefabForInfo(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabFactoryAsync@)">TryGetPrefabForInfo(PrefabInfo, out PrefabFactoryAsync)</h4>
-  <div class="markdown level1 summary">Gets the prefab factory associated with the provided info.</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool TryGetPrefabForInfo(PrefabInfo info, out PrefabFactoryAsync prefabFactory)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></td>
-        <td><span class="parametername">info</span></td>
-        <td>The info of the prefab factory to get.</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="Nautilus.Assets.PrefabFactoryAsync.html">PrefabFactoryAsync</a></td>
-        <td><span class="parametername">prefabFactory</span></td>
-        <td>The returned prefab factory. If nothing was found for the prefab info specified, this will be set to the default initialization instead.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if found; otherwise, <see keyword="false"></see>.</td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable&lt;T&gt;</a>
-  </div>
-  <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerable">IEnumerable</a>
-  </div>
-  <h3 id="extensionmethods">Extension Methods</h3>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
   <div>
       <a class="xref" href="Nautilus.Handlers.PrefabCollectionExtensions.html#Nautilus_Handlers_PrefabCollectionExtensions_RegisterPrefab_Nautilus_Handlers_PrefabCollection_Nautilus_Assets_ICustomPrefab_">PrefabCollectionExtensions.RegisterPrefab(PrefabCollection, ICustomPrefab)</a>
   </div>
@@ -566,75 +177,337 @@
   <div>
       <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
   </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Handlers_PrefabCollection_Add_" data-uid="Nautilus.Handlers.PrefabCollection.Add*"></a>
+
+  <h3 id="Nautilus_Handlers_PrefabCollection_Add_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabFactoryAsync_Nautilus_Assets_PrefabPostProcessorAsync_" data-uid="Nautilus.Handlers.PrefabCollection.Add(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabFactoryAsync,Nautilus.Assets.PrefabPostProcessorAsync)">
+  Add(PrefabInfo, PrefabFactoryAsync, PrefabPostProcessorAsync)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L111"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds a prefab info with the function that constructs the game object into the game.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(PrefabInfo info, PrefabFactoryAsync prefabFactory, PrefabPostProcessorAsync postProcessor = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>info</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The prefab info to register.</dd>
+    <dt><code>prefabFactory</code> <a class="xref" href="Nautilus.Assets.PrefabFactoryAsync.html">PrefabFactoryAsync</a></dt>
+    <dd>The function that constructs the game object for this prefab info.</dd>
+    <dt><code>postProcessor</code> <a class="xref" href="Nautilus.Assets.PrefabPostProcessorAsync.html">PrefabPostProcessorAsync</a></dt>
+    <dd>The prefab post processor that will be invoked after Nautilus's prefab processing.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PrefabCollection_ContainsPrefabInfo_" data-uid="Nautilus.Handlers.PrefabCollection.ContainsPrefabInfo*"></a>
+
+  <h3 id="Nautilus_Handlers_PrefabCollection_ContainsPrefabInfo_Nautilus_Assets_PrefabInfo_" data-uid="Nautilus.Handlers.PrefabCollection.ContainsPrefabInfo(Nautilus.Assets.PrefabInfo)">
+  ContainsPrefabInfo(PrefabInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L167"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Determines whether the provided prefab info is registered.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ContainsPrefabInfo(PrefabInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>info</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The prefab info to look for</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if found; otherwise, <see keyword="false"></see>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PrefabCollection_Remove_" data-uid="Nautilus.Handlers.PrefabCollection.Remove*"></a>
+
+  <h3 id="Nautilus_Handlers_PrefabCollection_Remove_Nautilus_Assets_PrefabInfo_" data-uid="Nautilus.Handlers.PrefabCollection.Remove(Nautilus.Assets.PrefabInfo)">
+  Remove(PrefabInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L147"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Removes a prefab info from the game. This leads to unregistering the specified prefab info from the game.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Remove(PrefabInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>info</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The prefab info to unregister.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><see keyword="true"></see> if the element is successfully found and removed; otherwise, <see keyword="false"></see>.
+    This method returns <see keyword="false"></see> if the prefab info is not found.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PrefabCollection_TryGetInfoForClassId_" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForClassId*"></a>
+
+  <h3 id="Nautilus_Handlers_PrefabCollection_TryGetInfoForClassId_System_String_Nautilus_Assets_PrefabInfo__" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForClassId(System.String,Nautilus.Assets.PrefabInfo@)">
+  TryGetInfoForClassId(string, out PrefabInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L200"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Gets the prefab info associated with the provided class ID.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetInfoForClassId(string classId, out PrefabInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The class ID of the prefab info to get.</dd>
+    <dt><code>info</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The returned prefab info. If nothing was found for the class ID specified, this will be set to the default initialization instead.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>True if found; otherwise false.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PrefabCollection_TryGetInfoForFileName_" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForFileName*"></a>
+
+  <h3 id="Nautilus_Handlers_PrefabCollection_TryGetInfoForFileName_System_String_Nautilus_Assets_PrefabInfo__" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForFileName(System.String,Nautilus.Assets.PrefabInfo@)">
+  TryGetInfoForFileName(string, out PrefabInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L217"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Gets the prefab info associated with the provided file name.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetInfoForFileName(string fileName, out PrefabInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The file name of the prefab info to get.</dd>
+    <dt><code>info</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The returned prefab info. If nothing was found for the file name specified, this will be set to the default initialization instead.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>True if found; otherwise false.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PrefabCollection_TryGetInfoForTechType_" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForTechType*"></a>
+
+  <h3 id="Nautilus_Handlers_PrefabCollection_TryGetInfoForTechType_TechType_Nautilus_Assets_PrefabInfo__" data-uid="Nautilus.Handlers.PrefabCollection.TryGetInfoForTechType(TechType,Nautilus.Assets.PrefabInfo@)">
+  TryGetInfoForTechType(TechType, out PrefabInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L234"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Gets the prefab info associated with the provided tech type.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetInfoForTechType(TechType techType, out PrefabInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd>The tech type of the prefab info to get.</dd>
+    <dt><code>info</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The returned prefab info. If nothing was found for the tech type specified, this will be set to the default initialization instead.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>True if found; otherwise false.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PrefabCollection_TryGetPostProcessorForInfo_" data-uid="Nautilus.Handlers.PrefabCollection.TryGetPostProcessorForInfo*"></a>
+
+  <h3 id="Nautilus_Handlers_PrefabCollection_TryGetPostProcessorForInfo_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabPostProcessorAsync__" data-uid="Nautilus.Handlers.PrefabCollection.TryGetPostProcessorForInfo(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabPostProcessorAsync@)">
+  TryGetPostProcessorForInfo(PrefabInfo, out PrefabPostProcessorAsync)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L189"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Gets the prefab post processor associated with the provided info.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetPostProcessorForInfo(PrefabInfo info, out PrefabPostProcessorAsync postProcessor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>info</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The info of the post processor to get.</dd>
+    <dt><code>postProcessor</code> <a class="xref" href="Nautilus.Assets.PrefabPostProcessorAsync.html">PrefabPostProcessorAsync</a></dt>
+    <dd>The returned post processor. If nothing was found for the prefab info specified, this will be set to the default initialization instead.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if found; otherwise, <see keyword="false"></see>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PrefabCollection_TryGetPrefabForInfo_" data-uid="Nautilus.Handlers.PrefabCollection.TryGetPrefabForInfo*"></a>
+
+  <h3 id="Nautilus_Handlers_PrefabCollection_TryGetPrefabForInfo_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabFactoryAsync__" data-uid="Nautilus.Handlers.PrefabCollection.TryGetPrefabForInfo(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabFactoryAsync@)">
+  TryGetPrefabForInfo(PrefabInfo, out PrefabFactoryAsync)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Gets the prefab factory associated with the provided info.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetPrefabForInfo(PrefabInfo info, out PrefabFactoryAsync prefabFactory)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>info</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The info of the prefab factory to get.</dd>
+    <dt><code>prefabFactory</code> <a class="xref" href="Nautilus.Assets.PrefabFactoryAsync.html">PrefabFactoryAsync</a></dt>
+    <dd>The returned prefab factory. If nothing was found for the prefab info specified, this will be set to the default initialization instead.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if found; otherwise, <see keyword="false"></see>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
-          </div>
 
-          <div class="hidden-sm col-md-2" role="complementary">
-            <div class="sideaffix">
-              <div class="contribution">
-                <ul class="nav">
-                  <li>
-                    <a href="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PrefabCollection.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PrefabCollection%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L96" class="contribution-link">View Source</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="toggle-mode">
-                <div class="icon">
-                  <i aria-hidden="true">☀</i>
-                </div>
-                <label class="switch">
-                  <input type="checkbox" id="switch-style">
-                  <span class="slider round"></span>
-                </label>
-                <div class="icon">
-                  <i aria-hidden="true">☾</i>
-                </div>
-              </div>
-
-              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
-              <h5>In This Article</h5>
-              <div></div>
-              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
-              </nav>
-            </div>
-          </div>
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PrefabHandler.cs/#L96" class="edit-link">Edit this page</a>
         </div>
+
+        
       </div>
 
-      <footer>
-        <div class="grad-bottom"></div>
-        <div class="footer">
-          <div class="container">
-            <span class="pull-right">
-              <a href="#top">Back to top</a>
-            </span>
-            <div class="pull-left">
-        
-        <span>Generated by <strong>DocFX</strong></span>
-            </div>
-            <div class="toggle-mode pull-right visible-sm visible-xs">
-              <div class="icon">
-                <i aria-hidden="true">☀</i>
-              </div>
-              <label class="switch">
-                <input type="checkbox" id="switch-style-m">
-                <span class="slider round"></span>
-              </label>
-              <div class="icon">
-                <i aria-hidden="true">☾</i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <script type="text/javascript" src="../styles/toggle-theme.js"></script>
-      </footer>    </div>
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
 
-    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
-    <script type="text/javascript" src="../styles/docfx.js"></script>
-    <script type="text/javascript" src="../styles/main.js"></script>
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

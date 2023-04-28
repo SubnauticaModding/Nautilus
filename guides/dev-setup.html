@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Development Setup Guide </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Development Setup Guide ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.min.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/guides/dev-setup.md/#L1">
+
+      <script>
+        MathJax = {
+          options: {
+            processHtmlClass: ['tex2jax_process', 'math']
+          }
+        };
+      </script>
+
+      <script type="text/javascript" src="../styles/docfx.min.js"></script>
+      <script type="text/javascript" src="../styles/main.js"></script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="development-setup-guide">Development Setup Guide</h1>
+
+<p>This article covers a step-by-step guide of setting up your pc for Subnautica mod development. Please note that this setup works on any
+operating system, so if you're using a non-windows machine, don't worry! You're in the right place!</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Although we try to keep this guide as comprehensible as possible, we will not cover a C# tutorial. So a basic understanding of the language
+is still required. <a href="https://dotnetcademy.net">.NET Academy</a> covers the basics in a simple interactable tutorial.
+If you need a more in-depth C# tutorial, the <a href="https://www.youtube.com/watch?v=GhQdlIFylQ8">Giraffe Academy</a> video is a good start.</p>
+</div>
+<p>To start developing, you will need to install some tools first:</p>
+<ol>
+<li>Latest .NET SDK</li>
+<li>An integrated development environment (IDE)</li>
+<li>BepInEx 5.4.21</li>
+<li>Nautilus</li>
+</ol>
+<h2 id="net-sdk">.NET SDK</h2>
+<p>.NET software development kit (SDK) is the main component of starting to write C# code. The SDK will take care of compiling our code, as well as enable
+the latest C# version features.<br>
+In Nautilus we always make sure to update to the latest C# versions. To enable numerous inspection warnings and convenience while working with Nautilus, we recommend you to update the .NET SDK to the latest version.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Microsoft usually schedules their .NET Core releases around November every year.</p>
+</div>
+<p>To install .NET SDK:</p>
+<ol>
+<li>Head to the <a href="https://dotnet.microsoft.com/en-us/download">.NET download page</a></li>
+<li>Select the latest recommended .NET SDK<br>
+<img src="../Documentation/images/guides/dotnet-sdk.png" alt="dotnet-sdk"></li>
+<li>Download and run the installer. A restart may be needed to take place afterward.</li>
+</ol>
+<p>To ensure that the SDK has installed correctly, open a terminal and run the following line:</p>
+<pre><code class="lang-bash">dotnet --version
+</code></pre>
+<p>Output:</p>
+<pre><code class="lang-bash">7.0.102
+</code></pre>
+<h2 id="picking-an-ide">Picking an IDE</h2>
+<p>The top 3 IDEs for writing C# code are the following:</p>
+<ul>
+<li><a href="https://visualstudio.microsoft.com/vs/community">Visual Studio Community</a> - Free, great IDE designed for .NET development (Windows and Mac only)</li>
+<li><a href="https://www.jetbrains.com/rider">JetBrains Rider</a> - Paid, outstanding IDE, incredible code-completion and code suggestions with the power of ReSharper, cross-platform</li>
+<li><a href="https://code.visualstudio.com">Visual Studio Code</a> - Free, multi-purpose editor, cross-platform, can be used for C# development with plugins.</li>
+</ul>
+<h2 id="installing-ide">Installing IDE</h2>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_vs" role="tab" aria-controls="tabpanel_bHGHmlrG6S_vs" data-tab="vs" tabindex="0" aria-selected="true">Visual Studio Community</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_rider" role="tab" aria-controls="tabpanel_bHGHmlrG6S_rider" data-tab="rider" tabindex="-1">JetBrains Rider</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_vscode" role="tab" aria-controls="tabpanel_bHGHmlrG6S_vscode" data-tab="vscode" tabindex="-1">Visual Studio Code</a>
+</li>
+</ul>
+<section id="tabpanel_bHGHmlrG6S_vs" role="tabpanel" data-tab="vs">
+
+<ol>
+<li>Download the installer from the <a href="https://visualstudio.microsoft.com/vs/community">Visual Studio download page</a> and run it</li>
+<li>Inside the Visual Studio installer, ensure the <code>.NET Desktop Development</code> component is selected, then proceed with the installation.<br>
+<img src="../Documentation/images/guides/vs-install.png" alt="vs-install"></li>
+</ol>
+</section>
+<section id="tabpanel_bHGHmlrG6S_rider" role="tabpanel" data-tab="rider" aria-hidden="true" hidden="hidden">
+
+<ol>
+<li>Download the installer from the <a href="https://www.jetbrains.com/rider/download/">JetBrains Rider download page</a></li>
+<li>Run the installer and follow the wizard steps.</li>
+</ol>
+</section>
+<section id="tabpanel_bHGHmlrG6S_vscode" role="tabpanel" data-tab="vscode" aria-hidden="true" hidden="hidden">
+
+<ol>
+<li>Download the installer from the <a href="https://code.visualstudio.com/">VS Code download page</a> and run it</li>
+<li>Install the <a href="vscode:extension/ms-dotnettools.vscode-dotnet-pack">.NET extension pack</a>. This pack includes these extensions:
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp">C# for Visual Studio Code</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp">Ionide for F#</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter">Jupyter Notebooks</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode">Polyglot Notebooks</a></li>
+</ul>
+</li>
+</ol>
+<p>You can also install extensions separately.</p>
+</section>
+</div>
+<h2 id="installing-bepinex">Installing BepInEx</h2>
+<p>BepInEx is a mod loader that we use to load Subnautica mods to the game. We recommend using the <a href="https://www.nexusmods.com/subnautica/mods/1108">Subnautica BepInEx Pack</a> as it's configured specifically for the game.
+The installation process is explained in the provided link.</p>
+<h2 id="installing-nautilus">Installing Nautilus</h2>
+<ol>
+<li>Download Nautilus from one of <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Nexus Mods</a>, <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Submodica</a> or <a href="https://github.com/SubnauticaModding/Nautilus/releases">GitHub Releases</a>.</li>
+<li>Drop and drop the <code>plugins</code> folder in the zip file to: <code>PathToSubnautica\BepInEx\</code></li>
+</ol>
+<h2 id="installing-subnautica-modding-templates">Installing Subnautica Modding templates</h2>
+<p>Since the project setup can be quite tedious for experienced developers and confusing for new-comers, we have published a series of templates to help you setup your projects more easily.</p>
+<p>To install the template, run the following command in a terminal:</p>
+<pre><code class="lang-bash">dotnet new -i Subnautica.Templates
+</code></pre>
+<p>Once the install is completed, you will receive an output similar to the message below displaying the process as successful.</p>
+<pre><code class="lang-bash">Template Name                             Short Name      Language  Tags
+----------------------------------------  --------------  --------  ---------------------------------------------
+Subnautica Empty Template                 snmod_empty     [C#]      SNModding/Subnautica/Mod
+Subnautica Nautilus Template              snmod_nautilus  [C#]      SNModding/Subnautica/Mod/Nautilus
+Subnautica Template                       snmod           [C#]      SNModding/Subnautica/Mod
+Subnautica: Below Zero Empty Template     bzmod_empty     [C#]      SNModding/Subnautica: Below Zero/Mod
+Subnautica: Below Zero Nautilus Template  bzmod_nautilus  [C#]      SNModding/Subnautica: Below Zero/Mod/Nautilus
+Subnautica: Below Zero Template           bzmod           [C#]      SNModding/Subnautica: Below Zero/Mod
+</code></pre>
+<p>Below is a description of what each of these templates represent:</p>
+<table>
+<thead>
+<tr>
+<th>Template Name</th>
+<th>Short Name (ID)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subnautica Template</td>
+<td>snmod</td>
+<td>Contains all the essential configurations, dependencies, and a basic <code>Plugin.cs</code> with the Logger and harmony patcher.</td>
+</tr>
+<tr>
+<td>Subnautica Empty Template</td>
+<td>snmod_empty</td>
+<td>Contains all the essential configurations and dependencies with no additional files.</td>
+</tr>
+<tr>
+<td>Subnautica Nautilus Template</td>
+<td>snmod_nautilus</td>
+<td>Contains all the essential configurations, dependencies with Nautilus installed and a simple example demonstrating the usage of Nautilus.</td>
+</tr>
+</tbody>
+</table>
+<p>The Subnautica: Below Zero templates contain the exact same configurations as their corresponding Subnautica versions, except they install BZ dependencies instead.</p>
+<h2 id="creating-a-new-mod-project">Creating a new mod project</h2>
+<p>Once you installed the templates, they will appear among other templates in the &quot;Create new project&quot; section of your favorite IDE.
+<img src="../Documentation/images/guides/vs-template-default.png" alt="vs-template-default"></p>
+<p>You can also create the project using CLI:</p>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S-1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S-1_sn1" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_sn1" data-tab="sn1" tabindex="0" aria-selected="true">Subnautica</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S-1_bz" role="tab" aria-controls="tabpanel_bHGHmlrG6S-1_bz" data-tab="bz" tabindex="-1">Subnautica: Below Zero</a>
+</li>
+</ul>
+<section id="tabpanel_bHGHmlrG6S-1_sn1" role="tabpanel" data-tab="sn1">
+
+<pre><code class="lang-bash">dotnet new snmod -n MyBeautifulMod
+</code></pre>
+<p>Now you can add more code to the project, then build and put the compiled dll in Subnautica/BepInEx/plugins/.</p>
+</section>
+<section id="tabpanel_bHGHmlrG6S-1_bz" role="tabpanel" data-tab="bz" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-bash">dotnet new bzmod -n MyBeautifulMod
+</code></pre>
+<p>Now you can add more code to the project, then build and put the compiled dll in SubnauticaZero/BepInEx/plugins/.</p>
+</section>
+</div>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/guides/dev-setup.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

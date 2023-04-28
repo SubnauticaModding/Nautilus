@@ -363,6 +363,36 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Extensions.GameObjectExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Extensions.GameObjectExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Extensions.GeneralExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Extensions.GeneralExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.FMod.FModMultiSounds.yml",
       "output": {
         ".html": {
@@ -1507,6 +1537,19 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/guides/dev-setup.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/dev-setup.html"
         }
       },
       "version": ""
@@ -1517,6 +1560,16 @@
       "output": {
         ".html": {
           "relative_path": "guides/overview.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/guides/simple-mod.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/simple-mod.html"
         }
       },
       "version": ""
@@ -1537,6 +1590,109 @@
       "output": {
         ".html": {
           "relative_path": "guides/toc.html"
+        },
+        ".json": {
+          "relative_path": "guides/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/banner.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/banner.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/dotnet-sdk.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/dotnet-sdk.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/project-structure-minerals.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/project-structure-minerals.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/project-structure.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/project-structure.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/rider-create-project.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/rider-create-project.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/vs-choose-template.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/vs-choose-template.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/vs-create-project.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/vs-create-project.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/vs-install.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/vs-install.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/vs-template-default.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/vs-template-default.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/yeet-knife.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/yeet-knife.png"
         }
       },
       "version": ""
@@ -1567,6 +1723,9 @@
       "output": {
         ".html": {
           "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""
@@ -1647,6 +1806,9 @@
       "output": {
         ".html": {
           "relative_path": "tutorials/toc.html"
+        },
+        ".json": {
+          "relative_path": "tutorials/toc.json"
         }
       },
       "version": ""
