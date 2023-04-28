@@ -1,5 +1,7 @@
 - name: Overview
   href: overview.md
 
+- name: Development Setup Guide
+  href: dev-setup.md
 - name: Updating to Nautilus
   href: sml2-to-nautilus.md
