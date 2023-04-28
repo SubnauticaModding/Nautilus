@@ -7,4 +7,4 @@ Notable systems which Nautilus offers include but not limited to: Adding/editing
 
 <b>⚠️ Nautilus is only supported on the latest version of Subnautica and Below Zero. If you're playing on the Legacy branch of Steam, use [SMLHelper](https://github.com/SubnauticaModding/SMLHelper) instead.</b>
 
-#### [GitHub](https://github.com/SubnauticaModding/Nautilus) - [Contributing](https://github.com/SubnauticaModding/Nautilus/blob/master/CONTRIBUTING.md) - [Issues](https://github.com/SubnauticaModding/Nautilus/issues)
+#### [Contributing](https://github.com/SubnauticaModding/Nautilus/blob/master/CONTRIBUTING.md) - [Issues](https://github.com/SubnauticaModding/Nautilus/issues)
