@@ -1,6 +1,6 @@
 ﻿# Tutorials
 
-This section covers step-by-step tutorials on how to get some of the useful features of Nautilus done with images, demos, and working code. If you've used SML 2.0 before, please start with our [Updating to SML 3.0 Guide](../guides/sml2-to-nautilus.md).  
+This section covers step-by-step tutorials on how to get some of the useful features of Nautilus done with images, demos, and working code. If you've used SML 2.0 before, please start with our [Updating to Nautilus Guide](../guides/sml2-to-nautilus.md).  
 
 ## Sections
 
