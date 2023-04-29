@@ -120,7 +120,7 @@ private List&lt;Vector3&gt; RandomPositions(Vector3 centerPosition)
 </code></pre>
 <p>For custom prefabs, it is advised to use the <a class="xref" href="../api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(SpawnLocation[])</a> method instead of directly interacting with the <a class="xref" href="../api/Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a> class.</p>
 <p>The example below demonstrates the usage of the <code>SetSpawns</code> method.</p>
-<pre><code class="lang-csharp">var blueReaper = new CustomPrefab(PrefabInfo.WithTechType(&quot;BlueReaper&quot;, &quot;Blue Reaper Leviathan&quot;, null));
+<pre><code class="lang-csharp">var blueReaper = new CustomPrefab(&quot;BlueReaper&quot;, &quot;Blue Reaper Leviathan&quot;, null);
            
 // Creates a clone of the Reaper Leviathan prefab and colors it blue, then set the new prefab as our Blue Reaper's game object.          
 var blueReaperPrefab = new CloneTemplate(blueReaper.Info, TechType.ReaperLeviathan)
@@ -218,15 +218,11 @@ LootDistributionHandler.EditLootDistributionData(rockgrubClassId, BiomeType.Koos
 </code></pre>
 <p>For custom prefabs, it is advised to use the <a class="xref" href="../api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(LootDistributionData.BiomeData[])</a> method instead of directly interacting with the <a class="xref" href="../api/Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a> class.</p>
 <p>The example below demonstrates the usage of the <code>SetSpawns</code> method.</p>
-<pre><code class="lang-csharp">PrefabInfo titaniumCloneInfo = PrefabInfo.WithTechType(&quot;TitaniumClone&quot;, &quot;Titanium Clone&quot;, &quot;Titanium clone that makes me go yes.&quot;);
-        
-// Set the vanilla titanium icon for our item
-titaniumCloneInfo.WithIcon(SpriteManager.Get(TechType.Titanium));
-
-CustomPrefab titaniumClone = new CustomPrefab(titaniumCloneInfo);
+<pre><code class="lang-csharp">// Set the vanilla titanium icon for our item
+CustomPrefab titaniumClone = new CustomPrefab(&quot;TitaniumClone&quot;, &quot;Titanium Clone&quot;, &quot;Titanium clone that makes me go yes.&quot;, SpriteManager.Get(TechType.Titanium));
 
 // Creates a clone of the Titanium prefab and colors it red, then set the new prefab as our Titanium Clone's game object.  
-PrefabTemplate cloneTemplate = new CloneTemplate(titaniumCloneInfo, TechType.Titanium)
+PrefabTemplate cloneTemplate = new CloneTemplate(titaniumClone.Info, TechType.Titanium)
 {
     // Callback to change all material colors of this clone to red.
     ModifyPrefab = prefab =&gt; prefab.GetComponentsInChildren&lt;Renderer&gt;().ForEach(r =&gt; r.materials.ForEach(m =&gt; m.color = Color.red))

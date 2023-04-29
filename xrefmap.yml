@@ -259,6 +259,15 @@ references:
   fullName.vb: Nautilus.Assets.CustomPrefab.New(String, String, String, UnityEngine.Sprite)
   nameWithType: CustomPrefab.CustomPrefab(string, string, string, Sprite)
   nameWithType.vb: CustomPrefab.New(String, String, String, Sprite)
+- uid: Nautilus.Assets.CustomPrefab.#ctor(System.String,System.String,System.String)
+  name: CustomPrefab(string, string, string)
+  href: api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab__ctor_System_String_System_String_System_String_
+  commentId: M:Nautilus.Assets.CustomPrefab.#ctor(System.String,System.String,System.String)
+  name.vb: New(String, String, String)
+  fullName: Nautilus.Assets.CustomPrefab.CustomPrefab(string, string, string)
+  fullName.vb: Nautilus.Assets.CustomPrefab.New(String, String, String)
+  nameWithType: CustomPrefab.CustomPrefab(string, string, string)
+  nameWithType.vb: CustomPrefab.New(String, String, String)
 - uid: Nautilus.Assets.CustomPrefab.#ctor*
   name: CustomPrefab
   href: api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab__ctor_
