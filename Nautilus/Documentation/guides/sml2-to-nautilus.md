@@ -6,7 +6,7 @@ In this article, we will be talking about the necessary changes you must apply t
 The root namespace for Nautilus is not the same as SMLHelper 2.0.
 <pre class="lang-diff">
 <span class="lang-diff-rem">- &lt;RootNamespace&gt;SMLHelper.V2&lt;/RootNamespace&gt;</span>
-<span class="lang-diff-add">+ &lt;RootNamespace&gt;SMLHelper&lt;/RootNamespace&gt;</span>
+<span class="lang-diff-add">+ &lt;RootNamespace&gt;Nautilus&lt;/RootNamespace&gt;</span>
 </pre>
 
 
