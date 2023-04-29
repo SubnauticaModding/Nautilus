@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\common.props" />
+  <Import Project="..\Version.targets" />
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
@@ -7,6 +8,7 @@
     <RootNamespace>Nautilus</RootNamespace>
     <AssemblyName>Nautilus</AssemblyName>
     <BepInExPluginGuid>com.snmodding.nautilus</BepInExPluginGuid>
+    <BepInExPluginVersion>$(VersionPrefix)</BepInExPluginVersion>
     <LangVersion>11</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
@@ -15,7 +17,6 @@
     <Copyright>Copyright @ 2023 Subnautica Modding Community</Copyright>
     <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
-  <Import Project="..\Version.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
     <OutputPath>bin\SN.STABLE\</OutputPath>
     <DefineConstants>SUBNAUTICA;SUBNAUTICA_STABLE</DefineConstants>
