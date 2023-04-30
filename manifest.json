@@ -1811,6 +1811,16 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/story-goals.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/story-goals.html"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Toc",
       "source_relative_path": "Documentation/tutorials/toc.yml",
       "output": {

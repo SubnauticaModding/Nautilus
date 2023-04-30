@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Using the Story Goal system </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Using the Story Goal system ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.min.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/story-goals.md/#L1">
+
+      <script>
+        MathJax = {
+          options: {
+            processHtmlClass: ['tex2jax_process', 'math']
+          }
+        };
+      </script>
+
+      <script type="text/javascript" src="../styles/docfx.min.js"></script>
+      <script type="text/javascript" src="../styles/main.js"></script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="using-the-story-goal-system">Using the Story Goal system</h1>
+
+<p>The progression of Subnautica is primarily based around the Story Goal system. This system is composed of the <code>StoryGoalManager</code> class and several sub-systems which together handle hundreds of different goals, each with their own unique triggers and effects on completion.</p>
+<p>Nautilus provides a new handler for accessing this system, which was not available in SMLHelper. This guide covers the basics of how to use them, and how they may help you implement certain features into your mod.</p>
+<h3 id="vanilla-use-cases">Vanilla use-cases</h3>
+<ul>
+<li>Alien data terminals</li>
+<li>Data consoles in Alterra Wrecks</li>
+<li>Most story events</li>
+<li>The PDA databank tab</li>
+<li>The PDA log tab (any sort of voice lines that play during progression!)
+<ul>
+<li>The radio, which is an extension of the log system.</li>
+</ul>
+</li>
+</ul>
+<h3 id="possible-actions-on-completion">Possible actions on completion</h3>
+<ul>
+<li>Adding items to the player's inventory</li>
+<li>Adding PDA databank entries</li>
+<li>Adding pending radio messages.</li>
+<li>Playing voice lines through the PDA log system</li>
+<li>Triggering custom events (this in particular means that a goal can do ANYTHING on completion!)</li>
+<li>Unlocking achievements</li>
+<li>Unlocking blueprints</li>
+<li>Unlocking signal locations</li>
+</ul>
+<h2 id="the-storygoal-class">The StoryGoal class</h2>
+<p>The <code>StoryGoal</code> object is the basis of all StoryGoals.</p>
+<p>Every Story Goal has a <code>key</code>, <code>delay</code>, and <code>GoalType</code>. It can also have associated data for what happens on completion, which must be defined in another class. An example of this is the OnGoalUnlockTracker (see <a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_System_String_Story_UnlockBlueprintData___Story_UnlockSignalData___Story_UnlockItemData___GameAchievements_Id___">StoryGoalHandler.RegisterOnGoalUnlockData</a>).</p>
+<p>Many sub-classes and trackers exist to automate the unlocking process, as shown in the next section.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A StoryGoal object can be instantiated directly, without accessing the <code>StoryGoalHandler</code> or any goal tracking classes. However, a goal created in this way must be triggered manually.</p>
+</div>
+<h2 id="trackers">Trackers</h2>
+<p>These internal game classes manage the automatic unlocking of specific goals. You do not need to access them directly.</p>
+<table>
+<thead>
+<tr>
+<th>Tracker type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ItemGoalTracker</td>
+<td>Completes a goal (or multiple) when an object with the given TechType is picked up, equipped, or crafted through the Mobile Vehicle Bay.</td>
+</tr>
+<tr>
+<td>BiomeGoalTracker</td>
+<td>Completes a goal when the player stays in a given biome for a specified period of time.</td>
+</tr>
+<tr>
+<td>LocationGoalTracker</td>
+<td>Completes a goal when the player stays within range of a certain position for a specified period of time.</td>
+</tr>
+<tr>
+<td>CompoundGoalTracker</td>
+<td>Completes a goal when all required &quot;precondition&quot; goals have been completed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="goaltype">GoalType</h2>
+<p>Every Story Goal has an assigned Goal Type which determines the action that is executed on completion (if any):</p>
+<table>
+<thead>
+<tr>
+<th>GoalType</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GoalType.Story</td>
+<td>Generic GoalType with no default effects. Primarily used for tracking story progress and triggering custom events.</td>
+</tr>
+<tr>
+<td>GoalType.Encyclopedia</td>
+<td>Adds a PDA databank entry on completion with the corresponding key. Also see <a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_PDAEncyclopedia_EntryData_">PDAHandler.AddEncyclopediaEntry(...)</a>.</td>
+</tr>
+<tr>
+<td>GoalType.PDA</td>
+<td>Adds a PDA Log message with the corresponding key. Also see <a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry">PDAHandler.AddLogEntry(...)</a>.</td>
+</tr>
+<tr>
+<td>GoalType.Radio</td>
+<td>Adds a pending radio message with the corresponding key. Also see <a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry">PDAHandler.AddLogEntry(...)</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="storygoalhandler">StoryGoalHandler</h2>
+<p>This is the main class for interacting with the game's Story Goal system. It allows you to add goals to specific trackers and gives you full control over their actions on completion.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>As of now, the <code>StoryGoalHandler</code> class is only designed to work for the first Subnautica game. Remember, you can <a href="https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs">always contribute</a>.</p>
+</div>
+<p>A more comprehensive overview of the class can be viewed <a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html">here</a>.</p>
+<h2 id="creating-goals">Creating goals</h2>
+<p>Example code for registering a Story Goal is shown below. This goal will be triggered after staying in the Kelp Forest for 30 seconds or more. On completion it plays a voice line, kills the player, and unlocks the Seamoth blueprint.</p>
+<pre><code class="lang-csharp">using Story;
+
+// ...
+
+// Register the goal to the BiomeGoalTracker. A GoalType of PDA means that this goal will trigger a PDA line and add it to the log on completion:
+StoryGoalHandler.RegisterBiomeGoal(&quot;KelpForestEnjoyer&quot;, GoalType.PDA, biomeName: &quot;kelpForest&quot;, minStayDuration: 30f, delay: 3f);
+// Register the PDA voice line. Note how the key matches the key of the story goal:
+PDAHandler.AddLogEntry(&quot;KelpForestEnjoyer&quot;, &quot;KelpForestEnjoyer&quot;, sound);
+// Set the English translation for PDA message's subtitles:
+LanguageHandler.SetLanguageLine(&quot;KelpForestEnjoyer&quot;, &quot;Congratulations for staying in the Kelp Forest for 30 seconds!&quot;, &quot;English&quot;);
+
+// Add a custom event that kills the player when this goal is completed:
+StoryGoalHandler.RegisterCustomEvent(&quot;KelpForestEnjoyer&quot;, () =&gt;
+{
+    Player.main.liveMixin.TakeDamage(10000f);
+});
+
+// Unlock the seamoth on completion of this goal:
+StoryGoalHandler.RegisterOnGoalUnlockData(&quot;KelpForestEnjoyer&quot;, blueprints: new Story.UnlockBlueprintData[]
+{
+    new Story.UnlockBlueprintData() {techType = TechType.Seamoth, unlockType = Story.UnlockBlueprintData.UnlockType.Available},
+});
+</code></pre>
+<h2 id="completing-goals">Completing goals</h2>
+<p>Story goals can be completed in various ways, some more useful than others:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Automatically, through the tracker system (accessible through the <code>StoryGoalHandler</code>).</td>
+<td>This is the easiest way to add story goals and is recommended for typical use cases.</td>
+</tr>
+<tr>
+<td><code>StoryGoal.Trigger()</code> (instance)</td>
+<td>This is the recommended method for triggering goals without a tracker. When called, schedules the goal for completion (based on the delay), then executes all associated actions.</td>
+</tr>
+<tr>
+<td><code>StoryGoalManager.main.OnGoalComplete(string key)</code></td>
+<td>Returns false if the goal has already been completed. Otherwise, returns true and adds the goal instantly. Has no delay and does not apply the actions defined by the goal's GoalType.</td>
+</tr>
+<tr>
+<td><code>StoryGoal.Execute(string key, GoalType goalType)</code> (static)</td>
+<td>Instantly completes a goal by calling OnGoalComplete, without applying the delay. Properly applies the actions defined by the goal's GoalType.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>When not using a tracker, the most proper way to complete a StoryGoal is through calling the <code>StoryGoal.Trigger()</code> method on a given instance. This is the only way to ensure the delay is applied properly and all actions are executed.</p>
+</div>
+<h2 id="action-on-completion">Action on completion</h2>
+<p>Within the <code>StoryGoalHandler</code> class, action on completion can be defined in a couple ways:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_System_String_System_Action_">StoryGoalHandler.RegisterCustomEvent(string key, Action customEventCallback)</a></td>
+<td>Allows code of any length to be run when the goal is completed.</td>
+</tr>
+<tr>
+<td><a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_System_String_Story_UnlockBlueprintData___Story_UnlockSignalData___Story_UnlockItemData___GameAchievements_Id___">StoryGoalHandler.RegisterOnGoalUnlockData(...)</a></td>
+<td>Allows the user to define any blueprints, items or achievements that are gained on completion.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="saving-progress">Saving progress</h2>
+<p>Every story goal can only be completed once, so no custom saving logic is required.</p>
+<p>The <code>StoryGoalManager.main.OnGoalComplete(string key)</code> method can be used for one-time events (WITHOUT story goals!) because it will only return true once for any given string, which persists between game sessions.</p>
+<p>The <code>StoryGoalManager.main.IsGoalComplete(string key)</code> method can be used to check if a goal with the given key has already been completed.</p>
+<h2 id="summary">Summary</h2>
+<p>The Story Goal system is a powerful tool for creating story-driven progression in Subnautica mods. By using the methods within the <code>StoryGoalHandler</code> class, you can easily add goals and customize their effects upon completion.</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/story-goals.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
