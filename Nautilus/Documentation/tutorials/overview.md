@@ -7,6 +7,7 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 ### Adding Content
 * [Spawns](spawns.md)  
 * [Custom Console Commands](console-commands.md)
+* [Story Goals](story-goals.md)
 * TODO: [Audio (FMOD)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 
