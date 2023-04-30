@@ -18,4 +18,4 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 
 ### Utilities
 * [Localization](localization.md)
-* TODO: [In-Game Options](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+* [In-Game Options](options.md)

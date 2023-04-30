@@ -1,4 +1,4 @@
-﻿- name: Overview
+- name: Overview
   href: overview.md
   
 - name: Adding Content
@@ -21,6 +21,8 @@
   items:
     - name: Localization
       href: localization.md
+    - name: In-Game Options
+      href: options.md
   
     
   

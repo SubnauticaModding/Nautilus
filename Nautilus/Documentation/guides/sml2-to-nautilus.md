@@ -162,10 +162,112 @@ root.AddTabNode("SomeTab");
 ___
 
 ## Options
-Lorem ipsum dolor sit amet. Qui error architecto in officiis molestiae sit molestiae perspiciatis non necessitatibus voluptatibus sit fugiat veritatis eos aliquam rerum. Et ducimus provident est veniam magni nam veniam possimus aut molestiae explicabo cum doloribus atque? Ut adipisci aspernatur eos modi adipisci in sapiente rerum. Qui velit quis sed quia nobis et aspernatur repudiandae.
+The Options system backend was largely changed in Nautilus. This rewrite mostly effects the more in-depth options systems leaving the simplest usage(s) more or less untouched. Mods which made use of the `ConfigFile` attribute system should not require major changes.
 
-Qui internos autem id recusandae inventore est autem voluptas et repudiandae vitae qui dolorem sapiente aut corporis dolor. Cum earum voluptate ut odit mollitia sit veritatis quos vel maiores fuga sit omnis nisi et quos repellat qui magnam mollitia.
+Mods which extended `ModOptions` to create their config system will require changes:
+  - All individual `AddXYZOption` methods have been replaced by a single unified generic `AddItem` method.
+    - This method takes a `ModOption` which can be created using `ModXYZOption.Create(...)`.
+  - All individual `Options_XXYZChanged` methods have been replaced by a single unified `OnChanged` method.
+  - Option specific OnChanged events can be added to each option instead of being forced to use the global OnChange.
+  - `ModChoiceOption` has been made into a generic type `ModChoiceOption<T>` which can support an array of almost any type and enums.
 
+In addition to these Nautilus specific methods there have also been extensions provided to directly create Nautilus `OptionItem` instances from BepInEx `ConfigEntry` instances:
+
+```csharp
+var bepInExToggle = cfg.Bind<bool>(
+    section: "Testing boolean",
+    key: "A boolean",
+    defaultValue: true
+);
+AddItem(bepInExToggle.ToModToggleOption());
+```
+
+### SML 2.0
+```csharp
+public class ModOptionsV2 : ModOptions
+{
+    public ModOptionsV2() : base("My Mod Options")
+    {
+        OptionsPanelHandler.RegisterModOptions(this);
+
+        SliderChanged += Options_SliderChanged;
+        ChoiceChanged += Options_ChoiceChagned;
+    }
+
+    public override void BuildModOptions()
+    {
+        AddSliderOption(id: "Foo", label: "Bar", minValue: 0, maxValue: 100, value: 50);
+        AddChoiceOption(id: "Baz", label: "Qux", options: new[] { "ABC", "DEF", "XYZ" }, index: 0);
+    }
+
+    private void Options_SliderChanged(object sender, SliderChangedEventArgs e)
+    {
+        switch (e.Id)
+        {
+            case "Foo":
+                // Do stuff here
+                break;
+        }
+    }
+
+    private void Options_ChoiceChagned(object sender, ChoiceChangedEventArgs e)
+    {
+        switch (e.Id)
+        {
+            case "Baz":
+                // Do stuff here
+                break;
+        }
+    }
+}
+```
+### Nautilus
+```csharp
+public class ModOptionsV3 : ModOptions
+{
+    public ModOptionsV3() : base("My Mod Options")
+    {
+        OptionsPanelHandler.RegisterModOptions(this);
+
+        OnChanged += GlobalOptions_Changed;
+
+        var sliderWithChange = ModSliderOption.Create(id: "Fancy", label: "Slider", minValue: 0, maxValue: 100, value: 50);
+        sliderWithChange.OnChanged += specific_OnChanged;
+        AddItem(sliderWithChange);
+
+        AddItem(ModSliderOption.Create(id: "Foo", label: "Bar", minValue: 0, maxValue: 100, value: 50));
+        AddItem(ModChoiceOption<string>.Create(id: "Baz", label: "Qux", options: new[] { "ABC", "DEF", "XYZ" }, index: 0));
+    }
+
+    private void specific_OnChanged(object sender, SliderChangedEventArgs e)
+    {
+        // Do onChange here
+    }
+
+    private void GlobalOptions_Changed(object sender, OptionEventArgs e)
+    {
+        switch (e)
+        {
+            case SliderChangedEventArgs sliderArgs:
+                switch (sliderArgs.Id)
+                {
+                    case "Foo":
+                        // Do stuff here
+                        break;
+                }
+                break;
+            case ChoiceChangedEventArgs<string> choiceArgs:
+                switch (choiceArgs.Id)
+                {
+                    case "Baz":
+                        // Do stuff here
+                        break;
+                }
+                break;
+        }
+    }
+}
+```
 ___
 
 ## Assets 
