@@ -1782,6 +1782,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/options.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/options.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Documentation/tutorials/overview.md",
       "output": {
         ".html": {

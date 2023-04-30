@@ -234,8 +234,110 @@ root.AddTabNode("SomeTab");
 </pre>
 <hr>
 <h2 id="options">Options</h2>
-<p>Lorem ipsum dolor sit amet. Qui error architecto in officiis molestiae sit molestiae perspiciatis non necessitatibus voluptatibus sit fugiat veritatis eos aliquam rerum. Et ducimus provident est veniam magni nam veniam possimus aut molestiae explicabo cum doloribus atque? Ut adipisci aspernatur eos modi adipisci in sapiente rerum. Qui velit quis sed quia nobis et aspernatur repudiandae.</p>
-<p>Qui internos autem id recusandae inventore est autem voluptas et repudiandae vitae qui dolorem sapiente aut corporis dolor. Cum earum voluptate ut odit mollitia sit veritatis quos vel maiores fuga sit omnis nisi et quos repellat qui magnam mollitia.</p>
+<p>The Options system backend was largely changed in Nautilus. This rewrite mostly effects the more in-depth options systems leaving the simplest usage(s) more or less untouched. Mods which made use of the <code>ConfigFile</code> attribute system should not require major changes.</p>
+<p>Mods which extended <code>ModOptions</code> to create their config system will require changes:</p>
+<ul>
+<li>All individual <code>AddXYZOption</code> methods have been replaced by a single unified generic <code>AddItem</code> method.
+<ul>
+<li>This method takes a <code>ModOption</code> which can be created using <code>ModXYZOption.Create(...)</code>.</li>
+</ul>
+</li>
+<li>All individual <code>Options_XXYZChanged</code> methods have been replaced by a single unified <code>OnChanged</code> method.</li>
+<li>Option specific OnChanged events can be added to each option instead of being forced to use the global OnChange.</li>
+<li><code>ModChoiceOption</code> has been made into a generic type <code>ModChoiceOption&lt;T&gt;</code> which can support an array of almost any type and enums.</li>
+</ul>
+<p>In addition to these Nautilus specific methods there have also been extensions provided to directly create Nautilus <code>OptionItem</code> instances from BepInEx <code>ConfigEntry</code> instances:</p>
+<pre><code class="lang-csharp">var bepInExToggle = cfg.Bind&lt;bool&gt;(
+    section: &quot;Testing boolean&quot;,
+    key: &quot;A boolean&quot;,
+    defaultValue: true
+);
+AddItem(bepInExToggle.ToModToggleOption());
+</code></pre>
+<h3 id="sml-20">SML 2.0</h3>
+<pre><code class="lang-csharp">public class ModOptionsV2 : ModOptions
+{
+    public ModOptionsV2() : base(&quot;My Mod Options&quot;)
+    {
+        OptionsPanelHandler.RegisterModOptions(this);
+
+        SliderChanged += Options_SliderChanged;
+        ChoiceChanged += Options_ChoiceChagned;
+    }
+
+    public override void BuildModOptions()
+    {
+        AddSliderOption(id: &quot;Foo&quot;, label: &quot;Bar&quot;, minValue: 0, maxValue: 100, value: 50);
+        AddChoiceOption(id: &quot;Baz&quot;, label: &quot;Qux&quot;, options: new[] { &quot;ABC&quot;, &quot;DEF&quot;, &quot;XYZ&quot; }, index: 0);
+    }
+
+    private void Options_SliderChanged(object sender, SliderChangedEventArgs e)
+    {
+        switch (e.Id)
+        {
+            case &quot;Foo&quot;:
+                // Do stuff here
+                break;
+        }
+    }
+
+    private void Options_ChoiceChagned(object sender, ChoiceChangedEventArgs e)
+    {
+        switch (e.Id)
+        {
+            case &quot;Baz&quot;:
+                // Do stuff here
+                break;
+        }
+    }
+}
+</code></pre>
+<h3 id="nautilus">Nautilus</h3>
+<pre><code class="lang-csharp">public class ModOptionsV3 : ModOptions
+{
+    public ModOptionsV3() : base(&quot;My Mod Options&quot;)
+    {
+        OptionsPanelHandler.RegisterModOptions(this);
+
+        OnChanged += GlobalOptions_Changed;
+
+        var sliderWithChange = ModSliderOption.Create(id: &quot;Fancy&quot;, label: &quot;Slider&quot;, minValue: 0, maxValue: 100, value: 50);
+        sliderWithChange.OnChanged += specific_OnChanged;
+        AddItem(sliderWithChange);
+
+        AddItem(ModSliderOption.Create(id: &quot;Foo&quot;, label: &quot;Bar&quot;, minValue: 0, maxValue: 100, value: 50));
+        AddItem(ModChoiceOption&lt;string&gt;.Create(id: &quot;Baz&quot;, label: &quot;Qux&quot;, options: new[] { &quot;ABC&quot;, &quot;DEF&quot;, &quot;XYZ&quot; }, index: 0));
+    }
+
+    private void specific_OnChanged(object sender, SliderChangedEventArgs e)
+    {
+        // Do onChange here
+    }
+
+    private void GlobalOptions_Changed(object sender, OptionEventArgs e)
+    {
+        switch (e)
+        {
+            case SliderChangedEventArgs sliderArgs:
+                switch (sliderArgs.Id)
+                {
+                    case &quot;Foo&quot;:
+                        // Do stuff here
+                        break;
+                }
+                break;
+            case ChoiceChangedEventArgs&lt;string&gt; choiceArgs:
+                switch (choiceArgs.Id)
+                {
+                    case &quot;Baz&quot;:
+                        // Do stuff here
+                        break;
+                }
+                break;
+        }
+    }
+}
+</code></pre>
 <hr>
 <h2 id="assets">Assets</h2>
 <p>The Assets system received a complete rewrite in Nautilus, making it the biggest change of this version.</p>
@@ -300,7 +402,7 @@ you can still build up a game object from scratch.</p>
 </ul>
 <h2 id="custom-prefab-examples">Custom Prefab Examples</h2>
 <p>In this example, we will demonstrate how you can change an SML 2.0 custom prefab to the Nautilus system.</p>
-<h3 id="sml-20">SML 2.0</h3>
+<h3 id="sml-20-1">SML 2.0</h3>
 <pre><code class="lang-csharp">public class SeamothBrineResistanceModule : Equipable
 {
     public static TechType TechTypeID { get; protected set; }
@@ -343,7 +445,7 @@ you can still build up a game object from scratch.</p>
     }
 }
 </code></pre>
-<h3 id="nautilus">Nautilus</h3>
+<h3 id="nautilus-1">Nautilus</h3>
 <pre><code class="lang-csharp">// Create a custom prefab instance and set the class ID, friendly name, and description respectively
 var seamothBrineResistanceModule = new CustomPrefab(
             &quot;SeamothBrineResistModule&quot;,
