@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BepInEx.Logging;
@@ -45,8 +45,13 @@ internal static class LanguagePatcher
 
     internal static void InsertCustomLines(ref Language __instance)
     {
-        var fallbackStrings = _customLines[FallbackLanguage];
-        var currentStrings = _customLines[_currentLanguage];
+        if (!_customLines.TryGetValue(FallbackLanguage, out var fallbackStrings) & !_customLines.TryGetValue(_currentLanguage, out var currentStrings))
+        {
+            return;
+        }
+
+        fallbackStrings ??= new();
+        currentStrings ??= new();
 
         foreach (var fallbackString in fallbackStrings)
         {
