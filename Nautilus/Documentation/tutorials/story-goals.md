@@ -7,7 +7,7 @@ Nautilus provides a new handler for accessing this system, which was not availab
 ### Vanilla use-cases
 - Alien data terminals
 - Data consoles in Alterra Wrecks
-- Most story events
+- Most story events & progression
 - The PDA databank tab
 - The PDA log tab (any sort of voice lines that play during progression!)
   - The radio, which is an extension of the log system.
@@ -31,10 +31,11 @@ Every Story Goal has a `key`, `delay`, and `GoalType`. It can also have associat
 Many sub-classes and trackers exist to automate the unlocking process, as shown in the next section.
 
 > [!NOTE]
-> A StoryGoal object can be instantiated directly, without accessing the `StoryGoalHandler` or any goal tracking classes. However, a goal created in this way must be triggered manually.
+> A StoryGoal object can be instantiated directly, without accessing the `StoryGoalHandler` or any goal tracking classes. However, a goal created in this way must be triggered manually through its `Trigger()` method.
 
 ## Trackers
-These internal game classes manage the automatic unlocking of specific goals. You do not need to access them directly.
+
+These internal game classes manage the automatic unlocking of specific goals. You do not need to access them directly, but they are listed below to allow a deeper understanding of how this system works:
 
 | Tracker type        | Description                                                                                                                              |
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -43,7 +44,10 @@ These internal game classes manage the automatic unlocking of specific goals. Yo
 | LocationGoalTracker | Completes a goal when the player stays within range of a certain position for a specified period of time.                                |
 | CompoundGoalTracker | Completes a goal when all required "precondition" goals have been completed.                                                             |
 
+See the [creating goals](https://subnauticamodding.github.io/Nautilus/tutorials/story-goals.html#creating-goals) section for a list of methods that allow access to these systems.
+
 ## GoalType
+
 Every Story Goal has an assigned Goal Type which determines the action that is executed on completion (if any):
 
 | GoalType | Purpose |
@@ -63,6 +67,41 @@ This is the main class for interacting with the game's Story Goal system. It all
 A more comprehensive overview of the class can be viewed [here](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html).
 
 ## Creating goals
+
+There are various ways to create Story Goals, and different methods are recommended for different purposes. Remember Story Goals do nothing on their own, and you should also see the section on [actions on completion](https://subnauticamodding.github.io/Nautilus/tutorials/story-goals.html#actions-on-completion) to use them to their full potential.
+
+| Method | Notes |
+| --- | --- |
+| `new StoryGoal(string key, GoalType goalType, float delay)` | Creates a new StoryGoal that must be completed manually (through the `Trigger()` method). |
+| [`RegisterItemGoal(...)`](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterItemGoal_System_String_Story_GoalType_TechType_System_Single_) | Adds a new goal to the `ItemGoalTracker` system. This goal is completed when an object with the given TechType is picked up, equipped, or crafted through the Mobile Vehicle Bay. |
+| [`RegisterBiomeGoal(...)`](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterBiomeGoal_System_String_Story_GoalType_System_String_System_Single_System_Single_) | Adds a new goal to the `BiomeGoalTracker` system. This goal is completed when the player stays in a given biome for a specified period of time. |
+| [`RegisterLocationGoal(...)`](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterLocationGoal_System_String_Story_GoalType_UnityEngine_Vector3_System_Single_System_Single_System_Single_) | Adds a new goal to the `LocationGoalTracker` system. This goal is completed when the player stays within range of a certain position for a specified period of time. |
+| [`RegisterCompoundGoal(...)`](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterCompoundGoal_System_String_Story_GoalType_System_Single_System_String___) | Adds a new goal to the `CompoundGoalTracker` system. This goal is completed when all other specified "prerequisite" goals are completed. |
+
+## Completing goals
+
+Story goals can be completed in various ways, some more useful than others:
+
+| Method | Notes |
+| --- | --- |
+| Automatically, through the tracker systems (handled by the `StoryGoalHandler`). | This is the easiest way to add story goals and is recommended for typical use cases. No extra code is required; this is handled by the `StoryGoalHandler` methods. |
+| `StoryGoal.Trigger()` (instance) | This is the **recommended method for manually unlocking** goals without a tracker. When called, schedules the goal for completion (based on the delay), then executes all associated actions. |
+| `StoryGoalManager.main.OnGoalComplete(string key)` | Returns false if the goal has already been completed. Otherwise, returns true and adds the goal instantly. Has no delay and does not apply the actions defined by the goal's GoalType. |
+| `StoryGoal.Execute(string key, GoalType goalType)` (static) | Instantly completes a goal by calling OnGoalComplete, without applying the delay. Properly applies the actions defined by the goal's GoalType. |
+
+> [!NOTE]
+> The most proper way to complete a Story Goal is through calling the `StoryGoal.Trigger()` method on a given instance. This specifically applies for goals created through the `new StoryGoal(...)` constructor rather than through any aforementioned methods. This is the only way to ensure the delay is applied properly and all actions are executed.
+
+## Actions on completion
+
+Within the `StoryGoalHandler` class, the action(s) on completion can be defined in a couple ways:
+
+| Method | Notes |
+| --- | --- |
+| [StoryGoalHandler.RegisterCustomEvent(string key, Action customEventCallback)](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_System_String_System_Action_) | Allows code of any length to be run when the goal is completed. |
+| [StoryGoalHandler.RegisterOnGoalUnlockData(...)](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_System_String_Story_UnlockBlueprintData___Story_UnlockSignalData___Story_UnlockItemData___GameAchievements_Id___) | Allows the user to define any blueprints, items, signals or achievements that are gained on completion. |
+
+## Example
 
 Example code for registering a Story Goal is shown below. This goal will be triggered after staying in the Kelp Forest for 30 seconds or more. On completion it plays a voice line, kills the player, and unlocks the Seamoth blueprint.
 
@@ -91,29 +130,6 @@ StoryGoalHandler.RegisterOnGoalUnlockData("KelpForestEnjoyer", blueprints: new S
 });
 ```
 
-## Completing goals
-
-Story goals can be completed in various ways, some more useful than others:
-
-| Method | Notes |
-| --- | --- |
-| Automatically, through the tracker system (accessible through the `StoryGoalHandler`). | This is the easiest way to add story goals and is recommended for typical use cases. |
-| `StoryGoal.Trigger()` (instance) | This is the recommended method for triggering goals without a tracker. When called, schedules the goal for completion (based on the delay), then executes all associated actions. |
-| `StoryGoalManager.main.OnGoalComplete(string key)` | Returns false if the goal has already been completed. Otherwise, returns true and adds the goal instantly. Has no delay and does not apply the actions defined by the goal's GoalType. |
-| `StoryGoal.Execute(string key, GoalType goalType)` (static) | Instantly completes a goal by calling OnGoalComplete, without applying the delay. Properly applies the actions defined by the goal's GoalType. |
-
-> [!NOTE]
-> When not using a tracker, the most proper way to complete a StoryGoal is through calling the `StoryGoal.Trigger()` method on a given instance. This is the only way to ensure the delay is applied properly and all actions are executed.
-
-## Action on completion
-
-Within the `StoryGoalHandler` class, action on completion can be defined in a couple ways:
-
-| Method | Notes |
-| --- | --- |
-| [StoryGoalHandler.RegisterCustomEvent(string key, Action customEventCallback)](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_System_String_System_Action_) | Allows code of any length to be run when the goal is completed. |
-| [StoryGoalHandler.RegisterOnGoalUnlockData(...)](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_System_String_Story_UnlockBlueprintData___Story_UnlockSignalData___Story_UnlockItemData___GameAchievements_Id___) | Allows the user to define any blueprints, items or achievements that are gained on completion. |
-
 ## Saving progress
 
 Every story goal can only be completed once, so no custom saving logic is required.
@@ -124,4 +140,4 @@ The `StoryGoalManager.main.IsGoalComplete(string key)` method can be used to che
 
 ## Summary
 
-The Story Goal system is a powerful tool for creating story-driven progression in Subnautica mods. By using the methods within the `StoryGoalHandler` class, you can easily add goals and customize their effects upon completion.
+The Story Goal system is a powerful tool for creating story and exploration-driven progression in Subnautica mods. By using the methods within the `StoryGoalHandler` class, you can easily add goals and customize their effects upon completion.
