@@ -148,14 +148,14 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterBiomeGoal_System_String_Story_GoalType_System_String_System_Single_System_Single_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal(System.String,Story.GoalType,System.String,System.Single,System.Single)">
   RegisterBiomeGoal(string, GoalType, string, float, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L68"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a goal that is completed when the player stays in a given biome for a specified period of time.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RegisterBiomeGoal(string key, GoalType goalType, string biomeName, float minStayDuration, float delay = 0)</code></pre>
+    <pre><code class="lang-csharp hljs">public static BiomeGoal RegisterBiomeGoal(string key, GoalType goalType, string biomeName, float minStayDuration, float delay = 0)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -172,6 +172,11 @@
     <dd>StoryGoal listeners will not be notified until this many seconds after the goal is completed.</dd>
   </dl>
 
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">BiomeGoal</span></dt>
+    <dd>The registered <span class="xref">Story.BiomeGoal</span>.</dd>
+  </dl>
 
 
 
@@ -187,14 +192,14 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterCompoundGoal_System_String_Story_GoalType_System_Single_System_String___" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal(System.String,Story.GoalType,System.Single,System.String[])">
   RegisterCompoundGoal(string, GoalType, float, params string[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L116"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a goal that is completed when all required "precondition" goals have been completed</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RegisterCompoundGoal(string key, GoalType goalType, float delay, params string[] requiredGoals)</code></pre>
+    <pre><code class="lang-csharp hljs">public static CompoundGoal RegisterCompoundGoal(string key, GoalType goalType, float delay, params string[] requiredGoals)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -209,6 +214,11 @@
     <dd>The list of all goals that must be completed before this goal is marked as complete.</dd>
   </dl>
 
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">CompoundGoal</span></dt>
+    <dd>The registered <span class="xref">Story.CompoundGoal</span>.</dd>
+  </dl>
 
 
 
@@ -224,7 +234,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_System_String_System_Action_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.String,System.Action)">
   RegisterCustomEvent(string, Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L152"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L163"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a given <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a> to be performed when its associated goal is completed.</div>
@@ -257,7 +267,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterItemGoal_System_String_Story_GoalType_TechType_System_Single_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal(System.String,Story.GoalType,TechType,System.Single)">
   RegisterItemGoal(string, GoalType, TechType, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Registers a goal that is completed when an object with the given TechType is picked up, equipped, or crafted through the Mobile Vehicle Bay.</p>
@@ -265,7 +275,7 @@
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RegisterItemGoal(string key, GoalType goalType, TechType techType, float delay = 0)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ItemGoal RegisterItemGoal(string key, GoalType goalType, TechType techType, float delay = 0)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -280,6 +290,11 @@
     <dd>StoryGoal listeners will not be notified until this many seconds after the goal is completed.</dd>
   </dl>
 
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ItemGoal</span></dt>
+    <dd>The registered <span class="xref">Story.ItemGoal</span>.</dd>
+  </dl>
 
 
 
@@ -295,14 +310,14 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterLocationGoal_System_String_Story_GoalType_UnityEngine_Vector3_System_Single_System_Single_System_Single_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal(System.String,Story.GoalType,UnityEngine.Vector3,System.Single,System.Single,System.Single)">
   RegisterLocationGoal(string, GoalType, Vector3, float, float, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L95"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a goal that is completed when the player stays within range of a certain position for a specified period of time.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RegisterLocationGoal(string key, GoalType goalType, Vector3 position, float range, float minStayDuration, float delay = 0)</code></pre>
+    <pre><code class="lang-csharp hljs">public static LocationGoal RegisterLocationGoal(string key, GoalType goalType, Vector3 position, float range, float minStayDuration, float delay = 0)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -321,6 +336,11 @@
     <dd>StoryGoal listeners will not be notified until this many seconds after the goal is completed.</dd>
   </dl>
 
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">LocationGoal</span></dt>
+    <dd>The registered <span class="xref">Story.LocationGoal</span>.</dd>
+  </dl>
 
 
 
@@ -336,7 +356,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_System_String_Story_UnlockBlueprintData___Story_UnlockSignalData___Story_UnlockItemData___GameAchievements_Id___" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData(System.String,Story.UnlockBlueprintData[],Story.UnlockSignalData[],Story.UnlockItemData[],GameAchievements.Id[])">
   RegisterOnGoalUnlockData(string, UnlockBlueprintData[], UnlockSignalData[], UnlockItemData[], Id[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L139"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Registers a new <span class="xref">Story.OnGoalUnlock</span> object for an existing goal. Handles complex actions that occur with the goal's completion.</p>
@@ -376,7 +396,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_UnregisterCustomEvent_System_String_System_Action_" data-uid="Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.String,System.Action)">
   UnregisterCustomEvent(string, Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L162"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L173"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Unregisters a custom event.</div>
