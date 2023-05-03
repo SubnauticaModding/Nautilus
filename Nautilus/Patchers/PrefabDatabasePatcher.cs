@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Reflection.Emit;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Assets;
@@ -129,21 +127,10 @@ internal static class PrefabDatabasePatcher
         result.Set(EditorModifications.Instantiate(prefab, parent, position, rotation, awake));
     }
 
-    // transpiler for ProtobufSerializer.DeserializeObjectsAsync
-    private static IEnumerable<CodeInstruction> DeserializeObjectsAsync_Transpiler(IEnumerable<CodeInstruction> cins)
-    {
-        MethodInfo originalMethod = AccessTools.Method(typeof(ProtobufSerializer), nameof(ProtobufSerializer.InstantiatePrefabAsync));
-
-        return new CodeMatcher(cins).
-            MatchForward(false, new CodeMatch(OpCodes.Call, originalMethod)).
-            SetOperandAndAdvance(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(_InstantiatePrefabAsync))).
-            InstructionEnumeration();
-    }
-
     // calling this instead of InstantiatePrefabAsync in ProtobufSerializer.DeserializeObjectsAsync
-    private static IEnumerator _InstantiatePrefabAsync(ProtobufSerializer.GameObjectData gameObjectData, IOut<UniqueIdentifier> result)
+    private static IEnumerator InstantiatePrefabAsync_Postfix(IEnumerator enumerator, ProtobufSerializer.GameObjectData gameObjectData, IOut<UniqueIdentifier> result)
     {
-        if (GetModPrefabAsync(gameObjectData.ClassId) is IPrefabRequest request)
+        if (GetModPrefabAsync(gameObjectData.ClassId) is { } request)
         {
             yield return request;
 
@@ -154,19 +141,15 @@ internal static class PrefabDatabasePatcher
             }
         }
 
-        yield return ProtobufSerializer.InstantiatePrefabAsync(gameObjectData, result);
+        yield return enumerator;
     }
-
 
     internal static void PrePatch(Harmony harmony)
     {
         harmony.PatchAll(typeof(PrefabDatabasePatcher));
-
-        // patching iterator method ProtobufSerializer.DeserializeObjectsAsync
-        MethodInfo DeserializeObjectsAsync = typeof(ProtobufSerializer).GetMethod(
-            nameof(ProtobufSerializer.DeserializeObjectsAsync), BindingFlags.NonPublic | BindingFlags.Instance);
-        harmony.Patch(PatchUtils.GetIteratorMethod(DeserializeObjectsAsync), transpiler:
-            new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(DeserializeObjectsAsync_Transpiler))));
+        
+        MethodInfo instantiatePrefabAsync = AccessTools.Method(typeof(ProtobufSerializer), nameof(ProtobufSerializer.InstantiatePrefabAsync));
+        harmony.Patch(instantiatePrefabAsync, postfix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(InstantiatePrefabAsync_Postfix))));
 
         InternalLogger.Log("PrefabDatabasePatcher is done.", LogLevel.Debug);
     }
