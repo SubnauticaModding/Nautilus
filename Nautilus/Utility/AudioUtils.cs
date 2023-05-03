@@ -95,6 +95,7 @@ public static partial class AudioUtils
     /// <summary>
     /// <para>Returns a new <see cref="FMODAsset"/> with the given parameters. An FMODAsset is a data object that is required for various audio-related classes and methods, since it holds references to internal sound IDs.</para>
     /// <para>A list of vanilla sound paths for SN1 can also be viewed at this URL: <see href="https://github.com/SubnauticaModding/Nautilus/tree/master/Nautilus/Documentation/resources/SN1-FMODEvents.txt"/>.</para>
+    /// <para>The best way to assign a "path" to a custom sound asset is through <see cref="Handlers.CustomSoundHandler.RegisterCustomSound(string, Sound, string)"/>.</para>
     /// </summary>
     /// <param name="path">
     /// <para>An FMOD Event's 'path' is the part read by most audio systems within Subnautica.</para>
