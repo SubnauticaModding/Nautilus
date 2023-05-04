@@ -317,6 +317,8 @@ A couple of prefab templates that will be available in Nautilus are the followin
 ## Custom Prefab Examples
 In this example, we will demonstrate how you can change an SML 2.0 custom prefab to the Nautilus system.
 
+# [Equipable](#tab/equippable)
+
 ### SML 2.0
 ```csharp
 public class SeamothBrineResistanceModule : Equipable
@@ -405,6 +407,93 @@ seamothBrineResistanceModule.Register();
 ```
 
 This example is based off of a real mod. You can get access to the full source code [here](https://github.com/Metious/MetiousSubnauticaMods/tree/master/SeamothBrineResist).
+
+# [CustomFabricator](#tab/custom-fabricator)
+
+### SML 2.0
+```csharp
+public class AbyssFabricator : CustomFabricator
+{
+    private static Texture2D texture;
+    public override Models Model { get; } = Models.Fabricator;
+    public AbyssFabricator()
+        : base("AbyssFabricator",
+              "Abyss Fabricator",
+              "Abyss Batteries Fabricator")
+    {
+        OnStartedPatching += () =>
+        {
+            texture = ImageUtils.LoadTextureFromFile(Path.Combine(Main.AssetsFolder, "AbyssFabricatorskin.png"));
+        };
+    }
+    public override GameObject GetGameObject()
+    {
+        GameObject prefab = base.GetGameObject();
+        if (texture != null)
+        {
+            SkinnedMeshRenderer skinnedMeshRenderer = prefab.GetComponentInChildren<SkinnedMeshRenderer>();
+            skinnedMeshRenderer.material.mainTexture = texture;
+        }
+        return prefab;
+    }
+    protected override TechData GetBlueprintRecipe()
+    {
+        return new TechData
+        {
+            craftAmount = 1,
+            Ingredients = new List<Ingredient>
+            {
+                new Ingredient(TechType.Titanium, 2),
+                new Ingredient(TechType.Quartz, 2),
+                new Ingredient(TechType.JeweledDiskPiece, 1),
+            }
+        };
+    }
+    protected override Atlas.Sprite GetItemSprite()
+    {
+        return SpriteManager.Get(TechType.Fabricator);
+    }
+    public override TechCategory CategoryForPDA { get; } = TechCategory.InteriorModule;
+    public override TechGroup GroupForPDA { get; } = TechGroup.InteriorModules;
+}
+```
+
+### Nautilus
+```csharp
+// Create a custom prefab instance and set the class ID, friendly name, description and icon respectively
+var abyssFabricator = new CustomPrefab(
+    "AbyssFabricator",
+    "Abyss Fabricator",
+    "Abyss Batteries Fabricator",
+    SpriteManager.Get(TechType.Fabricator));
+
+// Create a custom crafting tree for this tech type. This method returns a FabricatorGadget, which we can use to customize our crafting tree. For example, to add a new tab or crafting node.
+var abyssFabCraftTree = abyssFabricator.CreateFabricator(out CraftTree.Type abyssFabType);
+
+// Load up the custom main (diffuse) texture from disk.
+var mainTexture = ImageUtils.LoadTextureFromFile(Path.Combine(AssetsFolder, "AbyssFabricatorskin.png"));
+
+// Create our fabricator game object. The fabricator game object will use the vanilla Fabricator model, then set the main texture to the texture we loaded earlier.
+var abyssFabricatorModel = new FabricatorTemplate(abyssFabricator.Info, abyssFabType)
+{
+    FabricatorModel = FabricatorTemplate.Model.Fabricator,
+    ModifyPrefab = obj => obj.GetComponentInChildren<SkinnedMeshRenderer>().material.mainTexture = mainTexture
+};
+
+// Sets this prefab's game object to the model we created earlier.
+abyssFabricator.SetGameObject(abyssFabricatorModel);
+
+// Sets the recipe for the fabricator.
+abyssFabricator.SetRecipe(new RecipeData(new Ingredient(TechType.Titanium, 2), new Ingredient(TechType.Quartz, 2), new Ingredient(TechType.JeweledDiskPiece, 1)));
+
+// Adds the fabricator item to the Interior Modules group. This also makes our object buildable.
+abyssFabricator.SetPdaGroupCategory(TechGroup.InteriorModules, TechCategory.InteriorModule);
+
+// Register our item to the game.
+abyssFabricator.Register();
+```
+
+This example is based off of a real mod. You can get access to the full source code [here](https://github.com/Metious/MetiousSubnauticaMods/tree/master/AbyssBatteries).
 
 ---
 
