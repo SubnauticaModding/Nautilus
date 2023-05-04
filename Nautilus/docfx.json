@@ -28,6 +28,9 @@
           "**/*.yml",
           "**/*.md"
         ],
+        "exclude": [
+          "README.md"
+        ],
 		"src": "Documentation"
       }
     ],
