@@ -94,6 +94,29 @@ public static class GadgetExtensions
     }
 
     /// <summary>
+    /// Adds this item into a blueprint category to appear in.
+    /// </summary>
+    /// <param name="customPrefab">The custom prefab to add unlocks to.</param>
+    /// <param name="group">The main group in the PDA blueprints where this item appears</param>
+    /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
+    /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
+    /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="ScanningGadget.SetBuildable"/> method.</remarks>
+    public static ScanningGadget SetPdaGroupCategory(this ICustomPrefab customPrefab, TechGroup group, TechCategory category)
+    {
+        if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
+        {
+            scanningGadget = new ScanningGadget(customPrefab, TechType.None);
+        }
+
+        scanningGadget.WithPdaGroupCategory(group, category);
+
+        customPrefab.AddGadget(scanningGadget);
+
+        return scanningGadget;
+    }
+
+    /// <summary>
     /// Sets the type of equipment slot this item can fit into.
     /// </summary>
     /// <param name="customPrefab">The custom prefab to set equipment slot for.</param>
