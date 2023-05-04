@@ -371,7 +371,7 @@ var seamothBrineResistanceModule = new CustomPrefab(
             "Makes the Seamoth resistant to corrosive brine pools, by means of a protective coating.");
         
 // Set our prefab to a clone of the Seamoth electrical defense module
-seamothBrineResistanceModule.SetPrefab(new CloneTemplate(seamothBrineResistanceModule.Info, TechType.SeamothElectricalDefense));
+seamothBrineResistanceModule.SetGameObject(new CloneTemplate(seamothBrineResistanceModule.Info, TechType.SeamothElectricalDefense));
 
 // Make our item compatible with the seamoth module slot
 seamothBrineResistanceModule.SetEquipment(EquipmentType.SeamothModule)

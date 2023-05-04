@@ -60,7 +60,7 @@ var blueReaperPrefab = new CloneTemplate(blueReaper.Info, TechType.ReaperLeviath
 {
     ModifyPrefab = prefab => prefab.GetComponentsInChildren<Renderer>().ForEach(r => r.materials.ForEach(m => m.color = Color.blue))
 };                                               
-blueReaper.SetPrefab(blueReaperPrefab);
+blueReaper.SetGameObject(blueReaperPrefab);
 
 // Adds a spawn for our Blue Reaper Leviathan in the lava lakes.
 blueReaper.SetSpawns(new SpawnLocation(280f, -1400, 47f));
@@ -130,7 +130,7 @@ PrefabTemplate cloneTemplate = new CloneTemplate(titaniumClone.Info, TechType.Ti
     // Callback to change all material colors of this clone to red.
     ModifyPrefab = prefab => prefab.GetComponentsInChildren<Renderer>().ForEach(r => r.materials.ForEach(m => m.color = Color.red))
 };
-titaniumClone.SetPrefab(cloneTemplate);
+titaniumClone.SetGameObject(cloneTemplate);
 
 titaniumClone.SetSpawns(
         // Adds a chance for our titanium clone to spawn in Safe shallows grass, x4 each time.
