@@ -77,6 +77,11 @@ public class FabricatorTemplate : PrefabTemplate
     /// </summary>
     public Color? ColorTint { get; set; }
     
+    /// <summary>
+    /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
+    /// </summary>
+    public System.Action<GameObject> ModifyPrefab { get; set; }
+    
     private readonly CraftTree.Type _craftTreeType;
     
     /// <summary>
@@ -101,7 +106,8 @@ public class FabricatorTemplate : PrefabTemplate
         var obj = gameObject.Get();
         if (obj)
         {
-            ModifyPrefab(obj);
+            ApplyCrafterPrefab(obj);
+            ModifyPrefab?.Invoke(obj);
             yield break;
         }
 
@@ -125,7 +131,7 @@ public class FabricatorTemplate : PrefabTemplate
         
         task.TryGetPrefab(out var prefab);
         var obj = Object.Instantiate(prefab);
-        ModifyPrefab(obj);
+        ApplyCrafterPrefab(obj);
         gameObject.Set(obj);
     }
 
@@ -142,7 +148,7 @@ public class FabricatorTemplate : PrefabTemplate
         };
     }
 
-    private void ModifyPrefab(GameObject obj)
+    private void ApplyCrafterPrefab(GameObject obj)
     {
         PrefabUtils.AddBasicComponents(obj, info.ClassID, info.TechType, LargeWorldEntity.CellLevel.Medium);
         GhostCrafter crafter;
@@ -188,5 +194,7 @@ public class FabricatorTemplate : PrefabTemplate
             var renderer = obj.GetComponentInChildren<SkinnedMeshRenderer>();
             renderer.material.color = ColorTint.Value;
         }
+        
+        ModifyPrefab?.Invoke(obj);
     }
 }
