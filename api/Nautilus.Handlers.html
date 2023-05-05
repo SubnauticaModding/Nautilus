@@ -90,7 +90,7 @@
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a></dt>
-      <dd>a Handler that handles and registers Coordinated (<span class="xref">UnityEngine.Vector3</span> spawns).</dd>
+      <dd>A handler class for registering Coordinated Spawns.</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.CraftDataHandler.html">CraftDataHandler</a></dt>
@@ -98,19 +98,19 @@
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.CraftTreeHandler.html">CraftTreeHandler</a></dt>
-      <dd>A handler class for creating and editing of crafting trees.</dd>
+      <dd>A handler class for creating and modifying crafting trees.</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.CustomSoundHandler.html">CustomSoundHandler</a></dt>
-      <dd>A handler class for adding and overriding Sounds.</dd>
+      <dd>A handler class for adding and overriding Sounds. Also see the <a class="xref" href="Nautilus.Utility.AudioUtils.html">AudioUtils</a> class.</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.EatableHandler.html">EatableHandler</a></dt>
-      <dd>A handler for editing values for eatable classes</dd>
+      <dd>A handler class for modyfing the data of edible objects (objects with the <span class="xref">Eatable</span> component).</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder&lt;TEnum&gt;</a></dt>
-      <dd>Represents a custom enum object. This class cannot be inherited</dd>
+      <dd>Represents a custom enum object. This class cannot be inherited.</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.EnumExtensions.html">EnumExtensions</a></dt>
@@ -122,7 +122,7 @@
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.ItemActionHandler.html">ItemActionHandler</a></dt>
-      <dd>A handler class for registering your custom middle click actions for items</dd>
+      <dd>A handler class for registering custom actions when left clicking or middle clicking on an item.</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.KnownTechHandler.html">KnownTechHandler</a></dt>
@@ -130,11 +130,11 @@
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a></dt>
-      <dd>A handler for adding custom language lines.</dd>
+      <dd>A handler class for adding or modifying language lines.</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a></dt>
-      <dd>A handler that manages Loot Distribution.</dd>
+      <dd>A handler that manages the distribution of spawned resources throughout the world. Used for fish, items, outcrops, fragments, eggs, etc...</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.OptionsPanelHandler.html">OptionsPanelHandler</a></dt>
@@ -142,7 +142,8 @@
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.PDAHandler.html">PDAHandler</a></dt>
-      <dd>A handler class for various scanner related data.</dd>
+      <dd>A handler class for various PDA-related purposes:
+<ul><li>Registering log entries.</li><li>Registering encyclopedia (databank) entries.</li><li>Defining data for scanning fragments and other items.</li></ul></dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.PrefabCollection.html">PrefabCollection</a></dt>
@@ -166,16 +167,16 @@
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a></dt>
-      <dd><p>A handler class for interacting with all of the major goal systems in Subnautica, which are essential in the game progression. Utilizes the following systems:</p>
-<ul><li><span class="term"><span class="xref">Story.ItemGoalTracker</span></span>Completes an <span class="xref">Story.ItemGoal</span> (or multiple) when an object with the given TechType is picked up, equipped, or crafted through the Mobile Vehicle Bay.</li><li><span class="term"><span class="xref">Story.BiomeGoalTracker</span></span>Completes a <span class="xref">Story.BiomeGoal</span> when the player stays in a given biome for a specified period of time.</li><li><span class="term"><span class="xref">Story.LocationGoalTracker</span></span>Completes a <span class="xref">Story.LocationGoal</span> when the player stays within range of a certain position for a specified period of time.</li><li><span class="term"><span class="xref">Story.CompoundGoalTracker</span></span>Completes a <span class="xref">Story.CompoundGoal</span> when all required "precondition" goals have been completed.</li><li><span class="term"><span class="xref">Story.OnGoalUnlockTracker</span></span>Handles the completion of a goal with the data defined in an <span class="xref">Story.OnGoalUnlock</span> object. Defines the unlocked blueprints, signals, items, and achievements that should be unlocked.</li><li><span class="term"><span class="xref">StoryGoalCustomEventHandler</span></span>Handles arbitrary code that is executed after completing a goal, for use in more specific story events.</li></ul></dd>
+      <dd><p>A handler class for interacting with all of the major goal systems in Subnautica, which are essential for the's game progression.</p>
+<p>Allows for important game events to be triggered after a specified action is completed.</p></dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.SurvivalHandler.html">SurvivalHandler</a></dt>
-      <dd>a common handler for uses specified to the Survival component</dd>
+      <dd>Handler class that relates to the <span class="xref">Survival</span> component. Allows the defining of oxygen or health gains when consuming specific items.</dd>
     </dl>
     <dl class="jumplist">
       <dt><a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a></dt>
-      <dd>A handler for the WorldEntityDatabase of the game.</dd>
+      <dd>A handler class for the <span class="xref">UWE.WorldEntityDatabase</span>. This class is essential for the game's Loot Distribution System to work properly.</dd>
     </dl>
     <h3 id="structs">Structs
 </h3>

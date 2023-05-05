@@ -80,7 +80,7 @@
 
   <h1 id="Nautilus_Handlers_PDAHandler" data-uid="Nautilus.Handlers.PDAHandler" class="text-break">
     Class PDAHandler
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -88,7 +88,8 @@
   <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
 
-  <div class="markdown summary">A handler class for various scanner related data.</div>
+  <div class="markdown summary">A handler class for various PDA-related purposes:
+<ul><li>Registering log entries.</li><li>Registering encyclopedia (databank) entries.</li><li>Defining data for scanning fragments and other items.</li></ul></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -147,7 +148,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_UnlockBasic" data-uid="Nautilus.Handlers.PDAHandler.UnlockBasic">
   UnlockBasic
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sound asset used for unlocking most PDA entries, which is a short but pleasant sound. Path is '<code>event:/tools/scanner/new_encyclopediea</code>'.</div>
@@ -178,7 +179,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_UnlockImportant" data-uid="Nautilus.Handlers.PDAHandler.UnlockImportant">
   UnlockImportant
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Subnautica:<br>Sound asset for unlocking important PDA entries, where PDA says "Integrating new PDA data." Path is '<code>event:/loot/new_PDA_data</code>'.</p>
@@ -214,7 +215,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_PDAScanner_EntryData_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(PDAScanner.EntryData)">
   AddCustomScannerEntry(EntryData)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L76"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds in a custom <span class="xref">PDAScanner.EntryData</span>. ***Cannot be used to Change the values of a techtype that has data already!***</div>
@@ -245,7 +246,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_TechType_TechType_System_Boolean_System_String_System_Int32_System_Single_System_Boolean_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,TechType,System.Boolean,System.String,System.Int32,System.Single,System.Boolean)">
   AddCustomScannerEntry(TechType, TechType, bool, string, int, float, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L99"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds in a custom <span class="xref">PDAScanner.EntryData</span>.</div>
@@ -288,7 +289,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_PDAEncyclopedia_EntryData_" data-uid="Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(PDAEncyclopedia.EntryData)">
   AddEncyclopediaEntry(EntryData)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L134"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L204"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds custom entry.</div>
@@ -319,7 +320,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_System_String_System_String_System_String_System_String_UnityEngine_Texture2D_UnityEngine_Sprite_FMODAsset_FMODAsset_" data-uid="Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(System.String,System.String,System.String,System.String,UnityEngine.Texture2D,UnityEngine.Sprite,FMODAsset,FMODAsset)">
   AddEncyclopediaEntry(string, string, string, string, Texture2D, Sprite, FMODAsset, FMODAsset)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L161"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L231"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a single encyclopedia entry into the game.</div>
@@ -364,12 +365,49 @@
 
   <a id="Nautilus_Handlers_PDAHandler_AddLogEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry*"></a>
 
-  <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_FMODAsset_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMODAsset,UnityEngine.Sprite)">
-  AddLogEntry(string, string, FMODAsset, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_FMOD_Sound_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMOD.Sound,UnityEngine.Sprite)">
+  AddLogEntry(string, string, Sound, Sprite)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L144"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary">Adds a custom log entry.</div>
+  <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLogEntry(string key, string languageKey, Sound sound, Sprite icon = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The key (unique identifier) for this entry. Also used to create the sound asset, so make sure this string is <i>truly</i> unique!</dd>
+    <dt><code>languageKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The subtitles language key for this entry. Also see: <a class="xref" href="Nautilus.Handlers.LanguageHandler.html#Nautilus_Handlers_LanguageHandler_SetLanguageLine_System_String_System_String_System_String_">SetLanguageLine(string, string, string)</a>.</dd>
+    <dt><code>sound</code> <span class="xref">Sound</span></dt>
+    <dd>The sound that will be played once this log entry is unlocked or played through the PDA's Log tab.</dd>
+    <dt><code>icon</code> <span class="xref">Sprite</span></dt>
+    <dd>The icon that will be used in the Log tab for this entry. if unassigned, it will use the default log entry icon.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PDAHandler_AddLogEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_FMODAsset_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMODAsset,UnityEngine.Sprite)">
+  AddLogEntry(string, string, FMODAsset, Sprite)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -379,14 +417,125 @@
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The key to refer to this entry.</dd>
+    <dd>The key (unique identifier) for this entry.</dd>
     <dt><code>languageKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The subtitles language key for this entry.</dd>
+    <dd>The subtitles language key for this entry. Also see: <a class="xref" href="Nautilus.Handlers.LanguageHandler.html#Nautilus_Handlers_LanguageHandler_SetLanguageLine_System_String_System_String_System_String_">SetLanguageLine(string, string, string)</a>.</dd>
     <dt><code>sound</code> <span class="xref">FMODAsset</span></dt>
-    <dd>The sound that will be played once this entry is triggered or played in the Log tab.<br>
-    If <code>null</code> the Play button in the Log tab will disappear and a sound wont play when this entry is triggered.</dd>
+    <dd><p>The sound that will be played once this log entry is unlocked or played through the PDA's Log tab.</p>
+    <p>Note that the SoundQueue system (which plays the PDA sounds) accesses the FMODAsset's "id" field rather than the path, so make sure it is assigned properly.</p></dd>
     <dt><code>icon</code> <span class="xref">Sprite</span></dt>
-    <dd>The icon that will be used in the Log tab for this entry. if <code>null</code> It will use the default log entry icon.</dd>
+    <dd>The icon that will be used in the Log tab for this entry. if unassigned, it will use the default log entry icon.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PDAHandler_AddLogEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_Nautilus_FMod_Interfaces_IFModSound_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,Nautilus.FMod.Interfaces.IFModSound,UnityEngine.Sprite)">
+  AddLogEntry(string, string, IFModSound, Sprite)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L194"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLogEntry(string key, string languageKey, IFModSound fmodSound, Sprite icon = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The key (unique identifier) for this entry. Also used to create the sound asset, so make sure this string is <i>truly</i> unique!</dd>
+    <dt><code>languageKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The subtitles language key for this entry. Also see: <a class="xref" href="Nautilus.Handlers.LanguageHandler.html#Nautilus_Handlers_LanguageHandler_SetLanguageLine_System_String_System_String_System_String_">SetLanguageLine(string, string, string)</a>.</dd>
+    <dt><code>fmodSound</code> <a class="xref" href="Nautilus.FMod.Interfaces.IFModSound.html">IFModSound</a></dt>
+    <dd>The <a class="xref" href="Nautilus.FMod.Interfaces.IFModSound.html">IFModSound</a> instance that is used to create a custom sound. IFModSound instances have custom logic for playing sounds. that is accessed when this log entry is played.</dd>
+    <dt><code>icon</code> <span class="xref">Sprite</span></dt>
+    <dd>The icon that will be used in the Log tab for this entry. if unassigned, it will use the default log entry icon.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PDAHandler_AddLogEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_System_String_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,System.String,UnityEngine.Sprite)">
+  AddLogEntry(string, string, string, Sprite)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLogEntry(string key, string languageKey, string soundFilePath, Sprite icon = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The key (unique identifier) for this entry. Also used to create the sound asset, so make sure this string is <i>truly</i> unique!</dd>
+    <dt><code>languageKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The subtitles language key for this entry. Also see: <a class="xref" href="Nautilus.Handlers.LanguageHandler.html#Nautilus_Handlers_LanguageHandler_SetLanguageLine_System_String_System_String_System_String_">SetLanguageLine(string, string, string)</a>.</dd>
+    <dt><code>soundFilePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The file path on the disk to the sound that will be played once this log entry is unlocked or played through the PDA's Log tab.</dd>
+    <dt><code>icon</code> <span class="xref">Sprite</span></dt>
+    <dd>The icon that will be used in the Log tab for this entry. if unassigned, it will use the default log entry icon.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PDAHandler_AddLogEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_UnityEngine_AudioClip_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,UnityEngine.AudioClip,UnityEngine.Sprite)">
+  AddLogEntry(string, string, AudioClip, Sprite)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L170"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLogEntry(string key, string languageKey, AudioClip audioClip, Sprite icon = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The key (unique identifier) for this entry. Also used to create the sound asset, so make sure this string is <i>truly</i> unique!</dd>
+    <dt><code>languageKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The subtitles language key for this entry. Also see: <a class="xref" href="Nautilus.Handlers.LanguageHandler.html#Nautilus_Handlers_LanguageHandler_SetLanguageLine_System_String_System_String_System_String_">SetLanguageLine(string, string, string)</a>.</dd>
+    <dt><code>audioClip</code> <span class="xref">AudioClip</span></dt>
+    <dd>The sound that will be played once this log entry is unlocked or played through the PDA's Log tab. This is automatically converted to an FMOD sound.</dd>
+    <dt><code>icon</code> <span class="xref">Sprite</span></dt>
+    <dd>The icon that will be used in the Log tab for this entry. if unassigned, it will use the default log entry icon.</dd>
   </dl>
 
 
@@ -404,7 +553,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_EditFragmentScanTime_TechType_System_Single_" data-uid="Nautilus.Handlers.PDAHandler.EditFragmentScanTime(TechType,System.Single)">
   EditFragmentScanTime(TechType, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Edits the time it takes to finish scanning a fragment.</div>
@@ -437,7 +586,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_EditFragmentsToScan_TechType_System_Int32_" data-uid="Nautilus.Handlers.PDAHandler.EditFragmentsToScan(TechType,System.Int32)">
   EditFragmentsToScan(TechType, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Edits how many fragments must be scanned before unlocking the techtype's blueprint.</div>
@@ -470,7 +619,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L18" class="edit-link">Edit this page</a>
         </div>
 
         

@@ -80,7 +80,7 @@
 
   <h1 id="Nautilus_Handlers_StoryGoalHandler" data-uid="Nautilus.Handlers.StoryGoalHandler" class="text-break">
     Class StoryGoalHandler
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -88,8 +88,8 @@
   <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
 
-  <div class="markdown summary"><p>A handler class for interacting with all of the major goal systems in Subnautica, which are essential in the game progression. Utilizes the following systems:</p>
-<ul><li><span class="term"><span class="xref">Story.ItemGoalTracker</span></span>Completes an <span class="xref">Story.ItemGoal</span> (or multiple) when an object with the given TechType is picked up, equipped, or crafted through the Mobile Vehicle Bay.</li><li><span class="term"><span class="xref">Story.BiomeGoalTracker</span></span>Completes a <span class="xref">Story.BiomeGoal</span> when the player stays in a given biome for a specified period of time.</li><li><span class="term"><span class="xref">Story.LocationGoalTracker</span></span>Completes a <span class="xref">Story.LocationGoal</span> when the player stays within range of a certain position for a specified period of time.</li><li><span class="term"><span class="xref">Story.CompoundGoalTracker</span></span>Completes a <span class="xref">Story.CompoundGoal</span> when all required "precondition" goals have been completed.</li><li><span class="term"><span class="xref">Story.OnGoalUnlockTracker</span></span>Handles the completion of a goal with the data defined in an <span class="xref">Story.OnGoalUnlock</span> object. Defines the unlocked blueprints, signals, items, and achievements that should be unlocked.</li><li><span class="term"><span class="xref">StoryGoalCustomEventHandler</span></span>Handles arbitrary code that is executed after completing a goal, for use in more specific story events.</li></ul></div>
+  <div class="markdown summary"><p>A handler class for interacting with all of the major goal systems in Subnautica, which are essential for the's game progression.</p>
+<p>Allows for important game events to be triggered after a specified action is completed.</p></div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -148,7 +148,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterBiomeGoal_System_String_Story_GoalType_System_String_System_Single_System_Single_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterBiomeGoal(System.String,Story.GoalType,System.String,System.Single,System.Single)">
   RegisterBiomeGoal(string, GoalType, string, float, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a goal that is completed when the player stays in a given biome for a specified period of time.</div>
@@ -192,7 +192,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterCompoundGoal_System_String_Story_GoalType_System_Single_System_String___" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal(System.String,Story.GoalType,System.Single,System.String[])">
   RegisterCompoundGoal(string, GoalType, float, params string[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L91"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a goal that is completed when all required "precondition" goals have been completed</div>
@@ -234,7 +234,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_System_String_System_Action_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.String,System.Action)">
   RegisterCustomEvent(string, Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L163"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L138"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a given <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a> to be performed when its associated goal is completed.</div>
@@ -267,7 +267,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterItemGoal_System_String_Story_GoalType_TechType_System_Single_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterItemGoal(System.String,Story.GoalType,TechType,System.Single)">
   RegisterItemGoal(string, GoalType, TechType, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Registers a goal that is completed when an object with the given TechType is picked up, equipped, or crafted through the Mobile Vehicle Bay.</p>
@@ -310,7 +310,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterLocationGoal_System_String_Story_GoalType_UnityEngine_Vector3_System_Single_System_Single_System_Single_" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterLocationGoal(System.String,Story.GoalType,UnityEngine.Vector3,System.Single,System.Single,System.Single)">
   RegisterLocationGoal(string, GoalType, Vector3, float, float, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L95"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L70"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a goal that is completed when the player stays within range of a certain position for a specified period of time.</div>
@@ -356,7 +356,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_RegisterOnGoalUnlockData_System_String_Story_UnlockBlueprintData___Story_UnlockSignalData___Story_UnlockItemData___GameAchievements_Id___" data-uid="Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData(System.String,Story.UnlockBlueprintData[],Story.UnlockSignalData[],Story.UnlockItemData[],GameAchievements.Id[])">
   RegisterOnGoalUnlockData(string, UnlockBlueprintData[], UnlockSignalData[], UnlockItemData[], Id[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L139"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L114"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Registers a new <span class="xref">Story.OnGoalUnlock</span> object for an existing goal. Handles complex actions that occur with the goal's completion.</p>
@@ -396,7 +396,7 @@
 
   <h3 id="Nautilus_Handlers_StoryGoalHandler_UnregisterCustomEvent_System_String_System_Action_" data-uid="Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.String,System.Action)">
   UnregisterCustomEvent(string, Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L173"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L148"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Unregisters a custom event.</div>
@@ -429,7 +429,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L39" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs/#L14" class="edit-link">Edit this page</a>
         </div>
 
         

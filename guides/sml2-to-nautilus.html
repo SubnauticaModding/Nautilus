@@ -402,6 +402,16 @@ you can still build up a game object from scratch.</p>
 </ul>
 <h2 id="custom-prefab-examples">Custom Prefab Examples</h2>
 <p>In this example, we will demonstrate how you can change an SML 2.0 custom prefab to the Nautilus system.</p>
+<div class="tabGroup" id="tabgroup_bHGHmlrG6S">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_equippable" role="tab" aria-controls="tabpanel_bHGHmlrG6S_equippable" data-tab="equippable" tabindex="0" aria-selected="true">Equipable</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_bHGHmlrG6S_custom-fabricator" role="tab" aria-controls="tabpanel_bHGHmlrG6S_custom-fabricator" data-tab="custom-fabricator" tabindex="-1">CustomFabricator</a>
+</li>
+</ul>
+<section id="tabpanel_bHGHmlrG6S_equippable" role="tabpanel" data-tab="equippable">
 <h3 id="sml-20-1">SML 2.0</h3>
 <pre><code class="lang-csharp">public class SeamothBrineResistanceModule : Equipable
 {
@@ -453,7 +463,7 @@ var seamothBrineResistanceModule = new CustomPrefab(
             &quot;Makes the Seamoth resistant to corrosive brine pools, by means of a protective coating.&quot;);
         
 // Set our prefab to a clone of the Seamoth electrical defense module
-seamothBrineResistanceModule.SetPrefab(new CloneTemplate(seamothBrineResistanceModule.Info, TechType.SeamothElectricalDefense));
+seamothBrineResistanceModule.SetGameObject(new CloneTemplate(seamothBrineResistanceModule.Info, TechType.SeamothElectricalDefense));
 
 // Make our item compatible with the seamoth module slot
 seamothBrineResistanceModule.SetEquipment(EquipmentType.SeamothModule)
@@ -486,7 +496,90 @@ seamothBrineResistanceModule.SetRecipe(recipe)
 seamothBrineResistanceModule.Register();
 </code></pre>
 <p>This example is based off of a real mod. You can get access to the full source code <a href="https://github.com/Metious/MetiousSubnauticaMods/tree/master/SeamothBrineResist">here</a>.</p>
-<hr>
+</section>
+<section id="tabpanel_bHGHmlrG6S_custom-fabricator" role="tabpanel" data-tab="custom-fabricator" aria-hidden="true" hidden="hidden">
+<h3 id="sml-20-2">SML 2.0</h3>
+<pre><code class="lang-csharp">public class AbyssFabricator : CustomFabricator
+{
+    private static Texture2D texture;
+    public override Models Model { get; } = Models.Fabricator;
+    public AbyssFabricator()
+        : base(&quot;AbyssFabricator&quot;,
+              &quot;Abyss Fabricator&quot;,
+              &quot;Abyss Batteries Fabricator&quot;)
+    {
+        OnStartedPatching += () =&gt;
+        {
+            texture = ImageUtils.LoadTextureFromFile(Path.Combine(Main.AssetsFolder, &quot;AbyssFabricatorskin.png&quot;));
+        };
+    }
+    public override GameObject GetGameObject()
+    {
+        GameObject prefab = base.GetGameObject();
+        if (texture != null)
+        {
+            SkinnedMeshRenderer skinnedMeshRenderer = prefab.GetComponentInChildren&lt;SkinnedMeshRenderer&gt;();
+            skinnedMeshRenderer.material.mainTexture = texture;
+        }
+        return prefab;
+    }
+    protected override TechData GetBlueprintRecipe()
+    {
+        return new TechData
+        {
+            craftAmount = 1,
+            Ingredients = new List&lt;Ingredient&gt;
+            {
+                new Ingredient(TechType.Titanium, 2),
+                new Ingredient(TechType.Quartz, 2),
+                new Ingredient(TechType.JeweledDiskPiece, 1),
+            }
+        };
+    }
+    protected override Atlas.Sprite GetItemSprite()
+    {
+        return SpriteManager.Get(TechType.Fabricator);
+    }
+    public override TechCategory CategoryForPDA { get; } = TechCategory.InteriorModule;
+    public override TechGroup GroupForPDA { get; } = TechGroup.InteriorModules;
+}
+</code></pre>
+<h3 id="nautilus-2">Nautilus</h3>
+<pre><code class="lang-csharp">// Create a custom prefab instance and set the class ID, friendly name, description and icon respectively
+var abyssFabricator = new CustomPrefab(
+    &quot;AbyssFabricator&quot;,
+    &quot;Abyss Fabricator&quot;,
+    &quot;Abyss Batteries Fabricator&quot;,
+    SpriteManager.Get(TechType.Fabricator));
+
+// Create a custom crafting tree for this tech type. This method returns a FabricatorGadget, which we can use to customize our crafting tree. For example, to add a new tab or crafting node.
+var abyssFabCraftTree = abyssFabricator.CreateFabricator(out CraftTree.Type abyssFabType);
+
+// Load up the custom main (diffuse) texture from disk.
+var mainTexture = ImageUtils.LoadTextureFromFile(Path.Combine(AssetsFolder, &quot;AbyssFabricatorskin.png&quot;));
+
+// Create our fabricator game object. The fabricator game object will use the vanilla Fabricator model, then set the main texture to the texture we loaded earlier.
+var abyssFabricatorModel = new FabricatorTemplate(abyssFabricator.Info, abyssFabType)
+{
+    FabricatorModel = FabricatorTemplate.Model.Fabricator,
+    ModifyPrefab = obj =&gt; obj.GetComponentInChildren&lt;SkinnedMeshRenderer&gt;().material.mainTexture = mainTexture
+};
+
+// Sets this prefab's game object to the model we created earlier.
+abyssFabricator.SetGameObject(abyssFabricatorModel);
+
+// Sets the recipe for the fabricator.
+abyssFabricator.SetRecipe(new RecipeData(new Ingredient(TechType.Titanium, 2), new Ingredient(TechType.Quartz, 2), new Ingredient(TechType.JeweledDiskPiece, 1)));
+
+// Adds the fabricator item to the Interior Modules group. This also makes our object buildable.
+abyssFabricator.SetPdaGroupCategory(TechGroup.InteriorModules, TechCategory.InteriorModule);
+
+// Register our item to the game.
+abyssFabricator.Register();
+</code></pre>
+<p>This example is based off of a real mod. You can get access to the full source code <a href="https://github.com/Metious/MetiousSubnauticaMods/tree/master/AbyssBatteries">here</a>.</p>
+</section>
+</div>
 <h2 id="audio-and-fmod">Audio and FMOD</h2>
 <p>In the last few versions of SML 2, we made a lot of changes to the audio system SML offered, this was because of FMOD.<br>
 FMOD is the sound engine Subnautica uses. It is more advanced and flexible compared to the built-in Unity audio system.</p>

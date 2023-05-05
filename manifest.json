@@ -32,16 +32,6 @@
       "version": ""
     },
     {
-      "type": "Conceptual",
-      "source_relative_path": "Documentation/README.md",
-      "output": {
-        ".html": {
-          "relative_path": "README.html"
-        }
-      },
-      "version": ""
-    },
-    {
       "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Assets.CustomModelData.Targets.yml",
       "output": {

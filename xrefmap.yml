@@ -918,6 +918,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetEquipment
   nameWithType: GadgetExtensions.SetEquipment
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategory(Nautilus.Assets.ICustomPrefab,TechGroup,TechCategory)
+  name: SetPdaGroupCategory(ICustomPrefab, TechGroup, TechCategory)
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategory_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_
+  commentId: M:Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategory(Nautilus.Assets.ICustomPrefab,TechGroup,TechCategory)
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategory(Nautilus.Assets.ICustomPrefab, TechGroup, TechCategory)
+  nameWithType: GadgetExtensions.SetPdaGroupCategory(ICustomPrefab, TechGroup, TechCategory)
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategory*
+  name: SetPdaGroupCategory
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategory_
+  commentId: Overload:Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategory
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategory
+  nameWithType: GadgetExtensions.SetPdaGroupCategory
 - uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetRecipe(Nautilus.Assets.ICustomPrefab,Nautilus.Crafting.RecipeData)
   name: SetRecipe(ICustomPrefab, RecipeData)
   href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetRecipe_Nautilus_Assets_ICustomPrefab_Nautilus_Crafting_RecipeData_
@@ -1825,6 +1838,19 @@ references:
   commentId: F:Nautilus.Assets.PrefabTemplates.FabricatorTemplate.Model.Workbench
   fullName: Nautilus.Assets.PrefabTemplates.FabricatorTemplate.Model.Workbench
   nameWithType: FabricatorTemplate.Model.Workbench
+- uid: Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefab
+  name: ModifyPrefab
+  href: api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.html#Nautilus_Assets_PrefabTemplates_FabricatorTemplate_ModifyPrefab
+  commentId: P:Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefab
+  fullName: Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefab
+  nameWithType: FabricatorTemplate.ModifyPrefab
+- uid: Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefab*
+  name: ModifyPrefab
+  href: api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.html#Nautilus_Assets_PrefabTemplates_FabricatorTemplate_ModifyPrefab_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefab
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefab
+  nameWithType: FabricatorTemplate.ModifyPrefab
 - uid: Nautilus.Assets.PrefabTemplates.PrefabTemplate
   name: PrefabTemplate
   href: api/Nautilus.Assets.PrefabTemplates.PrefabTemplate.html
@@ -3964,6 +3990,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry
   nameWithType: PDAHandler.AddEncyclopediaEntry
+- uid: Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMOD.Sound,UnityEngine.Sprite)
+  name: AddLogEntry(string, string, Sound, Sprite)
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_FMOD_Sound_UnityEngine_Sprite_
+  commentId: M:Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMOD.Sound,UnityEngine.Sprite)
+  name.vb: AddLogEntry(String, String, Sound, Sprite)
+  fullName: Nautilus.Handlers.PDAHandler.AddLogEntry(string, string, FMOD.Sound, UnityEngine.Sprite)
+  fullName.vb: Nautilus.Handlers.PDAHandler.AddLogEntry(String, String, FMOD.Sound, UnityEngine.Sprite)
+  nameWithType: PDAHandler.AddLogEntry(string, string, Sound, Sprite)
+  nameWithType.vb: PDAHandler.AddLogEntry(String, String, Sound, Sprite)
 - uid: Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMODAsset,UnityEngine.Sprite)
   name: AddLogEntry(string, string, FMODAsset, Sprite)
   href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_FMODAsset_UnityEngine_Sprite_
@@ -3973,6 +4008,33 @@ references:
   fullName.vb: Nautilus.Handlers.PDAHandler.AddLogEntry(String, String, FMODAsset, UnityEngine.Sprite)
   nameWithType: PDAHandler.AddLogEntry(string, string, FMODAsset, Sprite)
   nameWithType.vb: PDAHandler.AddLogEntry(String, String, FMODAsset, Sprite)
+- uid: Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,Nautilus.FMod.Interfaces.IFModSound,UnityEngine.Sprite)
+  name: AddLogEntry(string, string, IFModSound, Sprite)
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_Nautilus_FMod_Interfaces_IFModSound_UnityEngine_Sprite_
+  commentId: M:Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,Nautilus.FMod.Interfaces.IFModSound,UnityEngine.Sprite)
+  name.vb: AddLogEntry(String, String, IFModSound, Sprite)
+  fullName: Nautilus.Handlers.PDAHandler.AddLogEntry(string, string, Nautilus.FMod.Interfaces.IFModSound, UnityEngine.Sprite)
+  fullName.vb: Nautilus.Handlers.PDAHandler.AddLogEntry(String, String, Nautilus.FMod.Interfaces.IFModSound, UnityEngine.Sprite)
+  nameWithType: PDAHandler.AddLogEntry(string, string, IFModSound, Sprite)
+  nameWithType.vb: PDAHandler.AddLogEntry(String, String, IFModSound, Sprite)
+- uid: Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,System.String,UnityEngine.Sprite)
+  name: AddLogEntry(string, string, string, Sprite)
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_System_String_UnityEngine_Sprite_
+  commentId: M:Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,System.String,UnityEngine.Sprite)
+  name.vb: AddLogEntry(String, String, String, Sprite)
+  fullName: Nautilus.Handlers.PDAHandler.AddLogEntry(string, string, string, UnityEngine.Sprite)
+  fullName.vb: Nautilus.Handlers.PDAHandler.AddLogEntry(String, String, String, UnityEngine.Sprite)
+  nameWithType: PDAHandler.AddLogEntry(string, string, string, Sprite)
+  nameWithType.vb: PDAHandler.AddLogEntry(String, String, String, Sprite)
+- uid: Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,UnityEngine.AudioClip,UnityEngine.Sprite)
+  name: AddLogEntry(string, string, AudioClip, Sprite)
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_UnityEngine_AudioClip_UnityEngine_Sprite_
+  commentId: M:Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,UnityEngine.AudioClip,UnityEngine.Sprite)
+  name.vb: AddLogEntry(String, String, AudioClip, Sprite)
+  fullName: Nautilus.Handlers.PDAHandler.AddLogEntry(string, string, UnityEngine.AudioClip, UnityEngine.Sprite)
+  fullName.vb: Nautilus.Handlers.PDAHandler.AddLogEntry(String, String, UnityEngine.AudioClip, UnityEngine.Sprite)
+  nameWithType: PDAHandler.AddLogEntry(string, string, AudioClip, Sprite)
+  nameWithType.vb: PDAHandler.AddLogEntry(String, String, AudioClip, Sprite)
 - uid: Nautilus.Handlers.PDAHandler.AddLogEntry*
   name: AddLogEntry
   href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddLogEntry_
