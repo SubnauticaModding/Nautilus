@@ -2,6 +2,13 @@
 SMLHelper is a complete library that helps you out on your Subnautica modding adventures by making adding new items, changing items, adding models, sprites a LOT easier.  
 Check out [the wiki page](https://github.com/SMLHelper/SMLHelper/wiki) for details on how to use it.
 
+## ⚠️Deprecation Notice⚠️
+SMLHelper has been deprecated and will no longer receive updates.  
+If you're using the latest version of Subnautica, use [Nautilus](https://github.com/SubnauticaModding/Nautilus) instead.  
+Nautilus contains all the features SML used to offer and more.  
+
+Both libraries are compatible and can be present simultaneously. However, we encourage modders to update to Nautilus as SML is deprecated. To get started, see the [Updating to Nautilus](https://subnauticamodding.github.io/Nautilus/guides/sml2-to-nautilus.html) guide.
+
 ## Contributing
 We would love to have people contribute to SMLHelper.  
 To get started, first fork the repo and then clone it to your local environment.  
