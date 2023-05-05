@@ -2,7 +2,7 @@
 
 ![banner](https://user-images.githubusercontent.com/71298690/233505405-e89fbc70-31c9-45a2-bb31-64e1f498d4a7.png)
 
-![NuGet](https://img.shields.io/nuget/vpre/Subnautica.Nautilus)
+[![NuGet](https://img.shields.io/nuget/vpre/Subnautica.Nautilus)](https://www.nuget.org/packages/Subnautica.Nautilus)
 [![Discord](https://img.shields.io/discord/324207629784186882?logo=discord&logoColor=white)](https://discord.gg/UpWuWwq)
 [![GitHub contributors](https://img.shields.io/github/contributors/SubnauticaModding/Nautilus?style=flat-square)](https://github.com/SubnauticaModding/Nautilus/graphs/contributors)
 [![License](https://img.shields.io/github/license/SubnauticaModding/Nautilus?style=flat-square)](https://github.com/SubnauticaModding/Nautilus/blob/master/LICENSE.md)
