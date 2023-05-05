@@ -1,4 +1,4 @@
-﻿using FMOD;
+using FMOD;
 using FMOD.Studio;
 using FMODUnity;
 using Nautilus.FMod.Interfaces;
@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// A handler class for adding and overriding Sounds.
+/// A handler class for adding and overriding Sounds. Also see the <see cref="AudioUtils"/> class.
 /// </summary>
 public static class CustomSoundHandler
 {

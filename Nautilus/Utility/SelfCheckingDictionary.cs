@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Nautilus.Utility;
 
 /// <summary>
-/// This dictionary strtucture automatically checks for duplicate keys as they are being added to the collection.
-/// Duplicate entires are logged and removed from the final collection.
+/// This dictionary structure automatically checks for duplicate keys as they are being added to the collection.
+/// Duplicate entries are logged and removed from the final collection.
 /// </summary>
 /// <typeparam name="K">The Key Type</typeparam>
 /// <typeparam name="V">The Value Type</typeparam>

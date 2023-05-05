@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// A handler for adding custom language lines.
+/// A handler class for adding or modifying language lines.
 /// </summary>
 public static class LanguageHandler
 {

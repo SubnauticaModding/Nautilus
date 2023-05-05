@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using BepInEx.Logging;
 using Nautilus.Assets;
 using Nautilus.Patchers;
@@ -8,7 +8,7 @@ using UWE;
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// A handler that manages Loot Distribution.
+/// A handler that manages the distribution of spawned resources throughout the world. Used for fish, items, outcrops, fragments, eggs, etc...
 /// </summary>
 public static class LootDistributionHandler
 {

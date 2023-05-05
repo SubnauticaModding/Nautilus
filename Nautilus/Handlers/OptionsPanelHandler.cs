@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Nautilus.Json;
 using Nautilus.Options;
 using Nautilus.Options.Attributes;

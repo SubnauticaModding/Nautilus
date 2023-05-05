@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// a Handler that handles and registers Coordinated (<see cref="Vector3"/> spawns).
+/// A handler class for registering Coordinated Spawns.
 /// </summary>
 public static class CoordinatedSpawnsHandler 
 {

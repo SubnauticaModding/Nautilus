@@ -1,4 +1,4 @@
-﻿using Nautilus.Utility.MaterialModifiers;
+using Nautilus.Utility.MaterialModifiers;
 using UnityEngine;
 
 namespace Nautilus.Utility;
@@ -18,7 +18,7 @@ public static partial class MaterialUtils
     }
     
     /// <summary>
-    /// Contains references to various shaders.
+    /// Contains references to various Shaders.
     /// </summary>
     public static class Shaders
     {

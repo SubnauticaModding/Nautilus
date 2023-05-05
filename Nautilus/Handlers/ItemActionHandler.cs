@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// A handler class for registering your custom middle click actions for items
+/// A handler class for registering custom actions when left clicking or middle clicking on an item.
 /// </summary>
 public static class ItemActionHandler
 {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Reflection;
 using BepInEx.Logging;
@@ -8,7 +8,7 @@ using Nautilus.Utility;
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// Represents a custom enum object. This class cannot be inherited
+/// Represents a custom enum object. This class cannot be inherited.
 /// </summary>
 /// <typeparam name="TEnum">Type of the enum.</typeparam>
 public sealed class EnumBuilder<TEnum> where TEnum : Enum

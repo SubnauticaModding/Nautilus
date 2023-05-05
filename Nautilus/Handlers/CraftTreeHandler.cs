@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Nautilus.Crafting;
 using Nautilus.Patchers;
 using Nautilus.Utility;
@@ -6,7 +6,7 @@ using Nautilus.Utility;
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// A handler class for creating and editing of crafting trees.
+/// A handler class for creating and modifying crafting trees.
 /// </summary>
 public static class CraftTreeHandler 
 {

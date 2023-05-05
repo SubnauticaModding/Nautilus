@@ -1,4 +1,4 @@
-﻿using BepInEx.Logging;
+using BepInEx.Logging;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
@@ -7,7 +7,7 @@ using UWE;
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// A handler for the WorldEntityDatabase of the game.
+/// A handler class for the <see cref="WorldEntityDatabase"/>. This class is essential for the game's Loot Distribution System to work properly.
 /// </summary>
 public static class WorldEntityDatabaseHandler
 {

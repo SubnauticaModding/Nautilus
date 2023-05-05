@@ -1,8 +1,14 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Nautilus.Utility;
+
+/* [this message was moved out of the XML docs because it was absurdly long and out of place]
+ * The idea of the defaults is that new modders don't have to bootstrap a bunch of irritating Unity stuff -- don't have to understand
+ * what a "Material" is or how to make one, don't have to know to initialize a font, or even a color. Can just start adding text and
+ * then can always custom and configure on further revision.
+*/
 
 /// <summary>
 /// <para>
@@ -10,18 +16,16 @@ namespace Nautilus.Utility;
 /// By default uses the same font/size/color as the "Press Any Button To Begin" message at the beginning of the game, and appears 
 /// centered about 1/3 down the screen, but all parameters can be reconfigured.
 /// </para>
-/// <para>
-/// The idea of the defaults is that new modders don't have to bootstrap a bunch of irritating Unity stuff -- don't have to understand
-/// what a "Material" is or how to make one, don't have to know to initialize a font, or even a color. Can just start adding text and
-/// then can always custom and configure on further revision.
-/// </para>
 /// </summary>
 /// <example>
 /// SIMPLE USAGE EXAMPLE:
+/// <code>
 /// BasicText message = new BasicText();
 /// message.ShowMessage("This Message Will Fade In 10 Seconds", 10);
+/// </code>
 /// 
 /// COMPLEX USAGE EXAMPLE:
+/// <code>
 /// BasicText message = new BasicText(TextAnchor.UpperLeft); // Note many other properties could also be set as constructor parameters
 /// message.setColor(Color.red); // Set Color
 /// message.setSize(20);         // Set Font Size
@@ -30,6 +34,7 @@ namespace Nautilus.Utility;
 /// message.ShowMessage("This message stays on screen until hidden"); // Display message; if fadeout seconds not specified, it just keeps showing
 /// ... // other things happen, time goes by
 /// message.Hide(); // Hides the message
+/// </code>
 /// </example>
 public class BasicText
 {

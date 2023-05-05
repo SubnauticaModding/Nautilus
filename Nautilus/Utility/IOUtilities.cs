@@ -1,9 +1,9 @@
-﻿using System.IO;
+using System.IO;
 
 namespace Nautilus.Utility;
 
 /// <summary>
-/// Utilities for files and paths
+/// Utilities for files and paths.
 /// </summary>
 public static class IOUtilities
 {

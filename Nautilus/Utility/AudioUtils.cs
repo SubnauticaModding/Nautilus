@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Nautilus.Utility;
 
 /// <summary>
-/// Utilities for audio and sound
+/// Utilities pertaining to the use and creation of custom <see cref="Sound"/> objects, alongside other audio-specific functionality. Also see the <see cref="Handlers.CustomSoundHandler"/>.
 /// </summary>
 public static partial class AudioUtils
 {

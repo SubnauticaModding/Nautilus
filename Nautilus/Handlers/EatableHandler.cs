@@ -1,9 +1,9 @@
-﻿using Nautilus.Patchers;
+using Nautilus.Patchers;
 
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// A handler for editing values for eatable classes
+/// A handler class for modyfing the data of edible objects (objects with the <see cref="Eatable"/> component).
 /// </summary>
 public static class EatableHandler 
 {

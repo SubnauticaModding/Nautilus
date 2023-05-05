@@ -8,7 +8,12 @@ using UnityEngine;
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// A handler class for various scanner related data.
+/// A handler class for various PDA-related purposes:
+/// <list type="bullet">
+/// <item>Registering log entries.</item>
+/// <item>Registering encyclopedia (databank) entries.</item>
+/// <item>Defining data for scanning fragments and other items.</item>
+/// </list>
 /// </summary>
 public static class PDAHandler 
 {

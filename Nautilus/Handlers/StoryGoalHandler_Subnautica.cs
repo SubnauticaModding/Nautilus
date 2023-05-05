@@ -8,33 +8,8 @@ namespace Nautilus.Handlers;
 
 #if SUBNAUTICA
 /// <summary>
-/// <para>A handler class for interacting with all of the major goal systems in Subnautica, which are essential in the game progression. Utilizes the following systems:</para>
-/// <list type="bullet">
-///    <item>
-///        <term><see cref="ItemGoalTracker"/></term>
-///        <description>Completes an <see cref="ItemGoal"/> (or multiple) when an object with the given TechType is picked up, equipped, or crafted through the Mobile Vehicle Bay.</description>
-///    </item>
-///    <item>
-///        <term><see cref="BiomeGoalTracker"/></term>
-///        <description>Completes a <see cref="BiomeGoal"/> when the player stays in a given biome for a specified period of time.</description>
-///    </item>
-///    <item>
-///        <term><see cref="LocationGoalTracker"/></term>
-///        <description>Completes a <see cref="LocationGoal"/> when the player stays within range of a certain position for a specified period of time.</description>
-///    </item>
-///    <item>
-///        <term><see cref="CompoundGoalTracker"/></term>
-///        <description>Completes a <see cref="CompoundGoal"/> when all required "precondition" goals have been completed.</description>
-///    </item>
-///    <item>
-///        <term><see cref="OnGoalUnlockTracker"/></term>
-///        <description>Handles the completion of a goal with the data defined in an <see cref="OnGoalUnlock"/> object. Defines the unlocked blueprints, signals, items, and achievements that should be unlocked.</description>
-///    </item>
-///    <item>
-///        <term><see cref="StoryGoalCustomEventHandler"/></term>
-///        <description>Handles arbitrary code that is executed after completing a goal, for use in more specific story events.</description>
-///    </item>
-/// </list>
+/// <para>A handler class for interacting with all of the major goal systems in Subnautica, which are essential for the's game progression.</para>
+/// <para>Allows for important game events to be triggered after a specified action is completed.</para>
 /// </summary>
 public static class StoryGoalHandler
 {

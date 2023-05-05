@@ -5,7 +5,7 @@ using Nautilus.Patchers;
 namespace Nautilus.Handlers;
 
 /// <summary>
-/// a common handler for uses specified to the Survival component
+/// Handler class that relates to the <see cref="Survival"/> component. Allows the defining of oxygen or health gains when consuming specific items.
 /// </summary>
 public static class SurvivalHandler 
 {
