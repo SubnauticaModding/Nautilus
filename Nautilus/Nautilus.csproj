@@ -14,7 +14,7 @@
     <Optimize>true</Optimize>
     <Configurations>SN.STABLE;BZ.STABLE</Configurations>
     <Platforms>AnyCPU</Platforms>
-    <Copyright>Copyright @ 2023 Subnautica Modding Community</Copyright>
+    <Copyright>Copyright @ 2019</Copyright>
     <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
