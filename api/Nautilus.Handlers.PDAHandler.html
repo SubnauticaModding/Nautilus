@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_PDAHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PDAHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Handlers_PDAHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.PDAHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Handlers_PDAHandler" data-uid="Nautilus.Handlers.PDAHandler" class="text-break">
     Class PDAHandler
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -148,7 +151,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_UnlockBasic" data-uid="Nautilus.Handlers.PDAHandler.UnlockBasic">
   UnlockBasic
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L23"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sound asset used for unlocking most PDA entries, which is a short but pleasant sound. Path is '<code>event:/tools/scanner/new_encyclopediea</code>'.</div>
@@ -179,7 +182,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_UnlockImportant" data-uid="Nautilus.Handlers.PDAHandler.UnlockImportant">
   UnlockImportant
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Subnautica:<br>Sound asset for unlocking important PDA entries, where PDA says "Integrating new PDA data." Path is '<code>event:/loot/new_PDA_data</code>'.</p>
@@ -215,7 +218,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_PDAScanner_EntryData_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(PDAScanner.EntryData)">
   AddCustomScannerEntry(EntryData)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L76"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds in a custom <span class="xref">PDAScanner.EntryData</span>. ***Cannot be used to Change the values of a techtype that has data already!***</div>
@@ -246,7 +249,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_TechType_TechType_System_Boolean_System_String_System_Int32_System_Single_System_Boolean_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,TechType,System.Boolean,System.String,System.Int32,System.Single,System.Boolean)">
   AddCustomScannerEntry(TechType, TechType, bool, string, int, float, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L99"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds in a custom <span class="xref">PDAScanner.EntryData</span>.</div>
@@ -289,7 +292,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_PDAEncyclopedia_EntryData_" data-uid="Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(PDAEncyclopedia.EntryData)">
   AddEncyclopediaEntry(EntryData)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L204"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L204"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds custom entry.</div>
@@ -320,7 +323,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_System_String_System_String_System_String_System_String_UnityEngine_Texture2D_UnityEngine_Sprite_FMODAsset_FMODAsset_" data-uid="Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(System.String,System.String,System.String,System.String,UnityEngine.Texture2D,UnityEngine.Sprite,FMODAsset,FMODAsset)">
   AddEncyclopediaEntry(string, string, string, string, Texture2D, Sprite, FMODAsset, FMODAsset)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L231"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L231"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a single encyclopedia entry into the game.</div>
@@ -367,7 +370,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_FMOD_Sound_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMOD.Sound,UnityEngine.Sprite)">
   AddLogEntry(string, string, Sound, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L144"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L144"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
@@ -404,7 +407,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_FMODAsset_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMODAsset,UnityEngine.Sprite)">
   AddLogEntry(string, string, FMODAsset, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L122"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
@@ -442,7 +445,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_Nautilus_FMod_Interfaces_IFModSound_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,Nautilus.FMod.Interfaces.IFModSound,UnityEngine.Sprite)">
   AddLogEntry(string, string, IFModSound, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L194"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L194"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
@@ -479,7 +482,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_System_String_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,System.String,UnityEngine.Sprite)">
   AddLogEntry(string, string, string, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L182"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
@@ -516,7 +519,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_UnityEngine_AudioClip_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,UnityEngine.AudioClip,UnityEngine.Sprite)">
   AddLogEntry(string, string, AudioClip, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L170"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L170"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
@@ -553,7 +556,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_EditFragmentScanTime_TechType_System_Single_" data-uid="Nautilus.Handlers.PDAHandler.EditFragmentScanTime(TechType,System.Single)">
   EditFragmentScanTime(TechType, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Edits the time it takes to finish scanning a fragment.</div>
@@ -586,7 +589,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_EditFragmentsToScan_TechType_System_Int32_" data-uid="Nautilus.Handlers.PDAHandler.EditFragmentsToScan(TechType,System.Int32)">
   EditFragmentsToScan(TechType, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L41"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Edits how many fragments must be scanned before unlocking the techtype's blueprint.</div>
@@ -619,7 +622,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L18" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L18" class="edit-link">Edit this page</a>
         </div>
 
         

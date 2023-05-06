@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpriteHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpriteHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Handlers_SpriteHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.SpriteHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Handlers_SpriteHandler" data-uid="Nautilus.Handlers.SpriteHandler" class="text-break">
     Class SpriteHandler
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L10"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -147,7 +150,7 @@
 
   <h3 id="Nautilus_Handlers_SpriteHandler_RegisterSprite_SpriteManager_Group_System_String_Atlas_Sprite_" data-uid="Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group,System.String,Atlas.Sprite)">
   RegisterSprite(Group, string, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a new sprite to the game.</div>
@@ -182,7 +185,7 @@
 
   <h3 id="Nautilus_Handlers_SpriteHandler_RegisterSprite_SpriteManager_Group_System_String_System_String_" data-uid="Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group,System.String,System.String)">
   RegisterSprite(Group, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L87"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L87"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a new sprite to the game.</div>
@@ -214,9 +217,7 @@
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Utility.ImageUtils.html#Nautilus.Utility.ImageUtils.LoadSpriteFromFile(System.String,UnityEngine.TextureFormat)">LoadSpriteFromFile</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">TextureFormat</span>)</div>
-    </div>
+    <div><a class="xref" href="Nautilus.Utility.ImageUtils.html#Nautilus.Utility.ImageUtils.LoadSpriteFromFile(System.String,UnityEngine.TextureFormat)">LoadSpriteFromFile</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">TextureFormat</span>)</div>
     </dd>
   </dl>
 
@@ -225,7 +226,7 @@
 
   <h3 id="Nautilus_Handlers_SpriteHandler_RegisterSprite_SpriteManager_Group_System_String_System_String_UnityEngine_TextureFormat_" data-uid="Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group,System.String,System.String,UnityEngine.TextureFormat)">
   RegisterSprite(Group, string, string, TextureFormat)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L102"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L102"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a new sprite to the game.</div>
@@ -261,9 +262,7 @@
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Utility.ImageUtils.html#Nautilus.Utility.ImageUtils.LoadSpriteFromFile(System.String,UnityEngine.TextureFormat)">LoadSpriteFromFile</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">TextureFormat</span>)</div>
-    </div>
+    <div><a class="xref" href="Nautilus.Utility.ImageUtils.html#Nautilus.Utility.ImageUtils.LoadSpriteFromFile(System.String,UnityEngine.TextureFormat)">LoadSpriteFromFile</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">TextureFormat</span>)</div>
     </dd>
   </dl>
 
@@ -272,7 +271,7 @@
 
   <h3 id="Nautilus_Handlers_SpriteHandler_RegisterSprite_SpriteManager_Group_System_String_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group,System.String,UnityEngine.Sprite)">
   RegisterSprite(Group, string, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a new sprite to the game.</div>
@@ -307,7 +306,7 @@
 
   <h3 id="Nautilus_Handlers_SpriteHandler_RegisterSprite_TechType_Atlas_Sprite_" data-uid="Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,Atlas.Sprite)">
   RegisterSprite(TechType, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a new sprite to the game.</div>
@@ -340,7 +339,7 @@
 
   <h3 id="Nautilus_Handlers_SpriteHandler_RegisterSprite_TechType_System_String_" data-uid="Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,System.String)">
   RegisterSprite(TechType, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L61"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a new sprite to the game.</div>
@@ -370,9 +369,7 @@
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Utility.ImageUtils.html#Nautilus.Utility.ImageUtils.LoadSpriteFromFile(System.String,UnityEngine.TextureFormat)">LoadSpriteFromFile</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">TextureFormat</span>)</div>
-    </div>
+    <div><a class="xref" href="Nautilus.Utility.ImageUtils.html#Nautilus.Utility.ImageUtils.LoadSpriteFromFile(System.String,UnityEngine.TextureFormat)">LoadSpriteFromFile</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">TextureFormat</span>)</div>
     </dd>
   </dl>
 
@@ -381,7 +378,7 @@
 
   <h3 id="Nautilus_Handlers_SpriteHandler_RegisterSprite_TechType_System_String_UnityEngine_TextureFormat_" data-uid="Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,System.String,UnityEngine.TextureFormat)">
   RegisterSprite(TechType, string, TextureFormat)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L75"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a new sprite to the game.</div>
@@ -415,9 +412,7 @@
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Utility.ImageUtils.html#Nautilus.Utility.ImageUtils.LoadSpriteFromFile(System.String,UnityEngine.TextureFormat)">LoadSpriteFromFile</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">TextureFormat</span>)</div>
-    </div>
+    <div><a class="xref" href="Nautilus.Utility.ImageUtils.html#Nautilus.Utility.ImageUtils.LoadSpriteFromFile(System.String,UnityEngine.TextureFormat)">LoadSpriteFromFile</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <span class="xref">TextureFormat</span>)</div>
     </dd>
   </dl>
 
@@ -426,7 +421,7 @@
 
   <h3 id="Nautilus_Handlers_SpriteHandler_RegisterSprite_TechType_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,UnityEngine.Sprite)">
   RegisterSprite(TechType, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a new sprite to the game.</div>
@@ -459,7 +454,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/SpriteHandler.cs/#L10" class="edit-link">Edit this page</a>
         </div>
 
         

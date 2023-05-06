@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Assets_PrefabTemplates_EnergySourceTemplate.md&amp;value=---%0Auid%3A%20Nautilus.Assets.PrefabTemplates.EnergySourceTemplate%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Assets_PrefabTemplates_EnergySourceTemplate.md&amp;value=---%0Auid%3A%20Nautilus.Assets.PrefabTemplates.EnergySourceTemplate%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate" class="text-break">
     Class EnergySourceTemplate
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -182,7 +185,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate__ctor_Nautilus_Assets_PrefabInfo_System_Int32_" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.#ctor(Nautilus.Assets.PrefabInfo,System.Int32)">
   EnergySourceTemplate(PrefabInfo, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates an <a class="xref" href="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html">EnergySourceTemplate</a> instance.</div>
@@ -219,7 +222,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_IsPowerCell" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.IsPowerCell">
   IsPowerCell
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L16"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L16"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Is this energy source a Power Cell?</div>
@@ -250,7 +253,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_UseIonModelAsBase" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.UseIonModelAsBase">
   UseIonModelAsBase
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Determines which model to use as the base. If <code>true</code>, this template will use the Precursor Ion Battery or Power cell.<br>
@@ -286,7 +289,7 @@ Otherwise; uses the default Battery or Power Cell models.</div>
 
   <h3 id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_GetPrefabAsync_TaskResult_UnityEngine_GameObject__" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})">
   GetPrefabAsync(TaskResult&lt;GameObject&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L43"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the appropriate energy source prefab.</div>
@@ -324,7 +327,7 @@ Otherwise; uses the default Battery or Power Cell models.</div>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L11" class="edit-link">Edit this page</a>
         </div>
 
         

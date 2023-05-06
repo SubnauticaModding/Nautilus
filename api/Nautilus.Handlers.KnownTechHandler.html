@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_KnownTechHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.KnownTechHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Handlers_KnownTechHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.KnownTechHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Handlers_KnownTechHandler" data-uid="Nautilus.Handlers.KnownTechHandler" class="text-break">
     Class KnownTechHandler
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -147,7 +150,7 @@
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_" data-uid="Nautilus.Handlers.KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType)">
   RemoveAllCurrentAnalysisTechEntry(TechType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L307"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L307"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to remove all unlock entries from a <span class="xref">TechType</span> to be able to disable or change it to a new unlock.
@@ -179,7 +182,7 @@
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_RemoveAnalysisTechEntryFromSpecific_TechType_System_Collections_Generic_List_TechType__" data-uid="Nautilus.Handlers.KnownTechHandler.RemoveAnalysisTechEntryFromSpecific(TechType,System.Collections.Generic.List{TechType})">
   RemoveAnalysisTechEntryFromSpecific(TechType, List&lt;TechType&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L297"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L297"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to remove unlock entries for a <span class="xref">TechType</span> from specific entries.</div>
@@ -212,7 +215,7 @@
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_KnownTech_AnalysisTech_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(KnownTech.AnalysisTech)">
   SetAnalysisTechEntry(AnalysisTech)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L260"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L260"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -245,7 +248,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType})">
   SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L168"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L168"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -280,7 +283,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset)">
   SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, FMODAsset)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L194"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L194"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -317,7 +320,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite)">
   SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, FMODAsset, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L249"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L249"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -356,7 +359,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_UnityEngine_Sprite_System_Collections_Generic_List_Story_StoryGoal__" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite,System.Collections.Generic.List{Story.StoryGoal})">
   SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, FMODAsset, Sprite, List&lt;StoryGoal&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L275"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L275"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -397,7 +400,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__System_String_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String)">
   SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L181"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L181"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -434,7 +437,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__System_String_FMODAsset_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String,FMODAsset)">
   SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, string, FMODAsset)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L221"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L221"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -473,7 +476,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__System_String_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String,UnityEngine.Sprite)">
   SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, string, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L235"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L235"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -512,7 +515,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__UnityEngine_Sprite_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},UnityEngine.Sprite)">
   SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L207"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L207"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
@@ -549,7 +552,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_SetCompoundUnlock_TechType_System_Collections_Generic_List_TechType__" data-uid="Nautilus.Handlers.KnownTechHandler.SetCompoundUnlock(TechType,System.Collections.Generic.List{TechType})">
   SetCompoundUnlock(TechType, List&lt;TechType&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L286"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L286"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
@@ -583,7 +586,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 
   <h3 id="Nautilus_Handlers_KnownTechHandler_UnlockOnStart_TechType_" data-uid="Nautilus.Handlers.KnownTechHandler.UnlockOnStart(TechType)">
   UnlockOnStart(TechType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L19"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Allows you to unlock a TechType on game start.</div>
@@ -614,7 +617,7 @@ added to the existing AnalysisTech entry unlocks.</div>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L13" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/KnownTechHandler.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
         

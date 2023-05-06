@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_MenuAttribute.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.MenuAttribute%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_MenuAttribute.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.MenuAttribute%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Options_Attributes_MenuAttribute" data-uid="Nautilus.Options.Attributes.MenuAttribute" class="text-break">
     Class MenuAttribute
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L85"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -350,7 +353,7 @@ public class Config : ConfigFile
 
   <h3 id="Nautilus_Options_Attributes_MenuAttribute__ctor_System_String_" data-uid="Nautilus.Options.Attributes.MenuAttribute.#ctor(System.String)">
   MenuAttribute(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L193"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L193"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Signifies a <a class="xref" href="Nautilus.Options.ModOptions.html">ModOptions</a> menu should be automatically generated from a <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a>.</div>
@@ -378,36 +381,16 @@ public class Config : ConfigFile
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.ChoiceAttribute.html">ChoiceAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.OnChangeAttribute.html">OnChangeAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.KeybindAttribute.html">KeybindAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.SliderAttribute.html">SliderAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.ToggleAttribute.html">ToggleAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.ColorPickerAttribute.html">ColorPickerAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.ButtonAttribute.html">ButtonAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.ModOptions.html">ModOptions</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Utility.InternalLogger.html">InternalLogger</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.ChoiceAttribute.html">ChoiceAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.OnChangeAttribute.html">OnChangeAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.KeybindAttribute.html">KeybindAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.SliderAttribute.html">SliderAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.ToggleAttribute.html">ToggleAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.ColorPickerAttribute.html">ColorPickerAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.ButtonAttribute.html">ButtonAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.ModOptions.html">ModOptions</a></div>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a></div>
+    <div><a class="xref" href="Nautilus.Utility.InternalLogger.html">InternalLogger</a></div>
     </dd>
   </dl>
 
@@ -420,7 +403,7 @@ public class Config : ConfigFile
 
   <h3 id="Nautilus_Options_Attributes_MenuAttribute_LoadOn" data-uid="Nautilus.Options.Attributes.MenuAttribute.LoadOn">
   LoadOn
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L180"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L180"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The events after which the config file will be loaded from disk automatically.
@@ -449,12 +432,8 @@ Defaults to <a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.Load
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a>.<a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.LoadEvents.html">LoadEvents</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html#Nautilus_Options_Attributes_MenuAttribute_SaveOn">SaveOn</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a>.<a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.LoadEvents.html">LoadEvents</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html#Nautilus_Options_Attributes_MenuAttribute_SaveOn">SaveOn</a></div>
     </dd>
   </dl>
 
@@ -463,7 +442,7 @@ Defaults to <a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.Load
 
   <h3 id="Nautilus_Options_Attributes_MenuAttribute_MemberProcessing" data-uid="Nautilus.Options.Attributes.MenuAttribute.MemberProcessing">
   MemberProcessing
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L187"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L187"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">How members of the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a> will be processed.
@@ -492,9 +471,7 @@ Defaults to <a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.Memb
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a>.<a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.Members.html">Members</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a>.<a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.Members.html">Members</a></div>
     </dd>
   </dl>
 
@@ -503,7 +480,7 @@ Defaults to <a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.Memb
 
   <h3 id="Nautilus_Options_Attributes_MenuAttribute_Name" data-uid="Nautilus.Options.Attributes.MenuAttribute.Name">
   Name
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L164"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L164"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The display name for the generated options menu.</div>
@@ -531,36 +508,16 @@ Defaults to <a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.Memb
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.ChoiceAttribute.html">ChoiceAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.OnChangeAttribute.html">OnChangeAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.KeybindAttribute.html">KeybindAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.SliderAttribute.html">SliderAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.ToggleAttribute.html">ToggleAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.ColorPickerAttribute.html">ColorPickerAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.ButtonAttribute.html">ButtonAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.ModOptions.html">ModOptions</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Utility.InternalLogger.html">InternalLogger</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.ChoiceAttribute.html">ChoiceAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.OnChangeAttribute.html">OnChangeAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.KeybindAttribute.html">KeybindAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.SliderAttribute.html">SliderAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.ToggleAttribute.html">ToggleAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.ColorPickerAttribute.html">ColorPickerAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.ButtonAttribute.html">ButtonAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.ModOptions.html">ModOptions</a></div>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a></div>
+    <div><a class="xref" href="Nautilus.Utility.InternalLogger.html">InternalLogger</a></div>
     </dd>
   </dl>
 
@@ -569,7 +526,7 @@ Defaults to <a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.Memb
 
   <h3 id="Nautilus_Options_Attributes_MenuAttribute_SaveOn" data-uid="Nautilus.Options.Attributes.MenuAttribute.SaveOn">
   SaveOn
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L172"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L172"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The events after which the config file will be saved to disk automatically.
@@ -598,12 +555,8 @@ Defaults to <a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.Save
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a>.<a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.SaveEvents.html">SaveEvents</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html#Nautilus_Options_Attributes_MenuAttribute_LoadOn">LoadOn</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a>.<a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.SaveEvents.html">SaveEvents</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html#Nautilus_Options_Attributes_MenuAttribute_LoadOn">LoadOn</a></div>
     </dd>
   </dl>
 
@@ -625,7 +578,7 @@ Defaults to <a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.Save
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L85" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/MenuAttribute.cs/#L85" class="edit-link">Edit this page</a>
         </div>
 
         

@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_SaveUtils.md&amp;value=---%0Auid%3A%20Nautilus.Utility.SaveUtils%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Utility_SaveUtils.md&amp;value=---%0Auid%3A%20Nautilus.Utility.SaveUtils%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Utility_SaveUtils" data-uid="Nautilus.Utility.SaveUtils" class="text-break">
     Class SaveUtils
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -147,7 +150,7 @@
 
   <h3 id="Nautilus_Utility_SaveUtils_GetCurrentSaveDataDir" data-uid="Nautilus.Utility.SaveUtils.GetCurrentSaveDataDir">
   GetCurrentSaveDataDir()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Returns the path to the current save slot's directory.</div>
@@ -178,7 +181,7 @@
 
   <h3 id="Nautilus_Utility_SaveUtils_RegisterOnLoadEvent_System_Action_" data-uid="Nautilus.Utility.SaveUtils.RegisterOnLoadEvent(System.Action)">
   RegisterOnLoadEvent(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L31"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a simple <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a> method to invoke the <code>first time</code> the player loads a saved game via the in game menu.</div>
@@ -209,7 +212,7 @@
 
   <h3 id="Nautilus_Utility_SaveUtils_RegisterOnQuitEvent_System_Action_" data-uid="Nautilus.Utility.SaveUtils.RegisterOnQuitEvent(System.Action)">
   RegisterOnQuitEvent(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a simple <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a> method to invoke whenever the player quits the game via the in game menu.</div>
@@ -240,7 +243,7 @@
 
   <h3 id="Nautilus_Utility_SaveUtils_RegisterOnSaveEvent_System_Action_" data-uid="Nautilus.Utility.SaveUtils.RegisterOnSaveEvent(System.Action)">
   RegisterOnSaveEvent(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L22"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a simple <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a> method to invoke whenever the player saves the game via the in game menu.</div>
@@ -271,7 +274,7 @@
 
   <h3 id="Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnLoadEvent_System_Action_" data-uid="Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent(System.Action)">
   RegisterOneTimeUseOnLoadEvent(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L88"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a simple <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a> method to invoke the <code>first time</code> the player loads a saved game via the in game menu.</div>
@@ -302,7 +305,7 @@
 
   <h3 id="Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnQuitEvent_System_Action_" data-uid="Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent(System.Action)">
   RegisterOneTimeUseOnQuitEvent(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L97"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L97"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a simple <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a> method to invoke the <code>first time</code> the player quits the game via the in game menu.</div>
@@ -333,7 +336,7 @@
 
   <h3 id="Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnSaveEvent_System_Action_" data-uid="Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent(System.Action)">
   RegisterOneTimeUseOnSaveEvent(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L79"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a simple <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a> method to invoke the <code>first time</code> the player saves the game via the in game menu.</div>
@@ -364,7 +367,7 @@
 
   <h3 id="Nautilus_Utility_SaveUtils_UnregisterOnLoadEvent_System_Action_" data-uid="Nautilus.Utility.SaveUtils.UnregisterOnLoadEvent(System.Action)">
   UnregisterOnLoadEvent(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Removes a method previously added through <a class="xref" href="Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnLoadEvent_System_Action_">RegisterOnLoadEvent(Action)</a> so it is no longer invoked when loading the game.<p></p>
@@ -396,7 +399,7 @@ If you plan on using this, do not register an anonymous method.</div>
 
   <h3 id="Nautilus_Utility_SaveUtils_UnregisterOnQuitEvent_System_Action_" data-uid="Nautilus.Utility.SaveUtils.UnregisterOnQuitEvent(System.Action)">
   UnregisterOnQuitEvent(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L70"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L70"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Removes a method previously added through <a class="xref" href="Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnSaveEvent_System_Action_">RegisterOnSaveEvent(Action)</a> so it is no longer invoked when quiting the game.<p></p>
@@ -428,7 +431,7 @@ If you plan on using this, do not register an anonymous method.</div>
 
   <h3 id="Nautilus_Utility_SaveUtils_UnregisterOnSaveEvent_System_Action_" data-uid="Nautilus.Utility.SaveUtils.UnregisterOnSaveEvent(System.Action)">
   UnregisterOnSaveEvent(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Removes a method previously added through <a class="xref" href="Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnSaveEvent_System_Action_">RegisterOnSaveEvent(Action)</a> so it is no longer invoked when saving the game.<p></p>
@@ -460,7 +463,7 @@ If you plan on using this, do not register an anonymous method.</div>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SaveUtils.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SaveUtils.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
         

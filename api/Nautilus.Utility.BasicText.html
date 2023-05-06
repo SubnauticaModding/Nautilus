@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Utility_BasicText.md&amp;value=---%0Auid%3A%20Nautilus.Utility.BasicText%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Utility_BasicText" data-uid="Nautilus.Utility.BasicText" class="text-break">
     Class BasicText
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L39"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -196,7 +199,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor" data-uid="Nautilus.Utility.BasicText.#ctor">
   BasicText()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L44"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with all default options.</div>
@@ -222,7 +225,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32)">
   BasicText(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L89"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L89"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size.</div>
@@ -253,7 +256,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32)">
   BasicText(int, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> at the specified origin point.</div>
@@ -286,7 +289,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32)">
   BasicText(int, int, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L180"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L180"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified origin point and size.</div>
@@ -321,7 +324,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color)">
   BasicText(int, int, int, Color)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L164"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L164"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified origin point, size, and <span class="xref">UnityEngine.Color</span>.</div>
@@ -358,7 +361,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)">
   BasicText(int, int, int, Color, TextAlignmentOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L145"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified origin point, size, <span class="xref">UnityEngine.Color</span>, and <span class="xref">UnityEngine.TextAnchor</span>.</div>
@@ -397,7 +400,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,TMPro.TextAlignmentOptions)">
   BasicText(int, TextAlignmentOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L113"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L113"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size and <span class="xref">UnityEngine.TextAnchor</span>.</div>
@@ -430,7 +433,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color)">
   BasicText(int, Color)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L100"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size and <span class="xref">UnityEngine.Color</span>.</div>
@@ -463,7 +466,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)">
   BasicText(int, Color, TextAlignmentOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L127"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L127"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size, <span class="xref">UnityEngine.Color</span>, and <span class="xref">UnityEngine.TextAnchor</span>.</div>
@@ -498,7 +501,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(TMPro.TextAlignmentOptions)">
   BasicText(TextAlignmentOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L69"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> at a specified <span class="xref">UnityEngine.TextAnchor</span>.</div>
@@ -529,7 +532,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText__ctor_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.#ctor(UnityEngine.Color)">
   BasicText(Color)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L79"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified <span class="xref">UnityEngine.Color</span>.</div>
@@ -564,7 +567,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_ClearAlign" data-uid="Nautilus.Utility.BasicText.ClearAlign">
   ClearAlign()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L390"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L390"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Resets to using "cloned" font style of Subnautica default</div>
@@ -590,7 +593,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_ClearColor" data-uid="Nautilus.Utility.BasicText.ClearColor">
   ClearColor()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L280"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L280"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Resets to using "cloned" color of Subnautica default.</div>
@@ -616,7 +619,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_ClearFont" data-uid="Nautilus.Utility.BasicText.ClearFont">
   ClearFont()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L335"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L335"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Resets to using "cloned" font of Subnautica default.</div>
@@ -642,7 +645,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_ClearFontStyle" data-uid="Nautilus.Utility.BasicText.ClearFontStyle">
   ClearFontStyle()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L363"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L363"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Resets to using "cloned" font style of Subnautica default.</div>
@@ -668,7 +671,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_ClearSize" data-uid="Nautilus.Utility.BasicText.ClearSize">
   ClearSize()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L307"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L307"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Resets to using "cloned" size of Subnautica default.</div>
@@ -694,7 +697,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_GetText" data-uid="Nautilus.Utility.BasicText.GetText">
   GetText()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L245"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L245"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Returns our current text.</div>
@@ -725,7 +728,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_Hide" data-uid="Nautilus.Utility.BasicText.Hide">
   Hide()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L230"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L230"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Hides our text item if it is displaying.</div>
@@ -751,7 +754,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_SetAlign_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.SetAlign(TMPro.TextAlignmentOptions)">
   SetAlign(TextAlignmentOptions)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L376"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L376"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the text anchor.</div>
@@ -782,7 +785,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_SetColor_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.SetColor(UnityEngine.Color)">
   SetColor(Color)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L266"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L266"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the text color</div>
@@ -813,7 +816,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_SetFont_TMPro_TMP_FontAsset_" data-uid="Nautilus.Utility.BasicText.SetFont(TMPro.TMP_FontAsset)">
   SetFont(TMP_FontAsset)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L321"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L321"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the font</div>
@@ -844,7 +847,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_SetFontStyle_TMPro_FontStyles_" data-uid="Nautilus.Utility.BasicText.SetFontStyle(TMPro.FontStyles)">
   SetFontStyle(FontStyles)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L349"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L349"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the font style.</div>
@@ -875,7 +878,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_SetLocation_System_Single_System_Single_" data-uid="Nautilus.Utility.BasicText.SetLocation(System.Single,System.Single)">
   SetLocation(float, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L255"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L255"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets screen display location (position relative to the actual text is determined by the alignment)</div>
@@ -908,7 +911,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_SetSize_System_Int32_" data-uid="Nautilus.Utility.BasicText.SetSize(System.Int32)">
   SetSize(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L293"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L293"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the font size.</div>
@@ -939,7 +942,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_ShowMessage_System_String_" data-uid="Nautilus.Utility.BasicText.ShowMessage(System.String)">
   ShowMessage(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L192"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L192"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Shows our text item, with no schedule fade (i.e. indefinitely)</div>
@@ -970,7 +973,7 @@ message.Hide(); // Hides the message</code></pre>
 
   <h3 id="Nautilus_Utility_BasicText_ShowMessage_System_String_System_Single_" data-uid="Nautilus.Utility.BasicText.ShowMessage(System.String,System.Single)">
   ShowMessage(string, float)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L202"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L202"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Shows our text item, fading after a specified number of seconds (or stays on indefinitely if 0 seconds)</div>
@@ -1003,7 +1006,7 @@ message.Hide(); // Hides the message</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/BasicText.cs/#L39" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/BasicText.cs/#L39" class="edit-link">Edit this page</a>
         </div>
 
         

@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_OnChangeAttribute.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.OnChangeAttribute%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_OnChangeAttribute.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.OnChangeAttribute%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Options_Attributes_OnChangeAttribute" data-uid="Nautilus.Options.Attributes.OnChangeAttribute" class="text-break">
     Class OnChangeAttribute
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/OnChangeAttribute.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/OnChangeAttribute.cs/#L78"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -346,7 +349,7 @@ The specified method can take the following parameters in any order:<br>
 
   <h3 id="Nautilus_Options_Attributes_OnChangeAttribute__ctor_System_String_" data-uid="Nautilus.Options.Attributes.OnChangeAttribute.#ctor(System.String)">
   OnChangeAttribute(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/OnChangeAttribute.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/OnChangeAttribute.cs/#L88"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Signifies a method to call whenever the decorated member's value changes.</div>
@@ -376,36 +379,16 @@ The specified method can take the following parameters in any order:<br>
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.ToggleAttribute.html">ToggleAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.ChoiceChangedEventArgs-1.html">ChoiceChangedEventArgs</a>&lt;T&gt;</div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.KeybindChangedEventArgs.html">KeybindChangedEventArgs</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.SliderChangedEventArgs.html">SliderChangedEventArgs</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.ToggleChangedEventArgs.html">ToggleChangedEventArgs</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.OnGameObjectCreatedAttribute.html">OnGameObjectCreatedAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Utility.InternalLogger.html">InternalLogger</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.ToggleAttribute.html">ToggleAttribute</a></div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a></div>
+    <div><a class="xref" href="Nautilus.Options.ChoiceChangedEventArgs-1.html">ChoiceChangedEventArgs</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Nautilus.Options.KeybindChangedEventArgs.html">KeybindChangedEventArgs</a></div>
+    <div><a class="xref" href="Nautilus.Options.SliderChangedEventArgs.html">SliderChangedEventArgs</a></div>
+    <div><a class="xref" href="Nautilus.Options.ToggleChangedEventArgs.html">ToggleChangedEventArgs</a></div>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a></div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.OnGameObjectCreatedAttribute.html">OnGameObjectCreatedAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Utility.InternalLogger.html">InternalLogger</a></div>
     </dd>
   </dl>
 
@@ -427,7 +410,7 @@ The specified method can take the following parameters in any order:<br>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/OnChangeAttribute.cs/#L78" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/OnChangeAttribute.cs/#L78" class="edit-link">Edit this page</a>
         </div>
 
         

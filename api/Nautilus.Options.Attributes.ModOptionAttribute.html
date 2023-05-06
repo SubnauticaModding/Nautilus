@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ModOptionAttribute.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ModOptionAttribute%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Options_Attributes_ModOptionAttribute" data-uid="Nautilus.Options.Attributes.ModOptionAttribute" class="text-break">
     Class ModOptionAttribute
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L11"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -303,7 +306,7 @@ public abstract class ModOptionAttribute : Attribute, _Attribute</code></pre>
 
   <h3 id="Nautilus_Options_Attributes_ModOptionAttribute__ctor_System_String_" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.#ctor(System.String)">
   ModOptionAttribute(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Signifies the decorated member should be represented in the mod's options menu as a <a class="xref" href="Nautilus.Options.OptionItem.html">OptionItem</a>
@@ -340,7 +343,7 @@ with an optional label.</div>
 
   <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_Id" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Id">
   Id
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L26"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The Id to be used for the field in the mod's option menu. If none is specified, one will be automatically generated when
@@ -374,7 +377,7 @@ internal comparisons, you can do so here.</div>
 
   <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_Label" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Label">
   Label
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The label to use when displaying the field in the mod's options menu. If <a class="xref" href="Nautilus.Options.Attributes.ModOptionAttribute.html#Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId">LabelLanguageId</a> is set, this
@@ -406,7 +409,7 @@ will be ignored.</div>
 
   <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_LabelLanguageId" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.LabelLanguageId">
   LabelLanguageId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L46"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">An optional id to be parsed with <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Get(string)</a> for the label, allowing for custom language-based strings
@@ -435,12 +438,8 @@ via the <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHa
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Handlers.LanguageHandler.html#Nautilus.Handlers.LanguageHandler.SetLanguageLine(System.String,System.String,System.String)">SetLanguageLine</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>)</div>
-    </div>
-    <div>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Get</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>)</div>
-    </div>
+    <div><a class="xref" href="Nautilus.Handlers.LanguageHandler.html#Nautilus.Handlers.LanguageHandler.SetLanguageLine(System.String,System.String,System.String)">SetLanguageLine</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>)</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Get</a>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>)</div>
     </dd>
   </dl>
 
@@ -449,7 +448,7 @@ via the <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHa
 
   <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_Order" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Order">
   Order
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The order in which to display fields in the mod's option menu, in ascending order. If none is specified, the order will be
@@ -481,7 +480,7 @@ automatically set.</div>
 
   <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_Tooltip" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.Tooltip">
   Tooltip
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">An optional tooltip to display for the field. If <a class="xref" href="Nautilus.Options.Attributes.ModOptionAttribute.html#Nautilus_Options_Attributes_ModOptionAttribute_TooltipLanguageId">TooltipLanguageId</a> is set, this will be ignored.</div>
@@ -512,7 +511,7 @@ automatically set.</div>
 
   <h3 id="Nautilus_Options_Attributes_ModOptionAttribute_TooltipLanguageId" data-uid="Nautilus.Options.Attributes.ModOptionAttribute.TooltipLanguageId">
   TooltipLanguageId
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">An optional id to be parsed with <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Get(string)</a> for the tooltip, allowing for custom lanaguage-based strings
@@ -544,7 +543,7 @@ via the <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHa
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ModOptionAttribute.cs/#L11" class="edit-link">Edit this page</a>
         </div>
 
         

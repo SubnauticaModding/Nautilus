@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ButtonAttribute.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ButtonAttribute%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Options_Attributes_ButtonAttribute.md&amp;value=---%0Auid%3A%20Nautilus.Options.Attributes.ButtonAttribute%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Options_Attributes_ButtonAttribute" data-uid="Nautilus.Options.Attributes.ButtonAttribute" class="text-break">
     Class ButtonAttribute
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ButtonAttribute.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ButtonAttribute.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -324,7 +327,7 @@ public class Config : ConfigFile
 
   <h3 id="Nautilus_Options_Attributes_ButtonAttribute__ctor" data-uid="Nautilus.Options.Attributes.ButtonAttribute.#ctor">
   ButtonAttribute()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ButtonAttribute.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ButtonAttribute.cs/#L47"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Signifies the decorated method should be represented in the mod's options menu as a <a class="xref" href="Nautilus.Options.ModButtonOption.html">ModButtonOption</a>.</div>
@@ -347,18 +350,10 @@ public class Config : ConfigFile
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.ButtonClickedEventArgs.html">ButtonClickedEventArgs</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Utility.InternalLogger.html">InternalLogger</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.ButtonClickedEventArgs.html">ButtonClickedEventArgs</a></div>
+    <div><a class="xref" href="Nautilus.Utility.InternalLogger.html">InternalLogger</a></div>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a></div>
     </dd>
   </dl>
 
@@ -367,7 +362,7 @@ public class Config : ConfigFile
 
   <h3 id="Nautilus_Options_Attributes_ButtonAttribute__ctor_System_String_" data-uid="Nautilus.Options.Attributes.ButtonAttribute.#ctor(System.String)">
   ButtonAttribute(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ButtonAttribute.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ButtonAttribute.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Signifies the decorated method should be represented in the mod's options menu as a <a class="xref" href="Nautilus.Options.ModButtonOption.html">ModButtonOption</a>
@@ -396,18 +391,10 @@ and sets its label.</div>
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Options.ButtonClickedEventArgs.html">ButtonClickedEventArgs</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Utility.InternalLogger.html">InternalLogger</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Options.Attributes.MenuAttribute.html">MenuAttribute</a></div>
+    <div><a class="xref" href="Nautilus.Options.ButtonClickedEventArgs.html">ButtonClickedEventArgs</a></div>
+    <div><a class="xref" href="Nautilus.Utility.InternalLogger.html">InternalLogger</a></div>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a></div>
     </dd>
   </dl>
 
@@ -423,7 +410,7 @@ and sets its label.</div>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ButtonAttribute.cs/#L34" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Options/Attributes/ButtonAttribute.cs/#L34" class="edit-link">Edit this page</a>
         </div>
 
         

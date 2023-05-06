@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Json_ExtensionMethods_JsonExtensions.md&amp;value=---%0Auid%3A%20Nautilus.Json.ExtensionMethods.JsonExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Json_ExtensionMethods_JsonExtensions.md&amp;value=---%0Auid%3A%20Nautilus.Json.ExtensionMethods.JsonExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Json_ExtensionMethods_JsonExtensions" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions" class="text-break">
     Class JsonExtensions
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -147,7 +150,7 @@
 
   <h3 id="Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJson``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">
   LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L21"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Loads the JSON properties from a file on disk into the <code class="paramref">jsonObject</code>.</div>
@@ -187,9 +190,7 @@
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a></div>
     </dd>
   </dl>
 
@@ -198,7 +199,7 @@
 
   <h3 id="Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJson``1(``0,System.String,Newtonsoft.Json.JsonConverter[])">
   SaveJson&lt;T&gt;(T, string, params JsonConverter[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Saves the fields and properties of the <code class="paramref">jsonObject</code> as JSON properties to the file on disk.</div>
@@ -238,7 +239,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
         

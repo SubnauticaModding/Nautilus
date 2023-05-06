@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_ItemStorageHelper.md&amp;value=---%0Auid%3A%20Nautilus.Utility.ItemStorageHelper%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Utility_ItemStorageHelper.md&amp;value=---%0Auid%3A%20Nautilus.Utility.ItemStorageHelper%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Utility_ItemStorageHelper" data-uid="Nautilus.Utility.ItemStorageHelper" class="text-break">
     Class ItemStorageHelper
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L9"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -147,7 +150,7 @@
 
   <h3 id="Nautilus_Utility_ItemStorageHelper_GetAllowedTechTypes_ItemsContainer_" data-uid="Nautilus.Utility.ItemStorageHelper.GetAllowedTechTypes(ItemsContainer)">
   GetAllowedTechTypes(ItemsContainer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L225"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L225"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the set of techtypes allowed in this container. This set can be altered.
@@ -181,9 +184,7 @@ If the set is null or empty, then all items can be added.</div>
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><span class="xref">StorageHelper</span></div>
-    </div>
+    <div><span class="xref">StorageHelper</span></div>
     </dd>
   </dl>
 
@@ -192,7 +193,7 @@ If the set is null or empty, then all items can be added.</div>
 
   <h3 id="Nautilus_Utility_ItemStorageHelper_GetStorageLabel_ItemsContainer_" data-uid="Nautilus.Utility.ItemStorageHelper.GetStorageLabel(ItemsContainer)">
   GetStorageLabel(ItemsContainer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L212"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L212"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Get the inernal label for the storage container.</div>
@@ -225,9 +226,7 @@ If the set is null or empty, then all items can be added.</div>
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><span class="xref">StorageHelper</span></div>
-    </div>
+    <div><span class="xref">StorageHelper</span></div>
     </dd>
   </dl>
 
@@ -236,7 +235,7 @@ If the set is null or empty, then all items can be added.</div>
 
   <h3 id="Nautilus_Utility_ItemStorageHelper_GetTotalSlots_ItemsContainer_" data-uid="Nautilus.Utility.ItemStorageHelper.GetTotalSlots(ItemsContainer)">
   GetTotalSlots(ItemsContainer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L200"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L200"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The totals number of 1x1 slots in the container, as calculated by the container's width and height.</div>
@@ -269,9 +268,7 @@ If the set is null or empty, then all items can be added.</div>
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><span class="xref">StorageHelper</span></div>
-    </div>
+    <div><span class="xref">StorageHelper</span></div>
     </dd>
   </dl>
 
@@ -280,7 +277,7 @@ If the set is null or empty, then all items can be added.</div>
 
   <h3 id="Nautilus_Utility_ItemStorageHelper_HasRoomForCached_ItemsContainer_System_Int32_System_Int32_" data-uid="Nautilus.Utility.ItemStorageHelper.HasRoomForCached(ItemsContainer,System.Int32,System.Int32)">
   HasRoomForCached(ItemsContainer, int, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L141"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L141"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Using the cached container info, determines whether the specified container has room for an item of the specified size.</div>
@@ -317,9 +314,7 @@ If the set is null or empty, then all items can be added.</div>
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><span class="xref">StorageHelper</span></div>
-    </div>
+    <div><span class="xref">StorageHelper</span></div>
     </dd>
   </dl>
 
@@ -328,7 +323,7 @@ If the set is null or empty, then all items can be added.</div>
 
   <h3 id="Nautilus_Utility_ItemStorageHelper_HasRoomForCached_ItemsContainer_Vector2int_" data-uid="Nautilus.Utility.ItemStorageHelper.HasRoomForCached(ItemsContainer,Vector2int)">
   HasRoomForCached(ItemsContainer, Vector2int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L154"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L154"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Using the cached container info, determines whether the specified container has room for an item of the specified size.</div>
@@ -363,9 +358,7 @@ If the set is null or empty, then all items can be added.</div>
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><span class="xref">StorageHelper</span></div>
-    </div>
+    <div><span class="xref">StorageHelper</span></div>
     </dd>
   </dl>
 
@@ -374,7 +367,7 @@ If the set is null or empty, then all items can be added.</div>
 
   <h3 id="Nautilus_Utility_ItemStorageHelper_IsEmpty_ItemsContainer_" data-uid="Nautilus.Utility.ItemStorageHelper.IsEmpty(ItemsContainer)">
   IsEmpty(ItemsContainer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L177"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L177"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Determines whether the specified container is empty.</div>
@@ -407,9 +400,7 @@ If the set is null or empty, then all items can be added.</div>
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><span class="xref">StorageHelper</span></div>
-    </div>
+    <div><span class="xref">StorageHelper</span></div>
     </dd>
   </dl>
 
@@ -418,7 +409,7 @@ If the set is null or empty, then all items can be added.</div>
 
   <h3 id="Nautilus_Utility_ItemStorageHelper_IsFull_ItemsContainer_" data-uid="Nautilus.Utility.ItemStorageHelper.IsFull(ItemsContainer)">
   IsFull(ItemsContainer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L190"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L190"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Determines whether the specified container is full.</div>
@@ -451,9 +442,7 @@ If the set is null or empty, then all items can be added.</div>
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><span class="xref">StorageHelper</span></div>
-    </div>
+    <div><span class="xref">StorageHelper</span></div>
     </dd>
   </dl>
 
@@ -466,7 +455,7 @@ If the set is null or empty, then all items can be added.</div>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/ItemStorageHelper.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
         

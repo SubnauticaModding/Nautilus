@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_ConsoleCommandsHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.ConsoleCommandsHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Handlers_ConsoleCommandsHandler.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.ConsoleCommandsHandler%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Handlers_ConsoleCommandsHandler" data-uid="Nautilus.Handlers.ConsoleCommandsHandler" class="text-break">
     Class ConsoleCommandsHandler
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/ConsoleCommandsHandler.cs/#L12"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/ConsoleCommandsHandler.cs/#L12"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -147,7 +150,7 @@
 
   <h3 id="Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand_System_String_System_Type_System_String_System_Type___" data-uid="Nautilus.Handlers.ConsoleCommandsHandler.RegisterConsoleCommand(System.String,System.Type,System.String,System.Type[])">
   RegisterConsoleCommand(string, Type, string, Type[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/ConsoleCommandsHandler.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/ConsoleCommandsHandler.cs/#L34"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers your custom console command by targeting a <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/public">public</a> <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/static">static</a> method.</div>
@@ -190,15 +193,9 @@ Supported parameter types: <a class="xref" href="https://learn.microsoft.com/dot
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand__1_System_String___0_">RegisterConsoleCommand&lt;T&gt;(string, T)</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommands_System_Type_">RegisterConsoleCommands(Type)</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Commands.ConsoleCommandAttribute.html">ConsoleCommandAttribute</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand__1_System_String___0_">RegisterConsoleCommand&lt;T&gt;(string, T)</a></div>
+    <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommands_System_Type_">RegisterConsoleCommands(Type)</a></div>
+    <div><a class="xref" href="Nautilus.Commands.ConsoleCommandAttribute.html">ConsoleCommandAttribute</a></div>
     </dd>
   </dl>
 
@@ -207,7 +204,7 @@ Supported parameter types: <a class="xref" href="https://learn.microsoft.com/dot
 
   <h3 id="Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand__1_System_String___0_" data-uid="Nautilus.Handlers.ConsoleCommandsHandler.RegisterConsoleCommand``1(System.String,``0)">
   RegisterConsoleCommand&lt;T&gt;(string, T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/ConsoleCommandsHandler.cs/#L57"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/ConsoleCommandsHandler.cs/#L57"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers your custom console command by passing a <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/reference-types">delegate</a>.</div>
@@ -247,15 +244,9 @@ Supported parameter types: <a class="xref" href="https://learn.microsoft.com/dot
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand_System_String_System_Type_System_String_System_Type___">RegisterConsoleCommand(string, Type, string, Type[])</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommands_System_Type_">RegisterConsoleCommands(Type)</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Commands.ConsoleCommandAttribute.html">ConsoleCommandAttribute</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand_System_String_System_Type_System_String_System_Type___">RegisterConsoleCommand(string, Type, string, Type[])</a></div>
+    <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommands_System_Type_">RegisterConsoleCommands(Type)</a></div>
+    <div><a class="xref" href="Nautilus.Commands.ConsoleCommandAttribute.html">ConsoleCommandAttribute</a></div>
     </dd>
   </dl>
 
@@ -264,7 +255,7 @@ Supported parameter types: <a class="xref" href="https://learn.microsoft.com/dot
 
   <h3 id="Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommands_System_Type_" data-uid="Nautilus.Handlers.ConsoleCommandsHandler.RegisterConsoleCommands(System.Type)">
   RegisterConsoleCommands(Type)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/ConsoleCommandsHandler.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/ConsoleCommandsHandler.cs/#L78"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/public">public</a> <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/static">static</a> methods decorated with the
@@ -301,15 +292,9 @@ Supported parameter types: <a class="xref" href="https://learn.microsoft.com/dot
   <dl class="typelist seealso">
     <dt>See Also</dt>
     <dd>
-    <div>
-      <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand_System_String_System_Type_System_String_System_Type___">RegisterConsoleCommand(string, Type, string, Type[])</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand__1_System_String___0_">RegisterConsoleCommand&lt;T&gt;(string, T)</a></div>
-    </div>
-    <div>
-      <div><a class="xref" href="Nautilus.Commands.ConsoleCommandAttribute.html">ConsoleCommandAttribute</a></div>
-    </div>
+    <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand_System_String_System_Type_System_String_System_Type___">RegisterConsoleCommand(string, Type, string, Type[])</a></div>
+    <div><a class="xref" href="Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand__1_System_String___0_">RegisterConsoleCommand&lt;T&gt;(string, T)</a></div>
+    <div><a class="xref" href="Nautilus.Commands.ConsoleCommandAttribute.html">ConsoleCommandAttribute</a></div>
     </dd>
   </dl>
 
@@ -318,7 +303,7 @@ Supported parameter types: <a class="xref" href="https://learn.microsoft.com/dot
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/ConsoleCommandsHandler.cs/#L12" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Handlers/ConsoleCommandsHandler.cs/#L12" class="edit-link">Edit this page</a>
         </div>
 
         

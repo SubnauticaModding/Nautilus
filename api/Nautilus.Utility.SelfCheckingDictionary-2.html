@@ -9,25 +9,28 @@
  ">
       
       <link rel="icon" href="../favicon.ico">
-      <link rel="stylesheet" href="../styles/docfx.min.css">
-      <link rel="stylesheet" href="../styles/main.css">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
       <meta name="docfx:rel" content="../">
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Utility_SelfCheckingDictionary_2.md&amp;value=---%0Auid%3A%20Nautilus.Utility.SelfCheckingDictionary%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/SMLHelper/new/docs/apiSpec/new?filename=Nautilus_Utility_SelfCheckingDictionary_2.md&amp;value=---%0Auid%3A%20Nautilus.Utility.SelfCheckingDictionary%602%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
 
-      <script>
-        MathJax = {
+      <script type="module">
+        import docfx from './../public/main.js'
+        window.docfx = docfx
+        window.MathJax = {
           options: {
             processHtmlClass: ['tex2jax_process', 'math']
           }
-        };
+        }
       </script>
-
-      <script type="text/javascript" src="../styles/docfx.min.js"></script>
-      <script type="text/javascript" src="../styles/main.js"></script>
+      <script type="text/javascript" src="../public/docfx.min.js"></script>
   </head>
+
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -80,7 +83,7 @@
 
   <h1 id="Nautilus_Utility_SelfCheckingDictionary_2" data-uid="Nautilus.Utility.SelfCheckingDictionary`2" class="text-break">
     Class SelfCheckingDictionary&lt;K, V&gt;
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L13"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -195,7 +198,7 @@ Duplicate entries are logged and removed from the final collection.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2__ctor_System_String_System_Collections_Generic_IEqualityComparer__0__System_Func__0_System_String__" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.#ctor(System.String,System.Collections.Generic.IEqualityComparer{`0},System.Func{`0,System.String})">
   SelfCheckingDictionary(string, IEqualityComparer&lt;K&gt;, Func&lt;K, string&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L52"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a <a class="xref" href="Nautilus.Utility.SelfCheckingDictionary-2.html">SelfCheckingDictionary&lt;K, V&gt;</a> with an EqualityComparer and an optional ToString function.</div>
@@ -230,7 +233,7 @@ Duplicate entries are logged and removed from the final collection.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2__ctor_System_String_System_Func__0_System_String__" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.#ctor(System.String,System.Func{`0,System.String})">
   SelfCheckingDictionary(string, Func&lt;K, string&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a <a class="xref" href="Nautilus.Utility.SelfCheckingDictionary-2.html">SelfCheckingDictionary&lt;K, V&gt;</a> with an optional ToString function.</div>
@@ -267,7 +270,7 @@ Duplicate entries are logged and removed from the final collection.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_Count" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.Count">
   Count
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L117"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L117"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the number of unique entries in the <a class="xref" href="Nautilus.Utility.SelfCheckingDictionary-2.html">SelfCheckingDictionary&lt;K, V&gt;</a></div>
@@ -298,7 +301,7 @@ Duplicate entries are logged and removed from the final collection.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_IsReadOnly" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.IsReadOnly">
   IsReadOnly
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L122"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Defaults to false.</div>
@@ -329,7 +332,7 @@ Duplicate entries are logged and removed from the final collection.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_Item__0_" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.Item(`0)">
   this[K]
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L66"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets a key value pair from the collection or sets a key value pair into the collection.
@@ -366,7 +369,7 @@ When setting, if a key already exists, the previous entry will be discarded.</di
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_Keys" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.Keys">
   Keys
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L107"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets a collection containing the keys in the <a class="xref" href="Nautilus.Utility.SelfCheckingDictionary-2.html">SelfCheckingDictionary&lt;K, V&gt;</a></div>
@@ -397,7 +400,7 @@ When setting, if a key already exists, the previous entry will be discarded.</di
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_Values" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.Values">
   Values
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L112"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets a collection containing the values in the <a class="xref" href="Nautilus.Utility.SelfCheckingDictionary-2.html">SelfCheckingDictionary&lt;K, V&gt;</a></div>
@@ -432,7 +435,7 @@ When setting, if a key already exists, the previous entry will be discarded.</di
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_Add_System_Collections_Generic_KeyValuePair__0__1__" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.Add(System.Collections.Generic.KeyValuePair{`0,`1})">
   Add(KeyValuePair&lt;K, V&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L160"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Add a new entry the collection.
@@ -464,7 +467,7 @@ If a duplicate key is found, the new value will be discarded.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_Add__0__1_" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.Add(`0,`1)">
   Add(K, V)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L130"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Add a new entry the collection.
@@ -498,7 +501,7 @@ If a duplicate key is found, the new value will be discarded.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_Clear" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.Clear">
   Clear()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L167"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L167"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -524,7 +527,7 @@ If a duplicate key is found, the new value will be discarded.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_Contains_System_Collections_Generic_KeyValuePair__0__1__" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.Contains(System.Collections.Generic.KeyValuePair{`0,`1})">
   Contains(KeyValuePair&lt;K, V&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L173"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L173"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -560,7 +563,7 @@ If a duplicate key is found, the new value will be discarded.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_ContainsKey__0_" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.ContainsKey(`0)">
   ContainsKey(K)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L185"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L185"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -596,7 +599,7 @@ If a duplicate key is found, the new value will be discarded.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_CopyTo_System_Collections_Generic_KeyValuePair__0__1____System_Int32_" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)">
   CopyTo(KeyValuePair&lt;K, V&gt;[], int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L196"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L196"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -629,7 +632,7 @@ If a duplicate key is found, the new value will be discarded.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_GetEnumerator" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.GetEnumerator">
   GetEnumerator()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L204"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L204"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -660,7 +663,7 @@ If a duplicate key is found, the new value will be discarded.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_Remove_System_Collections_Generic_KeyValuePair__0__1__" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.Remove(System.Collections.Generic.KeyValuePair{`0,`1})">
   Remove(KeyValuePair&lt;K, V&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L220"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L220"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -696,7 +699,7 @@ If a duplicate key is found, the new value will be discarded.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_Remove__0_" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.Remove(`0)">
   Remove(K)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L209"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L209"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -732,7 +735,7 @@ If a duplicate key is found, the new value will be discarded.</div>
 
   <h3 id="Nautilus_Utility_SelfCheckingDictionary_2_TryGetValue__0__1__" data-uid="Nautilus.Utility.SelfCheckingDictionary`2.TryGetValue(`0,`1@)">
   TryGetValue(K, out V)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L230"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L230"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"></div>
@@ -770,7 +773,7 @@ If a duplicate key is found, the new value will be discarded.</div>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L13" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/SelfCheckingDictionary.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
         
