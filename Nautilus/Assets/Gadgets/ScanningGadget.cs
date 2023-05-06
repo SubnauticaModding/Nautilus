@@ -177,10 +177,16 @@ public class ScanningGadget : Gadget
         List<StoryGoal> storyGoalsToTrigger = null,
 #endif
         FMODAsset unlockSound = null, 
-        string unlockMessage = "NotficationBlueprintUnlocked"
+        string unlockMessage = "NotificationBlueprintUnlocked"
         )
     {
         AnalysisTech ??= new KnownTech.AnalysisTech();
+        AnalysisTech.techType = RequiredForUnlock != TechType.None
+            ? RequiredForUnlock
+            : prefab.Info.TechType;
+        AnalysisTech.unlockTechTypes = RequiredForUnlock != TechType.None
+            ? new() { prefab.Info.TechType }
+            : new();
         AnalysisTech.unlockPopup = popupSprite;
 #if SUBNAUTICA
         AnalysisTech.storyGoals = storyGoalsToTrigger ?? new();
