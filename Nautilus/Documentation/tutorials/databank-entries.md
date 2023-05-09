@@ -180,7 +180,7 @@ While you can technically use any sound asset, the only other recommended sound 
 | --------- | ---- | --- |
 | `voiceLog` | `FMODAsset` | Can safely be left unassigned. |
 
-Audio logs must first be registered through the `CustomSoundHandler` class. The
+Audio logs must first have their sounds be registered through the `CustomSoundHandler` class. The
 [overload that takes an AudioClip](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.CustomSoundHandler.html?q=custom%20sound%20ha#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_UnityEngine_AudioClip_FMOD_Studio_Bus_)
 is recommended due to its simplicity, but anything should work. Also, remember to use the `AudioUtils.BusPaths.VoiceOvers` bus.
 
@@ -188,7 +188,7 @@ After registering a sound, you must make an FMODAsset. An FMODAsset essentially 
 [AudioUtils.GetFmodAsset(string)](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Utility.AudioUtils.html?q=fmod#Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_)
 method, where the `path` is the ID that you just defined in the CustomSoundHandler.
 
-Finally, just pass this FMODAsset into the original method.
+Finally, just pass this FMODAsset into the `voiceLog` parameter of the original method.
 
 ### Creating an entry: Examples
 
