@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 
