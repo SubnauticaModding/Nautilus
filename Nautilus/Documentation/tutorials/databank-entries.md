@@ -82,7 +82,7 @@ Every PDA entry has its own "path" which determines where in the PDA this entry 
 | `TimeCapsules` | Time Capsules |
 </details><br>
 
-You can also create your own paths. When doing this, make sure you set the language line properly. The key for a path is `EncyPath_{path}`, i.e. `EncyPath_Lifeforms/Fauna/Leviathans`.
+You can also create your own paths. When doing this, make sure you set the language line properly. The key for a path in the language system is `EncyPath_{path}`, i.e. `EncyPath_Lifeforms/Fauna/Leviathans`.
 
 #### Example of custom path creation
 ```csharp
