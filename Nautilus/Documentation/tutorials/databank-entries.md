@@ -36,7 +36,8 @@ Goal that unlocks a Databank entry should have the same key/ID as the entry that
 
 Every PDA entry has its own "path" which determines where in the PDA this entry is found. A typical path looks something like `Lifeforms/Fauna/Leviathans`.
 
-List of vanilla paths:
+<details>
+  <summary>Click here for a list of standard Databank paths</summary>
 
 | Path | Display Name |
 | ---- | ------------ |
@@ -51,7 +52,7 @@ List of vanilla paths:
 | `Lifeforms/Coral` | Coral |
 | `Lifeforms/Fauna` | Fauna |
 | `Lifeforms/Flora` | Flora |
-| `Lifeforms/Flora/Land` | LAnd |
+| `Lifeforms/Flora/Land` | Land |
 | `Lifeforms/Flora/Sea` | Sea |
 | `Lifeforms/Flora/Exploitable` | Exploitable |
 | `Lifeforms/Fauna/Herbivores` | Herbivores (UNUSED) |
@@ -79,13 +80,19 @@ List of vanilla paths:
 | `DownloadedData/Precursor/Scan` | Scan Data |
 | `DownloadedData/Precursor/Artifacts` | Artifacts |
 | `TimeCapsules` | Time Capsules |
+</details><br>
 
-You can also create your own paths. When doing this, make sure you set the language line properly. The key for a path is `EncyPath_{path}`, i.e. `Lifeforms/Fauna/Leviathans`.
+You can also create your own paths. When doing this, make sure you set the language line properly. The key for a path is `EncyPath_{path}`, i.e. `EncyPath_Lifeforms/Fauna/Leviathans`.
 
-Example:
+#### Example of custom path creation
 ```csharp
 LanguageHandler.SetLanguageLine("EncyPath_Lifeforms/Fauna/Pets", "Pets");
-PDAHandler.AddEncyclopediaEntry("Doggo", "Lifeforms/Fauna/Pets"...);
+LanguageHandler.SetLanguageLine("EncyPath_Lifeforms/Fauna/Pets/Robotic", "Robotic Pets");
+
+// Adds "Doggo" to the "Pets" category:
+PDAHandler.AddEncyclopediaEntry("Doggo", "Lifeforms/Fauna/Pets" ...);
+// Adds "Robot Dog" to the "Robotic" category which is a subcategory of "Pets":
+PDAHandler.AddEncyclopediaEntry("Robot Dog", "Lifeforms/Fauna/Pets/Robotic" ...);
 ```
 
 ### Creating an entry: Text
@@ -124,7 +131,7 @@ These tend to use the Agency FB font. Stock images are often used in the "close 
 ![Template for Databank images](../images/tutorials/databank-image-template.png)
 
 > [!IMPORTANT]
-> Please keep in mind that it is **ILLEGAL** to use Subnautica's art assets and style in other contexts. However, Unknown Worlds Entertainment has given modders permission to modify their assets for non-commercial use within Subnautica.
+> Please keep in mind that it is **ILLEGAL** to use Subnautica's art assets and style in other contexts. However, Unknown Worlds Entertainment has given modders permission to modify their assets for non-commercial purposes within Subnautica mods.
 
 ### Creating an entry: Popup image
 
@@ -175,7 +182,7 @@ While you can technically use any sound asset, the only other recommended sound 
 
 Audio logs must first be registered through the `CustomSoundHandler` class. The
 [overload that takes an AudioClip](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.CustomSoundHandler.html?q=custom%20sound%20ha#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_UnityEngine_AudioClip_FMOD_Studio_Bus_)
-is recommended due to its simplicity, but anything should work.
+is recommended due to its simplicity, but anything should work. Also, remember to use the `AudioUtils.BusPaths.VoiceOvers` bus.
 
 After registering a sound, you must make an FMODAsset. An FMODAsset essentially acts as a container for your sound path. To create one use the
 [AudioUtils.GetFmodAsset(string)](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Utility.AudioUtils.html?q=fmod#Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_)
@@ -185,8 +192,9 @@ Finally, just pass this FMODAsset into the original method.
 
 ### Creating an entry: Examples
 
-Example 1 with an image
-(Insert image later)
+#### Example 1
+
+Registers a new PDA entry with a large image, popup image and proper title/description.
 
 ```csharp
 // "EldritchLogImage" is the name of the image file in the asset bundle. remember to omit file extensions.
@@ -196,14 +204,15 @@ Texture2D eldritchImage = assetBundle.LoadAsset<Texture2D>("EldritchLogImage");
 Sprite eldritchPopup = assetBundle.LoadAsset<Sprite>("EldritchLogSprite");
 
 // description string (does not need a variable of its own):
-string eldritchDesc = "There weren't enough lifeboats, I took the only one to myself.";
+string eldritchDesc = "There weren't enough lifeboats, I took the only one for myself.";
 
 // register the encyclopedia entry into the game:
 PDAHandler.AddEncyclopediaEntry("EldritchLog", "DownloadedData/PublicDocs", "Eldritch's Log", eldritchDesc, eldritchImage, eldritchPopup, null);
 ```
 
-Example 2 with a log message
-(Insert image later)
+#### Example 2
+
+Registers a new PDA entry with a voice log, popup image and proper title/description.
 
 ```csharp
 // remember: popup images must be imported as a sprite.
@@ -217,11 +226,14 @@ CustomSoundHandler.RegisterCustomSound("LeeAudioLog", assetBundle.LoadAsset<Audi
 // all this does is act as a container for the sound's ID, but it is required for the encyclopedia entry.
 FMODAsset leeLogSound = AudioUtils.GetFmodAsset("LeeAudioLog");
 
-// add the translation:
-LanguageHandler.SetLanguageLine("LeeAudioLog", "Hello? Hello? Anyone there? Oh... this isn't a radio, it's just an old voice recorder.");
+// passed into the subtitles and PDA entry description
+string transcript = "Hello? Hello? Anyone there? Oh... this isn't a radio, it's just an old voice recorder. Day 32 of being lost at sea. Or was it 33...? Getting lonely.";
+
+// add the translation for the subtitles:
+LanguageHandler.SetLanguageLine("LeeAudioLog", transcript);
 
 // register the encyclopedia entry into the game:
-PDAHandler.AddEncyclopediaEntry("LeeLog", "DownloadedData/PublicDocs", "Lee's Log", "Day 32 of being lost at sea. Or was it 33...?", null, popupLee, leeLogSound);
+PDAHandler.AddEncyclopediaEntry("LeeLog", "DownloadedData/PublicDocs", "Lee's Log", transcript, null, popupLee, leeLogSound);
 ```
 
 ---
@@ -231,12 +243,21 @@ PDAHandler.AddEncyclopediaEntry("LeeLog", "DownloadedData/PublicDocs", "Lee's Lo
 > [!TIP]
 > The `ency [key]` command can be used to instantly unlock a Databank entry for testing purposes.
 
-PDA entries are not unlocked by default but there are various ways to add them to the player’s databank, the most prominent listed below:
+PDA entries are not unlocked by default, but there are various ways to add them to the player’s databank. Some methods are listed below:
 
 | Method | Notes |
 | --- | --- |
-| Story Goal completion | Only occurs when GoalType is `GoalType.Ency`. See [documentation on the StoryGoalHandler class](story-goals.md) for more info. |
-| `PDAEncyclodia.AddAndPlaySound(string key)` | Adds the entry with the given `key`, shows a notification, and plays the correct sound (if defined) for this entry. |
-| `PDAEncyclodia.Add(string key, bool verbose)` | Adds the entry with the given `key`, and shows a notification if `verbose` is true. |
+| Story Goal completion | Only occurs when GoalType is `GoalType.Encyclopedia`. See our [documentation on the StoryGoalHandler class](story-goals.md) for more info. |
+| `PDAEncyclopedia.AddAndPlaySound(string key)` | Adds the entry with the given `key`, shows a notification, and plays the correct sound (if defined) for this entry. |
+| `PDAEncyclopedia.Add(string key, bool verbose)` | Adds the entry with the given `key`, and shows a notification if `verbose` is true. |
 
-[Example code chunk using story goal] 
+### Example for unlocking with Story Goals:
+
+```csharp
+// Register encyclopedia entry like usual:
+PDAHandler.AddEncyclopediaEntry("SpadefishHate", "Advanced", "Spadefish are terrible", "Why do they lay eggs? Why do they damage your seamoth so heavily?");
+
+// Use the StoryGoalHandler to make it unlockable.
+// This particular example uses the RegisterItemGoal method to unlock the encyclopedia entry when picking up a Spadefish:
+StoryGoalHandler.RegisterItemGoal("SpadefishHate", Story.GoalType.Encyclopedia, TechType.Spadefish);
+```
