@@ -1,0 +1,11 @@
+{
+    "columns": 3,
+    "pathToRepositoryRoot" : "..",
+    "repositoryOrganizationOrOwner": "SubnauticaModding",
+    "repositoryName": "Nautilus",
+    "fileName": "AUTHORS.md",
+    "title": "Nautilus Contributors",
+    "description": "We thank all of the following individuals for their contributions to Nautilus. This list includes everyone who worked on the original version, [SMLHelper](https://github.com/SubnauticaModding/SMLHelper). Nautilus would not be the same without them!",
+    "footer": "If you notice a problem with this file, feel free to report an issue in the repository.\n\nIf you would like to update this file manually, clone the repository, run the AuthorTableGenerator.exe in the AuthorsTableGenerator folder and send a Pull Request.",
+    "showCommits": true
+}
