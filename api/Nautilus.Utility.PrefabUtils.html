@@ -227,6 +227,56 @@
 
 
 
+  <a id="Nautilus_Utility_PrefabUtils_AddVFXFabricating_" data-uid="Nautilus.Utility.PrefabUtils.AddVFXFabricating*"></a>
+
+  <h3 id="Nautilus_Utility_PrefabUtils_AddVFXFabricating_UnityEngine_GameObject_System_String_System_Single_System_Single_UnityEngine_Vector3_System_Single_UnityEngine_Vector3_" data-uid="Nautilus.Utility.PrefabUtils.AddVFXFabricating(UnityEngine.GameObject,System.String,System.Single,System.Single,UnityEngine.Vector3,System.Single,UnityEngine.Vector3)">
+  AddVFXFabricating(GameObject, string, float, float, Vector3, float, Vector3)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/SMLHelper/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds the <span class="xref">VFXFabricating</span> component onto the child found by <code class="paramref">pathToModel</code>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VFXFabricating AddVFXFabricating(GameObject prefabRoot, string pathToModel, float minY, float maxY, Vector3 posOffset = default, float scaleFactor = 1, Vector3 eulerOffset = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefabRoot</code> <span class="xref">GameObject</span></dt>
+    <dd>The prefab object that this is applied to.</dd>
+    <dt><code>pathToModel</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>Leave as null or empty to point to the prefab root. Otherwise this is the path to the crafting model Transform, relative to the prefab's root Transform. For example, the Repair Tool's would be `welder_scaled/welder`.</dd>
+    <dt><code>minY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The relative y position of where the ghost effect begins, in global coordinates relative to the model's center, taking the <code class="paramref">posOffset</code> into account.</p>
+<p>Typically a negative value because the bottom of an object is below its center. You may need to adjust this at runtime with Subnautica Runtime Editor to get desired results.</p></dd>
+    <dt><code>maxY</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd><p>The relative y position of where the ghost effect ends, in global coordinates relative to the model's center, taking the <code class="paramref">posOffset</code> into account.</p>
+<p>Typically a positive value because the top of an object is above its center. You may need to adjust this at runtime with Subnautica Runtime Editor to get desired results.</p></dd>
+    <dt><code>posOffset</code> <span class="xref">Vector3</span></dt>
+    <dd>The offset of the model when being crafted (in METERS). This is generally around zero, but the y value may be ajusted up or down a few millimeters to fix clipping/floating issues.</dd>
+    <dt><code>scaleFactor</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The relative scale of the model. Generally is 1x for most items.</dd>
+    <dt><code>eulerOffset</code> <span class="xref">Vector3</span></dt>
+    <dd>Rotational offset.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">VFXFabricating</span></dt>
+    <dd>The added component.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
 
 </article>
 

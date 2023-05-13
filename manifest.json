@@ -1293,6 +1293,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AssetBundleLoadingUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AssetBundleLoadingUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Utility.AudioUtils.BusPaths.yml",
       "output": {
         ".html": {
@@ -1698,6 +1708,86 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/databank-audio-logs.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/databank-audio-logs.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/databank-image-template.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/databank-image-template.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/databank-image.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/databank-image.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/databank-paths.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/databank-paths.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/databank-popup-example.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/databank-popup-example.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/databank-popup-template.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/databank-popup-template.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/databank-popup.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/databank-popup.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/databank-text.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/databank-text.png"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "Documentation/index.md",
       "output": {
@@ -1746,6 +1836,16 @@
       "output": {
         ".html": {
           "relative_path": "tutorials/crafting-recipes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/databank-entries.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/databank-entries.html"
         }
       },
       "version": ""

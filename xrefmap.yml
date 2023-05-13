@@ -8162,6 +8162,44 @@ references:
   commentId: N:Nautilus.Utility
   fullName: Nautilus.Utility
   nameWithType: Nautilus.Utility
+- uid: Nautilus.Utility.AssetBundleLoadingUtils
+  name: AssetBundleLoadingUtils
+  href: api/Nautilus.Utility.AssetBundleLoadingUtils.html
+  commentId: T:Nautilus.Utility.AssetBundleLoadingUtils
+  fullName: Nautilus.Utility.AssetBundleLoadingUtils
+  nameWithType: AssetBundleLoadingUtils
+- uid: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(System.Reflection.Assembly,System.String)
+  name: LoadFromAssetsFolder(Assembly, string)
+  href: api/Nautilus.Utility.AssetBundleLoadingUtils.html#Nautilus_Utility_AssetBundleLoadingUtils_LoadFromAssetsFolder_System_Reflection_Assembly_System_String_
+  commentId: M:Nautilus.Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(System.Reflection.Assembly,System.String)
+  name.vb: LoadFromAssetsFolder(Assembly, String)
+  fullName: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(System.Reflection.Assembly, string)
+  fullName.vb: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(System.Reflection.Assembly, String)
+  nameWithType: AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, string)
+  nameWithType.vb: AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, String)
+- uid: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder*
+  name: LoadFromAssetsFolder
+  href: api/Nautilus.Utility.AssetBundleLoadingUtils.html#Nautilus_Utility_AssetBundleLoadingUtils_LoadFromAssetsFolder_
+  commentId: Overload:Nautilus.Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder
+  isSpec: "True"
+  fullName: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder
+  nameWithType: AssetBundleLoadingUtils.LoadFromAssetsFolder
+- uid: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromModFolder(System.Reflection.Assembly,System.String)
+  name: LoadFromModFolder(Assembly, string)
+  href: api/Nautilus.Utility.AssetBundleLoadingUtils.html#Nautilus_Utility_AssetBundleLoadingUtils_LoadFromModFolder_System_Reflection_Assembly_System_String_
+  commentId: M:Nautilus.Utility.AssetBundleLoadingUtils.LoadFromModFolder(System.Reflection.Assembly,System.String)
+  name.vb: LoadFromModFolder(Assembly, String)
+  fullName: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromModFolder(System.Reflection.Assembly, string)
+  fullName.vb: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromModFolder(System.Reflection.Assembly, String)
+  nameWithType: AssetBundleLoadingUtils.LoadFromModFolder(Assembly, string)
+  nameWithType.vb: AssetBundleLoadingUtils.LoadFromModFolder(Assembly, String)
+- uid: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromModFolder*
+  name: LoadFromModFolder
+  href: api/Nautilus.Utility.AssetBundleLoadingUtils.html#Nautilus_Utility_AssetBundleLoadingUtils_LoadFromModFolder_
+  commentId: Overload:Nautilus.Utility.AssetBundleLoadingUtils.LoadFromModFolder
+  isSpec: "True"
+  fullName: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromModFolder
+  nameWithType: AssetBundleLoadingUtils.LoadFromModFolder
 - uid: Nautilus.Utility.AudioUtils
   name: AudioUtils
   href: api/Nautilus.Utility.AudioUtils.html
@@ -9762,6 +9800,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PrefabUtils.AddConstructable
   nameWithType: PrefabUtils.AddConstructable
+- uid: Nautilus.Utility.PrefabUtils.AddVFXFabricating(UnityEngine.GameObject,System.String,System.Single,System.Single,UnityEngine.Vector3,System.Single,UnityEngine.Vector3)
+  name: AddVFXFabricating(GameObject, string, float, float, Vector3, float, Vector3)
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddVFXFabricating_UnityEngine_GameObject_System_String_System_Single_System_Single_UnityEngine_Vector3_System_Single_UnityEngine_Vector3_
+  commentId: M:Nautilus.Utility.PrefabUtils.AddVFXFabricating(UnityEngine.GameObject,System.String,System.Single,System.Single,UnityEngine.Vector3,System.Single,UnityEngine.Vector3)
+  name.vb: AddVFXFabricating(GameObject, String, Single, Single, Vector3, Single, Vector3)
+  fullName: Nautilus.Utility.PrefabUtils.AddVFXFabricating(UnityEngine.GameObject, string, float, float, UnityEngine.Vector3, float, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Utility.PrefabUtils.AddVFXFabricating(UnityEngine.GameObject, String, Single, Single, UnityEngine.Vector3, Single, UnityEngine.Vector3)
+  nameWithType: PrefabUtils.AddVFXFabricating(GameObject, string, float, float, Vector3, float, Vector3)
+  nameWithType.vb: PrefabUtils.AddVFXFabricating(GameObject, String, Single, Single, Vector3, Single, Vector3)
+- uid: Nautilus.Utility.PrefabUtils.AddVFXFabricating*
+  name: AddVFXFabricating
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddVFXFabricating_
+  commentId: Overload:Nautilus.Utility.PrefabUtils.AddVFXFabricating
+  isSpec: "True"
+  fullName: Nautilus.Utility.PrefabUtils.AddVFXFabricating
+  nameWithType: PrefabUtils.AddVFXFabricating
 - uid: Nautilus.Utility.ReflectionHelper
   name: ReflectionHelper
   href: api/Nautilus.Utility.ReflectionHelper.html
