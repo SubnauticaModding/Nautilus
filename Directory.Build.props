@@ -1,6 +1,6 @@
 <Project>
     <PropertyGroup>
-        <Authors>Subnautica Modding</Authors>
+        <Authors>https://github.com/SubnauticaModding/Nautilus/graphs/contributors</Authors>
         <DebugType>embedded</DebugType>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageProjectUrl>https://github.com/SubnauticaModding/Nautilus</PackageProjectUrl>
