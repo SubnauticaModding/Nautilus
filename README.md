@@ -38,7 +38,7 @@
 Nautilus is a modding library that aims to enhance developer productivity by offering common helper utilities as easy to use and robust as possible.
 Notable systems which Nautilus offers: Adding/editing items, implementing custom sprites & textures, custom audio, a Subnautica-styled mod configuration menu, and so much more! 
 
-This project was derived from [SMLHelper](https://github.com/SubnauticaModding/SMLHelper) with an improved codebase and maintainability. Nautilus offers all the features SML used to offer in a more robust implementation. Additionally, Nautilus took another route of managing handlers to fix many bugs and timing issues that were persistent in SML.  
+This project is a continuation of [SMLHelper](https://github.com/SubnauticaModding/Nautilus/tree/sml-2) with an improved codebase and maintainability. Nautilus offers all the features SML used to offer in a more robust implementation. Additionally, Nautilus took another route of managing handlers to fix many bugs and timing issues that were persistent in SML.  
 
 We hope to keep improving the modding experience in Subnautica to allow developers to create mods more easily and eliminate the implementation concerns in the mod-making process. For more information on Nautilus and its capabilities, please refer to our [documentation](https://subnauticamodding.github.io/Nautilus).  
 
