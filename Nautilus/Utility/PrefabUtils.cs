@@ -124,4 +124,35 @@ public static class PrefabUtils
 
         return constructable;
     }
+
+    /// <summary>
+    /// Adds the <see cref="VFXFabricating"/> component onto the child found by <paramref name="pathToModel"/>. 
+    /// </summary>
+    /// <param name="prefabRoot">The prefab object that this is applied to.</param>
+    /// <param name="pathToModel">Leave as null or empty to point to the prefab root. Otherwise this is the path to the crafting model Transform, relative to the prefab's root Transform. For example, the Repair Tool's would be `welder_scaled/welder`.</param>
+    /// <param name="minY">
+    /// <para>The relative y position of where the ghost effect begins, in global coordinates relative to the model's center, taking the <paramref name="posOffset"/> into account.</para>
+    /// <para>Typically a negative value because the bottom of an object is below its center. You may need to adjust this at runtime with Subnautica Runtime Editor to get desired results.</para></param>
+    /// <param name="maxY">
+    /// <para>The relative y position of where the ghost effect ends, in global coordinates relative to the model's center, taking the <paramref name="posOffset"/> into account.</para>
+    /// <para>Typically a positive value because the top of an object is above its center. You may need to adjust this at runtime with Subnautica Runtime Editor to get desired results.</para></param>
+    /// <param name="posOffset">The offset of the model when being crafted (in METERS). This is generally around zero, but the y value may be ajusted up or down a few millimeters to fix clipping/floating issues.</param>
+    /// <param name="scaleFactor">The relative scale of the model. Generally is 1x for most items.</param>
+    /// <param name="eulerOffset">Rotational offset.</param>
+    /// <returns>The added component.</returns>
+    public static VFXFabricating AddVFXFabricating(GameObject prefabRoot, string pathToModel, float minY, float maxY, Vector3 posOffset = default, float scaleFactor = 1f, Vector3 eulerOffset = default)
+    {
+        GameObject modelObject = prefabRoot;
+        if (!string.IsNullOrEmpty(pathToModel))
+        {
+            modelObject = prefabRoot.transform.Find(pathToModel).gameObject;
+        }
+        VFXFabricating vfxFabricating = modelObject.AddComponent<VFXFabricating>();
+        vfxFabricating.localMinY = minY;
+        vfxFabricating.localMaxY = maxY;
+        vfxFabricating.posOffset = posOffset;
+        vfxFabricating.scaleFactor = scaleFactor;
+        vfxFabricating.eulerOffset = eulerOffset;
+        return vfxFabricating;
+    }
 }
