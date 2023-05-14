@@ -57,7 +57,7 @@ internal static class Program
         {
             Console.WriteLine("Hm, why does it start with a V? Are you sure you meant to do that? If not, type R and we can retry that.");
             var line = Console.ReadLine();
-            if (line != null && line.ToLower() == "R")
+            if (line != null && line.ToLower() == "r")
             {
                 Console.Write("Version number: ");
                 versionPrefix = Console.ReadLine();
