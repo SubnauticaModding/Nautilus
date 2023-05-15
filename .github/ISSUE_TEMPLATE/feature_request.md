@@ -10,5 +10,8 @@ assignees: ''
 **Describe the feature**
 A clear and concise description of what you want it to look like.
 
-**Explanation**
+**Purpose**
 Why would this feature be useful?
+
+**Usage**
+How would modders use this feature?
