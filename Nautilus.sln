@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nautilus", "Nautilus\Nautilus.csproj", "{418502DD-372D-4EF9-8021-B262552DFEDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example mod", "Example mod\Example mod.csproj", "{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example mod", "Example mod\Example mod.csproj", "{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{418502DD-372D-4EF9-8021-B262552DFEDE} = {418502DD-372D-4EF9-8021-B262552DFEDE}
 	EndProjectSection
@@ -16,25 +16,43 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Version.targets = Version.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UploadHelper", "UploadHelper\UploadHelper.csproj", "{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		BZ.STABLE|Any CPU = BZ.STABLE|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 		SN.STABLE|Any CPU = SN.STABLE|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{418502DD-372D-4EF9-8021-B262552DFEDE}.BZ.STABLE|Any CPU.ActiveCfg = BZ.STABLE|Any CPU
 		{418502DD-372D-4EF9-8021-B262552DFEDE}.BZ.STABLE|Any CPU.Build.0 = BZ.STABLE|Any CPU
+		{418502DD-372D-4EF9-8021-B262552DFEDE}.Debug|Any CPU.ActiveCfg = SN.STABLE|Any CPU
+		{418502DD-372D-4EF9-8021-B262552DFEDE}.Debug|Any CPU.Build.0 = SN.STABLE|Any CPU
+		{418502DD-372D-4EF9-8021-B262552DFEDE}.Release|Any CPU.ActiveCfg = SN.STABLE|Any CPU
+		{418502DD-372D-4EF9-8021-B262552DFEDE}.Release|Any CPU.Build.0 = SN.STABLE|Any CPU
 		{418502DD-372D-4EF9-8021-B262552DFEDE}.SN.STABLE|Any CPU.ActiveCfg = SN.STABLE|Any CPU
 		{418502DD-372D-4EF9-8021-B262552DFEDE}.SN.STABLE|Any CPU.Build.0 = SN.STABLE|Any CPU
 		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.BZ.STABLE|Any CPU.ActiveCfg = BZ.STABLE|Any CPU
 		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.BZ.STABLE|Any CPU.Build.0 = BZ.STABLE|Any CPU
+		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.Debug|Any CPU.ActiveCfg = SN.STABLE|Any CPU
+		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.Debug|Any CPU.Build.0 = SN.STABLE|Any CPU
+		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.Release|Any CPU.ActiveCfg = SN.STABLE|Any CPU
+		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.Release|Any CPU.Build.0 = SN.STABLE|Any CPU
 		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.SN.STABLE|Any CPU.ActiveCfg = SN.STABLE|Any CPU
 		{C8FB0981-77D2-47C7-BBEF-A3A9EBACACBF}.SN.STABLE|Any CPU.Build.0 = SN.STABLE|Any CPU
+		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.BZ.STABLE|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.BZ.STABLE|Any CPU.Build.0 = Debug|Any CPU
+		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.SN.STABLE|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.SN.STABLE|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA2C5D3D-5F61-4EA3-9399-FDEF43184299}
