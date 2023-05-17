@@ -19,6 +19,7 @@ public static class CraftTreeHandler
     /// <para>The steps to the target tab.</para>
     /// <para>These must match the id value of the CraftNode in the crafting tree you're targeting.</para>
     /// <para>Do not include "root" in this path.</para>
+    /// <para>See <see href="https://subnauticamodding.github.io/Nautilus/tutorials/craft-tree-paths.html"/> for examples of valid parameters.</para>
     /// </param>        
     public static void AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem, params string[] stepsToTab)
     {
@@ -119,6 +120,7 @@ public static class CraftTreeHandler
     /// <para>The steps to the target tab.</para>
     /// <para>These must match the id value of the CraftNode in the crafting tree you're targeting.</para>
     /// <para>Do not include "root" in this path.</para>
+    /// <para>See <see href="https://subnauticamodding.github.io/Nautilus/tutorials/craft-tree-paths.html"/> for examples of valid parameters.</para>
     /// </param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite, params string[] stepsToTab)
     {
