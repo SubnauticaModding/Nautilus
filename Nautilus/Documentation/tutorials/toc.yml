@@ -3,7 +3,7 @@
   
 - name: Adding Content
   items:
-    - name: Spawns
+    - name: Spawning objects in the world
       href: spawns.md
     - name: Custom Console Commands
       href: console-commands.md

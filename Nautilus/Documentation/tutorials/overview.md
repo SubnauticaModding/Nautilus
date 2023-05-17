@@ -5,7 +5,7 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 ## Sections
 
 ### Adding Content
-* [Spawns](spawns.md)  
+* [Spawning objects in the world](spawns.md)  
 * [Custom Console Commands](console-commands.md)
 * [Story Goals](story-goals.md)
 * [Databank Entries](databank-entries.md)
