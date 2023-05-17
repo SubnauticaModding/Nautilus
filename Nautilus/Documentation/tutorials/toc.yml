@@ -3,6 +3,10 @@
   
 - name: Adding Content
   items:
+    - name: Creating and using Asset Bundles
+      href: asset-bundle-creation.md
+    - name: Making a craftable item with custom assets
+      href: custom-craftable-guide.md
     - name: Spawns
       href: spawns.md
     - name: Custom Console Commands

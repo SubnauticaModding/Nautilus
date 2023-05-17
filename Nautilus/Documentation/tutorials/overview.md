@@ -5,6 +5,8 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 ## Sections
 
 ### Adding Content
+* [Creating and using Asset Bundles](asset-bundle-creation.md)
+* [Making a craftable item with custom assets](custom-craftable-guide.md)
 * [Spawns](spawns.md)  
 * [Custom Console Commands](console-commands.md)
 * [Story Goals](story-goals.md)
