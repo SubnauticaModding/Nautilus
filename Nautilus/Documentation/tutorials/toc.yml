@@ -27,6 +27,8 @@
       href: localization.md
     - name: In-Game options
       href: options.md
-  
-    
-  
+
+- name: Quick References
+  items:
+    - name: Craft Tree Paths
+      href: craft-tree-paths.md
