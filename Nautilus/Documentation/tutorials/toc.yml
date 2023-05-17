@@ -5,27 +5,27 @@
   items:
     - name: Spawning objects in the world
       href: spawns.md
-    - name: Custom Console Commands
+    - name: Custom console commands
       href: console-commands.md
-    - name: Story Goals
+    - name: Story goals
       href: story-goals.md
-    - name: Databank Entries
+    - name: Databank entries
       href: databank-entries.md
     
 - name: Editing Content
   items:
-    - name: Background Type
+    - name: Background type
       href: background-type.md
-    - name: Equipment Type
+    - name: Equipment type
       href: equipment-type.md
-    - name: Crafting Recipes
+    - name: Crafting recipes
       href: crafting-recipes.md
   
 - name: Utilities
   items:
     - name: Localization
       href: localization.md
-    - name: In-Game Options
+    - name: In-Game options
       href: options.md
   
     

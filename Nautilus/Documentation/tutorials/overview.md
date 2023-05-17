@@ -6,18 +6,18 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 
 ### Adding Content
 * [Spawning objects in the world](spawns.md)  
-* [Custom Console Commands](console-commands.md)
-* [Story Goals](story-goals.md)
-* [Databank Entries](databank-entries.md)
+* [Custom console commands](console-commands.md)
+* [Story goals](story-goals.md)
+* [Databank entries](databank-entries.md)
 * TODO: [Audio (FMOD)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 
 ### Editing Content
-* [Background Type](background-type.md)
-* [Equipment Type](equipment-type.md)
-* [Crafting Recipes](crafting-recipes.md)
+* [Background type](background-type.md)
+* [Equipment type](equipment-type.md)
+* [Crafting recipes](crafting-recipes.md)
 
 
 ### Utilities
 * [Localization](localization.md)
-* [In-Game Options](options.md)
+* [In-Game options](options.md)
