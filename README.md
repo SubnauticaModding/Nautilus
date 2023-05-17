@@ -66,7 +66,7 @@ We hope to keep improving the modding experience in Subnautica to allow develope
 
       - Extracting/unzipping a zip file is as simple as right clicking it, and selecting the `Extract here` prompt. We highly recommend the use of a zipping tool besides the Windows default one, such as [WinRAR](https://www.rarlab.com/download.htm), or [7-Zip](https://7-zip.org/download.html).
     </details>
-3. Download Nautilus from [Nexus Mods](https://www.nexusmods.com/subnautica/mods/1262), [Submodica](https://www.submodica.net/mods/sn1/246) or [GitHub Releases](https://github.com/SubnauticaModding/Nautilus/releases/tag/1.0.0-pre.6) (this link will be updated later when Nautilus is released).
+3. Download Nautilus from [Nexus Mods](https://www.nexusmods.com/subnautica/mods/1262), [Submodica](https://www.submodica.net/mods/sn1/250) or [GitHub Releases](https://github.com/SubnauticaModding/Nautilus/releases/tag/1.0.0-pre.8) (this link will be updated later when Nautilus is released).
 4. Extract/unzip the Nautilus zip file to your `Subnautica\BepInEx` folder
 5. Confirm your `Subnautica\BepInEx\plugins` now looks like this:
    ###### If it doesn't look like this, try figure out where your Nautilus folder has gone, and move it into the plugins folder
