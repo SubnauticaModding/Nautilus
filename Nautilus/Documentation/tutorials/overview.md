@@ -21,3 +21,7 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 ### Utilities
 * [Localization](localization.md)
 * [In-Game Options](options.md)
+
+
+### Quick References
+* [Craft Tree Paths](craft-tree-paths.md)
