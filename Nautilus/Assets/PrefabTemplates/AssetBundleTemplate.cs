@@ -18,7 +18,7 @@ public class AssetBundleTemplate : PrefabTemplate
     /// Instantiates a new AssetBundleTemplate
     /// </summary>
     /// <param name="bundle">The AssetBundle to load the asset from</param>
-    /// <param name="prefabName">The </param>
+    /// <param name="prefabName">The name of the prefab gameobject to load from the bundle</param>
     /// <param name="info"></param>
     /// <exception cref="ArgumentNullException"></exception>
     public AssetBundleTemplate(AssetBundle bundle, string prefabName, PrefabInfo info) : base(info)
@@ -29,8 +29,8 @@ public class AssetBundleTemplate : PrefabTemplate
     /// Instantiates a new AssetBundleTemplate. Automatically loads the bundle by calling <see cref = "Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, string)"/>
     /// </summary>
     /// <param name="modAssembly">The Assembly of the mod to load the bundle from</param>
-    /// <param name="assetBundleFileName"></param>
-    /// <param name="prefabName"></param>
+    /// <param name="assetBundleFileName">The file name of the asset bundle. These often do not have file extensions</param>
+    /// <param name="prefabName">The name of the prefab gameobject to load from the bundle</param>
     /// <param name="info"></param>
     public AssetBundleTemplate(Assembly modAssembly, string assetBundleFileName, string prefabName, PrefabInfo info) : base(info)
     {
