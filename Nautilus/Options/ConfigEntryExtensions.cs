@@ -253,7 +253,7 @@ public static class ConfigEntryExtensions
         T[] viableValues = options?.ToArray<T>() ?? (T[])Enum.GetValues(typeof(T));
 
         ModChoiceOption<T> optionItem = ModChoiceOption<T>.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-            configEntry.Definition.Key, viableValues, configEntry.Value);
+            configEntry.Definition.Key, viableValues, configEntry.Value, configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
             configEntry.Value = (T)Enum.Parse(typeof(T), e.Value.ToString());
@@ -280,7 +280,7 @@ public static class ConfigEntryExtensions
             throw new ArgumentException("Could not get values from ConfigEntry");
 
         optionItem = ModChoiceOption<T>.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-            configEntry.Definition.Key, options, (T)configEntry.DefaultValue ?? options[0]);
+            configEntry.Definition.Key, options, (T)configEntry.DefaultValue ?? options[0], configEntry.Description.Description);
 
         optionItem.OnChanged += (_, e) =>
         {
