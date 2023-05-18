@@ -1832,6 +1832,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/craft-tree-paths.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/craft-tree-paths.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Documentation/tutorials/crafting-recipes.md",
       "output": {
         ".html": {
