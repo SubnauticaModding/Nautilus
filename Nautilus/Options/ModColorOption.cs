@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,6 +28,11 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
     public bool Advanced { get; set; }
 
     /// <summary>
+    /// The tooltip to show when hovering over the option's items.
+    /// </summary>
+    public string Tooltip { get; }
+
+    /// <summary>
     /// The base method for adding an object to the options panel
     /// </summary>
     /// <param name="panel">The panel to add the option to.</param>
@@ -53,7 +58,7 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}");
+                SliderLabelMode.Percent, "{0:F0}", tooltip: Tooltip);
 
             GameObject greenSlider = panel.AddSliderOption(tabIndex, "Green", Value.g, 0, 1, 0, 0.01f,
                 new UnityAction<float>((float value) => {
@@ -62,7 +67,7 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}");
+                SliderLabelMode.Percent, "{0:F0}", tooltip: Tooltip);
 
             GameObject blueSlider = panel.AddSliderOption(tabIndex, "Blue", Value.b, 0, 1, 0, 0.01f,
                 new UnityAction<float>((float value) => {
@@ -71,7 +76,7 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}");
+                SliderLabelMode.Percent, "{0:F0}", tooltip: Tooltip);
 
             GameObject alphaSlider = panel.AddSliderOption(tabIndex, "Alpha", Value.a, 0, 1, 1, 0.01f,
                 new UnityAction<float>((float value) => {
@@ -80,16 +85,17 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}", tooltip: "Opaqueness. The lower the value the more transparent.");
+                SliderLabelMode.Percent, "{0:F0}", tooltip: Tooltip);
         }
 
         OptionGameObject = colorPicker.transform.parent.gameObject;
         base.AddToPanel(panel, tabIndex);
     }
 
-    private ModColorOption(string id, string label, Color value, bool advanced = false) : base(label, id, value)
+    private ModColorOption(string id, string label, Color value, bool advanced = false, string tooltip = null) : base(label, id, value)
     {
         Advanced = advanced;
+        Tooltip= tooltip;
     }
 
     /// <summary>
@@ -99,9 +105,10 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
     /// <param name="label">The display text to use in the in-game menu.</param>
     /// <param name="value">The starting value.</param>
     /// <param name="advanced">Whether to use an advanced display.</param>
-    public static ModColorOption Create(string id, string label, Color value, bool advanced = false)
+    /// <param name="tooltip">The tooltip to show when hovering over the options.</param>
+    public static ModColorOption Create(string id, string label, Color value, bool advanced = false, string tooltip = null)
     {
-        return new ModColorOption(id, label, value, advanced);
+        return new ModColorOption(id, label, value, advanced, tooltip);
     }
 
     /// <summary>

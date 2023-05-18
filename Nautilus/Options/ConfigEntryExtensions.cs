@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Configuration;
@@ -213,11 +213,11 @@ public static class ConfigEntryExtensions
     /// </summary>
     /// <param name="configEntry">A bepinex config entry</param>
     /// <param name="basic">Whether to use the basic or advanced color picker</param>
-    /// <returns><see cref="ModSliderOption"/></returns>
-    public static ModColorOption ToModSliderOptions(this ConfigEntry<Color> configEntry, bool basic = false)
+    /// <returns><see cref="ModColorOption"/></returns>
+    public static ModColorOption ToModColorOptions(this ConfigEntry<Color> configEntry, bool basic = false)
     {
         ModColorOption optionItem = ModColorOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-            configEntry.Definition.Key, configEntry.Value, basic);
+            configEntry.Definition.Key, configEntry.Value, basic, tooltip: configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
             configEntry.Value = e.Value;
