@@ -57,7 +57,7 @@ public class CraftingGadget : Gadget
     /// <summary>
     /// Adds this node to a specific tab you want it to appear in.
     /// </summary>
-    /// <param name="stepsToFabricator">The steps required to get to the tab in question. See <see href="https://subnauticamodding.github.io/Nautilus/tutorials/craft-tree-paths.html"/> for examples of valid parameters.<br/>
+    /// <param name="stepsToFabricator">The steps required to get to the tab in question. See <see href="https://subnauticamodding.github.io/Nautilus/tutorials/craft-tree-paths.html"/> or the <see cref="CraftTreeHandler.Paths"/> class for examples of valid parameters.<br/>
     /// If null, it will appear at the craft tree's root.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public CraftingGadget WithStepsToFabricatorTab(params string[] stepsToFabricator)
