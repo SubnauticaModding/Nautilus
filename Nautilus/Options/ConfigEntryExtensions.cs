@@ -213,6 +213,7 @@ public static class ConfigEntryExtensions
     /// </summary>
     /// <param name="configEntry">A bepinex config entry</param>
     /// <param name="basic">Whether to use the basic or advanced color picker</param>
+    /// <remarks>Does not support use of <see cref="AcceptableValueList{T}"/>.</remarks>
     /// <returns><see cref="ModColorOption"/></returns>
     public static ModColorOption ToModColorOption(this ConfigEntry<Color> configEntry, bool basic = false)
     {
