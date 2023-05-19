@@ -46,6 +46,9 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
 
         GameObject colorPicker = panel.AddColorOption(tabIndex, Label, Value, callback);
 
+        // Add tooltip
+        colorPicker.transform.Find("Choice").gameObject.EnsureComponent<MenuTooltip>().key = Tooltip;
+
         if (Advanced)
         {
             UnityEngine.Object.Destroy(colorPicker.transform.Find("Choice/Background/ButtonLeft").gameObject);
@@ -58,7 +61,7 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}", tooltip: Tooltip);
+                SliderLabelMode.Percent, "{0:F0}", "The <color=\"red\">red</color> level of the color.");
 
             GameObject greenSlider = panel.AddSliderOption(tabIndex, "Green", Value.g, 0, 1, 0, 0.01f,
                 new UnityAction<float>((float value) => {
@@ -67,7 +70,7 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}", tooltip: Tooltip);
+                SliderLabelMode.Percent, "{0:F0}", "The <color=\"green\">green</color> level of the color.");
 
             GameObject blueSlider = panel.AddSliderOption(tabIndex, "Blue", Value.b, 0, 1, 0, 0.01f,
                 new UnityAction<float>((float value) => {
@@ -76,7 +79,7 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}", tooltip: Tooltip);
+                SliderLabelMode.Percent, "{0:F0}", "The <color=\"blue\">blue</color> level of the color.");
 
             GameObject alphaSlider = panel.AddSliderOption(tabIndex, "Alpha", Value.a, 0, 1, 1, 0.01f,
                 new UnityAction<float>((float value) => {
@@ -85,7 +88,7 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}", tooltip: Tooltip);
+                SliderLabelMode.Percent, "{0:F0}", "The opaqueness of the color. The lower the value the more transparent.");
         }
 
         OptionGameObject = colorPicker.transform.parent.gameObject;
