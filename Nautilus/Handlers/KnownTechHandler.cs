@@ -321,12 +321,11 @@ public static class KnownTechHandler
 
         /// <summary>Message on unlocking new blueprints from picking up items; "NEW BLUEPRINT SYNTHESIZED FROM ALIEN RESOURCE"</summary>
         public static string BlueprintPickupMessage { get; } = "NotificationBlueprintPickup";
-        /// <summary>Sound on unlocking new blueprints from picking up items; "NEW BLUEPRINT SYNTHESIZED FROM ALIEN RESOURCE"</summary>
-        public static FMODAsset BlueprintPickupSound { get; } = AudioUtils.GetFmodAsset("event:/tools/scanner/new_blueprint");
+
 
         /// <summary>Message on unlocking new blueprints from scanning; "NEW BLUEPRINT SYNTHESIZED"</summary>
         public static string BlueprintUnlockMessage { get; } = "NotificationBlueprintUnlocked";
-        /// <summary>Sound on unlocking new blueprints from picking up items; "NEW BLUEPRINT SYNTHESIZED"</summary>
+        /// <summary>Sound on unlocking new blueprints from scanning or picking up items; "NEW BLUEPRINT SYNTHESIZED"</summary>
         public static FMODAsset BlueprintUnlockSound { get; } = AudioUtils.GetFmodAsset("event:/tools/scanner/new_blueprint");
 
         /// <summary>Basic sound for unlocking items. Not commonly used and typically uses <see cref="BlueprintUnlockMessage"/> for its associated message.</summary>
