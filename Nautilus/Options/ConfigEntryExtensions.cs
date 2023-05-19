@@ -233,7 +233,7 @@ public static class ConfigEntryExtensions
     public static ModKeybindOption ToModKeybindOption(this ConfigEntry<KeyCode> configEntry)
     {
         ModKeybindOption optionItem = ModKeybindOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-            configEntry.Definition.Key, GameInput.GetPrimaryDevice(), configEntry.Value);
+            configEntry.Definition.Key, GameInput.GetPrimaryDevice(), configEntry.Value, configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
             configEntry.Value = e.Value;
