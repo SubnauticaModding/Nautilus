@@ -217,7 +217,7 @@ public static class ConfigEntryExtensions
     public static ModColorOption ToModColorOption(this ConfigEntry<Color> configEntry, bool basic = false)
     {
         ModColorOption optionItem = ModColorOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-            configEntry.Definition.Key, configEntry.Value, basic, tooltip: configEntry.Description.Description);
+            configEntry.Definition.Key, configEntry.Value, advanced: !basic, tooltip: configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
             configEntry.Value = e.Value;
