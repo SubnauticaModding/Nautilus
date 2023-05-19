@@ -214,7 +214,7 @@ public static class ConfigEntryExtensions
     /// <param name="configEntry">A bepinex config entry</param>
     /// <param name="basic">Whether to use the basic or advanced color picker</param>
     /// <returns><see cref="ModColorOption"/></returns>
-    public static ModColorOption ToModColorOptions(this ConfigEntry<Color> configEntry, bool basic = false)
+    public static ModColorOption ToModColorOption(this ConfigEntry<Color> configEntry, bool basic = false)
     {
         ModColorOption optionItem = ModColorOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
             configEntry.Definition.Key, configEntry.Value, basic, tooltip: configEntry.Description.Description);
