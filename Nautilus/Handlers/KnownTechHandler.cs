@@ -316,15 +316,16 @@ public static class KnownTechHandler
     {
         /// <summary>Message on unlocking new creatures; "NEW LIFEFORM DISCOVERED"</summary>
         public static string NewCreatureDiscoveredMessage { get; } = "NotificationCreatureDiscovered";
+        
         /// <summary>Sound on unlocking new creatures; "NEW LIFEFORM DISCOVERED"</summary>
         public static FMODAsset NewCreatureDiscoveredSound { get; } = AudioUtils.GetFmodAsset("event:/player/new_creature");
 
         /// <summary>Message on unlocking new blueprints from picking up items; "NEW BLUEPRINT SYNTHESIZED FROM ALIEN RESOURCE"</summary>
         public static string BlueprintPickupMessage { get; } = "NotificationBlueprintPickup";
 
-
         /// <summary>Message on unlocking new blueprints from scanning; "NEW BLUEPRINT SYNTHESIZED"</summary>
         public static string BlueprintUnlockMessage { get; } = "NotificationBlueprintUnlocked";
+        
         /// <summary>Sound on unlocking new blueprints from scanning or picking up items; "NEW BLUEPRINT SYNTHESIZED"</summary>
         public static FMODAsset BlueprintUnlockSound { get; } = AudioUtils.GetFmodAsset("event:/tools/scanner/new_blueprint");
 
