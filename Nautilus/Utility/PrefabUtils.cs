@@ -158,7 +158,8 @@ public static class PrefabUtils
     }
 
     /// <summary>
-    /// Adds the <see cref="StorageContainer"/> component to the given prefab, for basic use cases with lockers and such.
+    /// <para>Adds the <see cref="StorageContainer"/> component to the given prefab, for basic use cases with lockers and such.</para>
+    /// <para>Due to how this component needs to be initialized, this method will disable the object and re-enable it after the component is added (assuming it was already active). This all happens within the same frame and will not be seen.</para>
     /// </summary>
     /// <param name="prefabRoot">The prefab that the component is added onto. This does not necessarily NEED to be the "prefab root". You can set it to a
     /// child collider if you want a smaller area of interaction or to have multiple storage containers on one prefab.</param>
@@ -170,6 +171,10 @@ public static class PrefabUtils
     /// <returns></returns>
     public static StorageContainer AddStorageContainer(GameObject prefabRoot, string storageRootName, string storageRootClassId, int width, int height, bool preventDeconstructionIfNotEmpty = true)
     {
+        var wasActive = prefabRoot.activeSelf;
+
+        if (wasActive) prefabRoot.SetActive(false);
+
         var storageRoot = new GameObject(storageRootName);
         storageRoot.transform.SetParent(prefabRoot.transform, false);
 
@@ -183,6 +188,8 @@ public static class PrefabUtils
         container.storageRoot = childObjectIdentifier;
         container.preventDeconstructionIfNotEmpty = preventDeconstructionIfNotEmpty;
 
+        if (wasActive) prefabRoot.SetActive(true);
+
         return container;
     }
 
@@ -191,7 +198,8 @@ public static class PrefabUtils
     private static FMODAsset _soundPowerDown = AudioUtils.GetFmodAsset("event:/tools/battery_die", "{14490ac5-73e8-47ce-b7f9-26ac8cef9467}");
 
     /// <summary>
-    /// Adds the <see cref="EnergyMixin"/> component to an object that is expected to have a slot for one battery or other power source.
+    /// <para>Adds the <see cref="EnergyMixin"/> component to an object that is expected to have a slot for one battery or other power source.</para>
+    /// <para>Due to how this component needs to be initialized, this method will disable the object and re-enable it after the component is added (assuming it was already active). This all happens within the same frame and will not be seen.</para>
     /// </summary>
     /// <param name="prefabRoot">The root of the prefab object, where the component is added.</param>
     /// <param name="storageRootClassId">A unique string for the <see cref="ChildObjectIdentifier"/> component.</param>
@@ -202,6 +210,10 @@ public static class PrefabUtils
     /// <returns></returns>
     public static EnergyMixin AddEnergyMixin(GameObject prefabRoot, string storageRootClassId, TechType defaultBattery, List<TechType> compatibleBatteries, EnergyMixin.BatteryModels[] batteryModels = null, string storageRootName = "BatterySlot")
     {
+        var wasActive = prefabRoot.activeSelf;
+
+        if (wasActive) prefabRoot.SetActive(false);
+
         var batterySlot = new GameObject(storageRootName);
         var childObjectIdentifier = batterySlot.AddComponent<ChildObjectIdentifier>();
         childObjectIdentifier.ClassId = storageRootClassId;
@@ -214,6 +226,8 @@ public static class PrefabUtils
         em.controlledObjects = new GameObject[0];
         em.soundPowerUp = _soundPowerUp;
         em.soundPowerDown = _soundPowerDown;
+
+        if (wasActive) prefabRoot.SetActive(true);
 
         return em;
     }
