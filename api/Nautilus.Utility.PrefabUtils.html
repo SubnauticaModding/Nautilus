@@ -83,7 +83,7 @@
 
   <h1 id="Nautilus_Utility_PrefabUtils" data-uid="Nautilus.Utility.PrefabUtils" class="text-break">
     Class PrefabUtils
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L66"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -150,7 +150,7 @@
 
   <h3 id="Nautilus_Utility_PrefabUtils_AddBasicComponents_UnityEngine_GameObject_System_String_TechType_LargeWorldEntity_CellLevel_" data-uid="Nautilus.Utility.PrefabUtils.AddBasicComponents(UnityEngine.GameObject,System.String,TechType,LargeWorldEntity.CellLevel)">
   AddBasicComponents(GameObject, string, TechType, CellLevel)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L79"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds and configures the following components on the <code class="paramref">prefab</code>.<p></p>
@@ -191,7 +191,7 @@
 
   <h3 id="Nautilus_Utility_PrefabUtils_AddConstructable_UnityEngine_GameObject_TechType_Nautilus_Utility_ConstructableFlags_" data-uid="Nautilus.Utility.PrefabUtils.AddConstructable(UnityEngine.GameObject,TechType,Nautilus.Utility.ConstructableFlags)">
   AddConstructable(GameObject, TechType, ConstructableFlags)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L104"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds and configures the <span class="xref">Constructable</span> component on the specified prefab.</div>
@@ -227,11 +227,106 @@
 
 
 
+  <a id="Nautilus_Utility_PrefabUtils_AddEnergyMixin_" data-uid="Nautilus.Utility.PrefabUtils.AddEnergyMixin*"></a>
+
+  <h3 id="Nautilus_Utility_PrefabUtils_AddEnergyMixin_UnityEngine_GameObject_System_String_TechType_System_Collections_Generic_List_TechType__EnergyMixin_BatteryModels___System_String_" data-uid="Nautilus.Utility.PrefabUtils.AddEnergyMixin(UnityEngine.GameObject,System.String,TechType,System.Collections.Generic.List{TechType},EnergyMixin.BatteryModels[],System.String)">
+  AddEnergyMixin(GameObject, string, TechType, List&lt;TechType&gt;, BatteryModels[], string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L211"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds the <span class="xref">EnergyMixin</span> component to an object that is expected to have a slot for one battery or other power source.</p>
+<p>Due to how this component needs to be initialized, this method will disable the object and re-enable it after the component is added (assuming it was already active). This all happens within the same frame and will not be seen.</p></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static EnergyMixin AddEnergyMixin(GameObject prefabRoot, string storageRootClassId, TechType defaultBattery, List&lt;TechType&gt; compatibleBatteries, EnergyMixin.BatteryModels[] batteryModels = null, string storageRootName = &quot;BatterySlot&quot;)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefabRoot</code> <span class="xref">GameObject</span></dt>
+    <dd>The root of the prefab object, where the component is added.</dd>
+    <dt><code>storageRootClassId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>A unique string for the <span class="xref">ChildObjectIdentifier</span> component.</dd>
+    <dt><code>defaultBattery</code> <span class="xref">TechType</span></dt>
+    <dd>The TechType of the battery that is added by default. If there should be no default, set this value to <span class="xref">TechType.None</span>.</dd>
+    <dt><code>compatibleBatteries</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The list of all compatible batteries. By default is typically <span class="xref">TechType.Battery</span> and <span class="xref">TechType.PrecursorIonBattery</span>. Must not be null!</dd>
+    <dt><code>batteryModels</code> <span class="xref">BatteryModels</span>[]</dt>
+    <dd>If assigned a value, allows different models to appear with different battery TechTypes. Also consider <span class="xref">EnergyMixin.controlledObjects</span> for a more basic version of this that is not TechType-dependent.</dd>
+    <dt><code>storageRootName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name of the object that internally holds all of the batteries.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EnergyMixin</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_PrefabUtils_AddStorageContainer_" data-uid="Nautilus.Utility.PrefabUtils.AddStorageContainer*"></a>
+
+  <h3 id="Nautilus_Utility_PrefabUtils_AddStorageContainer_UnityEngine_GameObject_System_String_System_String_System_Int32_System_Int32_System_Boolean_" data-uid="Nautilus.Utility.PrefabUtils.AddStorageContainer(UnityEngine.GameObject,System.String,System.String,System.Int32,System.Int32,System.Boolean)">
+  AddStorageContainer(GameObject, string, string, int, int, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L172"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds the <span class="xref">StorageContainer</span> component to the given prefab, for basic use cases with lockers and such.</p>
+<p>Due to how this component needs to be initialized, this method will disable the object and re-enable it after the component is added (assuming it was already active). This all happens within the same frame and will not be seen.</p></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static StorageContainer AddStorageContainer(GameObject prefabRoot, string storageRootName, string storageRootClassId, int width, int height, bool preventDeconstructionIfNotEmpty = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefabRoot</code> <span class="xref">GameObject</span></dt>
+    <dd>The prefab that the component is added onto. This does not necessarily NEED to be the "prefab root". You can set it to a
+    child collider if you want a smaller area of interaction or to have multiple storage containers on one prefab.</dd>
+    <dt><code>storageRootName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name of the object that internally holds all of the items.</dd>
+    <dt><code>storageRootClassId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>A unique string for the <span class="xref">ChildObjectIdentifier</span> component.</dd>
+    <dt><code>width</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The width of this container's face.</dd>
+    <dt><code>height</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The height of this container's interface.</dd>
+    <dt><code>preventDeconstructionIfNotEmpty</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>If true, you cannot destroy this prefab unless all of its storage containers are empty.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">StorageContainer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Utility_PrefabUtils_AddVFXFabricating_" data-uid="Nautilus.Utility.PrefabUtils.AddVFXFabricating*"></a>
 
   <h3 id="Nautilus_Utility_PrefabUtils_AddVFXFabricating_UnityEngine_GameObject_System_String_System_Single_System_Single_UnityEngine_Vector3_System_Single_UnityEngine_Vector3_" data-uid="Nautilus.Utility.PrefabUtils.AddVFXFabricating(UnityEngine.GameObject,System.String,System.Single,System.Single,UnityEngine.Vector3,System.Single,UnityEngine.Vector3)">
   AddVFXFabricating(GameObject, string, float, float, Vector3, float, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L144"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds the <span class="xref">VFXFabricating</span> component onto the child found by <code class="paramref">pathToModel</code>.</div>
@@ -281,7 +376,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L65" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L66" class="edit-link">Edit this page</a>
         </div>
 
         

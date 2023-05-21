@@ -150,7 +150,7 @@
 
   <h3 id="Nautilus_Options_ConfigEntryExtensions_ToModChoiceOption__1_BepInEx_Configuration_ConfigEntry___0__System_Collections_Generic_IEnumerable___0__" data-uid="Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption``1(BepInEx.Configuration.ConfigEntry{``0},System.Collections.Generic.IEnumerable{``0})">
   ToModChoiceOption&lt;T&gt;(ConfigEntry&lt;T&gt;, IEnumerable&lt;T&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ConfigEntryExtensions.cs/#L251"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ConfigEntryExtensions.cs/#L252"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Converts an Enum ConfigEntry into a ModChoiceOption that will update the value when the choice changes.</div>
@@ -193,7 +193,7 @@
 
   <h3 id="Nautilus_Options_ConfigEntryExtensions_ToModChoiceOption__1_BepInEx_Configuration_ConfigEntry___0____0___" data-uid="Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption``1(BepInEx.Configuration.ConfigEntry{``0},``0[])">
   ToModChoiceOption&lt;T&gt;(ConfigEntry&lt;T&gt;, T[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ConfigEntryExtensions.cs/#L272"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ConfigEntryExtensions.cs/#L273"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Converts a ConfigEntry into a ModChoiceOption that will update the value when the choice changes.</div>
@@ -232,11 +232,51 @@
 
 
 
+  <a id="Nautilus_Options_ConfigEntryExtensions_ToModColorOption_" data-uid="Nautilus.Options.ConfigEntryExtensions.ToModColorOption*"></a>
+
+  <h3 id="Nautilus_Options_ConfigEntryExtensions_ToModColorOption_BepInEx_Configuration_ConfigEntry_UnityEngine_Color__System_Boolean_" data-uid="Nautilus.Options.ConfigEntryExtensions.ToModColorOption(BepInEx.Configuration.ConfigEntry{UnityEngine.Color},System.Boolean)">
+  ToModColorOption(ConfigEntry&lt;Color&gt;, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ConfigEntryExtensions.cs/#L218"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Converts a Bepinex ConfigEntry/<color></color> into 4 ModSliderOption that will update the value when the slider changes.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ModColorOption ToModColorOption(this ConfigEntry&lt;Color&gt; configEntry, bool basic = false)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>configEntry</code> <span class="xref">ConfigEntry</span>&lt;<span class="xref">Color</span>&gt;</dt>
+    <dd>A bepinex config entry</dd>
+    <dt><code>basic</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether to use the basic or advanced color picker</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Options.ModColorOption.html">ModColorOption</a></dt>
+    <dd><a class="xref" href="Nautilus.Options.ModColorOption.html">ModColorOption</a></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Options_ConfigEntryExtensions_ToModColorOption_BepInEx_Configuration_ConfigEntry_UnityEngine_Color__System_Boolean__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">Does not support use of <span class="xref">BepInEx.Configuration.AcceptableValueList&lt;T&gt;</span>.</div>
+
+
+
+
   <a id="Nautilus_Options_ConfigEntryExtensions_ToModKeybindOption_" data-uid="Nautilus.Options.ConfigEntryExtensions.ToModKeybindOption*"></a>
 
   <h3 id="Nautilus_Options_ConfigEntryExtensions_ToModKeybindOption_BepInEx_Configuration_ConfigEntry_UnityEngine_KeyCode__" data-uid="Nautilus.Options.ConfigEntryExtensions.ToModKeybindOption(BepInEx.Configuration.ConfigEntry{UnityEngine.KeyCode})">
   ToModKeybindOption(ConfigEntry&lt;KeyCode&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ConfigEntryExtensions.cs/#L233"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ConfigEntryExtensions.cs/#L234"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Converts a Bepinex ConfigEntry/<keycode></keycode> into a ModKeyBindOption that will update the value when the keybind changes.</div>
@@ -341,44 +381,6 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Options.ModSliderOption.html">ModSliderOption</a></dt>
-    <dd><a class="xref" href="Nautilus.Options.ModSliderOption.html">ModSliderOption</a></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Nautilus_Options_ConfigEntryExtensions_ToModSliderOptions_" data-uid="Nautilus.Options.ConfigEntryExtensions.ToModSliderOptions*"></a>
-
-  <h3 id="Nautilus_Options_ConfigEntryExtensions_ToModSliderOptions_BepInEx_Configuration_ConfigEntry_UnityEngine_Color__System_Boolean_" data-uid="Nautilus.Options.ConfigEntryExtensions.ToModSliderOptions(BepInEx.Configuration.ConfigEntry{UnityEngine.Color},System.Boolean)">
-  ToModSliderOptions(ConfigEntry&lt;Color&gt;, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ConfigEntryExtensions.cs/#L217"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary">Converts a Bepinex ConfigEntry/<color></color> into 4 ModSliderOption that will update the value when the slider changes.</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ModColorOption ToModSliderOptions(this ConfigEntry&lt;Color&gt; configEntry, bool basic = false)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>configEntry</code> <span class="xref">ConfigEntry</span>&lt;<span class="xref">Color</span>&gt;</dt>
-    <dd>A bepinex config entry</dd>
-    <dt><code>basic</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd>Whether to use the basic or advanced color picker</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Nautilus.Options.ModColorOption.html">ModColorOption</a></dt>
     <dd><a class="xref" href="Nautilus.Options.ModSliderOption.html">ModSliderOption</a></dd>
   </dl>
 

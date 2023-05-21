@@ -207,7 +207,7 @@
 
   <h3 id="Nautilus_Options_ModKeybindOption_AdjusterComponent" data-uid="Nautilus.Options.ModKeybindOption.AdjusterComponent">
   AdjusterComponent
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L131"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L143"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The Adjuster for this <a class="xref" href="Nautilus.Options.OptionItem.html">OptionItem</a>.</div>
@@ -265,6 +265,37 @@
 
 
 
+  <a id="Nautilus_Options_ModKeybindOption_Tooltip_" data-uid="Nautilus.Options.ModKeybindOption.Tooltip*"></a>
+
+  <h3 id="Nautilus_Options_ModKeybindOption_Tooltip" data-uid="Nautilus.Options.ModKeybindOption.Tooltip">
+  Tooltip
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">The tooltip to show when hovering over the option.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Tooltip { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -273,7 +304,7 @@
 
   <h3 id="Nautilus_Options_ModKeybindOption_AddToPanel_uGUI_TabbedControlsPanel_System_Int32_" data-uid="Nautilus.Options.ModKeybindOption.AddToPanel(uGUI_TabbedControlsPanel,System.Int32)">
   AddToPanel(uGUI_TabbedControlsPanel, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L73"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The base method for adding an object to the options panel</div>
@@ -304,16 +335,16 @@
 
   <a id="Nautilus_Options_ModKeybindOption_Create_" data-uid="Nautilus.Options.ModKeybindOption.Create*"></a>
 
-  <h3 id="Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_System_String_" data-uid="Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,System.String)">
-  Create(string, string, Device, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_System_String_System_String_" data-uid="Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,System.String,System.String)">
+  Create(string, string, Device, string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new <a class="xref" href="Nautilus.Options.ModKeybindOption.html">ModKeybindOption</a> for handling an option that is a keybind.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ModKeybindOption Create(string id, string label, GameInput.Device device, string key)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ModKeybindOption Create(string id, string label, GameInput.Device device, string key, string tooltip = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -326,6 +357,8 @@
     <dd>The device name.</dd>
     <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>The starting keybind value.</dd>
+    <dt><code>tooltip</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The tooltip to show when hovering over the option.</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -346,16 +379,16 @@
 
   <a id="Nautilus_Options_ModKeybindOption_Create_" data-uid="Nautilus.Options.ModKeybindOption.Create*"></a>
 
-  <h3 id="Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_UnityEngine_KeyCode_" data-uid="Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,UnityEngine.KeyCode)">
-  Create(string, string, Device, KeyCode)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_UnityEngine_KeyCode_System_String_" data-uid="Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,UnityEngine.KeyCode,System.String)">
+  Create(string, string, Device, KeyCode, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L51"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new <a class="xref" href="Nautilus.Options.ModKeybindOption.html">ModKeybindOption</a> for handling an option that is a keybind.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ModKeybindOption Create(string id, string label, GameInput.Device device, KeyCode key)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ModKeybindOption Create(string id, string label, GameInput.Device device, KeyCode key, string tooltip = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -368,6 +401,8 @@
     <dd>The device name.</dd>
     <dt><code>key</code> <span class="xref">KeyCode</span></dt>
     <dd>The starting keybind value.</dd>
+    <dt><code>tooltip</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The tooltip to show when hovering over the option.</dd>
   </dl>
 
   <h4 class="section">Returns</h4>

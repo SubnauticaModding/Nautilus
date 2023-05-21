@@ -3783,6 +3783,90 @@ references:
   commentId: T:Nautilus.Handlers.KnownTechHandler
   fullName: Nautilus.Handlers.KnownTechHandler
   nameWithType: KnownTechHandler
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData
+  name: KnownTechHandler.DefaultUnlockData
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html
+  commentId: T:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData
+  nameWithType: KnownTechHandler.DefaultUnlockData
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BasicUnlockSound
+  name: BasicUnlockSound
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BasicUnlockSound
+  commentId: P:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BasicUnlockSound
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BasicUnlockSound
+  nameWithType: KnownTechHandler.DefaultUnlockData.BasicUnlockSound
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BasicUnlockSound*
+  name: BasicUnlockSound
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BasicUnlockSound_
+  commentId: Overload:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BasicUnlockSound
+  isSpec: "True"
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BasicUnlockSound
+  nameWithType: KnownTechHandler.DefaultUnlockData.BasicUnlockSound
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
+  name: BlueprintPickupMessage
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BlueprintPickupMessage
+  commentId: P:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
+  nameWithType: KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage*
+  name: BlueprintPickupMessage
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BlueprintPickupMessage_
+  commentId: Overload:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
+  isSpec: "True"
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
+  nameWithType: KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
+  name: BlueprintUnlockMessage
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BlueprintUnlockMessage
+  commentId: P:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
+  nameWithType: KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage*
+  name: BlueprintUnlockMessage
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BlueprintUnlockMessage_
+  commentId: Overload:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
+  isSpec: "True"
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
+  nameWithType: KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound
+  name: BlueprintUnlockSound
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BlueprintUnlockSound
+  commentId: P:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound
+  nameWithType: KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound*
+  name: BlueprintUnlockSound
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BlueprintUnlockSound_
+  commentId: Overload:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound
+  isSpec: "True"
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound
+  nameWithType: KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
+  name: NewCreatureDiscoveredMessage
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_NewCreatureDiscoveredMessage
+  commentId: P:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
+  nameWithType: KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage*
+  name: NewCreatureDiscoveredMessage
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_NewCreatureDiscoveredMessage_
+  commentId: Overload:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
+  isSpec: "True"
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
+  nameWithType: KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound
+  name: NewCreatureDiscoveredSound
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_NewCreatureDiscoveredSound
+  commentId: P:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound
+  nameWithType: KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound
+- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound*
+  name: NewCreatureDiscoveredSound
+  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_NewCreatureDiscoveredSound_
+  commentId: Overload:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound
+  isSpec: "True"
+  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound
+  nameWithType: KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound
 - uid: Nautilus.Handlers.KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType)
   name: RemoveAllCurrentAnalysisTechEntry(TechType)
   href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_
@@ -6957,6 +7041,22 @@ references:
   fullName.vb: Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption(Of T)(BepInEx.Configuration.ConfigEntry(Of T), System.Collections.Generic.IEnumerable(Of T))
   nameWithType: ConfigEntryExtensions.ToModChoiceOption<T>(ConfigEntry<T>, IEnumerable<T>)
   nameWithType.vb: ConfigEntryExtensions.ToModChoiceOption(Of T)(ConfigEntry(Of T), IEnumerable(Of T))
+- uid: Nautilus.Options.ConfigEntryExtensions.ToModColorOption(BepInEx.Configuration.ConfigEntry{UnityEngine.Color},System.Boolean)
+  name: ToModColorOption(ConfigEntry<Color>, bool)
+  href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModColorOption_BepInEx_Configuration_ConfigEntry_UnityEngine_Color__System_Boolean_
+  commentId: M:Nautilus.Options.ConfigEntryExtensions.ToModColorOption(BepInEx.Configuration.ConfigEntry{UnityEngine.Color},System.Boolean)
+  name.vb: ToModColorOption(ConfigEntry(Of Color), Boolean)
+  fullName: Nautilus.Options.ConfigEntryExtensions.ToModColorOption(BepInEx.Configuration.ConfigEntry<UnityEngine.Color>, bool)
+  fullName.vb: Nautilus.Options.ConfigEntryExtensions.ToModColorOption(BepInEx.Configuration.ConfigEntry(Of UnityEngine.Color), Boolean)
+  nameWithType: ConfigEntryExtensions.ToModColorOption(ConfigEntry<Color>, bool)
+  nameWithType.vb: ConfigEntryExtensions.ToModColorOption(ConfigEntry(Of Color), Boolean)
+- uid: Nautilus.Options.ConfigEntryExtensions.ToModColorOption*
+  name: ToModColorOption
+  href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModColorOption_
+  commentId: Overload:Nautilus.Options.ConfigEntryExtensions.ToModColorOption
+  isSpec: "True"
+  fullName: Nautilus.Options.ConfigEntryExtensions.ToModColorOption
+  nameWithType: ConfigEntryExtensions.ToModColorOption
 - uid: Nautilus.Options.ConfigEntryExtensions.ToModKeybindOption(BepInEx.Configuration.ConfigEntry{UnityEngine.KeyCode})
   name: ToModKeybindOption(ConfigEntry<KeyCode>)
   href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModKeybindOption_BepInEx_Configuration_ConfigEntry_UnityEngine_KeyCode__
@@ -6998,15 +7098,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ConfigEntryExtensions.ToModSliderOption
   nameWithType: ConfigEntryExtensions.ToModSliderOption
-- uid: Nautilus.Options.ConfigEntryExtensions.ToModSliderOptions(BepInEx.Configuration.ConfigEntry{UnityEngine.Color},System.Boolean)
-  name: ToModSliderOptions(ConfigEntry<Color>, bool)
-  href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModSliderOptions_BepInEx_Configuration_ConfigEntry_UnityEngine_Color__System_Boolean_
-  commentId: M:Nautilus.Options.ConfigEntryExtensions.ToModSliderOptions(BepInEx.Configuration.ConfigEntry{UnityEngine.Color},System.Boolean)
-  name.vb: ToModSliderOptions(ConfigEntry(Of Color), Boolean)
-  fullName: Nautilus.Options.ConfigEntryExtensions.ToModSliderOptions(BepInEx.Configuration.ConfigEntry<UnityEngine.Color>, bool)
-  fullName.vb: Nautilus.Options.ConfigEntryExtensions.ToModSliderOptions(BepInEx.Configuration.ConfigEntry(Of UnityEngine.Color), Boolean)
-  nameWithType: ConfigEntryExtensions.ToModSliderOptions(ConfigEntry<Color>, bool)
-  nameWithType.vb: ConfigEntryExtensions.ToModSliderOptions(ConfigEntry(Of Color), Boolean)
 - uid: Nautilus.Options.ConfigEntryExtensions.ToModSliderOptions(BepInEx.Configuration.ConfigEntry{UnityEngine.Vector2},System.Single,System.Single,System.Single,System.String)
   name: ToModSliderOptions(ConfigEntry<Vector2>, float, float, float, string)
   href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModSliderOptions_BepInEx_Configuration_ConfigEntry_UnityEngine_Vector2__System_Single_System_Single_System_Single_System_String_
@@ -7409,15 +7500,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModColorOption.Advanced
   nameWithType: ModColorOption.Advanced
-- uid: Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean)
-  name: Create(string, string, Color, bool)
-  href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_System_String_System_String_UnityEngine_Color_System_Boolean_
-  commentId: M:Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean)
-  name.vb: Create(String, String, Color, Boolean)
-  fullName: Nautilus.Options.ModColorOption.Create(string, string, UnityEngine.Color, bool)
-  fullName.vb: Nautilus.Options.ModColorOption.Create(String, String, UnityEngine.Color, Boolean)
-  nameWithType: ModColorOption.Create(string, string, Color, bool)
-  nameWithType.vb: ModColorOption.Create(String, String, Color, Boolean)
+- uid: Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String)
+  name: Create(string, string, Color, bool, string)
+  href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_System_String_System_String_UnityEngine_Color_System_Boolean_System_String_
+  commentId: M:Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String)
+  name.vb: Create(String, String, Color, Boolean, String)
+  fullName: Nautilus.Options.ModColorOption.Create(string, string, UnityEngine.Color, bool, string)
+  fullName.vb: Nautilus.Options.ModColorOption.Create(String, String, UnityEngine.Color, Boolean, String)
+  nameWithType: ModColorOption.Create(string, string, Color, bool, string)
+  nameWithType.vb: ModColorOption.Create(String, String, Color, Boolean, String)
 - uid: Nautilus.Options.ModColorOption.Create(System.String,System.String)
   name: Create(string, string)
   href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_System_String_System_String_
@@ -7434,6 +7525,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModColorOption.Create
   nameWithType: ModColorOption.Create
+- uid: Nautilus.Options.ModColorOption.Tooltip
+  name: Tooltip
+  href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Tooltip
+  commentId: P:Nautilus.Options.ModColorOption.Tooltip
+  fullName: Nautilus.Options.ModColorOption.Tooltip
+  nameWithType: ModColorOption.Tooltip
+- uid: Nautilus.Options.ModColorOption.Tooltip*
+  name: Tooltip
+  href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Tooltip_
+  commentId: Overload:Nautilus.Options.ModColorOption.Tooltip
+  isSpec: "True"
+  fullName: Nautilus.Options.ModColorOption.Tooltip
+  nameWithType: ModColorOption.Tooltip
 - uid: Nautilus.Options.ModKeybindOption
   name: ModKeybindOption
   href: api/Nautilus.Options.ModKeybindOption.html
@@ -7469,24 +7573,24 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModKeybindOption.AdjusterComponent
   nameWithType: ModKeybindOption.AdjusterComponent
-- uid: Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,System.String)
-  name: Create(string, string, Device, string)
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_System_String_
-  commentId: M:Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,System.String)
-  name.vb: Create(String, String, Device, String)
-  fullName: Nautilus.Options.ModKeybindOption.Create(string, string, GameInput.Device, string)
-  fullName.vb: Nautilus.Options.ModKeybindOption.Create(String, String, GameInput.Device, String)
-  nameWithType: ModKeybindOption.Create(string, string, GameInput.Device, string)
-  nameWithType.vb: ModKeybindOption.Create(String, String, GameInput.Device, String)
-- uid: Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,UnityEngine.KeyCode)
-  name: Create(string, string, Device, KeyCode)
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_UnityEngine_KeyCode_
-  commentId: M:Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,UnityEngine.KeyCode)
-  name.vb: Create(String, String, Device, KeyCode)
-  fullName: Nautilus.Options.ModKeybindOption.Create(string, string, GameInput.Device, UnityEngine.KeyCode)
-  fullName.vb: Nautilus.Options.ModKeybindOption.Create(String, String, GameInput.Device, UnityEngine.KeyCode)
-  nameWithType: ModKeybindOption.Create(string, string, GameInput.Device, KeyCode)
-  nameWithType.vb: ModKeybindOption.Create(String, String, GameInput.Device, KeyCode)
+- uid: Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,System.String,System.String)
+  name: Create(string, string, Device, string, string)
+  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_System_String_System_String_
+  commentId: M:Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,System.String,System.String)
+  name.vb: Create(String, String, Device, String, String)
+  fullName: Nautilus.Options.ModKeybindOption.Create(string, string, GameInput.Device, string, string)
+  fullName.vb: Nautilus.Options.ModKeybindOption.Create(String, String, GameInput.Device, String, String)
+  nameWithType: ModKeybindOption.Create(string, string, GameInput.Device, string, string)
+  nameWithType.vb: ModKeybindOption.Create(String, String, GameInput.Device, String, String)
+- uid: Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,UnityEngine.KeyCode,System.String)
+  name: Create(string, string, Device, KeyCode, string)
+  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_UnityEngine_KeyCode_System_String_
+  commentId: M:Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,UnityEngine.KeyCode,System.String)
+  name.vb: Create(String, String, Device, KeyCode, String)
+  fullName: Nautilus.Options.ModKeybindOption.Create(string, string, GameInput.Device, UnityEngine.KeyCode, string)
+  fullName.vb: Nautilus.Options.ModKeybindOption.Create(String, String, GameInput.Device, UnityEngine.KeyCode, String)
+  nameWithType: ModKeybindOption.Create(string, string, GameInput.Device, KeyCode, string)
+  nameWithType.vb: ModKeybindOption.Create(String, String, GameInput.Device, KeyCode, String)
 - uid: Nautilus.Options.ModKeybindOption.Create*
   name: Create
   href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Create_
@@ -7507,6 +7611,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModKeybindOption.Device
   nameWithType: ModKeybindOption.Device
+- uid: Nautilus.Options.ModKeybindOption.Tooltip
+  name: Tooltip
+  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Tooltip
+  commentId: P:Nautilus.Options.ModKeybindOption.Tooltip
+  fullName: Nautilus.Options.ModKeybindOption.Tooltip
+  nameWithType: ModKeybindOption.Tooltip
+- uid: Nautilus.Options.ModKeybindOption.Tooltip*
+  name: Tooltip
+  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Tooltip_
+  commentId: Overload:Nautilus.Options.ModKeybindOption.Tooltip
+  isSpec: "True"
+  fullName: Nautilus.Options.ModKeybindOption.Tooltip
+  nameWithType: ModKeybindOption.Tooltip
 - uid: Nautilus.Options.ModOption`2
   name: ModOption<T, E>
   href: api/Nautilus.Options.ModOption-2.html
@@ -10001,6 +10118,38 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PrefabUtils.AddConstructable
   nameWithType: PrefabUtils.AddConstructable
+- uid: Nautilus.Utility.PrefabUtils.AddEnergyMixin(UnityEngine.GameObject,System.String,TechType,System.Collections.Generic.List{TechType},EnergyMixin.BatteryModels[],System.String)
+  name: AddEnergyMixin(GameObject, string, TechType, List<TechType>, BatteryModels[], string)
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddEnergyMixin_UnityEngine_GameObject_System_String_TechType_System_Collections_Generic_List_TechType__EnergyMixin_BatteryModels___System_String_
+  commentId: M:Nautilus.Utility.PrefabUtils.AddEnergyMixin(UnityEngine.GameObject,System.String,TechType,System.Collections.Generic.List{TechType},EnergyMixin.BatteryModels[],System.String)
+  name.vb: AddEnergyMixin(GameObject, String, TechType, List(Of TechType), BatteryModels(), String)
+  fullName: Nautilus.Utility.PrefabUtils.AddEnergyMixin(UnityEngine.GameObject, string, TechType, System.Collections.Generic.List<TechType>, EnergyMixin.BatteryModels[], string)
+  fullName.vb: Nautilus.Utility.PrefabUtils.AddEnergyMixin(UnityEngine.GameObject, String, TechType, System.Collections.Generic.List(Of TechType), EnergyMixin.BatteryModels(), String)
+  nameWithType: PrefabUtils.AddEnergyMixin(GameObject, string, TechType, List<TechType>, EnergyMixin.BatteryModels[], string)
+  nameWithType.vb: PrefabUtils.AddEnergyMixin(GameObject, String, TechType, List(Of TechType), EnergyMixin.BatteryModels(), String)
+- uid: Nautilus.Utility.PrefabUtils.AddEnergyMixin*
+  name: AddEnergyMixin
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddEnergyMixin_
+  commentId: Overload:Nautilus.Utility.PrefabUtils.AddEnergyMixin
+  isSpec: "True"
+  fullName: Nautilus.Utility.PrefabUtils.AddEnergyMixin
+  nameWithType: PrefabUtils.AddEnergyMixin
+- uid: Nautilus.Utility.PrefabUtils.AddStorageContainer(UnityEngine.GameObject,System.String,System.String,System.Int32,System.Int32,System.Boolean)
+  name: AddStorageContainer(GameObject, string, string, int, int, bool)
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddStorageContainer_UnityEngine_GameObject_System_String_System_String_System_Int32_System_Int32_System_Boolean_
+  commentId: M:Nautilus.Utility.PrefabUtils.AddStorageContainer(UnityEngine.GameObject,System.String,System.String,System.Int32,System.Int32,System.Boolean)
+  name.vb: AddStorageContainer(GameObject, String, String, Integer, Integer, Boolean)
+  fullName: Nautilus.Utility.PrefabUtils.AddStorageContainer(UnityEngine.GameObject, string, string, int, int, bool)
+  fullName.vb: Nautilus.Utility.PrefabUtils.AddStorageContainer(UnityEngine.GameObject, String, String, Integer, Integer, Boolean)
+  nameWithType: PrefabUtils.AddStorageContainer(GameObject, string, string, int, int, bool)
+  nameWithType.vb: PrefabUtils.AddStorageContainer(GameObject, String, String, Integer, Integer, Boolean)
+- uid: Nautilus.Utility.PrefabUtils.AddStorageContainer*
+  name: AddStorageContainer
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddStorageContainer_
+  commentId: Overload:Nautilus.Utility.PrefabUtils.AddStorageContainer
+  isSpec: "True"
+  fullName: Nautilus.Utility.PrefabUtils.AddStorageContainer
+  nameWithType: PrefabUtils.AddStorageContainer
 - uid: Nautilus.Utility.PrefabUtils.AddVFXFabricating(UnityEngine.GameObject,System.String,System.Single,System.Single,UnityEngine.Vector3,System.Single,UnityEngine.Vector3)
   name: AddVFXFabricating(GameObject, string, float, float, Vector3, float, Vector3)
   href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddVFXFabricating_UnityEngine_GameObject_System_String_System_Single_System_Single_UnityEngine_Vector3_System_Single_UnityEngine_Vector3_
