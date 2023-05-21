@@ -41,7 +41,7 @@ public interface ICustomPrefab
     PrefabPostProcessorAsync OnPrefabPostProcess { get; }
     
     /// <summary>
-    /// Adds a gadget to this custom prefab.
+    /// Adds a gadget to this custom prefab. A prefab can only hold one Gadget of any given type.
     /// </summary>
     /// <param name="gadget">The gadget to add</param>
     /// <typeparam name="TGadget">Type of the gadget.</typeparam>
