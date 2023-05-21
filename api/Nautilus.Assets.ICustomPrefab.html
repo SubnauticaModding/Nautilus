@@ -273,10 +273,10 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_AddGadget__1___0_" data-uid="Nautilus.Assets.ICustomPrefab.AddGadget``1(``0)">
   AddGadget&lt;TGadget&gt;(TGadget)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary">Adds a gadget to this custom prefab.</div>
+  <div class="markdown level1 summary">Adds a gadget to this custom prefab. A prefab can only hold one Gadget of any given type.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -307,6 +307,11 @@
 
 
 
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.DuplicateGadgetException.html">DuplicateGadgetException</a></dt>
+    <dd>When a Gadget of the given type already exists.</dd>
+  </dl>
 
 
 
@@ -314,7 +319,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_AddOnRegister_System_Action_" data-uid="Nautilus.Assets.ICustomPrefab.AddOnRegister(System.Action)">
   AddOnRegister(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L93"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L94"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds an action that will be called during the registration of the prefab.</div>
@@ -345,7 +350,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_AddOnUnregister_System_Action_" data-uid="Nautilus.Assets.ICustomPrefab.AddOnUnregister(System.Action)">
   AddOnUnregister(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L100"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds an action that will be called when this prefab has performed an unregister operation.</div>
@@ -376,7 +381,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_GetGadget_System_Type_" data-uid="Nautilus.Assets.ICustomPrefab.GetGadget(System.Type)">
   GetGadget(Type)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L57"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the gadget instance associated with the specified gadget type attached to this custom prefab.</div>
@@ -412,7 +417,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_GetGadget__1" data-uid="Nautilus.Assets.ICustomPrefab.GetGadget``1">
   GetGadget&lt;TGadget&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L63"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L64"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the gadget instance associated with the specified gadget type attached to this custom prefab.</div>
@@ -448,7 +453,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_RemoveGadget_System_Type_" data-uid="Nautilus.Assets.ICustomPrefab.RemoveGadget(System.Type)">
   RemoveGadget(Type)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L80"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Removes the gadget with the specified type.</div>
@@ -485,7 +490,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_RemoveGadget__1" data-uid="Nautilus.Assets.ICustomPrefab.RemoveGadget``1">
   RemoveGadget&lt;TGadget&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L87"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L88"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Removes the gadget with the specified type.</div>
@@ -522,7 +527,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_TryGetGadget__1___0__" data-uid="Nautilus.Assets.ICustomPrefab.TryGetGadget``1(``0@)">
   TryGetGadget&lt;TGadget&gt;(out TGadget)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the gadget instance associated with the specified gadget type attached to this custom prefab.</div>

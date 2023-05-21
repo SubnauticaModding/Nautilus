@@ -648,6 +648,31 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.CraftingGadget.WithStepsToFabricatorTab
   nameWithType: CraftingGadget.WithStepsToFabricatorTab
+- uid: Nautilus.Assets.Gadgets.DuplicateGadgetException
+  name: DuplicateGadgetException
+  href: api/Nautilus.Assets.Gadgets.DuplicateGadgetException.html
+  commentId: T:Nautilus.Assets.Gadgets.DuplicateGadgetException
+  fullName: Nautilus.Assets.Gadgets.DuplicateGadgetException
+  nameWithType: DuplicateGadgetException
+- uid: Nautilus.Assets.Gadgets.DuplicateGadgetException.#ctor(System.String,Nautilus.Assets.Gadgets.Gadget)
+  name: DuplicateGadgetException(string, Gadget)
+  href: api/Nautilus.Assets.Gadgets.DuplicateGadgetException.html#Nautilus_Assets_Gadgets_DuplicateGadgetException__ctor_System_String_Nautilus_Assets_Gadgets_Gadget_
+  commentId: M:Nautilus.Assets.Gadgets.DuplicateGadgetException.#ctor(System.String,Nautilus.Assets.Gadgets.Gadget)
+  name.vb: New(String, Gadget)
+  fullName: Nautilus.Assets.Gadgets.DuplicateGadgetException.DuplicateGadgetException(string, Nautilus.Assets.Gadgets.Gadget)
+  fullName.vb: Nautilus.Assets.Gadgets.DuplicateGadgetException.New(String, Nautilus.Assets.Gadgets.Gadget)
+  nameWithType: DuplicateGadgetException.DuplicateGadgetException(string, Gadget)
+  nameWithType.vb: DuplicateGadgetException.New(String, Gadget)
+- uid: Nautilus.Assets.Gadgets.DuplicateGadgetException.#ctor*
+  name: DuplicateGadgetException
+  href: api/Nautilus.Assets.Gadgets.DuplicateGadgetException.html#Nautilus_Assets_Gadgets_DuplicateGadgetException__ctor_
+  commentId: Overload:Nautilus.Assets.Gadgets.DuplicateGadgetException.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Assets.Gadgets.DuplicateGadgetException.DuplicateGadgetException
+  fullName.vb: Nautilus.Assets.Gadgets.DuplicateGadgetException.New
+  nameWithType: DuplicateGadgetException.DuplicateGadgetException
+  nameWithType.vb: DuplicateGadgetException.New
 - uid: Nautilus.Assets.Gadgets.EquipmentGadget
   name: EquipmentGadget
   href: api/Nautilus.Assets.Gadgets.EquipmentGadget.html
