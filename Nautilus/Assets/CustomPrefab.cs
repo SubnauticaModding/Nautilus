@@ -41,11 +41,12 @@ public interface ICustomPrefab
     PrefabPostProcessorAsync OnPrefabPostProcess { get; }
     
     /// <summary>
-    /// Adds a gadget to this custom prefab.
+    /// Adds a gadget to this custom prefab. A prefab can only hold one Gadget of any given type.
     /// </summary>
     /// <param name="gadget">The gadget to add</param>
     /// <typeparam name="TGadget">Type of the gadget.</typeparam>
     /// <returns>A reference to the added gadget.</returns>
+    /// <exception cref="DuplicateGadgetException">When a Gadget of the given type already exists.</exception>
     TGadget AddGadget<TGadget>(TGadget gadget) where TGadget : Gadget;
 
     /// <summary>
@@ -178,6 +179,8 @@ public class CustomPrefab : ICustomPrefab
     /// <inheritdoc/>
     public TGadget AddGadget<TGadget>(TGadget gadget) where TGadget : Gadget
     {
+        if (_gadgets.ContainsKey(gadget.GetType()))
+            throw new DuplicateGadgetException(string.IsNullOrEmpty(Info.ClassID) ? "Uninitialized" : Info.ClassID, gadget);
         _gadgets[gadget.GetType()] = gadget;
         return gadget;
     }
