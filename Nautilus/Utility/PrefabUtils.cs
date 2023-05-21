@@ -215,6 +215,7 @@ public static class PrefabUtils
         if (wasActive) prefabRoot.SetActive(false);
 
         var batterySlot = new GameObject(storageRootName);
+        batterySlot.transform.SetParent(prefabRoot.transform, false);
         var childObjectIdentifier = batterySlot.AddComponent<ChildObjectIdentifier>();
         childObjectIdentifier.ClassId = storageRootClassId;
 
