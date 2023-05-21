@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Configuration;
@@ -213,11 +213,12 @@ public static class ConfigEntryExtensions
     /// </summary>
     /// <param name="configEntry">A bepinex config entry</param>
     /// <param name="basic">Whether to use the basic or advanced color picker</param>
-    /// <returns><see cref="ModSliderOption"/></returns>
-    public static ModColorOption ToModSliderOptions(this ConfigEntry<Color> configEntry, bool basic = false)
+    /// <remarks>Does not support use of <see cref="AcceptableValueList{T}"/>.</remarks>
+    /// <returns><see cref="ModColorOption"/></returns>
+    public static ModColorOption ToModColorOption(this ConfigEntry<Color> configEntry, bool basic = false)
     {
         ModColorOption optionItem = ModColorOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-            configEntry.Definition.Key, configEntry.Value, basic);
+            configEntry.Definition.Key, configEntry.Value, advanced: !basic, tooltip: configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
             configEntry.Value = e.Value;
@@ -233,7 +234,7 @@ public static class ConfigEntryExtensions
     public static ModKeybindOption ToModKeybindOption(this ConfigEntry<KeyCode> configEntry)
     {
         ModKeybindOption optionItem = ModKeybindOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-            configEntry.Definition.Key, GameInput.GetPrimaryDevice(), configEntry.Value);
+            configEntry.Definition.Key, GameInput.GetPrimaryDevice(), configEntry.Value, tooltip: configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
             configEntry.Value = e.Value;
@@ -253,7 +254,7 @@ public static class ConfigEntryExtensions
         T[] viableValues = options?.ToArray<T>() ?? (T[])Enum.GetValues(typeof(T));
 
         ModChoiceOption<T> optionItem = ModChoiceOption<T>.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-            configEntry.Definition.Key, viableValues, configEntry.Value);
+            configEntry.Definition.Key, viableValues, configEntry.Value ?? (T)configEntry.DefaultValue ?? viableValues[0], tooltip: configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
             configEntry.Value = (T)Enum.Parse(typeof(T), e.Value.ToString());
@@ -280,7 +281,7 @@ public static class ConfigEntryExtensions
             throw new ArgumentException("Could not get values from ConfigEntry");
 
         optionItem = ModChoiceOption<T>.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-            configEntry.Definition.Key, options, (T)configEntry.DefaultValue ?? options[0]);
+            configEntry.Definition.Key, options, configEntry.Value ?? (T) configEntry.DefaultValue ?? options[0], tooltip: configEntry.Description.Description);
 
         optionItem.OnChanged += (_, e) =>
         {

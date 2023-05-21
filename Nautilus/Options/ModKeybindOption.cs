@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using Nautilus.Utility;
 using TMPro;
@@ -29,9 +29,15 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     /// </summary>
     public GameInput.Device Device { get; }
 
-    private ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id, key)
+    /// <summary>
+    /// The tooltip to show when hovering over the option.
+    /// </summary>
+    public string Tooltip { get; }
+
+    private ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key, string tooltip) : base(label, id, key)
     {
         Device = device;
+        Tooltip = tooltip;
     }
 
     /// <summary>
@@ -41,9 +47,10 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     /// <param name="label">The display text to use in the in-game menu.</param>
     /// <param name="device">The device name.</param>
     /// <param name="key">The starting keybind value.</param>
-    public static ModKeybindOption Create(string id, string label, GameInput.Device device, KeyCode key)
+    /// /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+    public static ModKeybindOption Create(string id, string label, GameInput.Device device, KeyCode key, string tooltip = null)
     {
-        return new ModKeybindOption(id, label, device, key);
+        return new ModKeybindOption(id, label, device, key, tooltip);
     }
     /// <summary>
     /// Creates a new <see cref="ModKeybindOption"/> for handling an option that is a keybind.
@@ -52,9 +59,10 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     /// <param name="label">The display text to use in the in-game menu.</param>
     /// <param name="device">The device name.</param>
     /// <param name="key">The starting keybind value.</param>
-    public static ModKeybindOption Create(string id, string label, GameInput.Device device, string key)
+    /// /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+    public static ModKeybindOption Create(string id, string label, GameInput.Device device, string key, string tooltip = null)
     {
-        return Create(id, label, device, KeyCodeUtils.StringToKeyCode(key));
+        return Create(id, label, device, KeyCodeUtils.StringToKeyCode(key), tooltip);
     }
 
     /// <summary>
@@ -74,6 +82,10 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
             OptionGameObject.GetComponentInChildren<TranslationLiveUpdate>().translationKey = Label;
             text.text = Language.main.Get(Label);
         }
+
+        // Add tooltip
+        MenuTooltip tooltip = OptionGameObject.EnsureComponent<MenuTooltip>();
+        tooltip.key = Tooltip;
 
         // Create bindings
         uGUI_Bindings bindings = OptionGameObject.GetComponentInChildren<uGUI_Bindings>();

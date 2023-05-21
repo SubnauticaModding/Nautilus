@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Nautilus.Options.Utility;
@@ -83,7 +83,10 @@ public class ModChoiceOption<T> : ModOption<T, ChoiceChangedEventArgs<T>>
         List<string> optionStrings = new List<string>();
         foreach(var option in options)
         {
-            optionStrings.Add(option.ToString());
+            if (option is Color color)
+                optionStrings.Add($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>{color}</color>");
+            else
+                optionStrings.Add(option.ToString());
         }
         OptionStrings = optionStrings.ToArray();
         Index = index;

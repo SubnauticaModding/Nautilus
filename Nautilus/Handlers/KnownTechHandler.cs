@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using Nautilus.Patchers;
 using Nautilus.Utility;
@@ -177,7 +177,7 @@ public static class KnownTechHandler
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-    /// <param name="unlockMessage">The message that shows up on the right when the blueprint is unlocked. </param>
+    /// <param name="unlockMessage">The message that shows up on the right when the blueprint is unlocked. See <see cref="DefaultUnlockData"/> for a list of some valid parameters.</param>
     public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string unlockMessage)
     {
         AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, unlockMessage);
@@ -216,8 +216,8 @@ public static class KnownTechHandler
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-    /// <param name="unlockMessage">The message that shows up on the right when the blueprint is unlocked. </param>
-    /// <param name="unlockSound">The sound that plays when you unlock the blueprint.</param>
+    /// <param name="unlockMessage">The message that shows up on the right when the blueprint is unlocked. See <see cref="DefaultUnlockData"/> for a list of some valid parameters.</param>
+    /// <param name="unlockSound">The sound that plays when you unlock the blueprint. See <see cref="DefaultUnlockData"/> for a list of some valid parameters.</param>
     public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string unlockMessage, FMODAsset unlockSound)
     {
         AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, unlockMessage, unlockSound, null);
@@ -230,7 +230,7 @@ public static class KnownTechHandler
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-    /// <param name="unlockMessage">The message that shows up on the right when the blueprint is unlocked. </param>
+    /// <param name="unlockMessage">The message that shows up on the right when the blueprint is unlocked. See <see cref="DefaultUnlockData"/> for a list of some valid parameters.</param>
     /// <param name="unlockSprite">The sprite that shows up when you unlock the blueprint.</param>
     public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, string unlockMessage, Sprite unlockSprite)
     {
@@ -244,7 +244,7 @@ public static class KnownTechHandler
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
-    /// <param name="unlockSound">The sound that plays when you unlock the blueprint.</param>
+    /// <param name="unlockSound">The sound that plays when you unlock the blueprint. See <see cref="DefaultUnlockData"/> for a list of some valid parameters.</param>
     /// <param name="unlockSprite">The sprite that shows up when you unlock the blueprint.</param>
     public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, FMODAsset unlockSound, Sprite unlockSprite)
     {
@@ -307,5 +307,29 @@ public static class KnownTechHandler
     public static void RemoveAllCurrentAnalysisTechEntry(TechType targetTechType)
     {
         RemoveAnalysisTechEntry(targetTechType);
+    }
+
+    /// <summary>
+    /// References to generic unlock sounds and unlock messages for the Known Tech system, matching those used in the base game.
+    /// </summary>
+    public static class DefaultUnlockData
+    {
+        /// <summary>Message on unlocking new creatures; "NEW LIFEFORM DISCOVERED"</summary>
+        public static string NewCreatureDiscoveredMessage { get; } = "NotificationCreatureDiscovered";
+        
+        /// <summary>Sound on unlocking new creatures; "NEW LIFEFORM DISCOVERED"</summary>
+        public static FMODAsset NewCreatureDiscoveredSound { get; } = AudioUtils.GetFmodAsset("event:/player/new_creature");
+
+        /// <summary>Message on unlocking new blueprints from picking up items; "NEW BLUEPRINT SYNTHESIZED FROM ALIEN RESOURCE"</summary>
+        public static string BlueprintPickupMessage { get; } = "NotificationBlueprintPickup";
+
+        /// <summary>Message on unlocking new blueprints from scanning; "NEW BLUEPRINT SYNTHESIZED"</summary>
+        public static string BlueprintUnlockMessage { get; } = "NotificationBlueprintUnlocked";
+        
+        /// <summary>Sound on unlocking new blueprints from scanning or picking up items; "NEW BLUEPRINT SYNTHESIZED"</summary>
+        public static FMODAsset BlueprintUnlockSound { get; } = AudioUtils.GetFmodAsset("event:/tools/scanner/new_blueprint");
+
+        /// <summary>Basic sound for unlocking items. Not commonly used and typically uses <see cref="BlueprintUnlockMessage"/> for its associated message.</summary>
+        public static FMODAsset BasicUnlockSound { get; } = AudioUtils.GetFmodAsset("event:/tools/scanner/new_encyclopediea");
     }
 }
