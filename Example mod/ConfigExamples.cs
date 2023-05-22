@@ -232,7 +232,7 @@ public class Config: ConfigFile
     /// in the class. They will both be fired when the value changes, but one of them is specific to this value only. See
     /// <see cref="MyToggleValueChangedEvent(ToggleChangedEventArgs)"/> for an example usage.</para>
     /// </summary>
-    [Toggle("My checkbox"), OnChange(nameof(MyToggleValueChangedEvent)), OnChange(nameof(MyToggleValueChangedEvent))]
+    [Toggle("My checkbox"), OnChange(nameof(MyToggleValueChangedEvent))]
     public bool ToggleValue;
 
     /// <summary>
