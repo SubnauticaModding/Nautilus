@@ -187,7 +187,7 @@ internal class OptionsPanelPatcher
 
         #region components
         // main component for headings toggling
-        private class HeadingToggle: MonoBehaviour
+        private class HeadingToggle: Selectable
         {
             private HeadingState headingState = HeadingState.Expanded;
             private string headingName = null;
