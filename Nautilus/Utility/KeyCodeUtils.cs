@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using BepInEx.Logging;
 using UnityEngine;
 
@@ -67,6 +67,18 @@ public static class KeyCodeUtils
             default:
                 return keyCode.ToString();
         }
+    }
+
+    /// <summary>
+    /// Get the UI display text for KeyCode input using uGUI.buttonCharacters.
+    /// Supports most key inputs, including controller and mouse buttons.
+    /// </summary>
+    /// <param name="keyCode"></param>
+    /// <returns></returns>
+    public static string GetDisplayTextForKeyCode(KeyCode keyCode)
+    {
+        var bindingName = GameInput.GetKeyCodeAsInputName(keyCode);
+        return uGUI.GetDisplayTextForBinding(bindingName);
     }
 
     /// <summary>
