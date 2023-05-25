@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,30 +69,27 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
 
     private void RouteEventHandler(object sender, EventArgs e)
     {
-        switch (e)
+        if (e is ButtonClickedEventArgs buttonClickedEventArgs)
+            ConfigFileMetadata.HandleButtonClick(sender, buttonClickedEventArgs);
+        else if (e.GetType().IsGenericType && e.GetType().GetGenericTypeDefinition() == typeof(ChoiceChangedEventArgs<>))
         {
-            case ButtonClickedEventArgs buttonClickedEventArgs:
-                ConfigFileMetadata.HandleButtonClick(sender, buttonClickedEventArgs);
-                break;
-            case ChoiceChangedEventArgs<T> choiceChangedEventArgs:
-                ConfigFileMetadata.HandleChoiceChanged(sender, choiceChangedEventArgs);
-                break;
-            case ColorChangedEventArgs colorChangedEventArgs:
-                ConfigFileMetadata.HandleColorChanged(sender, colorChangedEventArgs);
-                break;
-            case KeybindChangedEventArgs keybindChangedEventArgs:
-                ConfigFileMetadata.HandleKeybindChanged(sender, keybindChangedEventArgs);
-                break;
-            case SliderChangedEventArgs sliderChangedEventArgs:
-                ConfigFileMetadata.HandleSliderChanged(sender, sliderChangedEventArgs);
-                break;
-            case ToggleChangedEventArgs toggleChangedEventArgs:
-                ConfigFileMetadata.HandleToggleChanged(sender, toggleChangedEventArgs);
-                break;
-            case GameObjectCreatedEventArgs gameObjectCreatedEventArgs:
-                ConfigFileMetadata.HandleGameObjectCreated(sender, gameObjectCreatedEventArgs);
-                break;
+            var genericParam = e.GetType().GetGenericArguments()[0];
+            var genericType = typeof(ChoiceChangedEventArgs<>).MakeGenericType(genericParam);
+            var typedEvent = Convert.ChangeType(e, genericType);
+            var methodInfo = ConfigFileMetadata.GetType().GetMethod(nameof(ConfigFileMetadata.HandleChoiceChanged));
+            var typedMethod = methodInfo.MakeGenericMethod(genericParam);
+            typedMethod.Invoke(ConfigFileMetadata, new object[] { sender, typedEvent });
         }
+        else if (e is ColorChangedEventArgs colorChangedEventArgs)
+            ConfigFileMetadata.HandleColorChanged(sender, colorChangedEventArgs);
+        else if (e is KeybindChangedEventArgs keybindChangedEventArgs)
+            ConfigFileMetadata.HandleKeybindChanged(sender, keybindChangedEventArgs);
+        else if (e is SliderChangedEventArgs sliderChangedEventArgs)
+            ConfigFileMetadata.HandleSliderChanged(sender, sliderChangedEventArgs);
+        else if (e is ToggleChangedEventArgs toggleChangedEventArgs)
+            ConfigFileMetadata.HandleToggleChanged(sender, toggleChangedEventArgs);
+        else if (e is GameObjectCreatedEventArgs gameObjectCreatedEventArgs)
+            ConfigFileMetadata.HandleGameObjectCreated(sender, gameObjectCreatedEventArgs);
     }
 
     #region Build ModOptions Menu
