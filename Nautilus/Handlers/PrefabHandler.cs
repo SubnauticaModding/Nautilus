@@ -18,15 +18,16 @@ public static class PrefabHandler
     /// </summary>
     public static PrefabCollection Prefabs { get; } = new();
 
-    internal static IEnumerator ProcessPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
+    internal static IEnumerator GetPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
         yield return prefabFactory(gameObject);
-        
-        var obj = gameObject.Get();
+        yield return ProcessPrefabAsync(gameObject.Get(), info, prefabFactory);
+    }
+
+    private static IEnumerator ProcessPrefabAsync(GameObject obj, PrefabInfo info, PrefabFactoryAsync prefabFactory)
+    {
         var techType = info.TechType;
         var classId = info.ClassID;
-        
-        ModPrefabCache.AddPrefab(obj);
 
         obj.name = classId;
 
@@ -60,6 +61,8 @@ public static class PrefabHandler
 
         if (Prefabs.TryGetPostProcessorForInfo(info, out var postProcessor))
             yield return postProcessor?.Invoke(obj);
+
+        ModPrefabCache.AddPrefab(obj);
     }
 }
 
