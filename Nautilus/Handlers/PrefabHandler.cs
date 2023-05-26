@@ -26,8 +26,7 @@ public static class PrefabHandler
         var techType = info.TechType;
         var classId = info.ClassID;
         
-        if (obj.activeInHierarchy) // inactive prefabs don't need to be removed by cache
-            ModPrefabCache.AddPrefab(obj);
+        ModPrefabCache.AddPrefab(obj);
 
         obj.name = classId;
 
