@@ -41,7 +41,7 @@ public static class ModPrefabCache
     /// Any prefab with the matching <paramref name="classId"/> will be removed from the cache.
     /// </summary>
     /// <param name="classId">The class id of the prefab that will be removed.</param>
-    public static void RemoveFromCache(string classId)
+    public static void RemovePrefabFromCache(string classId)
     {
         if (_cacheInstance == null)
             return;
