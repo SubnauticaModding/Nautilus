@@ -99,6 +99,7 @@ internal class ModPrefabCacheInstance : MonoBehaviour
     public void EnterPrefabIntoCache(GameObject prefab)
     {
         prefab.transform.parent = _prefabRoot;
+        prefab.SetActive(true);
 
         var prefabIdentifier = prefab.GetComponent<PrefabIdentifier>();
 
