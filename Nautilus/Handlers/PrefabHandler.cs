@@ -20,7 +20,14 @@ public static class PrefabHandler
 
     internal static IEnumerator GetPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
+        if (ModPrefabCache.TryGetPrefabFromCache(info.ClassID, out var prefabInCache))
+        {
+            gameObject.Set(prefabInCache);
+            yield break;
+        }
+
         yield return prefabFactory(gameObject);
+
         yield return ProcessPrefabAsync(gameObject.Get(), info, prefabFactory);
     }
 
