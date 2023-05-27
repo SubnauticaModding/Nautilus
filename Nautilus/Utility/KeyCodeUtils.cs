@@ -78,7 +78,10 @@ public static class KeyCodeUtils
     public static string GetDisplayTextForKeyCode(KeyCode keyCode)
     {
         var bindingName = GameInput.GetKeyCodeAsInputName(keyCode);
-        return uGUI.GetDisplayTextForBinding(bindingName);
+        // Translates button names for PS4 and Switch if they're in use
+        // ex) JoystickButtonA -> ControllerButtonPs4Cross
+        var mappedButtonNmaes = GameInput.GetInputName(bindingName);
+        return uGUI.GetDisplayTextForBinding(mappedButtonNmaes);
     }
 
     /// <summary>
