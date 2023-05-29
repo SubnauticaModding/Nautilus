@@ -13,7 +13,8 @@ namespace Nautilus.Assets.Gadgets;
 /// </summary>
 public class ScanningGadget : Gadget
 {
-    private const string DefaultUnlockMessage = "NotficationBlueprintUnlocked";
+    private const string DefaultPickupMessage = "NotificationBlueprintPickup";
+    private const string DefaultUnlockMessage = "NotificationBlueprintUnlocked";
 
     private bool _isBuildable;
 
@@ -177,7 +178,7 @@ public class ScanningGadget : Gadget
         List<StoryGoal> storyGoalsToTrigger = null,
 #endif
         FMODAsset unlockSound = null, 
-        string unlockMessage = "NotificationBlueprintUnlocked"
+        string unlockMessage = null
         )
     {
         AnalysisTech ??= new KnownTech.AnalysisTech();
@@ -192,9 +193,7 @@ public class ScanningGadget : Gadget
         AnalysisTech.storyGoals = storyGoalsToTrigger ?? new();
 #endif
         AnalysisTech.unlockSound = unlockSound;
-        AnalysisTech.unlockMessage = unlockMessage == DefaultUnlockMessage
-            ? unlockMessage
-            : $"{prefab.Info.TechType.AsString()}_DiscoverMessage";
+        AnalysisTech.unlockMessage = unlockMessage ?? (RequiredForUnlock == TechType.None ? DefaultUnlockMessage : DefaultPickupMessage);
 
         return this;
     }
@@ -246,11 +245,11 @@ public class ScanningGadget : Gadget
             PDAHandler.AddCustomScannerEntry(ScannerEntryData);
         }
 
-        if (CompoundTechsForUnlock is { Count: > 0 } || RequiredForUnlock is not TechType.None)
+        if (CompoundTechsForUnlock is { Count: > 0 } || RequiredForUnlock != TechType.None)
         {
             if (AnalysisTech is null)
             {
-                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, DefaultUnlockMessage);
+                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, RequiredForUnlock == TechType.None ? DefaultUnlockMessage : DefaultPickupMessage);
             }
 
             KnownTechPatcher.UnlockedAtStart.Remove(prefab.Info.TechType);
