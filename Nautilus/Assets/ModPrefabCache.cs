@@ -13,8 +13,6 @@ public static class ModPrefabCache
 {
     private static ModPrefabCacheInstance _cacheInstance;
 
-    internal record struct Entry(string ClassId, GameObject Prefab);
-
     /// <summary> Adds the given prefab to the cache. </summary>
     /// <param name="prefab"> The prefab object that is disabled and cached. </param>
     public static void AddPrefab(GameObject prefab)
@@ -46,10 +44,7 @@ public static class ModPrefabCache
         if (_cacheInstance == null)
             return;
 
-        if (_cacheInstance.Entries.TryGetValue(classId, out var entry))
-        {
-            _cacheInstance.RemoveCachedPrefab(entry);
-        }
+        _cacheInstance.RemoveCachedPrefab(classId);
     }
 
     /// <summary>
@@ -66,9 +61,9 @@ public static class ModPrefabCache
             return false;
         }
 
-        if (_cacheInstance.Entries.TryGetValue(classId, out var found))
+        if (_cacheInstance.Entries.TryGetValue(classId, out var existingPrefabInCache))
         {
-            prefab = found.Prefab;
+            prefab = existingPrefabInCache;
             return prefab != null;
         }
 
@@ -85,7 +80,7 @@ public static class ModPrefabCache
 }
 internal class ModPrefabCacheInstance : MonoBehaviour
 {
-    public Dictionary<string, ModPrefabCache.Entry> Entries { get; } = new Dictionary<string, ModPrefabCache.Entry>();
+    public Dictionary<string, GameObject> Entries { get; } = new Dictionary<string, GameObject>();
 
     private Transform _prefabRoot;
 
@@ -111,7 +106,7 @@ internal class ModPrefabCacheInstance : MonoBehaviour
 
         if (!Entries.ContainsKey(prefabIdentifier.classId))
         {
-            Entries.Add(prefabIdentifier.classId, new ModPrefabCache.Entry(prefabIdentifier.classId, prefab));
+            Entries.Add(prefabIdentifier.classId, prefab);
             InternalLogger.Debug($"ModPrefabCache: adding prefab {prefab}");
         }
         else // this should never happen
@@ -120,9 +115,12 @@ internal class ModPrefabCacheInstance : MonoBehaviour
         }
     }
 
-    public void RemoveCachedPrefab(ModPrefabCache.Entry entry)
+    public void RemoveCachedPrefab(string classId)
     {
-        Destroy(entry.Prefab);
-        Entries.Remove(entry.ClassId);
+        if (Entries.TryGetValue(classId, out var prefab))
+        {
+            Destroy(prefab);
+            Entries.Remove(classId);
+        }
     }
 }
