@@ -82,6 +82,9 @@ internal class ModPrefabCacheInstance : MonoBehaviour
         _prefabRoot = new GameObject("PrefabRoot").transform;
         _prefabRoot.parent = transform;
         _prefabRoot.gameObject.SetActive(false);
+
+        gameObject.AddComponent<SceneCleanerPreserve>();
+        DontDestroyOnLoad(gameObject);
     }
 
     public void EnterPrefabIntoCache(GameObject prefab)
