@@ -61,14 +61,7 @@ public static class ModPrefabCache
             return false;
         }
 
-        if (_cacheInstance.Entries.TryGetValue(classId, out var existingPrefabInCache))
-        {
-            prefab = existingPrefabInCache;
-            return prefab != null;
-        }
-
-        prefab = null;
-        return false;
+        return _cacheInstance.Entries.TryGetValue(classId, out prefab) && prefab != null;
     }
 
     private static void EnsureCacheExists()
