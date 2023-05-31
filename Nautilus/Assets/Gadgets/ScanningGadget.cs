@@ -13,8 +13,8 @@ namespace Nautilus.Assets.Gadgets;
 /// </summary>
 public class ScanningGadget : Gadget
 {
-    private const string DefaultPickupMessage = "NotificationBlueprintPickup";
-    private const string DefaultUnlockMessage = "NotificationBlueprintUnlocked";
+    private const string DefaultPickupMessage = KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage;
+    private const string DefaultUnlockMessage = KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage;
 
     private bool _isBuildable;
 
