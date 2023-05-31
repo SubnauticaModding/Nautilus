@@ -13,9 +13,6 @@ namespace Nautilus.Assets.Gadgets;
 /// </summary>
 public class ScanningGadget : Gadget
 {
-    private const string DefaultPickupMessage = KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage;
-    private const string DefaultUnlockMessage = KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage;
-
     private bool _isBuildable;
 
     /// <summary>
@@ -193,7 +190,7 @@ public class ScanningGadget : Gadget
         AnalysisTech.storyGoals = storyGoalsToTrigger ?? new();
 #endif
         AnalysisTech.unlockSound = unlockSound;
-        AnalysisTech.unlockMessage = unlockMessage ?? (RequiredForUnlock == TechType.None ? DefaultUnlockMessage : DefaultPickupMessage);
+        AnalysisTech.unlockMessage = unlockMessage ?? (RequiredForUnlock == TechType.None ? KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage : KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage);
 
         return this;
     }
@@ -249,7 +246,7 @@ public class ScanningGadget : Gadget
         {
             if (AnalysisTech is null)
             {
-                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, RequiredForUnlock == TechType.None ? DefaultUnlockMessage : DefaultPickupMessage);
+                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, RequiredForUnlock == TechType.None ? KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage : KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage);;
             }
 
             KnownTechPatcher.UnlockedAtStart.Remove(prefab.Info.TechType);
