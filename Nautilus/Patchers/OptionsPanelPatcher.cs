@@ -167,14 +167,19 @@ internal class OptionsPanelPatcher
             headingPrefab.name = "OptionHeadingToggleable";
             headingPrefab.AddComponent<HeadingToggle>();
 
+            var option = headingPrefab.AddComponent<uGUI_OptionSelection>();
+            option.selectionBackground = Object.Instantiate(panel.toggleOptionPrefab.GetComponentInChildren<uGUI_OptionSelection>(true).selectionBackground);
+            option.selectionBackground.transform.SetParent(headingPrefab.transform);
+            option.hoverSound = AudioUtils.GetFmodAsset("event:/tools/pda/select");
+
             Transform captionTransform = headingPrefab.transform.Find("Caption");
             captionTransform.localPosition = new Vector3(45f, 0f, 0f);
-            captionTransform.gameObject.AddComponent<HeadingClickHandler>();
             captionTransform.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 
             GameObject button = Object.Instantiate(panel.choiceOptionPrefab.transform.Find("Choice/Background/NextButton").gameObject);
             button.name = "HeadingToggleButton";
             button.AddComponent<ToggleButtonClickHandler>();
+            Object.Destroy(button.GetComponent<Button>());
 
             RectTransform buttonTransform = button.transform as RectTransform;
             buttonTransform.SetParent(headingPrefab.transform);
@@ -187,7 +192,7 @@ internal class OptionsPanelPatcher
 
         #region components
         // main component for headings toggling
-        private class HeadingToggle: MonoBehaviour
+        private class HeadingToggle: Selectable, IPointerClickHandler
         {
             private HeadingState headingState = HeadingState.Expanded;
             private string headingName = null;
@@ -239,40 +244,39 @@ internal class OptionsPanelPatcher
 
                 StoredHeadingStates.store(headingName, state);
             }
+            
+            public void OnPointerClick(PointerEventData _)
+            {
+                var buttonHandler = GetComponentInChildren<ToggleButtonClickHandler>();
+                if (buttonHandler.isRotating)
+                    return;
+
+                headingState = headingState == HeadingState.Expanded ? HeadingState.Collapsed : HeadingState.Expanded;
+                StartCoroutine(buttonHandler.SetState(headingState));
+
+                SetState(headingState);
+            }
         }
 
-        // click handler for arrow button
-        private class ToggleButtonClickHandler: MonoBehaviour, IPointerClickHandler
+        // change handler for arrow button
+        private class ToggleButtonClickHandler: MonoBehaviour
         {
             private const float timeRotate = 0.1f;
-            private HeadingState headingState = HeadingState.Expanded;
-            private bool isRotating = false;
+            public bool isRotating = false;
 
             public void SetStateInstant(HeadingState state)
             {
-                headingState = state;
-                transform.localEulerAngles = new Vector3(0, 0, headingState == HeadingState.Expanded? -90: 0);
+                transform.localEulerAngles = new Vector3(0, 0, state == HeadingState.Expanded? -90: 0);
             }
 
-            public void OnPointerClick(PointerEventData _)
-            {
-                if (isRotating)
-                {
-                    return;
-                }
-
-                headingState = headingState == HeadingState.Expanded? HeadingState.Collapsed: HeadingState.Expanded;
-                StartCoroutine(SmoothRotate(headingState == HeadingState.Expanded? -90: 90));
-
-                GetComponentInParent<HeadingToggle>()?.SetState(headingState);
-            }
-
-            private IEnumerator SmoothRotate(float angles)
+            internal IEnumerator SetState(HeadingState state)
             {
                 isRotating = true;
 
+                float angle = state == HeadingState.Expanded ? -90 : 90;
+
                 Quaternion startRotation = transform.localRotation;
-                Quaternion endRotation = Quaternion.Euler(new Vector3(0f, 0f, angles)) * startRotation;
+                Quaternion endRotation = Quaternion.Euler(new Vector3(0f, 0f, angle)) * startRotation;
 
                 float timeStart = Time.realtimeSinceStartup; // Time.deltaTime works only in main menu
 
@@ -284,15 +288,6 @@ internal class OptionsPanelPatcher
 
                 transform.localRotation = endRotation;
                 isRotating = false;
-            }
-        }
-
-        // click handler for title, just redirects clicks to button click handler
-        private class HeadingClickHandler: MonoBehaviour, IPointerClickHandler
-        {
-            public void OnPointerClick(PointerEventData eventData)
-            {
-                transform.parent.GetComponentInChildren<ToggleButtonClickHandler>()?.OnPointerClick(eventData);
             }
         }
         #endregion
