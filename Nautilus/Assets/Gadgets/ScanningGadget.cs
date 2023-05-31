@@ -190,7 +190,7 @@ public class ScanningGadget : Gadget
         AnalysisTech.storyGoals = storyGoalsToTrigger ?? new();
 #endif
         AnalysisTech.unlockSound = unlockSound;
-        AnalysisTech.unlockMessage = unlockMessage ?? (RequiredForUnlock == TechType.None ? KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage : KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage);
+        AnalysisTech.unlockMessage = unlockMessage ?? KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage;
 
         return this;
     }
@@ -246,7 +246,7 @@ public class ScanningGadget : Gadget
         {
             if (AnalysisTech is null)
             {
-                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, RequiredForUnlock == TechType.None ? KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage : KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage);;
+                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage);
             }
 
             KnownTechPatcher.UnlockedAtStart.Remove(prefab.Info.TechType);
