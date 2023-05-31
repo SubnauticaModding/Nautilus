@@ -246,7 +246,7 @@ public class ScanningGadget : Gadget
         {
             if (AnalysisTech is null)
             {
-                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage);
+                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage, KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound);
             }
 
             KnownTechPatcher.UnlockedAtStart.Remove(prefab.Info.TechType);
