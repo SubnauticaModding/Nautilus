@@ -118,14 +118,17 @@ public class ScanningGadget : Gadget
     }
 
     /// <summary>
-    /// Adds an encyclopedia entry for this item in the PDA.
+    /// <para>Adds an encyclopedia entry for this item in the PDA. This method does not ask for display text, for that you must use the <see cref="LanguageHandler"/>.</para>
+    /// <para>The encyclopedia entry's key will be set as the TechType string.</para>
+    /// <para>The language keys for this ency are as as follows: "Ency_{TechType}" (title) and "EncyDesc_{TechType}" (description), i.e. "Ency_Peeper".</para>
     /// </summary>
     /// <param name="path">The path this entry will appear in.</param>
-    /// <param name="popupSprite">The sprite that will popup once this entry is unlocked.</param>
+    /// <param name="popupSprite">The sprite that will pop up on the side of the screen once this entry is unlocked.</param>
     /// <param name="encyImage">The entry image that will appear in the encyclopedia entry</param>
+    /// <param name="unlockSound">The audio that is played when this sound is unlocked. Typical values are <see cref="PDAHandler.UnlockBasic"/> and <see cref="PDAHandler.UnlockBasic"/>. If unassigned, will have a default value of <see cref="PDAHandler.UnlockBasic"/>.</param>
     /// <param name="encyAudio">The audio that can be played in the entry.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public ScanningGadget WithEncyclopediaEntry(string path, Sprite popupSprite, Texture2D encyImage = null, FMODAsset encyAudio = null)
+    public ScanningGadget WithEncyclopediaEntry(string path, Sprite popupSprite, Texture2D encyImage = null, FMODAsset unlockSound = null, FMODAsset encyAudio = null)
     {
         EncyclopediaEntryData = new PDAEncyclopedia.EntryData
         {
@@ -133,7 +136,9 @@ public class ScanningGadget : Gadget
             path = path,
             nodes = path.Split('/'),
             popup = popupSprite,
-            sound = encyAudio
+            image = encyImage,
+            sound = unlockSound ?? PDAHandler.UnlockBasic,
+            audio = encyAudio
         };
 
         return this;
