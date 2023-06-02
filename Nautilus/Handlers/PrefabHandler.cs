@@ -143,7 +143,14 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
         _prefabs.Add(info, prefabFactory);
         _classIdPrefabs.Add(info.ClassID, info);
         _fileNamePrefabs.Add(info.PrefabFileName, info);
-        _techTypePrefabs.Add(info.TechType.AsString(), info);
+
+        // If multiple prefabs sharing the same TechType are patched, only the first one will be spawnable by its TechType.
+        var techTypeString = info.TechType.AsString();
+        if (!_techTypePrefabs.ContainsKey(techTypeString))
+        {
+            _techTypePrefabs.Add(info.TechType.AsString(), info);
+        }
+
         CraftDataPatcher.ModPrefabsPatched = false;
     }
 
