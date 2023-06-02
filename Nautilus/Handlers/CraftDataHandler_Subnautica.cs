@@ -68,7 +68,7 @@ public partial class CraftDataHandler
     /// <param name="maxCharge">The MaxCharge for that TechType.</param>
     public static void SetMaxCharge(TechType techType, double maxCharge)
     {
-        CraftDataPatcher
+        CraftDataPatcher.CustomMaxCharges[techType] = (float)maxCharge;
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ public partial class CraftDataHandler
     /// <param name="energyCost">The EnergyCost for that TechType.</param>
     public static void SetEnergyCost(TechType techType, double energyCost)
     {
-        AddJsonProperty(techType, "energyCost", new JsonValue(energyCost));
+        CraftDataPatcher.CustomEnergyCost[techType] = (float)energyCost;
     }
 
     /// <summary>
