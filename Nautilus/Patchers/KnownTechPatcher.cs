@@ -61,7 +61,7 @@ internal class KnownTechPatcher
             
         foreach (KnownTech.AnalysisTech tech in analysisTech)
         {
-            if (UnlockSound == null && tech.unlockSound != null && tech.techType == TechType.Lead)
+            if (UnlockSound == null && tech.unlockSound != null && tech.techType == TechType.CreepvinePiece)
             {
                 UnlockSound = tech.unlockSound;
             }
