@@ -194,7 +194,7 @@
 
   <h3 id="Nautilus_Options_ModButtonOption_AdjusterComponent" data-uid="Nautilus.Options.ModButtonOption.AdjusterComponent">
   AdjusterComponent
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModButtonOption.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModButtonOption.cs/#L97"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The Adjuster for this <a class="xref" href="Nautilus.Options.OptionItem.html">OptionItem</a>.</div>
@@ -221,6 +221,37 @@
 
 
 
+  <a id="Nautilus_Options_ModButtonOption_Tooltip_" data-uid="Nautilus.Options.ModButtonOption.Tooltip*"></a>
+
+  <h3 id="Nautilus_Options_ModButtonOption_Tooltip" data-uid="Nautilus.Options.ModButtonOption.Tooltip">
+  Tooltip
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModButtonOption.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">The tooltip to show when hovering over the option.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Tooltip { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -229,7 +260,7 @@
 
   <h3 id="Nautilus_Options_ModButtonOption_AddToPanel_uGUI_TabbedControlsPanel_System_Int32_" data-uid="Nautilus.Options.ModButtonOption.AddToPanel(uGUI_TabbedControlsPanel,System.Int32)">
   AddToPanel(uGUI_TabbedControlsPanel, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModButtonOption.cs/#L44"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModButtonOption.cs/#L49"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The base method for adding an object to the options panel</div>
@@ -260,16 +291,16 @@
 
   <a id="Nautilus_Options_ModButtonOption_Create_" data-uid="Nautilus.Options.ModButtonOption.Create*"></a>
 
-  <h3 id="Nautilus_Options_ModButtonOption_Create_System_String_System_String_System_Action_Nautilus_Options_ButtonClickedEventArgs__" data-uid="Nautilus.Options.ModButtonOption.Create(System.String,System.String,System.Action{Nautilus.Options.ButtonClickedEventArgs})">
-  Create(string, string, Action&lt;ButtonClickedEventArgs&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModButtonOption.cs/#L78"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Options_ModButtonOption_Create_System_String_System_String_System_Action_Nautilus_Options_ButtonClickedEventArgs__System_String_" data-uid="Nautilus.Options.ModButtonOption.Create(System.String,System.String,System.Action{Nautilus.Options.ButtonClickedEventArgs},System.String)">
+  Create(string, string, Action&lt;ButtonClickedEventArgs&gt;, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModButtonOption.cs/#L89"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new <a class="xref" href="Nautilus.Options.ModButtonOption.html">ModButtonOption</a> for handling a button that can be clicked.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ModButtonOption Create(string id, string label, Action&lt;ButtonClickedEventArgs&gt; onPressed = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ModButtonOption Create(string id, string label, Action&lt;ButtonClickedEventArgs&gt; onPressed = null, string tooltip = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -280,6 +311,8 @@
     <dd>The display text to show on the in-game menus.</dd>
     <dt><code>onPressed</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Nautilus.Options.ButtonClickedEventArgs.html">ButtonClickedEventArgs</a>&gt;</dt>
     <dd>Action to trigger when button is pressed. Can leave as Null and then add events using the OnPressed += method;</dd>
+    <dt><code>tooltip</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The tooltip to show when hovering over the option.</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -302,7 +335,7 @@
 
   <h3 id="Nautilus_Options_ModButtonOption_GetDelegates" data-uid="Nautilus.Options.ModButtonOption.GetDelegates">
   GetDelegates()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModButtonOption.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModButtonOption.cs/#L39"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the Invocation List for the OnPressed event or returns null if none present.</div>

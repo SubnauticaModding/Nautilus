@@ -247,34 +247,71 @@
 
   <a id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry*"></a>
 
-  <h3 id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_TechType_TechType_System_Boolean_System_String_System_Int32_System_Single_System_Boolean_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,TechType,System.Boolean,System.String,System.Int32,System.Single,System.Boolean)">
-  AddCustomScannerEntry(TechType, TechType, bool, string, int, float, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_TechType_System_Single_System_Boolean_System_String_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,System.Single,System.Boolean,System.String)">
+  AddCustomScannerEntry(TechType, float, bool, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L120"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary">Adds in a custom <span class="xref">PDAScanner.EntryData</span>.</div>
+  <div class="markdown level1 summary">Registers a custom <span class="xref">PDAScanner.EntryData</span>. This simplified overload is for prefabs that do not have fragments.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, string encyclopediaKey, int totalFragmentsRequired = 2, float scanTime = 2, bool destroyAfterScan = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void AddCustomScannerEntry(TechType key, float scanTime = 2, bool destroyAfterScan = false, string encyclopediaKey = null)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>key</code> <span class="xref">TechType</span></dt>
-    <dd>The scanned object's <span class="xref">TechType</span>. In case of fragments, the fragment <span class="xref">TechType</span> is the key.</dd>
+    <dd>The scanned object's <span class="xref">TechType</span>. In the case of fragments, the fragment <span class="xref">TechType</span> is the key.</dd>
+    <dt><code>scanTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The amount of time in seconds it takes to scan this object.</dd>
+    <dt><code>destroyAfterScan</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether the object should be destroyed after the scan is finished.</dd>
+    <dt><code>encyclopediaKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The key of the encyclopedia entry that is unlocked when <code class="paramref">key</code> is scanned.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_TechType_TechType_System_Boolean_System_Int32_System_Single_System_Boolean_System_String_" data-uid="Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,TechType,System.Boolean,System.Int32,System.Single,System.Boolean,System.String)">
+  AddCustomScannerEntry(TechType, TechType, bool, int, float, bool, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Registers a custom <span class="xref">PDAScanner.EntryData</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, int totalFragmentsRequired, float scanTime = 2, bool destroyAfterScan = true, string encyclopediaKey = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <span class="xref">TechType</span></dt>
+    <dd>The scanned object's <span class="xref">TechType</span>. In the case of fragments, the fragment <span class="xref">TechType</span> is the key.</dd>
     <dt><code>blueprint</code> <span class="xref">TechType</span></dt>
-    <dd>The <code class="paramref">blueprint</code> when unlocked when scanned. In case of fragments, this is the actual <span class="xref">TechType</span> that unlocks when all fragments are scanned.</dd>
+    <dd>The <code class="paramref">blueprint</code> that is unlocked when <code class="paramref">key</code> is scanned. In case of fragments, this is the actual <span class="xref">TechType</span> that unlocks when all fragments are scanned. Can be <span class="xref">TechType.None</span>.</dd>
     <dt><code>isFragment</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd>Whether the <code class="paramref">key</code> is a fragment or not.</dd>
-    <dt><code>encyclopediaKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The key to the encyclopedia entry.</dd>
     <dt><code>totalFragmentsRequired</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
     <dd>The total amount of objects of <code class="paramref">key</code> that need to be scanned to unlock the <code class="paramref">blueprint</code> and <code class="paramref">encyclopediaKey</code>.</dd>
     <dt><code>scanTime</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd>The amount of time it takes to finish one scan. In seconds.</dd>
+    <dd>The amount of time in seconds it takes to scan this object.</dd>
     <dt><code>destroyAfterScan</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd>Whether the object should be destroyed after the scan is finished.</dd>
+    <dt><code>encyclopediaKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The key of the encyclopedia entry that is unlocked when all the fragments are scanned.</dd>
   </dl>
 
 
@@ -292,7 +329,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_PDAEncyclopedia_EntryData_" data-uid="Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(PDAEncyclopedia.EntryData)">
   AddEncyclopediaEntry(EntryData)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L204"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L215"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds custom entry.</div>
@@ -323,7 +360,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_System_String_System_String_System_String_System_String_UnityEngine_Texture2D_UnityEngine_Sprite_FMODAsset_FMODAsset_" data-uid="Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(System.String,System.String,System.String,System.String,UnityEngine.Texture2D,UnityEngine.Sprite,FMODAsset,FMODAsset)">
   AddEncyclopediaEntry(string, string, string, string, Texture2D, Sprite, FMODAsset, FMODAsset)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L231"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L242"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a single encyclopedia entry into the game.</div>
@@ -370,7 +407,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_FMOD_Sound_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMOD.Sound,UnityEngine.Sprite)">
   AddLogEntry(string, string, Sound, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L144"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L155"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
@@ -407,7 +444,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_FMODAsset_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,FMODAsset,UnityEngine.Sprite)">
   AddLogEntry(string, string, FMODAsset, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L133"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
@@ -445,7 +482,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_Nautilus_FMod_Interfaces_IFModSound_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,Nautilus.FMod.Interfaces.IFModSound,UnityEngine.Sprite)">
   AddLogEntry(string, string, IFModSound, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L194"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L205"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
@@ -482,7 +519,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_System_String_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,System.String,UnityEngine.Sprite)">
   AddLogEntry(string, string, string, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L193"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>
@@ -519,7 +556,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddLogEntry_System_String_System_String_UnityEngine_AudioClip_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.PDAHandler.AddLogEntry(System.String,System.String,UnityEngine.AudioClip,UnityEngine.Sprite)">
   AddLogEntry(string, string, AudioClip, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L170"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L181"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a custom PDA log entry message. Can be played by the Story Goal system (see <a class="xref" href="Nautilus.Handlers.StoryGoalHandler.html">StoryGoalHandler</a>) or manually through <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">Add(string, bool)</a>.</div>

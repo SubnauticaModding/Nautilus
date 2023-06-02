@@ -4302,15 +4302,24 @@ references:
   commentId: M:Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(PDAScanner.EntryData)
   fullName: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(PDAScanner.EntryData)
   nameWithType: PDAHandler.AddCustomScannerEntry(PDAScanner.EntryData)
-- uid: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,TechType,System.Boolean,System.String,System.Int32,System.Single,System.Boolean)
-  name: AddCustomScannerEntry(TechType, TechType, bool, string, int, float, bool)
-  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_TechType_TechType_System_Boolean_System_String_System_Int32_System_Single_System_Boolean_
-  commentId: M:Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,TechType,System.Boolean,System.String,System.Int32,System.Single,System.Boolean)
-  name.vb: AddCustomScannerEntry(TechType, TechType, Boolean, String, Integer, Single, Boolean)
-  fullName: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType, TechType, bool, string, int, float, bool)
-  fullName.vb: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType, TechType, Boolean, String, Integer, Single, Boolean)
-  nameWithType: PDAHandler.AddCustomScannerEntry(TechType, TechType, bool, string, int, float, bool)
-  nameWithType.vb: PDAHandler.AddCustomScannerEntry(TechType, TechType, Boolean, String, Integer, Single, Boolean)
+- uid: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,System.Single,System.Boolean,System.String)
+  name: AddCustomScannerEntry(TechType, float, bool, string)
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_TechType_System_Single_System_Boolean_System_String_
+  commentId: M:Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,System.Single,System.Boolean,System.String)
+  name.vb: AddCustomScannerEntry(TechType, Single, Boolean, String)
+  fullName: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType, float, bool, string)
+  fullName.vb: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType, Single, Boolean, String)
+  nameWithType: PDAHandler.AddCustomScannerEntry(TechType, float, bool, string)
+  nameWithType.vb: PDAHandler.AddCustomScannerEntry(TechType, Single, Boolean, String)
+- uid: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,TechType,System.Boolean,System.Int32,System.Single,System.Boolean,System.String)
+  name: AddCustomScannerEntry(TechType, TechType, bool, int, float, bool, string)
+  href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_TechType_TechType_System_Boolean_System_Int32_System_Single_System_Boolean_System_String_
+  commentId: M:Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType,TechType,System.Boolean,System.Int32,System.Single,System.Boolean,System.String)
+  name.vb: AddCustomScannerEntry(TechType, TechType, Boolean, Integer, Single, Boolean, String)
+  fullName: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType, TechType, bool, int, float, bool, string)
+  fullName.vb: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry(TechType, TechType, Boolean, Integer, Single, Boolean, String)
+  nameWithType: PDAHandler.AddCustomScannerEntry(TechType, TechType, bool, int, float, bool, string)
+  nameWithType.vb: PDAHandler.AddCustomScannerEntry(TechType, TechType, Boolean, Integer, Single, Boolean, String)
 - uid: Nautilus.Handlers.PDAHandler.AddCustomScannerEntry*
   name: AddCustomScannerEntry
   href: api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddCustomScannerEntry_
@@ -7343,15 +7352,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModButtonOption.AdjusterComponent
   nameWithType: ModButtonOption.AdjusterComponent
-- uid: Nautilus.Options.ModButtonOption.Create(System.String,System.String,System.Action{Nautilus.Options.ButtonClickedEventArgs})
-  name: Create(string, string, Action<ButtonClickedEventArgs>)
-  href: api/Nautilus.Options.ModButtonOption.html#Nautilus_Options_ModButtonOption_Create_System_String_System_String_System_Action_Nautilus_Options_ButtonClickedEventArgs__
-  commentId: M:Nautilus.Options.ModButtonOption.Create(System.String,System.String,System.Action{Nautilus.Options.ButtonClickedEventArgs})
-  name.vb: Create(String, String, Action(Of ButtonClickedEventArgs))
-  fullName: Nautilus.Options.ModButtonOption.Create(string, string, System.Action<Nautilus.Options.ButtonClickedEventArgs>)
-  fullName.vb: Nautilus.Options.ModButtonOption.Create(String, String, System.Action(Of Nautilus.Options.ButtonClickedEventArgs))
-  nameWithType: ModButtonOption.Create(string, string, Action<ButtonClickedEventArgs>)
-  nameWithType.vb: ModButtonOption.Create(String, String, Action(Of ButtonClickedEventArgs))
+- uid: Nautilus.Options.ModButtonOption.Create(System.String,System.String,System.Action{Nautilus.Options.ButtonClickedEventArgs},System.String)
+  name: Create(string, string, Action<ButtonClickedEventArgs>, string)
+  href: api/Nautilus.Options.ModButtonOption.html#Nautilus_Options_ModButtonOption_Create_System_String_System_String_System_Action_Nautilus_Options_ButtonClickedEventArgs__System_String_
+  commentId: M:Nautilus.Options.ModButtonOption.Create(System.String,System.String,System.Action{Nautilus.Options.ButtonClickedEventArgs},System.String)
+  name.vb: Create(String, String, Action(Of ButtonClickedEventArgs), String)
+  fullName: Nautilus.Options.ModButtonOption.Create(string, string, System.Action<Nautilus.Options.ButtonClickedEventArgs>, string)
+  fullName.vb: Nautilus.Options.ModButtonOption.Create(String, String, System.Action(Of Nautilus.Options.ButtonClickedEventArgs), String)
+  nameWithType: ModButtonOption.Create(string, string, Action<ButtonClickedEventArgs>, string)
+  nameWithType.vb: ModButtonOption.Create(String, String, Action(Of ButtonClickedEventArgs), String)
 - uid: Nautilus.Options.ModButtonOption.Create*
   name: Create
   href: api/Nautilus.Options.ModButtonOption.html#Nautilus_Options_ModButtonOption_Create_
@@ -7378,6 +7387,19 @@ references:
   commentId: E:Nautilus.Options.ModButtonOption.OnPressed
   fullName: Nautilus.Options.ModButtonOption.OnPressed
   nameWithType: ModButtonOption.OnPressed
+- uid: Nautilus.Options.ModButtonOption.Tooltip
+  name: Tooltip
+  href: api/Nautilus.Options.ModButtonOption.html#Nautilus_Options_ModButtonOption_Tooltip
+  commentId: P:Nautilus.Options.ModButtonOption.Tooltip
+  fullName: Nautilus.Options.ModButtonOption.Tooltip
+  nameWithType: ModButtonOption.Tooltip
+- uid: Nautilus.Options.ModButtonOption.Tooltip*
+  name: Tooltip
+  href: api/Nautilus.Options.ModButtonOption.html#Nautilus_Options_ModButtonOption_Tooltip_
+  commentId: Overload:Nautilus.Options.ModButtonOption.Tooltip
+  isSpec: "True"
+  fullName: Nautilus.Options.ModButtonOption.Tooltip
+  nameWithType: ModButtonOption.Tooltip
 - uid: Nautilus.Options.ModChoiceOption`1
   name: ModChoiceOption<T>
   href: api/Nautilus.Options.ModChoiceOption-1.html
