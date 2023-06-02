@@ -89,7 +89,11 @@ public static class StoryGoalHandler
     /// <returns>The registered <see cref="CompoundGoal"/>.</returns>
     public static CompoundGoal RegisterCompoundGoal(string key, Story.GoalType goalType, float delay, params string[] requiredGoals)
     {
+#if SUBNAUTICA
         var goal = new CompoundGoal() { key = key, goalType = goalType, delay = delay, preconditions = requiredGoals };
+#elif BELOWZERO
+        var goal = new CompoundGoal() { key = key, goalType = goalType, delay = delay, preconditionGoals = requiredGoals };
+#endif
         StoryGoalPatcher.CompoundGoals.Add(goal);
         
         if (CustomStoryGoalManager.Instance)
