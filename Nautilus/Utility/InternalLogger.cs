@@ -11,6 +11,7 @@ internal static class InternalLogger
 {
     internal static bool Initialized = false;
     private static ManualLogSource Logger { get; set; }
+    private static ManualLogSource EarlyLogger { get; } = BepInEx.Logging.Logger.CreateLogSource("Nautilus.EarlyLogger");
     private static FieldInfo ConfigConsoleDisplayedLevel { get; } = typeof(ConsoleLogListener).GetField("ConfigConsoleDisplayedLevel", BindingFlags.Static | BindingFlags.NonPublic);
     private static ConfigEntry<LogLevel> consoleLogLevel { get; } = ConfigConsoleDisplayedLevel.GetValue(null) as ConfigEntry<LogLevel>;
     private static FieldInfo ConfigDiskConsoleDisplayedLevel { get; } = typeof(Chainloader).GetField("ConfigDiskConsoleDisplayedLevel", BindingFlags.Static | BindingFlags.NonPublic);
@@ -120,7 +121,7 @@ internal static class InternalLogger
         {
             if(level >= LogLevel.Info || EnableDebugging)
             {
-                Console.WriteLine($"[Nautilus/{level}] {text}");
+                EarlyLogger.Log(level, text);
             }
 
             return;
