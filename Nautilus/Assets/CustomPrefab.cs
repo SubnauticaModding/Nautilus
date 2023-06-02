@@ -72,6 +72,14 @@ public interface ICustomPrefab
     bool TryGetGadget<TGadget>(out TGadget gadget) where TGadget : Gadget;
 
     /// <summary>
+    /// Attempts to add the given gadget if there is not already an existing gadget of the same type.
+    /// </summary>
+    /// <typeparam name="TGadget">The type of the gadget that may be added.</typeparam>
+    /// <param name="gadget">The gadget that may be added, assuming the same type of gadget does not already exist on the prefab.</param>
+    /// <returns>True if the gadget was added, false if an instance of the same gadget type already exists on the prefab.</returns>
+    bool TryAddGadget<TGadget>(TGadget gadget) where TGadget : Gadget;
+
+    /// <summary>
     /// Removes the gadget with the specified type.
     /// </summary>
     /// <param name="gadget">The type of the gadget to remove.</param>
@@ -203,6 +211,15 @@ public class CustomPrefab : ICustomPrefab
         var result = _gadgets.TryGetValue(typeof(TGadget), out var g);
         gadget = (TGadget)g;
         return result;
+    }
+
+    /// <inheritdoc/>
+    public bool TryAddGadget<TGadget>(TGadget gadget) where TGadget : Gadget
+    {
+        if (_gadgets.ContainsKey(typeof(TGadget)))
+            return false;
+        _gadgets.Add(typeof(TGadget), gadget);
+        return true;
     }
 
     /// <inheritdoc/>

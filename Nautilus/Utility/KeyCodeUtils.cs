@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using BepInEx.Logging;
 using UnityEngine;
 
@@ -67,6 +67,21 @@ public static class KeyCodeUtils
             default:
                 return keyCode.ToString();
         }
+    }
+
+    /// <summary>
+    /// Get the UI display text for KeyCode input using uGUI.buttonCharacters.
+    /// Supports most key inputs, including controller and mouse buttons.
+    /// </summary>
+    /// <param name="keyCode"></param>
+    /// <returns></returns>
+    public static string GetDisplayTextForKeyCode(KeyCode keyCode)
+    {
+        var bindingName = GameInput.GetKeyCodeAsInputName(keyCode);
+        // Translates button names for PS4 and Switch if they're in use
+        // ex) JoystickButtonA -> ControllerButtonPs4Cross
+        var mappedButtonNmaes = GameInput.GetInputName(bindingName);
+        return uGUI.GetDisplayTextForBinding(mappedButtonNmaes);
     }
 
     /// <summary>

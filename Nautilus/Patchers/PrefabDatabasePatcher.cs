@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Reflection;
 using BepInEx.Logging;
@@ -62,7 +62,7 @@ internal static class PrefabDatabasePatcher
             yield break;
         }
 
-        yield return PrefabHandler.ProcessPrefabAsync(prefabResult, prefabInfo, prefabFactory);
+        yield return PrefabHandler.GetPrefabAsync(prefabResult, prefabInfo, prefabFactory);
         GameObject prefab = prefabResult.Get();
 
         if(prefab != null)
@@ -121,7 +121,7 @@ internal static class PrefabDatabasePatcher
             yield break;
         }
 
-        yield return PrefabHandler.ProcessPrefabAsync(task, prefabInfo, prefabFactory);
+        yield return PrefabHandler.GetPrefabAsync(task, prefabInfo, prefabFactory);
 
         GameObject prefab = task.Get();
         result.Set(EditorModifications.Instantiate(prefab, parent, position, rotation, awake));

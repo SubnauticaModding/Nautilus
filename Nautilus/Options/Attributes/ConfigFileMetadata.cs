@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -364,7 +364,7 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
     /// </summary>
     /// <param name="sender">The sender of the original choice changed event.</param>
     /// <param name="e">The <see cref="ChoiceChangedEventArgs{T}"/> for the choice changed event.</param>
-    public void HandleChoiceChanged(object sender, ChoiceChangedEventArgs<T> e)
+    public void HandleChoiceChanged<Any>(object sender, ChoiceChangedEventArgs<Any> e)
     {
         if (TryGetMetadata(e.Id, out ModOptionAttributeMetadata<T> modOptionMetadata))
         {

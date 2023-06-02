@@ -1,4 +1,4 @@
-﻿using Nautilus.Commands;
+using Nautilus.Commands;
 using Nautilus.Handlers;
 using Nautilus.Json;
 using Nautilus.Json.Attributes;
@@ -157,14 +157,14 @@ public class Config: ConfigFile
     /// <para>Here, we are specifying the name of a method which can handle any OnChange event, for the purposes of demonstrating
     /// its usage. See <see cref="MyGenericValueChangedEvent(ModOptionEventArgs)"/> for an example usage.</para>
     /// </summary>
-    [Choice("My index-based choice", "One", "Two", "Three"), OnChange(nameof(MyGenericValueChangedEvent))]
+    [Choice("My index-based choice", "One", "Two", "Three"), OnChange(nameof(MyChoiceValueChangedEvent))]
     public int ChoiceIndex;
 
     /// <summary>
     /// Here, we are defining a <see cref="ChoiceAttribute"/> which uses a <see cref="string"/> as its backing field,
     /// where the value represents which option is currently selected, and are specifying "Foo" as the default.
     /// </summary>
-    [Choice("My string-based choice", "Foo", "Bar"), OnChange(nameof(MyGenericValueChangedEvent))]
+    [Choice("My string-based choice", "Foo", "Bar"), OnChange(nameof(MyChoiceValueChangedEvent))]
     public string ChoiceValue = "Foo";
 
     /// <summary>
@@ -172,7 +172,7 @@ public class Config: ConfigFile
     /// and the string values for each value defined in the <see langword="enum"/> will be used to represent each option,
     /// so we don't need to specify them. The options will be "One", "Two" and "Three".
     /// </summary>
-    [Choice("My enum-based choice"), OnChange(nameof(MyGenericValueChangedEvent))]
+    [Choice("My enum-based choice"), OnChange(nameof(MyChoiceValueChangedEvent))]
     public CustomChoice ChoiceEnum;
 
     /// <summary>
@@ -182,7 +182,7 @@ public class Config: ConfigFile
     /// <para>An option of <see cref="CustomChoice.One"/> will be represented by the <see cref="string"/> "1",
     /// <see cref="CustomChoice.Two"/> will be represented by the <see cref="string"/> "2", and so on.</para>
     /// </summary>
-    [Choice("My customised enum-based choice", "1", "2", "3"), OnChange(nameof(MyGenericValueChangedEvent))]
+    [Choice("My customised enum-based choice", "1", "2", "3"), OnChange(nameof(MyChoiceValueChangedEvent))]
     public CustomChoice ChoiceCustomEnum;
 
     /// <summary>
@@ -191,7 +191,7 @@ public class Config: ConfigFile
     /// 
     /// <para>Here, we are not specifying a default, so by default this keybind will not be set.</para>
     /// </summary>
-    [Keybind("My keybind"), OnChange(nameof(MyGenericValueChangedEvent))]
+    [Keybind("My keybind"), OnChange(nameof(MyKeybindValueChangedEvent))]
     public KeyCode KeybindKey;
 
     /// <summary>
@@ -202,7 +202,7 @@ public class Config: ConfigFile
     /// <see cref="SliderAttribute.DefaultValue"/> property so that this default can be represented by a notch in the slider.
     /// </para>
     /// </summary>
-    [Slider("My slider", 0, 50, DefaultValue = 25), OnChange(nameof(MyGenericValueChangedEvent))]
+    [Slider("My slider", 0, 50, DefaultValue = 25), OnChange(nameof(MySliderValueChangedEvent))]
     public int SliderValue = 25;
 
     /// <summary>
@@ -212,7 +212,7 @@ public class Config: ConfigFile
     /// <para>By default, an <see cref="int"/> has a step of 1, and a <see cref="float"/> or <see cref="double"/>
     /// has a step of 0.05.</para>
     /// </summary>
-    [Slider("My stepped slider", Step = 10), OnChange(nameof(MyGenericValueChangedEvent))]
+    [Slider("My stepped slider", Step = 10), OnChange(nameof(MySliderValueChangedEvent))]
     public int SteppedSliderValue;
 
     /// <summary>
@@ -221,7 +221,7 @@ public class Config: ConfigFile
     /// See <see href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings"/> for more
     /// info on numeric format strings.
     /// </summary>
-    [Slider("My float-based slider", Format = "{0:F2}"), OnChange(nameof(MyGenericValueChangedEvent))]
+    [Slider("My float-based slider", Format = "{0:F2}"), OnChange(nameof(MySliderValueChangedEvent))]
     public float FloatSliderValue;
 
     /// <summary>
@@ -230,9 +230,9 @@ public class Config: ConfigFile
     /// 
     /// <para>Note that here we are defining two <see cref="OnChangeAttribute"/>s which correspond to different methods
     /// in the class. They will both be fired when the value changes, but one of them is specific to this value only. See
-    /// <see cref="MyCheckboxToggleEvent(ToggleChangedEventArgs)"/> for an example usage.</para>
+    /// <see cref="MyToggleValueChangedEvent(ToggleChangedEventArgs)"/> for an example usage.</para>
     /// </summary>
-    [Toggle("My checkbox"), OnChange(nameof(MyCheckboxToggleEvent)), OnChange(nameof(MyGenericValueChangedEvent))]
+    [Toggle("My checkbox"), OnChange(nameof(MyToggleValueChangedEvent))]
     public bool ToggleValue;
 
     /// <summary>
@@ -264,48 +264,31 @@ public class Config: ConfigFile
     /// <param name="e">The <see cref="ToggleChangedEventArgs"/> passed from the onchange event, containing the id of the field
     /// as a string as well as the new value. As with the other events in this example, it is not necessary to define the
     /// parameter if you do not need the data it contains.</param>
-    private void MyCheckboxToggleEvent(ToggleChangedEventArgs e)
+    private void MyToggleValueChangedEvent(ToggleChangedEventArgs e)
     {
         ConfigExamples.LogSource.LogInfo("Checkbox value was changed!");
-        ConfigExamples.LogSource.LogInfo($"{e.Value}");
+        bool booleanValue = e.Value;
+        ConfigExamples.LogSource.LogInfo($"{booleanValue}");
     }
 
-    /// <summary>
-    /// This method will be called whenever a value with an <see cref="OnChangeAttribute"/> referencing it by name is changed.
-    /// In this example, every field above references it, so it will be called whenever any value in this class is changed by the
-    /// user via the options menu.
-    /// </summary>
-    /// <param name="e"><para>The data from the onchange event, passed as the interface <see cref="ModOptionEventArgs"/>.</para>
-    /// 
-    /// <para>As this particular method is being used as an onchange event for various field types, the usage of the
-    /// <see cref="ModOptionEventArgs"/> interface here enables coercion to its original data type for correct handling, as
-    /// demonstrated by the <see langword="switch"/> statement below.</para>
-    /// 
-    /// <para>As with the other events in this example, it is not necessary to define the parameter if you do not need the data
-    /// it contains.</para></param>
-    private void MyGenericValueChangedEvent<T>(ConfigOptionEventArgs<T> e)
-    {
-        ConfigExamples.LogSource.LogInfo("Generic value changed!");
-        ConfigExamples.LogSource.LogInfo($"{e.Id}: {e.GetType()}");
+    // On change events for different types of options:
 
-        switch(e)
-        {
-            case KeybindChangedEventArgs keybindChangedEventArgs:
-                ConfigExamples.LogSource.LogInfo(KeyCodeUtils.KeyCodeToString(keybindChangedEventArgs.Value));
-                break;
-            case ChoiceChangedEventArgs<int> choiceChangedEventArgs:
-                ConfigExamples.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
-                break;
-            case ChoiceChangedEventArgs<T> choiceChangedEventArgs:
-                ConfigExamples.LogSource.LogInfo($"{choiceChangedEventArgs.Index}: {choiceChangedEventArgs.Value}");
-                break;
-            case SliderChangedEventArgs sliderChangedEventArgs:
-                ConfigExamples.LogSource.LogInfo(sliderChangedEventArgs.Value.ToString());
-                break;
-            case ToggleChangedEventArgs toggleChangedEventArgs:
-                ConfigExamples.LogSource.LogInfo(toggleChangedEventArgs.Value.ToString());
-                break;
-        }
+    private void MyChoiceValueChangedEvent<T>(ChoiceChangedEventArgs<T> e)
+    {
+        T choice = e.Value;
+        ConfigExamples.LogSource.LogInfo($"Choice value {e.Id} was changed: {choice}");
+    }
+
+    private void MyKeybindValueChangedEvent(KeybindChangedEventArgs e)
+    {
+        KeyCode keyCode = e.Value;
+        ConfigExamples.LogSource.LogInfo($"Keybind value {e.Id} was changed: {keyCode}");
+    }
+
+    private void MySliderValueChangedEvent(SliderChangedEventArgs e)
+    {
+        float floatValue = e.Value;
+        ConfigExamples.LogSource.LogInfo($"Slider value {e.Id} was changed: {floatValue}");
     }
 
     /// <summary>

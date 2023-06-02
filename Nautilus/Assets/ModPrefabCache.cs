@@ -1,111 +1,122 @@
-﻿using System;
-using System.Collections.Generic;
 using Nautilus.Utility;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Nautilus.Assets;
 
 /// <summary>
-/// Class used by <see cref="PrefabInfo"/> to store game objects that used as prefabs.
-/// Game objects in cache are inactive and will not be on scene.
+/// Class used by the prefab system to store GameObjects.
+/// Objects in the cache are inactive because they are placed within an inactive parent object.
 /// </summary>
 public static class ModPrefabCache
 {
-    //Stored prefabs and their destruction timers. Keyed by ClassID.
-    internal readonly static Dictionary<string, Tuple<bool, GameObject>> CachedPrefabs = new();
+    private static ModPrefabCacheInstance _cacheInstance;
 
-    private static GameObject root; // active root object with CacheCleaner component
-    private static GameObject prefabRoot; // inactive child object, parent for added prefabs
-
-    private class CacheCleaner : MonoBehaviour
+    /// <summary> Adds the given prefab to the cache. </summary>
+    /// <param name="prefab"> The prefab object that is disabled and cached. </param>
+    public static void AddPrefab(GameObject prefab)
     {
-        private float lastClean = 0f;
+        EnsureCacheExists();
 
-        public void Update()
-        {
-            lastClean += Time.deltaTime;
-
-            if(lastClean >= 5)
-            {
-                foreach(var pair in CachedPrefabs)
-                {
-                    if(!pair.Value.Item1 || Builder.prefab == pair.Value.Item2)
-                    {
-                        continue;
-                    }
-
-                    InternalLogger.Debug($"ModPrefabCache: removing prefab {pair.Value.Item2}");
-                    Destroy(pair.Value.Item2);
-                    CachedPrefabs.Remove(pair.Key);
-                    lastClean = 0f;
-                    break;
-                }
-            }
-        }
+        _cacheInstance.EnterPrefabIntoCache(prefab);
     }
 
-    private static void Init()
+    /// <summary>
+    /// Determines if a prefab is already cached, searching by class id.
+    /// </summary>
+    /// <param name="classId">The class id to search for.</param>
+    /// <returns>True if a prefab by the given <paramref name="classId"/> exists in the cache, otherwise false.</returns>
+    public static bool IsPrefabCached(string classId)
     {
-        if (root != null)
+        if (_cacheInstance == null)
+            return false;
+
+        return _cacheInstance.Entries.ContainsKey(classId);
+    }
+
+    /// <summary>
+    /// Any prefab with the matching <paramref name="classId"/> will be removed from the cache.
+    /// </summary>
+    /// <param name="classId">The class id of the prefab that will be removed.</param>
+    public static void RemovePrefabFromCache(string classId)
+    {
+        if (_cacheInstance == null)
+            return;
+
+        _cacheInstance.RemoveCachedPrefab(classId);
+    }
+
+    /// <summary>
+    /// Attempts to fetch a prefab from the cache by its <paramref name="classId"/>. The <paramref name="prefab"/> out parameter is set to the prefab, if any was found.
+    /// </summary>
+    /// <param name="classId">The class id of the prefab we are searching for.</param>
+    /// <param name="prefab">The prefab that may or may not be found.</param>
+    /// <returns>True if the prefab was found in the cache, otherwise false.</returns>
+    public static bool TryGetPrefabFromCache(string classId, out GameObject prefab)
+    {
+        if (_cacheInstance == null)
         {
+            prefab = null;
+            return false;
+        }
+
+        return _cacheInstance.Entries.TryGetValue(classId, out prefab) && prefab != null;
+    }
+
+    private static void EnsureCacheExists()
+    {
+        if (_cacheInstance != null)
+            return;
+        _cacheInstance = new GameObject("Nautilus.PrefabCache").AddComponent<ModPrefabCacheInstance>();
+    }
+}
+internal class ModPrefabCacheInstance : MonoBehaviour
+{
+    public Dictionary<string, GameObject> Entries { get; } = new Dictionary<string, GameObject>();
+
+    private Transform _prefabRoot;
+
+    private void Awake()
+    {
+        _prefabRoot = new GameObject("PrefabRoot").transform;
+        _prefabRoot.parent = transform;
+        _prefabRoot.gameObject.SetActive(false);
+
+        gameObject.AddComponent<SceneCleanerPreserve>();
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void EnterPrefabIntoCache(GameObject prefab)
+    {
+        prefab.transform.parent = _prefabRoot;
+        prefab.SetActive(true);
+
+        var prefabIdentifier = prefab.GetComponent<PrefabIdentifier>();
+
+        if (prefabIdentifier == null)
+        {
+            InternalLogger.Warn($"ModPrefabCache: prefab is missing a PrefabIdentifier component! Unable to add to cache.");
             return;
         }
 
-        root = new GameObject("Nautilus.PrefabCache", typeof(SceneCleanerPreserve), typeof(CacheCleaner));
-        UnityEngine.Object.DontDestroyOnLoad(root);
-        root.EnsureComponent<SceneCleanerPreserve>();
-
-        prefabRoot = new GameObject("PrefabRoot");
-        prefabRoot.transform.parent = root.transform;
-        prefabRoot.SetActive(false);
-    }
-
-    /// <summary> Add prefab to cache </summary>
-    /// <param name="prefab"> Prefab to add. </param>
-    /// <param name="autoremove">
-    /// Is prefab needed to be removed from cache after use.
-    /// Prefabs without autoremove flag can be safely deleted by <see cref="UnityEngine.Object.Destroy(UnityEngine.Object)" />
-    /// </param>
-    public static void AddPrefab(GameObject prefab, bool autoremove = true)
-    {
-        Init();
-        prefab.transform.parent = prefabRoot.transform;
-
-        AddPrefabInternal(prefab, autoremove);
-    }
-
-    /// <summary> Add prefab copy to cache (instatiated copy will not run 'Awake') </summary>
-    /// <param name="prefab"> Prefab to copy and add. </param>
-    /// <param name="autoremove">
-    /// Is prefab copy needed to be removed from cache after use.
-    /// Prefabs without autoremove flag can be safely deleted by <see cref="UnityEngine.Object.Destroy(UnityEngine.Object)" />
-    /// </param>
-    /// <returns> Prefab copy </returns>
-    public static GameObject AddPrefabCopy(GameObject prefab, bool autoremove = true)
-    {
-        Init();
-        GameObject prefabCopy = UnityEngine.Object.Instantiate(prefab, prefabRoot.transform);
-
-        AddPrefabInternal(prefabCopy, autoremove);
-        return prefabCopy;
-    }
-
-    private static void AddPrefabInternal(GameObject prefab, bool autoremove)
-    {
-        PrefabIdentifier identifier = prefab.GetComponent<PrefabIdentifier>();
-        if(identifier == null)
+        if (!Entries.ContainsKey(prefabIdentifier.classId))
         {
-            InternalLogger.Warn($"ModPrefabCache: prefab is missing a PrefabIdentifier! Unable to add to cache.");
-            return;
-        }
-        if(!CachedPrefabs.ContainsKey(identifier.classId))
-        {
-            CachedPrefabs.Add(identifier.classId ,Tuple.Create(autoremove, prefab));
+            Entries.Add(prefabIdentifier.classId, prefab);
             InternalLogger.Debug($"ModPrefabCache: adding prefab {prefab}");
         }
-        else
+        else // this should never happen
         {
-            InternalLogger.Warn($"ModPrefabCache: prefab {identifier.classId} already existed in cache!");
+            InternalLogger.Warn($"ModPrefabCache: prefab {prefabIdentifier.classId} already existed in cache!");
+        }
+    }
+
+    public void RemoveCachedPrefab(string classId)
+    {
+        if (Entries.TryGetValue(classId, out var prefab))
+        {
+            Destroy(prefab);
+            Entries.Remove(classId);
         }
     }
 }
