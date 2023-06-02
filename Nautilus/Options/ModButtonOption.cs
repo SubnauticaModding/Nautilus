@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Events;
@@ -29,6 +29,11 @@ public class ModButtonOption : OptionItem
     public event Action<ButtonClickedEventArgs> OnPressed;
 
     /// <summary>
+    /// The tooltip to show when hovering over the option.
+    /// </summary>
+    public string Tooltip { get; }
+
+    /// <summary>
     /// Gets the Invocation List for the OnPressed event or returns null if none present.
     /// </summary>
     public IEnumerable<Action<ButtonClickedEventArgs>> GetDelegates()
@@ -57,16 +62,21 @@ public class ModButtonOption : OptionItem
             OnPressed?.Invoke(new ButtonClickedEventArgs(Id));
         }));
 
+        // Add tooltip
+        MenuTooltip tooltip = OptionGameObject.EnsureComponent<MenuTooltip>();
+        tooltip.key = Tooltip;
+
         // Add button to panel
         base.AddToPanel(panel, tabIndex);
     }
 
-    private ModButtonOption(string id, string label, Action<ButtonClickedEventArgs> onPressed) : base(label, id)
+    private ModButtonOption(string id, string label, Action<ButtonClickedEventArgs> onPressed, string tooltip) : base(label, id)
     {
-        if(onPressed != null)
+        if (onPressed != null)
         {
             OnPressed += onPressed;
         }
+        Tooltip = tooltip;
     }
 
     /// <summary>
@@ -75,9 +85,10 @@ public class ModButtonOption : OptionItem
     /// <param name="id">The internal ID of this option.</param>
     /// <param name="label">The display text to show on the in-game menus.</param>
     /// <param name="onPressed"> Action to trigger when button is pressed. Can leave as Null and then add events using the OnPressed += method;</param>
-    public static ModButtonOption Create(string id, string label, Action<ButtonClickedEventArgs> onPressed = null)
+    /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+    public static ModButtonOption Create(string id, string label, Action<ButtonClickedEventArgs> onPressed = null, string tooltip = null)
     {
-        return new ModButtonOption(id, label, onPressed);
+        return new ModButtonOption(id, label, onPressed, tooltip);
     }
 
     /// <summary>
