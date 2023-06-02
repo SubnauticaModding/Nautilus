@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Nautilus.Handlers;
 
-#if SUBNAUTICA
 /// <summary>
 /// <para>A handler class for interacting with all of the major goal systems in Subnautica, which are essential for the's game progression.</para>
 /// <para>Allows for important game events to be triggered after a specified action is completed.</para>
@@ -153,4 +152,3 @@ public static class StoryGoalHandler
         }
     }
 }
-#endif
