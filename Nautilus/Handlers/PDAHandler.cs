@@ -87,7 +87,7 @@ public static class PDAHandler
     }
 
     /// <summary>
-    /// Adds in a custom <see cref="PDAScanner.EntryData"/>.
+    /// Registers a custom <see cref="PDAScanner.EntryData"/>.
     /// </summary>
     /// <param name="key">The scanned object's <see cref="TechType"/>. In case of fragments, the fragment <see cref="TechType"/> is the key.</param>
     /// <param name="blueprint">The <paramref name="blueprint"/> when unlocked when scanned. In case of fragments, this is the actual <see cref="TechType"/> that unlocks when all fragments are scanned.</param>
