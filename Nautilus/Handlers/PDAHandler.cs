@@ -98,7 +98,6 @@ public static class PDAHandler
     /// <param name="encyclopediaKey">The key to the encyclopedia entry.</param>
     public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, string encyclopediaKey, int totalFragmentsRequired = 2, float scanTime = 2f, bool destroyAfterScan = true)
     {
-        if (encyclopediaKey == null) encyclopediaKey = string.Empty;
         AddCustomScannerEntry(new PDAScanner.EntryData()
         {
             key = key,
@@ -107,7 +106,7 @@ public static class PDAHandler
             totalFragments = totalFragmentsRequired,
             scanTime = scanTime,
             destroyAfterScan = destroyAfterScan,
-            encyclopedia = encyclopediaKey
+            encyclopedia = encyclopediaKey ?? string.Empty
         });
     }
 
