@@ -12,7 +12,7 @@ namespace Nautilus.Assets.Gadgets;
 /// <summary>
 /// Represents a vehicle module (or upgrade) gadget
 /// </summary>
-public class ModuleGadget : Gadget
+public class UpgradeModuleGadget : Gadget
 {
     /// <summary>
     /// The type of the equipment slot
@@ -43,7 +43,7 @@ public class ModuleGadget : Gadget
     /// Constructs an equipment gadget.
     /// </summary>
     /// <param name="prefab"><inheritdoc cref="Gadget(ICustomPrefab)"/></param>
-    public ModuleGadget(ICustomPrefab prefab) : base(prefab) { }
+    public UpgradeModuleGadget(ICustomPrefab prefab) : base(prefab) { }
 
     /// <summary>
     /// Constructs an equipment gadget.
@@ -51,7 +51,7 @@ public class ModuleGadget : Gadget
     /// <param name="prefab">The custom prefab to operate on.</param>
     /// <param name="equipmentType">The type of equipment slot this item can fit into.</param>
     [SetsRequiredMembers]
-    public ModuleGadget(ICustomPrefab prefab, EquipmentType equipmentType) : base(prefab)
+    public UpgradeModuleGadget(ICustomPrefab prefab, EquipmentType equipmentType) : base(prefab)
     {
         ModuleType = equipmentType;
     }
@@ -63,7 +63,7 @@ public class ModuleGadget : Gadget
     /// </summary>
     /// <param name="quickSlotType">The quick slot type</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public ModuleGadget WithQuickSlotType(QuickSlotType quickSlotType)
+    public UpgradeModuleGadget WithQuickSlotType(QuickSlotType quickSlotType)
     {
         QuickSlotType = quickSlotType;
         return this;
@@ -76,7 +76,7 @@ public class ModuleGadget : Gadget
     /// </summary>
     /// <param name="maxCharge">Charge multiplier</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public ModuleGadget WithMaxCharge(double maxCharge)
+    public UpgradeModuleGadget WithMaxCharge(double maxCharge)
     {
         MaxCharge = maxCharge;
         return this;
@@ -89,7 +89,7 @@ public class ModuleGadget : Gadget
     /// </summary>
     /// <param name="energyCost">Energy cost</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public ModuleGadget WithEnergyCost(double energyCost)
+    public UpgradeModuleGadget WithEnergyCost(double energyCost)
     {
         EnergyCost = energyCost;
         return this;
@@ -102,7 +102,7 @@ public class ModuleGadget : Gadget
     {
         if (prefab.Info.TechType is TechType.None)
         {
-            InternalLogger.Error($"Prefab '{prefab.Info}' does not contain a TechType. Skipping {nameof(ModuleGadget)} build.");
+            InternalLogger.Error($"Prefab '{prefab.Info}' does not contain a TechType. Skipping {nameof(UpgradeModuleGadget)} build.");
             return;
         }
 
