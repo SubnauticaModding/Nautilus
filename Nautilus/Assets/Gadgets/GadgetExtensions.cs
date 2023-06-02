@@ -29,7 +29,7 @@ public static class GadgetExtensions
 
         craftingGadget.RecipeData = recipeData;
         
-        customPrefab.AddGadget(craftingGadget);
+        customPrefab.TryAddGadget(craftingGadget);
         
         return craftingGadget;
     }
@@ -66,7 +66,7 @@ public static class GadgetExtensions
 
         craftingGadget.RecipeData = recipeData;
         
-        customPrefab.AddGadget(craftingGadget);
+        customPrefab.TryAddGadget(craftingGadget);
         
         return craftingGadget;
     }
@@ -88,7 +88,7 @@ public static class GadgetExtensions
         scanningGadget.RequiredForUnlock = requiredForUnlock;
         scanningGadget.FragmentsToScan = fragmentsToScan;
         
-        customPrefab.AddGadget(scanningGadget);
+        customPrefab.TryAddGadget(scanningGadget);
 
         return scanningGadget;
     }
@@ -111,7 +111,7 @@ public static class GadgetExtensions
 
         scanningGadget.WithPdaGroupCategory(group, category);
 
-        customPrefab.AddGadget(scanningGadget);
+        customPrefab.TryAddGadget(scanningGadget);
 
         return scanningGadget;
     }
@@ -131,7 +131,7 @@ public static class GadgetExtensions
 
         equipmentGadget.EquipmentType = equipmentType;
         
-        customPrefab.AddGadget(equipmentGadget);
+        customPrefab.TryAddGadget(equipmentGadget);
 
         return equipmentGadget;
     }
@@ -151,7 +151,7 @@ public static class GadgetExtensions
 
         treeType = fabricatorGadget.CraftTreeType;
         
-        customPrefab.AddGadget(fabricatorGadget);
+        customPrefab.TryAddGadget(fabricatorGadget);
 
         return fabricatorGadget;
     }
