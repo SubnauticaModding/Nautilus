@@ -90,7 +90,7 @@ public static class PDAHandler
     /// Registers a custom <see cref="PDAScanner.EntryData"/>.
     /// </summary>
     /// <param name="key">The scanned object's <see cref="TechType"/>. In the case of fragments, the fragment <see cref="TechType"/> is the key.</param>
-    /// <param name="blueprint">The <paramref name="blueprint"/> when unlocked when scanned. In case of fragments, this is the actual <see cref="TechType"/> that unlocks when all fragments are scanned.</param>
+    /// <param name="blueprint">The <paramref name="blueprint"/> that is unlocked when <paramref name="key"/> is scanned. In case of fragments, this is the actual <see cref="TechType"/> that unlocks when all fragments are scanned. Can be <see cref="TechType.None"/>.</param>
     /// <param name="isFragment">Whether the <paramref name="key"/> is a fragment or not.</param>
     /// <param name="totalFragmentsRequired">The total amount of objects of <paramref name="key"/> that need to be scanned to unlock the <paramref name="blueprint"/> and <paramref name="encyclopediaKey"/>.</param>
     /// <param name="scanTime">The amount of time it takes to finish one scan. In seconds.</param>
