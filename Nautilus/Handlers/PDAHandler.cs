@@ -95,7 +95,7 @@ public static class PDAHandler
     /// <param name="totalFragmentsRequired">The total amount of objects of <paramref name="key"/> that need to be scanned to unlock the <paramref name="blueprint"/> and <paramref name="encyclopediaKey"/>.</param>
     /// <param name="scanTime">The amount of time it takes to finish one scan. In seconds.</param>
     /// <param name="destroyAfterScan">Whether the object should be destroyed after the scan is finished.</param>
-    /// <param name="encyclopediaKey">The key of the encyclopedia entry.</param>
+    /// <param name="encyclopediaKey">The key of the encyclopedia entry that is unlocked when all the fragments are scanned.</param>
     public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, int totalFragmentsRequired, float scanTime = 2f, bool destroyAfterScan = true, string encyclopediaKey = null)
     {
         AddCustomScannerEntry(new PDAScanner.EntryData()
@@ -108,6 +108,18 @@ public static class PDAHandler
             destroyAfterScan = destroyAfterScan,
             encyclopedia = encyclopediaKey ?? string.Empty
         });
+    }
+
+    /// <summary>
+    /// Registers a custom <see cref="PDAScanner.EntryData"/>. This simplified overload is for prefabs that do not have fragments.
+    /// </summary>
+    /// <param name="key">The scanned object's <see cref="TechType"/>. In the case of fragments, the fragment <see cref="TechType"/> is the key.</param>
+    /// <param name="scanTime">The amount of time it takes to finish one scan. In seconds.</param>
+    /// <param name="destroyAfterScan">Whether the object should be destroyed after the scan is finished.</param>
+    /// <param name="encyclopediaKey">The key of the encyclopedia entry that is unlocked when <paramref name="key"/> is scanned.</param>
+    public static void AddCustomScannerEntry(TechType key, float scanTime = 2f, bool destroyAfterScan = false, string encyclopediaKey = null)
+    {
+        AddCustomScannerEntry(key, TechType.None, false, 1, scanTime, destroyAfterScan, encyclopediaKey);
     }
 
     /// <summary>
