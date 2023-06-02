@@ -15,8 +15,8 @@ internal partial class CraftDataPatcher
     internal static IDictionary<TechType, Vector2int> CustomItemSizes = new SelfCheckingDictionary<TechType, Vector2int>("CustomItemSizes", AsStringFunction);
     internal static IDictionary<TechType, EquipmentType> CustomEquipmentTypes = new SelfCheckingDictionary<TechType, EquipmentType>("CustomEquipmentTypes", AsStringFunction);
     internal static IDictionary<TechType, QuickSlotType> CustomSlotTypes = new SelfCheckingDictionary<TechType, QuickSlotType>("CustomSlotTypes", AsStringFunction);
-    internal static IDictionary<TechType, float> CustomMaxCharges = new SelfCheckingDictionary<TechType, double>("CustomMaxCharges", AsStringFunction);
-    internal static IDictionary<TechType, float> CustomEnergyCost = new SelfCheckingDictionary<TechType, double>("CustomEnergyCosts", AsStringFunction);
+    internal static IDictionary<TechType, float> CustomMaxCharges = new SelfCheckingDictionary<TechType, float>("CustomMaxCharges", AsStringFunction);
+    internal static IDictionary<TechType, float> CustomEnergyCost = new SelfCheckingDictionary<TechType, float>("CustomEnergyCosts", AsStringFunction);
     internal static IDictionary<TechType, float> CustomCraftingTimes = new SelfCheckingDictionary<TechType, float>("CustomCraftingTimes", AsStringFunction);
     internal static IDictionary<TechType, TechType> CustomCookedCreatureList = new SelfCheckingDictionary<TechType, TechType>("CustomCookedCreatureList", AsStringFunction);
     internal static IDictionary<TechType, CraftData.BackgroundType> CustomBackgroundTypes = new SelfCheckingDictionary<TechType, CraftData.BackgroundType>("CustomBackgroundTypes", TechTypeExtensions.sTechTypeComparer, AsStringFunction);
