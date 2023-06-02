@@ -319,7 +319,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_AddOnRegister_System_Action_" data-uid="Nautilus.Assets.ICustomPrefab.AddOnRegister(System.Action)">
   AddOnRegister(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L102"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds an action that will be called during the registration of the prefab.</div>
@@ -350,7 +350,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_AddOnUnregister_System_Action_" data-uid="Nautilus.Assets.ICustomPrefab.AddOnUnregister(System.Action)">
   AddOnUnregister(Action)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L100"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L108"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds an action that will be called when this prefab has performed an unregister operation.</div>
@@ -453,7 +453,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_RemoveGadget_System_Type_" data-uid="Nautilus.Assets.ICustomPrefab.RemoveGadget(System.Type)">
   RemoveGadget(Type)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L80"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L88"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Removes the gadget with the specified type.</div>
@@ -490,7 +490,7 @@
 
   <h3 id="Nautilus_Assets_ICustomPrefab_RemoveGadget__1" data-uid="Nautilus.Assets.ICustomPrefab.RemoveGadget``1">
   RemoveGadget&lt;TGadget&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L88"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L96"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Removes the gadget with the specified type.</div>
@@ -512,6 +512,47 @@
   <dl class="parameters">
     <dt><code>TGadget</code></dt>
     <dd>The type of the gadget to remove.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_TryAddGadget_" data-uid="Nautilus.Assets.ICustomPrefab.TryAddGadget*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_TryAddGadget__1___0_" data-uid="Nautilus.Assets.ICustomPrefab.TryAddGadget``1(``0)">
+  TryAddGadget&lt;TGadget&gt;(TGadget)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/CustomPrefab.cs/#L80"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Attempts to add the given gadget if there is not already an existing gadget of the same type.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryAddGadget&lt;TGadget&gt;(TGadget gadget) where TGadget : Gadget</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gadget</code> <span class="xref">TGadget</span></dt>
+    <dd>The gadget that may be added, assuming the same type of gadget does not already exist on the prefab.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>True if the gadget was added, false if an instance of the same gadget type already exists on the prefab.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TGadget</code></dt>
+    <dd>The type of the gadget that may be added.</dd>
   </dl>
 
 

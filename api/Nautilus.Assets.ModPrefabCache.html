@@ -91,8 +91,8 @@
   <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
 
-  <div class="markdown summary">Class used by <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a> to store game objects that used as prefabs.
-Game objects in cache are inactive and will not be on scene.</div>
+  <div class="markdown summary">Class used by the prefab system to store GameObjects.
+Objects in the cache are inactive because they are placed within an inactive parent object.</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -149,25 +149,22 @@ Game objects in cache are inactive and will not be on scene.</div>
 
   <a id="Nautilus_Assets_ModPrefabCache_AddPrefab_" data-uid="Nautilus.Assets.ModPrefabCache.AddPrefab*"></a>
 
-  <h3 id="Nautilus_Assets_ModPrefabCache_AddPrefab_UnityEngine_GameObject_System_Boolean_" data-uid="Nautilus.Assets.ModPrefabCache.AddPrefab(UnityEngine.GameObject,System.Boolean)">
-  AddPrefab(GameObject, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/ModPrefabCache.cs/#L69"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Assets_ModPrefabCache_AddPrefab_UnityEngine_GameObject_" data-uid="Nautilus.Assets.ModPrefabCache.AddPrefab(UnityEngine.GameObject)">
+  AddPrefab(GameObject)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/ModPrefabCache.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary">Add prefab to cache</div>
+  <div class="markdown level1 summary">Adds the given prefab to the cache.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void AddPrefab(GameObject prefab, bool autoremove = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void AddPrefab(GameObject prefab)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>prefab</code> <span class="xref">GameObject</span></dt>
-    <dd>Prefab to add.</dd>
-    <dt><code>autoremove</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd>Is prefab needed to be removed from cache after use.
-Prefabs without autoremove flag can be safely deleted by <span class="xref">UnityEngine.Object.Destroy(UnityEngine.Object)</span></dd>
+    <dd>The prefab object that is disabled and cached.</dd>
   </dl>
 
 
@@ -181,33 +178,99 @@ Prefabs without autoremove flag can be safely deleted by <span class="xref">Unit
 
 
 
-  <a id="Nautilus_Assets_ModPrefabCache_AddPrefabCopy_" data-uid="Nautilus.Assets.ModPrefabCache.AddPrefabCopy*"></a>
+  <a id="Nautilus_Assets_ModPrefabCache_IsPrefabCached_" data-uid="Nautilus.Assets.ModPrefabCache.IsPrefabCached*"></a>
 
-  <h3 id="Nautilus_Assets_ModPrefabCache_AddPrefabCopy_UnityEngine_GameObject_System_Boolean_" data-uid="Nautilus.Assets.ModPrefabCache.AddPrefabCopy(UnityEngine.GameObject,System.Boolean)">
-  AddPrefabCopy(GameObject, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/ModPrefabCache.cs/#L84"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Assets_ModPrefabCache_IsPrefabCached_System_String_" data-uid="Nautilus.Assets.ModPrefabCache.IsPrefabCached(System.String)">
+  IsPrefabCached(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/ModPrefabCache.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary">Add prefab copy to cache (instatiated copy will not run 'Awake')</div>
+  <div class="markdown level1 summary">Determines if a prefab is already cached, searching by class id.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static GameObject AddPrefabCopy(GameObject prefab, bool autoremove = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool IsPrefabCached(string classId)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>prefab</code> <span class="xref">GameObject</span></dt>
-    <dd>Prefab to copy and add.</dd>
-    <dt><code>autoremove</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd>Is prefab copy needed to be removed from cache after use.
-Prefabs without autoremove flag can be safely deleted by <span class="xref">UnityEngine.Object.Destroy(UnityEngine.Object)</span></dd>
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The class id to search for.</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">GameObject</span></dt>
-    <dd>Prefab copy</dd>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>True if a prefab by the given <code class="paramref">classId</code> exists in the cache, otherwise false.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ModPrefabCache_RemovePrefabFromCache_" data-uid="Nautilus.Assets.ModPrefabCache.RemovePrefabFromCache*"></a>
+
+  <h3 id="Nautilus_Assets_ModPrefabCache_RemovePrefabFromCache_System_String_" data-uid="Nautilus.Assets.ModPrefabCache.RemovePrefabFromCache(System.String)">
+  RemovePrefabFromCache(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/ModPrefabCache.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Any prefab with the matching <code class="paramref">classId</code> will be removed from the cache.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RemovePrefabFromCache(string classId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The class id of the prefab that will be removed.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ModPrefabCache_TryGetPrefabFromCache_" data-uid="Nautilus.Assets.ModPrefabCache.TryGetPrefabFromCache*"></a>
+
+  <h3 id="Nautilus_Assets_ModPrefabCache_TryGetPrefabFromCache_System_String_UnityEngine_GameObject__" data-uid="Nautilus.Assets.ModPrefabCache.TryGetPrefabFromCache(System.String,UnityEngine.GameObject@)">
+  TryGetPrefabFromCache(string, out GameObject)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/ModPrefabCache.cs/#L56"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Attempts to fetch a prefab from the cache by its <code class="paramref">classId</code>. The <code class="paramref">prefab</code> out parameter is set to the prefab, if any was found.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetPrefabFromCache(string classId, out GameObject prefab)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The class id of the prefab we are searching for.</dd>
+    <dt><code>prefab</code> <span class="xref">GameObject</span></dt>
+    <dd>The prefab that may or may not be found.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>True if the prefab was found in the cache, otherwise false.</dd>
   </dl>
 
 

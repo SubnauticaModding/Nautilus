@@ -478,6 +478,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.CustomPrefab.SetPrefabPostProcessor
   nameWithType: CustomPrefab.SetPrefabPostProcessor
+- uid: Nautilus.Assets.CustomPrefab.TryAddGadget*
+  name: TryAddGadget
+  href: api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab_TryAddGadget_
+  commentId: Overload:Nautilus.Assets.CustomPrefab.TryAddGadget
+  isSpec: "True"
+  fullName: Nautilus.Assets.CustomPrefab.TryAddGadget
+  nameWithType: CustomPrefab.TryAddGadget
+- uid: Nautilus.Assets.CustomPrefab.TryAddGadget``1(``0)
+  name: TryAddGadget<TGadget>(TGadget)
+  href: api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab_TryAddGadget__1___0_
+  commentId: M:Nautilus.Assets.CustomPrefab.TryAddGadget``1(``0)
+  name.vb: TryAddGadget(Of TGadget)(TGadget)
+  fullName: Nautilus.Assets.CustomPrefab.TryAddGadget<TGadget>(TGadget)
+  fullName.vb: Nautilus.Assets.CustomPrefab.TryAddGadget(Of TGadget)(TGadget)
+  nameWithType: CustomPrefab.TryAddGadget<TGadget>(TGadget)
+  nameWithType.vb: CustomPrefab.TryAddGadget(Of TGadget)(TGadget)
 - uid: Nautilus.Assets.CustomPrefab.TryGetGadget*
   name: TryGetGadget
   href: api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab_TryGetGadget_
@@ -1234,15 +1250,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithCompoundTechsForUnlock
   nameWithType: ScanningGadget.WithCompoundTechsForUnlock
-- uid: Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(System.String,UnityEngine.Sprite,UnityEngine.Texture2D,FMODAsset)
-  name: WithEncyclopediaEntry(string, Sprite, Texture2D, FMODAsset)
-  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithEncyclopediaEntry_System_String_UnityEngine_Sprite_UnityEngine_Texture2D_FMODAsset_
-  commentId: M:Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(System.String,UnityEngine.Sprite,UnityEngine.Texture2D,FMODAsset)
-  name.vb: WithEncyclopediaEntry(String, Sprite, Texture2D, FMODAsset)
-  fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(string, UnityEngine.Sprite, UnityEngine.Texture2D, FMODAsset)
-  fullName.vb: Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(String, UnityEngine.Sprite, UnityEngine.Texture2D, FMODAsset)
-  nameWithType: ScanningGadget.WithEncyclopediaEntry(string, Sprite, Texture2D, FMODAsset)
-  nameWithType.vb: ScanningGadget.WithEncyclopediaEntry(String, Sprite, Texture2D, FMODAsset)
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(System.String,UnityEngine.Sprite,UnityEngine.Texture2D,FMODAsset,FMODAsset)
+  name: WithEncyclopediaEntry(string, Sprite, Texture2D, FMODAsset, FMODAsset)
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithEncyclopediaEntry_System_String_UnityEngine_Sprite_UnityEngine_Texture2D_FMODAsset_FMODAsset_
+  commentId: M:Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(System.String,UnityEngine.Sprite,UnityEngine.Texture2D,FMODAsset,FMODAsset)
+  name.vb: WithEncyclopediaEntry(String, Sprite, Texture2D, FMODAsset, FMODAsset)
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(string, UnityEngine.Sprite, UnityEngine.Texture2D, FMODAsset, FMODAsset)
+  fullName.vb: Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry(String, UnityEngine.Sprite, UnityEngine.Texture2D, FMODAsset, FMODAsset)
+  nameWithType: ScanningGadget.WithEncyclopediaEntry(string, Sprite, Texture2D, FMODAsset, FMODAsset)
+  nameWithType.vb: ScanningGadget.WithEncyclopediaEntry(String, Sprite, Texture2D, FMODAsset, FMODAsset)
 - uid: Nautilus.Assets.Gadgets.ScanningGadget.WithEncyclopediaEntry*
   name: WithEncyclopediaEntry
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithEncyclopediaEntry_
@@ -1410,6 +1426,22 @@ references:
   fullName.vb: Nautilus.Assets.ICustomPrefab.RemoveGadget(Of TGadget)()
   nameWithType: ICustomPrefab.RemoveGadget<TGadget>()
   nameWithType.vb: ICustomPrefab.RemoveGadget(Of TGadget)()
+- uid: Nautilus.Assets.ICustomPrefab.TryAddGadget*
+  name: TryAddGadget
+  href: api/Nautilus.Assets.ICustomPrefab.html#Nautilus_Assets_ICustomPrefab_TryAddGadget_
+  commentId: Overload:Nautilus.Assets.ICustomPrefab.TryAddGadget
+  isSpec: "True"
+  fullName: Nautilus.Assets.ICustomPrefab.TryAddGadget
+  nameWithType: ICustomPrefab.TryAddGadget
+- uid: Nautilus.Assets.ICustomPrefab.TryAddGadget``1(``0)
+  name: TryAddGadget<TGadget>(TGadget)
+  href: api/Nautilus.Assets.ICustomPrefab.html#Nautilus_Assets_ICustomPrefab_TryAddGadget__1___0_
+  commentId: M:Nautilus.Assets.ICustomPrefab.TryAddGadget``1(``0)
+  name.vb: TryAddGadget(Of TGadget)(TGadget)
+  fullName: Nautilus.Assets.ICustomPrefab.TryAddGadget<TGadget>(TGadget)
+  fullName.vb: Nautilus.Assets.ICustomPrefab.TryAddGadget(Of TGadget)(TGadget)
+  nameWithType: ICustomPrefab.TryAddGadget<TGadget>(TGadget)
+  nameWithType.vb: ICustomPrefab.TryAddGadget(Of TGadget)(TGadget)
 - uid: Nautilus.Assets.ICustomPrefab.TryGetGadget*
   name: TryGetGadget
   href: api/Nautilus.Assets.ICustomPrefab.html#Nautilus_Assets_ICustomPrefab_TryGetGadget_
@@ -1432,15 +1464,12 @@ references:
   commentId: T:Nautilus.Assets.ModPrefabCache
   fullName: Nautilus.Assets.ModPrefabCache
   nameWithType: ModPrefabCache
-- uid: Nautilus.Assets.ModPrefabCache.AddPrefab(UnityEngine.GameObject,System.Boolean)
-  name: AddPrefab(GameObject, bool)
-  href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_AddPrefab_UnityEngine_GameObject_System_Boolean_
-  commentId: M:Nautilus.Assets.ModPrefabCache.AddPrefab(UnityEngine.GameObject,System.Boolean)
-  name.vb: AddPrefab(GameObject, Boolean)
-  fullName: Nautilus.Assets.ModPrefabCache.AddPrefab(UnityEngine.GameObject, bool)
-  fullName.vb: Nautilus.Assets.ModPrefabCache.AddPrefab(UnityEngine.GameObject, Boolean)
-  nameWithType: ModPrefabCache.AddPrefab(GameObject, bool)
-  nameWithType.vb: ModPrefabCache.AddPrefab(GameObject, Boolean)
+- uid: Nautilus.Assets.ModPrefabCache.AddPrefab(UnityEngine.GameObject)
+  name: AddPrefab(GameObject)
+  href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_AddPrefab_UnityEngine_GameObject_
+  commentId: M:Nautilus.Assets.ModPrefabCache.AddPrefab(UnityEngine.GameObject)
+  fullName: Nautilus.Assets.ModPrefabCache.AddPrefab(UnityEngine.GameObject)
+  nameWithType: ModPrefabCache.AddPrefab(GameObject)
 - uid: Nautilus.Assets.ModPrefabCache.AddPrefab*
   name: AddPrefab
   href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_AddPrefab_
@@ -1448,22 +1477,54 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.ModPrefabCache.AddPrefab
   nameWithType: ModPrefabCache.AddPrefab
-- uid: Nautilus.Assets.ModPrefabCache.AddPrefabCopy(UnityEngine.GameObject,System.Boolean)
-  name: AddPrefabCopy(GameObject, bool)
-  href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_AddPrefabCopy_UnityEngine_GameObject_System_Boolean_
-  commentId: M:Nautilus.Assets.ModPrefabCache.AddPrefabCopy(UnityEngine.GameObject,System.Boolean)
-  name.vb: AddPrefabCopy(GameObject, Boolean)
-  fullName: Nautilus.Assets.ModPrefabCache.AddPrefabCopy(UnityEngine.GameObject, bool)
-  fullName.vb: Nautilus.Assets.ModPrefabCache.AddPrefabCopy(UnityEngine.GameObject, Boolean)
-  nameWithType: ModPrefabCache.AddPrefabCopy(GameObject, bool)
-  nameWithType.vb: ModPrefabCache.AddPrefabCopy(GameObject, Boolean)
-- uid: Nautilus.Assets.ModPrefabCache.AddPrefabCopy*
-  name: AddPrefabCopy
-  href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_AddPrefabCopy_
-  commentId: Overload:Nautilus.Assets.ModPrefabCache.AddPrefabCopy
+- uid: Nautilus.Assets.ModPrefabCache.IsPrefabCached(System.String)
+  name: IsPrefabCached(string)
+  href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_IsPrefabCached_System_String_
+  commentId: M:Nautilus.Assets.ModPrefabCache.IsPrefabCached(System.String)
+  name.vb: IsPrefabCached(String)
+  fullName: Nautilus.Assets.ModPrefabCache.IsPrefabCached(string)
+  fullName.vb: Nautilus.Assets.ModPrefabCache.IsPrefabCached(String)
+  nameWithType: ModPrefabCache.IsPrefabCached(string)
+  nameWithType.vb: ModPrefabCache.IsPrefabCached(String)
+- uid: Nautilus.Assets.ModPrefabCache.IsPrefabCached*
+  name: IsPrefabCached
+  href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_IsPrefabCached_
+  commentId: Overload:Nautilus.Assets.ModPrefabCache.IsPrefabCached
   isSpec: "True"
-  fullName: Nautilus.Assets.ModPrefabCache.AddPrefabCopy
-  nameWithType: ModPrefabCache.AddPrefabCopy
+  fullName: Nautilus.Assets.ModPrefabCache.IsPrefabCached
+  nameWithType: ModPrefabCache.IsPrefabCached
+- uid: Nautilus.Assets.ModPrefabCache.RemovePrefabFromCache(System.String)
+  name: RemovePrefabFromCache(string)
+  href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_RemovePrefabFromCache_System_String_
+  commentId: M:Nautilus.Assets.ModPrefabCache.RemovePrefabFromCache(System.String)
+  name.vb: RemovePrefabFromCache(String)
+  fullName: Nautilus.Assets.ModPrefabCache.RemovePrefabFromCache(string)
+  fullName.vb: Nautilus.Assets.ModPrefabCache.RemovePrefabFromCache(String)
+  nameWithType: ModPrefabCache.RemovePrefabFromCache(string)
+  nameWithType.vb: ModPrefabCache.RemovePrefabFromCache(String)
+- uid: Nautilus.Assets.ModPrefabCache.RemovePrefabFromCache*
+  name: RemovePrefabFromCache
+  href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_RemovePrefabFromCache_
+  commentId: Overload:Nautilus.Assets.ModPrefabCache.RemovePrefabFromCache
+  isSpec: "True"
+  fullName: Nautilus.Assets.ModPrefabCache.RemovePrefabFromCache
+  nameWithType: ModPrefabCache.RemovePrefabFromCache
+- uid: Nautilus.Assets.ModPrefabCache.TryGetPrefabFromCache(System.String,UnityEngine.GameObject@)
+  name: TryGetPrefabFromCache(string, out GameObject)
+  href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_TryGetPrefabFromCache_System_String_UnityEngine_GameObject__
+  commentId: M:Nautilus.Assets.ModPrefabCache.TryGetPrefabFromCache(System.String,UnityEngine.GameObject@)
+  name.vb: TryGetPrefabFromCache(String, GameObject)
+  fullName: Nautilus.Assets.ModPrefabCache.TryGetPrefabFromCache(string, out UnityEngine.GameObject)
+  fullName.vb: Nautilus.Assets.ModPrefabCache.TryGetPrefabFromCache(String, UnityEngine.GameObject)
+  nameWithType: ModPrefabCache.TryGetPrefabFromCache(string, out GameObject)
+  nameWithType.vb: ModPrefabCache.TryGetPrefabFromCache(String, GameObject)
+- uid: Nautilus.Assets.ModPrefabCache.TryGetPrefabFromCache*
+  name: TryGetPrefabFromCache
+  href: api/Nautilus.Assets.ModPrefabCache.html#Nautilus_Assets_ModPrefabCache_TryGetPrefabFromCache_
+  commentId: Overload:Nautilus.Assets.ModPrefabCache.TryGetPrefabFromCache
+  isSpec: "True"
+  fullName: Nautilus.Assets.ModPrefabCache.TryGetPrefabFromCache
+  nameWithType: ModPrefabCache.TryGetPrefabFromCache
 - uid: Nautilus.Assets.PrefabFactoryAsync
   name: PrefabFactoryAsync
   href: api/Nautilus.Assets.PrefabFactoryAsync.html
@@ -3830,27 +3891,13 @@ references:
 - uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
   name: BlueprintPickupMessage
   href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BlueprintPickupMessage
-  commentId: P:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
-  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
-  nameWithType: KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
-- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage*
-  name: BlueprintPickupMessage
-  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BlueprintPickupMessage_
-  commentId: Overload:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
-  isSpec: "True"
+  commentId: F:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
   fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
   nameWithType: KnownTechHandler.DefaultUnlockData.BlueprintPickupMessage
 - uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
   name: BlueprintUnlockMessage
   href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BlueprintUnlockMessage
-  commentId: P:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
-  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
-  nameWithType: KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
-- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage*
-  name: BlueprintUnlockMessage
-  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_BlueprintUnlockMessage_
-  commentId: Overload:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
-  isSpec: "True"
+  commentId: F:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
   fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
   nameWithType: KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage
 - uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound
@@ -3869,14 +3916,7 @@ references:
 - uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
   name: NewCreatureDiscoveredMessage
   href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_NewCreatureDiscoveredMessage
-  commentId: P:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
-  fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
-  nameWithType: KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
-- uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage*
-  name: NewCreatureDiscoveredMessage
-  href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html#Nautilus_Handlers_KnownTechHandler_DefaultUnlockData_NewCreatureDiscoveredMessage_
-  commentId: Overload:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
-  isSpec: "True"
+  commentId: F:Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
   fullName: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
   nameWithType: KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredMessage
 - uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.NewCreatureDiscoveredSound
@@ -9364,6 +9404,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.KeyCodeUtils.GetAnalogValueForKey
   nameWithType: KeyCodeUtils.GetAnalogValueForKey
+- uid: Nautilus.Utility.KeyCodeUtils.GetDisplayTextForKeyCode(UnityEngine.KeyCode)
+  name: GetDisplayTextForKeyCode(KeyCode)
+  href: api/Nautilus.Utility.KeyCodeUtils.html#Nautilus_Utility_KeyCodeUtils_GetDisplayTextForKeyCode_UnityEngine_KeyCode_
+  commentId: M:Nautilus.Utility.KeyCodeUtils.GetDisplayTextForKeyCode(UnityEngine.KeyCode)
+  fullName: Nautilus.Utility.KeyCodeUtils.GetDisplayTextForKeyCode(UnityEngine.KeyCode)
+  nameWithType: KeyCodeUtils.GetDisplayTextForKeyCode(KeyCode)
+- uid: Nautilus.Utility.KeyCodeUtils.GetDisplayTextForKeyCode*
+  name: GetDisplayTextForKeyCode
+  href: api/Nautilus.Utility.KeyCodeUtils.html#Nautilus_Utility_KeyCodeUtils_GetDisplayTextForKeyCode_
+  commentId: Overload:Nautilus.Utility.KeyCodeUtils.GetDisplayTextForKeyCode
+  isSpec: "True"
+  fullName: Nautilus.Utility.KeyCodeUtils.GetDisplayTextForKeyCode
+  nameWithType: KeyCodeUtils.GetDisplayTextForKeyCode
 - uid: Nautilus.Utility.KeyCodeUtils.GetKeyDown(System.String)
   name: GetKeyDown(string)
   href: api/Nautilus.Utility.KeyCodeUtils.html#Nautilus_Utility_KeyCodeUtils_GetKeyDown_System_String_
@@ -10855,3 +10908,34 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.StorageHelperExtensions.IsFull
   nameWithType: StorageHelperExtensions.IsFull
+- uid: Nautilus.Utility.WorldEntityInfoUtils
+  name: WorldEntityInfoUtils
+  href: api/Nautilus.Utility.WorldEntityInfoUtils.html
+  commentId: T:Nautilus.Utility.WorldEntityInfoUtils
+  fullName: Nautilus.Utility.WorldEntityInfoUtils
+  nameWithType: WorldEntityInfoUtils
+- uid: Nautilus.Utility.WorldEntityInfoUtils.Create(Nautilus.Assets.PrefabInfo,LargeWorldEntity.CellLevel,EntitySlot.Type,System.Boolean,UnityEngine.Vector3)
+  name: Create(PrefabInfo, CellLevel, Type, bool, Vector3)
+  href: api/Nautilus.Utility.WorldEntityInfoUtils.html#Nautilus_Utility_WorldEntityInfoUtils_Create_Nautilus_Assets_PrefabInfo_LargeWorldEntity_CellLevel_EntitySlot_Type_System_Boolean_UnityEngine_Vector3_
+  commentId: M:Nautilus.Utility.WorldEntityInfoUtils.Create(Nautilus.Assets.PrefabInfo,LargeWorldEntity.CellLevel,EntitySlot.Type,System.Boolean,UnityEngine.Vector3)
+  name.vb: Create(PrefabInfo, CellLevel, Type, Boolean, Vector3)
+  fullName: Nautilus.Utility.WorldEntityInfoUtils.Create(Nautilus.Assets.PrefabInfo, LargeWorldEntity.CellLevel, EntitySlot.Type, bool, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Utility.WorldEntityInfoUtils.Create(Nautilus.Assets.PrefabInfo, LargeWorldEntity.CellLevel, EntitySlot.Type, Boolean, UnityEngine.Vector3)
+  nameWithType: WorldEntityInfoUtils.Create(PrefabInfo, LargeWorldEntity.CellLevel, EntitySlot.Type, bool, Vector3)
+  nameWithType.vb: WorldEntityInfoUtils.Create(PrefabInfo, LargeWorldEntity.CellLevel, EntitySlot.Type, Boolean, Vector3)
+- uid: Nautilus.Utility.WorldEntityInfoUtils.Create(System.String,TechType,LargeWorldEntity.CellLevel,EntitySlot.Type,System.Boolean,UnityEngine.Vector3)
+  name: Create(string, TechType, CellLevel, Type, bool, Vector3)
+  href: api/Nautilus.Utility.WorldEntityInfoUtils.html#Nautilus_Utility_WorldEntityInfoUtils_Create_System_String_TechType_LargeWorldEntity_CellLevel_EntitySlot_Type_System_Boolean_UnityEngine_Vector3_
+  commentId: M:Nautilus.Utility.WorldEntityInfoUtils.Create(System.String,TechType,LargeWorldEntity.CellLevel,EntitySlot.Type,System.Boolean,UnityEngine.Vector3)
+  name.vb: Create(String, TechType, CellLevel, Type, Boolean, Vector3)
+  fullName: Nautilus.Utility.WorldEntityInfoUtils.Create(string, TechType, LargeWorldEntity.CellLevel, EntitySlot.Type, bool, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Utility.WorldEntityInfoUtils.Create(String, TechType, LargeWorldEntity.CellLevel, EntitySlot.Type, Boolean, UnityEngine.Vector3)
+  nameWithType: WorldEntityInfoUtils.Create(string, TechType, LargeWorldEntity.CellLevel, EntitySlot.Type, bool, Vector3)
+  nameWithType.vb: WorldEntityInfoUtils.Create(String, TechType, LargeWorldEntity.CellLevel, EntitySlot.Type, Boolean, Vector3)
+- uid: Nautilus.Utility.WorldEntityInfoUtils.Create*
+  name: Create
+  href: api/Nautilus.Utility.WorldEntityInfoUtils.html#Nautilus_Utility_WorldEntityInfoUtils_Create_
+  commentId: Overload:Nautilus.Utility.WorldEntityInfoUtils.Create
+  isSpec: "True"
+  fullName: Nautilus.Utility.WorldEntityInfoUtils.Create
+  nameWithType: WorldEntityInfoUtils.Create
