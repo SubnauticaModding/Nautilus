@@ -152,7 +152,7 @@ public static class GadgetExtensions
         }
         moduleGadget.ModuleType = equipmentType;
 
-        customPrefab.AddGadget(moduleGadget);
+        customPrefab.TryAddGadget(moduleGadget);
 
         return moduleGadget;
     }
