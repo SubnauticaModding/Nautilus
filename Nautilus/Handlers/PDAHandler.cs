@@ -87,18 +87,17 @@ public static class PDAHandler
     }
 
     /// <summary>
-    /// Adds in a custom <see cref="PDAScanner.EntryData"/>.
+    /// Registers a custom <see cref="PDAScanner.EntryData"/>.
     /// </summary>
-    /// <param name="key">The scanned object's <see cref="TechType"/>. In case of fragments, the fragment <see cref="TechType"/> is the key.</param>
-    /// <param name="blueprint">The <paramref name="blueprint"/> when unlocked when scanned. In case of fragments, this is the actual <see cref="TechType"/> that unlocks when all fragments are scanned.</param>
+    /// <param name="key">The scanned object's <see cref="TechType"/>. In the case of fragments, the fragment <see cref="TechType"/> is the key.</param>
+    /// <param name="blueprint">The <paramref name="blueprint"/> that is unlocked when <paramref name="key"/> is scanned. In case of fragments, this is the actual <see cref="TechType"/> that unlocks when all fragments are scanned. Can be <see cref="TechType.None"/>.</param>
     /// <param name="isFragment">Whether the <paramref name="key"/> is a fragment or not.</param>
     /// <param name="totalFragmentsRequired">The total amount of objects of <paramref name="key"/> that need to be scanned to unlock the <paramref name="blueprint"/> and <paramref name="encyclopediaKey"/>.</param>
-    /// <param name="scanTime">The amount of time it takes to finish one scan. In seconds.</param>
+    /// <param name="scanTime">The amount of time in seconds it takes to scan this object.</param>
     /// <param name="destroyAfterScan">Whether the object should be destroyed after the scan is finished.</param>
-    /// <param name="encyclopediaKey">The key to the encyclopedia entry.</param>
-    public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, string encyclopediaKey, int totalFragmentsRequired = 2, float scanTime = 2f, bool destroyAfterScan = true)
+    /// <param name="encyclopediaKey">The key of the encyclopedia entry that is unlocked when all the fragments are scanned.</param>
+    public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, int totalFragmentsRequired, float scanTime = 2f, bool destroyAfterScan = true, string encyclopediaKey = null)
     {
-        if (encyclopediaKey == null) encyclopediaKey = string.Empty;
         AddCustomScannerEntry(new PDAScanner.EntryData()
         {
             key = key,
@@ -107,8 +106,20 @@ public static class PDAHandler
             totalFragments = totalFragmentsRequired,
             scanTime = scanTime,
             destroyAfterScan = destroyAfterScan,
-            encyclopedia = encyclopediaKey
+            encyclopedia = encyclopediaKey ?? string.Empty
         });
+    }
+
+    /// <summary>
+    /// Registers a custom <see cref="PDAScanner.EntryData"/>. This simplified overload is for prefabs that do not have fragments.
+    /// </summary>
+    /// <param name="key">The scanned object's <see cref="TechType"/>. In the case of fragments, the fragment <see cref="TechType"/> is the key.</param>
+    /// <param name="scanTime">The amount of time in seconds it takes to scan this object.</param>
+    /// <param name="destroyAfterScan">Whether the object should be destroyed after the scan is finished.</param>
+    /// <param name="encyclopediaKey">The key of the encyclopedia entry that is unlocked when <paramref name="key"/> is scanned.</param>
+    public static void AddCustomScannerEntry(TechType key, float scanTime = 2f, bool destroyAfterScan = false, string encyclopediaKey = null)
+    {
+        AddCustomScannerEntry(key, TechType.None, false, 1, scanTime, destroyAfterScan, encyclopediaKey);
     }
 
     /// <summary>
