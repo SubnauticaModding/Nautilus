@@ -96,7 +96,7 @@ public static class PDAHandler
     /// <param name="scanTime">The amount of time it takes to finish one scan. In seconds.</param>
     /// <param name="destroyAfterScan">Whether the object should be destroyed after the scan is finished.</param>
     /// <param name="encyclopediaKey">The key of the encyclopedia entry.</param>
-    public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, string encyclopediaKey = null, int totalFragmentsRequired = 2, float scanTime = 2f, bool destroyAfterScan = true)
+    public static void AddCustomScannerEntry(TechType key, TechType blueprint, bool isFragment, int totalFragmentsRequired, string encyclopediaKey = null, float scanTime = 2f, bool destroyAfterScan = true)
     {
         AddCustomScannerEntry(new PDAScanner.EntryData()
         {
