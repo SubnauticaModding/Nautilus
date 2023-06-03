@@ -1,15 +1,9 @@
 using BepInEx;
 using Nautilus.Utility;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Nautilus.Handlers;
 public class ModDataBankHandler
@@ -43,10 +37,9 @@ public class ModDataBankHandler
     /// Register mod with default values. 
     /// </summary>
     /// <param name="assembly">Assembly for your mod.</param>
-    public static void RegisterMod(Assembly assembly)
+    public static void RegisterMod(string GUID)
     {
-        var bepinplugin = assembly.GetTypes().First(type => type.GetCustomAttributes(false).OfType<BepInPlugin>().Any());
-        var bepinplugindata = bepinplugin.GetCustomAttributes(false).OfType<BepInPlugin>().FirstOrDefault();
+        var bepinplugindata = BepInEx.Bootstrap.Chainloader.PluginInfos.FirstOrDefault(info => info.Value.Metadata.GUID == GUID).Value.Metadata;
         var entrydata = new PDAEncyclopedia.EntryData()
         {
             image = null,

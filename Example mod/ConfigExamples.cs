@@ -33,7 +33,7 @@ public class ConfigExamples : BaseUnityPlugin
     {
 
         LogSource = Logger;
-        ModDataBankHandler.RegisterMod(Assembly.GetExecutingAssembly());
+        ModDataBankHandler.RegisterMod("com.snmodding.nautilus.configexample");
         /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an 
         /// options menu using Attributes. The values in this instance will be updated whenever the user changes 
         /// the corresponding option in the menu.
