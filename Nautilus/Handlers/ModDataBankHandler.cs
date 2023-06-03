@@ -1,11 +1,12 @@
 using BepInEx;
 using Nautilus.Utility;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 namespace Nautilus.Handlers;
+/// <summary>
+/// A handler class for adding databank entries for mods.
+/// </summary>
 public class ModDatabankHandler
 {
     private static bool isinit;
@@ -14,12 +15,11 @@ public class ModDatabankHandler
     {
         LanguageHandler.SetLanguageLine("EncyPath_Mods", "Mods");
         isinit = true;
-        foreach(var data in waitlist)
+        foreach (var data in waitlist)
         {
             CompleteRegister(data);
         }
     }
-
     private static void CompleteRegister(PDAEncyclopedia.EntryData data)
     {
         if (isinit)
@@ -31,16 +31,16 @@ public class ModDatabankHandler
 #else
             PDAEncyclopedia.Add(data.key, true);
 #endif
-        } else
+        }
+        else
         {
             waitlist.Add(data);
         }
-
     }
     /// <summary>
     /// Register mod with database using default values. 
     /// </summary>
-    /// <param name="GUID">GUID of your mod.</param>
+    /// <param name="info">The PluginInfo for your mod. Pass in Info from your BepInPlugin class</param>
     public static void RegisterMod(BepInEx.PluginInfo info)
     {
         var bepinplugindata = info.Metadata;
@@ -85,6 +85,9 @@ public class ModDatabankHandler
         }
         CompleteRegister(entrydata);
     }
+    /// <summary>
+    /// Data for the encyclopedia entry of your mod.
+    /// </summary>
     public record struct ModData
     {
         /// <summary>
