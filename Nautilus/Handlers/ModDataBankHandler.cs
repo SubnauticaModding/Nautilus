@@ -26,7 +26,11 @@ public class ModDatabankHandler
         {
             InternalLogger.Info($"{data.key} entry added.");
             PDAHandler.AddEncyclopediaEntry(data);
+#if BZ_STABLE
+            PDAEncyclopedia.Add(data.key, true, false);
+#else
             PDAEncyclopedia.Add(data.key, true);
+#endif
         } else
         {
             waitlist.Add(data);
