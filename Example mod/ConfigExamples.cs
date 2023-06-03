@@ -12,7 +12,6 @@ using Handlers;
 using UnityEngine;
 using BepInEx;
 using BepInEx.Logging;
-using System.Reflection;
 
 [BepInPlugin("com.snmodding.nautilus.configexample", "Nautilus Config Example Mod", PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]

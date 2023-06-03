@@ -52,7 +52,7 @@ public static class ModDatabankHandler
             path = "Mods",
             nodes = PDAEncyclopedia.ParsePath("Mods")
         };
-        LanguageHandler.SetLanguageLine($"Ency_{bepinplugindata.GUID}", bepinplugindata.Name + " " + bepinplugindata.Version.ToString());
+        LanguageHandler.SetLanguageLine($"Ency_{bepinplugindata.GUID}", $"{bepinplugindata.Name} {bepinplugindata.Version.ToString()}");
         LanguageHandler.SetLanguageLine($"EncyDesc_{bepinplugindata.GUID}", "A BepInEx plugin using Nautilus.");
         CompleteRegister(entrydata);
     }
@@ -77,11 +77,7 @@ public static class ModDatabankHandler
         if(data.name != null)
         {
             string version = "";
-            if(!data.version.IsNullOrWhiteSpace())
-            {
-                version = " " + data.version;
-            }
-            LanguageHandler.SetLanguageLine($"Ency_{data.guid}", data.name + version);
+            LanguageHandler.SetLanguageLine($"Ency_{data.guid}", $"{data.name} {data.version ?? ""}");
         }
         CompleteRegister(entrydata);
     }
