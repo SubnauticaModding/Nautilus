@@ -5,7 +5,6 @@ using Nautilus.Json.Attributes;
 using Nautilus.Options;
 using Nautilus.Options.Attributes;
 using Nautilus.Utility;
-
 namespace Nautilus.Examples;
 
 using HarmonyLib;
@@ -13,6 +12,7 @@ using Handlers;
 using UnityEngine;
 using BepInEx;
 using BepInEx.Logging;
+using System.Reflection;
 
 [BepInPlugin("com.snmodding.nautilus.configexample", "Nautilus Config Example Mod", PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
@@ -33,7 +33,7 @@ public class ConfigExamples : BaseUnityPlugin
     {
 
         LogSource = Logger;
-
+        ModDataBankHandler.RegisterMod(Assembly.GetExecutingAssembly());
         /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an 
         /// options menu using Attributes. The values in this instance will be updated whenever the user changes 
         /// the corresponding option in the menu.

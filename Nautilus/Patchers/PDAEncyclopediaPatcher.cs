@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 
 namespace Nautilus.Patchers;
