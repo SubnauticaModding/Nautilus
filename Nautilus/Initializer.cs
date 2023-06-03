@@ -1,7 +1,6 @@
 using System;
 using BepInEx;
 using HarmonyLib;
-using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
