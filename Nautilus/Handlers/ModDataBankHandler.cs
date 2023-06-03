@@ -7,7 +7,7 @@ namespace Nautilus.Handlers;
 /// <summary>
 /// A handler class for adding databank entries for mods.
 /// </summary>
-public class ModDatabankHandler
+public static class ModDatabankHandler
 {
     private static bool isinit;
     private static List<PDAEncyclopedia.EntryData> waitlist = new();
