@@ -41,9 +41,9 @@ public class ModDatabankHandler
     /// Register mod with database using default values. 
     /// </summary>
     /// <param name="GUID">GUID of your mod.</param>
-    public static void RegisterMod(string GUID)
+    public static void RegisterMod(BepInEx.PluginInfo info)
     {
-        var bepinplugindata = BepInEx.Bootstrap.Chainloader.PluginInfos[GUID].Metadata;
+        var bepinplugindata = info.Metadata;
         var entrydata = new PDAEncyclopedia.EntryData()
         {
             image = null,
