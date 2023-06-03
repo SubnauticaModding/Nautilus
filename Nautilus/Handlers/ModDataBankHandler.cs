@@ -6,7 +6,7 @@ using System.Reflection;
 using UnityEngine;
 
 namespace Nautilus.Handlers;
-public class ModDataBankHandler
+public class ModDatabankHandler
 {
     private static bool isinit;
     private static List<PDAEncyclopedia.EntryData> waitlist = new();
@@ -34,9 +34,9 @@ public class ModDataBankHandler
 
     }
     /// <summary>
-    /// Register mod with default values. 
+    /// Register mod with database using default values. 
     /// </summary>
-    /// <param name="assembly">Assembly for your mod.</param>
+    /// <param name="GUID">GUID of your mod.</param>
     public static void RegisterMod(string GUID)
     {
         var bepinplugindata = BepInEx.Bootstrap.Chainloader.PluginInfos.FirstOrDefault(info => info.Value.Metadata.GUID == GUID).Value.Metadata;
@@ -53,7 +53,7 @@ public class ModDataBankHandler
         CompleteRegister(entrydata);
     }
     /// <summary>
-    /// Register mod with specified values.
+    /// Register mod with database using specified values.
     /// </summary>
     /// <param name="data"></param>
     public static void RegisterMod(ModData data)
