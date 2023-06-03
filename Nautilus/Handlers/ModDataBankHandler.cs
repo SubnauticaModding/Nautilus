@@ -27,7 +27,7 @@ public class ModDatabankHandler
             InternalLogger.Info($"{data.key} entry added.");
             PDAHandler.AddEncyclopediaEntry(data);
             PDAEncyclopedia.Add(data.key, true);
-        }else
+        } else
         {
             waitlist.Add(data);
         }
