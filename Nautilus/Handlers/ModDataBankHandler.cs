@@ -11,6 +11,7 @@ public static class ModDatabankHandler
 {
     private static bool isinit;
     private static List<PDAEncyclopedia.EntryData> waitlist = new();
+    internal static bool isEnabled = true;
     internal static void Initialize(uGUI_EncyclopediaTab tab)
     {
         LanguageHandler.SetLanguageLine("EncyPath_Mods", "Mods");
@@ -22,7 +23,7 @@ public static class ModDatabankHandler
     }
     private static void CompleteRegister(PDAEncyclopedia.EntryData data)
     {
-        if (isinit)
+        if (isinit && isEnabled)
         {
             InternalLogger.Info($"{data.key} entry added.");
             PDAHandler.AddEncyclopediaEntry(data);
