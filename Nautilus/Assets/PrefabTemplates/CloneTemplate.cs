@@ -21,7 +21,7 @@ public class CloneTemplate : PrefabTemplate
     public List<CustomModelData> ModelDatas { get; } = new();
     
     /// <summary>
-    /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
+    /// ModuleChangeCallback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
     /// </summary>
     public System.Action<GameObject> ModifyPrefab { get; set; }
     

@@ -137,27 +137,6 @@ public static class GadgetExtensions
     }
 
     /// <summary>
-    /// Sets the type of upgrade module slot this item can fit into.
-    /// </summary>
-    /// <param name="customPrefab">The custom prefab to set equipment slot for.</param>
-    /// <param name="equipmentType">The type of module slot this item can fit into.<br/>
-    /// If you plan to use anything that is not a module (Tank, Chip), except ExosuitArm,<br/>
-    /// you better use <see cref="SetEquipment(ICustomPrefab, EquipmentType)"/> instead.</param>
-    /// <returns>An instance to the created <see cref="UpgradeModuleGadget"/> to continue the equipment settings on.</returns>
-    public static UpgradeModuleGadget SetUpgradeModule(this ICustomPrefab customPrefab, EquipmentType equipmentType)
-    {
-        if(!customPrefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-        {
-            moduleGadget = new UpgradeModuleGadget(customPrefab, equipmentType);
-        }
-        moduleGadget.ModuleType = equipmentType;
-
-        customPrefab.TryAddGadget(moduleGadget);
-
-        return moduleGadget;
-    }
-
-    /// <summary>
     /// Creates a craft tree for this prefab. The created craft tree is immediately returned after this method is executed. 
     /// </summary>
     /// <param name="customPrefab">The custom prefab to set equipment slot for.</param>

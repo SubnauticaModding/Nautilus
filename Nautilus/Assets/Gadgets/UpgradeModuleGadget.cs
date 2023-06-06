@@ -6,23 +6,17 @@ using System.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using Nautilus.Patchers;
+using System.Runtime.CompilerServices;
 
 namespace Nautilus.Assets.Gadgets;
 
 /// <summary>
-/// Represents a vehicle module (or upgrade) gadget
+/// Represents a vehicle module (or upgrade) gadget.
 /// </summary>
 public class UpgradeModuleGadget : Gadget
 {
-    /// <summary>
-    /// The type of the equipment slot
-    /// </summary>
-    public required EquipmentType ModuleType { get; set; }
-
-    /// <summary>
-    /// The way the game should treat this item as when in a quick slot.
-    /// </summary>
-    public QuickSlotType QuickSlotType { get; set; }
+    // UNIVERSAL
 
     /// <summary>
     /// Max charge of this item.
@@ -36,7 +30,108 @@ public class UpgradeModuleGadget : Gadget
     /// </summary>
     public double EnergyCost { get; set; }
 
-    // TODO: Add delegates for Vehicle.OnUpgradeChanged(bool added) (added and removed), Vehicle.OnUpgradeUse(), Vehicle.OnUpgradeToggle().
+    /// <summary>
+    /// Crush depth of this upgrade.
+    /// Leave to -1f to disable
+    /// </summary>
+    public float CrushDepth { get; set; } = -1f;
+
+
+    // ON ADDED
+
+    /// <summary>
+    /// This happens when the module is added to the vehicle.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<Vehicle, int> delegateOnAdded { get; private set; }
+
+#if BELOWZERO
+    /// <summary>
+    /// This happens when the module is added to the SeaTruck.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<SeaTruckUpgrades, SeaTruckMotor, int> seatruckOnAdded { get; private set; }
+
+    /// <summary>
+    /// This happens when the module is added to the Hoverbike.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<Hoverbike, int> hoverbikeOnAdded { get; private set; }
+#endif
+
+    // ON REMOVED
+
+    /// <summary>
+    /// This happens when the module is removed from the vehicle.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<Vehicle, int> delegateOnRemoved { get; private set; }
+
+#if BELOWZERO
+    /// <summary>
+    /// This happens when the module is removed from the SeaTruck.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<SeaTruckUpgrades, SeaTruckMotor, int> seatruckOnRemoved { get; private set; }
+
+    /// <summary>
+    /// This happens when the module is removed from the Hoverbike.
+    /// </summary>
+    public Action<Hoverbike, int> hoverbikeOnRemoved { get; private set; }
+#endif
+
+    // ON USED
+
+    /// <summary>
+    /// This happens when the module is used.
+    /// The delegate is not run when the module is a toggleable.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<Vehicle, int, float> delegateOnUsed { get; private set; }
+
+#if BELOWZERO
+    /// <summary>
+    /// This happens when the module is used.
+    /// The delegate is not run when the module is a togglable.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<SeaTruckUpgrades, SeaTruckMotor, int, float> seatruckOnUsed { get; private set; }
+
+    /// <summary>
+    /// This happens when the module is used.
+    /// The delegate is not run when the module is a togglable.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<Hoverbike, int, float> hoverbikeOnUsed { get; private set; }
+#endif
+
+    // ON TOGGLED
+
+    /// <summary>
+    /// This happens when the module is toggled.<br/>
+    /// The boolean represents wether the module is on or off.<br/>
+    /// The delegate is not executed when the module is a selectable, selectableChargeable or a chargeable.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<Vehicle, int, float, bool> delegateOnToggled { get; private set; }
+
+#if BELOWZERO
+    /// <summary>
+    /// This happens when the module is toggled.<br/>
+    /// The boolean represents wether the module is on or off.<br/>
+    /// The delegate is not executed when the module is a selectable, selectableChargeable or a chargeable.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<SeaTruckUpgrades, SeaTruckMotor, int, float, bool> seatruckOnToggled { get; private set; }
+
+    /// <summary>
+    /// This happens when the module is toggled.<br/>
+    /// The boolean represents wether the module is on or off.<br/>
+    /// The delegate is not executed when the module is a selectable, selectableChargeable or a chargeable.
+    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// </summary>
+    public Action<Hoverbike, int, float, bool> hoverbikeOnToggled { get; private set; }
+#endif
 
 
     /// <summary>
@@ -46,33 +141,10 @@ public class UpgradeModuleGadget : Gadget
     public UpgradeModuleGadget(ICustomPrefab prefab) : base(prefab) { }
 
     /// <summary>
-    /// Constructs an equipment gadget.
-    /// </summary>
-    /// <param name="prefab">The custom prefab to operate on.</param>
-    /// <param name="equipmentType">The type of equipment slot this item can fit into.</param>
-    [SetsRequiredMembers]
-    public UpgradeModuleGadget(ICustomPrefab prefab, EquipmentType equipmentType) : base(prefab)
-    {
-        ModuleType = equipmentType;
-    }
-
-
-
-    /// <summary>
-    /// Sets the way the game should treat this item as when in a quick slot.
-    /// </summary>
-    /// <param name="quickSlotType">The quick slot type</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
-    public UpgradeModuleGadget WithQuickSlotType(QuickSlotType quickSlotType)
-    {
-        QuickSlotType = quickSlotType;
-        return this;
-    }
-
-    /// <summary>
     /// The maximum charge of the item.
     /// Usually used as a multiplier for vehicle modules.
     /// (Seamoth defense perimeter, Seatruck defense perimeter)
+    /// <para>Example: The Seamoth defense perimeter can be charged by holding the action key to make its damage bigger.</para>
     /// </summary>
     /// <param name="maxCharge">Charge multiplier</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
@@ -95,6 +167,185 @@ public class UpgradeModuleGadget : Gadget
         return this;
     }
 
+    /// <summary>
+    /// Sets the crush depth given by this upgrade.
+    /// </summary>
+    /// <param name="newCrushDepth">New crush depth, in meters.</param>
+    /// <returns></returns>
+    public UpgradeModuleGadget WithDepthUpgrade(float newCrushDepth)
+    {
+        CrushDepth = newCrushDepth;
+        return this;
+    }
+
+    // DELEGATES
+
+    /// <summary>
+    /// What happens when the module is added to a vehicle ?<br/>
+    /// This action is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
+    /// For removed, see also <see cref="WithOnModuleRemoved(Action{Vehicle, int})"/>.
+    /// </summary>
+    /// <param name="onAdded">Action that occurs when the module is added.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithOnModuleAdded(Action<Vehicle, int> onAdded)
+    {
+        delegateOnAdded = onAdded;
+        return this;
+    }
+
+#if BELOWZERO
+    /// <summary>
+    /// What happens when the module is added to a Seatruck ?<br/>
+    /// This actions is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
+    /// For removed, see also <see cref="WithOnModuleRemoved(Action{SeaTruckUpgrades, SeaTruckMotor, int})"/>.
+    /// </summary>
+    /// <param name="onAdded">Action that occurs when the module is added.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithOnModuleAdded(Action<SeaTruckUpgrades, SeaTruckMotor, int> onAdded)
+    {
+        seatruckOnAdded = onAdded;
+        return this;
+    }
+
+    /// <summary>
+    /// What happens when the module is added to a seatruck ?<br/>
+    /// This action is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
+    /// For removed, see also <see cref="WithOnModuleRemoved(Action{Hoverbike, int})"/>
+    /// </summary>
+    /// <param name="onAdded"></param>
+    /// <returns></returns>
+    public UpgradeModuleGadget WithOnModuleAdded(Action<Hoverbike, int> onAdded)
+    {
+        hoverbikeOnAdded = onAdded;
+        return this;
+    }
+#endif
+
+    /// <summary>
+    /// What happens when the module is removed from a vehicle ?<br/>
+    /// This action is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
+    /// For added, see also <see cref="WithOnModuleAdded(Action{Vehicle, int})"/>.
+    /// </summary>
+    /// <param name="onRemoved">Action that occurs when the module is removed.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithOnModuleRemoved(Action<Vehicle, int> onRemoved)
+    {
+        delegateOnRemoved = onRemoved;
+        return this;
+    }
+
+#if BELOWZERO
+    /// <summary>
+    /// What happens when the module is removed from a Seatruck ?<br/>
+    /// This action is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
+    /// For added, see also <see cref="WithOnModuleAdded(Action{SeaTruckUpgrades, SeaTruckMotor, int})"/>.
+    /// </summary>
+    /// <param name="onRemoved">Action that occurs when the module is removed.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithOnModuleRemoved(Action<SeaTruckUpgrades, SeaTruckMotor, int> onRemoved)
+    {
+        seatruckOnRemoved = onRemoved;
+        return this;
+    }
+
+    /// <summary>
+    /// What happens when the module is removed from a Hoverbike ?<br/>
+    /// This action is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
+    /// For added, see also <see cref="WithOnModuleAdded(Action{Hoverbike, int})"/>.
+    /// </summary>
+    /// <param name="onRemoved">Action that occurs when the module is removed.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithOnModuleRemoved(Action<Hoverbike, int> onRemoved)
+    {
+        hoverbikeOnRemoved = onRemoved;
+        return this;
+    }
+#endif
+
+    /// <summary>
+    /// What happens when the module is used ?<br/>
+    /// This action is run <b>after</b> Nautilus' default action (cooldown and energy consumption are automatically set).<br/>
+    /// For toggle, see also <see cref="WithOnModuleToggled(Action{Vehicle, int, float, bool})"/>.
+    /// </summary>
+    /// <param name="onUsed">Action that occurs when the module is used.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithOnModuleUsed(Action<Vehicle, int, float> onUsed)
+    {
+        delegateOnUsed = onUsed;
+        return this;
+    }
+
+#if BELOWZERO
+    /// <summary>
+    /// What happens when the module is used ?<br/>
+    /// This action is run <b>after</b> Nautilus' default action (cooldown and energy consumption are automatically set).<br/>
+    /// For toggle, see also <see cref="WithOnModuleToggled(Action{SeaTruckUpgrades, SeaTruckMotor, int, float, bool})"/>.
+    /// </summary>
+    /// <param name="onUsed">Action that occurs when the module is used.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithOnModuleUsed(Action<SeaTruckUpgrades, SeaTruckMotor, int, float> onUsed)
+    {
+        seatruckOnUsed = onUsed;
+        return this;
+    }
+
+    /// <summary>
+    /// What happens when the module is used ?<br/>
+    /// This action is run <b>after</b> Nautilus' default action (cooldown and energy consumption are automatically set).<br/>
+    /// For toggle, see also <see cref="WithOnModuleToggled(Action{Hoverbike, int, Floater, bool})"/>.
+    /// </summary>
+    /// <param name="onUsed">Action that occurs when the module is used.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithOnModuleUsed(Action<Hoverbike, int, float> onUsed)
+    {
+        hoverbikeOnUsed = onUsed;
+        return this;
+    }
+#endif
+
+    /// <summary>
+    /// What happens when the module is toggled ?<br/>
+    /// This actions is run <b>after</b> Nautilus' default action (energy consumption is automatically set).<br/>
+    /// For use, see also <see cref="WithOnModuleUsed(Action{Vehicle, int, float})"/>.
+    /// </summary>
+    /// <param name="onToggled">Action that occurs <b>when the module turns on and when it turns off</b>.<br/>
+    /// The boolean determines wether it is added or removed (added=true).</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithOnModuleToggled(Action<Vehicle, int, float, bool> onToggled)
+    {
+        delegateOnToggled = onToggled;
+        return this;
+    }
+
+#if BELOWZERO
+    /// <summary>
+    /// What happens when the module is toggled ?<br/>
+    /// This action is run <b>after</b> Nautilus' default action (energy consumption is automatically set)<br/>
+    /// For use, see also <see cref="WithOnModuleUsed(Action{SeaTruckUpgrades, SeaTruckMotor, int, float})"/>.
+    /// </summary>
+    /// <param name="onToggled">Action that occurs <b>when the module turns on and when it turns off</b>.<br/>
+    /// The boolean determines wether it is added or removed (added=true).</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithOnModuleToggled(Action<SeaTruckUpgrades, SeaTruckMotor, int, float, bool> onToggled)
+    {
+        seatruckOnToggled = onToggled;
+        return this;
+    }
+
+    /// <summary>
+    /// What happens when the module is toggled ?<br/>
+    /// This action is run <b>after</b> Nautilus' default action (energy consumption is automatically set)<br/>
+    /// For use, see also <see cref="WithOnModuleUsed(Action{Hoverbike, int, float})"/>
+    /// </summary>
+    /// <param name="onToggled"></param>
+    /// <returns></returns>
+    public UpgradeModuleGadget WithOnModuleToggled(Action<Hoverbike, int, float, bool> onToggled)
+    {
+        hoverbikeOnToggled = onToggled;
+        return this;
+    }
+#endif
+
 
 
     /// <inheritdoc/>
@@ -106,9 +357,35 @@ public class UpgradeModuleGadget : Gadget
             return;
         }
 
-        CraftDataHandler.SetEquipmentType(prefab.Info.TechType, ModuleType);
-        CraftDataHandler.SetQuickSlotType(prefab.Info.TechType, QuickSlotType);
         CraftDataHandler.SetMaxCharge(prefab.Info.TechType, MaxCharge);
         CraftDataHandler.SetEnergyCost(prefab.Info.TechType, EnergyCost);
+
+        prefab.TryGetGadget<EquipmentGadget>(out EquipmentGadget equipmentGadget);
+        if (equipmentGadget is null)
+            return;
+
+        switch (equipmentGadget.EquipmentType)
+        {
+            case EquipmentType.VehicleModule:
+                VehicleUpgradesPatcher.VehicleUpgradeModules.Add(prefab.Info.TechType, prefab);
+                break;
+            case EquipmentType.ExosuitModule:
+                VehicleUpgradesPatcher.ExosuitUpgradeModules.Add(prefab.Info.TechType, prefab);
+                break;
+#if BELOWZERO
+            case EquipmentType.SeaTruckModule:
+                VehicleUpgradesPatcher.SeatruckUpgradeModules.Add(prefab.Info.TechType, prefab);
+                break;
+            case EquipmentType.HoverbikeModule:
+                VehicleUpgradesPatcher.SnowbikeUpgradeModules.Add(prefab.Info.TechType, prefab);
+                break;
+#elif SUBNAUTICA
+            case EquipmentType.SeamothModule:
+                VehicleUpgradesPatcher.SeamothUpgradeModules.Add(prefab.Info.TechType, prefab);
+                break;
+#endif
+            default:
+                throw new Exception($"The upgrade module type of item {prefab.Info.TechType} is not supported by the Upgrade Module Gadget. You're maybe using a type not existing on this game version ?\nEquipmentType provided: {nameof(EquipmentType)}.{nameof(equipmentGadget.EquipmentType)}");
+        }
     }
 }
