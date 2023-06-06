@@ -92,6 +92,17 @@ public class CustomPrefabExamples : BaseUnityPlugin
         CustomPrefab depthUpgrade = new CustomPrefab(depthUpgradeInfo);
 
         /*
+         * Like before, we're creating a clone of an existing techtype so we can have basic components such as a model, a rigidbody, etc...
+         */
+        PrefabTemplate hullModuleCloneTemplate = new CloneTemplate(depthUpgradeInfo, TechType.HullReinforcementModule3);
+
+        /*
+         * Now we're setting our depth upgrade module's gameobject with the hull reinforcement one.
+         * Theoretically it can be whatever tech type you want, but we'll take this one.
+         */
+        depthUpgrade.SetGameObject(hullModuleCloneTemplate);
+
+        /*
          * We will not add any modifier to the item this time.
          * Instead, we're directly gonna make a recipe, and set its other metadata.
          */
