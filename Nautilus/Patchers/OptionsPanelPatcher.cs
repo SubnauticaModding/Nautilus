@@ -92,7 +92,7 @@ internal class OptionsPanelPatcher
         // Maybe this could be split into its own file to handle nautilus options, or maybe it could be removed alltogether
         optionsPanel.AddHeading(modsTab, "Nautilus");
         optionsPanel.AddToggleOption(modsTab, "Enable debug logs", Utility.InternalLogger.EnableDebugging, Utility.InternalLogger.SetDebugging);
-        optionsPanel.AddToggleOption(modsTab, "Enable Mod Databank Entries", ModDatabankHandler.isEnabled);
+        optionsPanel.AddToggleOption(modsTab, "Enable mod databank entries", ModDatabankHandler.isEnabled);
         optionsPanel.AddChoiceOption(modsTab, "Extra item info", new string[]
         {
             "Mod name (default)",
