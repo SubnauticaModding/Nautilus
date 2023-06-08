@@ -16,14 +16,14 @@ public static class ModDatabankHandler
     {
         LanguageHandler.SetLanguageLine("EncyPath_Mods", "Mods");
         isinit = true;
-        foreach (var data in waitlist)
+        foreach (var data in waitList)
         {
             CompleteRegister(data);
         }
     }
     private static void CompleteRegister(PDAEncyclopedia.EntryData data)
     {
-        if (isinit && isEnabled)
+        if (isInit && isEnabled)
         {
             InternalLogger.Info($"{data.key} entry added.");
             PDAHandler.AddEncyclopediaEntry(data);
@@ -35,7 +35,7 @@ public static class ModDatabankHandler
         }
         else
         {
-            waitlist.Add(data);
+            waitList.Add(data);
         }
     }
     /// <summary>
