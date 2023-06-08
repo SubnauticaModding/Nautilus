@@ -220,7 +220,7 @@ public static class PDAHandler
         }
 
         PDAEncyclopediaPatcher.CustomEntryData[entry.key] = entry;
-        if(PDAEncyclopedia.initialized)
+        if (uGUI.isMainLevel)
             PDAEncyclopediaPatcher.InitializePostfix();
     }
 
