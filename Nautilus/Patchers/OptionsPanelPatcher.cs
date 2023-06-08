@@ -25,10 +25,7 @@ internal class OptionsPanelPatcher
     {
         harmony.PatchAll(typeof(OptionsPanelPatcher));
         harmony.PatchAll(typeof(ScrollPosKeeper));
-        if (!BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ahk1221.smlhelper"))
-        {
-            harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
-        }
+        harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
     }
 
 
