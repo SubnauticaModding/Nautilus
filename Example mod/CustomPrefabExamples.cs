@@ -79,28 +79,33 @@ public class CustomPrefabExamples : BaseUnityPlugin
          * It will incrase the Seamoth crush depth to 3 kilometers (3000 meters)!
          */
         PrefabInfo depthUpgradeInfo = PrefabInfo.WithTechType("SeamothDepthUpgrade", "Custom Depth Upgrade", "A custom depth upgrade module for Seamoth that allows you to dive to 3000 meters!");
+        Logger.LogDebug("Registered depth upgrade info");
 
         /*
          * Here, we're  assigning the hull icon for our item.
          * You may also use a custom image icon by calling the ImageUtils.LoadSPriteFromFile method or with AssetBundles, like mentioned higher.
          */
-        depthUpgradeInfo.WithIcon(SpriteManager.Get(TechType.HullReinforcementModule3));
+        depthUpgradeInfo.WithIcon(SpriteManager.Get(TechType.HullReinforcementModule));
+        Logger.LogDebug("Registerd depth upgrade icon");
 
         /*
          * Here we are setting up an instance of CustomPrefab, as we've already done higher.
          */
         CustomPrefab depthUpgrade = new CustomPrefab(depthUpgradeInfo);
+        Logger.LogDebug("Registered depth upgrade custom prefab");
 
         /*
          * Like before, we're creating a clone of an existing techtype so we can have basic components such as a model, a rigidbody, etc...
          */
-        PrefabTemplate hullModuleCloneTemplate = new CloneTemplate(depthUpgradeInfo, TechType.HullReinforcementModule3);
+        PrefabTemplate hullModuleCloneTemplate = new CloneTemplate(depthUpgradeInfo, TechType.HullReinforcementModule);
+        Logger.LogDebug("Cloned prefab of HullReinforcementModule3");
 
         /*
          * Now we're setting our depth upgrade module's gameobject with the hull reinforcement one.
          * Theoretically it can be whatever tech type you want, but we'll take this one.
          */
         depthUpgrade.SetGameObject(hullModuleCloneTemplate);
+        Logger.LogDebug("Setted depth upgrade prefab");
 
         /*
          * We will not add any modifier to the item this time.
@@ -136,6 +141,7 @@ public class CustomPrefabExamples : BaseUnityPlugin
              * Here, we are saying that the crafting duration of the item will be 2.5 seconds.
              */
             .WithCraftingTime(2.5f);
+        Logger.LogDebug("Registered crafting gadget of depth upgrade");
 
         /*
          * Now, we're defining our item as an Equipment. Equipment can be a module, an O2 Tank, a chip, etc...
@@ -174,10 +180,12 @@ public class CustomPrefabExamples : BaseUnityPlugin
             {
                 Subtitles.Add("Warning! The depth upgrade has been removed!");
             });
+        Logger.LogDebug("Registered equipment and upgrade module gadgets of depth upgrade");
 
         /*
          * Finally, we register it.
          */
         depthUpgrade.Register();
+        Logger.LogDebug("Registered depth upgrade.");
     }
 }

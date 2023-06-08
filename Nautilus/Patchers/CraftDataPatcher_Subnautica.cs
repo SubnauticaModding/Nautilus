@@ -79,6 +79,7 @@ internal partial class CraftDataPatcher
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetQuickSlotMaxCharge))]
     private static void GetSlotMaxCharge(TechType techType)
     {
+        InternalLogger.Debug($"Patching quick charge for Tech Type {nameof(techType)}");
         DictionaryPrefix(techType, CustomMaxCharges, CraftData.maxCharges);
     }
 
@@ -86,6 +87,7 @@ internal partial class CraftDataPatcher
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetEnergyCost))]
     private static void GetEnergyCost(TechType techType)
     {
+        InternalLogger.Debug($"Patching energy cost for Tech Type {nameof(techType)}");
         DictionaryPrefix(techType, CustomEnergyCost, CraftData.energyCost);
     }
 

@@ -375,6 +375,7 @@ public class UpgradeModuleGadget : Gadget
 #if BELOWZERO
             case EquipmentType.SeaTruckModule:
                 VehicleUpgradesPatcher.SeatruckUpgradeModules.Add(prefab.Info.TechType, prefab);
+                SeaTruckUpgrades.crushDepths.Add(prefab.Info.TechType, CrushDepth);
                 break;
             case EquipmentType.HoverbikeModule:
                 VehicleUpgradesPatcher.SnowbikeUpgradeModules.Add(prefab.Info.TechType, prefab);

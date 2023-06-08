@@ -25,103 +25,134 @@ internal class VehicleUpgradesPatcher
     }
 
 #if SUBNAUTICA
-    [HarmonyTranspiler]
+
+    [HarmonyPostfix]
     [HarmonyPatch(typeof(SeaMoth), nameof(SeaMoth.OnUpgradeModuleChange))]
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+    private static void DelegateModuleChangeCallback(SeaMoth __instance, int slotID, TechType techType, bool added)
     {
-        static void DelegateModuleChangeCallback(SeaMoth __instance, TechType techType, int slotId, bool added)
-        {
-            if (!SeamothUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
-                return;
+        if (!SeamothUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
+            return;
 
-            if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-                return;
+        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+            return;
 
-            if (moduleGadget.delegateOnRemoved != null & !added)
-                moduleGadget.delegateOnRemoved.Invoke(__instance, slotId);
+        if (moduleGadget.delegateOnRemoved != null & !added)
+            moduleGadget.delegateOnRemoved.Invoke(__instance, slotID);
 
-            if (moduleGadget.delegateOnAdded != null & added)
-                moduleGadget.delegateOnAdded.Invoke(__instance, slotId);
-        }
-
-        static void HullModuleCallback(SeaMoth __instance, TechType techType, ref Dictionary<TechType, float> crushDepthDictionaryReference)
-        {
-            if (!SeamothUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
-                return;
-
-            if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-                return;
-
-            if (moduleGadget.CrushDepth == -1f)
-                return;
-
-            crushDepthDictionaryReference.Add(prefab.Info.TechType, moduleGadget.CrushDepth);
-        }
-
-        new CodeMatcher(instructions)
-            .MatchForward(false,
-                new CodeMatch(OpCodes.Br_S),
-                new CodeMatch(OpCodes.Ldc_I4_0),
-                new CodeMatch(OpCodes.Callvirt, "SetActive") )
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldarg_0))
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldarg_2))
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldarg_3))
-            .SetInstruction(new CodeInstruction(OpCodes.Call, AccessTools.Method(nameof(DelegateModuleChangeCallback))))
-            .MatchForward(false,
-                new CodeMatch(OpCodes.Ldc_I4, 2114),
-                new CodeMatch(OpCodes.Ldc_R4, 700),
-                new CodeMatch(OpCodes.Callvirt),
-                new CodeMatch(OpCodes.Stloc_1))
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldarg_0))
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldarg_2))
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldloca_S, "dictionary"))
-            .SetInstruction(new CodeInstruction(OpCodes.Call, AccessTools.Method(nameof(HullModuleCallback))));
-
-        return instructions;
+        if (moduleGadget.delegateOnAdded != null & added)
+            moduleGadget.delegateOnAdded.Invoke(__instance, slotID);
     }
-#elif BELOWZERO
-    [HarmonyTranspiler]
-    [HarmonyPatch(typeof(SeaTruckUpgrades), nameof(SeaTruckUpgrades.OnUpgradeModuleChange))]
-    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+
+    private static void HullModuleCallback(SeaMoth __instance, TechType techType, Dictionary<TechType, float> crushDepthDictionaryReference)
     {
-        static void DelegateModuleChangeCallback(SeaTruckUpgrades __instance, SeaTruckMotor __vehicle, TechType techType, int slotId, bool added)
+        if (!SeamothUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
+            return;
+
+        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+            return;
+
+        if (moduleGadget.CrushDepth == -1f)
+            return;
+
+        crushDepthDictionaryReference.Add(prefab.Info.TechType, moduleGadget.CrushDepth);
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(SeaMoth), nameof(SeaMoth.OnUpgradeModuleChange))]
+    private static void OnUpgradeModuleHull(SeaMoth __instance, int slotID, TechType techType, bool added)
+    {
+        Dictionary<TechType, float> CrushDepthUpgrades = new()
         {
-            foreach(ICustomPrefab prefab in SeatruckUpgradeModules.Values)
             {
-                UpgradeModuleGadget moduleGadget;
-                prefab.TryGetGadget<UpgradeModuleGadget>(out moduleGadget);
-                if (moduleGadget is null)
-                    continue;
+                TechType.SeamothReinforcementModule,
+                800f
+            },
+            {
+                TechType.VehicleHullModule1,
+                100f
+            },
+            {
+                TechType.VehicleHullModule2,
+                300f
+            },
+            {
+                TechType.VehicleHullModule3,
+                700f
+            }
+        };
+        HullModuleCallback(__instance, techType, CrushDepthUpgrades);
 
-                if (prefab.Info.TechType != techType)
-                    continue;
-
-                if (moduleGadget.seatruckOnAdded is null & moduleGadget.seatruckOnRemoved is null)
-                    continue;
-
-                if (moduleGadget.seatruckOnRemoved != null & !added)
-                    moduleGadget.seatruckOnRemoved.Invoke(__instance, __vehicle, slotId);
-
-                if (moduleGadget.seatruckOnAdded != null & added)
-                    moduleGadget.seatruckOnAdded.Invoke(__instance, __vehicle, slotId);
+        float num = 0f;
+        for (int i = 0; i < __instance.slotIDs.Length; i++)
+        {
+            string slot = __instance.slotIDs[i];
+            TechType techTypeInSlot = __instance.modules.GetTechTypeInSlot(slot);
+            if (CrushDepthUpgrades.ContainsKey(techTypeInSlot))
+            {
+                float num2 = CrushDepthUpgrades[techTypeInSlot];
+                if (num2 > num)
+                {
+                    num = num2;
+                }
             }
         }
+        __instance.crushDamage.SetExtraCrushDepth(num);
+    }
+#elif BELOWZERO
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(SeaTruckUpgrades), nameof(SeaTruckUpgrades.OnUpgradeModuleChange))]
+    private static void DelegateModuleChangeCallback(SeaTruckUpgrades __instance, int slotID, TechType techType, bool added)
+    {
+        if (!SeatruckUpgradeModules.TryGetValue(techType, out var prefab))
+            return;
 
-        new CodeMatcher(instructions)
-            .MatchForward(false,
-                new CodeMatch(OpCodes.Ldarg_0),
-                new CodeMatch(OpCodes.Call, "get_modules"),
-                new CodeMatch(OpCodes.Ldarg_2),
-                new CodeMatch(OpCodes.Callvirt, "GetCount"),
-                new CodeMatch(OpCodes.Pop))
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldarg_0))
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldfld, (SeaTruckUpgrades stu) => stu.motor))
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldarg_2))
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldarg_1))
-            .SetInstructionAndAdvance(new CodeInstruction(OpCodes.Ldarg_3))
-            .SetInstruction(new CodeInstruction(OpCodes.Call, AccessTools.Method(nameof(DelegateModuleChangeCallback))));
+        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+            return;
 
-        return instructions;
+        if (moduleGadget.seatruckOnRemoved != null && !added)
+            moduleGadget.seatruckOnRemoved.Invoke(__instance, __instance.motor, slotID);
+
+        if (moduleGadget.seatruckOnAdded != null && added)
+            moduleGadget.seatruckOnAdded.Invoke(__instance, __instance.motor, slotID);
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(SeaTruckUpgrades), nameof(SeaTruckUpgrades.OnUpgradeModuleChange))]
+    private static void OnUpgradeModuleDelegate(SeaTruckUpgrades __instance, int slotID, TechType techType, bool added)
+    {
+        if (!SeaTruckUpgrades.crushDepths.ContainsKey(techType))
+            return;
+
+        var previousCrushDepth = 0f;
+        for (var i = 0; i < SeaTruckUpgrades.slotIDs.Length; i++)
+        {
+            var slot = SeaTruckUpgrades.slotIDs[i];
+            TechType techTypeInSlot = __instance.modules.GetTechTypeInSlot(slot);
+            if (SeaTruckUpgrades.crushDepths.TryGetValue(techTypeInSlot, out var crushDepth) && crushDepth > previousCrushDepth)
+            {
+                previousCrushDepth = crushDepth;
+            }
+        }
+        __instance.crushDamage.SetExtraCrushDepth(previousCrushDepth);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(Hoverbike), nameof(Hoverbike.OnUpgradeModuleChange))]
+    private static void OnUpgradeModuleDelegate(Hoverbike __instance, int slotID, TechType techType, bool added)
+    {
+        if (!SnowbikeUpgradeModules.TryGetValue(techType, out var prefab))
+            return;
+
+        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+            return;
+
+        if (moduleGadget.hoverbikeOnRemoved != null && !added)
+            moduleGadget.hoverbikeOnRemoved.Invoke(__instance, slotID);
+
+        if (moduleGadget.hoverbikeOnAdded != null && added)
+            moduleGadget.hoverbikeOnAdded.Invoke(__instance, slotID);
     }
 #endif
 }
