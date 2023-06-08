@@ -60,6 +60,5 @@ public class Initializer : BaseUnityPlugin
         VehicleUpgradesPatcher.Patch(_harmony);
 #if SUBNAUTICA
         StoryGoalPatcher.Patch(_harmony); // TO-DO: Story goal handling for Below Zero
-#endif
     }
 }
