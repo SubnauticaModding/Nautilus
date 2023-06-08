@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using UWE;
 
 namespace Nautilus.Patchers;
+
 internal class PDAEncyclopediaTabPatcher
 {
     internal static void Patch(Harmony harmony)
