@@ -65,7 +65,7 @@ public static class PDAHandler
 
         PDAPatcher.FragmentScanTime[techType] = scanTime;
         
-        if (uGUI.isMainLevel)
+        if(PDAEncyclopedia.initialized)
             PDAPatcher.InitializePostfix();
     }
 
