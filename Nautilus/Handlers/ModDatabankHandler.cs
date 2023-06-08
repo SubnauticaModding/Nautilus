@@ -9,8 +9,8 @@ namespace Nautilus.Handlers;
 /// </summary>
 public static class ModDatabankHandler
 {
-    private static bool isinit;
-    private static List<PDAEncyclopedia.EntryData> waitlist = new();
+    private static bool isInit;
+    private static List<PDAEncyclopedia.EntryData> waitList = new();
     internal static bool isEnabled = true;
     internal static void Initialize(uGUI_EncyclopediaTab tab)
     {
@@ -39,7 +39,7 @@ public static class ModDatabankHandler
         }
     }
     /// <summary>
-    /// Register mod with database using default values. 
+    /// Automatically adds info about your mod to the game's databank under a tab named Mods using your mod's PluginInfo.
     /// </summary>
     /// <param name="info">The PluginInfo for your mod. Pass in Info from your BepInPlugin class</param>
     public static void RegisterMod(BepInEx.PluginInfo info)
@@ -58,7 +58,7 @@ public static class ModDatabankHandler
         CompleteRegister(entrydata);
     }
     /// <summary>
-    /// Register mod with database using specified values.
+    /// Automatically adds info about your mod to the game's databank under a tab named Mods using supplied ModData instance.
     /// </summary>
     /// <param name="data"></param>
     public static void RegisterMod(ModData data)
@@ -77,7 +77,6 @@ public static class ModDatabankHandler
         }
         if(data.name != null)
         {
-            string version = "";
             LanguageHandler.SetLanguageLine($"Ency_{data.guid}", $"{data.name} {data.version ?? ""}");
         }
         CompleteRegister(entrydata);
