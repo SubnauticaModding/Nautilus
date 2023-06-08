@@ -48,7 +48,7 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     /// <param name="label">The display text to use in the in-game menu.</param>
     /// <param name="device">The device name.</param>
     /// <param name="key">The starting keybind value.</param>
-    /// /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+    /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
     public static ModKeybindOption Create(string id, string label, GameInput.Device device, KeyCode key, string tooltip = null)
     {
         return new ModKeybindOption(id, label, device, key, tooltip);
