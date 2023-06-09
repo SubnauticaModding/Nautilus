@@ -14,6 +14,8 @@ using UnityEngine;
 using BepInEx;
 using BepInEx.Logging;
 
+#pragma warning disable IDE1006 // Suppress warnings related to "Naming Styles"
+
 [BepInPlugin("com.snmodding.nautilus.configexample", "Nautilus Config Example Mod", PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
 public class ConfigExamples : BaseUnityPlugin
