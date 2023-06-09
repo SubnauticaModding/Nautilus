@@ -3,6 +3,7 @@ using Nautilus.Json;
 using Nautilus.Json.Attributes;
 using Nautilus.Options;
 using Nautilus.Options.Attributes;
+
 namespace Nautilus.Examples;
 
 using HarmonyLib;
