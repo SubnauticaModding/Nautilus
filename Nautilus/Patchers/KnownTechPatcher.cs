@@ -1,8 +1,8 @@
-﻿using System;
+﻿using HarmonyLib;
+using Nautilus.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using HarmonyLib;
-using Nautilus.Utility;
 
 namespace Nautilus.Patchers;
 
@@ -26,7 +26,7 @@ internal class KnownTechPatcher
 
     internal static void InitializePostfix()
     {
-        foreach(TechType techType in UnlockedAtStart)
+        foreach (TechType techType in UnlockedAtStart)
         {
             if (!KnownTech.Contains(techType))
             {
@@ -38,27 +38,27 @@ internal class KnownTechPatcher
         IEnumerable<KnownTech.AnalysisTech> techToAdd = AnalysisTech.Values.Where(a => !analysisTech.Any(a2 => a.techType == a2.techType));
 
         foreach (KnownTech.AnalysisTech tech in analysisTech)
-        { 
-            foreach(TechType techType in RemovalTechs)
+        {
+            foreach (TechType techType in RemovalTechs)
             {
-                if(tech.unlockTechTypes.Contains(techType))
+                if (tech.unlockTechTypes.Contains(techType))
                 {
                     tech.unlockTechTypes.Remove(techType);
                 }
             }
 
-            if(RemoveFromSpecificTechs.TryGetValue(tech.techType, out List<TechType> types))
+            if (RemoveFromSpecificTechs.TryGetValue(tech.techType, out List<TechType> types))
             {
-                foreach(TechType type in types)
+                foreach (TechType type in types)
                 {
-                    if(tech.unlockTechTypes.Contains(type))
+                    if (tech.unlockTechTypes.Contains(type))
                     {
                         tech.unlockTechTypes.Remove(type);
                     }
                 }
             }
         }
-            
+
         foreach (KnownTech.AnalysisTech tech in analysisTech)
         {
             if (UnlockSound == null && tech.unlockSound != null && tech.techType == TechType.CreepvinePiece)
@@ -72,7 +72,7 @@ internal class KnownTechPatcher
                 {
                     if (customTech.unlockTechTypes != null)
                     {
-                        tech.unlockTechTypes.AddRange(customTech.unlockTechTypes.Where((x)=> !tech.unlockTechTypes.Contains(x)));
+                        tech.unlockTechTypes.AddRange(customTech.unlockTechTypes.Where((x) => !tech.unlockTechTypes.Contains(x)));
                     }
 
                     if (customTech.unlockSound != null)
@@ -112,7 +112,7 @@ internal class KnownTechPatcher
             }
         }
 
-        List <KnownTech.CompoundTech> validatedCompoundTeches = KnownTech.ValidateCompoundTech(new(CompoundTech.Values));
+        List<KnownTech.CompoundTech> validatedCompoundTeches = KnownTech.ValidateCompoundTech(new(CompoundTech.Values));
         foreach (KnownTech.CompoundTech customTech in validatedCompoundTeches)
         {
             if (customTech == null) // Safety check

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using BepInEx.Logging;
+﻿using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Crafting;
 using Nautilus.Utility;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Nautilus.Patchers;
 
@@ -101,12 +101,12 @@ internal class CraftTreePatcher
     }
 
 #if BELOWZERO
-        [HarmonyPostfix]
-        [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.SeaTruckFabricatorScheme))]
-        private static void SeaTruckFabricatorSchemePostfix(ref CraftNode __result)
-        {
-            PatchCraftTree(ref __result, CraftTree.Type.SeaTruckFabricator);
-        }
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.SeaTruckFabricatorScheme))]
+    private static void SeaTruckFabricatorSchemePostfix(ref CraftNode __result)
+    {
+        PatchCraftTree(ref __result, CraftTree.Type.SeaTruckFabricator);
+    }
 #endif
 
     #endregion
@@ -152,7 +152,7 @@ internal class CraftTreePatcher
                 }
             }
 
-            if(currentNode.nodes.Any(node=> node is CraftNode craftNode && craftNode.action == TreeAction.Craft))
+            if (currentNode.nodes.Any(node => node is CraftNode craftNode && craftNode.action == TreeAction.Craft))
             {
                 InternalLogger.Error($"Cannot add tab: {tab.Name} as it is being added to a parent node that contains crafting nodes.");
                 continue;
@@ -198,7 +198,7 @@ internal class CraftTreePatcher
                 }
             }
 
-            if(node.nodes.Any(x => x is CraftNode craftNode && craftNode.action == TreeAction.Expand))
+            if (node.nodes.Any(x => x is CraftNode craftNode && craftNode.action == TreeAction.Expand))
             {
                 InternalLogger.Error($"Cannot Crafting node: {customNode.TechType.AsString()} as it is being added to {node.id} that contains Tab nodes.");
                 continue;

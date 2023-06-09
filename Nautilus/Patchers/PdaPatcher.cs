@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using BepInEx.Logging;
+﻿using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Utility;
+using System.Collections.Generic;
 
 namespace Nautilus.Patchers;
 
@@ -32,7 +32,7 @@ internal class PDAPatcher
         Dictionary<TechType, PDAScanner.EntryData> mapping = PDAScanner.mapping;
 
         // Populate BlueprintToFragment for reverse lookup
-        foreach(KeyValuePair<TechType, PDAScanner.EntryData> entry in mapping)
+        foreach (KeyValuePair<TechType, PDAScanner.EntryData> entry in mapping)
         {
             TechType blueprintTechType = entry.Value.blueprint;
 
@@ -40,7 +40,7 @@ internal class PDAPatcher
         }
 
         // Add custom entry data
-        foreach(KeyValuePair<TechType, PDAScanner.EntryData> customEntry in CustomEntryData)
+        foreach (KeyValuePair<TechType, PDAScanner.EntryData> customEntry in CustomEntryData)
         {
             if (!mapping.ContainsKey(customEntry.Key))
             {
@@ -55,13 +55,13 @@ internal class PDAPatcher
         }
 
         // Update fragment totals
-        foreach(KeyValuePair<TechType, int> fragmentEntry in FragmentCount)
+        foreach (KeyValuePair<TechType, int> fragmentEntry in FragmentCount)
         {
-            if(mapping.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entry)) // Lookup by techtype of fragment
+            if (mapping.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entry)) // Lookup by techtype of fragment
             {
                 entry.totalFragments = fragmentEntry.Value;
             }
-            else if(BlueprintToFragment.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entryData)) // Lookup by blueprint techtype
+            else if (BlueprintToFragment.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entryData)) // Lookup by blueprint techtype
             {
                 entryData.totalFragments = fragmentEntry.Value;
             }
@@ -72,13 +72,13 @@ internal class PDAPatcher
         }
 
         // Update scan times
-        foreach(KeyValuePair<TechType, float> fragmentEntry in FragmentScanTime)
+        foreach (KeyValuePair<TechType, float> fragmentEntry in FragmentScanTime)
         {
-            if(mapping.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entry)) // Lookup by techtype of fragment
+            if (mapping.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entry)) // Lookup by techtype of fragment
             {
                 entry.scanTime = fragmentEntry.Value;
             }
-            else if(BlueprintToFragment.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entryData)) // Lookup by blueprint techtype
+            else if (BlueprintToFragment.TryGetValue(fragmentEntry.Key, out PDAScanner.EntryData entryData)) // Lookup by blueprint techtype
             {
                 entryData.scanTime = fragmentEntry.Value;
             }

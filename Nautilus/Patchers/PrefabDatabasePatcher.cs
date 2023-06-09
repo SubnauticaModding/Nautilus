@@ -1,11 +1,11 @@
-using System;
-using System.Collections;
-using System.Reflection;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using System;
+using System.Collections;
+using System.Reflection;
 using UnityEngine;
 using UWE;
 
@@ -65,7 +65,7 @@ internal static class PrefabDatabasePatcher
         yield return PrefabHandler.GetPrefabAsync(prefabResult, prefabInfo, prefabFactory);
         GameObject prefab = prefabResult.Get();
 
-        if(prefab != null)
+        if (prefab != null)
         {
             task.spawnedObject = EditorModifications.Instantiate(prefab, task.parent, task.position, task.rotation, task.instantiateActivated);
         }
@@ -97,11 +97,11 @@ internal static class PrefabDatabasePatcher
     }
 
     [HarmonyPrefix]
-    [HarmonyPatch(typeof(AddressablesUtility), nameof(AddressablesUtility.InstantiateAsync), new Type[] 
-    { 
+    [HarmonyPatch(typeof(AddressablesUtility), nameof(AddressablesUtility.InstantiateAsync), new Type[]
+    {
         typeof(string), typeof(IOut<GameObject>), typeof(Transform), typeof(Vector3), typeof(Quaternion), typeof(bool)
     })]
-    internal static bool InstantiateAsync_Prefix(ref IEnumerator __result,string key, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
+    internal static bool InstantiateAsync_Prefix(ref IEnumerator __result, string key, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
     {
         if (!PrefabHandler.Prefabs.TryGetInfoForFileName(key, out var prefabInfo) && !PrefabHandler.Prefabs.TryGetInfoForClassId(key, out prefabInfo))
         {
@@ -147,7 +147,7 @@ internal static class PrefabDatabasePatcher
     internal static void PrePatch(Harmony harmony)
     {
         harmony.PatchAll(typeof(PrefabDatabasePatcher));
-        
+
         MethodInfo instantiatePrefabAsync = AccessTools.Method(typeof(ProtobufSerializer), nameof(ProtobufSerializer.InstantiatePrefabAsync));
         harmony.Patch(instantiatePrefabAsync, postfix: new HarmonyMethod(AccessTools.Method(typeof(PrefabDatabasePatcher), nameof(InstantiatePrefabAsync_Postfix))));
 

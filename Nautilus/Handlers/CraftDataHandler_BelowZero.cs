@@ -21,7 +21,7 @@ public static partial class CraftDataHandler
     {
         if (CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue jsonValue))
         {
-            jsonValue[TechData.PropertyToID("techType")] = new JsonValue((int)techType);
+            jsonValue[TechData.PropertyToID("techType")] = new JsonValue((int) techType);
             jsonValue[TechData.PropertyToID("craftAmount")] = new JsonValue(recipeData.craftAmount);
         }
         else
@@ -118,7 +118,7 @@ public static partial class CraftDataHandler
         foreach (TechType i in linkedItems)
         {
             linkedItemslist.Add(new JsonValue(current));
-            linkedItemslist[current] = new JsonValue((int)i);
+            linkedItemslist[current] = new JsonValue((int) i);
             current++;
         }
     }
@@ -168,7 +168,7 @@ public static partial class CraftDataHandler
             for (int i = 0; i < jsonValue.Count; i++)
             {
                 JsonValue jsonValue2 = jsonValue[i];
-                TechType techType = (TechType)jsonValue2.GetInt(TechData.propertyTechType, 0);
+                TechType techType = (TechType) jsonValue2.GetInt(TechData.propertyTechType, 0);
                 int int2 = jsonValue2.GetInt(TechData.propertyAmount, 0);
                 if (techType != TechType.None && int2 > 0)
                 {
@@ -185,7 +185,7 @@ public static partial class CraftDataHandler
         {
             for (int j = 0; j < jsonValue3.Count; j++)
             {
-                TechType techType1 = (TechType)jsonValue3[j].GetInt(0);
+                TechType techType1 = (TechType) jsonValue3[j].GetInt(0);
                 if (currentRecipeData.LinkedItems == null)
                 {
                     currentRecipeData.LinkedItems = new List<TechType>();
@@ -216,7 +216,7 @@ public static partial class CraftDataHandler
     /// <param name="equipmentType">The EquipmentType for that TechType.</param>
     public static void SetEquipmentType(TechType techType, EquipmentType equipmentType)
     {
-        AddJsonProperty(techType, "equipmentType", new JsonValue((int)equipmentType));
+        AddJsonProperty(techType, "equipmentType", new JsonValue((int) equipmentType));
     }
 
     /// <summary>
@@ -227,7 +227,7 @@ public static partial class CraftDataHandler
     /// <param name="slotType">The QuickSlotType for that TechType.</param>
     public static void SetQuickSlotType(TechType techType, QuickSlotType slotType)
     {
-        AddJsonProperty(techType, "slotType", new JsonValue((int)slotType));
+        AddJsonProperty(techType, "slotType", new JsonValue((int) slotType));
     }
 
     /// <summary>
@@ -260,7 +260,7 @@ public static partial class CraftDataHandler
     /// <param name="harvestOutput">The harvest output for that TechType.</param>
     public static void SetHarvestOutput(TechType techType, TechType harvestOutput)
     {
-        AddJsonProperty(techType, "harvestOutput", new JsonValue((int)harvestOutput));
+        AddJsonProperty(techType, "harvestOutput", new JsonValue((int) harvestOutput));
     }
 
     /// <summary>
@@ -271,7 +271,7 @@ public static partial class CraftDataHandler
     /// <param name="harvestType">The HarvestType for that TechType.</param>
     public static void SetHarvestType(TechType techType, HarvestType harvestType)
     {
-        AddJsonProperty(techType, "harvestType", new JsonValue((int)harvestType));
+        AddJsonProperty(techType, "harvestType", new JsonValue((int) harvestType));
     }
 
     /// <summary>
@@ -338,7 +338,7 @@ public static partial class CraftDataHandler
     /// <param name="cooked">The cooked creature counterpart for that TechType.</param>
     public static void SetCookedVariant(TechType uncooked, TechType cooked)
     {
-        AddJsonProperty(uncooked, "processed", new JsonValue((int)cooked));
+        AddJsonProperty(uncooked, "processed", new JsonValue((int) cooked));
     }
 
     /// <summary>
@@ -349,7 +349,7 @@ public static partial class CraftDataHandler
     /// <param name="resistance">The Cold Resistance for that TechType.</param>
     public static void SetColdResistance(TechType uncooked, int resistance)
     {
-        AddJsonProperty(uncooked, "coldResistance", new JsonValue((int)resistance));
+        AddJsonProperty(uncooked, "coldResistance", new JsonValue((int) resistance));
     }
 
     /// <summary>
@@ -360,7 +360,7 @@ public static partial class CraftDataHandler
     /// <seealso cref="CraftData.BackgroundType"/>
     public static void SetBackgroundType(TechType techType, CraftData.BackgroundType backgroundColor)
     {
-        AddJsonProperty(techType, "backgroundType", new JsonValue((int)backgroundColor));
+        AddJsonProperty(techType, "backgroundType", new JsonValue((int) backgroundColor));
     }
 
     /// <summary>
@@ -379,7 +379,7 @@ public static partial class CraftDataHandler
     /// <param name="maxCharge">The maximum charge.</param>
     public static void SetMaxCharge(TechType techType, float maxCharge)
     {
-        AddJsonProperty(techType, "maxCharge", new JsonValue((double)maxCharge));
+        AddJsonProperty(techType, "maxCharge", new JsonValue((double) maxCharge));
     }
 
     /// <summary>
@@ -389,7 +389,7 @@ public static partial class CraftDataHandler
     /// <param name="energyCost">The energy cost.</param>
     public static void SetEnergyCost(TechType techType, float energyCost)
     {
-        AddJsonProperty(techType, "energyCost", new JsonValue((double)energyCost));
+        AddJsonProperty(techType, "energyCost", new JsonValue((double) energyCost));
     }
 
     /// <summary>
@@ -399,7 +399,7 @@ public static partial class CraftDataHandler
     /// <param name="soundType">Type of the sound.</param>
     public static void SetSoundType(TechType techType, TechData.SoundType soundType)
     {
-        AddJsonProperty(techType, "soundType", new JsonValue((int)soundType));
+        AddJsonProperty(techType, "soundType", new JsonValue((int) soundType));
     }
 
     private static void AddJsonProperty(TechType techType, string key, JsonValue newValue)

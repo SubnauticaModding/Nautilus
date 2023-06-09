@@ -1,12 +1,12 @@
 ﻿#if BELOWZERO
 namespace Nautilus.Patchers;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Utility;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 internal partial class CraftDataPatcher
 {

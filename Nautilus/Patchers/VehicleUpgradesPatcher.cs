@@ -2,10 +2,7 @@ using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
-using System;
 using System.Collections.Generic;
-using UnityEngine;
-using OpCodes = System.Reflection.Emit.OpCodes;
 
 namespace Nautilus.Patchers;
 internal class VehicleUpgradesPatcher

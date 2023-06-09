@@ -15,7 +15,7 @@ namespace Nautilus.Handlers;
 /// <item>Defining data for scanning fragments and other items.</item>
 /// </list>
 /// </summary>
-public static class PDAHandler 
+public static class PDAHandler
 {
     /// <summary>
     /// Sound asset used for unlocking most PDA entries, which is a short but pleasant sound. Path is '<c>event:/tools/scanner/new_encyclopediea</c>'.
@@ -31,7 +31,7 @@ public static class PDAHandler
 #else
     public static FMODAsset UnlockImportant { get; } = AudioUtils.GetFmodAsset("event:/bz/ui/story_unlocked");
 #endif
-    
+
 
     /// <summary>
     /// Edits how many fragments must be scanned before unlocking the techtype's blueprint.
@@ -46,7 +46,7 @@ public static class PDAHandler
         }
 
         PDAPatcher.FragmentCount[techType] = fragmentCount;
-        
+
         if (uGUI.isMainLevel)
             PDAPatcher.InitializePostfix();
     }
@@ -64,7 +64,7 @@ public static class PDAHandler
         }
 
         PDAPatcher.FragmentScanTime[techType] = scanTime;
-        
+
         if (uGUI.isMainLevel)
             PDAPatcher.InitializePostfix();
     }
@@ -81,7 +81,7 @@ public static class PDAHandler
         }
 
         PDAPatcher.CustomEntryData[entryData.key] = entryData;
-        
+
         if (uGUI.isMainLevel)
             PDAPatcher.InitializePostfix();
     }
@@ -138,9 +138,9 @@ public static class PDAHandler
             icon = icon,
             sound = sound
         };
-        
+
         PDALogPatcher.CustomEntryData[key] = entry;
-        
+
         if (uGUI.isMainLevel)
             PDALogPatcher.InitializePostfix();
     }
@@ -214,14 +214,14 @@ public static class PDAHandler
     /// <param name="entry">The <see cref="PDAEncyclopedia.EntryData"/> entry.</param>
     public static void AddEncyclopediaEntry(PDAEncyclopedia.EntryData entry)
     {
-        if(PDAEncyclopediaPatcher.CustomEntryData.ContainsKey(entry.key))
+        if (PDAEncyclopediaPatcher.CustomEntryData.ContainsKey(entry.key))
         {
             InternalLogger.Log($"{entry.key} already has custom PDAEncyclopedia.EntryData. Replacing with latest.", LogLevel.Debug);
         }
 
         PDAEncyclopediaPatcher.CustomEntryData[entry.key] = entry;
-        
-        if(PDAEncyclopedia.initialized)
+
+        if (PDAEncyclopedia.initialized)
             PDAEncyclopediaPatcher.InitializePostfix();
     }
 

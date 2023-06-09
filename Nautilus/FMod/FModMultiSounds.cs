@@ -1,9 +1,9 @@
-using System.Linq;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
 using Nautilus.FMod.Interfaces;
 using Nautilus.Utility;
+using System.Linq;
 using UnityEngine;
 
 namespace Nautilus.FMod;
@@ -19,7 +19,7 @@ public class FModMultiSounds : IFModSound
     /// Makes the sounds play in a randomized order. when <c>false</c>, sounds will play subsequently.
     /// </summary>
     public bool randomizeSounds;
-        
+
     private Sound[] _sounds;
 
     private Bus _bus;
@@ -50,7 +50,7 @@ public class FModMultiSounds : IFModSound
         _bus = RuntimeManager.GetBus(busPath);
         this.randomizeSounds = randomizeSounds;
     }
-        
+
     /// <summary>
     /// Constructs a new instance of <see cref="FModMultiSounds"/>. Used to register FMOD events with multiple sounds in one event.
     /// </summary>
@@ -84,7 +84,7 @@ public class FModMultiSounds : IFModSound
     bool IFModSound.TryPlaySound(out Channel channel)
     {
         channel = default;
-        if (_sounds is {Length: > 0})
+        if (_sounds is { Length: > 0 })
         {
             if (randomizeSounds)
             {

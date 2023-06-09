@@ -1,16 +1,16 @@
-using System.Reflection;
 using Nautilus.Json;
 using Nautilus.Options;
 using Nautilus.Options.Attributes;
 using Nautilus.Patchers;
 using Nautilus.Utility;
+using System.Reflection;
 
 namespace Nautilus.Handlers;
 
 /// <summary>
 /// A handler class for registering your custom in-game mod options.
 /// </summary>
-public static class OptionsPanelHandler 
+public static class OptionsPanelHandler
 {
 
     /// <summary>

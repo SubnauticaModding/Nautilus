@@ -111,7 +111,7 @@ public static class CustomSoundHandler
     public static bool TryPlayCustomSound(string id, out Channel channel)
     {
         channel = default;
-        if(!CustomSoundPatcher.CustomSounds.TryGetValue(id, out Sound sound))
+        if (!CustomSoundPatcher.CustomSounds.TryGetValue(id, out Sound sound))
         {
             InternalLogger.Warn($"Unable to find registered sound for id:{id}");
             return false;
@@ -127,7 +127,7 @@ public static class CustomSoundHandler
         channelGroup.getPaused(out bool paused);
         return RuntimeManager.CoreSystem.playSound(sound, channelGroup, paused, out channel) == RESULT.OK;
     }
- 
+
     /// <summary>
     /// Try to get a registered custom <see cref="Sound"/>.
     /// </summary>

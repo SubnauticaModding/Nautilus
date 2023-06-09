@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Nautilus.Utility;
+using System;
 using System.Reflection;
-using Nautilus.Utility;
 
 // Resharper
 namespace Nautilus.Handlers;
@@ -36,7 +36,7 @@ public static class EnumHandler
         callingAssembly = callingAssembly == Assembly.GetExecutingAssembly()
             ? ReflectionHelper.CallingAssemblyByStackTrace()
             : callingAssembly;
-        
+
         return AddEntry<TEnum>(name, callingAssembly);
     }
 
@@ -80,7 +80,7 @@ public static class EnumHandler
     public static bool TryGetValue<TEnum>(string name, out TEnum enumValue) where TEnum : Enum
     {
         enumValue = default;
-        
+
         if (!EnumCacheProvider.TryGetManager(typeof(TEnum), out var manager))
             return false;
 
@@ -88,14 +88,14 @@ public static class EnumHandler
 
         if (cache != null) // Item Found
         {
-            enumValue = (TEnum)Convert.ChangeType(cache.Index, Enum.GetUnderlyingType(typeof(TEnum)));
+            enumValue = (TEnum) Convert.ChangeType(cache.Index, Enum.GetUnderlyingType(typeof(TEnum)));
             return true;
         }
 
         // Mod not present or not yet loaded
         return false;
     }
-    
+
     /// <summary>
     /// Safely looks for a custom enum object from another mod and outputs the instance when found.
     /// </summary>
@@ -135,14 +135,14 @@ public static class EnumHandler
         enumValue = default;
         addedBy = null;
 
-        if(!EnumCacheProvider.TryGetManager(typeof(TEnum), out IEnumCache manager))
+        if (!EnumCacheProvider.TryGetManager(typeof(TEnum), out IEnumCache manager))
             return false;
 
         var cache = manager.RequestCacheForTypeName(name, false, true);
 
-        if(cache != null) // Item Found
+        if (cache != null) // Item Found
         {
-            enumValue = (TEnum)Convert.ChangeType(cache.Index, Enum.GetUnderlyingType(typeof(TEnum)));
+            enumValue = (TEnum) Convert.ChangeType(cache.Index, Enum.GetUnderlyingType(typeof(TEnum)));
             addedBy = manager.TypesAddedBy[enumValue.ToString()];
             return true;
         }
@@ -160,5 +160,5 @@ public static class EnumHandler
     public static bool ModdedEnumExists<TEnum>(string name) where TEnum : Enum
     {
         return TryGetValue<TEnum>(name, out _);
-    }    
+    }
 }

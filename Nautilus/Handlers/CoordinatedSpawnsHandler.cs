@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Nautilus.Assets;
 using Nautilus.Patchers;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Nautilus.Handlers;
@@ -11,7 +11,7 @@ namespace Nautilus.Handlers;
 /// <summary>
 /// A handler class for registering Coordinated Spawns.
 /// </summary>
-public static class CoordinatedSpawnsHandler 
+public static class CoordinatedSpawnsHandler
 {
     /// <summary>
     /// Registers a Coordinated Spawn.
@@ -21,7 +21,7 @@ public static class CoordinatedSpawnsHandler
     {
         if (!LargeWorldStreamerPatcher.spawnInfos.Add(spawnInfo))
             return;
-        
+
         if (uGUI.isMainLevel)
             LargeWorldStreamerPatcher.CreateSpawner(spawnInfo);
     }

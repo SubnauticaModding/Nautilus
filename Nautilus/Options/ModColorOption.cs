@@ -39,7 +39,8 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
     /// <param name="tabIndex">Where in the panel to add the option.</param>
     public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
     {
-        UnityAction<Color> callback = new UnityAction<Color>((Color value) => {
+        UnityAction<Color> callback = new UnityAction<Color>((Color value) =>
+        {
             OnChange(Id, value);
             parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, value);
         });
@@ -55,7 +56,8 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
             UnityEngine.Object.Destroy(colorPicker.transform.Find("Choice/Background/ButtonRight").gameObject);
 
             GameObject redSlider = panel.AddSliderOption(tabIndex, "Red", Value.r, 0, 1, 0, 0.01f,
-                new UnityAction<float>((float value) => {
+                new UnityAction<float>((float value) =>
+                {
                     Color color = new Color(value, Value.g, Value.b, Value.a);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                     OnChange(Id, color);
@@ -64,7 +66,8 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                 SliderLabelMode.Percent, "{0:F0}", "The <color=\"red\">red</color> level of the color.");
 
             GameObject greenSlider = panel.AddSliderOption(tabIndex, "Green", Value.g, 0, 1, 0, 0.01f,
-                new UnityAction<float>((float value) => {
+                new UnityAction<float>((float value) =>
+                {
                     Color color = new Color(Value.r, value, Value.b, Value.a);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                     OnChange(Id, color);
@@ -73,7 +76,8 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                 SliderLabelMode.Percent, "{0:F0}", "The <color=\"green\">green</color> level of the color.");
 
             GameObject blueSlider = panel.AddSliderOption(tabIndex, "Blue", Value.b, 0, 1, 0, 0.01f,
-                new UnityAction<float>((float value) => {
+                new UnityAction<float>((float value) =>
+                {
                     Color color = new Color(Value.r, Value.g, value, Value.a);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                     OnChange(Id, color);
@@ -82,7 +86,8 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                 SliderLabelMode.Percent, "{0:F0}", "The <color=\"blue\">blue</color> level of the color.");
 
             GameObject alphaSlider = panel.AddSliderOption(tabIndex, "Alpha", Value.a, 0, 1, 1, 0.01f,
-                new UnityAction<float>((float value) => {
+                new UnityAction<float>((float value) =>
+                {
                     Color color = new Color(Value.r, Value.g, Value.b, value);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                     OnChange(Id, color);
@@ -98,7 +103,7 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
     private ModColorOption(string id, string label, Color value, bool advanced = false, string tooltip = null) : base(label, id, value)
     {
         Advanced = advanced;
-        Tooltip= tooltip;
+        Tooltip = tooltip;
     }
 
     /// <summary>

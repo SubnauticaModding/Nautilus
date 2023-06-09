@@ -1,6 +1,3 @@
-using Nautilus.Crafting;
-using Nautilus.Patchers;
-using Newtonsoft.Json.Bson;
 
 #if SUBNAUTICA
 namespace Nautilus.Handlers;

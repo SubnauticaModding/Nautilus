@@ -1,10 +1,10 @@
+using Nautilus.Patchers;
+using Nautilus.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Nautilus.Patchers;
-using Nautilus.Utility;
-using Newtonsoft.Json;
 
 namespace Nautilus.Handlers;
 
@@ -35,7 +35,7 @@ public static class LanguageHandler
         callingAssembly = callingAssembly == Assembly.GetExecutingAssembly()
             ? ReflectionHelper.CallingAssemblyByStackTrace()
             : callingAssembly;
-            
+
         var path = Path.Combine(Path.GetDirectoryName(callingAssembly.Location)!, languageFolderName);
         if (!Directory.Exists(path))
         {
@@ -51,7 +51,7 @@ public static class LanguageHandler
                 InternalLogger.Warn($"Localization file '{file}' is empty, skipping registration.");
                 continue;
             }
-                
+
             var languageName = Path.GetFileNameWithoutExtension(file);
             RegisterLocalization(languageName, content);
         }
@@ -69,7 +69,7 @@ public static class LanguageHandler
             InternalLogger.Error($"Localization registration failed. Language name or values are empty or null. Stacktrace: {Environment.StackTrace}");
             return;
         }
-            
+
         LanguagePatcher.AddCustomLanguageLines(language, languageStrings);
     }
 

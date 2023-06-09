@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using BepInEx.Logging;
+﻿using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Utility;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Nautilus.Patchers;
 
@@ -25,7 +25,7 @@ internal static class EnumPatcher
             __result = GetValues(enumType, manager, __result);
         }
     }
-    
+
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(Enum), nameof(Enum.GetNames))]
@@ -36,7 +36,7 @@ internal static class EnumPatcher
             __result = GetNames(manager, __result);
         }
     }
-    
+
     [HarmonyPrefix]
     [HarmonyPatch(typeof(Enum), nameof(Enum.GetName))]
     private static bool Prefix_GetName(Type enumType, object value, ref string __result)
@@ -93,16 +93,16 @@ internal static class EnumPatcher
 
         return true;
     }
-    
+
     private static Array GetValues(Type enumType, IEnumCache cacheManager, Array __result)
     {
         Type genericListType = typeof(List<>).MakeGenericType(enumType);
-        IList list = (IList)Activator.CreateInstance(genericListType);
+        IList list = (IList) Activator.CreateInstance(genericListType);
         foreach (var type in __result)
         {
             list.Add(type);
         }
-        foreach(var type2 in cacheManager.ModdedKeys)
+        foreach (var type2 in cacheManager.ModdedKeys)
         {
             list.Add(type2);
         }

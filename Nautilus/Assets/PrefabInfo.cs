@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using Nautilus.Handlers;
+﻿using Nautilus.Handlers;
 using Nautilus.Utility;
+using System.Reflection;
 using UnityEngine;
 
 namespace Nautilus.Assets;
@@ -31,7 +31,7 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
             : techTypeOwner;
         return new PrefabInfo
         (
-            classId, 
+            classId,
             classId + "Prefab",
             EnumHandler.AddEntry<TechType>(classId, techTypeOwner).WithPdaInfo(displayName, description, language, unlockAtStart)
         );
@@ -49,7 +49,7 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
         return this;
     }
 #endif
-    
+
     /// <summary>
     /// Adds an icon for <see cref="TechType"/>.
     /// </summary>
@@ -79,6 +79,6 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public PrefabInfo WithFileName(string fileName)
     {
-        return this with {PrefabFileName = fileName};
+        return this with { PrefabFileName = fileName };
     }
 }

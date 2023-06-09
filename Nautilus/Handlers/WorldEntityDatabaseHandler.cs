@@ -42,7 +42,7 @@ public static class WorldEntityDatabaseHandler
     /// <param name="data">The <see cref="WorldEntityInfo"/> data. Data is stored in the fields of the class, so they must be populated when passed in.</param>
     public static void AddCustomInfo(string classId, WorldEntityInfo data)
     {
-        if(WorldEntityDatabasePatcher.CustomWorldEntityInfos.ContainsKey(classId))
+        if (WorldEntityDatabasePatcher.CustomWorldEntityInfos.ContainsKey(classId))
         {
             InternalLogger.Log($"{classId}-{data.techType} already has custom WorldEntityInfo. Replacing with latest.", LogLevel.Debug);
         }

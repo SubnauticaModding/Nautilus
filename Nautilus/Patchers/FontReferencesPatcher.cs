@@ -16,7 +16,7 @@ internal static class FontReferencesPatcher
 
     internal static void GetAllerRgFont(uGUI_MainMenu __instance)
     {
-         FontUtils.Aller_Rg = __instance.transform.Find("Panel/MainMenu/GraphicsDeviceName").GetComponent<TextMeshProUGUI>().font;
+        FontUtils.Aller_Rg = __instance.transform.Find("Panel/MainMenu/GraphicsDeviceName").GetComponent<TextMeshProUGUI>().font;
     }
 
     internal static void GetAllerWBdFont(uGUI_MainMenu __instance)

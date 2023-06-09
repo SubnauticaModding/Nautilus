@@ -1,6 +1,6 @@
+using Nautilus.Utility;
 using System;
 using System.Collections;
-using Nautilus.Utility;
 using UnityEngine;
 
 namespace Nautilus.Assets.PrefabTemplates;
@@ -32,7 +32,7 @@ public class EnergySourceTemplate : PrefabTemplate
     {
         _energyAmount = energyAmount;
     }
-    
+
     /// <summary>
     /// Gets the appropriate energy source prefab.
     /// </summary>
@@ -61,7 +61,7 @@ public class EnergySourceTemplate : PrefabTemplate
         var obj = GameObject.Instantiate(task.GetResult());
 
         ModifyPrefab(obj);
-        
+
         gameObject.Set(obj);
     }
 

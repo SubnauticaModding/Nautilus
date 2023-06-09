@@ -1,6 +1,6 @@
+using Nautilus.Utility;
 using System;
 using System.Collections;
-using Nautilus.Utility;
 using UnityEngine;
 using UWE;
 using Object = UnityEngine.Object;
@@ -22,7 +22,7 @@ public class FabricatorTemplate : PrefabTemplate
         /// To use this value, you must pass a non-null game object to the task result in the <see cref="FabricatorTemplate.GetPrefabAsync"/> method.
         /// </summary>
         Custom,
-        
+
         /// <summary>
         /// The regular fabricator like the one in the life pod.
         /// </summary>
@@ -32,7 +32,7 @@ public class FabricatorTemplate : PrefabTemplate
         /// The modification station that upgrades your equipment.
         /// </summary>
         Workbench,
-        
+
 #if SUBNAUTICA
         /// <summary>
         /// The style of fabricator found in the Moon Pool and the Cyclops sub.
@@ -40,7 +40,7 @@ public class FabricatorTemplate : PrefabTemplate
         MoonPool,
 #endif
     }
-    
+
     /// <summary>
     /// The model this template will use. Leave it to <see cref="Model.Custom"/> if you've got a custom model.
     /// </summary>
@@ -55,13 +55,13 @@ public class FabricatorTemplate : PrefabTemplate
     /// <see cref="Utility.ConstructableFlags.Wall"/> for non-workbench fabricators.<br/>
     /// And <see cref="Utility.ConstructableFlags.Ground"/> and <see cref="Utility.ConstructableFlags.Rotatable"/> for workbench. 
     /// </summary>
-    public ConstructableFlags ConstructableFlags 
+    public ConstructableFlags ConstructableFlags
     {
         get
         {
             if (_constructableFlags == ConstructableFlags.None)
             {
-                _constructableFlags = ConstructableFlags.Inside | 
+                _constructableFlags = ConstructableFlags.Inside |
                     (FabricatorModel == Model.Workbench
                         ? ConstructableFlags.Ground | ConstructableFlags.Rotatable
                         : ConstructableFlags.Wall);
@@ -76,14 +76,14 @@ public class FabricatorTemplate : PrefabTemplate
     /// Applies a simple color tint to the fabricator model.
     /// </summary>
     public Color? ColorTint { get; set; }
-    
+
     /// <summary>
     /// ModuleChangeCallback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
     /// </summary>
     public System.Action<GameObject> ModifyPrefab { get; set; }
-    
+
     private readonly CraftTree.Type _craftTreeType;
-    
+
     /// <summary>
     /// Creates a <see cref="FabricatorTemplate"/> instance.
     /// </summary>
@@ -123,12 +123,12 @@ public class FabricatorTemplate : PrefabTemplate
             Failed retrieving the requested fabricator model. Please ensure the "{nameof(FabricatorTemplate)}.{nameof(FabricatorModel)}" property is assigned.
             If you are using a custom prefab, please assign the custom prefab to the passed task result.
             """);
-            
+
             yield break;
         }
-        
+
         yield return task;
-        
+
         task.TryGetPrefab(out var prefab);
         var obj = Object.Instantiate(prefab);
         ApplyCrafterPrefab(obj);
@@ -194,7 +194,7 @@ public class FabricatorTemplate : PrefabTemplate
             var renderer = obj.GetComponentInChildren<SkinnedMeshRenderer>();
             renderer.material.color = ColorTint.Value;
         }
-        
+
         ModifyPrefab?.Invoke(obj);
     }
 }

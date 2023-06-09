@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using BepInEx.Bootstrap;
+﻿using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace Nautilus.Utility;
 
@@ -20,36 +20,36 @@ internal static class InternalLogger
 
     internal static void SetDebugging(bool value)
     {
-        if(value)
+        if (value)
         {
-            if(consoleLogLevel != null && (consoleLogLevel.Value & LogLevel.Debug) == LogLevel.None)
+            if (consoleLogLevel != null && (consoleLogLevel.Value & LogLevel.Debug) == LogLevel.None)
             {
                 consoleLogLevel.Value = consoleLogLevel.Value | LogLevel.Debug;
             }
 
-            if(diskLogLevel != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) == LogLevel.None)
+            if (diskLogLevel != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) == LogLevel.None)
             {
                 diskLogLevel.Value = diskLogLevel.Value | LogLevel.Debug;
             }
 
-            if(DiskLogListener != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) == LogLevel.None)
+            if (DiskLogListener != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) == LogLevel.None)
             {
                 DiskLogListener.DisplayedLogLevel = DiskLogListener.DisplayedLogLevel | LogLevel.Debug;
             }
         }
         else
         {
-            if(consoleLogLevel != null && (consoleLogLevel.Value & LogLevel.Debug) != LogLevel.None)
+            if (consoleLogLevel != null && (consoleLogLevel.Value & LogLevel.Debug) != LogLevel.None)
             {
                 consoleLogLevel.Value = consoleLogLevel.Value & ~LogLevel.Debug;
             }
 
-            if(diskLogLevel != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) != LogLevel.None)
+            if (diskLogLevel != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) != LogLevel.None)
             {
                 diskLogLevel.Value = diskLogLevel.Value & ~LogLevel.Debug;
             }
 
-            if(DiskLogListener != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) != LogLevel.None)
+            if (DiskLogListener != null && (DiskLogListener.DisplayedLogLevel & LogLevel.Debug) != LogLevel.None)
             {
                 DiskLogListener.DisplayedLogLevel = DiskLogListener.DisplayedLogLevel & ~LogLevel.Debug;
             }
@@ -63,7 +63,7 @@ internal static class InternalLogger
             return;
         }
 
-        if(BepInEx.Logging.Logger.Listeners.Where((x) => x is DiskLogListener).FirstOrFallback(DiskLogListener) is DiskLogListener logListener)
+        if (BepInEx.Logging.Logger.Listeners.Where((x) => x is DiskLogListener).FirstOrFallback(DiskLogListener) is DiskLogListener logListener)
         {
             DiskLogListener = logListener;
         }
@@ -116,9 +116,9 @@ internal static class InternalLogger
 
     internal static void Log(string text, LogLevel level = LogLevel.Info)
     {
-        if(!Initialized)
+        if (!Initialized)
         {
-            if(level >= LogLevel.Info || EnableDebugging)
+            if (level >= LogLevel.Info || EnableDebugging)
             {
                 Console.WriteLine($"[Nautilus/{level}] {text}");
             }
@@ -131,7 +131,7 @@ internal static class InternalLogger
 
     internal static void Log(string text, LogLevel level = LogLevel.Info, params object[] args)
     {
-        if(args != null && args.Length > 0)
+        if (args != null && args.Length > 0)
         {
             text = string.Format(text, args);
         }

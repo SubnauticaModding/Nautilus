@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BepInEx.Logging;
+using Nautilus.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using BepInEx.Logging;
-using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,7 +33,7 @@ public abstract class ModOptions
     /// <param name="option">The <see cref="OptionItem"/> to add to the options menu.</param>
     public bool AddItem(OptionItem option)
     {
-        if(_options.ContainsKey(option.Id))
+        if (_options.ContainsKey(option.Id))
         {
             return false;
         }
@@ -48,14 +48,14 @@ public abstract class ModOptions
     /// <param name="id">The id of the <see cref="OptionItem"/> to remove from the options menu.</param>
     public bool RemoveItem(string id)
     {
-        if(!_options.TryGetValue(id, out OptionItem optionItem))
+        if (!_options.TryGetValue(id, out OptionItem optionItem))
         {
             return false;
         }
 
         _options.Remove(id);
         optionItem.SetParent(null);
-        if(optionItem.OptionGameObject != null)
+        if (optionItem.OptionGameObject != null)
             GameObject.Destroy(optionItem.OptionGameObject);
         return true;
     }
@@ -102,12 +102,12 @@ public abstract class ModOptions
     /// <param name="value"></param>
     public void OnChange<T, E>(string id, T value) where E : ConfigOptionEventArgs<T>
     {
-        if(_options.TryGetValue(id, out var option) && option is ModChoiceOption<T> modChoiceOption)
+        if (_options.TryGetValue(id, out var option) && option is ModChoiceOption<T> modChoiceOption)
         {
-            OnChanged?.Invoke(this, (E)Activator.CreateInstance(typeof(E), new object[] { id, modChoiceOption.Index, value }));
+            OnChanged?.Invoke(this, (E) Activator.CreateInstance(typeof(E), new object[] { id, modChoiceOption.Index, value }));
             return;
         }
-        OnChanged?.Invoke(this, (E)Activator.CreateInstance(typeof(E), new object[] { id, value }));
+        OnChanged?.Invoke(this, (E) Activator.CreateInstance(typeof(E), new object[] { id, value }));
     }
 
     /// <summary> The event that is called whenever a game object created for the option </summary>
@@ -131,7 +131,7 @@ public class GameObjectCreatedEventArgs : ConfigOptionEventArgs<GameObject>
 /// <summary>
 /// The common generic-typed abstract class to all mod options.
 /// </summary>
-public abstract class ModOption<T, E> : OptionItem where E: ConfigOptionEventArgs<T>
+public abstract class ModOption<T, E> : OptionItem where E : ConfigOptionEventArgs<T>
 {
     /// <summary>
     /// The value for the <see cref="ModOption{T, E}"/>.
@@ -159,12 +159,12 @@ public abstract class ModOption<T, E> : OptionItem where E: ConfigOptionEventArg
     public void OnChange(string id, T value)
     {
         Value = value;
-        if(this is ModChoiceOption<T> modChoiceOption)
+        if (this is ModChoiceOption<T> modChoiceOption)
         {
-            OnChanged?.Invoke(this, (E)Activator.CreateInstance(typeof(E), new object[] { id, modChoiceOption.Index, value }));
+            OnChanged?.Invoke(this, (E) Activator.CreateInstance(typeof(E), new object[] { id, modChoiceOption.Index, value }));
             return;
         }
-        OnChanged?.Invoke(this, (E)Activator.CreateInstance(typeof(E), new object[] { id, value }));
+        OnChanged?.Invoke(this, (E) Activator.CreateInstance(typeof(E), new object[] { id, value }));
     }
 
     /// <summary>
@@ -182,7 +182,8 @@ public abstract class ModOption<T, E> : OptionItem where E: ConfigOptionEventArg
 /// <summary>
 /// The common abstract class to all items in the mod options page.
 /// </summary>
-public abstract class OptionItem {
+public abstract class OptionItem
+{
     /// <summary>
     /// The internal ID that identifies this option.
     /// </summary>

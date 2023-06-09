@@ -1,17 +1,17 @@
-﻿using System;
+﻿using HarmonyLib;
+using Nautilus.Assets;
+using Nautilus.Handlers;
+using Nautilus.Utility;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using HarmonyLib;
-using Nautilus.Assets;
-using Nautilus.Utility;
-using Nautilus.Handlers;
 
 namespace Nautilus.Patchers;
 
 #if SUBNAUTICA
 using Sprite = Atlas.Sprite;
 #elif BELOWZERO
-    using Sprite = UnityEngine.Sprite;
+using Sprite = UnityEngine.Sprite;
 
 #endif
 
@@ -25,13 +25,13 @@ internal class SpritePatcher
             return;
         }
 #if BELOWZERO
-            if (!SpriteManager.hasInitialized)
-            {
-                return;
-            }
+        if (!SpriteManager.hasInitialized)
+        {
+            return;
+        }
 #endif
         Dictionary<string, Sprite> atlas = GetSpriteAtlas(group);
-            
+
         if (atlas != null && !atlas.TryGetValue(name, out _))
         {
             PatchSprites();
@@ -44,7 +44,7 @@ internal class SpritePatcher
 #if SUBNAUTICA
         MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
 #elif BELOWZERO
-            MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
+        MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
 #endif
         MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
 
@@ -106,10 +106,10 @@ internal class SpritePatcher
         if (atlas?.nameToSprite != null)
             return atlas.nameToSprite;
 #elif BELOWZERO
-            if (SpriteManager.atlases.TryGetValue(atlasName, out Dictionary<string, Sprite> spriteGroup))
-            {
-                return spriteGroup;
-            }
+        if (SpriteManager.atlases.TryGetValue(atlasName, out Dictionary<string, Sprite> spriteGroup))
+        {
+            return spriteGroup;
+        }
 #endif
         InternalLogger.Error($"SpritePatcher was unable to find a sprite atlas for {nameof(SpriteManager.Group)}.{groupKey}");
         return null;

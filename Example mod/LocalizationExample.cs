@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using BepInEx;
+﻿using BepInEx;
 using Nautilus.Assets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Handlers;
+using System.Collections.Generic;
 
 namespace Nautilus.Examples;
 
@@ -21,7 +21,7 @@ public class LocalizationExample : BaseUnityPlugin
     {
         { "TitaniumClone", "Titanium Clone" }, { "Tooltip_TitaniumClone", "Titanium clone that makes me go yes." }
     };
-    
+
     /*
      * Here we have a dictionary that translates the language entries above to Spanish.
      * Keep in mind that the language keys are the same for every language.
@@ -44,7 +44,7 @@ public class LocalizationExample : BaseUnityPlugin
 #else
         // Register our English language entries to the English language
         LanguageHandler.RegisterLocalization("English", _languageEntriesEng);
-        
+
         // Register our Spanish language entries to the Spanish language
         LanguageHandler.RegisterLocalization("Spanish", _languageEntriesEsp);
 #endif
@@ -52,12 +52,12 @@ public class LocalizationExample : BaseUnityPlugin
         /*
          * Create a CustomPrefab instance for our Titanium Clone. Must be set to null or empty if you registered language entries
          * for them earlier like we did.
-         */ 
+         */
         var titaniumClone = new CustomPrefab("TitaniumClone", null, null, SpriteManager.Get(TechType.Titanium));
-        
+
         // Set our prefab's game object to a clone of the Titanium prefab
         titaniumClone.SetGameObject(new CloneTemplate(titaniumClone.Info, TechType.Titanium));
-        
+
         /*
          * Register our Titanium Clone to the game.
          * After this point, do not edit the prefab or modify gadgets as they will not be applied.

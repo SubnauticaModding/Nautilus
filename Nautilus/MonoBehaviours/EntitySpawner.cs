@@ -1,7 +1,7 @@
-using System.Collections;
 using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
+using System.Collections;
 using UnityEngine;
 using UWE;
 
@@ -44,7 +44,7 @@ internal class EntitySpawner : MonoBehaviour
         yield return new WaitUntil(() => lws != null && lws.IsReady()); // first we make sure the world streamer is initialized
 
         // non-global objects cannot be spawned in unloaded terrain so we need to wait
-        if (lwe is {cellLevel: not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global)})
+        if (lwe is { cellLevel: not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global) })
         {
             Int3 batch = lws.GetContainingBatch(spawnInfo.SpawnPosition);
             yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch)); // then we wait until the terrain is fully loaded (must be checked on each frame for faster spawns)
@@ -53,7 +53,7 @@ internal class EntitySpawner : MonoBehaviour
         LargeWorld lw = LargeWorld.main;
 
         yield return new WaitUntil(() => lw != null && lw.streamer.globalRoot != null); // need to make sure global root is ready too for global spawns.
-            
+
         lw.streamer.cellManager.RegisterEntity(obj);
 
         obj.SetActive(true);

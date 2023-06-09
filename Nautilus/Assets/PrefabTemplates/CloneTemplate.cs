@@ -1,6 +1,6 @@
+using Nautilus.Utility;
 using System.Collections;
 using System.Collections.Generic;
-using Nautilus.Utility;
 using UnityEngine;
 using UWE;
 
@@ -19,25 +19,25 @@ public class CloneTemplate : PrefabTemplate
     /// Reskinning model data to apply to the clone.
     /// </summary>
     public List<CustomModelData> ModelDatas { get; } = new();
-    
+
     /// <summary>
     /// ModuleChangeCallback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
     /// </summary>
     public System.Action<GameObject> ModifyPrefab { get; set; }
-    
+
     /// <summary>
     /// Creates a <see cref="CloneTemplate"/> instance.
     /// </summary>
     /// <param name="info">The prefab info to base this template off of.</param>
     /// <param name="techTypeToClone">The tech type to clone and use for this template.</param>
-    public CloneTemplate(PrefabInfo info, TechType techTypeToClone) : this(info, techTypeToClone, null) {}
-    
+    public CloneTemplate(PrefabInfo info, TechType techTypeToClone) : this(info, techTypeToClone, null) { }
+
     /// <summary>
     /// Creates a <see cref="CloneTemplate"/> instance.
     /// </summary>
     /// <param name="info">The prefab info to base this template off of.</param>
     /// <param name="classIdToClone">The class ID to clone and use for this template.</param>
-    public CloneTemplate(PrefabInfo info, string classIdToClone) : this(info, TechType.None, classIdToClone) {}
+    public CloneTemplate(PrefabInfo info, string classIdToClone) : this(info, TechType.None, classIdToClone) { }
 
     private CloneTemplate(PrefabInfo info, TechType techTypeToClone, string classIdToClone) : base(info)
     {
@@ -80,7 +80,7 @@ public class CloneTemplate : PrefabTemplate
         {
             var task = PrefabDatabase.GetPrefabAsync(_classIdToClone);
             yield return task;
-            
+
             if (!task.TryGetPrefab(out var prefab))
             {
                 InternalLogger.Error($"Couldn't find class ID: '{_classIdToClone}'.");
@@ -96,7 +96,7 @@ public class CloneTemplate : PrefabTemplate
 
     private void ApplySkin(GameObject obj)
     {
-        if (ModelDatas.Count <= 0) 
+        if (ModelDatas.Count <= 0)
             return;
 
         foreach (var modelData in ModelDatas)
@@ -104,13 +104,13 @@ public class CloneTemplate : PrefabTemplate
             var renderers = string.IsNullOrWhiteSpace(modelData.TargetPath)
                 ? obj.GetAllComponentsInChildren<Renderer>()
                 : obj.transform.Find(modelData.TargetPath)?.gameObject.GetComponentsInChildren<Renderer>();
-            
+
             if (renderers == null)
             {
                 InternalLogger.Warn($"{info.ClassID} unable to find {modelData.TargetPath} on {obj.name} when trying to apply CustomModelData.");
                 continue;
             }
-            
+
             foreach (var renderer in renderers)
             {
                 if (modelData.CustomTexture != null)

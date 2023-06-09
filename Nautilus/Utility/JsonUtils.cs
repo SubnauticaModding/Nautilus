@@ -1,11 +1,11 @@
-﻿using System;
+﻿using BepInEx.Logging;
+using Newtonsoft.Json;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using BepInEx.Logging;
-using Newtonsoft.Json;
 
 namespace Nautilus.Utility;
 
@@ -154,10 +154,10 @@ public static class JsonUtils
         StringBuilder stringBuilder = new();
         StringWriter stringWriter = new(stringBuilder);
         using (JsonTextWriter jsonTextWriter = new(stringWriter)
-               {
-                   Indentation = 4,
-                   Formatting = Formatting.Indented
-               })
+        {
+            Indentation = 4,
+            Formatting = Formatting.Indented
+        })
         {
             JsonSerializer jsonSerializer = new();
             foreach (JsonConverter jsonConverter in jsonConverters)

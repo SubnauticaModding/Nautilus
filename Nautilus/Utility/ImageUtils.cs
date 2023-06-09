@@ -1,5 +1,5 @@
-﻿using System.IO;
-using BepInEx.Logging;
+﻿using BepInEx.Logging;
+using System.IO;
 using UnityEngine;
 
 namespace Nautilus.Utility;
@@ -29,7 +29,7 @@ public static class ImageUtils
     /// </remarks>
     public static Texture2D LoadTextureFromFile(string filePathToImage, TextureFormat format = TextureFormat.BC7)
     {
-        if(File.Exists(filePathToImage))
+        if (File.Exists(filePathToImage))
         {
             byte[] imageBytes = File.ReadAllBytes(filePathToImage);
             Texture2D texture2D = new(2, 2, format, false);
@@ -38,7 +38,7 @@ public static class ImageUtils
                 texture2D.LoadImage(imageBytes);
                 return texture2D;
             }
-            catch(UnityException uex)
+            catch (UnityException uex)
             {
                 Logger.Error("Error on LoadTextureFromFile call. Texture cannot be loaded: " + uex);
             }
@@ -81,7 +81,7 @@ public static class ImageUtils
 #if SUBNAUTICA
         return new Sprite(texture2D);
 #elif BELOWZERO
-            return Sprite.Create(texture2D, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
+        return Sprite.Create(texture2D, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
 #endif
     }
 }

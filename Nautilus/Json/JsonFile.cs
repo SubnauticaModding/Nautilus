@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using Nautilus.Json.Converters;
+﻿using Nautilus.Json.Converters;
 using Nautilus.Json.ExtensionMethods;
 using Nautilus.Json.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
+using System.Linq;
 
 namespace Nautilus.Json;
 

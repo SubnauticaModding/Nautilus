@@ -1,10 +1,10 @@
+using FMOD;
+using FMOD.Studio;
+using FMODUnity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using FMOD;
-using FMOD.Studio;
-using FMODUnity;
 using UnityEngine;
 
 namespace Nautilus.Utility;
@@ -135,7 +135,7 @@ public static partial class AudioUtils
             defaultfrequency = audioClip.frequency,
             numchannels = audioClip.channels
         };
-            
+
         FMOD_System.createSound("", MODE.OPENUSER, ref soundInfo, out Sound sound);
 
         sound.@lock(0, bytesLength, out IntPtr ptr1, out IntPtr ptr2, out uint len1, out uint len2);

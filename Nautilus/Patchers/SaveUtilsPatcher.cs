@@ -1,7 +1,7 @@
+using HarmonyLib;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using HarmonyLib;
 
 namespace Nautilus.Patchers;
 
@@ -43,7 +43,7 @@ internal class SaveUtilsPatcher
     internal static void InvokeSaveEvents()
     {
         OnSaveEvents?.Invoke();
-            
+
         if (oneTimeUseOnSaveEvents.Count > 0)
         {
             foreach (Action action in oneTimeUseOnSaveEvents)
@@ -81,7 +81,7 @@ internal class SaveUtilsPatcher
         {
             yield return enumerator.Current;
         }
-            
+
         OnQuitEvents?.Invoke();
 
         if (oneTimeUseOnQuitEvents.Count > 0)

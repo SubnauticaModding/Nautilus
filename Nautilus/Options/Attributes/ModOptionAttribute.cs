@@ -1,6 +1,6 @@
-﻿using System;
-using Nautilus.Handlers;
+﻿using Nautilus.Handlers;
 using Nautilus.Json;
+using System;
 
 namespace Nautilus.Options.Attributes;
 

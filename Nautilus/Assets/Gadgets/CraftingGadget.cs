@@ -1,7 +1,7 @@
-using System.Diagnostics.CodeAnalysis;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Nautilus.Assets.Gadgets;
 
@@ -14,24 +14,24 @@ public class CraftingGadget : Gadget
     /// The crafting recipe to add.
     /// </summary>
     public required RecipeData RecipeData { get; set; }
-    
+
     /// <summary>
     /// Craft Tree this node will appear in.
     /// </summary>
     public CraftTree.Type FabricatorType { get; set; }
-    
+
     /// <summary>
     /// The steps to get to a tab you want this node to appear in.<br/>
     /// If null or empty, it will instead appear at the craft tree's root.
     /// </summary>
     public string[] StepsToFabricatorTab { get; set; }
-    
+
     /// <summary>
     /// The amount of seconds it takes to craft this item.
     /// Values equal to or less than zero will be ignored.
     /// </summary>
     public float CraftingTime { get; set; }
-    
+
     /// <summary>
     /// Constructs a crafting gadget.
     /// </summary>
@@ -86,9 +86,9 @@ public class CraftingGadget : Gadget
             InternalLogger.Error($"Prefab '{prefab.Info}' does not contain a TechType. Skipping {nameof(CraftingGadget)} build.");
             return;
         }
-        
+
         CraftDataHandler.SetRecipeData(prefab.Info.TechType, RecipeData);
-        
+
         if (FabricatorType == CraftTree.Type.None)
         {
             InternalLogger.Log($"Prefab '{prefab.Info.ClassID}' was not automatically registered into a crafting tree.");

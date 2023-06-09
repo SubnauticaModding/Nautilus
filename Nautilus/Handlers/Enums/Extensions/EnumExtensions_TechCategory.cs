@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Nautilus.Utility;
+﻿using Nautilus.Utility;
+using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
 namespace Nautilus.Handlers;
@@ -15,9 +15,9 @@ public static partial class EnumExtensions
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public static EnumBuilder<TechCategory> WithPdaInfo(this EnumBuilder<TechCategory> builder, string displayName, string language = "English")
     {
-        var category = (TechCategory)builder;
+        var category = (TechCategory) builder;
         var name = category.ToString();
-        
+
         if (!string.IsNullOrEmpty(displayName))
         {
             LanguageHandler.SetLanguageLine("TechCategory" + name, displayName, language);
@@ -32,7 +32,7 @@ public static partial class EnumExtensions
             uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = "TechCategory" + name;
             return builder;
         }
-        
+
         uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = "TechCategory" + friendlyName;
         return builder;
     }
@@ -47,7 +47,7 @@ public static partial class EnumExtensions
         TechGroup techGroup)
     {
         TechCategory category = builder.Value;
-        
+
         if (!CraftData.groups.TryGetValue(techGroup, out var techCategories))
         {
             InternalLogger.Error($"Cannot Register to {techGroup} as it does not have PDAInfo set. Use EnumBuilder<TechGroup>.WithPdaInfo(\"Description\") to setup the Modded TechGroup before trying to register to it.");

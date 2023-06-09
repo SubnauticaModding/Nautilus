@@ -25,7 +25,7 @@ public abstract class OptionEventArgs : EventArgs
 /// <summary>
 /// Interface for event arguments for a <see cref="OptionItem"/>.
 /// </summary>
-public abstract class ConfigOptionEventArgs<T>: OptionEventArgs
+public abstract class ConfigOptionEventArgs<T> : OptionEventArgs
 {
     /// <summary>
     /// The typed Value of the <see cref="OptionItem"/> this event corresponds to.

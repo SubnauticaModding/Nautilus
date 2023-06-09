@@ -21,7 +21,7 @@ public abstract class PrefabTemplate
     {
         this.info = info;
     }
-    
+
     /// <summary>
     /// Gets a prefab of this template type. The returned object can be accessed via <see cref="TaskResult{T}.Get()"/>. 
     /// </summary>

@@ -20,8 +20,8 @@ public static partial class EnumExtensions
     {
         TechType techType = builder;
         var name = techType.ToString();
-        
-        
+
+
         if (!string.IsNullOrEmpty(displayName))
         {
             LanguageHandler.SetLanguageLine(name, displayName, language);
@@ -39,9 +39,9 @@ public static partial class EnumExtensions
         {
             InternalLogger.Warn($"Tooltip was not specified and no existing language line has been found for TechType '{name}'.");
         }
-        
+
         TooltipFactory.techTypeTooltipStrings.valueToString[techType] = "Tooltip_" + name;
-        
+
         if (unlockAtStart)
             KnownTechPatcher.UnlockedAtStart.Add(techType);
 
@@ -76,7 +76,7 @@ public static partial class EnumExtensions
     {
         TechType tt = builder;
 
-        if(sprite != null)
+        if (sprite != null)
             ModSprite.Add(SpriteManager.Group.None, tt.ToString(), sprite);
 
         return builder;

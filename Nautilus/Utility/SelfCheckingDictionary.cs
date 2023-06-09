@@ -67,7 +67,7 @@ public class SelfCheckingDictionary<K, V> : IDictionary<K, V>
     {
         get
         {
-            if(key == null)
+            if (key == null)
             {
                 LogNullKeyError();
                 return default;
@@ -77,15 +77,15 @@ public class SelfCheckingDictionary<K, V> : IDictionary<K, V>
 
         set
         {
-            if(key == null)
+            if (key == null)
             {
                 LogNullKeyError();
                 return;
             }
 
-            if(UniqueEntries.ContainsKey(key))
+            if (UniqueEntries.ContainsKey(key))
             {
-                if(DuplicatesDiscarded.ContainsKey(key))
+                if (DuplicatesDiscarded.ContainsKey(key))
                 {
                     DuplicatesDiscarded[key]++;
                 }
@@ -129,7 +129,7 @@ public class SelfCheckingDictionary<K, V> : IDictionary<K, V>
     /// <param name="value">The value.</param>
     public void Add(K key, V value)
     {
-        if(key == null)
+        if (key == null)
         {
             LogNullKeyError();
             return;
@@ -173,7 +173,7 @@ public class SelfCheckingDictionary<K, V> : IDictionary<K, V>
     public bool Contains(KeyValuePair<K, V> item)
     {
 
-        if(item.Key == null)
+        if (item.Key == null)
         {
             LogNullKeyError();
             return false;
@@ -184,7 +184,7 @@ public class SelfCheckingDictionary<K, V> : IDictionary<K, V>
 
     public bool ContainsKey(K key)
     {
-        if(key == null)
+        if (key == null)
         {
             LogNullKeyError();
             return false;
@@ -208,7 +208,7 @@ public class SelfCheckingDictionary<K, V> : IDictionary<K, V>
 
     public bool Remove(K key)
     {
-        if(key == null)
+        if (key == null)
         {
             LogNullKeyError();
             return false;
@@ -219,7 +219,7 @@ public class SelfCheckingDictionary<K, V> : IDictionary<K, V>
 
     public bool Remove(KeyValuePair<K, V> item)
     {
-        if(item.Key == null)
+        if (item.Key == null)
         {
             LogNullKeyError();
             return false;
@@ -229,10 +229,10 @@ public class SelfCheckingDictionary<K, V> : IDictionary<K, V>
 
     public bool TryGetValue(K key, out V value)
     {
-        if(key == null)
+        if (key == null)
         {
             LogNullKeyError();
-            value= default(V);
+            value = default(V);
             return false;
         }
         return UniqueEntries.TryGetValue(key, out value);

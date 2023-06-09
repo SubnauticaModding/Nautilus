@@ -202,7 +202,7 @@ public static class ReflectionHelper
         foreach (StackFrame stackFrame in frames)
         {
             Assembly ownerAssembly = stackFrame.GetMethod().DeclaringType.Assembly;
-            if(ownerAssembly.GetName().Name.StartsWith("Unity"))
+            if (ownerAssembly.GetName().Name.StartsWith("Unity"))
                 return nautilusAssembly;
 
             if (ownerAssembly != nautilusAssembly)

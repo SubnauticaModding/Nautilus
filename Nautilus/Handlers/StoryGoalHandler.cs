@@ -1,7 +1,7 @@
-using System;
 using Nautilus.MonoBehaviours;
 using Nautilus.Patchers;
 using Story;
+using System;
 using UnityEngine;
 
 namespace Nautilus.Handlers;
@@ -47,7 +47,7 @@ public static class StoryGoalHandler
     {
         var goal = new BiomeGoal() { key = key, goalType = goalType, delay = delay, biome = biomeName, minStayDuration = minStayDuration };
         StoryGoalPatcher.BiomeGoals.Add(goal);
-        
+
         if (CustomStoryGoalManager.Instance)
         {
             CustomStoryGoalManager.Instance.AddImmediately(goal);
@@ -70,7 +70,7 @@ public static class StoryGoalHandler
     {
         var goal = new LocationGoal() { key = key, goalType = goalType, delay = delay, position = position, range = range, minStayDuration = minStayDuration };
         StoryGoalPatcher.LocationGoals.Add(goal);
-        
+
         if (CustomStoryGoalManager.Instance)
         {
             CustomStoryGoalManager.Instance.AddImmediately(goal);
@@ -95,7 +95,7 @@ public static class StoryGoalHandler
         var goal = new CompoundGoal() { key = key, goalType = goalType, delay = delay, preconditionGoals = requiredGoals };
 #endif
         StoryGoalPatcher.CompoundGoals.Add(goal);
-        
+
         if (CustomStoryGoalManager.Instance)
         {
             CustomStoryGoalManager.Instance.AddImmediately(goal);
@@ -124,9 +124,9 @@ public static class StoryGoalHandler
             items = items ?? Array.Empty<UnlockItemData>(),
             achievements = achievements ?? Array.Empty<GameAchievements.Id>()
         };
-        
+
         StoryGoalPatcher.OnGoalUnlocks.Add(onGoalUnlock);
-        
+
         if (CustomStoryGoalManager.Instance)
         {
             CustomStoryGoalManager.Instance.AddImmediately(onGoalUnlock);

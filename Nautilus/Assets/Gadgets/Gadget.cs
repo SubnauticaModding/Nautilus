@@ -22,7 +22,7 @@ public abstract class Gadget
         {
             InternalLogger.Error("Specified PrefabInfo must contain valid class ID and PrefabFileName.");
         }
-        
+
         this.prefab = prefab;
     }
 

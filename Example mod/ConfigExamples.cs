@@ -1,18 +1,16 @@
 using Nautilus.Commands;
-using Nautilus.Handlers;
 using Nautilus.Json;
 using Nautilus.Json.Attributes;
 using Nautilus.Options;
 using Nautilus.Options.Attributes;
-using Nautilus.Utility;
 
 namespace Nautilus.Examples;
 
-using HarmonyLib;
-using Handlers;
-using UnityEngine;
 using BepInEx;
 using BepInEx.Logging;
+using Handlers;
+using HarmonyLib;
+using UnityEngine;
 
 [BepInPlugin("com.snmodding.nautilus.configexample", "Nautilus Config Example Mod", PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
@@ -24,7 +22,7 @@ public class ConfigExamples : BaseUnityPlugin
     /// A simple SaveDataCache implementation, intended to save the players current position to disk.
     /// </summary>
     [FileName("player_position")]
-    internal class SaveData: SaveDataCache
+    internal class SaveData : SaveDataCache
     {
         public Vector3 PlayerPosition { get; set; }
     }
@@ -139,7 +137,7 @@ public enum CustomChoice { One, Two, Three }
 /// (defaults to "config") and an optional subfolder for the config file to reside in.</para>
 /// </summary>
 [Menu("Nautilus Example Mod")]
-public class Config: ConfigFile
+public class Config : ConfigFile
 {
     /// <summary>
     /// <para>A <see cref="ChoiceAttribute"/> is represented by a group of options where only one can be selected at a time,

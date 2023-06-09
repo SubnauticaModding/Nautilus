@@ -16,7 +16,7 @@ public static partial class MaterialUtils
         PatchInternal();
 #endif
     }
-    
+
     /// <summary>
     /// Contains references to various Shaders.
     /// </summary>

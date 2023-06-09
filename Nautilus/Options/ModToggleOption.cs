@@ -36,9 +36,10 @@ public class ModToggleOption : ModOption<bool, ToggleChangedEventArgs>
     public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
     {
         UnityEngine.UI.Toggle toggle = panel.AddToggleOption(tabIndex, Label, Value,
-            new UnityAction<bool>((bool value) => {
+            new UnityAction<bool>((bool value) =>
+            {
                 OnChange(Id, value);
-                parentOptions.OnChange<bool, ToggleChangedEventArgs>(Id, value); 
+                parentOptions.OnChange<bool, ToggleChangedEventArgs>(Id, value);
             }), Tooltip);
 
         OptionGameObject = toggle.transform.parent.gameObject;
@@ -63,7 +64,7 @@ public class ModToggleOption : ModOption<bool, ToggleChangedEventArgs>
         return new ModToggleOption(id, label, value, tooltip);
     }
 
-    private class ToggleOptionAdjust: ModOptionAdjust
+    private class ToggleOptionAdjust : ModOptionAdjust
     {
         private const float spacing = 20f;
 

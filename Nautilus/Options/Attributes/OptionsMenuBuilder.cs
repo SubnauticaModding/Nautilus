@@ -1,9 +1,9 @@
+using Nautilus.Json;
+using Nautilus.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Nautilus.Json;
-using Nautilus.Utility;
 using UnityEngine;
 
 namespace Nautilus.Options.Attributes;
@@ -103,14 +103,14 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
         if (ConfigFileMetadata.MenuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuOpened))
         {
             ConfigFileMetadata.Config.Load();
-            foreach(var option in options)
+            foreach (var option in options)
             {
                 RemoveItem(option.Id);
             }
         }
-        if(Options.Count == 0)
+        if (Options.Count == 0)
         {
-            foreach(KeyValuePair<string, ModOptionAttributeMetadata<T>> entry in ConfigFileMetadata.ModOptionAttributesMetadata
+            foreach (KeyValuePair<string, ModOptionAttributeMetadata<T>> entry in ConfigFileMetadata.ModOptionAttributesMetadata
                         .OrderBy(x => x.Value.ModOptionAttribute.Order)
                         .ThenBy(x => x.Value.MemberInfoMetadata.Name))
             {
@@ -118,7 +118,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
                 ModOptionAttributeMetadata<T> modOptionMetadata = entry.Value;
 
                 string label = modOptionMetadata.ModOptionAttribute.Label;
-                if(Language.main.TryGet(modOptionMetadata.ModOptionAttribute.LabelLanguageId, out string languageLabel))
+                if (Language.main.TryGet(modOptionMetadata.ModOptionAttribute.LabelLanguageId, out string languageLabel))
                 {
                     label = languageLabel;
                 }
@@ -128,7 +128,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
                 InternalLogger.Debug($"[{ConfigFileMetadata.ModName}] [{typeof(T).Name}] Label: {label}");
 
 
-                switch(modOptionMetadata.ModOptionAttribute)
+                switch (modOptionMetadata.ModOptionAttribute)
                 {
                     case ButtonAttribute buttonAttribute:
                         BuildModButtonOption(id, label, modOptionMetadata.MemberInfoMetadata);
@@ -167,7 +167,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
             InternalLogger.Warn($"Failed to add ModButtonOption with id {id} to {Name} as the attribute is not a Method.");
             return;
         }
-        if(!AddItem(ModButtonOption.Create(id, label, memberInfoMetadata.GetMethodAsAction<ButtonClickedEventArgs>(ConfigFileMetadata.Config))))
+        if (!AddItem(ModButtonOption.Create(id, label, memberInfoMetadata.GetMethodAsAction<ButtonClickedEventArgs>(ConfigFileMetadata.Config))))
             InternalLogger.Warn($"Failed to add ModButtonOption with id {id} to {Name} as an option with that id already exists.");
 
         InternalLogger.Debug($"Added ModButtonOption with id {id} to {Name}");
@@ -188,7 +188,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
             // Enum-based choice where the values are parsed from the enum type
             string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
             string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
-            if(!AddItem(ModChoiceOption<string>.Create(id, label, options, value)))
+            if (!AddItem(ModChoiceOption<string>.Create(id, label, options, value)))
                 InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
 
         }
@@ -198,7 +198,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
             string[] options = choiceAttribute.Options;
             string name = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
             int index = Math.Max(Array.IndexOf(Enum.GetNames(memberInfoMetadata.ValueType), name), 0);
-            if(!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
+            if (!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
                 InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
         }
         else if (memberInfoMetadata.ValueType == typeof(string))
@@ -206,7 +206,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
             // string-based choice value
             string[] options = choiceAttribute.Options;
             string value = memberInfoMetadata.GetValue<string>(ConfigFileMetadata.Config);
-            if(!AddItem(ModChoiceOption<string>.Create(id, label, options, value)))
+            if (!AddItem(ModChoiceOption<string>.Create(id, label, options, value)))
                 InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
         }
         else if (memberInfoMetadata.ValueType == typeof(int))
@@ -214,7 +214,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
             // index-based choice value
             string[] options = choiceAttribute.Options;
             int index = memberInfoMetadata.GetValue<int>(ConfigFileMetadata.Config);
-            if(!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
+            if (!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
                 InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
         }
     }
@@ -242,7 +242,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     private void BuildModKeybindOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
     {
         KeyCode value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
-        if(!AddItem(ModKeybindOption.Create(id, label, GameInput.GetPrimaryDevice(), value)))
+        if (!AddItem(ModKeybindOption.Create(id, label, GameInput.GetPrimaryDevice(), value)))
             InternalLogger.Warn($"Failed to add ModKeybindOption with id {id} to {Name}");
     }
 
@@ -264,7 +264,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
             step = Mathf.CeilToInt(step);
         }
 
-        if(!AddItem(ModSliderOption.Create(id, label, sliderAttribute.Min, sliderAttribute.Max,
+        if (!AddItem(ModSliderOption.Create(id, label, sliderAttribute.Min, sliderAttribute.Max,
                Convert.ToSingle(value), sliderAttribute.DefaultValue, sliderAttribute.Format, step, sliderAttribute.Tooltip)))
             InternalLogger.Warn($"Failed to add ModSliderOption with id {id} to {Name}");
     }
@@ -278,7 +278,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     private void BuildModToggleOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
     {
         bool value = memberInfoMetadata.GetValue<bool>(ConfigFileMetadata.Config);
-        if(!AddItem(ModToggleOption.Create(id, label, value)))
+        if (!AddItem(ModToggleOption.Create(id, label, value)))
             InternalLogger.Warn($"Failed to add ModToggleOption with id {id} to {Name}");
     }
     #endregion

@@ -1,5 +1,5 @@
-using System;
 using BepInEx.Logging;
+using System;
 using UnityEngine;
 
 namespace Nautilus.Utility;
@@ -142,7 +142,7 @@ public static class KeyCodeUtils
             default:
                 try
                 {
-                    return (KeyCode)Enum.Parse(typeof(KeyCode), s);
+                    return (KeyCode) Enum.Parse(typeof(KeyCode), s);
                 }
                 catch (Exception)
                 {

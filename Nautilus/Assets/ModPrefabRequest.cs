@@ -1,13 +1,13 @@
-using System.Collections;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using System.Collections;
 using UnityEngine;
 using UWE;
 
 namespace Nautilus.Assets;
 
 // request for getting ModPrefab asynchronously
-internal class ModPrefabRequest: IPrefabRequest, IEnumerator
+internal class ModPrefabRequest : IPrefabRequest, IEnumerator
 {
     private readonly PrefabInfo prefabInfo;
 
@@ -33,7 +33,7 @@ internal class ModPrefabRequest: IPrefabRequest, IEnumerator
             InternalLogger.Error($"Couldn't find a prefab for the following prefab info: {prefabInfo}.");
             return;
         }
-            
+
         task = new CoroutineTask<GameObject>(PrefabHandler.GetPrefabAsync(taskResult, prefabInfo, factory), taskResult);
     }
 
@@ -58,7 +58,7 @@ internal class ModPrefabRequest: IPrefabRequest, IEnumerator
         return state++ == 0;
     }
 
-    public void Reset() {}
+    public void Reset() { }
 
     public void Release()
     {

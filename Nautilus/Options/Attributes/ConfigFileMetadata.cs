@@ -1,12 +1,12 @@
+using Nautilus.Json;
+using Nautilus.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Nautilus.Json;
-using Nautilus.Utility;
-using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
 
@@ -568,66 +568,66 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
             case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType.IsEnum &&
                                                       (choiceAttribute.Options == null || !choiceAttribute.Options.Any()):
                 // Enum-based choice where the values are parsed from the enum type
-            {
-                string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
-                var value = (T)memberInfoMetadata.GetValue(Config);
-                ChoiceChangedEventArgs<T> eventArgs = new(id, Array.IndexOf(options, value), value);
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
+                    var value = (T) memberInfoMetadata.GetValue(Config);
+                    ChoiceChangedEventArgs<T> eventArgs = new(id, Array.IndexOf(options, value), value);
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
             case ChoiceAttribute _ when memberInfoMetadata.ValueType.IsEnum:
                 // Enum-based choice where the values are defined as custom strings
-            {
-                string value = memberInfoMetadata.GetValue(Config).ToString();
-                int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
-                ChoiceChangedEventArgs<string> eventArgs = new(id, index, value);
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    string value = memberInfoMetadata.GetValue(Config).ToString();
+                    int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
+                    ChoiceChangedEventArgs<string> eventArgs = new(id, index, value);
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
             case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType == typeof(string):
                 // string-based choice value
-            {
-                string[] options = choiceAttribute.Options;
-                string value = memberInfoMetadata.GetValue<string>(Config);
-                ChoiceChangedEventArgs<string> eventArgs = new(id, Array.IndexOf(options, value), value);
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    string[] options = choiceAttribute.Options;
+                    string value = memberInfoMetadata.GetValue<string>(Config);
+                    ChoiceChangedEventArgs<string> eventArgs = new(id, Array.IndexOf(options, value), value);
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
             case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType == typeof(int):
                 // index-based choice value
-            {
-                string[] options = choiceAttribute.Options;
-                int index = memberInfoMetadata.GetValue<int>(Config);
-                ChoiceChangedEventArgs<string> eventArgs = new(id, index, options[index]);
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    string[] options = choiceAttribute.Options;
+                    int index = memberInfoMetadata.GetValue<int>(Config);
+                    ChoiceChangedEventArgs<string> eventArgs = new(id, index, options[index]);
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
             case ColorPickerAttribute _:
-            {
-                ColorChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<Color>(Config));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    ColorChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<Color>(Config));
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
 
             case KeybindAttribute _:
-            {
-                KeybindChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<KeyCode>(Config));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    KeybindChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<KeyCode>(Config));
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
 
             case SliderAttribute _:
-            {
-                SliderChangedEventArgs eventArgs = new(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    SliderChangedEventArgs eventArgs = new(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
 
             case ToggleAttribute _:
-            {
-                ToggleChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<bool>(Config));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    ToggleChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<bool>(Config));
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
         }
     }
