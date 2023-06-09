@@ -6,7 +6,7 @@ using Nautilus.Utility;
 #if SUBNAUTICA
 using Sprite = Atlas.Sprite;
 #elif BELOWZERO
-    using Sprite = UnityEngine.Sprite;
+using Sprite = UnityEngine.Sprite;
 #endif
 
 namespace Nautilus.Assets.Gadgets;

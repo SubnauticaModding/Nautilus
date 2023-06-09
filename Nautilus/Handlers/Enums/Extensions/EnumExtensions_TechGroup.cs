@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Nautilus.Handlers;
 using Nautilus.Utility;
 
 // ReSharper disable once CheckNamespace
