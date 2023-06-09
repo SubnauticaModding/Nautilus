@@ -1,10 +1,8 @@
 using Nautilus.Commands;
-using Nautilus.Handlers;
 using Nautilus.Json;
 using Nautilus.Json.Attributes;
 using Nautilus.Options;
 using Nautilus.Options.Attributes;
-using Nautilus.Utility;
 
 namespace Nautilus.Examples;
 
