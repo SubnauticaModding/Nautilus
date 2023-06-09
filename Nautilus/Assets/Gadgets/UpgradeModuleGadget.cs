@@ -25,6 +25,13 @@ public class UpgradeModuleGadget : Gadget
     public double EnergyCost { get; set; }
 
     /// <summary>
+    /// Cooldown for this module.
+    /// Does not work with Toggleable items.
+    /// May not work with certain vehicles.
+    /// </summary>
+    public double Cooldown { get; set; } = 0f;
+
+    /// <summary>
     /// Crush depth of this upgrade.
     /// Leave to -1f to disable
     /// </summary>
@@ -81,22 +88,23 @@ public class UpgradeModuleGadget : Gadget
     /// The delegate is not run when the module is a toggleable.
     /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
     /// </summary>
-    public Action<Vehicle, int, float> delegateOnUsed { get; private set; }
+    public Action<Vehicle, int, float, float> delegateOnUsed { get; private set; }
 
 #if BELOWZERO
     /// <summary>
     /// This happens when the module is used.
     /// The delegate is not run when the module is a togglable.
     /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// <para>The first <c>float</c> represents the current quick slot charge, and the second one represents the charge scalar (a game internal).</para>
     /// </summary>
-    public Action<SeaTruckUpgrades, SeaTruckMotor, int, float> seatruckOnUsed { get; private set; }
+    public Action<SeaTruckUpgrades, SeaTruckMotor, int, float, float> seatruckOnUsed { get; private set; }
 
     /// <summary>
     /// This happens when the module is used.
     /// The delegate is not run when the module is a togglable.
     /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
     /// </summary>
-    public Action<Hoverbike, int, float> hoverbikeOnUsed { get; private set; }
+    public Action<Hoverbike, int, float, float> hoverbikeOnUsed { get; private set; }
 #endif
 
     // ON TOGGLED
@@ -158,6 +166,19 @@ public class UpgradeModuleGadget : Gadget
     public UpgradeModuleGadget WithEnergyCost(double energyCost)
     {
         EnergyCost = energyCost;
+        return this;
+    }
+
+    /// <summary>
+    /// The cooldown of the module when it is used.
+    /// <para>Cooldown may not work with certain vehicles.</para>
+    /// <para>Does not work with toggleable items.</para>
+    /// </summary>
+    /// <param name="cooldown">Cooldown of the module in seconds.</param>
+    /// <returns>A reference to thihs instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithCooldown(double cooldown)
+    {
+        Cooldown = cooldown;
         return this;
     }
 
@@ -263,7 +284,7 @@ public class UpgradeModuleGadget : Gadget
     /// </summary>
     /// <param name="onUsed">Action that occurs when the module is used.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public UpgradeModuleGadget WithOnModuleUsed(Action<Vehicle, int, float> onUsed)
+    public UpgradeModuleGadget WithOnModuleUsed(Action<Vehicle, int, float, float> onUsed)
     {
         delegateOnUsed = onUsed;
         return this;
@@ -274,10 +295,11 @@ public class UpgradeModuleGadget : Gadget
     /// What happens when the module is used ?<br/>
     /// This action is run <b>after</b> Nautilus' default action (cooldown and energy consumption are automatically set).<br/>
     /// For toggle, see also <see cref="WithOnModuleToggled(Action{SeaTruckUpgrades, SeaTruckMotor, int, float, bool})"/>.
+    /// <para>The first <c>float</c> represents the current quick slot charge, and the second one represents the charge scalar (a game internal).</para>
     /// </summary>
     /// <param name="onUsed">Action that occurs when the module is used.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public UpgradeModuleGadget WithOnModuleUsed(Action<SeaTruckUpgrades, SeaTruckMotor, int, float> onUsed)
+    public UpgradeModuleGadget WithOnModuleUsed(Action<SeaTruckUpgrades, SeaTruckMotor, int, float, float> onUsed)
     {
         seatruckOnUsed = onUsed;
         return this;
@@ -286,11 +308,11 @@ public class UpgradeModuleGadget : Gadget
     /// <summary>
     /// What happens when the module is used ?<br/>
     /// This action is run <b>after</b> Nautilus' default action (cooldown and energy consumption are automatically set).<br/>
-    /// For toggle, see also <see cref="WithOnModuleToggled(Action{Hoverbike, int, Floater, bool})"/>.
+    /// For toggle, see also <see cref="WithOnModuleToggled(Action{Hoverbike, int, float, bool})"/>.
     /// </summary>
     /// <param name="onUsed">Action that occurs when the module is used.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public UpgradeModuleGadget WithOnModuleUsed(Action<Hoverbike, int, float> onUsed)
+    public UpgradeModuleGadget WithOnModuleUsed(Action<Hoverbike, int, float, float> onUsed)
     {
         hoverbikeOnUsed = onUsed;
         return this;
@@ -300,7 +322,7 @@ public class UpgradeModuleGadget : Gadget
     /// <summary>
     /// What happens when the module is toggled ?<br/>
     /// This actions is run <b>after</b> Nautilus' default action (energy consumption is automatically set).<br/>
-    /// For use, see also <see cref="WithOnModuleUsed(Action{Vehicle, int, float})"/>.
+    /// For use, see also <see cref="WithOnModuleUsed(Action{Vehicle, int, float, float})"/>.
     /// </summary>
     /// <param name="onToggled">Action that occurs <b>when the module turns on and when it turns off</b>.<br/>
     /// The boolean determines wether it is added or removed (added=true).</param>
@@ -315,7 +337,7 @@ public class UpgradeModuleGadget : Gadget
     /// <summary>
     /// What happens when the module is toggled ?<br/>
     /// This action is run <b>after</b> Nautilus' default action (energy consumption is automatically set)<br/>
-    /// For use, see also <see cref="WithOnModuleUsed(Action{SeaTruckUpgrades, SeaTruckMotor, int, float})"/>.
+    /// For use, see also <see cref="WithOnModuleUsed(Action{SeaTruckUpgrades, SeaTruckMotor, int, float, float})"/>.
     /// </summary>
     /// <param name="onToggled">Action that occurs <b>when the module turns on and when it turns off</b>.<br/>
     /// The boolean determines wether it is added or removed (added=true).</param>
@@ -329,7 +351,7 @@ public class UpgradeModuleGadget : Gadget
     /// <summary>
     /// What happens when the module is toggled ?<br/>
     /// This action is run <b>after</b> Nautilus' default action (energy consumption is automatically set)<br/>
-    /// For use, see also <see cref="WithOnModuleUsed(Action{Hoverbike, int, float})"/>
+    /// For use, see also <see cref="WithOnModuleUsed(Action{Hoverbike, int, float, float})"/>
     /// </summary>
     /// <param name="onToggled"></param>
     /// <returns></returns>

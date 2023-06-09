@@ -2,7 +2,10 @@ using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
+using Steamworks;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using OpCodes = System.Reflection.Emit.OpCodes;
 
 namespace Nautilus.Patchers;
 internal class VehicleUpgradesPatcher
@@ -112,6 +115,48 @@ internal class VehicleUpgradesPatcher
 
         if (moduleGadget.seatruckOnAdded != null && added)
             moduleGadget.seatruckOnAdded.Invoke(__instance, __instance.motor, slotID);
+    }
+
+
+
+    private static void DelegateUseCallback(SeaTruckUpgrades __instance, int slotID, TechType techType)
+    {
+        if (!SeatruckUpgradeModules.TryGetValue(techType, out var prefab))
+            return;
+
+        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+            return;
+
+        float quickSlotCharge = __instance.quickSlotCharge[slotID];
+        float chargeScalar = ((IQuickSlots) __instance).GetSlotCharge(slotID);
+        if (moduleGadget.seatruckOnUsed != null)
+            moduleGadget.seatruckOnUsed.Invoke(__instance, __instance.motor, slotID, quickSlotCharge, chargeScalar);
+        __instance.quickSlotCooldown[slotID] = (float) moduleGadget.Cooldown;
+    }
+
+    [HarmonyTranspiler]
+    [HarmonyPatch(typeof(SeaTruckUpgrades), nameof(SeaTruckUpgrades.OnUpgradeModuleUse))]
+    private static IEnumerable<CodeInstruction> DelegateModuleUseCallback(IEnumerable<CodeInstruction> instructions)
+    {
+
+
+        var returnIndex = 0;
+        foreach(CodeInstruction instruction in instructions)
+        {
+            if(instruction.opcode == OpCodes.Ret)
+            {
+                returnIndex += 1;
+                if(returnIndex == 2)
+                {
+                    yield return new CodeInstruction(OpCodes.Ldarg_0);
+                    yield return new CodeInstruction(OpCodes.Ldarg_2);
+                    yield return new CodeInstruction(OpCodes.Ldarg_1);
+                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(VehicleUpgradesPatcher), nameof(VehicleUpgradesPatcher.DelegateUseCallback)));
+                }
+            }
+            yield return instruction;
+
+        }
     }
 
     [HarmonyPrefix]
