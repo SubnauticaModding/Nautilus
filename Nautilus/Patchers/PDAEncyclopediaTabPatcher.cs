@@ -1,6 +1,5 @@
 using HarmonyLib;
 using Nautilus.Handlers;
-using System;
 
 namespace Nautilus.Patchers;
 
