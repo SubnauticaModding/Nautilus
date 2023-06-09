@@ -9,21 +9,21 @@ namespace Nautilus.Handlers;
 /// </summary>
 public static class ModDatabankHandler
 {
-    private static bool isInit;
-    private static List<PDAEncyclopedia.EntryData> waitList = new();
-    internal static bool isEnabled = true;
-    internal static void Initialize(uGUI_EncyclopediaTab tab)
+    private static bool _isInit;
+    private static List<PDAEncyclopedia.EntryData> _waitList = new();
+    internal static bool _isEnabled = true;
+    internal static void Initialize()
     {
         LanguageHandler.SetLanguageLine("EncyPath_Mods", "Mods");
-        isinit = true;
-        foreach (var data in waitList)
+        _isInit = true;
+        foreach (var data in _waitList)
         {
             CompleteRegister(data);
         }
     }
     private static void CompleteRegister(PDAEncyclopedia.EntryData data)
     {
-        if (isInit && isEnabled)
+        if (_isInit && _isEnabled)
         {
             InternalLogger.Info($"{data.key} entry added.");
             PDAHandler.AddEncyclopediaEntry(data);
@@ -35,7 +35,7 @@ public static class ModDatabankHandler
         }
         else
         {
-            waitList.Add(data);
+            _waitList.Add(data);
         }
     }
     /// <summary>
