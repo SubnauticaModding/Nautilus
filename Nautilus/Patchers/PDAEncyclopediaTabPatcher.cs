@@ -14,6 +14,6 @@ internal class PDAEncyclopediaTabPatcher
     [HarmonyPostfix]
     internal static void EncyTabAwakePostfix(uGUI_EncyclopediaTab __instance)
     {
-      ModDatabankHandler.Initialize(__instance);
+      ModDatabankHandler.Initialize();
     }
 }
