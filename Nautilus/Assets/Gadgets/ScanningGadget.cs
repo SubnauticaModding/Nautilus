@@ -41,6 +41,16 @@ public class ScanningGadget : Gadget
     public TechCategory CategoryForPda { get; set; }
 
     /// <summary>
+    /// Whether to add after or insert before the target, for sorting purposes.
+    /// </summary>
+    public bool PdaAppendAfter { get; set; }
+
+    /// <summary>
+    /// It will be added/inserted next to this item or at the end/beginning if not found.
+    /// </summary>
+    public TechType PdaSortTarget { get; set; }
+
+    /// <summary>
     /// Adds an encyclopedia entry for this item in the PDA.
     /// </summary>
     public PDAEncyclopedia.EntryData EncyclopediaEntryData { get; set; }
@@ -88,7 +98,7 @@ public class ScanningGadget : Gadget
     /// <summary>
     /// Adds this item into a blueprint category to appear in.
     /// </summary>
-    /// <param name="group">The main group in the PDA blueprints where this item appears</param>
+    /// <param name="group">The main group in the PDA blueprints where this item appears.</param>
     /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
@@ -97,6 +107,52 @@ public class ScanningGadget : Gadget
     {
         GroupForPda = group;
         CategoryForPda = category;
+        PdaAppendAfter = true;
+        PdaSortTarget = TechType.None;
+        if (uGUI_BuilderMenu.groups.Contains(group))
+        {
+            SetBuildable();
+        }
+        return this;
+    }
+
+    /// <summary>
+    /// Adds this item into a blueprint category to appear in.
+    /// </summary>
+    /// <param name="group">The main group in the PDA blueprints where this item appears.</param>
+    /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
+    /// <param name="target">It will be added after this target item or at the end if not found.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
+    /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="SetBuildable"/> method.</remarks>
+    public ScanningGadget WithPdaGroupCategoryAfter(TechGroup group, TechCategory category, TechType target = TechType.None)
+    {
+        GroupForPda = group;
+        CategoryForPda = category;
+        PdaAppendAfter = true;
+        PdaSortTarget = target;
+        if (uGUI_BuilderMenu.groups.Contains(group))
+        {
+            SetBuildable();
+        }
+        return this;
+    }
+
+    /// <summary>
+    /// Adds this item into a blueprint category to appear in.
+    /// </summary>
+    /// <param name="group">The main group in the PDA blueprints where this item appears.</param>
+    /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
+    /// <param name="target">It will be inserted before this target item or at the beginning if not found.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
+    /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="SetBuildable"/> method.</remarks>
+    public ScanningGadget WithPdaGroupCategoryBefore(TechGroup group, TechCategory category, TechType target = TechType.None)
+    {
+        GroupForPda = group;
+        CategoryForPda = category;
+        PdaAppendAfter = false;
+        PdaSortTarget = target;
         if (uGUI_BuilderMenu.groups.Contains(group))
         {
             SetBuildable();
@@ -215,7 +271,7 @@ public class ScanningGadget : Gadget
             CraftData.GetBuilderCategories(GroupForPda, categories);
             if (categories.Contains(CategoryForPda))
             {
-                CraftDataHandler.AddToGroup(GroupForPda, CategoryForPda, prefab.Info.TechType);
+                CraftDataHandler.AddToGroup(GroupForPda, CategoryForPda, prefab.Info.TechType, PdaAppendAfter, PdaSortTarget);
             }
             else
             {
