@@ -2,6 +2,9 @@
 #if SUBNAUTICA
 namespace Nautilus.Handlers;
 
+using Nautilus.Crafting;
+using Nautilus.Patchers;
+
 #if SUBNAUTICA
 using static CraftData;
 #endif

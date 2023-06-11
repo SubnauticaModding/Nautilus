@@ -187,5 +187,44 @@ public class CustomPrefabExamples : BaseUnityPlugin
          */
         depthUpgrade.Register();
         Logger.LogDebug("Registered depth upgrade.");
+
+        /*
+         * Now, let's try to do that with an interactable module !
+         */
+
+        PrefabInfo SelfDefenseMK2Info = PrefabInfo
+            .WithTechType("PerimeterDefenseMK2", "Perimeter Defense MK2 for Seamoth", "A new electrical defense for Seamoth")
+            .WithIcon(SpriteManager.Get(TechType.SeamothElectricalDefense));
+
+        CustomPrefab selfDefMK2prefab = new CustomPrefab(SelfDefenseMK2Info);
+        CloneTemplate selfDefClone = new CloneTemplate(SelfDefenseMK2Info, TechType.SeamothElectricalDefense);
+
+        selfDefMK2prefab.SetGameObject(selfDefClone);
+
+        selfDefMK2prefab.SetRecipe(new Crafting.RecipeData()
+            {
+                craftAmount = 1,
+                Ingredients = new List<CraftData.Ingredient>()
+                {
+                    new CraftData.Ingredient(TechType.SeamothElectricalDefense),
+                    new CraftData.Ingredient(TechType.Diamond, 2)
+                }
+            })
+            .WithFabricatorType(CraftTree.Type.Workbench);
+
+        selfDefMK2prefab.SetEquipment(EquipmentType.SeamothModule)
+            .WithQuickSlotType(QuickSlotType.SelectableChargeable)
+            .SetUpgradeModule()
+            .WithCooldown(2.5f)
+            .WithEnergyCost(10f)
+            .WithMaxCharge(25f)
+            .WithOnModuleUsed((Vehicle vehicleInst, int slotID, float charge, float chargeScalar) =>
+            {
+                var __instance = vehicleInst as SeaMoth;
+                ElectricalDefense defense = Utils.SpawnZeroedAt(__instance.seamothElectricalDefensePrefab, __instance.transform, false).GetComponent<ElectricalDefense>();
+                defense.charge = charge;
+                defense.chargeScalar = chargeScalar;
+            });
+        selfDefMK2prefab.Register();
     }
 }

@@ -1,10 +1,14 @@
 using HarmonyLib;
+using HarmonyLib.Tools;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
-using Steamworks;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using UnityEngine;
 using OpCodes = System.Reflection.Emit.OpCodes;
 
 namespace Nautilus.Patchers;
@@ -21,14 +25,18 @@ internal class VehicleUpgradesPatcher
 
     internal static void Patch(Harmony harmony)
     {
+        HarmonyFileLog.Enabled = true;
         harmony.PatchAll(typeof(VehicleUpgradesPatcher));
     }
 
 #if SUBNAUTICA
-
+    //
+    // SEAMOTH
+    // ON CHANGE + HULL UPGRADE FIX
+    //
     [HarmonyPostfix]
     [HarmonyPatch(typeof(SeaMoth), nameof(SeaMoth.OnUpgradeModuleChange))]
-    private static void DelegateModuleChangeCallback(SeaMoth __instance, int slotID, TechType techType, bool added)
+    private static void SeamothDelegateModuleChangeCallback(SeaMoth __instance, int slotID, TechType techType, bool added)
     {
         if (!SeamothUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
             return;
@@ -43,24 +51,10 @@ internal class VehicleUpgradesPatcher
             moduleGadget.delegateOnAdded.Invoke(__instance, slotID);
     }
 
-    private static void HullModuleCallback(SeaMoth __instance, TechType techType, Dictionary<TechType, float> crushDepthDictionaryReference)
-    {
-        if (!SeamothUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
-            return;
-
-        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-            return;
-
-        if (moduleGadget.CrushDepth == -1f)
-            return;
-
-        crushDepthDictionaryReference.Add(prefab.Info.TechType, moduleGadget.CrushDepth);
-    }
-
     [HarmonyPrefix]
     [HarmonyPostfix]
     [HarmonyPatch(typeof(SeaMoth), nameof(SeaMoth.OnUpgradeModuleChange))]
-    private static void OnUpgradeModuleHull(SeaMoth __instance, int slotID, TechType techType, bool added)
+    private static void SeamothOnUpgradeModuleHull(SeaMoth __instance, int slotID, TechType techType, bool added)
     {
         Dictionary<TechType, float> CrushDepthUpgrades = new()
         {
@@ -81,7 +75,9 @@ internal class VehicleUpgradesPatcher
                 700f
             }
         };
-        HullModuleCallback(__instance, techType, CrushDepthUpgrades);
+        SeamothUpgradeModules.DoIf(
+            (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth != -1f,
+            (KeyValuePair<TechType, ICustomPrefab> mapElem) => CrushDepthUpgrades.Add(mapElem.Key, mapElem.Value.GetGadget<UpgradeModuleGadget>().CrushDepth));
 
         float num = 0f;
         for (int i = 0; i < __instance.slotIDs.Length; i++)
@@ -99,6 +95,52 @@ internal class VehicleUpgradesPatcher
         }
         __instance.crushDamage.SetExtraCrushDepth(num);
     }
+
+
+    //
+    // SEAMOTH
+    // ON USE
+    // 
+    public static void SeamothDelegateUse(SeaMoth __instance, ref float cooldown, int slotID, TechType techType)
+    {
+        if (!SeamothUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
+            return;
+
+        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+            return;
+
+        float quickSlotCharge = __instance.quickSlotCharge[slotID];
+        float chargeScalar = __instance.GetSlotCharge(slotID);
+
+        moduleGadget.delegateOnUsed?.Invoke(__instance, slotID, quickSlotCharge, chargeScalar);
+
+        if (moduleGadget.Cooldown > 0f)
+            cooldown = (float)moduleGadget.Cooldown;
+    }
+    [HarmonyDebug]
+    [HarmonyTranspiler]
+    [HarmonyPatch(typeof(SeaMoth), nameof(SeaMoth.OnUpgradeModuleUse))]
+    private static IEnumerable<CodeInstruction> OnUpgradeModuleUse(IEnumerable<CodeInstruction> instructions)
+    {
+        InternalLogger.Log("Transpiling SeaMoth OnUpgradeModuleUse!", BepInEx.Logging.LogLevel.Debug);
+        var matcher = new CodeMatcher(instructions);
+
+        matcher.MatchForward(true,
+                new CodeMatch(OpCodes.Ldstr, "VehicleTorpedoNoAmmo"),
+                new CodeMatch(OpCodes.Callvirt),
+                new CodeMatch(OpCodes.Call))
+            .Advance(3)
+            .Insert(
+                new CodeInstruction(OpCodes.Ldarg_0),
+                new CodeInstruction(OpCodes.Ldloca_S, 1),
+                new CodeInstruction(OpCodes.Ldarg_2),
+                new CodeInstruction(OpCodes.Ldarg_1),
+                Transpilers.EmitDelegate(SeamothDelegateUse)
+            );
+
+        return matcher.InstructionEnumeration(); 
+    }
+
 #elif BELOWZERO
     [HarmonyPostfix]
     [HarmonyPatch(typeof(SeaTruckUpgrades), nameof(SeaTruckUpgrades.OnUpgradeModuleChange))]
@@ -131,6 +173,7 @@ internal class VehicleUpgradesPatcher
         float chargeScalar = ((IQuickSlots) __instance).GetSlotCharge(slotID);
         if (moduleGadget.seatruckOnUsed != null)
             moduleGadget.seatruckOnUsed.Invoke(__instance, __instance.motor, slotID, quickSlotCharge, chargeScalar);
+        __instance.quickSlotTimeUsed[slotID] = Time.time;
         __instance.quickSlotCooldown[slotID] = (float) moduleGadget.Cooldown;
     }
 
@@ -138,25 +181,19 @@ internal class VehicleUpgradesPatcher
     [HarmonyPatch(typeof(SeaTruckUpgrades), nameof(SeaTruckUpgrades.OnUpgradeModuleUse))]
     private static IEnumerable<CodeInstruction> DelegateModuleUseCallback(IEnumerable<CodeInstruction> instructions)
     {
+        var matcher = new CodeMatcher();
 
+        matcher
+            .MatchForward(false, new CodeMatch(OpCodes.Ret))
+            .MatchForward(false, new CodeMatch(OpCodes.Ret))
+            .Insert(
+                new CodeInstruction(OpCodes.Ldarg_0),
+                new CodeInstruction(OpCodes.Ldarg_2),
+                new CodeInstruction(OpCodes.Ldarg_1),
+                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(VehicleUpgradesPatcher), nameof(VehicleUpgradesPatcher.DelegateUseCallback)))
+            );
 
-        var returnIndex = 0;
-        foreach(CodeInstruction instruction in instructions)
-        {
-            if(instruction.opcode == OpCodes.Ret)
-            {
-                returnIndex += 1;
-                if(returnIndex == 2)
-                {
-                    yield return new CodeInstruction(OpCodes.Ldarg_0);
-                    yield return new CodeInstruction(OpCodes.Ldarg_2);
-                    yield return new CodeInstruction(OpCodes.Ldarg_1);
-                    yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(VehicleUpgradesPatcher), nameof(VehicleUpgradesPatcher.DelegateUseCallback)));
-                }
-            }
-            yield return instruction;
-
-        }
+        return matcher.InstructionEnumeration();
     }
 
     [HarmonyPrefix]

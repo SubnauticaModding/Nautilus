@@ -1,6 +1,7 @@
 using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
+using Story;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
