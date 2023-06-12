@@ -1,5 +1,6 @@
 using HarmonyLib;
 using Nautilus.Utility;
+using System;
 using System.Collections;
 using System.Reflection;
 using UnityEngine;
@@ -39,7 +40,7 @@ internal class SMLHelperCompatibilityPatcher
         yield return null;
 
         UnpatchSMLHelperOptionsMethods(harmony);
-        FixSMLHelperRuntimeException(harmony);
+        FixSMLHelperOptionsException(harmony);
     }
 
     private static void UnpatchSMLHelperOptionsMethods(Harmony harmony)
@@ -58,10 +59,10 @@ internal class SMLHelperCompatibilityPatcher
     }
 
     // Fix what should have been a compiler error (source can be seen here: https://github.com/SubnauticaModding/Nautilus/blob/f3d5de3e36b61a7f26291ef4725eadcb5c4de2a5/SMLHelper/Options/ModOptions.cs#L157)
-    private static void FixSMLHelperRuntimeException(Harmony harmony)
+    private static void FixSMLHelperOptionsException(Harmony harmony)
     {
         harmony.Patch(
-            AccessTools.Method(AccessTools.TypeByName("SMLHelper.V2.Options.ModOption.ModOptionAdjust"), "Awake"),
+            AccessTools.Method(Type.GetType("SMLHelper.V2.Options.ModOption.ModOptionAdjust"), "Awake"),
             prefix: new HarmonyMethod(typeof(SMLHelperCompatibilityPatcher), nameof(ModOptionAdjustAwakePrefix)));
     }
 
