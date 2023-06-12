@@ -13,12 +13,14 @@ namespace Nautilus.Patchers;
 // Thanks SMLHelper... This disgusting code unpatches most options patches that were done by SMLHelper in order to force compatibility, and also fixes major errors
 internal class SMLHelperCompatibilityPatcher
 {
-    private const string SMLHarmonyInstance = "com.ahk1221.smlhelper";
+    private const string SMLHarmonyInstance = "com.ahk1221.smlhelper"; // This string is both the harmony instance & plugin GUID
     private const string SMLAssemblyName = "SMLHelper";
+
+    private static Assembly _smlHelperAssembly;
 
     internal static void Patch(Harmony harmony)
     {
-        if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ahk1221.smlhelper"))
+        if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SMLHarmonyInstance))
         {
             CoroutineHost.StartCoroutine(WaitOnSMLHelperForPatches(harmony));
         }
@@ -42,11 +44,13 @@ internal class SMLHelperCompatibilityPatcher
 
         yield return null;
 
-        UnpatchSMLHelperOptionsMethods(harmony);
-        FixSMLHelperOptionsException(harmony);
+        InternalLogger.Log("Patching SMLHelper compatibility fixes", BepInEx.Logging.LogLevel.Info);
+
+        UnpatchSMLOptionsMethods(harmony);
+        FixSMLOptionsException(harmony);
     }
 
-    private static void UnpatchSMLHelperOptionsMethods(Harmony harmony)
+    private static void UnpatchSMLOptionsMethods(Harmony harmony)
     {
         // Here, we unpatch SML's option panel patches to every method EXCEPT the postfix to uGUI_OptionsPanel.AddTabs
 
@@ -61,38 +65,84 @@ internal class SMLHelperCompatibilityPatcher
         harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab)), HarmonyPatchType.Postfix, SMLHarmonyInstance);
     }
 
-    // Fix what should have been a compiler error (source can be seen here: https://github.com/SubnauticaModding/Nautilus/blob/f3d5de3e36b61a7f26291ef4725eadcb5c4de2a5/SMLHelper/Options/ModOptions.cs#L157)
-    private static void FixSMLHelperOptionsException(Harmony harmony)
+    // Fix what should have been a compiler error (cause of error is this line: https://github.com/SubnauticaModding/Nautilus/blob/f3d5de3e36b61a7f26291ef4725eadcb5c4de2a5/SMLHelper/Options/ModOptions.cs#L157)
+    // Here we just use Nautilus's version of the ModOptionAdjust components, instead of the old SMLHelper ones.
+    // We can't patch that single Awake line because it would provide a compiler error, meaning it's unpatchable.
+    private static void FixSMLOptionsException(Harmony harmony)
     {
-        harmony.Patch(
-            AccessTools.Method(GetSMLType("SMLHelper.V2.Options.ModOption+ModOptionAdjust"), "Awake"),
-            prefix: new HarmonyMethod(typeof(SMLHelperCompatibilityPatcher), nameof(ModOptionAdjustAwakePrefix)));
+        var modOptionBaseClass = GetSMLType("SMLHelper.V2.Options.ModOption");
+        var typesToPatch = new Type[]
+        {
+            GetSMLType("SMLHelper.V2.Options.ModChoiceOption"),
+            GetSMLType("SMLHelper.V2.Options.ModKeybindOption"),
+            GetSMLType("SMLHelper.V2.Options.ModSliderOption"),
+            GetSMLType("SMLHelper.V2.Options.ModToggleOption")
+        };
+        var modChoiceOptionType = GetSMLType("SMLHelper.V2.Options.ModChoiceOption");
+        foreach (var type in typesToPatch)
+        {
+            harmony.Patch(
+                AccessTools.PropertyGetter(type, "AdjusterComponent"),
+                prefix: new HarmonyMethod(typeof(SMLHelperCompatibilityPatcher), nameof(ChangeAdjusterComponentPrefix))
+                );
+        }
     }
 
-    [HarmonyPrefix]
-    private static bool ModOptionAdjustAwakePrefix(object __instance)
+    // This method swaps out the old (broken) ModOption.ModOptionAdjust components with the new Nautilus ones
+    // __instance is of type SMLHelper.V2.Options.ModOption
+    private static bool ChangeAdjusterComponentPrefix(object __instance, ref Type __result)
     {
-        var asMonoBehaviour = (MonoBehaviour) __instance;
-        // use the same logic we use in Nautilus's own version of the component
-        var isMainMenu = asMonoBehaviour.gameObject.GetComponentInParent<uGUI_MainMenu>() != null;
-        // use good old reflection to avoid having SMLHelper as a dependency
-        __instance.SetInstanceField("isMainMenu", isMainMenu);
-        return false; // SKIP ORIGINAL TO AVOID TYPE LOAD EXCEPTION
+        var typeName = __instance.GetType().Name;
+        switch (typeName)
+        {
+            // The cases are the SMLHelper option classes, and __result is set equal to the new Nautilus adjust types
+            case "ModToggleOption":
+                __result = typeof(ModToggleOption.ToggleOptionAdjust);
+                break;
+            case "ModChoiceOption":
+                __result = typeof(ChoiceOptionAdjust);
+                break;
+            case "ModSliderOption":
+                __result = typeof(ModSliderOption.SliderOptionAdjust);
+                break;
+            case "ModKeybindOption":
+                __result = typeof(ModKeybindOption.BindingOptionAdjust);
+                break;
+        }
+        return false;
+    }
+
+    private static Assembly GetSMLAssembly()
+    {
+        if (_smlHelperAssembly != null)
+        {
+            return _smlHelperAssembly;
+        }
+        foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            if (assembly.GetName().Name == SMLAssemblyName)
+            {
+                _smlHelperAssembly = assembly;
+            }
+        }
+        return _smlHelperAssembly;
     }
 
     private static Type GetSMLType(string typeName)
     {
-        foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
+        var assembly = GetSMLAssembly();
+        return assembly.GetType(typeName);
+    }
+
+    // Works with types that have full names like SMLHelper.V2.Options.ModOption+ModOptionAdjust... IDK why the other method does not work as intended for subclasses
+    private static Type GetSMLTypeByFullName(string typeName)
+    {
+        var assembly = GetSMLAssembly();
+        foreach (var type in assembly.GetTypes())
         {
-            if (a.GetName().Name == SMLAssemblyName)
+            if (type.ToString() == typeName)
             {
-                foreach (var type in a.GetTypes())
-                {
-                    if (type.ToString() == typeName)
-                    {
-                        return type;
-                    }
-                }
+                return type;
             }
         }
         return null;
