@@ -12,6 +12,8 @@ using Handlers;
 using HarmonyLib;
 using UnityEngine;
 
+#pragma warning disable IDE1006 // Suppress warnings related to "Naming Styles"
+
 [BepInPlugin("com.snmodding.nautilus.configexample", "Nautilus Config Example Mod", PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
 public class ConfigExamples : BaseUnityPlugin
@@ -31,7 +33,7 @@ public class ConfigExamples : BaseUnityPlugin
     {
 
         LogSource = Logger;
-
+        ModDatabankHandler.RegisterMod(Info);
         /// Here, we are setting up a instance of <see cref="Config"/>, which will automatically generate an 
         /// options menu using Attributes. The values in this instance will be updated whenever the user changes 
         /// the corresponding option in the menu.

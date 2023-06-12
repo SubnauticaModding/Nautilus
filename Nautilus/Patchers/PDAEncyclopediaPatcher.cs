@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+using System.Collections.Generic;
+using HarmonyLib;
 using Nautilus.Utility;
 using System.Collections.Generic;
 
