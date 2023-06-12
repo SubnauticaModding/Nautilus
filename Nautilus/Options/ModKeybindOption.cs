@@ -116,7 +116,7 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
 
     internal class ModBindingTag: MonoBehaviour { };
 
-    private class BindingOptionAdjust: ModOptionAdjust
+    internal class BindingOptionAdjust: ModOptionAdjust
     {
         private const float spacing = 10f;
 

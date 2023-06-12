@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -63,7 +63,7 @@ public class ModToggleOption : ModOption<bool, ToggleChangedEventArgs>
         return new ModToggleOption(id, label, value, tooltip);
     }
 
-    private class ToggleOptionAdjust: ModOptionAdjust
+    internal class ToggleOptionAdjust: ModOptionAdjust
     {
         private const float spacing = 20f;
 
