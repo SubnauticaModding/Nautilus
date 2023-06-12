@@ -9,11 +9,11 @@ using Nautilus.Options;
 
 namespace Nautilus.Patchers;
 
-// Thanks SMLHelper... This disgusting code fixes many of the bugs caused by SMLHelper with patching, in order to force compatibility
+// Thanks SMLHelper... This disgusting code fixes many of the bugs caused by SMLHelper with patching, in order to force compatibility.
 // This class can be SAFELY removed if we ever decide to make Nautilus incompatible with SMLHelper (which it already kinda is...)
 internal class SMLHelperCompatibilityPatcher
 {
-    private const string SMLHarmonyInstance = "com.ahk1221.smlhelper"; // This string is both the harmony instance & plugin GUID
+    private const string SMLHarmonyInstance = "com.ahk1221.smlhelper"; // This string is both the harmony instance & plugin GUID.
     private const string SMLAssemblyName = "SMLHelper";
 
     private static Assembly _smlHelperAssembly;
@@ -28,7 +28,7 @@ internal class SMLHelperCompatibilityPatcher
 
     private static IEnumerator WaitOnSMLHelperForPatches(Harmony harmony)
     {
-        // This code is arbitrary but was taken from an older version of SMLHelper so that this patch applies only AFTER has been patched
+        // This code is arbitrary but was taken from an older version of SMLHelper so that this patch applies only AFTER has been patched.
 
         var chainLoader = typeof(BepInEx.Bootstrap.Chainloader);
 
@@ -40,7 +40,7 @@ internal class SMLHelperCompatibilityPatcher
 
         yield return new WaitForSecondsRealtime(2);
 
-        // Waiting an extra frame is CRUCIAL!
+        // Waiting an extra frame is CRUCIAL to avoid race conditions.
 
         yield return null;
 
@@ -53,8 +53,8 @@ internal class SMLHelperCompatibilityPatcher
     private static void UnpatchSMLOptionsMethods(Harmony harmony)
     {
         /* Here, we unpatch SML's option panel patches to every method EXCEPT the following:
-        * The postfix to uGUI_OptionsPanel.AddTabs
-        * The prefix to uGUI_Binding.RefreshValue
+        * The postfix to uGUI_OptionsPanel.AddTabs (needed for SML options to actually appear)
+        * The prefix to uGUI_Binding.RefreshValue (needed for keybinds)
         */
 
         harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddTab)), HarmonyPatchType.Postfix, SMLHarmonyInstance);
@@ -90,14 +90,14 @@ internal class SMLHelperCompatibilityPatcher
         }
     }
 
-    // This method swaps out the old (broken) ModOption.ModOptionAdjust components with the new Nautilus ones
+    // This method swaps out the old (broken) ModOption.ModOptionAdjust components with the new Nautilus ones.
     // __instance is of type SMLHelper.V2.Options.ModOption
     private static bool ChangeAdjusterComponentPrefix(object __instance, ref Type __result)
     {
         var typeName = __instance.GetType().Name;
         switch (typeName)
         {
-            // The cases are the SMLHelper option classes, and __result is set equal to the new Nautilus adjust types
+            // The cases are the SMLHelper option classes, and __result is set equal to the new Nautilus adjust types.
             case "ModToggleOption":
                 __result = typeof(ModToggleOption.ToggleOptionAdjust);
                 break;
@@ -136,7 +136,7 @@ internal class SMLHelperCompatibilityPatcher
         return assembly.GetType(typeName);
     }
 
-    // Works with types that have full names like SMLHelper.V2.Options.ModOption+ModOptionAdjust... IDK why the other method does not work as intended for subclasses
+    // Might be necessary for types that are subclasses like "SMLHelper.V2.Options.ModOption+ModOptionAdjust", notice the + symbol there
     private static Type GetSMLTypeByFullName(string typeName)
     {
         var assembly = GetSMLAssembly();
