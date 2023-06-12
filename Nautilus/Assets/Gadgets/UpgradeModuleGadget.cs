@@ -37,6 +37,12 @@ public class UpgradeModuleGadget : Gadget
     /// </summary>
     public float CrushDepth { get; set; } = -1f;
 
+    /// <summary>
+    /// Wether the depth provided should be absolute or added to the default depth of the vehicle.
+    /// Default value is false.
+    /// </summary>
+    public bool AbsoluteDepth { get; set; } = false;
+
 
     // ON ADDED
 
@@ -157,6 +163,21 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
+    /// The maximum charge of the item.<br/>
+    /// Usually used as a multiplier for vehicle modules.<br/>
+    /// (Seamoth defense perimeter, Seatruck defense perimeter)
+    /// <para>This overload of the function allows you to pass a reference of an existing value.<br/>
+    /// It can be used if you want the max charge to be configurable on runtime.</para>
+    /// </summary>
+    /// <param name="maxCharge">Reference to a double that will be used as charge mutliplier.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithMaxCharge(ref double maxCharge)
+    {
+        MaxCharge = maxCharge;
+        return this;
+    }
+
+    /// <summary>
     /// The energy cost of the item.
     /// Usually used for vehicle modules to consume energy.
     /// (Seamoth perimeter defense, Seamoth sonar)
@@ -170,9 +191,24 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
+    /// The energy cost of the item.<br/>
+    /// Usually used for vehicle modules to consume energy.<br/>
+    /// (Seamoth perimeter defense, Seamoth sonar)
+    /// <para>This overload of the function allows you to pass a reference to an existing value.<br/>
+    /// It can be used if you want the energy cost to be configurable.</para>
+    /// </summary>
+    /// <param name="energyCost">Reference to a double that will be used as energy cost.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithEnergyCost(ref double energyCost)
+    {
+        EnergyCost = energyCost;
+        return this;
+    }
+
+    /// <summary>
     /// The cooldown of the module when it is used.
     /// <para>Cooldown may not work with certain vehicles.</para>
-    /// <para>Does not work with toggleable items.</para>
+    /// <para>Does not work with toggleable and passive items.</para>
     /// </summary>
     /// <param name="cooldown">Cooldown of the module in seconds.</param>
     /// <returns>A reference to thihs instance after the operation has completed.</returns>
@@ -183,13 +219,45 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
+    /// The cooldown of the module when it is used.
+    /// <para>Cooldown may not work with certain vehicles.</para>
+    /// <para>Does not work with toggleable and passive items.</para>
+    /// <para>This overload of the function allows you to pass a reference to an existing value.<br/>
+    /// It can be used if you want the cooldown to be configurable.</para>
+    /// </summary>
+    /// <param name="cooldown">Reference to a double that will be used as energy cost.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithCooldown(ref double cooldown)
+    {
+        Cooldown = cooldown;
+        return this;
+    }
+
+    /// <summary>
     /// Sets the crush depth given by this upgrade.
     /// </summary>
     /// <param name="newCrushDepth">New crush depth, in meters.</param>
-    /// <returns></returns>
-    public UpgradeModuleGadget WithDepthUpgrade(float newCrushDepth)
+    /// <param name="absolute">Wether the provided depth should be absolute or added to the default max depth of the vehicle.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithDepthUpgrade(float newCrushDepth, bool absolute = false)
     {
         CrushDepth = newCrushDepth;
+        AbsoluteDepth = absolute;
+        return this;
+    }
+
+    /// <summary>
+    /// Sets the crush depth given by this upgrade.
+    /// <para>This overload of the function allows you to pass a reference to an existing value.<br/>
+    /// It can be used if you want the depth upgrade to be configurable.</para>
+    /// </summary>
+    /// <param name="newCrushDepth">Reference to a float that will be used as crush depth.</param>
+    /// <param name="absolute">Wether the provided depth should be absolute or added to the default max depth of the vehicle.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public UpgradeModuleGadget WithDepthUpgrade(ref float newCrushDepth, bool absolute = false)
+    {
+        CrushDepth = newCrushDepth;
+        AbsoluteDepth = absolute;
         return this;
     }
 

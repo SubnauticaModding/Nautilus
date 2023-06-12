@@ -79,21 +79,27 @@ internal class VehicleUpgradesPatcher
             (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth != -1f,
             (KeyValuePair<TechType, ICustomPrefab> mapElem) => CrushDepthUpgrades.Add(mapElem.Key, mapElem.Value.GetGadget<UpgradeModuleGadget>().CrushDepth));
 
-        float num = 0f;
-        for (int i = 0; i < __instance.slotIDs.Length; i++)
+        var newCrushDepth = 0f;
+        var absolute = false;
+        for (var i = 0; i < __instance.slotIDs.Length; i++)
         {
             string slot = __instance.slotIDs[i];
             TechType techTypeInSlot = __instance.modules.GetTechTypeInSlot(slot);
             if (CrushDepthUpgrades.ContainsKey(techTypeInSlot))
             {
-                float num2 = CrushDepthUpgrades[techTypeInSlot];
-                if (num2 > num)
+                float crushDepthToCheck = CrushDepthUpgrades[techTypeInSlot];
+                if (crushDepthToCheck > newCrushDepth)
                 {
-                    num = num2;
+                    newCrushDepth = crushDepthToCheck;
+                    if(SeamothUpgradeModules[techTypeInSlot].TryGetGadget(out UpgradeModuleGadget moduleGadget))
+                        absolute = moduleGadget.AbsoluteDepth;
                 }
             }
         }
-        __instance.crushDamage.SetExtraCrushDepth(num);
+        if(absolute)
+            __instance.crushDamage.crushDepth = newCrushDepth;
+        else
+            __instance.crushDamage.SetExtraCrushDepth(newCrushDepth);
     }
 
 
