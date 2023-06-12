@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Options;
 using Nautilus.Utility;
 using Newtonsoft.Json;
@@ -91,6 +92,7 @@ internal class OptionsPanelPatcher
         // Maybe this could be split into its own file to handle nautilus options, or maybe it could be removed alltogether
         optionsPanel.AddHeading(modsTab, "Nautilus");
         optionsPanel.AddToggleOption(modsTab, "Enable debug logs", Utility.InternalLogger.EnableDebugging, Utility.InternalLogger.SetDebugging);
+        optionsPanel.AddToggleOption(modsTab, "Enable mod databank entries", ModDatabankHandler._isEnabled);
         optionsPanel.AddChoiceOption(modsTab, "Extra item info", new string[]
         {
             "Mod name (default)",

@@ -31,7 +31,6 @@ public class Initializer : BaseUnityPlugin
 #elif BELOWZERO
             InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for BelowZero");
 #endif
-
         PrefabDatabasePatcher.PrePatch(_harmony);
         EnumPatcher.Patch(_harmony);
         CraftDataPatcher.Patch(_harmony);
@@ -57,6 +56,7 @@ public class Initializer : BaseUnityPlugin
         EatablePatcher.Patch(_harmony);
         MaterialUtils.Patch();
         FontReferencesPatcher.Patch(_harmony);
+        PDAEncyclopediaTabPatcher.Patch(_harmony);
         StoryGoalPatcher.Patch(_harmony); // TO-DO: Story goal handling for Below Zero
     }
 }

@@ -65,7 +65,7 @@ public static class PDAHandler
 
         PDAPatcher.FragmentScanTime[techType] = scanTime;
         
-        if (uGUI.isMainLevel)
+        if(uGUI.isMainLevel)
             PDAPatcher.InitializePostfix();
     }
 
@@ -220,7 +220,7 @@ public static class PDAHandler
         }
 
         PDAEncyclopediaPatcher.CustomEntryData[entry.key] = entry;
-        
+
         if(PDAEncyclopedia.initialized)
             PDAEncyclopediaPatcher.InitializePostfix();
     }
