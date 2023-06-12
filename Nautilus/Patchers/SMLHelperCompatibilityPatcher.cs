@@ -1,10 +1,12 @@
 using HarmonyLib;
 using Nautilus.Utility;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Reflection;
 using UnityEngine;
 using UWE;
+using Nautilus.Options;
 
 namespace Nautilus.Patchers;
 
@@ -12,6 +14,7 @@ namespace Nautilus.Patchers;
 internal class SMLHelperCompatibilityPatcher
 {
     private const string SMLHarmonyInstance = "com.ahk1221.smlhelper";
+    private const string SMLAssemblyName = "SMLHelper";
 
     internal static void Patch(Harmony harmony)
     {
@@ -62,7 +65,7 @@ internal class SMLHelperCompatibilityPatcher
     private static void FixSMLHelperOptionsException(Harmony harmony)
     {
         harmony.Patch(
-            AccessTools.Method(Type.GetType("SMLHelper.V2.Options.ModOption.ModOptionAdjust"), "Awake"),
+            AccessTools.Method(GetSMLType("SMLHelper.V2.Options.ModOption+ModOptionAdjust"), "Awake"),
             prefix: new HarmonyMethod(typeof(SMLHelperCompatibilityPatcher), nameof(ModOptionAdjustAwakePrefix)));
     }
 
@@ -75,5 +78,23 @@ internal class SMLHelperCompatibilityPatcher
         // use good old reflection to avoid having SMLHelper as a dependency
         __instance.SetInstanceField("isMainMenu", isMainMenu);
         return false; // SKIP ORIGINAL TO AVOID TYPE LOAD EXCEPTION
+    }
+
+    private static Type GetSMLType(string typeName)
+    {
+        foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            if (a.GetName().Name == SMLAssemblyName)
+            {
+                foreach (var type in a.GetTypes())
+                {
+                    if (type.ToString() == typeName)
+                    {
+                        return type;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
