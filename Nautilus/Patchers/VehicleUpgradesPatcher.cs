@@ -117,7 +117,7 @@ internal class VehicleUpgradesPatcher
         if (moduleGadget.Cooldown > 0f)
             cooldown = (float)moduleGadget.Cooldown;
     }
-    [HarmonyDebug]
+
     [HarmonyTranspiler]
     [HarmonyPatch(typeof(SeaMoth), nameof(SeaMoth.OnUpgradeModuleUse))]
     private static IEnumerable<CodeInstruction> OnUpgradeModuleUse(IEnumerable<CodeInstruction> instructions)
