@@ -24,33 +24,9 @@ internal class OptionsPanelPatcher
 
     internal static void Patch(Harmony harmony)
     {
-        if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ahk1221.smlhelper"))
-        {
-            CoroutineHost.StartCoroutine(UnpatchSMLHelperPatches(harmony));
-        }
-
         harmony.PatchAll(typeof(OptionsPanelPatcher));
         harmony.PatchAll(typeof(ScrollPosKeeper));
         harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
-    }
-
-    // unpatch options patches done by SMLHelper
-    internal static IEnumerator UnpatchSMLHelperPatches(Harmony harmony)
-    {
-        yield return new WaitForSeconds(15);
-
-        InternalLogger.Log("Unpatching SMLHelper options for compatibility", BepInEx.Logging.LogLevel.Info);
-        var smlHarmonyInstance = "com.ahk1221.smlhelper";
-        harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddTab)), HarmonyPatchType.Postfix, smlHarmonyInstance);
-        harmony.Unpatch(AccessTools.Method(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue)), HarmonyPatchType.Prefix, smlHarmonyInstance);
-        //harmony.Unpatch(AccessTools.Method(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs)), HarmonyPatchType.Postfix, smlHarmonyInstance);
-        harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddHeading)), HarmonyPatchType.Prefix, smlHarmonyInstance);
-        harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.OnEnable)), HarmonyPatchType.Postfix, smlHarmonyInstance);
-        harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab)), HarmonyPatchType.Prefix, smlHarmonyInstance);
-        harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.RemoveTabs)), HarmonyPatchType.Prefix, smlHarmonyInstance);
-        harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.HighlightCurrentTab)), HarmonyPatchType.Postfix, smlHarmonyInstance);
-        harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab)), HarmonyPatchType.Prefix, smlHarmonyInstance);
-        harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab)), HarmonyPatchType.Postfix, smlHarmonyInstance);
     }
 
     // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
