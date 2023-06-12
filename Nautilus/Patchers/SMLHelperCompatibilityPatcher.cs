@@ -1,7 +1,6 @@
 using HarmonyLib;
 using Nautilus.Utility;
 using System;
-using System.Linq;
 using System.Collections;
 using System.Reflection;
 using UnityEngine;
@@ -10,7 +9,8 @@ using Nautilus.Options;
 
 namespace Nautilus.Patchers;
 
-// Thanks SMLHelper... This disgusting code unpatches most options patches that were done by SMLHelper in order to force compatibility, and also fixes major errors
+// Thanks SMLHelper... This disgusting code fixes many of the bugs caused by SMLHelper with patching, in order to force compatibility
+// This class can be SAFELY removed if we ever decide to make Nautilus incompatible with SMLHelper (which it already kinda is...)
 internal class SMLHelperCompatibilityPatcher
 {
     private const string SMLHarmonyInstance = "com.ahk1221.smlhelper"; // This string is both the harmony instance & plugin GUID
@@ -52,10 +52,12 @@ internal class SMLHelperCompatibilityPatcher
 
     private static void UnpatchSMLOptionsMethods(Harmony harmony)
     {
-        // Here, we unpatch SML's option panel patches to every method EXCEPT the postfix to uGUI_OptionsPanel.AddTabs
+        /* Here, we unpatch SML's option panel patches to every method EXCEPT the following:
+        * The postfix to uGUI_OptionsPanel.AddTabs
+        * The prefix to uGUI_Binding.RefreshValue
+        */
 
         harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddTab)), HarmonyPatchType.Postfix, SMLHarmonyInstance);
-        harmony.Unpatch(AccessTools.Method(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue)), HarmonyPatchType.Prefix, SMLHarmonyInstance);
         harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddHeading)), HarmonyPatchType.Prefix, SMLHarmonyInstance);
         harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.OnEnable)), HarmonyPatchType.Postfix, SMLHarmonyInstance);
         harmony.Unpatch(AccessTools.Method(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab)), HarmonyPatchType.Prefix, SMLHarmonyInstance);
@@ -67,7 +69,7 @@ internal class SMLHelperCompatibilityPatcher
 
     // Fix what should have been a compiler error (cause of error is this line: https://github.com/SubnauticaModding/Nautilus/blob/f3d5de3e36b61a7f26291ef4725eadcb5c4de2a5/SMLHelper/Options/ModOptions.cs#L157)
     // Here we just use Nautilus's version of the ModOptionAdjust components, instead of the old SMLHelper ones.
-    // We can't patch that single Awake line because it would provide a compiler error, meaning it's unpatchable.
+    // We can't patch that single Awake line because it references a missing class, and is therefore unpatchable.
     private static void FixSMLOptionsException(Harmony harmony)
     {
         var modOptionBaseClass = GetSMLType("SMLHelper.V2.Options.ModOption");
