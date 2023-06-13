@@ -454,12 +454,19 @@ public class UpgradeModuleGadget : Gadget
                 VehicleUpgradesPatcher.VehicleUpgradeModules.Add(prefab.Info.TechType, prefab);
                 break;
             case EquipmentType.ExosuitModule:
+                if(!AbsoluteDepth)
+                {
+                    Exosuit.crushDepths.Add(prefab.Info.TechType, CrushDepth);
+                }
                 VehicleUpgradesPatcher.ExosuitUpgradeModules.Add(prefab.Info.TechType, prefab);
                 break;
 #if BELOWZERO
             case EquipmentType.SeaTruckModule:
+                if (!AbsoluteDepth)
+                {
+                    SeaTruckUpgrades.crushDepths.Add(prefab.Info.TechType, CrushDepth);
+                }
                 VehicleUpgradesPatcher.SeatruckUpgradeModules.Add(prefab.Info.TechType, prefab);
-                SeaTruckUpgrades.crushDepths.Add(prefab.Info.TechType, CrushDepth);
                 break;
             case EquipmentType.HoverbikeModule:
                 VehicleUpgradesPatcher.SnowbikeUpgradeModules.Add(prefab.Info.TechType, prefab);
