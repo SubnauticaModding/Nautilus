@@ -4262,6 +4262,67 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData
   nameWithType: LootDistributionHandler.EditLootDistributionData
+- uid: Nautilus.Handlers.ModDatabankHandler
+  name: ModDatabankHandler
+  href: api/Nautilus.Handlers.ModDatabankHandler.html
+  commentId: T:Nautilus.Handlers.ModDatabankHandler
+  fullName: Nautilus.Handlers.ModDatabankHandler
+  nameWithType: ModDatabankHandler
+- uid: Nautilus.Handlers.ModDatabankHandler.ModData
+  name: ModDatabankHandler.ModData
+  href: api/Nautilus.Handlers.ModDatabankHandler.ModData.html
+  commentId: T:Nautilus.Handlers.ModDatabankHandler.ModData
+  fullName: Nautilus.Handlers.ModDatabankHandler.ModData
+  nameWithType: ModDatabankHandler.ModData
+- uid: Nautilus.Handlers.ModDatabankHandler.ModData.desc
+  name: desc
+  href: api/Nautilus.Handlers.ModDatabankHandler.ModData.html#Nautilus_Handlers_ModDatabankHandler_ModData_desc
+  commentId: F:Nautilus.Handlers.ModDatabankHandler.ModData.desc
+  fullName: Nautilus.Handlers.ModDatabankHandler.ModData.desc
+  nameWithType: ModDatabankHandler.ModData.desc
+- uid: Nautilus.Handlers.ModDatabankHandler.ModData.guid
+  name: guid
+  href: api/Nautilus.Handlers.ModDatabankHandler.ModData.html#Nautilus_Handlers_ModDatabankHandler_ModData_guid
+  commentId: F:Nautilus.Handlers.ModDatabankHandler.ModData.guid
+  fullName: Nautilus.Handlers.ModDatabankHandler.ModData.guid
+  nameWithType: ModDatabankHandler.ModData.guid
+- uid: Nautilus.Handlers.ModDatabankHandler.ModData.image
+  name: image
+  href: api/Nautilus.Handlers.ModDatabankHandler.ModData.html#Nautilus_Handlers_ModDatabankHandler_ModData_image
+  commentId: F:Nautilus.Handlers.ModDatabankHandler.ModData.image
+  fullName: Nautilus.Handlers.ModDatabankHandler.ModData.image
+  nameWithType: ModDatabankHandler.ModData.image
+- uid: Nautilus.Handlers.ModDatabankHandler.ModData.name
+  name: name
+  href: api/Nautilus.Handlers.ModDatabankHandler.ModData.html#Nautilus_Handlers_ModDatabankHandler_ModData_name
+  commentId: F:Nautilus.Handlers.ModDatabankHandler.ModData.name
+  fullName: Nautilus.Handlers.ModDatabankHandler.ModData.name
+  nameWithType: ModDatabankHandler.ModData.name
+- uid: Nautilus.Handlers.ModDatabankHandler.ModData.version
+  name: version
+  href: api/Nautilus.Handlers.ModDatabankHandler.ModData.html#Nautilus_Handlers_ModDatabankHandler_ModData_version
+  commentId: F:Nautilus.Handlers.ModDatabankHandler.ModData.version
+  fullName: Nautilus.Handlers.ModDatabankHandler.ModData.version
+  nameWithType: ModDatabankHandler.ModData.version
+- uid: Nautilus.Handlers.ModDatabankHandler.RegisterMod(BepInEx.PluginInfo)
+  name: RegisterMod(PluginInfo)
+  href: api/Nautilus.Handlers.ModDatabankHandler.html#Nautilus_Handlers_ModDatabankHandler_RegisterMod_BepInEx_PluginInfo_
+  commentId: M:Nautilus.Handlers.ModDatabankHandler.RegisterMod(BepInEx.PluginInfo)
+  fullName: Nautilus.Handlers.ModDatabankHandler.RegisterMod(BepInEx.PluginInfo)
+  nameWithType: ModDatabankHandler.RegisterMod(PluginInfo)
+- uid: Nautilus.Handlers.ModDatabankHandler.RegisterMod(Nautilus.Handlers.ModDatabankHandler.ModData)
+  name: RegisterMod(ModData)
+  href: api/Nautilus.Handlers.ModDatabankHandler.html#Nautilus_Handlers_ModDatabankHandler_RegisterMod_Nautilus_Handlers_ModDatabankHandler_ModData_
+  commentId: M:Nautilus.Handlers.ModDatabankHandler.RegisterMod(Nautilus.Handlers.ModDatabankHandler.ModData)
+  fullName: Nautilus.Handlers.ModDatabankHandler.RegisterMod(Nautilus.Handlers.ModDatabankHandler.ModData)
+  nameWithType: ModDatabankHandler.RegisterMod(ModDatabankHandler.ModData)
+- uid: Nautilus.Handlers.ModDatabankHandler.RegisterMod*
+  name: RegisterMod
+  href: api/Nautilus.Handlers.ModDatabankHandler.html#Nautilus_Handlers_ModDatabankHandler_RegisterMod_
+  commentId: Overload:Nautilus.Handlers.ModDatabankHandler.RegisterMod
+  isSpec: "True"
+  fullName: Nautilus.Handlers.ModDatabankHandler.RegisterMod
+  nameWithType: ModDatabankHandler.RegisterMod
 - uid: Nautilus.Handlers.OptionsPanelHandler
   name: OptionsPanelHandler
   href: api/Nautilus.Handlers.OptionsPanelHandler.html

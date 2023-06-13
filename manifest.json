@@ -583,6 +583,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.ModDatabankHandler.ModData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.ModDatabankHandler.ModData.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.ModDatabankHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.ModDatabankHandler.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Handlers.OptionsPanelHandler.yml",
       "output": {
         ".html": {
@@ -1906,6 +1926,16 @@
       "output": {
         ".html": {
           "relative_path": "tutorials/equipment-type.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/loading-and-instantiating-prefabs.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/loading-and-instantiating-prefabs.html"
         }
       },
       "version": ""

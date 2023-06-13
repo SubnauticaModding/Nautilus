@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Loading and instantiating prefabs </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Loading and instantiating prefabs ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/loading-and-instantiating-prefabs.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="loading-and-instantiating-prefabs">Loading and instantiating prefabs</h1>
+
+<p>In Subnautica, objects are created (obviously). Peepers spawn in the water around you. Titanium appears when outcrops are broken.
+Your Seamoth is built in front of you as soon as you craft it. But how exactly is this done, and how can you recreate this in your own mods?</p>
+<p>In reality there are many ways to do this. There are likely some that have yet to be discovered. Each method has its ups and downs,
+so it's a good idea to be familiar with all of them.</p>
+<h2 id="asynchronous-loading">Asynchronous loading</h2>
+<hr>
+<p>As of the Living Large update, both SN1 and Below Zero use <strong>asynchronous</strong> prefab loading. Therefore, prefab loading now must always be handled within coroutines, because
+the loading occurs across multiple frames. Please note that this is not a guide on coroutines. You can look that up on your own;
+they have been extensively explained online.</p>
+<p>Also take note of the <code>UWE.CoroutineHost.StartCoroutine(IEnumerator)</code> method. This amazing utility method provided by Subnautica lets you execute a coroutine
+at any point in your mod, without needing your own MonoBehaviour to host it.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Resources.Load should no longer be used. The game does NOT use the Resources folder for managing prefabs. Instead, Unknown Worlds has begun using Unity's
+<a href="https://docs.unity3d.com/Packages/com.unity.addressables@0.8/manual/index.html">Addressable Asset System</a>. Luckily, the game has many utilities that interact with
+that for us.</p>
+</div>
+<h2 id="methods-of-loading-prefabs">Methods of loading prefabs</h2>
+<hr>
+<h3 id="craftdatagetprefabfortechtypeasync">CraftData.GetPrefabForTechTypeAsync</h3>
+<pre><code class="lang-csharp">public static CoroutineTask&lt;GameObject&gt; GetPrefabForTechTypeAsync(TechType techType, bool verbose = true)
+</code></pre>
+<p>This is arguably the most simple way of loading prefabs. This method only takes a TechType and returns a coroutine task.</p>
+<p>A coroutine task holds a reference to the prefab once it is complete. However, it will not be loaded instantly. You must write <code>yield return task</code> to await its
+completion. Only then can you safely call its <code>GetResult()</code> method.</p>
+<p>Example code that spawns a Peeper in front of the player:</p>
+<pre><code class="lang-csharp">private static IEnumerator SpawnPeeper()
+{
+    // Fetch the prefab:
+    CoroutineTask&lt;GameObject&gt; task = CraftData.GetPrefabForTechTypeAsync(TechType.Peeper);
+    // Wait for the prefab task to complete:
+    yield return task;
+    // Get the prefab:
+    GameObject prefab = task.GetResult();
+
+    // Instantiate the prefab with a random rotation 2 meters in front of the player camera:
+    Instantiate(prefab, MainCamera.camera.transform.position + (MainCamera.camera.transform.forward * 2), Random.rotation);
+}
+</code></pre>
+<p>Bare minimum code with inferred typing:</p>
+<pre><code class="lang-csharp">private static IEnumerator SpawnPeeper()
+{
+    var task = CraftData.GetPrefabForTechTypeAsync(TechType.Peeper);
+    yield return task;
+    var prefab = task.GetResult();
+}
+</code></pre>
+<hr>
+<h3 id="uweprefabdatabasegetprefabasync">UWE.PrefabDatabase.GetPrefabAsync</h3>
+<pre><code class="lang-csharp">public static IPrefabRequest GetPrefabAsync(string classId)
+</code></pre>
+<p>Instead of a TechType, this method requires a Class ID. While some prefabs have TechTypes, almost every prefab has a Class IDs. Of course, there are exceptions.
+Certain visual effects and projectiles do not have Class IDs. Special &quot;scene objects&quot; such as the player, Aurora and Cyclops are also unable to be spawned in this way.</p>
+<p>The downside of this method is that the Class IDs are not part of the game's assemblies like TechTypes are. This means you must find the Class ID yourself and the
+compiler will not autocomplete them for you.</p>
+<p>For your convenience, a list of all Class IDs can be found <a href="https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-PrefabPaths.json">here</a>.
+Do note that a list has not been made for Below Zero yet.</p>
+<p>Example code that spawns a Peeper behind the player:</p>
+<pre><code class="lang-csharp">using UWE;
+// ...
+private static IEnumerator SpawnPeeper()
+{
+    // Fetch the prefab (3fcd548b-781f-46ba-b076-7412608deeef is the Class ID of the Peeper):
+    IPrefabRequest task = UWE.PrefabDatabase.GetPrefabAsync(&quot;3fcd548b-781f-46ba-b076-7412608deeef&quot;);
+    // Wait for the prefab task to complete:
+    yield return task;
+    // Get the prefab:
+    task.TryGetPrefab(out GameObject prefab);
+
+    // Instantiate the prefab with a random rotation 2 meters behind the player camera:
+    Instantiate(prefab, MainCamera.camera.transform.position - (MainCamera.camera.transform.forward * 2), Random.rotation);
+}
+</code></pre>
+<p>Bare minimum code with inferred typing:</p>
+<pre><code class="lang-csharp">private static IEnumerator SpawnPeeper()
+{
+    var task = UWE.PrefabDatabase.GetPrefabAsync(&quot;3fcd548b-781f-46ba-b076-7412608deeef&quot;);
+    yield return task;
+    task.TryGetPrefab(out var prefab);
+}
+</code></pre>
+<hr>
+<h3 id="uweprefabdatabasegetprefabforfilenameasync">UWE.PrefabDatabase.GetPrefabForFilenameAsync</h3>
+<pre><code class="lang-csharp">public static IPrefabRequest GetPrefabForFilenameAsync(string filename)
+</code></pre>
+<p>This method is similar to <code>PrefabDatabase.GetPrefabAsync</code> but takes a file path as opposed to a Class ID. If you are familiar with <code>Resources.Load</code> from before the
+Living Large update, the paths here are <em>very</em> similar to the ones used in that method.</p>
+<p>The <a href="https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-PrefabPaths.json">Class ID list</a>
+also contains the file path of every prefab on the right side. Make sure to include the <code>.prefab</code> extension and exclude the <code>Assets/AddressableResources/</code> prefix.</p>
+<p>Example code that spawns a Peeper above the player:</p>
+<pre><code class="lang-csharp">using UWE;
+// ...
+private static IEnumerator SpawnPeeper()
+{
+    // Fetch the prefab:
+    IPrefabRequest task = UWE.PrefabDatabase.GetPrefabForFilenameAsync(&quot;WorldEntities/Creatures/Peeper.prefab&quot;);
+    // Wait for the prefab task to complete:
+    yield return task;
+    // Get the prefab:
+    task.TryGetPrefab(out GameObject prefab);
+
+    // Instantiate the prefab with a random rotation 2 meters above the player camera:
+    Instantiate(prefab, MainCamera.camera.transform.position + (MainCamera.camera.transform.up * 2), Random.rotation);
+}
+</code></pre>
+<p>Bare minimum code with inferred typing:</p>
+<pre><code class="lang-csharp">private static IEnumerator SpawnPeeper()
+{
+    var task = UWE.PrefabDatabase.GetPrefabForFilenameAsync(&quot;WorldEntities/Creatures/Peeper.prefab&quot;);
+    yield return task;
+    task.TryGetPrefab(out var prefab);
+}
+</code></pre>
+<hr>
+<h2 id="when-to-use-each-method">When to use each method</h2>
+<p>For most purposes, <code>CraftData.GetPrefabForTechTypeAsync(TechType)</code> can be the only thing you use. TechTypes are convenient, and most functional prefabs have one. There
+is no reason not to use this unless the prefab you need is lacking a TechType.</p>
+<p><code>PrefabDatabase.GetPrefabAsync</code> and <code>PrefabDatabase.GetPrefabForFilenameAsync</code> can be used interchangeably. The former generally takes up less space in terms of characters.
+However the paths in the latter are definitely more readable than Class IDs. Whichever you want to use is up to you.</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/loading-and-instantiating-prefabs.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
