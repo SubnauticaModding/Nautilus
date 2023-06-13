@@ -179,6 +179,9 @@ internal class OptionsPanelPatcher
             button.AddComponent<ToggleButtonClickHandler>();
             Object.Destroy(button.GetComponent<Button>());
 
+            var textComponent = captionTransform.GetComponent<TextMeshProUGUI>();
+            textComponent.fontStyle = FontStyles.Bold;
+
             RectTransform buttonTransform = button.transform as RectTransform;
             buttonTransform.SetParent(_headingPrefab.transform);
             buttonTransform.SetAsFirstSibling();
