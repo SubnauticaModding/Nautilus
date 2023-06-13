@@ -232,6 +232,9 @@ public static class PDAHandler
     /// <param name="path"><para>Path to this entry in the databank.</para>
     /// <para>To find examples of this string, open "Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".
     /// Remember to omit the "EncyPath_" prefix from these language keys. An example of a proper value is: "Lifeforms/Fauna/Leviathans".</para>
+    /// <para>A list of all Databank paths can also be found in
+    /// <see href="https://subnauticamodding.github.io/Nautilus/tutorials/databank-entries.html#creating-an-entry-path">this section</see>
+    /// of Nautilus's documentation.</para>
     /// </param>
     /// <param name="title">Displayed title of the PDA entry in English. If set to null, you must implement your own translations. Language key is 'Ency_{<paramref name="key"/>}'.</param>
     /// <param name="desc">Displayed description of the PDA entry in English. If set to null, you must implement your own translations. Language key is 'EncyDesc_{<paramref name="key"/>}'.</param>
