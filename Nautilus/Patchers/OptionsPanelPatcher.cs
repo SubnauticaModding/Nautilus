@@ -21,7 +21,7 @@ internal class OptionsPanelPatcher
 
     private static int _modsTabIndex = -1;
 
-    private static Color _headerColor = new(1f, 0.8f, 0f);
+    private static Color _headerColor = new(1f, 0.777f, 0f);
 
     internal static void Patch(Harmony harmony)
     {
