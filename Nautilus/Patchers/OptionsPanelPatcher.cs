@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Options;
 using Nautilus.Utility;
 using Newtonsoft.Json;
@@ -21,16 +22,14 @@ internal class OptionsPanelPatcher
 
     private static int _modsTabIndex = -1;
 
+    private static Color _headerColor = new(1f, 0.777f, 0f);
+
     internal static void Patch(Harmony harmony)
     {
         harmony.PatchAll(typeof(OptionsPanelPatcher));
         harmony.PatchAll(typeof(ScrollPosKeeper));
-        if (!BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ahk1221.smlhelper"))
-        {
-            harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
-        }
+        harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
     }
-
 
     // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
     [HarmonyPostfix]
@@ -91,6 +90,7 @@ internal class OptionsPanelPatcher
         // Maybe this could be split into its own file to handle nautilus options, or maybe it could be removed alltogether
         optionsPanel.AddHeading(modsTab, "Nautilus");
         optionsPanel.AddToggleOption(modsTab, "Enable debug logs", Utility.InternalLogger.EnableDebugging, Utility.InternalLogger.SetDebugging);
+        optionsPanel.AddToggleOption(modsTab, "Enable mod databank entries", ModDatabankHandler._isEnabled);
         optionsPanel.AddChoiceOption(modsTab, "Extra item info", new string[]
         {
             "Mod name (default)",
@@ -181,6 +181,9 @@ internal class OptionsPanelPatcher
             button.AddComponent<ToggleButtonClickHandler>();
             Object.Destroy(button.GetComponent<Button>());
 
+            var textComponent = captionTransform.GetComponent<TextMeshProUGUI>();
+            textComponent.fontStyle = FontStyles.Bold;
+
             RectTransform buttonTransform = button.transform as RectTransform;
             buttonTransform.SetParent(_headingPrefab.transform);
             buttonTransform.SetAsFirstSibling();
@@ -197,6 +200,12 @@ internal class OptionsPanelPatcher
             private HeadingState _headingState = HeadingState.Expanded;
             private string _headingName = null;
             private List<GameObject> _childOptions = null;
+
+            protected override void OnEnable()
+            {
+                base.OnEnable();
+                transform.Find("Caption").GetComponent<TextMeshProUGUI>().color = _headerColor;
+            }
 
             private void Init()
             {
