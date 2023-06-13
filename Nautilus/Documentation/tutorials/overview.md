@@ -27,3 +27,4 @@ Coming soon
 
 ### Quick References
 * [Craft Tree Paths](craft-tree-paths.md)
+* [Loading & instantiating prefabs](loading-and-instantiating-prefabs.md)
