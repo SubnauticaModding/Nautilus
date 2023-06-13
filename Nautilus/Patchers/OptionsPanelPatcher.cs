@@ -202,7 +202,7 @@ internal class OptionsPanelPatcher
             protected override void OnEnable()
             {
                 base.OnEnable();
-                GetComponent<TextMeshProUGUI>().color = _headerColor;
+                transform.Find("Caption").GetComponent<TextMeshProUGUI>().color = _headerColor;
             }
 
             private void Init()
