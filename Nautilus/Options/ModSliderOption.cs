@@ -1,5 +1,3 @@
-﻿using BepInEx.Logging;
-using Nautilus.Utility;
 using System;
 using System.Collections;
 using System.Reflection;
@@ -291,7 +289,7 @@ public class ModSliderOption : ModOption<float, SliderChangedEventArgs>
         }
     }
 
-    private class SliderOptionAdjust : ModOptionAdjust
+    internal class SliderOptionAdjust : ModOptionAdjust
     {
         private const string sliderBackground = "Slider/Slider/Background";
         private const float spacing_MainMenu = 30f;

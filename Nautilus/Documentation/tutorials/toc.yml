@@ -34,3 +34,5 @@
   items:
     - name: Craft Tree Paths
       href: craft-tree-paths.md
+    - name: Loading & instantiating prefabs
+      href: loading-and-instantiating-prefabs.md
