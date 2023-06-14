@@ -1,13 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics.CodeAnalysis;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using Nautilus.Patchers;
-using System.Runtime.CompilerServices;
 
 namespace Nautilus.Assets.Gadgets;
 

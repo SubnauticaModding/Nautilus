@@ -3,11 +3,7 @@ using HarmonyLib.Tools;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using OpCodes = System.Reflection.Emit.OpCodes;
 
