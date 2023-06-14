@@ -1,10 +1,8 @@
 using Nautilus.Commands;
-using Nautilus.Handlers;
 using Nautilus.Json;
 using Nautilus.Json.Attributes;
 using Nautilus.Options;
 using Nautilus.Options.Attributes;
-using Nautilus.Utility;
 
 namespace Nautilus.Examples;
 
@@ -141,7 +139,7 @@ public enum CustomChoice { One, Two, Three }
 /// (defaults to "config") and an optional subfolder for the config file to reside in.</para>
 /// </summary>
 [Menu("Nautilus Example Mod")]
-public class Config: ConfigFile
+public class Config : ConfigFile
 {
     /// <summary>
     /// <para>A <see cref="ChoiceAttribute"/> is represented by a group of options where only one can be selected at a time,
