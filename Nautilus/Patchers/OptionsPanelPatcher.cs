@@ -201,7 +201,11 @@ internal class OptionsPanelPatcher
             private string _headingName = null;
             private List<GameObject> _childOptions = null;
 
+#if SUBNAUTICA
             protected override void OnEnable()
+#elif BELOWZERO
+            public override void OnEnable()
+#endif
             {
                 base.OnEnable();
                 transform.Find("Caption").GetComponent<TextMeshProUGUI>().color = _headerColor;
@@ -300,7 +304,7 @@ internal class OptionsPanelPatcher
                 isRotating = false;
             }
         }
-        #endregion
+#endregion
 
         #region patches for uGUI_TabbedControlsPanel
         [HarmonyPrefix]
