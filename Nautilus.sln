@@ -16,9 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Version.targets = Version.targets
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UploadHelper", "UploadHelper\UploadHelper.csproj", "{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example Vehicle Upgrade mod", "Vehicle Upgrade mod\Example Vehicle Upgrade mod.csproj", "{9C0C222C-E0BF-4DE4-9BC8-3468DF23570A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UploadHelper", "UploadHelper\UploadHelper.csproj", "{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,14 +50,6 @@ Global
 		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.SN.STABLE|Any CPU.ActiveCfg = Debug|Any CPU
 		{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}.SN.STABLE|Any CPU.Build.0 = Debug|Any CPU
-		{9C0C222C-E0BF-4DE4-9BC8-3468DF23570A}.BZ.STABLE|Any CPU.ActiveCfg = BZ.STABLE|Any CPU
-		{9C0C222C-E0BF-4DE4-9BC8-3468DF23570A}.BZ.STABLE|Any CPU.Build.0 = BZ.STABLE|Any CPU
-		{9C0C222C-E0BF-4DE4-9BC8-3468DF23570A}.Debug|Any CPU.ActiveCfg = SN.STABLE|Any CPU
-		{9C0C222C-E0BF-4DE4-9BC8-3468DF23570A}.Debug|Any CPU.Build.0 = SN.STABLE|Any CPU
-		{9C0C222C-E0BF-4DE4-9BC8-3468DF23570A}.Release|Any CPU.ActiveCfg = SN.STABLE|Any CPU
-		{9C0C222C-E0BF-4DE4-9BC8-3468DF23570A}.Release|Any CPU.Build.0 = SN.STABLE|Any CPU
-		{9C0C222C-E0BF-4DE4-9BC8-3468DF23570A}.SN.STABLE|Any CPU.ActiveCfg = SN.STABLE|Any CPU
-		{9C0C222C-E0BF-4DE4-9BC8-3468DF23570A}.SN.STABLE|Any CPU.Build.0 = SN.STABLE|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
