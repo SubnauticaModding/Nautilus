@@ -515,6 +515,14 @@ PDAHandler.AddEncyclopediaEntry(&quot;LeeLog&quot;, &quot;DownloadedData/PublicD
 </tr>
 </tbody>
 </table>
+<h3 id="example-for-unlocking-with-pdahandleraddcustomscannerentry">Example for unlocking with PDAHandler.AddCustomScannerEntry:</h3>
+<pre><code class="lang-csharp">// Register encyclopedia entry like usual:
+PDAHandler.AddEncyclopediaEntry(&quot;ArcticReaperEncy&quot;, &quot;Lifeforms/Fauna/Leviathans&quot;, &quot;Arctic Reaper&quot;, &quot;A reaper leviathan that lives in a colder climate.&quot;);
+
+// Use PDAHandler.AddCustomScannerEntry to make it unlockable.
+// This code unlocks the encyclopedia entry when a prefab with a TechType of ArcticReaperTechType is scanned.
+PDAHandler.AddCustomScannerEntry(ArcticReaperTechType, 4, false, &quot;ArcticReaperEncy&quot;);
+</code></pre>
 <h3 id="example-for-unlocking-with-story-goals">Example for unlocking with Story Goals:</h3>
 <pre><code class="lang-csharp">// Register encyclopedia entry like usual:
 PDAHandler.AddEncyclopediaEntry(&quot;SpadefishHate&quot;, &quot;Advanced&quot;, &quot;Spadefish are terrible&quot;, &quot;Why do they lay eggs? Why do they damage your seamoth so heavily?&quot;);

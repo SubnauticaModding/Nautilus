@@ -360,7 +360,7 @@
 
   <h3 id="Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_System_String_System_String_System_String_System_String_UnityEngine_Texture2D_UnityEngine_Sprite_FMODAsset_FMODAsset_" data-uid="Nautilus.Handlers.PDAHandler.AddEncyclopediaEntry(System.String,System.String,System.String,System.String,UnityEngine.Texture2D,UnityEngine.Sprite,FMODAsset,FMODAsset)">
   AddEncyclopediaEntry(string, string, string, string, Texture2D, Sprite, FMODAsset, FMODAsset)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L242"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/PDAHandler.cs/#L245"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers a single encyclopedia entry into the game.</div>
@@ -377,7 +377,10 @@
     <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>Path to this entry in the databank.</p>
     <p>To find examples of this string, open "Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".
-    Remember to omit the "EncyPath_" prefix from these language keys. An example of a proper value is: "Lifeforms/Fauna/Leviathans".</p></dd>
+    Remember to omit the "EncyPath_" prefix from these language keys. An example of a proper value is: "Lifeforms/Fauna/Leviathans".</p>
+    <p>A list of all Databank paths can also be found in
+    <a href="https://subnauticamodding.github.io/Nautilus/tutorials/databank-entries.html#creating-an-entry-path">this section</a>
+    of Nautilus's documentation.</p></dd>
     <dt><code>title</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>Displayed title of the PDA entry in English. If set to null, you must implement your own translations. Language key is 'Ency_{<code class="paramref">key</code>}'.</dd>
     <dt><code>desc</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
