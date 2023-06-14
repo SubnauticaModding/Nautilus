@@ -1,5 +1,5 @@
-using Newtonsoft.Json;
 using System;
+using Newtonsoft.Json;
 
 namespace Nautilus.Json.Converters;
 
@@ -42,7 +42,7 @@ public class CustomEnumConverter : JsonConverter
     {
         if (reader.TokenType == JsonToken.String)
         {
-            var enumValue = (string) serializer.Deserialize(reader, typeof(string));
+            var enumValue = (string)serializer.Deserialize(reader, typeof(string));
 
             return Enum.Parse(objectType, enumValue!);
         }

@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Utility;
-using System.Collections;
-using System.Collections.Generic;
+
 #if SUBNAUTICA
 namespace Nautilus.Patchers;
 

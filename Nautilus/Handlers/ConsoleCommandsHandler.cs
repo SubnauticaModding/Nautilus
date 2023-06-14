@@ -1,8 +1,8 @@
-﻿using HarmonyLib;
+﻿using System;
+using System.Reflection;
+using HarmonyLib;
 using Nautilus.Commands;
 using Nautilus.Patchers;
-using System;
-using System.Reflection;
 
 namespace Nautilus.Handlers;
 

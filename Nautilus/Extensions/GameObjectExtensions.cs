@@ -1,7 +1,7 @@
-﻿using HarmonyLib;
-using Nautilus.Utility;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
+using HarmonyLib;
+using Nautilus.Utility;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -22,7 +22,7 @@ public static class GameObjectExtensions
     {
         return @object ? @object : null;
     }
-
+    
     /// <summary>
     /// Copies the field values from the specified component to the current component.
     /// </summary>
@@ -39,22 +39,22 @@ public static class GameObjectExtensions
     {
         var ourType = @this.GetType();
         var stolenType = copyFrom.GetType();
-
+        
         // Only copy fields that are either public, or non-public but are serializable.
         var copiedFields = stolenType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-            .Where(f => (!f.IsPublic && f.GetCustomAttribute<SerializeField>() is { }) || (f.IsPublic && !f.IsNotSerialized));
+            .Where(f => (!f.IsPublic && f.GetCustomAttribute<SerializeField>() is {}) || (f.IsPublic && !f.IsNotSerialized));
 
         foreach (var copiedField in copiedFields)
         {
-            if (AccessTools.Field(ourType, copiedField.Name) is not { } field)
+            if (AccessTools.Field(ourType, copiedField.Name) is not {} field)
                 continue;
-
+            
             field.SetValue(@this, copiedField.GetValue(copyFrom));
         }
 
         return @this;
     }
-
+    
     /// <summary>
     /// Adds a component with the <typeparamref name="TNewComponent"/> type, then copies the field values of the <typeparamref name="TCopiedComponent"/> into it.
     /// </summary>
@@ -77,7 +77,7 @@ public static class GameObjectExtensions
 
         return obj.AddComponent<TNewComponent>().CopyComponent(origComponent);
     }
-
+    
     /// <summary>
     /// Ensures a component with the <typeparamref name="TNewComponent"/> type exists, then copies the field values of the <typeparamref name="TCopiedComponent"/> into it.
     /// </summary>

@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace Nautilus.Json.Converters;
 
@@ -67,7 +67,7 @@ public class FloatConverter : JsonConverter
     /// <returns></returns>
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        string s = (string) reader.Value;
+        string s = (string)reader.Value;
         if (objectType == typeof(float))
         {
             return float.Parse(s, CultureInfo.InvariantCulture.NumberFormat);

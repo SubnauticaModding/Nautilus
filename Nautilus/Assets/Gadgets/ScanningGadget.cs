@@ -1,9 +1,9 @@
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using Story;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 namespace Nautilus.Assets.Gadgets;
@@ -19,7 +19,7 @@ public class ScanningGadget : Gadget
     /// The blueprint that must first be scanned or picked up to unlocked this item.
     /// </summary>
     public required TechType RequiredForUnlock { get; set; }
-
+    
     /// <summary>
     /// Multiple blueprints that must first be scanned or picked up to unlocked this item.
     /// </summary>
@@ -34,7 +34,7 @@ public class ScanningGadget : Gadget
     /// The main group in the PDA blueprints where this item appears.
     /// </summary>
     public TechGroup GroupForPda { get; set; }
-
+    
     /// <summary>
     /// The category within the group in the PDA blueprints where this item appears.
     /// </summary>
@@ -44,12 +44,12 @@ public class ScanningGadget : Gadget
     /// Adds an encyclopedia entry for this item in the PDA.
     /// </summary>
     public PDAEncyclopedia.EntryData EncyclopediaEntryData { get; set; }
-
+    
     /// <summary>
     /// Additional logic on how the Scanner tool will interact with this item.
     /// </summary>
     public PDAScanner.EntryData ScannerEntryData { get; set; }
-
+    
     /// <summary>
     /// Additional logic on what will happen when this item is unlocked.
     /// </summary>
@@ -175,11 +175,11 @@ public class ScanningGadget : Gadget
     /// <param name="unlockMessage">Message which should be shown on unlock.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public ScanningGadget WithAnalysisTech(
-        Sprite popupSprite,
+        Sprite popupSprite, 
 #if SUBNAUTICA
         List<StoryGoal> storyGoalsToTrigger = null,
 #endif
-        FMODAsset unlockSound = null,
+        FMODAsset unlockSound = null, 
         string unlockMessage = null
         )
     {
@@ -208,7 +208,7 @@ public class ScanningGadget : Gadget
             InternalLogger.Error($"Prefab '{prefab.Info}' does not contain a TechType. Skipping {nameof(ScanningGadget)} build.");
             return;
         }
-
+        
         if (GroupForPda != TechGroup.Uncategorized)
         {
             List<TechCategory> categories = new();
@@ -221,7 +221,7 @@ public class ScanningGadget : Gadget
             {
                 InternalLogger.Error($"Failed to add {prefab.Info.TechType.AsString()} to {GroupForPda}/{CategoryForPda} as it is not a registered combination.");
             }
-
+            
             if (_isBuildable)
                 CraftDataHandler.AddBuildable(prefab.Info.TechType);
         }

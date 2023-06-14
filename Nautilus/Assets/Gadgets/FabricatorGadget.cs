@@ -6,7 +6,7 @@ using Nautilus.Utility;
 #if SUBNAUTICA
 using Sprite = Atlas.Sprite;
 #elif BELOWZERO
-using Sprite = UnityEngine.Sprite;
+    using Sprite = UnityEngine.Sprite;
 #endif
 
 namespace Nautilus.Assets.Gadgets;
@@ -79,7 +79,7 @@ public class FabricatorGadget : Gadget
 
         return this;
     }
-
+    
     /// <summary>
     /// Safely attempts to add a new crafting node to the custom crafting tree of this fabricator.<para/>
     /// If the modded TechType is not found, the craft node will not be added.

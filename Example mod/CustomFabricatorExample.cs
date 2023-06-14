@@ -15,15 +15,15 @@ public class CustomFabricatorExample : BaseUnityPlugin
 {
     private void Awake()
     {
-        /*
+	    /*
 	     * Here we create a very simple clone of the Nickel ore. We will be using this item for the recipe of our
 	     * Custom fabricator later.
 	     */
         CustomPrefab stone = new CustomPrefab("Stone", "Stone", "A good looking stone", SpriteManager.Get(TechType.Nickel));
-        stone.SetGameObject(new CloneTemplate(stone.Info, TechType.Nickel));
-        stone.Register();
-
-        /*
+	    stone.SetGameObject(new CloneTemplate(stone.Info, TechType.Nickel));
+	    stone.Register();
+	    
+	    /*
 	     * To create a custom fabricator, as usual, we will be starting by initializing our CustomPrefab object.
 	     */
         CustomPrefab customFab = new CustomPrefab("CustomFab", "Custom Fabricator", "My awesome custom fabricator!", SpriteManager.Get(TechType.Fabricator));
@@ -36,9 +36,9 @@ public class CustomFabricatorExample : BaseUnityPlugin
          * This step is optional. If you wish to use an existing crafting tree, you may skip this step.
          */
         customFab.CreateFabricator(out CraftTree.Type treeType)
-            // Simply add the Battery to our fabricator.
+	        // Simply add the Battery to our fabricator.
             .AddCraftNode(TechType.Battery);
-
+        
         /*
          * Here we construct our fabricator game object. The second parameter of the FabricatorTemplate constructor is
          * The CraftTree.Type our fabricator will use. If you wish to use an existing crafting tree, you may set this
@@ -47,7 +47,7 @@ public class CustomFabricatorExample : BaseUnityPlugin
          */
         FabricatorTemplate fabPrefab = new FabricatorTemplate(customFab.Info, treeType)
         {
-            FabricatorModel = FabricatorTemplate.Model.Workbench
+	        FabricatorModel = FabricatorTemplate.Model.Workbench
         };
         customFab.SetGameObject(fabPrefab);
 
@@ -85,13 +85,13 @@ public class CustomFabricatorExample : BaseUnityPlugin
          */
         RecipeData recipe = new RecipeData
         {
-            craftAmount = 1,
-            Ingredients =
-            {
-                new Ingredient(TechType.Titanium, 1),
-                new Ingredient(TechType.Nickel, 1),
-                new Ingredient(stone.Info.TechType, 1)
-            }
+	        craftAmount = 1,
+	        Ingredients =
+	        {
+		        new Ingredient(TechType.Titanium, 1),
+		        new Ingredient(TechType.Nickel, 1),
+		        new Ingredient(stone.Info.TechType, 1)
+	        }
         };
 
 #if JSONRECIPE
@@ -100,20 +100,20 @@ public class CustomFabricatorExample : BaseUnityPlugin
          */
         customFab.SetRecipeFromJson(recipeJson);
 #else
-        /*
+	    /*
 	     * Set the recipe.
 	     */
-        customFab.SetRecipe(recipe);
+	    customFab.SetRecipe(recipe);
 #endif
 
-        /*
+	    /*
 	     * Make the modification station a requirement for our custom fabricator blueprint.
 	     * Additionally we also add our custom fabricator to the Interior modules PDA group and category.
 	     * Setting the tech group to a group that exists in the habitat builder will make our item buildable.
 	     */
         customFab.SetUnlock(TechType.Workbench)
             .WithPdaGroupCategory(TechGroup.InteriorModules, TechCategory.InteriorModule);
-
+        
         /*
          * Register our custom fabricator to the game.
          * After this point, do not edit the prefab or modify gadgets as they will not be applied.

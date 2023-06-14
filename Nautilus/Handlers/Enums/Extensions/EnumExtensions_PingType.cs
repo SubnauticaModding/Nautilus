@@ -42,10 +42,10 @@ public static partial class EnumExtensions
 
         ModSprite.Add(SpriteManager.Group.Pings, pingType.ToString(), sprite);
 
-        if (PingManager.sCachedPingTypeStrings.valueToString.ContainsKey(pingType) == false)
+        if(PingManager.sCachedPingTypeStrings.valueToString.ContainsKey(pingType) == false)
             PingManager.sCachedPingTypeStrings.valueToString.Add(pingType, name);
 
-        if (PingManager.sCachedPingTypeTranslationStrings.valueToString.ContainsKey(pingType) == false)
+        if(PingManager.sCachedPingTypeTranslationStrings.valueToString.ContainsKey(pingType) == false)
             PingManager.sCachedPingTypeTranslationStrings.valueToString.Add(pingType, name);
 
         return builder;

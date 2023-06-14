@@ -1,5 +1,5 @@
-﻿using Nautilus.Handlers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Nautilus.Handlers;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -113,7 +113,7 @@ public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode
 
             if (node.TechType == techType && node.Action == TreeAction.Craft)
             {
-                ModCraftTreeCraft craftNode = (ModCraftTreeCraft) node;
+                ModCraftTreeCraft craftNode = (ModCraftTreeCraft)node;
                 return craftNode;
             }
         }
@@ -164,7 +164,7 @@ public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode
     /// <param name="techTypes">The TechTypes to be crafted.</param>
     public void AddCraftingNode(params TechType[] techTypes)
     {
-        AddCraftingNode((IEnumerable<TechType>) techTypes);
+        AddCraftingNode((IEnumerable<TechType>)techTypes);
     }
 
     /// <summary>

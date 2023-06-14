@@ -5,7 +5,7 @@ namespace Nautilus.Utility.MaterialModifiers;
 /// <summary>
 /// Basic material modifier that sets the <see cref="Material.color"/> property on all materials.
 /// </summary>
-public sealed class ColorModifier : MaterialModifier
+public sealed class ColorModifier : MaterialModifier 
 {
     private Color color;
 

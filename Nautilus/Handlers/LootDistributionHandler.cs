@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using BepInEx.Logging;
 using Nautilus.Assets;
 using Nautilus.Patchers;
 using Nautilus.Utility;
-using System.Collections.Generic;
 using UWE;
 
 namespace Nautilus.Handlers;
@@ -100,10 +100,10 @@ public static class LootDistributionHandler
             InternalLogger.Error($"Could not find prefab file path for class ID '{classId}'. Cancelling loot distribution addition.");
             return;
         }
-
+            
         AddLootDistributionData(classId, filename, biomeDistribution);
     }
-
+        
     /// <summary>
     /// Adds in a custom entry into Loot Distribution of the game.
     /// </summary>
@@ -117,7 +117,7 @@ public static class LootDistributionHandler
             InternalLogger.Error($"Could not find prefab file path for class ID '{classId}'. Cancelling loot distribution addition.");
             return;
         }
-
+            
         AddLootDistributionData(classId, filename, biomeDistribution);
         WorldEntityDatabaseHandler.AddCustomInfo(classId, info);
     }

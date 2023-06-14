@@ -1,6 +1,6 @@
-using Story;
 using System;
 using System.Collections.Generic;
+using Story;
 using UnityEngine;
 
 namespace Nautilus.MonoBehaviours;
@@ -8,7 +8,7 @@ namespace Nautilus.MonoBehaviours;
 internal class CustomStoryGoalManager : MonoBehaviour, IStoryGoalListener
 {
     public static CustomStoryGoalManager Instance { get; private set; }
-
+    
     internal static readonly Dictionary<string, List<Action>> StoryGoalCustomEvents = new();
 
     private ItemGoalTracker _itemGoalTracker;
@@ -16,13 +16,13 @@ internal class CustomStoryGoalManager : MonoBehaviour, IStoryGoalListener
     private LocationGoalTracker _locationGoalTracker;
     private CompoundGoalTracker _compoundGoalTracker;
     private OnGoalUnlockTracker _onGoalUnlockTracker;
-
+    
     public void AddImmediately<T>(T storyGoal) where T : StoryGoal
     {
         // goals that are already completed have no effect
         if (StoryGoalManager.main.IsGoalComplete(storyGoal.key))
             return;
-
+        
         switch (storyGoal)
         {
             case ItemGoal itemGoal:
@@ -71,10 +71,10 @@ internal class CustomStoryGoalManager : MonoBehaviour, IStoryGoalListener
                 customEvent.Value.ForEach(x => x?.Invoke());
         }
     }
-
+    
 #if BELOWZERO
-    void IStoryGoalListener.NotifyGoalReset(string key) { }
-    void IStoryGoalListener.NotifyGoalsDeserialized() { }
+    void IStoryGoalListener.NotifyGoalReset(string key) {}
+    void IStoryGoalListener.NotifyGoalsDeserialized() {}
 #endif
 
     // allows the IStoryGoalListener.NotifyGoalComplete method to be called
@@ -94,27 +94,27 @@ internal class CustomStoryGoalManager : MonoBehaviour, IStoryGoalListener
             StoryGoalManager.main.RemoveListener(this);
         }
     }
-
+    
     private void TrackItemGoal(ItemGoal itemGoal)
     {
         _itemGoalTracker.goals.GetOrAddNew(itemGoal.techType).Add(itemGoal);
     }
-
+    
     private void TrackBiomeGoal(BiomeGoal biomeGoal)
     {
         _biomeGoalTracker.goals.Add(biomeGoal);
     }
-
+    
     private void TrackLocationGoal(LocationGoal locationGoal)
     {
         _locationGoalTracker.goals.Add(locationGoal);
     }
-
+    
     private void TrackCompoundGoal(CompoundGoal compoundGoal)
-    {
+    {        
         _compoundGoalTracker.goals.Add(compoundGoal);
     }
-
+    
     private void TrackOnGoalUnlock(OnGoalUnlock onGoalUnlock)
     {
         _onGoalUnlockTracker.goalUnlocks[onGoalUnlock.goal] = onGoalUnlock;

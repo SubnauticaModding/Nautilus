@@ -22,7 +22,7 @@ public static partial class EnumExtensions
         out ModCraftTreeRoot craftTreeRoot)
     {
         CraftTree.Type craftTreeType = builder.Value;
-        string name = craftTreeType.ToString();
+        string name = craftTreeType.ToString();        
         craftTreeRoot = new ModCraftTreeRoot(craftTreeType, name);
         CraftTreePatcher.CustomTrees[craftTreeType] = craftTreeRoot;
 

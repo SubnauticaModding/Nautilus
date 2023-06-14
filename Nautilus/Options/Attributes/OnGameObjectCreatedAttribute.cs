@@ -1,5 +1,5 @@
-﻿using Nautilus.Utility;
-using System;
+﻿using System;
+using Nautilus.Utility;
 
 namespace Nautilus.Options.Attributes;
 

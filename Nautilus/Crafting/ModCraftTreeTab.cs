@@ -83,9 +83,9 @@ public class ModCraftTreeTab : ModCraftTreeLinkingNode
         ModSprite.Add(modSprite);
 #elif BELOWZERO
 
-        ModSprite modSprite;
-        modSprite = new ModSprite(SpriteManager.Group.Category, spriteID, _uSprite);
-        ModSprite.Add(modSprite);
+            ModSprite modSprite;
+            modSprite = new ModSprite(SpriteManager.Group.Category, spriteID, _uSprite);
+            ModSprite.Add(modSprite);
 
 #endif
     }

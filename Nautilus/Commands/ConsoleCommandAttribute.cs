@@ -1,5 +1,5 @@
-﻿using Nautilus.Handlers;
-using System;
+﻿using System;
+using Nautilus.Handlers;
 
 namespace Nautilus.Commands;
 

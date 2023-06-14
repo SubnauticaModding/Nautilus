@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Nautilus.Json.Converters;
@@ -27,8 +27,8 @@ public class QuaternionConverter : JsonConverter
     /// <param name="serializer"></param>
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        Quaternion quaternion = (Quaternion) value;
-        serializer.Serialize(writer, (QuaternionJson) quaternion);
+        Quaternion quaternion = (Quaternion)value;
+        serializer.Serialize(writer, (QuaternionJson)quaternion);
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class QuaternionConverter : JsonConverter
     /// <returns></returns>
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        return (Quaternion) serializer.Deserialize<QuaternionJson>(reader);
+        return (Quaternion)serializer.Deserialize<QuaternionJson>(reader);
     }
 }
 

@@ -1,4 +1,3 @@
-using BepInEx;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using BepInEx;
 
 namespace Nautilus.Utility;
 
@@ -28,22 +28,22 @@ internal class EnumTypeCache
 internal static class EnumCacheProvider
 {
     internal static Dictionary<Type, IEnumCache> CacheManagers { get; } = new();
-
+    
     internal static void RegisterManager(Type enumType, IEnumCache manager)
     {
         if (!enumType.IsEnum)
             return;
-
+        
         if (CacheManagers.ContainsKey(enumType))
             return;
-
+        
         CacheManagers.Add(enumType, manager);
     }
 
     internal static bool TryGetManager(Type enumType, out IEnumCache manager)
     {
         manager = null;
-
+        
         return enumType.IsEnum && CacheManagers.TryGetValue(enumType, out manager);
     }
 
@@ -219,7 +219,7 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         if (!entriesFromRequests.IsKnownKey(backingValue))
         {
             entriesFromRequests.Add(value, backingValue, name);
-            TypesAddedBy[name] = addedBy;
+            TypesAddedBy[name] = addedBy;   
         }
     }
 
@@ -269,14 +269,14 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
 
     private static TEnum ConvertToObject(int backingValue)
     {
-        return (TEnum) Convert.ChangeType(backingValue, _underlyingType);
+        return (TEnum)Convert.ChangeType(backingValue, _underlyingType);
     }
 
     #region Caching
 
     private string GetCacheDirectoryPath()
     {
-        string saveDir = Path.Combine(Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name, $"{EnumTypeName}Cache");
+        string saveDir = Path.Combine(Paths.ConfigPath , Assembly.GetExecutingAssembly().GetName().Name, $"{EnumTypeName}Cache");
 
         if (!Directory.Exists(saveDir))
             Directory.CreateDirectory(saveDir);
@@ -388,14 +388,14 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         else if (!checkRequestedOnly && entriesFromFile.TryGetValue(name, out value))
         {
             entriesFromRequests.Add(value, name);
-            if (addedBy != null)
+            if(addedBy != null)
                 TypesAddedBy[name] = addedBy;
             return new EnumTypeCache(value, name);
         }
         else if (!checkRequestedOnly && checkDeactivated && entriesFromDeactivatedFile.TryGetValue(name, out value))
         {
             entriesFromRequests.Add(value, name);
-            if (addedBy != null)
+            if(addedBy != null)
                 TypesAddedBy[name] = addedBy;
             entriesFromDeactivatedFile.Remove(value, name);
             return new EnumTypeCache(value, name);

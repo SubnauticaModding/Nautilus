@@ -1,9 +1,9 @@
-using Nautilus.Assets;
-using Nautilus.Patchers;
-using Nautilus.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Nautilus.Assets;
+using Nautilus.Patchers;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace Nautilus.Handlers;
@@ -39,7 +39,7 @@ public static class PrefabHandler
         obj.name = classId;
 
         var constructable = obj.GetComponent<Constructable>();
-
+        
         if (techType != TechType.None)
         {
 
@@ -47,7 +47,7 @@ public static class PrefabHandler
             {
                 tag.type = techType;
             }
-
+            
             if (constructable)
             {
                 constructable.techType = techType;
@@ -130,16 +130,16 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
             InternalLogger.Error($"Class ID is required and must be unique for prefab: {info}");
             return;
         }
-
+        
         if (_fileNamePrefabs.ContainsKey(info.PrefabFileName) || string.IsNullOrWhiteSpace(info.PrefabFileName))
         {
             InternalLogger.Error($"PrefabFileName is required and must be unique for prefab: {info}");
             return;
         }
 
-        if (postProcessor is { })
+        if (postProcessor is {})
             _prefabPostProcessors.Add(info, postProcessor);
-
+        
         _prefabs.Add(info, prefabFactory);
         _classIdPrefabs.Add(info.ClassID, info);
         _fileNamePrefabs.Add(info.PrefabFileName, info);
@@ -223,7 +223,7 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
 
         return _classIdPrefabs.TryGetValue(classId, out info);
     }
-
+    
     /// <summary>
     /// Gets the prefab info associated with the provided file name.
     /// </summary>

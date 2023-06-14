@@ -1,8 +1,8 @@
-using BepInEx.Logging;
-using Nautilus.Utility;
 using System;
 using System.Linq;
 using System.Reflection;
+using BepInEx.Logging;
+using Nautilus.Utility;
 
 // ReSharper disable once CheckNamespace
 namespace Nautilus.Handlers;
@@ -13,7 +13,7 @@ namespace Nautilus.Handlers;
 /// <typeparam name="TEnum">Type of the enum.</typeparam>
 public sealed class EnumBuilder<TEnum> where TEnum : Enum
 {
-    internal static EnumCacheManager<TEnum> CacheManager { get; } = (EnumCacheManager<TEnum>) EnumCacheProvider.EnsureManager<TEnum>();
+    internal static EnumCacheManager<TEnum> CacheManager { get; } = (EnumCacheManager<TEnum>)EnumCacheProvider.EnsureManager<TEnum>();
     private static bool _initialized = false;
 
     private TEnum _enumValue;
@@ -22,7 +22,7 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
     /// The enum value corresponding to this builder.
     /// </summary>
     public TEnum Value => _enumValue;
-
+    
     private EnumBuilder()
     {
         // Hide constructor
@@ -46,11 +46,11 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
     {
         return _enumValue.ToString();
     }
-
+    
     internal static EnumBuilder<TEnum> CreateInstance(string name, Assembly addedBy)
     {
         var builder = new EnumBuilder<TEnum>();
-        if (builder.TryAddEnum(name, addedBy, out TEnum enumValue))
+        if(builder.TryAddEnum(name, addedBy, out TEnum enumValue))
         {
             ProcessExtraActions(builder);
             return builder;
@@ -62,12 +62,12 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
 
     private static void ProcessExtraActions(EnumBuilder<TEnum> builder)
     {
-        switch (builder)
+        switch(builder)
         {
             case EnumBuilder<TechType> techTypeBuilder:
                 var techType = techTypeBuilder.Value;
                 var name = techType.ToString();
-                var intKey = ((int) techType).ToString();
+                var intKey = ((int)techType).ToString();
                 TechTypeExtensions.stringsNormal[techType] = name;
                 TechTypeExtensions.stringsLowercase[techType] = name.ToLowerInvariant();
                 TechTypeExtensions.techTypesNormal[name] = techType;
@@ -79,14 +79,14 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
     }
 
     private bool TryAddEnum(string name, Assembly addedBy, out TEnum enumValue)
-    {
-        if (CacheManager.RequestCacheForTypeName(name, false, true) != null)
+    {                
+        if(CacheManager.RequestCacheForTypeName(name, false, true) != null)
         {
             enumValue = default;
             return false;
         }
 
-        if (Enum.GetNames(typeof(TEnum)).Any((x) => x.ToLowerInvariant() == name.ToLowerInvariant()))
+        if(Enum.GetNames(typeof(TEnum)).Any((x)=> x.ToLowerInvariant() == name.ToLowerInvariant()))
         {
             enumValue = default;
             return false;
@@ -98,12 +98,12 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
             Index = CacheManager.GetNextAvailableIndex()
         };
 
-        if (!_initialized)
+        if(!_initialized)
         {
             Initialize();
         }
 
-        enumValue = (TEnum) Convert.ChangeType(cache.Index, Enum.GetUnderlyingType(typeof(TEnum)));
+        enumValue = (TEnum)Convert.ChangeType(cache.Index, Enum.GetUnderlyingType(typeof(TEnum)));
 
         CacheManager.Add(enumValue, cache.Index, cache.Name, addedBy);
 
@@ -124,7 +124,7 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
         var enumName = typeof(TEnum).DeclaringType is { } d
             ? $"{d.Name}{typeof(TEnum).Name}"
             : $"{typeof(TEnum).Name}";
-
+        
         SaveUtils.RegisterOnSaveEvent(() => CacheManager.SaveCache());
         InternalLogger.Log($"{enumName}Patcher is initialized.", LogLevel.Debug);
         _initialized = true;

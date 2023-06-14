@@ -1,9 +1,9 @@
-﻿using HarmonyLib;
-using Nautilus.Json;
-using Nautilus.Utility;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using HarmonyLib;
+using Nautilus.Json;
+using Nautilus.Utility;
 
 namespace Nautilus.Options.Attributes;
 
@@ -131,6 +131,6 @@ internal class MemberInfoMetadata<T> where T : ConfigFile, new()
             // Method not found, error and skip.
             throw new InvalidOperationException($"[OptionsMenuBuilder] Could not find the specified method: {typeof(T)}.{Name}");
         }
-        return (Action<V>) Delegate.CreateDelegate(typeof(Action<V>), config, Name);
+        return (Action<V>)Delegate.CreateDelegate(typeof(Action<V>), config, Name);
     }
 }

@@ -1,8 +1,8 @@
+using System;
 using BepInEx;
 using HarmonyLib;
 using Nautilus.Patchers;
 using Nautilus.Utility;
-using System;
 using UnityEngine;
 
 namespace Nautilus;
@@ -29,7 +29,7 @@ public class Initializer : BaseUnityPlugin
 #if SUBNAUTICA
         InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for Subnautica");
 #elif BELOWZERO
-        InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for BelowZero");
+            InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for BelowZero");
 #endif
         PrefabDatabasePatcher.PrePatch(_harmony);
         EnumPatcher.Patch(_harmony);

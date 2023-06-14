@@ -1,6 +1,8 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Reflection;
+using BepInEx.Logging;
+using Nautilus.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -64,13 +66,12 @@ public class ModSliderOption : ModOption<float, SliderChangedEventArgs>
     /// <param name="tabIndex">Where in the panel to add the option.</param>
     public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
     {
-        UnityAction<float> callback = new((value) =>
-        {
+        UnityAction<float> callback = new((value) => {
             OnChange(Id, sliderValue?.ConvertToDisplayValue(value) ?? value);
-            parentOptions.OnChange<float, SliderChangedEventArgs>(Id, sliderValue?.ConvertToDisplayValue(value) ?? value);
+            parentOptions.OnChange<float, SliderChangedEventArgs>(Id, sliderValue?.ConvertToDisplayValue(value) ?? value); 
         });
 
-        panel.AddSliderOption(tabIndex, Label, (float) Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, ValueFormat, Tooltip);
+        panel.AddSliderOption(tabIndex, Label, (float)Value, MinValue, MaxValue, DefaultValue, Step, callback, SliderLabelMode.Default, ValueFormat, Tooltip);
 
         // AddSliderOption for some reason doesn't return created GameObject, so we need this little hack
         Transform options = panel.tabs[tabIndex].container.transform;

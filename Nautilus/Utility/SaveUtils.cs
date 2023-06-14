@@ -1,5 +1,5 @@
-﻿using Nautilus.Patchers;
-using System;
+﻿using System;
+using Nautilus.Patchers;
 
 namespace Nautilus.Utility;
 

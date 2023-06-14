@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using HarmonyLib;
 using Nautilus.Utility;
-using System.Collections.Generic;
 
 namespace Nautilus.Patchers;
 
@@ -20,7 +19,7 @@ internal class PDAEncyclopediaPatcher
         Dictionary<string, PDAEncyclopedia.EntryData> mapping = PDAEncyclopedia.mapping;
 
         // Add custom entry data
-        foreach (KeyValuePair<string, PDAEncyclopedia.EntryData> customEntry in CustomEntryData)
+        foreach(KeyValuePair<string, PDAEncyclopedia.EntryData> customEntry in CustomEntryData)
         {
             if (!mapping.ContainsKey(customEntry.Key))
             {

@@ -1,5 +1,5 @@
-﻿using Nautilus.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Nautilus.Json;
 
 namespace Nautilus.Options.Attributes;
 

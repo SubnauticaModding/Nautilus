@@ -1,8 +1,9 @@
-using HarmonyLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using HarmonyLib;
 
 namespace Nautilus.Utility;
 

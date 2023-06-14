@@ -25,13 +25,13 @@ public class CustomPrefabExamples : BaseUnityPlugin
          * make this item work in the game.
          */
         PrefabInfo copperCloneInfo = PrefabInfo.WithTechType("CopperClone", "Copper Ore Clone", "Copper Ore clone that makes me go yes.");
-
+        
         /*
          * Here we're assigning the Copper icon for our item.
          * You may also use a custom image as your icon by calling the ImageUtils.LoadSpriteFromFile method.
          */
         copperCloneInfo.WithIcon(SpriteManager.Get(TechType.Copper));
-
+        
         /*
          * Here we are setting up an instance of CustomPrefab.
          * CustomPrefab is where you actually add logic and birth to your item.
@@ -48,7 +48,7 @@ public class CustomPrefabExamples : BaseUnityPlugin
             // Callback to change all material colors of this clone to red.
             ModifyPrefab = prefab => prefab.GetComponentsInChildren<Renderer>().ForEach(r => r.materials.ForEach(m => m.color = Color.red))
         };
-
+        
         /*
          * Here we are setting the Copper clone we created earlier as our item's prefab.
          */
@@ -59,7 +59,7 @@ public class CustomPrefabExamples : BaseUnityPlugin
          */
         copperClone.SetSpawns(new BiomeData { biome = BiomeType.SafeShallows_Grass, count = 4, probability = 0.1f },
             new BiomeData { biome = BiomeType.SafeShallows_CaveFloor, count = 1, probability = 0.4f });
-
+        
         /*
          * And finally, we register it to the game.
          * Now we can spawn our item to the world manually by using the command 'spawn copperclone', or
@@ -112,16 +112,16 @@ public class CustomPrefabExamples : BaseUnityPlugin
          * Instead, we're directly gonna make a recipe, and set its other metadata.
          */
         depthUpgrade.SetRecipe(new Crafting.RecipeData()
-        {
-            /*
-             * Here, wer are saying the amount of the item we want to be crafted.
-             */
-            craftAmount = 1,
+            {
+                /*
+                 * Here, wer are saying the amount of the item we want to be crafted.
+                 */
+                craftAmount = 1,
 
-            /*
-             * And here, we're making a list of arguments.
-             */
-            Ingredients = new List<CraftData.Ingredient>()
+                /*
+                 * And here, we're making a list of arguments.
+                 */
+                Ingredients = new List<CraftData.Ingredient>()
                 {
                     new CraftData.Ingredient(TechType.PlasteelIngot, 3),
 
@@ -131,7 +131,7 @@ public class CustomPrefabExamples : BaseUnityPlugin
                     new CraftData.Ingredient(copperClone.Info.TechType, 1),
                     new CraftData.Ingredient(TechType.Aerogel, 1),
                 }
-        })
+            })
             /*
              * There, we're saying the fabricator type we want the item to be in.
              * In our case, let's say SeamothUpgrades, it's the fabricator in the Moonpool Upgrade Console.

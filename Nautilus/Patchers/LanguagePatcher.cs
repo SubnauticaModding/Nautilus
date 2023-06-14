@@ -1,9 +1,9 @@
-using BepInEx.Logging;
-using HarmonyLib;
-using Nautilus.Utility;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using BepInEx.Logging;
+using HarmonyLib;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace Nautilus.Patchers;
@@ -11,7 +11,7 @@ namespace Nautilus.Patchers;
 internal static class LanguagePatcher
 {
     private const string FallbackLanguage = "English";
-
+        
     private static readonly Dictionary<string, Dictionary<string, string>> _customLines = new();
     private static string _currentLanguage = FallbackLanguage;
 
@@ -31,7 +31,7 @@ internal static class LanguagePatcher
             return;
         }
 
-        if ((!_customLines.TryGetValue(_currentLanguage, out var customStrings) || !customStrings.TryGetValue(key, out var customValue)) &&
+        if ((!_customLines.TryGetValue(_currentLanguage, out var customStrings) || !customStrings.TryGetValue(key, out var customValue)) && 
             (!_customLines.TryGetValue(FallbackLanguage, out customStrings) || !customStrings.TryGetValue(key, out customValue)))
         {
             return;
@@ -61,19 +61,19 @@ internal static class LanguagePatcher
             else
                 __instance.strings[fallbackString.Key] = fallbackString.Value;
         }
-
+            
         if (_currentLanguage == FallbackLanguage)
             return;
-
+            
         var diffStrings = currentStrings.Except(fallbackStrings);
-
+		
         // Just in case there are current language strings that aren't in the fallback language, we implement them as well.
         foreach (var currentOnlyString in diffStrings)
         {
             __instance.strings[currentOnlyString.Key] = currentOnlyString.Value;
         }
     }
-
+        
     private static void LoadLanguageFilePrefix(string language)
     {
         _currentLanguage = Path.GetFileNameWithoutExtension(language);
@@ -108,7 +108,7 @@ internal static class LanguagePatcher
             _customLines[language] = new();
 
         var customStrings = _customLines[language];
-
+            
         foreach (var languageString in languageStrings)
         {
             customStrings[languageString.Key] = languageString.Value;

@@ -1,9 +1,9 @@
-﻿using BepInEx.Logging;
+﻿using System;
+using System.Collections.Generic;
+using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Nautilus.Patchers;
@@ -35,7 +35,7 @@ internal partial class CraftDataPatcher
             return;
         }
 
-        if (techCategory.Contains(techType))
+        if(techCategory.Contains(techType))
         {
             return;
         }
@@ -57,17 +57,17 @@ internal partial class CraftDataPatcher
 
     internal static void RemoveFromGroup(TechGroup group, TechCategory category, TechType techType)
     {
-        if (!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
+        if(!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
         {
             return;
         }
 
-        if (!techGroup.TryGetValue(category, out List<TechType> techCategory))
+        if(!techGroup.TryGetValue(category, out List<TechType> techCategory))
         {
             return;
         }
 
-        if (!techCategory.Contains(techType))
+        if(!techCategory.Contains(techType))
         {
             return;
         }
@@ -85,7 +85,7 @@ internal partial class CraftDataPatcher
 #if SUBNAUTICA
         PatchForSubnautica(harmony);
 #elif BELOWZERO
-        PatchForBelowZero(harmony);
+            PatchForBelowZero(harmony);
 #endif
         harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
             prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePrefix))),
@@ -103,19 +103,19 @@ internal partial class CraftDataPatcher
         TechTag techTag = null;
         PrefabIdentifier prefabIdentifier = null;
 
-        while (transform != null && !transform.TryGetComponent(out prefabIdentifier) && !transform.TryGetComponent(out techTag))
+        while(transform != null && !transform.TryGetComponent(out prefabIdentifier) && !transform.TryGetComponent(out techTag))
         {
             transform = transform.parent;
         }
 
-        if (prefabIdentifier != null)
+        if(prefabIdentifier != null)
         {
             go = prefabIdentifier.gameObject;
             __result = CraftData.entClassTechTable.GetOrDefault(prefabIdentifier.ClassId, TechType.None);
             return;
         }
 
-        if (techTag != null)
+        if(techTag != null)
         {
             go = techTag.gameObject;
             __result = techTag.type;
@@ -136,7 +136,7 @@ internal partial class CraftDataPatcher
 
     private static void CraftDataPrefabIDCachePostfix()
     {
-        if (!NeedsPatching && ModPrefabsPatched)
+        if(!NeedsPatching && ModPrefabsPatched)
             return;
 
         Dictionary<TechType, string> techMapping = CraftData.techMapping;
@@ -145,7 +145,7 @@ internal partial class CraftDataPatcher
         {
             if (prefab.Key.TechType is TechType.None)
                 continue;
-
+                
             techMapping[prefab.Key.TechType] = prefab.Key.ClassID;
             entClassTechTable[prefab.Key.ClassID] = prefab.Key.TechType;
         }

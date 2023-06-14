@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using Nautilus.MonoBehaviours;
-using Nautilus.Utility;
 using Story;
-using System.Collections.Generic;
+using Nautilus.Utility;
 
 namespace Nautilus.Patchers;
 
@@ -19,7 +19,7 @@ internal static class StoryGoalPatcher
         harmony.PatchAll(typeof(StoryGoalPatcher));
         SaveUtils.RegisterOnQuitEvent(() => LocationGoals.ForEach(x => x.timeRangeEntered = -1f));
     }
-
+    
     [HarmonyPostfix]
     [HarmonyPatch(typeof(StoryGoalManager), nameof(StoryGoalManager.Awake))]
     private static void StoryGoalManagerAwakePostfix(StoryGoalManager __instance)
@@ -71,7 +71,7 @@ internal static class StoryGoalPatcher
             }
         }
     }
-
+    
     [HarmonyPostfix]
     [HarmonyPatch(typeof(OnGoalUnlockTracker), nameof(OnGoalUnlockTracker.Initialize))]
     private static void OnGoalUnlockTrackerInitializePostfix(OnGoalUnlockTracker __instance, HashSet<string> completedGoals)

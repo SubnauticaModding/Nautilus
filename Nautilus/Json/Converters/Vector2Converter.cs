@@ -1,5 +1,5 @@
-using Newtonsoft.Json;
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Nautilus.Json.Converters;
@@ -27,8 +27,8 @@ public class Vector2Converter : JsonConverter
     /// <param name="serializer"></param>
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        Vector2 vector2 = (Vector2) value;
-        serializer.Serialize(writer, (Vector2Json) vector2);
+        Vector2 vector2 = (Vector2)value;
+        serializer.Serialize(writer, (Vector2Json)vector2);
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class Vector2Converter : JsonConverter
     /// <returns></returns>
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        return (Vector2) serializer.Deserialize<Vector2Json>(reader);
+        return (Vector2)serializer.Deserialize<Vector2Json>(reader);
     }
 }
 

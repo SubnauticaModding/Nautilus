@@ -17,7 +17,7 @@ public static class GeneralExtensions
         Array.Resize(ref array, array.Length + 1);
         array[^1] = item;
     }
-
+    
     /// <summary>
     /// Removes the "(Clone)" part from names.
     /// </summary>

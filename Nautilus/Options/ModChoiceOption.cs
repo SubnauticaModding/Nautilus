@@ -1,7 +1,7 @@
-using Nautilus.Options.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Nautilus.Options.Utility;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -25,7 +25,7 @@ public class ChoiceChangedEventArgs<T> : ConfigOptionEventArgs<T>
     /// <param name="id">The ID of the <see cref="ModChoiceOption{T}"/> that was changed.</param>
     /// <param name="index">The new index for the <see cref="ModChoiceOption{T}"/>.</param>
     /// <param name="value">The value of the <see cref="ModChoiceOption{T}"/> as a string.</param>
-    public ChoiceChangedEventArgs(string id, int index, T value) : base(id, value)
+    public ChoiceChangedEventArgs(string id, int index, T value) : base(id, value) 
     {
         Index = index;
     }
@@ -66,11 +66,10 @@ public class ModChoiceOption<T> : ModOption<T, ChoiceChangedEventArgs<T>>
     public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
     {
         Choice = panel.AddChoiceOption(tabIndex, Label, OptionStrings, Index,
-            new UnityAction<int>((int index) =>
-            {
+            new UnityAction<int>((int index) => {
                 Index = index;
                 OnChange(Id, Options[index]);
-                parentOptions.OnChange<T, ChoiceChangedEventArgs<T>>(Id, Options[index]);
+                parentOptions.OnChange<T, ChoiceChangedEventArgs<T>>(Id, Options[index]); 
             }), Tooltip);
 
         OptionGameObject = Choice.transform.parent.transform.parent.gameObject; // :(
@@ -82,7 +81,7 @@ public class ModChoiceOption<T> : ModOption<T, ChoiceChangedEventArgs<T>>
     {
         Options = options;
         List<string> optionStrings = new List<string>();
-        foreach (var option in options)
+        foreach(var option in options)
         {
             if (option is Color color)
                 optionStrings.Add($"<color=#{ColorUtility.ToHtmlStringRGBA(color)}>{color}</color>");
@@ -135,7 +134,7 @@ public class ModChoiceOption<T> : ModOption<T, ChoiceChangedEventArgs<T>>
     /// </summary>
     public override Type AdjusterComponent => typeof(ChoiceOptionAdjust);
 }
-internal class ChoiceOptionAdjust : OptionItem.ModOptionAdjust
+internal class ChoiceOptionAdjust: OptionItem.ModOptionAdjust
 {
     private const float spacing = 10f;
 
@@ -150,7 +149,7 @@ internal class ChoiceOptionAdjust : OptionItem.ModOptionAdjust
         float widthChoice = rect.rect.width;
         float widthText = CaptionWidth + spacing;
 
-        if (widthText + widthChoice > widthAll)
+        if(widthText + widthChoice > widthAll)
         {
             rect.sizeDelta = SetVec2x(rect.sizeDelta, widthAll - widthText - widthChoice);
         }

@@ -1,12 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Options;
 using Nautilus.Utility;
 using Newtonsoft.Json;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,7 +36,7 @@ internal class OptionsPanelPatcher
     [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddTab))]
     internal static void AddTab_Postfix(uGUI_TabbedControlsPanel __instance, string label, int __result)
     {
-        if (__instance is not uGUI_OptionsPanel)
+        if(__instance is not uGUI_OptionsPanel)
             return;
 
         if (label == "Mods")
@@ -96,7 +96,7 @@ internal class OptionsPanelPatcher
             "Mod name (default)",
             "Mod name and item ID",
             "Nothing"
-        }, (int) TooltipPatcher.ExtraItemInfoOption, (i) => TooltipPatcher.SetExtraItemInfo((TooltipPatcher.ExtraItemInfo) i));
+        }, (int)TooltipPatcher.ExtraItemInfoOption, (i) => TooltipPatcher.SetExtraItemInfo((TooltipPatcher.ExtraItemInfo)i));
 
         // adding all other options here
         modOptions.Values.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
@@ -122,7 +122,7 @@ internal class OptionsPanelPatcher
                 public HeadingState this[string name]
                 {
                     get => _states.TryGetValue(name, out HeadingState state) ? state : HeadingState.Expanded;
-                        
+
                     set
                     {
                         _states[name] = value;
@@ -195,7 +195,7 @@ internal class OptionsPanelPatcher
 
         #region components
         // main component for headings toggling
-        private class HeadingToggle : Selectable, IPointerClickHandler
+        private class HeadingToggle: Selectable, IPointerClickHandler
         {
             private HeadingState _headingState = HeadingState.Expanded;
             private string _headingName = null;
@@ -253,7 +253,7 @@ internal class OptionsPanelPatcher
 
                 StoredHeadingStates.store(_headingName, state);
             }
-
+            
             public void OnPointerClick(PointerEventData _)
             {
                 var buttonHandler = GetComponentInChildren<ToggleButtonClickHandler>();
@@ -268,7 +268,7 @@ internal class OptionsPanelPatcher
         }
 
         // change handler for arrow button
-        private class ToggleButtonClickHandler : MonoBehaviour
+        private class ToggleButtonClickHandler: MonoBehaviour
         {
             private const float TimeRotate = 0.1f;
 
@@ -276,7 +276,7 @@ internal class OptionsPanelPatcher
 
             public void SetStateInstant(HeadingState state)
             {
-                transform.localEulerAngles = new Vector3(0, 0, state == HeadingState.Expanded ? -90 : 0);
+                transform.localEulerAngles = new Vector3(0, 0, state == HeadingState.Expanded? -90: 0);
             }
 
             internal IEnumerator SetState(HeadingState state)
@@ -318,7 +318,7 @@ internal class OptionsPanelPatcher
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.OnEnable))]
         private static void Awake_Postfix(uGUI_TabbedControlsPanel __instance)
         {
-            if (__instance is not uGUI_OptionsPanel)
+            if(__instance is not uGUI_OptionsPanel)
                 return;
 
             InitHeadingPrefab(__instance);
@@ -329,7 +329,7 @@ internal class OptionsPanelPatcher
         private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {
             if (tabIndex != _modsTabIndex || __instance is not uGUI_OptionsPanel)
-                return; 
+                return;
 
             // just in case, for changing vertical spacing between ui elements
             //__instance.tabs[tabIndex].container.GetComponent<VerticalLayoutGroup>().spacing = 15f; // default is 15f
@@ -355,7 +355,7 @@ internal class OptionsPanelPatcher
 
         private static void StorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? _devMenuScrollPos: _optionsScrollPos;
+            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel ? _devMenuScrollPos : _optionsScrollPos;
             if (tabIndex >= 0 && tabIndex < panel.tabs.Count)
             {
                 scrollPos[tabIndex] = panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition;
@@ -364,7 +364,7 @@ internal class OptionsPanelPatcher
 
         private static void RestorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? _devMenuScrollPos: _optionsScrollPos;
+            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel ? _devMenuScrollPos : _optionsScrollPos;
             if (tabIndex >= 0 && tabIndex < panel.tabs.Count && scrollPos.TryGetValue(tabIndex, out float pos))
             {
                 panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition = pos;
@@ -375,7 +375,7 @@ internal class OptionsPanelPatcher
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.RemoveTabs))]
         private static void RemoveTabs_Prefix(uGUI_TabbedControlsPanel __instance)
         {
-            if (__instance is not uGUI_OptionsPanel)
+            if(__instance is not uGUI_OptionsPanel)
                 return;
             StorePos(__instance, __instance.currentTab);
         }
@@ -384,7 +384,7 @@ internal class OptionsPanelPatcher
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.HighlightCurrentTab))]
         private static void HighlightCurrentTab_Postfix(uGUI_TabbedControlsPanel __instance)
         {
-            if (__instance is not uGUI_OptionsPanel)
+            if(__instance is not uGUI_OptionsPanel)
                 return;
             __instance.StartCoroutine(_restorePos());
 
@@ -399,7 +399,7 @@ internal class OptionsPanelPatcher
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
         private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {
-            if (__instance is not uGUI_OptionsPanel)
+            if(__instance is not uGUI_OptionsPanel)
                 return;
             if (tabIndex != __instance.currentTab)
             {
@@ -411,7 +411,7 @@ internal class OptionsPanelPatcher
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
         private static void SetVisibleTab_Postfix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {
-            if (__instance is not uGUI_OptionsPanel)
+            if(__instance is not uGUI_OptionsPanel)
                 return;
             RestorePos(__instance, tabIndex);
         }

@@ -1,7 +1,7 @@
-﻿using BepInEx.Logging;
+﻿using System.Collections.Generic;
+using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Utility;
-using System.Collections.Generic;
 
 namespace Nautilus.Patchers;
 
@@ -23,7 +23,7 @@ internal class LootDistributionPatcher
         {
             LootDistributionData.SrcData customSrcData = entry.Value;
             string classId = entry.Key;
-            if (customSrcData != null)
+            if(customSrcData != null)
             {
                 if (__instance.srcDistribution.TryGetValue(entry.Key, out LootDistributionData.SrcData srcData))
                 {

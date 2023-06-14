@@ -1,9 +1,9 @@
-namespace Nautilus.Handlers;
-
+#if SUBNAUTICA
 using Nautilus.Crafting;
 using Nautilus.Patchers;
 
-#if SUBNAUTICA
+namespace Nautilus.Handlers;
+
 using static CraftData;
 
 /// <summary>

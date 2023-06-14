@@ -1,5 +1,5 @@
-﻿using Nautilus.Json;
-using System;
+﻿using System;
+using Nautilus.Json;
 using UnityEngine;
 
 namespace Nautilus.Options.Attributes;

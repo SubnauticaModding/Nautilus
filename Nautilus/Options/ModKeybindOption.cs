@@ -1,6 +1,6 @@
-using Nautilus.Utility;
 using System;
 using System.Collections;
+using Nautilus.Utility;
 using TMPro;
 using UnityEngine;
 
@@ -114,7 +114,7 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
         base.AddToPanel(panel, tabIndex);
     }
 
-    internal class ModBindingTag : MonoBehaviour { };
+    internal class ModBindingTag: MonoBehaviour { };
 
     internal class BindingOptionAdjust: ModOptionAdjust
     {

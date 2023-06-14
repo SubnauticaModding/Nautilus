@@ -1,6 +1,6 @@
-﻿using Nautilus.Utility;
+﻿using System;
+using Nautilus.Utility;
 using Newtonsoft.Json;
-using System;
 using UnityEngine;
 
 namespace Nautilus.Json.Converters;
@@ -18,7 +18,7 @@ public class KeyCodeConverter : JsonConverter
     /// <param name="serializer"></param>
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        KeyCode keyCode = (KeyCode) value;
+        KeyCode keyCode = (KeyCode)value;
         writer.WriteValue(KeyCodeUtils.KeyCodeToString(keyCode));
     }
 
@@ -33,7 +33,7 @@ public class KeyCodeConverter : JsonConverter
     public override object ReadJson(JsonReader reader, Type objectType,
         object existingValue, JsonSerializer serializer)
     {
-        string s = (string) reader.Value;
+        string s = (string)reader.Value;
         return KeyCodeUtils.StringToKeyCode(s);
     }
 

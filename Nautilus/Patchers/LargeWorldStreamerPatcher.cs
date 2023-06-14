@@ -1,13 +1,13 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Json.Converters;
 using Nautilus.MonoBehaviours;
 using Nautilus.Utility;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 
 namespace Nautilus.Patchers;
@@ -23,7 +23,7 @@ internal class LargeWorldStreamerPatcher
 
     internal static readonly HashSet<SpawnInfo> spawnInfos = new();
     internal static readonly HashSet<SpawnInfo> savedSpawnInfos = new();
-
+        
     private static readonly HashSet<SpawnInfo> initialSpawnInfos = new();
 
     private static bool initialized;
@@ -79,7 +79,7 @@ internal class LargeWorldStreamerPatcher
             writer.Close();
         }
     }
-
+        
     // We keep an initial copy of the spawn infos so Coordinated Spawns also works if you quit to main menu.
     private static void InitializeSpawnInfos()
     {
@@ -93,7 +93,7 @@ internal class LargeWorldStreamerPatcher
             }
             return;
         }
-
+            
         initialSpawnInfos.AddRange(spawnInfos);
         SaveUtils.RegisterOnSaveEvent(SaveData);
         initialized = true;

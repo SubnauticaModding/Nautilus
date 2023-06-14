@@ -1,7 +1,7 @@
-﻿using HarmonyLib;
+﻿using System.Collections.Generic;
+using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using System.Collections.Generic;
 
 namespace Nautilus.Patchers;
 
@@ -27,9 +27,9 @@ internal class EatablePatcher
             __instance.waterValue = value.water;
             __instance.decomposes = value.decomposes;
 #if BELOWZERO
-            __instance.healthValue = value.health;
-            __instance.maxCharges = value.maxCharges;
-            __instance.coldMeterValue = value.coldValue;
+                __instance.healthValue = value.health;
+                __instance.maxCharges = value.maxCharges;
+                __instance.coldMeterValue = value.coldValue;
 #endif
         }
     }

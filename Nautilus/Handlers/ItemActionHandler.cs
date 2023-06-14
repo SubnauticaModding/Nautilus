@@ -1,6 +1,6 @@
+using System;
 using Nautilus.Patchers;
 using Nautilus.Utility;
-using System;
 
 namespace Nautilus.Handlers;
 

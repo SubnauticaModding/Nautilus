@@ -1,9 +1,9 @@
+using System.IO;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Json.Converters;
 using Nautilus.Utility;
 using Newtonsoft.Json;
-using System.IO;
 using UnityEngine;
 using UWE;
 
@@ -23,14 +23,14 @@ public static class GadgetExtensions
     public static CraftingGadget SetRecipe(this ICustomPrefab customPrefab, RecipeData recipeData)
     {
         if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
-        {
+        { 
             craftingGadget = new CraftingGadget(customPrefab, recipeData);
         }
 
         craftingGadget.RecipeData = recipeData;
-
+        
         customPrefab.TryAddGadget(craftingGadget);
-
+        
         return craftingGadget;
     }
 
@@ -52,7 +52,7 @@ public static class GadgetExtensions
         {
             recipeData = JsonConvert.DeserializeObject<RecipeData>(filePath, new CustomEnumConverter());
         }
-
+        
         if (recipeData is null)
         {
             InternalLogger.Error($"File '{filePath} is not a valid RecipeData json file. Skipping recipe addition.'");
@@ -60,14 +60,14 @@ public static class GadgetExtensions
         }
 
         if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
-        {
+        { 
             craftingGadget = new CraftingGadget(customPrefab, recipeData);
         }
 
         craftingGadget.RecipeData = recipeData;
-
+        
         customPrefab.TryAddGadget(craftingGadget);
-
+        
         return craftingGadget;
     }
 
@@ -84,10 +84,10 @@ public static class GadgetExtensions
         {
             scanningGadget = new ScanningGadget(customPrefab, requiredForUnlock, fragmentsToScan);
         }
-
+        
         scanningGadget.RequiredForUnlock = requiredForUnlock;
         scanningGadget.FragmentsToScan = fragmentsToScan;
-
+        
         customPrefab.TryAddGadget(scanningGadget);
 
         return scanningGadget;
@@ -130,7 +130,7 @@ public static class GadgetExtensions
         }
 
         equipmentGadget.EquipmentType = equipmentType;
-
+        
         customPrefab.TryAddGadget(equipmentGadget);
 
         return equipmentGadget;
@@ -150,12 +150,12 @@ public static class GadgetExtensions
         }
 
         treeType = fabricatorGadget.CraftTreeType;
-
+        
         customPrefab.TryAddGadget(fabricatorGadget);
 
         return fabricatorGadget;
     }
-
+    
     /// <summary>
     /// Adds coordinated spawns for this custom prefab.
     /// </summary>
@@ -174,7 +174,7 @@ public static class GadgetExtensions
 
         return customPrefab;
     }
-
+    
     /// <summary>
     /// Adds biome spawns for this custom prefab with default <see cref="WorldEntityInfo"/> values.
     /// </summary>

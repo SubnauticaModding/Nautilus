@@ -1,10 +1,10 @@
-﻿using Nautilus.Json.Attributes;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using Nautilus.Json.Attributes;
 using Nautilus.Json.Interfaces;
 using Nautilus.Utility;
 using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Reflection;
 
 namespace Nautilus.Json;
 

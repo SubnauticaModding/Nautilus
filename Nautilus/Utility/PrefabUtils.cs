@@ -13,47 +13,47 @@ public enum ConstructableFlags
     /// Undefined placement.
     /// </summary>
     None,
-
+        
     /// <summary>
     /// Can be placed on floors.
     /// </summary>
     Ground = 1,
-
+        
     /// <summary>
     /// Can be placed on walls.
     /// </summary>
     Wall = 1 << 1,
-
+        
     /// <summary>
     /// Can be placed on ceilings.
     /// </summary>
     Ceiling = 1 << 2,
-
+        
     /// <summary>
     /// Can be placed in bases.
     /// </summary>
     Base = 1 << 3,
-
+        
     /// <summary>
     /// Can be placed in Cyclops or any other submarine.
     /// </summary>
     Submarine = 1 << 4,
-
+        
     /// <summary>
     /// Can be placed inside. Combines <see cref="Base"/> and <see cref="Submarine"/>.
     /// </summary>
     Inside = Base | Submarine,
-
+        
     /// <summary>
     /// Can be placed outside.
     /// </summary>
     Outside = 1 << 5,
-
+        
     /// <summary>
     /// Allowed on constructed entities such as tables, desks, shelves, etc...
     /// </summary>
     AllowedOnConstructable = 1 << 6,
-
+        
     /// <summary>
     /// The constructable can be rotated during placement.
     /// </summary>
@@ -79,14 +79,14 @@ public static class PrefabUtils
     public static void AddBasicComponents(GameObject prefab, string classId, TechType techType, LargeWorldEntity.CellLevel cellLevel)
     {
         prefab.EnsureComponent<PrefabIdentifier>().ClassId = classId;
-
+            
         if (techType != TechType.None)
         {
             prefab.EnsureComponent<TechTag>().type = techType;
         }
-
+            
         prefab.EnsureComponent<LargeWorldEntity>().cellLevel = cellLevel;
-
+            
         var renderers = prefab.GetComponentsInChildren<Renderer>(true);
         if (renderers != null)
         {
@@ -180,7 +180,7 @@ public static class PrefabUtils
 
         var childObjectIdentifier = storageRoot.AddComponent<ChildObjectIdentifier>();
         childObjectIdentifier.ClassId = storageRootClassId;
-
+    
         var container = prefabRoot.AddComponent<StorageContainer>();
         container.prefabRoot = prefabRoot;
         container.width = width;

@@ -15,9 +15,9 @@ public static partial class EnumExtensions
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public static EnumBuilder<TechGroup> WithPdaInfo(this EnumBuilder<TechGroup> builder, string displayName, string language = "English")
     {
-        var techGroup = (TechGroup) builder;
+        var techGroup = (TechGroup)builder;
         var name = builder.ToString();
-
+        
         if (!string.IsNullOrEmpty(displayName))
         {
             LanguageHandler.SetLanguageLine("Group" + name, displayName, language);
@@ -26,7 +26,7 @@ public static partial class EnumExtensions
         {
             InternalLogger.Warn($"Display name was not specified and no existing language line has been found for TechGroup '{name}'.");
         }
-
+        
         if (!uGUI_BlueprintsTab.groups.Contains(techGroup))
             uGUI_BlueprintsTab.groups.Add(techGroup);
 

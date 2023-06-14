@@ -31,7 +31,7 @@ internal class ModSprite
         Add(sprite.Group, sprite.Id, sprite.Sprite);
     }
 
-    internal static Dictionary<SpriteManager.Group, Dictionary<string, UnityEngine.Sprite>> ModSprites
+    internal static Dictionary<SpriteManager.Group, Dictionary<string, UnityEngine.Sprite>> ModSprites 
         = new();
 
     /// <summary>

@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Nautilus.Json.Converters;
@@ -27,8 +27,8 @@ public class ColorConverter : JsonConverter
     /// <param name="serializer"></param>
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
-        Color color = (Color) value;
-        serializer.Serialize(writer, (ColorJson) color);
+        Color color = (Color)value;
+        serializer.Serialize(writer, (ColorJson)color);
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class ColorConverter : JsonConverter
     /// <returns></returns>
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
     {
-        return (Color) serializer.Deserialize<ColorJson>(reader);
+        return (Color)serializer.Deserialize<ColorJson>(reader);
     }
 }
 

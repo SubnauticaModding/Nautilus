@@ -1,6 +1,6 @@
+using System.Diagnostics.CodeAnalysis;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Nautilus.Assets.Gadgets;
 
@@ -80,7 +80,7 @@ public class EquipmentGadget : Gadget
             InternalLogger.Error($"Prefab '{prefab.Info}' does not contain a TechType. Skipping {nameof(EquipmentGadget)} build.");
             return;
         }
-
+        
         CraftDataHandler.SetEquipmentType(prefab.Info.TechType, EquipmentType);
         CraftDataHandler.SetQuickSlotType(prefab.Info.TechType, QuickSlotType);
     }

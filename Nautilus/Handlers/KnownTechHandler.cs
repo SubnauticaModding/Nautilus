@@ -1,8 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using Story;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Nautilus.Handlers;
@@ -37,7 +37,7 @@ public static class KnownTechHandler
 #if SUBNAUTICA
                 analysisTech.storyGoals ??= new();
 #endif
-
+                    
                 KnownTechPatcher.AnalysisTech.Add(analysisTech.techType, analysisTech);
             }
         }
@@ -45,16 +45,16 @@ public static class KnownTechHandler
         {
             InternalLogger.Error("Cannot Add Unlock to TechType.None!");
         }
-
+        
         if (uGUI.isMainLevel)
             KnownTechPatcher.InitializePostfix();
     }
 
     internal static void AddAnalysisTech(
-        TechType techTypeToBeAnalysed,
-        IEnumerable<TechType> techTypesToUnlock,
+        TechType techTypeToBeAnalysed, 
+        IEnumerable<TechType> techTypesToUnlock, 
         string unlockMessage = "NotificationBlueprintUnlocked",
-        FMODAsset unlockSound = null,
+        FMODAsset unlockSound = null, 
         UnityEngine.Sprite unlockSprite = null
 #if SUBNAUTICA
         ,List<StoryGoal> storyGoals = null
@@ -99,7 +99,7 @@ public static class KnownTechHandler
             InternalLogger.Debug($"Adding Compound Unlock for {techType.AsString()}");
             KnownTechPatcher.CompoundTech.Add(techType, new KnownTech.CompoundTech() { techType = techType, dependencies = compoundTechsForUnlock });
         }
-
+        
         if (uGUI.isMainLevel)
             KnownTechPatcher.InitializePostfix();
     }
@@ -120,7 +120,7 @@ public static class KnownTechHandler
                 KnownTechPatcher.RemoveFromSpecificTechs[techType] = new List<TechType>() { targetTechType };
             }
         }
-
+        
         if (uGUI.isMainLevel)
             KnownTechPatcher.InitializePostfix();
     }
@@ -152,7 +152,7 @@ public static class KnownTechHandler
         {
             KnownTechPatcher.RemovalTechs.Add(targetTechType);
         }
-
+        
         if (uGUI.isMainLevel)
             KnownTechPatcher.InitializePostfix();
     }
@@ -250,7 +250,7 @@ public static class KnownTechHandler
     {
         AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, "NotificationBlueprintUnlocked", unlockSound, unlockSprite);
     }
-
+        
     /// <summary>
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in <see cref="KnownTech.AnalysisTech.unlockTechTypes"/> will be
@@ -261,7 +261,7 @@ public static class KnownTechHandler
     {
         AddAnalysisTech(analysisTech);
     }
-
+        
     /// <summary>
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
@@ -316,7 +316,7 @@ public static class KnownTechHandler
     {
         /// <summary>Message on unlocking new creatures; "NEW LIFEFORM DISCOVERED"</summary>
         public const string NewCreatureDiscoveredMessage = "NotificationCreatureDiscovered";
-
+        
         /// <summary>Sound on unlocking new creatures; "NEW LIFEFORM DISCOVERED"</summary>
         public static FMODAsset NewCreatureDiscoveredSound { get; } = AudioUtils.GetFmodAsset("event:/player/new_creature");
 
@@ -325,7 +325,7 @@ public static class KnownTechHandler
 
         /// <summary>Message on unlocking new blueprints from scanning; "NEW BLUEPRINT SYNTHESIZED"</summary>
         public const string BlueprintUnlockMessage = "NotificationBlueprintUnlocked";
-
+        
         /// <summary>Sound on unlocking new blueprints from scanning or picking up items; "NEW BLUEPRINT SYNTHESIZED"</summary>
         public static FMODAsset BlueprintUnlockSound { get; } = AudioUtils.GetFmodAsset("event:/tools/scanner/new_blueprint");
 

@@ -1,7 +1,7 @@
-﻿using BepInEx.Logging;
+﻿using System;
+using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Utility;
-using System;
 
 namespace Nautilus.Patchers;
 

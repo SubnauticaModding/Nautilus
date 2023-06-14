@@ -1,11 +1,11 @@
-using Nautilus.Assets.Gadgets;
-using Nautilus.Assets.PrefabTemplates;
-using Nautilus.Handlers;
-using Nautilus.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Nautilus.Assets.Gadgets;
+using Nautilus.Assets.PrefabTemplates;
+using Nautilus.Handlers;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace Nautilus.Assets;
@@ -29,7 +29,7 @@ public interface ICustomPrefab
     /// The prefab info for this custom prefab.
     /// </summary>
     PrefabInfo Info { get; }
-
+    
     /// <summary>
     /// Function which constructs a game object for this prefab.
     /// </summary>
@@ -39,7 +39,7 @@ public interface ICustomPrefab
     /// Function that will be executed after the Nautilus's basic processing for <see cref="Prefab"/> has been completed.
     /// </summary>
     PrefabPostProcessorAsync OnPrefabPostProcess { get; }
-
+    
     /// <summary>
     /// Adds a gadget to this custom prefab. A prefab can only hold one Gadget of any given type.
     /// </summary>
@@ -94,13 +94,13 @@ public interface ICustomPrefab
     /// <returns><see langword="true"/> if the gadget was successfully found and removed, otherwise; <see langword="false"/>.<br/>
     /// This method returns <see langword="false"/> if the gadget type was not found in this custom prefab.</returns>
     bool RemoveGadget<TGadget>() where TGadget : Gadget;
-
+    
     /// <summary>
     /// Adds an action that will be called during the registration of the prefab.
     /// </summary>
     /// <param name="onRegisterCallback">The action that will be called.</param>
     void AddOnRegister(Action onRegisterCallback);
-
+    
     /// <summary>
     /// Adds an action that will be called when this prefab has performed an unregister operation.
     /// </summary>
@@ -121,7 +121,7 @@ public class CustomPrefab : ICustomPrefab
 
     /// <inheritdoc/>
     public required PrefabInfo Info { get; set; }
-
+    
     /// <inheritdoc/>
     public PrefabFactoryAsync Prefab { get; protected set; }
 
@@ -132,7 +132,7 @@ public class CustomPrefab : ICustomPrefab
     /// Constructs a custom prefab object.
     /// </summary>
     public CustomPrefab() { }
-
+    
     /// <summary>
     /// Constructs a custom prefab object.
     /// </summary>
@@ -154,7 +154,7 @@ public class CustomPrefab : ICustomPrefab
     {
         Info = PrefabInfo.WithTechType(classId, displayName, description);
     }
-
+    
 
 #if SUBNAUTICA
     /// <summary>
@@ -170,7 +170,7 @@ public class CustomPrefab : ICustomPrefab
         Info.WithIcon(icon);
     }
 #endif
-
+    
     /// <summary>
     /// Constructs a custom prefab object with the <see cref="Info"/> assigned appropriately.
     /// </summary>
@@ -183,7 +183,7 @@ public class CustomPrefab : ICustomPrefab
     {
         Info.WithIcon(icon);
     }
-
+    
     /// <inheritdoc/>
     public TGadget AddGadget<TGadget>(TGadget gadget) where TGadget : Gadget
     {
@@ -209,7 +209,7 @@ public class CustomPrefab : ICustomPrefab
     public bool TryGetGadget<TGadget>(out TGadget gadget) where TGadget : Gadget
     {
         var result = _gadgets.TryGetValue(typeof(TGadget), out var g);
-        gadget = (TGadget) g;
+        gadget = (TGadget)g;
         return result;
     }
 
@@ -257,13 +257,13 @@ public class CustomPrefab : ICustomPrefab
     /// </summary>
     /// <param name="prefabTemplate">The prefab template object to set.</param>
     public void SetGameObject(PrefabTemplate prefabTemplate) => Prefab = prefabTemplate.GetPrefabAsync;
-
+    
     /// <summary>
     /// Sets a game object as the prefab of this custom prefab.
     /// </summary>
     /// <param name="prefab">The game object to set.</param>
     public void SetGameObject(GameObject prefab) => Prefab = obj => SyncPrefab(obj, prefab);
-
+    
     /// <summary>
     /// Sets a function as the game object constructor of this custom prefab. This is a synchronous version.
     /// </summary>
@@ -289,7 +289,7 @@ public class CustomPrefab : ICustomPrefab
     {
         if (_registered)
             return;
-
+        
         // Every prefab must have a class ID and a PrefabFileName, so if they don't exist, registration should be cancelled.
         if (string.IsNullOrEmpty(Info.ClassID) || string.IsNullOrEmpty(Info.PrefabFileName))
         {
@@ -315,7 +315,7 @@ public class CustomPrefab : ICustomPrefab
         {
             gadget.Value.Build();
         }
-
+        
         PrefabHandler.Prefabs.RegisterPrefab(this);
 
         _registered = true;
@@ -335,17 +335,17 @@ public class CustomPrefab : ICustomPrefab
             InternalLogger.Info($"Prefab '{Info}' is invalid or unknown. Skipping unregister operation.");
             return;
         }
-
+        
         foreach (var unReg in _onUnregister)
         {
             unReg?.Invoke();
         }
-
+        
         PrefabHandler.Prefabs.UnregisterPrefab(this);
 
         _registered = false;
     }
-
+    
     private IEnumerator SyncPrefab(IOut<GameObject> obj, GameObject prefab)
     {
         obj.Set(prefab);

@@ -1,7 +1,7 @@
-using BepInEx.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BepInEx.Configuration;
 using UnityEngine;
 
 namespace Nautilus.Options;
@@ -19,7 +19,7 @@ public static class ConfigEntryExtensions
     /// <returns><see cref="ModToggleOption"/></returns>
     public static ModToggleOption ToModToggleOption(this ConfigEntry<bool> configEntry)
     {
-        ModToggleOption optionItem = ModToggleOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
+        ModToggleOption optionItem = ModToggleOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}", 
             configEntry.Definition.Key, configEntry.Value, tooltip: configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
@@ -46,12 +46,12 @@ public static class ConfigEntryExtensions
             maxValue ??= valueRange.MaxValue;
         }
 
-        ModSliderOption optionItem = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
+        ModSliderOption optionItem = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}", 
             configEntry.Definition.Key, minValue ?? 0, maxValue ?? 100, configEntry.Value,
-            defaultValue: (int) configEntry.DefaultValue, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: (int)configEntry.DefaultValue, step: step, tooltip: configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
-            configEntry.Value = (int) e.Value;
+            configEntry.Value = (int)e.Value;
         };
         return optionItem;
     }
@@ -75,9 +75,9 @@ public static class ConfigEntryExtensions
             maxValue ??= valueRange.MaxValue;
         }
 
-        ModSliderOption optionItem = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
+        ModSliderOption optionItem = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}", 
             configEntry.Definition.Key, minValue ?? 0f, maxValue ?? 1f, configEntry.Value,
-            defaultValue: (float) configEntry.DefaultValue, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: (float)configEntry.DefaultValue, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
             configEntry.Value = e.Value;
@@ -98,17 +98,17 @@ public static class ConfigEntryExtensions
     {
         var optionItems = new List<ModSliderOption>();
         step = Mathf.Max(0.01f, step);
-        ModSliderOption optionItemX = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_X",
+        ModSliderOption optionItemX = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_X", 
             configEntry.Definition.Key + " X", minValue, maxValue, configEntry.Value.x,
-            defaultValue: ((Vector2) configEntry.DefaultValue).x, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: ((Vector2)configEntry.DefaultValue).x,valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
         optionItemX.OnChanged += (_, e) =>
         {
             configEntry.Value = new(e.Value, configEntry.Value.y);
         };
         optionItems.Add(optionItemX);
-        ModSliderOption optionItemY = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Y",
+        ModSliderOption optionItemY = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Y", 
             configEntry.Definition.Key + " Y", minValue, maxValue, configEntry.Value.y,
-            defaultValue: ((Vector2) configEntry.DefaultValue).y, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: ((Vector2)configEntry.DefaultValue).y, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
         optionItemY.OnChanged += (_, e) =>
         {
             configEntry.Value = new(configEntry.Value.x, e.Value);
@@ -131,25 +131,25 @@ public static class ConfigEntryExtensions
     {
         var optionItems = new List<ModSliderOption>();
         step = Mathf.Max(0.01f, step);
-        ModSliderOption optionItemX = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_X",
+        ModSliderOption optionItemX = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_X", 
             configEntry.Definition.Key + " X", minValue, maxValue, configEntry.Value.x,
-            defaultValue: ((Vector3) configEntry.DefaultValue).x, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: ((Vector3)configEntry.DefaultValue).x, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
         optionItemX.OnChanged += (_, e) =>
         {
             configEntry.Value = new(e.Value, configEntry.Value.y, configEntry.Value.z);
         };
         optionItems.Add(optionItemX);
-        ModSliderOption optionItemY = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Y",
+        ModSliderOption optionItemY = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Y", 
             configEntry.Definition.Key + " Y", minValue, maxValue, configEntry.Value.y,
-            defaultValue: ((Vector3) configEntry.DefaultValue).y, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: ((Vector3)configEntry.DefaultValue).y,valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
         optionItemY.OnChanged += (_, e) =>
         {
             configEntry.Value = new(configEntry.Value.x, e.Value, configEntry.Value.z);
         };
         optionItems.Add(optionItemY);
-        ModSliderOption optionItemZ = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Z",
+        ModSliderOption optionItemZ = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Z", 
             configEntry.Definition.Key + " Z", minValue, maxValue, configEntry.Value.z,
-            defaultValue: ((Vector3) configEntry.DefaultValue).z, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: ((Vector3)configEntry.DefaultValue).z, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
         optionItemZ.OnChanged += (_, e) =>
         {
             configEntry.Value = new(configEntry.Value.x, configEntry.Value.y, e.Value);
@@ -172,33 +172,33 @@ public static class ConfigEntryExtensions
     {
         var optionItems = new List<ModSliderOption>();
         step = Mathf.Max(0.01f, step);
-        ModSliderOption optionItemX = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_X",
+        ModSliderOption optionItemX = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_X", 
             configEntry.Definition.Key + " X", minValue, maxValue, configEntry.Value.x,
-            defaultValue: ((Vector4) configEntry.DefaultValue).x, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: ((Vector4)configEntry.DefaultValue).x, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
         optionItemX.OnChanged += (_, e) =>
         {
             configEntry.Value = new(e.Value, configEntry.Value.y, configEntry.Value.z, configEntry.Value.w);
         };
         optionItems.Add(optionItemX);
-        ModSliderOption optionItemY = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Y",
+        ModSliderOption optionItemY = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Y", 
             configEntry.Definition.Key + " Y", minValue, maxValue, configEntry.Value.y,
-            defaultValue: ((Vector4) configEntry.DefaultValue).y, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: ((Vector4)configEntry.DefaultValue).y, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
         optionItemY.OnChanged += (_, e) =>
         {
             configEntry.Value = new(configEntry.Value.x, e.Value, configEntry.Value.z, configEntry.Value.w);
         };
         optionItems.Add(optionItemY);
-        ModSliderOption optionItemZ = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Z",
+        ModSliderOption optionItemZ = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_Z", 
             configEntry.Definition.Key + " Z", minValue, maxValue, configEntry.Value.z,
-            defaultValue: ((Vector4) configEntry.DefaultValue).z, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: ((Vector4)configEntry.DefaultValue).z, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
         optionItemZ.OnChanged += (_, e) =>
         {
             configEntry.Value = new(configEntry.Value.x, configEntry.Value.y, e.Value, configEntry.Value.w);
         };
         optionItems.Add(optionItemZ);
-        ModSliderOption optionItemW = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_W",
+        ModSliderOption optionItemW = ModSliderOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}_W", 
             configEntry.Definition.Key + " W", minValue, maxValue, configEntry.Value.w,
-            defaultValue: ((Vector4) configEntry.DefaultValue).w, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
+            defaultValue: ((Vector4)configEntry.DefaultValue).w, valueFormat: floatFormat, step: step, tooltip: configEntry.Description.Description);
         optionItemW.OnChanged += (_, e) =>
         {
             configEntry.Value = new(configEntry.Value.x, configEntry.Value.y, configEntry.Value.z, e.Value);
@@ -251,13 +251,13 @@ public static class ConfigEntryExtensions
     /// <returns><see cref="ModKeybindOption"/></returns>
     public static ModChoiceOption<T> ToModChoiceOption<T>(this ConfigEntry<T> configEntry, IEnumerable<T> options = null) where T : Enum
     {
-        T[] viableValues = options?.ToArray<T>() ?? (T[]) Enum.GetValues(typeof(T));
+        T[] viableValues = options?.ToArray<T>() ?? (T[])Enum.GetValues(typeof(T));
 
         ModChoiceOption<T> optionItem = ModChoiceOption<T>.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
-            configEntry.Definition.Key, viableValues, configEntry.Value ?? (T) configEntry.DefaultValue ?? viableValues[0], tooltip: configEntry.Description.Description);
+            configEntry.Definition.Key, viableValues, configEntry.Value ?? (T)configEntry.DefaultValue ?? viableValues[0], tooltip: configEntry.Description.Description);
         optionItem.OnChanged += (_, e) =>
         {
-            configEntry.Value = (T) Enum.Parse(typeof(T), e.Value.ToString());
+            configEntry.Value = (T)Enum.Parse(typeof(T), e.Value.ToString());
         };
 
         return optionItem;
@@ -274,10 +274,10 @@ public static class ConfigEntryExtensions
     {
         ModChoiceOption<T> optionItem;
 
-        if (configEntry.Description.AcceptableValues is AcceptableValueList<T> valueList)
+        if(configEntry.Description.AcceptableValues is AcceptableValueList<T> valueList)
             options = valueList.AcceptableValues;
 
-        if (options == null)
+        if(options == null)
             throw new ArgumentException("Could not get values from ConfigEntry");
 
         optionItem = ModChoiceOption<T>.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
@@ -285,7 +285,7 @@ public static class ConfigEntryExtensions
 
         optionItem.OnChanged += (_, e) =>
         {
-            configEntry.Value = (T) e.Value;
+            configEntry.Value = (T)e.Value; 
         };
 
         return optionItem;

@@ -1,9 +1,9 @@
-﻿using BepInEx.Logging;
-using HarmonyLib;
-using Nautilus.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BepInEx.Logging;
+using HarmonyLib;
+using Nautilus.Utility;
 
 namespace Nautilus.Patchers;
 
@@ -30,11 +30,11 @@ internal class ItemActionPatcher
     /// <summary>
     /// A constant <see cref="ItemAction"/> value to represent a custom middle click item action
     /// </summary>
-    internal const ItemAction CustomMiddleClickItemAction = (ItemAction) 1337;
+    internal const ItemAction CustomMiddleClickItemAction = (ItemAction)1337;
     /// <summary>
     /// A constant <see cref="ItemAction"/> value to represent a custom left click item action
     /// </summary>
-    internal const ItemAction CustomLeftClickItemAction = (ItemAction) 1338;
+    internal const ItemAction CustomLeftClickItemAction = (ItemAction)1338;
 
     internal const string LeftClickMouseIcon = "<color=#ADF8FFFF></color>";
     internal const string MiddleClickMouseIcon = "<color=#ADF8FFFF></color>";
@@ -51,13 +51,13 @@ internal class ItemActionPatcher
         // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
         // See README.md for details.
 
-        harmony.Patch(AccessTools.Method(typeof(uGUI_InventoryTab), nameof(uGUI_InventoryTab.OnPointerClick)),
+        harmony.Patch(AccessTools.Method(typeof(uGUI_InventoryTab), nameof(uGUI_InventoryTab.OnPointerClick)), 
             prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.OnPointerClick_Prefix))));
 
-        harmony.Patch(AccessTools.Method(typeof(Inventory), nameof(Inventory.ExecuteItemAction), new Type[] { typeof(ItemAction), typeof(InventoryItem) }),
+        harmony.Patch(AccessTools.Method(typeof(Inventory), nameof(Inventory.ExecuteItemAction),new Type[] { typeof(ItemAction), typeof(InventoryItem) }), 
             prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.ExecuteItemAction_Prefix))));
 
-        harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemActions)),
+        harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemActions)), 
             postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.ItemActions_Postfix))));
 
         if (MiddleClickActions.Count > 0 && LeftClickActions.Count > 0)

@@ -1,10 +1,10 @@
-﻿using BepInEx.Logging;
+﻿using System.IO;
+using System.Reflection;
+using System.Text;
+using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using System.IO;
-using System.Reflection;
-using System.Text;
 
 namespace Nautilus.Patchers;
 
@@ -49,7 +49,7 @@ internal class TooltipPatcher
 #if SUBNAUTICA
             WriteModName(sb, "Subnautica");
 #elif BELOWZERO
-            WriteModName(sb, "BelowZero");
+                WriteModName(sb, "BelowZero");
 #endif
         else if (EnumHandler.TryGetOwnerAssembly(techType, out Assembly assembly))
         {
@@ -60,10 +60,10 @@ internal class TooltipPatcher
             WriteModNameError(sb, "Unknown Mod", "Item added without Nautilus");
         }
     }
-
+        
     internal static void WriteTechType(StringBuilder sb, TechType techType)
     {
-        sb.AppendFormat("\n\n<size=19><color=#808080FF>{0} ({1})</color></size>", techType.AsString(), (int) techType);
+        sb.AppendFormat("\n\n<size=19><color=#808080FF>{0} ({1})</color></size>", techType.AsString(), (int)techType);
     }
     internal static void WriteModName(StringBuilder sb, string text)
     {
@@ -77,7 +77,7 @@ internal class TooltipPatcher
     {
         string modName = assembly.GetName().Name;
 
-        if (string.IsNullOrEmpty(modName))
+        if(string.IsNullOrEmpty(modName))
         {
             WriteModNameError(sb, "Unknown Mod", "Mod could not be determined");
         }
@@ -136,7 +136,7 @@ internal class TooltipPatcher
         }
 
         Initialized = true;
-
+            
         var nautilusFolder = Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name);
         Directory.CreateDirectory(nautilusFolder);
 

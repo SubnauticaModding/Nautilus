@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UWE;
+
 #if SUBNAUTICA
 namespace Nautilus.Utility;
 

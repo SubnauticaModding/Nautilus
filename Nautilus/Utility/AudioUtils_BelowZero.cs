@@ -47,7 +47,7 @@ public static partial class AudioUtils
         /// Used for ambience SFXs that dont get muted when at the surface of the ocean. Tied to the ambient volume.
         /// </summary>
         public const string SurfaceAmbient = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/surface";
-
+        
         /// <summary>
         /// Used for player and hand-held tools SFXs. Tied to the master volume.
         /// </summary>
