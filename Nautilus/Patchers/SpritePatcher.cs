@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
@@ -11,7 +11,7 @@ namespace Nautilus.Patchers;
 #if SUBNAUTICA
 using Sprite = Atlas.Sprite;
 #elif BELOWZERO
-    using Sprite = UnityEngine.Sprite;
+using Sprite = UnityEngine.Sprite;
 
 #endif
 

@@ -60,6 +60,5 @@ public class Initializer : BaseUnityPlugin
         VehicleUpgradesPatcher.Patch(_harmony);
         StoryGoalPatcher.Patch(_harmony);
         PDAEncyclopediaTabPatcher.Patch(_harmony);
-        StoryGoalPatcher.Patch(_harmony); // TO-DO: Story goal handling for Below Zero
     }
 }
