@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 internal static class Program
@@ -15,8 +14,8 @@ internal static class Program
     private static string[] _uploadPageURLs = new string[]
     {
         "https://github.com/SubnauticaModding/Nautilus/releases",
-        "https://www.submodica.xyz/mods/sn1/246",
-        "https://www.submodica.xyz/mods/sbz/247",
+        "https://www.submodica.xyz/mods/sn1/250",
+        "https://www.submodica.xyz/mods/sbz/251",
         "https://www.nexusmods.com/subnautica/mods/1262",
         "https://www.nexusmods.com/subnauticabelowzero/mods/373"
     };
@@ -44,7 +43,7 @@ internal static class Program
         Console.WriteLine("If you don't want this, just type something before you hit enter.");
         if (string.IsNullOrEmpty(Console.ReadLine()))
         {
-            Process.Start("explorer", "https://www.submodica.xyz/mods/sn1/246");
+            Process.Start("explorer", "https://www.submodica.xyz/mods/sn1/250");
             Thread.Sleep(1000);
             Process.Start("explorer", "https://github.com/SubnauticaModding/Nautilus/releases");
         }

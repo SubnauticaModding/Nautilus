@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using Nautilus.Utility;
 using TMPro;
@@ -27,11 +27,18 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     /// <summary>
     /// The currently select input source device for the <see cref="ModKeybindOption"/>.
     /// </summary>
-    public GameInput.Device Device { get; }
+    public GameInput.Device Device { get; set; }
 
-    private ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key) : base(label, id, key)
+    /// <summary>
+    /// The tooltip to show when hovering over the option.
+    /// </summary>
+    public string Tooltip { get; }
+
+    private ModKeybindOption(string id, string label, GameInput.Device device, KeyCode key, string tooltip) : base(label, id, key)
     {
         Device = device;
+        Tooltip = tooltip;
+        GameInput.OnPrimaryDeviceChanged += () => { Device = GameInput.GetPrimaryDevice(); };
     }
 
     /// <summary>
@@ -41,9 +48,10 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     /// <param name="label">The display text to use in the in-game menu.</param>
     /// <param name="device">The device name.</param>
     /// <param name="key">The starting keybind value.</param>
-    public static ModKeybindOption Create(string id, string label, GameInput.Device device, KeyCode key)
+    /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+    public static ModKeybindOption Create(string id, string label, GameInput.Device device, KeyCode key, string tooltip = null)
     {
-        return new ModKeybindOption(id, label, device, key);
+        return new ModKeybindOption(id, label, device, key, tooltip);
     }
     /// <summary>
     /// Creates a new <see cref="ModKeybindOption"/> for handling an option that is a keybind.
@@ -52,9 +60,10 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     /// <param name="label">The display text to use in the in-game menu.</param>
     /// <param name="device">The device name.</param>
     /// <param name="key">The starting keybind value.</param>
-    public static ModKeybindOption Create(string id, string label, GameInput.Device device, string key)
+    /// /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
+    public static ModKeybindOption Create(string id, string label, GameInput.Device device, string key, string tooltip = null)
     {
-        return Create(id, label, device, KeyCodeUtils.StringToKeyCode(key));
+        return Create(id, label, device, KeyCodeUtils.StringToKeyCode(key), tooltip);
     }
 
     /// <summary>
@@ -75,6 +84,10 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
             text.text = Language.main.Get(Label);
         }
 
+        // Add tooltip
+        MenuTooltip tooltip = OptionGameObject.EnsureComponent<MenuTooltip>();
+        tooltip.key = Tooltip;
+
         // Create bindings
         uGUI_Bindings bindings = OptionGameObject.GetComponentInChildren<uGUI_Bindings>();
         uGUI_Binding binding = bindings.bindings[0];
@@ -86,13 +99,14 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
 
         // Update bindings
         binding.device = Device;
-        binding.value = KeyCodeUtils.KeyCodeToString(Value);
+        binding.value = KeyCodeUtils.GetDisplayTextForKeyCode(Value);
         binding.gameObject.EnsureComponent<ModBindingTag>();
         binding.bindingSet = GameInput.BindingSet.Primary;
         binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
         {
-            binding.value = s;
-            OnChange(Id, KeyCodeUtils.StringToKeyCode(s));
+            var keyCode = KeyCodeUtils.StringToKeyCode(s);
+            binding.value = KeyCodeUtils.GetDisplayTextForKeyCode(keyCode);
+            OnChange(Id, keyCode);
             parentOptions.OnChange<KeyCode, KeybindChangedEventArgs>(Id, KeyCodeUtils.StringToKeyCode(s));
             binding.RefreshValue();
         });
@@ -102,7 +116,7 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
 
     internal class ModBindingTag: MonoBehaviour { };
 
-    private class BindingOptionAdjust: ModOptionAdjust
+    internal class BindingOptionAdjust: ModOptionAdjust
     {
         private const float spacing = 10f;
 

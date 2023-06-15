@@ -1,12 +1,10 @@
-﻿using Nautilus.Crafting;
+#if SUBNAUTICA
+using Nautilus.Crafting;
 using Nautilus.Patchers;
 
-#if SUBNAUTICA
 namespace Nautilus.Handlers;
 
-#if SUBNAUTICA
 using static CraftData;
-#endif
 
 /// <summary>
 /// A handler class for adding and editing crafted items.

@@ -380,7 +380,7 @@ seamothBrineResistanceModule.SetEquipment(EquipmentType.SeamothModule)
     .WithQuickSlotType(QuickSlotType.Passive);
 
 // Make the Vehicle upgrade console a requirement for our item's blueprint
-ScanningGadget scanning = seamothBrineResistanceModule.SetUnlock(TechType.BaseUpgradeConsole)
+ScanningGadget scanning = seamothBrineResistanceModule.SetUnlock(TechType.BaseUpgradeConsole);
 
 // Add our item to the Vehicle upgrades category
 scanning.WithPdaGroupCategory(TechGroup.VehicleUpgrades, TechCategory.VehicleUpgrades);

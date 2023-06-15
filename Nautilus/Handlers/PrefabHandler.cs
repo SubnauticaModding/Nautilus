@@ -18,16 +18,23 @@ public static class PrefabHandler
     /// </summary>
     public static PrefabCollection Prefabs { get; } = new();
 
-    internal static IEnumerator ProcessPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
+    internal static IEnumerator GetPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
+        if (ModPrefabCache.TryGetPrefabFromCache(info.ClassID, out var prefabInCache))
+        {
+            gameObject.Set(prefabInCache);
+            yield break;
+        }
+
         yield return prefabFactory(gameObject);
-        
-        var obj = gameObject.Get();
+
+        yield return ProcessPrefabAsync(gameObject.Get(), info, prefabFactory);
+    }
+
+    private static IEnumerator ProcessPrefabAsync(GameObject obj, PrefabInfo info, PrefabFactoryAsync prefabFactory)
+    {
         var techType = info.TechType;
         var classId = info.ClassID;
-        
-        if (obj.activeInHierarchy) // inactive prefabs don't need to be removed by cache
-            ModPrefabCache.AddPrefab(obj);
 
         obj.name = classId;
 
@@ -61,6 +68,8 @@ public static class PrefabHandler
 
         if (Prefabs.TryGetPostProcessorForInfo(info, out var postProcessor))
             yield return postProcessor?.Invoke(obj);
+
+        ModPrefabCache.AddPrefab(obj);
     }
 }
 
@@ -134,7 +143,14 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
         _prefabs.Add(info, prefabFactory);
         _classIdPrefabs.Add(info.ClassID, info);
         _fileNamePrefabs.Add(info.PrefabFileName, info);
-        _techTypePrefabs.Add(info.TechType.AsString(), info);
+
+        // If multiple prefabs sharing the same TechType are patched, only the first one will be spawnable by its TechType.
+        var techTypeString = info.TechType.AsString();
+        if (!_techTypePrefabs.ContainsKey(techTypeString))
+        {
+            _techTypePrefabs.Add(info.TechType.AsString(), info);
+        }
+
         CraftDataPatcher.ModPrefabsPatched = false;
     }
 

@@ -69,7 +69,7 @@ We hope to keep improving the modding experience in Subnautica to allow develope
 3. Download Nautilus from [Nexus Mods](https://www.nexusmods.com/subnautica/mods/1262), [Submodica](https://www.submodica.net/mods/sn1/250) or [GitHub Releases](https://github.com/SubnauticaModding/Nautilus/releases/tag/1.0.0-pre.8) (this link will be updated later when Nautilus is released).
 4. Extract/unzip the Nautilus zip file to your `Subnautica\BepInEx` folder
 5. Confirm your `Subnautica\BepInEx\plugins` now looks like this:
-   ###### If it doesn't look like this, try figure out where your Nautilus folder has gone, and move it into the plugins folder
+   ###### If it doesn't look like this, try figuring out where your Nautilus folder has gone, and move it into the plugins folder
    ![Screenshot of plugins folder](https://i.imgur.com/HD6QD8g.png)
 7. Launch the game, and enjoy! *(a good way to confirm Nautilus has loaded is to check the game Options for a `Mods` tab)*
 

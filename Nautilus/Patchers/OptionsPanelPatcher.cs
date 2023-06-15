@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Options;
 using Nautilus.Utility;
 using Newtonsoft.Json;
@@ -19,18 +20,16 @@ internal class OptionsPanelPatcher
 {
     internal static SortedList<string, ModOptions> modOptions = new();
 
-    private static int  modsTabIndex = -1;
+    private static int _modsTabIndex = -1;
+
+    private static Color _headerColor = new(1f, 0.777f, 0f);
 
     internal static void Patch(Harmony harmony)
     {
         harmony.PatchAll(typeof(OptionsPanelPatcher));
         harmony.PatchAll(typeof(ScrollPosKeeper));
-        if (!BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ahk1221.smlhelper"))
-        {
-            harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
-        }
+        harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
     }
-
 
     // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
     [HarmonyPostfix]
@@ -42,7 +41,7 @@ internal class OptionsPanelPatcher
 
         if (label == "Mods")
         {
-            modsTabIndex = __result;
+            _modsTabIndex = __result;
         }
     }
 
@@ -91,6 +90,7 @@ internal class OptionsPanelPatcher
         // Maybe this could be split into its own file to handle nautilus options, or maybe it could be removed alltogether
         optionsPanel.AddHeading(modsTab, "Nautilus");
         optionsPanel.AddToggleOption(modsTab, "Enable debug logs", Utility.InternalLogger.EnableDebugging, Utility.InternalLogger.SetDebugging);
+        optionsPanel.AddToggleOption(modsTab, "Enable mod databank entries", ModDatabankHandler._isEnabled);
         optionsPanel.AddChoiceOption(modsTab, "Extra item info", new string[]
         {
             "Mod name (default)",
@@ -108,35 +108,35 @@ internal class OptionsPanelPatcher
     {
         private enum HeadingState { Collapsed, Expanded };
 
-        private static GameObject headingPrefab = null;
+        private static GameObject _headingPrefab = null;
 
         private static class StoredHeadingStates
         {
-            private static readonly string configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "headings_states.json");
+            private static readonly string _configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "headings_states.json");
 
             private class StatesConfig
             {
                 [JsonProperty]
-                private readonly Dictionary<string, HeadingState> states = new();
+                private readonly Dictionary<string, HeadingState> _states = new();
 
                 public HeadingState this[string name]
                 {
-                    get => states.TryGetValue(name, out HeadingState state) ? state : HeadingState.Expanded;
+                    get => _states.TryGetValue(name, out HeadingState state) ? state : HeadingState.Expanded;
                         
                     set
                     {
-                        states[name] = value;
-                        File.WriteAllText(configPath, JsonConvert.SerializeObject(this, Formatting.Indented));
+                        _states[name] = value;
+                        File.WriteAllText(_configPath, JsonConvert.SerializeObject(this, Formatting.Indented));
                     }
                 }
             }
-            private static readonly StatesConfig statesConfig = CreateConfig();
+            private static readonly StatesConfig _statesConfig = CreateConfig();
 
             private static StatesConfig CreateConfig()
             {
-                if (File.Exists(configPath))
+                if (File.Exists(_configPath))
                 {
-                    return JsonConvert.DeserializeObject<StatesConfig>(File.ReadAllText(configPath));
+                    return JsonConvert.DeserializeObject<StatesConfig>(File.ReadAllText(_configPath));
                 }
                 else
                 {
@@ -146,38 +146,46 @@ internal class OptionsPanelPatcher
 
             public static HeadingState get(string name)
             {
-                return statesConfig[name];
+                return _statesConfig[name];
             }
 
             public static void store(string name, HeadingState state)
             {
-                statesConfig[name] = state;
+                _statesConfig[name] = state;
             }
         }
 
         // we add arrow button from Choice ui element to the options headings for collapsing/expanding 
         private static void InitHeadingPrefab(uGUI_TabbedControlsPanel panel)
         {
-            if (headingPrefab)
+            if (_headingPrefab)
             {
                 return;
             }
 
-            headingPrefab = Object.Instantiate(panel.headingPrefab);
-            headingPrefab.name = "OptionHeadingToggleable";
-            headingPrefab.AddComponent<HeadingToggle>();
+            _headingPrefab = Object.Instantiate(panel.headingPrefab);
+            _headingPrefab.name = "OptionHeadingToggleable";
+            _headingPrefab.AddComponent<HeadingToggle>();
 
-            Transform captionTransform = headingPrefab.transform.Find("Caption");
+            var option = _headingPrefab.AddComponent<uGUI_OptionSelection>();
+            option.selectionBackground = Object.Instantiate(panel.toggleOptionPrefab.GetComponentInChildren<uGUI_OptionSelection>(true).selectionBackground);
+            option.selectionBackground.transform.SetParent(_headingPrefab.transform);
+            option.hoverSound = AudioUtils.GetFmodAsset("event:/tools/pda/select");
+
+            Transform captionTransform = _headingPrefab.transform.Find("Caption");
             captionTransform.localPosition = new Vector3(45f, 0f, 0f);
-            captionTransform.gameObject.AddComponent<HeadingClickHandler>();
             captionTransform.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 
             GameObject button = Object.Instantiate(panel.choiceOptionPrefab.transform.Find("Choice/Background/NextButton").gameObject);
             button.name = "HeadingToggleButton";
             button.AddComponent<ToggleButtonClickHandler>();
+            Object.Destroy(button.GetComponent<Button>());
+
+            var textComponent = captionTransform.GetComponent<TextMeshProUGUI>();
+            textComponent.fontStyle = FontStyles.Bold;
 
             RectTransform buttonTransform = button.transform as RectTransform;
-            buttonTransform.SetParent(headingPrefab.transform);
+            buttonTransform.SetParent(_headingPrefab.transform);
             buttonTransform.SetAsFirstSibling();
             buttonTransform.localEulerAngles = new Vector3(0f, 0f, -90f);
             buttonTransform.localPosition = new Vector3(15f, -13f, 0f);
@@ -187,22 +195,32 @@ internal class OptionsPanelPatcher
 
         #region components
         // main component for headings toggling
-        private class HeadingToggle: MonoBehaviour
+        private class HeadingToggle: Selectable, IPointerClickHandler
         {
-            private HeadingState headingState = HeadingState.Expanded;
-            private string headingName = null;
-            private List<GameObject> childOptions = null;
+            private HeadingState _headingState = HeadingState.Expanded;
+            private string _headingName = null;
+            private List<GameObject> _childOptions = null;
+
+#if SUBNAUTICA
+            protected override void OnEnable()
+#elif BELOWZERO
+            public override void OnEnable()
+#endif
+            {
+                base.OnEnable();
+                transform.Find("Caption").GetComponent<TextMeshProUGUI>().color = _headerColor;
+            }
 
             private void Init()
             {
-                if (childOptions != null)
+                if (_childOptions != null)
                 {
                     return;
                 }
 
-                headingName = transform.Find("Caption")?.GetComponent<TextMeshProUGUI>()?.text ?? "";
+                _headingName = transform.Find("Caption")?.GetComponent<TextMeshProUGUI>()?.text ?? "";
 
-                childOptions = new List<GameObject>();
+                _childOptions = new List<GameObject>();
 
                 for (int i = transform.GetSiblingIndex() + 1; i < transform.parent.childCount; i++)
                 {
@@ -213,7 +231,7 @@ internal class OptionsPanelPatcher
                         break;
                     }
 
-                    childOptions.Add(option);
+                    _childOptions.Add(option);
                 }
             }
 
@@ -221,9 +239,9 @@ internal class OptionsPanelPatcher
             {
                 Init();
 
-                HeadingState storedState = StoredHeadingStates.get(headingName);
+                HeadingState storedState = StoredHeadingStates.get(_headingName);
 
-                if (headingState != storedState)
+                if (_headingState != storedState)
                 {
                     SetState(storedState);
                     GetComponentInChildren<ToggleButtonClickHandler>()?.SetStateInstant(storedState);
@@ -234,51 +252,51 @@ internal class OptionsPanelPatcher
             {
                 Init();
 
-                childOptions.ForEach(option => option.SetActive(state == HeadingState.Expanded));
-                headingState = state;
+                _childOptions.ForEach(option => option.SetActive(state == HeadingState.Expanded));
+                _headingState = state;
 
-                StoredHeadingStates.store(headingName, state);
+                StoredHeadingStates.store(_headingName, state);
+            }
+            
+            public void OnPointerClick(PointerEventData _)
+            {
+                var buttonHandler = GetComponentInChildren<ToggleButtonClickHandler>();
+                if (buttonHandler.isRotating)
+                    return;
+
+                _headingState = _headingState == HeadingState.Expanded ? HeadingState.Collapsed : HeadingState.Expanded;
+                StartCoroutine(buttonHandler.SetState(_headingState));
+
+                SetState(_headingState);
             }
         }
 
-        // click handler for arrow button
-        private class ToggleButtonClickHandler: MonoBehaviour, IPointerClickHandler
+        // change handler for arrow button
+        private class ToggleButtonClickHandler: MonoBehaviour
         {
-            private const float timeRotate = 0.1f;
-            private HeadingState headingState = HeadingState.Expanded;
-            private bool isRotating = false;
+            private const float TimeRotate = 0.1f;
+
+            public bool isRotating = false;
 
             public void SetStateInstant(HeadingState state)
             {
-                headingState = state;
-                transform.localEulerAngles = new Vector3(0, 0, headingState == HeadingState.Expanded? -90: 0);
+                transform.localEulerAngles = new Vector3(0, 0, state == HeadingState.Expanded? -90: 0);
             }
 
-            public void OnPointerClick(PointerEventData _)
-            {
-                if (isRotating)
-                {
-                    return;
-                }
-
-                headingState = headingState == HeadingState.Expanded? HeadingState.Collapsed: HeadingState.Expanded;
-                StartCoroutine(SmoothRotate(headingState == HeadingState.Expanded? -90: 90));
-
-                GetComponentInParent<HeadingToggle>()?.SetState(headingState);
-            }
-
-            private IEnumerator SmoothRotate(float angles)
+            internal IEnumerator SetState(HeadingState state)
             {
                 isRotating = true;
 
+                float angle = state == HeadingState.Expanded ? -90 : 90;
+
                 Quaternion startRotation = transform.localRotation;
-                Quaternion endRotation = Quaternion.Euler(new Vector3(0f, 0f, angles)) * startRotation;
+                Quaternion endRotation = Quaternion.Euler(new Vector3(0f, 0f, angle)) * startRotation;
 
                 float timeStart = Time.realtimeSinceStartup; // Time.deltaTime works only in main menu
 
-                while (timeStart + timeRotate > Time.realtimeSinceStartup)
+                while (timeStart + TimeRotate > Time.realtimeSinceStartup)
                 {
-                    transform.localRotation = Quaternion.Lerp(startRotation, endRotation, (Time.realtimeSinceStartup - timeStart) / timeRotate);
+                    transform.localRotation = Quaternion.Lerp(startRotation, endRotation, (Time.realtimeSinceStartup - timeStart) / TimeRotate);
                     yield return null;
                 }
 
@@ -286,26 +304,17 @@ internal class OptionsPanelPatcher
                 isRotating = false;
             }
         }
-
-        // click handler for title, just redirects clicks to button click handler
-        private class HeadingClickHandler: MonoBehaviour, IPointerClickHandler
-        {
-            public void OnPointerClick(PointerEventData eventData)
-            {
-                transform.parent.GetComponentInChildren<ToggleButtonClickHandler>()?.OnPointerClick(eventData);
-            }
-        }
-        #endregion
+#endregion
 
         #region patches for uGUI_TabbedControlsPanel
         [HarmonyPrefix]
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddHeading))]
         private static bool AddHeading_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex, string label)
         {
-            if (tabIndex != modsTabIndex || __instance is not uGUI_OptionsPanel)
+            if (tabIndex != _modsTabIndex || __instance is not uGUI_OptionsPanel)
                 return true;
 
-            __instance.AddItem(tabIndex, headingPrefab, label);
+            __instance.AddItem(tabIndex, _headingPrefab, label);
             return false;
         }
 
@@ -323,7 +332,7 @@ internal class OptionsPanelPatcher
         [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.SetVisibleTab))]
         private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {
-            if (tabIndex != modsTabIndex || __instance is not uGUI_OptionsPanel)
+            if (tabIndex != _modsTabIndex || __instance is not uGUI_OptionsPanel)
                 return; 
 
             // just in case, for changing vertical spacing between ui elements
@@ -345,12 +354,12 @@ internal class OptionsPanelPatcher
     private static class ScrollPosKeeper
     {
         // key - tab index, value - scroll position
-        private static readonly Dictionary<int, float> devMenuScrollPos = new();
-        private static readonly Dictionary<int, float> optionsScrollPos = new();
+        private static readonly Dictionary<int, float> _devMenuScrollPos = new();
+        private static readonly Dictionary<int, float> _optionsScrollPos = new();
 
         private static void StorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? devMenuScrollPos: optionsScrollPos;
+            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? _devMenuScrollPos: _optionsScrollPos;
             if (tabIndex >= 0 && tabIndex < panel.tabs.Count)
             {
                 scrollPos[tabIndex] = panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition;
@@ -359,7 +368,7 @@ internal class OptionsPanelPatcher
 
         private static void RestorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? devMenuScrollPos: optionsScrollPos;
+            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? _devMenuScrollPos: _optionsScrollPos;
             if (tabIndex >= 0 && tabIndex < panel.tabs.Count && scrollPos.TryGetValue(tabIndex, out float pos))
             {
                 panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition = pos;

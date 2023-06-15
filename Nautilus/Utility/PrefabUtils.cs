@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Nautilus.Utility;
 
@@ -154,5 +155,81 @@ public static class PrefabUtils
         vfxFabricating.scaleFactor = scaleFactor;
         vfxFabricating.eulerOffset = eulerOffset;
         return vfxFabricating;
+    }
+
+    /// <summary>
+    /// <para>Adds the <see cref="StorageContainer"/> component to the given prefab, for basic use cases with lockers and such.</para>
+    /// <para>Due to how this component needs to be initialized, this method will disable the object and re-enable it after the component is added (assuming it was already active). This all happens within the same frame and will not be seen.</para>
+    /// </summary>
+    /// <param name="prefabRoot">The prefab that the component is added onto. This does not necessarily NEED to be the "prefab root". You can set it to a
+    /// child collider if you want a smaller area of interaction or to have multiple storage containers on one prefab.</param>
+    /// <param name="storageRootName">The name of the object that internally holds all of the items.</param>
+    /// <param name="storageRootClassId">A unique string for the <see cref="ChildObjectIdentifier"/> component.</param>
+    /// <param name="width">The width of this container's face.</param>
+    /// <param name="height">The height of this container's interface.</param>
+    /// <param name="preventDeconstructionIfNotEmpty">If true, you cannot destroy this prefab unless all of its storage containers are empty.</param>
+    /// <returns></returns>
+    public static StorageContainer AddStorageContainer(GameObject prefabRoot, string storageRootName, string storageRootClassId, int width, int height, bool preventDeconstructionIfNotEmpty = true)
+    {
+        var wasActive = prefabRoot.activeSelf;
+
+        if (wasActive) prefabRoot.SetActive(false);
+
+        var storageRoot = new GameObject(storageRootName);
+        storageRoot.transform.SetParent(prefabRoot.transform, false);
+
+        var childObjectIdentifier = storageRoot.AddComponent<ChildObjectIdentifier>();
+        childObjectIdentifier.ClassId = storageRootClassId;
+    
+        var container = prefabRoot.AddComponent<StorageContainer>();
+        container.prefabRoot = prefabRoot;
+        container.width = width;
+        container.height = height;
+        container.storageRoot = childObjectIdentifier;
+        container.preventDeconstructionIfNotEmpty = preventDeconstructionIfNotEmpty;
+
+        if (wasActive) prefabRoot.SetActive(true);
+
+        return container;
+    }
+
+    private static FMODAsset _soundPowerUp = AudioUtils.GetFmodAsset("event:/tools/battery_insert", "{4ec9a6fe-0256-4f4f-8f42-6df726266063}");
+
+    private static FMODAsset _soundPowerDown = AudioUtils.GetFmodAsset("event:/tools/battery_die", "{14490ac5-73e8-47ce-b7f9-26ac8cef9467}");
+
+    /// <summary>
+    /// <para>Adds the <see cref="EnergyMixin"/> component to an object that is expected to have a slot for one battery or other power source.</para>
+    /// <para>Due to how this component needs to be initialized, this method will disable the object and re-enable it after the component is added (assuming it was already active). This all happens within the same frame and will not be seen.</para>
+    /// </summary>
+    /// <param name="prefabRoot">The root of the prefab object, where the component is added.</param>
+    /// <param name="storageRootClassId">A unique string for the <see cref="ChildObjectIdentifier"/> component.</param>
+    /// <param name="defaultBattery">The TechType of the battery that is added by default. If there should be no default, set this value to <see cref="TechType.None"/>.</param>
+    /// <param name="compatibleBatteries">The list of all compatible batteries. By default is typically <see cref="TechType.Battery"/> and <see cref="TechType.PrecursorIonBattery"/>. Must not be null!</param>
+    /// <param name="batteryModels">If assigned a value, allows different models to appear with different battery TechTypes. Also consider <see cref="EnergyMixin.controlledObjects"/> for a more basic version of this that is not TechType-dependent.</param>
+    /// <param name="storageRootName">The name of the object that internally holds all of the batteries.</param>
+    /// <returns></returns>
+    public static EnergyMixin AddEnergyMixin(GameObject prefabRoot, string storageRootClassId, TechType defaultBattery, List<TechType> compatibleBatteries, EnergyMixin.BatteryModels[] batteryModels = null, string storageRootName = "BatterySlot")
+    {
+        var wasActive = prefabRoot.activeSelf;
+
+        if (wasActive) prefabRoot.SetActive(false);
+
+        var batterySlot = new GameObject(storageRootName);
+        batterySlot.transform.SetParent(prefabRoot.transform, false);
+        var childObjectIdentifier = batterySlot.AddComponent<ChildObjectIdentifier>();
+        childObjectIdentifier.ClassId = storageRootClassId;
+
+        var em = prefabRoot.AddComponent<EnergyMixin>();
+        em.storageRoot = childObjectIdentifier;
+        em.defaultBattery = defaultBattery;
+        em.compatibleBatteries = compatibleBatteries;
+        em.batteryModels = batteryModels ?? (new EnergyMixin.BatteryModels[0]);
+        em.controlledObjects = new GameObject[0];
+        em.soundPowerUp = _soundPowerUp;
+        em.soundPowerDown = _soundPowerDown;
+
+        if (wasActive) prefabRoot.SetActive(true);
+
+        return em;
     }
 }

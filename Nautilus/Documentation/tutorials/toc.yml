@@ -11,6 +11,8 @@
       href: story-goals.md
     - name: Databank entries
       href: databank-entries.md
+
+- name: Prefab Creation
     
 - name: Editing Content
   items:
@@ -32,3 +34,5 @@
   items:
     - name: Craft Tree Paths
       href: craft-tree-paths.md
+    - name: Loading & instantiating prefabs
+      href: loading-and-instantiating-prefabs.md

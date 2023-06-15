@@ -6,7 +6,6 @@ using Nautilus.Utility;
 
 namespace Nautilus.Patchers;
 
-#if SUBNAUTICA
 internal static class StoryGoalPatcher
 {
     internal static readonly List<ItemGoal> ItemGoals = new();
@@ -86,4 +85,3 @@ internal static class StoryGoalPatcher
         }
     }
 }
-#endif

@@ -11,6 +11,8 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 * [Databank entries](databank-entries.md)
 * TODO: [Audio (FMOD)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
+### Prefab Creation
+Coming soon
 
 ### Editing Content
 * [Background type](background-type.md)
@@ -25,3 +27,4 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 
 ### Quick References
 * [Craft Tree Paths](craft-tree-paths.md)
+* [Loading & instantiating prefabs](loading-and-instantiating-prefabs.md)

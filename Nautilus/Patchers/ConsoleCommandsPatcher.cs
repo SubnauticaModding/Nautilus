@@ -120,6 +120,17 @@ internal static class ConsoleCommandsPatcher
     }
 
     /// <summary>
+    /// Forces history to always be saved in the command line, regardless of whether it was successful or not.
+    /// </summary>
+    /// <param name="__result"></param>
+    [HarmonyPatch(typeof(DevConsole), nameof(DevConsole.OnSubmit))]
+    [HarmonyPostfix]
+    private static void DevConsole_OnSubmit_Postfix(out bool __result)
+    {
+        __result = true;
+    }
+
+    /// <summary>
     /// Attempts to handle a user command.
     /// </summary>
     /// <param name="input">The command input.</param>

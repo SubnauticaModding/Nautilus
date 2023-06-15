@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
@@ -34,7 +34,7 @@ internal class ModPrefabRequest: IPrefabRequest, IEnumerator
             return;
         }
             
-        task = new CoroutineTask<GameObject>(PrefabHandler.ProcessPrefabAsync(taskResult, prefabInfo, factory), taskResult);
+        task = new CoroutineTask<GameObject>(PrefabHandler.GetPrefabAsync(taskResult, prefabInfo, factory), taskResult);
     }
 
     public object Current

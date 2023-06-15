@@ -41,11 +41,12 @@ public interface ICustomPrefab
     PrefabPostProcessorAsync OnPrefabPostProcess { get; }
     
     /// <summary>
-    /// Adds a gadget to this custom prefab.
+    /// Adds a gadget to this custom prefab. A prefab can only hold one Gadget of any given type.
     /// </summary>
     /// <param name="gadget">The gadget to add</param>
     /// <typeparam name="TGadget">Type of the gadget.</typeparam>
     /// <returns>A reference to the added gadget.</returns>
+    /// <exception cref="DuplicateGadgetException">When a Gadget of the given type already exists.</exception>
     TGadget AddGadget<TGadget>(TGadget gadget) where TGadget : Gadget;
 
     /// <summary>
@@ -69,6 +70,14 @@ public interface ICustomPrefab
     /// <typeparam name="TGadget">The type of the gadget to get.</typeparam>
     /// <returns><see langword="true"/> if the gadget associated with type was found, otherwise; <see langword="false"/>.</returns>
     bool TryGetGadget<TGadget>(out TGadget gadget) where TGadget : Gadget;
+
+    /// <summary>
+    /// Attempts to add the given gadget if there is not already an existing gadget of the same type.
+    /// </summary>
+    /// <typeparam name="TGadget">The type of the gadget that may be added.</typeparam>
+    /// <param name="gadget">The gadget that may be added, assuming the same type of gadget does not already exist on the prefab.</param>
+    /// <returns>True if the gadget was added, false if an instance of the same gadget type already exists on the prefab.</returns>
+    bool TryAddGadget<TGadget>(TGadget gadget) where TGadget : Gadget;
 
     /// <summary>
     /// Removes the gadget with the specified type.
@@ -178,6 +187,8 @@ public class CustomPrefab : ICustomPrefab
     /// <inheritdoc/>
     public TGadget AddGadget<TGadget>(TGadget gadget) where TGadget : Gadget
     {
+        if (_gadgets.ContainsKey(gadget.GetType()))
+            throw new DuplicateGadgetException(string.IsNullOrEmpty(Info.ClassID) ? "Uninitialized" : Info.ClassID, gadget);
         _gadgets[gadget.GetType()] = gadget;
         return gadget;
     }
@@ -200,6 +211,15 @@ public class CustomPrefab : ICustomPrefab
         var result = _gadgets.TryGetValue(typeof(TGadget), out var g);
         gadget = (TGadget)g;
         return result;
+    }
+
+    /// <inheritdoc/>
+    public bool TryAddGadget<TGadget>(TGadget gadget) where TGadget : Gadget
+    {
+        if (_gadgets.ContainsKey(typeof(TGadget)))
+            return false;
+        _gadgets.Add(typeof(TGadget), gadget);
+        return true;
     }
 
     /// <inheritdoc/>
