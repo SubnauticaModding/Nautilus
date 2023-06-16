@@ -1972,6 +1972,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/prefabs-overview.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/prefabs-overview.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Documentation/tutorials/spawns.md",
       "output": {
         ".html": {

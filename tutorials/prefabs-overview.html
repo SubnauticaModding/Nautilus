@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Prefab Basics </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Prefab Basics ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/prefabs-overview.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="prefab-basics">Prefab Basics</h1>
+
+<p>Creating and utilizing prefabs is essential for any Subnautica mod that adds new content. This page will provide basic information on how prefabs are used in
+Subnautica and why they are important.</p>
+<h2 id="what-are-prefabs">What are prefabs?</h2>
+<p>At the most basic levels, prefabs are simply <a href="https://docs.unity3d.com/Manual/class-GameObject.html">GameObjects</a> that are instantiated into a scene. This is a Unity
+Engine concept, and it applies for Subnautica modding as well.</p>
+<p>In Subnautica, prefabs are essentially anything that exists in the world outside of terrain, the player, and a few other exceptions. This encompasses anything from
+creatures to base modules to unnamed rock formations and debris props. They are registered and managed by the <code>UWE.PrefabDatabase</code> class. Nautilus allows you to indirectly
+register your own custom prefabs into this system.</p>
+<p>Subnautica prefabs consist of the following:</p>
+<ul>
+<li><strong>Class ID</strong> (defined in the GameObject's <code>PrefabIdentifier</code> component)</li>
+<li><strong>TechType</strong> (this is actually optional, and is defined in the GameObject's <code>TechTag</code> component)</li>
+<li>The actual <strong>GameObject</strong> that is spawned.</li>
+</ul>
+<h2 id="differences-between-class-id-and-techtype">Differences between Class ID and TechType</h2>
+<p>These are two distinct identification systems used by the game and should not be confused.</p>
+<p>The Class ID is the only thing that is <em>required</em> for a prefab. A mod that adds new commands such as <a href="https://www.submodica.xyz/mods/sn1/248">DebugHelper</a> is required
+to actually spawn a prefab by its Class ID. Generally, Class IDs are 36 character strings, but when you create a prefab with Nautilus the Class ID will actually
+match its TechType. You can find a list of all Class IDs <a href="https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-PrefabPaths.json">here</a>.</p>
+<p>TechTypes are more accessible and readable. You may recognize them from the <code>spawn</code> command. Unlike Class IDs, which live in an obfuscated file, TechTypes are all
+listed under the <code>TechType</code> enum in the game's code. There are potentially thousands of prefabs that cannot be spawned with the spawn command because they don't have
+a TechType assigned. These are also required for <strong>crafting</strong>, <strong>blueprints</strong> and <strong>inventory items</strong>.</p>
+<p>The most important part? <strong>There can be multiple prefabs with the same TechType, but every prefab has a different Class ID.</strong> This is why you can have multiple
+fragments with different models that unlock the same blueprint.</p>
+<h2 id="essential-components">Essential components</h2>
+<p>There are a few components that are required or heavily recommended for prefabs. The <a class="xref" href="../api/Nautilus.Utility.PrefabUtils.html">PrefabUtils.AddBasicComponents</a> method provided by
+Nautilus handles most of this for you, besides Pickupable.</p>
+<ul>
+<li>PrefabIdentifier: The only one that is <em>truly</em> required for something to be spawned. Holds the Class ID of your prefab so it can be saved and loaded.</li>
+<li>TechTag: Holds the TechType of your prefab. This is not required for prefabs, but is needed for <em>many</em> cases. It's nice because it lets you use the spawn command.</li>
+<li>LargeWorldEntity: Heavily recommended. Generally needed for a prefab to save properly. You also will want to set its <code>cellLevel</code> field to change its loading distance.</li>
+<li>SkyApplier: Required for proper shading whenever you have a custom model.</li>
+<li>Pickupable: Not required unless you are making an inventory item.</li>
+</ul>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/prefabs-overview.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
