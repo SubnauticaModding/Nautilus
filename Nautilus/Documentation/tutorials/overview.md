@@ -12,6 +12,7 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 * TODO: [Audio (FMOD)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 ### Prefabs
+* [Prefab basics](prefabs-overview.md)
 * [Loading & instantiating prefabs](loading-and-instantiating-prefabs.md)
 
 ### Editing Content
