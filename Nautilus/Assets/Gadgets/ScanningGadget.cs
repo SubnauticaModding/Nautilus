@@ -41,7 +41,7 @@ public class ScanningGadget : Gadget
     public TechCategory CategoryForPda { get; set; }
 
     /// <summary>
-    /// Whether to add after or insert before the target, for sorting purposes.
+    /// Whether the blueprint is added before (false) or after (true) the <see cref="PdaSortTarget"/> in the PDA.
     /// </summary>
     public bool PdaAppendAfter { get; set; }
 
@@ -271,7 +271,7 @@ public class ScanningGadget : Gadget
             CraftData.GetBuilderCategories(GroupForPda, categories);
             if (categories.Contains(CategoryForPda))
             {
-                CraftDataHandler.AddToGroup(GroupForPda, CategoryForPda, prefab.Info.TechType, PdaAppendAfter, PdaSortTarget);
+                CraftDataHandler.AddToGroup(GroupForPda, CategoryForPda, prefab.Info.TechType, PdaSortTarget, PdaAppendAfter);
             }
             else
             {

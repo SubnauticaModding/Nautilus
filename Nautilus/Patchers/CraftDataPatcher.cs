@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -20,7 +20,7 @@ internal partial class CraftDataPatcher
 
     internal static bool ModPrefabsPatched;
 
-    internal static void AddToGroup(TechGroup group, TechCategory category, TechType techType, bool after, TechType target)
+    internal static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType target, bool after)
     {
         if (!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
         {
