@@ -852,7 +852,7 @@
   "tutorials/overview.html": {
     "href": "tutorials/overview.html",
     "title": "Tutorials",
-    "keywords": "Tutorials This section covers step-by-step tutorials on how to get some of the useful features of Nautilus done with images, demos, and working code. If you've used SML 2.0 before, please start with our Updating to Nautilus Guide. Sections Adding Content Spawning objects in the world Custom console commands Story goals Databank entries TODO: Audio (FMOD) Prefab Creation Coming soon Editing Content Background type Equipment type Crafting recipes Utilities Localization In-Game options Quick References Craft Tree Paths Loading & instantiating prefabs"
+    "keywords": "Tutorials This section covers step-by-step tutorials on how to get some of the useful features of Nautilus done with images, demos, and working code. If you've used SML 2.0 before, please start with our Updating to Nautilus Guide. Sections Adding Content Spawning objects in the world Custom console commands Story goals Databank entries TODO: Audio (FMOD) Prefabs Loading & instantiating prefabs Editing Content Background type Equipment type Crafting recipes Utilities Localization In-Game options Quick References Craft Tree Paths"
   },
   "tutorials/spawns.html": {
     "href": "tutorials/spawns.html",
