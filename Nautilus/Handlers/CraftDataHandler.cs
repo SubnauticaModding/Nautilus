@@ -28,7 +28,7 @@ public static partial class CraftDataHandler
     /// <param name="category">The TechCategory (in the TechGroup) you want to add your TechType to.</param>
     /// <param name="techType">The TechType you want to add.</param>
     /// <param name="target">The icon in the blueprints tab of the PDA will be added next to this item or at the end/beginning if not found.</param>
-    /// <param name="after">Whether to add after or insert before the target, for sorting purposes.</param>
+    /// <param name="after">Whether to append after (true) or insert before (false) the target, for sorting purposes.</param>
     public static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType target = TechType.None, bool after = true)
     {
         CraftDataPatcher.AddToGroup(group, category, techType, target, after);

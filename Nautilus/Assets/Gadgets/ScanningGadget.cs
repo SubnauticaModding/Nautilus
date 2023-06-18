@@ -41,9 +41,25 @@ public class ScanningGadget : Gadget
     public TechCategory CategoryForPda { get; set; }
 
     /// <summary>
-    /// Whether the blueprint is added before (false) or after (true) the <see cref="PdaSortTarget"/> in the PDA.
+    /// Defines the insertion position for the new blueprint in relation to the <see cref="PdaSortTarget"/> in the PDA.
     /// </summary>
-    public bool PdaAppendAfter { get; set; }
+    public enum SortPosition
+    {
+        /// <summary>
+        /// Use this to insert the new blueprint before the <see cref="PdaSortTarget"/> or at the beginning if not found.
+        /// </summary>
+        InsertBefore,
+
+        /// <summary>
+        /// Use this to append the new blueprint after the <see cref="PdaSortTarget"/> or at the end if not found.
+        /// </summary>
+        AppendAfter
+    }
+
+    /// <summary>
+    /// Whether the blueprint is inserted before or appended after the <see cref="PdaSortTarget"/> in the PDA.
+    /// </summary>
+    public SortPosition PdaSortPosition { get; set; }
 
     /// <summary>
     /// It will be added/inserted next to this item or at the end/beginning if not found.
@@ -107,7 +123,7 @@ public class ScanningGadget : Gadget
     {
         GroupForPda = group;
         CategoryForPda = category;
-        PdaAppendAfter = true;
+        PdaSortPosition = SortPosition.AppendAfter;
         PdaSortTarget = TechType.None;
         if (uGUI_BuilderMenu.groups.Contains(group))
         {
@@ -129,7 +145,7 @@ public class ScanningGadget : Gadget
     {
         GroupForPda = group;
         CategoryForPda = category;
-        PdaAppendAfter = true;
+        PdaSortPosition = SortPosition.AppendAfter;
         PdaSortTarget = target;
         if (uGUI_BuilderMenu.groups.Contains(group))
         {
@@ -151,7 +167,7 @@ public class ScanningGadget : Gadget
     {
         GroupForPda = group;
         CategoryForPda = category;
-        PdaAppendAfter = false;
+        PdaSortPosition = SortPosition.InsertBefore;
         PdaSortTarget = target;
         if (uGUI_BuilderMenu.groups.Contains(group))
         {
@@ -271,7 +287,7 @@ public class ScanningGadget : Gadget
             CraftData.GetBuilderCategories(GroupForPda, categories);
             if (categories.Contains(CategoryForPda))
             {
-                CraftDataHandler.AddToGroup(GroupForPda, CategoryForPda, prefab.Info.TechType, PdaSortTarget, PdaAppendAfter);
+                CraftDataHandler.AddToGroup(GroupForPda, CategoryForPda, prefab.Info.TechType, PdaSortTarget, PdaSortPosition == SortPosition.AppendAfter);
             }
             else
             {
