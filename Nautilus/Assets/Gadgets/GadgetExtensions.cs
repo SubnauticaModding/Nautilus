@@ -22,16 +22,10 @@ public static class GadgetExtensions
     /// <returns>An instance to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
     public static CraftingGadget SetRecipe(this ICustomPrefab customPrefab, RecipeData recipeData)
     {
-        if (customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
-        {
-            craftingGadget.RecipeData = recipeData;
-        }
-        else
-        { 
-            craftingGadget = new CraftingGadget(customPrefab, recipeData);
-            customPrefab.AddGadget(craftingGadget);
-        }
+        if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
+            return customPrefab.AddGadget(new CraftingGadget(customPrefab, recipeData));
 
+        craftingGadget.RecipeData = recipeData;
         return craftingGadget;
     }
 
@@ -60,16 +54,10 @@ public static class GadgetExtensions
             return null;
         }
 
-        if (customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
-        {
-            craftingGadget.RecipeData = recipeData;
-        }
-        else
-        { 
-            craftingGadget = new CraftingGadget(customPrefab, recipeData);
-            customPrefab.AddGadget(craftingGadget);
-        }
-        
+        if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
+            return customPrefab.AddGadget(new CraftingGadget(customPrefab, recipeData));
+
+        craftingGadget.RecipeData = recipeData;
         return craftingGadget;
     }
 
@@ -82,17 +70,11 @@ public static class GadgetExtensions
     /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
     public static ScanningGadget SetUnlock(this ICustomPrefab customPrefab, TechType requiredForUnlock, int fragmentsToScan = 1)
     {
-        if (customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
-        {
-            scanningGadget.RequiredForUnlock = requiredForUnlock;
-            scanningGadget.FragmentsToScan = fragmentsToScan;
-        }
-        else
-        {
-            scanningGadget = new ScanningGadget(customPrefab, requiredForUnlock, fragmentsToScan);
-            customPrefab.AddGadget(scanningGadget);
-        }
+        if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
+            return customPrefab.AddGadget(new ScanningGadget(customPrefab, requiredForUnlock, fragmentsToScan));
 
+        scanningGadget.RequiredForUnlock = requiredForUnlock;
+        scanningGadget.FragmentsToScan = fragmentsToScan;
         return scanningGadget;
     }
 
@@ -114,7 +96,6 @@ public static class GadgetExtensions
         }
 
         scanningGadget.WithPdaGroupCategory(group, category);
-
         return scanningGadget;
     }
 
@@ -126,16 +107,10 @@ public static class GadgetExtensions
     /// <returns>An instance to the created <see cref="EquipmentGadget"/> to continue the equipment settings on.</returns>
     public static EquipmentGadget SetEquipment(this ICustomPrefab customPrefab, EquipmentType equipmentType)
     {
-        if (customPrefab.TryGetGadget(out EquipmentGadget equipmentGadget))
-        {
-            equipmentGadget.EquipmentType = equipmentType;
-        }
-        else
-        {
-            equipmentGadget = new EquipmentGadget(customPrefab, equipmentType);
-            customPrefab.AddGadget(equipmentGadget);
-        }
+        if (!customPrefab.TryGetGadget(out EquipmentGadget equipmentGadget))
+            return customPrefab.AddGadget(new EquipmentGadget(customPrefab, equipmentType));
 
+        equipmentGadget.EquipmentType = equipmentType;
         return equipmentGadget;
     }
 
@@ -154,7 +129,6 @@ public static class GadgetExtensions
         }
 
         treeType = fabricatorGadget.CraftTreeType;
-        
         return fabricatorGadget;
     }
     
