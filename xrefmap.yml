@@ -972,6 +972,32 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategory
   nameWithType: GadgetExtensions.SetPdaGroupCategory
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryAfter(Nautilus.Assets.ICustomPrefab,TechGroup,TechCategory,TechType)
+  name: SetPdaGroupCategoryAfter(ICustomPrefab, TechGroup, TechCategory, TechType)
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryAfter_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_TechType_
+  commentId: M:Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryAfter(Nautilus.Assets.ICustomPrefab,TechGroup,TechCategory,TechType)
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryAfter(Nautilus.Assets.ICustomPrefab, TechGroup, TechCategory, TechType)
+  nameWithType: GadgetExtensions.SetPdaGroupCategoryAfter(ICustomPrefab, TechGroup, TechCategory, TechType)
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryAfter*
+  name: SetPdaGroupCategoryAfter
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryAfter_
+  commentId: Overload:Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryAfter
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryAfter
+  nameWithType: GadgetExtensions.SetPdaGroupCategoryAfter
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryBefore(Nautilus.Assets.ICustomPrefab,TechGroup,TechCategory,TechType)
+  name: SetPdaGroupCategoryBefore(ICustomPrefab, TechGroup, TechCategory, TechType)
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryBefore_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_TechType_
+  commentId: M:Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryBefore(Nautilus.Assets.ICustomPrefab,TechGroup,TechCategory,TechType)
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryBefore(Nautilus.Assets.ICustomPrefab, TechGroup, TechCategory, TechType)
+  nameWithType: GadgetExtensions.SetPdaGroupCategoryBefore(ICustomPrefab, TechGroup, TechCategory, TechType)
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryBefore*
+  name: SetPdaGroupCategoryBefore
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryBefore_
+  commentId: Overload:Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryBefore
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryBefore
+  nameWithType: GadgetExtensions.SetPdaGroupCategoryBefore
 - uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetRecipe(Nautilus.Assets.ICustomPrefab,Nautilus.Crafting.RecipeData)
   name: SetRecipe(ICustomPrefab, RecipeData)
   href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetRecipe_Nautilus_Assets_ICustomPrefab_Nautilus_Crafting_RecipeData_
@@ -1176,6 +1202,32 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.ScanningGadget.GroupForPda
   nameWithType: ScanningGadget.GroupForPda
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.PdaSortPosition
+  name: PdaSortPosition
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_PdaSortPosition
+  commentId: P:Nautilus.Assets.Gadgets.ScanningGadget.PdaSortPosition
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.PdaSortPosition
+  nameWithType: ScanningGadget.PdaSortPosition
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.PdaSortPosition*
+  name: PdaSortPosition
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_PdaSortPosition_
+  commentId: Overload:Nautilus.Assets.Gadgets.ScanningGadget.PdaSortPosition
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.PdaSortPosition
+  nameWithType: ScanningGadget.PdaSortPosition
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.PdaSortTarget
+  name: PdaSortTarget
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_PdaSortTarget
+  commentId: P:Nautilus.Assets.Gadgets.ScanningGadget.PdaSortTarget
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.PdaSortTarget
+  nameWithType: ScanningGadget.PdaSortTarget
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.PdaSortTarget*
+  name: PdaSortTarget
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_PdaSortTarget_
+  commentId: Overload:Nautilus.Assets.Gadgets.ScanningGadget.PdaSortTarget
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.PdaSortTarget
+  nameWithType: ScanningGadget.PdaSortTarget
 - uid: Nautilus.Assets.Gadgets.ScanningGadget.RequiredForUnlock
   name: RequiredForUnlock
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_RequiredForUnlock
@@ -1218,6 +1270,24 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.ScanningGadget.SetBuildable
   nameWithType: ScanningGadget.SetBuildable
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.SortPosition
+  name: ScanningGadget.SortPosition
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.html
+  commentId: T:Nautilus.Assets.Gadgets.ScanningGadget.SortPosition
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.SortPosition
+  nameWithType: ScanningGadget.SortPosition
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.AppendAfter
+  name: AppendAfter
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.html#Nautilus_Assets_Gadgets_ScanningGadget_SortPosition_AppendAfter
+  commentId: F:Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.AppendAfter
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.AppendAfter
+  nameWithType: ScanningGadget.SortPosition.AppendAfter
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.InsertBefore
+  name: InsertBefore
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.html#Nautilus_Assets_Gadgets_ScanningGadget_SortPosition_InsertBefore
+  commentId: F:Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.InsertBefore
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.InsertBefore
+  nameWithType: ScanningGadget.SortPosition.InsertBefore
 - uid: Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech(UnityEngine.Sprite,System.Collections.Generic.List{Story.StoryGoal},FMODAsset,System.String)
   name: WithAnalysisTech(Sprite, List<StoryGoal>, FMODAsset, string)
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithAnalysisTech_UnityEngine_Sprite_System_Collections_Generic_List_Story_StoryGoal__FMODAsset_System_String_
@@ -1279,6 +1349,32 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategory
   nameWithType: ScanningGadget.WithPdaGroupCategory
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryAfter(TechGroup,TechCategory,TechType)
+  name: WithPdaGroupCategoryAfter(TechGroup, TechCategory, TechType)
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategoryAfter_TechGroup_TechCategory_TechType_
+  commentId: M:Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryAfter(TechGroup,TechCategory,TechType)
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryAfter(TechGroup, TechCategory, TechType)
+  nameWithType: ScanningGadget.WithPdaGroupCategoryAfter(TechGroup, TechCategory, TechType)
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryAfter*
+  name: WithPdaGroupCategoryAfter
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategoryAfter_
+  commentId: Overload:Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryAfter
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryAfter
+  nameWithType: ScanningGadget.WithPdaGroupCategoryAfter
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryBefore(TechGroup,TechCategory,TechType)
+  name: WithPdaGroupCategoryBefore(TechGroup, TechCategory, TechType)
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategoryBefore_TechGroup_TechCategory_TechType_
+  commentId: M:Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryBefore(TechGroup,TechCategory,TechType)
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryBefore(TechGroup, TechCategory, TechType)
+  nameWithType: ScanningGadget.WithPdaGroupCategoryBefore(TechGroup, TechCategory, TechType)
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryBefore*
+  name: WithPdaGroupCategoryBefore
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithPdaGroupCategoryBefore_
+  commentId: Overload:Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryBefore
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithPdaGroupCategoryBefore
+  nameWithType: ScanningGadget.WithPdaGroupCategoryBefore
 - uid: Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(System.Single,System.Boolean,System.String,System.Boolean)
   name: WithScannerEntry(float, bool, string, bool)
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithScannerEntry_System_Single_System_Boolean_System_String_System_Boolean_
@@ -2815,12 +2911,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.CraftDataHandler.AddBuildable
   nameWithType: CraftDataHandler.AddBuildable
-- uid: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType,TechType)
-  name: AddToGroup(TechGroup, TechCategory, TechType, TechType)
-  href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_TechType_
-  commentId: M:Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType,TechType)
-  fullName: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType, TechType)
-  nameWithType: CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType, TechType)
+- uid: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType,TechType,System.Boolean)
+  name: AddToGroup(TechGroup, TechCategory, TechType, TechType, bool)
+  href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_TechType_System_Boolean_
+  commentId: M:Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType,TechType,System.Boolean)
+  name.vb: AddToGroup(TechGroup, TechCategory, TechType, TechType, Boolean)
+  fullName: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType, TechType, bool)
+  fullName.vb: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType, TechType, Boolean)
+  nameWithType: CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType, TechType, bool)
+  nameWithType.vb: CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType, TechType, Boolean)
 - uid: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType)
   name: AddToGroup(TechGroup, TechCategory, TechType)
   href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_

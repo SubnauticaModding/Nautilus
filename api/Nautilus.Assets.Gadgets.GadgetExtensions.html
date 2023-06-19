@@ -150,7 +150,7 @@
 
   <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_CreateFabricator_Nautilus_Assets_ICustomPrefab_CraftTree_Type__" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.CreateFabricator(Nautilus.Assets.ICustomPrefab,CraftTree.Type@)">
   CreateFabricator(ICustomPrefab, out Type)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L156"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a craft tree for this prefab. The created craft tree is immediately returned after this method is executed.</div>
@@ -188,7 +188,7 @@
 
   <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_SetEquipment_Nautilus_Assets_ICustomPrefab_EquipmentType_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetEquipment(Nautilus.Assets.ICustomPrefab,EquipmentType)">
   SetEquipment(ICustomPrefab, EquipmentType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L125"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L141"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the type of equipment slot this item can fit into.</div>
@@ -226,7 +226,7 @@
 
   <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategory_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategory(Nautilus.Assets.ICustomPrefab,TechGroup,TechCategory)">
   SetPdaGroupCategory(ICustomPrefab, TechGroup, TechCategory)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L105"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L90"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds this item into a blueprint category to appear in.</div>
@@ -259,6 +259,96 @@
 
 
   <h4 class="section" id="Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategory_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">If the specified <code class="paramref">group</code> is a tech group that is present in the <span class="xref">uGUI_BuilderMenu.groups</span> list, this item will automatically
+    become buildable. To avoid this, or make this item a buildable manually, use the <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_SetBuildable_System_Boolean_">SetBuildable(bool)</a> method.</div>
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryAfter_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryAfter*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryAfter_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_TechType_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryAfter(Nautilus.Assets.ICustomPrefab,TechGroup,TechCategory,TechType)">
+  SetPdaGroupCategoryAfter(ICustomPrefab, TechGroup, TechCategory, TechType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds this item into a blueprint category to appear in.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ScanningGadget SetPdaGroupCategoryAfter(this ICustomPrefab customPrefab, TechGroup group, TechCategory category, TechType target)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>customPrefab</code> <a class="xref" href="Nautilus.Assets.ICustomPrefab.html">ICustomPrefab</a></dt>
+    <dd>The custom prefab to add unlocks to.</dd>
+    <dt><code>group</code> <span class="xref">TechGroup</span></dt>
+    <dd>The main group in the PDA blueprints where this item appears.</dd>
+    <dt><code>category</code> <span class="xref">TechCategory</span></dt>
+    <dd>The category within the group in the PDA blueprints where this item appears.</dd>
+    <dt><code>target</code> <span class="xref">TechType</span></dt>
+    <dd>It will be added after this target item or at the end if not found.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
+    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a> to continue the scanning settings on.</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryAfter_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_TechType__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">If the specified <code class="paramref">group</code> is a tech group that is present in the <span class="xref">uGUI_BuilderMenu.groups</span> list, this item will automatically
+    become buildable. To avoid this, or make this item a buildable manually, use the <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_SetBuildable_System_Boolean_">SetBuildable(bool)</a> method.</div>
+
+
+
+
+  <a id="Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryBefore_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryBefore*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryBefore_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_TechType_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetPdaGroupCategoryBefore(Nautilus.Assets.ICustomPrefab,TechGroup,TechCategory,TechType)">
+  SetPdaGroupCategoryBefore(ICustomPrefab, TechGroup, TechCategory, TechType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L127"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds this item into a blueprint category to appear in.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ScanningGadget SetPdaGroupCategoryBefore(this ICustomPrefab customPrefab, TechGroup group, TechCategory category, TechType target)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>customPrefab</code> <a class="xref" href="Nautilus.Assets.ICustomPrefab.html">ICustomPrefab</a></dt>
+    <dd>The custom prefab to add unlocks to.</dd>
+    <dt><code>group</code> <span class="xref">TechGroup</span></dt>
+    <dd>The main group in the PDA blueprints where this item appears.</dd>
+    <dt><code>category</code> <span class="xref">TechCategory</span></dt>
+    <dd>The category within the group in the PDA blueprints where this item appears.</dd>
+    <dt><code>target</code> <span class="xref">TechType</span></dt>
+    <dd>It will be inserted before this target item or at the beginning if not found.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
+    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a> to continue the scanning settings on.</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryBefore_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_TechType__remarks">Remarks</h4>
   <div class="markdown level1 remarks">If the specified <code class="paramref">group</code> is a tech group that is present in the <span class="xref">uGUI_BuilderMenu.groups</span> list, this item will automatically
     become buildable. To avoid this, or make this item a buildable manually, use the <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_SetBuildable_System_Boolean_">SetBuildable(bool)</a> method.</div>
 
@@ -307,7 +397,7 @@
 
   <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_SetRecipeFromJson_Nautilus_Assets_ICustomPrefab_System_String_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetRecipeFromJson(Nautilus.Assets.ICustomPrefab,System.String)">
   SetRecipeFromJson(ICustomPrefab, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds recipe from a json file to this custom prefab.</div>
@@ -345,7 +435,7 @@
 
   <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_LootDistributionData_BiomeData___" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetSpawns(Nautilus.Assets.ICustomPrefab,LootDistributionData.BiomeData[])">
   SetSpawns(ICustomPrefab, params BiomeData[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L184"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L193"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds biome spawns for this custom prefab with default <span class="xref">UWE.WorldEntityInfo</span> values.</div>
@@ -383,7 +473,7 @@
 
   <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetSpawns(Nautilus.Assets.ICustomPrefab,Nautilus.Assets.SpawnLocation[])">
   SetSpawns(ICustomPrefab, params SpawnLocation[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L165"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L174"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds coordinated spawns for this custom prefab.</div>
@@ -421,7 +511,7 @@
 
   <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_UWE_WorldEntityInfo_LootDistributionData_BiomeData___" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetSpawns(Nautilus.Assets.ICustomPrefab,UWE.WorldEntityInfo,LootDistributionData.BiomeData[])">
   SetSpawns(ICustomPrefab, WorldEntityInfo, params BiomeData[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L205"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L214"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds biome spawns for this custom prefab.</div>
@@ -461,7 +551,7 @@
 
   <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_SetUnlock_Nautilus_Assets_ICustomPrefab_TechType_System_Int32_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.SetUnlock(Nautilus.Assets.ICustomPrefab,TechType,System.Int32)">
   SetUnlock(ICustomPrefab, TechType, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L81"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L71"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds unlocks to this custom prefab.</div>

@@ -141,6 +141,12 @@ Subnautica:</li>
 MyAwesomeMod/Plugin.cs
 </code></pre>
 <p><img src="../Documentation/images/guides/project-structure.png" alt="project-structure"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>It is recommended that you change the GUID of your mod. It will be automatically set to something like <code>MyAwesomeMod</code>, but for the sake of consistency it should look
+more like <code>com.author.myawesomemod</code>. To do this, you must open up your project's csproj file (Right Click -&gt; Edit Project File). Once it's open, add this tag to the
+uppermost property group: <code>&lt;BepInExPluginGuid&gt;com.author.modname&lt;/BepInExPluginGuid&gt;</code> and modify that to fit your mod.</p>
+</div>
 <p>This template contains the code of a functional knife that knock-backs enemies on strike. This knife can be found in the Modification station.
 Now that we have the code for the knife, we will make our new custom mineral.</p>
 <p>Begin by creating a new directory under <code>MyAwesomeMod/Items/</code> and name it <code>Minerals</code>. Create a new C# file by right clicking on the <code>Minerals</code> folder and call it <code>Coal.cs</code>.
