@@ -48,6 +48,11 @@ MyAwesomeMod/Plugin.cs
 ```
 ![project-structure](../images/guides/project-structure.png)
 
+> [!NOTE]
+> It is recommended that you change the GUID of your mod. It will be automatically set to something like `MyAwesomeMod`, but for the sake of consistency it should look
+more like `com.author.myawesomemod`. To do this, you must open up your project's csproj file (Right Click -> Edit Project File). Once it's open, add this tag to the
+uppermost property group: `<BepInExPluginGuid>com.author.modname</BepInExPluginGuid>` and modify that to fit your mod.
+
 This template contains the code of a functional knife that knock-backs enemies on strike. This knife can be found in the Modification station.
 Now that we have the code for the knife, we will make our new custom mineral.
 

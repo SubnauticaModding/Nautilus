@@ -23,14 +23,9 @@ public static class GadgetExtensions
     public static CraftingGadget SetRecipe(this ICustomPrefab customPrefab, RecipeData recipeData)
     {
         if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
-        { 
-            craftingGadget = new CraftingGadget(customPrefab, recipeData);
-        }
+            return customPrefab.AddGadget(new CraftingGadget(customPrefab, recipeData));
 
         craftingGadget.RecipeData = recipeData;
-        
-        customPrefab.TryAddGadget(craftingGadget);
-        
         return craftingGadget;
     }
 
@@ -60,14 +55,9 @@ public static class GadgetExtensions
         }
 
         if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
-        { 
-            craftingGadget = new CraftingGadget(customPrefab, recipeData);
-        }
+            return customPrefab.AddGadget(new CraftingGadget(customPrefab, recipeData));
 
         craftingGadget.RecipeData = recipeData;
-        
-        customPrefab.TryAddGadget(craftingGadget);
-        
         return craftingGadget;
     }
 
@@ -81,15 +71,10 @@ public static class GadgetExtensions
     public static ScanningGadget SetUnlock(this ICustomPrefab customPrefab, TechType requiredForUnlock, int fragmentsToScan = 1)
     {
         if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
-        {
-            scanningGadget = new ScanningGadget(customPrefab, requiredForUnlock, fragmentsToScan);
-        }
-        
+            return customPrefab.AddGadget(new ScanningGadget(customPrefab, requiredForUnlock, fragmentsToScan));
+
         scanningGadget.RequiredForUnlock = requiredForUnlock;
         scanningGadget.FragmentsToScan = fragmentsToScan;
-        
-        customPrefab.TryAddGadget(scanningGadget);
-
         return scanningGadget;
     }
 
@@ -105,15 +90,46 @@ public static class GadgetExtensions
     public static ScanningGadget SetPdaGroupCategory(this ICustomPrefab customPrefab, TechGroup group, TechCategory category)
     {
         if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
-        {
-            scanningGadget = new ScanningGadget(customPrefab, TechType.None);
-        }
+            scanningGadget = customPrefab.AddGadget(new ScanningGadget(customPrefab, TechType.None));
 
         scanningGadget.WithPdaGroupCategory(group, category);
-
-        customPrefab.TryAddGadget(scanningGadget);
-
         return scanningGadget;
+    }
+
+    /// <summary>
+    /// Adds this item into a blueprint category to appear in.
+    /// </summary>
+    /// <param name="customPrefab">The custom prefab to add unlocks to.</param>
+    /// <param name="group">The main group in the PDA blueprints where this item appears.</param>
+    /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
+    /// <param name="target">It will be added after this target item or at the end if not found.</param>
+    /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
+    /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="ScanningGadget.SetBuildable"/> method.</remarks>
+    public static ScanningGadget SetPdaGroupCategoryAfter(this ICustomPrefab customPrefab, TechGroup group, TechCategory category, TechType target)
+    {
+        if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
+            scanningGadget = customPrefab.AddGadget(new ScanningGadget(customPrefab, TechType.None));
+
+        return scanningGadget.WithPdaGroupCategoryAfter(group, category, target);
+    }
+
+    /// <summary>
+    /// Adds this item into a blueprint category to appear in.
+    /// </summary>
+    /// <param name="customPrefab">The custom prefab to add unlocks to.</param>
+    /// <param name="group">The main group in the PDA blueprints where this item appears.</param>
+    /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
+    /// <param name="target">It will be inserted before this target item or at the beginning if not found.</param>
+    /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
+    /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="ScanningGadget.SetBuildable"/> method.</remarks>
+    public static ScanningGadget SetPdaGroupCategoryBefore(this ICustomPrefab customPrefab, TechGroup group, TechCategory category, TechType target)
+    {
+        if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
+            scanningGadget = customPrefab.AddGadget(new ScanningGadget(customPrefab, TechType.None));
+
+        return scanningGadget.WithPdaGroupCategoryBefore(group, category, target);
     }
 
     /// <summary>
@@ -125,14 +141,9 @@ public static class GadgetExtensions
     public static EquipmentGadget SetEquipment(this ICustomPrefab customPrefab, EquipmentType equipmentType)
     {
         if (!customPrefab.TryGetGadget(out EquipmentGadget equipmentGadget))
-        {
-            equipmentGadget = new EquipmentGadget(customPrefab, equipmentType);
-        }
+            return customPrefab.AddGadget(new EquipmentGadget(customPrefab, equipmentType));
 
         equipmentGadget.EquipmentType = equipmentType;
-        
-        customPrefab.TryAddGadget(equipmentGadget);
-
         return equipmentGadget;
     }
 
@@ -147,12 +158,10 @@ public static class GadgetExtensions
         if (!customPrefab.TryGetGadget(out FabricatorGadget fabricatorGadget))
         {
             fabricatorGadget = new FabricatorGadget(customPrefab);
+            customPrefab.AddGadget(fabricatorGadget);
         }
 
         treeType = fabricatorGadget.CraftTreeType;
-        
-        customPrefab.TryAddGadget(fabricatorGadget);
-
         return fabricatorGadget;
     }
     

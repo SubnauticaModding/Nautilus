@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Nautilus.Handlers;
 /// <summary>
-/// A handler class for adding databank entries for mods.
+/// A handler class for adding information about your mod to the "Mods" tab of the PDA's Datbabank. If you wish to add a standard PDA entry, instead see the <see cref="PDAHandler"/> class.
 /// </summary>
 public static class ModDatabankHandler
 {

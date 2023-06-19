@@ -1,4 +1,4 @@
-﻿using Nautilus.Patchers;
+using Nautilus.Patchers;
 
 namespace Nautilus.Handlers;
 
@@ -17,7 +17,7 @@ public static partial class CraftDataHandler
     /// <param name="techType">The TechType you want to add.</param>
     public static void AddToGroup(TechGroup group, TechCategory category, TechType techType)
     {
-        CraftDataPatcher.AddToGroup(group, category, techType, TechType.None);
+        CraftDataPatcher.AddToGroup(group, category, techType, TechType.None, true);
     }
 
     /// <summary>
@@ -27,10 +27,11 @@ public static partial class CraftDataHandler
     /// <param name="group">The TechGroup you want to add your TechType to.</param>
     /// <param name="category">The TechCategory (in the TechGroup) you want to add your TechType to.</param>
     /// <param name="techType">The TechType you want to add.</param>
-    /// <param name="after">Added TechType will be added after this TechType, for sorting purposes.</param>
-    public static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType after)
+    /// <param name="target">The icon in the blueprints tab of the PDA will be added next to this item or at the end/beginning if not found.</param>
+    /// <param name="after">Whether to append after (true) or insert before (false) the target, for sorting purposes.</param>
+    public static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType target = TechType.None, bool after = true)
     {
-        CraftDataPatcher.AddToGroup(group, category, techType, after);
+        CraftDataPatcher.AddToGroup(group, category, techType, target, after);
     }
 
     /// <summary>

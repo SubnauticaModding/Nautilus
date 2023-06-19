@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using BepInEx.Logging;
 using HarmonyLib;
@@ -20,7 +20,7 @@ internal partial class CraftDataPatcher
 
     internal static bool ModPrefabsPatched;
 
-    internal static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType after)
+    internal static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType target, bool after)
     {
         if (!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
         {
@@ -35,45 +35,30 @@ internal partial class CraftDataPatcher
             return;
         }
 
-        if(techCategory.Contains(techType))
-        {
-            return;
-        }
+        techCategory.Remove(techType);
 
-        int index = techCategory.IndexOf(after);
+        int index = techCategory.IndexOf(target);
 
         if (index == -1) // Not found
         {
-            techCategory.Add(techType);
-            InternalLogger.Log($"Added \"{techType.AsString():G}\" to groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
+            techCategory.Insert(after ? techCategory.Count : 0, techType);
+            InternalLogger.Log($"{(after ? "Add" : "Insert")}ed \"{techType:G}\" {(after ? "" : "in")}to groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
         }
         else
         {
-            techCategory.Insert(index + 1, techType);
-
-            InternalLogger.Log($"Added \"{techType.AsString():G}\" to groups under \"{group:G}->{category:G}\" after \"{after.AsString():G}\"", LogLevel.Debug);
+            techCategory.Insert(index + (after ? 1 : 0), techType);
+            InternalLogger.Log($"{(after ? "Add" : "Insert")}ed \"{techType:G}\" {(after ? "" : "in")}to groups under \"{group:G}->{category:G}\" {(after ? "after" : "before")} \"{target:G}\"", LogLevel.Debug);
         }
     }
 
     internal static void RemoveFromGroup(TechGroup group, TechCategory category, TechType techType)
     {
-        if(!CraftData.groups.TryGetValue(group, out Dictionary<TechCategory, List<TechType>> techGroup))
+        if (CraftData.groups.TryGetValue(group, out var techGroup)
+            && techGroup.TryGetValue(category, out var techCategory)
+            && techCategory.Remove(techType))
         {
-            return;
+            InternalLogger.Log($"Successfully Removed \"{techType:G}\" from groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
         }
-
-        if(!techGroup.TryGetValue(category, out List<TechType> techCategory))
-        {
-            return;
-        }
-
-        if(!techCategory.Contains(techType))
-        {
-            return;
-        }
-
-        techCategory.Remove(techType);
-        InternalLogger.Log($"Successfully Removed \"{techType.AsString():G}\" from groups under \"{group:G}->{category:G}\"", LogLevel.Debug);
     }
 
     #endregion

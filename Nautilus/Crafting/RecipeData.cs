@@ -22,7 +22,7 @@ public class RecipeData
     /// The quantity of the item this recipe yields.
     /// </value>
     [JsonProperty]
-    public int craftAmount { get; set; }
+    public int craftAmount { get; set; } = 1;
 
     /// <summary>
     /// Gets the number of different ingredients for this recipe.
