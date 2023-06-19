@@ -97,6 +97,42 @@ public static class GadgetExtensions
     }
 
     /// <summary>
+    /// Adds this item into a blueprint category to appear in.
+    /// </summary>
+    /// <param name="customPrefab">The custom prefab to add unlocks to.</param>
+    /// <param name="group">The main group in the PDA blueprints where this item appears.</param>
+    /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
+    /// <param name="target">It will be added after this target item or at the end if not found.</param>
+    /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
+    /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="ScanningGadget.SetBuildable"/> method.</remarks>
+    public static ScanningGadget SetPdaGroupCategoryAfter(this ICustomPrefab customPrefab, TechGroup group, TechCategory category, TechType target)
+    {
+        if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
+            scanningGadget = customPrefab.AddGadget(new ScanningGadget(customPrefab, TechType.None));
+
+        return scanningGadget.WithPdaGroupCategoryAfter(group, category, target);
+    }
+
+    /// <summary>
+    /// Adds this item into a blueprint category to appear in.
+    /// </summary>
+    /// <param name="customPrefab">The custom prefab to add unlocks to.</param>
+    /// <param name="group">The main group in the PDA blueprints where this item appears.</param>
+    /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
+    /// <param name="target">It will be inserted before this target item or at the beginning if not found.</param>
+    /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
+    /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="ScanningGadget.SetBuildable"/> method.</remarks>
+    public static ScanningGadget SetPdaGroupCategoryBefore(this ICustomPrefab customPrefab, TechGroup group, TechCategory category, TechType target)
+    {
+        if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
+            scanningGadget = customPrefab.AddGadget(new ScanningGadget(customPrefab, TechType.None));
+
+        return scanningGadget.WithPdaGroupCategoryBefore(group, category, target);
+    }
+
+    /// <summary>
     /// Sets the type of equipment slot this item can fit into.
     /// </summary>
     /// <param name="customPrefab">The custom prefab to set equipment slot for.</param>
