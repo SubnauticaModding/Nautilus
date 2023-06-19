@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Nautilus.Utility;
@@ -100,4 +100,32 @@ public static class GameObjectExtensions
 
         return obj.EnsureComponent<TNewComponent>().CopyComponent(origComponent);
     }
+
+    /// <summary>
+    /// Searches the hierarchy under this Transform recursively and returns a child Transform with the matching name if any is found.
+    /// </summary>
+    /// <param name="transform">The root object of the search.</param>
+    /// <param name="name">The name of the object that is being searched for.</param>
+    /// <returns></returns>
+    public static Transform SearchChild(this Transform transform, string name)
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.gameObject.name == name)
+                return child;
+
+            var recursive = SearchChild(child, name);
+            if (recursive != null)
+                return recursive;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Searches the hierarchy under this GameObject recursively and returns a child GameObject with the matching name if any is found.
+    /// </summary>
+    /// <param name="gameObject">The root object of the search.</param>
+    /// <param name="name">The name of the object that is being searched for.</param>
+    /// <returns></returns>
+    public static GameObject SearchChild(this GameObject gameObject, string name) => SearchChild(gameObject.transform, name).gameObject;
 }
