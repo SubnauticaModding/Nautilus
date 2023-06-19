@@ -90,10 +90,7 @@ public static class GadgetExtensions
     public static ScanningGadget SetPdaGroupCategory(this ICustomPrefab customPrefab, TechGroup group, TechCategory category)
     {
         if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
-        {
-            scanningGadget = new ScanningGadget(customPrefab, TechType.None);
-            customPrefab.AddGadget(scanningGadget);
-        }
+            scanningGadget = customPrefab.AddGadget(new ScanningGadget(customPrefab, TechType.None));
 
         scanningGadget.WithPdaGroupCategory(group, category);
         return scanningGadget;
