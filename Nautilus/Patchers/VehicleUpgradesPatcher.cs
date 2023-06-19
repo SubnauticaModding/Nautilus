@@ -52,7 +52,7 @@ internal class VehicleUpgradesPatcher
     {
         Dictionary<TechType, float> CrushDepthUpgrades = new();
         VehicleUpgradeModules.DoIf(
-            (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth < 0f,
+            (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth != -1f,
             (KeyValuePair<TechType, ICustomPrefab> mapElem) => CrushDepthUpgrades.Add(mapElem.Key, mapElem.Value.GetGadget<UpgradeModuleGadget>().CrushDepth)
         );
 
@@ -145,7 +145,7 @@ internal class VehicleUpgradesPatcher
             (KeyValuePair<TechType, ICustomPrefab> mapElem) =>
                 mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget)
                 && moduleGadget.AbsoluteDepth == true  // Check if the provided module wants to set AbsoluteDepth or not. If not, break, the module is already added at registering of the prefab.
-                && moduleGadget.CrushDepth > 0f  // Check if the provided module wants to change depth or not. -1f is the default value if the crush depth is not meant to be changed.
+                && moduleGadget.CrushDepth != -1f  // Check if the provided module wants to change depth or not. -1f is the default value if the crush depth is not meant to be changed.
                 && !Exosuit.crushDepths.ContainsKey(mapElem.Key),  // Abort if the module is already existing in crushDepths.
                                                                             // For example if the AbsoluteDepth bool is changed on runtime, it won't do anything because the module already exists in crushDepths Dictionary.
             (KeyValuePair<TechType, ICustomPrefab> mapElem) =>
@@ -237,7 +237,7 @@ internal class VehicleUpgradesPatcher
             }
         };
         SeamothUpgradeModules.DoIf(
-            (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth > 0f,
+            (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth != -1f,
             (KeyValuePair<TechType, ICustomPrefab> mapElem) => CrushDepthUpgrades.Add(mapElem.Key, mapElem.Value.GetGadget<UpgradeModuleGadget>().CrushDepth));
 
         var newCrushDepth = 0f;
