@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Nautilus.Crafting;
@@ -58,6 +58,15 @@ public class RecipeData
     /// Initializes a new instance of the <see cref="RecipeData"/> class a custom recipe.
     /// </summary>
     public RecipeData() { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RecipeData"/> class for a custom recipe with a list of ingridients.
+    /// </summary>
+    /// <param name="ingredients">The ingredients.</param>
+    public RecipeData(List<Ingredient> ingredients)
+    {
+        Ingredients = ingredients;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RecipeData"/> class for a custom recipe with a collection of ingridients.
