@@ -62,9 +62,11 @@ public class RecipeData
     /// <summary>
     /// Initializes a new instance of the <see cref="RecipeData"/> class for a custom recipe with a collection of ingridients.
     /// </summary>
+    /// <param name="craftAmount">The amount of items crafted by this recipe.</param>
     /// <param name="ingredients">The ingredients.</param>
-    public RecipeData(params Ingredient[] ingredients)
+    public RecipeData(int craftAmount, params Ingredient[] ingredients)
     {
+        this.craftAmount = craftAmount;
         foreach (Ingredient ingredient in ingredients)
         {
             Ingredients.Add(ingredient);
