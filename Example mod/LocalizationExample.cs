@@ -6,7 +6,7 @@ using Nautilus.Handlers;
 
 namespace Nautilus.Examples;
 
-[BepInPlugin("com.snmodding.nautilus.localizaion", "Nautilus Localization Example Mod", Nautilus.PluginInfo.PLUGIN_VERSION)]
+[BepInPlugin("com.snmodding.nautilus.localization", "Nautilus Localization Example Mod", Nautilus.PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
 public class LocalizationExample : BaseUnityPlugin
 {

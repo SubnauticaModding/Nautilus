@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Reflection;
 using BepInEx.Logging;
@@ -290,7 +290,7 @@ public class ModSliderOption : ModOption<float, SliderChangedEventArgs>
         }
     }
 
-    private class SliderOptionAdjust : ModOptionAdjust
+    internal class SliderOptionAdjust : ModOptionAdjust
     {
         private const string sliderBackground = "Slider/Slider/Background";
         private const float spacing_MainMenu = 30f;

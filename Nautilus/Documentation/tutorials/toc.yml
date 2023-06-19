@@ -12,7 +12,12 @@
     - name: Databank entries
       href: databank-entries.md
 
-- name: Prefab Creation
+- name: Prefabs
+  items:
+    - name: Prefab basics
+      href: prefabs-overview.md
+    - name: Loading & instantiating prefabs
+      href: loading-and-instantiating-prefabs.md
     
 - name: Editing Content
   items:
