@@ -2670,6 +2670,31 @@ references:
   fullName.vb: Nautilus.Extensions.GameObjectExtensions.Exists(Of T)(T)
   nameWithType: GameObjectExtensions.Exists<T>(T)
   nameWithType.vb: GameObjectExtensions.Exists(Of T)(T)
+- uid: Nautilus.Extensions.GameObjectExtensions.SearchChild(UnityEngine.GameObject,System.String)
+  name: SearchChild(GameObject, string)
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_SearchChild_UnityEngine_GameObject_System_String_
+  commentId: M:Nautilus.Extensions.GameObjectExtensions.SearchChild(UnityEngine.GameObject,System.String)
+  name.vb: SearchChild(GameObject, String)
+  fullName: Nautilus.Extensions.GameObjectExtensions.SearchChild(UnityEngine.GameObject, string)
+  fullName.vb: Nautilus.Extensions.GameObjectExtensions.SearchChild(UnityEngine.GameObject, String)
+  nameWithType: GameObjectExtensions.SearchChild(GameObject, string)
+  nameWithType.vb: GameObjectExtensions.SearchChild(GameObject, String)
+- uid: Nautilus.Extensions.GameObjectExtensions.SearchChild(UnityEngine.Transform,System.String)
+  name: SearchChild(Transform, string)
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_SearchChild_UnityEngine_Transform_System_String_
+  commentId: M:Nautilus.Extensions.GameObjectExtensions.SearchChild(UnityEngine.Transform,System.String)
+  name.vb: SearchChild(Transform, String)
+  fullName: Nautilus.Extensions.GameObjectExtensions.SearchChild(UnityEngine.Transform, string)
+  fullName.vb: Nautilus.Extensions.GameObjectExtensions.SearchChild(UnityEngine.Transform, String)
+  nameWithType: GameObjectExtensions.SearchChild(Transform, string)
+  nameWithType.vb: GameObjectExtensions.SearchChild(Transform, String)
+- uid: Nautilus.Extensions.GameObjectExtensions.SearchChild*
+  name: SearchChild
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_SearchChild_
+  commentId: Overload:Nautilus.Extensions.GameObjectExtensions.SearchChild
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GameObjectExtensions.SearchChild
+  nameWithType: GameObjectExtensions.SearchChild
 - uid: Nautilus.Extensions.GeneralExtensions
   name: GeneralExtensions
   href: api/Nautilus.Extensions.GeneralExtensions.html
