@@ -163,6 +163,7 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
+    /// <para>WARNING! This overload may not work, this functionality is still very WIP.</para>
     /// The maximum charge of the item.<br/>
     /// Usually used as a multiplier for vehicle modules.<br/>
     /// (Seamoth defense perimeter, Seatruck defense perimeter)
@@ -191,6 +192,7 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
+    /// <para>WARNING! This overload may not work, this functionality is still very WIP.</para>
     /// The energy cost of the item.<br/>
     /// Usually used for vehicle modules to consume energy.<br/>
     /// (Seamoth perimeter defense, Seamoth sonar)
@@ -219,6 +221,7 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
+    /// <para>WARNING! This overload may not work, this functionality is still very WIP.</para>
     /// The cooldown of the module when it is used.
     /// <para>Cooldown may not work with certain vehicles.</para>
     /// <para>Does not work with toggleable and passive items.</para>
@@ -247,6 +250,7 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
+    /// <para>WARNING! This overload may not work, this functionality is still very WIP.</para>
     /// Sets the crush depth given by this upgrade.
     /// <para>This overload of the function allows you to pass a reference to an existing value.<br/>
     /// It can be used if you want the depth upgrade to be configurable.</para>

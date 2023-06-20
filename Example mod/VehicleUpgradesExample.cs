@@ -28,7 +28,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
          * Here, we're  assigning the hull icon for our item.
          * You may also use a custom image icon by calling the ImageUtils.LoadSpriteFromFile method or with AssetBundles, like mentioned higher.
          */
-        depthUpgradeInfo.WithIcon(SpriteManager.Get(TechType.HullReinforcementModule));
+        depthUpgradeInfo.WithIcon(SpriteManager.Get(TechType.HullReinforcementModule2));
         Logger.LogDebug("Registerd depth upgrade icon");
 
         /*
@@ -67,7 +67,6 @@ public class VehicleUpgradesExample : BaseUnityPlugin
             Ingredients = new List<CraftData.Ingredient>()
                 {
                     new CraftData.Ingredient(TechType.PlasteelIngot, 3),
-
                     new CraftData.Ingredient(TechType.Copper, 1),
                     new CraftData.Ingredient(TechType.Aerogel, 1),
                 }
@@ -89,22 +88,10 @@ public class VehicleUpgradesExample : BaseUnityPlugin
         Logger.LogDebug("Registered crafting gadget of depth upgrade");
 
         /*
-         * Now, we're defining our item as an Equipment. Equipment can be a module, an O2 Tank, a chip, etc...
-         * In our case, it will be a SeamothModule.
+         * Now, we're saying that this Equipment is an Upgrade Module.
+         * N.B. Cyclops modules are using an other Gadget.
          */
-        depthUpgrade.SetEquipment(EquipmentType.SeamothModule)
-
-            /*
-             * This method defines if the upgrade has an action or not.
-             * In our case, it does not.
-             */
-            .WithQuickSlotType(QuickSlotType.None)
-
-            /*
-             * Now, we're saying that this Equipment is an Upgrade Module.
-             * N.B. Cyclops modules are using an other Gadget.
-             */
-            .SetUpgradeModule()
+        depthUpgrade.SetVehicleUpgradeModule(EquipmentType.SeamothModule, QuickSlotType.Passive)
 
             /*
              * Here we're defining the main thing that interests us, the max depth!
@@ -137,12 +124,12 @@ public class VehicleUpgradesExample : BaseUnityPlugin
          * Now, let's try to do that with an interactable module !
          */
 
-        PrefabInfo SelfDefenseMK2Info = PrefabInfo
+        var SelfDefenseMK2Info = PrefabInfo
             .WithTechType("PerimeterDefenseMK2", "Perimeter Defense MK2 for Seamoth", "A new electrical defense for Seamoth")
             .WithIcon(SpriteManager.Get(TechType.SeamothElectricalDefense));
 
-        CustomPrefab selfDefMK2prefab = new CustomPrefab(SelfDefenseMK2Info);
-        CloneTemplate selfDefClone = new CloneTemplate(SelfDefenseMK2Info, TechType.SeamothElectricalDefense);
+        var selfDefMK2prefab = new CustomPrefab(SelfDefenseMK2Info);
+        var selfDefClone = new CloneTemplate(SelfDefenseMK2Info, TechType.SeamothElectricalDefense);
 
         selfDefMK2prefab.SetGameObject(selfDefClone);
 
@@ -157,9 +144,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
         })
             .WithFabricatorType(CraftTree.Type.Workbench);
 
-        selfDefMK2prefab.SetEquipment(EquipmentType.SeamothModule)
-            .WithQuickSlotType(QuickSlotType.SelectableChargeable)
-            .SetUpgradeModule()
+        selfDefMK2prefab.SetVehicleUpgradeModule(EquipmentType.SeamothModule, QuickSlotType.SelectableChargeable)
             .WithCooldown(2.5f)
             .WithEnergyCost(10f)
             .WithMaxCharge(25f)
@@ -197,9 +182,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
             .WithFabricatorType(CraftTree.Type.SeamothUpgrades)
             .WithCraftingTime(4f)
             .WithStepsToFabricatorTab("SeamothModules");
-        prefab.SetEquipment(EquipmentType.SeamothModule)
-            .WithQuickSlotType(QuickSlotType.Passive)
-            .SetUpgradeModule()
+        prefab.SetVehicleUpgradeModule(EquipmentType.SeamothModule)
                 .WithDepthUpgrade(ref config.MaxDepth, true)
                 .WithOnModuleAdded((Vehicle vehicleInstance, int slotId) => {
                     Subtitles.Add($"New seamoth depth: {config.MaxDepth} meters.\nAdded in slot #{slotId + 1}.");

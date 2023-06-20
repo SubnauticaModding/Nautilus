@@ -53,25 +53,6 @@ public class EquipmentGadget : Gadget
 
 
 
-    /// <summary>
-    /// Sets the type of upgrade module slot this item can fit into.
-    /// </summary>
-    /// If you plan to use anything that is not a module (Tank, Chip), except ExosuitArm,<br/>
-    /// <returns>An instance to the created <see cref="UpgradeModuleGadget"/> to continue the equipment settings on.</returns>
-    public UpgradeModuleGadget SetUpgradeModule()
-    {
-        ICustomPrefab customPrefab = prefab;
-        if (!customPrefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-        {
-            moduleGadget = new UpgradeModuleGadget(customPrefab);
-        }
-        customPrefab.TryAddGadget(moduleGadget);
-
-        return moduleGadget;
-    }
-
-
-
     /// <inheritdoc/>
     protected internal override void Build()
     {
