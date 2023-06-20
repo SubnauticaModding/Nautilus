@@ -57,12 +57,12 @@ public class VehicleUpgradesExample : BaseUnityPlugin
         depthUpgrade.SetRecipe(new Crafting.RecipeData()
         {
             /*
-             * Here, wer are saying the amount of the item we want to be crafted.
+             * Here, we are saying the amount of the item we want to be crafted.
              */
             craftAmount = 1,
 
             /*
-             * And here, we're making a list of arguments.
+             * And here, we're making a list of ingredients.
              */
             Ingredients = new List<CraftData.Ingredient>()
                 {
@@ -77,6 +77,11 @@ public class VehicleUpgradesExample : BaseUnityPlugin
              * In our case, let's say SeamothUpgrades, it's the fabricator in the Moonpool Upgrade Console.
              */
             .WithFabricatorType(CraftTree.Type.SeamothUpgrades)
+            /*
+             * With this function, we set the node to access the module in the crafting bench.
+             * In the seamoth upgrades, there's no subnodes, only nodes.
+             */
+            .WithStepsToFabricatorTab("SeamothModules")
             /*
              * Here, we are saying that the crafting duration of the item will be 2.5 seconds.
              */
@@ -114,7 +119,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
              */
             .WithOnModuleAdded((Vehicle vehicleReference, int quickSlotId) =>
             {
-                Subtitles.Add("Warning! The max depth is now 3000 meters. Say hello to Ghost Leviathans from me!");
+                Subtitles.Add($"Warning! The max depth is now 3000 meters. Say hello to Ghost Leviathans from me!");
             })
             .WithOnModuleRemoved((Vehicle vehicleReference, int quickSlotId) =>
             {
@@ -191,7 +196,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
         })
             .WithFabricatorType(CraftTree.Type.SeamothUpgrades)
             .WithCraftingTime(4f)
-            .WithStepsToFabricatorTab("SeamothUpgrades");
+            .WithStepsToFabricatorTab("SeamothModules");
         prefab.SetEquipment(EquipmentType.SeamothModule)
             .WithQuickSlotType(QuickSlotType.Passive)
             .SetUpgradeModule()
@@ -206,6 +211,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
         prefab.Register();
     }
 }
+
 // Disable the naming convention violation warning.
 #pragma warning disable IDE1006
 

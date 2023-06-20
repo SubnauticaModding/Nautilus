@@ -1,5 +1,6 @@
 using HarmonyLib;
 using HarmonyLib.Tools;
+using MonoMod.Utils;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
@@ -23,6 +24,7 @@ internal class VehicleUpgradesPatcher
     {
         HarmonyFileLog.Enabled = true;
         harmony.PatchAll(typeof(VehicleUpgradesPatcher));
+        InternalLogger.Debug("VehicleUpgradesPatcher is done.");
     }
 
     //
@@ -52,7 +54,7 @@ internal class VehicleUpgradesPatcher
     {
         Dictionary<TechType, float> CrushDepthUpgrades = new();
         VehicleUpgradeModules.DoIf(
-            (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth != -1f,
+            (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth > 0f,
             (KeyValuePair<TechType, ICustomPrefab> mapElem) => CrushDepthUpgrades.Add(mapElem.Key, mapElem.Value.GetGadget<UpgradeModuleGadget>().CrushDepth)
         );
 
@@ -74,7 +76,7 @@ internal class VehicleUpgradesPatcher
             }
         }
         if (absolute)
-            __instance.crushDamage.crushDepth = newCrushDepth;
+            __instance.crushDamage.SetExtraCrushDepth(newCrushDepth - __instance.crushDamage.kBaseCrushDepth);
         else
             __instance.crushDamage.SetExtraCrushDepth(newCrushDepth);
     }
@@ -89,18 +91,41 @@ internal class VehicleUpgradesPatcher
     {
         __instance.onToggle += (int slotID, bool state) =>
         {
+            ICustomPrefab prefab;
             var techType = __instance.modules.GetTechTypeInSlot(__instance.slotIDs[slotID]);
-            if (techType == TechType.None)
-                return;
+            UpgradeModuleGadget moduleGadget;
+            double energyCost;
+            switch (__instance)
+            {
+                case Exosuit:
+                    break;
+                case SeaMoth:
+                    if (techType == TechType.None)
+                        break;
 
-            if (!VehicleUpgradeModules.TryGetValue(techType, out var prefab))
-                return;
+                    if (!SeamothUpgradeModules.TryGetValue(techType, out prefab))
+                        break;
 
-            if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-                return;
+                    if (!prefab.TryGetGadget(out moduleGadget))
+                        break;
 
-            double energyCost = moduleGadget.EnergyCost;
-            moduleGadget.delegateOnToggled?.Invoke(__instance, slotID, (float) energyCost, state);
+                    energyCost = moduleGadget.EnergyCost;
+                    moduleGadget.delegateOnToggled?.Invoke(__instance, slotID, (float) energyCost, state);
+                    break;
+                default:
+                    if (techType == TechType.None)
+                        break;
+
+                    if (!VehicleUpgradeModules.TryGetValue(techType, out prefab))
+                        break;
+
+                    if (!prefab.TryGetGadget(out moduleGadget))
+                        break;
+
+                    energyCost = moduleGadget.EnergyCost;
+                    moduleGadget.delegateOnToggled?.Invoke(__instance, slotID, (float) energyCost, state);
+                    break;
+            }
         };
     }
 
@@ -112,25 +137,52 @@ internal class VehicleUpgradesPatcher
     [HarmonyPatch(typeof(Vehicle), nameof(Vehicle.OnUpgradeModuleUse))]
     private static bool UpgradeModuleUseDelegate(Vehicle __instance, TechType techType, int slotID)
     {
-        if (!VehicleUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
+        if(__instance is Exosuit)
+        {
+            __instance = __instance as Exosuit;
+            if (!ExosuitUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
+                return false;
+
+            if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+                return false;
+
+            float quickSlotCharge = __instance.quickSlotCharge[slotID];
+            float chargeScalar = __instance.GetSlotCharge(slotID);
+
+            moduleGadget.delegateOnUsed?.Invoke(__instance, slotID, quickSlotCharge, chargeScalar);
+
+            var cooldown = 0f;
+            if (moduleGadget.Cooldown > 0f)
+                cooldown = (float) moduleGadget.Cooldown;
+
+            __instance.quickSlotTimeUsed[slotID] = Time.time;
+            __instance.quickSlotCooldown[slotID] = cooldown;
+
             return false;
+        }
+        else
+        {
 
-        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+            if (!VehicleUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
+                return false;
+
+            if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+                return false;
+
+            float quickSlotCharge = __instance.quickSlotCharge[slotID];
+            float chargeScalar = __instance.GetSlotCharge(slotID);
+
+            moduleGadget.delegateOnUsed?.Invoke(__instance, slotID, quickSlotCharge, chargeScalar);
+
+            var cooldown = 0f;
+            if (moduleGadget.Cooldown > 0f)
+                cooldown = (float) moduleGadget.Cooldown;
+
+            __instance.quickSlotTimeUsed[slotID] = Time.time;
+            __instance.quickSlotCooldown[slotID] = cooldown;
+
             return false;
-
-        float quickSlotCharge = __instance.quickSlotCharge[slotID];
-        float chargeScalar = __instance.GetSlotCharge(slotID);
-
-        moduleGadget.delegateOnUsed?.Invoke(__instance, slotID, quickSlotCharge, chargeScalar);
-
-        var cooldown = 0f;
-        if (moduleGadget.Cooldown > 0f)
-            cooldown = (float) moduleGadget.Cooldown;
-
-        __instance.quickSlotTimeUsed[slotID] = Time.time;
-        __instance.quickSlotCooldown[slotID] = cooldown;
-
-        return false;
+        }
     }
 
     //
@@ -145,7 +197,7 @@ internal class VehicleUpgradesPatcher
             (KeyValuePair<TechType, ICustomPrefab> mapElem) =>
                 mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget)
                 && moduleGadget.AbsoluteDepth == true  // Check if the provided module wants to set AbsoluteDepth or not. If not, break, the module is already added at registering of the prefab.
-                && moduleGadget.CrushDepth != -1f  // Check if the provided module wants to change depth or not. -1f is the default value if the crush depth is not meant to be changed.
+                && moduleGadget.CrushDepth > 0f  // Check if the provided module wants to change depth or not. -1f is the default value if the crush depth is not meant to be changed.
                 && !Exosuit.crushDepths.ContainsKey(mapElem.Key),  // Abort if the module is already existing in crushDepths.
                                                                             // For example if the AbsoluteDepth bool is changed on runtime, it won't do anything because the module already exists in crushDepths Dictionary.
             (KeyValuePair<TechType, ICustomPrefab> mapElem) =>
@@ -161,6 +213,7 @@ internal class VehicleUpgradesPatcher
     private static void OnUpgradeModuleExoHull(Exosuit __instance, int slotID, TechType techType, bool added)
     {
         float newCrushDepth = 0f;
+        bool absolute = false;
         for (int i = 0; i < __instance.slotIDs.Length; i++)
         {
             string slot = __instance.slotIDs[i];
@@ -169,9 +222,15 @@ internal class VehicleUpgradesPatcher
             if (Exosuit.crushDepths.TryGetValue(techTypeInSlot, out depthToCheck) && depthToCheck > newCrushDepth)
             {
                 newCrushDepth = depthToCheck;
+                if (ExosuitUpgradeModules[techTypeInSlot].TryGetGadget(out UpgradeModuleGadget mdlGadget))
+                    absolute = mdlGadget.AbsoluteDepth;
             }
         }
-        __instance.crushDamage.SetExtraCrushDepth(newCrushDepth);
+        if (absolute)
+            __instance.crushDamage.SetExtraCrushDepth(newCrushDepth - __instance.crushDamage.kBaseCrushDepth);
+        else
+            __instance.crushDamage.SetExtraCrushDepth(newCrushDepth);
+
 
         if (!ExosuitUpgradeModules.TryGetValue(techType, out var prefab))
             return;
@@ -185,10 +244,6 @@ internal class VehicleUpgradesPatcher
         if (moduleGadget.delegateOnAdded != null && added)
             moduleGadget.delegateOnAdded.Invoke(__instance, slotID);
     }
-
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(Exosuit), nameof(Exosuit.OnUpgradeModuleUse))]
-
 
 #if SUBNAUTICA
     //
@@ -205,14 +260,14 @@ internal class VehicleUpgradesPatcher
         if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
             return;
 
-        if (moduleGadget.delegateOnRemoved != null & !added)
+        if (moduleGadget.delegateOnRemoved != null && !added)
             moduleGadget.delegateOnRemoved.Invoke(__instance, slotID);
 
-        if (moduleGadget.delegateOnAdded != null & added)
+        if (moduleGadget.delegateOnAdded != null && added)
             moduleGadget.delegateOnAdded.Invoke(__instance, slotID);
     }
 
-    [HarmonyPrefix]
+    //[HarmonyPrefix]
     [HarmonyPostfix]
     [HarmonyPatch(typeof(SeaMoth), nameof(SeaMoth.OnUpgradeModuleChange))]
     private static void SeamothOnUpgradeModuleHull(SeaMoth __instance, int slotID, TechType techType, bool added)
@@ -236,9 +291,16 @@ internal class VehicleUpgradesPatcher
                 700f
             }
         };
+        SeamothUpgradeModules.Do((KeyValuePair<TechType, ICustomPrefab> mapElem) =>
+        {
+            var flag = mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth > 0f;
+            InternalLogger.Debug($"SeamothUpgradesModule will do ? {flag}");
+        });
+
         SeamothUpgradeModules.DoIf(
-            (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth != -1f,
+            (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth > 0f,
             (KeyValuePair<TechType, ICustomPrefab> mapElem) => CrushDepthUpgrades.Add(mapElem.Key, mapElem.Value.GetGadget<UpgradeModuleGadget>().CrushDepth));
+
 
         var newCrushDepth = 0f;
         var absolute = false;
@@ -257,10 +319,12 @@ internal class VehicleUpgradesPatcher
                 }
             }
         }
-        if(absolute)
-            __instance.crushDamage.crushDepth = newCrushDepth;
+        InternalLogger.Debug("NewCrushDepth: {0}", newCrushDepth);
+        if (absolute)
+            __instance.crushDamage.SetExtraCrushDepth(newCrushDepth - __instance.crushDamage.kBaseCrushDepth);
         else
             __instance.crushDamage.SetExtraCrushDepth(newCrushDepth);
+        InternalLogger.Debug("CrushDepth: {0} ({1})", __instance.crushDamage.crushDepth, __instance.crushDamage.extraCrushDepth);
     }
 
 
@@ -308,30 +372,6 @@ internal class VehicleUpgradesPatcher
         return matcher.InstructionEnumeration(); 
     }
 
-    //
-    // SEAMOTH
-    // LAZY INITIALIZE + ON TOGGLE
-    //
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(SeaMoth), nameof(SeaMoth.LazyInitialize))]
-    private static void LazyInitialize(SeaMoth __instance)
-    {
-        __instance.onToggle += (int slotID, bool state) =>
-        {
-            var techType = __instance.modules.GetTechTypeInSlot(__instance.slotIDs[slotID]);
-            if (techType == TechType.None)
-                return;
-
-            if (!VehicleUpgradeModules.TryGetValue(techType, out var prefab))
-                return;
-
-            if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-                return;
-
-            double energyCost = moduleGadget.EnergyCost;
-            moduleGadget.delegateOnToggled?.Invoke(__instance, slotID, (float) energyCost, state);
-        };
-    }
 
 #elif BELOWZERO
     //
@@ -402,6 +442,7 @@ internal class VehicleUpgradesPatcher
     {
 
         float newCrushDepth = 0f;
+        bool absolute = false;
         for (int i = 0; i < SeaTruckUpgrades.slotIDs.Length; i++)
         {
             string slot = SeaTruckUpgrades.slotIDs[i];
@@ -410,9 +451,14 @@ internal class VehicleUpgradesPatcher
             if (SeaTruckUpgrades.crushDepths.TryGetValue(techTypeInSlot, out depthToCheck) && depthToCheck > newCrushDepth)
             {
                 newCrushDepth = depthToCheck;
+                if (SeatruckUpgradeModules[techTypeInSlot].TryGetGadget(out UpgradeModuleGadget mdlGadget))
+                    absolute = mdlGadget.AbsoluteDepth;
             }
         }
-        __instance.crushDamage.SetExtraCrushDepth(newCrushDepth);
+        if (absolute)
+            __instance.crushDamage.SetExtraCrushDepth(newCrushDepth - __instance.crushDamage.kBaseCrushDepth);
+        else
+            __instance.crushDamage.SetExtraCrushDepth(newCrushDepth);
 
         if (!SeatruckUpgradeModules.TryGetValue(techType, out var prefab))
             return;
