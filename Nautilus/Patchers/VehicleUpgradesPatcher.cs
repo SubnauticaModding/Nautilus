@@ -99,6 +99,7 @@ internal class VehicleUpgradesPatcher
             {
                 case Exosuit:
                     break;
+#if SUBNAUTICA
                 case SeaMoth:
                     if (techType == TechType.None)
                         break;
@@ -112,6 +113,7 @@ internal class VehicleUpgradesPatcher
                     energyCost = moduleGadget.EnergyCost;
                     moduleGadget.delegateOnToggled?.Invoke(__instance, slotID, (float) energyCost, state);
                     break;
+#endif
                 default:
                     if (techType == TechType.None)
                         break;

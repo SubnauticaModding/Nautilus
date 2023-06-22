@@ -151,7 +151,7 @@ public static class GadgetExtensions
     /// <summary>
     /// Sets this item as a vehicle upgrade module. Cyclops upgrades are not supported by this function.
     /// <para>If you're using this function, please do not use <see cref="SetEquipment(ICustomPrefab, EquipmentType)"/>,<br/>
-    /// it would interefere with this and possibly make the game crash or the mod not to work.</para>
+    /// it would interefere with this and possibly make the game crash or cause the mod to not work.</para>
     /// </summary>
     /// <param name="customPrefab">The custom prefab to set vehicle upgrade for.</param>
     /// <param name="equipmentType">The type of equipment slot this item can fit into. Preferably use something related to vehicles.</param>

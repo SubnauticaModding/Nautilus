@@ -1,3 +1,4 @@
+#if SUBNAUTICA
 using BepInEx;
 using Nautilus.Handlers;
 using Nautilus.Options.Attributes;
@@ -205,3 +206,4 @@ public class VehicleUpgradesExampleConfig : ConfigFile
         Tooltip = "This is the max depth of the seamtoh when the depth module is equipped. It is absolute.")]
     public float MaxDepth = 500.0f;
 }
+#endif
