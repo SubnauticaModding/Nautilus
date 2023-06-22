@@ -162,7 +162,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
          * And finally, a CUSTOMIZABLE-after-restart depth module!
          */
 
-        // PLANNED FOR AN OTHER PR.
+        // PLANNED FOR ANOTHER PR.
 /*
         PrefabInfo prefabInfo = PrefabInfo.WithTechType("SeamothCustomDepthModule", "Seamoth Variable Depth Upgrade", "Customize the depth of your upgrade from the game settings!")
             .WithIcon(SpriteManager.Get(TechType.SeamothReinforcementModule))
