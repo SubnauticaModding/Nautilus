@@ -2,7 +2,6 @@ using System;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using Nautilus.Patchers;
-using System.Linq.Expressions;
 
 namespace Nautilus.Assets.Gadgets;
 
