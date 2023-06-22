@@ -121,10 +121,10 @@ public class VehicleUpgradesExample : BaseUnityPlugin
         depthUpgrade.Register();
         Logger.LogDebug("Registered depth upgrade.");
 
+
         /*
          * Now, let's try to do that with an interactable module !
          */
-
         var SelfDefenseMK2Info = PrefabInfo
             .WithTechType("PerimeterDefenseMK2", "Perimeter Defense MK2 for Seamoth", "A new electrical defense for Seamoth")
             .WithIcon(SpriteManager.Get(TechType.SeamothElectricalDefense));
@@ -159,9 +159,11 @@ public class VehicleUpgradesExample : BaseUnityPlugin
         selfDefMK2prefab.Register();
 
         /*
-         * And finally, a CUSTOMIZABLE depth module!
+         * And finally, a CUSTOMIZABLE-after-restart depth module!
          */
 
+        // PLANNED FOR AN OTHER PR.
+/*
         PrefabInfo prefabInfo = PrefabInfo.WithTechType("SeamothCustomDepthModule", "Seamoth Variable Depth Upgrade", "Customize the depth of your upgrade from the game settings!")
             .WithIcon(SpriteManager.Get(TechType.SeamothReinforcementModule))
             .WithSizeInInventory(new Vector2int(1, 1));
@@ -184,7 +186,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
             .WithCraftingTime(4f)
             .WithStepsToFabricatorTab("SeamothModules");
         prefab.SetVehicleUpgradeModule(EquipmentType.SeamothModule)
-                .WithDepthUpgrade(ref config.MaxDepth, true)
+                .WithDepthUpgrade(() => config.MaxDepth, true)
                 .WithOnModuleAdded((Vehicle vehicleInstance, int slotId) => {
                     Subtitles.Add($"New seamoth depth: {config.MaxDepth} meters.\nAdded in slot #{slotId + 1}.");
                 })
@@ -193,6 +195,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
                     Subtitles.Add($"Seamoth depth module removed from slot #{slotId + 1}!");
                 });
         prefab.Register();
+*/
     }
 }
 

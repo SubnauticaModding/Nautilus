@@ -2,6 +2,7 @@ using System;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using Nautilus.Patchers;
+using System.Linq.Expressions;
 
 namespace Nautilus.Assets.Gadgets;
 
@@ -163,22 +164,6 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
-    /// <para>WARNING! This overload may not work, this functionality is still very WIP.</para>
-    /// The maximum charge of the item.<br/>
-    /// Usually used as a multiplier for vehicle modules.<br/>
-    /// (Seamoth defense perimeter, Seatruck defense perimeter)
-    /// <para>This overload of the function allows you to pass a reference of an existing value.<br/>
-    /// It can be used if you want the max charge to be configurable on runtime.</para>
-    /// </summary>
-    /// <param name="maxCharge">Reference to a double that will be used as charge mutliplier.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
-    public UpgradeModuleGadget WithMaxCharge(ref double maxCharge)
-    {
-        MaxCharge = maxCharge;
-        return this;
-    }
-
-    /// <summary>
     /// The energy cost of the item.
     /// Usually used for vehicle modules to consume energy.
     /// (Seamoth perimeter defense, Seamoth sonar)
@@ -186,22 +171,6 @@ public class UpgradeModuleGadget : Gadget
     /// <param name="energyCost">Energy cost</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public UpgradeModuleGadget WithEnergyCost(double energyCost)
-    {
-        EnergyCost = energyCost;
-        return this;
-    }
-
-    /// <summary>
-    /// <para>WARNING! This overload may not work, this functionality is still very WIP.</para>
-    /// The energy cost of the item.<br/>
-    /// Usually used for vehicle modules to consume energy.<br/>
-    /// (Seamoth perimeter defense, Seamoth sonar)
-    /// <para>This overload of the function allows you to pass a reference to an existing value.<br/>
-    /// It can be used if you want the energy cost to be configurable.</para>
-    /// </summary>
-    /// <param name="energyCost">Reference to a double that will be used as energy cost.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
-    public UpgradeModuleGadget WithEnergyCost(ref double energyCost)
     {
         EnergyCost = energyCost;
         return this;
@@ -221,22 +190,6 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
-    /// <para>WARNING! This overload may not work, this functionality is still very WIP.</para>
-    /// The cooldown of the module when it is used.
-    /// <para>Cooldown may not work with certain vehicles.</para>
-    /// <para>Does not work with toggleable and passive items.</para>
-    /// <para>This overload of the function allows you to pass a reference to an existing value.<br/>
-    /// It can be used if you want the cooldown to be configurable.</para>
-    /// </summary>
-    /// <param name="cooldown">Reference to a double that will be used as energy cost.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
-    public UpgradeModuleGadget WithCooldown(ref double cooldown)
-    {
-        Cooldown = cooldown;
-        return this;
-    }
-
-    /// <summary>
     /// Sets the crush depth given by this upgrade.
     /// </summary>
     /// <param name="newCrushDepth">New crush depth, in meters.</param>
@@ -249,21 +202,6 @@ public class UpgradeModuleGadget : Gadget
         return this;
     }
 
-    /// <summary>
-    /// <para>WARNING! This overload may not work, this functionality is still very WIP.</para>
-    /// Sets the crush depth given by this upgrade.
-    /// <para>This overload of the function allows you to pass a reference to an existing value.<br/>
-    /// It can be used if you want the depth upgrade to be configurable.</para>
-    /// </summary>
-    /// <param name="newCrushDepth">Reference to a float that will be used as crush depth.</param>
-    /// <param name="absolute">Wether the provided depth should be absolute or added to the default max depth of the vehicle.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
-    public UpgradeModuleGadget WithDepthUpgrade(ref float newCrushDepth, bool absolute = false)
-    {
-        CrushDepth = newCrushDepth;
-        AbsoluteDepth = absolute;
-        return this;
-    }
 
     // DELEGATES
 
