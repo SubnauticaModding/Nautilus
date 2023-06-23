@@ -62,7 +62,7 @@ Every Story Goal has an assigned Goal Type which determines the action that is e
 This is the main class for interacting with the game's Story Goal system. It allows you to add goals to specific trackers and gives you full control over their actions on completion.
 
 > [!WARNING]
-> As of now, the `StoryGoalHandler` class is only designed to work for the first Subnautica game. Remember, you can [always contribute](https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Handlers/StoryGoalHandler_Subnautica.cs).
+> As of now, the `StoryGoalHandler` class has only been tested for the first Subnautica game. If you notice any issues with Below Zero, remember you can [always contribute](https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Handlers/StoryGoalHandler.cs).
 
 A more comprehensive overview of the class can be viewed [here](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.StoryGoalHandler.html).
 
