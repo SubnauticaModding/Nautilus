@@ -8,4 +8,8 @@ Any individual who contributes to the Nautilus API following June 20th, 2023 mus
 
 If you are a prior contributor, you are not bound by the aforementioned statements until signing. However, you are still heavily recommended to sign this CLA and may be required to do so before future PRs are accepted.
 
-To sign this CLA, please add your username to the bottom of this file and send a pull request.
+To sign this CLA, please add your username to the bottom of this file and send a pull request. 
+
+### Signatures:
+
+- LeeTwentyThree
