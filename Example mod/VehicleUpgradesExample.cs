@@ -66,11 +66,11 @@ public class VehicleUpgradesExample : BaseUnityPlugin
              * And here, we're making a list of ingredients.
              */
             Ingredients = new List<CraftData.Ingredient>()
-                {
-                    new CraftData.Ingredient(TechType.PlasteelIngot, 3),
-                    new CraftData.Ingredient(TechType.Copper, 1),
-                    new CraftData.Ingredient(TechType.Aerogel, 1),
-                }
+            {
+                new CraftData.Ingredient(TechType.PlasteelIngot, 3),
+                new CraftData.Ingredient(TechType.Copper, 1),
+                new CraftData.Ingredient(TechType.Aerogel, 1),
+            }
         })
             /*
              * There, we're saying the fabricator type we want the item to be in.
