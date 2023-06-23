@@ -1,7 +1,7 @@
 # Contributing
 
 ## Contributor License Agreement
-New contributions will not be accepted unless you sign [this CLA](CLA.md). The enforcement of this agreement is intended to prevent any potential future licensing issues, and it should not affect your ability to contribute.
+New contributions will not be accepted unless you sign [this CLA](CLA.md). This should not in any way affect your ability to contribute, and is only required to protect the repository against possible legal issues in the future.
 
 ## Preferred conventions and code style
 * For commiting, we encourage [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary).
