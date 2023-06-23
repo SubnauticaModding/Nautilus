@@ -1,14 +1,14 @@
 # Using the Vehicle Upgrade Module Gadget
 
-Vehicles modules are often hard to mod, and when multiple mods patch a function of a vehicle it can make severe conflicts leading to one of both mods to not work.  
+Vehicles modules are often hard to mod, and when multiple mods patch a function of a vehicle it can make severe conflicts that could break all the mods adding new modules.  
 The Vehicle Upgrade Module Gadget is made to make your life of modder as easy as possible when it comes to vehicle modules.  
 
 This brand new gadget was made to be compatible with both Below Zero and Subnautica 1, some functions differ between Nautilus for SN1 and Nautilus for BZ.
 
-## Possible actions on completion
+## POssibilities of custom vehicle upgrade modules
 
-- Set the new crush depth of the vehicle when the upgrade is equipped. You can choose wether the depth is absolute or added to the default crush depth of the vehicle.
-- Set the max charge of the module if the module slot type is set to `QuickSlotType.SelectableChargeable` or `QuickSlotType.Chargeable`. The way to mesure the charge is still blurry.
+- Set the new crush depth of the vehicle when the upgrade is equipped. You can choose whether the depth is absolute or added to the default crush depth of the vehicle.
+- Set the max charge of the module if the module slot type is set to `QuickSlotType.SelectableChargeable` or `QuickSlotType.Chargeable`. The way to measure the charge is still blurry.
 - Set the energy cost of the module if the module slot type is set to `QuickSlotType.Selectable`, `QuickSlotType.Instant`, `QuickSlotType.SelectableChargeable` or `QuickSlotType.Chargeable`. Charge does not affect the energy consumption.
 - Set the cooldown of the module if the module slot type is set to `QuickSlotType.Selectable`, `QuickSlotType.Instant`, `QuickSlotType.SelectableChargeable` or `QuickSlotType.Chargeable`. Charge does not affect the cooldown. The unit of the cooldown is seconds, and stored as a `double` on Subnautica 1 and as a `float` on Below Zero.
 - Add delegates when some actions are done, and they all give many parameters so you can make actions on the vehicle. Here are the events supported by Nautilus, and preventing conflicts between mods:
@@ -37,11 +37,13 @@ var prefabInfo = PrefabInfo.WithTechType("SeamothDepthUpgrade", "Seamoth Depth M
     .WithIcon(SpriteManager.Get(TechType.HullReinforcementModule3));
 ```
 
+
 Then, we're making the Custom Prefab based on Reinforced Hull prefab.
 
 ```csharp
 var prefab = new CloneTemplate(prefabInfo, TechType.HullReinforcementModule3);
 ```
+
 
 Now, let's quickly set the basic settings.
 
@@ -61,6 +63,7 @@ prefab.SetRecipe(new Crafting.RecipeData()
     .WithCraftingTime(5f);
 ```
 
+
 And finally, let's make the part that interest us: Adding the Upgrade Module Gadget.
 
 ```csharp
@@ -77,6 +80,8 @@ prefab.SetUpgradeModule(EquipmentType.SeamothModule, QuickSlotType.Passive)
         Subtitles.Add("Ah... You removed the upgrade. Take care of your hull.");
     });
 ```
+
+
 > [!NOTE]
 > You can do basically everything you want in these delegates, such as trigger story events, destroy the vehicle, add components to the vehicle instance, etc...
 
@@ -96,7 +101,7 @@ prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.SelectableCha
     })
     .WithOnModuleRemoved((Vehicle inst, int slotId) =>
     {
-        Subttiles.Add("Self-destruct module uninstalled.");
+        Subtitles.Add("Self-destruct module uninstalled.");
     })
     .WithOnModuleUsed((Vehicle inst, int slotID, float charge, float chargeScalar) =>
     {
@@ -108,19 +113,21 @@ prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.SelectableCha
         else
         {
             Subtitles.Add("Self-destruction sequence engaged.")
-            EngageSelfDestruct(inst, countdown);
+            UWE.CoroutineHost.StartCoroutine(EngageSelfDestruct(inst, countdown));
         }
     });
 
-static void EngageSelfDestruct(Vehicle instance, float countdown)
+static IEnumerator EngageSelfDestruct(Vehicle instance, float countdown)
 {
-    while(Time.time < (Time.time + countdown))
+    var startTime = Time.time
+    while(Time.time < (startTime + countdown))
     {
-        continue;
+        yield return;
     }
     instance.liveMixin.Kill(DamageType.Explosive);
 }
 ```
+
 
 ## Instant selectable message sender
 
@@ -133,5 +140,6 @@ prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.Selectable)
         Subtitles.Add("Hello world!");
     });
 ```
+
 
 And you can do a lot more.
