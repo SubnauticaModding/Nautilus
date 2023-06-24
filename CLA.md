@@ -1,6 +1,6 @@
 # Subnautica Modding Nautilus CLA
 
-Any individual who contributes to the Nautilus API following June 20th, 2023 must sign this Contributor License Agreement (CLA). As Nautilus is one of the most popular core modding libraries for Subnautica with a growing number of contributors, this agreement is required due to the virtual impossibility of obtaining approval from all current and previous contributors when making certain decisions.
+Any individual who wants to contribute to the Nautilus API following June 20th, 2023 must sign this Contributor License Agreement (CLA). As Nautilus is one of the most popular core modding libraries for Subnautica with a growing number of contributors, this agreement is required due to the virtual impossibility of obtaining approval from all current and previous contributors when making certain decisions.
 
 In the context of this document, "you" refers to the contributor and "we" refers to the Subnautica Modding organization (<https://github.com/SubnauticaModding>).
 
