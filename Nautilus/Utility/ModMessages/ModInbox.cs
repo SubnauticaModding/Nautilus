@@ -17,13 +17,21 @@ public class ModInbox
     public string Address { get; }
 
     /// <summary>
+    /// If <see langword="false"/>, this inbox will not automatically read messages and will instead put any received messages on hold. If you are setting this property to
+    /// <see langword="true"/> at a later time, you still need to call <see cref="ReadAnyHeldMessages"/> to catch up.
+    /// </summary>
+    public bool IsAcceptingMessages { get; set; }
+
+    /// <summary>
     /// Constructs an inbox with the given <paramref name="address"/>.
     /// </summary>
     /// <param name="address">The address of this inbox. Other mods will use this string to contact this mod. Conventionally should match the mod's GUID. This parameter should NOT be
     /// changed if any other mod is already using it!</param>
-    public ModInbox(string address)
+    /// <param name="acceptingMessages">If <see langword="false"/>, this inbox will not automatically read messages and will instead put any received messages on hold.</param>
+    public ModInbox(string address, bool acceptingMessages = true)
     {
         Address = address;
+        IsAcceptingMessages = acceptingMessages;
     }
 
     /// <summary>

@@ -30,7 +30,7 @@ public static class ModMessageSystem
     /// <param name="messageInstance">The message to send.</param>
     public static void Send(ModMessage messageInstance)
     {
-        if (_inboxes.TryGetValue(messageInstance.Recipient, out var inbox))
+        if (_inboxes.TryGetValue(messageInstance.Recipient, out var inbox) && inbox.IsAcceptingMessages)
         {
             inbox.ReceiveMessage(messageInstance);
             return;
