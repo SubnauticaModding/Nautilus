@@ -1,0 +1,67 @@
+using System.Collections.Generic;
+
+namespace Nautilus.Utility.ModMessages;
+
+/// <summary>
+/// A messaging system for cross-mod communication with <see cref="ModInbox"/> instances. Allows for ultra-soft dependencies and attempts to eliminate race conditions.
+/// </summary>
+public static class ModMessageSystem
+{
+    // address - inbox
+    private static Dictionary<string, ModInbox> _inboxes = new Dictionary<string, ModInbox>();
+
+    // recipient - message
+    private static Dictionary<string, List<ModMessage>> _heldMessages = new Dictionary<string, List<ModMessage>>();
+
+    /// <summary>
+    /// Sends a single message to a <see cref="ModInbox"/>. If the method is not read immediately, it will be held until read.
+    /// </summary>
+    /// <param name="recipient">The address of the <see cref="ModInbox"/> that the message will go to. In C# terms, this is analogous to the class name.</param>
+    /// <param name="subject">The subject of the message. Determines the purpose of a message. In C# terms, this is analogous to the method name.</param>
+    /// <param name="contents">Any arbitrary data sent through the message. Optional. In C# terms, this is analogous to the method's parameters.</param>
+    public static void Send(string recipient, string subject, params object[] contents)
+    {
+        Send(new ModMessage(recipient, subject, contents));
+    }
+
+    /// <summary>
+    /// Sends a single message to a <see cref="ModInbox"/>. If the method is not read immediately, it will be held until read.
+    /// </summary>
+    /// <param name="messageInstance">The message to send.</param>
+    public static void Send(ModMessage messageInstance)
+    {
+        if (_inboxes.TryGetValue(messageInstance.Recipient, out var inbox))
+        {
+            inbox.ReceiveMessage(messageInstance);
+            return;
+        }
+
+        // add to held messages instead:
+
+        if (!_heldMessages.TryGetValue(messageInstance.Recipient, out var heldMessageList))
+            _heldMessages.Add(messageInstance.Recipient, new List<ModMessage>());
+
+        heldMessageList.Add(messageInstance);
+    }
+
+    /// <summary>
+    /// Registers an inbox so that it can receive mail.
+    /// </summary>
+    /// <param name="inbox">The inbox to register.</param>
+    /// immediately after it is registered.</param>
+    public static void RegisterInbox(ModInbox inbox)
+    {
+        _inboxes[inbox.Address] = inbox;
+    }
+
+    internal static void SendHeldMessagesToInbox(ModInbox inbox)
+    {
+        if (_heldMessages.TryGetValue(inbox.Address, out var messageList))
+        {
+            foreach (var message in messageList)
+            {
+                inbox.ReceiveMessage(message);
+            }
+        }
+    }
+}
