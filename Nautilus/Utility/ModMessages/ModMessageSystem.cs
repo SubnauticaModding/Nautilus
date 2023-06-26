@@ -45,10 +45,10 @@ public static class ModMessageSystem
     }
 
     /// <summary>
-    /// Registers an inbox so that it can receive mail.
+    /// Registers an inbox so that it can receive mail. Please note that this does NOT automatically read any messages on the <paramref name="inbox"/> that were sent before it was
+    /// registered. For that you must call its <see cref="ModInbox.ReadAnyHeldMessages"/> method.
     /// </summary>
     /// <param name="inbox">The inbox to register.</param>
-    /// immediately after it is registered.</param>
     public static void RegisterInbox(ModInbox inbox)
     {
         _inboxes[inbox.Address] = inbox;
