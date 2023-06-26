@@ -60,10 +60,16 @@ public class ModInbox
 
 
     /// <summary>
-    /// Reads any messages that were sent to this address before the inbox was created.
+    /// Reads any messages that were sent to this address before the inbox was created. This will NOT do anything if <see cref="IsAcceptingMessages"/> is <see langword="false"/>!!!
     /// </summary>
     public void ReadAnyHeldMessages()
     {
+        if (!IsAcceptingMessages)
+        {
+            InternalLogger.Warn($"Calling ReadAnyHeldMessages on inbox '{Address}' when it is not accepting messages!");
+            return;
+        }
+
         ModMessageSystem.SendHeldMessagesToInbox(this);
     }
 }

@@ -74,6 +74,10 @@ public static class ModMessageSystem
 
     internal static void SendHeldMessagesToInbox(ModInbox inbox)
     {
+        // this is a necessary check for the sake of consistency
+        if (!inbox.IsAcceptingMessages)
+            return;
+
         if (_heldMessages.TryGetValue(inbox.Address, out var messageList))
         {
             foreach (var message in messageList)
