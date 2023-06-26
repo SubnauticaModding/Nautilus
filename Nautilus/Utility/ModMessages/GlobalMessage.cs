@@ -19,7 +19,7 @@ internal class GlobalMessage
 
     public bool TrySendMessageToInbox(ModInbox inbox)
     {
-        if (_sentAddresses.Contains(inbox.Address))
+        if (!inbox.IsAcceptingMessages || _sentAddresses.Contains(inbox.Address))
             return false;
 
         inbox.ReceiveMessage(Message);
