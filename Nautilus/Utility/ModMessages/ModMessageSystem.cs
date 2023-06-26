@@ -13,8 +13,10 @@ public static class ModMessageSystem
     // recipient - message
     private static Dictionary<string, List<ModMessage>> _heldMessages = new Dictionary<string, List<ModMessage>>();
 
+    private static List<GlobalMessage> _globalMessages = new List<GlobalMessage>();
+
     /// <summary>
-    /// Sends a single message to a <see cref="ModInbox"/>. If the method is not read immediately, it will be held until read.
+    /// Sends a single message to a <see cref="ModInbox"/>. If the message is not read immediately, it will be held until read.
     /// </summary>
     /// <param name="recipient">The address of the <see cref="ModInbox"/> that the message will go to. In C# terms, this is analogous to the class name.</param>
     /// <param name="subject">The subject of the message. Determines the purpose of a message. In C# terms, this is analogous to the method name.</param>
@@ -25,7 +27,23 @@ public static class ModMessageSystem
     }
 
     /// <summary>
-    /// Sends a single message to a <see cref="ModInbox"/>. If the method is not read immediately, it will be held until read.
+    /// Sends a global message to every <see cref="ModInbox"/> that exists, and even to ones that will exist in the future.
+    /// If a message is not read immediately by any inbox, it will be held until read.
+    /// </summary>
+    /// <param name="subject">The subject of the message. Determines the purpose of a message. In C# terms, this is analogous to the method name.</param>
+    /// <param name="contents">Any arbitrary data sent through the message. Optional. In C# terms, this is analogous to the method's parameters.</param>
+    public static void SendGlobal(string subject, params object[] contents)
+    {
+        var globalMessage = new GlobalMessage(new ModMessage(null, subject, contents));
+        foreach (var inbox in _inboxes.Values)
+        {
+            globalMessage.TrySendMessageToInbox(inbox);
+        }
+        _globalMessages.Add(globalMessage);
+    }
+
+    /// <summary>
+    /// Sends a single message to a <see cref="ModInbox"/>. If the message is not read immediately, it will be held until read.
     /// </summary>
     /// <param name="messageInstance">The message to send.</param>
     public static void Send(ModMessage messageInstance)
@@ -62,6 +80,10 @@ public static class ModMessageSystem
             {
                 inbox.ReceiveMessage(message);
             }
+        }
+        foreach (var globalMessage in _globalMessages)
+        {
+            globalMessage.TrySendMessageToInbox(inbox);
         }
     }
 }
