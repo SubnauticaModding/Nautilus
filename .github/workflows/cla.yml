@@ -26,7 +26,7 @@ jobs:
           PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         with:
           path-to-signatures: 'CLA/Signatures.json'
-          path-to-document: 'https://github.com/LeeTwentyThree/Nautilus/blob/master/CLA/CLA.md' # e.g. a CLA or a DCO document
+          path-to-document: 'https://github.com/SubnauticaModding/Nautilus/blob/master/CLA/CLA.md' # e.g. a CLA or a DCO document
           # branch should not be protected
           branch: 'master'
           # allowlist: user1,bot*
