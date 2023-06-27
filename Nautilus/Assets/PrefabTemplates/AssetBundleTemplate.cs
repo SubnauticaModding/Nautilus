@@ -28,23 +28,27 @@ public class AssetBundleTemplate : PrefabTemplate
     }
 
     /// <summary>
-    /// Instantiates a new AssetBundleTemplate. Automatically loads the bundle by calling <see cref = "Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, string)"/>
-    /// <para>Also caches the loaded bundle for future use</para>
-    /// <para>If you are loading and using your bundle on your own, it's highly recommended to use the AssetBundle constructor overload instead</para>
-    /// <para>Bundles are cached per Assembly, and won't work with mods that use multiple seperate bundles</para>
+    /// Instantiates a new AssetBundleTemplate. Automatically loads the bundle by calling <see cref = "Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, string)"/>,
+    /// which expects the bundle to be in your mod's Assets folder.
+    /// <para>Also caches the loaded bundle for future use.</para>
+    /// <para>If you are loading and using your bundle on your own, it's highly recommended to use the AssetBundle constructor overload instead.</para>
+    /// <para>Bundles are cached per Assembly, and won't work with mods that use multiple seperate bundles.</para>
     /// </summary>
-    /// <param name="assetBundleFileName">The file name of the asset bundle. These often do not have file extensions</param>
-    /// <param name="prefabName">The name of the prefab gameobject to load from the bundle</param>
+    /// <param name="assetBundleFileName">The file name of the asset bundle. These often do not have file extensions.</param>
+    /// <param name="prefabName">The name of the prefab GameObject to load from the bundle.</param>
     /// <param name="info">The prefab info to base this template off of.</param>
-    public AssetBundleTemplate(string assetBundleFileName, string prefabName, PrefabInfo info) : base(info)
+    /// <param name="modAssembly">The <see cref="Assembly"/> of the mod that contains the given Asset Bundle. If left unassigned, this will be automatically set to
+    /// <see cref="Assembly.GetCallingAssembly"/>.</param>
+    public AssetBundleTemplate(string assetBundleFileName, string prefabName, PrefabInfo info, Assembly modAssembly = null) : base(info)
     {
         AssetBundle bundle;
-        var modAssembly = Assembly.GetExecutingAssembly();
 
-        if(!_loadedBundles.TryGetValue(modAssembly, out bundle))
+        var assembly = modAssembly ?? Assembly.GetCallingAssembly();
+
+        if (!_loadedBundles.TryGetValue(assembly, out bundle))
         {
-            bundle = Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(modAssembly, assetBundleFileName);
-            _loadedBundles.Add(modAssembly, bundle);
+            bundle = Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(assembly, assetBundleFileName);
+            _loadedBundles.Add(assembly, bundle);
         }
 
         _prefab = bundle.LoadAsset<GameObject>(prefabName);
