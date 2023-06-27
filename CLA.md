@@ -13,4 +13,4 @@ A "fair license change" will not have the intent to forbid future contributions 
 
 If you are a prior contributor, you are not bound by the aforementioned statements until signing. However, you may be required to sign the CLA before future PRs are accepted. Please note that signing this CLA will affect all prior, current, and future contributions.
 
-To sign this CLA, please add your username to the bottom of this file by sending a pull request.
+To sign this CLA, please add your username to the bottom of this file by sending a pull request. By signing this CLA, you acknowledge that you have read and understood its contents, and you agree to be bound by its terms.
