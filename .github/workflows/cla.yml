@@ -28,8 +28,8 @@ jobs:
           path-to-signatures: 'CLA/Signatures.json'
           path-to-document: 'https://github.com/LeeTwentyThree/Nautilus/blob/master/CLA/CLA.md' # e.g. a CLA or a DCO document
           # branch should not be protected
-          branch: 'main'
-          allowlist: user1,bot*
+          branch: 'master'
+          # allowlist: user1,bot*
 
          # the followings are the optional inputs - If the optional inputs are not given, then default values will be taken
           #remote-organization-name: enter the remote organization name where the signatures should be stored (Default is storing the signatures in the same repository)
