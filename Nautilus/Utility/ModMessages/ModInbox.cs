@@ -65,6 +65,23 @@ public class ModInbox
         }
     }
 
+    internal bool ReceiveDataRequest(ModMessage message, out object returnValue)
+    {
+        foreach (var reader in _messageReaders)
+        {
+            try
+            {
+                if (reader.TryHandleDataRequest(message, out returnValue))
+                    return true;
+            }
+            catch (Exception e)
+            {
+                InternalLogger.Error("Exception caught in messaging system: " + e);
+            }
+        }
+        returnValue = null;
+        return false;
+    }
 
     /// <summary>
     /// Reads any messages that were sent to this address before the inbox was created. This will NOT do anything if <see cref="IsAcceptingMessages"/> is <see langword="false"/>!!!

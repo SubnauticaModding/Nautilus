@@ -63,6 +63,28 @@ public static class ModMessageSystem
     }
 
     /// <summary>
+    /// <para>Sends a single message to a <see cref="ModInbox"/> and attempts to receive a value.</para>
+    /// <para>If the message is not read immediately (i.e. the inbox is closed or has not been created yet), it will be DELETED, and not held!</para>
+    /// </summary>
+    /// <param name="messageInstance">The message to send.</param>
+    /// <param name="result">The data that is received, if any.</param>
+    /// <returns>True if any <see cref="ModMessageReader"/> on the receiving end handled the message and returned a value.</returns>
+    public static bool SendDataRequest(ModMessage messageInstance, out object result)
+    {
+        // if the message responds immediately:
+
+        if (_inboxes.TryGetValue(messageInstance.Recipient, out var inbox) && inbox.IsAcceptingMessages && inbox.ReceiveDataRequest(messageInstance, out result))
+        {
+            return true;
+        }
+
+        // otherwise, who cares? just return false
+
+        result = default;
+        return false;
+    }
+
+    /// <summary>
     /// Registers an inbox so that it can receive mail. Please note that this does NOT automatically read any messages on the <paramref name="inbox"/> that were sent before it was
     /// registered. For that you must call its <see cref="ModInbox.ReadAnyHeldMessages"/> method.
     /// </summary>
