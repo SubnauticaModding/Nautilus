@@ -23,15 +23,22 @@ public class ModInbox
     public bool IsAcceptingMessages { get; set; }
 
     /// <summary>
+    /// Determines whether this inbox can receive global messages or not.
+    /// </summary>
+    public bool AcceptsGlobalMessages { get; set; }
+
+    /// <summary>
     /// Constructs an inbox with the given <paramref name="address"/>.
     /// </summary>
     /// <param name="address">The address of this inbox. Other mods will use this string to contact this mod. Conventionally should match the mod's GUID. This parameter should NOT be
     /// changed if any other mod is already using it!</param>
-    /// <param name="acceptingMessages">If <see langword="false"/>, this inbox will not automatically read messages and will instead put any received messages on hold.</param>
-    public ModInbox(string address, bool acceptingMessages = true)
+    /// <param name="acceptsGlobalMessages">Determines whether this inbox can receive global messages or not.</param>
+    /// <param name="acceptingAllMessages">If <see langword="false"/>, this inbox will not automatically read messages and will instead put any received messages on hold.</param>
+    public ModInbox(string address, bool acceptsGlobalMessages = false, bool acceptingAllMessages = true)
     {
         Address = address;
-        IsAcceptingMessages = acceptingMessages;
+        AcceptsGlobalMessages = acceptsGlobalMessages;
+        IsAcceptingMessages = acceptingAllMessages;
     }
 
     /// <summary>
