@@ -28,4 +28,3 @@ If you are new to pull requests, read through [GitHub's Guide](https://docs.gith
 
 ## Docs Contribution
 If you're looking to contribute to the [docs](https://subnauticamodding.github.io/Nautilus), refer to our [Docs Guidelines](Nautilus/Documentation/README.md).
-
