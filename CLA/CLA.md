@@ -12,7 +12,3 @@ In the context of this document, "you" refers to the contributor and "we" refers
 It is important to note that the Subnautica Modding organization will NEVER sell, commercialize, or otherwise restrict the open-source status of Nautilus.
 
 If you have contributed to Nautilus in the past, you are not bound by the aforementioned statements until signing. However, you may be required to sign the CLA before future PRs are accepted. Please note that signing this CLA will affect all prior, current, and future contributions.
-
-### To sign this CLA, please add your username to the bottom of this file by sending a pull request.
-
----
