@@ -1767,6 +1767,56 @@ references:
   commentId: N:Nautilus.Assets.PrefabTemplates
   fullName: Nautilus.Assets.PrefabTemplates
   nameWithType: Nautilus.Assets.PrefabTemplates
+- uid: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate
+  name: AssetBundleTemplate
+  href: api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html
+  commentId: T:Nautilus.Assets.PrefabTemplates.AssetBundleTemplate
+  fullName: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate
+  nameWithType: AssetBundleTemplate
+- uid: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.#ctor(System.String,System.String,Nautilus.Assets.PrefabInfo,System.Reflection.Assembly)
+  name: AssetBundleTemplate(string, string, PrefabInfo, Assembly)
+  href: api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html#Nautilus_Assets_PrefabTemplates_AssetBundleTemplate__ctor_System_String_System_String_Nautilus_Assets_PrefabInfo_System_Reflection_Assembly_
+  commentId: M:Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.#ctor(System.String,System.String,Nautilus.Assets.PrefabInfo,System.Reflection.Assembly)
+  name.vb: New(String, String, PrefabInfo, Assembly)
+  fullName: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.AssetBundleTemplate(string, string, Nautilus.Assets.PrefabInfo, System.Reflection.Assembly)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.New(String, String, Nautilus.Assets.PrefabInfo, System.Reflection.Assembly)
+  nameWithType: AssetBundleTemplate.AssetBundleTemplate(string, string, PrefabInfo, Assembly)
+  nameWithType.vb: AssetBundleTemplate.New(String, String, PrefabInfo, Assembly)
+- uid: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.#ctor(UnityEngine.AssetBundle,System.String,Nautilus.Assets.PrefabInfo)
+  name: AssetBundleTemplate(AssetBundle, string, PrefabInfo)
+  href: api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html#Nautilus_Assets_PrefabTemplates_AssetBundleTemplate__ctor_UnityEngine_AssetBundle_System_String_Nautilus_Assets_PrefabInfo_
+  commentId: M:Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.#ctor(UnityEngine.AssetBundle,System.String,Nautilus.Assets.PrefabInfo)
+  name.vb: New(AssetBundle, String, PrefabInfo)
+  fullName: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.AssetBundleTemplate(UnityEngine.AssetBundle, string, Nautilus.Assets.PrefabInfo)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.New(UnityEngine.AssetBundle, String, Nautilus.Assets.PrefabInfo)
+  nameWithType: AssetBundleTemplate.AssetBundleTemplate(AssetBundle, string, PrefabInfo)
+  nameWithType.vb: AssetBundleTemplate.New(AssetBundle, String, PrefabInfo)
+- uid: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.#ctor*
+  name: AssetBundleTemplate
+  href: api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html#Nautilus_Assets_PrefabTemplates_AssetBundleTemplate__ctor_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.AssetBundleTemplate
+  fullName.vb: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.New
+  nameWithType: AssetBundleTemplate.AssetBundleTemplate
+  nameWithType.vb: AssetBundleTemplate.New
+- uid: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})
+  name: GetPrefabAsync(TaskResult<GameObject>)
+  href: api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html#Nautilus_Assets_PrefabTemplates_AssetBundleTemplate_GetPrefabAsync_TaskResult_UnityEngine_GameObject__
+  commentId: M:Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})
+  name.vb: GetPrefabAsync(TaskResult(Of GameObject))
+  fullName: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.GetPrefabAsync(TaskResult<UnityEngine.GameObject>)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.GetPrefabAsync(TaskResult(Of UnityEngine.GameObject))
+  nameWithType: AssetBundleTemplate.GetPrefabAsync(TaskResult<GameObject>)
+  nameWithType.vb: AssetBundleTemplate.GetPrefabAsync(TaskResult(Of GameObject))
+- uid: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.GetPrefabAsync*
+  name: GetPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html#Nautilus_Assets_PrefabTemplates_AssetBundleTemplate_GetPrefabAsync_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.GetPrefabAsync
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.GetPrefabAsync
+  nameWithType: AssetBundleTemplate.GetPrefabAsync
 - uid: Nautilus.Assets.PrefabTemplates.CloneTemplate
   name: CloneTemplate
   href: api/Nautilus.Assets.PrefabTemplates.CloneTemplate.html
@@ -10052,6 +10102,312 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.MaterialUtils.StasisFieldMaterial
   nameWithType: MaterialUtils.StasisFieldMaterial
+- uid: Nautilus.Utility.ModMessages
+  name: Nautilus.Utility.ModMessages
+  href: api/Nautilus.Utility.ModMessages.html
+  commentId: N:Nautilus.Utility.ModMessages
+  fullName: Nautilus.Utility.ModMessages
+  nameWithType: Nautilus.Utility.ModMessages
+- uid: Nautilus.Utility.ModMessages.BasicModMessageReader
+  name: BasicModMessageReader
+  href: api/Nautilus.Utility.ModMessages.BasicModMessageReader.html
+  commentId: T:Nautilus.Utility.ModMessages.BasicModMessageReader
+  fullName: Nautilus.Utility.ModMessages.BasicModMessageReader
+  nameWithType: BasicModMessageReader
+- uid: Nautilus.Utility.ModMessages.BasicModMessageReader.#ctor(System.String,System.Action{System.Object[]})
+  name: BasicModMessageReader(string, Action<object[]>)
+  href: api/Nautilus.Utility.ModMessages.BasicModMessageReader.html#Nautilus_Utility_ModMessages_BasicModMessageReader__ctor_System_String_System_Action_System_Object____
+  commentId: M:Nautilus.Utility.ModMessages.BasicModMessageReader.#ctor(System.String,System.Action{System.Object[]})
+  name.vb: New(String, Action(Of Object()))
+  fullName: Nautilus.Utility.ModMessages.BasicModMessageReader.BasicModMessageReader(string, System.Action<object[]>)
+  fullName.vb: Nautilus.Utility.ModMessages.BasicModMessageReader.New(String, System.Action(Of Object()))
+  nameWithType: BasicModMessageReader.BasicModMessageReader(string, Action<object[]>)
+  nameWithType.vb: BasicModMessageReader.New(String, Action(Of Object()))
+- uid: Nautilus.Utility.ModMessages.BasicModMessageReader.#ctor*
+  name: BasicModMessageReader
+  href: api/Nautilus.Utility.ModMessages.BasicModMessageReader.html#Nautilus_Utility_ModMessages_BasicModMessageReader__ctor_
+  commentId: Overload:Nautilus.Utility.ModMessages.BasicModMessageReader.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Utility.ModMessages.BasicModMessageReader.BasicModMessageReader
+  fullName.vb: Nautilus.Utility.ModMessages.BasicModMessageReader.New
+  nameWithType: BasicModMessageReader.BasicModMessageReader
+  nameWithType.vb: BasicModMessageReader.New
+- uid: Nautilus.Utility.ModMessages.BasicModMessageReader.OnReceiveMessage(Nautilus.Utility.ModMessages.ModMessage)
+  name: OnReceiveMessage(ModMessage)
+  href: api/Nautilus.Utility.ModMessages.BasicModMessageReader.html#Nautilus_Utility_ModMessages_BasicModMessageReader_OnReceiveMessage_Nautilus_Utility_ModMessages_ModMessage_
+  commentId: M:Nautilus.Utility.ModMessages.BasicModMessageReader.OnReceiveMessage(Nautilus.Utility.ModMessages.ModMessage)
+  fullName: Nautilus.Utility.ModMessages.BasicModMessageReader.OnReceiveMessage(Nautilus.Utility.ModMessages.ModMessage)
+  nameWithType: BasicModMessageReader.OnReceiveMessage(ModMessage)
+- uid: Nautilus.Utility.ModMessages.BasicModMessageReader.OnReceiveMessage*
+  name: OnReceiveMessage
+  href: api/Nautilus.Utility.ModMessages.BasicModMessageReader.html#Nautilus_Utility_ModMessages_BasicModMessageReader_OnReceiveMessage_
+  commentId: Overload:Nautilus.Utility.ModMessages.BasicModMessageReader.OnReceiveMessage
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.BasicModMessageReader.OnReceiveMessage
+  nameWithType: BasicModMessageReader.OnReceiveMessage
+- uid: Nautilus.Utility.ModMessages.ModInbox
+  name: ModInbox
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html
+  commentId: T:Nautilus.Utility.ModMessages.ModInbox
+  fullName: Nautilus.Utility.ModMessages.ModInbox
+  nameWithType: ModInbox
+- uid: Nautilus.Utility.ModMessages.ModInbox.#ctor(System.String,System.Boolean,System.Boolean)
+  name: ModInbox(string, bool, bool)
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox__ctor_System_String_System_Boolean_System_Boolean_
+  commentId: M:Nautilus.Utility.ModMessages.ModInbox.#ctor(System.String,System.Boolean,System.Boolean)
+  name.vb: New(String, Boolean, Boolean)
+  fullName: Nautilus.Utility.ModMessages.ModInbox.ModInbox(string, bool, bool)
+  fullName.vb: Nautilus.Utility.ModMessages.ModInbox.New(String, Boolean, Boolean)
+  nameWithType: ModInbox.ModInbox(string, bool, bool)
+  nameWithType.vb: ModInbox.New(String, Boolean, Boolean)
+- uid: Nautilus.Utility.ModMessages.ModInbox.#ctor*
+  name: ModInbox
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox__ctor_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModInbox.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Utility.ModMessages.ModInbox.ModInbox
+  fullName.vb: Nautilus.Utility.ModMessages.ModInbox.New
+  nameWithType: ModInbox.ModInbox
+  nameWithType.vb: ModInbox.New
+- uid: Nautilus.Utility.ModMessages.ModInbox.AcceptsGlobalMessages
+  name: AcceptsGlobalMessages
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox_AcceptsGlobalMessages
+  commentId: P:Nautilus.Utility.ModMessages.ModInbox.AcceptsGlobalMessages
+  fullName: Nautilus.Utility.ModMessages.ModInbox.AcceptsGlobalMessages
+  nameWithType: ModInbox.AcceptsGlobalMessages
+- uid: Nautilus.Utility.ModMessages.ModInbox.AcceptsGlobalMessages*
+  name: AcceptsGlobalMessages
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox_AcceptsGlobalMessages_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModInbox.AcceptsGlobalMessages
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModInbox.AcceptsGlobalMessages
+  nameWithType: ModInbox.AcceptsGlobalMessages
+- uid: Nautilus.Utility.ModMessages.ModInbox.AddMessageReader(Nautilus.Utility.ModMessages.ModMessageReader)
+  name: AddMessageReader(ModMessageReader)
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox_AddMessageReader_Nautilus_Utility_ModMessages_ModMessageReader_
+  commentId: M:Nautilus.Utility.ModMessages.ModInbox.AddMessageReader(Nautilus.Utility.ModMessages.ModMessageReader)
+  fullName: Nautilus.Utility.ModMessages.ModInbox.AddMessageReader(Nautilus.Utility.ModMessages.ModMessageReader)
+  nameWithType: ModInbox.AddMessageReader(ModMessageReader)
+- uid: Nautilus.Utility.ModMessages.ModInbox.AddMessageReader*
+  name: AddMessageReader
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox_AddMessageReader_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModInbox.AddMessageReader
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModInbox.AddMessageReader
+  nameWithType: ModInbox.AddMessageReader
+- uid: Nautilus.Utility.ModMessages.ModInbox.Address
+  name: Address
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox_Address
+  commentId: P:Nautilus.Utility.ModMessages.ModInbox.Address
+  fullName: Nautilus.Utility.ModMessages.ModInbox.Address
+  nameWithType: ModInbox.Address
+- uid: Nautilus.Utility.ModMessages.ModInbox.Address*
+  name: Address
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox_Address_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModInbox.Address
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModInbox.Address
+  nameWithType: ModInbox.Address
+- uid: Nautilus.Utility.ModMessages.ModInbox.IsAcceptingMessages
+  name: IsAcceptingMessages
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox_IsAcceptingMessages
+  commentId: P:Nautilus.Utility.ModMessages.ModInbox.IsAcceptingMessages
+  fullName: Nautilus.Utility.ModMessages.ModInbox.IsAcceptingMessages
+  nameWithType: ModInbox.IsAcceptingMessages
+- uid: Nautilus.Utility.ModMessages.ModInbox.IsAcceptingMessages*
+  name: IsAcceptingMessages
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox_IsAcceptingMessages_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModInbox.IsAcceptingMessages
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModInbox.IsAcceptingMessages
+  nameWithType: ModInbox.IsAcceptingMessages
+- uid: Nautilus.Utility.ModMessages.ModInbox.ReadAnyHeldMessages
+  name: ReadAnyHeldMessages()
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox_ReadAnyHeldMessages
+  commentId: M:Nautilus.Utility.ModMessages.ModInbox.ReadAnyHeldMessages
+  fullName: Nautilus.Utility.ModMessages.ModInbox.ReadAnyHeldMessages()
+  nameWithType: ModInbox.ReadAnyHeldMessages()
+- uid: Nautilus.Utility.ModMessages.ModInbox.ReadAnyHeldMessages*
+  name: ReadAnyHeldMessages
+  href: api/Nautilus.Utility.ModMessages.ModInbox.html#Nautilus_Utility_ModMessages_ModInbox_ReadAnyHeldMessages_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModInbox.ReadAnyHeldMessages
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModInbox.ReadAnyHeldMessages
+  nameWithType: ModInbox.ReadAnyHeldMessages
+- uid: Nautilus.Utility.ModMessages.ModMessage
+  name: ModMessage
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html
+  commentId: T:Nautilus.Utility.ModMessages.ModMessage
+  fullName: Nautilus.Utility.ModMessages.ModMessage
+  nameWithType: ModMessage
+- uid: Nautilus.Utility.ModMessages.ModMessage.#ctor(System.String,System.String,System.Object[])
+  name: ModMessage(string, string, object[])
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html#Nautilus_Utility_ModMessages_ModMessage__ctor_System_String_System_String_System_Object___
+  commentId: M:Nautilus.Utility.ModMessages.ModMessage.#ctor(System.String,System.String,System.Object[])
+  name.vb: New(String, String, Object())
+  fullName: Nautilus.Utility.ModMessages.ModMessage.ModMessage(string, string, object[])
+  fullName.vb: Nautilus.Utility.ModMessages.ModMessage.New(String, String, Object())
+  nameWithType: ModMessage.ModMessage(string, string, object[])
+  nameWithType.vb: ModMessage.New(String, String, Object())
+- uid: Nautilus.Utility.ModMessages.ModMessage.#ctor*
+  name: ModMessage
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html#Nautilus_Utility_ModMessages_ModMessage__ctor_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessage.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Utility.ModMessages.ModMessage.ModMessage
+  fullName.vb: Nautilus.Utility.ModMessages.ModMessage.New
+  nameWithType: ModMessage.ModMessage
+  nameWithType.vb: ModMessage.New
+- uid: Nautilus.Utility.ModMessages.ModMessage.Contents
+  name: Contents
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html#Nautilus_Utility_ModMessages_ModMessage_Contents
+  commentId: P:Nautilus.Utility.ModMessages.ModMessage.Contents
+  fullName: Nautilus.Utility.ModMessages.ModMessage.Contents
+  nameWithType: ModMessage.Contents
+- uid: Nautilus.Utility.ModMessages.ModMessage.Contents*
+  name: Contents
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html#Nautilus_Utility_ModMessages_ModMessage_Contents_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessage.Contents
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModMessage.Contents
+  nameWithType: ModMessage.Contents
+- uid: Nautilus.Utility.ModMessages.ModMessage.Recipient
+  name: Recipient
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html#Nautilus_Utility_ModMessages_ModMessage_Recipient
+  commentId: P:Nautilus.Utility.ModMessages.ModMessage.Recipient
+  fullName: Nautilus.Utility.ModMessages.ModMessage.Recipient
+  nameWithType: ModMessage.Recipient
+- uid: Nautilus.Utility.ModMessages.ModMessage.Recipient*
+  name: Recipient
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html#Nautilus_Utility_ModMessages_ModMessage_Recipient_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessage.Recipient
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModMessage.Recipient
+  nameWithType: ModMessage.Recipient
+- uid: Nautilus.Utility.ModMessages.ModMessage.Subject
+  name: Subject
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html#Nautilus_Utility_ModMessages_ModMessage_Subject
+  commentId: P:Nautilus.Utility.ModMessages.ModMessage.Subject
+  fullName: Nautilus.Utility.ModMessages.ModMessage.Subject
+  nameWithType: ModMessage.Subject
+- uid: Nautilus.Utility.ModMessages.ModMessage.Subject*
+  name: Subject
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html#Nautilus_Utility_ModMessages_ModMessage_Subject_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessage.Subject
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModMessage.Subject
+  nameWithType: ModMessage.Subject
+- uid: Nautilus.Utility.ModMessages.ModMessageReader
+  name: ModMessageReader
+  href: api/Nautilus.Utility.ModMessages.ModMessageReader.html
+  commentId: T:Nautilus.Utility.ModMessages.ModMessageReader
+  fullName: Nautilus.Utility.ModMessages.ModMessageReader
+  nameWithType: ModMessageReader
+- uid: Nautilus.Utility.ModMessages.ModMessageReader.OnReceiveMessage(Nautilus.Utility.ModMessages.ModMessage)
+  name: OnReceiveMessage(ModMessage)
+  href: api/Nautilus.Utility.ModMessages.ModMessageReader.html#Nautilus_Utility_ModMessages_ModMessageReader_OnReceiveMessage_Nautilus_Utility_ModMessages_ModMessage_
+  commentId: M:Nautilus.Utility.ModMessages.ModMessageReader.OnReceiveMessage(Nautilus.Utility.ModMessages.ModMessage)
+  fullName: Nautilus.Utility.ModMessages.ModMessageReader.OnReceiveMessage(Nautilus.Utility.ModMessages.ModMessage)
+  nameWithType: ModMessageReader.OnReceiveMessage(ModMessage)
+- uid: Nautilus.Utility.ModMessages.ModMessageReader.OnReceiveMessage*
+  name: OnReceiveMessage
+  href: api/Nautilus.Utility.ModMessages.ModMessageReader.html#Nautilus_Utility_ModMessages_ModMessageReader_OnReceiveMessage_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessageReader.OnReceiveMessage
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModMessageReader.OnReceiveMessage
+  nameWithType: ModMessageReader.OnReceiveMessage
+- uid: Nautilus.Utility.ModMessages.ModMessageReader.TryHandleDataRequest(Nautilus.Utility.ModMessages.ModMessage,System.Object@)
+  name: TryHandleDataRequest(ModMessage, out object)
+  href: api/Nautilus.Utility.ModMessages.ModMessageReader.html#Nautilus_Utility_ModMessages_ModMessageReader_TryHandleDataRequest_Nautilus_Utility_ModMessages_ModMessage_System_Object__
+  commentId: M:Nautilus.Utility.ModMessages.ModMessageReader.TryHandleDataRequest(Nautilus.Utility.ModMessages.ModMessage,System.Object@)
+  name.vb: TryHandleDataRequest(ModMessage, Object)
+  fullName: Nautilus.Utility.ModMessages.ModMessageReader.TryHandleDataRequest(Nautilus.Utility.ModMessages.ModMessage, out object)
+  fullName.vb: Nautilus.Utility.ModMessages.ModMessageReader.TryHandleDataRequest(Nautilus.Utility.ModMessages.ModMessage, Object)
+  nameWithType: ModMessageReader.TryHandleDataRequest(ModMessage, out object)
+  nameWithType.vb: ModMessageReader.TryHandleDataRequest(ModMessage, Object)
+- uid: Nautilus.Utility.ModMessages.ModMessageReader.TryHandleDataRequest*
+  name: TryHandleDataRequest
+  href: api/Nautilus.Utility.ModMessages.ModMessageReader.html#Nautilus_Utility_ModMessages_ModMessageReader_TryHandleDataRequest_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessageReader.TryHandleDataRequest
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModMessageReader.TryHandleDataRequest
+  nameWithType: ModMessageReader.TryHandleDataRequest
+- uid: Nautilus.Utility.ModMessages.ModMessageSystem
+  name: ModMessageSystem
+  href: api/Nautilus.Utility.ModMessages.ModMessageSystem.html
+  commentId: T:Nautilus.Utility.ModMessages.ModMessageSystem
+  fullName: Nautilus.Utility.ModMessages.ModMessageSystem
+  nameWithType: ModMessageSystem
+- uid: Nautilus.Utility.ModMessages.ModMessageSystem.RegisterInbox(Nautilus.Utility.ModMessages.ModInbox)
+  name: RegisterInbox(ModInbox)
+  href: api/Nautilus.Utility.ModMessages.ModMessageSystem.html#Nautilus_Utility_ModMessages_ModMessageSystem_RegisterInbox_Nautilus_Utility_ModMessages_ModInbox_
+  commentId: M:Nautilus.Utility.ModMessages.ModMessageSystem.RegisterInbox(Nautilus.Utility.ModMessages.ModInbox)
+  fullName: Nautilus.Utility.ModMessages.ModMessageSystem.RegisterInbox(Nautilus.Utility.ModMessages.ModInbox)
+  nameWithType: ModMessageSystem.RegisterInbox(ModInbox)
+- uid: Nautilus.Utility.ModMessages.ModMessageSystem.RegisterInbox*
+  name: RegisterInbox
+  href: api/Nautilus.Utility.ModMessages.ModMessageSystem.html#Nautilus_Utility_ModMessages_ModMessageSystem_RegisterInbox_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessageSystem.RegisterInbox
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModMessageSystem.RegisterInbox
+  nameWithType: ModMessageSystem.RegisterInbox
+- uid: Nautilus.Utility.ModMessages.ModMessageSystem.Send(Nautilus.Utility.ModMessages.ModMessage)
+  name: Send(ModMessage)
+  href: api/Nautilus.Utility.ModMessages.ModMessageSystem.html#Nautilus_Utility_ModMessages_ModMessageSystem_Send_Nautilus_Utility_ModMessages_ModMessage_
+  commentId: M:Nautilus.Utility.ModMessages.ModMessageSystem.Send(Nautilus.Utility.ModMessages.ModMessage)
+  fullName: Nautilus.Utility.ModMessages.ModMessageSystem.Send(Nautilus.Utility.ModMessages.ModMessage)
+  nameWithType: ModMessageSystem.Send(ModMessage)
+- uid: Nautilus.Utility.ModMessages.ModMessageSystem.Send(System.String,System.String,System.Object[])
+  name: Send(string, string, params object[])
+  href: api/Nautilus.Utility.ModMessages.ModMessageSystem.html#Nautilus_Utility_ModMessages_ModMessageSystem_Send_System_String_System_String_System_Object___
+  commentId: M:Nautilus.Utility.ModMessages.ModMessageSystem.Send(System.String,System.String,System.Object[])
+  name.vb: Send(String, String, ParamArray Object())
+  fullName: Nautilus.Utility.ModMessages.ModMessageSystem.Send(string, string, params object[])
+  fullName.vb: Nautilus.Utility.ModMessages.ModMessageSystem.Send(String, String, ParamArray Object())
+  nameWithType: ModMessageSystem.Send(string, string, params object[])
+  nameWithType.vb: ModMessageSystem.Send(String, String, ParamArray Object())
+- uid: Nautilus.Utility.ModMessages.ModMessageSystem.Send*
+  name: Send
+  href: api/Nautilus.Utility.ModMessages.ModMessageSystem.html#Nautilus_Utility_ModMessages_ModMessageSystem_Send_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessageSystem.Send
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModMessageSystem.Send
+  nameWithType: ModMessageSystem.Send
+- uid: Nautilus.Utility.ModMessages.ModMessageSystem.SendDataRequest(Nautilus.Utility.ModMessages.ModMessage,System.Object@)
+  name: SendDataRequest(ModMessage, out object)
+  href: api/Nautilus.Utility.ModMessages.ModMessageSystem.html#Nautilus_Utility_ModMessages_ModMessageSystem_SendDataRequest_Nautilus_Utility_ModMessages_ModMessage_System_Object__
+  commentId: M:Nautilus.Utility.ModMessages.ModMessageSystem.SendDataRequest(Nautilus.Utility.ModMessages.ModMessage,System.Object@)
+  name.vb: SendDataRequest(ModMessage, Object)
+  fullName: Nautilus.Utility.ModMessages.ModMessageSystem.SendDataRequest(Nautilus.Utility.ModMessages.ModMessage, out object)
+  fullName.vb: Nautilus.Utility.ModMessages.ModMessageSystem.SendDataRequest(Nautilus.Utility.ModMessages.ModMessage, Object)
+  nameWithType: ModMessageSystem.SendDataRequest(ModMessage, out object)
+  nameWithType.vb: ModMessageSystem.SendDataRequest(ModMessage, Object)
+- uid: Nautilus.Utility.ModMessages.ModMessageSystem.SendDataRequest*
+  name: SendDataRequest
+  href: api/Nautilus.Utility.ModMessages.ModMessageSystem.html#Nautilus_Utility_ModMessages_ModMessageSystem_SendDataRequest_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessageSystem.SendDataRequest
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModMessageSystem.SendDataRequest
+  nameWithType: ModMessageSystem.SendDataRequest
+- uid: Nautilus.Utility.ModMessages.ModMessageSystem.SendGlobal(System.String,System.Object[])
+  name: SendGlobal(string, params object[])
+  href: api/Nautilus.Utility.ModMessages.ModMessageSystem.html#Nautilus_Utility_ModMessages_ModMessageSystem_SendGlobal_System_String_System_Object___
+  commentId: M:Nautilus.Utility.ModMessages.ModMessageSystem.SendGlobal(System.String,System.Object[])
+  name.vb: SendGlobal(String, ParamArray Object())
+  fullName: Nautilus.Utility.ModMessages.ModMessageSystem.SendGlobal(string, params object[])
+  fullName.vb: Nautilus.Utility.ModMessages.ModMessageSystem.SendGlobal(String, ParamArray Object())
+  nameWithType: ModMessageSystem.SendGlobal(string, params object[])
+  nameWithType.vb: ModMessageSystem.SendGlobal(String, ParamArray Object())
+- uid: Nautilus.Utility.ModMessages.ModMessageSystem.SendGlobal*
+  name: SendGlobal
+  href: api/Nautilus.Utility.ModMessages.ModMessageSystem.html#Nautilus_Utility_ModMessages_ModMessageSystem_SendGlobal_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessageSystem.SendGlobal
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModMessageSystem.SendGlobal
+  nameWithType: ModMessageSystem.SendGlobal
 - uid: Nautilus.Utility.PlayerPrefsExtra
   name: PlayerPrefsExtra
   href: api/Nautilus.Utility.PlayerPrefsExtra.html

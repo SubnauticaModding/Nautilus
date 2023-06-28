@@ -203,6 +203,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.CloneTemplate.yml",
       "output": {
         ".html": {
@@ -1517,6 +1527,66 @@
       "output": {
         ".html": {
           "relative_path": "api/Nautilus.Utility.MaterialUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.BasicModMessageReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.BasicModMessageReader.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.ModInbox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.ModInbox.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.ModMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.ModMessage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.ModMessageReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.ModMessageReader.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.ModMessageSystem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.ModMessageSystem.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.html"
         }
       },
       "version": ""

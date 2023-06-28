@@ -80,8 +80,17 @@
 
 <p>In Subnautica, objects are created (obviously). Peepers spawn in the water around you. Titanium appears when outcrops are broken.
 Your Seamoth is built in front of you as soon as you craft it. But how exactly is this done, and how can you recreate this in your own mods?</p>
-<p>In reality there are many ways to do this. There are likely some that have yet to be discovered. Each method has its ups and downs,
+<p>In reality, there are countless ways to spawn prefabs into the world. Chances are some have not even been discovered yet. Each method has its ups and downs,
 so it's a good idea to be familiar with all of them.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>If you are accessing a prefab for reference purposes (like reusing its materials for another prefab), then please do NOT instantiate it. Instead, access the prefab that was loaded directly,
+<em>without</em> calling the Instantiate method. This works perfectly fine. You should only call Instantiate if you want it to appear in the world.</p>
+</div>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Some prefabs (often modded ones) may be inactive by default, so it is suggested to call <code>SetActive(true)</code> on any instances of newly instantiated prefab.</p>
+</div>
 <h2 id="asynchronous-loading">Asynchronous loading</h2>
 <hr>
 <p>As of the Living Large update, both SN1 and Below Zero use <strong>asynchronous</strong> prefab loading. Therefore, prefab loading now must always be handled within coroutines, because
