@@ -3,8 +3,15 @@
 In Subnautica, objects are created (obviously). Peepers spawn in the water around you. Titanium appears when outcrops are broken.
 Your Seamoth is built in front of you as soon as you craft it. But how exactly is this done, and how can you recreate this in your own mods?
 
-In reality there are many ways to do this. There are likely some that have yet to be discovered. Each method has its ups and downs,
+In reality, there are countless ways to spawn prefabs into the world. Chances are some have not even been discovered yet. Each method has its ups and downs,
 so it's a good idea to be familiar with all of them.
+
+> [!IMPORTANT]
+> If you are accessing a prefab for reference purposes (like reusing its materials for another prefab), then please do NOT instantiate it. Instead, access the prefab that was loaded directly,
+*without* calling the Instantiate method. This works perfectly fine. You should only call Instantiate if you want it to appear in the world.
+
+> [!IMPORTANT]
+> Some prefabs (often modded ones) may be inactive by default, so it is suggested to call `SetActive(true)` on any instances of newly instantiated prefab.
 
 ## Asynchronous loading
 
