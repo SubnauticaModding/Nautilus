@@ -1,4 +1,4 @@
-﻿using Nautilus.Assets;
+using Nautilus.Assets;
 using Nautilus.Patchers;
 
 namespace Nautilus.Crafting;
