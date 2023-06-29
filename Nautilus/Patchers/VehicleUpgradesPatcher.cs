@@ -1,12 +1,9 @@
 using HarmonyLib;
 using HarmonyLib.Tools;
-using MonoMod.Utils;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
 using System.Collections.Generic;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using OpCodes = System.Reflection.Emit.OpCodes;
 
