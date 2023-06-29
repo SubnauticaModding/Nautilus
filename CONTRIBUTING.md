@@ -1,5 +1,8 @@
 # Contributing
 
+## Contributor License Agreement
+New contributions will not be accepted unless you agree to and sign [this CLA](CLA/CLA.md). The signing process is automatic and should not in any way affect your ability to contribute. This is only required to protect the repository against possible legal issues in the future.
+
 ## Preferred conventions and code style
 * For commiting, we encourage [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary).
 * We encourage [access modifiers](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/access-modifiers) to be specified explicitly with no exceptions.

@@ -1,0 +1,28 @@
+{
+  "signedContributors": [
+    {
+      "name": "LeeTwentyThree",
+      "id": 31892011,
+      "comment_id": 1610283944,
+      "created_at": "2023-06-27T22:07:59Z",
+      "repoId": 123711758,
+      "pullRequestNo": 424
+    },
+    {
+      "name": "EldritchCarMaker",
+      "id": 97289845,
+      "comment_id": 1610293147,
+      "created_at": "2023-06-27T22:14:54Z",
+      "repoId": 123711758,
+      "pullRequestNo": 348
+    },
+    {
+      "name": "VELD-Dev",
+      "id": 36549174,
+      "comment_id": 1610296982,
+      "created_at": "2023-06-27T22:17:50Z",
+      "repoId": 123711758,
+      "pullRequestNo": 391
+    }
+  ]
+}

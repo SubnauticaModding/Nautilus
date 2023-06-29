@@ -8,7 +8,7 @@ Subnautica and why they are important.
 At the most basic levels, prefabs are simply [GameObjects](https://docs.unity3d.com/Manual/class-GameObject.html) that are instantiated into a scene. This is a Unity
 Engine concept, and it applies for Subnautica modding as well.
 
-In Subnautica, prefabs are essentially anything that exists in the world outside of terrain, the player, and a few other exceptions. This encompasses anything from
+In Subnautica, prefabs are essentially anything that exists in the world outside of terrain and the player, with a few other exceptions. This encompasses anything from
 creatures to base modules to unnamed rock formations and debris props. They are registered and managed by the `UWE.PrefabDatabase` class. Nautilus allows you to indirectly
 register your own custom prefabs into this system.
 
