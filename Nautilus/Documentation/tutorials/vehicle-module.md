@@ -5,7 +5,7 @@ The Vehicle Upgrade Module Gadget is made to make your life of modder as easy as
 
 This brand new gadget was made to be compatible with both Below Zero and Subnautica 1, some functions differ between Nautilus for SN1 and Nautilus for BZ.
 
-## POssibilities of custom vehicle upgrade modules
+## Possibilities of custom vehicle upgrade modules
 
 - Set the new crush depth of the vehicle when the upgrade is equipped. You can choose whether the depth is absolute or added to the default crush depth of the vehicle.
 - Set the max charge of the module if the module slot type is set to `QuickSlotType.SelectableChargeable` or `QuickSlotType.Chargeable`. The way to measure the charge is still blurry.
