@@ -5,6 +5,8 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
 using System.Collections.Generic;
+using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using OpCodes = System.Reflection.Emit.OpCodes;
 
@@ -35,17 +37,42 @@ internal class VehicleUpgradesPatcher
     [HarmonyPatch(typeof(Vehicle), nameof(Vehicle.OnUpgradeModuleChange))]
     private static void OnModuleChangeDelegate(Vehicle __instance, int slotID, TechType techType, bool added)
     {
-        if (!VehicleUpgradeModules.TryGetValue(techType, out var prefab))
-            return;
+        if(__instance is Exosuit)
+        {
+            if (!ExosuitUpgradeModules.TryGetValue(techType, out var prefab))
+                return;
 
-        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-            return;
+            if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+                return;
 
-        if (moduleGadget.delegateOnRemoved != null && !added)
-            moduleGadget.delegateOnRemoved.Invoke(__instance, slotID);
+            InternalLogger.Debug("Will execute OnAdded/Removed.");
 
-        if (moduleGadget.delegateOnAdded != null && added)
-            moduleGadget.delegateOnAdded.Invoke(__instance, slotID);
+            if (moduleGadget.delegateOnRemoved != null && !added)
+                moduleGadget.delegateOnRemoved.Invoke(__instance, slotID);
+
+            if (moduleGadget.delegateOnAdded != null && added)
+                moduleGadget.delegateOnAdded.Invoke(__instance, slotID);
+
+            InternalLogger.Debug("Executed OnAdded/Removed.");
+        }
+        else
+        {
+            if (!VehicleUpgradeModules.TryGetValue(techType, out var prefab))
+                return;
+
+            if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
+                return;
+
+            InternalLogger.Debug("Will execute OnAdded/Removed.");
+
+            if (moduleGadget.delegateOnRemoved != null && !added)
+                moduleGadget.delegateOnRemoved.Invoke(__instance, slotID);
+
+            if (moduleGadget.delegateOnAdded != null && added)
+                moduleGadget.delegateOnAdded.Invoke(__instance, slotID);
+
+            InternalLogger.Debug("Executed OnAdded/Removed.");
+        }
     }
 
     [HarmonyPrefix]
@@ -53,10 +80,16 @@ internal class VehicleUpgradesPatcher
     private static void OnModuleChangeCrushDepth(Vehicle __instance, int slotID, TechType techType, bool added)
     {
         Dictionary<TechType, float> CrushDepthUpgrades = new();
-        VehicleUpgradeModules.DoIf(
-            (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth > 0f,
-            (KeyValuePair<TechType, ICustomPrefab> mapElem) => CrushDepthUpgrades.Add(mapElem.Key, mapElem.Value.GetGadget<UpgradeModuleGadget>().CrushDepth)
-        );
+        if(__instance is Exosuit)
+            ExosuitUpgradeModules.DoIf(
+                (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth > 0f,
+                (KeyValuePair<TechType, ICustomPrefab> mapElem) => CrushDepthUpgrades.Add(mapElem.Key, mapElem.Value.GetGadget<UpgradeModuleGadget>().CrushDepth)
+            );
+        else
+            VehicleUpgradeModules.DoIf(
+                (KeyValuePair<TechType, ICustomPrefab> mapElem) => mapElem.Value.TryGetGadget(out UpgradeModuleGadget moduleGadget) && moduleGadget.CrushDepth > 0f,
+                (KeyValuePair<TechType, ICustomPrefab> mapElem) => CrushDepthUpgrades.Add(mapElem.Key, mapElem.Value.GetGadget<UpgradeModuleGadget>().CrushDepth)
+            );
 
         var newCrushDepth = 0f;
         var absolute = false;
@@ -70,8 +103,16 @@ internal class VehicleUpgradesPatcher
                 if (crushDepthToCheck > newCrushDepth)
                 {
                     newCrushDepth = crushDepthToCheck;
-                    if (VehicleUpgradeModules[techTypeInSlot].TryGetGadget(out UpgradeModuleGadget moduleGadget))
-                        absolute = moduleGadget.AbsoluteDepth;
+                    if(__instance is Exosuit)
+                    {
+                        if (ExosuitUpgradeModules[techTypeInSlot].TryGetGadget(out UpgradeModuleGadget moduleGadget))
+                            absolute = moduleGadget.AbsoluteDepth;
+                    }
+                    else
+                    {
+                        if (VehicleUpgradeModules[techTypeInSlot].TryGetGadget(out UpgradeModuleGadget moduleGadget))
+                            absolute = moduleGadget.AbsoluteDepth;
+                    }
                 }
             }
         }
@@ -133,59 +174,111 @@ internal class VehicleUpgradesPatcher
 
     //
     // VEHICLE
-    // ON USE
+    // ON USE + SLOT KEY DOWN
     //
     [HarmonyPrefix]
     [HarmonyPatch(typeof(Vehicle), nameof(Vehicle.OnUpgradeModuleUse))]
-    private static bool UpgradeModuleUseDelegate(Vehicle __instance, TechType techType, int slotID)
+    private static void UpgradeModuleUseDelegate(Vehicle __instance, TechType techType, int slotID)
     {
+        ICustomPrefab prefab;
+        UpgradeModuleGadget moduleGadget;
+        float quickSlotCharge;
+        float chargeScalar;
+        float cooldown;
         if(__instance is Exosuit)
         {
+            InternalLogger.Debug("This is an exosuit.");
             __instance = __instance as Exosuit;
-            if (!ExosuitUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
-                return false;
+            if (!ExosuitUpgradeModules.TryGetValue(techType, out prefab))
+                return;
 
-            if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-                return false;
+            if (!prefab.TryGetGadget(out moduleGadget))
+                return;
 
-            float quickSlotCharge = __instance.quickSlotCharge[slotID];
-            float chargeScalar = __instance.GetSlotCharge(slotID);
+            quickSlotCharge = __instance.quickSlotCharge[slotID];
+            chargeScalar = __instance.GetSlotCharge(slotID);
 
             moduleGadget.delegateOnUsed?.Invoke(__instance, slotID, quickSlotCharge, chargeScalar);
+            InternalLogger.Debug("Executed...");
 
-            var cooldown = 0f;
+            cooldown = 0f;
             if (moduleGadget.Cooldown > 0f)
                 cooldown = (float) moduleGadget.Cooldown;
+
+            InternalLogger.Debug("Cooldown set.");
 
             __instance.quickSlotTimeUsed[slotID] = Time.time;
             __instance.quickSlotCooldown[slotID] = cooldown;
 
-            return false;
+            return;
         }
-        else
-        {
+        InternalLogger.Debug("This is not an exosuit.");
 
-            if (!VehicleUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
-                return false;
+        if (!VehicleUpgradeModules.TryGetValue(techType, out prefab))
+            return;
 
-            if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-                return false;
+        if (!prefab.TryGetGadget(out moduleGadget))
+            return;
 
-            float quickSlotCharge = __instance.quickSlotCharge[slotID];
-            float chargeScalar = __instance.GetSlotCharge(slotID);
+        quickSlotCharge = __instance.quickSlotCharge[slotID];
+        chargeScalar = __instance.GetSlotCharge(slotID);
 
-            moduleGadget.delegateOnUsed?.Invoke(__instance, slotID, quickSlotCharge, chargeScalar);
+        moduleGadget.delegateOnUsed?.Invoke(__instance, slotID, quickSlotCharge, chargeScalar);
 
-            var cooldown = 0f;
-            if (moduleGadget.Cooldown > 0f)
-                cooldown = (float) moduleGadget.Cooldown;
+        cooldown = 0f;
+        if (moduleGadget.Cooldown > 0f)
+            cooldown = (float) moduleGadget.Cooldown;
 
-            __instance.quickSlotTimeUsed[slotID] = Time.time;
-            __instance.quickSlotCooldown[slotID] = cooldown;
+        __instance.quickSlotTimeUsed[slotID] = Time.time;
+        __instance.quickSlotCooldown[slotID] = cooldown;
 
-            return false;
-        }
+        return;
     }
+
+    /*
+     * The transpiler that doesn't work, it is feared by everyone, even the most advanced developers...
+    [HarmonyDebug]
+    [HarmonyTranspiler]
+    [HarmonyPatch(typeof(Vehicle), nameof(Vehicle.SlotKeyDown))]
+    private static IEnumerable<CodeInstruction> VehicleSlotKeyDown(IEnumerable<CodeInstruction> instructions)
+    {
+        var matcher = new CodeMatcher(instructions);
+
+
+        // V2
+        matcher.MatchForward(false,
+                new CodeMatch(OpCodes.Ldloc_1),
+                new CodeMatch(OpCodes.Ldc_I4_2),
+                new CodeMatch(i => i.opcode == OpCodes.Bne_Un_S));
+        var jumpTo = (Label) matcher.Operand;
+        matcher.RemoveInstructions(3)
+            .Insert(
+                new CodeInstruction(OpCodes.Ldloc_1),
+                new CodeInstruction(OpCodes.Ldc_I4_2),
+                new CodeInstruction(OpCodes.Ceq),
+                new CodeInstruction
+                new CodeInstruction(OpCodes.Ldloc_1),
+                new CodeInstruction(OpCodes.Ldc_I4_5),
+                new CodeInstruction(OpCodes.Bne_Un_S, jumpTo)
+            );
+
+        // V1
+        *
+        matcher.MatchForward(true,
+                new CodeMatch(OpCodes.Ldloc_1),
+                new CodeMatch(OpCodes.Ldc_I4_2),
+                new CodeMatch(OpCodes.Bne_Un_S)).CreateLabel(out Label jumpTo)
+            .Advance(2)
+            .Insert(
+                new CodeInstruction(OpCodes.Beq_S, ""),  // This is replacing the if(quickSlotType == QuickSlotTypes.Instant) with
+                new CodeInstruction(OpCodes.Ldloc_1),  // if(quickSlotType == QuickSlotTypes.Instant || quickSlotType == QuickSlotTypes.Chargeable)
+                new CodeInstruction(OpCodes.Ldc_I4_5)  // This is kinda advanced OpCodes operation, please do not touch with it unless you know what you're doing.
+            );
+        *
+
+        return matcher.InstructionEnumeration();
+    }
+    */
 
     //
     // PRAWN
