@@ -122,7 +122,7 @@ static IEnumerator EngageSelfDestruct(Vehicle instance, float countdown)
     var startTime = Time.time
     while(Time.time < (startTime + countdown))
     {
-        yield return;
+        yield return null;
     }
     instance.liveMixin.Kill(DamageType.Explosive);
 }
