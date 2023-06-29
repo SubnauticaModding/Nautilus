@@ -143,6 +143,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.yml",
       "output": {
         ".html": {
@@ -2089,6 +2099,16 @@
         },
         ".json": {
           "relative_path": "tutorials/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/vehicle-module.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/vehicle-module.html"
         }
       },
       "version": ""

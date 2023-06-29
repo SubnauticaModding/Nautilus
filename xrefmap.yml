@@ -1077,6 +1077,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetUnlock
   nameWithType: GadgetExtensions.SetUnlock
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetVehicleUpgradeModule(Nautilus.Assets.ICustomPrefab,EquipmentType,QuickSlotType)
+  name: SetVehicleUpgradeModule(ICustomPrefab, EquipmentType, QuickSlotType)
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetVehicleUpgradeModule_Nautilus_Assets_ICustomPrefab_EquipmentType_QuickSlotType_
+  commentId: M:Nautilus.Assets.Gadgets.GadgetExtensions.SetVehicleUpgradeModule(Nautilus.Assets.ICustomPrefab,EquipmentType,QuickSlotType)
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetVehicleUpgradeModule(Nautilus.Assets.ICustomPrefab, EquipmentType, QuickSlotType)
+  nameWithType: GadgetExtensions.SetVehicleUpgradeModule(ICustomPrefab, EquipmentType, QuickSlotType)
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetVehicleUpgradeModule*
+  name: SetVehicleUpgradeModule
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetVehicleUpgradeModule_
+  commentId: Overload:Nautilus.Assets.Gadgets.GadgetExtensions.SetVehicleUpgradeModule
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.SetVehicleUpgradeModule
+  nameWithType: GadgetExtensions.SetVehicleUpgradeModule
 - uid: Nautilus.Assets.Gadgets.ScanningGadget
   name: ScanningGadget
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.html
@@ -1391,6 +1404,289 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry
   nameWithType: ScanningGadget.WithScannerEntry
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget
+  name: UpgradeModuleGadget
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html
+  commentId: T:Nautilus.Assets.Gadgets.UpgradeModuleGadget
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget
+  nameWithType: UpgradeModuleGadget
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.#ctor(Nautilus.Assets.ICustomPrefab)
+  name: UpgradeModuleGadget(ICustomPrefab)
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget__ctor_Nautilus_Assets_ICustomPrefab_
+  commentId: M:Nautilus.Assets.Gadgets.UpgradeModuleGadget.#ctor(Nautilus.Assets.ICustomPrefab)
+  name.vb: New(ICustomPrefab)
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.UpgradeModuleGadget(Nautilus.Assets.ICustomPrefab)
+  fullName.vb: Nautilus.Assets.Gadgets.UpgradeModuleGadget.New(Nautilus.Assets.ICustomPrefab)
+  nameWithType: UpgradeModuleGadget.UpgradeModuleGadget(ICustomPrefab)
+  nameWithType.vb: UpgradeModuleGadget.New(ICustomPrefab)
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.#ctor*
+  name: UpgradeModuleGadget
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget__ctor_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.UpgradeModuleGadget
+  fullName.vb: Nautilus.Assets.Gadgets.UpgradeModuleGadget.New
+  nameWithType: UpgradeModuleGadget.UpgradeModuleGadget
+  nameWithType.vb: UpgradeModuleGadget.New
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.AbsoluteDepth
+  name: AbsoluteDepth
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_AbsoluteDepth
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.AbsoluteDepth
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.AbsoluteDepth
+  nameWithType: UpgradeModuleGadget.AbsoluteDepth
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.AbsoluteDepth*
+  name: AbsoluteDepth
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_AbsoluteDepth_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.AbsoluteDepth
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.AbsoluteDepth
+  nameWithType: UpgradeModuleGadget.AbsoluteDepth
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.Build
+  name: Build()
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_Build
+  commentId: M:Nautilus.Assets.Gadgets.UpgradeModuleGadget.Build
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.Build()
+  nameWithType: UpgradeModuleGadget.Build()
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.Build*
+  name: Build
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_Build_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.Build
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.Build
+  nameWithType: UpgradeModuleGadget.Build
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.Cooldown
+  name: Cooldown
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_Cooldown
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.Cooldown
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.Cooldown
+  nameWithType: UpgradeModuleGadget.Cooldown
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.Cooldown*
+  name: Cooldown
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_Cooldown_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.Cooldown
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.Cooldown
+  nameWithType: UpgradeModuleGadget.Cooldown
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.CrushDepth
+  name: CrushDepth
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_CrushDepth
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.CrushDepth
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.CrushDepth
+  nameWithType: UpgradeModuleGadget.CrushDepth
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.CrushDepth*
+  name: CrushDepth
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_CrushDepth_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.CrushDepth
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.CrushDepth
+  nameWithType: UpgradeModuleGadget.CrushDepth
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
+  name: delegateOnAdded
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnAdded
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
+  nameWithType: UpgradeModuleGadget.delegateOnAdded
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded*
+  name: delegateOnAdded
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnAdded_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
+  nameWithType: UpgradeModuleGadget.delegateOnAdded
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
+  name: delegateOnRemoved
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnRemoved
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
+  nameWithType: UpgradeModuleGadget.delegateOnRemoved
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved*
+  name: delegateOnRemoved
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnRemoved_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
+  nameWithType: UpgradeModuleGadget.delegateOnRemoved
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
+  name: delegateOnToggled
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnToggled
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
+  nameWithType: UpgradeModuleGadget.delegateOnToggled
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled*
+  name: delegateOnToggled
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnToggled_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
+  nameWithType: UpgradeModuleGadget.delegateOnToggled
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
+  name: delegateOnUsed
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnUsed
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
+  nameWithType: UpgradeModuleGadget.delegateOnUsed
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed*
+  name: delegateOnUsed
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnUsed_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
+  nameWithType: UpgradeModuleGadget.delegateOnUsed
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.EnergyCost
+  name: EnergyCost
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_EnergyCost
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.EnergyCost
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.EnergyCost
+  nameWithType: UpgradeModuleGadget.EnergyCost
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.EnergyCost*
+  name: EnergyCost
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_EnergyCost_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.EnergyCost
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.EnergyCost
+  nameWithType: UpgradeModuleGadget.EnergyCost
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.MaxCharge
+  name: MaxCharge
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_MaxCharge
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.MaxCharge
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.MaxCharge
+  nameWithType: UpgradeModuleGadget.MaxCharge
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.MaxCharge*
+  name: MaxCharge
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_MaxCharge_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.MaxCharge
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.MaxCharge
+  nameWithType: UpgradeModuleGadget.MaxCharge
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithCooldown(System.Double)
+  name: WithCooldown(double)
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithCooldown_System_Double_
+  commentId: M:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithCooldown(System.Double)
+  name.vb: WithCooldown(Double)
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithCooldown(double)
+  fullName.vb: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithCooldown(Double)
+  nameWithType: UpgradeModuleGadget.WithCooldown(double)
+  nameWithType.vb: UpgradeModuleGadget.WithCooldown(Double)
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithCooldown*
+  name: WithCooldown
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithCooldown_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithCooldown
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithCooldown
+  nameWithType: UpgradeModuleGadget.WithCooldown
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithDepthUpgrade(System.Single,System.Boolean)
+  name: WithDepthUpgrade(float, bool)
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithDepthUpgrade_System_Single_System_Boolean_
+  commentId: M:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithDepthUpgrade(System.Single,System.Boolean)
+  name.vb: WithDepthUpgrade(Single, Boolean)
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithDepthUpgrade(float, bool)
+  fullName.vb: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithDepthUpgrade(Single, Boolean)
+  nameWithType: UpgradeModuleGadget.WithDepthUpgrade(float, bool)
+  nameWithType.vb: UpgradeModuleGadget.WithDepthUpgrade(Single, Boolean)
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithDepthUpgrade*
+  name: WithDepthUpgrade
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithDepthUpgrade_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithDepthUpgrade
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithDepthUpgrade
+  nameWithType: UpgradeModuleGadget.WithDepthUpgrade
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithEnergyCost(System.Double)
+  name: WithEnergyCost(double)
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithEnergyCost_System_Double_
+  commentId: M:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithEnergyCost(System.Double)
+  name.vb: WithEnergyCost(Double)
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithEnergyCost(double)
+  fullName.vb: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithEnergyCost(Double)
+  nameWithType: UpgradeModuleGadget.WithEnergyCost(double)
+  nameWithType.vb: UpgradeModuleGadget.WithEnergyCost(Double)
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithEnergyCost*
+  name: WithEnergyCost
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithEnergyCost_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithEnergyCost
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithEnergyCost
+  nameWithType: UpgradeModuleGadget.WithEnergyCost
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithMaxCharge(System.Double)
+  name: WithMaxCharge(double)
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithMaxCharge_System_Double_
+  commentId: M:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithMaxCharge(System.Double)
+  name.vb: WithMaxCharge(Double)
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithMaxCharge(double)
+  fullName.vb: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithMaxCharge(Double)
+  nameWithType: UpgradeModuleGadget.WithMaxCharge(double)
+  nameWithType.vb: UpgradeModuleGadget.WithMaxCharge(Double)
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithMaxCharge*
+  name: WithMaxCharge
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithMaxCharge_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithMaxCharge
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithMaxCharge
+  nameWithType: UpgradeModuleGadget.WithMaxCharge
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleAdded(System.Action{Vehicle,System.Int32})
+  name: WithOnModuleAdded(Action<Vehicle, int>)
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithOnModuleAdded_System_Action_Vehicle_System_Int32__
+  commentId: M:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleAdded(System.Action{Vehicle,System.Int32})
+  name.vb: WithOnModuleAdded(Action(Of Vehicle, Integer))
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleAdded(System.Action<Vehicle, int>)
+  fullName.vb: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleAdded(System.Action(Of Vehicle, Integer))
+  nameWithType: UpgradeModuleGadget.WithOnModuleAdded(Action<Vehicle, int>)
+  nameWithType.vb: UpgradeModuleGadget.WithOnModuleAdded(Action(Of Vehicle, Integer))
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleAdded*
+  name: WithOnModuleAdded
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithOnModuleAdded_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleAdded
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleAdded
+  nameWithType: UpgradeModuleGadget.WithOnModuleAdded
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleRemoved(System.Action{Vehicle,System.Int32})
+  name: WithOnModuleRemoved(Action<Vehicle, int>)
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithOnModuleRemoved_System_Action_Vehicle_System_Int32__
+  commentId: M:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleRemoved(System.Action{Vehicle,System.Int32})
+  name.vb: WithOnModuleRemoved(Action(Of Vehicle, Integer))
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleRemoved(System.Action<Vehicle, int>)
+  fullName.vb: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleRemoved(System.Action(Of Vehicle, Integer))
+  nameWithType: UpgradeModuleGadget.WithOnModuleRemoved(Action<Vehicle, int>)
+  nameWithType.vb: UpgradeModuleGadget.WithOnModuleRemoved(Action(Of Vehicle, Integer))
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleRemoved*
+  name: WithOnModuleRemoved
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithOnModuleRemoved_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleRemoved
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleRemoved
+  nameWithType: UpgradeModuleGadget.WithOnModuleRemoved
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleToggled(System.Action{Vehicle,System.Int32,System.Single,System.Boolean})
+  name: WithOnModuleToggled(Action<Vehicle, int, float, bool>)
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithOnModuleToggled_System_Action_Vehicle_System_Int32_System_Single_System_Boolean__
+  commentId: M:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleToggled(System.Action{Vehicle,System.Int32,System.Single,System.Boolean})
+  name.vb: WithOnModuleToggled(Action(Of Vehicle, Integer, Single, Boolean))
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleToggled(System.Action<Vehicle, int, float, bool>)
+  fullName.vb: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleToggled(System.Action(Of Vehicle, Integer, Single, Boolean))
+  nameWithType: UpgradeModuleGadget.WithOnModuleToggled(Action<Vehicle, int, float, bool>)
+  nameWithType.vb: UpgradeModuleGadget.WithOnModuleToggled(Action(Of Vehicle, Integer, Single, Boolean))
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleToggled*
+  name: WithOnModuleToggled
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithOnModuleToggled_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleToggled
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleToggled
+  nameWithType: UpgradeModuleGadget.WithOnModuleToggled
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleUsed(System.Action{Vehicle,System.Int32,System.Single,System.Single})
+  name: WithOnModuleUsed(Action<Vehicle, int, float, float>)
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithOnModuleUsed_System_Action_Vehicle_System_Int32_System_Single_System_Single__
+  commentId: M:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleUsed(System.Action{Vehicle,System.Int32,System.Single,System.Single})
+  name.vb: WithOnModuleUsed(Action(Of Vehicle, Integer, Single, Single))
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleUsed(System.Action<Vehicle, int, float, float>)
+  fullName.vb: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleUsed(System.Action(Of Vehicle, Integer, Single, Single))
+  nameWithType: UpgradeModuleGadget.WithOnModuleUsed(Action<Vehicle, int, float, float>)
+  nameWithType.vb: UpgradeModuleGadget.WithOnModuleUsed(Action(Of Vehicle, Integer, Single, Single))
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleUsed*
+  name: WithOnModuleUsed
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_WithOnModuleUsed_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleUsed
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleUsed
+  nameWithType: UpgradeModuleGadget.WithOnModuleUsed
 - uid: Nautilus.Assets.ICustomPrefab
   name: ICustomPrefab
   href: api/Nautilus.Assets.ICustomPrefab.html
@@ -3118,6 +3414,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.CraftDataHandler.SetEatingSound
   nameWithType: CraftDataHandler.SetEatingSound
+- uid: Nautilus.Handlers.CraftDataHandler.SetEnergyCost(TechType,System.Double)
+  name: SetEnergyCost(TechType, double)
+  href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_SetEnergyCost_TechType_System_Double_
+  commentId: M:Nautilus.Handlers.CraftDataHandler.SetEnergyCost(TechType,System.Double)
+  name.vb: SetEnergyCost(TechType, Double)
+  fullName: Nautilus.Handlers.CraftDataHandler.SetEnergyCost(TechType, double)
+  fullName.vb: Nautilus.Handlers.CraftDataHandler.SetEnergyCost(TechType, Double)
+  nameWithType: CraftDataHandler.SetEnergyCost(TechType, double)
+  nameWithType.vb: CraftDataHandler.SetEnergyCost(TechType, Double)
+- uid: Nautilus.Handlers.CraftDataHandler.SetEnergyCost*
+  name: SetEnergyCost
+  href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_SetEnergyCost_
+  commentId: Overload:Nautilus.Handlers.CraftDataHandler.SetEnergyCost
+  isSpec: "True"
+  fullName: Nautilus.Handlers.CraftDataHandler.SetEnergyCost
+  nameWithType: CraftDataHandler.SetEnergyCost
 - uid: Nautilus.Handlers.CraftDataHandler.SetEquipmentType(TechType,EquipmentType)
   name: SetEquipmentType(TechType, EquipmentType)
   href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_SetEquipmentType_TechType_EquipmentType_
@@ -3195,6 +3507,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.CraftDataHandler.SetItemSize
   nameWithType: CraftDataHandler.SetItemSize
+- uid: Nautilus.Handlers.CraftDataHandler.SetMaxCharge(TechType,System.Double)
+  name: SetMaxCharge(TechType, double)
+  href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_SetMaxCharge_TechType_System_Double_
+  commentId: M:Nautilus.Handlers.CraftDataHandler.SetMaxCharge(TechType,System.Double)
+  name.vb: SetMaxCharge(TechType, Double)
+  fullName: Nautilus.Handlers.CraftDataHandler.SetMaxCharge(TechType, double)
+  fullName.vb: Nautilus.Handlers.CraftDataHandler.SetMaxCharge(TechType, Double)
+  nameWithType: CraftDataHandler.SetMaxCharge(TechType, double)
+  nameWithType.vb: CraftDataHandler.SetMaxCharge(TechType, Double)
+- uid: Nautilus.Handlers.CraftDataHandler.SetMaxCharge*
+  name: SetMaxCharge
+  href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_SetMaxCharge_
+  commentId: Overload:Nautilus.Handlers.CraftDataHandler.SetMaxCharge
+  isSpec: "True"
+  fullName: Nautilus.Handlers.CraftDataHandler.SetMaxCharge
+  nameWithType: CraftDataHandler.SetMaxCharge
 - uid: Nautilus.Handlers.CraftDataHandler.SetQuickSlotType(TechType,QuickSlotType)
   name: SetQuickSlotType(TechType, QuickSlotType)
   href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_SetQuickSlotType_TechType_QuickSlotType_

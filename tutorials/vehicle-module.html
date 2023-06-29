@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Using the Vehicle Upgrade Module Gadget </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Using the Vehicle Upgrade Module Gadget ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/vehicle-module.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="using-the-vehicle-upgrade-module-gadget">Using the Vehicle Upgrade Module Gadget</h1>
+
+<p>Vehicle modules are often hard to mod, and when multiple mods patch a function of a vehicle there can be severe conflicts that could break all the mods adding new modules.<br>
+The Vehicle Upgrade Module Gadget was made to make your life of modder as easy as possible when it comes to vehicle modules.</p>
+<p>This brand new gadget was made to be compatible with both Below Zero and Subnautica 1, some functions differ between Nautilus for SN1 and Nautilus for BZ.</p>
+<h2 id="possibilities-of-custom-vehicle-upgrade-modules">Possibilities of custom vehicle upgrade modules</h2>
+<ul>
+<li>Set the new crush depth of the vehicle when the upgrade is equipped. You can choose whether the depth is absolute or added to the default crush depth of the vehicle.</li>
+<li>Set the max charge of the module if the module slot type is set to <code>QuickSlotType.SelectableChargeable</code> or <code>QuickSlotType.Chargeable</code>. The way to measure the charge is still blurry.</li>
+<li>Set the energy cost of the module if the module slot type is set to <code>QuickSlotType.Selectable</code>, <code>QuickSlotType.Instant</code>, <code>QuickSlotType.SelectableChargeable</code> or <code>QuickSlotType.Chargeable</code>. Charge does not affect the energy consumption.</li>
+<li>Set the cooldown of the module if the module slot type is set to <code>QuickSlotType.Selectable</code>, <code>QuickSlotType.Instant</code>, <code>QuickSlotType.SelectableChargeable</code> or <code>QuickSlotType.Chargeable</code>. Charge does not affect the cooldown. The unit of the cooldown is seconds, and stored as a <code>double</code> on Subnautica 1 and as a <code>float</code> on Below Zero.</li>
+<li>Add delegates when some actions are done, and they all give many parameters so you can make actions on the vehicle. Here are the events supported by Nautilus, and preventing conflicts between mods:
+<ul>
+<li>When the module is added to the vehicle</li>
+<li>When the module is removed from the vehicle</li>
+<li>When the module is used (Any active <code>QuickSlotType</code> triggers this except <code>QuickSlotType.Toggleable</code>)</li>
+<li>When the module is toggled. One of the parameters given into the delegate is a boolean which is the state of the module.</li>
+</ul>
+</li>
+</ul>
+<h2 id="what-is-the-upgrade-module-gadget">What is the Upgrade Module Gadget</h2>
+<p>The Upgrade Module Gadget is an extension for the <code>ICustomPrefab</code>. It is basically patching many functions of the vehicles using prefix, postfixes and transpilers for a better compatibility and more safety.<br>
+Basically, all the modules are stored locally by Nautilus in order to run actions, set the modules settings in game, such as the crush depth if provided, the cooldown if provided, etc...</p>
+<h1 id="create-a-module-with-the-gadget">Create a module with the gadget</h1>
+<p>Here are some examples of uses of the gadget, used in many ways.<br>
+You are not limited, you can do everything you want with those.</p>
+<h2 id="passive-module-setting-a-new-crush-depth">Passive module setting a new crush depth</h2>
+<p>Let's create a custom module setting the depth to, let's say, 1700m for the SeaMoth.<br>
+So, first, let's make our prefab info.</p>
+<pre><code class="lang-csharp">var prefabInfo = PrefabInfo.WithTechType(&quot;SeamothDepthUpgrade&quot;, &quot;Seamoth Depth Module MK.4&quot;, &quot;Dive down to 1700 meters!!! Let's meet the Sea Dragon!&quot;)
+    .WithIcon(SpriteManager.Get(TechType.HullReinforcementModule3));
+</code></pre>
+<p>Then, we're making the Custom Prefab based on Reinforced Hull prefab.</p>
+<pre><code class="lang-csharp">var prefab = new CloneTemplate(prefabInfo, TechType.HullReinforcementModule3);
+</code></pre>
+<p>Now, let's quickly set the basic settings.</p>
+<pre><code class="lang-csharp">prefab.SetRecipe(new Crafting.RecipeData()
+{
+    craftAmount = 1,
+    Ingredients = new List&lt;CraftData.Ingredient&gt;()
+    {
+        new CraftData.Ingredient(TechType.HullReinforcementModule3),
+        new CraftData.Ingredient(TechType.AluminumOxyde, 2),
+        new CraftData.Ingredient(TechType.AdvancedWiringKit, 3)
+    }
+})
+    .WithFabricatorType(CraftTree.Type.SeamothUpgrades)
+    .WithStepsToFabricator(&quot;SeamothModules&quot;)
+    .WithCraftingTime(5f);
+</code></pre>
+<p>And finally, let's make the part that interest us: Adding the Upgrade Module Gadget.</p>
+<pre><code class="lang-csharp">// This first function defines the equipment type and the quick slot type.
+prefab.SetUpgradeModule(EquipmentType.SeamothModule, QuickSlotType.Passive)
+    .WithDepthUpgrade(1700f, true)  // 1700 is the depth in meters. The boolean after defines if we want the value to be absolute or &quot;relative&quot;, added to the default depth. 
+                                    // If it is on false, it will set the new crush depth to 1900 meters because the default depth of the Seamoth is 200 meters.
+                                    // Otherwise, it will set the new crush depth on 1700 meters.
+    .WithOnModuleAdded((Vehicle vehicleInstance, int slotId) =&gt;
+    {
+        Subtitles.Add(&quot;Well done! The module is working! The new depth is 1700 meters.&quot;);
+    })
+    .WithOnModuleRemoved((Vehicle vehicleInstance, int slotId) =&gt; {
+        Subtitles.Add(&quot;Ah... You removed the upgrade. Take care of your hull.&quot;);
+    });
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You can do basically everything you want in these delegates, such as trigger story events, destroy the vehicle, add components to the vehicle instance, etc...</p>
+</div>
+<h2 id="chargeable-self-destruct-module">Chargeable self-destruct module</h2>
+<p>Admitting we've already done the prefab info and the custom prefab, let's directly work only with the upgrade module gadget.</p>
+<pre><code class="lang-csharp">var maxcharge = 50f;
+var cooldown = 10f;
+prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.SelectableChargeable)
+    .WithMaxCharge(maxcharge)
+    .WithCooldown(cooldown)
+    .WithOnModuleAdded((Vehicle inst, int slotId) =&gt;
+    {
+        Subtitles.Add(&quot;Self-destruct module installed. The module needs to be charged fully to detonate.&quot;);
+    })
+    .WithOnModuleRemoved((Vehicle inst, int slotId) =&gt;
+    {
+        Subtitles.Add(&quot;Self-destruct module uninstalled.&quot;);
+    })
+    .WithOnModuleUsed((Vehicle inst, int slotID, float charge, float chargeScalar) =&gt;
+    {
+        if(charge != maxCharge)
+        {
+            Subtitles.Add(&quot;Self-destruction sequence disengaged.&quot;)
+            return;
+        }
+        else
+        {
+            Subtitles.Add(&quot;Self-destruction sequence engaged.&quot;)
+            UWE.CoroutineHost.StartCoroutine(EngageSelfDestruct(inst, countdown));
+        }
+    });
+
+static IEnumerator EngageSelfDestruct(Vehicle instance, float countdown)
+{
+    var startTime = Time.time
+    while(Time.time &lt; (startTime + countdown))
+    {
+        yield return null;
+    }
+    instance.liveMixin.Kill(DamageType.Explosive);
+}
+</code></pre>
+<h2 id="instant-selectable-message-sender">Instant selectable message sender</h2>
+<p>Yet another example...</p>
+<pre><code class="lang-csharp">prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.Selectable)
+    .WithOnModuleUsed((Vehicle inst, int slotID, float _charge, float _chargeScalar) =&gt; // charge and chargeScalar are always 0f here.
+    {
+        Subtitles.Add(&quot;Hello world!&quot;);
+    });
+</code></pre>
+<p>And you can do a lot more.</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/vehicle-module.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
