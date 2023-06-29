@@ -76,7 +76,7 @@ public class FabricatorTemplate : PrefabTemplate
     /// Applies a simple color tint to the fabricator model.
     /// </summary>
     public Color? ColorTint { get; set; }
-    
+
     /// <summary>
     /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
     /// </summary>

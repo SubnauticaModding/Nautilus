@@ -1,4 +1,5 @@
 using System.IO;
+using System.Runtime.CompilerServices;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Json.Converters;
@@ -145,6 +146,31 @@ public static class GadgetExtensions
 
         equipmentGadget.EquipmentType = equipmentType;
         return equipmentGadget;
+    }
+
+    /// <summary>
+    /// Sets this item as a vehicle upgrade module. Cyclops upgrades are not supported by this function.
+    /// <para>If you're using this function, please do not use <see cref="SetEquipment(ICustomPrefab, EquipmentType)"/>,<br/>
+    /// it would interefere with this and possibly make the game crash or cause the mod to not work.</para>
+    /// </summary>
+    /// <param name="customPrefab">The custom prefab to set vehicle upgrade for.</param>
+    /// <param name="equipmentType">The type of equipment slot this item can fit into. Preferably use something related to vehicles.</param>
+    /// <param name="slotType">The quick slot type</param>
+    /// <returns>An instance to the created <see cref="UpgradeModuleGadget"/> to continue the upgrade settings on.</returns>
+    public static UpgradeModuleGadget SetVehicleUpgradeModule(this ICustomPrefab customPrefab, EquipmentType equipmentType = EquipmentType.VehicleModule, QuickSlotType slotType = QuickSlotType.Passive)
+    {
+        if(customPrefab.TryGetGadget(out UpgradeModuleGadget upgradeModuleGadget))
+        {
+            customPrefab.SetEquipment(equipmentType).WithQuickSlotType(slotType);
+            return upgradeModuleGadget;
+        }
+        else
+        {
+            customPrefab.SetEquipment(equipmentType).WithQuickSlotType(slotType);
+            upgradeModuleGadget = new UpgradeModuleGadget(customPrefab);
+            customPrefab.TryAddGadget(upgradeModuleGadget);
+            return upgradeModuleGadget;
+        }
     }
 
     /// <summary>

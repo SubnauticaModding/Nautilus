@@ -29,7 +29,7 @@ public class Initializer : BaseUnityPlugin
 #if SUBNAUTICA
         InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for Subnautica");
 #elif BELOWZERO
-            InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for BelowZero");
+        InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for BelowZero");
 #endif
         PrefabDatabasePatcher.PrePatch(_harmony);
         EnumPatcher.Patch(_harmony);
@@ -57,7 +57,8 @@ public class Initializer : BaseUnityPlugin
         EatablePatcher.Patch(_harmony);
         MaterialUtils.Patch();
         FontReferencesPatcher.Patch(_harmony);
+        VehicleUpgradesPatcher.Patch(_harmony);
+        StoryGoalPatcher.Patch(_harmony);
         PDAEncyclopediaTabPatcher.Patch(_harmony);
-        StoryGoalPatcher.Patch(_harmony); // TO-DO: Story goal handling for Below Zero
     }
 }

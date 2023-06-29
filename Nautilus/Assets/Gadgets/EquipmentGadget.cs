@@ -20,6 +20,7 @@ public class EquipmentGadget : Gadget
     public QuickSlotType QuickSlotType { get; set; }
 
 
+
     /// <summary>
     /// Constructs an equipment gadget.
     /// </summary>
@@ -37,6 +38,8 @@ public class EquipmentGadget : Gadget
         EquipmentType = equipmentType;
     }
 
+
+
     /// <summary>
     /// Sets the way the game should treat this item as when in a quick slot.
     /// </summary>
@@ -47,6 +50,8 @@ public class EquipmentGadget : Gadget
         QuickSlotType = quickSlotType;
         return this;
     }
+
+
 
     /// <inheritdoc/>
     protected internal override void Build()

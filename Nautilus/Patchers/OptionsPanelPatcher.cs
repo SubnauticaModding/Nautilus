@@ -122,7 +122,7 @@ internal class OptionsPanelPatcher
                 public HeadingState this[string name]
                 {
                     get => _states.TryGetValue(name, out HeadingState state) ? state : HeadingState.Expanded;
-                        
+
                     set
                     {
                         _states[name] = value;
@@ -333,7 +333,7 @@ internal class OptionsPanelPatcher
         private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {
             if (tabIndex != _modsTabIndex || __instance is not uGUI_OptionsPanel)
-                return; 
+                return;
 
             // just in case, for changing vertical spacing between ui elements
             //__instance.tabs[tabIndex].container.GetComponent<VerticalLayoutGroup>().spacing = 15f; // default is 15f
@@ -359,7 +359,7 @@ internal class OptionsPanelPatcher
 
         private static void StorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? _devMenuScrollPos: _optionsScrollPos;
+            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel ? _devMenuScrollPos : _optionsScrollPos;
             if (tabIndex >= 0 && tabIndex < panel.tabs.Count)
             {
                 scrollPos[tabIndex] = panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition;
@@ -368,7 +368,7 @@ internal class OptionsPanelPatcher
 
         private static void RestorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? _devMenuScrollPos: _optionsScrollPos;
+            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel ? _devMenuScrollPos : _optionsScrollPos;
             if (tabIndex >= 0 && tabIndex < panel.tabs.Count && scrollPos.TryGetValue(tabIndex, out float pos))
             {
                 panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition = pos;
