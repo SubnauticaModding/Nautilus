@@ -1,7 +1,7 @@
 # Using the Vehicle Upgrade Module Gadget
 
-Vehicles modules are often hard to mod, and when multiple mods patch a function of a vehicle it can make severe conflicts that could break all the mods adding new modules.  
-The Vehicle Upgrade Module Gadget is made to make your life of modder as easy as possible when it comes to vehicle modules.  
+Vehicle modules are often hard to mod, and when multiple mods patch a function of a vehicle there can be severe conflicts that could break all the mods adding new modules.  
+The Vehicle Upgrade Module Gadget was made to make your life of modder as easy as possible when it comes to vehicle modules.  
 
 This brand new gadget was made to be compatible with both Below Zero and Subnautica 1, some functions differ between Nautilus for SN1 and Nautilus for BZ.
 
