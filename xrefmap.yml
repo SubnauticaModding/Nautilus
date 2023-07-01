@@ -3967,28 +3967,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.CustomSoundHandler.TryPlayCustomSound
   nameWithType: CustomSoundHandler.TryPlayCustomSound
-- uid: Nautilus.Handlers.EatableHandler
-  name: EatableHandler
-  href: api/Nautilus.Handlers.EatableHandler.html
-  commentId: T:Nautilus.Handlers.EatableHandler
-  fullName: Nautilus.Handlers.EatableHandler
-  nameWithType: EatableHandler
-- uid: Nautilus.Handlers.EatableHandler.ModifyEatable(TechType,System.Single,System.Single,System.Boolean)
-  name: ModifyEatable(TechType, float, float, bool)
-  href: api/Nautilus.Handlers.EatableHandler.html#Nautilus_Handlers_EatableHandler_ModifyEatable_TechType_System_Single_System_Single_System_Boolean_
-  commentId: M:Nautilus.Handlers.EatableHandler.ModifyEatable(TechType,System.Single,System.Single,System.Boolean)
-  name.vb: ModifyEatable(TechType, Single, Single, Boolean)
-  fullName: Nautilus.Handlers.EatableHandler.ModifyEatable(TechType, float, float, bool)
-  fullName.vb: Nautilus.Handlers.EatableHandler.ModifyEatable(TechType, Single, Single, Boolean)
-  nameWithType: EatableHandler.ModifyEatable(TechType, float, float, bool)
-  nameWithType.vb: EatableHandler.ModifyEatable(TechType, Single, Single, Boolean)
-- uid: Nautilus.Handlers.EatableHandler.ModifyEatable*
-  name: ModifyEatable
-  href: api/Nautilus.Handlers.EatableHandler.html#Nautilus_Handlers_EatableHandler_ModifyEatable_
-  commentId: Overload:Nautilus.Handlers.EatableHandler.ModifyEatable
-  isSpec: "True"
-  fullName: Nautilus.Handlers.EatableHandler.ModifyEatable
-  nameWithType: EatableHandler.ModifyEatable
 - uid: Nautilus.Handlers.EnumBuilder`1
   name: EnumBuilder<TEnum>
   href: api/Nautilus.Handlers.EnumBuilder-1.html

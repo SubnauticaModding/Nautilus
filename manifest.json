@@ -523,16 +523,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "Documentation/api/Nautilus.Handlers.EatableHandler.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Nautilus.Handlers.EatableHandler.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Handlers.EnumBuilder-1.yml",
       "output": {
         ".html": {
