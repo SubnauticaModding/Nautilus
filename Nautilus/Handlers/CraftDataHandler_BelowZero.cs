@@ -1,4 +1,4 @@
-﻿#if BELOWZERO
+#if BELOWZERO
 namespace Nautilus.Handlers;
 
 using Crafting;
@@ -228,6 +228,28 @@ public static partial class CraftDataHandler
     public static void SetQuickSlotType(TechType techType, QuickSlotType slotType)
     {
         AddJsonProperty(techType, "slotType", new JsonValue((int)slotType));
+    }
+
+    /// <summary>
+    /// <para>Allows you to edit MaxCharge for TechTypes. Can be used for existing TechTypes too.</para>
+    /// <para>Careful: This has to be called after <see cref="SetRecipeData(TechType, RecipeData)"/>.</para>
+    /// </summary>
+    /// <param name="techType">The TechType whose MaxCharge you want to edit.</param>
+    /// <param name="maxCharge">The MaxCharge for that TechType.</param>
+    public static void SetMaxCharge(TechType techType, double maxCharge)
+    {
+        AddJsonProperty(techType, "maxCharge", new JsonValue(maxCharge));
+    }
+
+    /// <summary>
+    /// <para>Allows you to edit EnergyCost for TechTypes. Can be used for existing TechTypes too.</para>
+    /// <para>Careful: This has to be called after <see cref="SetRecipeData(TechType, RecipeData)"/>.</para>
+    /// </summary>
+    /// <param name="techType">The TechType wose EnergyCost you want to edit</param>
+    /// <param name="energyCost">The EnergyCost for that TechType.</param>
+    public static void SetEnergyCost(TechType techType, double energyCost)
+    {
+        AddJsonProperty(techType, "energyCost", new JsonValue(energyCost));
     }
 
     /// <summary>

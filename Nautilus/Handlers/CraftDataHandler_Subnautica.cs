@@ -58,6 +58,28 @@ public partial class CraftDataHandler
     }
 
     /// <summary>
+    /// <para>Allows you to edit MaxCharge for TechTypes. Can be used for existing TechTypes too.</para>
+    /// <para>Careful: This has to be called after <see cref="SetRecipeData(TechType, RecipeData)"/>.</para>
+    /// </summary>
+    /// <param name="techType">The TechType whose MaxCharge you want to edit.</param>
+    /// <param name="maxCharge">The MaxCharge for that TechType.</param>
+    public static void SetMaxCharge(TechType techType, double maxCharge)
+    {
+        CraftDataPatcher.CustomMaxCharges[techType] = (float)maxCharge;
+    }
+
+    /// <summary>
+    /// <para>Allows you to edit EnergyCost for TechTypes. Can be used for existing TechTypes too.</para>
+    /// <para>Careful: This has to be called after <see cref="SetRecipeData(TechType, RecipeData)"/>.</para>
+    /// </summary>
+    /// <param name="techType">The TechType wose EnergyCost you want to edit</param>
+    /// <param name="energyCost">The EnergyCost for that TechType.</param>
+    public static void SetEnergyCost(TechType techType, double energyCost)
+    {
+        CraftDataPatcher.CustomEnergyCost[techType] = (float)energyCost;
+    }
+
+    /// <summary>
     /// <para>Allows you to edit harvest output, i.e. what TechType you get when you "harvest" a TechType.</para>
     /// <para>Can be used for existing TechTypes too.</para>
     /// </summary>

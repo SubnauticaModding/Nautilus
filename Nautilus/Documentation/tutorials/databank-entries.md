@@ -252,6 +252,16 @@ PDA entries are not unlocked by default, but there are various ways to add them 
 | `PDAEncyclopedia.AddAndPlaySound(string key)` | Adds the entry with the given `key`, shows a notification, and plays the correct sound (if defined) for this entry. |
 | `PDAEncyclopedia.Add(string key, bool verbose)` | Adds the entry with the given `key`, and shows a notification if `verbose` is true. |
 
+### Example for unlocking with PDAHandler.AddCustomScannerEntry:
+```csharp
+// Register encyclopedia entry like usual:
+PDAHandler.AddEncyclopediaEntry("ArcticReaperEncy", "Lifeforms/Fauna/Leviathans", "Arctic Reaper", "A reaper leviathan that lives in a colder climate.");
+
+// Use PDAHandler.AddCustomScannerEntry to make it unlockable.
+// This code unlocks the encyclopedia entry when a prefab with a TechType of ArcticReaperTechType is scanned.
+PDAHandler.AddCustomScannerEntry(ArcticReaperTechType, 4, false, "ArcticReaperEncy");
+```
+
 ### Example for unlocking with Story Goals:
 
 ```csharp

@@ -9,10 +9,12 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 * [Custom console commands](console-commands.md)
 * [Story goals](story-goals.md)
 * [Databank entries](databank-entries.md)
+* [Custom vehicle upgrade modules](vehicle-module.md)
 * TODO: [Audio (FMOD)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
-### Prefab Creation
-Coming soon
+### Prefabs
+* [Prefab basics](prefabs-overview.md)
+* [Loading & instantiating prefabs](loading-and-instantiating-prefabs.md)
 
 ### Editing Content
 * [Background type](background-type.md)

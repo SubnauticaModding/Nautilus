@@ -22,16 +22,14 @@ internal class OptionsPanelPatcher
 
     private static int _modsTabIndex = -1;
 
+    private static Color _headerColor = new(1f, 0.777f, 0f);
+
     internal static void Patch(Harmony harmony)
     {
         harmony.PatchAll(typeof(OptionsPanelPatcher));
         harmony.PatchAll(typeof(ScrollPosKeeper));
-        if (!BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.ahk1221.smlhelper"))
-        {
-            harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
-        }
+        harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
     }
-
 
     // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
     [HarmonyPostfix]
@@ -124,7 +122,7 @@ internal class OptionsPanelPatcher
                 public HeadingState this[string name]
                 {
                     get => _states.TryGetValue(name, out HeadingState state) ? state : HeadingState.Expanded;
-                        
+
                     set
                     {
                         _states[name] = value;
@@ -183,6 +181,9 @@ internal class OptionsPanelPatcher
             button.AddComponent<ToggleButtonClickHandler>();
             Object.Destroy(button.GetComponent<Button>());
 
+            var textComponent = captionTransform.GetComponent<TextMeshProUGUI>();
+            textComponent.fontStyle = FontStyles.Bold;
+
             RectTransform buttonTransform = button.transform as RectTransform;
             buttonTransform.SetParent(_headingPrefab.transform);
             buttonTransform.SetAsFirstSibling();
@@ -199,6 +200,16 @@ internal class OptionsPanelPatcher
             private HeadingState _headingState = HeadingState.Expanded;
             private string _headingName = null;
             private List<GameObject> _childOptions = null;
+
+#if SUBNAUTICA
+            protected override void OnEnable()
+#elif BELOWZERO
+            public override void OnEnable()
+#endif
+            {
+                base.OnEnable();
+                transform.Find("Caption").GetComponent<TextMeshProUGUI>().color = _headerColor;
+            }
 
             private void Init()
             {
@@ -293,7 +304,7 @@ internal class OptionsPanelPatcher
                 isRotating = false;
             }
         }
-        #endregion
+#endregion
 
         #region patches for uGUI_TabbedControlsPanel
         [HarmonyPrefix]
@@ -322,7 +333,7 @@ internal class OptionsPanelPatcher
         private static void SetVisibleTab_Prefix(uGUI_TabbedControlsPanel __instance, int tabIndex)
         {
             if (tabIndex != _modsTabIndex || __instance is not uGUI_OptionsPanel)
-                return; 
+                return;
 
             // just in case, for changing vertical spacing between ui elements
             //__instance.tabs[tabIndex].container.GetComponent<VerticalLayoutGroup>().spacing = 15f; // default is 15f
@@ -348,7 +359,7 @@ internal class OptionsPanelPatcher
 
         private static void StorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? _devMenuScrollPos: _optionsScrollPos;
+            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel ? _devMenuScrollPos : _optionsScrollPos;
             if (tabIndex >= 0 && tabIndex < panel.tabs.Count)
             {
                 scrollPos[tabIndex] = panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition;
@@ -357,7 +368,7 @@ internal class OptionsPanelPatcher
 
         private static void RestorePos(uGUI_TabbedControlsPanel panel, int tabIndex)
         {
-            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel? _devMenuScrollPos: _optionsScrollPos;
+            Dictionary<int, float> scrollPos = panel is uGUI_DeveloperPanel ? _devMenuScrollPos : _optionsScrollPos;
             if (tabIndex >= 0 && tabIndex < panel.tabs.Count && scrollPos.TryGetValue(tabIndex, out float pos))
             {
                 panel.tabs[tabIndex].pane.GetComponent<ScrollRect>().verticalNormalizedPosition = pos;
