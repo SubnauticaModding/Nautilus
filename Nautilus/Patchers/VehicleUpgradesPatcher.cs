@@ -239,7 +239,8 @@ internal class VehicleUpgradesPatcher
             if (Exosuit.crushDepths.TryGetValue(techTypeInSlot, out depthToCheck) && depthToCheck > newCrushDepth)
             {
                 newCrushDepth = depthToCheck;
-                if (ExosuitUpgradeModules.TryGetValue(techTypeInSlot, out _) && ExosuitUpgradeModules[techTypeInSlot].TryGetGadget(out UpgradeModuleGadget mdlGadget))
+                ICustomPrefab gadget;
+                if (ExosuitUpgradeModules.TryGetValue(techTypeInSlot, out gadget) && gadget.TryGetGadget(out UpgradeModuleGadget mdlGadget))
                     absolute = mdlGadget.AbsoluteDepth;
             }
         }
@@ -331,7 +332,8 @@ internal class VehicleUpgradesPatcher
                 if (crushDepthToCheck > newCrushDepth)
                 {
                     newCrushDepth = crushDepthToCheck;
-                    if(SeamothUpgradeModules.TryGetValue(techTypeInSlot,out _) && SeamothUpgradeModules[techTypeInSlot].TryGetGadget(out UpgradeModuleGadget moduleGadget))
+                    ICustomPrefab gadget;
+                    if(SeamothUpgradeModules.TryGetValue(techTypeInSlot,out gadget) && gadget.TryGetGadget(out UpgradeModuleGadget moduleGadget))
                         absolute = moduleGadget.AbsoluteDepth;
                 }
             }
@@ -468,7 +470,8 @@ internal class VehicleUpgradesPatcher
             if (SeaTruckUpgrades.crushDepths.TryGetValue(techTypeInSlot, out depthToCheck) && depthToCheck > newCrushDepth)
             {
                 newCrushDepth = depthToCheck;
-                if (SeatruckUpgradeModules.TryGetValue(techTypeInSlot,out _) && SeatruckUpgradeModules[techTypeInSlot].TryGetGadget(out UpgradeModuleGadget mdlGadget))
+                ICustomPrefab gadget;
+                if (SeatruckUpgradeModules.TryGetValue(techTypeInSlot,out gadget) && gadget.TryGetGadget(out UpgradeModuleGadget mdlGadget))
                     absolute = mdlGadget.AbsoluteDepth;
             }
         }
