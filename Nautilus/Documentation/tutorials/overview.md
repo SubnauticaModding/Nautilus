@@ -28,4 +28,5 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 
 
 ### Quick References
-* [Craft Tree Paths](craft-tree-paths.md)
+* [Customizing your C# project](csproj-tutorials.md)
+* [Craft tree paths](craft-tree-paths.md)
