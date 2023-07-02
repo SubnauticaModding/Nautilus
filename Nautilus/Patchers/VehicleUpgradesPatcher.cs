@@ -7,9 +7,6 @@ using Nautilus.Utility;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static HandReticle;
-using static VehicleUpgradeConsoleInput;
-using static VFXParticlesPool;
 using OpCodes = System.Reflection.Emit.OpCodes;
 
 namespace Nautilus.Patchers;
@@ -19,7 +16,7 @@ internal class VehicleUpgradesPatcher
     internal static IDictionary<TechType, ICustomPrefab> ExosuitUpgradeModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("ExosuitUpgradeModules");
 #if BELOWZERO
     internal static IDictionary<TechType, ICustomPrefab> SeatruckUpgradeModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("SeatruckUpgradeModules");
-    //internal static IDictionary<TechType, ICustomPrefab> SnowbikeUpgradeModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("SnowbikeUpgradeModules");
+    // Hoverbikes upgrades are in the HoverbikeModulesSupport MonoBehaviour.
 #elif SUBNAUTICA
     internal static IDictionary<TechType, ICustomPrefab> SeamothUpgradeModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("SeamothUpgradeModules");
 #endif
@@ -513,7 +510,6 @@ internal class VehicleUpgradesPatcher
     // HOVERBIKE
     // AWAKE / ENTER / EXIT
     //
-    //[HarmonyDebug]
     [HarmonyPrefix]
     [HarmonyPatch(typeof(Hoverbike), nameof(Hoverbike.Awake))]
     private static void HoverbikeAwake(Hoverbike __instance)
@@ -523,7 +519,6 @@ internal class VehicleUpgradesPatcher
         InternalLogger.Info("Added hoverbike modules support component to Hoverbike.");
     }
 
-    //[HarmonyDebug]
     [HarmonyPostfix]
     [HarmonyPatch(typeof(Hoverbike), nameof(Hoverbike.EnterVehicle))]
     private static void HoverbikeEnterVehicle(Hoverbike __instance)
@@ -536,7 +531,6 @@ internal class VehicleUpgradesPatcher
         else InternalLogger.Error($"Missing {nameof(HoverbikeModulesSupport)} component to hoverbike.");
     }
 
-    //[HarmonyDebug]
     [HarmonyPostfix]
     [HarmonyPatch(typeof(Hoverbike), nameof(Hoverbike.ExitVehicle))]
     private static void HoverbikeExitVehicle(Hoverbike __instance)
