@@ -2,6 +2,7 @@ using System;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using Nautilus.Patchers;
+using Nautilus.MonoBehaviours;
 
 namespace Nautilus.Assets.Gadgets;
 
@@ -410,7 +411,7 @@ public class UpgradeModuleGadget : Gadget
                 VehicleUpgradesPatcher.SeatruckUpgradeModules.Add(prefab.Info.TechType, prefab);
                 break;
             case EquipmentType.HoverbikeModule:
-                VehicleUpgradesPatcher.SnowbikeUpgradeModules.Add(prefab.Info.TechType, prefab);
+                HoverbikeModulesSupport.CustomModules.Add(prefab.Info.TechType, prefab);
                 break;
 #elif SUBNAUTICA
             case EquipmentType.SeamothModule:

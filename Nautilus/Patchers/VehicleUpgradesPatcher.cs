@@ -2,6 +2,7 @@ using HarmonyLib;
 using HarmonyLib.Tools;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
+using Nautilus.MonoBehaviours;
 using Nautilus.Utility;
 using System.Collections.Generic;
 using UnityEngine;
@@ -517,23 +518,13 @@ internal class VehicleUpgradesPatcher
 
     //
     // HOVERBIKE
-    // ON CHANGE
+    // AWAKE
     //
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(Hoverbike), nameof(Hoverbike.OnUpgradeModuleChange))]
-    private static void OnUpgradeModuleDelegate(Hoverbike __instance, int slotID, TechType techType, bool added)
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(Hoverbike), nameof(Hoverbike.Awake))]
+    private static void OnUpgradeModuleDelegate(Hoverbike __instance)
     {
-        if (!SnowbikeUpgradeModules.TryGetValue(techType, out var prefab))
-            return;
-
-        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-            return;
-
-        if (moduleGadget.hoverbikeOnRemoved != null && !added)
-            moduleGadget.hoverbikeOnRemoved.Invoke(__instance, slotID);
-
-        if (moduleGadget.hoverbikeOnAdded != null && added)
-            moduleGadget.hoverbikeOnAdded.Invoke(__instance, slotID);
+        __instance.gameObject.EnsureComponent<HoverbikeModulesSupport>();
     }
 #endif
 }
