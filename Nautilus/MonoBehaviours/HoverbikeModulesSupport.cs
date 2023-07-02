@@ -34,6 +34,7 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
     {
         if (isInitialized)
             return;
+        hoverbike = GetComponent<Hoverbike>();
         isInitialized = true;
         slotIndices = new Dictionary<string, int>();
         int i = 0;
@@ -48,12 +49,41 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         quickSlotToggled = new bool[hoverbike.slotIDs.Length];
         hoverbike.modules.onEquip += OnEquip;
         hoverbike.modules.onUnequip += OnUnequip;
+        hoverbike.UnlockDefaultModuleSlots();
         onToggle += OnToggle;
+        InternalLogger.Debug($"Initialized {nameof(HoverbikeModulesSupport)}.");
     }
 
     private void Awake()
     {
+        InternalLogger.Debug($"LazyInitialize {nameof(HoverbikeModulesSupport)}.");
         LazyInitialize();
+    }
+
+    public void EnterVehicle()
+    {
+        try
+        {
+            uGUI.main.quickSlots.SetTarget(this);
+        }
+        catch(Exception e)
+        {
+            InternalLogger.Error($"An error occured while entering hoverbike.\n{e}");
+        }
+        InternalLogger.Info("Player entered an hoverbike.");
+    }
+
+    public void ExitVehicle()
+    {
+        try
+        {
+            uGUI.main.quickSlots.SetTarget(null);
+        }
+        catch (Exception e)
+        {
+            InternalLogger.Error($"An error occured while exiting hoverbike.\n{e}");
+        }
+        InternalLogger.Info("Player exited an hoverbike.");
     }
 
     public void ConsumeEnergy(float energy)
@@ -102,6 +132,30 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         moduleGadget.hoverbikeOnUsed?.Invoke(hoverbike, slotId, charge, chargeScalar);
         if(moduleGadget.Cooldown > 0f)
             quickSlotCooldown[slotId] = (float)moduleGadget.Cooldown;
+    }
+
+    private void ToggleSlot(int slotID, bool state)
+    {
+        if (slotID < 0 || slotID >= hoverbike.slotIDs.Length)
+        {
+            return;
+        }
+        if (quickSlotToggled[slotID] == state)
+        {
+            return;
+        }
+        quickSlotToggled[slotID] = state;
+        NotifyToggleSlot(slotID);
+    }
+
+    protected void NotifyToggleSlot(int slotID)
+    {
+        bool flag = quickSlotToggled[slotID];
+        OnToggle(slotID, flag);
+        if (onToggle != null)
+        {
+            onToggle(slotID, flag);
+        }
     }
 
     private void OnToggle(int slotID, bool state)
@@ -177,13 +231,25 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
 
     public TechType[] GetSlotBinding()
     {
-        int num = hoverbike.slotIDs.Length;
-        TechType[] array = new TechType[num];
-        for (int i = 0; i < num; i++)
+        try
         {
-            array[i] = hoverbike.modules.GetTechTypeInSlot(hoverbike.slotIDs[i]);
+            InternalLogger.Debug("GetSlotBinding now running.");
+            int slotsLength = hoverbike.slotIDs.Length;
+            InternalLogger.Debug($"GetSlotBinding slotlength: {slotsLength}");
+            TechType[] array = new TechType[slotsLength];
+            InternalLogger.Debug($"GetSlotBinding arraylength: {array.Length}");
+            for (int i = 0; i < slotsLength; i++)
+            {
+                array[i] = hoverbike.modules.GetTechTypeInSlot(hoverbike.slotIDs[i]);
+                InternalLogger.Debug($"Slot {i}: {array[i]}");
+            }
+            return array;
         }
-        return array;
+        catch(Exception e)
+        {
+            InternalLogger.Error($"An error occured while getting slots.\n{e}");
+            return new TechType[] { TechType.None };
+        }
     }
 
     public TechType GetSlotBinding(int slotID)
@@ -194,6 +260,27 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         }
         string slot = hoverbike.slotIDs[slotID];
         return hoverbike.modules.GetTechTypeInSlot(slot);
+    }
+
+    private void ResetSlotsState()
+    {
+        int i = 0;
+        int num = hoverbike.slotIDs.Length;
+        while (i < num)
+        {
+            TechType techType;
+            QuickSlotType quickSlotType = GetQuickSlotType(i, out techType);
+            if (quickSlotType == QuickSlotType.Toggleable || quickSlotType == QuickSlotType.Selectable || quickSlotType == QuickSlotType.SelectableChargeable)
+            {
+                onToggle(i, false);
+            }
+            quickSlotTimeUsed[i] = 0f;
+            quickSlotCooldown[i] = 0f;
+            quickSlotCharge[i] = 0f;
+            i++;
+        }
+        activeSlot = -1;
+        NotifySelectSlot(activeSlot);
     }
 
     public int GetSlotByItem(InventoryItem item)
@@ -220,19 +307,27 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
 
     public float GetSlotCharge(int slotID)
     {
-        if (slotID < 0 || slotID >= hoverbike.slotIDs.Length)
+        try
         {
+            if (slotID < 0 || slotID >= hoverbike.slotIDs.Length)
+            {
+                return 1f;
+            }
+            TechType techType;
+            QuickSlotType quickSlotType = GetQuickSlotType(slotID, out techType);
+            if (quickSlotType == QuickSlotType.Chargeable || quickSlotType == QuickSlotType.SelectableChargeable)
+            {
+                float quickSlotMaxCharge = TechData.GetMaxCharge(techType);
+                if (quickSlotMaxCharge > 0f)
+                {
+                    return quickSlotCharge[slotID] / quickSlotMaxCharge;
+                }
+            }
             return 1f;
         }
-        TechType techType;
-        QuickSlotType quickSlotType = GetQuickSlotType(slotID, out techType);
-        if (quickSlotType == QuickSlotType.Chargeable || quickSlotType == QuickSlotType.SelectableChargeable)
+        catch(Exception e)
         {
-            float quickSlotMaxCharge = TechData.GetMaxCharge(techType);
-            if (quickSlotMaxCharge > 0f)
-            {
-                return quickSlotCharge[slotID] / quickSlotMaxCharge;
-            }
+            InternalLogger.Error($"An error has occured while getting the slot charge.\n{e}");
         }
         return 1f;
     }
@@ -250,34 +345,6 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         }
         string slot = hoverbike.slotIDs[slotID];
         return hoverbike.modules.GetItemInSlot(slot);
-    }
-
-    public bool IsToggled(int slotID)
-    {
-        return slotID >= 0 && slotID < hoverbike.slotIDs.Length && (GetQuickSlotType(slotID) == QuickSlotType.Passive || quickSlotToggled[slotID]);
-    }
-
-    public void SlotKeyDown(int slotID)
-    {
-        if (slotID < 0 || slotID >= hoverbike.slotIDs.Length)
-        {
-            return;
-        }
-        TechType techTypeInSlot = hoverbike.modules.GetTechTypeInSlot(hoverbike.slotIDs[slotID]);
-        QuickSlotType slotType = TechData.GetSlotType(techTypeInSlot);
-        if (slotType == QuickSlotType.Selectable || slotType == QuickSlotType.SelectableChargeable)
-        {
-            if (activeSlot >= 0 && activeSlot < hoverbike.slotIDs.Length)
-            {
-                quickSlotCharge[activeSlot] = 0f;
-            }
-            activeSlot = slotID;
-        }
-        if (!QuickSlotHasCooldown(slotID) && slotType == QuickSlotType.Instant && CanUseUpgrade(techTypeInSlot) && ConsumeEnergy(techTypeInSlot))
-        {
-            OnUpgradeModuleUse(techTypeInSlot, slotID);
-        }
-        NotifySelectSlot(activeSlot);
     }
 
     protected float GetQuickSlotCooldown(int slotID)
@@ -322,24 +389,73 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         return TechData.GetSlotType(techType);
     }
 
+    public float TotalCanProvide(out int sourceCount)
+    {
+        float totalenergy = 0f;
+        sourceCount = 0;
+        var energyMixin = hoverbike.energyMixin;
+        if(energyMixin != null && energyMixin.charge > 0f)
+        {
+            totalenergy = energyMixin.charge;
+            sourceCount++;
+        }
+        return totalenergy;
+    }
+
     public void ChargeModule(TechType techType, int slotID)
     {
-        float slotCharge = quickSlotCharge[slotID];
-        float maxCharge = TechData.GetMaxCharge(techType);
-        float energyCost;
-        TechData.GetEnergyCost(techType, out energyCost);
-        float energyCostOnDeltaTime = energyCost * Time.deltaTime;
-        float remainingCharge = maxCharge - slotCharge;
-        bool energyCostGtEqRemainCharge = energyCostOnDeltaTime >= remainingCharge;
-        float finalEnergyCost = energyCostGtEqRemainCharge ? Mathf.Max(0f, remainingCharge) : energyCostOnDeltaTime;
-        float balance = Mathf.Min(hoverbike.energyMixin.energy, finalEnergyCost);
-        ConsumeEnergy(balance);
-        quickSlotCharge[slotID] = quickSlotCharge[slotID] + balance;
-        if (quickSlotCharge[slotID] > 0f && (energyCostGtEqRemainCharge || balance == 0f))
+        InternalLogger.Debug($"Charging TechType {techType} in slot {slotID}");
+        try
         {
-            OnUpgradeModuleUse(techType, slotID);
-            quickSlotCharge[slotID] = 0f;
+            float slotCharge = quickSlotCharge[slotID];
+            float maxCharge = TechData.GetMaxCharge(techType);
+            float energyCost;
+            TechData.GetEnergyCost(techType, out energyCost);
+            float energyCostOnDeltaTime = energyCost * Time.deltaTime;
+            float remainingCharge = maxCharge - slotCharge;
+            bool flag = energyCostOnDeltaTime >= remainingCharge;
+            float finalEnergyCost = flag ? Mathf.Max(0f, remainingCharge) : energyCostOnDeltaTime;
+            float addedCharge = Mathf.Min(TotalCanProvide(out int _), finalEnergyCost);
+            ConsumeEnergy(addedCharge);
+            quickSlotCharge[slotID] = quickSlotCharge[slotID] + addedCharge;
+            if (quickSlotCharge[slotID] > 0f && (flag || addedCharge == 0f))
+            {
+                OnUpgradeModuleUse(techType, slotID);
+                quickSlotCharge[slotID] = 0f;
+            }
         }
+        catch(Exception e)
+        {
+            InternalLogger.Error($"An error has occured while charging module {techType} in slot {slotID}.\n{e}");
+        }
+    }
+
+    public bool IsToggled(int slotID)
+    {
+        return slotID >= 0 && slotID < hoverbike.slotIDs.Length && (GetQuickSlotType(slotID) == QuickSlotType.Passive || quickSlotToggled[slotID]);
+    }
+
+    public void SlotKeyDown(int slotID)
+    {
+        if (slotID < 0 || slotID >= hoverbike.slotIDs.Length)
+        {
+            return;
+        }
+        TechType techTypeInSlot = hoverbike.modules.GetTechTypeInSlot(hoverbike.slotIDs[slotID]);
+        QuickSlotType slotType = TechData.GetSlotType(techTypeInSlot);
+        if (slotType == QuickSlotType.Selectable || slotType == QuickSlotType.SelectableChargeable)
+        {
+            if (activeSlot >= 0 && activeSlot < hoverbike.slotIDs.Length)
+            {
+                quickSlotCharge[activeSlot] = 0f;
+            }
+            activeSlot = slotID;
+        }
+        if (!QuickSlotHasCooldown(slotID) && slotType == QuickSlotType.Instant && CanUseUpgrade(techTypeInSlot) && ConsumeEnergy(techTypeInSlot))
+        {
+            OnUpgradeModuleUse(techTypeInSlot, slotID);
+        }
+        NotifySelectSlot(activeSlot);
     }
 
     public void SlotKeyHeld(int slotID)
@@ -357,7 +473,8 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
             return;
         }
         TechType techType;
-        if (GetQuickSlotType(slotID, out techType) == QuickSlotType.Chargeable)
+        QuickSlotType quickSlotType = GetQuickSlotType(slotID, out techType);
+        if (quickSlotType == QuickSlotType.Chargeable)
         {
             ChargeModule(techType, slotID);
         }
