@@ -1928,6 +1928,16 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/edit-csproj.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/edit-csproj.png"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "Documentation/index.md",
       "output": {
@@ -1986,6 +1996,16 @@
       "output": {
         ".html": {
           "relative_path": "tutorials/crafting-recipes.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/csproj-tutorials.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/csproj-tutorials.html"
         }
       },
       "version": ""

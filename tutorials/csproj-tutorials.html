@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Customizing your C# project </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Customizing your C# project ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/csproj-tutorials.md/#L1">
+  </head>
+
+  <script type="module">
+    import options from './../public/main.js'
+    import { init } from './../public/docfx.min.js'
+    init(options)
+  </script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="customizing-your-c-project">Customizing your C# project</h1>
+
+<p>This page contains several small tutorials for customizing and improving your development environment.</p>
+<p>Many sections expect that you have used the mod templates as shown <a href="../guides/simple-mod.html">here</a>.</p>
+<h2 id="changing-plugin-info">Changing Plugin Info</h2>
+<p>Plugins such as the BepInEx configuration manager and the Subnautica Mod Manager will show users your mod's display name.
+Your mod's version may be used for version/dependency checking. Other mods will need to use your mod's GUID for dependencies and compatibility.</p>
+<p>All of these values are automatically generated but can be changed by editing your csproj file.</p>
+<p><img src="../Documentation/images/tutorials/edit-csproj.png" alt="Solution, C# Project, Right Click, Edit Project File"></p>
+<h3 id="changing-plugin-version">Changing Plugin Version:</h3>
+<p>This is generally the easiest property to set because the <code>Version</code> tag is already present in the csproj by default.</p>
+<p>Example:</p>
+<pre><code class="lang-xml">&lt;Version&gt;1.0.0&lt;/Version&gt;
+</code></pre>
+<p>Please do not use semver here! BepInEx 5 does NOT support semver.</p>
+<p>You may also use the <code>BepInExPluginVersion</code> tag if you want more control over this.</p>
+<h3 id="changing-plugin-name">Changing Plugin Name:</h3>
+<p>You must add the <code>BepInExPluginName</code> tag to edit the Name. I suggest putting this into the same property group as the Version tag.</p>
+<p>Example:</p>
+<pre><code class="lang-xml">&lt;BepInExPluginName&gt;Project Neptune&lt;/BepInExPluginName&gt;
+</code></pre>
+<h3 id="changing-plugin-guid">Changing Plugin GUID:</h3>
+<p>You must add the <code>BepInExPluginGuid</code> tag to edit the GUID. I suggest putting this into the same property group as the Version tag.</p>
+<p>Example:</p>
+<pre><code class="lang-xml">&lt;BepInExPluginGuid&gt;com.snmodding.projectneptune&lt;/BepInExPluginGuid&gt;
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>For the sake of consistency, we recommend you use reverse-DNS naming for your GUIDs, i.e. &quot;com.authorname.modname`.</p>
+</div>
+<h2 id="automatic-project-building">Automatic project building</h2>
+<p>It is possible to use post-build scripts that automatically place your mod's DLL into the BepInEx plugins folder right after you hit Build.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>If you plan on using GitHub Actions to automate mod builds, or have many contributors with varying operating systems, this is NOT recommended. I can only test this on Windows.
+Because of the aforementioned reasons, we do <em>not</em> use this in Nautilus. However, it can be very convenient for your own personal projects.</p>
+</div>
+<h4 id="step-1">Step 1</h4>
+<p>In the same folder as your csproj, create a file named &quot;GameDir.targets&quot;.</p>
+<p>This should be the entire contents of the file:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;Project xmlns=&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;&gt;
+	&lt;PropertyGroup&gt;
+		&lt;!--If trying to build this project, please make sure the correct directory to your Subnautica folder is listed below:--&gt;
+		&lt;GameDir&gt;C:\Program Files (x86)\Steam\steamapps\common\Subnautica&lt;/GameDir&gt;
+	&lt;/PropertyGroup&gt;
+&lt;/Project&gt;
+</code></pre>
+<p>Edit the <code>GameDir</code> property's value if needed so the path matches your local Subnautica directory.
+If you understand GitHub well enough, I highly recommend adding this file to your project's gitignore.</p>
+<h4 id="step-2">Step 2</h4>
+<p>Open your csproj file as shown below:</p>
+<p><img src="../Documentation/images/tutorials/edit-csproj.png" alt="Solution, C# Project, Right Click, Edit Project File"></p>
+<p>Outside of any PropertyGroups, add the following (the comments are optional!):</p>
+<pre><code class="lang-xml">&lt;!--Imports the GameDir.targets file (from the same folder) which should contain the path to the Subnautica directory for the post-build event--&gt;
+&lt;Import Project=&quot;GameDir.targets&quot; /&gt;
+</code></pre>
+<p>This basically allows the rest of the csproj file to easily access your GameDir.targets file, and makes the <code>GameDir</code> property usable.</p>
+<h4 id="step-3">Step 3</h4>
+<p>Still in the csproj, add the following outside of any PropertyGroups:</p>
+<pre><code class="lang-xml">&lt;!--Defines the PluginsDir property for use in the Post-Build event--&gt;
+&lt;PropertyGroup&gt;
+	&lt;PluginsDir&gt;$(GameDir)\BepInEx\plugins&lt;/PluginsDir&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+<p>You shouldn't have to change this.</p>
+<h3 id="step-4">Step 4</h3>
+<p>Finally, once again in the csproj outside of any PropertyGroups, add the following:</p>
+<pre><code class="lang-xml">&lt;!--Post-Build event that automatically places your mods folder with the DLL and documentation into your plugins folder as defined in GameDir.targets--&gt;
+&lt;Target Name=&quot;PostBuild&quot; AfterTargets=&quot;PostBuildEvent&quot;&gt;
+	&lt;Exec Command=&quot;copy /Y &amp;quot;$(TargetPath)&amp;quot; &amp;quot;$(PluginsDir)\$(TargetName)&amp;quot;&quot; /&gt;
+&lt;/Target&gt;
+</code></pre>
+<p>Make sure a folder exists in the BepInEx/plugins folder with the same name as your mod DLL.</p>
+<p>If everything went correctly, upon building your project the DLL should be automatically placed in the correct location, meaning you do not have to manually move the DLL anymore!</p>
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/csproj-tutorials.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+        
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
