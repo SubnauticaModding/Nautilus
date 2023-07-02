@@ -39,5 +39,7 @@
 
 - name: Quick References
   items:
-    - name: Craft Tree Paths
+    - name: Customizing your C# project
+      href: csproj-tutorials.md
+    - name: Craft tree paths
       href: craft-tree-paths.md
