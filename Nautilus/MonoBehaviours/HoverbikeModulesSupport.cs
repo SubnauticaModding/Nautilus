@@ -11,22 +11,22 @@ namespace Nautilus.MonoBehaviours;
 /// <summary>
 /// A custom monobehaviour made to support more modules types on hoverbike.
 /// </summary>
-public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
+internal class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
 {
     public event QuickSlots.OnBind onBind;
     public event QuickSlots.OnToggle onToggle;
     public event QuickSlots.OnSelect onSelect;
     public Hoverbike hoverbike;
 
-    public static IDictionary<TechType, ICustomPrefab> CustomModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("CustomModules");
+    internal static IDictionary<TechType, ICustomPrefab> CustomModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("CustomModules");
 
-    public float[] quickSlotCooldown;
-    public float[] quickSlotTimeUsed;
-    public float[] quickSlotCharge;
-    public bool[]  quickSlotToggled;
-    public int activeSlot;
-    public Dictionary<string, int> slotIndices;
-    public bool ignoreInput { get; private set; }
+    internal float[] quickSlotCooldown;
+    internal float[] quickSlotTimeUsed;
+    internal float[] quickSlotCharge;
+    internal bool[]  quickSlotToggled;
+    internal int activeSlot;
+    internal Dictionary<string, int> slotIndices;
+    internal bool ignoreInput { get; private set; }
     private bool isInitialized = false;
 
     private void LazyInitialize()
@@ -59,7 +59,7 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         LazyInitialize();
     }
 
-    public void EnterVehicle()
+    internal void EnterVehicle()
     {
         try
         {
@@ -72,7 +72,7 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         InternalLogger.Info("Player entered an hoverbike.");
     }
 
-    public void ExitVehicle()
+    internal void ExitVehicle()
     {
         try
         {
@@ -85,12 +85,12 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         InternalLogger.Info("Player exited an hoverbike.");
     }
 
-    public void ConsumeEnergy(float energy)
+    internal void ConsumeEnergy(float energy)
     {
         hoverbike.energyMixin.ConsumeEnergy(energy);
     }
 
-    public bool ConsumeEnergy(TechType techType)
+    internal bool ConsumeEnergy(TechType techType)
     {
         if (!TechData.GetEnergyCost(techType, out float energyCost))
             return false;
@@ -98,7 +98,7 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         return true;
     }
 
-    public bool QuickSlotHasCooldown(int slotID)
+    internal bool QuickSlotHasCooldown(int slotID)
     {
         return quickSlotTimeUsed[slotID] + quickSlotCooldown[slotID] > Time.time;
     }
@@ -111,13 +111,13 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         }
     }
 
-    public bool CanUseUpgrade(TechType techType)
+    internal bool CanUseUpgrade(TechType techType)
     {
         bool canUseModule = TechData.GetSlotType(techType) == QuickSlotType.Passive || TechData.GetSlotType(techType) == QuickSlotType.None || !hoverbike.kinematicOverride;
         return canUseModule;
     }
 
-    public void OnUpgradeModuleUse(TechType techType, int slotId)
+    internal void OnUpgradeModuleUse(TechType techType, int slotId)
     {
         quickSlotTimeUsed[slotId] = Time.time;
         if (!CustomModules.TryGetValue(techType, out ICustomPrefab modulePrefab))
@@ -185,7 +185,7 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         UpgradeModuleChanged(slot, techType, false);
     }
 
-    public void UpgradeModuleChanged(string slot, TechType techType, bool added)
+    internal void UpgradeModuleChanged(string slot, TechType techType, bool added)
     {
         int slotID;
         if (!slotIndices.TryGetValue(slot, out slotID))
@@ -194,7 +194,7 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         OnUpgradeModuleChange(slotID, techType, added);
     }
 
-    public void OnUpgradeModuleChange(int slotID, TechType techType, bool added)
+    internal void OnUpgradeModuleChange(int slotID, TechType techType, bool added)
     {
         if (!CustomModules.TryGetValue(techType, out ICustomPrefab prefab))
             return;
@@ -356,7 +356,7 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         return Mathf.Clamp01((Time.time - quickSlotTimeUsed[slotID]) / cooldown);
     }
 
-    public QuickSlotType GetQuickSlotType(int slotID, out TechType techType)
+    internal QuickSlotType GetQuickSlotType(int slotID, out TechType techType)
     {
         if (slotID >= 0 && slotID < hoverbike.slotIDs.Length)
         {
@@ -370,7 +370,7 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         return QuickSlotType.None;
     }
 
-    public QuickSlotType GetQuickSlotType(int slotID)
+    internal QuickSlotType GetQuickSlotType(int slotID)
     {
         if (slotID >= 0 && slotID < hoverbike.slotIDs.Length)
         {
@@ -383,12 +383,12 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         return QuickSlotType.None;
     }
 
-    public QuickSlotType GetQuickSlotType(TechType techType)
+    internal QuickSlotType GetQuickSlotType(TechType techType)
     {
         return TechData.GetSlotType(techType);
     }
 
-    public float TotalCanProvide(out int sourceCount)
+    internal float TotalCanProvide(out int sourceCount)
     {
         float totalenergy = 0f;
         sourceCount = 0;
@@ -401,7 +401,7 @@ public class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
         return totalenergy;
     }
 
-    public void ChargeModule(TechType techType, int slotID)
+    internal void ChargeModule(TechType techType, int slotID)
     {
         InternalLogger.Debug($"Charging TechType {techType} in slot {slotID}");
         try
