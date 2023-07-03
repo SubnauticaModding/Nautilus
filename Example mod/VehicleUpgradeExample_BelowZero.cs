@@ -36,7 +36,7 @@ public class VehicleUpgradeExample : BaseUnityPlugin
         };
         Action<Hoverbike, int> onAdded = (Hoverbike instance, int slotID) =>
         {
-            if (electricalDefensePrefab is null)
+            if (electricalDefensePrefab == null)
                 CoroutineHost.StartCoroutine(InitElectricalPrefab());
             Subtitles.Add("Hoverbike perimeter defense upgrade module engaged.");
         };
@@ -48,7 +48,7 @@ public class VehicleUpgradeExample : BaseUnityPlugin
 
         Action<Hoverbike, int, float, float> onUsed = (Hoverbike instance, int slotID, float charge, float chargeScalar) =>
         {
-            if (electricalDefensePrefab is not null)
+            if (electricalDefensePrefab != null)
             {
                 var electricalDefense = Utils.SpawnZeroedAt(electricalDefensePrefab, instance.transform, false).GetComponent<ElectricalDefense>();
                 electricalDefense.charge = charge;
