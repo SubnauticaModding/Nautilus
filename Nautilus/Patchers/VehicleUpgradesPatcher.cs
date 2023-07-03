@@ -542,5 +542,5 @@ internal class VehicleUpgradesPatcher
         }
         else InternalLogger.Error($"Missing {nameof(HoverbikeModulesSupport)} component to hoverbike.");
     }
-}
 #endif
+}
