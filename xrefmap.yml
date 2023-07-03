@@ -11052,12 +11052,12 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PrefabUtils.AddBasicComponents
   nameWithType: PrefabUtils.AddBasicComponents
-- uid: Nautilus.Utility.PrefabUtils.AddConstructable(UnityEngine.GameObject,TechType,Nautilus.Utility.ConstructableFlags)
-  name: AddConstructable(GameObject, TechType, ConstructableFlags)
-  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddConstructable_UnityEngine_GameObject_TechType_Nautilus_Utility_ConstructableFlags_
-  commentId: M:Nautilus.Utility.PrefabUtils.AddConstructable(UnityEngine.GameObject,TechType,Nautilus.Utility.ConstructableFlags)
-  fullName: Nautilus.Utility.PrefabUtils.AddConstructable(UnityEngine.GameObject, TechType, Nautilus.Utility.ConstructableFlags)
-  nameWithType: PrefabUtils.AddConstructable(GameObject, TechType, ConstructableFlags)
+- uid: Nautilus.Utility.PrefabUtils.AddConstructable(UnityEngine.GameObject,TechType,Nautilus.Utility.ConstructableFlags,UnityEngine.GameObject)
+  name: AddConstructable(GameObject, TechType, ConstructableFlags, GameObject)
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddConstructable_UnityEngine_GameObject_TechType_Nautilus_Utility_ConstructableFlags_UnityEngine_GameObject_
+  commentId: M:Nautilus.Utility.PrefabUtils.AddConstructable(UnityEngine.GameObject,TechType,Nautilus.Utility.ConstructableFlags,UnityEngine.GameObject)
+  fullName: Nautilus.Utility.PrefabUtils.AddConstructable(UnityEngine.GameObject, TechType, Nautilus.Utility.ConstructableFlags, UnityEngine.GameObject)
+  nameWithType: PrefabUtils.AddConstructable(GameObject, TechType, ConstructableFlags, GameObject)
 - uid: Nautilus.Utility.PrefabUtils.AddConstructable*
   name: AddConstructable
   href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddConstructable_
