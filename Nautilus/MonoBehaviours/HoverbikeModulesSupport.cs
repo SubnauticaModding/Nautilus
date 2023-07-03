@@ -16,7 +16,7 @@ internal class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
     public event QuickSlots.OnBind onBind;
     public event QuickSlots.OnToggle onToggle;
     public event QuickSlots.OnSelect onSelect;
-    public Hoverbike hoverbike;
+    internal Hoverbike hoverbike;
 
     internal static IDictionary<TechType, ICustomPrefab> CustomModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("CustomModules");
 
