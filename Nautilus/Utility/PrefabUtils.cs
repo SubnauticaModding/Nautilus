@@ -100,8 +100,11 @@ public static class PrefabUtils
     /// <param name="prefab">The prefab to operate on.</param>
     /// <param name="techType">The tech type associated with the specified prefab.</param>
     /// <param name="constructableFlags">A bitmask comprised of one or more <see cref="ConstructableFlags"/> that specify how the prefab should be treated during placement.</param>
+    /// <param name="model"><para>The child GameObject that holds all the renderers that are used for the ghost model.
+    /// If assigned, this parameter will control the <see cref="Constructable.model"/> field. This field MUST BE ASSIGNED A VALUE to avoid errors when building!</para>
+    /// <para>This should be a child of <paramref name="prefab"/>, and NOT the root. If it is the same value as <paramref name="prefab"/>, you have done something wrong!</para></param>
     /// <returns>The added constructable component.</returns>
-    public static Constructable AddConstructable(GameObject prefab, TechType techType, ConstructableFlags constructableFlags)
+    public static Constructable AddConstructable(GameObject prefab, TechType techType, ConstructableFlags constructableFlags, GameObject model = null)
     {
         if (techType is TechType.None)
         {
@@ -122,6 +125,9 @@ public static class PrefabUtils
         constructable.allowedOnCeiling = constructableFlags.HasFlag(ConstructableFlags.Ceiling);
         constructable.allowedOnConstructables = constructableFlags.HasFlag(ConstructableFlags.AllowedOnConstructable);
         constructable.allowedOnWall = constructableFlags.HasFlag(ConstructableFlags.Wall);
+
+        if (model != null)
+            constructable.model = model;
 
         return constructable;
     }
