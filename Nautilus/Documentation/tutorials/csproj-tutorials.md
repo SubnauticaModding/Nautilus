@@ -50,7 +50,7 @@ Example:
 > [!NOTE]
 > For the sake of consistency, we recommend you use reverse-DNS naming for your GUIDs, i.e. "com.authorname.modname`.
 
-## Automatic project building
+## Automatic DLL copying
 
 It is possible to use post-build scripts that automatically place your mod's DLL into the BepInEx plugins folder right after you hit Build.
 
