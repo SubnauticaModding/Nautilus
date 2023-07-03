@@ -29,7 +29,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
          * Here, we're  assigning the hull icon for our item.
          * You may also use a custom image icon by calling the ImageUtils.LoadSpriteFromFile method or with AssetBundles, like mentioned higher.
          */
-        depthUpgradeInfo.WithIcon(SpriteManager.Get(TechType.HullReinforcementModule2));
+        depthUpgradeInfo.WithIcon(SpriteManager.Get(TechType.VehicleHullModule3));
         Logger.LogDebug("Registerd depth upgrade icon");
 
         /*
@@ -157,45 +157,6 @@ public class VehicleUpgradesExample : BaseUnityPlugin
                 defense.chargeScalar = chargeScalar;
             });
         selfDefMK2prefab.Register();
-
-        /*
-         * And finally, a CUSTOMIZABLE-after-restart depth module!
-         */
-
-        // PLANNED FOR ANOTHER PR.
-/*
-        PrefabInfo prefabInfo = PrefabInfo.WithTechType("SeamothCustomDepthModule", "Seamoth Variable Depth Upgrade", "Customize the depth of your upgrade from the game settings!")
-            .WithIcon(SpriteManager.Get(TechType.SeamothReinforcementModule))
-            .WithSizeInInventory(new Vector2int(1, 1));
-
-        CustomPrefab prefab = new(prefabInfo);
-        CloneTemplate clone = new(prefabInfo, TechType.SeamothReinforcementModule);
-
-        prefab.SetGameObject(clone);
-        prefab.SetPdaGroupCategory(TechGroup.VehicleUpgrades, TechCategory.VehicleUpgrades);
-        prefab.SetRecipe(new Crafting.RecipeData()
-        {
-            craftAmount = 1,
-            Ingredients = new List<CraftData.Ingredient>()
-            {
-                new CraftData.Ingredient(TechType.SeamothReinforcementModule),
-                new CraftData.Ingredient(TechType.Diamond, 2)
-            }
-        })
-            .WithFabricatorType(CraftTree.Type.SeamothUpgrades)
-            .WithCraftingTime(4f)
-            .WithStepsToFabricatorTab("SeamothModules");
-        prefab.SetVehicleUpgradeModule(EquipmentType.SeamothModule)
-                .WithDepthUpgrade(() => config.MaxDepth, true)
-                .WithOnModuleAdded((Vehicle vehicleInstance, int slotId) => {
-                    Subtitles.Add($"New seamoth depth: {config.MaxDepth} meters.\nAdded in slot #{slotId + 1}.");
-                })
-                .WithOnModuleRemoved((Vehicle vehicleInstance, int slotId) =>
-                {
-                    Subtitles.Add($"Seamoth depth module removed from slot #{slotId + 1}!");
-                });
-        prefab.Register();
-*/
     }
 }
 
