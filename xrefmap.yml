@@ -3876,42 +3876,42 @@ references:
   fullName.vb: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(String, Nautilus.FMod.Interfaces.IFModSound)
   nameWithType: CustomSoundHandler.RegisterCustomSound(string, IFModSound)
   nameWithType.vb: CustomSoundHandler.RegisterCustomSound(String, IFModSound)
-- uid: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,System.String,FMOD.Studio.Bus)
-  name: RegisterCustomSound(string, string, Bus)
-  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_System_String_FMOD_Studio_Bus_
-  commentId: M:Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,System.String,FMOD.Studio.Bus)
-  name.vb: RegisterCustomSound(String, String, Bus)
-  fullName: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(string, string, FMOD.Studio.Bus)
-  fullName.vb: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(String, String, FMOD.Studio.Bus)
-  nameWithType: CustomSoundHandler.RegisterCustomSound(string, string, Bus)
-  nameWithType.vb: CustomSoundHandler.RegisterCustomSound(String, String, Bus)
-- uid: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,System.String,System.String)
-  name: RegisterCustomSound(string, string, string)
-  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_System_String_System_String_
-  commentId: M:Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,System.String,System.String)
-  name.vb: RegisterCustomSound(String, String, String)
-  fullName: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(string, string, string)
-  fullName.vb: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(String, String, String)
-  nameWithType: CustomSoundHandler.RegisterCustomSound(string, string, string)
-  nameWithType.vb: CustomSoundHandler.RegisterCustomSound(String, String, String)
-- uid: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,UnityEngine.AudioClip,FMOD.Studio.Bus)
-  name: RegisterCustomSound(string, AudioClip, Bus)
-  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_UnityEngine_AudioClip_FMOD_Studio_Bus_
-  commentId: M:Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,UnityEngine.AudioClip,FMOD.Studio.Bus)
-  name.vb: RegisterCustomSound(String, AudioClip, Bus)
-  fullName: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(string, UnityEngine.AudioClip, FMOD.Studio.Bus)
-  fullName.vb: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(String, UnityEngine.AudioClip, FMOD.Studio.Bus)
-  nameWithType: CustomSoundHandler.RegisterCustomSound(string, AudioClip, Bus)
-  nameWithType.vb: CustomSoundHandler.RegisterCustomSound(String, AudioClip, Bus)
-- uid: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,UnityEngine.AudioClip,System.String)
-  name: RegisterCustomSound(string, AudioClip, string)
-  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_UnityEngine_AudioClip_System_String_
-  commentId: M:Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,UnityEngine.AudioClip,System.String)
-  name.vb: RegisterCustomSound(String, AudioClip, String)
-  fullName: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(string, UnityEngine.AudioClip, string)
-  fullName.vb: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(String, UnityEngine.AudioClip, String)
-  nameWithType: CustomSoundHandler.RegisterCustomSound(string, AudioClip, string)
-  nameWithType.vb: CustomSoundHandler.RegisterCustomSound(String, AudioClip, String)
+- uid: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,System.String,FMOD.Studio.Bus,FMOD.MODE)
+  name: RegisterCustomSound(string, string, Bus, MODE)
+  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_System_String_FMOD_Studio_Bus_FMOD_MODE_
+  commentId: M:Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,System.String,FMOD.Studio.Bus,FMOD.MODE)
+  name.vb: RegisterCustomSound(String, String, Bus, MODE)
+  fullName: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(string, string, FMOD.Studio.Bus, FMOD.MODE)
+  fullName.vb: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(String, String, FMOD.Studio.Bus, FMOD.MODE)
+  nameWithType: CustomSoundHandler.RegisterCustomSound(string, string, Bus, MODE)
+  nameWithType.vb: CustomSoundHandler.RegisterCustomSound(String, String, Bus, MODE)
+- uid: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,System.String,System.String,FMOD.MODE)
+  name: RegisterCustomSound(string, string, string, MODE)
+  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_System_String_System_String_FMOD_MODE_
+  commentId: M:Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,System.String,System.String,FMOD.MODE)
+  name.vb: RegisterCustomSound(String, String, String, MODE)
+  fullName: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(string, string, string, FMOD.MODE)
+  fullName.vb: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(String, String, String, FMOD.MODE)
+  nameWithType: CustomSoundHandler.RegisterCustomSound(string, string, string, MODE)
+  nameWithType.vb: CustomSoundHandler.RegisterCustomSound(String, String, String, MODE)
+- uid: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,UnityEngine.AudioClip,FMOD.Studio.Bus,FMOD.MODE)
+  name: RegisterCustomSound(string, AudioClip, Bus, MODE)
+  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_UnityEngine_AudioClip_FMOD_Studio_Bus_FMOD_MODE_
+  commentId: M:Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,UnityEngine.AudioClip,FMOD.Studio.Bus,FMOD.MODE)
+  name.vb: RegisterCustomSound(String, AudioClip, Bus, MODE)
+  fullName: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(string, UnityEngine.AudioClip, FMOD.Studio.Bus, FMOD.MODE)
+  fullName.vb: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(String, UnityEngine.AudioClip, FMOD.Studio.Bus, FMOD.MODE)
+  nameWithType: CustomSoundHandler.RegisterCustomSound(string, AudioClip, Bus, MODE)
+  nameWithType.vb: CustomSoundHandler.RegisterCustomSound(String, AudioClip, Bus, MODE)
+- uid: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,UnityEngine.AudioClip,System.String,FMOD.MODE)
+  name: RegisterCustomSound(string, AudioClip, string, MODE)
+  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_UnityEngine_AudioClip_System_String_FMOD_MODE_
+  commentId: M:Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,UnityEngine.AudioClip,System.String,FMOD.MODE)
+  name.vb: RegisterCustomSound(String, AudioClip, String, MODE)
+  fullName: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(string, UnityEngine.AudioClip, string, FMOD.MODE)
+  fullName.vb: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(String, UnityEngine.AudioClip, String, FMOD.MODE)
+  nameWithType: CustomSoundHandler.RegisterCustomSound(string, AudioClip, string, MODE)
+  nameWithType.vb: CustomSoundHandler.RegisterCustomSound(String, AudioClip, String, MODE)
 - uid: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound*
   name: RegisterCustomSound
   href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_
@@ -9275,6 +9275,24 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.AudioUtils.GetFmodAsset
   nameWithType: AudioUtils.GetFmodAsset
+- uid: Nautilus.Utility.AudioUtils.StandardSoundModes_2D
+  name: StandardSoundModes_2D
+  href: api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_2D
+  commentId: F:Nautilus.Utility.AudioUtils.StandardSoundModes_2D
+  fullName: Nautilus.Utility.AudioUtils.StandardSoundModes_2D
+  nameWithType: AudioUtils.StandardSoundModes_2D
+- uid: Nautilus.Utility.AudioUtils.StandardSoundModes_3D
+  name: StandardSoundModes_3D
+  href: api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_3D
+  commentId: F:Nautilus.Utility.AudioUtils.StandardSoundModes_3D
+  fullName: Nautilus.Utility.AudioUtils.StandardSoundModes_3D
+  nameWithType: AudioUtils.StandardSoundModes_3D
+- uid: Nautilus.Utility.AudioUtils.StandardSoundModes_Stream
+  name: StandardSoundModes_Stream
+  href: api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_Stream
+  commentId: F:Nautilus.Utility.AudioUtils.StandardSoundModes_Stream
+  fullName: Nautilus.Utility.AudioUtils.StandardSoundModes_Stream
+  nameWithType: AudioUtils.StandardSoundModes_Stream
 - uid: Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound,FMOD.Studio.Bus,FMOD.Channel@)
   name: TryPlaySound(Sound, Bus, out Channel)
   href: api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__

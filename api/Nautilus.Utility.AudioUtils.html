@@ -142,6 +142,100 @@
 
 
 
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Nautilus_Utility_AudioUtils_StandardSoundModes_2D" data-uid="Nautilus.Utility.AudioUtils.StandardSoundModes_2D">
+  StandardSoundModes_2D
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">2D sounds</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const MODE StandardSoundModes_2D = _2D | ACCURATETIME</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">MODE</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Utility_AudioUtils_StandardSoundModes_3D" data-uid="Nautilus.Utility.AudioUtils.StandardSoundModes_3D">
+  StandardSoundModes_3D
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">3D sounds</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const MODE StandardSoundModes_3D = _3D | ACCURATETIME | _3D_LINEARSQUAREROLLOFF</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">MODE</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Utility_AudioUtils_StandardSoundModes_Stream" data-uid="Nautilus.Utility.AudioUtils.StandardSoundModes_Stream">
+  StandardSoundModes_Stream
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">For music, PDA voices and any 2D sounds that can have more than one instance at a time.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const MODE StandardSoundModes_Stream = _2D | CREATESTREAM | ACCURATETIME</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">MODE</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -150,7 +244,7 @@
 
   <h3 id="Nautilus_Utility_AudioUtils_CreateSound_System_String_FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSound(System.String,FMOD.MODE)">
   CreateSound(string, MODE)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a <span class="xref">FMOD.Sound</span> instance from a path. Can be stored and later used with <a class="xref" href="Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__">TryPlaySound(Sound, Bus, out Channel)</a></div>
@@ -188,7 +282,7 @@
 
   <h3 id="Nautilus_Utility_AudioUtils_CreateSound_UnityEngine_AudioClip_FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSound(UnityEngine.AudioClip,FMOD.MODE)">
   CreateSound(AudioClip, MODE)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a <span class="xref">FMOD.Sound</span> instance from an <span class="xref">UnityEngine.AudioClip</span>. Can be stored and later used with <a class="xref" href="Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__">TryPlaySound(Sound, Bus, out Channel)</a></div>
@@ -226,7 +320,7 @@
 
   <h3 id="Nautilus_Utility_AudioUtils_CreateSounds_System_Collections_Generic_IEnumerable_System_String__FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSounds(System.Collections.Generic.IEnumerable{System.String},FMOD.MODE)">
   CreateSounds(IEnumerable&lt;string&gt;, MODE)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L59"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Converts a sound paths collection to an FMOD <span class="xref">FMOD.Sound</span> collection.</div>
@@ -264,7 +358,7 @@
 
   <h3 id="Nautilus_Utility_AudioUtils_CreateSounds_System_Collections_Generic_IEnumerable_UnityEngine_AudioClip__FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSounds(System.Collections.Generic.IEnumerable{UnityEngine.AudioClip},FMOD.MODE)">
   CreateSounds(IEnumerable&lt;AudioClip&gt;, MODE)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L61"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates an FMOD <span class="xref">FMOD.Sound</span> collection from an <span class="xref">UnityEngine.AudioClip</span> collection.</div>
@@ -302,7 +396,7 @@
 
   <h3 id="Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_" data-uid="Nautilus.Utility.AudioUtils.GetFmodAsset(System.String,System.String)">
   GetFmodAsset(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L128"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Returns a new <span class="xref">FMODAsset</span> with the given parameters. An FMODAsset is a data object that is required for various audio-related classes and methods, since it holds references to internal sound IDs.</p>
@@ -344,7 +438,7 @@
 
   <h3 id="Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__" data-uid="Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound,FMOD.Studio.Bus,FMOD.Channel@)">
   TryPlaySound(Sound, Bus, out Channel)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L87"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L104"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Plays a <span class="xref">FMOD.Sound</span> on the specified <span class="xref">FMOD.Studio.Bus</span>.</div>
@@ -384,7 +478,7 @@
 
   <h3 id="Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_System_String_FMOD_Channel__" data-uid="Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound,System.String,FMOD.Channel@)">
   TryPlaySound(Sound, string, out Channel)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/AudioUtils.cs/#L84"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Plays a <span class="xref">FMOD.Sound</span> on the specified <span class="xref">FMOD.Studio.Bus</span>.</div>
