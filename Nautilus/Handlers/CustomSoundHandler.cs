@@ -19,7 +19,8 @@ public static class CustomSoundHandler
     /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
     /// <param name="filePath">The file path on disk of the sound file to load.</param>
     /// <param name="busPath">The bus path to play the sound on.</param>
-    /// <param name="mode">The audio MODE of the sound.</param>
+    /// <param name="mode">The audio MODE of the sound.
+    /// Standard values of this property can be found in the <see cref="AudioUtils"/> class (i.e. <see cref="AudioUtils.StandardSoundModes_3D"/>).</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
     public static Sound RegisterCustomSound(string id, string filePath, string busPath, MODE mode = MODE.DEFAULT)
     {
@@ -33,7 +34,8 @@ public static class CustomSoundHandler
     /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
     /// <param name="filePath">The file path on disk of the sound file to load.</param>
     /// <param name="bus">The bus to play the sound on.</param>
-    /// <param name="mode">The audio MODE of the sound.</param>
+    /// <param name="mode">The audio MODE of the sound.
+    /// Standard values of this property can be found in the <see cref="AudioUtils"/> class (i.e. <see cref="AudioUtils.StandardSoundModes_3D"/>).</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
     public static Sound RegisterCustomSound(string id, string filePath, Bus bus, MODE mode = MODE.DEFAULT)
     {
@@ -53,7 +55,8 @@ public static class CustomSoundHandler
     /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
     /// <param name="audio">The AudioClip to register.</param>
     /// <param name="busPath">The bus path to play the sound on.</param>
-    /// <param name="mode">The audio MODE of the sound.</param>
+    /// <param name="mode">The audio MODE of the sound.
+    /// Standard values of this property can be found in the <see cref="AudioUtils"/> class (i.e. <see cref="AudioUtils.StandardSoundModes_3D"/>).</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
     public static Sound RegisterCustomSound(string id, AudioClip audio, string busPath, MODE mode = MODE.DEFAULT)
     {
@@ -67,7 +70,8 @@ public static class CustomSoundHandler
     /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
     /// <param name="audio">The AudioClip to register.</param>
     /// <param name="bus">The bus to play the sound on.</param>
-    /// <param name="mode">The audio MODE of the sound.</param>
+    /// <param name="mode">The audio MODE of the sound.
+    /// Standard values of this property can be found in the <see cref="AudioUtils"/> class (i.e. <see cref="AudioUtils.StandardSoundModes_3D"/>).</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
     public static Sound RegisterCustomSound(string id, AudioClip audio, Bus bus, MODE mode = MODE.DEFAULT)
     {
