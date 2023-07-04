@@ -395,7 +395,7 @@ internal class VehicleUpgradesPatcher
     // SEATRUCK
     // ON USE
     //
-    private static void DelegateUseCallback(SeaTruckUpgrades __instance, int slotID, TechType techType)
+    /*private static void DelegateUseCallback(SeaTruckUpgrades __instance, int slotID, TechType techType)
     {
         if (!SeatruckUpgradeModules.TryGetValue(techType, out var prefab))
             return;
@@ -428,7 +428,7 @@ internal class VehicleUpgradesPatcher
             );
 
         return matcher.InstructionEnumeration();
-    }
+    }*/
 
     //
     // SEATRUCK
