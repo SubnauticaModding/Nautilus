@@ -180,7 +180,7 @@ public static class PDAHandler
     /// <param name="icon">The icon that will be used in the Log tab for this entry. if unassigned, it will use the default log entry icon.</param>
     public static void AddLogEntry(string key, string languageKey, AudioClip audioClip, Sprite icon = null)
     {
-        AddLogEntry(key, languageKey, CustomSoundHandler.RegisterCustomSound(key, audioClip, AudioUtils.BusPaths.PDAVoice), icon);
+        AddLogEntry(key, languageKey, CustomSoundHandler.RegisterCustomSound(key, audioClip, AudioUtils.BusPaths.PDAVoice, AudioUtils.StandardSoundModes_Stream), icon);
     }
 
     /// <summary>
@@ -192,7 +192,7 @@ public static class PDAHandler
     /// <param name="icon">The icon that will be used in the Log tab for this entry. if unassigned, it will use the default log entry icon.</param>
     public static void AddLogEntry(string key, string languageKey, string soundFilePath, Sprite icon = null)
     {
-        AddLogEntry(key, languageKey, CustomSoundHandler.RegisterCustomSound(key, soundFilePath, AudioUtils.BusPaths.PDAVoice), icon);
+        AddLogEntry(key, languageKey, CustomSoundHandler.RegisterCustomSound(key, soundFilePath, AudioUtils.BusPaths.PDAVoice, AudioUtils.StandardSoundModes_Stream), icon);
     }
 
     /// <summary>
