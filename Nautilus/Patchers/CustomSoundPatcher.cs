@@ -44,11 +44,6 @@ internal class CustomSoundPatcher
 
         InternalLogger.Debug($"FMODExtensions.GetLength(\"{path}\") executed. Checking if it's a custom sound...");
 
-        foreach(KeyValuePair<string, Sound> kvp in CustomSounds)
-        {
-            InternalLogger.Debug($"CustomSound: {kvp.Key}");
-        }
-
         if (!CustomSounds.ContainsKey(path))
             return true;
 
