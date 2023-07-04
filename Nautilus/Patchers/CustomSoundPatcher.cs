@@ -451,7 +451,7 @@ internal class CustomSoundPatcher
                 return true;
             }
 #if BELOWZERO
-            if (SoundQueue.GetPlaybackState(__instance.eventInstance) is not PLAYBACK_STATE.STARTING or PLAYBACK_STATE.PLAYING)
+            if (SoundQueue.GetPlaybackState(__instance.eventInstance) is not (PLAYBACK_STATE.STARTING or PLAYBACK_STATE.PLAYING))
             {
                 return true;
             }
@@ -459,7 +459,7 @@ internal class CustomSoundPatcher
             if (!SoundQueue.GetIsStartingOrPlaying(__instance.eventInstance)) return true;
 #endif
 
-            ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
+        ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
             channel.getPosition(out uint position, TIMEUNIT.MS);
             instanceCurrent.position = (int)position;

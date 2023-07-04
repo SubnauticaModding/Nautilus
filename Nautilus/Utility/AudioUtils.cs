@@ -72,6 +72,10 @@ public static partial class AudioUtils
     {
         channel = default;
         Bus bus = RuntimeManager.GetBus(busPath);
+        if (bus.getChannelGroup(out _) != RESULT.OK)
+        {
+            bus.lockChannelGroup().CheckResult();
+        }
         return bus.getChannelGroup(out ChannelGroup channelGroup) == RESULT.OK &&
                channelGroup.getPaused(out bool paused) == RESULT.OK &&
                FMOD_System.playSound(sound, channelGroup, paused, out channel) == RESULT.OK;
@@ -87,6 +91,10 @@ public static partial class AudioUtils
     public static bool TryPlaySound(Sound sound, Bus bus, out Channel channel)
     {
         channel = default;
+        if (bus.getChannelGroup(out _) != RESULT.OK)
+        {
+            bus.lockChannelGroup().CheckResult();
+        }
         return bus.getChannelGroup(out ChannelGroup channelGroup) == RESULT.OK &&
                channelGroup.getPaused(out bool paused) == RESULT.OK &&
                FMOD_System.playSound(sound, channelGroup, paused, out channel) == RESULT.OK;
