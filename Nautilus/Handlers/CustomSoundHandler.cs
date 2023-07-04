@@ -19,11 +19,12 @@ public static class CustomSoundHandler
     /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
     /// <param name="filePath">The file path on disk of the sound file to load.</param>
     /// <param name="busPath">The bus path to play the sound on.</param>
+    /// <param name="mode">The audio MODE of the sound.</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
-    public static Sound RegisterCustomSound(string id, string filePath, string busPath)
+    public static Sound RegisterCustomSound(string id, string filePath, string busPath, MODE mode = MODE.DEFAULT)
     {
         Bus bus = RuntimeManager.GetBus(busPath);
-        return RegisterCustomSound(id, filePath, bus);
+        return RegisterCustomSound(id, filePath, bus, mode);
     }
 
     /// <summary>
@@ -32,14 +33,15 @@ public static class CustomSoundHandler
     /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
     /// <param name="filePath">The file path on disk of the sound file to load.</param>
     /// <param name="bus">The bus to play the sound on.</param>
+    /// <param name="mode">The audio MODE of the sound.</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
-    public static Sound RegisterCustomSound(string id, string filePath, Bus bus)
+    public static Sound RegisterCustomSound(string id, string filePath, Bus bus, MODE mode = MODE.DEFAULT)
     {
         if (bus.getChannelGroup(out _) != RESULT.OK)
         {
             bus.lockChannelGroup().CheckResult();
         }
-        Sound sound = AudioUtils.CreateSound(filePath);
+        Sound sound = AudioUtils.CreateSound(filePath, mode);
         CustomSoundPatcher.CustomSounds[id] = sound;
         CustomSoundPatcher.CustomSoundBuses[id] = bus;
         return sound;
@@ -51,11 +53,12 @@ public static class CustomSoundHandler
     /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
     /// <param name="audio">The AudioClip to register.</param>
     /// <param name="busPath">The bus path to play the sound on.</param>
+    /// <param name="mode">The audio MODE of the sound.</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
-    public static Sound RegisterCustomSound(string id, AudioClip audio, string busPath)
+    public static Sound RegisterCustomSound(string id, AudioClip audio, string busPath, MODE mode = MODE.DEFAULT)
     {
         Bus bus = RuntimeManager.GetBus(busPath);
-        return RegisterCustomSound(id, audio, bus);
+        return RegisterCustomSound(id, audio, bus, mode);
     }
 
     /// <summary>
@@ -64,14 +67,15 @@ public static class CustomSoundHandler
     /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
     /// <param name="audio">The AudioClip to register.</param>
     /// <param name="bus">The bus to play the sound on.</param>
+    /// <param name="mode">The audio MODE of the sound.</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
-    public static Sound RegisterCustomSound(string id, AudioClip audio, Bus bus)
+    public static Sound RegisterCustomSound(string id, AudioClip audio, Bus bus, MODE mode = MODE.DEFAULT)
     {
         if (bus.getChannelGroup(out _) != RESULT.OK)
         {
             bus.lockChannelGroup().CheckResult();
         }
-        Sound sound = AudioUtils.CreateSound(audio);
+        Sound sound = AudioUtils.CreateSound(audio, mode);
         CustomSoundPatcher.CustomSounds[id] = sound;
         CustomSoundPatcher.CustomSoundBuses[id] = bus;
         return sound;
@@ -119,7 +123,7 @@ public static class CustomSoundHandler
     /// Try to find and play a custom <see cref="Sound"/> that has been registered.
     /// </summary>
     /// <param name="id">The Id of the custom sound</param>
-    /// <param name="channel">the <see cref="Channel"/>the sound is playing on.</param>
+    /// <param name="channel">the <see cref="Channel"/> the sound is playing on.</param>
     public static bool TryPlayCustomSound(string id, out Channel channel)
     {
         channel = default;

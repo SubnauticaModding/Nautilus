@@ -14,6 +14,19 @@ namespace Nautilus.Utility;
 /// </summary>
 public static partial class AudioUtils
 {
+    /// <summary>
+    /// 3D sounds
+    /// </summary>
+    public const MODE k3DOptiSoundModes = MODE.DEFAULT | MODE._3D | MODE.ACCURATETIME | MODE._3D_LINEARSQUAREROLLOFF;
+    /// <summary>
+    /// 2D sounds
+    /// </summary>
+    public const MODE k2DOptiSoundModes = MODE.DEFAULT | MODE._2D | MODE.ACCURATETIME;
+    /// <summary>
+    /// For music, PDA and any 2D sounds that can have more than one instance at a time.
+    /// </summary>
+    public const MODE kStreamSoundModes = k2DOptiSoundModes | MODE.CREATESTREAM;
+
     private static FMOD.System FMOD_System => RuntimeManager.CoreSystem;
 
     /// <summary>
