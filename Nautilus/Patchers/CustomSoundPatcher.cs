@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
@@ -30,6 +30,43 @@ internal class CustomSoundPatcher
     {
         EmitterPlayedChannels.Clear();
         PlayedChannels.Clear();
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(FMODExtensions), nameof(FMODExtensions.GetLength))]
+    public static bool FMODExtension_GetLength_Prefix(string path, ref int __result)
+    {
+        if(string.IsNullOrEmpty(path))
+        {
+            __result = 0;
+            return false;
+        }
+
+        InternalLogger.Debug($"FMODExtensions.GetLength(\"{path}\") executed. Checking if it's a custom sound...");
+
+        if (!CustomSounds.ContainsKey(path))
+            return true;
+
+        InternalLogger.Debug($"FMODExtensions.GetLength(\"{path}\") executed. It was a custom sound.");
+
+        if(CustomSounds.TryGetValue(path, out Sound sound))
+        {
+            RESULT res = sound.getLength(out uint length, TIMEUNIT.MS);
+            if(res == RESULT.OK)
+            {
+                __result = (int)length;
+                return false;
+            }
+            else
+            {
+                InternalLogger.Log($"An error occured while trying to get length of a sound.\n{res}");
+            }
+            res.CheckResult();
+        }
+
+        InternalLogger.Debug($"FMODExtensions.GetLength(\"{path}\") executed. It was maybe not a CustomSounds but a CustomFModSounds ?");
+        __result = 0;
+        return false;
     }
 
 #if SUBNAUTICA
@@ -409,7 +446,7 @@ internal class CustomSoundPatcher
                 return true;
             }
 #if BELOWZERO
-            if (SoundQueue.GetPlaybackState(__instance.eventInstance) is not PLAYBACK_STATE.STARTING or PLAYBACK_STATE.PLAYING)
+            if (SoundQueue.GetPlaybackState(__instance.eventInstance) is not (PLAYBACK_STATE.STARTING or PLAYBACK_STATE.PLAYING))
             {
                 return true;
             }
@@ -417,7 +454,7 @@ internal class CustomSoundPatcher
             if (!SoundQueue.GetIsStartingOrPlaying(__instance.eventInstance)) return true;
 #endif
 
-            ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
+        ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
             channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
             channel.getPosition(out uint position, TIMEUNIT.MS);
             instanceCurrent.position = (int)position;

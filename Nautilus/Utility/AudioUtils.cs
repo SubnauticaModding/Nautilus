@@ -14,6 +14,19 @@ namespace Nautilus.Utility;
 /// </summary>
 public static partial class AudioUtils
 {
+    /// <summary>
+    /// 3D sounds
+    /// </summary>
+    public const MODE StandardSoundModes_3D = MODE.DEFAULT | MODE._3D | MODE.ACCURATETIME | MODE._3D_LINEARSQUAREROLLOFF;
+    /// <summary>
+    /// 2D sounds
+    /// </summary>
+    public const MODE StandardSoundModes_2D = MODE.DEFAULT | MODE._2D | MODE.ACCURATETIME;
+    /// <summary>
+    /// For music, PDA voices and any 2D sounds that can have more than one instance at a time.
+    /// </summary>
+    public const MODE StandardSoundModes_Stream = StandardSoundModes_2D | MODE.CREATESTREAM;
+
     private static FMOD.System FMOD_System => RuntimeManager.CoreSystem;
 
     /// <summary>
@@ -72,6 +85,10 @@ public static partial class AudioUtils
     {
         channel = default;
         Bus bus = RuntimeManager.GetBus(busPath);
+        if (bus.getChannelGroup(out _) != RESULT.OK)
+        {
+            bus.lockChannelGroup().CheckResult();
+        }
         return bus.getChannelGroup(out ChannelGroup channelGroup) == RESULT.OK &&
                channelGroup.getPaused(out bool paused) == RESULT.OK &&
                FMOD_System.playSound(sound, channelGroup, paused, out channel) == RESULT.OK;
@@ -87,6 +104,10 @@ public static partial class AudioUtils
     public static bool TryPlaySound(Sound sound, Bus bus, out Channel channel)
     {
         channel = default;
+        if (bus.getChannelGroup(out _) != RESULT.OK)
+        {
+            bus.lockChannelGroup().CheckResult();
+        }
         return bus.getChannelGroup(out ChannelGroup channelGroup) == RESULT.OK &&
                channelGroup.getPaused(out bool paused) == RESULT.OK &&
                FMOD_System.playSound(sound, channelGroup, paused, out channel) == RESULT.OK;
