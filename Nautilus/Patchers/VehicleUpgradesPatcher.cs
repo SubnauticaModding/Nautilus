@@ -2,7 +2,9 @@ using HarmonyLib;
 using HarmonyLib.Tools;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
+using Nautilus.MonoBehaviours;
 using Nautilus.Utility;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using OpCodes = System.Reflection.Emit.OpCodes;
@@ -14,15 +16,23 @@ internal class VehicleUpgradesPatcher
     internal static IDictionary<TechType, ICustomPrefab> ExosuitUpgradeModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("ExosuitUpgradeModules");
 #if BELOWZERO
     internal static IDictionary<TechType, ICustomPrefab> SeatruckUpgradeModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("SeatruckUpgradeModules");
-    internal static IDictionary<TechType, ICustomPrefab> SnowbikeUpgradeModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("SnowbikeUpgradeModules");
+    // Hoverbikes upgrades are in the HoverbikeModulesSupport MonoBehaviour.
 #elif SUBNAUTICA
     internal static IDictionary<TechType, ICustomPrefab> SeamothUpgradeModules = new SelfCheckingDictionary<TechType, ICustomPrefab>("SeamothUpgradeModules");
 #endif
 
     internal static void Patch(Harmony harmony)
     {
+        InternalLogger.Debug("VehicleUpgradePatcher: attempting patch...");
         HarmonyFileLog.Enabled = true;
-        harmony.PatchAll(typeof(VehicleUpgradesPatcher));
+        try
+        {
+            harmony.PatchAll(typeof(VehicleUpgradesPatcher));
+        }
+        catch (Exception e)
+        {
+            InternalLogger.Error($"An error occured while running VehicleUpgradesPatcher.\n{e}");
+        }
         InternalLogger.Debug("VehicleUpgradesPatcher is done.");
     }
 
@@ -395,39 +405,20 @@ internal class VehicleUpgradesPatcher
     // SEATRUCK
     // ON USE
     //
-    private static void DelegateUseCallback(SeaTruckUpgrades __instance, int slotID, TechType techType)
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(SeaTruckUpgrades), nameof(SeaTruckUpgrades.OnUpgradeModuleUse))]
+    private static void DelegateModuleUseCallback(SeaTruckUpgrades __instance, TechType techType, int slotID)
     {
         if (!SeatruckUpgradeModules.TryGetValue(techType, out var prefab))
             return;
-
         if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
             return;
 
         float quickSlotCharge = __instance.quickSlotCharge[slotID];
         float chargeScalar = ((IQuickSlots) __instance).GetSlotCharge(slotID);
-        if (moduleGadget.seatruckOnUsed != null)
-            moduleGadget.seatruckOnUsed.Invoke(__instance, __instance.motor, slotID, quickSlotCharge, chargeScalar);
+        moduleGadget.seatruckOnUsed?.Invoke(__instance, __instance.motor, slotID, quickSlotCharge, chargeScalar);
         __instance.quickSlotTimeUsed[slotID] = Time.time;
         __instance.quickSlotCooldown[slotID] = (float) moduleGadget.Cooldown;
-    }
-
-    [HarmonyTranspiler]
-    [HarmonyPatch(typeof(SeaTruckUpgrades), nameof(SeaTruckUpgrades.OnUpgradeModuleUse))]
-    private static IEnumerable<CodeInstruction> DelegateModuleUseCallback(IEnumerable<CodeInstruction> instructions)
-    {
-        var matcher = new CodeMatcher();
-
-        matcher
-            .MatchForward(true, new CodeMatch(OpCodes.Ret))
-            .MatchForward(true, new CodeMatch(OpCodes.Ret))
-            .Insert(
-                new CodeInstruction(OpCodes.Ldarg_0),
-                new CodeInstruction(OpCodes.Ldarg_2),
-                new CodeInstruction(OpCodes.Ldarg_1),
-                new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(VehicleUpgradesPatcher), nameof(VehicleUpgradesPatcher.DelegateUseCallback)))
-            );
-
-        return matcher.InstructionEnumeration();
     }
 
     //
@@ -511,29 +502,45 @@ internal class VehicleUpgradesPatcher
                 return;
 
             double energyCost = moduleGadget.EnergyCost;
-            moduleGadget.seatruckOnToggled?.Invoke(__instance, __instance.motor, slotID, (float)energyCost, state);
+            moduleGadget.seatruckOnToggled?.Invoke(__instance, __instance.motor, slotID, (float) energyCost, state);
         };
     }
 
     //
     // HOVERBIKE
-    // ON CHANGE
+    // AWAKE / ENTER / EXIT
     //
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(Hoverbike), nameof(Hoverbike.OnUpgradeModuleChange))]
-    private static void OnUpgradeModuleDelegate(Hoverbike __instance, int slotID, TechType techType, bool added)
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(Hoverbike), nameof(Hoverbike.Awake))]
+    private static void HoverbikeAwake(Hoverbike __instance)
     {
-        if (!SnowbikeUpgradeModules.TryGetValue(techType, out var prefab))
-            return;
+        InternalLogger.Info("Adding hoverbike modules support component to Hoverbike.");
+        __instance.gameObject.EnsureComponent<HoverbikeModulesSupport>();
+        InternalLogger.Info("Added hoverbike modules support component to Hoverbike.");
+    }
 
-        if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
-            return;
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(Hoverbike), nameof(Hoverbike.EnterVehicle))]
+    private static void HoverbikeEnterVehicle(Hoverbike __instance)
+    {
+        if (__instance.gameObject.TryGetComponent<HoverbikeModulesSupport>(out var hoverbikeModules))
+        {
+            InternalLogger.Debug("Running EnterVehicle of the hoverbike modules support mono.");
+            hoverbikeModules.EnterVehicle();
+        }
+        else InternalLogger.Error($"Missing {nameof(HoverbikeModulesSupport)} component to hoverbike.");
+    }
 
-        if (moduleGadget.hoverbikeOnRemoved != null && !added)
-            moduleGadget.hoverbikeOnRemoved.Invoke(__instance, slotID);
-
-        if (moduleGadget.hoverbikeOnAdded != null && added)
-            moduleGadget.hoverbikeOnAdded.Invoke(__instance, slotID);
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(Hoverbike), nameof(Hoverbike.ExitVehicle))]
+    private static void HoverbikeExitVehicle(Hoverbike __instance)
+    {
+        if (__instance.gameObject.TryGetComponent<HoverbikeModulesSupport>(out var hoverbikeModules))
+        {
+            InternalLogger.Debug("Running ExitVehicle of the hoverbike modules support mono.");
+            hoverbikeModules.ExitVehicle();
+        }
+        else InternalLogger.Error($"Missing {nameof(HoverbikeModulesSupport)} component to hoverbike.");
     }
 #endif
 }
