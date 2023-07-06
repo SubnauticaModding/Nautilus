@@ -84,6 +84,9 @@ To install the template, run the following command in a terminal:
 dotnet new -i Subnautica.Templates
 ```
 
+> [!NOTE]
+> If you receive an error about not having any defined/enabled NuGet sources, you may need to run the following command first: `dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org`
+
 Once the install is completed, you will receive an output similar to the message below displaying the process as successful.
 ```bash
 Template Name                             Short Name      Language  Tags
