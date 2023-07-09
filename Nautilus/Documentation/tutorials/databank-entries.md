@@ -57,8 +57,8 @@ Every PDA entry has its own "path" which determines where in the PDA this entry 
 | `Lifeforms/Flora/Exploitable` | Exploitable |
 | `Lifeforms/Fauna/Herbivores` | Herbivores (UNUSED) |
 | `Lifeforms/Fauna/Carnivores` | Carnivores |
-| `Lifeforms/Fauna/Rays` | Rays |
-| `Lifeforms/Fauna/Sharks` | Sharks |
+| `Lifeforms/Fauna/Rays` | Rays (UNUSED) |
+| `Lifeforms/Fauna/Sharks` | Sharks (UNUSED) |
 | `Lifeforms/Fauna/Leviathans` | Leviathans |
 | `Lifeforms/Fauna/Other` | Other Predators (UNUSED) |
 | `Lifeforms/Fauna/SmallHerbivores` | Herbivores - Small |
