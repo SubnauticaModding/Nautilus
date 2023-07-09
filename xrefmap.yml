@@ -11343,19 +11343,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent
   nameWithType: SaveUtils.RegisterOneTimeUseOnSaveEvent
-- uid: Nautilus.Utility.SaveUtils.RegisterOnLoadEvent(System.Action)
-  name: RegisterOnLoadEvent(Action)
-  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnLoadEvent_System_Action_
-  commentId: M:Nautilus.Utility.SaveUtils.RegisterOnLoadEvent(System.Action)
-  fullName: Nautilus.Utility.SaveUtils.RegisterOnLoadEvent(System.Action)
-  nameWithType: SaveUtils.RegisterOnLoadEvent(Action)
-- uid: Nautilus.Utility.SaveUtils.RegisterOnLoadEvent*
-  name: RegisterOnLoadEvent
-  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnLoadEvent_
-  commentId: Overload:Nautilus.Utility.SaveUtils.RegisterOnLoadEvent
+- uid: Nautilus.Utility.SaveUtils.RegisterOnFinishLoadingEvent(System.Action)
+  name: RegisterOnFinishLoadingEvent(Action)
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnFinishLoadingEvent_System_Action_
+  commentId: M:Nautilus.Utility.SaveUtils.RegisterOnFinishLoadingEvent(System.Action)
+  fullName: Nautilus.Utility.SaveUtils.RegisterOnFinishLoadingEvent(System.Action)
+  nameWithType: SaveUtils.RegisterOnFinishLoadingEvent(Action)
+- uid: Nautilus.Utility.SaveUtils.RegisterOnFinishLoadingEvent*
+  name: RegisterOnFinishLoadingEvent
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnFinishLoadingEvent_
+  commentId: Overload:Nautilus.Utility.SaveUtils.RegisterOnFinishLoadingEvent
   isSpec: "True"
-  fullName: Nautilus.Utility.SaveUtils.RegisterOnLoadEvent
-  nameWithType: SaveUtils.RegisterOnLoadEvent
+  fullName: Nautilus.Utility.SaveUtils.RegisterOnFinishLoadingEvent
+  nameWithType: SaveUtils.RegisterOnFinishLoadingEvent
 - uid: Nautilus.Utility.SaveUtils.RegisterOnQuitEvent(System.Action)
   name: RegisterOnQuitEvent(Action)
   href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnQuitEvent_System_Action_
@@ -11382,19 +11382,32 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.SaveUtils.RegisterOnSaveEvent
   nameWithType: SaveUtils.RegisterOnSaveEvent
-- uid: Nautilus.Utility.SaveUtils.UnregisterOnLoadEvent(System.Action)
-  name: UnregisterOnLoadEvent(Action)
-  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_UnregisterOnLoadEvent_System_Action_
-  commentId: M:Nautilus.Utility.SaveUtils.UnregisterOnLoadEvent(System.Action)
-  fullName: Nautilus.Utility.SaveUtils.UnregisterOnLoadEvent(System.Action)
-  nameWithType: SaveUtils.UnregisterOnLoadEvent(Action)
-- uid: Nautilus.Utility.SaveUtils.UnregisterOnLoadEvent*
-  name: UnregisterOnLoadEvent
-  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_UnregisterOnLoadEvent_
-  commentId: Overload:Nautilus.Utility.SaveUtils.UnregisterOnLoadEvent
+- uid: Nautilus.Utility.SaveUtils.RegisterOnStartLoadingEvent(System.Action)
+  name: RegisterOnStartLoadingEvent(Action)
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnStartLoadingEvent_System_Action_
+  commentId: M:Nautilus.Utility.SaveUtils.RegisterOnStartLoadingEvent(System.Action)
+  fullName: Nautilus.Utility.SaveUtils.RegisterOnStartLoadingEvent(System.Action)
+  nameWithType: SaveUtils.RegisterOnStartLoadingEvent(Action)
+- uid: Nautilus.Utility.SaveUtils.RegisterOnStartLoadingEvent*
+  name: RegisterOnStartLoadingEvent
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnStartLoadingEvent_
+  commentId: Overload:Nautilus.Utility.SaveUtils.RegisterOnStartLoadingEvent
   isSpec: "True"
-  fullName: Nautilus.Utility.SaveUtils.UnregisterOnLoadEvent
-  nameWithType: SaveUtils.UnregisterOnLoadEvent
+  fullName: Nautilus.Utility.SaveUtils.RegisterOnStartLoadingEvent
+  nameWithType: SaveUtils.RegisterOnStartLoadingEvent
+- uid: Nautilus.Utility.SaveUtils.UnregisterOnFinishLoadingEvent(System.Action)
+  name: UnregisterOnFinishLoadingEvent(Action)
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_UnregisterOnFinishLoadingEvent_System_Action_
+  commentId: M:Nautilus.Utility.SaveUtils.UnregisterOnFinishLoadingEvent(System.Action)
+  fullName: Nautilus.Utility.SaveUtils.UnregisterOnFinishLoadingEvent(System.Action)
+  nameWithType: SaveUtils.UnregisterOnFinishLoadingEvent(Action)
+- uid: Nautilus.Utility.SaveUtils.UnregisterOnFinishLoadingEvent*
+  name: UnregisterOnFinishLoadingEvent
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_UnregisterOnFinishLoadingEvent_
+  commentId: Overload:Nautilus.Utility.SaveUtils.UnregisterOnFinishLoadingEvent
+  isSpec: "True"
+  fullName: Nautilus.Utility.SaveUtils.UnregisterOnFinishLoadingEvent
+  nameWithType: SaveUtils.UnregisterOnFinishLoadingEvent
 - uid: Nautilus.Utility.SaveUtils.UnregisterOnQuitEvent(System.Action)
   name: UnregisterOnQuitEvent(Action)
   href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_UnregisterOnQuitEvent_System_Action_
@@ -11421,6 +11434,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.SaveUtils.UnregisterOnSaveEvent
   nameWithType: SaveUtils.UnregisterOnSaveEvent
+- uid: Nautilus.Utility.SaveUtils.UnregisterOnStartLoadingEvent(System.Action)
+  name: UnregisterOnStartLoadingEvent(Action)
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_UnregisterOnStartLoadingEvent_System_Action_
+  commentId: M:Nautilus.Utility.SaveUtils.UnregisterOnStartLoadingEvent(System.Action)
+  fullName: Nautilus.Utility.SaveUtils.UnregisterOnStartLoadingEvent(System.Action)
+  nameWithType: SaveUtils.UnregisterOnStartLoadingEvent(Action)
+- uid: Nautilus.Utility.SaveUtils.UnregisterOnStartLoadingEvent*
+  name: UnregisterOnStartLoadingEvent
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_UnregisterOnStartLoadingEvent_
+  commentId: Overload:Nautilus.Utility.SaveUtils.UnregisterOnStartLoadingEvent
+  isSpec: "True"
+  fullName: Nautilus.Utility.SaveUtils.UnregisterOnStartLoadingEvent
+  nameWithType: SaveUtils.UnregisterOnStartLoadingEvent
 - uid: Nautilus.Utility.SelfCheckingDictionary`2
   name: SelfCheckingDictionary<K, V>
   href: api/Nautilus.Utility.SelfCheckingDictionary-2.html
