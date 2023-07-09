@@ -54,7 +54,7 @@ We hope to keep improving the modding experience in Subnautica to allow develope
 1. Download the [Subnautica BepInEx Pack](https://www.nexusmods.com/subnautica/mods/1108). 
 2. Extract/unzip the BepInEx x64 zip file to your game folder
    <!---- FYI these dropdowns have a really weird spacing issue, the line breaks are mandatory to keep formatting! ---->
-   - <details><summary>Where is my Subnautica/game folder?</summary>
+   - <details><summary>Where is my Subnautica/game folder? (Click to expand)</summary>
 
       - Steam: &ensp; &ensp; &ensp; &ensp; <code>C:\Program Files (x86)\Steam\steamapps\common\Subnautica</code> <br>
       - Epic Games: &ensp; <code>C:\Program Files\Epic Games\Subnautica</code> <br>
@@ -62,7 +62,7 @@ We hope to keep improving the modding experience in Subnautica to allow develope
       ###### Note: the above paths are the default locations, yours may vary
     </details>
     
-    - <details><summary>How do I extract the zip file?</summary>
+    - <details><summary>How do I extract the zip file? (Click to expand)</summary>
 
       - Extracting/unzipping a zip file is as simple as right clicking it, and selecting the `Extract here` prompt. We highly recommend the use of a zipping tool besides the Windows default one, such as [WinRAR](https://www.rarlab.com/download.htm), or [7-Zip](https://7-zip.org/download.html).
     </details>
