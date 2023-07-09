@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Nautilus.Patchers;
 
 namespace Nautilus.Utility;
@@ -26,11 +26,21 @@ public static class SaveUtils
 
     /// <summary>
     /// Registers a simple <see cref="Action"/> method to invoke the <c>first time</c> the player loads a saved game via the in game menu.
+    /// This is only invoked after the game (including most objects around the player) has FULLY loaded. For an earlier alternative, see <see cref="RegisterOnStartLoadingEvent"/>.
     /// </summary>
-    /// <param name="onLoadAction">The method to invoke. This action will not be invoked a second time.</param>
-    public static void RegisterOnLoadEvent(Action onLoadAction)
+    /// <param name="onFinishLoadingAction">The method to invoke. This action will not be invoked a second time.</param>
+    public static void RegisterOnFinishLoadingEvent(Action onFinishLoadingAction)
     {
-        SaveUtilsPatcher.OnLoadEvents += onLoadAction;
+        SaveUtilsPatcher.OnFinishLoadingEvents += onFinishLoadingAction;
+    }
+
+    /// <summary>
+    /// Registers a simple <see cref="Action"/> method to invoke immediately after the <c>first time</c> the player loads a saved game via the in game menu.
+    /// </summary>
+    /// <param name="onStartLoadingAction">The method to invoke. This action will not be invoked a second time.</param>
+    public static void RegisterOnStartLoadingEvent(Action onStartLoadingAction)
+    {
+        SaveUtilsPatcher.OnStartLoadingEvents += onStartLoadingAction;
     }
 
     /// <summary>
@@ -53,13 +63,23 @@ public static class SaveUtils
     }
 
     /// <summary>
-    /// Removes a method previously added through <see cref="RegisterOnLoadEvent(Action)"/> so it is no longer invoked when loading the game.<para/>
+    /// Removes a method previously added through <see cref="RegisterOnFinishLoadingEvent(Action)"/> so it is no longer invoked when loading the game.<para/>
     /// If you plan on using this, do not register an anonymous method.
     /// </summary>
     /// <param name="onLoadAction">The method invoked.</param>
-    public static void UnregisterOnLoadEvent(Action onLoadAction)
+    public static void UnregisterOnFinishLoadingEvent(Action onLoadAction)
     {
-        SaveUtilsPatcher.OnLoadEvents -= onLoadAction;
+        SaveUtilsPatcher.OnFinishLoadingEvents -= onLoadAction;
+    }
+
+    /// <summary>
+    /// Removes a method previously added through <see cref="RegisterOnStartLoadingEvent(Action)"/> so it is no longer invoked when loading the game.<para/>
+    /// If you plan on using this, do not register an anonymous method.
+    /// </summary>
+    /// <param name="onLoadAction">The method invoked.</param>
+    public static void UnregisterOnStartLoadingEvent(Action onLoadAction)
+    {
+        SaveUtilsPatcher.OnStartLoadingEvents -= onLoadAction;
     }
 
     /// <summary>
