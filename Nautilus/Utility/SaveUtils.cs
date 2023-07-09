@@ -28,10 +28,10 @@ public static class SaveUtils
     /// Registers a simple <see cref="Action"/> method to invoke the <c>first time</c> the player loads a saved game via the in game menu.
     /// This is only invoked after the game (including most objects around the player) has FULLY loaded. For an earlier alternative, see <see cref="RegisterOnStartLoadingEvent"/>.
     /// </summary>
-    /// <param name="onLoadAction">The method to invoke. This action will not be invoked a second time.</param>
-    public static void RegisterOnFinishLoadingEvent(Action onLoadAction)
+    /// <param name="onFinishLoadingAction">The method to invoke. This action will not be invoked a second time.</param>
+    public static void RegisterOnFinishLoadingEvent(Action onFinishLoadingAction)
     {
-        SaveUtilsPatcher.OnFinishLoadingEvents += onLoadAction;
+        SaveUtilsPatcher.OnFinishLoadingEvents += onFinishLoadingAction;
     }
 
     /// <summary>
