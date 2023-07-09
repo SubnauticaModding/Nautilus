@@ -12,7 +12,8 @@ internal class SaveUtilsPatcher
     private static readonly List<Action> oneTimeUseOnQuitEvents = new();
 
     internal static Action OnSaveEvents;
-    internal static Action OnLoadEvents;
+    internal static Action OnFinishLoadingEvents;
+    internal static Action OnStartLoadingEvents;
     internal static Action OnQuitEvents;
 
     public static void Patch(Harmony harmony)
@@ -57,12 +58,14 @@ internal class SaveUtilsPatcher
 
     internal static IEnumerator InvokeLoadEvents(IEnumerator enumerator)
     {
+        OnStartLoadingEvents?.Invoke();
+
         while (enumerator.MoveNext())
         {
             yield return enumerator.Current;
         }
 
-        OnLoadEvents?.Invoke();
+        OnFinishLoadingEvents?.Invoke();
 
         if (oneTimeUseOnLoadEvents.Count > 0)
         {

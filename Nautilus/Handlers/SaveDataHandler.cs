@@ -1,4 +1,4 @@
-﻿using Nautilus.Json;
+using Nautilus.Json;
 using Nautilus.Utility;
 
 namespace Nautilus.Handlers;
@@ -18,7 +18,7 @@ public static class SaveDataHandler
     {
         T cache = new();
 
-        SaveUtils.RegisterOnLoadEvent(() => cache.Load());
+        SaveUtils.RegisterOnStartLoadingEvent(() => cache.Load());
         SaveUtils.RegisterOnSaveEvent(() => cache.Save());
 
         return cache;
