@@ -29,7 +29,7 @@ public static class SaveUtils
     /// This is only invoked after the game (including most objects around the player) has FULLY loaded. For an earlier alternative, see <see cref="RegisterOnStartLoadingEvent"/>.
     /// </summary>
     /// <param name="onLoadAction">The method to invoke. This action will not be invoked a second time.</param>
-    public static void RegisterOnFinishLoadEvent(Action onLoadAction)
+    public static void RegisterOnFinishLoadingEvent(Action onLoadAction)
     {
         SaveUtilsPatcher.OnFinishLoadingEvents += onLoadAction;
     }
@@ -63,13 +63,23 @@ public static class SaveUtils
     }
 
     /// <summary>
-    /// Removes a method previously added through <see cref="RegisterOnFinishLoadEvent(Action)"/> so it is no longer invoked when loading the game.<para/>
+    /// Removes a method previously added through <see cref="RegisterOnFinishLoadingEvent(Action)"/> so it is no longer invoked when loading the game.<para/>
     /// If you plan on using this, do not register an anonymous method.
     /// </summary>
     /// <param name="onLoadAction">The method invoked.</param>
-    public static void UnregisterOnLoadEvent(Action onLoadAction)
+    public static void UnregisterOnFinishLoadingEvent(Action onLoadAction)
     {
         SaveUtilsPatcher.OnFinishLoadingEvents -= onLoadAction;
+    }
+
+    /// <summary>
+    /// Removes a method previously added through <see cref="RegisterOnStartLoadingEvent(Action)"/> so it is no longer invoked when loading the game.<para/>
+    /// If you plan on using this, do not register an anonymous method.
+    /// </summary>
+    /// <param name="onLoadAction">The method invoked.</param>
+    public static void UnregisterOnStartLoadingEvent(Action onLoadAction)
+    {
+        SaveUtilsPatcher.OnStartLoadingEvents -= onLoadAction;
     }
 
     /// <summary>
