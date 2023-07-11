@@ -19,39 +19,26 @@ internal static class NewtonsoftJsonPatcher
 
     private static IEnumerable<CodeInstruction> InitializeValuesAndNamesTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilg)
     {
-        InternalLogger.Warn("BEGINNING TRANSPILER!");
         bool found = false;
-        int i = 0;
         foreach (var instruction in instructions)
         {
-            InternalLogger.Warn(i + ": " + instruction.opcode + " ~ " + instruction.operand);
-            if (instruction.operand != null)
-            {
-                InternalLogger.Warn(instruction.operand.GetType().ToString());
-            }
             yield return instruction;
             if (instruction.opcode == OpCodes.Stloc_S && (instruction.operand is LocalBuilder builder && builder.LocalIndex == 6))
             {
-                InternalLogger.Error("FOUND!!");
+                // load the text variable to the eval stack
                 yield return new CodeInstruction(OpCodes.Ldloc_S, (byte)6);
+                // call the IsEnumValueModded method
                 var func = AccessTools.Method(typeof(NewtonsoftJsonPatcher), nameof(NewtonsoftJsonPatcher.IsEnumValueModded));
                 yield return Transpilers.EmitDelegate(IsEnumValueModded);
+                // find the label at the bottom of the for loop
                 var stelem = instructions.Last((instr) => instr.opcode == OpCodes.Stelem_Ref);
                 var endOfForLoop = stelem.labels[0];
-                InternalLogger.Error("E: " + endOfForLoop);
+                // insert a jump IF AND ONLY IF the IsEnumValueModded method returned true
                 yield return new CodeInstruction(OpCodes.Brtrue_S, endOfForLoop);
                 found = true;
             }
-            i++;
         }
-        if (found)
-        {
-            InternalLogger.Warn("TRANSPILER SUCCEEDED!");
-        }
-        else
-        {
-            InternalLogger.Warn("TRANSPILER FAILED!");
-        }
+        InternalLogger.Log("NewtonsoftJsonPatcher.InitializeValuesAndNamesTranspiler succeeded: " + found);
     }
 
     private static bool IsEnumValueModded(string text)
