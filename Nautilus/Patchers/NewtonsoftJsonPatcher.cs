@@ -35,7 +35,7 @@ internal static class NewtonsoftJsonPatcher
         harmony.Patch(toStringMethod, postfix: new HarmonyMethod(AccessTools.Method(typeof(NewtonsoftJsonPatcher), nameof(NewtonsoftJsonPatcher.EnumUtilsTryToStringPostfix))));
 
         harmony.Patch(AccessTools.Method(typeof(EnumUtils), nameof(EnumUtils.ParseEnum)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(NewtonsoftJsonPatcher), nameof(NewtonsoftJsonPatcher.EnumUtilsParseEnumPostfix))));
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(NewtonsoftJsonPatcher), nameof(NewtonsoftJsonPatcher.EnumUtilsParseEnumPrefix))));
 
         harmony.Patch(AccessTools.Method(typeof(EnumUtils), nameof(EnumUtils.MatchName)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(NewtonsoftJsonPatcher), nameof(NewtonsoftJsonPatcher.EnumUtilsMatchNamePostfix))));
@@ -90,23 +90,24 @@ internal static class NewtonsoftJsonPatcher
         __result = true;
     }
 
-    private static void EnumUtilsParseEnumPostfix(Type enumType)
+    // Stores the currently modified enum for use in patches of methods that are called later (to avoid the use of a transpiler).
+    private static void EnumUtilsParseEnumPrefix(Type enumType)
     {
         _lastModifiedEnumType = enumType;
     }
 
-    // carries over from ParseEnum to MatchName
+    // Carries over from ParseEnum to MatchName
     private static Type _lastModifiedEnumType;
 
-    // this method is only ever called by ParseEnum
+    // This method is only ever called by ParseEnum. We postfix this method to insert a check for custom enum values, late in the ParseEnum method.
     private static void EnumUtilsMatchNamePostfix(ref int? __result, string value)
     {
-        // if the enum value was already found by the original method, we don't need to worry about this
+        // If the enum value was already found by the original method, we don't need to worry about this
 
         if (__result.HasValue)
             return;
 
-        // don't run for enum types that don't have existing cached values
+        // Don't run for enum types that don't have existing cached values
 
         if (_lastModifiedEnumType == null || !CacheManagerExists(_lastModifiedEnumType))
             return;
