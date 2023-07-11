@@ -207,6 +207,13 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         return entriesFromRequests.TryGetValue(value, out type);
     }
 
+    public string ValueToName(TEnum value)
+    {
+        if (entriesFromRequests.TryGetValue(value, out var name))
+            return name;
+        return null;
+    }
+
     bool IEnumCache.TryParse(string value, out object type)
     {
         if (entriesFromRequests.TryGetValue(value, out TEnum enumValue))
@@ -233,12 +240,12 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         return entriesFromRequests.IsKnownKey(ConvertToObject(Convert.ToInt32(key)));
     }
 
-    public bool ContainsKey(TEnum key)
+    public bool ContainsEnumKey(TEnum key)
     {
         return entriesFromRequests.IsKnownKey(key);
     }
 
-    public bool ContainsKey(string key)
+    public bool ContainsStringKey(string key)
     {
         return entriesFromRequests.IsKnownKey(key);
     }
