@@ -140,6 +140,11 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
             return _mapEnumString.ContainsKey(key);
         }
 
+        public bool IsKnownKey(string key)
+        {
+            return _mapStringEnum.ContainsKey(key);
+        }
+
         public bool IsKnownKey(int key)
         {
             return _mapIntString.ContainsKey(key);
@@ -229,6 +234,11 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
     }
 
     public bool ContainsKey(TEnum key)
+    {
+        return entriesFromRequests.IsKnownKey(key);
+    }
+
+    public bool ContainsKey(string key)
     {
         return entriesFromRequests.IsKnownKey(key);
     }
