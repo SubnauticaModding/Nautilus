@@ -7,7 +7,6 @@ using Nautilus.Handlers;
 using System.Linq;
 using System;
 using System.Reflection;
-using Newtonsoft.Json.Serialization;
 
 namespace Nautilus.Patchers;
 
@@ -36,9 +35,6 @@ internal static class NewtonsoftJsonPatcher
 
         harmony.Patch(AccessTools.Method(typeof(EnumUtils), nameof(EnumUtils.ParseEnum)),
             prefix: new HarmonyMethod(AccessTools.Method(typeof(NewtonsoftJsonPatcher), nameof(NewtonsoftJsonPatcher.EnumUtilsParseEnumPrefix))));
-
-        harmony.Patch(AccessTools.Method(typeof(EnumUtils), nameof(EnumUtils.MatchName)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(NewtonsoftJsonPatcher), nameof(NewtonsoftJsonPatcher.EnumUtilsMatchNamePostfix))));
     }
 
     private static IEnumerable<CodeInstruction> InitializeValuesAndNamesTranspiler(IEnumerable<CodeInstruction> instructions)
@@ -90,35 +86,32 @@ internal static class NewtonsoftJsonPatcher
         __result = true;
     }
 
-    // Stores the currently modified enum for use in patches of methods that are called later (to avoid the use of a transpiler).
-    private static void EnumUtilsParseEnumPrefix(Type enumType)
+    private static bool EnumUtilsParseEnumPrefix(ref object __result, Type enumType, string value)
     {
-        _lastModifiedEnumType = enumType;
+        if (TryParseCustomEnumValue(enumType, value, out var enumVal))
+        {
+            __result = enumVal;
+            return false;
+        }
+        return true;
     }
 
-    // Carries over from ParseEnum to MatchName
-    private static Type _lastModifiedEnumType;
-
-    // This method is only ever called by ParseEnum. We postfix this method to insert a check for custom enum values, late in the ParseEnum method.
-    private static void EnumUtilsMatchNamePostfix(ref int? __result, string value)
+    public static bool TryParseCustomEnumValue(Type enumType, string name, out int val)
     {
-        // If the enum value was already found by the original method, we don't need to worry about this
+        val = 0;
 
-        if (__result.HasValue)
-            return;
+        if (!CacheManagerExists(enumType))
+            return false;
 
-        // Don't run for enum types that don't have existing cached values
-
-        if (_lastModifiedEnumType == null || !CacheManagerExists(_lastModifiedEnumType))
-            return;
-
-        if (EnumCacheProvider.CacheManagers.TryGetValue(_lastModifiedEnumType, out var enumCacheManager))
+        if (EnumCacheProvider.CacheManagers.TryGetValue(enumType, out var enumCacheManager))
         {
-            if (enumCacheManager.TryParse(value, out var enumValue))
+            if (enumCacheManager.TryParse(name, out var enumValue))
             {
-                __result = (int) enumValue;
+                val = (int) enumValue;
+                return true;
             }
         }
+        return false;
     }
 
     private static bool CacheManagerExists(Type enumType)
