@@ -207,6 +207,7 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         return entriesFromRequests.TryGetValue(value, out type);
     }
 
+    // This method is referenced by the NewtonsoftJsonPatcher.UpdateCachedEnumCacheManagers method through reflection - PLEASE UPDATE THAT METHOD IF RENAMING!
     public string ValueToName(TEnum value)
     {
         if (entriesFromRequests.TryGetValue(value, out var name))
@@ -240,11 +241,13 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         return entriesFromRequests.IsKnownKey(ConvertToObject(Convert.ToInt32(key)));
     }
 
+    // This method is referenced by the NewtonsoftJsonPatcher.UpdateCachedEnumCacheManagers method through reflection - PLEASE UPDATE THAT METHOD IF RENAMING!
     public bool ContainsEnumKey(TEnum key)
     {
         return entriesFromRequests.IsKnownKey(key);
     }
 
+    // This method is referenced by the NewtonsoftJsonPatcher.UpdateCachedEnumCacheManagers method through reflection - PLEASE UPDATE THAT METHOD IF RENAMING!
     public bool ContainsStringKey(string key)
     {
         return entriesFromRequests.IsKnownKey(key);
