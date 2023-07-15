@@ -13,14 +13,7 @@ namespace Nautilus.Patchers;
 // Patches methods in the Newtonsoft.Json.Utilities.EnumUtils class to ensure that custom enums are handled properly, without error
 internal static class NewtonsoftJsonPatcher
 {
-    // Key: Enum type / Value: Instances of the EnumCacheManager class
-    private static Dictionary<Type, object> _cachedCacheManagers = new();
-    // Key: Enum type / Value: MethodInfo of the EnumCacheManager.ContainsKey method (string overload)
-    private static Dictionary<Type, MethodInfo> _cachedCacheManagerContainsStringKeyMethods = new();
-    // Key: Enum type / Value: MethodInfo of the EnumCacheManager.ContainsKey method (object overload)
-    private static Dictionary<Type, MethodInfo> _cachedCacheManagerContainsEnumKeyMethods = new();
-    // Key: Enum type / Value: MethodInfo of the EnumCacheManager.ValueToName method
-    private static Dictionary<Type, MethodInfo> _cachedCacheManagerValueToNameMethods = new();
+    private static Dictionary<Type, CachedCacheManager> _cachedCacheManagers = new();
 
     public static void Patch(Harmony harmony)
     {
@@ -76,14 +69,14 @@ internal static class NewtonsoftJsonPatcher
     private static bool IsEnumValueModdedByString(string text, Type enumType)
     {
         UpdateCachedEnumCacheManagers(enumType);
-        return (bool) _cachedCacheManagerContainsStringKeyMethods[enumType].Invoke(_cachedCacheManagers[enumType], new object[] { text });
+        return (bool) _cachedCacheManagers[enumType].ContainsStringKey.Invoke(_cachedCacheManagers[enumType], new object[] { text });
     }
 
     // Returns true if the enum object value is custom
     private static bool IsEnumValueModdedByObject(object value, Type enumType)
     {
         UpdateCachedEnumCacheManagers(enumType);
-        return (bool) _cachedCacheManagerContainsEnumKeyMethods[enumType].Invoke(_cachedCacheManagers[enumType], new object[] { value });
+        return (bool) _cachedCacheManagers[enumType].ContainsEnumKey.Invoke(_cachedCacheManagers[enumType], new object[] { value });
     }
 
     // Postfix to EnumUtils.TryToString that checks for custom enum values in the case that the method failed to find a built-in enum value name
@@ -92,11 +85,13 @@ internal static class NewtonsoftJsonPatcher
         // Don't run if we already found a name
         if (__result == true)
             return;
-        // Don't run if this enum value isn't modded
-        var isEnumCustom = IsEnumValueModdedByObject(value, enumType);
-        if (!isEnumCustom)
+        // Don't run if this enum type isn't modded
+        if (!EnumTypeHasCustomValues(enumType))
             return;
-        name = (string) _cachedCacheManagerValueToNameMethods[enumType].Invoke(_cachedCacheManagers[enumType], new object[] { value });
+        // Don't run if this enum value isn't custom
+        if (!IsEnumValueModdedByObject(value, enumType))
+            return;
+        name = (string) _cachedCacheManagers[enumType].ValueToName.Invoke(_cachedCacheManagers[enumType], new object[] { value });
         __result = true;
     }
 
@@ -116,7 +111,7 @@ internal static class NewtonsoftJsonPatcher
     {
         val = 0;
 
-        if (!CacheManagerExists(enumType))
+        if (!EnumTypeHasCustomValues(enumType))
             return false;
 
         if (EnumCacheProvider.CacheManagers.TryGetValue(enumType, out var enumCacheManager))
@@ -131,7 +126,7 @@ internal static class NewtonsoftJsonPatcher
     }
 
     // Returns true if an enum has any custom values at all
-    private static bool CacheManagerExists(Type enumType)
+    private static bool EnumTypeHasCustomValues(Type enumType)
     {
         return EnumCacheProvider.TryGetManager(enumType, out _);
     }
@@ -143,10 +138,15 @@ internal static class NewtonsoftJsonPatcher
         {
             var enumBuilderType = typeof(EnumBuilder<>).MakeGenericType(enumType);
             var cacheManager = enumBuilderType.GetProperty("CacheManager", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
-            _cachedCacheManagers[enumType] = cacheManager;
-            _cachedCacheManagerContainsEnumKeyMethods.Add(enumType, AccessTools.Method(cacheManager.GetType(), "ContainsEnumKey"));
-            _cachedCacheManagerContainsStringKeyMethods.Add(enumType, AccessTools.Method(cacheManager.GetType(), "ContainsStringKey"));
-            _cachedCacheManagerValueToNameMethods.Add(enumType, AccessTools.Method(cacheManager.GetType(), "ValueToName"));
+            var cacheManagerType = cacheManager.GetType();
+            _cachedCacheManagers.Add(enumType, new CachedCacheManager(
+                cacheManager,
+                AccessTools.Method(cacheManagerType, "ContainsStringKey"),
+                AccessTools.Method(cacheManagerType, "ContainsEnumKey"),
+                AccessTools.Method(cacheManagerType, "ValueToName")
+            ));
         }
     }
+
+    private record CachedCacheManager(object CacheManager, MethodInfo ContainsStringKey, MethodInfo ContainsEnumKey, MethodInfo ValueToName);
 }
