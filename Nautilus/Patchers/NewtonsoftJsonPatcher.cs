@@ -69,14 +69,14 @@ internal static class NewtonsoftJsonPatcher
     private static bool IsEnumValueModdedByString(string text, Type enumType)
     {
         UpdateCachedEnumCacheManagers(enumType);
-        return (bool) _cachedCacheManagers[enumType].ContainsStringKey.Invoke(_cachedCacheManagers[enumType], new object[] { text });
+        return (bool) _cachedCacheManagers[enumType].ContainsStringKey.Invoke(_cachedCacheManagers[enumType].CacheManager, new object[] { text });
     }
 
     // Returns true if the enum object value is custom
     private static bool IsEnumValueModdedByObject(object value, Type enumType)
     {
         UpdateCachedEnumCacheManagers(enumType);
-        return (bool) _cachedCacheManagers[enumType].ContainsEnumKey.Invoke(_cachedCacheManagers[enumType], new object[] { value });
+        return (bool) _cachedCacheManagers[enumType].ContainsEnumKey.Invoke(_cachedCacheManagers[enumType].CacheManager, new object[] { value });
     }
 
     // Postfix to EnumUtils.TryToString that checks for custom enum values in the case that the method failed to find a built-in enum value name
@@ -91,7 +91,7 @@ internal static class NewtonsoftJsonPatcher
         // Don't run if this enum value isn't custom
         if (!IsEnumValueModdedByObject(value, enumType))
             return;
-        name = (string) _cachedCacheManagers[enumType].ValueToName.Invoke(_cachedCacheManagers[enumType], new object[] { value });
+        name = (string) _cachedCacheManagers[enumType].ValueToName.Invoke(_cachedCacheManagers[enumType].CacheManager, new object[] { value });
         __result = true;
     }
 
