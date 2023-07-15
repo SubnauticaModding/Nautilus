@@ -59,5 +59,6 @@ public class Initializer : BaseUnityPlugin
         VehicleUpgradesPatcher.Patch(_harmony);
         StoryGoalPatcher.Patch(_harmony);
         PDAEncyclopediaTabPatcher.Patch(_harmony);
+        NewtonsoftJsonPatcher.Patch(_harmony);
     }
 }
