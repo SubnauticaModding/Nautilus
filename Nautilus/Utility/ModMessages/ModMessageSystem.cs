@@ -7,6 +7,13 @@ namespace Nautilus.Utility.ModMessages;
 /// </summary>
 public static class ModMessageSystem
 {
+    static ModMessageSystem()
+    {
+        SaveUtils.RegisterOnStartLoadingEvent(OnStartLoading);
+    }
+
+    private static bool _allowedToHoldGlobalMessages = true;
+
     // address - inbox
     private static Dictionary<string, ModInbox> _inboxes = new Dictionary<string, ModInbox>();
 
@@ -27,8 +34,9 @@ public static class ModMessageSystem
     }
 
     /// <summary>
-    /// Sends a global message to every <see cref="ModInbox"/> that exists, and even to ones that will exist in the future.
-    /// If a message is not read immediately by any inbox, it will be held until read.
+    /// <para>Sends a global message to every <see cref="ModInbox"/> that exists, and even to ones that will exist in the future.
+    /// If a message is not read immediately by any inbox, it will be held until read.</para>
+    /// <para>IMPORTANT: Global messages can NOT be held after patch time has completed (once you have left the main menu).</para>
     /// </summary>
     /// <param name="subject">The subject of the message. Determines the purpose of a message. In C# terms, this is analogous to the method name.</param>
     /// <param name="contents">Any arbitrary data sent through the message. Optional. In C# terms, this is analogous to the method's parameters.</param>
@@ -39,7 +47,10 @@ public static class ModMessageSystem
         {
             globalMessage.TrySendMessageToInbox(inbox);
         }
-        _globalMessages.Add(globalMessage);
+        if (_allowedToHoldGlobalMessages)
+        {
+            _globalMessages.Add(globalMessage);
+        }
     }
 
     /// <summary>
@@ -106,10 +117,18 @@ public static class ModMessageSystem
             {
                 inbox.ReceiveMessage(message);
             }
+            _heldMessages[inbox.Address].Clear();
         }
         foreach (var globalMessage in _globalMessages)
         {
             globalMessage.TrySendMessageToInbox(inbox);
         }
+    }
+
+    // Once game time has started, stop holding global messages and remove any held global messages from patch time
+    private static void OnStartLoading()
+    {
+        _globalMessages.Clear();
+        _allowedToHoldGlobalMessages = false;
     }
 }
