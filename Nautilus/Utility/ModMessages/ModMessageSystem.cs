@@ -106,6 +106,7 @@ public static class ModMessageSystem
             {
                 inbox.ReceiveMessage(message);
             }
+            _heldMessages[inbox.Address].Clear();
         }
         foreach (var globalMessage in _globalMessages)
         {
