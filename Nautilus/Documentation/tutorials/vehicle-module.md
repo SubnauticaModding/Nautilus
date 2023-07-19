@@ -35,13 +35,14 @@ So, first, let's make our prefab info.
 ```csharp
 var prefabInfo = PrefabInfo.WithTechType("SeamothDepthUpgrade", "Seamoth Depth Module MK.4", "Dive down to 1700 meters!!! Let's meet the Sea Dragon!")
     .WithIcon(SpriteManager.Get(TechType.HullReinforcementModule3));
+CustomPrefab prefab = new CustomPrefab(prefabInfo);
 ```
 
 
 Then, we're making the Custom Prefab based on Reinforced Hull prefab.
 
 ```csharp
-var prefab = new CloneTemplate(prefabInfo, TechType.HullReinforcementModule3);
+var clone = new CloneTemplate(prefabInfo, TechType.HullReinforcementModule3);
 ```
 
 
