@@ -107,9 +107,10 @@ You are not limited, you can do everything you want with those.</p>
 So, first, let's make our prefab info.</p>
 <pre><code class="lang-csharp">var prefabInfo = PrefabInfo.WithTechType(&quot;SeamothDepthUpgrade&quot;, &quot;Seamoth Depth Module MK.4&quot;, &quot;Dive down to 1700 meters!!! Let's meet the Sea Dragon!&quot;)
     .WithIcon(SpriteManager.Get(TechType.HullReinforcementModule3));
+CustomPrefab prefab = new CustomPrefab(prefabInfo);
 </code></pre>
 <p>Then, we're making the Custom Prefab based on Reinforced Hull prefab.</p>
-<pre><code class="lang-csharp">var prefab = new CloneTemplate(prefabInfo, TechType.HullReinforcementModule3);
+<pre><code class="lang-csharp">var clone = new CloneTemplate(prefabInfo, TechType.HullReinforcementModule3);
 </code></pre>
 <p>Now, let's quickly set the basic settings.</p>
 <pre><code class="lang-csharp">prefab.SetRecipe(new Crafting.RecipeData()
