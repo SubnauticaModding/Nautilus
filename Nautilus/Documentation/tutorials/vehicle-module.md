@@ -43,6 +43,7 @@ Then, we're making the Custom Prefab based on Reinforced Hull prefab.
 
 ```csharp
 var clone = new CloneTemplate(prefabInfo, TechType.HullReinforcementModule3);
+prefab.SetGameObject(clone);
 ```
 
 
