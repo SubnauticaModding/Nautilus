@@ -111,6 +111,7 @@ CustomPrefab prefab = new CustomPrefab(prefabInfo);
 </code></pre>
 <p>Then, we're making the Custom Prefab based on Reinforced Hull prefab.</p>
 <pre><code class="lang-csharp">var clone = new CloneTemplate(prefabInfo, TechType.HullReinforcementModule3);
+prefab.SetGameObject(clone);
 </code></pre>
 <p>Now, let's quickly set the basic settings.</p>
 <pre><code class="lang-csharp">prefab.SetRecipe(new Crafting.RecipeData()
