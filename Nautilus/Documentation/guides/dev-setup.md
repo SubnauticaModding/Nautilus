@@ -73,7 +73,7 @@ BepInEx is a mod loader that we use to load Subnautica mods to the game. We reco
 The installation process is explained in the provided link.
 
 ## Installing Nautilus
-1. Download Nautilus from one of [Nexus Mods](https://www.youtube.com/watch?v=dQw4w9WgXcQ), [Submodica](https://www.youtube.com/watch?v=dQw4w9WgXcQ) or [GitHub Releases](https://github.com/SubnauticaModding/Nautilus/releases).
+1. Download Nautilus from one of [Nexus Mods](https://www.nexusmods.com/subnautica/mods/1262), [Submodica](https://www.submodica.net/mods/sn1/250) or [GitHub Releases](https://github.com/SubnauticaModding/Nautilus/releases).
 2. Drop and drop the `plugins` folder in the zip file to: `PathToSubnautica\BepInEx\`
 
 ## Installing Subnautica Modding templates
