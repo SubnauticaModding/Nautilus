@@ -117,6 +117,9 @@ public class CustomPrefab : ICustomPrefab
     private readonly List<Action> _onRegister = new();
     private readonly List<Action> _onUnregister = new();
 
+    // Very simple way of preventing Unity from unloading asset bundle prefabs via Resources.UnloadUnusedAssets.
+    private GameObject _prefab;
+    
     private bool _registered;
 
     /// <inheritdoc/>
@@ -257,12 +260,17 @@ public class CustomPrefab : ICustomPrefab
     /// </summary>
     /// <param name="prefabTemplate">The prefab template object to set.</param>
     public void SetGameObject(PrefabTemplate prefabTemplate) => Prefab = prefabTemplate.GetPrefabAsync;
-    
+
     /// <summary>
     /// Sets a game object as the prefab of this custom prefab.
     /// </summary>
+    /// <remarks>Only use this overload on GameObjects that are loaded from asset bundles <b>without</b> instantiating them. For objects that could be destroyed on scene load, use <see cref="SetGameObject(System.Func{UnityEngine.GameObject})"/> instead.</remarks>
     /// <param name="prefab">The game object to set.</param>
-    public void SetGameObject(GameObject prefab) => Prefab = obj => SyncPrefab(obj, prefab);
+    public void SetGameObject(GameObject prefab)
+    {
+        _prefab = prefab;
+        Prefab = obj => SyncPrefab(obj, prefab);
+    }
     
     /// <summary>
     /// Sets a function as the game object constructor of this custom prefab. This is a synchronous version.
