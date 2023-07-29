@@ -136,6 +136,6 @@ public static class GameObjectExtensions
     /// <returns>True if this game object is a proper prefab, otherwise false.</returns>
     public static bool IsPrefab(this GameObject gameObject)
     {
-        return !gameObject.activeInHierarchy && gameObject.activeSelf;
+        return gameObject.transform.parent == null && !gameObject.activeInHierarchy && gameObject.activeSelf;
     }
 }
