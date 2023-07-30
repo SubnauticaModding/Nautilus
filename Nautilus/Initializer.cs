@@ -60,5 +60,6 @@ public class Initializer : BaseUnityPlugin
         StoryGoalPatcher.Patch(_harmony);
         PDAEncyclopediaTabPatcher.Patch(_harmony);
         NewtonsoftJsonPatcher.Patch(_harmony);
+        InventoryPatcher.Patch(_harmony);
     }
 }
