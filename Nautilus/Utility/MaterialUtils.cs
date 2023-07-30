@@ -29,10 +29,9 @@ public static partial class MaterialUtils
     // Shader.Find("MarmosetUBER") returns the wrong shader, so we need to get it in this way:
     private static IEnumerator LoadMarmosetUBER()
     {
-        var titaniumTask = PrefabDatabase.GetPrefabAsync("c66b5dfa-7fe9-4688-b165-d2e2f4caa8d9");
+        var titaniumTask = CraftData.GetPrefabForTechTypeAsync(TechType.Titanium);
         yield return titaniumTask;
-        titaniumTask.TryGetPrefab(out var titaniumPrefab);
-        Shaders.MarmosetUBER = titaniumPrefab.GetComponentInChildren<Renderer>().material.shader;
+        Shaders.MarmosetUBER = titaniumTask.GetResult().GetComponentInChildren<Renderer>(true).material.shader;
     }
 
     /// <summary>
