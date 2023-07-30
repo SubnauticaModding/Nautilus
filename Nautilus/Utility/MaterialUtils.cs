@@ -1,5 +1,7 @@
 using Nautilus.Utility.MaterialModifiers;
+using System.Collections;
 using UnityEngine;
+using UWE;
 
 namespace Nautilus.Utility;
 
@@ -12,11 +14,32 @@ public static partial class MaterialUtils
 
     internal static void Patch()
     {
-#if SUBNAUTICA
-        PatchInternal();
-#endif
+        CoroutineHost.StartCoroutine(LoadReferences());
     }
-    
+
+    private static IEnumerator LoadReferences()
+    {
+        yield return LoadMarmosetUBER();
+#if SUBNAUTICA
+        yield return PatchInternal();
+#endif
+        IsReady = true;
+    }
+
+    // Shader.Find("MarmosetUBER") returns the wrong shader, so we need to get it in this way:
+    private static IEnumerator LoadMarmosetUBER()
+    {
+        var titaniumTask = PrefabDatabase.GetPrefabAsync("c66b5dfa-7fe9-4688-b165-d2e2f4caa8d9");
+        yield return titaniumTask;
+        titaniumTask.TryGetPrefab(out var titaniumPrefab);
+        Shaders.MarmosetUBER = titaniumPrefab.GetComponentInChildren<Renderer>().material.shader;
+    }
+
+    /// <summary>
+    /// Only returns true once all relevant materials/shaders have been loaded by the MaterialUtils class and are safe to be used.
+    /// </summary>
+    public static bool IsReady { get; private set; }
+
     /// <summary>
     /// Contains references to various Shaders.
     /// </summary>
@@ -33,9 +56,14 @@ public static partial class MaterialUtils
             {
                 if (_marmosetUber == null)
                 {
-                    _marmosetUber = Shader.Find("MarmosetUBER");
+                    InternalLogger.Warn("Attempting to access the MaterialUtils.Shaders.MarmosetUBER property before it is ready! " +
+                        "Consider delaying your logic until Nautilus.Utility.MaterialUtils.IsReady equals true.");
                 }
                 return _marmosetUber;
+            }
+            internal set
+            {
+                _marmosetUber = value;
             }
         }
 
@@ -104,7 +132,7 @@ public static partial class MaterialUtils
 
     /// <summary>
     /// <para>Applies the necessary settings for Subnautica's standard shader (<see cref="Shaders.MarmosetUBER"/>) to the passed <see cref="GameObject"/>.</para>
-    /// <para><b>The specific changes to each material are influenced by certain keywords in their asset names:</b>
+    /// <para><b>The specific changes to each material are influenced by certain (case-insensitive) keywords in their asset names:</b>
     /// <br/>"TRANSPARENT": Enables transparency.
     /// <br/>"CUTOUT": Enables alpha clipping.</para>
     /// </summary>
