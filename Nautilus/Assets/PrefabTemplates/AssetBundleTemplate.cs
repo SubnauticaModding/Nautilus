@@ -14,13 +14,14 @@ namespace Nautilus.Assets.PrefabTemplates;
 /// </summary>
 public class AssetBundleTemplate : PrefabTemplate
 {
+    private GameObject _prefab;
     private static Dictionary<Assembly, AssetBundle> _loadedBundles = new Dictionary<Assembly, AssetBundle>();
 
     /// <summary>
     /// Instantiates a new AssetBundleTemplate
     /// </summary>
     /// <param name="bundle">The AssetBundle to load the asset from</param>
-    /// <param name="prefabName">The name of the prefab gameobject to load from the bundle</param>
+    /// <param name="prefabName">The name of the prefab game object to load from the bundle</param>
     /// <param name="info">The prefab info to base this template off of.</param>
     public AssetBundleTemplate(AssetBundle bundle, string prefabName, PrefabInfo info) : base(info)
     {
@@ -53,8 +54,6 @@ public class AssetBundleTemplate : PrefabTemplate
 
         _prefab = bundle.LoadAsset<GameObject>(prefabName);
     }
-
-    private GameObject _prefab;
 
     /// <inheritdoc/>
     public override IEnumerator GetPrefabAsync(TaskResult<GameObject> gameObject)

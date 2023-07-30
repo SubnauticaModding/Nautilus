@@ -128,4 +128,14 @@ public static class GameObjectExtensions
     /// <param name="name">The name of the object that is being searched for.</param>
     /// <returns></returns>
     public static GameObject SearchChild(this GameObject gameObject, string name) => SearchChild(gameObject.transform, name).gameObject;
+
+    /// <summary>
+    /// Checks if this game object is a proper prefab. Proper prefabs are those that are made via the Unity Editor and are .prefab formatted.
+    /// </summary>
+    /// <param name="gameObject">The game object to check.</param>
+    /// <returns>True if this game object is a proper prefab, otherwise false.</returns>
+    public static bool IsPrefab(this GameObject gameObject)
+    {
+        return gameObject.transform.parent == null && !gameObject.activeInHierarchy && gameObject.activeSelf;
+    }
 }
