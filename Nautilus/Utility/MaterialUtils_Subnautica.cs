@@ -9,12 +9,12 @@ public static partial class MaterialUtils
 {
     private static IEnumerator PatchInternal()
     {
-        yield return CoroutineHost.StartCoroutine(LoadIonCubeMaterial());
-        yield return CoroutineHost.StartCoroutine(LoadPrecursorGlassAndFogMaterial());
-        yield return CoroutineHost.StartCoroutine(LoadStasisFieldMaterial());
-        yield return CoroutineHost.StartCoroutine(LoadAirWaterBarrierMaterial());
-        yield return CoroutineHost.StartCoroutine(LoadForcefieldMaterial());
-        yield return CoroutineHost.StartCoroutine(LoadGhostMaterial());
+        yield return LoadIonCubeMaterial();
+        yield return LoadPrecursorGlassAndFogMaterial();
+        yield return LoadStasisFieldMaterial();
+        yield return LoadAirWaterBarrierMaterial();
+        yield return LoadForcefieldMaterial();
+        yield return LoadGhostMaterial();
     }
 
     /// <summary>
