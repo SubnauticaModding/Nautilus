@@ -1,10 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Nautilus.Assets.PrefabTemplates;
@@ -27,6 +23,11 @@ public class AssetBundleTemplate : PrefabTemplate
     {
         _prefab = bundle.LoadAsset<GameObject>(prefabName);
     }
+
+    /// <summary>
+    /// A reference to the loaded prefab for modification purposes. This points directly to the prefab contained in the Asset Bundle.
+    /// </summary>
+    public GameObject Prefab => _prefab;
 
     /// <summary>
     /// Instantiates a new AssetBundleTemplate. Automatically loads the bundle by calling <see cref = "Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, string)"/>,
