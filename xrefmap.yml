@@ -2113,6 +2113,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.GetPrefabAsync
   nameWithType: AssetBundleTemplate.GetPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.Prefab
+  name: Prefab
+  href: api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html#Nautilus_Assets_PrefabTemplates_AssetBundleTemplate_Prefab
+  commentId: P:Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.Prefab
+  fullName: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.Prefab
+  nameWithType: AssetBundleTemplate.Prefab
+- uid: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.Prefab*
+  name: Prefab
+  href: api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html#Nautilus_Assets_PrefabTemplates_AssetBundleTemplate_Prefab_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.Prefab
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.Prefab
+  nameWithType: AssetBundleTemplate.Prefab
 - uid: Nautilus.Assets.PrefabTemplates.CloneTemplate
   name: CloneTemplate
   href: api/Nautilus.Assets.PrefabTemplates.CloneTemplate.html
@@ -3016,6 +3029,19 @@ references:
   fullName.vb: Nautilus.Extensions.GameObjectExtensions.Exists(Of T)(T)
   nameWithType: GameObjectExtensions.Exists<T>(T)
   nameWithType.vb: GameObjectExtensions.Exists(Of T)(T)
+- uid: Nautilus.Extensions.GameObjectExtensions.IsPrefab(UnityEngine.GameObject)
+  name: IsPrefab(GameObject)
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_IsPrefab_UnityEngine_GameObject_
+  commentId: M:Nautilus.Extensions.GameObjectExtensions.IsPrefab(UnityEngine.GameObject)
+  fullName: Nautilus.Extensions.GameObjectExtensions.IsPrefab(UnityEngine.GameObject)
+  nameWithType: GameObjectExtensions.IsPrefab(GameObject)
+- uid: Nautilus.Extensions.GameObjectExtensions.IsPrefab*
+  name: IsPrefab
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_IsPrefab_
+  commentId: Overload:Nautilus.Extensions.GameObjectExtensions.IsPrefab
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GameObjectExtensions.IsPrefab
+  nameWithType: GameObjectExtensions.IsPrefab
 - uid: Nautilus.Extensions.GameObjectExtensions.SearchChild(UnityEngine.GameObject,System.String)
   name: SearchChild(GameObject, string)
   href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_SearchChild_UnityEngine_GameObject_System_String_
@@ -10287,6 +10313,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.MaterialUtils.IonCubeMaterial
   nameWithType: MaterialUtils.IonCubeMaterial
+- uid: Nautilus.Utility.MaterialUtils.IsReady
+  name: IsReady
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_IsReady
+  commentId: P:Nautilus.Utility.MaterialUtils.IsReady
+  fullName: Nautilus.Utility.MaterialUtils.IsReady
+  nameWithType: MaterialUtils.IsReady
+- uid: Nautilus.Utility.MaterialUtils.IsReady*
+  name: IsReady
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_IsReady_
+  commentId: Overload:Nautilus.Utility.MaterialUtils.IsReady
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialUtils.IsReady
+  nameWithType: MaterialUtils.IsReady
 - uid: Nautilus.Utility.MaterialUtils.kOpaqueRenderQueue
   name: kOpaqueRenderQueue
   href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_kOpaqueRenderQueue

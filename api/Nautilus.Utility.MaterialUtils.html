@@ -149,7 +149,7 @@
 
   <h3 id="Nautilus_Utility_MaterialUtils_kOpaqueRenderQueue" data-uid="Nautilus.Utility.MaterialUtils.kOpaqueRenderQueue">
   kOpaqueRenderQueue
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L99"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L126"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Render queue used by opaque objects.</div>
@@ -179,7 +179,7 @@
 
   <h3 id="Nautilus_Utility_MaterialUtils_kTransparencyRenderQueue" data-uid="Nautilus.Utility.MaterialUtils.kTransparencyRenderQueue">
   kTransparencyRenderQueue
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L130"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Render queue used by transparent objects.</div>
@@ -334,6 +334,37 @@
 
 
 
+  <a id="Nautilus_Utility_MaterialUtils_IsReady_" data-uid="Nautilus.Utility.MaterialUtils.IsReady*"></a>
+
+  <h3 id="Nautilus_Utility_MaterialUtils_IsReady" data-uid="Nautilus.Utility.MaterialUtils.IsReady">
+  IsReady
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Only returns true once all relevant materials/shaders have been loaded by the MaterialUtils class and are safe to be used.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool IsReady { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Nautilus_Utility_MaterialUtils_PrecursorGlassMaterial_" data-uid="Nautilus.Utility.MaterialUtils.PrecursorGlassMaterial*"></a>
 
   <h3 id="Nautilus_Utility_MaterialUtils_PrecursorGlassMaterial" data-uid="Nautilus.Utility.MaterialUtils.PrecursorGlassMaterial">
@@ -404,11 +435,11 @@
 
   <h3 id="Nautilus_Utility_MaterialUtils_ApplySNShaders_UnityEngine_GameObject_System_Single_System_Single_System_Single_Nautilus_Utility_MaterialModifiers_MaterialModifier___" data-uid="Nautilus.Utility.MaterialUtils.ApplySNShaders(UnityEngine.GameObject,System.Single,System.Single,System.Single,Nautilus.Utility.MaterialModifiers.MaterialModifier[])">
   ApplySNShaders(GameObject, float, float, float, params MaterialModifier[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L143"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies the necessary settings for Subnautica's standard shader (<a class="xref" href="Nautilus.Utility.MaterialUtils.Shaders.html#Nautilus_Utility_MaterialUtils_Shaders_MarmosetUBER">MarmosetUBER</a>) to the passed <span class="xref">UnityEngine.GameObject</span>.</p>
-<p><b>The specific changes to each material are influenced by certain keywords in their asset names:</b>
+<p><b>The specific changes to each material are influenced by certain (case-insensitive) keywords in their asset names:</b>
 <br>"TRANSPARENT": Enables transparency.
 <br>"CUTOUT": Enables alpha clipping.</p></div>
   <div class="markdown level1 conceptual"></div>
@@ -446,7 +477,7 @@
 
   <h3 id="Nautilus_Utility_MaterialUtils_ApplyUBERShader_UnityEngine_Material_System_Single_System_Single_System_Single_Nautilus_Utility_MaterialUtils_MaterialType_" data-uid="Nautilus.Utility.MaterialUtils.ApplyUBERShader(UnityEngine.Material,System.Single,System.Single,System.Single,Nautilus.Utility.MaterialUtils.MaterialType)">
   ApplyUBERShader(Material, float, float, float, MaterialType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L174"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L201"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Applies the <a class="xref" href="Nautilus.Utility.MaterialUtils.Shaders.html#Nautilus_Utility_MaterialUtils_Shaders_MarmosetUBER">MarmosetUBER</a> Shader to the given material.</div>
@@ -485,7 +516,7 @@
 
   <h3 id="Nautilus_Utility_MaterialUtils_SetMaterialCutout_UnityEngine_Material_System_Boolean_" data-uid="Nautilus.Utility.MaterialUtils.SetMaterialCutout(UnityEngine.Material,System.Boolean)">
   SetMaterialCutout(Material, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L272"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L299"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Toggle alpha clipping on a material. Incompatbile with transparency.</div>
@@ -518,7 +549,7 @@
 
   <h3 id="Nautilus_Utility_MaterialUtils_SetMaterialTransparent_UnityEngine_Material_System_Boolean_" data-uid="Nautilus.Utility.MaterialUtils.SetMaterialTransparent(UnityEngine.Material,System.Boolean)">
   SetMaterialTransparent(Material, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L234"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L261"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Toggle the transparency on a material.</div>
