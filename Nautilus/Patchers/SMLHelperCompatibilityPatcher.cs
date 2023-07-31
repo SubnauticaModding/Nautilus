@@ -16,6 +16,7 @@ internal class SMLHelperCompatibilityPatcher
     public const string SMLHarmonyInstance = "com.ahk1221.smlhelper"; // This string is both the harmony instance & plugin GUID.
     public const string QModManagerGUID = "QModManager.QMMLoader";
     private const string SMLAssemblyName = "SMLHelper";
+    private const string SMLHelperModJsonID = "SMLHelper";
 
     private static Assembly _smlHelperAssembly;
 
@@ -41,18 +42,14 @@ internal class SMLHelperCompatibilityPatcher
         if (!BepInEx.Bootstrap.Chainloader.PluginInfos.TryGetValue(QModManagerGUID, out var qmodManager))
             return false;
         var qmodServices = Assembly.GetAssembly(qmodManager.Instance.GetType()).GetType("QModManager.API.QModServices");
-        if (qmodServices == null)
-            return false;
-        return (bool)AccessTools.Method(qmodServices, "ModPresent").Invoke(null, new object[] { SMLHarmonyInstance });
+        var qmodServicesInstance = AccessTools.PropertyGetter(qmodServices, "Main").Invoke(null, new object[0]);
+        return (bool)AccessTools.Method(qmodServices, "ModPresent").Invoke(qmodServicesInstance, new object[] { SMLHelperModJsonID });
 #endif
     }
 
     internal static void Patch(Harmony harmony)
     {
-        if (SMLHelperInstalled)
-        {
-            CoroutineHost.StartCoroutine(WaitOnSMLHelperForPatches(harmony));
-        }
+        CoroutineHost.StartCoroutine(WaitOnSMLHelperForPatches(harmony));
     }
 
     private static IEnumerator WaitOnSMLHelperForPatches(Harmony harmony)
@@ -72,6 +69,11 @@ internal class SMLHelperCompatibilityPatcher
         // Waiting an extra frame is CRUCIAL to avoid race conditions.
 
         yield return null;
+
+        if (!SMLHelperInstalled)
+        {
+            yield break;
+        }
 
         InternalLogger.Log("Patching SMLHelper compatibility fixes", BepInEx.Logging.LogLevel.Info);
 
