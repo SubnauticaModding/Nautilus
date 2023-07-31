@@ -7,14 +7,14 @@ namespace Nautilus.Utility;
 
 public static partial class MaterialUtils
 {
-    private static void PatchInternal()
+    private static IEnumerator PatchInternal()
     {
-        CoroutineHost.StartCoroutine(LoadIonCubeMaterial());
-        CoroutineHost.StartCoroutine(LoadPrecursorGlassAndFogMaterial());
-        CoroutineHost.StartCoroutine(LoadStasisFieldMaterial());
-        CoroutineHost.StartCoroutine(LoadAirWaterBarrierMaterial());
-        CoroutineHost.StartCoroutine(LoadForcefieldMaterial());
-        CoroutineHost.StartCoroutine(LoadGhostMaterial());
+        yield return LoadIonCubeMaterial();
+        yield return LoadPrecursorGlassAndFogMaterial();
+        yield return LoadStasisFieldMaterial();
+        yield return LoadAirWaterBarrierMaterial();
+        yield return LoadForcefieldMaterial();
+        yield return LoadGhostMaterial();
     }
 
     /// <summary>

@@ -1,5 +1,6 @@
 using Nautilus.Utility;
 using System.Collections.Generic;
+using Nautilus.Extensions;
 using UnityEngine;
 
 namespace Nautilus.Assets;
@@ -88,8 +89,16 @@ internal class ModPrefabCacheInstance : MonoBehaviour
 
     public void EnterPrefabIntoCache(GameObject prefab)
     {
-        prefab.transform.parent = _prefabRoot;
-        prefab.SetActive(true);
+        // Proper prefabs can never exist in the scene, so parenting them is dangerous and pointless. 
+        if (prefab.IsPrefab())
+        {
+            InternalLogger.Debug($"Game Object: {prefab} is a proper prefab. Skipping parenting for cache.");
+        }
+        else
+        {
+            prefab.transform.parent = _prefabRoot;
+            prefab.SetActive(true);
+        }
 
         var prefabIdentifier = prefab.GetComponent<PrefabIdentifier>();
 

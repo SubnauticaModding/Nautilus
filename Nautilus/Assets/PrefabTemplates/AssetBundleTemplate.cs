@@ -1,10 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Nautilus.Assets.PrefabTemplates;
@@ -14,18 +10,24 @@ namespace Nautilus.Assets.PrefabTemplates;
 /// </summary>
 public class AssetBundleTemplate : PrefabTemplate
 {
+    private GameObject _prefab;
     private static Dictionary<Assembly, AssetBundle> _loadedBundles = new Dictionary<Assembly, AssetBundle>();
 
     /// <summary>
     /// Instantiates a new AssetBundleTemplate
     /// </summary>
     /// <param name="bundle">The AssetBundle to load the asset from</param>
-    /// <param name="prefabName">The name of the prefab gameobject to load from the bundle</param>
+    /// <param name="prefabName">The name of the prefab game object to load from the bundle</param>
     /// <param name="info">The prefab info to base this template off of.</param>
     public AssetBundleTemplate(AssetBundle bundle, string prefabName, PrefabInfo info) : base(info)
     {
         _prefab = bundle.LoadAsset<GameObject>(prefabName);
     }
+
+    /// <summary>
+    /// A reference to the loaded prefab for modification purposes. This points directly to the prefab contained in the Asset Bundle.
+    /// </summary>
+    public GameObject Prefab => _prefab;
 
     /// <summary>
     /// Instantiates a new AssetBundleTemplate. Automatically loads the bundle by calling <see cref = "Utility.AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, string)"/>,
@@ -53,8 +55,6 @@ public class AssetBundleTemplate : PrefabTemplate
 
         _prefab = bundle.LoadAsset<GameObject>(prefabName);
     }
-
-    private GameObject _prefab;
 
     /// <inheritdoc/>
     public override IEnumerator GetPrefabAsync(TaskResult<GameObject> gameObject)
