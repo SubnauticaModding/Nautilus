@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using BepInEx.Logging;
@@ -11,6 +11,11 @@ namespace Nautilus.Patchers;
 internal class TooltipPatcher
 {
     internal static bool DisableEnumIsDefinedPatch = false;
+
+    // For compatibility purposes:
+
+    private static MethodInfo _smlHelperIsVanillaTechTypeMethod;
+    private static MethodInfo _smlHelperWriteModNameFromTechTypeMethod;
 
     internal static void Patch(Harmony harmony)
     {
@@ -45,25 +50,82 @@ internal class TooltipPatcher
             WriteSpace(sb);
         }
 
-        if (techType.IsDefinedByDefault())
+        // Compatibility for SMLHelper if it is installed
+        if (SMLHelperCompatibilityPatcher.SMLHelperInstalled)
+        {
+            var safeToUseSMLMethods = EnsureSMLHelperMethodReferences();
+
+            if (techType.IsDefinedByDefault())
+            {
+                if (safeToUseSMLMethods && !(bool)_smlHelperIsVanillaTechTypeMethod.Invoke(null, new object[] { techType }))
+                {
+                    _smlHelperWriteModNameFromTechTypeMethod.Invoke(null, new object[] { sb, techType });
+                }
+                else
+                {
 #if SUBNAUTICA
-            WriteModName(sb, "Subnautica");
+                    WriteModName(sb, "Subnautica");
+#elif BELOWZERO
+                    WriteModName(sb, "BelowZero");
+#endif
+                }
+            }
+            else if (EnumHandler.TryGetOwnerAssembly(techType, out Assembly assembly))
+            {
+                WriteModNameFromAssembly(sb, assembly);
+            }
+            else
+            {
+                WriteModNameError(sb, "Unknown Mod", "Item added without Nautilus");
+            }
+        }
+        // Otherwise use a more basic method of doing things
+        else
+        {
+            if (techType.IsDefinedByDefault())
+#if SUBNAUTICA
+                WriteModName(sb, "Subnautica");
 #elif BELOWZERO
                 WriteModName(sb, "BelowZero");
 #endif
-        else if (EnumHandler.TryGetOwnerAssembly(techType, out Assembly assembly))
-        {
-            WriteModNameFromAssembly(sb, assembly);
-        }
-        else
-        {
-            WriteModNameError(sb, "Unknown Mod", "Item added without Nautilus");
+            else if (EnumHandler.TryGetOwnerAssembly(techType, out Assembly assembly))
+            {
+                WriteModNameFromAssembly(sb, assembly);
+            }
+            else
+            {
+                WriteModNameError(sb, "Unknown Mod", "Item added without Nautilus");
+            }
         }
     }
-        
+
+    // For SMLHelper compatibility only
+    private static bool EnsureSMLHelperMethodReferences()
+    {
+        if (_smlHelperIsVanillaTechTypeMethod == null)
+        {
+            _smlHelperIsVanillaTechTypeMethod = AccessTools.Method(SMLHelperCompatibilityPatcher.GetSMLType("SMLHelper.V2.Patchers.TooltipPatcher"), "IsVanillaTechType");
+            if (_smlHelperIsVanillaTechTypeMethod == null)
+            {
+                InternalLogger.Error("Failed to locate SMLHelper's TooltipPatcher.IsVanillaTechType method!");
+                return false;
+            }
+        }
+        if (_smlHelperWriteModNameFromTechTypeMethod == null)
+        {
+            _smlHelperWriteModNameFromTechTypeMethod = AccessTools.Method(SMLHelperCompatibilityPatcher.GetSMLType("SMLHelper.V2.Patchers.TooltipPatcher"), "WriteModNameFromTechType");
+            if (_smlHelperWriteModNameFromTechTypeMethod == null)
+            {
+                InternalLogger.Error("Failed to locate SMLHelper's TooltipPatcher.WriteModNameFromTechType method!");
+                return false;
+            }
+        }
+        return true;
+    }
+
     internal static void WriteTechType(StringBuilder sb, TechType techType)
     {
-        sb.AppendFormat("\n\n<size=19><color=#808080FF>{0} ({1})</color></size>", techType.AsString(), (int)techType);
+        sb.AppendFormat("\n\n<size=19><color=#808080FF>{0} ({1})</color></size>", techType.AsString(), (int) techType);
     }
     internal static void WriteModName(StringBuilder sb, string text)
     {
@@ -77,7 +139,7 @@ internal class TooltipPatcher
     {
         string modName = assembly.GetName().Name;
 
-        if(string.IsNullOrEmpty(modName))
+        if (string.IsNullOrEmpty(modName))
         {
             WriteModNameError(sb, "Unknown Mod", "Mod could not be determined");
         }
@@ -136,7 +198,7 @@ internal class TooltipPatcher
         }
 
         Initialized = true;
-            
+
         var nautilusFolder = Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name);
         Directory.CreateDirectory(nautilusFolder);
 

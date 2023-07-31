@@ -13,17 +13,43 @@ namespace Nautilus.Patchers;
 // This class can be SAFELY removed if we ever decide to make Nautilus incompatible with SMLHelper (which it already kinda is...)
 internal class SMLHelperCompatibilityPatcher
 {
-    private const string SMLHarmonyInstance = "com.ahk1221.smlhelper"; // This string is both the harmony instance & plugin GUID.
+    public const string SMLHarmonyInstance = "com.ahk1221.smlhelper"; // This string is both the harmony instance & plugin GUID.
+    public const string QModManagerGUID = "QModManager.QMMLoader";
     private const string SMLAssemblyName = "SMLHelper";
+    private const string SMLHelperModJsonID = "SMLHelper";
 
     private static Assembly _smlHelperAssembly;
 
+    private static bool? _smlHelperInstalled;
+
+    public static bool SMLHelperInstalled
+    {
+        get
+        {
+            if (!_smlHelperInstalled.HasValue)
+            {
+                _smlHelperInstalled = GetSMLHelperExists();
+            }
+            return _smlHelperInstalled.Value;
+        }
+    }
+
+    private static bool GetSMLHelperExists()
+    {
+#if SUBNAUTICA
+        return BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SMLHarmonyInstance);
+#elif BELOWZERO
+        if (!BepInEx.Bootstrap.Chainloader.PluginInfos.TryGetValue(QModManagerGUID, out var qmodManager))
+            return false;
+        var qmodServices = Assembly.GetAssembly(qmodManager.Instance.GetType()).GetType("QModManager.API.QModServices");
+        var qmodServicesInstance = AccessTools.PropertyGetter(qmodServices, "Main").Invoke(null, new object[0]);
+        return (bool)AccessTools.Method(qmodServices, "ModPresent").Invoke(qmodServicesInstance, new object[] { SMLHelperModJsonID });
+#endif
+    }
+
     internal static void Patch(Harmony harmony)
     {
-        if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SMLHarmonyInstance))
-        {
-            CoroutineHost.StartCoroutine(WaitOnSMLHelperForPatches(harmony));
-        }
+        CoroutineHost.StartCoroutine(WaitOnSMLHelperForPatches(harmony));
     }
 
     private static IEnumerator WaitOnSMLHelperForPatches(Harmony harmony)
@@ -44,10 +70,18 @@ internal class SMLHelperCompatibilityPatcher
 
         yield return null;
 
+        if (!SMLHelperInstalled)
+        {
+            yield break;
+        }
+
         InternalLogger.Log("Patching SMLHelper compatibility fixes", BepInEx.Logging.LogLevel.Info);
+
+        // Finally apply the patches:
 
         UnpatchSMLOptionsMethods(harmony);
         FixSMLOptionsException(harmony);
+        UnpatchSMLTooltipPatches(harmony);
     }
 
     private static void UnpatchSMLOptionsMethods(Harmony harmony)
@@ -114,6 +148,14 @@ internal class SMLHelperCompatibilityPatcher
         return false;
     }
 
+    // We don't want duplicate tooltips!!
+    private static void UnpatchSMLTooltipPatches(Harmony harmony)
+    {
+        harmony.Unpatch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech)), HarmonyPatchType.Postfix, SMLHarmonyInstance);
+        harmony.Unpatch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemCommons)), HarmonyPatchType.Postfix, SMLHarmonyInstance);
+        harmony.Unpatch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe)), HarmonyPatchType.Postfix, SMLHarmonyInstance);
+    }
+
     private static Assembly GetSMLAssembly()
     {
         if (_smlHelperAssembly != null)
@@ -130,7 +172,7 @@ internal class SMLHelperCompatibilityPatcher
         return _smlHelperAssembly;
     }
 
-    private static Type GetSMLType(string typeName)
+    internal static Type GetSMLType(string typeName)
     {
         var assembly = GetSMLAssembly();
         return assembly.GetType(typeName);
