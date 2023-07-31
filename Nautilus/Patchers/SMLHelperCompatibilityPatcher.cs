@@ -14,6 +14,7 @@ namespace Nautilus.Patchers;
 internal class SMLHelperCompatibilityPatcher
 {
     public const string SMLHarmonyInstance = "com.ahk1221.smlhelper"; // This string is both the harmony instance & plugin GUID.
+    public const string QModManagerGUID = "QModManager.QMMLoader";
     private const string SMLAssemblyName = "SMLHelper";
 
     private static Assembly _smlHelperAssembly;
@@ -25,9 +26,25 @@ internal class SMLHelperCompatibilityPatcher
         get
         {
             if (!_smlHelperInstalled.HasValue)
-                _smlHelperInstalled = BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SMLHarmonyInstance);
+            {
+                _smlHelperInstalled = GetSMLHelperExists();
+            }
             return _smlHelperInstalled.Value;
         }
+    }
+
+    private static bool GetSMLHelperExists()
+    {
+#if SUBNAUTICA
+        return BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(SMLHarmonyInstance);
+#elif BELOWZERO
+        if (!BepInEx.Bootstrap.Chainloader.PluginInfos.TryGetValue(QModManagerGUID, out var qmodManager))
+            return false;
+        var qmodServices = Assembly.GetAssembly(qmodManager.Instance.GetType()).GetType("QModManager.API.QModServices");
+        if (qmodServices == null)
+            return false;
+        return (bool)AccessTools.Method(qmodServices, "ModPresent").Invoke(null, new object[] { SMLHarmonyInstance });
+#endif
     }
 
     internal static void Patch(Harmony harmony)
