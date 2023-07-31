@@ -12,7 +12,7 @@ public static class ModMessageSystem
         SaveUtils.RegisterOnStartLoadingEvent(OnStartLoading);
     }
 
-    private static bool _allowedToHoldGlobalMessages = true;
+    private static bool _allowedToHoldMessages = true;
 
     // address - inbox
     private static Dictionary<string, ModInbox> _inboxes = new Dictionary<string, ModInbox>();
@@ -47,14 +47,15 @@ public static class ModMessageSystem
         {
             globalMessage.TrySendMessageToInbox(inbox);
         }
-        if (_allowedToHoldGlobalMessages)
+        if (_allowedToHoldMessages)
         {
             _globalMessages.Add(globalMessage);
         }
     }
 
     /// <summary>
-    /// Sends a single message to a <see cref="ModInbox"/>. If the message is not read immediately, it will be held until read.
+    /// Sends a single message to a <see cref="ModInbox"/>. If the message is not read immediately, it will be held until read. Messages can not be held
+    /// during game-time.
     /// </summary>
     /// <param name="messageInstance">The message to send.</param>
     public static void Send(ModMessage messageInstance)
@@ -66,6 +67,9 @@ public static class ModMessageSystem
         }
 
         // add to held messages instead:
+
+        if (!_allowedToHoldMessages)
+            return;
 
         if (!_heldMessages.TryGetValue(messageInstance.Recipient, out var heldMessageList))
             _heldMessages.Add(messageInstance.Recipient, new List<ModMessage>());
@@ -129,6 +133,7 @@ public static class ModMessageSystem
     private static void OnStartLoading()
     {
         _globalMessages.Clear();
-        _allowedToHoldGlobalMessages = false;
+        _heldMessages.Clear();
+        _allowedToHoldMessages = false;
     }
 }
