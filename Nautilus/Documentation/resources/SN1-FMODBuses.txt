@@ -1,0 +1,85 @@
+bus:/master/SFX_for_pause/nofilter/music/mutable music/floating_islands_background_music
+bus:/master/SFX_for_pause/PDA_pause/all/misc/fixing the lamest bugs in docking and undocking because lame code is broken
+bus:/master/SFX_for_pause/PDA_pause/all
+bus:/master/SFX_for_pause/all_no_pda_pause/all_voice_no_pda_pause/aurora_warnings
+bus:/master/SFX_for_pause/interface_no_pda_pause
+bus:/master/SFX_for_pause/nofilter/music/mutable music/jellyshroom_caves_music
+bus:/master/SFX_for_pause/nofilter/music/mutable music/lava_background_music
+bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds
+bus:/master/SFX_for_pause/nofilter/music/mutable music
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/lost_river_background
+bus:/master/SFX_for_pause/all_no_pda_pause/all_voice_no_pda_pause/VOs
+bus:/master/SFX_for_pause/all_no_pda_pause/pickups_no_pda_pause/reverbsend/tech
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/grasy_background (2)
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/swim_surface
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/jellyshroom_caves
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/deploys
+bus:/master/SFX_for_pause/all_no_pda_pause
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend/tech
+bus:/master/SFX_for_pause/all_no_pda_pause/misc_no_pda_pause
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures/seadragon
+bus:/master/SFX_for_pause/all_no_pda_pause/pickups_no_pda_pause
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/surface
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures/reffback
+bus:/master/SFX_for_pause/nofilter/music
+bus:/master/SFX_for_pause/all_no_pda_pause/all_voice_no_pda_pause/aI_voice
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/beach
+bus:/master/SFX_for_pause/nofilter/music/mutable music/reef_background_music
+bus:/master
+bus:/master/SFX_for_pause/nofilter/music/mutable music/blood_kelp_background_music
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/lava_background
+bus:/master/SFX_for_pause/PDA_pause/all/misc/powerstuff
+bus:/master/SFX_for_pause/PDA_pause/all/misc/rocket loops
+bus:/master/SFX_for_pause/nofilter/music/mutable music/grandreef_background_music
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/mushroom_background
+bus:/master/SFX_for_pause/nofilter/music/mutable music/prec_base_background_music
+bus:/master/SFX_for_pause/nofilter/music/mutable music/kelp_background_music
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/kelp_background
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/underislands_background
+bus:/master/SFX_for_pause/PDA_pause/all/intro
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/dives
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/cyclops_loop
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/floating_islands_background
+bus:/master/SFX_for_pause/PDA_pause
+bus:/master/SFX_for_pause
+bus:/master/SFX_for_pause/PDA_pause/all/SFX
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/cyclops_stop
+bus:/master/SFX_for_pause/PDA_pause/all/misc
+bus:/master/SFX_for_pause/nofilter/music/mutable music/mushroom_background_music
+bus:/master/SFX_for_pause/nofilter/music/mutable music/arctic_background_music
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend
+bus:/master/SFX_for_pause/PDA_pause/all/all voice
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures/bonesharkbitemutes
+bus:/master/SFX_for_pause/PDA_pause/all/all voice/AI voice
+bus:/master/SFX_for_pause/nofilter/music/mutable music/grasy_background_music
+bus:/master/SFX_for_pause/PDA_pause/all/Sounds_muted by pain
+bus:/master/SFX_for_pause/PDA_pause/all/all voice/VOs
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/blood_kelp_background
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures
+bus:/master/SFX_for_pause/nofilter/music/mutable music/grasy_background (2)_music
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/arctic_background
+bus:/master/SFX_for_pause/all_no_pda_pause/pickups_no_pda_pause/reverbsend
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds
+bus:/master/SFX_for_pause/nofilter/music/mutable music/twisty_bridges_background_music
+bus:/master/SFX_for_pause/nofilter
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures surface
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/grandreef_background
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend/fabricator close
+bus:/master/SFX_for_pause/nofilter/music/mutable music/lost_river_background_music
+bus:/master/SFX_for_pause/PDA_pause/all/all voice/Aurora warnings
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/twisty_bridges_background
+bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/reef_background
+bus:/master/SFX_for_pause/nofilter/music/mutable music/underislands_background_music
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/grasy_background
+bus:/master/SFX_for_pause/nofilter/music/mutable music/koosh_background_music
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/underwater_backgrounds/koosh_background
+bus:/master/SFX_for_pause/all_no_pda_pause/all_voice_no_pda_pause
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures/ghost
+bus:/master/SFX_for_pause/PDA_pause/all/regularverb
+bus:/master/SFX_for_pause/PDA_pause/all/reverb
+bus:/master/SFX_for_pause/all_no_pda_pause/VO_send
+bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverb
+bus:/master/SFX_for_pause/PDA_pause/all/all voice/VO_PDA_pause_return
+bus:/
