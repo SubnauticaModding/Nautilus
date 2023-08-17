@@ -131,7 +131,12 @@ public static class PrefabUtils
         constructable.allowedOnCeiling = constructableFlags.HasFlag(ConstructableFlags.Ceiling);
         constructable.allowedOnConstructables = constructableFlags.HasFlag(ConstructableFlags.AllowedOnConstructable);
         constructable.allowedOnWall = constructableFlags.HasFlag(ConstructableFlags.Wall);
-        constructable.allowedOnGround = constructableFlags.HasFlag(ConstructableFlags.Ground);
+        
+        // dirty workaround for when the Ground flag wasn't actually functional but prefabs that used it still were allowed on ground since this is enabled
+        // by default on the Constructable component. I hate how enum flags don't get highlighted in IDEs when they're not used/implemented which led
+        // to this issue in the first place.
+        constructable.allowedOnGround = constructableFlags == ConstructableFlags.None || constructableFlags.HasFlag(ConstructableFlags.Ground);
+        
         constructable.rotationEnabled = constructableFlags.HasFlag(ConstructableFlags.Rotatable);
 
         if (model != null)
