@@ -79,6 +79,8 @@ public class CloneTemplate : PrefabTemplate
             var obj = gameObject.Get();
             ApplySkin(org);
             ModifyPrefab?.Invoke(obj);
+            if (ModifyPrefabAsync is {})
+                yield return ModifyPrefabAsync(obj);
             gameObject.Set(obj);
         }
         else
@@ -95,9 +97,8 @@ public class CloneTemplate : PrefabTemplate
             var obj = Object.Instantiate(prefab);
             ApplySkin(org);
             ModifyPrefab?.Invoke(obj);
-            if (ModifyPrefabAsync is { })
-                yield return ModifyPrefabAsync.Invoke(obj);
-            
+            if (ModifyPrefabAsync is {})
+                yield return ModifyPrefabAsync(obj);
             gameObject.Set(obj);
         }
     }
