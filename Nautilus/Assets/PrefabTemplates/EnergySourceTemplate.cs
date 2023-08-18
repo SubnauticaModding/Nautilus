@@ -20,6 +20,16 @@ public class EnergySourceTemplate : PrefabTemplate
     /// Otherwise; uses the default Battery or Power Cell models.
     /// </summary>
     public bool UseIonModelAsBase { get; set; }
+    
+    /// <summary>
+    /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
+    /// </summary>
+    public System.Action<GameObject> ModifyPrefab { get; set; }
+    
+    /// <summary>
+    /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more asynchronously.
+    /// </summary>
+    public System.Func<GameObject, IEnumerator> ModifyPrefabAsync { get; set; }
 
     private readonly int _energyAmount;
 
@@ -45,7 +55,7 @@ public class EnergySourceTemplate : PrefabTemplate
         var obj = gameObject.Get();
         if (obj)
         {
-            ModifyPrefab(obj);
+            ApplyModifications(obj);
             yield break;
         }
 
@@ -60,7 +70,7 @@ public class EnergySourceTemplate : PrefabTemplate
 
         var obj = GameObject.Instantiate(task.GetResult());
 
-        ModifyPrefab(obj);
+        yield return ApplyModifications(obj);
         
         gameObject.Set(obj);
     }
@@ -77,10 +87,14 @@ public class EnergySourceTemplate : PrefabTemplate
         };
     }
 
-    private void ModifyPrefab(GameObject obj)
+    private IEnumerator ApplyModifications(GameObject obj)
     {
         PrefabUtils.AddBasicComponents(obj, info.ClassID, info.TechType, LargeWorldEntity.CellLevel.Medium);
         var battery = obj.EnsureComponent<Battery>();
         battery._capacity = _energyAmount;
+        
+        ModifyPrefab?.Invoke(obj);
+        if (ModifyPrefabAsync is { })
+            yield return ModifyPrefabAsync.Invoke(obj);
     }
 }

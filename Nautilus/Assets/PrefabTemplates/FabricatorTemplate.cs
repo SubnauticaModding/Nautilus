@@ -82,6 +82,11 @@ public class FabricatorTemplate : PrefabTemplate
     /// </summary>
     public System.Action<GameObject> ModifyPrefab { get; set; }
     
+    /// <summary>
+    /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more asynchronously.
+    /// </summary>
+    public System.Func<GameObject, IEnumerator> ModifyPrefabAsync { get; set; }
+    
     private readonly CraftTree.Type _craftTreeType;
     
     /// <summary>
@@ -131,7 +136,7 @@ public class FabricatorTemplate : PrefabTemplate
         
         task.TryGetPrefab(out var prefab);
         var obj = Object.Instantiate(prefab);
-        ApplyCrafterPrefab(obj);
+        yield return ApplyCrafterPrefab(obj);
         gameObject.Set(obj);
     }
 
@@ -148,7 +153,7 @@ public class FabricatorTemplate : PrefabTemplate
         };
     }
 
-    private void ApplyCrafterPrefab(GameObject obj)
+    private IEnumerator ApplyCrafterPrefab(GameObject obj)
     {
         PrefabUtils.AddBasicComponents(obj, info.ClassID, info.TechType, LargeWorldEntity.CellLevel.Medium);
         GhostCrafter crafter;
@@ -196,5 +201,7 @@ public class FabricatorTemplate : PrefabTemplate
         }
         
         ModifyPrefab?.Invoke(obj);
+        if (ModifyPrefabAsync is { })
+            yield return ModifyPrefabAsync.Invoke(obj);
     }
 }
