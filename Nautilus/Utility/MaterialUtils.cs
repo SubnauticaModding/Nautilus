@@ -210,16 +210,15 @@ public static partial class MaterialUtils
         if (specularTexture != null)
         {
             material.SetTexture(ShaderPropertyID._SpecTex, specularTexture);
+            material.SetFloat("_SpecInt", specularIntensity);
+            material.SetFloat("_Shininess", shininess);
+            material.EnableKeyword("_ZWRITE_ON");
+            material.EnableKeyword("MARMO_SPECMAP");
+            material.SetColor(ShaderPropertyID._SpecColor, new Color(1f, 1f, 1f, 1f));
+            material.SetFloat("_Fresnel", 0.24f);
+            material.SetVector("_SpecTex_ST", new Vector4(1.0f, 1.0f, 0.0f, 0.0f));
         }
-        material.SetFloat("_SpecInt", specularIntensity);
-        material.SetFloat("_Shininess", shininess);
-        material.EnableKeyword("_ZWRITE_ON");
-        material.EnableKeyword("MARMO_SPECMAP");
-        material.enableInstancing = true;
-        material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack | MaterialGlobalIlluminationFlags.RealtimeEmissive;
-        material.SetColor(ShaderPropertyID._SpecColor, new Color(1f, 1f, 1f, 1f));
-        material.SetFloat("_Fresnel", 0.24f);
-        material.SetVector("_SpecTex_ST", new Vector4(1.0f, 1.0f, 0.0f, 0.0f));
+        
         if (material.IsKeywordEnabled("_EMISSION"))
         {
             material.EnableKeyword("MARMO_EMISSION");
@@ -234,6 +233,9 @@ public static partial class MaterialUtils
         {
             material.EnableKeyword("MARMO_NORMALMAP");
         }
+        
+        material.enableInstancing = true;
+        material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack | MaterialGlobalIlluminationFlags.RealtimeEmissive;
 
         switch (materialType)
         {
