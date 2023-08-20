@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace Nautilus.Patchers;
 
+[HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
 internal class CustomSoundPatcher
 {
     internal static readonly SelfCheckingDictionary<string, Sound> CustomSounds = new("CustomSounds");

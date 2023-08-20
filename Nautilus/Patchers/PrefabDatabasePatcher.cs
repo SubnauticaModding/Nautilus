@@ -17,6 +17,7 @@ internal static class PrefabDatabasePatcher
     {
         [HarmonyPostfix]
         [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.LoadPrefabDatabase))]
+        [HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
         internal static void LoadPrefabDatabase_Postfix()
         {
             foreach (var prefab in PrefabHandler.Prefabs)
@@ -28,6 +29,7 @@ internal static class PrefabDatabasePatcher
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.TryGetPrefabFilename))]
+    [HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
     internal static bool TryGetPrefabFilename_Prefix(string classId, ref string filename, ref bool __result)
     {
         if (!PrefabHandler.Prefabs.TryGetInfoForClassId(classId, out PrefabInfo prefabInfo))
@@ -42,6 +44,7 @@ internal static class PrefabDatabasePatcher
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(DeferredSpawner.AddressablesTask), nameof(DeferredSpawner.AddressablesTask.SpawnAsync))]
+    [HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
     internal static bool DeferredSpawner_AddressablesTask_Spawn_Prefix(DeferredSpawner.AddressablesTask __instance, ref IEnumerator __result)
     {
         if (!PrefabHandler.Prefabs.TryGetInfoForFileName(__instance.key, out PrefabInfo prefabInfo))
@@ -90,6 +93,7 @@ internal static class PrefabDatabasePatcher
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(PrefabDatabase), nameof(PrefabDatabase.GetPrefabAsync))]
+    [HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
     internal static bool GetPrefabAsync_Prefix(ref IPrefabRequest __result, string classId)
     {
         __result ??= GetModPrefabAsync(classId);
@@ -101,6 +105,7 @@ internal static class PrefabDatabasePatcher
     { 
         typeof(string), typeof(IOut<GameObject>), typeof(Transform), typeof(Vector3), typeof(Quaternion), typeof(bool)
     })]
+    [HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
     internal static bool InstantiateAsync_Prefix(ref IEnumerator __result,string key, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
     {
         if (!PrefabHandler.Prefabs.TryGetInfoForFileName(key, out var prefabInfo) && !PrefabHandler.Prefabs.TryGetInfoForClassId(key, out prefabInfo))

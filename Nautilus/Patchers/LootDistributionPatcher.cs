@@ -12,7 +12,7 @@ internal class LootDistributionPatcher
     internal static void Patch(Harmony harmony)
     {
         harmony.Patch(AccessTools.Method(typeof(LootDistributionData), nameof(LootDistributionData.Initialize)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(LootDistributionPatcher), nameof(LootDistributionPatcher.InitializePostfix))));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(LootDistributionPatcher), nameof(InitializePostfix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
 
         InternalLogger.Log("LootDistributionPatcher is done.", LogLevel.Debug);
     }
