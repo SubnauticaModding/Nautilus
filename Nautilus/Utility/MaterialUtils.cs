@@ -202,7 +202,7 @@ public static partial class MaterialUtils
     {
         var specularTexture = material.HasProperty(ShaderPropertyID._SpecGlossMap) ? material.GetTexture(ShaderPropertyID._SpecGlossMap) : null;
         var emissionTexture = material.HasProperty(_emissionMap) ? material.GetTexture(_emissionMap) : null;
-        var emissionColor = material.GetColor(ShaderPropertyID._EmissionColor);
+        var emissionColor = material.HasProperty(ShaderPropertyID._EmissionColor) ? material.GetColor(ShaderPropertyID._EmissionColor) : Color.black;
         material.shader = Shaders.MarmosetUBER;
 
         material.DisableKeyword("_SPECGLOSSMAP");
