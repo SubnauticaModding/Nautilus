@@ -200,13 +200,19 @@ public static partial class MaterialUtils
     /// <param name="materialType">Controls various settings including alpha clipping and transparency.</param>
     public static void ApplyUBERShader(Material material, float shininess, float specularIntensity, float glowStrength, MaterialType materialType)
     {
+        // Grab existing references to textures & colors using property names from the standard shader
         var specularTexture = material.HasProperty(ShaderPropertyID._SpecGlossMap) ? material.GetTexture(ShaderPropertyID._SpecGlossMap) : null;
         var emissionTexture = material.HasProperty(_emissionMap) ? material.GetTexture(_emissionMap) : null;
         var emissionColor = material.HasProperty(ShaderPropertyID._EmissionColor) ? material.GetColor(ShaderPropertyID._EmissionColor) : Color.black;
+
+        // Change the shader to MarmosetUBER
         material.shader = Shaders.MarmosetUBER;
 
+        // Disable keywords that were added by Unity
         material.DisableKeyword("_SPECGLOSSMAP");
         material.DisableKeyword("_NORMALMAP");
+
+        // Apply specular settings if there is a specular texture (otherwise it will appear bright white)
         if (specularTexture != null)
         {
             material.SetTexture(ShaderPropertyID._SpecTex, specularTexture);
@@ -218,7 +224,8 @@ public static partial class MaterialUtils
             material.SetFloat("_Fresnel", 0.24f);
             material.SetVector("_SpecTex_ST", new Vector4(1.0f, 1.0f, 0.0f, 0.0f));
         }
-        
+
+        // Apply emission if it was enabled in the standard shader
         if (material.IsKeywordEnabled("_EMISSION"))
         {
             material.EnableKeyword("MARMO_EMISSION");
@@ -229,6 +236,7 @@ public static partial class MaterialUtils
             material.SetFloat(ShaderPropertyID._GlowStrengthNight, glowStrength);
         }
 
+        // Apply normal map if it was applied in the standard shader
         if (material.GetTexture("_BumpMap"))
         {
             material.EnableKeyword("MARMO_NORMALMAP");
