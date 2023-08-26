@@ -106,10 +106,7 @@ internal class KnownTechPatcher
                 tech.unlockSound = UnlockSound;
             }
 
-            if (!KnownTech.Contains(tech.techType))
-            {
-                analysisTech.Add(tech);
-            }
+            analysisTech.Add(tech);
         }
 
         List <KnownTech.CompoundTech> validatedCompoundTeches = KnownTech.ValidateCompoundTech(new(CompoundTech.Values));
