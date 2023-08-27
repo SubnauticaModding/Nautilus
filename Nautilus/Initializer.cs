@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using BepInEx;
 using HarmonyLib;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.U2D;
 
 namespace Nautilus;
 
@@ -15,6 +18,16 @@ namespace Nautilus;
 public class Initializer : BaseUnityPlugin
 {
     private static readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
+
+#if BELOWZERO
+    static Initializer()
+    {
+        var handle = AddressablesUtility.LoadAllAsync<SpriteAtlas>("SpriteAtlases");
+        handle.Completed += SpriteManager.OnLoadedSpriteAtlases;
+        // Please dont use this method. I hate using it but we have no other choice.
+        _ = handle.WaitForCompletion();
+    }
+#endif
 
     /// <summary>
     /// WARNING: This method is for use only by BepInEx.
@@ -38,7 +51,6 @@ public class Initializer : BaseUnityPlugin
         ConsoleCommandsPatcher.Patch(_harmony);
         LanguagePatcher.Patch(_harmony);
         PrefabDatabasePatcher.PostPatch(_harmony);
-        SpritePatcher.Patch(_harmony);
         KnownTechPatcher.Patch(_harmony);
         OptionsPanelPatcher.Patch(_harmony);
         SMLHelperCompatibilityPatcher.Patch(_harmony);
