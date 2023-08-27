@@ -321,7 +321,7 @@ public class ScanningGadget : Gadget
 
         if (CompoundTechsForUnlock is { Count: > 0 } || RequiredForUnlock != TechType.None)
         {
-            if (AnalysisTech is null)
+            if (AnalysisTech is null && RequiredForUnlock != TechType.None)
             {
                 KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage, KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound);
             }
