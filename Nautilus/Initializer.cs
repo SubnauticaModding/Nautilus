@@ -31,6 +31,7 @@ public class Initializer : BaseUnityPlugin
 #elif BELOWZERO
         InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for BelowZero");
 #endif
+        AssetReferencePatcher.Patch(_harmony);
         PrefabDatabasePatcher.PrePatch(_harmony);
         EnumPatcher.Patch(_harmony);
         CraftDataPatcher.Patch(_harmony);
