@@ -62,5 +62,6 @@ public class Initializer : BaseUnityPlugin
         PDAEncyclopediaTabPatcher.Patch(_harmony);
         NewtonsoftJsonPatcher.Patch(_harmony);
         InventoryPatcher.Patch(_harmony);
+        WaterParkPatcher.Patch(_harmony);
     }
 }

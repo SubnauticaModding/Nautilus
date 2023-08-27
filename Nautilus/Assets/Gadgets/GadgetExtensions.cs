@@ -248,4 +248,19 @@ public static class GadgetExtensions
 
         return customPrefab;
     }
+    
+    /// <summary>
+    /// Makes this item have additional creature-egg-related functionality.
+    /// </summary>
+    /// <param name="customPrefab">The custom prefab the creature egg gadget is created for.</param>
+    /// <param name="requiredAcuSize">The total amount of ACU floors required for the egg to be dropped in the ACU.</param>
+    /// <returns>A reference to the created <see cref="EggGadget"/> instance after the operation has completed.</returns>
+    public static EggGadget CreateCreatureEgg(this ICustomPrefab customPrefab, int requiredAcuSize = 1)
+    {
+        if (!customPrefab.TryGetGadget(out EggGadget creatureEggGadget))
+            creatureEggGadget = customPrefab.AddGadget(new EggGadget(customPrefab, requiredAcuSize));
+
+        creatureEggGadget.RequiredAcuSize = requiredAcuSize;
+        return creatureEggGadget;
+    }
 }
