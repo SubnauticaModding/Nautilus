@@ -10,7 +10,8 @@ internal class KnownTechPatcher
 {
     private static readonly Func<TechType, string> AsStringFunction = (t) => t.AsString();
 
-    internal static List<TechType> UnlockedAtStart = new();
+    internal static HashSet<TechType> UnlockedAtStart = new();
+    internal static HashSet<TechType> LockedWithNoUnlocks = new();
     internal static IDictionary<TechType, KnownTech.AnalysisTech> AnalysisTech = new SelfCheckingDictionary<TechType, KnownTech.AnalysisTech>("AnalysisTech", AsStringFunction);
     internal static IDictionary<TechType, KnownTech.CompoundTech> CompoundTech = new SelfCheckingDictionary<TechType, KnownTech.CompoundTech>("CompoundTech", AsStringFunction);
     internal static IDictionary<TechType, List<TechType>> RemoveFromSpecificTechs = new SelfCheckingDictionary<TechType, List<TechType>>("RemoveFromSpecificTechs", AsStringFunction);
@@ -21,7 +22,10 @@ internal class KnownTechPatcher
     public static void Patch(Harmony harmony)
     {
         harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.Initialize)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(KnownTechPatcher.InitializePostfix))));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(InitializePostfix))));
+        
+        harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.GetAllUnlockables)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(GetAllUnlockablesPostfix))));
     }
 
     internal static void InitializePostfix()
@@ -106,10 +110,7 @@ internal class KnownTechPatcher
                 tech.unlockSound = UnlockSound;
             }
 
-            if (!KnownTech.Contains(tech.techType))
-            {
-                analysisTech.Add(tech);
-            }
+            analysisTech.Add(tech);
         }
 
         List <KnownTech.CompoundTech> validatedCompoundTeches = KnownTech.ValidateCompoundTech(new(CompoundTech.Values));
@@ -133,5 +134,11 @@ internal class KnownTechPatcher
                 foundTech.dependencies = customTech.dependencies;
             }
         }
+    }
+
+    private static void GetAllUnlockablesPostfix(HashSet<TechType> __result)
+    {
+        var filtered = CraftData.FilterAllowed(LockedWithNoUnlocks);
+        __result.AddRange(filtered);
     }
 }
