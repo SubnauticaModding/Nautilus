@@ -1,12 +1,12 @@
 using System;
-using System.Collections.Generic;
 using BepInEx;
 using HarmonyLib;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
-using UnityEngine.ResourceManagement.AsyncOperations;
+#if BELOWZERO
 using UnityEngine.U2D;
+#endif
 
 namespace Nautilus;
 
