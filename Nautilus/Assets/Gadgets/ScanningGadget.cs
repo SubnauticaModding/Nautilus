@@ -328,5 +328,11 @@ public class ScanningGadget : Gadget
 
             KnownTechPatcher.UnlockedAtStart.Remove(prefab.Info.TechType);
         }
+
+        if (!KnownTechPatcher.UnlockedAtStart.Contains(prefab.Info.TechType) && 
+            (CompoundTechsForUnlock is null || CompoundTechsForUnlock.Count <= 0) && RequiredForUnlock == TechType.None && ScannerEntryData is null)
+        {
+            KnownTechPatcher.LockedWithNoUnlocks.Add(prefab.Info.TechType);
+        }
     }
 }
