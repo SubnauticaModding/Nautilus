@@ -259,7 +259,11 @@ public class CustomPrefab : ICustomPrefab
     /// Sets a prefab template as the game object constructor of this custom prefab.
     /// </summary>
     /// <param name="prefabTemplate">The prefab template object to set.</param>
-    public void SetGameObject(PrefabTemplate prefabTemplate) => Prefab = prefabTemplate.GetPrefabAsync;
+    public void SetGameObject(PrefabTemplate prefabTemplate)
+    {
+        Prefab = prefabTemplate.GetPrefabAsync;
+        SetPrefabPostProcessor(prefabTemplate.OnPrefabPostProcessor);
+    }
 
     /// <summary>
     /// Sets a game object as the prefab of this custom prefab.
