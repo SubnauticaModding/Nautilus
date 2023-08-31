@@ -259,7 +259,11 @@ public class CustomPrefab : ICustomPrefab
     /// Sets a prefab template as the game object constructor of this custom prefab.
     /// </summary>
     /// <param name="prefabTemplate">The prefab template object to set.</param>
-    public void SetGameObject(PrefabTemplate prefabTemplate) => Prefab = prefabTemplate.GetPrefabAsync;
+    public void SetGameObject(PrefabTemplate prefabTemplate)
+    {
+        Prefab = prefabTemplate.GetPrefabAsync;
+        SetPrefabPostProcessor(prefabTemplate.OnPrefabPostProcessor);
+    }
 
     /// <summary>
     /// Sets a game object as the prefab of this custom prefab.
@@ -282,13 +286,13 @@ public class CustomPrefab : ICustomPrefab
     /// Sets a post processor for the <see cref="Prefab"/>. This is an asynchronous version.
     /// </summary>
     /// <param name="postProcessorAsync">The post processor to set.</param>
-    public void SetPrefabPostProcessor(Func<GameObject, IEnumerator> postProcessorAsync) => OnPrefabPostProcess = obj => postProcessorAsync(obj);
+    public void SetPrefabPostProcessor(Func<GameObject, IEnumerator> postProcessorAsync) => OnPrefabPostProcess += obj => postProcessorAsync(obj);
 
     /// <summary>
     /// Sets a post processor for the <see cref="Prefab"/>. This is a synchronous version.
     /// </summary>
     /// <param name="postProcessor">The post processor to set.</param>
-    public void SetPrefabPostProcessor(Action<GameObject> postProcessor) => OnPrefabPostProcess = obj => SyncPostProcessor(obj, postProcessor);
+    public void SetPrefabPostProcessor(Action<GameObject> postProcessor) => OnPrefabPostProcess += obj => SyncPostProcessor(obj, postProcessor);
 
     /// <summary>
     /// Registers this custom prefab into the game.
