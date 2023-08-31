@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using BepInEx;
 using HarmonyLib;
@@ -16,44 +16,44 @@ namespace Nautilus.Examples;
 [BepInDependency("com.snmodding.nautilus")]
 public class CreatureEggExample : BaseUnityPlugin
 {
- /// <summary>
- /// This patch is required because the reaper leviathan doesn't have a WaterParkCreature component and it's required for creatures in the ACU to work properly.
- /// </summary>
- [HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.Awake))]
- private static class Patcher
- {
-  [HarmonyPostfix]
-  private static void AwakePostfix(Creature __instance)
-  {
-   if (!__instance.TryGetComponent(out ReaperLeviathan _))
-   {
-    return;
-   }
+    /// <summary>
+    /// This patch is required because the reaper leviathan doesn't have a WaterParkCreature component and it's required for creatures in the ACU to work properly.
+    /// </summary>
+    [HarmonyPatch(typeof(LiveMixin), nameof(LiveMixin.Awake))]
+    private static class Patcher
+    {
+        [HarmonyPostfix]
+        private static void AwakePostfix(Creature __instance)
+        {
+            if (!__instance.TryGetComponent(out ReaperLeviathan _))
+            {
+                return;
+            }
 
-   if (!PrefabDatabase.TryGetPrefabFilename(CraftData.GetClassIdForTechType(TechType.ReaperLeviathan), out var filename))
-   {
-    return;
-   }
+            if (!PrefabDatabase.TryGetPrefabFilename(CraftData.GetClassIdForTechType(TechType.ReaperLeviathan), out var filename))
+            {
+                return;
+            }
 
-   var wpc = __instance.gameObject.EnsureComponent<WaterParkCreature>();
-   wpc.data = ScriptableObject.CreateInstance<WaterParkCreatureData>();
-   wpc.data.eggOrChildPrefab = new AssetReferenceGameObject(filename).ForceValid();
-   wpc.data.canBreed = true;
-   // Initial size is when the creature just hatched
-   wpc.data.initialSize = 0.04f;
-   
-   // Max size is the maximum size this creature can reach inside the ACU
-   wpc.data.maxSize = 0.05f;
-   
-   // Outside size is when you drop the creature outside of the ACU
-   wpc.data.outsideSize = 0.07f;
-   
-   // How long will it take for this creature to reach the maximum size
-   wpc.data.daysToGrow = 6;
-   
-   wpc.data.isPickupableOutside = false;
-  }
- }
+            var wpc = __instance.gameObject.EnsureComponent<WaterParkCreature>();
+            wpc.data = ScriptableObject.CreateInstance<WaterParkCreatureData>();
+            wpc.data.eggOrChildPrefab = new AssetReferenceGameObject(filename).ForceValid();
+            wpc.data.canBreed = true;
+            // Initial size is when the creature just hatched
+            wpc.data.initialSize = 0.04f;
+
+            // Max size is the maximum size this creature can reach inside the ACU
+            wpc.data.maxSize = 0.05f;
+
+            // Outside size is when you drop the creature outside of the ACU
+            wpc.data.outsideSize = 0.07f;
+
+            // How long will it take for this creature to reach the maximum size
+            wpc.data.daysToGrow = 6;
+
+            wpc.data.isPickupableOutside = false;
+        }
+    }
     private void Awake()
     {
         CustomPrefab reaperEgg = new CustomPrefab("ReaperEgg", "Reaper Leviathan Egg", "Reaper Leviathan Egg that makes me go yes.");
@@ -81,17 +81,17 @@ public class CreatureEggExample : BaseUnityPlugin
             HatchingCreature = TechType.ReaperLeviathan,
             HatchingTime = 3
         };
-        
+
         /*
          * Here we make this egg have an unidentified egg tech type before hatching. Once it hatches, it will receive the main egg tech type.
          */
         egg.SetUndiscoveredTechType();
-        
+
         /*
          * Set the game object of our custom prefab to the egg template we setup.
          */
         reaperEgg.SetGameObject(egg);
-        
+
         /*
          * Register our custom fabricator to the game.
          * After this point, do not edit the prefab or modify gadgets as they will not be applied.
