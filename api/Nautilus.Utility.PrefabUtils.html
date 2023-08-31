@@ -83,7 +83,7 @@
 
   <h1 id="Nautilus_Utility_PrefabUtils" data-uid="Nautilus.Utility.PrefabUtils" class="text-break">
     Class PrefabUtils
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L72"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -150,7 +150,7 @@
 
   <h3 id="Nautilus_Utility_PrefabUtils_AddBasicComponents_UnityEngine_GameObject_System_String_TechType_LargeWorldEntity_CellLevel_" data-uid="Nautilus.Utility.PrefabUtils.AddBasicComponents(UnityEngine.GameObject,System.String,TechType,LargeWorldEntity.CellLevel)">
   AddBasicComponents(GameObject, string, TechType, CellLevel)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L85"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds and configures the following components on the <code class="paramref">prefab</code>.<p></p>
@@ -191,7 +191,7 @@
 
   <h3 id="Nautilus_Utility_PrefabUtils_AddConstructable_UnityEngine_GameObject_TechType_Nautilus_Utility_ConstructableFlags_UnityEngine_GameObject_" data-uid="Nautilus.Utility.PrefabUtils.AddConstructable(UnityEngine.GameObject,TechType,Nautilus.Utility.ConstructableFlags,UnityEngine.GameObject)">
   AddConstructable(GameObject, TechType, ConstructableFlags, GameObject)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L107"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L113"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds and configures the <span class="xref">Constructable</span> component on the specified prefab.</div>
@@ -218,7 +218,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><span class="xref">Constructable</span></dt>
-    <dd>The added constructable component.</dd>
+    <dd>A reference to the added <span class="xref">Constructable</span> instance.</dd>
   </dl>
 
 
@@ -235,7 +235,7 @@
 
   <h3 id="Nautilus_Utility_PrefabUtils_AddEnergyMixin_UnityEngine_GameObject_System_String_TechType_System_Collections_Generic_List_TechType__EnergyMixin_BatteryModels___System_String_" data-uid="Nautilus.Utility.PrefabUtils.AddEnergyMixin(UnityEngine.GameObject,System.String,TechType,System.Collections.Generic.List{TechType},EnergyMixin.BatteryModels[],System.String)">
   AddEnergyMixin(GameObject, string, TechType, List&lt;TechType&gt;, BatteryModels[], string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L217"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L230"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds the <span class="xref">EnergyMixin</span> component to an object that is expected to have a slot for one battery or other power source.</p>
@@ -265,7 +265,45 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><span class="xref">EnergyMixin</span></dt>
-    <dd></dd>
+    <dd>A reference to the added <span class="xref">EnergyMixin</span> instance.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_PrefabUtils_AddResourceTracker_" data-uid="Nautilus.Utility.PrefabUtils.AddResourceTracker*"></a>
+
+  <h3 id="Nautilus_Utility_PrefabUtils_AddResourceTracker_UnityEngine_GameObject_TechType_" data-uid="Nautilus.Utility.PrefabUtils.AddResourceTracker(UnityEngine.GameObject,TechType)">
+  AddResourceTracker(GameObject, TechType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L261"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds the <span class="xref">ResourceTracker</span> component to the passed game object to allow scanning via the Scanner Room.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ResourceTracker AddResourceTracker(GameObject gameObject, TechType categoryTechType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gameObject</code> <span class="xref">GameObject</span></dt>
+    <dd>the game object to add the resource tracker component to.</dd>
+    <dt><code>categoryTechType</code> <span class="xref">TechType</span></dt>
+    <dd>TechType of the category in which this object will be displayed under in the Scanner Room.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ResourceTracker</span></dt>
+    <dd>A reference to the added <span class="xref">ResourceTracker</span> instance.</dd>
   </dl>
 
 
@@ -282,7 +320,7 @@
 
   <h3 id="Nautilus_Utility_PrefabUtils_AddStorageContainer_UnityEngine_GameObject_System_String_System_String_System_Int32_System_Int32_System_Boolean_" data-uid="Nautilus.Utility.PrefabUtils.AddStorageContainer(UnityEngine.GameObject,System.String,System.String,System.Int32,System.Int32,System.Boolean)">
   AddStorageContainer(GameObject, string, string, int, int, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L178"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L191"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Adds the <span class="xref">StorageContainer</span> component to the given prefab, for basic use cases with lockers and such.</p>
@@ -313,7 +351,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><span class="xref">StorageContainer</span></dt>
-    <dd></dd>
+    <dd>A reference to the added <span class="xref">StorageContainer</span> instance.</dd>
   </dl>
 
 
@@ -330,7 +368,7 @@
 
   <h3 id="Nautilus_Utility_PrefabUtils_AddVFXFabricating_UnityEngine_GameObject_System_String_System_Single_System_Single_UnityEngine_Vector3_System_Single_UnityEngine_Vector3_" data-uid="Nautilus.Utility.PrefabUtils.AddVFXFabricating(UnityEngine.GameObject,System.String,System.Single,System.Single,UnityEngine.Vector3,System.Single,UnityEngine.Vector3)">
   AddVFXFabricating(GameObject, string, float, float, Vector3, float, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L150"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L163"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds the <span class="xref">VFXFabricating</span> component onto the child found by <code class="paramref">pathToModel</code>.</div>
@@ -353,7 +391,7 @@
     <dd><p>The relative y position of where the ghost effect ends, in global coordinates relative to the model's center, taking the <code class="paramref">posOffset</code> into account.</p>
 <p>Typically a positive value because the top of an object is above its center. You may need to adjust this at runtime with Subnautica Runtime Editor to get desired results.</p></dd>
     <dt><code>posOffset</code> <span class="xref">Vector3</span></dt>
-    <dd>The offset of the model when being crafted (in METERS). This is generally around zero, but the y value may be ajusted up or down a few millimeters to fix clipping/floating issues.</dd>
+    <dd>The offset of the model when being crafted (in METERS). This is generally around zero, but the y value may be adjusted up or down a few millimeters to fix clipping/floating issues.</dd>
     <dt><code>scaleFactor</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd>The relative scale of the model. Generally is 1x for most items.</dd>
     <dt><code>eulerOffset</code> <span class="xref">Vector3</span></dt>
@@ -363,7 +401,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><span class="xref">VFXFabricating</span></dt>
-    <dd>The added component.</dd>
+    <dd>A reference to the added <span class="xref">VFXFabricating</span> instance.</dd>
   </dl>
 
 
@@ -380,7 +418,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L66" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L72" class="edit-link">Edit this page</a>
         </div>
 
         

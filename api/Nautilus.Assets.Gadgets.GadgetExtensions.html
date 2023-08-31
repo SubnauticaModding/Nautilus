@@ -146,6 +146,44 @@
 </h2>
 
 
+  <a id="Nautilus_Assets_Gadgets_GadgetExtensions_CreateCreatureEgg_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.CreateCreatureEgg*"></a>
+
+  <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_CreateCreatureEgg_Nautilus_Assets_ICustomPrefab_System_Int32_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.CreateCreatureEgg(Nautilus.Assets.ICustomPrefab,System.Int32)">
+  CreateCreatureEgg(ICustomPrefab, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/GadgetExtensions.cs/#L258"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Makes this item have additional creature-egg-related functionality.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static EggGadget CreateCreatureEgg(this ICustomPrefab customPrefab, int requiredAcuSize = 1)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>customPrefab</code> <a class="xref" href="Nautilus.Assets.ICustomPrefab.html">ICustomPrefab</a></dt>
+    <dd>The custom prefab the creature egg gadget is created for.</dd>
+    <dt><code>requiredAcuSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The total amount of ACU floors required for the egg to be dropped in the ACU.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.EggGadget.html">EggGadget</a></dt>
+    <dd>A reference to the created <a class="xref" href="Nautilus.Assets.Gadgets.EggGadget.html">EggGadget</a> instance after the operation has completed.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Assets_Gadgets_GadgetExtensions_CreateFabricator_" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.CreateFabricator*"></a>
 
   <h3 id="Nautilus_Assets_Gadgets_GadgetExtensions_CreateFabricator_Nautilus_Assets_ICustomPrefab_CraftTree_Type__" data-uid="Nautilus.Assets.Gadgets.GadgetExtensions.CreateFabricator(Nautilus.Assets.ICustomPrefab,CraftTree.Type@)">
@@ -171,7 +209,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Assets.Gadgets.FabricatorGadget.html">FabricatorGadget</a></dt>
-    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.FabricatorGadget.html">FabricatorGadget</a> to continue the fabricator settings on.</dd>
+    <dd>A reference to the created <a class="xref" href="Nautilus.Assets.Gadgets.FabricatorGadget.html">FabricatorGadget</a> to continue the fabricator settings on.</dd>
   </dl>
 
 
@@ -209,7 +247,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Assets.Gadgets.EquipmentGadget.html">EquipmentGadget</a></dt>
-    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.EquipmentGadget.html">EquipmentGadget</a> to continue the equipment settings on.</dd>
+    <dd>A reference to the created <a class="xref" href="Nautilus.Assets.Gadgets.EquipmentGadget.html">EquipmentGadget</a> to continue the equipment settings on.</dd>
   </dl>
 
 
@@ -249,7 +287,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
-    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a> to continue the scanning settings on.</dd>
+    <dd>A reference to the created <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a> to continue the scanning settings on.</dd>
   </dl>
 
 
@@ -294,7 +332,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
-    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a> to continue the scanning settings on.</dd>
+    <dd>A reference to the created <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a> to continue the scanning settings on.</dd>
   </dl>
 
 
@@ -339,7 +377,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
-    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a> to continue the scanning settings on.</dd>
+    <dd>A reference to the created <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a> to continue the scanning settings on.</dd>
   </dl>
 
 
@@ -380,7 +418,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Assets.Gadgets.CraftingGadget.html">CraftingGadget</a></dt>
-    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.CraftingGadget.html">CraftingGadget</a> to continue the recipe settings on.</dd>
+    <dd>A reference to the created <a class="xref" href="Nautilus.Assets.Gadgets.CraftingGadget.html">CraftingGadget</a> to continue the recipe settings on.</dd>
   </dl>
 
 
@@ -418,7 +456,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Assets.Gadgets.CraftingGadget.html">CraftingGadget</a></dt>
-    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.CraftingGadget.html">CraftingGadget</a> to continue the recipe settings on.</dd>
+    <dd>A reference to the created <a class="xref" href="Nautilus.Assets.Gadgets.CraftingGadget.html">CraftingGadget</a> to continue the recipe settings on.</dd>
   </dl>
 
 
@@ -574,7 +612,7 @@
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a></dt>
-    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a> to continue the scanning settings on.</dd>
+    <dd>A reference to the created <a class="xref" href="Nautilus.Assets.Gadgets.ScanningGadget.html">ScanningGadget</a> to continue the scanning settings on.</dd>
   </dl>
 
 
@@ -616,7 +654,7 @@ it would interefere with this and possibly make the game crash or cause the mod 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Assets.Gadgets.UpgradeModuleGadget.html">UpgradeModuleGadget</a></dt>
-    <dd>An instance to the created <a class="xref" href="Nautilus.Assets.Gadgets.UpgradeModuleGadget.html">UpgradeModuleGadget</a> to continue the upgrade settings on.</dd>
+    <dd>A reference to the created <a class="xref" href="Nautilus.Assets.Gadgets.UpgradeModuleGadget.html">UpgradeModuleGadget</a> to continue the upgrade settings on.</dd>
   </dl>
 
 

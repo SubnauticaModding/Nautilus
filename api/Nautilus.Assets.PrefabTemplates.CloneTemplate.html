@@ -119,6 +119,9 @@
       <a class="xref" href="Nautilus.Assets.PrefabTemplates.PrefabTemplate.html#Nautilus_Assets_PrefabTemplates_PrefabTemplate_info">PrefabTemplate.info</a>
     </div>
     <div>
+      <a class="xref" href="Nautilus.Assets.PrefabTemplates.PrefabTemplate.html#Nautilus_Assets_PrefabTemplates_PrefabTemplate_OnPrefabPostProcessor_UnityEngine_GameObject_">PrefabTemplate.OnPrefabPostProcessor(GameObject)</a>
+    </div>
+    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
     <div>
@@ -185,7 +188,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_CloneTemplate__ctor_Nautilus_Assets_PrefabInfo_System_String_" data-uid="Nautilus.Assets.PrefabTemplates.CloneTemplate.#ctor(Nautilus.Assets.PrefabInfo,System.String)">
   CloneTemplate(PrefabInfo, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/CloneTemplate.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/CloneTemplate.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a <a class="xref" href="Nautilus.Assets.PrefabTemplates.CloneTemplate.html">CloneTemplate</a> instance.</div>
@@ -218,7 +221,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_CloneTemplate__ctor_Nautilus_Assets_PrefabInfo_TechType_" data-uid="Nautilus.Assets.PrefabTemplates.CloneTemplate.#ctor(Nautilus.Assets.PrefabInfo,TechType)">
   CloneTemplate(PrefabInfo, TechType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/CloneTemplate.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/CloneTemplate.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a <a class="xref" href="Nautilus.Assets.PrefabTemplates.CloneTemplate.html">CloneTemplate</a> instance.</div>
@@ -313,6 +316,37 @@
 
 
 
+  <a id="Nautilus_Assets_PrefabTemplates_CloneTemplate_ModifyPrefabAsync_" data-uid="Nautilus.Assets.PrefabTemplates.CloneTemplate.ModifyPrefabAsync*"></a>
+
+  <h3 id="Nautilus_Assets_PrefabTemplates_CloneTemplate_ModifyPrefabAsync" data-uid="Nautilus.Assets.PrefabTemplates.CloneTemplate.ModifyPrefabAsync">
+  ModifyPrefabAsync
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/CloneTemplate.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more asynchronously.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;GameObject, IEnumerator&gt; ModifyPrefabAsync { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<span class="xref">GameObject</span>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <h2 class="section" id="methods">Methods
 </h2>
 
@@ -321,7 +355,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_CloneTemplate_GetPrefabAsync_TaskResult_UnityEngine_GameObject__" data-uid="Nautilus.Assets.PrefabTemplates.CloneTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})">
   GetPrefabAsync(TaskResult&lt;GameObject&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/CloneTemplate.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/CloneTemplate.cs/#L65"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the appropriate cloned prefab.</div>

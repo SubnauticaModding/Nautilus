@@ -115,6 +115,7 @@
     <dd>
       <div><a class="xref" href="Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html">AssetBundleTemplate</a></div>
       <div><a class="xref" href="Nautilus.Assets.PrefabTemplates.CloneTemplate.html">CloneTemplate</a></div>
+      <div><a class="xref" href="Nautilus.Assets.PrefabTemplates.EggTemplate.html">EggTemplate</a></div>
       <div><a class="xref" href="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html">EnergySourceTemplate</a></div>
       <div><a class="xref" href="Nautilus.Assets.PrefabTemplates.FabricatorTemplate.html">FabricatorTemplate</a></div>
     </dd>
@@ -280,6 +281,42 @@
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></dt>
     <dd>A coroutine operation. Must be used with either <code>yield return</code>, or <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">StartCoroutine(IEnumerator)</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_PrefabTemplates_PrefabTemplate_OnPrefabPostProcessor_" data-uid="Nautilus.Assets.PrefabTemplates.PrefabTemplate.OnPrefabPostProcessor*"></a>
+
+  <h3 id="Nautilus_Assets_PrefabTemplates_PrefabTemplate_OnPrefabPostProcessor_UnityEngine_GameObject_" data-uid="Nautilus.Assets.PrefabTemplates.PrefabTemplate.OnPrefabPostProcessor(UnityEngine.GameObject)">
+  OnPrefabPostProcessor(GameObject)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/PrefabTemplate.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Use this method to make changes to the prefab after the Nautilus' prefab processing is completed. Can be used to override or add more features to a prefab once it's settled.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IEnumerator OnPrefabPostProcessor(GameObject prefab)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefab</code> <span class="xref">GameObject</span></dt>
+    <dd>The prefab to process.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></dt>
+    <dd>A coroutine operation.</dd>
   </dl>
 
 

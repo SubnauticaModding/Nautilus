@@ -119,6 +119,9 @@
       <a class="xref" href="Nautilus.Assets.PrefabTemplates.PrefabTemplate.html#Nautilus_Assets_PrefabTemplates_PrefabTemplate_info">PrefabTemplate.info</a>
     </div>
     <div>
+      <a class="xref" href="Nautilus.Assets.PrefabTemplates.PrefabTemplate.html#Nautilus_Assets_PrefabTemplates_PrefabTemplate_OnPrefabPostProcessor_UnityEngine_GameObject_">PrefabTemplate.OnPrefabPostProcessor(GameObject)</a>
+    </div>
+    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
     <div>
@@ -185,7 +188,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate__ctor_Nautilus_Assets_PrefabInfo_System_Int32_" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.#ctor(Nautilus.Assets.PrefabInfo,System.Int32)">
   EnergySourceTemplate(PrefabInfo, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L31"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates an <a class="xref" href="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html">EnergySourceTemplate</a> instance.</div>
@@ -249,6 +252,68 @@
 
 
 
+  <a id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_ModifyPrefab_" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefab*"></a>
+
+  <h3 id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_ModifyPrefab" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefab">
+  ModifyPrefab
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L27"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Action&lt;GameObject&gt; ModifyPrefab { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<span class="xref">GameObject</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_ModifyPrefabAsync_" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefabAsync*"></a>
+
+  <h3 id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_ModifyPrefabAsync" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefabAsync">
+  ModifyPrefabAsync
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more asynchronously.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;GameObject, IEnumerator&gt; ModifyPrefabAsync { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<span class="xref">GameObject</span>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_UseIonModelAsBase_" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.UseIonModelAsBase*"></a>
 
   <h3 id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_UseIonModelAsBase" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.UseIonModelAsBase">
@@ -289,7 +354,7 @@ Otherwise; uses the default Battery or Power Cell models.</div>
 
   <h3 id="Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_GetPrefabAsync_TaskResult_UnityEngine_GameObject__" data-uid="Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})">
   GetPrefabAsync(TaskResult&lt;GameObject&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/EnergySourceTemplate.cs/#L53"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the appropriate energy source prefab.</div>

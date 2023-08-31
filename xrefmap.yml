@@ -241,6 +241,15 @@ references:
   fullName.vb: Nautilus.Assets.CustomPrefab.New(Nautilus.Assets.PrefabInfo)
   nameWithType: CustomPrefab.CustomPrefab(PrefabInfo)
   nameWithType.vb: CustomPrefab.New(PrefabInfo)
+- uid: Nautilus.Assets.CustomPrefab.#ctor(System.String,System.String,System.String)
+  name: CustomPrefab(string, string, string)
+  href: api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab__ctor_System_String_System_String_System_String_
+  commentId: M:Nautilus.Assets.CustomPrefab.#ctor(System.String,System.String,System.String)
+  name.vb: New(String, String, String)
+  fullName: Nautilus.Assets.CustomPrefab.CustomPrefab(string, string, string)
+  fullName.vb: Nautilus.Assets.CustomPrefab.New(String, String, String)
+  nameWithType: CustomPrefab.CustomPrefab(string, string, string)
+  nameWithType.vb: CustomPrefab.New(String, String, String)
 - uid: Nautilus.Assets.CustomPrefab.#ctor(System.String,System.String,System.String,Atlas.Sprite)
   name: CustomPrefab(string, string, string, Sprite)
   href: api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab__ctor_System_String_System_String_System_String_Atlas_Sprite_
@@ -259,15 +268,6 @@ references:
   fullName.vb: Nautilus.Assets.CustomPrefab.New(String, String, String, UnityEngine.Sprite)
   nameWithType: CustomPrefab.CustomPrefab(string, string, string, Sprite)
   nameWithType.vb: CustomPrefab.New(String, String, String, Sprite)
-- uid: Nautilus.Assets.CustomPrefab.#ctor(System.String,System.String,System.String)
-  name: CustomPrefab(string, string, string)
-  href: api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab__ctor_System_String_System_String_System_String_
-  commentId: M:Nautilus.Assets.CustomPrefab.#ctor(System.String,System.String,System.String)
-  name.vb: New(String, String, String)
-  fullName: Nautilus.Assets.CustomPrefab.CustomPrefab(string, string, string)
-  fullName.vb: Nautilus.Assets.CustomPrefab.New(String, String, String)
-  nameWithType: CustomPrefab.CustomPrefab(string, string, string)
-  nameWithType.vb: CustomPrefab.New(String, String, String)
 - uid: Nautilus.Assets.CustomPrefab.#ctor*
   name: CustomPrefab
   href: api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab__ctor_
@@ -689,21 +689,108 @@ references:
   fullName.vb: Nautilus.Assets.Gadgets.DuplicateGadgetException.New
   nameWithType: DuplicateGadgetException.DuplicateGadgetException
   nameWithType.vb: DuplicateGadgetException.New
+- uid: Nautilus.Assets.Gadgets.EggGadget
+  name: EggGadget
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html
+  commentId: T:Nautilus.Assets.Gadgets.EggGadget
+  fullName: Nautilus.Assets.Gadgets.EggGadget
+  nameWithType: EggGadget
+- uid: Nautilus.Assets.Gadgets.EggGadget.#ctor(Nautilus.Assets.ICustomPrefab,System.Int32)
+  name: EggGadget(ICustomPrefab, int)
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget__ctor_Nautilus_Assets_ICustomPrefab_System_Int32_
+  commentId: M:Nautilus.Assets.Gadgets.EggGadget.#ctor(Nautilus.Assets.ICustomPrefab,System.Int32)
+  name.vb: New(ICustomPrefab, Integer)
+  fullName: Nautilus.Assets.Gadgets.EggGadget.EggGadget(Nautilus.Assets.ICustomPrefab, int)
+  fullName.vb: Nautilus.Assets.Gadgets.EggGadget.New(Nautilus.Assets.ICustomPrefab, Integer)
+  nameWithType: EggGadget.EggGadget(ICustomPrefab, int)
+  nameWithType.vb: EggGadget.New(ICustomPrefab, Integer)
+- uid: Nautilus.Assets.Gadgets.EggGadget.#ctor*
+  name: EggGadget
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget__ctor_
+  commentId: Overload:Nautilus.Assets.Gadgets.EggGadget.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Assets.Gadgets.EggGadget.EggGadget
+  fullName.vb: Nautilus.Assets.Gadgets.EggGadget.New
+  nameWithType: EggGadget.EggGadget
+  nameWithType.vb: EggGadget.New
+- uid: Nautilus.Assets.Gadgets.EggGadget.AcidImmune
+  name: AcidImmune
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_AcidImmune
+  commentId: P:Nautilus.Assets.Gadgets.EggGadget.AcidImmune
+  fullName: Nautilus.Assets.Gadgets.EggGadget.AcidImmune
+  nameWithType: EggGadget.AcidImmune
+- uid: Nautilus.Assets.Gadgets.EggGadget.AcidImmune*
+  name: AcidImmune
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_AcidImmune_
+  commentId: Overload:Nautilus.Assets.Gadgets.EggGadget.AcidImmune
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.EggGadget.AcidImmune
+  nameWithType: EggGadget.AcidImmune
+- uid: Nautilus.Assets.Gadgets.EggGadget.Build
+  name: Build()
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_Build
+  commentId: M:Nautilus.Assets.Gadgets.EggGadget.Build
+  fullName: Nautilus.Assets.Gadgets.EggGadget.Build()
+  nameWithType: EggGadget.Build()
+- uid: Nautilus.Assets.Gadgets.EggGadget.Build*
+  name: Build
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_Build_
+  commentId: Overload:Nautilus.Assets.Gadgets.EggGadget.Build
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.EggGadget.Build
+  nameWithType: EggGadget.Build
+- uid: Nautilus.Assets.Gadgets.EggGadget.RequiredAcuSize
+  name: RequiredAcuSize
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_RequiredAcuSize
+  commentId: P:Nautilus.Assets.Gadgets.EggGadget.RequiredAcuSize
+  fullName: Nautilus.Assets.Gadgets.EggGadget.RequiredAcuSize
+  nameWithType: EggGadget.RequiredAcuSize
+- uid: Nautilus.Assets.Gadgets.EggGadget.RequiredAcuSize*
+  name: RequiredAcuSize
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_RequiredAcuSize_
+  commentId: Overload:Nautilus.Assets.Gadgets.EggGadget.RequiredAcuSize
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.EggGadget.RequiredAcuSize
+  nameWithType: EggGadget.RequiredAcuSize
+- uid: Nautilus.Assets.Gadgets.EggGadget.SetAcidImmune(System.Boolean)
+  name: SetAcidImmune(bool)
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_SetAcidImmune_System_Boolean_
+  commentId: M:Nautilus.Assets.Gadgets.EggGadget.SetAcidImmune(System.Boolean)
+  name.vb: SetAcidImmune(Boolean)
+  fullName: Nautilus.Assets.Gadgets.EggGadget.SetAcidImmune(bool)
+  fullName.vb: Nautilus.Assets.Gadgets.EggGadget.SetAcidImmune(Boolean)
+  nameWithType: EggGadget.SetAcidImmune(bool)
+  nameWithType.vb: EggGadget.SetAcidImmune(Boolean)
+- uid: Nautilus.Assets.Gadgets.EggGadget.SetAcidImmune*
+  name: SetAcidImmune
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_SetAcidImmune_
+  commentId: Overload:Nautilus.Assets.Gadgets.EggGadget.SetAcidImmune
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.EggGadget.SetAcidImmune
+  nameWithType: EggGadget.SetAcidImmune
+- uid: Nautilus.Assets.Gadgets.EggGadget.WithRequiredAcuSize(System.Int32)
+  name: WithRequiredAcuSize(int)
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_WithRequiredAcuSize_System_Int32_
+  commentId: M:Nautilus.Assets.Gadgets.EggGadget.WithRequiredAcuSize(System.Int32)
+  name.vb: WithRequiredAcuSize(Integer)
+  fullName: Nautilus.Assets.Gadgets.EggGadget.WithRequiredAcuSize(int)
+  fullName.vb: Nautilus.Assets.Gadgets.EggGadget.WithRequiredAcuSize(Integer)
+  nameWithType: EggGadget.WithRequiredAcuSize(int)
+  nameWithType.vb: EggGadget.WithRequiredAcuSize(Integer)
+- uid: Nautilus.Assets.Gadgets.EggGadget.WithRequiredAcuSize*
+  name: WithRequiredAcuSize
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_WithRequiredAcuSize_
+  commentId: Overload:Nautilus.Assets.Gadgets.EggGadget.WithRequiredAcuSize
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.EggGadget.WithRequiredAcuSize
+  nameWithType: EggGadget.WithRequiredAcuSize
 - uid: Nautilus.Assets.Gadgets.EquipmentGadget
   name: EquipmentGadget
   href: api/Nautilus.Assets.Gadgets.EquipmentGadget.html
   commentId: T:Nautilus.Assets.Gadgets.EquipmentGadget
   fullName: Nautilus.Assets.Gadgets.EquipmentGadget
   nameWithType: EquipmentGadget
-- uid: Nautilus.Assets.Gadgets.EquipmentGadget.#ctor(Nautilus.Assets.ICustomPrefab,EquipmentType)
-  name: EquipmentGadget(ICustomPrefab, EquipmentType)
-  href: api/Nautilus.Assets.Gadgets.EquipmentGadget.html#Nautilus_Assets_Gadgets_EquipmentGadget__ctor_Nautilus_Assets_ICustomPrefab_EquipmentType_
-  commentId: M:Nautilus.Assets.Gadgets.EquipmentGadget.#ctor(Nautilus.Assets.ICustomPrefab,EquipmentType)
-  name.vb: New(ICustomPrefab, EquipmentType)
-  fullName: Nautilus.Assets.Gadgets.EquipmentGadget.EquipmentGadget(Nautilus.Assets.ICustomPrefab, EquipmentType)
-  fullName.vb: Nautilus.Assets.Gadgets.EquipmentGadget.New(Nautilus.Assets.ICustomPrefab, EquipmentType)
-  nameWithType: EquipmentGadget.EquipmentGadget(ICustomPrefab, EquipmentType)
-  nameWithType.vb: EquipmentGadget.New(ICustomPrefab, EquipmentType)
 - uid: Nautilus.Assets.Gadgets.EquipmentGadget.#ctor(Nautilus.Assets.ICustomPrefab)
   name: EquipmentGadget(ICustomPrefab)
   href: api/Nautilus.Assets.Gadgets.EquipmentGadget.html#Nautilus_Assets_Gadgets_EquipmentGadget__ctor_Nautilus_Assets_ICustomPrefab_
@@ -713,6 +800,15 @@ references:
   fullName.vb: Nautilus.Assets.Gadgets.EquipmentGadget.New(Nautilus.Assets.ICustomPrefab)
   nameWithType: EquipmentGadget.EquipmentGadget(ICustomPrefab)
   nameWithType.vb: EquipmentGadget.New(ICustomPrefab)
+- uid: Nautilus.Assets.Gadgets.EquipmentGadget.#ctor(Nautilus.Assets.ICustomPrefab,EquipmentType)
+  name: EquipmentGadget(ICustomPrefab, EquipmentType)
+  href: api/Nautilus.Assets.Gadgets.EquipmentGadget.html#Nautilus_Assets_Gadgets_EquipmentGadget__ctor_Nautilus_Assets_ICustomPrefab_EquipmentType_
+  commentId: M:Nautilus.Assets.Gadgets.EquipmentGadget.#ctor(Nautilus.Assets.ICustomPrefab,EquipmentType)
+  name.vb: New(ICustomPrefab, EquipmentType)
+  fullName: Nautilus.Assets.Gadgets.EquipmentGadget.EquipmentGadget(Nautilus.Assets.ICustomPrefab, EquipmentType)
+  fullName.vb: Nautilus.Assets.Gadgets.EquipmentGadget.New(Nautilus.Assets.ICustomPrefab, EquipmentType)
+  nameWithType: EquipmentGadget.EquipmentGadget(ICustomPrefab, EquipmentType)
+  nameWithType.vb: EquipmentGadget.New(ICustomPrefab, EquipmentType)
 - uid: Nautilus.Assets.Gadgets.EquipmentGadget.#ctor*
   name: EquipmentGadget
   href: api/Nautilus.Assets.Gadgets.EquipmentGadget.html#Nautilus_Assets_Gadgets_EquipmentGadget__ctor_
@@ -930,6 +1026,22 @@ references:
   commentId: T:Nautilus.Assets.Gadgets.GadgetExtensions
   fullName: Nautilus.Assets.Gadgets.GadgetExtensions
   nameWithType: GadgetExtensions
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.CreateCreatureEgg(Nautilus.Assets.ICustomPrefab,System.Int32)
+  name: CreateCreatureEgg(ICustomPrefab, int)
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_CreateCreatureEgg_Nautilus_Assets_ICustomPrefab_System_Int32_
+  commentId: M:Nautilus.Assets.Gadgets.GadgetExtensions.CreateCreatureEgg(Nautilus.Assets.ICustomPrefab,System.Int32)
+  name.vb: CreateCreatureEgg(ICustomPrefab, Integer)
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.CreateCreatureEgg(Nautilus.Assets.ICustomPrefab, int)
+  fullName.vb: Nautilus.Assets.Gadgets.GadgetExtensions.CreateCreatureEgg(Nautilus.Assets.ICustomPrefab, Integer)
+  nameWithType: GadgetExtensions.CreateCreatureEgg(ICustomPrefab, int)
+  nameWithType.vb: GadgetExtensions.CreateCreatureEgg(ICustomPrefab, Integer)
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.CreateCreatureEgg*
+  name: CreateCreatureEgg
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_CreateCreatureEgg_
+  commentId: Overload:Nautilus.Assets.Gadgets.GadgetExtensions.CreateCreatureEgg
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.CreateCreatureEgg
+  nameWithType: GadgetExtensions.CreateCreatureEgg
 - uid: Nautilus.Assets.Gadgets.GadgetExtensions.CreateFabricator(Nautilus.Assets.ICustomPrefab,CraftTree.Type@)
   name: CreateFabricator(ICustomPrefab, out Type)
   href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_CreateFabricator_Nautilus_Assets_ICustomPrefab_CraftTree_Type__
@@ -1096,15 +1208,6 @@ references:
   commentId: T:Nautilus.Assets.Gadgets.ScanningGadget
   fullName: Nautilus.Assets.Gadgets.ScanningGadget
   nameWithType: ScanningGadget
-- uid: Nautilus.Assets.Gadgets.ScanningGadget.#ctor(Nautilus.Assets.ICustomPrefab,TechType,System.Int32)
-  name: ScanningGadget(ICustomPrefab, TechType, int)
-  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget__ctor_Nautilus_Assets_ICustomPrefab_TechType_System_Int32_
-  commentId: M:Nautilus.Assets.Gadgets.ScanningGadget.#ctor(Nautilus.Assets.ICustomPrefab,TechType,System.Int32)
-  name.vb: New(ICustomPrefab, TechType, Integer)
-  fullName: Nautilus.Assets.Gadgets.ScanningGadget.ScanningGadget(Nautilus.Assets.ICustomPrefab, TechType, int)
-  fullName.vb: Nautilus.Assets.Gadgets.ScanningGadget.New(Nautilus.Assets.ICustomPrefab, TechType, Integer)
-  nameWithType: ScanningGadget.ScanningGadget(ICustomPrefab, TechType, int)
-  nameWithType.vb: ScanningGadget.New(ICustomPrefab, TechType, Integer)
 - uid: Nautilus.Assets.Gadgets.ScanningGadget.#ctor(Nautilus.Assets.ICustomPrefab)
   name: ScanningGadget(ICustomPrefab)
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget__ctor_Nautilus_Assets_ICustomPrefab_
@@ -1114,6 +1217,15 @@ references:
   fullName.vb: Nautilus.Assets.Gadgets.ScanningGadget.New(Nautilus.Assets.ICustomPrefab)
   nameWithType: ScanningGadget.ScanningGadget(ICustomPrefab)
   nameWithType.vb: ScanningGadget.New(ICustomPrefab)
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.#ctor(Nautilus.Assets.ICustomPrefab,TechType,System.Int32)
+  name: ScanningGadget(ICustomPrefab, TechType, int)
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget__ctor_Nautilus_Assets_ICustomPrefab_TechType_System_Int32_
+  commentId: M:Nautilus.Assets.Gadgets.ScanningGadget.#ctor(Nautilus.Assets.ICustomPrefab,TechType,System.Int32)
+  name.vb: New(ICustomPrefab, TechType, Integer)
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.ScanningGadget(Nautilus.Assets.ICustomPrefab, TechType, int)
+  fullName.vb: Nautilus.Assets.Gadgets.ScanningGadget.New(Nautilus.Assets.ICustomPrefab, TechType, Integer)
+  nameWithType: ScanningGadget.ScanningGadget(ICustomPrefab, TechType, int)
+  nameWithType.vb: ScanningGadget.New(ICustomPrefab, TechType, Integer)
 - uid: Nautilus.Assets.Gadgets.ScanningGadget.#ctor*
   name: ScanningGadget
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget__ctor_
@@ -1481,58 +1593,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.CrushDepth
   nameWithType: UpgradeModuleGadget.CrushDepth
-- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
-  name: delegateOnAdded
-  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnAdded
-  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
-  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
-  nameWithType: UpgradeModuleGadget.delegateOnAdded
-- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded*
-  name: delegateOnAdded
-  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnAdded_
-  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
-  isSpec: "True"
-  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
-  nameWithType: UpgradeModuleGadget.delegateOnAdded
-- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
-  name: delegateOnRemoved
-  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnRemoved
-  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
-  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
-  nameWithType: UpgradeModuleGadget.delegateOnRemoved
-- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved*
-  name: delegateOnRemoved
-  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnRemoved_
-  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
-  isSpec: "True"
-  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
-  nameWithType: UpgradeModuleGadget.delegateOnRemoved
-- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
-  name: delegateOnToggled
-  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnToggled
-  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
-  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
-  nameWithType: UpgradeModuleGadget.delegateOnToggled
-- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled*
-  name: delegateOnToggled
-  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnToggled_
-  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
-  isSpec: "True"
-  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
-  nameWithType: UpgradeModuleGadget.delegateOnToggled
-- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
-  name: delegateOnUsed
-  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnUsed
-  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
-  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
-  nameWithType: UpgradeModuleGadget.delegateOnUsed
-- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed*
-  name: delegateOnUsed
-  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnUsed_
-  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
-  isSpec: "True"
-  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
-  nameWithType: UpgradeModuleGadget.delegateOnUsed
 - uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.EnergyCost
   name: EnergyCost
   href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_EnergyCost
@@ -1687,6 +1747,58 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.WithOnModuleUsed
   nameWithType: UpgradeModuleGadget.WithOnModuleUsed
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
+  name: delegateOnAdded
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnAdded
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
+  nameWithType: UpgradeModuleGadget.delegateOnAdded
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded*
+  name: delegateOnAdded
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnAdded_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnAdded
+  nameWithType: UpgradeModuleGadget.delegateOnAdded
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
+  name: delegateOnRemoved
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnRemoved
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
+  nameWithType: UpgradeModuleGadget.delegateOnRemoved
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved*
+  name: delegateOnRemoved
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnRemoved_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnRemoved
+  nameWithType: UpgradeModuleGadget.delegateOnRemoved
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
+  name: delegateOnToggled
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnToggled
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
+  nameWithType: UpgradeModuleGadget.delegateOnToggled
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled*
+  name: delegateOnToggled
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnToggled_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnToggled
+  nameWithType: UpgradeModuleGadget.delegateOnToggled
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
+  name: delegateOnUsed
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnUsed
+  commentId: P:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
+  nameWithType: UpgradeModuleGadget.delegateOnUsed
+- uid: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed*
+  name: delegateOnUsed
+  href: api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html#Nautilus_Assets_Gadgets_UpgradeModuleGadget_delegateOnUsed_
+  commentId: Overload:Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.UpgradeModuleGadget.delegateOnUsed
+  nameWithType: UpgradeModuleGadget.delegateOnUsed
 - uid: Nautilus.Assets.ICustomPrefab
   name: ICustomPrefab
   href: api/Nautilus.Assets.ICustomPrefab.html
@@ -2202,6 +2314,310 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.PrefabTemplates.CloneTemplate.ModifyPrefab
   nameWithType: CloneTemplate.ModifyPrefab
+- uid: Nautilus.Assets.PrefabTemplates.CloneTemplate.ModifyPrefabAsync
+  name: ModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.CloneTemplate.html#Nautilus_Assets_PrefabTemplates_CloneTemplate_ModifyPrefabAsync
+  commentId: P:Nautilus.Assets.PrefabTemplates.CloneTemplate.ModifyPrefabAsync
+  fullName: Nautilus.Assets.PrefabTemplates.CloneTemplate.ModifyPrefabAsync
+  nameWithType: CloneTemplate.ModifyPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.CloneTemplate.ModifyPrefabAsync*
+  name: ModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.CloneTemplate.html#Nautilus_Assets_PrefabTemplates_CloneTemplate_ModifyPrefabAsync_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.CloneTemplate.ModifyPrefabAsync
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.CloneTemplate.ModifyPrefabAsync
+  nameWithType: CloneTemplate.ModifyPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate
+  name: EggTemplate
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html
+  commentId: T:Nautilus.Assets.PrefabTemplates.EggTemplate
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate
+  nameWithType: EggTemplate
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.#ctor(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabTemplates.AssetBundleTemplate)
+  name: EggTemplate(PrefabInfo, AssetBundleTemplate)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate__ctor_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabTemplates_AssetBundleTemplate_
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.#ctor(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabTemplates.AssetBundleTemplate)
+  name.vb: New(PrefabInfo, AssetBundleTemplate)
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.EggTemplate(Nautilus.Assets.PrefabInfo, Nautilus.Assets.PrefabTemplates.AssetBundleTemplate)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.New(Nautilus.Assets.PrefabInfo, Nautilus.Assets.PrefabTemplates.AssetBundleTemplate)
+  nameWithType: EggTemplate.EggTemplate(PrefabInfo, AssetBundleTemplate)
+  nameWithType.vb: EggTemplate.New(PrefabInfo, AssetBundleTemplate)
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.#ctor(Nautilus.Assets.PrefabInfo,System.String)
+  name: EggTemplate(PrefabInfo, string)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate__ctor_Nautilus_Assets_PrefabInfo_System_String_
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.#ctor(Nautilus.Assets.PrefabInfo,System.String)
+  name.vb: New(PrefabInfo, String)
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.EggTemplate(Nautilus.Assets.PrefabInfo, string)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.New(Nautilus.Assets.PrefabInfo, String)
+  nameWithType: EggTemplate.EggTemplate(PrefabInfo, string)
+  nameWithType.vb: EggTemplate.New(PrefabInfo, String)
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.#ctor(Nautilus.Assets.PrefabInfo,TechType)
+  name: EggTemplate(PrefabInfo, TechType)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate__ctor_Nautilus_Assets_PrefabInfo_TechType_
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.#ctor(Nautilus.Assets.PrefabInfo,TechType)
+  name.vb: New(PrefabInfo, TechType)
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.EggTemplate(Nautilus.Assets.PrefabInfo, TechType)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.New(Nautilus.Assets.PrefabInfo, TechType)
+  nameWithType: EggTemplate.EggTemplate(PrefabInfo, TechType)
+  nameWithType.vb: EggTemplate.New(PrefabInfo, TechType)
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.#ctor(Nautilus.Assets.PrefabInfo,UnityEngine.GameObject)
+  name: EggTemplate(PrefabInfo, GameObject)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate__ctor_Nautilus_Assets_PrefabInfo_UnityEngine_GameObject_
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.#ctor(Nautilus.Assets.PrefabInfo,UnityEngine.GameObject)
+  name.vb: New(PrefabInfo, GameObject)
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.EggTemplate(Nautilus.Assets.PrefabInfo, UnityEngine.GameObject)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.New(Nautilus.Assets.PrefabInfo, UnityEngine.GameObject)
+  nameWithType: EggTemplate.EggTemplate(PrefabInfo, GameObject)
+  nameWithType.vb: EggTemplate.New(PrefabInfo, GameObject)
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.#ctor*
+  name: EggTemplate
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate__ctor_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.EggTemplate
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.New
+  nameWithType: EggTemplate.EggTemplate
+  nameWithType.vb: EggTemplate.New
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.CellLevel
+  name: CellLevel
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_CellLevel
+  commentId: P:Nautilus.Assets.PrefabTemplates.EggTemplate.CellLevel
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.CellLevel
+  nameWithType: EggTemplate.CellLevel
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.CellLevel*
+  name: CellLevel
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_CellLevel_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.CellLevel
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.CellLevel
+  nameWithType: EggTemplate.CellLevel
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})
+  name: GetPrefabAsync(TaskResult<GameObject>)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_GetPrefabAsync_TaskResult_UnityEngine_GameObject__
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})
+  name.vb: GetPrefabAsync(TaskResult(Of GameObject))
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.GetPrefabAsync(TaskResult<UnityEngine.GameObject>)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.GetPrefabAsync(TaskResult(Of UnityEngine.GameObject))
+  nameWithType: EggTemplate.GetPrefabAsync(TaskResult<GameObject>)
+  nameWithType.vb: EggTemplate.GetPrefabAsync(TaskResult(Of GameObject))
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.GetPrefabAsync*
+  name: GetPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_GetPrefabAsync_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.GetPrefabAsync
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.GetPrefabAsync
+  nameWithType: EggTemplate.GetPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingCreature
+  name: HatchingCreature
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_HatchingCreature
+  commentId: P:Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingCreature
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingCreature
+  nameWithType: EggTemplate.HatchingCreature
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingCreature*
+  name: HatchingCreature
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_HatchingCreature_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingCreature
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingCreature
+  nameWithType: EggTemplate.HatchingCreature
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingTime
+  name: HatchingTime
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_HatchingTime
+  commentId: P:Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingTime
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingTime
+  nameWithType: EggTemplate.HatchingTime
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingTime*
+  name: HatchingTime
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_HatchingTime_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingTime
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.HatchingTime
+  nameWithType: EggTemplate.HatchingTime
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.Mass
+  name: Mass
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_Mass
+  commentId: P:Nautilus.Assets.PrefabTemplates.EggTemplate.Mass
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.Mass
+  nameWithType: EggTemplate.Mass
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.Mass*
+  name: Mass
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_Mass_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.Mass
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.Mass
+  nameWithType: EggTemplate.Mass
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.MaxHealth
+  name: MaxHealth
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_MaxHealth
+  commentId: P:Nautilus.Assets.PrefabTemplates.EggTemplate.MaxHealth
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.MaxHealth
+  nameWithType: EggTemplate.MaxHealth
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.MaxHealth*
+  name: MaxHealth
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_MaxHealth_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.MaxHealth
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.MaxHealth
+  nameWithType: EggTemplate.MaxHealth
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefab
+  name: ModifyPrefab
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_ModifyPrefab
+  commentId: P:Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefab
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefab
+  nameWithType: EggTemplate.ModifyPrefab
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefab*
+  name: ModifyPrefab
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_ModifyPrefab_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefab
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefab
+  nameWithType: EggTemplate.ModifyPrefab
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefabAsync
+  name: ModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_ModifyPrefabAsync
+  commentId: P:Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefabAsync
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefabAsync
+  nameWithType: EggTemplate.ModifyPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefabAsync*
+  name: ModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_ModifyPrefabAsync_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefabAsync
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.ModifyPrefabAsync
+  nameWithType: EggTemplate.ModifyPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefab(System.Action{UnityEngine.GameObject})
+  name: OnModifyPrefab(Action<GameObject>)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_OnModifyPrefab_System_Action_UnityEngine_GameObject__
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefab(System.Action{UnityEngine.GameObject})
+  name.vb: OnModifyPrefab(Action(Of GameObject))
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefab(System.Action<UnityEngine.GameObject>)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefab(System.Action(Of UnityEngine.GameObject))
+  nameWithType: EggTemplate.OnModifyPrefab(Action<GameObject>)
+  nameWithType.vb: EggTemplate.OnModifyPrefab(Action(Of GameObject))
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefab*
+  name: OnModifyPrefab
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_OnModifyPrefab_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefab
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefab
+  nameWithType: EggTemplate.OnModifyPrefab
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefabAsync(System.Func{UnityEngine.GameObject,System.Collections.IEnumerator})
+  name: OnModifyPrefabAsync(Func<GameObject, IEnumerator>)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_OnModifyPrefabAsync_System_Func_UnityEngine_GameObject_System_Collections_IEnumerator__
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefabAsync(System.Func{UnityEngine.GameObject,System.Collections.IEnumerator})
+  name.vb: OnModifyPrefabAsync(Func(Of GameObject, IEnumerator))
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefabAsync(System.Func<UnityEngine.GameObject, System.Collections.IEnumerator>)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefabAsync(System.Func(Of UnityEngine.GameObject, System.Collections.IEnumerator))
+  nameWithType: EggTemplate.OnModifyPrefabAsync(Func<GameObject, IEnumerator>)
+  nameWithType.vb: EggTemplate.OnModifyPrefabAsync(Func(Of GameObject, IEnumerator))
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefabAsync*
+  name: OnModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_OnModifyPrefabAsync_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefabAsync
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.OnModifyPrefabAsync
+  nameWithType: EggTemplate.OnModifyPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.SetUndiscoveredTechType
+  name: SetUndiscoveredTechType()
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_SetUndiscoveredTechType
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.SetUndiscoveredTechType
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.SetUndiscoveredTechType()
+  nameWithType: EggTemplate.SetUndiscoveredTechType()
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.SetUndiscoveredTechType*
+  name: SetUndiscoveredTechType
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_SetUndiscoveredTechType_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.SetUndiscoveredTechType
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.SetUndiscoveredTechType
+  nameWithType: EggTemplate.SetUndiscoveredTechType
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.UndiscoveredTechType
+  name: UndiscoveredTechType
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_UndiscoveredTechType
+  commentId: P:Nautilus.Assets.PrefabTemplates.EggTemplate.UndiscoveredTechType
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.UndiscoveredTechType
+  nameWithType: EggTemplate.UndiscoveredTechType
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.UndiscoveredTechType*
+  name: UndiscoveredTechType
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_UndiscoveredTechType_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.UndiscoveredTechType
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.UndiscoveredTechType
+  nameWithType: EggTemplate.UndiscoveredTechType
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.WithCellLevel(LargeWorldEntity.CellLevel)
+  name: WithCellLevel(CellLevel)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_WithCellLevel_LargeWorldEntity_CellLevel_
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.WithCellLevel(LargeWorldEntity.CellLevel)
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.WithCellLevel(LargeWorldEntity.CellLevel)
+  nameWithType: EggTemplate.WithCellLevel(LargeWorldEntity.CellLevel)
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.WithCellLevel*
+  name: WithCellLevel
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_WithCellLevel_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.WithCellLevel
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.WithCellLevel
+  nameWithType: EggTemplate.WithCellLevel
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingCreature(TechType)
+  name: WithHatchingCreature(TechType)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_WithHatchingCreature_TechType_
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingCreature(TechType)
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingCreature(TechType)
+  nameWithType: EggTemplate.WithHatchingCreature(TechType)
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingCreature*
+  name: WithHatchingCreature
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_WithHatchingCreature_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingCreature
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingCreature
+  nameWithType: EggTemplate.WithHatchingCreature
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingTime(System.Single)
+  name: WithHatchingTime(float)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_WithHatchingTime_System_Single_
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingTime(System.Single)
+  name.vb: WithHatchingTime(Single)
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingTime(float)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingTime(Single)
+  nameWithType: EggTemplate.WithHatchingTime(float)
+  nameWithType.vb: EggTemplate.WithHatchingTime(Single)
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingTime*
+  name: WithHatchingTime
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_WithHatchingTime_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingTime
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.WithHatchingTime
+  nameWithType: EggTemplate.WithHatchingTime
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.WithMass(System.Single)
+  name: WithMass(float)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_WithMass_System_Single_
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.WithMass(System.Single)
+  name.vb: WithMass(Single)
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.WithMass(float)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.WithMass(Single)
+  nameWithType: EggTemplate.WithMass(float)
+  nameWithType.vb: EggTemplate.WithMass(Single)
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.WithMass*
+  name: WithMass
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_WithMass_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.WithMass
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.WithMass
+  nameWithType: EggTemplate.WithMass
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.WithMaxHealth(System.Single)
+  name: WithMaxHealth(float)
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_WithMaxHealth_System_Single_
+  commentId: M:Nautilus.Assets.PrefabTemplates.EggTemplate.WithMaxHealth(System.Single)
+  name.vb: WithMaxHealth(Single)
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.WithMaxHealth(float)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.EggTemplate.WithMaxHealth(Single)
+  nameWithType: EggTemplate.WithMaxHealth(float)
+  nameWithType.vb: EggTemplate.WithMaxHealth(Single)
+- uid: Nautilus.Assets.PrefabTemplates.EggTemplate.WithMaxHealth*
+  name: WithMaxHealth
+  href: api/Nautilus.Assets.PrefabTemplates.EggTemplate.html#Nautilus_Assets_PrefabTemplates_EggTemplate_WithMaxHealth_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EggTemplate.WithMaxHealth
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EggTemplate.WithMaxHealth
+  nameWithType: EggTemplate.WithMaxHealth
 - uid: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate
   name: EnergySourceTemplate
   href: api/Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html
@@ -2256,6 +2672,32 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.IsPowerCell
   nameWithType: EnergySourceTemplate.IsPowerCell
+- uid: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefab
+  name: ModifyPrefab
+  href: api/Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html#Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_ModifyPrefab
+  commentId: P:Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefab
+  fullName: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefab
+  nameWithType: EnergySourceTemplate.ModifyPrefab
+- uid: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefab*
+  name: ModifyPrefab
+  href: api/Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html#Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_ModifyPrefab_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefab
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefab
+  nameWithType: EnergySourceTemplate.ModifyPrefab
+- uid: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefabAsync
+  name: ModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html#Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_ModifyPrefabAsync
+  commentId: P:Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefabAsync
+  fullName: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefabAsync
+  nameWithType: EnergySourceTemplate.ModifyPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefabAsync*
+  name: ModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html#Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_ModifyPrefabAsync_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefabAsync
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.ModifyPrefabAsync
+  nameWithType: EnergySourceTemplate.ModifyPrefabAsync
 - uid: Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.UseIonModelAsBase
   name: UseIonModelAsBase
   href: api/Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html#Nautilus_Assets_PrefabTemplates_EnergySourceTemplate_UseIonModelAsBase
@@ -2392,6 +2834,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefab
   nameWithType: FabricatorTemplate.ModifyPrefab
+- uid: Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefabAsync
+  name: ModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.html#Nautilus_Assets_PrefabTemplates_FabricatorTemplate_ModifyPrefabAsync
+  commentId: P:Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefabAsync
+  fullName: Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefabAsync
+  nameWithType: FabricatorTemplate.ModifyPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefabAsync*
+  name: ModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.html#Nautilus_Assets_PrefabTemplates_FabricatorTemplate_ModifyPrefabAsync_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefabAsync
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.FabricatorTemplate.ModifyPrefabAsync
+  nameWithType: FabricatorTemplate.ModifyPrefabAsync
 - uid: Nautilus.Assets.PrefabTemplates.PrefabTemplate
   name: PrefabTemplate
   href: api/Nautilus.Assets.PrefabTemplates.PrefabTemplate.html
@@ -2433,6 +2888,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.PrefabTemplates.PrefabTemplate.GetPrefabAsync
   nameWithType: PrefabTemplate.GetPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.PrefabTemplate.OnPrefabPostProcessor(UnityEngine.GameObject)
+  name: OnPrefabPostProcessor(GameObject)
+  href: api/Nautilus.Assets.PrefabTemplates.PrefabTemplate.html#Nautilus_Assets_PrefabTemplates_PrefabTemplate_OnPrefabPostProcessor_UnityEngine_GameObject_
+  commentId: M:Nautilus.Assets.PrefabTemplates.PrefabTemplate.OnPrefabPostProcessor(UnityEngine.GameObject)
+  fullName: Nautilus.Assets.PrefabTemplates.PrefabTemplate.OnPrefabPostProcessor(UnityEngine.GameObject)
+  nameWithType: PrefabTemplate.OnPrefabPostProcessor(GameObject)
+- uid: Nautilus.Assets.PrefabTemplates.PrefabTemplate.OnPrefabPostProcessor*
+  name: OnPrefabPostProcessor
+  href: api/Nautilus.Assets.PrefabTemplates.PrefabTemplate.html#Nautilus_Assets_PrefabTemplates_PrefabTemplate_OnPrefabPostProcessor_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.PrefabTemplate.OnPrefabPostProcessor
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.PrefabTemplate.OnPrefabPostProcessor
+  nameWithType: PrefabTemplate.OnPrefabPostProcessor
 - uid: Nautilus.Assets.PrefabTemplates.PrefabTemplate.info
   name: info
   href: api/Nautilus.Assets.PrefabTemplates.PrefabTemplate.html#Nautilus_Assets_PrefabTemplates_PrefabTemplate_info
@@ -2599,6 +3067,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Crafting.ModCraftTreeLinkingNode.AddModdedCraftingNode
   nameWithType: ModCraftTreeLinkingNode.AddModdedCraftingNode
+- uid: Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String)
+  name: AddTabNode(string)
+  href: api/Nautilus.Crafting.ModCraftTreeLinkingNode.html#Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_
+  commentId: M:Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String)
+  name.vb: AddTabNode(String)
+  fullName: Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(string)
+  fullName.vb: Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(String)
+  nameWithType: ModCraftTreeLinkingNode.AddTabNode(string)
+  nameWithType.vb: ModCraftTreeLinkingNode.AddTabNode(String)
 - uid: Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String,System.String,Atlas.Sprite,System.String)
   name: AddTabNode(string, string, Sprite, string)
   href: api/Nautilus.Crafting.ModCraftTreeLinkingNode.html#Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_System_String_Atlas_Sprite_System_String_
@@ -2617,15 +3094,6 @@ references:
   fullName.vb: Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(String, String, UnityEngine.Sprite, String)
   nameWithType: ModCraftTreeLinkingNode.AddTabNode(string, string, Sprite, string)
   nameWithType.vb: ModCraftTreeLinkingNode.AddTabNode(String, String, Sprite, String)
-- uid: Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String)
-  name: AddTabNode(string)
-  href: api/Nautilus.Crafting.ModCraftTreeLinkingNode.html#Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_
-  commentId: M:Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(System.String)
-  name.vb: AddTabNode(String)
-  fullName: Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(string)
-  fullName.vb: Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode(String)
-  nameWithType: ModCraftTreeLinkingNode.AddTabNode(string)
-  nameWithType.vb: ModCraftTreeLinkingNode.AddTabNode(String)
 - uid: Nautilus.Crafting.ModCraftTreeLinkingNode.AddTabNode*
   name: AddTabNode
   href: api/Nautilus.Crafting.ModCraftTreeLinkingNode.html#Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_
@@ -2870,19 +3338,6 @@ references:
   fullName.vb: Nautilus.Crafting.RecipeData.New
   nameWithType: RecipeData.RecipeData
   nameWithType.vb: RecipeData.New
-- uid: Nautilus.Crafting.RecipeData.craftAmount
-  name: craftAmount
-  href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_craftAmount
-  commentId: P:Nautilus.Crafting.RecipeData.craftAmount
-  fullName: Nautilus.Crafting.RecipeData.craftAmount
-  nameWithType: RecipeData.craftAmount
-- uid: Nautilus.Crafting.RecipeData.craftAmount*
-  name: craftAmount
-  href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_craftAmount_
-  commentId: Overload:Nautilus.Crafting.RecipeData.craftAmount
-  isSpec: "True"
-  fullName: Nautilus.Crafting.RecipeData.craftAmount
-  nameWithType: RecipeData.craftAmount
 - uid: Nautilus.Crafting.RecipeData.GetIngredient(System.Int32)
   name: GetIngredient(int)
   href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_GetIngredient_System_Int32_
@@ -2915,6 +3370,31 @@ references:
   isSpec: "True"
   fullName: Nautilus.Crafting.RecipeData.GetLinkedItem
   nameWithType: RecipeData.GetLinkedItem
+- uid: Nautilus.Crafting.RecipeData.Ingredients
+  name: Ingredients
+  href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_Ingredients
+  commentId: F:Nautilus.Crafting.RecipeData.Ingredients
+  fullName: Nautilus.Crafting.RecipeData.Ingredients
+  nameWithType: RecipeData.Ingredients
+- uid: Nautilus.Crafting.RecipeData.LinkedItems
+  name: LinkedItems
+  href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_LinkedItems
+  commentId: F:Nautilus.Crafting.RecipeData.LinkedItems
+  fullName: Nautilus.Crafting.RecipeData.LinkedItems
+  nameWithType: RecipeData.LinkedItems
+- uid: Nautilus.Crafting.RecipeData.craftAmount
+  name: craftAmount
+  href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_craftAmount
+  commentId: P:Nautilus.Crafting.RecipeData.craftAmount
+  fullName: Nautilus.Crafting.RecipeData.craftAmount
+  nameWithType: RecipeData.craftAmount
+- uid: Nautilus.Crafting.RecipeData.craftAmount*
+  name: craftAmount
+  href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_craftAmount_
+  commentId: Overload:Nautilus.Crafting.RecipeData.craftAmount
+  isSpec: "True"
+  fullName: Nautilus.Crafting.RecipeData.craftAmount
+  nameWithType: RecipeData.craftAmount
 - uid: Nautilus.Crafting.RecipeData.ingredientCount
   name: ingredientCount
   href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_ingredientCount
@@ -2928,12 +3408,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Crafting.RecipeData.ingredientCount
   nameWithType: RecipeData.ingredientCount
-- uid: Nautilus.Crafting.RecipeData.Ingredients
-  name: Ingredients
-  href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_Ingredients
-  commentId: F:Nautilus.Crafting.RecipeData.Ingredients
-  fullName: Nautilus.Crafting.RecipeData.Ingredients
-  nameWithType: RecipeData.Ingredients
 - uid: Nautilus.Crafting.RecipeData.linkedItemCount
   name: linkedItemCount
   href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_linkedItemCount
@@ -2947,12 +3421,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Crafting.RecipeData.linkedItemCount
   nameWithType: RecipeData.linkedItemCount
-- uid: Nautilus.Crafting.RecipeData.LinkedItems
-  name: LinkedItems
-  href: api/Nautilus.Crafting.RecipeData.html#Nautilus_Crafting_RecipeData_LinkedItems
-  commentId: F:Nautilus.Crafting.RecipeData.LinkedItems
-  fullName: Nautilus.Crafting.RecipeData.LinkedItems
-  nameWithType: RecipeData.LinkedItems
 - uid: Nautilus.Extensions
   name: Nautilus.Extensions
   href: api/Nautilus.Extensions.html
@@ -3029,6 +3497,22 @@ references:
   fullName.vb: Nautilus.Extensions.GameObjectExtensions.Exists(Of T)(T)
   nameWithType: GameObjectExtensions.Exists<T>(T)
   nameWithType.vb: GameObjectExtensions.Exists(Of T)(T)
+- uid: Nautilus.Extensions.GameObjectExtensions.ForceValid*
+  name: ForceValid
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_ForceValid_
+  commentId: Overload:Nautilus.Extensions.GameObjectExtensions.ForceValid
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GameObjectExtensions.ForceValid
+  nameWithType: GameObjectExtensions.ForceValid
+- uid: Nautilus.Extensions.GameObjectExtensions.ForceValid``1(``0)
+  name: ForceValid<TAssetReference>(TAssetReference)
+  href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_ForceValid__1___0_
+  commentId: M:Nautilus.Extensions.GameObjectExtensions.ForceValid``1(``0)
+  name.vb: ForceValid(Of TAssetReference)(TAssetReference)
+  fullName: Nautilus.Extensions.GameObjectExtensions.ForceValid<TAssetReference>(TAssetReference)
+  fullName.vb: Nautilus.Extensions.GameObjectExtensions.ForceValid(Of TAssetReference)(TAssetReference)
+  nameWithType: GameObjectExtensions.ForceValid<TAssetReference>(TAssetReference)
+  nameWithType.vb: GameObjectExtensions.ForceValid(Of TAssetReference)(TAssetReference)
 - uid: Nautilus.Extensions.GameObjectExtensions.IsPrefab(UnityEngine.GameObject)
   name: IsPrefab(GameObject)
   href: api/Nautilus.Extensions.GameObjectExtensions.html#Nautilus_Extensions_GameObjectExtensions_IsPrefab_UnityEngine_GameObject_
@@ -3080,6 +3564,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Extensions.GeneralExtensions.Add
   nameWithType: GeneralExtensions.Add
+- uid: Nautilus.Extensions.GeneralExtensions.AddHint(ErrorMessage,System.String)
+  name: AddHint(ErrorMessage, string)
+  href: api/Nautilus.Extensions.GeneralExtensions.html#Nautilus_Extensions_GeneralExtensions_AddHint_ErrorMessage_System_String_
+  commentId: M:Nautilus.Extensions.GeneralExtensions.AddHint(ErrorMessage,System.String)
+  name.vb: AddHint(ErrorMessage, String)
+  fullName: Nautilus.Extensions.GeneralExtensions.AddHint(ErrorMessage, string)
+  fullName.vb: Nautilus.Extensions.GeneralExtensions.AddHint(ErrorMessage, String)
+  nameWithType: GeneralExtensions.AddHint(ErrorMessage, string)
+  nameWithType.vb: GeneralExtensions.AddHint(ErrorMessage, String)
+- uid: Nautilus.Extensions.GeneralExtensions.AddHint*
+  name: AddHint
+  href: api/Nautilus.Extensions.GeneralExtensions.html#Nautilus_Extensions_GeneralExtensions_AddHint_
+  commentId: Overload:Nautilus.Extensions.GeneralExtensions.AddHint
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GeneralExtensions.AddHint
+  nameWithType: GeneralExtensions.AddHint
 - uid: Nautilus.Extensions.GeneralExtensions.Add``1(``0[],``0)
   name: Add<T>(T[], T)
   href: api/Nautilus.Extensions.GeneralExtensions.html#Nautilus_Extensions_GeneralExtensions_Add__1___0_____0_
@@ -3308,6 +3808,12 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.CraftDataHandler.AddBuildable
   nameWithType: CraftDataHandler.AddBuildable
+- uid: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType)
+  name: AddToGroup(TechGroup, TechCategory, TechType)
+  href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_
+  commentId: M:Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType)
+  fullName: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType)
+  nameWithType: CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType)
 - uid: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType,TechType,System.Boolean)
   name: AddToGroup(TechGroup, TechCategory, TechType, TechType, bool)
   href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_TechType_System_Boolean_
@@ -3317,12 +3823,6 @@ references:
   fullName.vb: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType, TechType, Boolean)
   nameWithType: CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType, TechType, bool)
   nameWithType.vb: CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType, TechType, Boolean)
-- uid: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType)
-  name: AddToGroup(TechGroup, TechCategory, TechType)
-  href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_AddToGroup_TechGroup_TechCategory_TechType_
-  commentId: M:Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup,TechCategory,TechType)
-  fullName: Nautilus.Handlers.CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType)
-  nameWithType: CraftDataHandler.AddToGroup(TechGroup, TechCategory, TechType)
 - uid: Nautilus.Handlers.CraftDataHandler.AddToGroup*
   name: AddToGroup
   href: api/Nautilus.Handlers.CraftDataHandler.html#Nautilus_Handlers_CraftDataHandler_AddToGroup_
@@ -3587,6 +4087,12 @@ references:
   commentId: T:Nautilus.Handlers.CraftTreeHandler
   fullName: Nautilus.Handlers.CraftTreeHandler
   nameWithType: CraftTreeHandler
+- uid: Nautilus.Handlers.CraftTreeHandler.AddCraftingNode(CraftTree.Type,TechType)
+  name: AddCraftingNode(Type, TechType)
+  href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddCraftingNode_CraftTree_Type_TechType_
+  commentId: M:Nautilus.Handlers.CraftTreeHandler.AddCraftingNode(CraftTree.Type,TechType)
+  fullName: Nautilus.Handlers.CraftTreeHandler.AddCraftingNode(CraftTree.Type, TechType)
+  nameWithType: CraftTreeHandler.AddCraftingNode(CraftTree.Type, TechType)
 - uid: Nautilus.Handlers.CraftTreeHandler.AddCraftingNode(CraftTree.Type,TechType,System.String[])
   name: AddCraftingNode(Type, TechType, params string[])
   href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddCraftingNode_CraftTree_Type_TechType_System_String___
@@ -3596,12 +4102,6 @@ references:
   fullName.vb: Nautilus.Handlers.CraftTreeHandler.AddCraftingNode(CraftTree.Type, TechType, ParamArray String())
   nameWithType: CraftTreeHandler.AddCraftingNode(CraftTree.Type, TechType, params string[])
   nameWithType.vb: CraftTreeHandler.AddCraftingNode(CraftTree.Type, TechType, ParamArray String())
-- uid: Nautilus.Handlers.CraftTreeHandler.AddCraftingNode(CraftTree.Type,TechType)
-  name: AddCraftingNode(Type, TechType)
-  href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddCraftingNode_CraftTree_Type_TechType_
-  commentId: M:Nautilus.Handlers.CraftTreeHandler.AddCraftingNode(CraftTree.Type,TechType)
-  fullName: Nautilus.Handlers.CraftTreeHandler.AddCraftingNode(CraftTree.Type, TechType)
-  nameWithType: CraftTreeHandler.AddCraftingNode(CraftTree.Type, TechType)
 - uid: Nautilus.Handlers.CraftTreeHandler.AddCraftingNode*
   name: AddCraftingNode
   href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddCraftingNode_
@@ -3609,15 +4109,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.CraftTreeHandler.AddCraftingNode
   nameWithType: CraftTreeHandler.AddCraftingNode
-- uid: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type,System.String,System.String,Atlas.Sprite,System.String[])
-  name: AddTabNode(Type, string, string, Sprite, params string[])
-  href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddTabNode_CraftTree_Type_System_String_System_String_Atlas_Sprite_System_String___
-  commentId: M:Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type,System.String,System.String,Atlas.Sprite,System.String[])
-  name.vb: AddTabNode(Type, String, String, Sprite, ParamArray String())
-  fullName: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type, string, string, Atlas.Sprite, params string[])
-  fullName.vb: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, Atlas.Sprite, ParamArray String())
-  nameWithType: CraftTreeHandler.AddTabNode(CraftTree.Type, string, string, Atlas.Sprite, params string[])
-  nameWithType.vb: CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, Atlas.Sprite, ParamArray String())
 - uid: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type,System.String,System.String,Atlas.Sprite)
   name: AddTabNode(Type, string, string, Sprite)
   href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddTabNode_CraftTree_Type_System_String_System_String_Atlas_Sprite_
@@ -3627,15 +4118,15 @@ references:
   fullName.vb: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, Atlas.Sprite)
   nameWithType: CraftTreeHandler.AddTabNode(CraftTree.Type, string, string, Atlas.Sprite)
   nameWithType.vb: CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, Atlas.Sprite)
-- uid: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type,System.String,System.String,UnityEngine.Sprite,System.String[])
+- uid: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type,System.String,System.String,Atlas.Sprite,System.String[])
   name: AddTabNode(Type, string, string, Sprite, params string[])
-  href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddTabNode_CraftTree_Type_System_String_System_String_UnityEngine_Sprite_System_String___
-  commentId: M:Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type,System.String,System.String,UnityEngine.Sprite,System.String[])
+  href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddTabNode_CraftTree_Type_System_String_System_String_Atlas_Sprite_System_String___
+  commentId: M:Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type,System.String,System.String,Atlas.Sprite,System.String[])
   name.vb: AddTabNode(Type, String, String, Sprite, ParamArray String())
-  fullName: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type, string, string, UnityEngine.Sprite, params string[])
-  fullName.vb: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, UnityEngine.Sprite, ParamArray String())
-  nameWithType: CraftTreeHandler.AddTabNode(CraftTree.Type, string, string, Sprite, params string[])
-  nameWithType.vb: CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, Sprite, ParamArray String())
+  fullName: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type, string, string, Atlas.Sprite, params string[])
+  fullName.vb: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, Atlas.Sprite, ParamArray String())
+  nameWithType: CraftTreeHandler.AddTabNode(CraftTree.Type, string, string, Atlas.Sprite, params string[])
+  nameWithType.vb: CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, Atlas.Sprite, ParamArray String())
 - uid: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type,System.String,System.String,UnityEngine.Sprite)
   name: AddTabNode(Type, string, string, Sprite)
   href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddTabNode_CraftTree_Type_System_String_System_String_UnityEngine_Sprite_
@@ -3645,6 +4136,15 @@ references:
   fullName.vb: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, UnityEngine.Sprite)
   nameWithType: CraftTreeHandler.AddTabNode(CraftTree.Type, string, string, Sprite)
   nameWithType.vb: CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, Sprite)
+- uid: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type,System.String,System.String,UnityEngine.Sprite,System.String[])
+  name: AddTabNode(Type, string, string, Sprite, params string[])
+  href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddTabNode_CraftTree_Type_System_String_System_String_UnityEngine_Sprite_System_String___
+  commentId: M:Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type,System.String,System.String,UnityEngine.Sprite,System.String[])
+  name.vb: AddTabNode(Type, String, String, Sprite, ParamArray String())
+  fullName: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type, string, string, UnityEngine.Sprite, params string[])
+  fullName.vb: Nautilus.Handlers.CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, UnityEngine.Sprite, ParamArray String())
+  nameWithType: CraftTreeHandler.AddTabNode(CraftTree.Type, string, string, Sprite, params string[])
+  nameWithType.vb: CraftTreeHandler.AddTabNode(CraftTree.Type, String, String, Sprite, ParamArray String())
 - uid: Nautilus.Handlers.CraftTreeHandler.AddTabNode*
   name: AddTabNode
   href: api/Nautilus.Handlers.CraftTreeHandler.html#Nautilus_Handlers_CraftTreeHandler_AddTabNode_
@@ -3736,6 +4236,32 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorMachines
   nameWithType: CraftTreeHandler.Paths.FabricatorMachines
+- uid: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools
+  name: FabricatorTools
+  href: api/Nautilus.Handlers.CraftTreeHandler.Paths.html#Nautilus_Handlers_CraftTreeHandler_Paths_FabricatorTools
+  commentId: P:Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools
+  fullName: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools
+  nameWithType: CraftTreeHandler.Paths.FabricatorTools
+- uid: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools*
+  name: FabricatorTools
+  href: api/Nautilus.Handlers.CraftTreeHandler.Paths.html#Nautilus_Handlers_CraftTreeHandler_Paths_FabricatorTools_
+  commentId: Overload:Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools
+  isSpec: "True"
+  fullName: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools
+  nameWithType: CraftTreeHandler.Paths.FabricatorTools
+- uid: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater
+  name: FabricatorWater
+  href: api/Nautilus.Handlers.CraftTreeHandler.Paths.html#Nautilus_Handlers_CraftTreeHandler_Paths_FabricatorWater
+  commentId: P:Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater
+  fullName: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater
+  nameWithType: CraftTreeHandler.Paths.FabricatorWater
+- uid: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater*
+  name: FabricatorWater
+  href: api/Nautilus.Handlers.CraftTreeHandler.Paths.html#Nautilus_Handlers_CraftTreeHandler_Paths_FabricatorWater_
+  commentId: Overload:Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater
+  isSpec: "True"
+  fullName: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater
+  nameWithType: CraftTreeHandler.Paths.FabricatorWater
 - uid: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorsAdvancedMaterials
   name: FabricatorsAdvancedMaterials
   href: api/Nautilus.Handlers.CraftTreeHandler.Paths.html#Nautilus_Handlers_CraftTreeHandler_Paths_FabricatorsAdvancedMaterials
@@ -3775,32 +4301,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorsElectronics
   nameWithType: CraftTreeHandler.Paths.FabricatorsElectronics
-- uid: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools
-  name: FabricatorTools
-  href: api/Nautilus.Handlers.CraftTreeHandler.Paths.html#Nautilus_Handlers_CraftTreeHandler_Paths_FabricatorTools
-  commentId: P:Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools
-  fullName: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools
-  nameWithType: CraftTreeHandler.Paths.FabricatorTools
-- uid: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools*
-  name: FabricatorTools
-  href: api/Nautilus.Handlers.CraftTreeHandler.Paths.html#Nautilus_Handlers_CraftTreeHandler_Paths_FabricatorTools_
-  commentId: Overload:Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools
-  isSpec: "True"
-  fullName: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorTools
-  nameWithType: CraftTreeHandler.Paths.FabricatorTools
-- uid: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater
-  name: FabricatorWater
-  href: api/Nautilus.Handlers.CraftTreeHandler.Paths.html#Nautilus_Handlers_CraftTreeHandler_Paths_FabricatorWater
-  commentId: P:Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater
-  fullName: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater
-  nameWithType: CraftTreeHandler.Paths.FabricatorWater
-- uid: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater*
-  name: FabricatorWater
-  href: api/Nautilus.Handlers.CraftTreeHandler.Paths.html#Nautilus_Handlers_CraftTreeHandler_Paths_FabricatorWater_
-  commentId: Overload:Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater
-  isSpec: "True"
-  fullName: Nautilus.Handlers.CraftTreeHandler.Paths.FabricatorWater
-  nameWithType: CraftTreeHandler.Paths.FabricatorWater
 - uid: Nautilus.Handlers.CraftTreeHandler.Paths.VehicleUpgradesCommonModules
   name: VehicleUpgradesCommonModules
   href: api/Nautilus.Handlers.CraftTreeHandler.Paths.html#Nautilus_Handlers_CraftTreeHandler_Paths_VehicleUpgradesCommonModules
@@ -4002,25 +4502,6 @@ references:
   fullName.vb: Nautilus.Handlers.EnumBuilder(Of TEnum)
   nameWithType: EnumBuilder<TEnum>
   nameWithType.vb: EnumBuilder(Of TEnum)
-- uid: Nautilus.Handlers.EnumBuilder`1.op_Implicit(Nautilus.Handlers.EnumBuilder{`0})~`0
-  name: implicit operator TEnum(EnumBuilder<TEnum>)
-  href: api/Nautilus.Handlers.EnumBuilder-1.html#Nautilus_Handlers_EnumBuilder_1_op_Implicit_Nautilus_Handlers_EnumBuilder__0____0
-  commentId: M:Nautilus.Handlers.EnumBuilder`1.op_Implicit(Nautilus.Handlers.EnumBuilder{`0})~`0
-  name.vb: CType(EnumBuilder(Of TEnum))
-  fullName: Nautilus.Handlers.EnumBuilder<TEnum>.implicit operator TEnum(Nautilus.Handlers.EnumBuilder<TEnum>)
-  fullName.vb: Nautilus.Handlers.EnumBuilder(Of TEnum).CType(Nautilus.Handlers.EnumBuilder(Of TEnum))
-  nameWithType: EnumBuilder<TEnum>.implicit operator TEnum(EnumBuilder<TEnum>)
-  nameWithType.vb: EnumBuilder(Of TEnum).CType(EnumBuilder(Of TEnum))
-- uid: Nautilus.Handlers.EnumBuilder`1.op_Implicit*
-  name: implicit operator
-  href: api/Nautilus.Handlers.EnumBuilder-1.html#Nautilus_Handlers_EnumBuilder_1_op_Implicit_
-  commentId: Overload:Nautilus.Handlers.EnumBuilder`1.op_Implicit
-  isSpec: "True"
-  name.vb: CType
-  fullName: Nautilus.Handlers.EnumBuilder<TEnum>.implicit operator
-  fullName.vb: Nautilus.Handlers.EnumBuilder(Of TEnum).CType
-  nameWithType: EnumBuilder<TEnum>.implicit operator
-  nameWithType.vb: EnumBuilder(Of TEnum).CType
 - uid: Nautilus.Handlers.EnumBuilder`1.ToString
   name: ToString()
   href: api/Nautilus.Handlers.EnumBuilder-1.html#Nautilus_Handlers_EnumBuilder_1_ToString
@@ -4055,6 +4536,25 @@ references:
   fullName.vb: Nautilus.Handlers.EnumBuilder(Of TEnum).Value
   nameWithType: EnumBuilder<TEnum>.Value
   nameWithType.vb: EnumBuilder(Of TEnum).Value
+- uid: Nautilus.Handlers.EnumBuilder`1.op_Implicit(Nautilus.Handlers.EnumBuilder{`0})~`0
+  name: implicit operator TEnum(EnumBuilder<TEnum>)
+  href: api/Nautilus.Handlers.EnumBuilder-1.html#Nautilus_Handlers_EnumBuilder_1_op_Implicit_Nautilus_Handlers_EnumBuilder__0____0
+  commentId: M:Nautilus.Handlers.EnumBuilder`1.op_Implicit(Nautilus.Handlers.EnumBuilder{`0})~`0
+  name.vb: CType(EnumBuilder(Of TEnum))
+  fullName: Nautilus.Handlers.EnumBuilder<TEnum>.implicit operator TEnum(Nautilus.Handlers.EnumBuilder<TEnum>)
+  fullName.vb: Nautilus.Handlers.EnumBuilder(Of TEnum).CType(Nautilus.Handlers.EnumBuilder(Of TEnum))
+  nameWithType: EnumBuilder<TEnum>.implicit operator TEnum(EnumBuilder<TEnum>)
+  nameWithType.vb: EnumBuilder(Of TEnum).CType(EnumBuilder(Of TEnum))
+- uid: Nautilus.Handlers.EnumBuilder`1.op_Implicit*
+  name: implicit operator
+  href: api/Nautilus.Handlers.EnumBuilder-1.html#Nautilus_Handlers_EnumBuilder_1_op_Implicit_
+  commentId: Overload:Nautilus.Handlers.EnumBuilder`1.op_Implicit
+  isSpec: "True"
+  name.vb: CType
+  fullName: Nautilus.Handlers.EnumBuilder<TEnum>.implicit operator
+  fullName.vb: Nautilus.Handlers.EnumBuilder(Of TEnum).CType
+  nameWithType: EnumBuilder<TEnum>.implicit operator
+  nameWithType.vb: EnumBuilder(Of TEnum).CType
 - uid: Nautilus.Handlers.EnumExtensions
   name: EnumExtensions
   href: api/Nautilus.Handlers.EnumExtensions.html
@@ -4231,15 +4731,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.EnumHandler.AddEntry
   nameWithType: EnumHandler.AddEntry
-- uid: Nautilus.Handlers.EnumHandler.AddEntry``1(System.String,System.Reflection.Assembly)
-  name: AddEntry<TEnum>(string, Assembly)
-  href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_AddEntry__1_System_String_System_Reflection_Assembly_
-  commentId: M:Nautilus.Handlers.EnumHandler.AddEntry``1(System.String,System.Reflection.Assembly)
-  name.vb: AddEntry(Of TEnum)(String, Assembly)
-  fullName: Nautilus.Handlers.EnumHandler.AddEntry<TEnum>(string, System.Reflection.Assembly)
-  fullName.vb: Nautilus.Handlers.EnumHandler.AddEntry(Of TEnum)(String, System.Reflection.Assembly)
-  nameWithType: EnumHandler.AddEntry<TEnum>(string, Assembly)
-  nameWithType.vb: EnumHandler.AddEntry(Of TEnum)(String, Assembly)
 - uid: Nautilus.Handlers.EnumHandler.AddEntry``1(System.String)
   name: AddEntry<TEnum>(string)
   href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_AddEntry__1_System_String_
@@ -4249,6 +4740,15 @@ references:
   fullName.vb: Nautilus.Handlers.EnumHandler.AddEntry(Of TEnum)(String)
   nameWithType: EnumHandler.AddEntry<TEnum>(string)
   nameWithType.vb: EnumHandler.AddEntry(Of TEnum)(String)
+- uid: Nautilus.Handlers.EnumHandler.AddEntry``1(System.String,System.Reflection.Assembly)
+  name: AddEntry<TEnum>(string, Assembly)
+  href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_AddEntry__1_System_String_System_Reflection_Assembly_
+  commentId: M:Nautilus.Handlers.EnumHandler.AddEntry``1(System.String,System.Reflection.Assembly)
+  name.vb: AddEntry(Of TEnum)(String, Assembly)
+  fullName: Nautilus.Handlers.EnumHandler.AddEntry<TEnum>(string, System.Reflection.Assembly)
+  fullName.vb: Nautilus.Handlers.EnumHandler.AddEntry(Of TEnum)(String, System.Reflection.Assembly)
+  nameWithType: EnumHandler.AddEntry<TEnum>(string, Assembly)
+  nameWithType.vb: EnumHandler.AddEntry(Of TEnum)(String, Assembly)
 - uid: Nautilus.Handlers.EnumHandler.ModdedEnumExists*
   name: ModdedEnumExists
   href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_ModdedEnumExists_
@@ -4313,15 +4813,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.EnumHandler.TryGetValue
   nameWithType: EnumHandler.TryGetValue
-- uid: Nautilus.Handlers.EnumHandler.TryGetValue``1(System.String,``0@,System.Reflection.Assembly@)
-  name: TryGetValue<TEnum>(string, out TEnum, out Assembly)
-  href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_TryGetValue__1_System_String___0__System_Reflection_Assembly__
-  commentId: M:Nautilus.Handlers.EnumHandler.TryGetValue``1(System.String,``0@,System.Reflection.Assembly@)
-  name.vb: TryGetValue(Of TEnum)(String, TEnum, Assembly)
-  fullName: Nautilus.Handlers.EnumHandler.TryGetValue<TEnum>(string, out TEnum, out System.Reflection.Assembly)
-  fullName.vb: Nautilus.Handlers.EnumHandler.TryGetValue(Of TEnum)(String, TEnum, System.Reflection.Assembly)
-  nameWithType: EnumHandler.TryGetValue<TEnum>(string, out TEnum, out Assembly)
-  nameWithType.vb: EnumHandler.TryGetValue(Of TEnum)(String, TEnum, Assembly)
 - uid: Nautilus.Handlers.EnumHandler.TryGetValue``1(System.String,``0@)
   name: TryGetValue<TEnum>(string, out TEnum)
   href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_TryGetValue__1_System_String___0__
@@ -4331,6 +4822,15 @@ references:
   fullName.vb: Nautilus.Handlers.EnumHandler.TryGetValue(Of TEnum)(String, TEnum)
   nameWithType: EnumHandler.TryGetValue<TEnum>(string, out TEnum)
   nameWithType.vb: EnumHandler.TryGetValue(Of TEnum)(String, TEnum)
+- uid: Nautilus.Handlers.EnumHandler.TryGetValue``1(System.String,``0@,System.Reflection.Assembly@)
+  name: TryGetValue<TEnum>(string, out TEnum, out Assembly)
+  href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_TryGetValue__1_System_String___0__System_Reflection_Assembly__
+  commentId: M:Nautilus.Handlers.EnumHandler.TryGetValue``1(System.String,``0@,System.Reflection.Assembly@)
+  name.vb: TryGetValue(Of TEnum)(String, TEnum, Assembly)
+  fullName: Nautilus.Handlers.EnumHandler.TryGetValue<TEnum>(string, out TEnum, out System.Reflection.Assembly)
+  fullName.vb: Nautilus.Handlers.EnumHandler.TryGetValue(Of TEnum)(String, TEnum, System.Reflection.Assembly)
+  nameWithType: EnumHandler.TryGetValue<TEnum>(string, out TEnum, out Assembly)
+  nameWithType.vb: EnumHandler.TryGetValue(Of TEnum)(String, TEnum, Assembly)
 - uid: Nautilus.Handlers.ItemActionHandler
   name: ItemActionHandler
   href: api/Nautilus.Handlers.ItemActionHandler.html
@@ -4473,24 +4973,15 @@ references:
   commentId: M:Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(KnownTech.AnalysisTech)
   fullName: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(KnownTech.AnalysisTech)
   nameWithType: KnownTechHandler.SetAnalysisTechEntry(KnownTech.AnalysisTech)
-- uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite,System.Collections.Generic.List{Story.StoryGoal})
-  name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>, FMODAsset, Sprite, List<StoryGoal>)
-  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_UnityEngine_Sprite_System_Collections_Generic_List_Story_StoryGoal__
-  commentId: M:Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite,System.Collections.Generic.List{Story.StoryGoal})
-  name.vb: SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), FMODAsset, Sprite, List(Of StoryGoal))
-  fullName: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable<TechType>, FMODAsset, UnityEngine.Sprite, System.Collections.Generic.List<Story.StoryGoal>)
-  fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType), FMODAsset, UnityEngine.Sprite, System.Collections.Generic.List(Of Story.StoryGoal))
-  nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>, FMODAsset, Sprite, List<StoryGoal>)
-  nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), FMODAsset, Sprite, List(Of StoryGoal))
-- uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite)
-  name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>, FMODAsset, Sprite)
-  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_UnityEngine_Sprite_
-  commentId: M:Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite)
-  name.vb: SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), FMODAsset, Sprite)
-  fullName: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable<TechType>, FMODAsset, UnityEngine.Sprite)
-  fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType), FMODAsset, UnityEngine.Sprite)
-  nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>, FMODAsset, Sprite)
-  nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), FMODAsset, Sprite)
+- uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType})
+  name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>)
+  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__
+  commentId: M:Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType})
+  name.vb: SetAnalysisTechEntry(TechType, IEnumerable(Of TechType))
+  fullName: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable<TechType>)
+  fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType))
+  nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>)
+  nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType))
 - uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset)
   name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>, FMODAsset)
   href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_
@@ -4500,6 +4991,33 @@ references:
   fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType), FMODAsset)
   nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>, FMODAsset)
   nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), FMODAsset)
+- uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite)
+  name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>, FMODAsset, Sprite)
+  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_UnityEngine_Sprite_
+  commentId: M:Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite)
+  name.vb: SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), FMODAsset, Sprite)
+  fullName: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable<TechType>, FMODAsset, UnityEngine.Sprite)
+  fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType), FMODAsset, UnityEngine.Sprite)
+  nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>, FMODAsset, Sprite)
+  nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), FMODAsset, Sprite)
+- uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite,System.Collections.Generic.List{Story.StoryGoal})
+  name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>, FMODAsset, Sprite, List<StoryGoal>)
+  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_UnityEngine_Sprite_System_Collections_Generic_List_Story_StoryGoal__
+  commentId: M:Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite,System.Collections.Generic.List{Story.StoryGoal})
+  name.vb: SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), FMODAsset, Sprite, List(Of StoryGoal))
+  fullName: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable<TechType>, FMODAsset, UnityEngine.Sprite, System.Collections.Generic.List<Story.StoryGoal>)
+  fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType), FMODAsset, UnityEngine.Sprite, System.Collections.Generic.List(Of Story.StoryGoal))
+  nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>, FMODAsset, Sprite, List<StoryGoal>)
+  nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), FMODAsset, Sprite, List(Of StoryGoal))
+- uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String)
+  name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>, string)
+  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__System_String_
+  commentId: M:Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String)
+  name.vb: SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), String)
+  fullName: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable<TechType>, string)
+  fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType), String)
+  nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>, string)
+  nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), String)
 - uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String,FMODAsset)
   name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>, string, FMODAsset)
   href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__System_String_FMODAsset_
@@ -4518,15 +5036,6 @@ references:
   fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType), String, UnityEngine.Sprite)
   nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>, string, Sprite)
   nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), String, Sprite)
-- uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String)
-  name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>, string)
-  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__System_String_
-  commentId: M:Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String)
-  name.vb: SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), String)
-  fullName: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable<TechType>, string)
-  fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType), String)
-  nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>, string)
-  nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), String)
 - uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},UnityEngine.Sprite)
   name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>, Sprite)
   href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__UnityEngine_Sprite_
@@ -4536,15 +5045,6 @@ references:
   fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType), UnityEngine.Sprite)
   nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>, Sprite)
   nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType), Sprite)
-- uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType})
-  name: SetAnalysisTechEntry(TechType, IEnumerable<TechType>)
-  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__
-  commentId: M:Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType})
-  name.vb: SetAnalysisTechEntry(TechType, IEnumerable(Of TechType))
-  fullName: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable<TechType>)
-  fullName.vb: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType, System.Collections.Generic.IEnumerable(Of TechType))
-  nameWithType: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable<TechType>)
-  nameWithType.vb: KnownTechHandler.SetAnalysisTechEntry(TechType, IEnumerable(Of TechType))
 - uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry*
   name: SetAnalysisTechEntry
   href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_
@@ -4691,15 +5191,6 @@ references:
   fullName.vb: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(String, ParamArray LootDistributionData.BiomeData())
   nameWithType: LootDistributionHandler.AddLootDistributionData(string, params LootDistributionData.BiomeData[])
   nameWithType.vb: LootDistributionHandler.AddLootDistributionData(String, ParamArray LootDistributionData.BiomeData())
-- uid: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData,UWE.WorldEntityInfo)
-  name: AddLootDistributionData(string, SrcData, WorldEntityInfo)
-  href: api/Nautilus.Handlers.LootDistributionHandler.html#Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_UWE_WorldEntityInfo_
-  commentId: M:Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData,UWE.WorldEntityInfo)
-  name.vb: AddLootDistributionData(String, SrcData, WorldEntityInfo)
-  fullName: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(string, LootDistributionData.SrcData, UWE.WorldEntityInfo)
-  fullName.vb: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(String, LootDistributionData.SrcData, UWE.WorldEntityInfo)
-  nameWithType: LootDistributionHandler.AddLootDistributionData(string, LootDistributionData.SrcData, WorldEntityInfo)
-  nameWithType.vb: LootDistributionHandler.AddLootDistributionData(String, LootDistributionData.SrcData, WorldEntityInfo)
 - uid: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData)
   name: AddLootDistributionData(string, SrcData)
   href: api/Nautilus.Handlers.LootDistributionHandler.html#Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_
@@ -4709,15 +5200,15 @@ references:
   fullName.vb: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(String, LootDistributionData.SrcData)
   nameWithType: LootDistributionHandler.AddLootDistributionData(string, LootDistributionData.SrcData)
   nameWithType.vb: LootDistributionHandler.AddLootDistributionData(String, LootDistributionData.SrcData)
-- uid: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData},UWE.WorldEntityInfo)
-  name: AddLootDistributionData(string, string, IEnumerable<BiomeData>, WorldEntityInfo)
-  href: api/Nautilus.Handlers.LootDistributionHandler.html#Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__UWE_WorldEntityInfo_
-  commentId: M:Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData},UWE.WorldEntityInfo)
-  name.vb: AddLootDistributionData(String, String, IEnumerable(Of BiomeData), WorldEntityInfo)
-  fullName: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(string, string, System.Collections.Generic.IEnumerable<LootDistributionData.BiomeData>, UWE.WorldEntityInfo)
-  fullName.vb: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(String, String, System.Collections.Generic.IEnumerable(Of LootDistributionData.BiomeData), UWE.WorldEntityInfo)
-  nameWithType: LootDistributionHandler.AddLootDistributionData(string, string, IEnumerable<LootDistributionData.BiomeData>, WorldEntityInfo)
-  nameWithType.vb: LootDistributionHandler.AddLootDistributionData(String, String, IEnumerable(Of LootDistributionData.BiomeData), WorldEntityInfo)
+- uid: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData,UWE.WorldEntityInfo)
+  name: AddLootDistributionData(string, SrcData, WorldEntityInfo)
+  href: api/Nautilus.Handlers.LootDistributionHandler.html#Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_UWE_WorldEntityInfo_
+  commentId: M:Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData,UWE.WorldEntityInfo)
+  name.vb: AddLootDistributionData(String, SrcData, WorldEntityInfo)
+  fullName: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(string, LootDistributionData.SrcData, UWE.WorldEntityInfo)
+  fullName.vb: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(String, LootDistributionData.SrcData, UWE.WorldEntityInfo)
+  nameWithType: LootDistributionHandler.AddLootDistributionData(string, LootDistributionData.SrcData, WorldEntityInfo)
+  nameWithType.vb: LootDistributionHandler.AddLootDistributionData(String, LootDistributionData.SrcData, WorldEntityInfo)
 - uid: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData})
   name: AddLootDistributionData(string, string, IEnumerable<BiomeData>)
   href: api/Nautilus.Handlers.LootDistributionHandler.html#Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__
@@ -4727,6 +5218,15 @@ references:
   fullName.vb: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(String, String, System.Collections.Generic.IEnumerable(Of LootDistributionData.BiomeData))
   nameWithType: LootDistributionHandler.AddLootDistributionData(string, string, IEnumerable<LootDistributionData.BiomeData>)
   nameWithType.vb: LootDistributionHandler.AddLootDistributionData(String, String, IEnumerable(Of LootDistributionData.BiomeData))
+- uid: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData},UWE.WorldEntityInfo)
+  name: AddLootDistributionData(string, string, IEnumerable<BiomeData>, WorldEntityInfo)
+  href: api/Nautilus.Handlers.LootDistributionHandler.html#Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__UWE_WorldEntityInfo_
+  commentId: M:Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData},UWE.WorldEntityInfo)
+  name.vb: AddLootDistributionData(String, String, IEnumerable(Of BiomeData), WorldEntityInfo)
+  fullName: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(string, string, System.Collections.Generic.IEnumerable<LootDistributionData.BiomeData>, UWE.WorldEntityInfo)
+  fullName.vb: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(String, String, System.Collections.Generic.IEnumerable(Of LootDistributionData.BiomeData), UWE.WorldEntityInfo)
+  nameWithType: LootDistributionHandler.AddLootDistributionData(string, string, IEnumerable<LootDistributionData.BiomeData>, WorldEntityInfo)
+  nameWithType.vb: LootDistributionHandler.AddLootDistributionData(String, String, IEnumerable(Of LootDistributionData.BiomeData), WorldEntityInfo)
 - uid: Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,UWE.WorldEntityInfo,LootDistributionData.BiomeData[])
   name: AddLootDistributionData(string, WorldEntityInfo, params BiomeData[])
   href: api/Nautilus.Handlers.LootDistributionHandler.html#Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_UWE_WorldEntityInfo_LootDistributionData_BiomeData___
@@ -5230,6 +5730,15 @@ references:
   commentId: T:Nautilus.Handlers.SpawnInfo
   fullName: Nautilus.Handlers.SpawnInfo
   nameWithType: SpawnInfo
+- uid: Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3)
+  name: SpawnInfo(string, Vector3)
+  href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_
+  commentId: M:Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3)
+  name.vb: New(String, Vector3)
+  fullName: Nautilus.Handlers.SpawnInfo.SpawnInfo(string, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Handlers.SpawnInfo.New(String, UnityEngine.Vector3)
+  nameWithType: SpawnInfo.SpawnInfo(string, Vector3)
+  nameWithType.vb: SpawnInfo.New(String, Vector3)
 - uid: Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion)
   name: SpawnInfo(string, Vector3, Quaternion)
   href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Quaternion_
@@ -5248,15 +5757,15 @@ references:
   fullName.vb: Nautilus.Handlers.SpawnInfo.New(String, UnityEngine.Vector3, UnityEngine.Vector3)
   nameWithType: SpawnInfo.SpawnInfo(string, Vector3, Vector3)
   nameWithType.vb: SpawnInfo.New(String, Vector3, Vector3)
-- uid: Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3)
-  name: SpawnInfo(string, Vector3)
-  href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_
-  commentId: M:Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3)
-  name.vb: New(String, Vector3)
-  fullName: Nautilus.Handlers.SpawnInfo.SpawnInfo(string, UnityEngine.Vector3)
-  fullName.vb: Nautilus.Handlers.SpawnInfo.New(String, UnityEngine.Vector3)
-  nameWithType: SpawnInfo.SpawnInfo(string, Vector3)
-  nameWithType.vb: SpawnInfo.New(String, Vector3)
+- uid: Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3)
+  name: SpawnInfo(TechType, Vector3)
+  href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_
+  commentId: M:Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3)
+  name.vb: New(TechType, Vector3)
+  fullName: Nautilus.Handlers.SpawnInfo.SpawnInfo(TechType, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Handlers.SpawnInfo.New(TechType, UnityEngine.Vector3)
+  nameWithType: SpawnInfo.SpawnInfo(TechType, Vector3)
+  nameWithType.vb: SpawnInfo.New(TechType, Vector3)
 - uid: Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion)
   name: SpawnInfo(TechType, Vector3, Quaternion)
   href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Quaternion_
@@ -5275,15 +5784,6 @@ references:
   fullName.vb: Nautilus.Handlers.SpawnInfo.New(TechType, UnityEngine.Vector3, UnityEngine.Vector3)
   nameWithType: SpawnInfo.SpawnInfo(TechType, Vector3, Vector3)
   nameWithType.vb: SpawnInfo.New(TechType, Vector3, Vector3)
-- uid: Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3)
-  name: SpawnInfo(TechType, Vector3)
-  href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_
-  commentId: M:Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3)
-  name.vb: New(TechType, Vector3)
-  fullName: Nautilus.Handlers.SpawnInfo.SpawnInfo(TechType, UnityEngine.Vector3)
-  fullName.vb: Nautilus.Handlers.SpawnInfo.New(TechType, UnityEngine.Vector3)
-  nameWithType: SpawnInfo.SpawnInfo(TechType, Vector3)
-  nameWithType.vb: SpawnInfo.New(TechType, Vector3)
 - uid: Nautilus.Handlers.SpawnInfo.#ctor*
   name: SpawnInfo
   href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_
@@ -5382,15 +5882,6 @@ references:
   fullName.vb: Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group, String, Atlas.Sprite)
   nameWithType: SpriteHandler.RegisterSprite(SpriteManager.Group, string, Atlas.Sprite)
   nameWithType.vb: SpriteHandler.RegisterSprite(SpriteManager.Group, String, Atlas.Sprite)
-- uid: Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group,System.String,System.String,UnityEngine.TextureFormat)
-  name: RegisterSprite(Group, string, string, TextureFormat)
-  href: api/Nautilus.Handlers.SpriteHandler.html#Nautilus_Handlers_SpriteHandler_RegisterSprite_SpriteManager_Group_System_String_System_String_UnityEngine_TextureFormat_
-  commentId: M:Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group,System.String,System.String,UnityEngine.TextureFormat)
-  name.vb: RegisterSprite(Group, String, String, TextureFormat)
-  fullName: Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group, string, string, UnityEngine.TextureFormat)
-  fullName.vb: Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group, String, String, UnityEngine.TextureFormat)
-  nameWithType: SpriteHandler.RegisterSprite(SpriteManager.Group, string, string, TextureFormat)
-  nameWithType.vb: SpriteHandler.RegisterSprite(SpriteManager.Group, String, String, TextureFormat)
 - uid: Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group,System.String,System.String)
   name: RegisterSprite(Group, string, string)
   href: api/Nautilus.Handlers.SpriteHandler.html#Nautilus_Handlers_SpriteHandler_RegisterSprite_SpriteManager_Group_System_String_System_String_
@@ -5400,6 +5891,15 @@ references:
   fullName.vb: Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group, String, String)
   nameWithType: SpriteHandler.RegisterSprite(SpriteManager.Group, string, string)
   nameWithType.vb: SpriteHandler.RegisterSprite(SpriteManager.Group, String, String)
+- uid: Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group,System.String,System.String,UnityEngine.TextureFormat)
+  name: RegisterSprite(Group, string, string, TextureFormat)
+  href: api/Nautilus.Handlers.SpriteHandler.html#Nautilus_Handlers_SpriteHandler_RegisterSprite_SpriteManager_Group_System_String_System_String_UnityEngine_TextureFormat_
+  commentId: M:Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group,System.String,System.String,UnityEngine.TextureFormat)
+  name.vb: RegisterSprite(Group, String, String, TextureFormat)
+  fullName: Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group, string, string, UnityEngine.TextureFormat)
+  fullName.vb: Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group, String, String, UnityEngine.TextureFormat)
+  nameWithType: SpriteHandler.RegisterSprite(SpriteManager.Group, string, string, TextureFormat)
+  nameWithType.vb: SpriteHandler.RegisterSprite(SpriteManager.Group, String, String, TextureFormat)
 - uid: Nautilus.Handlers.SpriteHandler.RegisterSprite(SpriteManager.Group,System.String,UnityEngine.Sprite)
   name: RegisterSprite(Group, string, Sprite)
   href: api/Nautilus.Handlers.SpriteHandler.html#Nautilus_Handlers_SpriteHandler_RegisterSprite_SpriteManager_Group_System_String_UnityEngine_Sprite_
@@ -5415,15 +5915,6 @@ references:
   commentId: M:Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,Atlas.Sprite)
   fullName: Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType, Atlas.Sprite)
   nameWithType: SpriteHandler.RegisterSprite(TechType, Atlas.Sprite)
-- uid: Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,System.String,UnityEngine.TextureFormat)
-  name: RegisterSprite(TechType, string, TextureFormat)
-  href: api/Nautilus.Handlers.SpriteHandler.html#Nautilus_Handlers_SpriteHandler_RegisterSprite_TechType_System_String_UnityEngine_TextureFormat_
-  commentId: M:Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,System.String,UnityEngine.TextureFormat)
-  name.vb: RegisterSprite(TechType, String, TextureFormat)
-  fullName: Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType, string, UnityEngine.TextureFormat)
-  fullName.vb: Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType, String, UnityEngine.TextureFormat)
-  nameWithType: SpriteHandler.RegisterSprite(TechType, string, TextureFormat)
-  nameWithType.vb: SpriteHandler.RegisterSprite(TechType, String, TextureFormat)
 - uid: Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,System.String)
   name: RegisterSprite(TechType, string)
   href: api/Nautilus.Handlers.SpriteHandler.html#Nautilus_Handlers_SpriteHandler_RegisterSprite_TechType_System_String_
@@ -5433,6 +5924,15 @@ references:
   fullName.vb: Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType, String)
   nameWithType: SpriteHandler.RegisterSprite(TechType, string)
   nameWithType.vb: SpriteHandler.RegisterSprite(TechType, String)
+- uid: Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,System.String,UnityEngine.TextureFormat)
+  name: RegisterSprite(TechType, string, TextureFormat)
+  href: api/Nautilus.Handlers.SpriteHandler.html#Nautilus_Handlers_SpriteHandler_RegisterSprite_TechType_System_String_UnityEngine_TextureFormat_
+  commentId: M:Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,System.String,UnityEngine.TextureFormat)
+  name.vb: RegisterSprite(TechType, String, TextureFormat)
+  fullName: Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType, string, UnityEngine.TextureFormat)
+  fullName.vb: Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType, String, UnityEngine.TextureFormat)
+  nameWithType: SpriteHandler.RegisterSprite(TechType, string, TextureFormat)
+  nameWithType.vb: SpriteHandler.RegisterSprite(TechType, String, TextureFormat)
 - uid: Nautilus.Handlers.SpriteHandler.RegisterSprite(TechType,UnityEngine.Sprite)
   name: RegisterSprite(TechType, Sprite)
   href: api/Nautilus.Handlers.SpriteHandler.html#Nautilus_Handlers_SpriteHandler_RegisterSprite_TechType_UnityEngine_Sprite_
@@ -6040,15 +6540,6 @@ references:
   fullName.vb: Nautilus.Json.Converters.FloatConverter.New()
   nameWithType: FloatConverter.FloatConverter()
   nameWithType.vb: FloatConverter.New()
-- uid: Nautilus.Json.Converters.FloatConverter.#ctor(System.Int32,System.MidpointRounding)
-  name: FloatConverter(int, MidpointRounding)
-  href: api/Nautilus.Json.Converters.FloatConverter.html#Nautilus_Json_Converters_FloatConverter__ctor_System_Int32_System_MidpointRounding_
-  commentId: M:Nautilus.Json.Converters.FloatConverter.#ctor(System.Int32,System.MidpointRounding)
-  name.vb: New(Integer, MidpointRounding)
-  fullName: Nautilus.Json.Converters.FloatConverter.FloatConverter(int, System.MidpointRounding)
-  fullName.vb: Nautilus.Json.Converters.FloatConverter.New(Integer, System.MidpointRounding)
-  nameWithType: FloatConverter.FloatConverter(int, MidpointRounding)
-  nameWithType.vb: FloatConverter.New(Integer, MidpointRounding)
 - uid: Nautilus.Json.Converters.FloatConverter.#ctor(System.Int32)
   name: FloatConverter(int)
   href: api/Nautilus.Json.Converters.FloatConverter.html#Nautilus_Json_Converters_FloatConverter__ctor_System_Int32_
@@ -6058,6 +6549,15 @@ references:
   fullName.vb: Nautilus.Json.Converters.FloatConverter.New(Integer)
   nameWithType: FloatConverter.FloatConverter(int)
   nameWithType.vb: FloatConverter.New(Integer)
+- uid: Nautilus.Json.Converters.FloatConverter.#ctor(System.Int32,System.MidpointRounding)
+  name: FloatConverter(int, MidpointRounding)
+  href: api/Nautilus.Json.Converters.FloatConverter.html#Nautilus_Json_Converters_FloatConverter__ctor_System_Int32_System_MidpointRounding_
+  commentId: M:Nautilus.Json.Converters.FloatConverter.#ctor(System.Int32,System.MidpointRounding)
+  name.vb: New(Integer, MidpointRounding)
+  fullName: Nautilus.Json.Converters.FloatConverter.FloatConverter(int, System.MidpointRounding)
+  fullName.vb: Nautilus.Json.Converters.FloatConverter.New(Integer, System.MidpointRounding)
+  nameWithType: FloatConverter.FloatConverter(int, MidpointRounding)
+  nameWithType.vb: FloatConverter.New(Integer, MidpointRounding)
 - uid: Nautilus.Json.Converters.FloatConverter.#ctor(System.MidpointRounding)
   name: FloatConverter(MidpointRounding)
   href: api/Nautilus.Json.Converters.FloatConverter.html#Nautilus_Json_Converters_FloatConverter__ctor_System_MidpointRounding_
@@ -7429,15 +7929,6 @@ references:
   fullName.vb: Nautilus.Options.Attributes.SliderAttribute.New(Single, Single)
   nameWithType: SliderAttribute.SliderAttribute(float, float)
   nameWithType.vb: SliderAttribute.New(Single, Single)
-- uid: Nautilus.Options.Attributes.SliderAttribute.#ctor(System.String,System.Single,System.Single)
-  name: SliderAttribute(string, float, float)
-  href: api/Nautilus.Options.Attributes.SliderAttribute.html#Nautilus_Options_Attributes_SliderAttribute__ctor_System_String_System_Single_System_Single_
-  commentId: M:Nautilus.Options.Attributes.SliderAttribute.#ctor(System.String,System.Single,System.Single)
-  name.vb: New(String, Single, Single)
-  fullName: Nautilus.Options.Attributes.SliderAttribute.SliderAttribute(string, float, float)
-  fullName.vb: Nautilus.Options.Attributes.SliderAttribute.New(String, Single, Single)
-  nameWithType: SliderAttribute.SliderAttribute(string, float, float)
-  nameWithType.vb: SliderAttribute.New(String, Single, Single)
 - uid: Nautilus.Options.Attributes.SliderAttribute.#ctor(System.String)
   name: SliderAttribute(string)
   href: api/Nautilus.Options.Attributes.SliderAttribute.html#Nautilus_Options_Attributes_SliderAttribute__ctor_System_String_
@@ -7447,6 +7938,15 @@ references:
   fullName.vb: Nautilus.Options.Attributes.SliderAttribute.New(String)
   nameWithType: SliderAttribute.SliderAttribute(string)
   nameWithType.vb: SliderAttribute.New(String)
+- uid: Nautilus.Options.Attributes.SliderAttribute.#ctor(System.String,System.Single,System.Single)
+  name: SliderAttribute(string, float, float)
+  href: api/Nautilus.Options.Attributes.SliderAttribute.html#Nautilus_Options_Attributes_SliderAttribute__ctor_System_String_System_Single_System_Single_
+  commentId: M:Nautilus.Options.Attributes.SliderAttribute.#ctor(System.String,System.Single,System.Single)
+  name.vb: New(String, Single, Single)
+  fullName: Nautilus.Options.Attributes.SliderAttribute.SliderAttribute(string, float, float)
+  fullName.vb: Nautilus.Options.Attributes.SliderAttribute.New(String, Single, Single)
+  nameWithType: SliderAttribute.SliderAttribute(string, float, float)
+  nameWithType.vb: SliderAttribute.New(String, Single, Single)
 - uid: Nautilus.Options.Attributes.SliderAttribute.#ctor*
   name: SliderAttribute
   href: api/Nautilus.Options.Attributes.SliderAttribute.html#Nautilus_Options_Attributes_SliderAttribute__ctor_
@@ -7664,15 +8164,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption
   nameWithType: ConfigEntryExtensions.ToModChoiceOption
-- uid: Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption``1(BepInEx.Configuration.ConfigEntry{``0},``0[])
-  name: ToModChoiceOption<T>(ConfigEntry<T>, T[])
-  href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModChoiceOption__1_BepInEx_Configuration_ConfigEntry___0____0___
-  commentId: M:Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption``1(BepInEx.Configuration.ConfigEntry{``0},``0[])
-  name.vb: ToModChoiceOption(Of T)(ConfigEntry(Of T), T())
-  fullName: Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption<T>(BepInEx.Configuration.ConfigEntry<T>, T[])
-  fullName.vb: Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption(Of T)(BepInEx.Configuration.ConfigEntry(Of T), T())
-  nameWithType: ConfigEntryExtensions.ToModChoiceOption<T>(ConfigEntry<T>, T[])
-  nameWithType.vb: ConfigEntryExtensions.ToModChoiceOption(Of T)(ConfigEntry(Of T), T())
 - uid: Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption``1(BepInEx.Configuration.ConfigEntry{``0},System.Collections.Generic.IEnumerable{``0})
   name: ToModChoiceOption<T>(ConfigEntry<T>, IEnumerable<T>)
   href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModChoiceOption__1_BepInEx_Configuration_ConfigEntry___0__System_Collections_Generic_IEnumerable___0__
@@ -7682,6 +8173,15 @@ references:
   fullName.vb: Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption(Of T)(BepInEx.Configuration.ConfigEntry(Of T), System.Collections.Generic.IEnumerable(Of T))
   nameWithType: ConfigEntryExtensions.ToModChoiceOption<T>(ConfigEntry<T>, IEnumerable<T>)
   nameWithType.vb: ConfigEntryExtensions.ToModChoiceOption(Of T)(ConfigEntry(Of T), IEnumerable(Of T))
+- uid: Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption``1(BepInEx.Configuration.ConfigEntry{``0},``0[])
+  name: ToModChoiceOption<T>(ConfigEntry<T>, T[])
+  href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModChoiceOption__1_BepInEx_Configuration_ConfigEntry___0____0___
+  commentId: M:Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption``1(BepInEx.Configuration.ConfigEntry{``0},``0[])
+  name.vb: ToModChoiceOption(Of T)(ConfigEntry(Of T), T())
+  fullName: Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption<T>(BepInEx.Configuration.ConfigEntry<T>, T[])
+  fullName.vb: Nautilus.Options.ConfigEntryExtensions.ToModChoiceOption(Of T)(BepInEx.Configuration.ConfigEntry(Of T), T())
+  nameWithType: ConfigEntryExtensions.ToModChoiceOption<T>(ConfigEntry<T>, T[])
+  nameWithType.vb: ConfigEntryExtensions.ToModChoiceOption(Of T)(ConfigEntry(Of T), T())
 - uid: Nautilus.Options.ConfigEntryExtensions.ToModColorOption(BepInEx.Configuration.ConfigEntry{UnityEngine.Color},System.Boolean)
   name: ToModColorOption(ConfigEntry<Color>, bool)
   href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModColorOption_BepInEx_Configuration_ConfigEntry_UnityEngine_Color__System_Boolean_
@@ -8028,15 +8528,6 @@ references:
   fullName.vb: Nautilus.Options.ModChoiceOption(Of T).Choice
   nameWithType: ModChoiceOption<T>.Choice
   nameWithType.vb: ModChoiceOption(Of T).Choice
-- uid: Nautilus.Options.ModChoiceOption`1.Create(System.String,System.String,`0[],`0,System.String)
-  name: Create(string, string, T[], T, string)
-  href: api/Nautilus.Options.ModChoiceOption-1.html#Nautilus_Options_ModChoiceOption_1_Create_System_String_System_String__0____0_System_String_
-  commentId: M:Nautilus.Options.ModChoiceOption`1.Create(System.String,System.String,`0[],`0,System.String)
-  name.vb: Create(String, String, T(), T, String)
-  fullName: Nautilus.Options.ModChoiceOption<T>.Create(string, string, T[], T, string)
-  fullName.vb: Nautilus.Options.ModChoiceOption(Of T).Create(String, String, T(), T, String)
-  nameWithType: ModChoiceOption<T>.Create(string, string, T[], T, string)
-  nameWithType.vb: ModChoiceOption(Of T).Create(String, String, T(), T, String)
 - uid: Nautilus.Options.ModChoiceOption`1.Create(System.String,System.String,`0[],System.Int32,System.String)
   name: Create(string, string, T[], int, string)
   href: api/Nautilus.Options.ModChoiceOption-1.html#Nautilus_Options_ModChoiceOption_1_Create_System_String_System_String__0___System_Int32_System_String_
@@ -8046,6 +8537,15 @@ references:
   fullName.vb: Nautilus.Options.ModChoiceOption(Of T).Create(String, String, T(), Integer, String)
   nameWithType: ModChoiceOption<T>.Create(string, string, T[], int, string)
   nameWithType.vb: ModChoiceOption(Of T).Create(String, String, T(), Integer, String)
+- uid: Nautilus.Options.ModChoiceOption`1.Create(System.String,System.String,`0[],`0,System.String)
+  name: Create(string, string, T[], T, string)
+  href: api/Nautilus.Options.ModChoiceOption-1.html#Nautilus_Options_ModChoiceOption_1_Create_System_String_System_String__0____0_System_String_
+  commentId: M:Nautilus.Options.ModChoiceOption`1.Create(System.String,System.String,`0[],`0,System.String)
+  name.vb: Create(String, String, T(), T, String)
+  fullName: Nautilus.Options.ModChoiceOption<T>.Create(string, string, T[], T, string)
+  fullName.vb: Nautilus.Options.ModChoiceOption(Of T).Create(String, String, T(), T, String)
+  nameWithType: ModChoiceOption<T>.Create(string, string, T[], T, string)
+  nameWithType.vb: ModChoiceOption(Of T).Create(String, String, T(), T, String)
 - uid: Nautilus.Options.ModChoiceOption`1.Create*
   name: Create
   href: api/Nautilus.Options.ModChoiceOption-1.html#Nautilus_Options_ModChoiceOption_1_Create_
@@ -8154,15 +8654,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModColorOption.Advanced
   nameWithType: ModColorOption.Advanced
-- uid: Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String)
-  name: Create(string, string, Color, bool, string)
-  href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_System_String_System_String_UnityEngine_Color_System_Boolean_System_String_
-  commentId: M:Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String)
-  name.vb: Create(String, String, Color, Boolean, String)
-  fullName: Nautilus.Options.ModColorOption.Create(string, string, UnityEngine.Color, bool, string)
-  fullName.vb: Nautilus.Options.ModColorOption.Create(String, String, UnityEngine.Color, Boolean, String)
-  nameWithType: ModColorOption.Create(string, string, Color, bool, string)
-  nameWithType.vb: ModColorOption.Create(String, String, Color, Boolean, String)
 - uid: Nautilus.Options.ModColorOption.Create(System.String,System.String)
   name: Create(string, string)
   href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_System_String_System_String_
@@ -8172,6 +8663,15 @@ references:
   fullName.vb: Nautilus.Options.ModColorOption.Create(String, String)
   nameWithType: ModColorOption.Create(string, string)
   nameWithType.vb: ModColorOption.Create(String, String)
+- uid: Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String)
+  name: Create(string, string, Color, bool, string)
+  href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_System_String_System_String_UnityEngine_Color_System_Boolean_System_String_
+  commentId: M:Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String)
+  name.vb: Create(String, String, Color, Boolean, String)
+  fullName: Nautilus.Options.ModColorOption.Create(string, string, UnityEngine.Color, bool, string)
+  fullName.vb: Nautilus.Options.ModColorOption.Create(String, String, UnityEngine.Color, Boolean, String)
+  nameWithType: ModColorOption.Create(string, string, Color, bool, string)
+  nameWithType.vb: ModColorOption.Create(String, String, Color, Boolean, String)
 - uid: Nautilus.Options.ModColorOption.Create*
   name: Create
   href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_
@@ -8650,24 +9150,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModSliderOption.SliderValue.InitConverters
   nameWithType: ModSliderOption.SliderValue.InitConverters
-- uid: Nautilus.Options.ModSliderOption.SliderValue.label
-  name: label
-  href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_label
-  commentId: F:Nautilus.Options.ModSliderOption.SliderValue.label
-  fullName: Nautilus.Options.ModSliderOption.SliderValue.label
-  nameWithType: ModSliderOption.SliderValue.label
-- uid: Nautilus.Options.ModSliderOption.SliderValue.maxValue
-  name: maxValue
-  href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_maxValue
-  commentId: F:Nautilus.Options.ModSliderOption.SliderValue.maxValue
-  fullName: Nautilus.Options.ModSliderOption.SliderValue.maxValue
-  nameWithType: ModSliderOption.SliderValue.maxValue
-- uid: Nautilus.Options.ModSliderOption.SliderValue.minValue
-  name: minValue
-  href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_minValue
-  commentId: F:Nautilus.Options.ModSliderOption.SliderValue.minValue
-  fullName: Nautilus.Options.ModSliderOption.SliderValue.minValue
-  nameWithType: ModSliderOption.SliderValue.minValue
 - uid: Nautilus.Options.ModSliderOption.SliderValue.OnValueChanged(System.Single)
   name: OnValueChanged(float)
   href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_OnValueChanged_System_Single_
@@ -8684,12 +9166,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModSliderOption.SliderValue.OnValueChanged
   nameWithType: ModSliderOption.SliderValue.OnValueChanged
-- uid: Nautilus.Options.ModSliderOption.SliderValue.slider
-  name: slider
-  href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_slider
-  commentId: F:Nautilus.Options.ModSliderOption.SliderValue.slider
-  fullName: Nautilus.Options.ModSliderOption.SliderValue.slider
-  nameWithType: ModSliderOption.SliderValue.slider
 - uid: Nautilus.Options.ModSliderOption.SliderValue.Start
   name: Start()
   href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_Start
@@ -8729,12 +9205,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModSliderOption.SliderValue.UpdateValueWidth
   nameWithType: ModSliderOption.SliderValue.UpdateValueWidth
-- uid: Nautilus.Options.ModSliderOption.SliderValue.valueFormat
-  name: valueFormat
-  href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_valueFormat
-  commentId: F:Nautilus.Options.ModSliderOption.SliderValue.valueFormat
-  fullName: Nautilus.Options.ModSliderOption.SliderValue.valueFormat
-  nameWithType: ModSliderOption.SliderValue.valueFormat
 - uid: Nautilus.Options.ModSliderOption.SliderValue.ValueFormat
   name: ValueFormat
   href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_ValueFormat
@@ -8761,6 +9231,36 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModSliderOption.SliderValue.ValueWidth
   nameWithType: ModSliderOption.SliderValue.ValueWidth
+- uid: Nautilus.Options.ModSliderOption.SliderValue.label
+  name: label
+  href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_label
+  commentId: F:Nautilus.Options.ModSliderOption.SliderValue.label
+  fullName: Nautilus.Options.ModSliderOption.SliderValue.label
+  nameWithType: ModSliderOption.SliderValue.label
+- uid: Nautilus.Options.ModSliderOption.SliderValue.maxValue
+  name: maxValue
+  href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_maxValue
+  commentId: F:Nautilus.Options.ModSliderOption.SliderValue.maxValue
+  fullName: Nautilus.Options.ModSliderOption.SliderValue.maxValue
+  nameWithType: ModSliderOption.SliderValue.maxValue
+- uid: Nautilus.Options.ModSliderOption.SliderValue.minValue
+  name: minValue
+  href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_minValue
+  commentId: F:Nautilus.Options.ModSliderOption.SliderValue.minValue
+  fullName: Nautilus.Options.ModSliderOption.SliderValue.minValue
+  nameWithType: ModSliderOption.SliderValue.minValue
+- uid: Nautilus.Options.ModSliderOption.SliderValue.slider
+  name: slider
+  href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_slider
+  commentId: F:Nautilus.Options.ModSliderOption.SliderValue.slider
+  fullName: Nautilus.Options.ModSliderOption.SliderValue.slider
+  nameWithType: ModSliderOption.SliderValue.slider
+- uid: Nautilus.Options.ModSliderOption.SliderValue.valueFormat
+  name: valueFormat
+  href: api/Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_valueFormat
+  commentId: F:Nautilus.Options.ModSliderOption.SliderValue.valueFormat
+  fullName: Nautilus.Options.ModSliderOption.SliderValue.valueFormat
+  nameWithType: ModSliderOption.SliderValue.valueFormat
 - uid: Nautilus.Options.ModSliderOption.Step
   name: Step
   href: api/Nautilus.Options.ModSliderOption.html#Nautilus_Options_ModSliderOption_Step
@@ -9014,19 +9514,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.OptionItem.ModOptionAdjust.CaptionWidth
   nameWithType: OptionItem.ModOptionAdjust.CaptionWidth
-- uid: Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu
-  name: isMainMenu
-  href: api/Nautilus.Options.OptionItem.ModOptionAdjust.html#Nautilus_Options_OptionItem_ModOptionAdjust_isMainMenu
-  commentId: P:Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu
-  fullName: Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu
-  nameWithType: OptionItem.ModOptionAdjust.isMainMenu
-- uid: Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu*
-  name: isMainMenu
-  href: api/Nautilus.Options.OptionItem.ModOptionAdjust.html#Nautilus_Options_OptionItem_ModOptionAdjust_isMainMenu_
-  commentId: Overload:Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu
-  isSpec: "True"
-  fullName: Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu
-  nameWithType: OptionItem.ModOptionAdjust.isMainMenu
 - uid: Nautilus.Options.OptionItem.ModOptionAdjust.SetCaptionGameObject(System.String,System.Single)
   name: SetCaptionGameObject(string, float)
   href: api/Nautilus.Options.OptionItem.ModOptionAdjust.html#Nautilus_Options_OptionItem_ModOptionAdjust_SetCaptionGameObject_System_String_System_Single_
@@ -9059,6 +9546,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.OptionItem.ModOptionAdjust.SetVec2x
   nameWithType: OptionItem.ModOptionAdjust.SetVec2x
+- uid: Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu
+  name: isMainMenu
+  href: api/Nautilus.Options.OptionItem.ModOptionAdjust.html#Nautilus_Options_OptionItem_ModOptionAdjust_isMainMenu
+  commentId: P:Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu
+  fullName: Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu
+  nameWithType: OptionItem.ModOptionAdjust.isMainMenu
+- uid: Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu*
+  name: isMainMenu
+  href: api/Nautilus.Options.OptionItem.ModOptionAdjust.html#Nautilus_Options_OptionItem_ModOptionAdjust_isMainMenu_
+  commentId: Overload:Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu
+  isSpec: "True"
+  fullName: Nautilus.Options.OptionItem.ModOptionAdjust.isMainMenu
+  nameWithType: OptionItem.ModOptionAdjust.isMainMenu
 - uid: Nautilus.Options.OptionItem.OptionGameObject
   name: OptionGameObject
   href: api/Nautilus.Options.OptionItem.html#Nautilus_Options_OptionItem_OptionGameObject
@@ -9359,69 +9859,6 @@ references:
   fullName.vb: Nautilus.Utility.BasicText.New()
   nameWithType: BasicText.BasicText()
   nameWithType.vb: BasicText.New()
-- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)
-  name: BasicText(int, int, int, Color, TextAlignmentOptions)
-  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_
-  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)
-  name.vb: New(Integer, Integer, Integer, Color, TextAlignmentOptions)
-  fullName: Nautilus.Utility.BasicText.BasicText(int, int, int, UnityEngine.Color, TMPro.TextAlignmentOptions)
-  fullName.vb: Nautilus.Utility.BasicText.New(Integer, Integer, Integer, UnityEngine.Color, TMPro.TextAlignmentOptions)
-  nameWithType: BasicText.BasicText(int, int, int, Color, TextAlignmentOptions)
-  nameWithType.vb: BasicText.New(Integer, Integer, Integer, Color, TextAlignmentOptions)
-- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color)
-  name: BasicText(int, int, int, Color)
-  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_
-  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color)
-  name.vb: New(Integer, Integer, Integer, Color)
-  fullName: Nautilus.Utility.BasicText.BasicText(int, int, int, UnityEngine.Color)
-  fullName.vb: Nautilus.Utility.BasicText.New(Integer, Integer, Integer, UnityEngine.Color)
-  nameWithType: BasicText.BasicText(int, int, int, Color)
-  nameWithType.vb: BasicText.New(Integer, Integer, Integer, Color)
-- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32)
-  name: BasicText(int, int, int)
-  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_
-  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32)
-  name.vb: New(Integer, Integer, Integer)
-  fullName: Nautilus.Utility.BasicText.BasicText(int, int, int)
-  fullName.vb: Nautilus.Utility.BasicText.New(Integer, Integer, Integer)
-  nameWithType: BasicText.BasicText(int, int, int)
-  nameWithType.vb: BasicText.New(Integer, Integer, Integer)
-- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32)
-  name: BasicText(int, int)
-  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_
-  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32)
-  name.vb: New(Integer, Integer)
-  fullName: Nautilus.Utility.BasicText.BasicText(int, int)
-  fullName.vb: Nautilus.Utility.BasicText.New(Integer, Integer)
-  nameWithType: BasicText.BasicText(int, int)
-  nameWithType.vb: BasicText.New(Integer, Integer)
-- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,TMPro.TextAlignmentOptions)
-  name: BasicText(int, TextAlignmentOptions)
-  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_TMPro_TextAlignmentOptions_
-  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,TMPro.TextAlignmentOptions)
-  name.vb: New(Integer, TextAlignmentOptions)
-  fullName: Nautilus.Utility.BasicText.BasicText(int, TMPro.TextAlignmentOptions)
-  fullName.vb: Nautilus.Utility.BasicText.New(Integer, TMPro.TextAlignmentOptions)
-  nameWithType: BasicText.BasicText(int, TextAlignmentOptions)
-  nameWithType.vb: BasicText.New(Integer, TextAlignmentOptions)
-- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)
-  name: BasicText(int, Color, TextAlignmentOptions)
-  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_
-  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)
-  name.vb: New(Integer, Color, TextAlignmentOptions)
-  fullName: Nautilus.Utility.BasicText.BasicText(int, UnityEngine.Color, TMPro.TextAlignmentOptions)
-  fullName.vb: Nautilus.Utility.BasicText.New(Integer, UnityEngine.Color, TMPro.TextAlignmentOptions)
-  nameWithType: BasicText.BasicText(int, Color, TextAlignmentOptions)
-  nameWithType.vb: BasicText.New(Integer, Color, TextAlignmentOptions)
-- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color)
-  name: BasicText(int, Color)
-  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_
-  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color)
-  name.vb: New(Integer, Color)
-  fullName: Nautilus.Utility.BasicText.BasicText(int, UnityEngine.Color)
-  fullName.vb: Nautilus.Utility.BasicText.New(Integer, UnityEngine.Color)
-  nameWithType: BasicText.BasicText(int, Color)
-  nameWithType.vb: BasicText.New(Integer, Color)
 - uid: Nautilus.Utility.BasicText.#ctor(System.Int32)
   name: BasicText(int)
   href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_
@@ -9431,6 +9868,69 @@ references:
   fullName.vb: Nautilus.Utility.BasicText.New(Integer)
   nameWithType: BasicText.BasicText(int)
   nameWithType.vb: BasicText.New(Integer)
+- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32)
+  name: BasicText(int, int)
+  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_
+  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32)
+  name.vb: New(Integer, Integer)
+  fullName: Nautilus.Utility.BasicText.BasicText(int, int)
+  fullName.vb: Nautilus.Utility.BasicText.New(Integer, Integer)
+  nameWithType: BasicText.BasicText(int, int)
+  nameWithType.vb: BasicText.New(Integer, Integer)
+- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32)
+  name: BasicText(int, int, int)
+  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_
+  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32)
+  name.vb: New(Integer, Integer, Integer)
+  fullName: Nautilus.Utility.BasicText.BasicText(int, int, int)
+  fullName.vb: Nautilus.Utility.BasicText.New(Integer, Integer, Integer)
+  nameWithType: BasicText.BasicText(int, int, int)
+  nameWithType.vb: BasicText.New(Integer, Integer, Integer)
+- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color)
+  name: BasicText(int, int, int, Color)
+  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_
+  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color)
+  name.vb: New(Integer, Integer, Integer, Color)
+  fullName: Nautilus.Utility.BasicText.BasicText(int, int, int, UnityEngine.Color)
+  fullName.vb: Nautilus.Utility.BasicText.New(Integer, Integer, Integer, UnityEngine.Color)
+  nameWithType: BasicText.BasicText(int, int, int, Color)
+  nameWithType.vb: BasicText.New(Integer, Integer, Integer, Color)
+- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)
+  name: BasicText(int, int, int, Color, TextAlignmentOptions)
+  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_
+  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)
+  name.vb: New(Integer, Integer, Integer, Color, TextAlignmentOptions)
+  fullName: Nautilus.Utility.BasicText.BasicText(int, int, int, UnityEngine.Color, TMPro.TextAlignmentOptions)
+  fullName.vb: Nautilus.Utility.BasicText.New(Integer, Integer, Integer, UnityEngine.Color, TMPro.TextAlignmentOptions)
+  nameWithType: BasicText.BasicText(int, int, int, Color, TextAlignmentOptions)
+  nameWithType.vb: BasicText.New(Integer, Integer, Integer, Color, TextAlignmentOptions)
+- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,TMPro.TextAlignmentOptions)
+  name: BasicText(int, TextAlignmentOptions)
+  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_TMPro_TextAlignmentOptions_
+  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,TMPro.TextAlignmentOptions)
+  name.vb: New(Integer, TextAlignmentOptions)
+  fullName: Nautilus.Utility.BasicText.BasicText(int, TMPro.TextAlignmentOptions)
+  fullName.vb: Nautilus.Utility.BasicText.New(Integer, TMPro.TextAlignmentOptions)
+  nameWithType: BasicText.BasicText(int, TextAlignmentOptions)
+  nameWithType.vb: BasicText.New(Integer, TextAlignmentOptions)
+- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color)
+  name: BasicText(int, Color)
+  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_
+  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color)
+  name.vb: New(Integer, Color)
+  fullName: Nautilus.Utility.BasicText.BasicText(int, UnityEngine.Color)
+  fullName.vb: Nautilus.Utility.BasicText.New(Integer, UnityEngine.Color)
+  nameWithType: BasicText.BasicText(int, Color)
+  nameWithType.vb: BasicText.New(Integer, Color)
+- uid: Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)
+  name: BasicText(int, Color, TextAlignmentOptions)
+  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_
+  commentId: M:Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)
+  name.vb: New(Integer, Color, TextAlignmentOptions)
+  fullName: Nautilus.Utility.BasicText.BasicText(int, UnityEngine.Color, TMPro.TextAlignmentOptions)
+  fullName.vb: Nautilus.Utility.BasicText.New(Integer, UnityEngine.Color, TMPro.TextAlignmentOptions)
+  nameWithType: BasicText.BasicText(int, Color, TextAlignmentOptions)
+  nameWithType.vb: BasicText.New(Integer, Color, TextAlignmentOptions)
 - uid: Nautilus.Utility.BasicText.#ctor(TMPro.TextAlignmentOptions)
   name: BasicText(TextAlignmentOptions)
   href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText__ctor_TMPro_TextAlignmentOptions_
@@ -9634,15 +10134,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.BasicText.SetSize
   nameWithType: BasicText.SetSize
-- uid: Nautilus.Utility.BasicText.ShowMessage(System.String,System.Single)
-  name: ShowMessage(string, float)
-  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText_ShowMessage_System_String_System_Single_
-  commentId: M:Nautilus.Utility.BasicText.ShowMessage(System.String,System.Single)
-  name.vb: ShowMessage(String, Single)
-  fullName: Nautilus.Utility.BasicText.ShowMessage(string, float)
-  fullName.vb: Nautilus.Utility.BasicText.ShowMessage(String, Single)
-  nameWithType: BasicText.ShowMessage(string, float)
-  nameWithType.vb: BasicText.ShowMessage(String, Single)
 - uid: Nautilus.Utility.BasicText.ShowMessage(System.String)
   name: ShowMessage(string)
   href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText_ShowMessage_System_String_
@@ -9652,6 +10143,15 @@ references:
   fullName.vb: Nautilus.Utility.BasicText.ShowMessage(String)
   nameWithType: BasicText.ShowMessage(string)
   nameWithType.vb: BasicText.ShowMessage(String)
+- uid: Nautilus.Utility.BasicText.ShowMessage(System.String,System.Single)
+  name: ShowMessage(string, float)
+  href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText_ShowMessage_System_String_System_Single_
+  commentId: M:Nautilus.Utility.BasicText.ShowMessage(System.String,System.Single)
+  name.vb: ShowMessage(String, Single)
+  fullName: Nautilus.Utility.BasicText.ShowMessage(string, float)
+  fullName.vb: Nautilus.Utility.BasicText.ShowMessage(String, Single)
+  nameWithType: BasicText.ShowMessage(string, float)
+  nameWithType.vb: BasicText.ShowMessage(String, Single)
 - uid: Nautilus.Utility.BasicText.ShowMessage*
   name: ShowMessage
   href: api/Nautilus.Utility.BasicText.html#Nautilus_Utility_BasicText_ShowMessage_
@@ -9683,6 +10183,12 @@ references:
   commentId: F:Nautilus.Utility.ConstructableFlags.Ceiling
   fullName: Nautilus.Utility.ConstructableFlags.Ceiling
   nameWithType: ConstructableFlags.Ceiling
+- uid: Nautilus.Utility.ConstructableFlags.Default
+  name: Default
+  href: api/Nautilus.Utility.ConstructableFlags.html#Nautilus_Utility_ConstructableFlags_Default
+  commentId: F:Nautilus.Utility.ConstructableFlags.Default
+  fullName: Nautilus.Utility.ConstructableFlags.Default
+  nameWithType: ConstructableFlags.Default
 - uid: Nautilus.Utility.ConstructableFlags.Ground
   name: Ground
   href: api/Nautilus.Utility.ConstructableFlags.html#Nautilus_Utility_ConstructableFlags_Ground
@@ -9770,6 +10276,28 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.FontUtils.SetFontInChildren
   nameWithType: FontUtils.SetFontInChildren
+- uid: Nautilus.Utility.IOUtilities
+  name: IOUtilities
+  href: api/Nautilus.Utility.IOUtilities.html
+  commentId: T:Nautilus.Utility.IOUtilities
+  fullName: Nautilus.Utility.IOUtilities
+  nameWithType: IOUtilities
+- uid: Nautilus.Utility.IOUtilities.Combine(System.String,System.String,System.String[])
+  name: Combine(string, string, params string[])
+  href: api/Nautilus.Utility.IOUtilities.html#Nautilus_Utility_IOUtilities_Combine_System_String_System_String_System_String___
+  commentId: M:Nautilus.Utility.IOUtilities.Combine(System.String,System.String,System.String[])
+  name.vb: Combine(String, String, ParamArray String())
+  fullName: Nautilus.Utility.IOUtilities.Combine(string, string, params string[])
+  fullName.vb: Nautilus.Utility.IOUtilities.Combine(String, String, ParamArray String())
+  nameWithType: IOUtilities.Combine(string, string, params string[])
+  nameWithType.vb: IOUtilities.Combine(String, String, ParamArray String())
+- uid: Nautilus.Utility.IOUtilities.Combine*
+  name: Combine
+  href: api/Nautilus.Utility.IOUtilities.html#Nautilus_Utility_IOUtilities_Combine_
+  commentId: Overload:Nautilus.Utility.IOUtilities.Combine
+  isSpec: "True"
+  fullName: Nautilus.Utility.IOUtilities.Combine
+  nameWithType: IOUtilities.Combine
 - uid: Nautilus.Utility.ImageUtils
   name: ImageUtils
   href: api/Nautilus.Utility.ImageUtils.html
@@ -9821,28 +10349,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.ImageUtils.LoadTextureFromFile
   nameWithType: ImageUtils.LoadTextureFromFile
-- uid: Nautilus.Utility.IOUtilities
-  name: IOUtilities
-  href: api/Nautilus.Utility.IOUtilities.html
-  commentId: T:Nautilus.Utility.IOUtilities
-  fullName: Nautilus.Utility.IOUtilities
-  nameWithType: IOUtilities
-- uid: Nautilus.Utility.IOUtilities.Combine(System.String,System.String,System.String[])
-  name: Combine(string, string, params string[])
-  href: api/Nautilus.Utility.IOUtilities.html#Nautilus_Utility_IOUtilities_Combine_System_String_System_String_System_String___
-  commentId: M:Nautilus.Utility.IOUtilities.Combine(System.String,System.String,System.String[])
-  name.vb: Combine(String, String, ParamArray String())
-  fullName: Nautilus.Utility.IOUtilities.Combine(string, string, params string[])
-  fullName.vb: Nautilus.Utility.IOUtilities.Combine(String, String, ParamArray String())
-  nameWithType: IOUtilities.Combine(string, string, params string[])
-  nameWithType.vb: IOUtilities.Combine(String, String, ParamArray String())
-- uid: Nautilus.Utility.IOUtilities.Combine*
-  name: Combine
-  href: api/Nautilus.Utility.IOUtilities.html#Nautilus_Utility_IOUtilities_Combine_
-  commentId: Overload:Nautilus.Utility.IOUtilities.Combine
-  isSpec: "True"
-  fullName: Nautilus.Utility.IOUtilities.Combine
-  nameWithType: IOUtilities.Combine
 - uid: Nautilus.Utility.ItemStorageHelper
   name: ItemStorageHelper
   href: api/Nautilus.Utility.ItemStorageHelper.html
@@ -9949,15 +10455,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.JsonUtils.Load
   nameWithType: JsonUtils.Load
-- uid: Nautilus.Utility.JsonUtils.Load``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
-  name: Load<T>(T, string, bool, params JsonConverter[])
-  href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___
-  commentId: M:Nautilus.Utility.JsonUtils.Load``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
-  name.vb: Load(Of T)(T, String, Boolean, ParamArray JsonConverter())
-  fullName: Nautilus.Utility.JsonUtils.Load<T>(T, string, bool, params Newtonsoft.Json.JsonConverter[])
-  fullName.vb: Nautilus.Utility.JsonUtils.Load(Of T)(T, String, Boolean, ParamArray Newtonsoft.Json.JsonConverter())
-  nameWithType: JsonUtils.Load<T>(T, string, bool, params JsonConverter[])
-  nameWithType.vb: JsonUtils.Load(Of T)(T, String, Boolean, ParamArray JsonConverter())
 - uid: Nautilus.Utility.JsonUtils.Load``1(System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
   name: Load<T>(string, bool, params JsonConverter[])
   href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___
@@ -9967,6 +10464,15 @@ references:
   fullName.vb: Nautilus.Utility.JsonUtils.Load(Of T)(String, Boolean, ParamArray Newtonsoft.Json.JsonConverter())
   nameWithType: JsonUtils.Load<T>(string, bool, params JsonConverter[])
   nameWithType.vb: JsonUtils.Load(Of T)(String, Boolean, ParamArray JsonConverter())
+- uid: Nautilus.Utility.JsonUtils.Load``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name: Load<T>(T, string, bool, params JsonConverter[])
+  href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___
+  commentId: M:Nautilus.Utility.JsonUtils.Load``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name.vb: Load(Of T)(T, String, Boolean, ParamArray JsonConverter())
+  fullName: Nautilus.Utility.JsonUtils.Load<T>(T, string, bool, params Newtonsoft.Json.JsonConverter[])
+  fullName.vb: Nautilus.Utility.JsonUtils.Load(Of T)(T, String, Boolean, ParamArray Newtonsoft.Json.JsonConverter())
+  nameWithType: JsonUtils.Load<T>(T, string, bool, params JsonConverter[])
+  nameWithType.vb: JsonUtils.Load(Of T)(T, String, Boolean, ParamArray JsonConverter())
 - uid: Nautilus.Utility.JsonUtils.Save*
   name: Save
   href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Save_
@@ -10326,18 +10832,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.MaterialUtils.IsReady
   nameWithType: MaterialUtils.IsReady
-- uid: Nautilus.Utility.MaterialUtils.kOpaqueRenderQueue
-  name: kOpaqueRenderQueue
-  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_kOpaqueRenderQueue
-  commentId: F:Nautilus.Utility.MaterialUtils.kOpaqueRenderQueue
-  fullName: Nautilus.Utility.MaterialUtils.kOpaqueRenderQueue
-  nameWithType: MaterialUtils.kOpaqueRenderQueue
-- uid: Nautilus.Utility.MaterialUtils.kTransparencyRenderQueue
-  name: kTransparencyRenderQueue
-  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_kTransparencyRenderQueue
-  commentId: F:Nautilus.Utility.MaterialUtils.kTransparencyRenderQueue
-  fullName: Nautilus.Utility.MaterialUtils.kTransparencyRenderQueue
-  nameWithType: MaterialUtils.kTransparencyRenderQueue
 - uid: Nautilus.Utility.MaterialUtils.MaterialType
   name: MaterialUtils.MaterialType
   href: api/Nautilus.Utility.MaterialUtils.MaterialType.html
@@ -10465,6 +10959,18 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.MaterialUtils.StasisFieldMaterial
   nameWithType: MaterialUtils.StasisFieldMaterial
+- uid: Nautilus.Utility.MaterialUtils.kOpaqueRenderQueue
+  name: kOpaqueRenderQueue
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_kOpaqueRenderQueue
+  commentId: F:Nautilus.Utility.MaterialUtils.kOpaqueRenderQueue
+  fullName: Nautilus.Utility.MaterialUtils.kOpaqueRenderQueue
+  nameWithType: MaterialUtils.kOpaqueRenderQueue
+- uid: Nautilus.Utility.MaterialUtils.kTransparencyRenderQueue
+  name: kTransparencyRenderQueue
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_kTransparencyRenderQueue
+  commentId: F:Nautilus.Utility.MaterialUtils.kTransparencyRenderQueue
+  fullName: Nautilus.Utility.MaterialUtils.kTransparencyRenderQueue
+  nameWithType: MaterialUtils.kTransparencyRenderQueue
 - uid: Nautilus.Utility.ModMessages
   name: Nautilus.Utility.ModMessages
   href: api/Nautilus.Utility.ModMessages.html
@@ -10793,15 +11299,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PlayerPrefsExtra.GetBool
   nameWithType: PlayerPrefsExtra.GetBool
-- uid: Nautilus.Utility.PlayerPrefsExtra.GetColor(System.String,UnityEngine.Color)
-  name: GetColor(string, Color)
-  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetColor_System_String_UnityEngine_Color_
-  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetColor(System.String,UnityEngine.Color)
-  name.vb: GetColor(String, Color)
-  fullName: Nautilus.Utility.PlayerPrefsExtra.GetColor(string, UnityEngine.Color)
-  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetColor(String, UnityEngine.Color)
-  nameWithType: PlayerPrefsExtra.GetColor(string, Color)
-  nameWithType.vb: PlayerPrefsExtra.GetColor(String, Color)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetColor(System.String)
   name: GetColor(string)
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetColor_System_String_
@@ -10811,6 +11308,15 @@ references:
   fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetColor(String)
   nameWithType: PlayerPrefsExtra.GetColor(string)
   nameWithType.vb: PlayerPrefsExtra.GetColor(String)
+- uid: Nautilus.Utility.PlayerPrefsExtra.GetColor(System.String,UnityEngine.Color)
+  name: GetColor(string, Color)
+  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetColor_System_String_UnityEngine_Color_
+  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetColor(System.String,UnityEngine.Color)
+  name.vb: GetColor(String, Color)
+  fullName: Nautilus.Utility.PlayerPrefsExtra.GetColor(string, UnityEngine.Color)
+  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetColor(String, UnityEngine.Color)
+  nameWithType: PlayerPrefsExtra.GetColor(string, Color)
+  nameWithType.vb: PlayerPrefsExtra.GetColor(String, Color)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetColor*
   name: GetColor
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetColor_
@@ -10834,15 +11340,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PlayerPrefsExtra.GetKeyCode
   nameWithType: PlayerPrefsExtra.GetKeyCode
-- uid: Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(System.String,UnityEngine.Quaternion)
-  name: GetQuaternion(string, Quaternion)
-  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetQuaternion_System_String_UnityEngine_Quaternion_
-  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(System.String,UnityEngine.Quaternion)
-  name.vb: GetQuaternion(String, Quaternion)
-  fullName: Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(string, UnityEngine.Quaternion)
-  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(String, UnityEngine.Quaternion)
-  nameWithType: PlayerPrefsExtra.GetQuaternion(string, Quaternion)
-  nameWithType.vb: PlayerPrefsExtra.GetQuaternion(String, Quaternion)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(System.String)
   name: GetQuaternion(string)
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetQuaternion_System_String_
@@ -10852,6 +11349,15 @@ references:
   fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(String)
   nameWithType: PlayerPrefsExtra.GetQuaternion(string)
   nameWithType.vb: PlayerPrefsExtra.GetQuaternion(String)
+- uid: Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(System.String,UnityEngine.Quaternion)
+  name: GetQuaternion(string, Quaternion)
+  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetQuaternion_System_String_UnityEngine_Quaternion_
+  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(System.String,UnityEngine.Quaternion)
+  name.vb: GetQuaternion(String, Quaternion)
+  fullName: Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(string, UnityEngine.Quaternion)
+  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetQuaternion(String, UnityEngine.Quaternion)
+  nameWithType: PlayerPrefsExtra.GetQuaternion(string, Quaternion)
+  nameWithType.vb: PlayerPrefsExtra.GetQuaternion(String, Quaternion)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetQuaternion*
   name: GetQuaternion
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetQuaternion_
@@ -10859,15 +11365,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PlayerPrefsExtra.GetQuaternion
   nameWithType: PlayerPrefsExtra.GetQuaternion
-- uid: Nautilus.Utility.PlayerPrefsExtra.GetVector2(System.String,UnityEngine.Vector2)
-  name: GetVector2(string, Vector2)
-  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector2_System_String_UnityEngine_Vector2_
-  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetVector2(System.String,UnityEngine.Vector2)
-  name.vb: GetVector2(String, Vector2)
-  fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector2(string, UnityEngine.Vector2)
-  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector2(String, UnityEngine.Vector2)
-  nameWithType: PlayerPrefsExtra.GetVector2(string, Vector2)
-  nameWithType.vb: PlayerPrefsExtra.GetVector2(String, Vector2)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetVector2(System.String)
   name: GetVector2(string)
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector2_System_String_
@@ -10877,6 +11374,15 @@ references:
   fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector2(String)
   nameWithType: PlayerPrefsExtra.GetVector2(string)
   nameWithType.vb: PlayerPrefsExtra.GetVector2(String)
+- uid: Nautilus.Utility.PlayerPrefsExtra.GetVector2(System.String,UnityEngine.Vector2)
+  name: GetVector2(string, Vector2)
+  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector2_System_String_UnityEngine_Vector2_
+  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetVector2(System.String,UnityEngine.Vector2)
+  name.vb: GetVector2(String, Vector2)
+  fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector2(string, UnityEngine.Vector2)
+  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector2(String, UnityEngine.Vector2)
+  nameWithType: PlayerPrefsExtra.GetVector2(string, Vector2)
+  nameWithType.vb: PlayerPrefsExtra.GetVector2(String, Vector2)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetVector2*
   name: GetVector2
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector2_
@@ -10884,15 +11390,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector2
   nameWithType: PlayerPrefsExtra.GetVector2
-- uid: Nautilus.Utility.PlayerPrefsExtra.GetVector2int(System.String,Vector2int)
-  name: GetVector2int(string, Vector2int)
-  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector2int_System_String_Vector2int_
-  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetVector2int(System.String,Vector2int)
-  name.vb: GetVector2int(String, Vector2int)
-  fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector2int(string, Vector2int)
-  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector2int(String, Vector2int)
-  nameWithType: PlayerPrefsExtra.GetVector2int(string, Vector2int)
-  nameWithType.vb: PlayerPrefsExtra.GetVector2int(String, Vector2int)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetVector2int(System.String)
   name: GetVector2int(string)
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector2int_System_String_
@@ -10902,6 +11399,15 @@ references:
   fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector2int(String)
   nameWithType: PlayerPrefsExtra.GetVector2int(string)
   nameWithType.vb: PlayerPrefsExtra.GetVector2int(String)
+- uid: Nautilus.Utility.PlayerPrefsExtra.GetVector2int(System.String,Vector2int)
+  name: GetVector2int(string, Vector2int)
+  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector2int_System_String_Vector2int_
+  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetVector2int(System.String,Vector2int)
+  name.vb: GetVector2int(String, Vector2int)
+  fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector2int(string, Vector2int)
+  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector2int(String, Vector2int)
+  nameWithType: PlayerPrefsExtra.GetVector2int(string, Vector2int)
+  nameWithType.vb: PlayerPrefsExtra.GetVector2int(String, Vector2int)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetVector2int*
   name: GetVector2int
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector2int_
@@ -10909,15 +11415,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector2int
   nameWithType: PlayerPrefsExtra.GetVector2int
-- uid: Nautilus.Utility.PlayerPrefsExtra.GetVector3(System.String,UnityEngine.Vector3)
-  name: GetVector3(string, Vector3)
-  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector3_System_String_UnityEngine_Vector3_
-  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetVector3(System.String,UnityEngine.Vector3)
-  name.vb: GetVector3(String, Vector3)
-  fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector3(string, UnityEngine.Vector3)
-  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector3(String, UnityEngine.Vector3)
-  nameWithType: PlayerPrefsExtra.GetVector3(string, Vector3)
-  nameWithType.vb: PlayerPrefsExtra.GetVector3(String, Vector3)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetVector3(System.String)
   name: GetVector3(string)
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector3_System_String_
@@ -10927,6 +11424,15 @@ references:
   fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector3(String)
   nameWithType: PlayerPrefsExtra.GetVector3(string)
   nameWithType.vb: PlayerPrefsExtra.GetVector3(String)
+- uid: Nautilus.Utility.PlayerPrefsExtra.GetVector3(System.String,UnityEngine.Vector3)
+  name: GetVector3(string, Vector3)
+  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector3_System_String_UnityEngine_Vector3_
+  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetVector3(System.String,UnityEngine.Vector3)
+  name.vb: GetVector3(String, Vector3)
+  fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector3(string, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector3(String, UnityEngine.Vector3)
+  nameWithType: PlayerPrefsExtra.GetVector3(string, Vector3)
+  nameWithType.vb: PlayerPrefsExtra.GetVector3(String, Vector3)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetVector3*
   name: GetVector3
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector3_
@@ -10934,15 +11440,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector3
   nameWithType: PlayerPrefsExtra.GetVector3
-- uid: Nautilus.Utility.PlayerPrefsExtra.GetVector4(System.String,UnityEngine.Vector4)
-  name: GetVector4(string, Vector4)
-  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector4_System_String_UnityEngine_Vector4_
-  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetVector4(System.String,UnityEngine.Vector4)
-  name.vb: GetVector4(String, Vector4)
-  fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector4(string, UnityEngine.Vector4)
-  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector4(String, UnityEngine.Vector4)
-  nameWithType: PlayerPrefsExtra.GetVector4(string, Vector4)
-  nameWithType.vb: PlayerPrefsExtra.GetVector4(String, Vector4)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetVector4(System.String)
   name: GetVector4(string)
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector4_System_String_
@@ -10952,6 +11449,15 @@ references:
   fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector4(String)
   nameWithType: PlayerPrefsExtra.GetVector4(string)
   nameWithType.vb: PlayerPrefsExtra.GetVector4(String)
+- uid: Nautilus.Utility.PlayerPrefsExtra.GetVector4(System.String,UnityEngine.Vector4)
+  name: GetVector4(string, Vector4)
+  href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector4_System_String_UnityEngine_Vector4_
+  commentId: M:Nautilus.Utility.PlayerPrefsExtra.GetVector4(System.String,UnityEngine.Vector4)
+  name.vb: GetVector4(String, Vector4)
+  fullName: Nautilus.Utility.PlayerPrefsExtra.GetVector4(string, UnityEngine.Vector4)
+  fullName.vb: Nautilus.Utility.PlayerPrefsExtra.GetVector4(String, UnityEngine.Vector4)
+  nameWithType: PlayerPrefsExtra.GetVector4(string, Vector4)
+  nameWithType.vb: PlayerPrefsExtra.GetVector4(String, Vector4)
 - uid: Nautilus.Utility.PlayerPrefsExtra.GetVector4*
   name: GetVector4
   href: api/Nautilus.Utility.PlayerPrefsExtra.html#Nautilus_Utility_PlayerPrefsExtra_GetVector4_
@@ -11138,6 +11644,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PrefabUtils.AddEnergyMixin
   nameWithType: PrefabUtils.AddEnergyMixin
+- uid: Nautilus.Utility.PrefabUtils.AddResourceTracker(UnityEngine.GameObject,TechType)
+  name: AddResourceTracker(GameObject, TechType)
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddResourceTracker_UnityEngine_GameObject_TechType_
+  commentId: M:Nautilus.Utility.PrefabUtils.AddResourceTracker(UnityEngine.GameObject,TechType)
+  fullName: Nautilus.Utility.PrefabUtils.AddResourceTracker(UnityEngine.GameObject, TechType)
+  nameWithType: PrefabUtils.AddResourceTracker(GameObject, TechType)
+- uid: Nautilus.Utility.PrefabUtils.AddResourceTracker*
+  name: AddResourceTracker
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddResourceTracker_
+  commentId: Overload:Nautilus.Utility.PrefabUtils.AddResourceTracker
+  isSpec: "True"
+  fullName: Nautilus.Utility.PrefabUtils.AddResourceTracker
+  nameWithType: PrefabUtils.AddResourceTracker
 - uid: Nautilus.Utility.PrefabUtils.AddStorageContainer(UnityEngine.GameObject,System.String,System.String,System.Int32,System.Int32,System.Boolean)
   name: AddStorageContainer(GameObject, string, string, int, int, bool)
   href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddStorageContainer_UnityEngine_GameObject_System_String_System_String_System_Int32_System_Int32_System_Boolean_
@@ -11215,15 +11734,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.ReflectionHelper.GetInstanceMethod
   nameWithType: ReflectionHelper.GetInstanceMethod
-- uid: Nautilus.Utility.ReflectionHelper.GetInstanceMethod``1(``0,System.String,System.Reflection.BindingFlags)
-  name: GetInstanceMethod<T>(T, string, BindingFlags)
-  href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_
-  commentId: M:Nautilus.Utility.ReflectionHelper.GetInstanceMethod``1(``0,System.String,System.Reflection.BindingFlags)
-  name.vb: GetInstanceMethod(Of T)(T, String, BindingFlags)
-  fullName: Nautilus.Utility.ReflectionHelper.GetInstanceMethod<T>(T, string, System.Reflection.BindingFlags)
-  fullName.vb: Nautilus.Utility.ReflectionHelper.GetInstanceMethod(Of T)(T, String, System.Reflection.BindingFlags)
-  nameWithType: ReflectionHelper.GetInstanceMethod<T>(T, string, BindingFlags)
-  nameWithType.vb: ReflectionHelper.GetInstanceMethod(Of T)(T, String, BindingFlags)
 - uid: Nautilus.Utility.ReflectionHelper.GetInstanceMethod``1(System.String,System.Reflection.BindingFlags)
   name: GetInstanceMethod<T>(string, BindingFlags)
   href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1_System_String_System_Reflection_BindingFlags_
@@ -11233,6 +11743,15 @@ references:
   fullName.vb: Nautilus.Utility.ReflectionHelper.GetInstanceMethod(Of T)(String, System.Reflection.BindingFlags)
   nameWithType: ReflectionHelper.GetInstanceMethod<T>(string, BindingFlags)
   nameWithType.vb: ReflectionHelper.GetInstanceMethod(Of T)(String, BindingFlags)
+- uid: Nautilus.Utility.ReflectionHelper.GetInstanceMethod``1(``0,System.String,System.Reflection.BindingFlags)
+  name: GetInstanceMethod<T>(T, string, BindingFlags)
+  href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_
+  commentId: M:Nautilus.Utility.ReflectionHelper.GetInstanceMethod``1(``0,System.String,System.Reflection.BindingFlags)
+  name.vb: GetInstanceMethod(Of T)(T, String, BindingFlags)
+  fullName: Nautilus.Utility.ReflectionHelper.GetInstanceMethod<T>(T, string, System.Reflection.BindingFlags)
+  fullName.vb: Nautilus.Utility.ReflectionHelper.GetInstanceMethod(Of T)(T, String, System.Reflection.BindingFlags)
+  nameWithType: ReflectionHelper.GetInstanceMethod<T>(T, string, BindingFlags)
+  nameWithType.vb: ReflectionHelper.GetInstanceMethod(Of T)(T, String, BindingFlags)
 - uid: Nautilus.Utility.ReflectionHelper.GetStaticField*
   name: GetStaticField
   href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField_
@@ -11240,15 +11759,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.ReflectionHelper.GetStaticField
   nameWithType: ReflectionHelper.GetStaticField
-- uid: Nautilus.Utility.ReflectionHelper.GetStaticField``1(``0,System.String,System.Reflection.BindingFlags)
-  name: GetStaticField<T>(T, string, BindingFlags)
-  href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_
-  commentId: M:Nautilus.Utility.ReflectionHelper.GetStaticField``1(``0,System.String,System.Reflection.BindingFlags)
-  name.vb: GetStaticField(Of T)(T, String, BindingFlags)
-  fullName: Nautilus.Utility.ReflectionHelper.GetStaticField<T>(T, string, System.Reflection.BindingFlags)
-  fullName.vb: Nautilus.Utility.ReflectionHelper.GetStaticField(Of T)(T, String, System.Reflection.BindingFlags)
-  nameWithType: ReflectionHelper.GetStaticField<T>(T, string, BindingFlags)
-  nameWithType.vb: ReflectionHelper.GetStaticField(Of T)(T, String, BindingFlags)
 - uid: Nautilus.Utility.ReflectionHelper.GetStaticField``1(System.String,System.Reflection.BindingFlags)
   name: GetStaticField<T>(string, BindingFlags)
   href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1_System_String_System_Reflection_BindingFlags_
@@ -11258,6 +11768,15 @@ references:
   fullName.vb: Nautilus.Utility.ReflectionHelper.GetStaticField(Of T)(String, System.Reflection.BindingFlags)
   nameWithType: ReflectionHelper.GetStaticField<T>(string, BindingFlags)
   nameWithType.vb: ReflectionHelper.GetStaticField(Of T)(String, BindingFlags)
+- uid: Nautilus.Utility.ReflectionHelper.GetStaticField``1(``0,System.String,System.Reflection.BindingFlags)
+  name: GetStaticField<T>(T, string, BindingFlags)
+  href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_
+  commentId: M:Nautilus.Utility.ReflectionHelper.GetStaticField``1(``0,System.String,System.Reflection.BindingFlags)
+  name.vb: GetStaticField(Of T)(T, String, BindingFlags)
+  fullName: Nautilus.Utility.ReflectionHelper.GetStaticField<T>(T, string, System.Reflection.BindingFlags)
+  fullName.vb: Nautilus.Utility.ReflectionHelper.GetStaticField(Of T)(T, String, System.Reflection.BindingFlags)
+  nameWithType: ReflectionHelper.GetStaticField<T>(T, string, BindingFlags)
+  nameWithType.vb: ReflectionHelper.GetStaticField(Of T)(T, String, BindingFlags)
 - uid: Nautilus.Utility.ReflectionHelper.GetStaticMethod*
   name: GetStaticMethod
   href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod_
@@ -11265,15 +11784,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.ReflectionHelper.GetStaticMethod
   nameWithType: ReflectionHelper.GetStaticMethod
-- uid: Nautilus.Utility.ReflectionHelper.GetStaticMethod``1(``0,System.String,System.Reflection.BindingFlags)
-  name: GetStaticMethod<T>(T, string, BindingFlags)
-  href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_
-  commentId: M:Nautilus.Utility.ReflectionHelper.GetStaticMethod``1(``0,System.String,System.Reflection.BindingFlags)
-  name.vb: GetStaticMethod(Of T)(T, String, BindingFlags)
-  fullName: Nautilus.Utility.ReflectionHelper.GetStaticMethod<T>(T, string, System.Reflection.BindingFlags)
-  fullName.vb: Nautilus.Utility.ReflectionHelper.GetStaticMethod(Of T)(T, String, System.Reflection.BindingFlags)
-  nameWithType: ReflectionHelper.GetStaticMethod<T>(T, string, BindingFlags)
-  nameWithType.vb: ReflectionHelper.GetStaticMethod(Of T)(T, String, BindingFlags)
 - uid: Nautilus.Utility.ReflectionHelper.GetStaticMethod``1(System.String,System.Reflection.BindingFlags)
   name: GetStaticMethod<T>(string, BindingFlags)
   href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1_System_String_System_Reflection_BindingFlags_
@@ -11283,6 +11793,15 @@ references:
   fullName.vb: Nautilus.Utility.ReflectionHelper.GetStaticMethod(Of T)(String, System.Reflection.BindingFlags)
   nameWithType: ReflectionHelper.GetStaticMethod<T>(string, BindingFlags)
   nameWithType.vb: ReflectionHelper.GetStaticMethod(Of T)(String, BindingFlags)
+- uid: Nautilus.Utility.ReflectionHelper.GetStaticMethod``1(``0,System.String,System.Reflection.BindingFlags)
+  name: GetStaticMethod<T>(T, string, BindingFlags)
+  href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_
+  commentId: M:Nautilus.Utility.ReflectionHelper.GetStaticMethod``1(``0,System.String,System.Reflection.BindingFlags)
+  name.vb: GetStaticMethod(Of T)(T, String, BindingFlags)
+  fullName: Nautilus.Utility.ReflectionHelper.GetStaticMethod<T>(T, string, System.Reflection.BindingFlags)
+  fullName.vb: Nautilus.Utility.ReflectionHelper.GetStaticMethod(Of T)(T, String, System.Reflection.BindingFlags)
+  nameWithType: ReflectionHelper.GetStaticMethod<T>(T, string, BindingFlags)
+  nameWithType.vb: ReflectionHelper.GetStaticMethod(Of T)(T, String, BindingFlags)
 - uid: Nautilus.Utility.ReflectionHelper.SetInstanceField*
   name: SetInstanceField
   href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetInstanceField_
@@ -11306,15 +11825,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.ReflectionHelper.SetStaticField
   nameWithType: ReflectionHelper.SetStaticField
-- uid: Nautilus.Utility.ReflectionHelper.SetStaticField``1(``0,System.String,System.Object,System.Reflection.BindingFlags)
-  name: SetStaticField<T>(T, string, object, BindingFlags)
-  href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_
-  commentId: M:Nautilus.Utility.ReflectionHelper.SetStaticField``1(``0,System.String,System.Object,System.Reflection.BindingFlags)
-  name.vb: SetStaticField(Of T)(T, String, Object, BindingFlags)
-  fullName: Nautilus.Utility.ReflectionHelper.SetStaticField<T>(T, string, object, System.Reflection.BindingFlags)
-  fullName.vb: Nautilus.Utility.ReflectionHelper.SetStaticField(Of T)(T, String, Object, System.Reflection.BindingFlags)
-  nameWithType: ReflectionHelper.SetStaticField<T>(T, string, object, BindingFlags)
-  nameWithType.vb: ReflectionHelper.SetStaticField(Of T)(T, String, Object, BindingFlags)
 - uid: Nautilus.Utility.ReflectionHelper.SetStaticField``1(System.String,System.Object,System.Reflection.BindingFlags)
   name: SetStaticField<T>(string, object, BindingFlags)
   href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1_System_String_System_Object_System_Reflection_BindingFlags_
@@ -11324,6 +11834,15 @@ references:
   fullName.vb: Nautilus.Utility.ReflectionHelper.SetStaticField(Of T)(String, Object, System.Reflection.BindingFlags)
   nameWithType: ReflectionHelper.SetStaticField<T>(string, object, BindingFlags)
   nameWithType.vb: ReflectionHelper.SetStaticField(Of T)(String, Object, BindingFlags)
+- uid: Nautilus.Utility.ReflectionHelper.SetStaticField``1(``0,System.String,System.Object,System.Reflection.BindingFlags)
+  name: SetStaticField<T>(T, string, object, BindingFlags)
+  href: api/Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_
+  commentId: M:Nautilus.Utility.ReflectionHelper.SetStaticField``1(``0,System.String,System.Object,System.Reflection.BindingFlags)
+  name.vb: SetStaticField(Of T)(T, String, Object, BindingFlags)
+  fullName: Nautilus.Utility.ReflectionHelper.SetStaticField<T>(T, string, object, System.Reflection.BindingFlags)
+  fullName.vb: Nautilus.Utility.ReflectionHelper.SetStaticField(Of T)(T, String, Object, System.Reflection.BindingFlags)
+  nameWithType: ReflectionHelper.SetStaticField<T>(T, string, object, BindingFlags)
+  nameWithType.vb: ReflectionHelper.SetStaticField(Of T)(T, String, Object, BindingFlags)
 - uid: Nautilus.Utility.SaveUtils
   name: SaveUtils
   href: api/Nautilus.Utility.SaveUtils.html
@@ -11343,45 +11862,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.SaveUtils.GetCurrentSaveDataDir
   nameWithType: SaveUtils.GetCurrentSaveDataDir
-- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent(System.Action)
-  name: RegisterOneTimeUseOnLoadEvent(Action)
-  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnLoadEvent_System_Action_
-  commentId: M:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent(System.Action)
-  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent(System.Action)
-  nameWithType: SaveUtils.RegisterOneTimeUseOnLoadEvent(Action)
-- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent*
-  name: RegisterOneTimeUseOnLoadEvent
-  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnLoadEvent_
-  commentId: Overload:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent
-  isSpec: "True"
-  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent
-  nameWithType: SaveUtils.RegisterOneTimeUseOnLoadEvent
-- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent(System.Action)
-  name: RegisterOneTimeUseOnQuitEvent(Action)
-  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnQuitEvent_System_Action_
-  commentId: M:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent(System.Action)
-  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent(System.Action)
-  nameWithType: SaveUtils.RegisterOneTimeUseOnQuitEvent(Action)
-- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent*
-  name: RegisterOneTimeUseOnQuitEvent
-  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnQuitEvent_
-  commentId: Overload:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent
-  isSpec: "True"
-  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent
-  nameWithType: SaveUtils.RegisterOneTimeUseOnQuitEvent
-- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent(System.Action)
-  name: RegisterOneTimeUseOnSaveEvent(Action)
-  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnSaveEvent_System_Action_
-  commentId: M:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent(System.Action)
-  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent(System.Action)
-  nameWithType: SaveUtils.RegisterOneTimeUseOnSaveEvent(Action)
-- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent*
-  name: RegisterOneTimeUseOnSaveEvent
-  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnSaveEvent_
-  commentId: Overload:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent
-  isSpec: "True"
-  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent
-  nameWithType: SaveUtils.RegisterOneTimeUseOnSaveEvent
 - uid: Nautilus.Utility.SaveUtils.RegisterOnFinishLoadingEvent(System.Action)
   name: RegisterOnFinishLoadingEvent(Action)
   href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnFinishLoadingEvent_System_Action_
@@ -11434,6 +11914,45 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.SaveUtils.RegisterOnStartLoadingEvent
   nameWithType: SaveUtils.RegisterOnStartLoadingEvent
+- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent(System.Action)
+  name: RegisterOneTimeUseOnLoadEvent(Action)
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnLoadEvent_System_Action_
+  commentId: M:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent(System.Action)
+  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent(System.Action)
+  nameWithType: SaveUtils.RegisterOneTimeUseOnLoadEvent(Action)
+- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent*
+  name: RegisterOneTimeUseOnLoadEvent
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnLoadEvent_
+  commentId: Overload:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent
+  isSpec: "True"
+  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnLoadEvent
+  nameWithType: SaveUtils.RegisterOneTimeUseOnLoadEvent
+- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent(System.Action)
+  name: RegisterOneTimeUseOnQuitEvent(Action)
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnQuitEvent_System_Action_
+  commentId: M:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent(System.Action)
+  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent(System.Action)
+  nameWithType: SaveUtils.RegisterOneTimeUseOnQuitEvent(Action)
+- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent*
+  name: RegisterOneTimeUseOnQuitEvent
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnQuitEvent_
+  commentId: Overload:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent
+  isSpec: "True"
+  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnQuitEvent
+  nameWithType: SaveUtils.RegisterOneTimeUseOnQuitEvent
+- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent(System.Action)
+  name: RegisterOneTimeUseOnSaveEvent(Action)
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnSaveEvent_System_Action_
+  commentId: M:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent(System.Action)
+  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent(System.Action)
+  nameWithType: SaveUtils.RegisterOneTimeUseOnSaveEvent(Action)
+- uid: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent*
+  name: RegisterOneTimeUseOnSaveEvent
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOneTimeUseOnSaveEvent_
+  commentId: Overload:Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent
+  isSpec: "True"
+  fullName: Nautilus.Utility.SaveUtils.RegisterOneTimeUseOnSaveEvent
+  nameWithType: SaveUtils.RegisterOneTimeUseOnSaveEvent
 - uid: Nautilus.Utility.SaveUtils.UnregisterOnFinishLoadingEvent(System.Action)
   name: UnregisterOnFinishLoadingEvent(Action)
   href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_UnregisterOnFinishLoadingEvent_System_Action_
@@ -11523,14 +12042,6 @@ references:
   fullName.vb: Nautilus.Utility.SelfCheckingDictionary(Of K, V).New
   nameWithType: SelfCheckingDictionary<K, V>.SelfCheckingDictionary
   nameWithType.vb: SelfCheckingDictionary(Of K, V).New
-- uid: Nautilus.Utility.SelfCheckingDictionary`2.Add(`0,`1)
-  name: Add(K, V)
-  href: api/Nautilus.Utility.SelfCheckingDictionary-2.html#Nautilus_Utility_SelfCheckingDictionary_2_Add__0__1_
-  commentId: M:Nautilus.Utility.SelfCheckingDictionary`2.Add(`0,`1)
-  fullName: Nautilus.Utility.SelfCheckingDictionary<K, V>.Add(K, V)
-  fullName.vb: Nautilus.Utility.SelfCheckingDictionary(Of K, V).Add(K, V)
-  nameWithType: SelfCheckingDictionary<K, V>.Add(K, V)
-  nameWithType.vb: SelfCheckingDictionary(Of K, V).Add(K, V)
 - uid: Nautilus.Utility.SelfCheckingDictionary`2.Add(System.Collections.Generic.KeyValuePair{`0,`1})
   name: Add(KeyValuePair<K, V>)
   href: api/Nautilus.Utility.SelfCheckingDictionary-2.html#Nautilus_Utility_SelfCheckingDictionary_2_Add_System_Collections_Generic_KeyValuePair__0__1__
@@ -11540,6 +12051,14 @@ references:
   fullName.vb: Nautilus.Utility.SelfCheckingDictionary(Of K, V).Add(System.Collections.Generic.KeyValuePair(Of K, V))
   nameWithType: SelfCheckingDictionary<K, V>.Add(KeyValuePair<K, V>)
   nameWithType.vb: SelfCheckingDictionary(Of K, V).Add(KeyValuePair(Of K, V))
+- uid: Nautilus.Utility.SelfCheckingDictionary`2.Add(`0,`1)
+  name: Add(K, V)
+  href: api/Nautilus.Utility.SelfCheckingDictionary-2.html#Nautilus_Utility_SelfCheckingDictionary_2_Add__0__1_
+  commentId: M:Nautilus.Utility.SelfCheckingDictionary`2.Add(`0,`1)
+  fullName: Nautilus.Utility.SelfCheckingDictionary<K, V>.Add(K, V)
+  fullName.vb: Nautilus.Utility.SelfCheckingDictionary(Of K, V).Add(K, V)
+  nameWithType: SelfCheckingDictionary<K, V>.Add(K, V)
+  nameWithType.vb: SelfCheckingDictionary(Of K, V).Add(K, V)
 - uid: Nautilus.Utility.SelfCheckingDictionary`2.Add*
   name: Add
   href: api/Nautilus.Utility.SelfCheckingDictionary-2.html#Nautilus_Utility_SelfCheckingDictionary_2_Add_
@@ -11706,14 +12225,6 @@ references:
   fullName.vb: Nautilus.Utility.SelfCheckingDictionary(Of K, V).Keys
   nameWithType: SelfCheckingDictionary<K, V>.Keys
   nameWithType.vb: SelfCheckingDictionary(Of K, V).Keys
-- uid: Nautilus.Utility.SelfCheckingDictionary`2.Remove(`0)
-  name: Remove(K)
-  href: api/Nautilus.Utility.SelfCheckingDictionary-2.html#Nautilus_Utility_SelfCheckingDictionary_2_Remove__0_
-  commentId: M:Nautilus.Utility.SelfCheckingDictionary`2.Remove(`0)
-  fullName: Nautilus.Utility.SelfCheckingDictionary<K, V>.Remove(K)
-  fullName.vb: Nautilus.Utility.SelfCheckingDictionary(Of K, V).Remove(K)
-  nameWithType: SelfCheckingDictionary<K, V>.Remove(K)
-  nameWithType.vb: SelfCheckingDictionary(Of K, V).Remove(K)
 - uid: Nautilus.Utility.SelfCheckingDictionary`2.Remove(System.Collections.Generic.KeyValuePair{`0,`1})
   name: Remove(KeyValuePair<K, V>)
   href: api/Nautilus.Utility.SelfCheckingDictionary-2.html#Nautilus_Utility_SelfCheckingDictionary_2_Remove_System_Collections_Generic_KeyValuePair__0__1__
@@ -11723,6 +12234,14 @@ references:
   fullName.vb: Nautilus.Utility.SelfCheckingDictionary(Of K, V).Remove(System.Collections.Generic.KeyValuePair(Of K, V))
   nameWithType: SelfCheckingDictionary<K, V>.Remove(KeyValuePair<K, V>)
   nameWithType.vb: SelfCheckingDictionary(Of K, V).Remove(KeyValuePair(Of K, V))
+- uid: Nautilus.Utility.SelfCheckingDictionary`2.Remove(`0)
+  name: Remove(K)
+  href: api/Nautilus.Utility.SelfCheckingDictionary-2.html#Nautilus_Utility_SelfCheckingDictionary_2_Remove__0_
+  commentId: M:Nautilus.Utility.SelfCheckingDictionary`2.Remove(`0)
+  fullName: Nautilus.Utility.SelfCheckingDictionary<K, V>.Remove(K)
+  fullName.vb: Nautilus.Utility.SelfCheckingDictionary(Of K, V).Remove(K)
+  nameWithType: SelfCheckingDictionary<K, V>.Remove(K)
+  nameWithType.vb: SelfCheckingDictionary(Of K, V).Remove(K)
 - uid: Nautilus.Utility.SelfCheckingDictionary`2.Remove*
   name: Remove
   href: api/Nautilus.Utility.SelfCheckingDictionary-2.html#Nautilus_Utility_SelfCheckingDictionary_2_Remove_

@@ -83,6 +83,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.EggGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.EggGadget.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.EquipmentGadget.yml",
       "output": {
         ".html": {
@@ -227,6 +237,16 @@
       "output": {
         ".html": {
           "relative_path": "api/Nautilus.Assets.PrefabTemplates.CloneTemplate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.EggTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.EggTemplate.html"
         }
       },
       "version": ""
