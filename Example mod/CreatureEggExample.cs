@@ -118,6 +118,6 @@ public class CreatureEggExample : BaseUnityPlugin
          */
         customEgg.Register();
 
-        Harmony.CreateAndPatchAll(typeof(CreatureEggExample), PluginInfo.PLUGIN_GUID);
+        Harmony.CreateAndPatchAll(typeof(Patcher), PluginInfo.PLUGIN_GUID);
     }
 }
