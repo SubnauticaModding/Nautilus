@@ -28,7 +28,7 @@ internal static class WaterParkPatcher
             }
             else
             {
-                ErrorMessage.main.AddHint(Language.main.GetFormat("WaterParkNoEnoughSizePrompt", Language.main.Get(tt), maxHeight));
+                ErrorMessage.main.AddHint(string.Format("Cannot drop {0} here, the ACU must be at least {1} units tall.", Language.main.Get(tt), maxHeight));
                 __result = false;
             }
 
