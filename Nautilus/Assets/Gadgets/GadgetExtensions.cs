@@ -20,7 +20,7 @@ public static class GadgetExtensions
     /// </summary>
     /// <param name="customPrefab">The custom prefab to add recipe to.</param>
     /// <param name="recipeData">The recipe to add.</param>
-    /// <returns>An instance to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
+    /// <returns>A reference to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
     public static CraftingGadget SetRecipe(this ICustomPrefab customPrefab, RecipeData recipeData)
     {
         if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
@@ -35,7 +35,7 @@ public static class GadgetExtensions
     /// </summary>
     /// <param name="customPrefab">The custom prefab to add recipe to.</param>
     /// <param name="filePath">The path to the recipe json file. A string with valid recipe data json is also acceptable.</param>
-    /// <returns>An instance to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
+    /// <returns>A reference to the created <see cref="CraftingGadget"/> to continue the recipe settings on.</returns>
     public static CraftingGadget SetRecipeFromJson(this ICustomPrefab customPrefab, string filePath)
     {
         RecipeData recipeData;
@@ -68,7 +68,7 @@ public static class GadgetExtensions
     /// <param name="customPrefab">The custom prefab to add unlocks to.</param>
     /// <param name="requiredForUnlock">The blueprint to set as a requirement.</param>
     /// <param name="fragmentsToScan">Amount of <paramref name="requiredForUnlock"/> that must be scanned to unlock this item.</param>
-    /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    /// <returns>A reference to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
     public static ScanningGadget SetUnlock(this ICustomPrefab customPrefab, TechType requiredForUnlock, int fragmentsToScan = 1)
     {
         if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
@@ -85,7 +85,7 @@ public static class GadgetExtensions
     /// <param name="customPrefab">The custom prefab to add unlocks to.</param>
     /// <param name="group">The main group in the PDA blueprints where this item appears</param>
     /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
-    /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    /// <returns>A reference to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
     /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
     /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="ScanningGadget.SetBuildable"/> method.</remarks>
     public static ScanningGadget SetPdaGroupCategory(this ICustomPrefab customPrefab, TechGroup group, TechCategory category)
@@ -104,7 +104,7 @@ public static class GadgetExtensions
     /// <param name="group">The main group in the PDA blueprints where this item appears.</param>
     /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
     /// <param name="target">It will be added after this target item or at the end if not found.</param>
-    /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    /// <returns>A reference to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
     /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
     /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="ScanningGadget.SetBuildable"/> method.</remarks>
     public static ScanningGadget SetPdaGroupCategoryAfter(this ICustomPrefab customPrefab, TechGroup group, TechCategory category, TechType target)
@@ -122,7 +122,7 @@ public static class GadgetExtensions
     /// <param name="group">The main group in the PDA blueprints where this item appears.</param>
     /// <param name="category">The category within the group in the PDA blueprints where this item appears.</param>
     /// <param name="target">It will be inserted before this target item or at the beginning if not found.</param>
-    /// <returns>An instance to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    /// <returns>A reference to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
     /// <remarks>If the specified <paramref name="group"/> is a tech group that is present in the <see cref="uGUI_BuilderMenu.groups"/> list, this item will automatically
     /// become buildable. To avoid this, or make this item a buildable manually, use the <see cref="ScanningGadget.SetBuildable"/> method.</remarks>
     public static ScanningGadget SetPdaGroupCategoryBefore(this ICustomPrefab customPrefab, TechGroup group, TechCategory category, TechType target)
@@ -138,7 +138,7 @@ public static class GadgetExtensions
     /// </summary>
     /// <param name="customPrefab">The custom prefab to set equipment slot for.</param>
     /// <param name="equipmentType">The type of equipment slot this item can fit into.</param>
-    /// <returns>An instance to the created <see cref="EquipmentGadget"/> to continue the equipment settings on.</returns>
+    /// <returns>A reference to the created <see cref="EquipmentGadget"/> to continue the equipment settings on.</returns>
     public static EquipmentGadget SetEquipment(this ICustomPrefab customPrefab, EquipmentType equipmentType)
     {
         if (!customPrefab.TryGetGadget(out EquipmentGadget equipmentGadget))
@@ -156,7 +156,7 @@ public static class GadgetExtensions
     /// <param name="customPrefab">The custom prefab to set vehicle upgrade for.</param>
     /// <param name="equipmentType">The type of equipment slot this item can fit into. Preferably use something related to vehicles.</param>
     /// <param name="slotType">The quick slot type</param>
-    /// <returns>An instance to the created <see cref="UpgradeModuleGadget"/> to continue the upgrade settings on.</returns>
+    /// <returns>A reference to the created <see cref="UpgradeModuleGadget"/> to continue the upgrade settings on.</returns>
     public static UpgradeModuleGadget SetVehicleUpgradeModule(this ICustomPrefab customPrefab, EquipmentType equipmentType = EquipmentType.VehicleModule, QuickSlotType slotType = QuickSlotType.Passive)
     {
         if(customPrefab.TryGetGadget(out UpgradeModuleGadget upgradeModuleGadget))
@@ -178,7 +178,7 @@ public static class GadgetExtensions
     /// </summary>
     /// <param name="customPrefab">The custom prefab to set equipment slot for.</param>
     /// <param name="treeType">The created custom craft tree type.</param>
-    /// <returns>An instance to the created <see cref="FabricatorGadget"/> to continue the fabricator settings on.</returns>
+    /// <returns>A reference to the created <see cref="FabricatorGadget"/> to continue the fabricator settings on.</returns>
     public static FabricatorGadget CreateFabricator(this ICustomPrefab customPrefab, out CraftTree.Type treeType)
     {
         if (!customPrefab.TryGetGadget(out FabricatorGadget fabricatorGadget))
@@ -247,5 +247,20 @@ public static class GadgetExtensions
         });
 
         return customPrefab;
+    }
+    
+    /// <summary>
+    /// Makes this item have additional creature-egg-related functionality.
+    /// </summary>
+    /// <param name="customPrefab">The custom prefab the creature egg gadget is created for.</param>
+    /// <param name="requiredAcuSize">The total amount of ACU floors required for the egg to be dropped in the ACU.</param>
+    /// <returns>A reference to the created <see cref="EggGadget"/> instance after the operation has completed.</returns>
+    public static EggGadget CreateCreatureEgg(this ICustomPrefab customPrefab, int requiredAcuSize = 1)
+    {
+        if (!customPrefab.TryGetGadget(out EggGadget creatureEggGadget))
+            creatureEggGadget = customPrefab.AddGadget(new EggGadget(customPrefab, requiredAcuSize));
+
+        creatureEggGadget.RequiredAcuSize = requiredAcuSize;
+        return creatureEggGadget;
     }
 }

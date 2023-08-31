@@ -11,6 +11,7 @@ using UnityEngine;
 
 namespace Nautilus.Patchers;
 
+[HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
 internal static class ConsoleCommandsPatcher
 {
     private static Dictionary<string, ConsoleCommand> ConsoleCommands = new();

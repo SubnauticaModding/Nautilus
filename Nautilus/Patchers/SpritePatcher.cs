@@ -48,8 +48,8 @@ internal class SpritePatcher
 #endif
         MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
 
-        HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
-        HarmonyMethod patchBackgrounds = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
+        HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
+        HarmonyMethod patchBackgrounds = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
         harmony.Patch(spriteManagerGet, prefix: patchCheck);
         harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
     }

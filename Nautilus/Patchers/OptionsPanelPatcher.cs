@@ -34,6 +34,7 @@ internal class OptionsPanelPatcher
     // 'Mods' tab also added in QModManager, so we can't rely on 'modsTab' in AddTabs_Postfix
     [HarmonyPostfix]
     [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddTab))]
+    [HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
     internal static void AddTab_Postfix(uGUI_TabbedControlsPanel __instance, string label, int __result)
     {
         if(__instance is not uGUI_OptionsPanel)
@@ -47,6 +48,7 @@ internal class OptionsPanelPatcher
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue))]
+    [HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
     internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
     {
         if (__instance.gameObject.GetComponent<ModBindingTag>() is null)
@@ -61,6 +63,7 @@ internal class OptionsPanelPatcher
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
+    [HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
     internal static void AddTabs_Postfix(uGUI_OptionsPanel __instance)
     {
         uGUI_OptionsPanel optionsPanel = __instance;

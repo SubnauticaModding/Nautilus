@@ -4,6 +4,9 @@ using HarmonyLib;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
+#if BELOWZERO
+using UnityEngine.U2D;
+#endif
 
 namespace Nautilus;
 
@@ -15,6 +18,16 @@ namespace Nautilus;
 public class Initializer : BaseUnityPlugin
 {
     private static readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
+
+#if BELOWZERO
+    static Initializer()
+    {
+        var handle = AddressablesUtility.LoadAllAsync<SpriteAtlas>("SpriteAtlases");
+        handle.Completed += SpriteManager.OnLoadedSpriteAtlases;
+        // Please dont use this method. I hate using it but we have no other choice.
+        _ = handle.WaitForCompletion();
+    }
+#endif
 
     /// <summary>
     /// WARNING: This method is for use only by BepInEx.
@@ -31,6 +44,7 @@ public class Initializer : BaseUnityPlugin
 #elif BELOWZERO
         InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for BelowZero");
 #endif
+        AssetReferencePatcher.Patch(_harmony);
         PrefabDatabasePatcher.PrePatch(_harmony);
         EnumPatcher.Patch(_harmony);
         CraftDataPatcher.Patch(_harmony);
@@ -61,5 +75,6 @@ public class Initializer : BaseUnityPlugin
         PDAEncyclopediaTabPatcher.Patch(_harmony);
         NewtonsoftJsonPatcher.Patch(_harmony);
         InventoryPatcher.Patch(_harmony);
+        WaterParkPatcher.Patch(_harmony);
     }
 }

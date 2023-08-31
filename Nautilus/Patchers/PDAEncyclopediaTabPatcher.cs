@@ -11,6 +11,7 @@ internal class PDAEncyclopediaTabPatcher
     }
     [HarmonyPatch(typeof(uGUI_EncyclopediaTab))]
     [HarmonyPatch(nameof(uGUI_EncyclopediaTab.Awake))]
+    [HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
     [HarmonyPostfix]
     internal static void EncyTabAwakePostfix(uGUI_EncyclopediaTab __instance)
     {

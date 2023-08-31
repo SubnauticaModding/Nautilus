@@ -11,7 +11,7 @@ internal class PDAEncyclopediaPatcher
     internal static void Patch(Harmony harmony)
     {
         harmony.Patch(AccessTools.Method(typeof(PDAEncyclopedia), nameof(PDAEncyclopedia.Initialize)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAEncyclopediaPatcher), nameof(PDAEncyclopediaPatcher.InitializePostfix))));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAEncyclopediaPatcher), nameof(InitializePostfix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
     }
 
     internal static void InitializePostfix()

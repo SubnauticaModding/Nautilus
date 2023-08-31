@@ -1,8 +1,10 @@
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
 
 namespace Nautilus.Extensions;
@@ -106,7 +108,7 @@ public static class GameObjectExtensions
     /// </summary>
     /// <param name="transform">The root object of the search.</param>
     /// <param name="name">The name of the object that is being searched for.</param>
-    /// <returns></returns>
+    /// <returns>If found, a reference to the transform, otherwise; null.</returns>
     public static Transform SearchChild(this Transform transform, string name)
     {
         foreach (Transform child in transform)
@@ -126,8 +128,8 @@ public static class GameObjectExtensions
     /// </summary>
     /// <param name="gameObject">The root object of the search.</param>
     /// <param name="name">The name of the object that is being searched for.</param>
-    /// <returns></returns>
-    public static GameObject SearchChild(this GameObject gameObject, string name) => SearchChild(gameObject.transform, name).gameObject;
+    /// <returns>If found, a reference to the game object, otherwise; null.</returns>
+    public static GameObject SearchChild(this GameObject gameObject, string name) => SearchChild(gameObject.transform, name).Exists()?.gameObject;
 
     /// <summary>
     /// Checks if this game object is a proper prefab. Proper prefabs are those that are made via the Unity Editor and are .prefab formatted.
@@ -137,5 +139,16 @@ public static class GameObjectExtensions
     public static bool IsPrefab(this GameObject gameObject)
     {
         return gameObject.transform.parent == null && !gameObject.activeInHierarchy && gameObject.activeSelf;
+    }
+    
+    /// <summary>
+    /// Forces the passed <see cref="AssetReferenceGameObject"/>'s RuntimeKey to always pass the IsRuntimeKeyValid check.
+    /// </summary>
+    /// <param name="this">The <see cref="AssetReferenceGameObject"/> to convert</param>
+    /// <returns>A reference to this instance after the operation is completed.</returns>
+    public static TAssetReference ForceValid<TAssetReference>(this TAssetReference @this) where TAssetReference : AssetReference
+    {
+        AssetReferencePatcher.AddValidKey(@this.AssetGUID);
+        return @this;
     }
 }

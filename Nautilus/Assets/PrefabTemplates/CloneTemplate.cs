@@ -26,6 +26,11 @@ public class CloneTemplate : PrefabTemplate
     public System.Action<GameObject> ModifyPrefab { get; set; }
     
     /// <summary>
+    /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more asynchronously.
+    /// </summary>
+    public System.Func<GameObject, IEnumerator> ModifyPrefabAsync { get; set; }
+    
+    /// <summary>
     /// Creates a <see cref="CloneTemplate"/> instance.
     /// </summary>
     /// <param name="info">The prefab info to base this template off of.</param>
@@ -68,13 +73,11 @@ public class CloneTemplate : PrefabTemplate
             yield break;
         }
 
+        GameObject obj;
         if (_spawnType == SpawnType.TechType)
         {
             yield return CraftData.InstantiateFromPrefabAsync(_techTypeToClone, gameObject);
-            var obj = gameObject.Get();
-            ApplySkin(org);
-            ModifyPrefab?.Invoke(obj);
-            gameObject.Set(obj);
+            obj = gameObject.Get();
         }
         else
         {
@@ -87,11 +90,15 @@ public class CloneTemplate : PrefabTemplate
                 yield break;
             }
 
-            var obj = Object.Instantiate(prefab);
-            ApplySkin(org);
-            ModifyPrefab?.Invoke(obj);
-            gameObject.Set(obj);
+            obj = Object.Instantiate(prefab);
         }
+
+        ApplySkin(org);
+        ModifyPrefab?.Invoke(obj);
+        if (ModifyPrefabAsync is { })
+            yield return ModifyPrefabAsync(obj);
+
+        gameObject.Set(obj);
     }
 
     private void ApplySkin(GameObject obj)

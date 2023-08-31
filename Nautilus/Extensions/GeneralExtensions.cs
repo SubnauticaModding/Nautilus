@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Nautilus.Extensions;
 
@@ -27,5 +28,19 @@ public static class GeneralExtensions
     {
         var pos = @this.IndexOf("(Clone)", StringComparison.Ordinal);
         return pos >= 0 ? @this.Remove(pos) : @this;
+    }
+    
+    /// <summary>
+    /// Adds a message and increases the life of it, instead of spamming it.
+    /// </summary>
+    /// <param name="this"></param>
+    /// <param name="message">the message text</param>
+    public static void AddHint(this ErrorMessage @this, string message)
+    {
+        var msg = @this.GetExistingMessage(message);
+        if (msg is null)
+            ErrorMessage.AddMessage(message);
+        else if (msg.timeEnd <= Time.time + @this.timeFadeOut)
+            msg.timeEnd += @this.timeFadeOut + @this.timeInvisible;
     }
 }

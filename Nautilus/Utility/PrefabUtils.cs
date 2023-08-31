@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,6 +44,11 @@ public enum ConstructableFlags
     /// Can be placed inside. Combines <see cref="Base"/> and <see cref="Submarine"/>.
     /// </summary>
     Inside = Base | Submarine,
+    
+    /// <summary>
+    /// Default placement flags. Includes <see cref="Ground"/> and <see cref="Inside"/>
+    /// </summary>
+    Default = Ground | Inside,
         
     /// <summary>
     /// Can be placed outside.
@@ -57,7 +63,7 @@ public enum ConstructableFlags
     /// <summary>
     /// The constructable can be rotated during placement.
     /// </summary>
-    Rotatable = 1 << 7
+    Rotatable = 1 << 7,
 }
 
 /// <summary>
@@ -103,7 +109,7 @@ public static class PrefabUtils
     /// <param name="model"><para>The child GameObject that holds all the renderers that are used for the ghost model.
     /// If assigned, this parameter will control the <see cref="Constructable.model"/> field. This field MUST BE ASSIGNED A VALUE to avoid errors when building!</para>
     /// <para>This should be a child of <paramref name="prefab"/>, and NOT the root. If it is the same value as <paramref name="prefab"/>, you have done something wrong!</para></param>
-    /// <returns>The added constructable component.</returns>
+    /// <returns>A reference to the added <see cref="Constructable"/> instance.</returns>
     public static Constructable AddConstructable(GameObject prefab, TechType techType, ConstructableFlags constructableFlags, GameObject model = null)
     {
         if (techType is TechType.None)
@@ -125,6 +131,13 @@ public static class PrefabUtils
         constructable.allowedOnCeiling = constructableFlags.HasFlag(ConstructableFlags.Ceiling);
         constructable.allowedOnConstructables = constructableFlags.HasFlag(ConstructableFlags.AllowedOnConstructable);
         constructable.allowedOnWall = constructableFlags.HasFlag(ConstructableFlags.Wall);
+        
+        // dirty workaround for when the Ground flag wasn't actually functional but prefabs that used it still were allowed on ground since this is enabled
+        // by default on the Constructable component. I hate how enum flags don't get highlighted in IDEs when they're not used/implemented which led
+        // to this issue in the first place.
+        constructable.allowedOnGround = constructableFlags == ConstructableFlags.None || constructableFlags.HasFlag(ConstructableFlags.Ground);
+        
+        constructable.rotationEnabled = constructableFlags.HasFlag(ConstructableFlags.Rotatable);
 
         if (model != null)
             constructable.model = model;
@@ -143,10 +156,10 @@ public static class PrefabUtils
     /// <param name="maxY">
     /// <para>The relative y position of where the ghost effect ends, in global coordinates relative to the model's center, taking the <paramref name="posOffset"/> into account.</para>
     /// <para>Typically a positive value because the top of an object is above its center. You may need to adjust this at runtime with Subnautica Runtime Editor to get desired results.</para></param>
-    /// <param name="posOffset">The offset of the model when being crafted (in METERS). This is generally around zero, but the y value may be ajusted up or down a few millimeters to fix clipping/floating issues.</param>
+    /// <param name="posOffset">The offset of the model when being crafted (in METERS). This is generally around zero, but the y value may be adjusted up or down a few millimeters to fix clipping/floating issues.</param>
     /// <param name="scaleFactor">The relative scale of the model. Generally is 1x for most items.</param>
     /// <param name="eulerOffset">Rotational offset.</param>
-    /// <returns>The added component.</returns>
+    /// <returns>A reference to the added <see cref="VFXFabricating"/> instance.</returns>
     public static VFXFabricating AddVFXFabricating(GameObject prefabRoot, string pathToModel, float minY, float maxY, Vector3 posOffset = default, float scaleFactor = 1f, Vector3 eulerOffset = default)
     {
         GameObject modelObject = prefabRoot;
@@ -174,7 +187,7 @@ public static class PrefabUtils
     /// <param name="width">The width of this container's face.</param>
     /// <param name="height">The height of this container's interface.</param>
     /// <param name="preventDeconstructionIfNotEmpty">If true, you cannot destroy this prefab unless all of its storage containers are empty.</param>
-    /// <returns></returns>
+    /// <returns>A reference to the added <see cref="StorageContainer"/> instance.</returns>
     public static StorageContainer AddStorageContainer(GameObject prefabRoot, string storageRootName, string storageRootClassId, int width, int height, bool preventDeconstructionIfNotEmpty = true)
     {
         var wasActive = prefabRoot.activeSelf;
@@ -213,7 +226,7 @@ public static class PrefabUtils
     /// <param name="compatibleBatteries">The list of all compatible batteries. By default is typically <see cref="TechType.Battery"/> and <see cref="TechType.PrecursorIonBattery"/>. Must not be null!</param>
     /// <param name="batteryModels">If assigned a value, allows different models to appear with different battery TechTypes. Also consider <see cref="EnergyMixin.controlledObjects"/> for a more basic version of this that is not TechType-dependent.</param>
     /// <param name="storageRootName">The name of the object that internally holds all of the batteries.</param>
-    /// <returns></returns>
+    /// <returns>A reference to the added <see cref="EnergyMixin"/> instance.</returns>
     public static EnergyMixin AddEnergyMixin(GameObject prefabRoot, string storageRootClassId, TechType defaultBattery, List<TechType> compatibleBatteries, EnergyMixin.BatteryModels[] batteryModels = null, string storageRootName = "BatterySlot")
     {
         var wasActive = prefabRoot.activeSelf;
@@ -229,8 +242,8 @@ public static class PrefabUtils
         em.storageRoot = childObjectIdentifier;
         em.defaultBattery = defaultBattery;
         em.compatibleBatteries = compatibleBatteries;
-        em.batteryModels = batteryModels ?? (new EnergyMixin.BatteryModels[0]);
-        em.controlledObjects = new GameObject[0];
+        em.batteryModels = batteryModels ?? Array.Empty<EnergyMixin.BatteryModels>();
+        em.controlledObjects = Array.Empty<GameObject>();
         em.soundPowerUp = _soundPowerUp;
         em.soundPowerDown = _soundPowerDown;
 
@@ -238,4 +251,31 @@ public static class PrefabUtils
 
         return em;
     }
+    
+    /// <summary>
+    /// Adds the <see cref="ResourceTracker"/> component to the passed game object to allow scanning via the Scanner Room.
+    /// </summary>
+    /// <param name="gameObject">the game object to add the resource tracker component to.</param>
+    /// <param name="categoryTechType">TechType of the category in which this object will be displayed under in the Scanner Room.</param>
+    /// <returns>A reference to the added <see cref="ResourceTracker"/> instance.</returns>
+    public static ResourceTracker AddResourceTracker(GameObject gameObject, TechType categoryTechType)
+    {
+        var tt = CraftData.GetTechType(gameObject);
+
+        if (tt == TechType.None)
+        {
+            InternalLogger.Error("TechType to get for AddResourceTracker is null");
+            return null;
+        }
+        
+        var resourceTracker = gameObject.EnsureComponent<ResourceTracker>();
+        resourceTracker.techType = tt;
+        resourceTracker.overrideTechType = categoryTechType;
+        resourceTracker.rb = gameObject.GetComponent<Rigidbody>();
+        resourceTracker.prefabIdentifier = gameObject.GetComponent<PrefabIdentifier>();
+        resourceTracker.pickupable = gameObject.GetComponent<Pickupable>();
+
+        return resourceTracker;
+    }
+
 }
