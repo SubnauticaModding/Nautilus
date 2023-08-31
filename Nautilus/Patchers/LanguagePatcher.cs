@@ -81,9 +81,9 @@ internal static class LanguagePatcher
 
     internal static void Patch(Harmony harmony)
     {
-        HarmonyMethod repatchCheckMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(RepatchCheck)));
-        HarmonyMethod insertLinesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(InsertCustomLines)));
-        HarmonyMethod loadLanguagesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(LoadLanguageFilePrefix)));
+        HarmonyMethod repatchCheckMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(RepatchCheck)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
+        HarmonyMethod insertLinesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(InsertCustomLines)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
+        HarmonyMethod loadLanguagesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(LoadLanguageFilePrefix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
 
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.ParseMetaData)), prefix: insertLinesMethod);
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.GetKeysFor)), prefix: insertLinesMethod);

@@ -10,7 +10,7 @@ internal class PDALogPatcher
     internal static void Patch(Harmony harmony)
     {
         harmony.Patch(AccessTools.Method(typeof(PDALog), nameof(PDALog.Initialize)), 
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(PDALogPatcher), nameof(InitializePostfix))));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(PDALogPatcher), nameof(InitializePostfix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
     }
 
     internal static void InitializePostfix()

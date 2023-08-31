@@ -7,6 +7,7 @@ using Nautilus.Utility;
 
 namespace Nautilus.Patchers;
 
+[HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
 internal static class EnumPatcher
 {
     internal static void Patch(Harmony harmony)

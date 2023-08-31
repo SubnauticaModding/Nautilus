@@ -12,7 +12,7 @@ internal class WorldEntityDatabasePatcher
     internal static void Patch(Harmony harmony)
     {
         harmony.Patch(AccessTools.Method(typeof(WorldEntityDatabase), nameof(WorldEntityDatabase.TryGetInfo)),
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), nameof(WorldEntityDatabasePatcher.Prefix))));
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), nameof(WorldEntityDatabasePatcher.Prefix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
     }
 
     private static bool Prefix(string classId, ref WorldEntityInfo info, ref bool __result)
