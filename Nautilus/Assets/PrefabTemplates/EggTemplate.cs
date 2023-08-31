@@ -190,7 +190,11 @@ public class EggTemplate : PrefabTemplate
         UndiscoveredTechType = EnumHandler.AddEntry<TechType>(info.ClassID + "Undiscovered")
             .WithPdaInfo("Creature Egg", "An unidentified egg.")
             .WithIcon(SpriteManager.Get(info.TechType))
+#if SUBNAUTICA
             .WithSizeInInventory(CraftData.GetItemSize(info.TechType));
+#else
+            .WithSizeInInventory(TechData.GetItemSize(info.TechType));
+#endif
 
         return this;
     }
@@ -257,7 +261,11 @@ public class EggTemplate : PrefabTemplate
         liveMixin.health = MaxHealth;
 
         var creatureEgg = obj.EnsureComponent<CreatureEgg>();
+#if SUBNAUTICA
         creatureEgg.animator = obj.GetComponentInChildren<Animator>() ?? obj.EnsureComponent<Animator>();
+#else
+        creatureEgg.animators = obj.GetComponentsInChildren<Animator>();
+#endif
         creatureEgg.creatureType = HatchingCreature;
         PrefabDatabase.TryGetPrefabFilename(CraftData.GetClassIdForTechType(HatchingCreature), out var filename);
         creatureEgg.creaturePrefab = new AssetReferenceGameObject(filename).ForceValid();
