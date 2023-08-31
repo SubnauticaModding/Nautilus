@@ -25,12 +25,20 @@ public class CreatureEggExample : BaseUnityPlugin
         [HarmonyPostfix]
         private static void AwakePostfix(Creature __instance)
         {
+# if SUBNAUTICA
             if (!__instance.TryGetComponent(out ReaperLeviathan _))
+#else
+            if (!__instance.TryGetComponent(out Chelicerate _))
+#endif
             {
                 return;
             }
 
+#if SUBNAUTICA
             if (!PrefabDatabase.TryGetPrefabFilename(CraftData.GetClassIdForTechType(TechType.ReaperLeviathan), out var filename))
+#else
+            if (!PrefabDatabase.TryGetPrefabFilename(CraftData.GetClassIdForTechType(TechType.Chelicerate), out var filename))
+#endif
             {
                 return;
             }
@@ -56,7 +64,12 @@ public class CreatureEggExample : BaseUnityPlugin
     }
     private void Awake()
     {
-        CustomPrefab reaperEgg = new CustomPrefab("ReaperEgg", "Reaper Leviathan Egg", "Reaper Leviathan Egg that makes me go yes.");
+#if SUBNAUTICA
+        CustomPrefab customEgg = new CustomPrefab("ReaperEgg", "Reaper Leviathan Egg", "Reaper Leviathan Egg that makes me go yes.");
+#else
+        CustomPrefab customEgg = new CustomPrefab("ChelicerateEgg", "Chelicerate Egg", "Chelicerate Egg that makes me go yes.");
+#endif
+        customEgg.Info.WithSizeInInventory(new Vector2int(3, 3));
 
         /*
          * Here we make the creature egg immune to the brine acid. Please note that a creature egg doesn't require an egg gadget to work.
@@ -64,7 +77,7 @@ public class CreatureEggExample : BaseUnityPlugin
          * egg without this gadget.
          * In this example, we've used the egg gadget simply to make it acid immune.
          */
-        EggGadget eggGadget = reaperEgg.CreateCreatureEgg();
+        EggGadget eggGadget = customEgg.CreateCreatureEgg();
         eggGadget.SetAcidImmune(true);
 
         /*
@@ -76,9 +89,17 @@ public class CreatureEggExample : BaseUnityPlugin
          * Here we create an egg template instance that copies the Crash Egg model.
          * In the object initializer, we're setting the hatching creature to ReaperLeviathan and also made the egg take 3 days to hatch.
          */
-        EggTemplate egg = new EggTemplate(reaperEgg.Info, TechType.CrashEgg)
+#if SUBNAUTICA
+        EggTemplate egg = new EggTemplate(customEgg.Info, TechType.CrashEgg)
+#else
+        EggTemplate egg = new EggTemplate(customEgg.Info, TechType.RockPuncherEgg)
+#endif
         {
+#if SUBNAUTICA
             HatchingCreature = TechType.ReaperLeviathan,
+#else
+            HatchingCreature = TechType.Chelicerate,
+#endif
             HatchingTime = 3
         };
 
@@ -90,13 +111,13 @@ public class CreatureEggExample : BaseUnityPlugin
         /*
          * Set the game object of our custom prefab to the egg template we setup.
          */
-        reaperEgg.SetGameObject(egg);
+        customEgg.SetGameObject(egg);
 
         /*
          * Register our custom fabricator to the game.
          * After this point, do not edit the prefab or modify gadgets as they will not be applied.
          */
-        reaperEgg.Register();
+        customEgg.Register();
 
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), PluginInfo.PLUGIN_GUID);
     }
