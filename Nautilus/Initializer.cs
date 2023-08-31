@@ -44,6 +44,7 @@ public class Initializer : BaseUnityPlugin
 #elif BELOWZERO
         InternalLogger.Info($"Loading v{PluginInfo.PLUGIN_VERSION} for BelowZero");
 #endif
+        AssetReferencePatcher.Patch(_harmony);
         PrefabDatabasePatcher.PrePatch(_harmony);
         EnumPatcher.Patch(_harmony);
         CraftDataPatcher.Patch(_harmony);
@@ -74,5 +75,6 @@ public class Initializer : BaseUnityPlugin
         PDAEncyclopediaTabPatcher.Patch(_harmony);
         NewtonsoftJsonPatcher.Patch(_harmony);
         InventoryPatcher.Patch(_harmony);
+        WaterParkPatcher.Patch(_harmony);
     }
 }
