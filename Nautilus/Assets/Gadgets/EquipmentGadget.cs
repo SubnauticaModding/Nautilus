@@ -39,7 +39,6 @@ public class EquipmentGadget : Gadget
     }
 
 
-
     /// <summary>
     /// Sets the way the game should treat this item as when in a quick slot.
     /// </summary>
@@ -51,8 +50,6 @@ public class EquipmentGadget : Gadget
         return this;
     }
 
-
-
     /// <inheritdoc/>
     protected internal override void Build()
     {
@@ -61,8 +58,19 @@ public class EquipmentGadget : Gadget
             InternalLogger.Error($"Prefab '{prefab.Info}' does not contain a TechType. Skipping {nameof(EquipmentGadget)} build.");
             return;
         }
+
+        if (EquipmentType != EquipmentType.None)
+        {
+            CraftDataHandler.SetEquipmentType(prefab.Info.TechType, EquipmentType);
+        }
+        else
+        {
+            InternalLogger.Error($"Prefab '{prefab.Info}' cannot have an {nameof(EquipmentGadget)} where the EquipmentType is set to None.");
+        }
         
-        CraftDataHandler.SetEquipmentType(prefab.Info.TechType, EquipmentType);
-        CraftDataHandler.SetQuickSlotType(prefab.Info.TechType, QuickSlotType);
+        if (QuickSlotType != QuickSlotType.None)
+        {
+            CraftDataHandler.SetQuickSlotType(prefab.Info.TechType, QuickSlotType);
+        }
     }
 }
