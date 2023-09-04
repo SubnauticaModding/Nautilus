@@ -31,11 +31,26 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
     /// <summary>
     /// Converts an EnumBuilder to its corresponding enum object. 
     /// </summary>
-    /// <param name="enumBuilder">The Enum Builder</param>
+    /// <param name="enumBuilder">The Enum Builder.</param>
     /// <returns>The enum object equivalent to this instance.</returns>
     public static implicit operator TEnum(EnumBuilder<TEnum> enumBuilder)
     {
         return enumBuilder.Value;
+    }
+
+    /// <summary>
+    /// Converts an Enum object to EnumBuilder.
+    /// </summary>
+    /// <param name="enum">The Enum object.</param>
+    /// <returns>The constructed enum builder for the specified enum object.</returns>
+    public static explicit operator EnumBuilder<TEnum>(TEnum @enum)
+    {
+        var enumBuilder = new EnumBuilder<TEnum>
+        {
+            _enumValue = @enum
+        };
+
+        return enumBuilder;
     }
 
     /// <summary>
