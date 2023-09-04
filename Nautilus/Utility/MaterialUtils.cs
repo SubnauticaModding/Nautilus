@@ -19,19 +19,12 @@ public static partial class MaterialUtils
 
     private static IEnumerator LoadReferences()
     {
-        yield return LoadMarmosetUBER();
 #if SUBNAUTICA
         yield return PatchInternal();
 #endif
         IsReady = true;
-    }
-
-    // Shader.Find("MarmosetUBER") returns the wrong shader, so we need to get it in this way:
-    private static IEnumerator LoadMarmosetUBER()
-    {
-        var titaniumTask = CraftData.GetPrefabForTechTypeAsync(TechType.Titanium);
-        yield return titaniumTask;
-        Shaders.MarmosetUBER = titaniumTask.GetResult().GetComponentInChildren<Renderer>(true).material.shader;
+        
+        yield break;
     }
 
     /// <summary>
@@ -53,16 +46,12 @@ public static partial class MaterialUtils
         {
             get
             {
+                // Shader.Find("MarmosetUBER") returns the wrong shader, so we need to get it in this way:
                 if (_marmosetUber == null)
                 {
-                    InternalLogger.Warn("Attempting to access the MaterialUtils.Shaders.MarmosetUBER property before it is ready! " +
-                        "Consider delaying your logic until Nautilus.Utility.MaterialUtils.IsReady equals true.");
+                    _marmosetUber = AddressablesUtility.LoadAsync<Shader>("Assets/Marmoset/Shader/Uber/MarmosetUber.shader").WaitForCompletion();
                 }
                 return _marmosetUber;
-            }
-            internal set
-            {
-                _marmosetUber = value;
             }
         }
 
