@@ -1,0 +1,46 @@
+﻿name: Build
+
+on: 
+    push:
+        branches-ignore:
+            - docs
+
+jobs:
+    SN1:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              
+            - name: .NET Setup
+              uses: actions/setup-dotnet@v3
+              with:
+                  dotnet-version: 7.x
+                
+            - name: Nuget Setup
+              uses: nuget/setup-nuget@v1
+              
+            - name: Nuget Restore
+              run: nuget restore Nautilus.sln
+              
+            - name: Build Project
+              run: dotnet build Nautilus.sln -c SN.STABLE         
+    BZ:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v3
+
+            -   name: .NET Setup
+                uses: actions/setup-dotnet@v3
+                with:
+                    dotnet-version: 7.x
+
+            -   name: Nuget Setup
+                uses: nuget/setup-nuget@v1
+
+            -   name: Nuget Restore
+                run: nuget restore Nautilus.sln
+
+            -   name: Build Project
+                run: dotnet build Nautilus.sln -c BZ.STABLE
