@@ -266,6 +266,7 @@ public class EggTemplate : PrefabTemplate
 #else
         creatureEgg.animators = obj.GetComponentsInChildren<Animator>();
 #endif
+        creatureEgg.liveMixin = liveMixin;
         creatureEgg.creatureType = HatchingCreature;
         PrefabDatabase.TryGetPrefabFilename(CraftData.GetClassIdForTechType(HatchingCreature), out var filename);
         creatureEgg.creaturePrefab = new AssetReferenceGameObject(filename).ForceValid();
