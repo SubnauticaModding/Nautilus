@@ -22,13 +22,14 @@ internal static class WaterParkPatcher
         if (requiredAcuSize.TryGetValue(tt, out var maxHeight))
         {
             var waterPark = Player.main.currentWaterPark;
-            if (waterPark is not null && waterPark.height >= maxHeight)
+            if ((waterPark is LargeRoomWaterPark largeRoomWaterPark && largeRoomWaterPark.size >= maxHeight) ||
+                (waterPark is not null && waterPark.height >= maxHeight))
             {
                 __result = true;
             }
             else
             {
-                ErrorMessage.main.AddHint(string.Format("Cannot drop {0} here, the ACU must be at least {1} units tall.", Language.main.Get(tt), maxHeight));
+                ErrorMessage.main.AddHint($"Cannot drop {Language.main.Get(tt)} here, the ACU must be at least {maxHeight} units tall.");
                 __result = false;
             }
 
