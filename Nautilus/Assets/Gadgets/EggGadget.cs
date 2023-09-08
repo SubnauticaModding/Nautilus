@@ -10,9 +10,14 @@ namespace Nautilus.Assets.Gadgets;
 public class EggGadget : Gadget
 {
     /// <summary>
-    /// The total amount of ACU floors required for the egg to be dropped in the ACU. defaulted to 1.
+    /// The total amount of normal ACU floors required for the egg to be dropped in the ACU. If this is set to 0, the egg will not be accepted in the normal ACU. Defaulted to 1.
     /// </summary>
     public int RequiredAcuSize { get; set; } = 1;
+
+    /// <summary>
+    /// The total amount of Large ACU floors required for the egg to be dropped in. If this is set to 0, the egg will not be accepted in the large ACU. Defaulted to 1.
+    /// </summary>
+    public int RequiredLargeAcuSize { get; set; } = 1;
 
     /// <summary>
     /// makes the egg immune to the Lost River's Acidic Brine.
@@ -23,20 +28,33 @@ public class EggGadget : Gadget
     /// Constructs a Creature egg gadget instance.
     /// </summary>
     /// <param name="prefab">The custom prefab to operate on.</param>
-    /// <param name="requiredAcuSize">The total amount of ACU floors required for the egg to be dropped in the ACU.</param>
+    /// <param name="requiredAcuSize">The total amount of ACU floors required for the egg to be dropped in the ACU. This value is shared between the normal and large ACU.</param>
     public EggGadget(ICustomPrefab prefab, int requiredAcuSize = 1) : base(prefab)
     {
         RequiredAcuSize = requiredAcuSize;
+        RequiredLargeAcuSize = requiredAcuSize;
     }
 
     /// <summary>
-    /// The total amount of ACU floors required for the egg to be dropped in the ACU.
+    /// The total amount of normal ACU floors required for the egg to be dropped in the ACU.
     /// </summary>
-    /// <param name="requiredAcuSize">The ACU stacks value.</param>
+    /// <param name="requiredAcuSize">The ACU stacks value. If this is set to 0, the egg will not be accepted in the normal ACU.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public EggGadget WithRequiredAcuSize(int requiredAcuSize)
     {
         RequiredAcuSize = requiredAcuSize;
+
+        return this;
+    }
+
+    /// <summary>
+    /// The total amount of Large ACU floors required for the egg to be dropped in. 
+    /// </summary>
+    /// <param name="requiredLargeAcuSize">The large ACU stacks value. If this is set to 0, the egg will not be accepted in the large ACU.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public EggGadget WithRequiredLargeAcuSize(int requiredLargeAcuSize)
+    {
+        RequiredLargeAcuSize = requiredLargeAcuSize;
 
         return this;
     }
@@ -65,9 +83,6 @@ public class EggGadget : Gadget
         if (AcidImmune)
             DamageSystem.acidImmune.Add(prefab.Info.TechType);
 
-        if (RequiredAcuSize > 1)
-        {
-            WaterParkPatcher.requiredAcuSize[prefab.Info.TechType] = RequiredAcuSize;
-        }
+        WaterParkPatcher.requiredAcuSize[prefab.Info.TechType] = this;
     }
 }
