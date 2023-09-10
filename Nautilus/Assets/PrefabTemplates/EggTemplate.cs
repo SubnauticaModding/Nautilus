@@ -2,6 +2,7 @@
 using System.Collections;
 using Nautilus.Extensions;
 using Nautilus.Handlers;
+using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -195,6 +196,9 @@ public class EggTemplate : PrefabTemplate
 #else
             .WithSizeInInventory(TechData.GetItemSize(info.TechType));
 #endif
+
+        // eggs with undiscovered tech types shouldn't be unlocked by default at all, even on creative.
+        KnownTechPatcher.UnlockedAtStart.Remove(info.TechType);
 
         return this;
     }
