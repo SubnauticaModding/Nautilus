@@ -3,6 +3,7 @@ using BepInEx;
 using HarmonyLib;
 using Nautilus.Patchers;
 using Nautilus.Utility;
+using Nautilus.Utility.ModMessages;
 using UnityEngine;
 #if BELOWZERO
 using UnityEngine.U2D;
@@ -76,5 +77,6 @@ public class Initializer : BaseUnityPlugin
         NewtonsoftJsonPatcher.Patch(_harmony);
         InventoryPatcher.Patch(_harmony);
         WaterParkPatcher.Patch(_harmony);
+        ModMessageSystem.Patch();
     }
 }
