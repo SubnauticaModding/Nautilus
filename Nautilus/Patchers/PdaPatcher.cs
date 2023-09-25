@@ -18,7 +18,7 @@ internal class PDAPatcher
     internal static void Patch(Harmony harmony)
     {
         harmony.Patch(AccessTools.Method(typeof(PDAScanner), nameof(PDAScanner.Initialize)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAPatcher), nameof(PDAPatcher.InitializePostfix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAPatcher), nameof(PDAPatcher.InitializePostfix))));
 
         InternalLogger.Log($"PDAPatcher is done.", LogLevel.Debug);
     }
