@@ -22,7 +22,7 @@ public static class PrefabHandler
     {
         if (ModPrefabCache.TryGetPrefabFromCache(info.ClassID, out var prefabInCache))
         {
-            gameObject.Set(EditorModifications.Instantiate(prefabInCache, default, default, true));
+            gameObject.Set(prefabInCache);
             yield break;
         }
 
@@ -77,14 +77,16 @@ public static class PrefabHandler
             yield return postProcessor?.Invoke(obj);
 
 
-        if(!ModPrefabCache.IsPrefabCached(info.ClassID))
+        if (ModPrefabCache.TryGetPrefabFromCache(info.ClassID, out var obj2))
         {
-            gameObject.Set(EditorModifications.Instantiate(obj, default, default, true));
-            ModPrefabCache.AddPrefab(obj);
+            gameObject.Set(obj2);
+            GameObject.Destroy(obj);
         }
         else
         {
             gameObject.Set(obj);
+            ModPrefabCache.AddPrefab(obj);
+            yield break;
         }
     }
 }
