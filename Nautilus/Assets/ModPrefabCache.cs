@@ -71,6 +71,7 @@ public static class ModPrefabCache
         _cacheInstance = new GameObject("Nautilus.PrefabCache").AddComponent<ModPrefabCacheInstance>();
     }
 }
+
 internal class ModPrefabCacheInstance : MonoBehaviour
 {
     public Dictionary<string, GameObject> Entries { get; } = new Dictionary<string, GameObject>();
@@ -89,27 +90,24 @@ internal class ModPrefabCacheInstance : MonoBehaviour
 
     public void EnterPrefabIntoCache(GameObject prefab)
     {
+
+        var prefabIdentifier = prefab.GetComponent<PrefabIdentifier>();
+
+        if(prefabIdentifier == null)
+        {
+            InternalLogger.Warn($"ModPrefabCache: prefab {prefab.name} is missing a PrefabIdentifier component! Unable to add to cache.");
+            return;
+        }
+
         // Proper prefabs can never exist in the scene, so parenting them is dangerous and pointless. 
         if (prefab.IsPrefab())
         {
             InternalLogger.Debug($"Game Object: {prefab} is a proper prefab. Skipping parenting for cache.");
         }
-        else
+        else if(!Entries.ContainsKey(prefabIdentifier.classId))
         {
             prefab.transform.parent = _prefabRoot;
-            prefab.SetActive(true);
-        }
-
-        var prefabIdentifier = prefab.GetComponent<PrefabIdentifier>();
-
-        if (prefabIdentifier == null)
-        {
-            InternalLogger.Warn($"ModPrefabCache: prefab is missing a PrefabIdentifier component! Unable to add to cache.");
-            return;
-        }
-
-        if (!Entries.ContainsKey(prefabIdentifier.classId))
-        {
+            prefab.SetActive(false);
             Entries.Add(prefabIdentifier.classId, prefab);
             InternalLogger.Debug($"ModPrefabCache: adding prefab {prefab}");
         }
