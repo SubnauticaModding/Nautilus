@@ -107,7 +107,7 @@ internal class ModPrefabCacheInstance : MonoBehaviour
         else if(!Entries.ContainsKey(prefabIdentifier.classId))
         {
             prefab.transform.parent = _prefabRoot;
-            prefab.SetActive(false);
+            prefab.SetActive(true);
             Entries.Add(prefabIdentifier.classId, prefab);
             InternalLogger.Debug($"ModPrefabCache: adding prefab {prefab}");
         }
