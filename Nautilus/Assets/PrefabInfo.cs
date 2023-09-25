@@ -27,7 +27,7 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
     /// <seealso cref="LanguageHandler.SetLanguageLine"/>
     /// <seealso cref="LanguageHandler.RegisterLocalizationFolder"/>
     /// <seealso cref="LanguageHandler.RegisterLocalization"/>
-    public static PrefabInfo WithTechType(string classId, bool unlockAtStart = true, Assembly techTypeOwner = null)
+    public static PrefabInfo WithTechType(string classId, bool unlockAtStart = false, Assembly techTypeOwner = null)
     {
         techTypeOwner ??= Assembly.GetCallingAssembly();
         techTypeOwner = techTypeOwner == Assembly.GetExecutingAssembly()
