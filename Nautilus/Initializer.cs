@@ -56,7 +56,6 @@ public class Initializer : BaseUnityPlugin
         SpritePatcher.Patch(_harmony);
         KnownTechPatcher.Patch(_harmony);
         OptionsPanelPatcher.Patch(_harmony);
-        SMLHelperCompatibilityPatcher.Patch(_harmony);
         ItemsContainerPatcher.Patch(_harmony);
         PDALogPatcher.Patch(_harmony);
         PDAPatcher.Patch(_harmony);
