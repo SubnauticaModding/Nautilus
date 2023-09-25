@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using Nautilus.Handlers;
-using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
-using static HandReticle;
 
 namespace Nautilus.Crafting;
 
