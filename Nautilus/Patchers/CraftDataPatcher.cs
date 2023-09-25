@@ -8,7 +8,6 @@ using UnityEngine;
 
 namespace Nautilus.Patchers;
 
-[HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
 internal partial class CraftDataPatcher
 {
     #region Internal Fields

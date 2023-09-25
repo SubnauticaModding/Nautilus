@@ -10,17 +10,17 @@ internal static class ItemsContainerPatcher
     internal static void Patch(Harmony harmony)
     {
         harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.HasRoomFor), new Type[] { typeof(int), typeof(int) }),
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(HasRoomFor_XY_Prefix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(HasRoomFor_Postfix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.HasRoomFor_XY_Prefix))),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.HasRoomFor_Postfix))));
 
         harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.NotifyAddItem)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(NotifyChangeItem_Postfix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
 
         harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.NotifyRemoveItem)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(NotifyChangeItem_Postfix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
 
         harmony.Patch(AccessTools.Method(typeof(ItemsContainer), nameof(ItemsContainer.NotifyResize)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(NotifyChangeItem_Postfix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemsContainerPatcher), nameof(ItemsContainerPatcher.NotifyChangeItem_Postfix))));
 
         InternalLogger.Log($"ItemsContainerPatcher is done.", LogLevel.Debug);
     }

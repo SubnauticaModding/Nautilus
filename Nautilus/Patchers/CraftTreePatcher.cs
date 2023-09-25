@@ -8,7 +8,6 @@ using Nautilus.Utility;
 
 namespace Nautilus.Patchers;
 
-[HarmonyAfter(SMLHelperCompatibilityPatcher.SMLHarmonyInstance)]
 internal class CraftTreePatcher
 {
     #region Internal Fields

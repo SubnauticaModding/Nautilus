@@ -17,7 +17,7 @@ internal class LargeWorldStreamerPatcher
     internal static void Patch(Harmony harmony)
     {
         System.Reflection.MethodInfo initializeOrig = AccessTools.Method(typeof(LargeWorldStreamer), nameof(LargeWorldStreamer.Initialize));
-        HarmonyMethod initPostfix = new(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(InitializePostfix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
+        HarmonyMethod initPostfix = new(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(InitializePostfix)));
         harmony.Patch(initializeOrig, postfix: initPostfix);
     }
 
