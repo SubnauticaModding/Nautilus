@@ -65,15 +65,17 @@ public class CloneTemplate : PrefabTemplate
     public override IEnumerator GetPrefabAsync(TaskResult<GameObject> gameObject)
     {
         // If the provided task result already has a game object set to it, only modify it instead.
-        var org = gameObject.Get();
-        if (org)
+        GameObject obj = gameObject.Get();
+        if (obj)
         {
-            ApplySkin(org);
-            ModifyPrefab?.Invoke(org);
+            ApplySkin(obj);
+            ModifyPrefab?.Invoke(obj);
+            if(ModifyPrefabAsync is { })
+                yield return ModifyPrefabAsync(obj);
+
             yield break;
         }
 
-        GameObject obj;
         if (_spawnType == SpawnType.TechType)
         {
             yield return CraftData.InstantiateFromPrefabAsync(_techTypeToClone, gameObject);
@@ -93,7 +95,7 @@ public class CloneTemplate : PrefabTemplate
             obj = Object.Instantiate(prefab);
         }
 
-        ApplySkin(org);
+        ApplySkin(obj);
         ModifyPrefab?.Invoke(obj);
         if (ModifyPrefabAsync is { })
             yield return ModifyPrefabAsync(obj);
