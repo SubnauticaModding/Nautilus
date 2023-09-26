@@ -62,7 +62,7 @@ public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode
     /// Creates a new tab node for the crafting tree and links it to the calling node.
     /// </summary>
     /// <remarks>
-    /// Please not that this method will NOT set the language lines for the node and you must do it yourself.
+    /// Please note that this method will NOT set the language lines for the node and you must do it yourself.
     /// </remarks>
     /// <param name="nameID">The name/ID of this node.</param>
     /// <returns>A new tab node linked to the root node and ready to use.</returns>
