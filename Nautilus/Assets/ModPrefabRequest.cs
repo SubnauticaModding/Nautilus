@@ -18,6 +18,7 @@ internal class ModPrefabRequest: IPrefabRequest, IEnumerator
     public ModPrefabRequest(PrefabInfo prefabInfo)
     {
         this.prefabInfo = prefabInfo;
+        ModPrefabCache.Requests[prefabInfo.ClassID] = this;
     }
 
     private void Init()

@@ -12,6 +12,7 @@ namespace Nautilus.Assets;
 public static class ModPrefabCache
 {
     private static ModPrefabCacheInstance _cacheInstance;
+    internal static Dictionary<string, ModPrefabRequest> Requests { get; } = new Dictionary<string, ModPrefabRequest>();
 
     /// <summary> Adds the given prefab to the cache. </summary>
     /// <param name="prefab"> The prefab object that is disabled and cached. </param>
@@ -29,10 +30,7 @@ public static class ModPrefabCache
     /// <returns>True if a prefab by the given <paramref name="classId"/> exists in the cache, otherwise false.</returns>
     public static bool IsPrefabCached(string classId)
     {
-        if (_cacheInstance == null)
-            return false;
-
-        return _cacheInstance.Entries.ContainsKey(classId);
+        return _cacheInstance != null && _cacheInstance.Entries.ContainsKey(classId);
     }
 
     /// <summary>
@@ -41,7 +39,7 @@ public static class ModPrefabCache
     /// <param name="classId">The class id of the prefab that will be removed.</param>
     public static void RemovePrefabFromCache(string classId)
     {
-        if (_cacheInstance == null)
+        if(_cacheInstance == null)
             return;
 
         _cacheInstance.RemoveCachedPrefab(classId);
@@ -55,7 +53,7 @@ public static class ModPrefabCache
     /// <returns>True if the prefab was found in the cache, otherwise false.</returns>
     public static bool TryGetPrefabFromCache(string classId, out GameObject prefab)
     {
-        if (_cacheInstance == null)
+        if(_cacheInstance == null)
         {
             prefab = null;
             return false;
@@ -66,12 +64,13 @@ public static class ModPrefabCache
 
     private static void EnsureCacheExists()
     {
-        if (_cacheInstance != null)
+        if(_cacheInstance != null)
             return;
         _cacheInstance = new GameObject("Nautilus.PrefabCache").AddComponent<ModPrefabCacheInstance>();
     }
 }
-internal class ModPrefabCacheInstance : MonoBehaviour
+
+internal class ModPrefabCacheInstance: MonoBehaviour
 {
     public Dictionary<string, GameObject> Entries { get; } = new Dictionary<string, GameObject>();
 
@@ -90,7 +89,7 @@ internal class ModPrefabCacheInstance : MonoBehaviour
     public void EnterPrefabIntoCache(GameObject prefab)
     {
         // Proper prefabs can never exist in the scene, so parenting them is dangerous and pointless. 
-        if (prefab.IsPrefab())
+        if(prefab.IsPrefab())
         {
             InternalLogger.Debug($"Game Object: {prefab} is a proper prefab. Skipping parenting for cache.");
         }
@@ -102,13 +101,14 @@ internal class ModPrefabCacheInstance : MonoBehaviour
 
         var prefabIdentifier = prefab.GetComponent<PrefabIdentifier>();
 
-        if (prefabIdentifier == null)
+        if(prefabIdentifier == null)
         {
-            InternalLogger.Warn($"ModPrefabCache: prefab is missing a PrefabIdentifier component! Unable to add to cache.");
+            InternalLogger.Warn($"ModPrefabCache: prefab {prefab.name} is missing a PrefabIdentifier component! Unable to add to cache.");
             return;
         }
 
-        if (!Entries.ContainsKey(prefabIdentifier.classId))
+        // Proper prefabs can never exist in the scene, so parenting them is dangerous and pointless. 
+        if(!Entries.ContainsKey(prefabIdentifier.classId))
         {
             Entries.Add(prefabIdentifier.classId, prefab);
             InternalLogger.Debug($"ModPrefabCache: adding prefab {prefab}");
@@ -121,9 +121,10 @@ internal class ModPrefabCacheInstance : MonoBehaviour
 
     public void RemoveCachedPrefab(string classId)
     {
-        if (Entries.TryGetValue(classId, out var prefab))
+        if(Entries.TryGetValue(classId, out var prefab))
         {
-            Destroy(prefab);
+            if(!prefab.IsPrefab())
+                Destroy(prefab);
             Entries.Remove(classId);
         }
     }
