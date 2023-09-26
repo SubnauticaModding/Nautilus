@@ -55,17 +55,11 @@ internal static class PrefabDatabasePatcher
 
     internal static IEnumerator SpawnAsyncReplacement(DeferredSpawner.AddressablesTask task, PrefabInfo prefabInfo)
     {
-        TaskResult<GameObject> prefabResult = new();
-        if (!PrefabHandler.Prefabs.TryGetPrefabForInfo(prefabInfo, out var prefabFactory))
-        {
-            InternalLogger.Error($"Couldn't find a prefab factory for the following prefab info: {prefabInfo}");
-            yield break;
-        }
+        var request = GetModPrefabAsync(prefabInfo.ClassID);
 
-        yield return PrefabHandler.GetPrefabAsync(prefabResult, prefabInfo, prefabFactory);
-        GameObject prefab = prefabResult.Get();
+        yield return request;
 
-        if(prefab != null)
+        if(request.TryGetPrefab(out var prefab))
         {
             task.spawnedObject = EditorModifications.Instantiate(prefab, task.parent, task.position, task.rotation, task.instantiateActivated);
         }
@@ -80,10 +74,13 @@ internal static class PrefabDatabasePatcher
 
     private static IPrefabRequest GetModPrefabAsync(string classId)
     {
-        if (!PrefabHandler.Prefabs.TryGetInfoForClassId(classId, out PrefabInfo prefabInfo))
+        if(!PrefabHandler.Prefabs.TryGetInfoForClassId(classId, out PrefabInfo prefabInfo))
         {
             return null;
         }
+
+        if(ModPrefabCache.Requests.TryGetValue(prefabInfo.ClassID, out var request))
+            return request;
 
         return new ModPrefabRequest(prefabInfo);
     }
@@ -114,16 +111,16 @@ internal static class PrefabDatabasePatcher
 
     internal static IEnumerator InstantiateAsync(PrefabInfo prefabInfo, IOut<GameObject> result, Transform parent, Vector3 position, Quaternion rotation, bool awake)
     {
-        TaskResult<GameObject> task = new();
-        if (!PrefabHandler.Prefabs.TryGetPrefabForInfo(prefabInfo, out var prefabFactory))
+        var request = GetModPrefabAsync(prefabInfo.ClassID);
+
+        yield return request;
+
+        if(!request.TryGetPrefab(out var prefab))
         {
-            InternalLogger.Error($"Couldn't find a prefab factory for the following prefab info: {prefabInfo}");
+            result.Set(null);
             yield break;
         }
 
-        yield return PrefabHandler.GetPrefabAsync(task, prefabInfo, prefabFactory);
-
-        GameObject prefab = task.Get();
         result.Set(EditorModifications.Instantiate(prefab, parent, position, rotation, awake));
     }
 

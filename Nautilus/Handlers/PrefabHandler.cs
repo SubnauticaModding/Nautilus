@@ -77,17 +77,8 @@ public static class PrefabHandler
             yield return postProcessor?.Invoke(obj);
 
 
-        if (ModPrefabCache.TryGetPrefabFromCache(info.ClassID, out var obj2))
-        {
-            gameObject.Set(obj2);
-            GameObject.Destroy(obj);
-        }
-        else
-        {
-            gameObject.Set(obj);
-            ModPrefabCache.AddPrefab(obj);
-            yield break;
-        }
+        gameObject.Set(obj);
+        ModPrefabCache.AddPrefab(obj);
     }
 }
 
