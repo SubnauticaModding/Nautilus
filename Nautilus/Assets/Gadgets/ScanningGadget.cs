@@ -284,9 +284,7 @@ public class ScanningGadget : Gadget
         )
     {
         AnalysisTech ??= new KnownTech.AnalysisTech();
-        AnalysisTech.techType = RequiredForUnlock != TechType.None
-            ? RequiredForUnlock
-            : prefab.Info.TechType;
+        AnalysisTech.techType = prefab.Info.TechType;
         AnalysisTech.unlockTechTypes = RequiredForUnlock != TechType.None
             ? new() { prefab.Info.TechType }
             : new();
@@ -347,13 +345,13 @@ public class ScanningGadget : Gadget
             PDAHandler.AddCustomScannerEntry(ScannerEntryData);
         }
 
+        if (RequiredForUnlock != TechType.None)
+        {
+            KnownTechHandler.AddRequirementForUnlock(prefab.Info.TechType, RequiredForUnlock);
+        }
+
         if (CompoundTechsForUnlock is { Count: > 0 } || RequiredForUnlock != TechType.None)
         {
-            if (AnalysisTech is null && RequiredForUnlock != TechType.None)
-            {
-                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage, KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound);
-            }
-
             KnownTechPatcher.UnlockedAtStart.Remove(prefab.Info.TechType);
         }
 
