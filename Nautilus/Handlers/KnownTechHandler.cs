@@ -46,8 +46,10 @@ public static class KnownTechHandler
             InternalLogger.Error("Cannot Add Unlock to TechType.None!");
         }
         
-        if (uGUI.isMainLevel)
-            KnownTechPatcher.InitializePostfix();
+        if (Player.main)
+        {
+            KnownTechPatcher.InitializePrefix(Player.main.pdaData);
+        }
     }
 
     internal static void AddAnalysisTech(
@@ -100,8 +102,10 @@ public static class KnownTechHandler
             KnownTechPatcher.CompoundTech.Add(techType, new KnownTech.CompoundTech() { techType = techType, dependencies = compoundTechsForUnlock });
         }
         
-        if (uGUI.isMainLevel)
-            KnownTechPatcher.InitializePostfix();
+        if (Player.main)
+        {
+            KnownTechPatcher.InitializePrefix(Player.main.pdaData);
+        }
     }
 
     internal static void RemoveAnalysisSpecific(TechType targetTechType, List<TechType> techTypes)
@@ -121,8 +125,10 @@ public static class KnownTechHandler
             }
         }
         
-        if (uGUI.isMainLevel)
-            KnownTechPatcher.InitializePostfix();
+        if (Player.main)
+        {
+            KnownTechPatcher.InitializePrefix(Player.main.pdaData);
+        }
     }
 
     internal static void RemoveAnalysisTechEntry(TechType targetTechType)
@@ -153,8 +159,10 @@ public static class KnownTechHandler
             KnownTechPatcher.RemovalTechs.Add(targetTechType);
         }
         
-        if (uGUI.isMainLevel)
-            KnownTechPatcher.InitializePostfix();
+        if (Player.main)
+        {
+            KnownTechPatcher.InitializePrefix(Player.main.pdaData);
+        }
     }
 
 
