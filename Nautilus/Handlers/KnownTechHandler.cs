@@ -27,17 +27,20 @@ public static class KnownTechHandler
         {
             if (KnownTechPatcher.AnalysisTech.TryGetValue(analysisTech.techType, out KnownTech.AnalysisTech existingEntry))
             {
-                existingEntry.unlockMessage = existingEntry.unlockMessage ?? analysisTech.unlockMessage;
-                existingEntry.unlockSound = existingEntry.unlockSound ?? analysisTech.unlockSound;
-                existingEntry.unlockPopup = existingEntry.unlockPopup ?? analysisTech.unlockPopup;
+                existingEntry.unlockMessage = analysisTech.unlockMessage ?? existingEntry.unlockMessage;
+                existingEntry.unlockSound = analysisTech.unlockSound ?? existingEntry.unlockSound;
+                existingEntry.unlockPopup = analysisTech.unlockPopup ?? existingEntry.unlockPopup;
                 existingEntry.unlockTechTypes.AddRange(analysisTech.unlockTechTypes);
+#if SUBNAUTICA
+                analysisTech.storyGoals ??= existingEntry.storyGoals ?? new();
+#endif
             }
             else
             {
 #if SUBNAUTICA
                 analysisTech.storyGoals ??= new();
 #endif
-                    
+                
                 KnownTechPatcher.AnalysisTech.Add(analysisTech.techType, analysisTech);
             }
         }
