@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 
 namespace Nautilus.Patchers;
@@ -13,11 +14,10 @@ internal class KnownTechPatcher
     internal static HashSet<TechType> UnlockedAtStart = new();
     internal static HashSet<TechType> LockedWithNoUnlocks = new();
     internal static IDictionary<TechType, KnownTech.AnalysisTech> AnalysisTech = new SelfCheckingDictionary<TechType, KnownTech.AnalysisTech>("AnalysisTech", AsStringFunction);
+    internal static IDictionary<TechType, List<TechType>> BlueprintRequirements = new SelfCheckingDictionary<TechType, List<TechType>>("BlueprintRequirements", AsStringFunction);
     internal static IDictionary<TechType, KnownTech.CompoundTech> CompoundTech = new SelfCheckingDictionary<TechType, KnownTech.CompoundTech>("CompoundTech", AsStringFunction);
     internal static IDictionary<TechType, List<TechType>> RemoveFromSpecificTechs = new SelfCheckingDictionary<TechType, List<TechType>>("RemoveFromSpecificTechs", AsStringFunction);
     internal static List<TechType> RemovalTechs = new();
-
-    private static FMODAsset UnlockSound;
 
     public static void Patch(Harmony harmony)
     {
@@ -35,12 +35,10 @@ internal class KnownTechPatcher
             return;
         }
 
-        data.defaultTech.AddRange(KnownTechPatcher.UnlockedAtStart);
+        data.defaultTech.AddRange(UnlockedAtStart);
 
-        foreach (var tech in KnownTechPatcher.AnalysisTech.Values)
+        foreach (var tech in AnalysisTech.Values)
         {
-            data.defaultTech.Remove(tech.techType);
-
             var index = data.analysisTech.FindIndex(analysisTech => analysisTech.techType == tech.techType);
             if (index == -1)
             {
@@ -52,12 +50,27 @@ internal class KnownTechPatcher
                 InternalLogger.Debug($"Replacing analysisTech for {tech.techType}");
                 data.analysisTech[index] = tech;
             }
+
+            if (tech.unlockSound == null)
+            {
+                tech.unlockSound = KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound;
+            }
         }
 
-        foreach (var tech in KnownTechPatcher.CompoundTech.Values)
+        foreach (var blueprintRequirements in BlueprintRequirements)
         {
-            data.defaultTech.Remove(tech.techType);
+            var index = data.analysisTech.FindIndex(tech => tech.techType == blueprintRequirements.Key);
+            if (index == -1)
+            {
+                InternalLogger.Error($"TechType '{blueprintRequirements.Key.AsString()}' does not have an analysis tech. Cancelling requirement addition.");
+                continue;
+            }
+            
+            data.analysisTech[index].unlockTechTypes.AddRange(blueprintRequirements.Value);
+        }
 
+        foreach (var tech in CompoundTech.Values)
+        {
             var index = data.compoundTech.FindIndex(compoundTech => compoundTech.techType == tech.techType);
             if (index == -1)
             {

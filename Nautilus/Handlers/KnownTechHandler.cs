@@ -21,6 +21,16 @@ public static class KnownTechHandler
         KnownTechPatcher.UnlockedAtStart.Add(techType);
     }
 
+    /// <summary>
+    /// Unlocks the <paramref name="blueprint"/> when the <paramref name="requirement"/> tech type is unlocked.
+    /// </summary>
+    /// <param name="blueprint">The blueprint to unlock.</param>
+    /// <param name="requirement">The tech type that will unlock the specified blueprint once unlocked.</param>
+    public static void AddRequirementForUnlock(TechType blueprint, TechType requirement)
+    {
+        KnownTechPatcher.BlueprintRequirements.GetOrAddNew(requirement).Add(blueprint);
+    }
+
     internal static void AddAnalysisTech(KnownTech.AnalysisTech analysisTech)
     {
         if (analysisTech.techType != TechType.None)
