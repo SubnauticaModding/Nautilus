@@ -138,7 +138,7 @@ public static class StoryGoalHandler
     /// </summary>
     /// <param name="key">The key of the goal that triggers the <paramref name="customEventCallback"/>.</param>
     /// <param name="customEventCallback">The method that is called when the associated goal is completed. The name of the goal will be passed as a parameter.</param>
-    public static void RegisterCustomEvent(string key, Action customEventCallback)
+    public static void RegisterCustomEvent(string key, Action<string> customEventCallback)
     {
         CustomStoryGoalManager.StoryGoalCustomEvents.GetOrAddNew(key).Add(customEventCallback);
     }
@@ -148,7 +148,7 @@ public static class StoryGoalHandler
     /// </summary>
     /// <param name="key">The key of the goal that triggers the <paramref name="customEventCallback"/>.</param>
     /// <param name="customEventCallback">The method to unregister.</param>
-    public static void UnregisterCustomEvent(string key, Action customEventCallback)
+    public static void UnregisterCustomEvent(string key, Action<string> customEventCallback)
     {
         if (CustomStoryGoalManager.StoryGoalCustomEvents.TryGetValue(key, out var callbacks) && callbacks is { })
         {

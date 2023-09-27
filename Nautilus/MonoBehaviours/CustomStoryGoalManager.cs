@@ -9,7 +9,7 @@ internal class CustomStoryGoalManager : MonoBehaviour, IStoryGoalListener
 {
     public static CustomStoryGoalManager Instance { get; private set; }
     
-    internal static readonly Dictionary<string, List<Action>> StoryGoalCustomEvents = new();
+    internal static readonly Dictionary<string, List<Action<string>>> StoryGoalCustomEvents = new();
 
     private ItemGoalTracker _itemGoalTracker;
     private BiomeGoalTracker _biomeGoalTracker;
@@ -68,7 +68,7 @@ internal class CustomStoryGoalManager : MonoBehaviour, IStoryGoalListener
         foreach (var customEvent in StoryGoalCustomEvents)
         {
             if (key == customEvent.Key)
-                customEvent.Value.ForEach(x => x?.Invoke());
+                customEvent.Value.ForEach(x => x?.Invoke(key));
         }
     }
     
