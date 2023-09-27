@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Nautilus.Handlers;
@@ -213,6 +214,31 @@ public class ScanningGadget : Gadget
 
         return this;
     }
+    
+    /// <summary>
+    /// Adds additional info on how the Scanner tool should treat this item when scanning it.
+    /// </summary>
+    /// <param name="blueprint">The blueprint that gets unlocked once this item is scanned.</param>
+    /// <param name="scanTime">The amount of seconds it takes to scan this item.</param>
+    /// <param name="isFragment">Is this a fragment?</param>
+    /// <param name="encyKey">The encyclopedia key to unlock once the scanning is completed.</param>
+    /// <param name="destroyAfterScan">Should this object be destroyed after a successful scan?</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public ScanningGadget WithScannerEntry(TechType blueprint, float scanTime, bool isFragment = false, string encyKey = null, bool destroyAfterScan = false)
+    {
+        ScannerEntryData = new PDAScanner.EntryData
+        {
+            key = prefab.Info.TechType,
+            encyclopedia = encyKey,
+            scanTime = scanTime,
+            destroyAfterScan = destroyAfterScan,
+            isFragment = isFragment,
+            blueprint = blueprint,
+            totalFragments = FragmentsToScan,
+        };
+
+        return this;
+    }
 
     /// <summary>
     /// Adds additional info on how the Scanner tool should treat this item when scanning it.
@@ -222,6 +248,8 @@ public class ScanningGadget : Gadget
     /// <param name="encyKey">The encyclopedia key to unlock once the scanning is completed.</param>
     /// <param name="destroyAfterScan">Should this object be destroyed after a successful scan?</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <remarks>This overload overrides the PDAScanner entry data for the <see cref="RequiredForUnlock"/>'s entry.</remarks>
+    [Obsolete("Deprecated; Use WithScannerEntry(TechType, float, bool, string, bool) overload instead.")]
     public ScanningGadget WithScannerEntry(float scanTime, bool isFragment = false, string encyKey = null, bool destroyAfterScan = false)
     {
         ScannerEntryData = new PDAScanner.EntryData
