@@ -304,6 +304,7 @@ public static class KnownTechHandler
     /// </summary>
     /// <param name="targetTechType">Target <see cref="TechType"/> to remove the unlocks for.</param>
     /// <param name="techTypes">List of <see cref="TechType"/> to remove the targetTechType from.</param>
+    /// <seealso cref="RemoveAllCurrentAnalysisTechEntry"/>
     public static void RemoveAnalysisTechEntryFromSpecific(TechType targetTechType, List<TechType> techTypes)
     {
         RemoveAnalysisSpecific(targetTechType, techTypes);
@@ -311,9 +312,11 @@ public static class KnownTechHandler
 
     /// <summary>
     /// Allows you to remove all unlock entries from a <see cref="TechType"/> to be able to disable or change it to a new unlock.
-    /// ***Note: This is patch time specific so the LAST mod to call this on a techtype will be the only one to control what unlocks said type after its use.***
     /// </summary>
+    /// <remarks>The unlock entry for analysis techs for the specified <paramref name="targetTechType"/> will not be removed. I.E: This method will not remove self-unlocks.<br/>
+    /// To also target unlock entry removal for the specified tech type's analysis tech entry, use <see cref="RemoveAnalysisTechEntryFromSpecific"/> instead.</remarks>
     /// <param name="targetTechType">Target <see cref="TechType"/> to remove the unlocks for.</param>
+    /// <seealso cref="RemoveAnalysisTechEntry"/>
     public static void RemoveAllCurrentAnalysisTechEntry(TechType targetTechType)
     {
         RemoveAnalysisTechEntry(targetTechType);

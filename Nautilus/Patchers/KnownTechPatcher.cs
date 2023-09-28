@@ -98,6 +98,11 @@ internal class KnownTechPatcher
         {
             foreach (var removalTech in RemovalTechs)
             {
+                if (analysisTech.techType == removalTech)
+                {
+                    continue;
+                }
+                
                 if (analysisTech.unlockTechTypes.Remove(removalTech))
                 {
                     InternalLogger.Debug($"RemovalTechs: Removed unlockTechType '{removalTech}' from '{analysisTech.techType}' AnalysisTech.");
