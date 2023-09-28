@@ -55,11 +55,7 @@ public static class GadgetExtensions
             return null;
         }
 
-        if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
-            return customPrefab.AddGadget(new CraftingGadget(customPrefab, recipeData));
-
-        craftingGadget.RecipeData = recipeData;
-        return craftingGadget;
+        return SetRecipe(customPrefab, recipeData);
     }
 
     /// <summary>
@@ -76,6 +72,27 @@ public static class GadgetExtensions
 
         scanningGadget.RequiredForUnlock = requiredForUnlock;
         scanningGadget.FragmentsToScan = fragmentsToScan;
+        return scanningGadget;
+    }
+
+    /// <summary>
+    /// Makes this prefab a fragment.
+    /// </summary>
+    /// <param name="customPrefab">The fragment custom prefab.</param>
+    /// <param name="blueprint">The blueprint that gets unlocked once this item is scanned</param>
+    /// <param name="scanTime">The amount of seconds it takes to scan this item.</param>
+    /// <param name="fragmentsToScan">The amount of fragments required to be scanned before the blueprint is unlocked.</param>
+    /// <param name="encyKey">The encyclopedia key to unlock once the scanning is completed.</param>
+    /// <param name="destroyAfterScan">Should this object be destroyed after a successful scan?</param>
+    /// <param name="isFragment">If this is set to <see keyword="true"/>, the loot distribution will not bother spawning this fragment if the blueprint is already unlocked.<br/>
+    /// This is the default behaviour for almost all of the vanilla fragments.</param>
+    /// <returns>A reference to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    public static ScanningGadget CreateFragment(this ICustomPrefab customPrefab, TechType blueprint, float scanTime, int fragmentsToScan = 1, string encyKey = null, bool destroyAfterScan = true, bool isFragment = true)
+    {
+        if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
+            scanningGadget = customPrefab.AddGadget(new ScanningGadget(customPrefab, TechType.None, fragmentsToScan));
+
+        scanningGadget.WithScannerEntry(blueprint, scanTime, isFragment, encyKey, destroyAfterScan);
         return scanningGadget;
     }
 
