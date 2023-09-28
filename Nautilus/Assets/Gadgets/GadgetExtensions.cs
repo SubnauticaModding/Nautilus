@@ -1,5 +1,4 @@
 using System.IO;
-using System.Runtime.CompilerServices;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Json.Converters;
