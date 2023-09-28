@@ -28,13 +28,23 @@ internal class KnownTechPatcher
             postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(GetAllUnlockablesPostfix))));
     }
 
-    internal static void InitializePrefix(PDAData data)
+    internal static void Reinitialize()
     {
-        if (KnownTech.initialized)
+        // At this point the KnownTech stuff haven't been initialized yet, so no need to re-patch.
+        if (!Player.main)
         {
             return;
         }
 
+        var pdaData = Player.main.pdaData;
+        InitializePrefix(pdaData);
+        KnownTech.AddRange(pdaData.defaultTech, false);
+        KnownTech.compoundTech = KnownTech.ValidateCompoundTech(pdaData.compoundTech);
+        KnownTech.analysisTech = KnownTech.ValidateAnalysisTech(pdaData.analysisTech);
+    }
+
+    private static void InitializePrefix(PDAData data)
+    {
         data.defaultTech.AddRange(UnlockedAtStart);
 
         foreach (var tech in AnalysisTech.Values)

@@ -12,13 +12,19 @@ namespace Nautilus.Handlers;
 /// </summary>
 public static class KnownTechHandler
 {
+    private static void Reinitialize()
+    {
+        KnownTechPatcher.Reinitialize();
+    }
+    
     /// <summary>
     /// Allows you to unlock a TechType on game start.
     /// </summary>
-    /// <param name="techType"></param>
+    /// <param name="techType">The TechType to unlock at start.</param>
     public static void UnlockOnStart(TechType techType)
     {
         KnownTechPatcher.UnlockedAtStart.Add(techType);
+        Reinitialize();
     }
 
     /// <summary>
@@ -29,6 +35,7 @@ public static class KnownTechHandler
     public static void AddRequirementForUnlock(TechType blueprint, TechType requirement)
     {
         KnownTechPatcher.BlueprintRequirements.GetOrAddNew(requirement).Add(blueprint);
+        Reinitialize();
     }
 
     internal static void AddAnalysisTech(KnownTech.AnalysisTech analysisTech)
@@ -59,10 +66,7 @@ public static class KnownTechHandler
             InternalLogger.Error("Cannot Add Unlock to TechType.None!");
         }
         
-        if (Player.main)
-        {
-            KnownTechPatcher.InitializePrefix(Player.main.pdaData);
-        }
+        Reinitialize();
     }
 
     internal static void AddAnalysisTech(
@@ -115,10 +119,7 @@ public static class KnownTechHandler
             KnownTechPatcher.CompoundTech.Add(techType, new KnownTech.CompoundTech() { techType = techType, dependencies = compoundTechsForUnlock });
         }
         
-        if (Player.main)
-        {
-            KnownTechPatcher.InitializePrefix(Player.main.pdaData);
-        }
+        Reinitialize();
     }
 
     internal static void RemoveAnalysisSpecific(TechType targetTechType, List<TechType> techTypes)
@@ -138,44 +139,32 @@ public static class KnownTechHandler
             }
         }
         
-        if (Player.main)
-        {
-            KnownTechPatcher.InitializePrefix(Player.main.pdaData);
-        }
+        Reinitialize();
     }
 
     internal static void RemoveAnalysisTechEntry(TechType targetTechType)
     {
         foreach (KnownTech.AnalysisTech tech in KnownTechPatcher.AnalysisTech.Values)
         {
-            if (tech.unlockTechTypes.Contains(targetTechType))
+            if (tech.unlockTechTypes.Remove(targetTechType))
             {
                 InternalLogger.Debug($"Removed {targetTechType.AsString()} from {tech.techType.AsString()} unlocks that was added by another mod!");
-                tech.unlockTechTypes.Remove(targetTechType);
             }
         }
 
-        if (KnownTechPatcher.CompoundTech.TryGetValue(targetTechType, out KnownTech.CompoundTech types))
+        if (KnownTechPatcher.CompoundTech.Remove(targetTechType))
         {
             InternalLogger.Debug($"Removed Compound Unlock for {targetTechType.AsString()} that was added by another mod!");
-            KnownTechPatcher.CompoundTech.Remove(targetTechType);
         }
 
-        if (KnownTechPatcher.UnlockedAtStart.Contains(targetTechType))
+        if (KnownTechPatcher.UnlockedAtStart.Remove(targetTechType))
         {
             InternalLogger.Debug($"Removed UnlockedAtStart for {targetTechType.AsString()} that was added by another mod!");
-            KnownTechPatcher.UnlockedAtStart.Remove(targetTechType);
         }
 
-        if (!KnownTechPatcher.RemovalTechs.Contains(targetTechType))
-        {
-            KnownTechPatcher.RemovalTechs.Add(targetTechType);
-        }
+        KnownTechPatcher.RemovalTechs.Add(targetTechType);
         
-        if (Player.main)
-        {
-            KnownTechPatcher.InitializePrefix(Player.main.pdaData);
-        }
+        Reinitialize();
     }
 
 
