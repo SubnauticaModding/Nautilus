@@ -13,11 +13,11 @@ internal class KnownTechPatcher
 
     internal static HashSet<TechType> UnlockedAtStart = new();
     internal static HashSet<TechType> LockedWithNoUnlocks = new();
+    internal static HashSet<TechType> RemovalTechs = new();
     internal static IDictionary<TechType, KnownTech.AnalysisTech> AnalysisTech = new SelfCheckingDictionary<TechType, KnownTech.AnalysisTech>("AnalysisTech", AsStringFunction);
     internal static IDictionary<TechType, List<TechType>> BlueprintRequirements = new SelfCheckingDictionary<TechType, List<TechType>>("BlueprintRequirements", AsStringFunction);
     internal static IDictionary<TechType, KnownTech.CompoundTech> CompoundTech = new SelfCheckingDictionary<TechType, KnownTech.CompoundTech>("CompoundTech", AsStringFunction);
     internal static IDictionary<TechType, List<TechType>> RemoveFromSpecificTechs = new SelfCheckingDictionary<TechType, List<TechType>>("RemoveFromSpecificTechs", AsStringFunction);
-    internal static List<TechType> RemovalTechs = new();
 
     public static void Patch(Harmony harmony)
     {
@@ -91,6 +91,28 @@ internal class KnownTechPatcher
             {
                 InternalLogger.Debug($"Replacing compoundTech for {tech.techType}");
                 data.compoundTech[index] = tech;
+            }
+        }
+        
+        foreach (var analysisTech in data.analysisTech)
+        {
+            foreach (var removalTech in RemovalTechs)
+            {
+                if (analysisTech.unlockTechTypes.Remove(removalTech))
+                {
+                    InternalLogger.Debug($"RemovalTechs: Removed unlockTechType '{removalTech}' from '{analysisTech.techType}' AnalysisTech.");
+                }
+            }
+
+            if (RemoveFromSpecificTechs.TryGetValue(analysisTech.techType, out var techsToRemove))
+            {
+                foreach (var removalTech in techsToRemove)
+                {
+                    if (analysisTech.unlockTechTypes.Remove(removalTech))
+                    {
+                        InternalLogger.Debug($"RemoveFromSpecificTechs: Removed unlockTechType '{removalTech}' from '{analysisTech.techType}' AnalysisTech.");
+                    }
+                }
             }
         }
     }
