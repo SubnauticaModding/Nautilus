@@ -151,7 +151,8 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
                 }
             }
         }
-        base.BuildModOptions(panel, modsTabIndex, Options);
+        
+        base.BuildModOptions(panel, modsTabIndex, options);
     }
 
     /// <summary>
