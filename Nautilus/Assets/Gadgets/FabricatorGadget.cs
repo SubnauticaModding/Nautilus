@@ -17,7 +17,6 @@ namespace Nautilus.Assets.Gadgets;
 public class FabricatorGadget : Gadget
 {
     private const string RootNode = "root";
-    private readonly Dictionary<string, ModCraftTreeLinkingNode> _craftTreeLinkingNodes = new();
     private readonly List<Action> _orderedCraftTreeActions = new();
 
     /// <summary>
@@ -38,7 +37,6 @@ public class FabricatorGadget : Gadget
     {
         CraftTreeType = EnumHandler.AddEntry<CraftTree.Type>(prefab.Info.ClassID).CreateCraftTreeRoot(out var root);
         Root = root;
-        _craftTreeLinkingNodes.Add(RootNode, root);
     }
 
     /// <summary>
@@ -54,9 +52,9 @@ public class FabricatorGadget : Gadget
     {
         _orderedCraftTreeActions.Add(() =>
         {
-            var parentNode = _craftTreeLinkingNodes[parentTabId ?? RootNode];
+            var parentNode = Root.CraftTreeLinkingNodes[parentTabId ?? RootNode];
             var tab = parentNode.AddTabNode(tabId, displayText, tabIcon, language);
-            _craftTreeLinkingNodes[tabId] = tab;
+            Root.CraftTreeLinkingNodes[tabId] = tab;
         });
 
         return this;
@@ -73,7 +71,7 @@ public class FabricatorGadget : Gadget
         InternalLogger.Debug($"'{techType.AsString()}' will be added to the custom craft tree '{prefab.Info.ClassID}'");
         _orderedCraftTreeActions.Add(() =>
         {
-            ModCraftTreeLinkingNode parentTab = _craftTreeLinkingNodes[parentTabId ?? RootNode];
+            ModCraftTreeLinkingNode parentTab = Root.CraftTreeLinkingNodes[parentTabId ?? RootNode];
             parentTab.AddCraftingNode(techType);
         });
 
@@ -94,7 +92,7 @@ public class FabricatorGadget : Gadget
         {
             if (EnumHandler.TryGetValue(moddedTechType, out TechType techType))
             {
-                ModCraftTreeLinkingNode parentTab = _craftTreeLinkingNodes[parentTabId ?? RootNode];
+                ModCraftTreeLinkingNode parentTab = Root.CraftTreeLinkingNodes[parentTabId ?? RootNode];
                 parentTab.AddCraftingNode(techType);
             }
             else
