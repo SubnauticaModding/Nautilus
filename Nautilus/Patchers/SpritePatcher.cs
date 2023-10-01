@@ -46,11 +46,13 @@ internal class SpritePatcher
 #elif BELOWZERO
             MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
 #endif
+        MethodInfo spriteManagerGetWithNoDefault = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetWithNoDefault), new Type[] { typeof(SpriteManager.Group), typeof(string) });
         MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
 
         HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
         HarmonyMethod patchBackgrounds = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
         harmony.Patch(spriteManagerGet, prefix: patchCheck);
+        harmony.Patch(spriteManagerGetWithNoDefault, prefix: patchCheck);
         harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
     }
 
