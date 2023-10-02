@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">    <Import Project="..\Version.targets" />
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+        <RootNamespace>NautilusFirst</RootNamespace>
+        <AssemblyName>NautilusFirst</AssemblyName>
+        <LangVersion>11</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Optimize>true</Optimize>
+        <Configurations>SN.STABLE;BZ.STABLE</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        <Copyright>Copyright @ 2023</Copyright>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
+        <OutputPath>bin\SN.STABLE\</OutputPath>
+        <DefineConstants>SUBNAUTICA;SUBNAUTICA_STABLE</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
+        <OutputPath>bin\BZ.STABLE\</OutputPath>
+        <DefineConstants>BELOWZERO;BELOWZERO_STABLE</DefineConstants>
+    </PropertyGroup>
+    <ItemDefinitionGroup>
+        <PackageReference ExcludeAssets="runtime" />
+    </ItemDefinitionGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+        <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+        <PackageReference Include="PolySharp" Version="1.13.1" PrivateAssets="all" />
+
+    </ItemGroup>
+</Project>
