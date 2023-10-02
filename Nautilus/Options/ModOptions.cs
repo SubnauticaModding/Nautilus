@@ -63,7 +63,13 @@ public abstract class ModOptions
 
     internal void AddOptionsToPanel(uGUI_TabbedControlsPanel panel, int modsTabIndex)
     {
-        BuildModOptions(panel, modsTabIndex, Options);
+        /*
+         * Since Subnautica runs on a very old CLR, iterating on a list that is changed in the loop throws an exception.
+         * To prevent the mistake of calling RemoveItem or AddItem while iterating on the Options property, we pass a copy of
+         * The Options property.
+         */ 
+        var options = Options.ToList();
+        BuildModOptions(panel, modsTabIndex, options);
     }
 
     /// <summary>
