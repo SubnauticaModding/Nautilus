@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UploadHelper", "UploadHelper\UploadHelper.csproj", "{1D6AED20-87CC-4756-8E6A-1E8A10E16EB1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NautilusFirst", "NautilusFirst\NautilusFirst.csproj", "{D426C2E5-C13A-41DD-ACC9-401741C63A9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nautilus.Priority", "Nautilus.Priority\Nautilus.Priority.csproj", "{D426C2E5-C13A-41DD-ACC9-401741C63A9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

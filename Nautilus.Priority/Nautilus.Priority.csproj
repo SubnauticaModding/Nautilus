@@ -3,8 +3,8 @@
         <TargetFramework>net472</TargetFramework>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-        <RootNamespace>NautilusFirst</RootNamespace>
-        <AssemblyName>NautilusFirst</AssemblyName>
+        <RootNamespace>Nautilus.Priority</RootNamespace>
+        <AssemblyName>Nautilus.Priority</AssemblyName>
         <LangVersion>11</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Optimize>true</Optimize>

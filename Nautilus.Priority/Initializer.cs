@@ -1,4 +1,4 @@
-namespace NautilusFirst;
+namespace Nautilus.Priority;
 
 using BepInEx;
 using HarmonyLib;
@@ -14,7 +14,7 @@ public static class Initializer
     internal static string PatcherPath => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
     private const string NautilusGUID = "com.snmodding.nautilus";
-    private const string GUID = "NautilusFirst";
+    private const string GUID = "com.snmodding.nautilus.priority";
 
     [Obsolete("Should not be used!", true)]
     public static void Finish()
