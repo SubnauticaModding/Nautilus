@@ -1,3 +1,5 @@
+namespace Nautilus.Patchers;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -6,8 +8,6 @@ using HarmonyLib;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-
-namespace Nautilus.Patchers;
 
 internal class CraftTreePatcher
 {
