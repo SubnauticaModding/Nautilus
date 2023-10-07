@@ -71,20 +71,26 @@ internal class CraftTreePatcher
 
     private static void CreateVanillaTabNode(CraftTree.Type treeType, string DisplayName, TechType spriteTechType, TreeNode root)
     {
-        CraftTreeHandler.AddTabNode(treeType, VanillaRoot, DisplayName, SpriteManager.Get(spriteTechType));
-
         var removedNodes = new List<CraftNode>();
         foreach (var node in root.nodes.Cast<CraftNode>())
         {
+            if (node.action == TreeAction.Expand)
+                continue;
+
             CraftTreeHandler.RemoveNode(treeType, new[] { node.id });
             removedNodes.Add(node);
         }
 
+        if(removedNodes.Count == 0)
+            return;
+
+        CraftTreeHandler.AddTabNode(treeType, VanillaRoot, DisplayName, SpriteManager.Get(spriteTechType));
         foreach (var node in removedNodes)
         {
+            InternalLogger.Debug($"Moved {node.techType0} from {treeType} root into new {VanillaRoot} tab.");
             CraftTreeHandler.AddCraftingNode(treeType, node.techType0, new[] { VanillaRoot });
         }
-        InternalLogger.Debug($"Reorganized {treeType} nodes into new {VanillaRoot} tab.");
+        InternalLogger.Debug($"Reorganized {removedNodes.Count} {treeType} nodes into new {VanillaRoot} tab.");
     }
 
     [HarmonyPrefix]
