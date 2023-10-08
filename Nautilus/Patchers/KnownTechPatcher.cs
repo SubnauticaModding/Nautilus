@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using HarmonyLib;
-using Nautilus.Handlers;
-using Nautilus.Utility;
+﻿namespace Nautilus.Patchers;
 
-namespace Nautilus.Patchers;
+using System;
+using System.Collections.Generic;
+using HarmonyLib;
+using Handlers;
+using Utility;
 
 internal class KnownTechPatcher
 {
@@ -31,16 +30,20 @@ internal class KnownTechPatcher
     internal static void Reinitialize()
     {
         // At this point the KnownTech stuff haven't been initialized yet, so no need to re-patch.
-        if (!Player.main)
+        if (!KnownTech.initialized)
         {
             return;
         }
 
-        var pdaData = Player.main.pdaData;
-        InitializePrefix(pdaData);
-        KnownTech.AddRange(pdaData.defaultTech, false);
+        var knownTech = KnownTech.knownTech;
+        var knownCompound = KnownTech.knownCompoundTech;
+        var pdaData = UnityEngine.Object.Instantiate(Player.main.pdaData);
+        KnownTech.Initialize(pdaData);
         KnownTech.compoundTech = KnownTech.ValidateCompoundTech(pdaData.compoundTech);
         KnownTech.analysisTech = KnownTech.ValidateAnalysisTech(pdaData.analysisTech);
+        KnownTech.knownTech.AddRange(knownTech);
+        knownCompound.ForEach(x => knownCompound.Add(x.Key, x.Value));
+        KnownTech.AddRange(pdaData.defaultTech, false);
     }
 
     private static void InitializePrefix(PDAData data)
