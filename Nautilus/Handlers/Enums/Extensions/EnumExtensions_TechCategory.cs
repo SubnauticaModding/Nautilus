@@ -21,7 +21,7 @@ public static partial class EnumExtensions
         if (!string.IsNullOrEmpty(displayName))
         {
             LanguageHandler.SetLanguageLine("TechCategory" + name, displayName, language);
-            uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = "TechCategory" + displayName;
+            uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = "TechCategory" + name;
             return builder;
         }
 
