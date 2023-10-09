@@ -42,7 +42,7 @@ internal class KnownTechPatcher
         KnownTech.compoundTech = KnownTech.ValidateCompoundTech(pdaData.compoundTech);
         KnownTech.analysisTech = KnownTech.ValidateAnalysisTech(pdaData.analysisTech);
         KnownTech.knownTech.AddRange(knownTech);
-        knownCompound.ForEach(x => knownCompound.Add(x.Key, x.Value));
+        knownCompound.ForEach(x => KnownTech.knownCompoundTech.Add(x.Key, x.Value));
         KnownTech.AddRange(pdaData.defaultTech, false);
     }
 
