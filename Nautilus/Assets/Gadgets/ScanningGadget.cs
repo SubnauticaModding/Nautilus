@@ -33,7 +33,7 @@ public class ScanningGadget : Gadget
     /// <summary>
     /// The main group in the PDA blueprints where this item appears.
     /// </summary>
-    public TechGroup GroupForPda { get; set; }
+    public TechGroup GroupForPda { get; set; } = TechGroup.Uncategorized;
     
     /// <summary>
     /// The category within the group in the PDA blueprints where this item appears.
