@@ -72,13 +72,13 @@ internal class CraftTreePatcher
     private static void CreateVanillaTabNode(CraftTree.Type treeType, string DisplayName, TechType spriteTechType, TreeNode root)
     {
         var removedNodes = new List<CraftNode>();
-        foreach (var node in root.nodes.Cast<CraftNode>())
+        foreach (var node in root.nodes)
         {
-            if (node.action == TreeAction.Expand)
+            if(node is not CraftNode craftNode || craftNode.action == TreeAction.Expand)
                 continue;
 
             CraftTreeHandler.RemoveNode(treeType, new[] { node.id });
-            removedNodes.Add(node);
+            removedNodes.Add(craftNode);
         }
 
         if(removedNodes.Count == 0)
