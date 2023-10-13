@@ -60,7 +60,10 @@ public class CloneTemplate : PrefabTemplate
         _techTypeToClone = techTypeToClone;
         _classIdToClone = classIdToClone;
         _prefabToClone = prefabToClone;
-        _spawnType = techTypeToClone != TechType.None ? SpawnType.TechType : string.IsNullOrWhiteSpace(classIdToClone) ? prefabToClone != null ? SpawnType.Prefab : throw new System.Exception("CloneTemplate Missing valid identifier.") : SpawnType.ClassId;
+        _spawnType = techTypeToClone is not TechType.None ? SpawnType.TechType
+            : !string.IsNullOrWhiteSpace(classIdToClone) ? SpawnType.ClassId
+            : prefabToClone is not null ? SpawnType.Prefab
+            : throw new System.Exception("CloneTemplate Missing valid identifier.");
     }
 
     /// <summary>
