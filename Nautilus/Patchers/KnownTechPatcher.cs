@@ -75,7 +75,7 @@ internal class KnownTechPatcher
             var index = data.analysisTech.FindIndex(tech => tech.techType == blueprintRequirements.Key);
             if (index == -1)
             {
-                InternalLogger.Error($"TechType '{blueprintRequirements.Key.AsString()}' does not have an analysis tech. Cancelling requirement addition.");
+                InternalLogger.Error($"TechType '{blueprintRequirements.Key.AsString()}' does not have an analysis tech. Cancelling requirement addition for TechTypes '{blueprintRequirements.Value.Join()}'.");
                 continue;
             }
             
