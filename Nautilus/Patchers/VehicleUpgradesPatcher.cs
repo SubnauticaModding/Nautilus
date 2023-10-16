@@ -361,7 +361,7 @@ internal class VehicleUpgradesPatcher
     // 
     public static void SeamothDelegateUse(SeaMoth __instance, ref float cooldown, int slotID, TechType techType)
     {
-        if (!SeamothUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab))
+        if (!SeamothUpgradeModules.TryGetValue(techType, out ICustomPrefab prefab) && !VehicleUpgradeModules.TryGetValue(techType, out prefab))
             return;
 
         if (!prefab.TryGetGadget(out UpgradeModuleGadget moduleGadget))
