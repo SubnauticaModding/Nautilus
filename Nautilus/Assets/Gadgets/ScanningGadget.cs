@@ -14,7 +14,10 @@ namespace Nautilus.Assets.Gadgets;
 /// </summary>
 public class ScanningGadget : Gadget
 {
-    private bool _isBuildable;
+    /// <summary>
+    /// Classifies this item as buildable via the habitat builder.
+    /// </summary>
+    public bool IsBuildable { get; set; }
 
     /// <summary>
     /// The blueprint that must first be scanned or picked up to unlocked this item.
@@ -184,7 +187,7 @@ public class ScanningGadget : Gadget
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public ScanningGadget SetBuildable(bool isBuildable = true)
     {
-        _isBuildable = isBuildable;
+        IsBuildable = isBuildable;
         return this;
     }
 
@@ -320,7 +323,7 @@ public class ScanningGadget : Gadget
                 InternalLogger.Error($"Failed to add {prefab.Info.TechType.AsString()} to {GroupForPda}/{CategoryForPda} as it is not a registered combination.");
             }
             
-            if (_isBuildable)
+            if (IsBuildable)
                 CraftDataHandler.AddBuildable(prefab.Info.TechType);
         }
 

@@ -89,11 +89,8 @@ public class CraftingGadget : Gadget
         
         CraftDataHandler.SetRecipeData(prefab.Info.TechType, RecipeData);
         
-        if (FabricatorType == CraftTree.Type.None)
-        {
-            InternalLogger.Log($"Prefab '{prefab.Info.ClassID}' was not automatically registered into a crafting tree.");
-        }
-        else
+        
+        if (FabricatorType is not CraftTree.Type.None)
         {
             if (StepsToFabricatorTab == null || StepsToFabricatorTab.Length == 0)
             {
@@ -103,6 +100,11 @@ public class CraftingGadget : Gadget
             {
                 CraftTreeHandler.AddCraftingNode(FabricatorType, prefab.Info.TechType, StepsToFabricatorTab);
             }
+            
+        }
+        else if (!prefab.TryGetGadget(out ScanningGadget scanningGadget) || !scanningGadget.IsBuildable)
+        {
+            InternalLogger.Log($"Prefab '{prefab.Info.ClassID}' was not automatically registered into a crafting tree.");
         }
 
         if (CraftingTime >= 0f)
