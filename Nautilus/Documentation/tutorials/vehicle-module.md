@@ -109,7 +109,7 @@ prefab.SetVehicleUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.Select
     })
     .WithOnModuleUsed((Vehicle inst, int slotID, float charge, float chargeScalar) =>
     {
-        if (charge != maxCharge)
+        if (charge < maxCharge)
         {
             Subtitles.Add("Self-destruction sequence disengaged.")
             return;
