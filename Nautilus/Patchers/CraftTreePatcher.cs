@@ -34,17 +34,28 @@ internal class CraftTreePatcher
 
     private static void CreateFallbackNodes()
     {
+        // Workbench
         CreateVanillaTabNode(CraftTree.Type.Workbench, "Modification Station", TechType.Workbench, CraftTree.WorkbenchScheme().root);
         CraftTreeHandler.AddTabNode(CraftTree.Type.Workbench, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Workbench));
+
+        // Fabricator
         CraftTreeHandler.AddTabNode(CraftTree.Type.Fabricator, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Fabricator));
+
+        // Constructor
         CraftTreeHandler.AddTabNode(CraftTree.Type.Constructor, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Constructor));
+
+        // Seamoth Upgrades
         CraftTreeHandler.AddTabNode(CraftTree.Type.SeamothUpgrades, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.BaseUpgradeConsole));
+
+        // Map Room
         CreateVanillaTabNode(CraftTree.Type.MapRoom, "Scanner Upgrades", TechType.BaseMapRoom, CraftTree.MapRoomSheme().root);
         CraftTreeHandler.AddTabNode(CraftTree.Type.MapRoom, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.BaseMapRoom));
 #if SUBNAUTICA
+        // Cyclops Fabricator
         CreateVanillaTabNode(CraftTree.Type.CyclopsFabricator, "Cyclops Fabricator", TechType.Cyclops, CraftTree.CyclopsFabricatorScheme().root);
         CraftTreeHandler.AddTabNode(CraftTree.Type.CyclopsFabricator, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Cyclops));
 #elif BELOWZERO
+        // SeaTruck Fabricator
         CraftTreeHandler.AddTabNode(CraftTree.Type.SeaTruckFabricator, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.SeaTruckFabricator));
 #endif
     }
