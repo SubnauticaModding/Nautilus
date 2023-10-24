@@ -34,39 +34,19 @@ internal class CraftTreePatcher
 
     private static void CreateFallbackNodes()
     {
-        Enum.GetValues(typeof(CraftTree.Type)).Cast<CraftTree.Type>().ToList().ForEach(x =>
-        {
-            switch (x)
-            {
-                case CraftTree.Type.Workbench:
-                    CreateVanillaTabNode(x, "Modification Station", TechType.Workbench, CraftTree.WorkbenchScheme().root);
-                    CraftTreeHandler.AddTabNode(x, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Workbench));
-                    break;
-                case CraftTree.Type.Fabricator:
-                    CraftTreeHandler.AddTabNode(x, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Fabricator));
-                    break;
-                case CraftTree.Type.Constructor:
-                    CraftTreeHandler.AddTabNode(x, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Constructor));
-                    break;
-                case CraftTree.Type.SeamothUpgrades:
-                    CraftTreeHandler.AddTabNode(x, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.BaseUpgradeConsole));
-                    break;
-                case CraftTree.Type.MapRoom:
-                    CreateVanillaTabNode(x, "Scanner Upgrades", TechType.BaseMapRoom, CraftTree.MapRoomSheme().root);
-                    CraftTreeHandler.AddTabNode(x, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.BaseMapRoom));
-                    break;
+        CreateVanillaTabNode(CraftTree.Type.Workbench, "Modification Station", TechType.Workbench, CraftTree.WorkbenchScheme().root);
+        CraftTreeHandler.AddTabNode(CraftTree.Type.Workbench, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Workbench));
+        CraftTreeHandler.AddTabNode(CraftTree.Type.Fabricator, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Fabricator));
+        CraftTreeHandler.AddTabNode(CraftTree.Type.Constructor, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Constructor));
+        CraftTreeHandler.AddTabNode(CraftTree.Type.SeamothUpgrades, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.BaseUpgradeConsole));
+        CreateVanillaTabNode(CraftTree.Type.MapRoom, "Scanner Upgrades", TechType.BaseMapRoom, CraftTree.MapRoomSheme().root);
+        CraftTreeHandler.AddTabNode(CraftTree.Type.MapRoom, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.BaseMapRoom));
 #if SUBNAUTICA
-                case CraftTree.Type.CyclopsFabricator:
-                    CreateVanillaTabNode(x, "Cyclops Fabricator", TechType.Cyclops, CraftTree.CyclopsFabricatorScheme().root);
-                    CraftTreeHandler.AddTabNode(x, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Cyclops));
-                    break;
+        CreateVanillaTabNode(CraftTree.Type.CyclopsFabricator, "Cyclops Fabricator", TechType.Cyclops, CraftTree.CyclopsFabricatorScheme().root);
+        CraftTreeHandler.AddTabNode(CraftTree.Type.CyclopsFabricator, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.Cyclops));
 #elif BELOWZERO
-                    case CraftTree.Type.SeaTruckFabricator:
-                    CraftTreeHandler.AddTabNode(x, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.SeaTruckFabricator));
-                        break;
+        CraftTreeHandler.AddTabNode(CraftTree.Type.SeaTruckFabricator, FallbackTabNode, "Unsorted Mod Items", SpriteManager.Get(TechType.SeaTruckFabricator));
 #endif
-            }
-        });
     }
 
     private static void CreateVanillaTabNode(CraftTree.Type treeType, string DisplayName, TechType spriteTechType, TreeNode root)
@@ -74,14 +54,14 @@ internal class CraftTreePatcher
         var removedNodes = new List<CraftNode>();
         foreach (var node in root.nodes)
         {
-            if(node is not CraftNode craftNode || craftNode.action == TreeAction.Expand)
+            if (node is not CraftNode craftNode || craftNode.action == TreeAction.Expand)
                 continue;
 
             CraftTreeHandler.RemoveNode(treeType, new[] { node.id });
             removedNodes.Add(craftNode);
         }
 
-        if(removedNodes.Count == 0)
+        if (removedNodes.Count == 0)
             return;
 
         CraftTreeHandler.AddTabNode(treeType, VanillaRoot, DisplayName, SpriteManager.Get(spriteTechType));
@@ -250,7 +230,7 @@ internal class CraftTreePatcher
 
     private static void RemoveNodes(ref CraftNode nodes, ref List<Node> nodesToRemove, CraftTree.Type scheme)
     {
-        var safelist = new List<Node>(nodesToRemove).OrderByDescending(x=>x.Path.Length);
+        var safelist = new List<Node>(nodesToRemove).OrderByDescending(x => x.Path.Length);
         // This method can be used to both remove single child nodes, thus removing one recipe from the tree.
         // Or it can remove entire tabs at once, removing the tab and all the recipes it contained in one go.
 
