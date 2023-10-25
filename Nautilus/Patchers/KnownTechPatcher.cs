@@ -12,6 +12,7 @@ internal class KnownTechPatcher
 
     internal static HashSet<TechType> UnlockedAtStart = new();
     internal static HashSet<TechType> LockedWithNoUnlocks = new();
+    internal static HashSet<TechType> HardLocked = new();
     internal static HashSet<TechType> RemovalTechs = new();
     internal static IDictionary<TechType, KnownTech.AnalysisTech> AnalysisTech = new SelfCheckingDictionary<TechType, KnownTech.AnalysisTech>("AnalysisTech", AsStringFunction);
     internal static IDictionary<TechType, List<TechType>> BlueprintRequirements = new SelfCheckingDictionary<TechType, List<TechType>>("BlueprintRequirements", AsStringFunction);
@@ -129,5 +130,6 @@ internal class KnownTechPatcher
     {
         var filtered = CraftData.FilterAllowed(LockedWithNoUnlocks);
         __result.AddRange(filtered);
+        __result.RemoveRange(HardLocked);
     }
 }

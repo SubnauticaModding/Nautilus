@@ -38,6 +38,20 @@ public static class KnownTechHandler
         Reinitialize();
     }
 
+    /// <summary>
+    /// Makes the specified tech type hard locked. Hard locking means that the tech type will not be unlocked via the unlockall command and will not be unlocked by default
+    /// in creative. 
+    /// </summary>
+    /// <remarks>Calling this method will remove the specified item from being unlocked at start.</remarks>
+    /// <param name="techType">The tech type to set as hard locked.</param>
+    /// <seealso cref="UnlockOnStart"/>
+    public static void SetHardLocked(TechType techType)
+    {
+        KnownTechPatcher.HardLocked.Add(techType);
+        KnownTechPatcher.UnlockedAtStart.Remove(techType);
+        Reinitialize();
+    }
+
     internal static void AddAnalysisTech(KnownTech.AnalysisTech analysisTech)
     {
         if (analysisTech.techType != TechType.None)

@@ -17,7 +17,12 @@ public class ScanningGadget : Gadget
     /// <summary>
     /// Classifies this item as buildable via the habitat builder.
     /// </summary>
-    public bool IsBuildable { get; set; }
+    public bool IsBuildable { get; private set; }
+    
+    /// <summary>
+    /// Marks this item as hard locked.
+    /// </summary>
+    public bool IsHardLocked { get; private set; }
 
     /// <summary>
     /// The blueprint that must first be scanned or picked up to unlocked this item.
@@ -192,6 +197,18 @@ public class ScanningGadget : Gadget
     }
 
     /// <summary>
+    /// Makes this item hard locked. Hard locked items are not unlocked by default even in creative and can't be unlocked using the `unlockall` command.
+    /// </summary>
+    /// <param name="isHardLocked">Should this item be hard locked?</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public ScanningGadget SetHardLocked(bool isHardLocked = true)
+    {
+        IsHardLocked = isHardLocked;
+
+        return this;
+    }
+
+    /// <summary>
     /// <para>Adds an encyclopedia entry for this item in the PDA. This method does not ask for display text, for that you must use the <see cref="LanguageHandler"/>.</para>
     /// <para>The encyclopedia entry's key will be set as the TechType string.</para>
     /// <para>The language keys for this ency are as as follows: "Ency_{TechType}" (title) and "EncyDesc_{TechType}" (description), i.e. "Ency_Peeper".</para>
@@ -362,6 +379,11 @@ public class ScanningGadget : Gadget
             (CompoundTechsForUnlock is null || CompoundTechsForUnlock.Count <= 0) && RequiredForUnlock == TechType.None && ScannerEntryData is null)
         {
             KnownTechPatcher.LockedWithNoUnlocks.Add(prefab.Info.TechType);
+        }
+
+        if (IsHardLocked)
+        {
+            KnownTechHandler.SetHardLocked(prefab.Info.TechType);
         }
     }
 }
