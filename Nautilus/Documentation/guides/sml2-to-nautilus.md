@@ -9,6 +9,11 @@ The root namespace for Nautilus is not the same as SMLHelper 2.0.
 <span class="lang-diff-add">+ &lt;RootNamespace&gt;Nautilus&lt;/RootNamespace&gt;</span>
 </pre>
 
+## Referencing
+In BepInEx, we no longer use a `mod.json` file to determine dependencies. Instead, this is done via the `[BepInDependency]` attribute.
+You can mark Nautilus as a dependency to your mod by simply adding the `[BepInDependency("com.snmodding.nautilus")]` attribute at the top of your entry point class. [Example](https://github.com/SubnauticaModding/Nautilus/blob/master/Example%20mod/CustomPrefabExamples.cs#L11)
+
+For more information on the new development setup, please visit our [Development Setup Guide](dev-setup.md).
 
 ## Handlers
 
