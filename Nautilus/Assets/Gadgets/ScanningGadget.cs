@@ -285,7 +285,29 @@ public class ScanningGadget : Gadget
 
         return this;
     }
+    
+    /// <summary>
+    /// Adds additional info on what should happen when this item is unlocked.
+    /// </summary>
+    /// <param name="popupSprite">The sprite that should popup on unlock.</param>
+    /// <param name="unlockSound">The sound that will be played on unlock.</param>
+    /// <param name="unlockMessage">Message which should be shown on unlock.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public ScanningGadget WithAnalysisTech(
+        Sprite popupSprite, 
+        FMODAsset unlockSound = null, 
+        string unlockMessage = null
+    )
+    {
+        return WithAnalysisTech(new KnownTech.AnalysisTech
+        {
+            unlockPopup = popupSprite,
+            unlockSound = unlockSound,
+            unlockMessage = unlockMessage
+        });
+    }
 
+#if SUBNAUTICA
     /// <summary>
     /// Adds additional info on what should happen when this item is unlocked.
     /// </summary>
@@ -296,24 +318,34 @@ public class ScanningGadget : Gadget
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public ScanningGadget WithAnalysisTech(
         Sprite popupSprite, 
-#if SUBNAUTICA
         List<StoryGoal> storyGoalsToTrigger = null,
-#endif
         FMODAsset unlockSound = null, 
         string unlockMessage = null
         )
     {
-        AnalysisTech ??= new KnownTech.AnalysisTech();
+        return WithAnalysisTech(new KnownTech.AnalysisTech
+        {
+            unlockPopup = popupSprite,
+            storyGoals = storyGoalsToTrigger,
+            unlockSound = unlockSound,
+            unlockMessage = unlockMessage
+        });
+    }
+#endif
+
+    private ScanningGadget WithAnalysisTech(KnownTech.AnalysisTech analysisTech)
+    {
+        AnalysisTech = analysisTech;
         AnalysisTech.techType = prefab.Info.TechType;
         AnalysisTech.unlockTechTypes = RequiredForUnlock != TechType.None
             ? new() { prefab.Info.TechType }
             : new();
-        AnalysisTech.unlockPopup = popupSprite;
+        AnalysisTech.unlockPopup = analysisTech.unlockPopup;
 #if SUBNAUTICA
-        AnalysisTech.storyGoals = storyGoalsToTrigger ?? new();
+        AnalysisTech.storyGoals = analysisTech.storyGoals ?? new();
 #endif
-        AnalysisTech.unlockSound = unlockSound;
-        AnalysisTech.unlockMessage = unlockMessage ?? KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage;
+        AnalysisTech.unlockSound = analysisTech.unlockSound;
+        AnalysisTech.unlockMessage = analysisTech.unlockMessage ?? KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage;
 
         return this;
     }
