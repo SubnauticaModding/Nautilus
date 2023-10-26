@@ -37,7 +37,7 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
         (
             classId, 
             classId + "Prefab",
-            EnumHandler.AddEntry<TechType>(classId, techTypeOwner).WithPdaInfo(null, null, unlockAtStart: unlockAtStart)
+            EnumHandler.AddEntry<TechType>(classId, techTypeOwner).WithPdaInfo(null, null, "English", unlockAtStart)
         );
     }
     

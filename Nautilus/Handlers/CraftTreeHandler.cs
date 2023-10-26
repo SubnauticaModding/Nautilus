@@ -63,8 +63,7 @@ public static class CraftTreeHandler
             root.AddTabNode(name, displayName, sprite);
             return;
         }
-        string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-        CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, modName, name, displayName));
+        CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
     }
 
     /// <summary>
@@ -82,8 +81,7 @@ public static class CraftTreeHandler
             root.AddTabNode(name, displayName, sprite);
             return;
         }
-        string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-        CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, new Atlas.Sprite(sprite), modName, name, displayName));
+        CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, new Atlas.Sprite(sprite), name, displayName));
     }
 
     /// <summary>
@@ -103,11 +101,10 @@ public static class CraftTreeHandler
     {
         if(CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
         {
-            root.AddTabNode(name, displayName, sprite, stepsToTab.LastOrDefault());
+            root.AddTabNode(name, displayName, sprite, "English", stepsToTab.LastOrDefault());
             return;
         }
-        string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-        CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, modName, name, displayName));
+        CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
     }
 
     /// <summary>
@@ -127,11 +124,10 @@ public static class CraftTreeHandler
     {
         if(CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
         {
-            root.AddTabNode(name, displayName, sprite, stepsToTab.LastOrDefault());
+            root.AddTabNode(name, displayName, sprite, "English", stepsToTab.LastOrDefault());
             return;
         }
-        string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-        CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, new Atlas.Sprite(sprite), modName, name, displayName));
+        CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, new Atlas.Sprite(sprite), name, displayName));
     }
 
 #elif BELOWZERO

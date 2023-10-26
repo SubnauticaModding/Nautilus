@@ -159,7 +159,7 @@ public class FabricatorTemplate : PrefabTemplate
                 }
             case Model.Workbench:
                 {
-                    var task = PrefabDatabase.GetPrefabAsync(CraftData.GetClassIdForTechType(TechType.Fabricator));
+                    var task = PrefabDatabase.GetPrefabAsync(CraftData.GetClassIdForTechType(TechType.Workbench));
                     yield return task;
                     if (task.TryGetPrefab(out var obj))
                         prefab.Set(obj);
