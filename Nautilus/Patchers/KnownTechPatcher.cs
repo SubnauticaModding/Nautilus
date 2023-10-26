@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using HarmonyLib;
-using Nautilus.Utility;
+﻿namespace Nautilus.Patchers;
 
-namespace Nautilus.Patchers;
+using System;
+using System.Collections.Generic;
+using HarmonyLib;
+using Handlers;
+using Utility;
 
 internal class KnownTechPatcher
 {
@@ -12,126 +12,116 @@ internal class KnownTechPatcher
 
     internal static HashSet<TechType> UnlockedAtStart = new();
     internal static HashSet<TechType> LockedWithNoUnlocks = new();
+    internal static HashSet<TechType> HardLocked = new();
+    internal static HashSet<TechType> RemovalTechs = new();
     internal static IDictionary<TechType, KnownTech.AnalysisTech> AnalysisTech = new SelfCheckingDictionary<TechType, KnownTech.AnalysisTech>("AnalysisTech", AsStringFunction);
+    internal static IDictionary<TechType, List<TechType>> BlueprintRequirements = new SelfCheckingDictionary<TechType, List<TechType>>("BlueprintRequirements", AsStringFunction);
     internal static IDictionary<TechType, KnownTech.CompoundTech> CompoundTech = new SelfCheckingDictionary<TechType, KnownTech.CompoundTech>("CompoundTech", AsStringFunction);
     internal static IDictionary<TechType, List<TechType>> RemoveFromSpecificTechs = new SelfCheckingDictionary<TechType, List<TechType>>("RemoveFromSpecificTechs", AsStringFunction);
-    internal static List<TechType> RemovalTechs = new();
-
-    private static FMODAsset UnlockSound;
 
     public static void Patch(Harmony harmony)
     {
         harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.Initialize)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(InitializePostfix))));
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(InitializePrefix))));
         
         harmony.Patch(AccessTools.Method(typeof(KnownTech), nameof(KnownTech.GetAllUnlockables)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(KnownTechPatcher), nameof(GetAllUnlockablesPostfix))));
     }
 
-    internal static void InitializePostfix()
+    internal static void Reinitialize()
     {
-        foreach(TechType techType in UnlockedAtStart)
+        // At this point the KnownTech stuff haven't been initialized yet, so no need to re-patch.
+        if (!KnownTech.initialized)
         {
-            if (!KnownTech.Contains(techType))
-            {
-                KnownTech.Add(techType, false);
-            }
+            return;
         }
 
-        List<KnownTech.AnalysisTech> analysisTech = KnownTech.analysisTech;
-        IEnumerable<KnownTech.AnalysisTech> techToAdd = AnalysisTech.Values.Where(a => !analysisTech.Any(a2 => a.techType == a2.techType));
+        var knownTech = KnownTech.knownTech;
+        var knownCompound = KnownTech.knownCompoundTech;
+        var pdaData = UnityEngine.Object.Instantiate(Player.main.pdaData);
+        KnownTech.Initialize(pdaData);
+        KnownTech.compoundTech = KnownTech.ValidateCompoundTech(pdaData.compoundTech);
+        KnownTech.analysisTech = KnownTech.ValidateAnalysisTech(pdaData.analysisTech);
+        KnownTech.knownTech.AddRange(knownTech);
+        knownCompound.ForEach(x => KnownTech.knownCompoundTech.Add(x.Key, x.Value));
+        KnownTech.AddRange(pdaData.defaultTech, false);
+    }
 
-        foreach (KnownTech.AnalysisTech tech in analysisTech)
-        { 
-            foreach(TechType techType in RemovalTechs)
-            {
-                if(tech.unlockTechTypes.Contains(techType))
-                {
-                    tech.unlockTechTypes.Remove(techType);
-                }
-            }
+    private static void InitializePrefix(PDAData data)
+    {
+        data.defaultTech.AddRange(UnlockedAtStart);
 
-            if(RemoveFromSpecificTechs.TryGetValue(tech.techType, out List<TechType> types))
-            {
-                foreach(TechType type in types)
-                {
-                    if(tech.unlockTechTypes.Contains(type))
-                    {
-                        tech.unlockTechTypes.Remove(type);
-                    }
-                }
-            }
-        }
-            
-        foreach (KnownTech.AnalysisTech tech in analysisTech)
+        foreach (var tech in AnalysisTech.Values)
         {
-            if (UnlockSound == null && tech.unlockSound != null && tech.techType == TechType.CreepvinePiece)
+            var index = data.analysisTech.FindIndex(analysisTech => analysisTech.techType == tech.techType);
+            if (index == -1)
             {
-                UnlockSound = tech.unlockSound;
+                InternalLogger.Debug($"Adding analysisTech for {tech.techType}");
+                data.analysisTech.Add(tech);
             }
-
-            foreach (KnownTech.AnalysisTech customTech in AnalysisTech.Values)
+            else
             {
-                if (tech.techType == customTech.techType)
-                {
-                    if (customTech.unlockTechTypes != null)
-                    {
-                        tech.unlockTechTypes.AddRange(customTech.unlockTechTypes.Where((x)=> !tech.unlockTechTypes.Contains(x)));
-                    }
-
-                    if (customTech.unlockSound != null)
-                    {
-                        tech.unlockSound = customTech.unlockSound;
-                    }
-
-                    if (customTech.unlockPopup != null)
-                    {
-                        tech.unlockPopup = customTech.unlockPopup;
-                    }
-
-                    if (customTech.unlockMessage != string.Empty)
-                    {
-                        tech.unlockMessage = customTech.unlockMessage;
-                    }
-                }
-            }
-        }
-
-        List<KnownTech.AnalysisTech> validatedTechsToAdd = KnownTech.ValidateAnalysisTech(new(techToAdd));
-        foreach (KnownTech.AnalysisTech tech in validatedTechsToAdd)
-        {
-            if (tech == null)
-            {
-                continue;
+                InternalLogger.Debug($"Replacing analysisTech for {tech.techType}");
+                data.analysisTech[index] = tech;
             }
 
             if (tech.unlockSound == null)
             {
-                tech.unlockSound = UnlockSound;
+                tech.unlockSound = KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound;
             }
-
-            analysisTech.Add(tech);
         }
 
-        List <KnownTech.CompoundTech> validatedCompoundTeches = KnownTech.ValidateCompoundTech(new(CompoundTech.Values));
-        foreach (KnownTech.CompoundTech customTech in validatedCompoundTeches)
+        foreach (var blueprintRequirements in BlueprintRequirements)
         {
-            if (customTech == null) // Safety check
+            var index = data.analysisTech.FindIndex(tech => tech.techType == blueprintRequirements.Key);
+            if (index == -1)
             {
+                InternalLogger.Error($"TechType '{blueprintRequirements.Key.AsString()}' does not have an analysis tech. Cancelling requirement addition for TechTypes '{blueprintRequirements.Value.Join()}'.");
                 continue;
             }
+            
+            data.analysisTech[index].unlockTechTypes.AddRange(blueprintRequirements.Value);
+        }
 
-            // Only add the new compound tech if it isn't unlocked yet 
-            if (!KnownTech.Contains(customTech.techType))
+        foreach (var tech in CompoundTech.Values)
+        {
+            var index = data.compoundTech.FindIndex(compoundTech => compoundTech.techType == tech.techType);
+            if (index == -1)
             {
-                KnownTech.compoundTech.Add(customTech);
+                InternalLogger.Debug($"Adding compoundTech for {tech.techType}");
+                data.compoundTech.Add(tech);
+            }
+            else
+            {
+                InternalLogger.Debug($"Replacing compoundTech for {tech.techType}");
+                data.compoundTech[index] = tech;
+            }
+        }
+        
+        foreach (var analysisTech in data.analysisTech)
+        {
+            foreach (var removalTech in RemovalTechs)
+            {
+                if (analysisTech.techType == removalTech)
+                {
+                    continue;
+                }
+                
+                if (analysisTech.unlockTechTypes.Remove(removalTech))
+                {
+                    InternalLogger.Debug($"RemovalTechs: Removed unlockTechType '{removalTech}' from '{analysisTech.techType}' AnalysisTech.");
+                }
             }
 
-            // If a compound tech already exists, set the dependencies correctly.
-            KnownTech.CompoundTech foundTech = KnownTech.compoundTech.Find(tech => tech.techType == customTech.techType);
-            if (foundTech != null)
+            if (RemoveFromSpecificTechs.TryGetValue(analysisTech.techType, out var techsToRemove))
             {
-                foundTech.dependencies = customTech.dependencies;
+                foreach (var removalTech in techsToRemove)
+                {
+                    if (analysisTech.unlockTechTypes.Remove(removalTech))
+                    {
+                        InternalLogger.Debug($"RemoveFromSpecificTechs: Removed unlockTechType '{removalTech}' from '{analysisTech.techType}' AnalysisTech.");
+                    }
+                }
             }
         }
     }
@@ -140,5 +130,6 @@ internal class KnownTechPatcher
     {
         var filtered = CraftData.FilterAllowed(LockedWithNoUnlocks);
         __result.AddRange(filtered);
+        __result.RemoveRange(HardLocked);
     }
 }

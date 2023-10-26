@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Nautilus.Handlers;
@@ -13,7 +14,15 @@ namespace Nautilus.Assets.Gadgets;
 /// </summary>
 public class ScanningGadget : Gadget
 {
-    private bool _isBuildable;
+    /// <summary>
+    /// Classifies this item as buildable via the habitat builder.
+    /// </summary>
+    public bool IsBuildable { get; private set; }
+    
+    /// <summary>
+    /// Marks this item as hard locked.
+    /// </summary>
+    public bool IsHardLocked { get; private set; }
 
     /// <summary>
     /// The blueprint that must first be scanned or picked up to unlocked this item.
@@ -183,7 +192,19 @@ public class ScanningGadget : Gadget
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public ScanningGadget SetBuildable(bool isBuildable = true)
     {
-        _isBuildable = isBuildable;
+        IsBuildable = isBuildable;
+        return this;
+    }
+
+    /// <summary>
+    /// Makes this item hard locked. Hard locked items are not unlocked by default even in creative and can't be unlocked using the `unlockall` command.
+    /// </summary>
+    /// <param name="isHardLocked">Should this item be hard locked?</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public ScanningGadget SetHardLocked(bool isHardLocked = true)
+    {
+        IsHardLocked = isHardLocked;
+
         return this;
     }
 
@@ -213,6 +234,31 @@ public class ScanningGadget : Gadget
 
         return this;
     }
+    
+    /// <summary>
+    /// Adds additional info on how the Scanner tool should treat this item when scanning it.
+    /// </summary>
+    /// <param name="blueprint">The blueprint that gets unlocked once this item is scanned.</param>
+    /// <param name="scanTime">The amount of seconds it takes to scan this item.</param>
+    /// <param name="isFragment">Is this a fragment?</param>
+    /// <param name="encyKey">The encyclopedia key to unlock once the scanning is completed.</param>
+    /// <param name="destroyAfterScan">Should this object be destroyed after a successful scan?</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public ScanningGadget WithScannerEntry(TechType blueprint, float scanTime, bool isFragment = false, string encyKey = null, bool destroyAfterScan = false)
+    {
+        ScannerEntryData = new PDAScanner.EntryData
+        {
+            key = prefab.Info.TechType,
+            encyclopedia = encyKey,
+            scanTime = scanTime,
+            destroyAfterScan = destroyAfterScan,
+            isFragment = isFragment,
+            blueprint = blueprint,
+            totalFragments = FragmentsToScan,
+        };
+
+        return this;
+    }
 
     /// <summary>
     /// Adds additional info on how the Scanner tool should treat this item when scanning it.
@@ -222,6 +268,8 @@ public class ScanningGadget : Gadget
     /// <param name="encyKey">The encyclopedia key to unlock once the scanning is completed.</param>
     /// <param name="destroyAfterScan">Should this object be destroyed after a successful scan?</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <remarks>This overload overrides the PDAScanner entry data for the <see cref="RequiredForUnlock"/>'s entry.</remarks>
+    [Obsolete("Deprecated; Use WithScannerEntry(TechType, float, bool, string, bool) overload instead.")]
     public ScanningGadget WithScannerEntry(float scanTime, bool isFragment = false, string encyKey = null, bool destroyAfterScan = false)
     {
         ScannerEntryData = new PDAScanner.EntryData
@@ -237,7 +285,29 @@ public class ScanningGadget : Gadget
 
         return this;
     }
+    
+    /// <summary>
+    /// Adds additional info on what should happen when this item is unlocked.
+    /// </summary>
+    /// <param name="popupSprite">The sprite that should popup on unlock.</param>
+    /// <param name="unlockSound">The sound that will be played on unlock.</param>
+    /// <param name="unlockMessage">Message which should be shown on unlock.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public ScanningGadget WithAnalysisTech(
+        Sprite popupSprite, 
+        FMODAsset unlockSound = null, 
+        string unlockMessage = null
+    )
+    {
+        return WithAnalysisTech(new KnownTech.AnalysisTech
+        {
+            unlockPopup = popupSprite,
+            unlockSound = unlockSound,
+            unlockMessage = unlockMessage
+        });
+    }
 
+#if SUBNAUTICA
     /// <summary>
     /// Adds additional info on what should happen when this item is unlocked.
     /// </summary>
@@ -248,26 +318,34 @@ public class ScanningGadget : Gadget
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public ScanningGadget WithAnalysisTech(
         Sprite popupSprite, 
-#if SUBNAUTICA
         List<StoryGoal> storyGoalsToTrigger = null,
-#endif
         FMODAsset unlockSound = null, 
         string unlockMessage = null
         )
     {
-        AnalysisTech ??= new KnownTech.AnalysisTech();
-        AnalysisTech.techType = RequiredForUnlock != TechType.None
-            ? RequiredForUnlock
-            : prefab.Info.TechType;
+        return WithAnalysisTech(new KnownTech.AnalysisTech
+        {
+            unlockPopup = popupSprite,
+            storyGoals = storyGoalsToTrigger,
+            unlockSound = unlockSound,
+            unlockMessage = unlockMessage
+        });
+    }
+#endif
+
+    private ScanningGadget WithAnalysisTech(KnownTech.AnalysisTech analysisTech)
+    {
+        AnalysisTech = analysisTech;
+        AnalysisTech.techType = prefab.Info.TechType;
         AnalysisTech.unlockTechTypes = RequiredForUnlock != TechType.None
             ? new() { prefab.Info.TechType }
             : new();
-        AnalysisTech.unlockPopup = popupSprite;
+        AnalysisTech.unlockPopup = analysisTech.unlockPopup;
 #if SUBNAUTICA
-        AnalysisTech.storyGoals = storyGoalsToTrigger ?? new();
+        AnalysisTech.storyGoals = analysisTech.storyGoals ?? new();
 #endif
-        AnalysisTech.unlockSound = unlockSound;
-        AnalysisTech.unlockMessage = unlockMessage ?? KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage;
+        AnalysisTech.unlockSound = analysisTech.unlockSound;
+        AnalysisTech.unlockMessage = analysisTech.unlockMessage ?? KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage;
 
         return this;
     }
@@ -294,7 +372,7 @@ public class ScanningGadget : Gadget
                 InternalLogger.Error($"Failed to add {prefab.Info.TechType.AsString()} to {GroupForPda}/{CategoryForPda} as it is not a registered combination.");
             }
             
-            if (_isBuildable)
+            if (IsBuildable)
                 CraftDataHandler.AddBuildable(prefab.Info.TechType);
         }
 
@@ -319,13 +397,13 @@ public class ScanningGadget : Gadget
             PDAHandler.AddCustomScannerEntry(ScannerEntryData);
         }
 
+        if (RequiredForUnlock != TechType.None)
+        {
+            KnownTechHandler.AddRequirementForUnlock(prefab.Info.TechType, RequiredForUnlock);
+        }
+
         if (CompoundTechsForUnlock is { Count: > 0 } || RequiredForUnlock != TechType.None)
         {
-            if (AnalysisTech is null && RequiredForUnlock != TechType.None)
-            {
-                KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new[] { prefab.Info.TechType }, KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage, KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound);
-            }
-
             KnownTechPatcher.UnlockedAtStart.Remove(prefab.Info.TechType);
         }
 
@@ -333,6 +411,11 @@ public class ScanningGadget : Gadget
             (CompoundTechsForUnlock is null || CompoundTechsForUnlock.Count <= 0) && RequiredForUnlock == TechType.None && ScannerEntryData is null)
         {
             KnownTechPatcher.LockedWithNoUnlocks.Add(prefab.Info.TechType);
+        }
+
+        if (IsHardLocked)
+        {
+            KnownTechHandler.SetHardLocked(prefab.Info.TechType);
         }
     }
 }
