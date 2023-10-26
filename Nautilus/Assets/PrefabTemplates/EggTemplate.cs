@@ -198,7 +198,7 @@ public class EggTemplate : PrefabTemplate
 #endif
 
         // eggs with undiscovered tech types shouldn't be unlocked by default at all, even on creative.
-        KnownTechPatcher.UnlockedAtStart.Remove(info.TechType);
+        KnownTechHandler.SetHardLocked(info.TechType);
 
         return this;
     }
