@@ -52,13 +52,13 @@ internal class ItemActionPatcher
         // See README.md for details.
 
         harmony.Patch(AccessTools.Method(typeof(uGUI_InventoryTab), nameof(uGUI_InventoryTab.OnPointerClick)), 
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(OnPointerClick_Prefix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.OnPointerClick_Prefix))));
 
         harmony.Patch(AccessTools.Method(typeof(Inventory), nameof(Inventory.ExecuteItemAction),new Type[] { typeof(ItemAction), typeof(InventoryItem) }), 
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ExecuteItemAction_Prefix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.ExecuteItemAction_Prefix))));
 
         harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemActions)), 
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActions_Postfix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance}));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.ItemActions_Postfix))));
 
         if (MiddleClickActions.Count > 0 && LeftClickActions.Count > 0)
         {

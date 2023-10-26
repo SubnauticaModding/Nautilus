@@ -16,7 +16,7 @@ public static partial class EnumExtensions
     /// <param name="language">The language for this entry. Defaults to English.</param>
     /// <param name="unlockAtStart">Whether this instance should be unlocked on game start or not.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static EnumBuilder<TechType> WithPdaInfo(this EnumBuilder<TechType> builder, string displayName, string tooltip, string language = "English", bool unlockAtStart = true)
+    public static EnumBuilder<TechType> WithPdaInfo(this EnumBuilder<TechType> builder, string displayName, string tooltip, string language = "English", bool unlockAtStart = false)
     {
         TechType techType = builder;
         var name = techType.ToString();

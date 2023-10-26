@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
@@ -27,7 +27,7 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
     /// <seealso cref="LanguageHandler.SetLanguageLine"/>
     /// <seealso cref="LanguageHandler.RegisterLocalizationFolder"/>
     /// <seealso cref="LanguageHandler.RegisterLocalization"/>
-    public static PrefabInfo WithTechType(string classId, bool unlockAtStart = true, Assembly techTypeOwner = null)
+    public static PrefabInfo WithTechType(string classId, bool unlockAtStart = false, Assembly techTypeOwner = null)
     {
         techTypeOwner ??= Assembly.GetCallingAssembly();
         techTypeOwner = techTypeOwner == Assembly.GetExecutingAssembly()
@@ -51,7 +51,7 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
     /// <param name="unlockAtStart">Whether this tech type should be unlocked on game start or not. Default to <see langword="true"/>.</param>
     /// <param name="techTypeOwner">The assembly that owns the created tech type. The name of this assembly will be shown in the PDA.</param>
     /// <returns>An instance of the constructed <see cref="PrefabInfo"/>.</returns>
-    public static PrefabInfo WithTechType(string classId, string displayName, string description, string language = "English", bool unlockAtStart = true, Assembly techTypeOwner = null)
+    public static PrefabInfo WithTechType(string classId, string displayName, string description, string language = "English", bool unlockAtStart = false, Assembly techTypeOwner = null)
     {
         techTypeOwner ??= Assembly.GetCallingAssembly();
         techTypeOwner = techTypeOwner == Assembly.GetExecutingAssembly()

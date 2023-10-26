@@ -12,11 +12,6 @@ internal class TooltipPatcher
 {
     internal static bool DisableEnumIsDefinedPatch = false;
 
-    // For compatibility purposes:
-
-    private static MethodInfo _smlHelperIsVanillaTechTypeMethod;
-    private static MethodInfo _smlHelperWriteModNameFromTechTypeMethod;
-
     internal static void Patch(Harmony harmony)
     {
         Initialize();
@@ -24,8 +19,10 @@ internal class TooltipPatcher
         MethodInfo buildTech = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.BuildTech));
         MethodInfo itemCommons = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemCommons));
         MethodInfo recipe = AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.CraftRecipe));
-        HarmonyMethod customTooltip = new(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.CustomTooltip)));
-        HarmonyMethod techTypePostfix = new(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.TechTypePostfix)));
+        HarmonyMethod customTooltip =
+            new(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.CustomTooltip)));
+        HarmonyMethod techTypePostfix =
+            new(AccessTools.Method(typeof(TooltipPatcher), nameof(TooltipPatcher.TechTypePostfix)));
 
         harmony.Patch(itemCommons, postfix: customTooltip);
         harmony.Patch(recipe, postfix: techTypePostfix);
@@ -50,91 +47,40 @@ internal class TooltipPatcher
             WriteSpace(sb);
         }
 
-        // Compatibility for SMLHelper if it is installed
-        if (SMLHelperCompatibilityPatcher.SMLHelperInstalled)
-        {
-            var safeToUseSMLMethods = EnsureSMLHelperMethodReferences();
 
-            if (techType.IsDefinedByDefault())
-            {
-                if (safeToUseSMLMethods && !(bool)_smlHelperIsVanillaTechTypeMethod.Invoke(null, new object[] { techType }))
-                {
-                    _smlHelperWriteModNameFromTechTypeMethod.Invoke(null, new object[] { sb, techType });
-                }
-                else
-                {
+        if (techType.IsDefinedByDefault())
 #if SUBNAUTICA
-                    WriteModName(sb, "Subnautica");
-#elif BELOWZERO
-                    WriteModName(sb, "BelowZero");
-#endif
-                }
-            }
-            else if (EnumHandler.TryGetOwnerAssembly(techType, out Assembly assembly))
-            {
-                WriteModNameFromAssembly(sb, assembly);
-            }
-            else
-            {
-                WriteModNameError(sb, "Unknown Mod", "Item added without Nautilus");
-            }
-        }
-        // Otherwise use a more basic method of doing things
-        else
-        {
-            if (techType.IsDefinedByDefault())
-#if SUBNAUTICA
-                WriteModName(sb, "Subnautica");
+            WriteModName(sb, "Subnautica");
 #elif BELOWZERO
                 WriteModName(sb, "BelowZero");
 #endif
-            else if (EnumHandler.TryGetOwnerAssembly(techType, out Assembly assembly))
-            {
-                WriteModNameFromAssembly(sb, assembly);
-            }
-            else
-            {
-                WriteModNameError(sb, "Unknown Mod", "Item added without Nautilus");
-            }
-        }
-    }
-
-    // For SMLHelper compatibility only
-    private static bool EnsureSMLHelperMethodReferences()
-    {
-        if (_smlHelperIsVanillaTechTypeMethod == null)
+        else if (EnumHandler.TryGetOwnerAssembly(techType, out Assembly assembly))
         {
-            _smlHelperIsVanillaTechTypeMethod = AccessTools.Method(SMLHelperCompatibilityPatcher.GetSMLType("SMLHelper.V2.Patchers.TooltipPatcher"), "IsVanillaTechType");
-            if (_smlHelperIsVanillaTechTypeMethod == null)
-            {
-                InternalLogger.Error("Failed to locate SMLHelper's TooltipPatcher.IsVanillaTechType method!");
-                return false;
-            }
+            WriteModNameFromAssembly(sb, assembly);
         }
-        if (_smlHelperWriteModNameFromTechTypeMethod == null)
+        else
         {
-            _smlHelperWriteModNameFromTechTypeMethod = AccessTools.Method(SMLHelperCompatibilityPatcher.GetSMLType("SMLHelper.V2.Patchers.TooltipPatcher"), "WriteModNameFromTechType");
-            if (_smlHelperWriteModNameFromTechTypeMethod == null)
-            {
-                InternalLogger.Error("Failed to locate SMLHelper's TooltipPatcher.WriteModNameFromTechType method!");
-                return false;
-            }
+            WriteModNameError(sb, "Unknown Mod", "Item added without Nautilus");
         }
-        return true;
     }
 
     internal static void WriteTechType(StringBuilder sb, TechType techType)
     {
         sb.AppendFormat("\n\n<size=19><color=#808080FF>{0} ({1})</color></size>", techType.AsString(), (int) techType);
     }
+
     internal static void WriteModName(StringBuilder sb, string text)
     {
         sb.AppendFormat("\n<size=23><color=#00ffffff>{0}</color></size>", text);
     }
+
     internal static void WriteModNameError(StringBuilder sb, string text, string reason)
     {
-        sb.AppendFormat("\n<size=23><color=#ff0000ff>{0}</color></size>\n<size=17><color=#808080FF>({1})</color></size>", text, reason);
+        sb.AppendFormat(
+            "\n<size=23><color=#ff0000ff>{0}</color></size>\n<size=17><color=#808080FF>({1})</color></size>", text,
+            reason);
     }
+
     internal static void WriteModNameFromAssembly(StringBuilder sb, Assembly assembly)
     {
         string modName = assembly.GetName().Name;
@@ -148,6 +94,7 @@ internal class TooltipPatcher
             WriteModName(sb, modName);
         }
     }
+
     internal static void WriteSpace(StringBuilder sb)
     {
         sb.AppendFormat("\n<size=19></size>");
@@ -166,7 +113,9 @@ internal class TooltipPatcher
 
     internal static void SetExtraItemInfo(ExtraItemInfo value)
     {
-        string configPath = Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name), "ExtraItemInfo.txt");
+        string configPath =
+            Path.Combine(Path.Combine(BepInEx.Paths.ConfigPath, Assembly.GetExecutingAssembly().GetName().Name),
+                "ExtraItemInfo.txt");
 
         string text;
         switch (value)
@@ -231,7 +180,8 @@ internal class TooltipPatcher
             default:
                 File.WriteAllText(configPath, "Mod name (default)");
                 ExtraItemInfoOption = ExtraItemInfo.ModName;
-                InternalLogger.Log("Error reading ExtraItemInfo.txt configuration file. Defaulted to mod name.", LogLevel.Warning);
+                InternalLogger.Log("Error reading ExtraItemInfo.txt configuration file. Defaulted to mod name.",
+                    LogLevel.Warning);
                 break;
         }
     }
@@ -244,5 +194,6 @@ internal class TooltipPatcher
     {
         CustomTooltip(data.prefix, techType);
     }
+
     #endregion
 }

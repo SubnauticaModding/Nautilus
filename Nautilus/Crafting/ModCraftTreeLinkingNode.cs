@@ -61,6 +61,9 @@ public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode
     /// <summary>
     /// Creates a new tab node for the crafting tree and links it to the calling node.
     /// </summary>
+    /// <remarks>
+    /// Please note that this method will NOT set the language lines for the node and you must do it yourself.
+    /// </remarks>
     /// <param name="nameID">The name/ID of this node.</param>
     /// <returns>A new tab node linked to the root node and ready to use.</returns>
     public ModCraftTreeTab AddTabNode(string nameID)
@@ -175,7 +178,6 @@ public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode
     {
         foreach (TechType tType in techTypes)
         {
-            Assert.AreNotEqual(TechType.None, tType, "Attempt to add TechType.None as a crafting node.");
             AddCraftingNode(tType);
         }
     }
@@ -190,12 +192,9 @@ public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode
     /// </remarks>
     public void AddModdedCraftingNode(string moddedTechTypeName)
     {
-        if (EnumHandler.TryGetValue(moddedTechTypeName, out TechType techType))
-        {
-            ModCraftTreeCraft craftNode = new(techType);
-            craftNode.LinkToParent(this);
-
-            ChildNodes.Add(craftNode);
-        }
+        var techTypeFound = EnumHandler.TryGetValue(moddedTechTypeName, out TechType techType);
+        Assert.IsTrue(techTypeFound, $"Could not find {moddedTechTypeName} when trying to AddModdedCraftingNode!");
+        
+        AddCraftingNode(techType);
     }
 }

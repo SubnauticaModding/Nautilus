@@ -28,11 +28,18 @@ public static class PrefabHandler
 
         yield return prefabFactory(gameObject);
 
-        yield return ProcessPrefabAsync(gameObject.Get(), info, prefabFactory);
+        yield return ProcessPrefabAsync(gameObject, info, prefabFactory);
     }
 
-    private static IEnumerator ProcessPrefabAsync(GameObject obj, PrefabInfo info, PrefabFactoryAsync prefabFactory)
+    private static IEnumerator ProcessPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
+        var obj = gameObject.Get();
+        if(obj == null)
+        {
+            InternalLogger.Error($"PrefabHandler: Tried to process a null prefab.");
+            yield break;
+        }
+
         var techType = info.TechType;
         var classId = info.ClassID;
 
@@ -69,6 +76,8 @@ public static class PrefabHandler
         if (Prefabs.TryGetPostProcessorForInfo(info, out var postProcessor))
             yield return postProcessor?.Invoke(obj);
 
+
+        gameObject.Set(obj);
         ModPrefabCache.AddPrefab(obj);
     }
 }
