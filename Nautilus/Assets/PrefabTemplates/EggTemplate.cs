@@ -2,6 +2,7 @@
 using System.Collections;
 using Nautilus.Extensions;
 using Nautilus.Handlers;
+using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -196,6 +197,9 @@ public class EggTemplate : PrefabTemplate
             .WithSizeInInventory(TechData.GetItemSize(info.TechType));
 #endif
 
+        // eggs with undiscovered tech types shouldn't be unlocked by default at all, even on creative.
+        KnownTechHandler.SetHardLocked(info.TechType);
+
         return this;
     }
     
@@ -266,6 +270,7 @@ public class EggTemplate : PrefabTemplate
 #else
         creatureEgg.animators = obj.GetComponentsInChildren<Animator>();
 #endif
+        creatureEgg.liveMixin = liveMixin;
         creatureEgg.creatureType = HatchingCreature;
         PrefabDatabase.TryGetPrefabFilename(CraftData.GetClassIdForTechType(HatchingCreature), out var filename);
         creatureEgg.creaturePrefab = new AssetReferenceGameObject(filename).ForceValid();
