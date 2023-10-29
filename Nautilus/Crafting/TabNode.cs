@@ -1,12 +1,13 @@
+namespace Nautilus.Crafting;
+
 using Nautilus.Assets;
 using Nautilus.Patchers;
-
-namespace Nautilus.Crafting;
 
 #if SUBNAUTICA
 using Sprite = Atlas.Sprite;
 #else
 using Sprite = UnityEngine.Sprite;
+
 #endif
 
 internal class TabNode : Node

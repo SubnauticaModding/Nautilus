@@ -145,8 +145,7 @@ public static class CraftTreeHandler
                 root.AddTabNode(name, displayName, sprite);
                 return;
             }
-            string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-            CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, modName, name, displayName));
+            CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
         }
 
         /// <summary>
@@ -169,8 +168,7 @@ public static class CraftTreeHandler
                 root.AddTabNode(name, displayName, sprite, stepsToTab.LastOrDefault());
                 return;
             }
-            string modName = ReflectionHelper.CallingAssemblyNameByStackTrace();
-            CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, modName, name, displayName));
+            CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
         }
 
 #endif

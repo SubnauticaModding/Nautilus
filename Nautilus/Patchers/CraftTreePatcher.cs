@@ -176,8 +176,8 @@ internal class CraftTreePatcher
         RemoveNodes(ref __result, ref removals, type);
 
         var tabNodes = TabNodes.Where(x => x.Scheme == type).ToList();
-        var craftingNodes = CraftingNodes.Where(x => x.Scheme == type).ToList();
         AddCustomTabs(ref __result, tabNodes, type);
+        var craftingNodes = CraftingNodes.Where(x => x.Scheme == type).ToList();
         PatchNodes(ref __result, craftingNodes, type);
 
         // Remove any nodes added by mods that were marked for removal by other mods.
