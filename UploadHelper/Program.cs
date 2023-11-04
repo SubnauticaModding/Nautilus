@@ -26,11 +26,7 @@ internal static class Program
         _nautilusDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..", "..", "..");
 
         // greeting
-        Console.WriteLine("Hello, I’m Lee23 from the Subnautica Modding Organization. So I hear you want to upload a new version of Nautilus?");
-        Console.WriteLine("Please make sure you have a backup of the project or at least some form of source control; this program WILL modify your Nautilus files!\n");
-
-        // explanation
-        Console.WriteLine("I’ll be your personal assistant to speed up the update process for Nautilus. I’ll make sure you remember to follow every step.\n");
+        Console.WriteLine("Welcome to the Upload Helper for Nautilus. This program should become obsolete as soon as we set up a proper build deployment system.\n");
 
         Console.WriteLine("Press ENTER to begin...");
         Console.ReadLine();
@@ -111,27 +107,6 @@ internal static class Program
             Process.Start("explorer", url);
             Thread.Sleep(500);
         }
-
-        Console.WriteLine("Press enter to continue...");
-
-        Console.ReadLine();
-
-        Console.WriteLine("\nHey, it's public now? Nice.  We just have a few more things to look over now:\n");
-
-        if (Ask("Would you like to rebase the docs (Y/N)?"))
-        {
-            Console.WriteLine("Please rebase the docs manually and press enter.");
-            Process.Start("explorer", "https://github.com/SubnauticaModding/Nautilus/compare/docs...master");
-            Console.ReadLine();
-        }
-        if (Ask("Would you like me to rebuild the contributors table (Y/N)?"))
-        {
-            RebuildAuthorsTable();
-        }
-
-        Console.WriteLine($"It is now safe to push your changes to GitHub, through a PR named \"Updated to {versionString}\". Press ENTER when you finish that.");
-
-        Console.ReadLine();
 
         Console.WriteLine("Congratulations, you're done!!!");
 
