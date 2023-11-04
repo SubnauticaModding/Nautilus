@@ -80,6 +80,7 @@ internal class KnownTechPatcher
                 continue;
             }
             
+            InternalLogger.Debug($"Adding TechTypes to be unlocked by {blueprintRequirements.Key}: {blueprintRequirements.Value.Join((techType) => techType.AsString())}");
             data.analysisTech[index].unlockTechTypes.AddRange(blueprintRequirements.Value);
         }
 
