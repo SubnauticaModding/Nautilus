@@ -337,6 +337,21 @@ public static class KnownTechHandler
     }
 
     /// <summary>
+    /// Allows you to remove a <see cref="TechType"/> from being unlocked by default.
+    /// </summary>
+    /// <param name="techType"></param>
+    public static void RemoveDefaultUnlock(TechType techType)
+    {
+        var modName = ReflectionHelper.CallingAssemblyByStackTrace().GetName().Name;
+        if (!KnownTechPatcher.DefaultRemovalTechs.TryGetValue(modName, out var techTypes))
+            techTypes = new List<TechType>();
+        techTypes.Add(techType);
+
+        KnownTechPatcher.DefaultRemovalTechs[modName] = techTypes;
+        Reinitialize();
+    }
+
+    /// <summary>
     /// References to generic unlock sounds and unlock messages for the Known Tech system, matching those used in the base game.
     /// </summary>
     public static class DefaultUnlockData

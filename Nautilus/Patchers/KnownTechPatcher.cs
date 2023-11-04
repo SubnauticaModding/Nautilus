@@ -14,6 +14,7 @@ internal class KnownTechPatcher
     internal static HashSet<TechType> LockedWithNoUnlocks = new();
     internal static HashSet<TechType> HardLocked = new();
     internal static HashSet<TechType> RemovalTechs = new();
+    internal static Dictionary<string, List<TechType>> DefaultRemovalTechs = new();
     internal static IDictionary<TechType, KnownTech.AnalysisTech> AnalysisTech = new SelfCheckingDictionary<TechType, KnownTech.AnalysisTech>("AnalysisTech", AsStringFunction);
     internal static IDictionary<TechType, List<TechType>> BlueprintRequirements = new SelfCheckingDictionary<TechType, List<TechType>>("BlueprintRequirements", AsStringFunction);
     internal static IDictionary<TechType, KnownTech.CompoundTech> CompoundTech = new SelfCheckingDictionary<TechType, KnownTech.CompoundTech>("CompoundTech", AsStringFunction);
@@ -49,7 +50,25 @@ internal class KnownTechPatcher
 
     private static void InitializePrefix(PDAData data)
     {
-        data.defaultTech.AddRange(UnlockedAtStart);
+        foreach (var unlockedTech in UnlockedAtStart)
+        {
+            if (!data.defaultTech.Contains(unlockedTech))
+            {
+                data.defaultTech.Add(unlockedTech);
+                InternalLogger.Debug($"Setting {unlockedTech.AsString()} to be unlocked at start.");
+            }
+        }
+
+        foreach (var removalTechsByMod in DefaultRemovalTechs)
+        {
+            foreach (var removalTech in removalTechsByMod.Value)
+            {
+                if (data.defaultTech.Remove(removalTech))
+                {
+                    InternalLogger.Debug($"{removalTechsByMod.Key} removed {removalTech.AsString()} from unlocking at start.");
+                }
+            }
+        }
 
         foreach (var tech in AnalysisTech.Values)
         {
@@ -80,6 +99,7 @@ internal class KnownTechPatcher
                 continue;
             }
             
+            InternalLogger.Debug($"Adding TechTypes to be unlocked by {blueprintRequirements.Key}: {blueprintRequirements.Value.Join((techType) => techType.AsString())}");
             data.analysisTech[index].unlockTechTypes.AddRange(blueprintRequirements.Value);
         }
 
