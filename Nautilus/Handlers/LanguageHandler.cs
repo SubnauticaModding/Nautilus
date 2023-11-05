@@ -45,7 +45,22 @@ public static class LanguageHandler
 
         foreach (var file in Directory.GetFiles(path))
         {
-            var content = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(file));
+            if (Path.GetExtension(file) != ".json")
+            {
+                continue;
+            }
+
+            // I hate this
+            Dictionary<string, string> content = null;
+            try
+            {
+                content = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(file));
+            }
+            catch (Exception e)
+            {
+                InternalLogger.Error($"Exception caught while trying to deserialize localization file at path: '{file}'. Exception: {e}");
+            }
+            
             if (content is null)
             {
                 InternalLogger.Warn($"Localization file '{file}' is empty, skipping registration.");
