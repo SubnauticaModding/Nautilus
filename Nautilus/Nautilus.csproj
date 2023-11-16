@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\common.props" />
   <Import Project="..\Version.targets" />
   <PropertyGroup>
@@ -8,7 +8,7 @@
     <RootNamespace>Nautilus</RootNamespace>
     <AssemblyName>Nautilus</AssemblyName>
     <BepInExPluginGuid>com.snmodding.nautilus</BepInExPluginGuid>
-    <BepInExPluginVersion>$(VersionPrefix)</BepInExPluginVersion>
+    <BepInExPluginVersion>$(VersionPrefix).$(SuffixNumber)</BepInExPluginVersion>
     <LangVersion>11</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
