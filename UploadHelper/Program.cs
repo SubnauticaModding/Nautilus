@@ -201,7 +201,7 @@ internal static class Program
 
         // Execute the build with nuget restore for each configuration.
         foreach (var configuration in configurations)
-            process.StandardInput.WriteLine($"dotnet build {projectPath} /restore /p:Configuration={configuration}");
+            process.StandardInput.WriteLine($"dotnet build \"{projectPath}\" /restore /p:Configuration={configuration}");
 
         process.StandardInput.WriteLine("exit");
 
