@@ -80,8 +80,16 @@ internal class KnownTechPatcher
             }
             else
             {
-                InternalLogger.Debug($"Replacing analysisTech for {tech.techType}");
-                data.analysisTech[index] = tech;
+                InternalLogger.Debug($"Altering original analysisTech for {tech.techType}");
+                var existingEntry = data.analysisTech[index];
+
+                existingEntry.unlockMessage = tech.unlockMessage ?? existingEntry.unlockMessage;
+                existingEntry.unlockSound = tech.unlockSound ?? existingEntry.unlockSound;
+                existingEntry.unlockPopup = tech.unlockPopup ?? existingEntry.unlockPopup;
+                existingEntry.unlockTechTypes.AddRange(tech.unlockTechTypes);
+#if SUBNAUTICA
+                existingEntry.storyGoals.AddRange(tech.storyGoals);
+#endif
             }
 
             if (tech.unlockSound == null)
