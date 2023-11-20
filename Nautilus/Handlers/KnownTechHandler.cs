@@ -140,7 +140,7 @@ public static class KnownTechHandler
     {
         foreach (TechType techType in techTypes)
         {
-            if (KnownTechPatcher.RemoveFromSpecificTechs.TryGetValue(techType, out List<TechType> types))
+            if (KnownTechPatcher.RemoveFromSpecificTechs.TryGetValue(techType, out HashSet<TechType> types))
             {
                 if (!types.Contains(targetTechType))
                 {
@@ -149,7 +149,7 @@ public static class KnownTechHandler
             }
             else
             {
-                KnownTechPatcher.RemoveFromSpecificTechs[techType] = new List<TechType>() { targetTechType };
+                KnownTechPatcher.RemoveFromSpecificTechs[techType] = new HashSet<TechType>() { targetTechType };
             }
         }
         
@@ -344,7 +344,7 @@ public static class KnownTechHandler
     {
         var modName = ReflectionHelper.CallingAssemblyByStackTrace().GetName().Name;
         if (!KnownTechPatcher.DefaultRemovalTechs.TryGetValue(modName, out var techTypes))
-            techTypes = new List<TechType>();
+            techTypes = new HashSet<TechType>();
         techTypes.Add(techType);
 
         KnownTechPatcher.DefaultRemovalTechs[modName] = techTypes;

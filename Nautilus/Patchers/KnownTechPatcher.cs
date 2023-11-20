@@ -14,11 +14,11 @@ internal class KnownTechPatcher
     internal static HashSet<TechType> LockedWithNoUnlocks = new();
     internal static HashSet<TechType> HardLocked = new();
     internal static HashSet<TechType> RemovalTechs = new();
-    internal static Dictionary<string, List<TechType>> DefaultRemovalTechs = new();
+    internal static Dictionary<string, HashSet<TechType>> DefaultRemovalTechs = new();
     internal static IDictionary<TechType, KnownTech.AnalysisTech> AnalysisTech = new SelfCheckingDictionary<TechType, KnownTech.AnalysisTech>("AnalysisTech", AsStringFunction);
-    internal static IDictionary<TechType, List<TechType>> BlueprintRequirements = new SelfCheckingDictionary<TechType, List<TechType>>("BlueprintRequirements", AsStringFunction);
+    internal static IDictionary<TechType, HashSet<TechType>> BlueprintRequirements = new SelfCheckingDictionary<TechType, HashSet<TechType>>("BlueprintRequirements", AsStringFunction);
     internal static IDictionary<TechType, KnownTech.CompoundTech> CompoundTech = new SelfCheckingDictionary<TechType, KnownTech.CompoundTech>("CompoundTech", AsStringFunction);
-    internal static IDictionary<TechType, List<TechType>> RemoveFromSpecificTechs = new SelfCheckingDictionary<TechType, List<TechType>>("RemoveFromSpecificTechs", AsStringFunction);
+    internal static IDictionary<TechType, HashSet<TechType>> RemoveFromSpecificTechs = new SelfCheckingDictionary<TechType, HashSet<TechType>>("RemoveFromSpecificTechs", AsStringFunction);
 
     public static void Patch(Harmony harmony)
     {
