@@ -381,15 +381,15 @@ public class ScanningGadget : Gadget
             PDAHandler.AddEncyclopediaEntry(EncyclopediaEntryData);
         }
 
-        if (AnalysisTech is { })
-        {
-            KnownTechHandler.SetAnalysisTechEntry(AnalysisTech);
-        }
-
         if (CompoundTechsForUnlock is { Count: > 0 })
         {
             KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(prefab.Info.TechType);
             KnownTechHandler.SetCompoundUnlock(prefab.Info.TechType, CompoundTechsForUnlock);
+        }
+
+        if (AnalysisTech is { })
+        {
+            KnownTechHandler.SetAnalysisTechEntry(AnalysisTech);
         }
 
         if (ScannerEntryData is { })
