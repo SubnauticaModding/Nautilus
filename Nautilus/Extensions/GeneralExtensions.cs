@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace Nautilus.Extensions;
@@ -42,5 +44,19 @@ public static class GeneralExtensions
             ErrorMessage.AddMessage(message);
         else if (msg.timeEnd <= Time.time + @this.timeFadeOut)
             msg.timeEnd += @this.timeFadeOut + @this.timeInvisible;
+    }
+
+    /// <summary>
+    /// Concatenates string representations of the provided <paramref name="values"/>,
+    /// using the specified <paramref name="separator"/> between them.
+    /// </summary>
+    /// <typeparam name="T">Type of value that will be converted to <see cref="string"/>.</typeparam>
+    /// <param name="builder">The <see cref="StringBuilder"/>.</param>
+    /// <param name="separator">The <see cref="string"/> to insert between each pair of values.</param>
+    /// <param name="values">Values to concatenate into the <paramref name="builder"/>.</param>
+    /// <returns>The provided <see cref="StringBuilder"/>.</returns>
+    public static StringBuilder AppendJoin<T>(this StringBuilder builder, string separator, IEnumerable<T> values)
+    {
+        return builder.Append(string.Join(separator, values));
     }
 }

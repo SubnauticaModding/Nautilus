@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using Nautilus.Extensions;
 
 namespace Nautilus.Commands;
 
@@ -24,7 +25,11 @@ internal class ConsoleCommand
     /// <summary>
     /// The parameters for the command.
     /// </summary>
-    public IEnumerable<Parameter> Parameters { get; }
+    public IReadOnlyList<Parameter> Parameters { get; }
+    /// <summary>
+    /// The minimum number of parameters required to invoke the command.
+    /// </summary>
+    public int RequiredParameterCount { get; }
 
     /// <summary>
     /// The types of the parameters.
@@ -53,8 +58,9 @@ internal class ConsoleCommand
         IsDelegate = isDelegate;
         Instance = instance;
         ModName = DeclaringType.Assembly.GetName().Name;
-        Parameters = targetMethod.GetParameters().Select(param => new Parameter(param));
+        Parameters = targetMethod.GetParameters().Select(param => new Parameter(param)).ToList();
         ParameterTypes = Parameters.Select(param => param.ParameterType).ToArray();
+        RequiredParameterCount = Parameters.Count(param => !param.IsOptional);
     }
 
     /// <summary>
@@ -67,72 +73,95 @@ internal class ConsoleCommand
     }
 
     /// <summary>
-    /// Determines whether the target methods parameters are valid.
-    /// </summary>
-    /// <returns></returns>
-    public bool HasValidParameterTypes()
-    {
-        foreach (Parameter parameter in Parameters)
-        {
-            if (!parameter.IsValidParameterType)
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /// <summary>
     /// Returns a list of all invalid parameters.
     /// </summary>
     /// <returns></returns>
     public IEnumerable<Parameter> GetInvalidParameters()
     {
-        return Parameters.Where(param => !param.IsValidParameterType);
+        return Parameters.Where(p => p.ValidState != Parameter.ValidationError.Valid);
     }
 
     /// <summary>
     /// Attempts to parse input parameters into appropriate types as defined in the target method.
     /// </summary>
-    /// <param name="inputParameters">The parameters as input by the user.</param>
+    /// <param name="input">The parameters as input by the user.</param>
     /// <param name="parsedParameters">The parameters that have been successfully parsed.</param>
-    /// <returns>Whether or not all parameters were succesfully parsed.</returns>
-    public bool TryParseParameters(IEnumerable<string> inputParameters, out object[] parsedParameters)
+    /// <returns>
+    /// A tuple containing:
+    /// <list type="number">
+    /// <item>The number of input items consumed.</item>
+    /// <item>The number of command parameters that were successfully parsed.</item>
+    /// </list>
+    /// </returns>
+    public (int consumed, int parsed) TryParseParameters(IReadOnlyList<string> input, out object[] parsedParameters)
     {
         parsedParameters = null;
 
         // Detect incorrect number of parameters (allow for optional)
-        if (Parameters.Count() < inputParameters.Count() ||
-            Parameters.Where(param => !param.IsOptional).Count() > inputParameters.Count())
+        int paramCount = Parameters.Count;
+        int inputCount = input.Count;
+        int paramsArrayLength = Math.Max(0, input.Count - (paramCount - 1));
+
+        if (inputCount < RequiredParameterCount)
         {
-            return false;
+            return default;
         }
 
-        parsedParameters = new object[Parameters.Count()];
-        for (int i = 0; i < Parameters.Count(); i++)
+        parsedParameters = new object[paramCount];
+        for (int i = 0; i < paramCount; i++)
         {
-            Parameter parameter = Parameters.ElementAt(i);
+            Type paramType = Parameters[i].ParameterType;
+            parsedParameters[i] = paramType.TryUnwrapArrayType(out Type elementType)
+                ? Array.CreateInstance(elementType, paramsArrayLength)
+                : DBNull.Value;
+        }
 
-            if (i >= inputParameters.Count()) // It's an optional parameter that wasn't passed by the user
-            {
-                parsedParameters[i] = Type.Missing;
-                continue;
-            }
+        int consumed = 0;
+        int parsed = 0;
+        while (consumed < inputCount)
+        {
+            if (parsed >= paramCount) break;
+            
+            Parameter parameter = Parameters[parsed];
+            string inputItem = input[consumed];
 
-            string input = inputParameters.ElementAt(i);
-
+            object parsedItem;
             try
             {
-                parsedParameters[i] = parameter.Parse(input);
+                parsedItem = parameter.Parse(inputItem);
             }
             catch (Exception)
             {
-                return false; // couldn't parse, wasn't a valid conversion
+                return (consumed, parsed);
+            }
+            consumed++;
+
+            if (parameter.ParameterType.IsArray)
+            {
+                Array parsedArr = (Array)parsedParameters[parsed];
+                parsedArr.SetValue(parsedItem, consumed - parsed - 1);
+                if (consumed >= inputCount)
+                {
+                    parsed++;
+                }
+            }
+            else
+            {
+                parsedParameters[parsed] = parsedItem;
+                parsed++;
             }
         }
 
-        return true;
+        // Optional parameters that weren't passed by the user
+        // at this point all required parameters should've been parsed
+        for (int i = parsed; i < paramCount; i++)
+        {
+            if (parsedParameters[i] == DBNull.Value)
+                parsedParameters[i] = Type.Missing;
+            parsed++;
+        }
+
+        return (consumed, parsed);
     }
 
     /// <summary>
