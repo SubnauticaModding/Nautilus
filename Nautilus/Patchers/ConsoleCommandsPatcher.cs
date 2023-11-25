@@ -81,7 +81,7 @@ internal static class ConsoleCommandsPatcher
             
             StringBuilder error = new StringBuilder(
                 $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
-                $"{GetColoredString(consoleCommand.ModName, ModOriginColor)}"
+                $"{GetColoredString(consoleCommand.ModName, ModOriginColor)}\n"
             );
 
             if (parametersWithUnsupportedTypes.Count > 0)
@@ -203,7 +203,7 @@ internal static class ConsoleCommandsPatcher
                     string parameterTypeName = invalidParameter.UnderlyingValueType.GetFriendlyName();
 
                     // Print a message about why it is invalid
-                    string error = $"{invalidParameter.Name} " +
+                    string error = $"Parameter {GetColoredString(invalidParameter.Name, ParameterOptionalColor)} could not be parsed:\n" +
                                    $"{GetColoredString(invalidInput, ParameterInputColor)} is not a valid " +
                                    $"{GetColoredString(parameterTypeName, ParameterTypeColor)}!";
 
