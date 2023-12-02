@@ -318,7 +318,7 @@ public class ScanningGadget : Gadget
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public ScanningGadget WithAnalysisTech(
         Sprite popupSprite, 
-        List<StoryGoal> storyGoalsToTrigger = null,
+        List<StoryGoal> storyGoalsToTrigger,
         FMODAsset unlockSound = null, 
         string unlockMessage = null
         )
