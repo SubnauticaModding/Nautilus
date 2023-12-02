@@ -8,10 +8,15 @@ internal static class Program
 
     private const string VersionPrefixStart = "<VersionPrefix>";
     private const string VersionPrefixEnd = "</VersionPrefix>";
+    private const string SuffixNumberStart = "<SuffixNumber>";
+    private const string SuffixNumberEnd = "</SuffixNumber>";
     private const string VersionSuffixStart = "<VersionSuffix>";
     private const string VersionSuffixEnd = "</VersionSuffix>";
+    private static string _versionPrefix;
+    private static int _versionSuffix;
+    private static Version _version;
 
-    private static string[] _uploadPageURLs = new string[]
+    private static readonly string[] _uploadPageURLs = new string[]
     {
         "https://github.com/SubnauticaModding/Nautilus/releases",
         "https://www.submodica.xyz/mods/sn1/250",
@@ -22,33 +27,203 @@ internal static class Program
 
     public static void Main(string[] args)
     {
+        Console.Clear();
         // essential variables
-        _nautilusDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..", "..", "..");
+        _nautilusDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        var solutionPath = "";
+        while (_nautilusDirectory != null)
+        {
+            var file = Path.Combine(_nautilusDirectory, "Nautilus.sln");
+            if (File.Exists(file))
+            {
+                solutionPath = file;
+                break;
+            }
+
+            _nautilusDirectory = Directory.GetParent(_nautilusDirectory)?.FullName;
+        }
+
+        if (string.IsNullOrWhiteSpace(solutionPath))
+        {
+            Console.WriteLine($"Could not find the Nautilus solution in any parent directory.");
+            Console.ReadLine();
+            return;
+        }
+
+        var nautilusProjectPath = Path.Combine(_nautilusDirectory, "Nautilus", "Nautilus.csproj");
+        if (!File.Exists(nautilusProjectPath))
+        {
+            Console.WriteLine($"Could not find the Nautilus project at {nautilusProjectPath}");
+            Console.ReadLine();
+            return;
+        }
 
         // greeting
-        Console.WriteLine("Welcome to the Upload Helper for Nautilus. This program should become obsolete as soon as we set up a proper build deployment system.\n");
+        Console.WriteLine("Welcome to the Upload Helper for Nautilus. \nThis program should become obsolete as soon as we set up a proper build deployment system.\n");
 
-        Console.WriteLine("Press ENTER to begin...");
-        Console.ReadLine();
+        if (!Ask("Do you want to begin? (y/n)"))
+        {
+            Console.Clear();
+            Console.WriteLine("Alright, goodbye!");
+            return;
+        }
+
+        Console.Clear();
 
         // get old version
         Console.WriteLine("First of all, we need to determine the version string.");
-        var oldVersion = GetCurrentVersionString();
-        Console.WriteLine($"I think the current version string is {oldVersion} (suffixes such as the pre-release number might not be shown here), but it's a good idea to double check.\n");
-        Console.WriteLine("When you press enter, I will open https://www.submodica.xyz/mods/sn1/246 and https://github.com/SubnauticaModding/Nautilus/releases in your browser so you can find the version string that is currently uploaded to the internet.");
-        Console.WriteLine("If you don't want this, just type something before you hit enter.");
-        if (string.IsNullOrEmpty(Console.ReadLine()))
-        {
-            Process.Start("explorer", "https://www.submodica.xyz/mods/sn1/250");
-            Thread.Sleep(1000);
+
+        Console.WriteLine("You can check https://github.com/SubnauticaModding/Nautilus/releases to find the version that is currently uploaded.");
+
+        if (Ask("Do you want to open this in your browser? (y/n)"))
             Process.Start("explorer", "https://github.com/SubnauticaModding/Nautilus/releases");
+
+        try
+        {
+            GetCurrentVersionString();
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            Console.ReadLine();
+            return;
+        }
+        var versionPrefix = _versionPrefix;
+        var suffixNumber = _versionSuffix;
 
         // determine new version
+        if (!Ask($"I think the current version string is {versionPrefix}.{suffixNumber}. Do you want to keep it? (y/n)"))
+        {
+            Console.WriteLine("Alright, we'll change it.");
+            Console.WriteLine("Please write the NEW 3 digit version number here (eg: 1.0.0) (do NOT include the pre-release suffix): ");
+            versionPrefix = RequestVersion();
+            Version v;
+            while (!Version.TryParse(versionPrefix, out v) || v.Major < _version.Major || v.Minor < _version.Minor || v.Build < _version.Build)
+            {
+                Console.Clear();
+                Console.WriteLine("That doesn't look like a valid version number or is less than the current version. Please try again.");
+                Console.WriteLine("Please write the NEW 3 digit version number here (eg: 1.0.0) (do NOT include the pre-release suffix): ");
+                versionPrefix = RequestVersion();
+            }
 
-        Console.WriteLine("Please write the NEW version number here (do NOT include the pre-release suffix): ");
+            var isEqual = v.Major == _version.Major && v.Minor == _version.Minor && v.Build == _version.Build;
+            var response = isEqual || Ask("Do you want to add a pre-release suffix? (y/n)");
+            while (response)
+            {
+                Console.WriteLine("What should the pre-release suffix be?");
+                var prereleaseNum = Console.ReadLine();
+                if (string.IsNullOrEmpty(prereleaseNum) || !int.TryParse(prereleaseNum, out suffixNumber))
+                {
+                    if (!Ask("That doesn't look like an intiger. Do you want to try again? (y/n)"))
+                        break;
+
+                    Console.Clear();
+                    continue;
+                }
+
+                if (isEqual && suffixNumber < _versionSuffix)
+                {
+                    Console.Clear();
+                    Console.WriteLine("That's less than the current pre-release suffix. I'm not sure what you're trying to do, but I'm not going to let you do it.");
+                    continue;
+                }
+
+                if (suffixNumber < 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("That's a negative number. I'm not sure what you're trying to do, but I'm not going to let you do it.");
+                    continue;
+                }
+
+                if (suffixNumber == 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine("That's a zero. I'm not sure what you're trying to do, but I'm not going to let you do it.");
+                    if (!Ask("Do you want to try again? (y/n)"))
+                        break;
+                    continue;
+                }
+
+                Console.Clear();
+                if (Ask($"\nAdd \"{prereleaseNum}\" as the pre-release suffix? (y/n)"))
+                    break;
+                Console.Clear();
+                response = isEqual || Ask("Do you want to add a pre-release suffix? (y/n)");
+            }
+        }
+
+        Console.WriteLine($"\nAlright, thanks! We’ll use {versionPrefix}.{suffixNumber} for this release.");
+        SetCurrentVersionString(versionPrefix, suffixNumber);
+
+        Console.WriteLine("\nNow, let's work on getting the NuGet packages up and running.");
+        Console.WriteLine("I should warn you now that you’ll need to log in to upload your update (for security reasons)." +
+            "\nPlease contact an administrator if you need help, otherwise we’ll continue from here.");
+
+        RebuildNautilus(nautilusProjectPath);
+
+        foreach (var url in _uploadPageURLs)
+        {
+            if (!Ask($"Do you want to open {url} to upload? (y/n)"))
+                continue;
+
+            Console.WriteLine("Opening " + url + "...");
+            Process.Start("explorer", url);
+            Thread.Sleep(500);
+            Console.Clear();
+        }
+
+        Console.Clear();
+
+        Console.WriteLine("Congratulations, you're done!!!");
+
+        // END
+        Console.ReadLine();
+    }
+
+    private static void RebuildNautilus(string projectPath)
+    {
+        // Start a new process
+        var process = new Process()
+        {
+            StartInfo = new ProcessStartInfo()
+            {
+                FileName = "cmd.exe",
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false
+            }
+        };
+
+        process.Start();
+
+        // Define the configurations to build
+        var configurations = new string[] { "SN.STABLE", "BZ.STABLE" };
+
+        // Execute the build with nuget restore for each configuration.
+        foreach (var configuration in configurations)
+            process.StandardInput.WriteLine($"dotnet build \"{projectPath}\" /restore /p:Configuration={configuration}");
+
+        process.StandardInput.WriteLine("exit");
+
+        Console.WriteLine(process.StandardOutput.ReadToEnd());
+        process.WaitForExit();
+        Console.WriteLine("Now you need to upload the.nupkg files.");
+
+        if (Ask("Do you want to open https://www.nuget.org/packages/manage/upload in your browser? (y/n)"))
+            Process.Start("explorer", "https://www.nuget.org/packages/manage/upload");
+
+        if (Ask($"Do you want to open the output paths in explorer? (y/n)"))
+            foreach (var configuration in configurations)
+                Process.Start("explorer", Path.Combine(_nautilusDirectory, "Nautilus", "bin", configuration));
+
+        Console.WriteLine("Press enter to continue.");
+        Console.ReadLine();
+    }
+
+    private static string RequestVersion()
+    {
         var versionPrefix = Console.ReadLine();
-        if (versionPrefix != null && versionPrefix.StartsWith("v"))
+        if (!string.IsNullOrWhiteSpace(versionPrefix) && versionPrefix.StartsWith("v"))
         {
             Console.WriteLine("Hm, why does it start with a V? Are you sure you meant to do that? If not, type R and we can retry that.");
             var line = Console.ReadLine();
@@ -58,135 +233,69 @@ internal static class Program
                 versionPrefix = Console.ReadLine();
             }
         }
-
-        Console.WriteLine("\nAnd now, if applicable, send the pre-release number (or leave empty): ");
-        string prereleaseNum = Console.ReadLine();
-        string versionString = versionPrefix;
-
-        if (!string.IsNullOrEmpty(prereleaseNum))
+        else if (string.IsNullOrWhiteSpace(versionPrefix))
         {
-            versionString += "-pre." + prereleaseNum;
-            Console.WriteLine($"\nOh, you want to add \"pre.{prereleaseNum}\" to the version suffix? Sure, just remember we have to remove that when making the builds that we distribute.");
-            Console.WriteLine("If you are wondering why, that is because the BepInEx plugin.");
+            Console.WriteLine("You didn't write anything. I'll assume you want to keep the current version number.");
+            versionPrefix = _versionPrefix;
         }
 
-        Console.WriteLine($"\nAlright, thanks! We’ll use {versionString} for this release.");
-
-        SetCurrentVersionString(versionPrefix, "pre." + prereleaseNum);
-
-        Console.WriteLine("\nThe Version.targets file was automatically updated. Remember that we have to fix that later.");
-        Console.WriteLine("\nNow, let's work on getting the NuGet package up and running.");
-
-        Console.WriteLine("I should warn you now that you’ll need to log in to upload your update (for security reasons)." +
-            "\nPlease contact an administrator if you need help, otherwise we’ll continue from here.");
-
-        WalkThroughNuGetSteps("SN.STABLE");
-
-        WalkThroughNuGetSteps("BZ.STABLE");
-
-        Console.WriteLine("\nRemember, these two versions you built are ONLY used for NUGET DEPENDENCIES. The version you have now should NOT be used in-game.");
-
-        Console.WriteLine("Alright, great, did everything work out? I’m having connection issues and I can’t see your responses, so I’ll assume that’s a yes.");
-
-        SetCurrentVersionString(versionPrefix, null);
-
-        Console.WriteLine("\nNow let’s work on getting this update pushed out to our users. First, we need to remove the prerelease tags from the assembly." +
-            "\nI’ve done that for you already. Now build for BOTH versions of the game.");
-
-        Console.WriteLine("Press enter after you have ONCE AGAIN built the project for both SN.STABLE and BZ.STABLE.");
-
-        Console.ReadLine();
-
-        Console.WriteLine("Press enter and I will open all the relevant pages where these mods should be uploaded in your browser.");
-
-        Console.ReadLine();
-
-        foreach (var url in _uploadPageURLs)
-        {
-            Console.WriteLine("Opening " + url + "...");
-            Process.Start("explorer", url);
-            Thread.Sleep(500);
-        }
-
-        Console.WriteLine("Congratulations, you're done!!!");
-
-        // END
-        Console.ReadLine();
+        return versionPrefix;
     }
 
     private static bool Ask(string prompt)
     {
         Console.WriteLine(prompt);
         var l = Console.ReadLine();
-        return !string.IsNullOrEmpty(l) && l.ToLower() == "y";
+        while (string.IsNullOrWhiteSpace(l) || (l.ToLower() != "y" && l.ToLower() != "n"))
+        {
+            Console.WriteLine("Please answer with y or n.");
+            Console.WriteLine(prompt);
+            l = Console.ReadLine();
+        }
+        return l.ToLower() == "y";
     }
 
     private static string VersionTargetsPath => Path.Combine(_nautilusDirectory, "Version.targets");
 
-    private static void RebuildAuthorsTable()
-    {
-        var proc = new Process();
-        proc.StartInfo.FileName = Path.Combine(_nautilusDirectory, "AuthorsTableGenerator", "AuthorTableGenerator.exe");
-        proc.Start();
-        proc.WaitForExit();
-        proc.Close();
-    }
-
-    private static void WalkThroughNuGetSteps(string branch)
-    {
-        Console.WriteLine($"\nIn your IDE, switch to the {branch} build configuration, build the project, and then press ENTER in this window when you have finished.");
-
-        Console.ReadLine();
-
-        Console.WriteLine("All built and ready? When you press ENTER I will open the folder containing the built files.");
-
-        Console.ReadLine();
-
-        Process.Start("explorer", Path.Combine(_nautilusDirectory, "Nautilus", "bin", branch));
-
-        Console.WriteLine("Got it? Now you need to upload the correct .nupkg file at https://www.nuget.org/packages/manage/upload. Press ENTER to open that in your browser.");
-
-        Console.ReadLine();
-
-        Process.Start("explorer", "https://www.nuget.org/packages/manage/upload");
-    }
-
-    private static string GetCurrentVersionString()
+    private static void GetCurrentVersionString()
     {
         var text = File.ReadAllText(VersionTargetsPath);
 
         var prefixStartIndex = text.IndexOf(VersionPrefixStart) + VersionPrefixStart.Length;
         var prefixLength = text.IndexOf(VersionPrefixEnd) - prefixStartIndex;
 
-        string prefix = text.Substring(prefixStartIndex, prefixLength);
+        var prefix = text.Substring(prefixStartIndex, prefixLength);
         string suffix = null;
 
-        if (text.Contains(VersionSuffixStart))
+        if (text.Contains(SuffixNumberStart))
         {
-            var suffixStartIndex = text.IndexOf(VersionSuffixStart) + VersionSuffixStart.Length;
-            var suffixLength = text.IndexOf(VersionSuffixEnd) - suffixStartIndex;
+            var suffixStartIndex = text.IndexOf(SuffixNumberStart) + SuffixNumberStart.Length;
+            var suffixLength = text.IndexOf(SuffixNumberEnd) - suffixStartIndex;
             suffix = text.Substring(suffixStartIndex, suffixLength);
         }
 
-        if (string.IsNullOrEmpty(suffix)) return prefix;
+        if (string.IsNullOrWhiteSpace(prefix) || !Version.TryParse(prefix, out _version))
+            throw new Exception("The VersionPrefix in Version.targets is not a valid version number. I'm not sure what you're trying to do, but I'm not going to let you do it.");
 
-        else return prefix + "-" + suffix;
+        _versionPrefix = prefix;
+        if (string.IsNullOrWhiteSpace(suffix) || !int.TryParse(suffix, out _versionSuffix))
+            throw new Exception("The SuffixNumber in Version.targets is not a number. I'm not sure what you're trying to do, but I'm not going to let you do it.");
     }
 
-    public static void SetCurrentVersionString(string prefix, string suffix = null)
+    public static void SetCurrentVersionString(string prefix, int suffix)
     {
         var text = File.ReadAllText(VersionTargetsPath);
 
-        var split = text.Split(new string[] { VersionSuffixStart, VersionSuffixEnd, VersionPrefixStart, VersionPrefixEnd }, StringSplitOptions.None);
+        var split = text.Split(new string[] { VersionSuffixStart, VersionSuffixEnd, SuffixNumberStart, SuffixNumberEnd, VersionPrefixStart, VersionPrefixEnd }, StringSplitOptions.None);
 
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
         sb.AppendLine(split[0].TrimEnd());
         sb.AppendLine("        " + VersionPrefixStart + prefix + VersionPrefixEnd);
-        if (!string.IsNullOrEmpty(suffix))
-        {
-            sb.AppendLine("        " + VersionSuffixStart + suffix + VersionSuffixEnd);
-        }
-        sb.Append("    " + split[split.Length - 1].TrimStart());
+        sb.AppendLine("        " + SuffixNumberStart + suffix + SuffixNumberEnd);
+        if (suffix > 0)
+            sb.AppendLine("        " + VersionSuffixStart + "pre.$(SuffixNumber)" + VersionSuffixEnd);
+
+        sb.Append("    " + split[^1].TrimStart());
 
         var final = sb.ToString();
 

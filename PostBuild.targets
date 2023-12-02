@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Target Name="ZipPlugin" AfterTargets="Build">
         <PropertyGroup>
             <BuildPath>Nautilus</BuildPath>
             <PluginsDir>$(OutDir)\plugins</PluginsDir>
             <BuildDir>$([System.IO.Path]::Combine('$(PluginsDir)', '$(BuildPath)'))</BuildDir>
-            <BuildZipPath>$([System.IO.Path]::Combine('$(TargetDir)', 'Nautilus_$(ConfigurationName).zip'))</BuildZipPath>
+            <BuildZipPath>$([System.IO.Path]::Combine('$(TargetDir)', 'Nautilus_$(ConfigurationName)_$(BepInExPluginVersion).zip'))</BuildZipPath>
             <TemporaryDir>$([System.IO.Path]::Combine('$(OutDir)', 'TemporaryDir'))</TemporaryDir>
             <TemporaryBuildDir>$([System.IO.Path]::Combine('$(TemporaryDir)', 'Build'))</TemporaryBuildDir>
         </PropertyGroup>
