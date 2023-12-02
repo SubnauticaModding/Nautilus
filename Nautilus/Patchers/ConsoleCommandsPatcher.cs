@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Commands;
+using Nautilus.Extensions;
 using Nautilus.Utility;
 using UnityEngine;
 
@@ -13,7 +15,7 @@ namespace Nautilus.Patchers;
 
 internal static class ConsoleCommandsPatcher
 {
-    private static Dictionary<string, ConsoleCommand> ConsoleCommands = new();
+    private static Dictionary<string, ConsoleCommand> ConsoleCommands = new(StringComparer.OrdinalIgnoreCase);
 
     private static Color CommandColor = new(1, 1, 0);
     private static Color ParameterTypeColor = new(0, 1, 1);
@@ -63,17 +65,41 @@ internal static class ConsoleCommandsPatcher
             return;
         }
 
-        // if any of the parameter types of the method are unsupported, print an error and don't add it
-        if (!consoleCommand.HasValidParameterTypes())
+        // if any of the parameters of the method aren't valid, print an error and don't add it
+        if (consoleCommand.GetInvalidParameters().Any())
         {
-            string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
-                           $"{GetColoredString(consoleCommand.ModName, ModOriginColor)}\n" +
-                           "The following parameters have unsupported types:\n" +
-                           consoleCommand.GetInvalidParameters().Select(param => GetColoredString(param)).Join(delimiter: "\n") +
-                           "Supported parameter types:\n" +
-                           Parameter.SupportedTypes.Select(type => type.Name).Join();
+            List<Parameter> parametersWithUnsupportedTypes = new();
+            List<Parameter> nonParamsArrayParameters = new();
+            foreach (var parameter in consoleCommand.GetInvalidParameters())
+            {
+                Parameter.ValidationError state = parameter.ValidState;
+                if (state.HasFlag(Parameter.ValidationError.UnsupportedType))
+                    parametersWithUnsupportedTypes.Add(parameter);
+                if (state.HasFlag(Parameter.ValidationError.ArrayNotParams))
+                    nonParamsArrayParameters.Add(parameter);
+            }
+            
+            StringBuilder error = new StringBuilder(
+                $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
+                $"{GetColoredString(consoleCommand.ModName, ModOriginColor)}\n"
+            );
 
-            LogAndAnnounce(error, LogLevel.Error);
+            if (parametersWithUnsupportedTypes.Count > 0)
+            {
+                error.AppendLine("The following parameters have unsupported types:");
+                error.AppendJoin("\n", parametersWithUnsupportedTypes.Select(GetColoredString));
+                error.AppendLine("\nSupported parameter types:");
+                error.AppendJoin(",", Parameter.SupportedTypes.Select(type => type.GetFriendlyName()));
+            }
+
+            if (nonParamsArrayParameters.Count > 0)
+            {
+                error.AppendLine("Array parameters must be marked as 'params'.");
+                error.AppendLine("Incorrect parameters:");
+                error.AppendJoin(",", nonParamsArrayParameters.Select(GetColoredString));
+            }
+
+            LogAndAnnounce(error.ToString(), LogLevel.Error);
 
             return;
         }
@@ -148,7 +174,7 @@ internal static class ConsoleCommandsPatcher
         input = input.Trim();
         string[] components = input.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
-        string trigger = components[0].ToLowerInvariant();
+        string trigger = components[0];
 
         if (!ConsoleCommands.TryGetValue(trigger, out ConsoleCommand command))
         {
@@ -156,30 +182,39 @@ internal static class ConsoleCommandsPatcher
             return false;
         }
 
-        IEnumerable<string> parameters = components.Skip(1);
+        List<string> inputParameters = components.Skip(1).ToList();
+
+        (int consumed, int parsed) = command.TryParseParameters(inputParameters, out object[] parsedParameters);
 
         // If the parameters couldn't be parsed by the command, print a user and developer-friendly error message both
         // on-screen and in the log.
-        if (!command.TryParseParameters(parameters, out object[] parsedParameters))
+        bool consumedAll = consumed >= inputParameters.Count;
+        bool parsedAll = parsed == command.Parameters.Count;
+        if (!consumedAll || !parsedAll)
         {
-            if (parsedParameters != null)
+            if (!parsedAll)
             {
-                // Find the first invalid parameter
-                string invalidParameter = null;
-                string parameterTypeName = null;
-                for (int i = 0; i < parsedParameters.Length; i++)
+                if (parsedParameters != null)
                 {
-                    if (parsedParameters[i] == null)
-                    {
-                        invalidParameter = parameters.ElementAt(i);
-                        parameterTypeName = command.ParameterTypes[i].Name;
-                        break;
-                    }
-                }
+                    // Get the first invalid parameter
+                    string invalidInput = inputParameters[consumed];
 
-                // Print a message about why it is invalid
-                string error = $"{GetColoredString(invalidParameter, ParameterInputColor)} is not a valid " +
-                               $"{GetColoredString(parameterTypeName, ParameterTypeColor)}!";
+                    var invalidParameter = command.Parameters[parsed];
+                    string parameterTypeName = invalidParameter.UnderlyingValueType.GetFriendlyName();
+
+                    // Print a message about why it is invalid
+                    string error = $"Parameter {GetColoredString(invalidParameter.Name, ParameterOptionalColor)} could not be parsed:\n" +
+                                   $"{GetColoredString(invalidInput, ParameterInputColor)} is not a valid " +
+                                   $"{GetColoredString(parameterTypeName, ParameterTypeColor)}!";
+
+                    LogAndAnnounce(error, LogLevel.Error);
+                }
+            }
+            else if (!consumedAll)
+            {
+                string error = "Received too many parameters!\n" +
+                    $"expected {GetColoredString(command.Parameters.Count.ToString(), ParameterTypeColor)} " +
+                    $"but got {GetColoredString(inputParameters.Count.ToString(), ParameterInputColor)}";
 
                 LogAndAnnounce(error, LogLevel.Error);
             }
@@ -187,14 +222,14 @@ internal static class ConsoleCommandsPatcher
             // Print a message about what parameters the command expects
             string parameterInfoString = $"{GetColoredString(command.Trigger, CommandColor)} " +
                                          "expects the following parameters\n" +
-                                         command.Parameters.Select(param => GetColoredString(param)).Join(delimiter: "\n");
+                                         command.Parameters.Select(GetColoredString).Join(delimiter: "\n");
 
             LogAndAnnounce(parameterInfoString, LogLevel.Error);
 
             // Print a message detailing all received parameters.
-            if (parameters.Any())
+            if (inputParameters.Any())
             {
-                InternalLogger.Announce($"Received parameters: {parameters.Join()}", LogLevel.Error, true);
+                InternalLogger.Announce($"Received parameters: {inputParameters.Join()}", LogLevel.Error, true);
             }
 
             return true; // We've handled the command insofar as we've handled and reported the user error to them.
@@ -232,7 +267,7 @@ internal static class ConsoleCommandsPatcher
 
     private static string GetColoredString(Parameter parameter)
     {
-        return $"{parameter.Name}: {GetColoredString(parameter.ParameterType.Name, ParameterTypeColor)}" +
+        return $"{parameter.Name}: {GetColoredString(parameter.ParameterType.GetFriendlyName(), ParameterTypeColor)}" +
                (parameter.IsOptional ? $" {GetColoredString("(optional)", ParameterOptionalColor)}" : string.Empty);
     }
 
