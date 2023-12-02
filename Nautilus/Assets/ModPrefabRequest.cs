@@ -9,13 +9,13 @@ namespace Nautilus.Assets;
 // request for getting ModPrefab asynchronously
 internal class ModPrefabRequest: IPrefabRequest
 {
+    internal bool Done { get; private set; }
+    
     private readonly PrefabInfo prefabInfo;
     
     private CoroutineTask<GameObject> task;
     
     private TaskResult<GameObject> taskResult;
-
-    internal bool done;
 
     public ModPrefabRequest(PrefabInfo prefabInfo)
     {
@@ -52,9 +52,9 @@ internal class ModPrefabRequest: IPrefabRequest
     public bool TryGetPrefab(out GameObject result)
     {
         result = taskResult.Get();
-        if (!done)
+        if (!Done)
         {
-            done = result;
+            Done = result;
         }
         return result != null;
     }
