@@ -7,12 +7,14 @@ using UWE;
 namespace Nautilus.Assets;
 
 // request for getting ModPrefab asynchronously
-internal class ModPrefabRequest: IPrefabRequest, IEnumerator
+internal class ModPrefabRequest: IPrefabRequest
 {
+    internal bool Done { get; private set; }
+    
     private readonly PrefabInfo prefabInfo;
-
-    private int state = 0;
+    
     private CoroutineTask<GameObject> task;
+    
     private TaskResult<GameObject> taskResult;
 
     public ModPrefabRequest(PrefabInfo prefabInfo)
@@ -50,13 +52,22 @@ internal class ModPrefabRequest: IPrefabRequest, IEnumerator
     public bool TryGetPrefab(out GameObject result)
     {
         result = taskResult.Get();
+        if (!Done)
+        {
+            Done = result;
+        }
         return result != null;
     }
 
     public bool MoveNext()
     {
         Init();
-        return state++ == 0;
+        if (task == null)
+        {
+            return false;
+        }
+        
+        return !TryGetPrefab(out _);
     }
 
     public void Reset() {}

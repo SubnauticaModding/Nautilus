@@ -111,7 +111,7 @@ internal class ModPrefabCacheInstance: MonoBehaviour
         if(!Entries.ContainsKey(prefabIdentifier.classId))
         {
             Entries.Add(prefabIdentifier.classId, prefab);
-            InternalLogger.Debug($"ModPrefabCache: adding prefab {prefab}");
+            InternalLogger.Debug($"ModPrefabCache: added prefab {prefab}");
         }
         else // this should never happen
         {
