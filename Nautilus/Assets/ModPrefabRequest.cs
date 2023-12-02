@@ -15,6 +15,8 @@ internal class ModPrefabRequest: IPrefabRequest
     
     private TaskResult<GameObject> taskResult;
 
+    internal bool done;
+
     public ModPrefabRequest(PrefabInfo prefabInfo)
     {
         this.prefabInfo = prefabInfo;
@@ -50,6 +52,10 @@ internal class ModPrefabRequest: IPrefabRequest
     public bool TryGetPrefab(out GameObject result)
     {
         result = taskResult.Get();
+        if (!done)
+        {
+            done = result;
+        }
         return result != null;
     }
 
