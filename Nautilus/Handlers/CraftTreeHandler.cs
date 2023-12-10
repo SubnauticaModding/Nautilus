@@ -190,13 +190,7 @@ public static class CraftTreeHandler
     {
         if(CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
         {
-            var tab = root.GetTabNode(stepsToNode);
-            if(tab == null)
-            {
-                root.GetNode(stepsToNode)?.RemoveNode();
-                return;
-            }
-            tab.RemoveNode();
+            root.GetNode(stepsToNode)?.RemoveNode();
             return;
         }
         CraftTreePatcher.NodesToRemove.Add(new Node(stepsToNode, craftTree));

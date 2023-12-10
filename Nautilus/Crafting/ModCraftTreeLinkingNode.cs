@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Nautilus.Handlers;
+using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -83,16 +84,15 @@ public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode
     /// <returns></returns>
     public ModCraftTreeTab GetTabNode(string nameID)
     {
-        foreach (ModCraftTreeTab node in ChildNodes)
+        foreach (var node in ChildNodes)
         {
             if (node == null)
             {
                 continue;
             }
 
-            if (node.Name == nameID && node.Action == TreeAction.Expand)
+            if (node.Name == nameID && node.Action == TreeAction.Expand && node is ModCraftTreeTab tab)
             {
-                ModCraftTreeTab tab = node;
                 return tab;
             }
         }
@@ -107,16 +107,15 @@ public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode
     /// <returns></returns>
     public ModCraftTreeCraft GetCraftingNode(TechType techType)
     {
-        foreach (ModCraftTreeNode node in ChildNodes)
+        foreach (var node in ChildNodes)
         {
             if (node == null)
             {
                 continue;
             }
 
-            if (node.TechType == techType && node.Action == TreeAction.Craft)
+            if (node.TechType == techType && node.Action == TreeAction.Craft && node is ModCraftTreeCraft craftNode)
             {
-                ModCraftTreeCraft craftNode = (ModCraftTreeCraft)node;
                 return craftNode;
             }
         }
@@ -131,7 +130,7 @@ public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode
     /// <returns></returns>
     public ModCraftTreeNode GetNode(string nameID)
     {
-        foreach (ModCraftTreeNode node in ChildNodes)
+        foreach (var node in ChildNodes)
         {
             if (node == null)
             {
