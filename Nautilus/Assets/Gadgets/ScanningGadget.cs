@@ -381,15 +381,15 @@ public class ScanningGadget : Gadget
             PDAHandler.AddEncyclopediaEntry(EncyclopediaEntryData);
         }
 
-        if (AnalysisTech is { })
-        {
-            KnownTechHandler.SetAnalysisTechEntry(AnalysisTech);
-        }
-
         if (CompoundTechsForUnlock is { Count: > 0 })
         {
             KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(prefab.Info.TechType);
             KnownTechHandler.SetCompoundUnlock(prefab.Info.TechType, CompoundTechsForUnlock);
+        }
+
+        if (AnalysisTech is { })
+        {
+            KnownTechHandler.SetAnalysisTechEntry(AnalysisTech);
         }
 
         if (ScannerEntryData is { })
@@ -399,7 +399,7 @@ public class ScanningGadget : Gadget
 
         if (RequiredForUnlock != TechType.None)
         {
-            KnownTechHandler.AddRequirementForUnlock(prefab.Info.TechType, RequiredForUnlock);
+            KnownTechHandler.SetAnalysisTechEntry(RequiredForUnlock, new TechType[] { prefab.Info.TechType });
         }
 
         if (CompoundTechsForUnlock is { Count: > 0 } || RequiredForUnlock != TechType.None)

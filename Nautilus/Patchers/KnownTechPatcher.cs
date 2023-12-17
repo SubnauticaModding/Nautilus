@@ -14,11 +14,11 @@ internal class KnownTechPatcher
     internal static HashSet<TechType> LockedWithNoUnlocks = new();
     internal static HashSet<TechType> HardLocked = new();
     internal static HashSet<TechType> RemovalTechs = new();
-    internal static Dictionary<string, List<TechType>> DefaultRemovalTechs = new();
+    internal static Dictionary<string, HashSet<TechType>> DefaultRemovalTechs = new();
     internal static IDictionary<TechType, KnownTech.AnalysisTech> AnalysisTech = new SelfCheckingDictionary<TechType, KnownTech.AnalysisTech>("AnalysisTech", AsStringFunction);
-    internal static IDictionary<TechType, List<TechType>> BlueprintRequirements = new SelfCheckingDictionary<TechType, List<TechType>>("BlueprintRequirements", AsStringFunction);
+    internal static IDictionary<TechType, HashSet<TechType>> BlueprintRequirements = new SelfCheckingDictionary<TechType, HashSet<TechType>>("BlueprintRequirements", AsStringFunction);
     internal static IDictionary<TechType, KnownTech.CompoundTech> CompoundTech = new SelfCheckingDictionary<TechType, KnownTech.CompoundTech>("CompoundTech", AsStringFunction);
-    internal static IDictionary<TechType, List<TechType>> RemoveFromSpecificTechs = new SelfCheckingDictionary<TechType, List<TechType>>("RemoveFromSpecificTechs", AsStringFunction);
+    internal static IDictionary<TechType, HashSet<TechType>> RemoveFromSpecificTechs = new SelfCheckingDictionary<TechType, HashSet<TechType>>("RemoveFromSpecificTechs", AsStringFunction);
 
     public static void Patch(Harmony harmony)
     {
@@ -50,15 +50,46 @@ internal class KnownTechPatcher
 
     private static void InitializePrefix(PDAData data)
     {
-        foreach (var unlockedTech in UnlockedAtStart)
+        // This needs to be done first as this list was supposed to be only for game unlocks.
+        // Mod unlocks requesting removal are already processed in the KnownTechHandler at the time of the request.
+        // Mods trying to remove other mods unlocks must make sure to run after the original mod has already added them.
+        foreach (var removalTech in RemovalTechs)
         {
-            if (!data.defaultTech.Contains(unlockedTech))
+            if (data.compoundTech.RemoveAll((x)=> x.techType == removalTech) > 0)
+                InternalLogger.Debug($"RemovalTechs: Removed compoundTech for '{removalTech}'");
+
+            if (data.analysisTech.RemoveAll((x) => x.techType == removalTech) > 0)
+                InternalLogger.Debug($"RemovalTechs: Removed analysisTech for '{removalTech}'");
+
+            foreach (var analysisTech in data.analysisTech)
             {
-                data.defaultTech.Add(unlockedTech);
-                InternalLogger.Debug($"Setting {unlockedTech.AsString()} to be unlocked at start.");
+                if (analysisTech.unlockTechTypes.Remove(removalTech))
+                {
+                    InternalLogger.Debug($"RemovalTechs: Removed unlockTechType '{removalTech}' from '{analysisTech.techType}' AnalysisTech.");
+                }
             }
         }
 
+        // Process removals of specific game unlocks as requested by mods.
+        // Mod unlocks requesting removal are already processed in the KnownTechHandler at the time of the request.
+        // Mods trying to remove other mods unlocks must make sure to run after the original mod has already added them.
+        foreach (var analysisTech in data.analysisTech)
+        {
+            if (RemoveFromSpecificTechs.TryGetValue(analysisTech.techType, out var techsToRemove))
+            {
+                foreach (var removalTech in techsToRemove)
+                {
+                    if (analysisTech.unlockTechTypes.Remove(removalTech))
+                    {
+                        InternalLogger.Debug($"RemoveFromSpecificTechs: Removed unlockTechType '{removalTech}' from '{analysisTech.techType}' AnalysisTech.");
+                    }
+                }
+            }
+        }
+
+        // remove all default unlocks specified by mods.
+        // Mod unlocks requesting removal are already processed in the KnownTechHandler at the time of the request.
+        // Mods trying to remove other mods unlocks must make sure to run after the original mod has already added them.
         foreach (var removalTechsByMod in DefaultRemovalTechs)
         {
             foreach (var removalTech in removalTechsByMod.Value)
@@ -70,26 +101,46 @@ internal class KnownTechPatcher
             }
         }
 
+        // Add all default unlocks set by mods.
+        foreach (var unlockedTech in UnlockedAtStart)
+        {
+            if (!data.defaultTech.Contains(unlockedTech))
+            {
+                data.defaultTech.Add(unlockedTech);
+                InternalLogger.Debug($"Setting {unlockedTech.AsString()} to be unlocked at start.");
+            }
+        }
+
+        // Add or modify analysisTechs as requested by mods.
         foreach (var tech in AnalysisTech.Values)
         {
             var index = data.analysisTech.FindIndex(analysisTech => analysisTech.techType == tech.techType);
             if (index == -1)
             {
                 InternalLogger.Debug($"Adding analysisTech for {tech.techType}");
+
+                if (tech.unlockSound == null)
+                    tech.unlockSound = KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound;
+
                 data.analysisTech.Add(tech);
             }
             else
             {
-                InternalLogger.Debug($"Replacing analysisTech for {tech.techType}");
-                data.analysisTech[index] = tech;
-            }
+                InternalLogger.Debug($"Altering original analysisTech for {tech.techType}");
+                var existingEntry = data.analysisTech[index];
 
-            if (tech.unlockSound == null)
-            {
-                tech.unlockSound = KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound;
+                existingEntry.unlockMessage = tech.unlockMessage ?? existingEntry.unlockMessage;
+                existingEntry.unlockSound = tech.unlockSound ?? existingEntry.unlockSound;
+                existingEntry.unlockPopup = tech.unlockPopup ?? existingEntry.unlockPopup;
+                existingEntry.unlockTechTypes.AddRange(tech.unlockTechTypes);
+#if SUBNAUTICA
+                existingEntry.storyGoals.AddRange(tech.storyGoals);
+#endif
             }
         }
 
+        // Set unlocks for already existing analysis techs where a AnalysisTech is not created by the mod.
+        // tbh I don't know why this was added as we used to just make an analysis tech with the data given by the modder if they did not specify one.
         foreach (var blueprintRequirements in BlueprintRequirements)
         {
             var index = data.analysisTech.FindIndex(tech => tech.techType == blueprintRequirements.Key);
@@ -103,6 +154,7 @@ internal class KnownTechPatcher
             data.analysisTech[index].unlockTechTypes.AddRange(blueprintRequirements.Value);
         }
 
+        // Add or Replace CompoundTechs as requested by mods.
         foreach (var tech in CompoundTech.Values)
         {
             var index = data.compoundTech.FindIndex(compoundTech => compoundTech.techType == tech.techType);
@@ -115,33 +167,6 @@ internal class KnownTechPatcher
             {
                 InternalLogger.Debug($"Replacing compoundTech for {tech.techType}");
                 data.compoundTech[index] = tech;
-            }
-        }
-        
-        foreach (var analysisTech in data.analysisTech)
-        {
-            foreach (var removalTech in RemovalTechs)
-            {
-                if (analysisTech.techType == removalTech)
-                {
-                    continue;
-                }
-                
-                if (analysisTech.unlockTechTypes.Remove(removalTech))
-                {
-                    InternalLogger.Debug($"RemovalTechs: Removed unlockTechType '{removalTech}' from '{analysisTech.techType}' AnalysisTech.");
-                }
-            }
-
-            if (RemoveFromSpecificTechs.TryGetValue(analysisTech.techType, out var techsToRemove))
-            {
-                foreach (var removalTech in techsToRemove)
-                {
-                    if (analysisTech.unlockTechTypes.Remove(removalTech))
-                    {
-                        InternalLogger.Debug($"RemoveFromSpecificTechs: Removed unlockTechType '{removalTech}' from '{analysisTech.techType}' AnalysisTech.");
-                    }
-                }
             }
         }
     }
