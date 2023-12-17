@@ -33,7 +33,7 @@ public static class SurvivalHandler
             if (oxygenGiven > 0f)
                 oxygenManager.AddOxygen(oxygenGiven);
             else
-                oxygenManager.RemoveOxygen(oxygenGiven);
+                oxygenManager.RemoveOxygen(-oxygenGiven);
         });
 
         SurvivalPatcher.CustomSurvivalInventoryAction[techType] = actions;
