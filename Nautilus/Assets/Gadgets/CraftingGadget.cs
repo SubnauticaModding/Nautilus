@@ -104,7 +104,7 @@ public class CraftingGadget : Gadget
         }
         else if (!prefab.TryGetGadget(out ScanningGadget scanningGadget) || !scanningGadget.IsBuildable)
         {
-            InternalLogger.Log($"Prefab '{prefab.Info.ClassID}' was not automatically registered into a crafting tree.");
+            InternalLogger.Debug($"Prefab '{prefab.Info.ClassID}' was not automatically registered into a crafting tree.");
         }
 
         if (CraftingTime >= 0f)
