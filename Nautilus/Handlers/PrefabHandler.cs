@@ -26,10 +26,10 @@ public static class PrefabHandler
             yield break;
         }
 
-        yield return ProcessPrefabAsync(gameObject, info, prefabFactory);
+        yield return InitPrefabAsync(gameObject, info, prefabFactory);
     }
 
-    private static IEnumerator ProcessPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
+    private static IEnumerator InitPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
         yield return prefabFactory(gameObject);
 
