@@ -17,12 +17,13 @@ public static partial class EnumExtensions
     {
         var techGroup = (TechGroup)builder;
         var name = builder.ToString();
+        var fullName = "Group" + name;
         
         if (!string.IsNullOrEmpty(displayName))
         {
-            LanguageHandler.SetLanguageLine("Group" + name, displayName, language);
+            LanguageHandler.SetLanguageLine(fullName, displayName, language);
         }
-        else if (string.IsNullOrEmpty(Language.main.Get("Group" + name)))
+        else if (string.IsNullOrEmpty(Language.main.Get(fullName)))
         {
             InternalLogger.Warn($"Display name was not specified and no existing language line has been found for TechGroup '{name}'.");
         }

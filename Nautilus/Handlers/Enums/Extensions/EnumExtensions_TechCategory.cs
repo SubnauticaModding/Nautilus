@@ -17,23 +17,22 @@ public static partial class EnumExtensions
     {
         var category = (TechCategory)builder;
         var name = category.ToString();
+        var fullName = "TechCategory" + name;
         
         if (!string.IsNullOrEmpty(displayName))
         {
-            LanguageHandler.SetLanguageLine("TechCategory" + name, displayName, language);
+            LanguageHandler.SetLanguageLine(fullName, displayName, language);
             uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = "TechCategory" + name;
             return builder;
         }
 
-        var friendlyName = Language.main.Get("TechCategory" + name);
+        var friendlyName = Language.main.Get(fullName);
         if (string.IsNullOrEmpty(friendlyName))
         {
             InternalLogger.Warn($"Display name for TechCategory '{name}' is not specified and no language key has been found. Setting display name to 'TechCategory{name}'.");
-            uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = "TechCategory" + name;
-            return builder;
         }
         
-        uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = "TechCategory" + friendlyName;
+        uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = fullName;
         return builder;
     }
 
