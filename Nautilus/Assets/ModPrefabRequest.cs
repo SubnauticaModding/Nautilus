@@ -25,7 +25,7 @@ internal class ModPrefabRequest: IPrefabRequest
 
     private void Init()
     {
-        if (task != null)
+        if ((task != null && !Done) || (Done && TryGetPrefab(out _)))
         {
             return;
         }
@@ -45,34 +45,37 @@ internal class ModPrefabRequest: IPrefabRequest
         get
         {
             Init();
-            return task;
+            return task.Current;
         }
     }
 
     public bool TryGetPrefab(out GameObject result)
     {
-        result = taskResult.Get();
-        if (!Done)
-        {
-            Done = result;
-        }
-        return result != null;
+        return ModPrefabCache.TryGetPrefabFromCache(prefabInfo.ClassID, out result) && result != null;
     }
 
     public bool MoveNext()
     {
         Init();
-        if (task == null)
+        if (!task.MoveNext())
         {
-            return false;
+            Done = true;
         }
-        
-        return !TryGetPrefab(out _);
+        return !Done;
     }
 
-    public void Reset() {}
+    public void Reset()
+    {
+        Init();
+        task.Reset();
+        Done = false;
+    }
 
     public void Release()
     {
+        ModPrefabCache.RemovePrefabFromCache(prefabInfo.ClassID);
+        taskResult = null;
+        task = null;
+        Done = false;
     }
 }
