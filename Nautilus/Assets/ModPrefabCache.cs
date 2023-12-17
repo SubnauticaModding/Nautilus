@@ -125,6 +125,7 @@ internal class ModPrefabCacheInstance: MonoBehaviour
         {
             if(!prefab.IsPrefab())
                 Destroy(prefab);
+            InternalLogger.Debug($"ModPrefabCache: removed prefab {classId}");
             Entries.Remove(classId);
         }
     }
