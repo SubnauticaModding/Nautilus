@@ -1,6 +1,9 @@
 ﻿# Adding Custom Biomes
 This guide provides some information on adding custom biomes.
 
+> [!NOTE]
+> This page is under construction and may not be finished any time soon. However, any information currently provided should still be accurate.
+
 ## Biomes reference list
 
 <details>
