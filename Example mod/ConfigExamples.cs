@@ -157,7 +157,7 @@ public class Config : ConfigFile
     /// <para>Here, we are specifying the name of a method which can handle any OnChange event, for the purposes of demonstrating
     /// its usage. See <see cref="MyGenericValueChangedEvent(ModOptionEventArgs)"/> for an example usage.</para>
     /// </summary>
-    [Choice("My index-based choice", "One", "Two", "Three"), OnChange(nameof(MyChoiceValueChangedEvent))]
+    [Choice("My index-based choice", "1", "2", "3"), OnChange(nameof(MyChoiceValueChangedEvent))]
     public int ChoiceIndex;
 
     /// <summary>
@@ -182,7 +182,7 @@ public class Config : ConfigFile
     /// <para>An option of <see cref="CustomChoice.One"/> will be represented by the <see cref="string"/> "1",
     /// <see cref="CustomChoice.Two"/> will be represented by the <see cref="string"/> "2", and so on.</para>
     /// </summary>
-    [Choice("My customised enum-based choice", "1", "2", "3"), OnChange(nameof(MyChoiceValueChangedEvent))]
+    [Choice("My customised enum-based choice", "One", "Three"), OnChange(nameof(MyChoiceValueChangedEvent))]
     public CustomChoice ChoiceCustomEnum;
 
     /// <summary>
@@ -273,10 +273,15 @@ public class Config : ConfigFile
 
     // On change events for different types of options:
 
-    private void MyChoiceValueChangedEvent<T>(ChoiceChangedEventArgs<T> e)
+    private void MyChoiceValueChangedEvent<T>(object sender, ChoiceChangedEventArgs<T> e)
     {
-        T choice = e.Value;
-        ConfigExamples.LogSource.LogInfo($"Choice value {e.Id} was changed: {choice}");
+        if (e != null)
+        {
+            ConfigExamples.LogSource.LogInfo($"Choice value {e.Value} was changed by {sender}");
+            return;
+        }
+
+        ConfigExamples.LogSource.LogInfo($"Choice value was changed by {sender} but event was null!");
     }
 
     private void MyKeybindValueChangedEvent(KeybindChangedEventArgs e)

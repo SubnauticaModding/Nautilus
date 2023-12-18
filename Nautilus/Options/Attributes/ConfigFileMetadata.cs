@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using HarmonyLib;
 using Nautilus.Json;
 using Nautilus.Utility;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -222,7 +224,7 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
                     Name = memberInfo.Name,
                     ValueType = underlyingType
                 },
-                OnGameObjectCreatedMetadata = GetEventMetadata<OnGameObjectCreatedAttribute>(memberInfo)
+                OnGameObjectCreatedMetadata = GetEventMetadata<OnGameObjectCreatedAttribute>(memberInfo, underlyingType)
             };
 
             if (memberType == MemberType.Method)
@@ -232,7 +234,7 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
 
             if (typeof(TAttribute) != typeof(ButtonAttribute))
             {
-                modOptionMetadata.OnChangeMetadata = GetEventMetadata<OnChangeAttribute>(memberInfo);
+                modOptionMetadata.OnChangeMetadata = GetEventMetadata<OnChangeAttribute>(memberInfo, underlyingType);
             }
 
             ModOptionAttributesMetadata.Add(modOptionAttribute.Id, modOptionMetadata);
@@ -250,8 +252,9 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
     /// The type of <see cref="ModOptionEventAttribute"/> attribute defined on the member to gather metadata for.
     /// </typeparam>
     /// <param name="memberInfo">The member to gather attribute metadata for.</param>
+    /// <param name="underlyingType">The type of the option value.</param>
     /// <returns></returns>
-    private IEnumerable<MemberInfoMetadata<T>> GetEventMetadata<TAttribute>(MemberInfo memberInfo)
+    private IEnumerable<MemberInfoMetadata<T>> GetEventMetadata<TAttribute>(MemberInfo memberInfo, Type underlyingType)
         where TAttribute : ModOptionEventAttribute
     {
         List<MemberInfoMetadata<T>> metadatas = new();
@@ -260,7 +263,8 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
             MemberInfoMetadata<T> methodMetadata = new()
             {
                 MemberType = MemberType.Method,
-                Name = attribute.MethodName
+                Name = attribute.MethodName,
+                ValueType = underlyingType
             };
             methodMetadata.ParseMethodParameterTypes();
             metadatas.Add(methodMetadata);
@@ -568,66 +572,102 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
             case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType.IsEnum &&
                                                       (choiceAttribute.Options == null || !choiceAttribute.Options.Any()):
                 // Enum-based choice where the values are parsed from the enum type
-            {
-                string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
-                var value = (T)memberInfoMetadata.GetValue(Config);
-                ChoiceChangedEventArgs<T> eventArgs = new(id, Array.IndexOf(options, value), value);
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    try
+                    {
+                        string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
+                        var value = (T) memberInfoMetadata.GetValue(Config);
+                        var eventArgsConstructor = typeof(ChoiceChangedEventArgs<>).MakeGenericType(memberInfoMetadata.ValueType);
+                        var eventArgs = Activator.CreateInstance(eventArgsConstructor, id, Array.IndexOf(options, value), value);
+                        AccessTools.Method(this.GetType(), nameof(InvokeOnChangeEvents))
+                            .MakeGenericMethod(eventArgsConstructor)
+                            .Invoke(this, new object[] { modOptionMetadata, sender, eventArgs });
+                    }
+                    catch (Exception ex)
+                    {
+                        InternalLogger.Error($"[OptionsMenuBuilder] {ex.Message}");
+                    }
+                }
                 break;
-            case ChoiceAttribute _ when memberInfoMetadata.ValueType.IsEnum:
+            case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType.IsEnum:
                 // Enum-based choice where the values are defined as custom strings
-            {
-                string value = memberInfoMetadata.GetValue(Config).ToString();
-                int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
-                ChoiceChangedEventArgs<string> eventArgs = new(id, index, value);
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    try
+                    {
+                        string value = memberInfoMetadata.GetValue(Config).ToString();
+                        int index = Math.Max(Array.IndexOf(Enum.GetValues(memberInfoMetadata.ValueType), value), 0);
+                        var eventArgsConstructor = typeof(ChoiceChangedEventArgs<>).MakeGenericType(memberInfoMetadata.ValueType);
+                        var eventArgs = Activator.CreateInstance(eventArgsConstructor, id, Array.IndexOf(choiceAttribute.Options, value), value);
+                        AccessTools.Method(this.GetType(), nameof(InvokeOnChangeEvents))
+                            .MakeGenericMethod(eventArgsConstructor)
+                            .Invoke(this, new object[] { modOptionMetadata, sender, eventArgs });
+                    }
+                    catch(Exception ex)
+                    {
+                        InternalLogger.Error($"[OptionsMenuBuilder] {ex.Message}");
+                    }
+                }
                 break;
             case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType == typeof(string):
                 // string-based choice value
-            {
-                string[] options = choiceAttribute.Options;
-                string value = memberInfoMetadata.GetValue<string>(Config);
-                ChoiceChangedEventArgs<string> eventArgs = new(id, Array.IndexOf(options, value), value);
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    string[] options = choiceAttribute.Options;
+                    string value = memberInfoMetadata.GetValue<string>(Config);
+                    ChoiceChangedEventArgs<string> eventArgs = new(id, Array.IndexOf(options, value), value);
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
             case ChoiceAttribute choiceAttribute when memberInfoMetadata.ValueType == typeof(int):
                 // index-based choice value
-            {
-                string[] options = choiceAttribute.Options;
-                int index = memberInfoMetadata.GetValue<int>(Config);
-                ChoiceChangedEventArgs<string> eventArgs = new(id, index, options[index]);
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    int[] options = new int[choiceAttribute.Options.Length];
+                    for (int i = 0; i < choiceAttribute.Options.Length; i++)
+                    {
+                        options[i] = int.Parse(choiceAttribute.Options[i]);
+                    }
+                    int index = memberInfoMetadata.GetValue<int>(Config);
+                    ChoiceChangedEventArgs<int> eventArgs = new(id, index, options[index]);
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
+                break;
+            case ChoiceAttribute choiceAttribute:
+                {
+                    string[] options = choiceAttribute.Options;
+                    var value = (T) memberInfoMetadata.GetValue(Config);
+                    int index = memberInfoMetadata.GetValue<int>(Config);
+                    var eventArgsConstructor = typeof(ChoiceChangedEventArgs<>).MakeGenericType(memberInfoMetadata.ValueType);
+                    var eventArgs = Activator.CreateInstance(eventArgsConstructor, id, Array.IndexOf(options, value), value);
+                    AccessTools.Method(this.GetType(), nameof(InvokeOnChangeEvents))
+                        .MakeGenericMethod(eventArgsConstructor)
+                        .Invoke(this, new object[] { modOptionMetadata, sender, eventArgs });
+                }
                 break;
             case ColorPickerAttribute _:
-            {
-                ColorChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<Color>(Config));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    ColorChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<Color>(Config));
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
 
             case KeybindAttribute _:
-            {
-                KeybindChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<KeyCode>(Config));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    KeybindChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<KeyCode>(Config));
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
 
             case SliderAttribute _:
-            {
-                SliderChangedEventArgs eventArgs = new(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    SliderChangedEventArgs eventArgs = new(id, Convert.ToSingle(memberInfoMetadata.GetValue(Config)));
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
 
             case ToggleAttribute _:
-            {
-                ToggleChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<bool>(Config));
-                InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
-            }
+                {
+                    ToggleChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<bool>(Config));
+                    InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
+                }
                 break;
         }
     }
@@ -681,20 +721,38 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
 
             for (int i = 0; i < parameterTypes.Length; i++)
             {
-                if (!senderFound && parameterTypes[i] == typeof(object))
+                var type = parameterTypes[i];
+
+                if (!senderFound && type == typeof(object))
                 {
                     senderFound = true;
                     parameters[i] = sender;
                 }
-                else if (!eventArgsFound && parameterTypes[i] == typeof(TSource))
+                else if (!eventArgsFound && type == typeof(TSource))
                 {
                     eventArgsFound = true;
                     parameters[i] = e;
                 }
-                else if (!modOptionEventFound && parameterTypes[i] == typeof(EventArgs))
+                else if (!modOptionEventFound && type == typeof(EventArgs))
                 {
                     modOptionEventFound = true;
                     parameters[i] = e;
+                }
+                else if (!modOptionEventFound && type.IsGenericType &&
+                    type.GetGenericTypeDefinition() == typeof(ChoiceChangedEventArgs<>))
+                {
+                    InternalLogger.Debug($"[OptionsMenuBuilder] Found a {type.Name}<{memberInfoMetadata.ValueType}> parameter for {typeof(T)}.{memberInfoMetadata.Name}");
+                    
+                    var eventArgsConstructor = typeof(ChoiceChangedEventArgs<>).MakeGenericType(memberInfoMetadata.ValueType);
+
+                    var id = (string)eventArgsConstructor.GetProperty("Id").GetValue(e);
+                    var index = (int) eventArgsConstructor.GetProperty("Index").GetValue(e);
+                    var value = eventArgsConstructor.GetProperty("Value").GetValue(e);
+
+                    var eventArgs = Activator.CreateInstance(eventArgsConstructor, id, index, value);
+
+                    modOptionEventFound = true;
+                    parameters[i] = eventArgs;
                 }
 
                 if (senderFound && eventArgsFound && modOptionEventFound)
