@@ -46,6 +46,7 @@ public class AtmosphereVolumeTemplate : PrefabTemplate
     {
         Shape = shape;
         OverrideBiome = overrideBiome;
+        Priority = priority;
     }
 
     /// <summary>
