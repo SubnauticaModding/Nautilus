@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Nautilus.Utility;
 using UnityEngine;
 
 namespace Nautilus.Assets.PrefabTemplates;
