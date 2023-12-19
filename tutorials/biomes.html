@@ -1,0 +1,967 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Adding Custom Biomes </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Adding Custom Biomes ">
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/biomes.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="adding-custom-biomes">Adding Custom Biomes</h1>
+
+<p>This guide provides some information on adding custom biomes.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This page is under construction and may not be finished any time soon. However, any information currently provided should still be accurate.</p>
+</div>
+<h2 id="biomes-reference-list">Biomes reference list</h2>
+<details>
+  <summary>Expand to view base game biome data (SN1):</summary>
+<table>
+<thead>
+<tr>
+<th>Biome name</th>
+<th>Sky name</th>
+<th>Settings</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>safeShallows</td>
+<td>SkySafeShallows</td>
+<td>Absorption: (125.0, 20.0, 4.0)<br>Scattering: 1.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.18<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1.5<br>Temperature: 28<br></td>
+</tr>
+<tr>
+<td>safeShallows_WreckInterior</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (125.0, 20.0, 4.0)<br>Scattering: 0.6<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.18<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 28<br></td>
+</tr>
+<tr>
+<td>kelpForest</td>
+<td>SkyKelpForest</td>
+<td>Absorption: (80.0, 25.0, 30.0)<br>Scattering: 1.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.16<br>Emissive: RGBA(0.934, 1.000, 0.000, 1.000)<br>Emissive scale: 0.01<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1.5<br>Temperature: 27<br></td>
+</tr>
+<tr>
+<td>kelpForest_WreckInterior</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (80.0, 25.0, 30.0)<br>Scattering: 1.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.16<br>Emissive: RGBA(0.934, 1.000, 0.000, 1.000)<br>Emissive scale: 0.01<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 27<br></td>
+</tr>
+<tr>
+<td>grassyPlateaus</td>
+<td>SkyGrassyPlateaus</td>
+<td>Absorption: (10.0, 4.5, 3.0)<br>Scattering: 0.4<br>Scattering color: RGBA(0.761, 0.761, 0.761, 1.000)<br>Murkiness: 0.45<br>Emissive: RGBA(0.267, 0.498, 0.663, 1.000)<br>Emissive scale: 0.06<br>Start distance: 35<br>Sunlight scale: 1.75<br>Ambient scale: 2<br>Temperature: 26<br></td>
+</tr>
+<tr>
+<td>grassyPlateaus_WreckInterior</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (20.0, 7.0, 3.0)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 26<br></td>
+</tr>
+<tr>
+<td>mountains</td>
+<td>SkyMountains</td>
+<td>Absorption: (40.0, 15.0, 9.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.12<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 1.4<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>mushroomForest</td>
+<td>SkyMushroomForest</td>
+<td>Absorption: (100.0, 30.0, 20.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.05<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 2<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>kooshZone</td>
+<td>SkyKooshZone</td>
+<td>Absorption: (30.0, 23.0, 12.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.14<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>grandReef</td>
+<td>SkyGrandReef</td>
+<td>Absorption: (16.0, 12.0, 6.0)<br>Scattering: 2<br>Scattering color: RGBA(0.000, 1.000, 0.912, 1.000)<br>Murkiness: 0.25<br>Emissive: RGBA(0.000, 0.956, 1.000, 1.000)<br>Emissive scale: 0.03<br>Start distance: 40<br>Sunlight scale: 0.5<br>Ambient scale: 20<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>deepGrandReef</td>
+<td>SkyDeepGrandReef</td>
+<td>Absorption: (6.0, 4.0, 3.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.000, 0.959, 1.000, 1.000)<br>Emissive scale: 0.04<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 100<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>ilzChamber</td>
+<td>SkyILZChamber</td>
+<td>Absorption: (0.1, 2.0, 2.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.451, 0.455, 0.271, 1.000)<br>Emissive scale: 0.09<br>Start distance: 80<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 60<br></td>
+</tr>
+<tr>
+<td>ilzCorridor</td>
+<td>SkyILZChamber</td>
+<td>Absorption: (3.0, 3.0, 1.5)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.376, 0.439, 0.447, 1.000)<br>Emissive scale: 0.035<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 60<br></td>
+</tr>
+<tr>
+<td>sparseReef</td>
+<td>SkyMountains</td>
+<td>Absorption: (10.0, 2.8, 2.8)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>floatingIslandsSurface</td>
+<td>SkyMountains</td>
+<td>Absorption: (100.0, 18.3, 3.5)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>floatingIsland</td>
+<td>SkyMountains</td>
+<td>Absorption: (100.0, 18.3, 3.5)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.000, 0.216, 0.196, 1.000)<br>Emissive scale: 10<br>Start distance: 25<br>Sunlight scale: 3.2<br>Ambient scale: 1<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>floatingIslandBelow</td>
+<td>SkyMountains</td>
+<td>Absorption: (3.0, 1.5, 1.0)<br>Scattering: 0.7<br>Scattering color: RGBA(0.000, 0.408, 0.573, 1.000)<br>Murkiness: 0.55<br>Emissive: RGBA(0.000, 0.490, 0.784, 1.000)<br>Emissive scale: 0.03<br>Start distance: 10<br>Sunlight scale: 0.03<br>Ambient scale: 0.2<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>underwaterIslands</td>
+<td>SkyMountains</td>
+<td>Absorption: (25.0, 10.0, 5.0)<br>Scattering: 0.8<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(1.000, 0.279, 0.629, 1.000)<br>Emissive scale: 0.015<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 5<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>underwaterIslands_IslandCave</td>
+<td>SkyMountains</td>
+<td>Absorption: (25.0, 10.0, 5.0)<br>Scattering: 0.8<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.000, 0.250, 1.000, 1.000)<br>Emissive scale: 0.15<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 5<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>underwaterIslands_Cave</td>
+<td>SkyMountains</td>
+<td>Absorption: (25.0, 10.0, 5.0)<br>Scattering: 0.8<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.368, 0.000, 1.000, 1.000)<br>Emissive scale: 0.1<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 5<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>dunes</td>
+<td>SkyDunes</td>
+<td>Absorption: (20.0, 10.0, 6.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.341, 0.427, 0.447, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(0.102, 0.133, 0.149, 1.000)<br>Emissive scale: 0.2<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>bloodKelp</td>
+<td>SkyBloodKelp</td>
+<td>Absorption: (50.0, 8.0, 4.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>crashZone</td>
+<td>SkyCrashZone</td>
+<td>Absorption: (20.0, 20.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.12<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 20<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>bloodKelp_Trench</td>
+<td>SkyBloodKelp</td>
+<td>Absorption: (35.0, 9.0, 5.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0.005<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>bloodKelp_Cave</td>
+<td>SkyBloodKelp</td>
+<td>Absorption: (100.0, 33.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>safeShallows_Cave</td>
+<td>SkySafeShallows_Caves</td>
+<td>Absorption: (25.0, 15.0, 6.0)<br>Scattering: 0.1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.18<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0.005<br>Start distance: 25<br>Sunlight scale: 0.02<br>Ambient scale: 1<br>Temperature: 26<br></td>
+</tr>
+<tr>
+<td>safeShallows_HugeTube</td>
+<td>SkySafeShallows</td>
+<td>Absorption: (125.0, 20.0, 4.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.18<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.4<br>Ambient scale: 1<br>Temperature: 26<br></td>
+</tr>
+<tr>
+<td>safeShallows_CaveEntrance</td>
+<td>SkySafeShallows</td>
+<td>Absorption: (125.0, 20.0, 4.0)<br>Scattering: 1.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.18<br>Emissive: RGBA(0.956, 0.984, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.8<br>Ambient scale: 0.8<br>Temperature: 27<br></td>
+</tr>
+<tr>
+<td>jellyshroomCaves</td>
+<td>SkyJellyshroomCaves</td>
+<td>Absorption: (3.0, 3.0, 3.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.570, 0.339, 0.853, 1.000)<br>Emissive scale: 0.05<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>jellyshroomCaves_Entrance</td>
+<td>SkyJellyshroomCaves</td>
+<td>Absorption: (16.0, 6.0, 3.0)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(1.000, 0.000, 0.931, 1.000)<br>Emissive scale: 0.01<br>Start distance: 25<br>Sunlight scale: 0.4<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>kelpForest_Dense</td>
+<td>SkyKelpForest</td>
+<td>Absorption: (140.0, 32.0, 47.0)<br>Scattering: 1.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.18<br>Emissive: RGBA(0.934, 1.000, 0.000, 1.000)<br>Emissive scale: 0.02<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 27<br></td>
+</tr>
+<tr>
+<td>kelpForest_Cave</td>
+<td>SkyKelpForest</td>
+<td>Absorption: (140.0, 32.0, 47.0)<br>Scattering: 0.1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.1<br>Ambient scale: 1<br>Temperature: 25<br></td>
+</tr>
+<tr>
+<td>kelpForest_CaveEntrance</td>
+<td>SkyKelpForest</td>
+<td>Absorption: (80.0, 25.0, 30.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.18<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.4<br>Ambient scale: 1<br>Temperature: 26<br></td>
+</tr>
+<tr>
+<td>bloodKelp_DeepTrench</td>
+<td>SkyBloodKelp</td>
+<td>Absorption: (35.0, 9.0, 5.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0.005<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>grassyPlateaus_Cave</td>
+<td>SkyGrassyPlateaus</td>
+<td>Absorption: (5.0, 6.0, 3.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.208, 0.353, 1.000, 1.000)<br>Emissive scale: 0.03<br>Start distance: 20<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>kooshZone_cave_trans</td>
+<td>SkyKooshZone</td>
+<td>Absorption: (14.0, 10.0, 10.0)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0.01<br>Start distance: 25<br>Sunlight scale: 0.3<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>kooshZone_cave_dark</td>
+<td>SkyKooshZone</td>
+<td>Absorption: (14.0, 10.0, 10.0)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0.01<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0.2<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Mountains_Cave</td>
+<td>SkyMountainsCaves</td>
+<td>Absorption: (40.0, 15.0, 9.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0.2<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Mountains_Island_Cave</td>
+<td>SkyMountainsCaves</td>
+<td>Absorption: (40.0, 15.0, 9.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0.2<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Mountains_IslandSurface_Cave</td>
+<td>SkyMountains</td>
+<td>Absorption: (40.0, 15.0, 9.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0.2<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Mountains_CaveEntrance</td>
+<td>SkyMountains</td>
+<td>Absorption: (40.0, 15.0, 9.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Mountains_Island_CaveEntrance</td>
+<td>SkyMountains</td>
+<td>Absorption: (40.0, 15.0, 9.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Mountains_IslandSurface_CaveEntrance</td>
+<td>SkyMountains</td>
+<td>Absorption: (40.0, 15.0, 9.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Dunes_Cave_light</td>
+<td>SkyMountains</td>
+<td>Absorption: (20.0, 10.0, 6.0)<br>Scattering: 0.1<br>Scattering color: RGBA(0.341, 0.427, 0.447, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.8<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Dunes_Cave_Dark</td>
+<td>SkyMountains</td>
+<td>Absorption: (20.0, 10.0, 6.0)<br>Scattering: 0.1<br>Scattering color: RGBA(0.341, 0.427, 0.447, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.5<br>Ambient scale: 0.8<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>mushroomForest_cave_light</td>
+<td>SkyMushroomForest</td>
+<td>Absorption: (100.0, 30.0, 20.0)<br>Scattering: 0.8<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.8<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>mushroomForest_cave_dark</td>
+<td>SkyMushroomForestCave</td>
+<td>Absorption: (100.0, 30.0, 20.0)<br>Scattering: 0.1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(0.000, 0.824, 1.000, 1.000)<br>Emissive scale: 0.075<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>PrecursorCave_MushroomForest</td>
+<td>SkyMushroomForestCave</td>
+<td>Absorption: (0.2, 0.2, 0.2)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1.5<br>Emissive: RGBA(0.000, 0.824, 1.000, 1.000)<br>Emissive scale: 0.002<br>Start distance: 10<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>GrandReef_Cave</td>
+<td>SkyGrandReef</td>
+<td>Absorption: (12.0, 10.0, 5.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.919, 0.324, 0.780, 1.000)<br>Emissive scale: 0.01<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior</td>
+<td>SkyExplodedShipInteriorPowerCorridor</td>
+<td>Absorption: (7.0, 12.0, 20.0)<br>Scattering: 0.02<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.919, 0.460, 0.324, 1.000)<br>Emissive scale: 0.01<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Power</td>
+<td>SkyExplodedShipInteriorPowerRoom</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.662, 0.420, 0.365, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>crashZone_NoLoot</td>
+<td>SkyMountains</td>
+<td>Absorption: (100.0, 30.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>seaTreaderPath</td>
+<td>SkyMountains</td>
+<td>Absorption: (100.0, 33.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.08<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>seaTreaderPath_Cave_light</td>
+<td>SkyMountains</td>
+<td>Absorption: (100.0, 33.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.5<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>seaTreaderPath_Cave_dark</td>
+<td>SkyMountains</td>
+<td>Absorption: (100.0, 33.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.15<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>KelpForest_DenseVine</td>
+<td>SkyKelpForest</td>
+<td>Absorption: (140.0, 32.0, 47.0)<br>Scattering: 1.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.18<br>Emissive: RGBA(0.934, 1.000, 0.000, 1.000)<br>Emissive scale: 0.02<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 27<br></td>
+</tr>
+<tr>
+<td>GrassyPlateaus_Tower</td>
+<td>SkyGrassyPlateaus</td>
+<td>Absorption: (10.0, 4.5, 3.0)<br>Scattering: 0.4<br>Scattering color: RGBA(0.761, 0.761, 0.761, 1.000)<br>Murkiness: 0.45<br>Emissive: RGBA(0.268, 0.499, 0.662, 1.000)<br>Emissive scale: 0.06<br>Start distance: 35<br>Sunlight scale: 1.75<br>Ambient scale: 2<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>ILZCastleChamber</td>
+<td>SkyILZChamber</td>
+<td>Absorption: (0.5, 0.3, 1.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 2<br>Emissive: RGBA(1.000, 0.329, 0.154, 1.000)<br>Emissive scale: 0.08<br>Start distance: 5<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 60<br></td>
+</tr>
+<tr>
+<td>InactiveLavaZone</td>
+<td>SkyMountains</td>
+<td>Absorption: (25.0, 10.0, 5.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>bloodKelpTwo</td>
+<td>SkyBloodKelpTwo</td>
+<td>Absorption: (35.0, 7.0, 5.5)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.15<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>bloodKelpTwo_Cave</td>
+<td>SkyBloodKelpTwo</td>
+<td>Absorption: (35.0, 6.5, 5.0)<br>Scattering: 0.1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0.01<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0.7<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>LostRiver_BonesField</td>
+<td>SkyBonesField</td>
+<td>Absorption: (4.0, 2.0, 1.3)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.000, 0.561, 0.375, 1.000)<br>Emissive scale: 0.2<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>LostRiver_BonesField_Skeleton</td>
+<td>SkyBonesField</td>
+<td>Absorption: (4.0, 2.0, 1.3)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.559, 0.374, 1.000)<br>Emissive scale: 0.25<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>LostRiver_BonesField_Cave</td>
+<td>SkyBonesField</td>
+<td>Absorption: (4.0, 2.0, 1.3)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 2<br>Emissive: RGBA(0.000, 0.559, 0.485, 1.000)<br>Emissive scale: 0.1<br>Start distance: 0<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>LostRiver_BonesField_Corridor</td>
+<td>SkyBonesField_Corridor</td>
+<td>Absorption: (3.0, 3.0, 2.0)<br>Scattering: 0.1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.559, 0.374, 1.000)<br>Emissive scale: 0.15<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 30<br></td>
+</tr>
+<tr>
+<td>LostRiver_BonesField_Lake</td>
+<td>SkyBonesField</td>
+<td>Absorption: (10.0, 5.0, 2.5)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.243, 1.000, 0.467, 1.000)<br>Emissive scale: 0.2<br>Start distance: 5<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 39<br></td>
+</tr>
+<tr>
+<td>LostRiver_BonesField_LakePit</td>
+<td>SkyBonesField</td>
+<td>Absorption: (12.0, 6.0, 3.0)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.243, 1.000, 0.467, 1.000)<br>Emissive scale: 0.2<br>Start distance: 0<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 39<br></td>
+</tr>
+<tr>
+<td>LostRiver_BonesField_Corridor_Stream</td>
+<td>SkyBonesField_Corridor</td>
+<td>Absorption: (10.0, 5.0, 2.5)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.243, 1.000, 0.467, 1.000)<br>Emissive scale: 0.3<br>Start distance: 0<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>ILZCastleTunnel</td>
+<td>SkyILZChamber</td>
+<td>Absorption: (1.0, 1.0, 1.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 2<br>Emissive: RGBA(1.000, 0.329, 0.154, 1.000)<br>Emissive scale: 0.08<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 60<br></td>
+</tr>
+<tr>
+<td>ALZChamber</td>
+<td>SkyLavaLake</td>
+<td>Absorption: (0.3, 1.0, 1.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(1.000, 0.329, 0.154, 1.000)<br>Emissive scale: 0.08<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 80<br></td>
+</tr>
+<tr>
+<td>ALZFalls</td>
+<td>SkyLavaLake</td>
+<td>Absorption: (0.5, 1.0, 1.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(1.000, 0.329, 0.154, 1.000)<br>Emissive scale: 0.08<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 70<br></td>
+</tr>
+<tr>
+<td>Prison_UpperRoom</td>
+<td>SkyPrecursorPrisonAntechamber_NoLightmaps</td>
+<td>Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0.0001<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.001<br>Emissive: RGBA(0.601, 0.765, 0.444, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>Prison_Aquarium</td>
+<td>SkyPrecursorPrisonAquarium</td>
+<td>Absorption: (8.0, 4.5, 4.5)<br>Scattering: 0.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.145, 0.302, 0.255, 1.000)<br>Emissive scale: 0.4<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 21<br></td>
+</tr>
+<tr>
+<td>ilzLava</td>
+<td>SkyILZChamber</td>
+<td>Absorption: (0.3, 1.0, 1.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.000, 0.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(1.000, 0.329, 0.154, 1.000)<br>Emissive scale: 0.05<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 80<br></td>
+</tr>
+<tr>
+<td>LostRiver_TreeCove</td>
+<td>SkyLostRiver_TreeCove</td>
+<td>Absorption: (2.0, 1.0, 0.5)<br>Scattering: 0.1<br>Scattering color: RGBA(0.041, 0.125, 0.239, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.062, 0.109, 0.173, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_ExoPipes</td>
+<td>SkyExplodedShipInteriorPipesRoom</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.831, 0.507, 0.675, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Exo</td>
+<td>SkyExplodedShipInteriorExoRoom</td>
+<td>Absorption: (70.0, 110.0, 70.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.778, 0.691, 1.000, 1.000)<br>Emissive scale: 0.05<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Locker</td>
+<td>SkyExplodedShipInteriorPowerCorridor</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.128, 0.173, 0.243, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Seamoth</td>
+<td>SkyExplodedShipInteriorPowerCorridor</td>
+<td>Absorption: (70.0, 110.0, 70.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.449, 0.402, 0.413, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Elevator</td>
+<td>SkyExplodedShipInteriorPowerCorridor</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.500, 0.344, 0.309, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Cargo</td>
+<td>SkyExplodedShipInteriorPowerCorridor</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1.5<br>Emissive: RGBA(0.394, 0.154, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Entrance_01_01</td>
+<td>SkyExplodedShipInteriorEntrance_03</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.128, 0.173, 0.243, 1.000)<br>Emissive scale: 0.5<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Entrance_01_02</td>
+<td>SkyExplodedShipInteriorEntrance_03</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.394, 0.154, 1.000, 1.000)<br>Emissive scale: 0.5<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Entrance_01_03</td>
+<td>SkyExplodedShipInteriorEntrance_03</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.394, 0.154, 1.000, 1.000)<br>Emissive scale: 0.1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Entrance_02_01</td>
+<td>SkyExplodedShipInteriorEntrance_03</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.394, 0.154, 1.000, 1.000)<br>Emissive scale: 0.1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Entrance_02_02</td>
+<td>SkyExplodedShipInteriorEntrance_03</td>
+<td>Absorption: (70.0, 110.0, 70.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1.5<br>Emissive: RGBA(0.394, 0.154, 1.000, 1.000)<br>Emissive scale: 0.1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_Entrance_03</td>
+<td>SkyExplodedShipInteriorEntrance_03</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.500, 0.344, 0.309, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_PowerCorridor</td>
+<td>SkyExplodedShipInteriorPowerCorridor</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.500, 0.344, 0.309, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_LockerCorridor</td>
+<td>SkyExplodedShipInteriorPowerCorridor</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.500, 0.344, 0.309, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_SeamothRoom</td>
+<td>SkyExplodedShipInteriorSeamothRoom_02</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.500, 0.344, 0.309, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_LivingArea</td>
+<td>SkyExplodedShipInteriorExoRoom</td>
+<td>Absorption: (80.0, 110.0, 70.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.394, 0.154, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_THallway</td>
+<td>SkyExplodedShipInteriorPowerCorridor</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.394, 0.154, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashedShip_Interior_THallwayLower</td>
+<td>SkyExplodedShipInteriorPowerCorridor</td>
+<td>Absorption: (50.0, 40.0, 30.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.394, 0.154, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>LavaLakes</td>
+<td>SkyLavaLake</td>
+<td>Absorption: (0.6, 0.3, 1.0)<br>Scattering: 0.75<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.55<br>Emissive: RGBA(1.000, 0.329, 0.154, 1.000)<br>Emissive scale: 0.05<br>Start distance: 65<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 80<br></td>
+</tr>
+<tr>
+<td>LavaFalls</td>
+<td>SkyLavaLake</td>
+<td>Absorption: (0.5, 1.0, 1.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(1.000, 0.329, 0.154, 1.000)<br>Emissive scale: 0.08<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 70<br></td>
+</tr>
+<tr>
+<td>LavaLakes_LavaPool</td>
+<td>SkyLavaLake</td>
+<td>Absorption: (0.5, 0.6, 1.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(1.000, 0.471, 0.157, 1.000)<br>Emissive scale: 0.15<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 80<br></td>
+</tr>
+<tr>
+<td>LavaPit</td>
+<td>SkyILZChamber</td>
+<td>Absorption: (3.0, 2.0, 1.5)<br>Scattering: 0.1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.424, 0.588, 0.651, 1.000)<br>Emissive scale: 0.03<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 60<br></td>
+</tr>
+<tr>
+<td>Precursor_Gun_OuterRooms</td>
+<td>SkyPrecursorInterior_NoLightmaps</td>
+<td>Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.01<br>Emissive: RGBA(0.824, 0.922, 0.828, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>LostRiver_TreeCove_Water</td>
+<td>SkyLostRiver_TreeCove</td>
+<td>Absorption: (4.0, 4.0, 5.0)<br>Scattering: 1<br>Scattering color: RGBA(0.000, 0.226, 0.275, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.000, 0.550, 0.667, 1.000)<br>Emissive scale: 0.8<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 39<br></td>
+</tr>
+<tr>
+<td>Precursor_Gun_MoonPoolWater</td>
+<td>SkyPrecursorInterior_NoLightmaps</td>
+<td>Absorption: (12.0, 10.0, 12.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.560, 0.603, 1.000)<br>Emissive scale: 0.2<br>Start distance: 25<br>Sunlight scale: 0.5<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Precursor_Gun_InnerRooms</td>
+<td>SkyPrecursorInterior_NoLightmaps</td>
+<td>Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.01<br>Emissive: RGBA(0.000, 0.560, 0.603, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Precursor_Gun_ControlRoom</td>
+<td>SkyPrecursorInterior_NoLightmaps</td>
+<td>Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.01<br>Emissive: RGBA(0.000, 0.560, 0.603, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Precursor_LostRiverBase</td>
+<td>SkyPrecursorInterior_LostRiverBase_NoLightmaps</td>
+<td>Absorption: (4.0, 2.0, 1.3)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.561, 0.378, 1.000)<br>Emissive scale: 0.05<br>Start distance: 5<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 14<br></td>
+</tr>
+<tr>
+<td>Precursor_LavaCastleBase</td>
+<td>SkyPrecursorInterior_NoLightmaps</td>
+<td>Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.01<br>Emissive: RGBA(0.000, 0.560, 0.603, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>PrecursorThermalRoom</td>
+<td>SkyPrecursorInterior_NoLightmaps</td>
+<td>Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.01<br>Emissive: RGBA(0.000, 0.560, 0.603, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>LostRiver_TreeCove_Tree</td>
+<td>SkyLostRiver_TreeCove</td>
+<td>Absorption: (2.0, 1.0, 0.5)<br>Scattering: 0.1<br>Scattering color: RGBA(0.041, 0.125, 0.239, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.062, 0.109, 0.173, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>underwaterIslands_Geyser</td>
+<td>SkyMountains</td>
+<td>Absorption: (25.0, 10.0, 5.0)<br>Scattering: 0.8<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 5<br>Temperature: 60<br></td>
+</tr>
+<tr>
+<td>JellyshroomCaves_Geyser</td>
+<td>SkyJellyshroomCaves</td>
+<td>Absorption: (5.0, 4.0, 2.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.431, 0.392, 0.784, 1.000)<br>Emissive scale: 0.035<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 60<br></td>
+</tr>
+<tr>
+<td>LostRiver_GhostTree</td>
+<td>SkyLostRiver</td>
+<td>Absorption: (10.0, 8.0, 12.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.25<br>Emissive: RGBA(0.000, 0.216, 0.196, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 30<br></td>
+</tr>
+<tr>
+<td>ilzChamber_Dragon</td>
+<td>SkyILZChamber</td>
+<td>Absorption: (0.1, 2.0, 2.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.451, 0.455, 0.271, 1.000)<br>Emissive scale: 0.09<br>Start distance: 80<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 60<br></td>
+</tr>
+<tr>
+<td>LostRiver_Junction</td>
+<td>SkyLostRiver_Junction</td>
+<td>Absorption: (4.0, 2.0, 1.3)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.561, 0.378, 1.000)<br>Emissive scale: 0.05<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>LostRiver_GhostTree_Lower</td>
+<td>SkyLostRiver</td>
+<td>Absorption: (10.0, 8.0, 12.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.28<br>Emissive: RGBA(0.000, 0.196, 0.176, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>LostRiver_GhostTree_Skeleton</td>
+<td>SkyLostRiver</td>
+<td>Absorption: (10.0, 8.0, 12.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.25<br>Emissive: RGBA(0.000, 0.216, 0.196, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 30<br></td>
+</tr>
+<tr>
+<td>FloatingIslandCaveTeleporter</td>
+<td>SkyMountains</td>
+<td>Absorption: (10.0, 8.0, 12.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.353, 0.627, 0.706, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>LostRiver_Junction_Water</td>
+<td>SkyLostRiver_Junction</td>
+<td>Absorption: (10.0, 5.0, 2.5)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.243, 1.000, 0.462, 1.000)<br>Emissive scale: 0.3<br>Start distance: 5<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 39<br></td>
+</tr>
+<tr>
+<td>mountains_teleporter</td>
+<td>SkyMountainsCaves</td>
+<td>Absorption: (40.0, 15.0, 9.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.3<br>Ambient scale: 0.2<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>sparseReef_Cave</td>
+<td>SkyMountains</td>
+<td>Absorption: (5.0, 4.0, 3.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.039, 0.075, 0.208, 1.000)<br>Emissive scale: 0.1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0.5<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>sparseReef_Deep</td>
+<td>SkyMountains</td>
+<td>Absorption: (10.0, 2.8, 2.8)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.5<br>Ambient scale: 0.5<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>sparseReef_Spike</td>
+<td>SkyMountains</td>
+<td>Absorption: (10.0, 2.8, 2.8)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>sparseReef_Wreck</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (5.0, 4.0, 3.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>precursorCache</td>
+<td>SkyPrecursorInterior</td>
+<td>Absorption: (10.0, 1.0, 2.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 3<br>Emissive: RGBA(0.075, 0.310, 0.231, 1.000)<br>Emissive scale: 0.2<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>LostRiver_SkeletonCave</td>
+<td>SkyBonesField</td>
+<td>Absorption: (10.0, 4.0, 3.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.061, 0.243, 0.180, 1.000)<br>Emissive scale: 0.5<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 30<br></td>
+</tr>
+<tr>
+<td>LostRiver_SkeletonCave_Skeleton</td>
+<td>SkyBonesField</td>
+<td>Absorption: (4.0, 2.0, 1.3)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 3<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 30<br></td>
+</tr>
+<tr>
+<td>LostRiver_Canyon</td>
+<td>SkyBonesField</td>
+<td>Absorption: (10.0, 3.0, 3.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.059, 0.243, 0.180, 1.000)<br>Emissive scale: 0.5<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 30<br></td>
+</tr>
+<tr>
+<td>CragField</td>
+<td>SkyMountains</td>
+<td>Absorption: (100.0, 33.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>PrecursorCave_Cragfield</td>
+<td>SkyMountains</td>
+<td>Absorption: (100.0, 33.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Prison_Aquarium_Upper</td>
+<td>SkyPrecursorPrisonAquarium</td>
+<td>Absorption: (10.0, 4.5, 5.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.6<br>Emissive: RGBA(0.145, 0.302, 0.255, 1.000)<br>Emissive scale: 0.4<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 21<br></td>
+</tr>
+<tr>
+<td>Prison_Aquarium_Mid</td>
+<td>SkyPrecursorPrisonAquarium</td>
+<td>Absorption: (10.0, 4.5, 4.5)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.145, 0.302, 0.255, 1.000)<br>Emissive scale: 0.25<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 21<br></td>
+</tr>
+<tr>
+<td>Prison_Aquarium_Cave</td>
+<td>SkyMountains</td>
+<td>Absorption: (15.0, 10.0, 8.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.000, 0.204, 0.220, 1.000)<br>Emissive scale: 1<br>Start distance: 5<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 21<br></td>
+</tr>
+<tr>
+<td>PrecursorCave_GhostTree</td>
+<td>SkyMountains</td>
+<td>Absorption: (20.0, 15.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.15<br>Emissive: RGBA(0.475, 0.838, 0.542, 1.000)<br>Emissive scale: 0.02<br>Start distance: 5<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 21<br></td>
+</tr>
+<tr>
+<td>PrecursorCave_KooshZone</td>
+<td>SkyMountains</td>
+<td>Absorption: (20.0, 15.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.15<br>Emissive: RGBA(0.375, 0.375, 0.400, 1.000)<br>Emissive scale: 0.12<br>Start distance: 5<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 21<br></td>
+</tr>
+<tr>
+<td>Prison_Antechamber</td>
+<td>SkyPrecursorPrisonAntechamber</td>
+<td>Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0.0001<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.001<br>Emissive: RGBA(0.600, 0.765, 0.443, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>Prison_Moonpool</td>
+<td>SkyPrecursorPrisonMoonpool</td>
+<td>Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0.0001<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.001<br>Emissive: RGBA(0.600, 0.765, 0.443, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 34<br></td>
+</tr>
+<tr>
+<td>kooshZone_wreck</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (30.0, 23.0, 12.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.14<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashZone_Mesa</td>
+<td>SkyCrashZone</td>
+<td>Absorption: (50.0, 20.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.15<br>Emissive: RGBA(0.004, 0.647, 0.129, 1.000)<br>Emissive scale: 0.03<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>Dunes_wreck</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (20.0, 10.0, 6.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.341, 0.427, 0.447, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(0.102, 0.133, 0.149, 1.000)<br>Emissive scale: 0.2<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>LostRiver_Corridor</td>
+<td>SkyLostRiver_Junction</td>
+<td>Absorption: (4.0, 2.0, 1.3)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.561, 0.376, 1.000)<br>Emissive scale: 0.05<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 30<br></td>
+</tr>
+<tr>
+<td>LostRiver_Corridor_ThermalVents</td>
+<td>SkyLostRiver_Junction</td>
+<td>Absorption: (4.0, 2.0, 1.3)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.561, 0.376, 1.000)<br>Emissive scale: 0.05<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 30<br></td>
+</tr>
+<tr>
+<td>underwaterIslands_wreck</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (25.0, 10.0, 5.0)<br>Scattering: 0.8<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>mountains_wreckinterior</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (40.0, 15.0, 9.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.12<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>bloodKelp_wreck</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (50.0, 8.0, 4.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>seaTreaderPath_wreck</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (100.0, 33.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>mushroomForest_wreck</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (100.0, 30.0, 20.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.05<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>grandReef_wreck</td>
+<td>SkyExplorableWreck</td>
+<td>Absorption: (16.0, 12.0, 6.0)<br>Scattering: 2<br>Scattering color: RGBA(0.000, 1.000, 0.910, 1.000)<br>Murkiness: 0.25<br>Emissive: RGBA(0.000, 0.957, 1.000, 1.000)<br>Emissive scale: 0.03<br>Start distance: 40<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br></td>
+</tr>
+<tr>
+<td>CrashZone_Trench</td>
+<td>SkyCrashZone</td>
+<td>Absorption: (17.0, 20.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br>Emissive scale: 0<br>Start distance: 5<br>Sunlight scale: 0.75<br>Ambient scale: 1<br>Temperature: 24<br></td>
+</tr>
+</tbody>
+</table>
+</details><br>
+<details>
+  <summary>Expand to view base game biome data (BZ):</summary>
+  
+| Biome name   | Sky name | Settings                                              |
+|--------------|-----------------|-------------------------------------------------------|
+| arctic | SkyArcticSurface    | Absorption: (125.0, 20.0, 4.0)<br>Scattering: 1.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.18<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1.5<br>Temperature: 0<br> |
+| sparseArctic | SkyArcticSurface    | Absorption: (150.0, 15.0, 3.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 35<br>Sunlight scale: 1.2<br>Ambient scale: 1.5<br>Temperature: 0<br> |
+| glacialBay | SkyArcticSurface    | Absorption: (35.0, 5.0, 3.0)<br>Scattering: 1<br>Scattering color: RGBA(0.016, 0.840, 0.758, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.495, 0.991, 0.792, 1.000)<br>Emissive scale: 0.05<br>Start distance: 35<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 0<br> |
+| arcticKelp | SkyKelpForest    | Absorption: (5.0, 1.5, 2.0)<br>Scattering: 0.25<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 3<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 35<br>Sunlight scale: 1<br>Ambient scale: 1.25<br>Temperature: 20<br> |
+| twistyBridges | SkyTwistyBridges    | Absorption: (35.0, 5.0, 3.0)<br>Scattering: 1<br>Scattering color: RGBA(0.000, 0.534, 0.440, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.868, 1.000, 1.000)<br>Emissive scale: 0.02<br>Start distance: 30<br>Sunlight scale: 1.1<br>Ambient scale: 0.5<br>Temperature: 4<br> |
+| twistyBridges_Shallow | SkyTwistyBridges_Shallow    | Absorption: (25.0, 9.0, 3.0)<br>Scattering: 0.385<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.239, 1.000, 0.886, 1.000)<br>Emissive scale: 0.03<br>Start distance: 20<br>Sunlight scale: 1.2<br>Ambient scale: 0.6<br>Temperature: 6<br> |
+| twistyBridges_OuterCave | SkyTwistyBridges_ShallowCave    | Absorption: (35.0, 5.0, 3.0)<br>Scattering: 1<br>Scattering color: RGBA(0.000, 0.534, 0.440, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.851, 1.000, 1.000)<br>Emissive scale: 0.04<br>Start distance: 15<br>Sunlight scale: 0.4<br>Ambient scale: 1.1<br>Temperature: 6<br> |
+| twistyBridges_Cave | SkyTwistyBridges_ShallowCave    | Absorption: (35.0, 5.0, 3.0)<br>Scattering: 1<br>Scattering color: RGBA(0.000, 0.534, 0.440, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.851, 1.000, 1.000)<br>Emissive scale: 0.04<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 1.1<br>Temperature: 6<br> |
+| twistyBridges_InnerCave | SkyTwistyBridges_ShallowCave    | Absorption: (35.0, 5.0, 3.0)<br>Scattering: 1<br>Scattering color: RGBA(0.000, 0.534, 0.440, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.851, 1.000, 1.000)<br>Emissive scale: 0.02<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 1.1<br>Temperature: 6<br> |
+| twistyBridges_Cave_Sanctuary | SkyTwistyBridges_ShallowCave    | Absorption: (35.0, 5.0, 3.0)<br>Scattering: 1<br>Scattering color: RGBA(0.000, 0.534, 0.440, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.851, 1.000, 1.000)<br>Emissive scale: 0.02<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 1.1<br>Temperature: 6<br> |
+| lilyPads | SkyLilyPads    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.45<br>Emissive: RGBA(0.180, 0.604, 0.404, 1.000)<br>Emissive scale: 0.05<br>Start distance: 20<br>Sunlight scale: 1<br>Ambient scale: 1.25<br>Temperature: 20<br> |
+| lilyPads_Islands | SkyLilyPads    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.6<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.45<br>Emissive: RGBA(0.180, 0.604, 0.404, 1.000)<br>Emissive scale: 0.05<br>Start distance: 20<br>Sunlight scale: 1<br>Ambient scale: 1.25<br>Temperature: 20<br> |
+| lilyPads_Islands_Cave | SkyLilyPads    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.6<br>Emissive: RGBA(0.180, 0.604, 0.285, 1.000)<br>Emissive scale: 0.4<br>Start distance: 10<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 20<br> |
+| lilyPads_MegaIsland_CaveInterior | SkyLilyPads_MegaIsland_CaveInterior    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.45<br>Emissive: RGBA(0.180, 0.604, 0.404, 1.000)<br>Emissive scale: 0.05<br>Start distance: 20<br>Sunlight scale: 0.5<br>Ambient scale: 1<br>Temperature: 20<br> |
+| lilyPads_MegaIsland_CaveCorridor | SkyLilyPads_MegaIsland_CaveCorridor    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.45<br>Emissive: RGBA(0.180, 0.604, 0.404, 1.000)<br>Emissive scale: 0.02<br>Start distance: 20<br>Sunlight scale: 0.25<br>Ambient scale: 1<br>Temperature: 20<br> |
+| lilyPads_ShipWreck | SkyLilyPads    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.6<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.35<br>Emissive: RGBA(0.180, 0.604, 0.404, 1.000)<br>Emissive scale: 0.013<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1.25<br>Temperature: 20<br> |
+| thermalSpires | SkyThermalSpires    | Absorption: (30.0, 12.0, 8.0)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.063, 0.137, 0.196, 1.000)<br>Emissive scale: 0.5<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1.5<br>Temperature: 25<br> |
+| thermalSpires_cave | SkyThermalSpiresCave    | Absorption: (5.0, 2.0, 1.0)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.75<br>Emissive: RGBA(0.519, 0.432, 0.277, 1.000)<br>Emissive scale: 0.2<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 0.8<br>Temperature: 35<br> |
+| thermalSpiresDeep | SkyThermalSpiresCave    | Absorption: (30.0, 12.0, 8.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.75<br>Emissive: RGBA(0.063, 0.137, 0.196, 1.000)<br>Emissive scale: 0.5<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 0.8<br>Temperature: 45<br> |
+| purpleVents | SkyPurpleVents    | Absorption: (8.0, 7.0, 7.0)<br>Scattering: 0.35<br>Scattering color: RGBA(0.404, 0.616, 0.800, 1.000)<br>Murkiness: 0.65<br>Emissive: RGBA(0.000, 0.165, 0.216, 1.000)<br>Emissive scale: 5<br>Start distance: 24<br>Sunlight scale: 1<br>Ambient scale: 1.5<br>Temperature: 20<br> |
+| purpleVents_ShipWreck | SkyPurpleVents    | Absorption: (8.0, 7.0, 7.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.404, 0.616, 0.800, 1.000)<br>Murkiness: 0.65<br>Emissive: RGBA(0.000, 0.165, 0.216, 1.000)<br>Emissive scale: 5<br>Start distance: 24<br>Sunlight scale: 1<br>Ambient scale: 1.5<br>Temperature: 40<br> |
+| purpleVents_Deep | SkyDeepPurpleVents    | Absorption: (8.0, 7.0, 7.0)<br>Scattering: 0.35<br>Scattering color: RGBA(0.404, 0.616, 0.800, 1.000)<br>Murkiness: 0.65<br>Emissive: RGBA(0.000, 0.165, 0.216, 1.000)<br>Emissive scale: 5<br>Start distance: 24<br>Sunlight scale: 0<br>Ambient scale: 1.5<br>Temperature: 40<br> |
+| purpleVents_Crevice | SkyDeepPurpleVents    | Absorption: (8.0, 7.0, 7.0)<br>Scattering: 0.35<br>Scattering color: RGBA(0.404, 0.616, 0.800, 1.000)<br>Murkiness: 0.65<br>Emissive: RGBA(0.000, 0.165, 0.216, 1.000)<br>Emissive scale: 5<br>Start distance: 24<br>Sunlight scale: 0.5<br>Ambient scale: 1.5<br>Temperature: 40<br> |
+| crystalCave | SkyTwistyBridges_Deep    | Absorption: (5.0, 5.0, 5.5)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.403, 0.528, 0.981, 1.000)<br>Emissive scale: 0.2<br>Start distance: 20<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 30<br> |
+| crystalCave_Fissure | SkyTwistyBridges_Deep    | Absorption: (6.0, 3.5, 6.5)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.508, 0.584, 0.282, 1.000)<br>Emissive scale: 0.25<br>Start distance: 5<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 50<br> |
+| crystalCave_Vent | SkyTwistyBridges_Deep    | Absorption: (6.0, 3.5, 6.5)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.508, 0.584, 0.282, 1.000)<br>Emissive scale: 0.25<br>Start distance: 5<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 80<br> |
+| fabricatorcaverns | SkyTwistyBridges_Deep    | Absorption: (4.0, 3.0, 6.0)<br>Scattering: 0.1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.6<br>Emissive: RGBA(0.118, 0.510, 0.659, 1.000)<br>Emissive scale: 0.2<br>Start distance: 30<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 6<br> |
+| deepArctic | SkyTwistyBridges_Deep    | Absorption: (125.0, 20.0, 4.0)<br>Scattering: 1.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.18<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1.5<br>Temperature: -2<br> |
+| kelpForest | SkyKelpForest    | Absorption: (7.0, 4.5, 4.5)<br>Scattering: 1.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.2<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 5<br> |
+| lilyPads_Deep | SkyDeepLily    | Absorption: (5.0, 5.5, 6.5)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(1.000, 0.906, 0.973, 1.000)<br>Emissive scale: 0.12<br>Start distance: 18<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 1<br> |
+| lilyPads_Deep_Cache | SkyDeepLily    | Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0.25<br>Scattering color: RGBA(0.000, 0.533, 0.439, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.800, 0.784, 1.000, 1.000)<br>Emissive scale: 0.01<br>Start distance: 0<br>Sunlight scale: 0<br>Ambient scale: 1.1<br>Temperature: 6<br> |
+| lilyPads_Deep_GiantFlower | SkyDeepLily    | Absorption: (10.0, 11.0, 15.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.23<br>Emissive: RGBA(0.027, 0.152, 0.220, 1.000)<br>Emissive scale: 1<br>Start distance: 0<br>Sunlight scale: 0<br>Ambient scale: 2<br>Temperature: 1<br> |
+| twistyBridges_Deep | SkyTwistyBridges_Deep    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0.25<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.45<br>Emissive: RGBA(0.533, 0.463, 0.867, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0<br>Ambient scale: 0.8<br>Temperature: 30<br> |
+| twistyBridges_Deep_thermal | SkyTwistyBridges_Deep    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0.25<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.533, 0.463, 0.867, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0<br>Ambient scale: 0.8<br>Temperature: 55<br> |
+| introIceCave_Entrance | SkyintroIceCave    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.533, 0.463, 0.867, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0.1<br>Ambient scale: 0.8<br>Temperature: 1<br> |
+| introIceCave | SkyintroIceCave    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.533, 0.463, 0.867, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0<br>Ambient scale: 0.8<br>Temperature: 1<br> |
+| RocketAreaIceCave | SkyintroIceCave    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.089, 0.771, 0.868, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0<br>Ambient scale: 0.8<br>Temperature: 1<br> |
+| RocketAreaIceCave_Entrance | SkyintroIceCave    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.485, 0.820, 0.868, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0.1<br>Ambient scale: 0.8<br>Temperature: 1<br> |
+| RocketAreaRockCave | SkyKelpCave    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.838, 0.639, 0.210, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0<br>Ambient scale: 0.8<br>Temperature: 1<br> |
+| RocketAreaRockCave_Entrance | SkyKelpCave    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.860, 0.772, 0.582, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0.1<br>Ambient scale: 0.8<br>Temperature: 1<br> |
+| startZone | SkyArcticSurface    | Absorption: (150.0, 15.0, 3.0)<br>Scattering: 0.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 35<br>Sunlight scale: 1.2<br>Ambient scale: 1.5<br>Temperature: 0<br> |
+| ArcticKelp_CaveInner | SkyKelpCave    | Absorption: (30.0, 25.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.15<br>Emissive: RGBA(0.353, 0.431, 0.157, 1.000)<br>Emissive scale: 1<br>Start distance: 8<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 30<br> |
+| ArcticKelp_CaveOuter | SkyKelpCave    | Absorption: (30.0, 25.0, 20.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.15<br>Emissive: RGBA(0.353, 0.431, 0.157, 1.000)<br>Emissive scale: 1<br>Start distance: 8<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 24<br> |
+| startZone_Cave | SkyTwistyBridges    | Absorption: (35.0, 5.0, 2.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.533, 0.439, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.851, 1.000, 1.000)<br>Emissive scale: 0.05<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 1.1<br>Temperature: 6<br> |
+| startZone_Cave_Entrance | SkyTwistyBridges    | Absorption: (35.0, 5.0, 2.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.533, 0.439, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.851, 1.000, 1.000)<br>Emissive scale: 0.07<br>Start distance: 15<br>Sunlight scale: 0.5<br>Ambient scale: 1.1<br>Temperature: 6<br> |
+| Precursor_Sanctuary | SkyPrecursorSanctuaryCave    | Absorption: (35.0, 5.0, 2.0)<br>Scattering: 1<br>Scattering color: RGBA(0.000, 0.533, 0.439, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.851, 1.000, 1.000)<br>Emissive scale: 0.07<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 1.1<br>Temperature: 6<br> |
+| Precursor_Sanctuary_Cave | SkyPrecursorSanctuaryCave    | Absorption: (35.0, 5.0, 2.0)<br>Scattering: 1<br>Scattering color: RGBA(0.000, 0.533, 0.439, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.000, 0.851, 1.000, 1.000)<br>Emissive scale: 0.02<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 1.1<br>Temperature: 6<br> |
+| treespires | SkyTreeSpires    | Absorption: (5.0, 4.0, 2.0)<br>Scattering: 0.3<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.75<br>Emissive: RGBA(0.757, 0.447, 1.000, 1.000)<br>Emissive scale: 0.1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 30<br> |
+| treespires_bigtree | SkyTreeSpires    | Absorption: (5.0, 4.0, 2.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.75<br>Emissive: RGBA(0.757, 0.447, 1.000, 1.000)<br>Emissive scale: 0.1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 25<br> |
+| treespires_bigfissure | SkyTreeSpires    | Absorption: (6.0, 10.0, 3.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.757, 0.447, 1.000, 1.000)<br>Emissive scale: 0.05<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 50<br> |
+| treespires_smallfissure | SkyTreeSpires    | Absorption: (8.0, 10.0, 3.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.000, 1.000, 0.975, 1.000)<br>Emissive scale: 0.1<br>Start distance: 25<br>Sunlight scale: 1.5<br>Ambient scale: 1<br>Temperature: 40<br> |
+| GlacialBasin_Bunker | SkyBaseInterior    | Absorption: (255.0, 255.0, 255.0)<br>Scattering: 0<br>Scattering color: RGBA(0.000, 0.000, 0.000, 1.000)<br>Murkiness: 0.48<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 3<br> |
+| GlacialBasin_GlacialCave | SkyGlacialCavesIce    | Absorption: (255.0, 255.0, 255.0)<br>Scattering: 0<br>Scattering color: RGBA(0.000, 0.000, 0.000, 1.000)<br>Murkiness: 0.48<br>Emissive: RGBA(0.724, 0.908, 0.953, 1.000)<br>Emissive scale: 0<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 3<br> |
+| GlacialBasin_CreatureCave | SkyintroIceCave    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.533, 0.463, 0.867, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0<br>Ambient scale: 0.8<br>Temperature: 3<br> |
+| GlacialBasin_DarkCave | SkyPrecursorInterior_Dark    | Absorption: (255.0, 255.0, 255.0)<br>Scattering: 0<br>Scattering color: RGBA(0.000, 0.000, 0.000, 1.000)<br>Murkiness: 3<br>Emissive: RGBA(0.000, 0.000, 0.000, 1.000)<br>Emissive scale: 0<br>Start distance: 0<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 3<br> |
+| GlacialBasin_HoverBikeBase | SkyintroIceCave    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.533, 0.463, 0.867, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0<br>Ambient scale: 0.4<br>Temperature: 3<br> |
+| GlacialBasin_BlueIceCave | SkyintroIceCave    | Absorption: (12.0, 6.0, 6.0)<br>Scattering: 1<br>Scattering color: RGBA(0.108, 0.608, 0.915, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.724, 0.908, 0.953, 1.000)<br>Emissive scale: 0.5<br>Start distance: 12<br>Sunlight scale: 0<br>Ambient scale: 0.8<br>Temperature: 3<br> |
+| GlacialBasin_Overhang | SkyGlacialBasin    | Absorption: (128.0, 32.0, 32.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.725, 0.906, 0.953, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0.5<br>Ambient scale: 0<br>Temperature: 3<br> |
+| GlacialBasin_IceLakeSurface | SkyTwistyBridges_Shallow    | Absorption: (25.0, 9.0, 3.0)<br>Scattering: 0.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.529, 0.000, 1.000, 1.000)<br>Emissive scale: 0.01<br>Start distance: 20<br>Sunlight scale: 1.2<br>Ambient scale: 0.6<br>Temperature: 3<br> |
+| GlacialBasin_TemperateCave | SkyintroIceCave    | Absorption: (12.0, 6.0, 6.0)<br>Scattering: 0<br>Scattering color: RGBA(0.000, 0.579, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.707, 0.802, 0.723, 1.000)<br>Emissive scale: 2.45<br>Start distance: 5<br>Sunlight scale: 0<br>Ambient scale: 0.8<br>Temperature: 3<br> |
+| glacialBasin_Underwater | SkyTreeSpires    | Absorption: (20.0, 10.0, 4.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.141, 0.204, 0.388, 1.000)<br>Emissive scale: 0.05<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0.2<br>Temperature: 0<br> |
+| glacialBasin | SkyGlacialBasin    | Absorption: (25.0, 25.0, 3.0)<br>Scattering: 0.06<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.724, 0.908, 0.953, 1.000)<br>Emissive scale: 0.05<br>Start distance: 35<br>Sunlight scale: 1<br>Ambient scale: 1.5<br>Temperature: 0<br> |
+| MiningSite | SkyMiningSite    | Absorption: (25.0, 15.0, 20.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.953, 0.858, 0.725, 1.000)<br>Emissive scale: 0.1<br>Start distance: 35<br>Sunlight scale: 0<br>Ambient scale: 1.5<br>Temperature: 0<br> |
+| wreck | SkyWreck    | Absorption: (25.0, 7.0, 12.0)<br>Scattering: 0.4<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.051, 0.486, 0.620, 1.000)<br>Emissive scale: 0.3<br>Start distance: 0<br>Sunlight scale: 0<br>Ambient scale: 1.5<br>Temperature: 0<br> |
+| CrystalCave_Cache | SkyCrystalCaverns    | Absorption: (3.0, 5.0, 8.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.35<br>Emissive: RGBA(0.380, 0.373, 0.906, 1.000)<br>Emissive scale: 0.3<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 0<br> |
+| CrystalCave_Castle | SkyTwistyBridges_Deep    | Absorption: (6.0, 5.0, 5.5)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.380, 0.373, 0.906, 1.000)<br>Emissive scale: 0.4<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 0<br> |
+| CrystalCave_Inner | SkyTwistyBridges_Deep    | Absorption: (5.0, 5.0, 5.5)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.403, 0.528, 0.981, 1.000)<br>Emissive scale: 0.2<br>Start distance: 20<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 40<br> |
+| GlacialConnection | SkyTreeSpires    | Absorption: (10.0, 5.0, 4.0)<br>Scattering: 1.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.141, 0.204, 0.388, 1.000)<br>Emissive scale: 0.5<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0.2<br>Temperature: 0<br> |
+| Glacier | SkyTreeSpires    | Absorption: (20.0, 10.0, 4.0)<br>Scattering: 2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.3<br>Emissive: RGBA(0.141, 0.204, 0.388, 1.000)<br>Emissive scale: 1<br>Start distance: 25<br>Sunlight scale: 1<br>Ambient scale: 0.2<br>Temperature: 0<br> |
+| margBase | SkyKelpCave    | Absorption: (5.0, 3.0, 5.0)<br>Scattering: 0.8<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.6<br>Emissive: RGBA(0.176, 0.336, 0.604, 1.000)<br>Emissive scale: 0.4<br>Start distance: 20<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 25<br> |
+| margBase_Base | SkyKelpCave    | Absorption: (5.0, 3.0, 5.0)<br>Scattering: 0.8<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.6<br>Emissive: RGBA(0.180, 0.604, 0.526, 1.000)<br>Emissive scale: 0.13<br>Start distance: 20<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 30<br> |
+| margBase_Base_Interior | SkyKelpCave    | Absorption: (6.0, 2.0, 1.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.604, 0.604, 0.604, 1.000)<br>Emissive scale: 0.1<br>Start distance: 10<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 0<br> |
+| treespires_Thermal | SkyTreeSpires    | Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0<br>Emissive: RGBA(0.604, 0.604, 0.604, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 60<br> |
+| thermalSpires_Thermal | SkyThermalSpires    | Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0<br>Emissive: RGBA(0.604, 0.604, 0.604, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 35<br> |
+| thermalVent_Thermal | SkyThermalSpires    | Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0<br>Emissive: RGBA(0.604, 0.604, 0.604, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 100<br> |
+| lava_Thermal | SkyThermalSpires    | Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0<br>Emissive: RGBA(0.604, 0.604, 0.604, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 200<br> |
+| purpleVent_Thermal | SkyThermalSpires    | Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0<br>Emissive: RGBA(0.604, 0.604, 0.604, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 50<br> |
+| hotsprings_Thermal | SkyThermalSpires    | Absorption: (0.0, 0.0, 0.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0<br>Emissive: RGBA(0.604, 0.604, 0.604, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 40<br> |
+| lilypads_crevice | SkyKelpCave    | Absorption: (5.0, 3.0, 5.0)<br>Scattering: 1<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.6<br>Emissive: RGBA(0.115, 0.623, 0.403, 1.000)<br>Emissive scale: 0.12<br>Start distance: 15<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 1<br> |
+| lilypads_megatrench | SkyKelpCave    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.7<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.180, 0.604, 0.525, 1.000)<br>Emissive scale: 0.15<br>Start distance: 20<br>Sunlight scale: 0.75<br>Ambient scale: 0<br>Temperature: 1<br> |
+| arcticeast_iceberg_cavehigh | SkyKelpCave    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.290, 0.717, 1.000)<br>Murkiness: 1<br>Emissive: RGBA(0.332, 0.524, 0.774, 1.000)<br>Emissive scale: 0.9<br>Start distance: 10<br>Sunlight scale: 0.5<br>Ambient scale: 0<br>Temperature: 1<br> |
+| arcticeast_iceberg_cavelow | SkyKelpCave    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.161, 0.388, 1.000)<br>Murkiness: 2<br>Emissive: RGBA(0.196, 0.353, 0.557, 1.000)<br>Emissive scale: 0.4<br>Start distance: 10<br>Sunlight scale: 0.1<br>Ambient scale: 0<br>Temperature: 1<br> |
+| lilypads_crevice_exit | SkyKelpCave    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.6<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.6<br>Emissive: RGBA(0.145, 0.678, 0.510, 1.000)<br>Emissive scale: 0.13<br>Start distance: 20<br>Sunlight scale: 0.2<br>Ambient scale: 0.25<br>Temperature: 1<br> |
+| lilypads_crevice_open | SkyKelpCave    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.6<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.6<br>Emissive: RGBA(0.145, 0.678, 0.510, 1.000)<br>Emissive scale: 0.13<br>Start distance: 20<br>Sunlight scale: 0.3<br>Ambient scale: 1<br>Temperature: 1<br> |
+| EastArctic | SkyIceberg    | Absorption: (10.0, 5.0, 4.0)<br>Scattering: 0.6<br>Scattering color: RGBA(0.000, 0.571, 0.745, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.099, 0.287, 0.396, 1.000)<br>Emissive scale: 0.2<br>Start distance: 50<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 1<br> |
+| arcticCaldera | SkyMiningSite    | Absorption: (10.0, 5.0, 4.0)<br>Scattering: 0.6<br>Scattering color: RGBA(0.000, 0.571, 0.745, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.099, 0.287, 0.396, 1.000)<br>Emissive scale: 0.2<br>Start distance: 50<br>Sunlight scale: 1<br>Ambient scale: 1<br>Temperature: 1<br> |
+| WestArctic | SkyIceberg    | Absorption: (10.0, 5.0, 4.0)<br>Scattering: 1.5<br>Scattering color: RGBA(0.000, 0.571, 0.745, 1.000)<br>Murkiness: 0.5<br>Emissive: RGBA(0.099, 0.287, 0.396, 1.000)<br>Emissive scale: 0.2<br>Start distance: 50<br>Sunlight scale: 0.8<br>Ambient scale: 1<br>Temperature: 1<br> |
+| EastArctic_IceBerg_Cave_Light | SkyIceberg    | Absorption: (20.0, 10.0, 5.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.571, 0.745, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.099, 0.287, 0.396, 1.000)<br>Emissive scale: 0.2<br>Start distance: 20<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 1<br> |
+| WestArctic_IceBerg_Cave_Light | SkyIceberg    | Absorption: (20.0, 10.0, 5.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.571, 0.745, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.099, 0.287, 0.396, 1.000)<br>Emissive scale: 0.1<br>Start distance: 20<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 1<br> |
+| EastArctic_IceBerg_Cave_Dark | SkyIceberg    | Absorption: (20.0, 10.0, 5.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.570, 0.745, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.155, 0.299, 0.415, 1.000)<br>Emissive scale: 0.2<br>Start distance: 10<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 1<br> |
+| WestArctic_IceBerg_Cave_Dark | SkyIceberg    | Absorption: (20.0, 10.0, 5.0)<br>Scattering: 0.2<br>Scattering color: RGBA(0.000, 0.570, 0.745, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.155, 0.299, 0.415, 1.000)<br>Emissive scale: 0.4<br>Start distance: 10<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 1<br> |
+| EastArctic_IceBerg_CaveSealed_Dark | SkyIceberg    | Absorption: (20.0, 10.0, 5.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.498, 0.651, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.196, 0.353, 0.557, 1.000)<br>Emissive scale: 0.1<br>Start distance: 10<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 1<br> |
+| WestArctic_IceBerg_CaveSealed_Dark | SkyIceberg    | Absorption: (20.0, 10.0, 5.0)<br>Scattering: 0.1<br>Scattering color: RGBA(0.000, 0.498, 0.651, 1.000)<br>Murkiness: 0.8<br>Emissive: RGBA(0.196, 0.353, 0.557, 1.000)<br>Emissive scale: 0.1<br>Start distance: 10<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 1<br> |
+| EastArctic_IceBerg_CaveSurface_Dark | SkyIceberg    | Absorption: (20.0, 10.0, 5.0)<br>Scattering: 0.1<br>Scattering color: RGBA(0.000, 0.498, 0.651, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(0.196, 0.395, 0.557, 1.000)<br>Emissive scale: 0.1<br>Start distance: 6<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 1<br> |
+| WestArctic_IceBerg_CaveSurface_Dark | SkyIceberg    | Absorption: (10.0, 5.0, 2.5)<br>Scattering: 0.05<br>Scattering color: RGBA(0.000, 0.498, 0.651, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(0.196, 0.395, 0.557, 1.000)<br>Emissive scale: 0.1<br>Start distance: 6<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 1<br> |
+| Lilypads_BaseInterior | SkyLilyPads_BaseInterior    | Absorption: (20.0, 5.0, 6.0)<br>Scattering: 0.2<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.45<br>Emissive: RGBA(0.180, 0.604, 0.404, 1.000)<br>Emissive scale: 0.05<br>Start distance: 3<br>Sunlight scale: 0<br>Ambient scale: 1<br>Temperature: 1<br> |
+| arcticSpires | SkyGlacialBasin    | Absorption: (20.0, 10.0, 5.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.498, 0.651, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(0.196, 0.395, 0.557, 1.000)<br>Emissive scale: 0.05<br>Start distance: 6<br>Sunlight scale: 1<br>Ambient scale: 1.3<br>Temperature: 0<br> |
+| OutpostZero_Interior | SkyOutpostZero_Interior    | Absorption: (20.0, 10.0, 5.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.498, 0.651, 1.000)<br>Murkiness: 0.1<br>Emissive: RGBA(0.196, 0.395, 0.557, 1.000)<br>Emissive scale: 0.05<br>Start distance: 6<br>Sunlight scale: 1<br>Ambient scale: 1.3<br>Temperature: 0<br> |
+| WorldEdge | SkyIceberg    | Absorption: (10.0, 5.0, 4.0)<br>Scattering: 0.5<br>Scattering color: RGBA(0.000, 0.498, 0.651, 1.000)<br>Murkiness: 0.4<br>Emissive: RGBA(0.098, 0.286, 0.396, 1.000)<br>Emissive scale: 0.2<br>Start distance: 25<br>Sunlight scale: 0.1<br>Ambient scale: 6<br>Temperature: 1<br> |
+| EndGameAsteroids | SkyAsteroids    | Absorption: (10.0, 5.0, 4.0)<br>Scattering: 0.5<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0<br>Emissive: RGBA(0.098, 0.286, 0.396, 1.000)<br>Emissive scale: 0<br>Start distance: 25<br>Sunlight scale: 0<br>Ambient scale: 0<br>Temperature: 1<br> |
+| ArcticSpiresCache | SkyKelpCave    | Absorption: (12.0, 12.0, 7.0)<br>Scattering: 0<br>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br>Murkiness: 0.7<br>Emissive: RGBA(0.838, 0.639, 0.210, 1.000)<br>Emissive scale: 0.13<br>Start distance: 12<br>Sunlight scale: 0<br>Ambient scale: 0.8<br>Temperature: 1<br> |
+</details><br>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/biomes.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

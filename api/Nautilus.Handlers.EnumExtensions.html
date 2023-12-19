@@ -18,13 +18,21 @@
       
       
       <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_EnumExtensions.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.EnumExtensions%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
   </head>
 
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
+  <script type="module" src="./../public/docfx.min.js"></script>
 
   <script>
     const theme = localStorage.getItem('theme') || 'auto'
@@ -233,7 +241,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_RegisterToTechGroup_Nautilus_Handlers_EnumBuilder_TechCategory__TechGroup_" data-uid="Nautilus.Handlers.EnumExtensions.RegisterToTechGroup(Nautilus.Handlers.EnumBuilder{TechCategory},TechGroup)">
   RegisterToTechGroup(EnumBuilder&lt;TechCategory&gt;, TechGroup)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_TechCategory.cs/#L46"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_TechCategory.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Registers this TechCategory instance to a TechGroup.</div>
@@ -548,7 +556,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;TechType&gt; WithPdaInfo(this EnumBuilder&lt;TechType&gt; builder, string displayName, string tooltip, string language = &quot;English&quot;, bool unlockAtStart = true)</code></pre>
+    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;TechType&gt; WithPdaInfo(this EnumBuilder&lt;TechType&gt; builder, string displayName, string tooltip, string language = &quot;English&quot;, bool unlockAtStart = false)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -626,7 +634,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
           <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_TechType.cs/#L8" class="edit-link">Edit this page</a>
         </div>
 
-        
+
       </div>
 
       <div class="affix">
@@ -636,7 +644,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
     <div class="container-xxl search-results" id="search-results"></div>
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

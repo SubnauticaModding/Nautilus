@@ -16,13 +16,21 @@
       
       
       <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/vehicle-module.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
   </head>
 
-  <script type="module">
-    import options from './../public/main.js'
-    import { init } from './../public/docfx.min.js'
-    init(options)
-  </script>
+  <script type="module" src="./../public/docfx.min.js"></script>
 
   <script>
     const theme = localStorage.getItem('theme') || 'auto'
@@ -130,7 +138,7 @@ prefab.SetGameObject(clone);
 </code></pre>
 <p>And finally, let's make the part that interest us: Adding the Upgrade Module Gadget.</p>
 <pre><code class="lang-csharp">// This first function defines the equipment type and the quick slot type.
-prefab.SetUpgradeModule(EquipmentType.SeamothModule, QuickSlotType.Passive)
+prefab.SetVehicleUpgradeModule(EquipmentType.SeamothModule, QuickSlotType.Passive)
     .WithDepthUpgrade(1700f, true)  // 1700 is the depth in meters. The boolean after defines if we want the value to be absolute or &quot;relative&quot;, added to the default depth. 
                                     // If it is on false, it will set the new crush depth to 1900 meters because the default depth of the Seamoth is 200 meters.
                                     // Otherwise, it will set the new crush depth on 1700 meters.
@@ -148,11 +156,13 @@ prefab.SetUpgradeModule(EquipmentType.SeamothModule, QuickSlotType.Passive)
 </div>
 <h2 id="chargeable-self-destruct-module">Chargeable self-destruct module</h2>
 <p>Admitting we've already done the prefab info and the custom prefab, let's directly work only with the upgrade module gadget.</p>
-<pre><code class="lang-csharp">var maxcharge = 50f;
+<pre><code class="lang-csharp">var maxCharge = 50f;
 var cooldown = 10f;
-prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.SelectableChargeable)
-    .WithMaxCharge(maxcharge)
+var energyCost = 6.9f;
+prefab.SetVehicleUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.SelectableChargeable)
+    .WithMaxCharge(maxCharge)
     .WithCooldown(cooldown)
+    .WithEnergyCost(energyCost)
     .WithOnModuleAdded((Vehicle inst, int slotId) =&gt;
     {
         Subtitles.Add(&quot;Self-destruct module installed. The module needs to be charged fully to detonate.&quot;);
@@ -163,7 +173,7 @@ prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.SelectableCha
     })
     .WithOnModuleUsed((Vehicle inst, int slotID, float charge, float chargeScalar) =&gt;
     {
-        if(charge != maxCharge)
+        if (charge &lt; maxCharge)
         {
             Subtitles.Add(&quot;Self-destruction sequence disengaged.&quot;)
             return;
@@ -187,13 +197,14 @@ static IEnumerator EngageSelfDestruct(Vehicle instance, float countdown)
 </code></pre>
 <h2 id="instant-selectable-message-sender">Instant selectable message sender</h2>
 <p>Yet another example...</p>
-<pre><code class="lang-csharp">prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.Selectable)
+<pre><code class="lang-csharp">prefab.SetVehicleUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.Selectable)
     .WithOnModuleUsed((Vehicle inst, int slotID, float _charge, float _chargeScalar) =&gt; // charge and chargeScalar are always 0f here.
     {
         Subtitles.Add(&quot;Hello world!&quot;);
     });
 </code></pre>
 <p>And you can do a lot more.</p>
+
 </article>
 
         <div class="contribution d-print-none">
@@ -201,7 +212,7 @@ static IEnumerator EngageSelfDestruct(Vehicle instance, float countdown)
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
-        
+
       </div>
 
       <div class="affix">
@@ -211,7 +222,7 @@ static IEnumerator EngageSelfDestruct(Vehicle instance, float countdown)
 
     <div class="container-xxl search-results" id="search-results"></div>
 
-    <footer class="border-top">
+    <footer class="border-top text-secondary">
       <div class="container-xxl">
         <div class="flex-fill">
           <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>

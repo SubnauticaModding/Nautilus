@@ -1,5 +1,4 @@
 {
-  "homepages": [],
   "source_base_path": "/home/runner/work/Nautilus/Nautilus/Nautilus",
   "xrefmap": "xrefmap.yml",
   "files": [
@@ -227,6 +226,26 @@
       "output": {
         ".html": {
           "relative_path": "api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html"
         }
       },
       "version": ""
@@ -477,6 +496,26 @@
       "output": {
         ".html": {
           "relative_path": "api/Nautilus.FMod.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.BiomeHandler.SkyReference.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.BiomeHandler.SkyReference.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.BiomeHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.BiomeHandler.html"
         }
       },
       "version": ""
@@ -1423,6 +1462,26 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.BiomeUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.BiomeUtils.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Utility.ConstructableFlags.yml",
       "output": {
         ".html": {
@@ -1695,11 +1754,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/api/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/toc.html"
-        },
         ".json": {
           "relative_path": "api/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/toc.html"
         }
       },
       "version": ""
@@ -1748,11 +1807,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/guides/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "guides/toc.html"
-        },
         ".json": {
           "relative_path": "guides/toc.json"
+        },
+        ".html": {
+          "relative_path": "guides/toc.html"
         }
       },
       "version": ""
@@ -1971,11 +2030,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "toc.html"
-        },
         ".json": {
           "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
         }
       },
       "version": ""
@@ -1986,6 +2045,16 @@
       "output": {
         ".html": {
           "relative_path": "tutorials/background-type.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/biomes.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/biomes.html"
         }
       },
       "version": ""
@@ -2124,11 +2193,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/tutorials/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "tutorials/toc.html"
-        },
         ".json": {
           "relative_path": "tutorials/toc.json"
+        },
+        ".html": {
+          "relative_path": "tutorials/toc.html"
         }
       },
       "version": ""
@@ -2144,7 +2213,6 @@
       "version": ""
     }
   ],
-  "version_info": {},
   "groups": [
     {
       "xrefmap": "xrefmap.yml"

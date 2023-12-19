@@ -753,6 +753,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.EggGadget.RequiredAcuSize
   nameWithType: EggGadget.RequiredAcuSize
+- uid: Nautilus.Assets.Gadgets.EggGadget.RequiredLargeAcuSize
+  name: RequiredLargeAcuSize
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_RequiredLargeAcuSize
+  commentId: P:Nautilus.Assets.Gadgets.EggGadget.RequiredLargeAcuSize
+  fullName: Nautilus.Assets.Gadgets.EggGadget.RequiredLargeAcuSize
+  nameWithType: EggGadget.RequiredLargeAcuSize
+- uid: Nautilus.Assets.Gadgets.EggGadget.RequiredLargeAcuSize*
+  name: RequiredLargeAcuSize
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_RequiredLargeAcuSize_
+  commentId: Overload:Nautilus.Assets.Gadgets.EggGadget.RequiredLargeAcuSize
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.EggGadget.RequiredLargeAcuSize
+  nameWithType: EggGadget.RequiredLargeAcuSize
 - uid: Nautilus.Assets.Gadgets.EggGadget.SetAcidImmune(System.Boolean)
   name: SetAcidImmune(bool)
   href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_SetAcidImmune_System_Boolean_
@@ -785,6 +798,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.EggGadget.WithRequiredAcuSize
   nameWithType: EggGadget.WithRequiredAcuSize
+- uid: Nautilus.Assets.Gadgets.EggGadget.WithRequiredLargeAcuSize(System.Int32)
+  name: WithRequiredLargeAcuSize(int)
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_WithRequiredLargeAcuSize_System_Int32_
+  commentId: M:Nautilus.Assets.Gadgets.EggGadget.WithRequiredLargeAcuSize(System.Int32)
+  name.vb: WithRequiredLargeAcuSize(Integer)
+  fullName: Nautilus.Assets.Gadgets.EggGadget.WithRequiredLargeAcuSize(int)
+  fullName.vb: Nautilus.Assets.Gadgets.EggGadget.WithRequiredLargeAcuSize(Integer)
+  nameWithType: EggGadget.WithRequiredLargeAcuSize(int)
+  nameWithType.vb: EggGadget.WithRequiredLargeAcuSize(Integer)
+- uid: Nautilus.Assets.Gadgets.EggGadget.WithRequiredLargeAcuSize*
+  name: WithRequiredLargeAcuSize
+  href: api/Nautilus.Assets.Gadgets.EggGadget.html#Nautilus_Assets_Gadgets_EggGadget_WithRequiredLargeAcuSize_
+  commentId: Overload:Nautilus.Assets.Gadgets.EggGadget.WithRequiredLargeAcuSize
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.EggGadget.WithRequiredLargeAcuSize
+  nameWithType: EggGadget.WithRequiredLargeAcuSize
 - uid: Nautilus.Assets.Gadgets.EquipmentGadget
   name: EquipmentGadget
   href: api/Nautilus.Assets.Gadgets.EquipmentGadget.html
@@ -1058,6 +1087,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.GadgetExtensions.CreateFabricator
   nameWithType: GadgetExtensions.CreateFabricator
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.CreateFragment(Nautilus.Assets.ICustomPrefab,TechType,System.Single,System.Int32,System.String,System.Boolean,System.Boolean)
+  name: CreateFragment(ICustomPrefab, TechType, float, int, string, bool, bool)
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_CreateFragment_Nautilus_Assets_ICustomPrefab_TechType_System_Single_System_Int32_System_String_System_Boolean_System_Boolean_
+  commentId: M:Nautilus.Assets.Gadgets.GadgetExtensions.CreateFragment(Nautilus.Assets.ICustomPrefab,TechType,System.Single,System.Int32,System.String,System.Boolean,System.Boolean)
+  name.vb: CreateFragment(ICustomPrefab, TechType, Single, Integer, String, Boolean, Boolean)
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.CreateFragment(Nautilus.Assets.ICustomPrefab, TechType, float, int, string, bool, bool)
+  fullName.vb: Nautilus.Assets.Gadgets.GadgetExtensions.CreateFragment(Nautilus.Assets.ICustomPrefab, TechType, Single, Integer, String, Boolean, Boolean)
+  nameWithType: GadgetExtensions.CreateFragment(ICustomPrefab, TechType, float, int, string, bool, bool)
+  nameWithType.vb: GadgetExtensions.CreateFragment(ICustomPrefab, TechType, Single, Integer, String, Boolean, Boolean)
+- uid: Nautilus.Assets.Gadgets.GadgetExtensions.CreateFragment*
+  name: CreateFragment
+  href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_CreateFragment_
+  commentId: Overload:Nautilus.Assets.Gadgets.GadgetExtensions.CreateFragment
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.GadgetExtensions.CreateFragment
+  nameWithType: GadgetExtensions.CreateFragment
 - uid: Nautilus.Assets.Gadgets.GadgetExtensions.SetEquipment(Nautilus.Assets.ICustomPrefab,EquipmentType)
   name: SetEquipment(ICustomPrefab, EquipmentType)
   href: api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetEquipment_Nautilus_Assets_ICustomPrefab_EquipmentType_
@@ -1327,6 +1372,32 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.ScanningGadget.GroupForPda
   nameWithType: ScanningGadget.GroupForPda
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.IsBuildable
+  name: IsBuildable
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_IsBuildable
+  commentId: P:Nautilus.Assets.Gadgets.ScanningGadget.IsBuildable
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.IsBuildable
+  nameWithType: ScanningGadget.IsBuildable
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.IsBuildable*
+  name: IsBuildable
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_IsBuildable_
+  commentId: Overload:Nautilus.Assets.Gadgets.ScanningGadget.IsBuildable
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.IsBuildable
+  nameWithType: ScanningGadget.IsBuildable
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.IsHardLocked
+  name: IsHardLocked
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_IsHardLocked
+  commentId: P:Nautilus.Assets.Gadgets.ScanningGadget.IsHardLocked
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.IsHardLocked
+  nameWithType: ScanningGadget.IsHardLocked
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.IsHardLocked*
+  name: IsHardLocked
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_IsHardLocked_
+  commentId: Overload:Nautilus.Assets.Gadgets.ScanningGadget.IsHardLocked
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.IsHardLocked
+  nameWithType: ScanningGadget.IsHardLocked
 - uid: Nautilus.Assets.Gadgets.ScanningGadget.PdaSortPosition
   name: PdaSortPosition
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_PdaSortPosition
@@ -1395,6 +1466,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.Gadgets.ScanningGadget.SetBuildable
   nameWithType: ScanningGadget.SetBuildable
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.SetHardLocked(System.Boolean)
+  name: SetHardLocked(bool)
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_SetHardLocked_System_Boolean_
+  commentId: M:Nautilus.Assets.Gadgets.ScanningGadget.SetHardLocked(System.Boolean)
+  name.vb: SetHardLocked(Boolean)
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.SetHardLocked(bool)
+  fullName.vb: Nautilus.Assets.Gadgets.ScanningGadget.SetHardLocked(Boolean)
+  nameWithType: ScanningGadget.SetHardLocked(bool)
+  nameWithType.vb: ScanningGadget.SetHardLocked(Boolean)
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.SetHardLocked*
+  name: SetHardLocked
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_SetHardLocked_
+  commentId: Overload:Nautilus.Assets.Gadgets.ScanningGadget.SetHardLocked
+  isSpec: "True"
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.SetHardLocked
+  nameWithType: ScanningGadget.SetHardLocked
 - uid: Nautilus.Assets.Gadgets.ScanningGadget.SortPosition
   name: ScanningGadget.SortPosition
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.html
@@ -1413,6 +1500,15 @@ references:
   commentId: F:Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.InsertBefore
   fullName: Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.InsertBefore
   nameWithType: ScanningGadget.SortPosition.InsertBefore
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech(UnityEngine.Sprite,FMODAsset,System.String)
+  name: WithAnalysisTech(Sprite, FMODAsset, string)
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithAnalysisTech_UnityEngine_Sprite_FMODAsset_System_String_
+  commentId: M:Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech(UnityEngine.Sprite,FMODAsset,System.String)
+  name.vb: WithAnalysisTech(Sprite, FMODAsset, String)
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech(UnityEngine.Sprite, FMODAsset, string)
+  fullName.vb: Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech(UnityEngine.Sprite, FMODAsset, String)
+  nameWithType: ScanningGadget.WithAnalysisTech(Sprite, FMODAsset, string)
+  nameWithType.vb: ScanningGadget.WithAnalysisTech(Sprite, FMODAsset, String)
 - uid: Nautilus.Assets.Gadgets.ScanningGadget.WithAnalysisTech(UnityEngine.Sprite,System.Collections.Generic.List{Story.StoryGoal},FMODAsset,System.String)
   name: WithAnalysisTech(Sprite, List<StoryGoal>, FMODAsset, string)
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithAnalysisTech_UnityEngine_Sprite_System_Collections_Generic_List_Story_StoryGoal__FMODAsset_System_String_
@@ -1509,6 +1605,15 @@ references:
   fullName.vb: Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(Single, Boolean, String, Boolean)
   nameWithType: ScanningGadget.WithScannerEntry(float, bool, string, bool)
   nameWithType.vb: ScanningGadget.WithScannerEntry(Single, Boolean, String, Boolean)
+- uid: Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(TechType,System.Single,System.Boolean,System.String,System.Boolean)
+  name: WithScannerEntry(TechType, float, bool, string, bool)
+  href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithScannerEntry_TechType_System_Single_System_Boolean_System_String_System_Boolean_
+  commentId: M:Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(TechType,System.Single,System.Boolean,System.String,System.Boolean)
+  name.vb: WithScannerEntry(TechType, Single, Boolean, String, Boolean)
+  fullName: Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(TechType, float, bool, string, bool)
+  fullName.vb: Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry(TechType, Single, Boolean, String, Boolean)
+  nameWithType: ScanningGadget.WithScannerEntry(TechType, float, bool, string, bool)
+  nameWithType.vb: ScanningGadget.WithScannerEntry(TechType, Single, Boolean, String, Boolean)
 - uid: Nautilus.Assets.Gadgets.ScanningGadget.WithScannerEntry*
   name: WithScannerEntry
   href: api/Nautilus.Assets.Gadgets.ScanningGadget.html#Nautilus_Assets_Gadgets_ScanningGadget_WithScannerEntry_
@@ -2147,6 +2252,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.PrefabInfo.WithSizeInInventory
   nameWithType: PrefabInfo.WithSizeInInventory
+- uid: Nautilus.Assets.PrefabInfo.WithTechType(System.String,System.Boolean,System.Reflection.Assembly)
+  name: WithTechType(string, bool, Assembly)
+  href: api/Nautilus.Assets.PrefabInfo.html#Nautilus_Assets_PrefabInfo_WithTechType_System_String_System_Boolean_System_Reflection_Assembly_
+  commentId: M:Nautilus.Assets.PrefabInfo.WithTechType(System.String,System.Boolean,System.Reflection.Assembly)
+  name.vb: WithTechType(String, Boolean, Assembly)
+  fullName: Nautilus.Assets.PrefabInfo.WithTechType(string, bool, System.Reflection.Assembly)
+  fullName.vb: Nautilus.Assets.PrefabInfo.WithTechType(String, Boolean, System.Reflection.Assembly)
+  nameWithType: PrefabInfo.WithTechType(string, bool, Assembly)
+  nameWithType.vb: PrefabInfo.WithTechType(String, Boolean, Assembly)
 - uid: Nautilus.Assets.PrefabInfo.WithTechType(System.String,System.String,System.String,System.String,System.Boolean,System.Reflection.Assembly)
   name: WithTechType(string, string, string, string, bool, Assembly)
   href: api/Nautilus.Assets.PrefabInfo.html#Nautilus_Assets_PrefabInfo_WithTechType_System_String_System_String_System_String_System_String_System_Boolean_System_Reflection_Assembly_
@@ -2238,6 +2352,149 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.Prefab
   nameWithType: AssetBundleTemplate.Prefab
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate
+  name: AtmosphereVolumeTemplate
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html
+  commentId: T:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate
+  nameWithType: AtmosphereVolumeTemplate
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.#ctor(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape,System.String,System.Int32,LargeWorldEntity.CellLevel)
+  name: AtmosphereVolumeTemplate(PrefabInfo, VolumeShape, string, int, CellLevel)
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate__ctor_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_VolumeShape_System_String_System_Int32_LargeWorldEntity_CellLevel_
+  commentId: M:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.#ctor(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape,System.String,System.Int32,LargeWorldEntity.CellLevel)
+  name.vb: New(PrefabInfo, VolumeShape, String, Integer, CellLevel)
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.AtmosphereVolumeTemplate(Nautilus.Assets.PrefabInfo, Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape, string, int, LargeWorldEntity.CellLevel)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.New(Nautilus.Assets.PrefabInfo, Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape, String, Integer, LargeWorldEntity.CellLevel)
+  nameWithType: AtmosphereVolumeTemplate.AtmosphereVolumeTemplate(PrefabInfo, AtmosphereVolumeTemplate.VolumeShape, string, int, LargeWorldEntity.CellLevel)
+  nameWithType.vb: AtmosphereVolumeTemplate.New(PrefabInfo, AtmosphereVolumeTemplate.VolumeShape, String, Integer, LargeWorldEntity.CellLevel)
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.#ctor*
+  name: AtmosphereVolumeTemplate
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate__ctor_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.AtmosphereVolumeTemplate
+  fullName.vb: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.New
+  nameWithType: AtmosphereVolumeTemplate.AtmosphereVolumeTemplate
+  nameWithType.vb: AtmosphereVolumeTemplate.New
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CellLevel
+  name: CellLevel
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_CellLevel
+  commentId: P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CellLevel
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CellLevel
+  nameWithType: AtmosphereVolumeTemplate.CellLevel
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CellLevel*
+  name: CellLevel
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_CellLevel_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CellLevel
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CellLevel
+  nameWithType: AtmosphereVolumeTemplate.CellLevel
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})
+  name: GetPrefabAsync(TaskResult<GameObject>)
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_GetPrefabAsync_TaskResult_UnityEngine_GameObject__
+  commentId: M:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})
+  name.vb: GetPrefabAsync(TaskResult(Of GameObject))
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.GetPrefabAsync(TaskResult<UnityEngine.GameObject>)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.GetPrefabAsync(TaskResult(Of UnityEngine.GameObject))
+  nameWithType: AtmosphereVolumeTemplate.GetPrefabAsync(TaskResult<GameObject>)
+  nameWithType.vb: AtmosphereVolumeTemplate.GetPrefabAsync(TaskResult(Of GameObject))
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.GetPrefabAsync*
+  name: GetPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_GetPrefabAsync_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.GetPrefabAsync
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.GetPrefabAsync
+  nameWithType: AtmosphereVolumeTemplate.GetPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefab
+  name: ModifyPrefab
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_ModifyPrefab
+  commentId: P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefab
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefab
+  nameWithType: AtmosphereVolumeTemplate.ModifyPrefab
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefab*
+  name: ModifyPrefab
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_ModifyPrefab_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefab
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefab
+  nameWithType: AtmosphereVolumeTemplate.ModifyPrefab
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefabAsync
+  name: ModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_ModifyPrefabAsync
+  commentId: P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefabAsync
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefabAsync
+  nameWithType: AtmosphereVolumeTemplate.ModifyPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefabAsync*
+  name: ModifyPrefabAsync
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_ModifyPrefabAsync_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefabAsync
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefabAsync
+  nameWithType: AtmosphereVolumeTemplate.ModifyPrefabAsync
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.OverrideBiome
+  name: OverrideBiome
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_OverrideBiome
+  commentId: P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.OverrideBiome
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.OverrideBiome
+  nameWithType: AtmosphereVolumeTemplate.OverrideBiome
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.OverrideBiome*
+  name: OverrideBiome
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_OverrideBiome_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.OverrideBiome
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.OverrideBiome
+  nameWithType: AtmosphereVolumeTemplate.OverrideBiome
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Priority
+  name: Priority
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_Priority
+  commentId: P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Priority
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Priority
+  nameWithType: AtmosphereVolumeTemplate.Priority
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Priority*
+  name: Priority
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_Priority_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Priority
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Priority
+  nameWithType: AtmosphereVolumeTemplate.Priority
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Shape
+  name: Shape
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_Shape
+  commentId: P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Shape
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Shape
+  nameWithType: AtmosphereVolumeTemplate.Shape
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Shape*
+  name: Shape
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_Shape_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Shape
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Shape
+  nameWithType: AtmosphereVolumeTemplate.Shape
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape
+  name: AtmosphereVolumeTemplate.VolumeShape
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.html
+  commentId: T:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape
+  nameWithType: AtmosphereVolumeTemplate.VolumeShape
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Capsule
+  name: Capsule
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_VolumeShape_Capsule
+  commentId: F:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Capsule
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Capsule
+  nameWithType: AtmosphereVolumeTemplate.VolumeShape.Capsule
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Cube
+  name: Cube
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_VolumeShape_Cube
+  commentId: F:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Cube
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Cube
+  nameWithType: AtmosphereVolumeTemplate.VolumeShape.Cube
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Sphere
+  name: Sphere
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_VolumeShape_Sphere
+  commentId: F:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Sphere
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.Sphere
+  nameWithType: AtmosphereVolumeTemplate.VolumeShape.Sphere
 - uid: Nautilus.Assets.PrefabTemplates.CloneTemplate
   name: CloneTemplate
   href: api/Nautilus.Assets.PrefabTemplates.CloneTemplate.html
@@ -2262,6 +2519,15 @@ references:
   fullName.vb: Nautilus.Assets.PrefabTemplates.CloneTemplate.New(Nautilus.Assets.PrefabInfo, TechType)
   nameWithType: CloneTemplate.CloneTemplate(PrefabInfo, TechType)
   nameWithType.vb: CloneTemplate.New(PrefabInfo, TechType)
+- uid: Nautilus.Assets.PrefabTemplates.CloneTemplate.#ctor(Nautilus.Assets.PrefabInfo,UnityEngine.AddressableAssets.AssetReferenceGameObject)
+  name: CloneTemplate(PrefabInfo, AssetReferenceGameObject)
+  href: api/Nautilus.Assets.PrefabTemplates.CloneTemplate.html#Nautilus_Assets_PrefabTemplates_CloneTemplate__ctor_Nautilus_Assets_PrefabInfo_UnityEngine_AddressableAssets_AssetReferenceGameObject_
+  commentId: M:Nautilus.Assets.PrefabTemplates.CloneTemplate.#ctor(Nautilus.Assets.PrefabInfo,UnityEngine.AddressableAssets.AssetReferenceGameObject)
+  name.vb: New(PrefabInfo, AssetReferenceGameObject)
+  fullName: Nautilus.Assets.PrefabTemplates.CloneTemplate.CloneTemplate(Nautilus.Assets.PrefabInfo, UnityEngine.AddressableAssets.AssetReferenceGameObject)
+  fullName.vb: Nautilus.Assets.PrefabTemplates.CloneTemplate.New(Nautilus.Assets.PrefabInfo, UnityEngine.AddressableAssets.AssetReferenceGameObject)
+  nameWithType: CloneTemplate.CloneTemplate(PrefabInfo, AssetReferenceGameObject)
+  nameWithType.vb: CloneTemplate.New(PrefabInfo, AssetReferenceGameObject)
 - uid: Nautilus.Assets.PrefabTemplates.CloneTemplate.#ctor*
   name: CloneTemplate
   href: api/Nautilus.Assets.PrefabTemplates.CloneTemplate.html#Nautilus_Assets_PrefabTemplates_CloneTemplate__ctor_
@@ -3589,6 +3855,22 @@ references:
   fullName.vb: Nautilus.Extensions.GeneralExtensions.Add(Of T)(T(), T)
   nameWithType: GeneralExtensions.Add<T>(T[], T)
   nameWithType.vb: GeneralExtensions.Add(Of T)(T(), T)
+- uid: Nautilus.Extensions.GeneralExtensions.AppendJoin*
+  name: AppendJoin
+  href: api/Nautilus.Extensions.GeneralExtensions.html#Nautilus_Extensions_GeneralExtensions_AppendJoin_
+  commentId: Overload:Nautilus.Extensions.GeneralExtensions.AppendJoin
+  isSpec: "True"
+  fullName: Nautilus.Extensions.GeneralExtensions.AppendJoin
+  nameWithType: GeneralExtensions.AppendJoin
+- uid: Nautilus.Extensions.GeneralExtensions.AppendJoin``1(System.Text.StringBuilder,System.String,System.Collections.Generic.IEnumerable{``0})
+  name: AppendJoin<T>(StringBuilder, string, IEnumerable<T>)
+  href: api/Nautilus.Extensions.GeneralExtensions.html#Nautilus_Extensions_GeneralExtensions_AppendJoin__1_System_Text_StringBuilder_System_String_System_Collections_Generic_IEnumerable___0__
+  commentId: M:Nautilus.Extensions.GeneralExtensions.AppendJoin``1(System.Text.StringBuilder,System.String,System.Collections.Generic.IEnumerable{``0})
+  name.vb: AppendJoin(Of T)(StringBuilder, String, IEnumerable(Of T))
+  fullName: Nautilus.Extensions.GeneralExtensions.AppendJoin<T>(System.Text.StringBuilder, string, System.Collections.Generic.IEnumerable<T>)
+  fullName.vb: Nautilus.Extensions.GeneralExtensions.AppendJoin(Of T)(System.Text.StringBuilder, String, System.Collections.Generic.IEnumerable(Of T))
+  nameWithType: GeneralExtensions.AppendJoin<T>(StringBuilder, string, IEnumerable<T>)
+  nameWithType.vb: GeneralExtensions.AppendJoin(Of T)(StringBuilder, String, IEnumerable(Of T))
 - uid: Nautilus.Extensions.GeneralExtensions.TrimClone(System.String)
   name: TrimClone(string)
   href: api/Nautilus.Extensions.GeneralExtensions.html#Nautilus_Extensions_GeneralExtensions_TrimClone_System_String_
@@ -3694,6 +3976,116 @@ references:
   commentId: N:Nautilus.Handlers
   fullName: Nautilus.Handlers
   nameWithType: Nautilus.Handlers
+- uid: Nautilus.Handlers.BiomeHandler
+  name: BiomeHandler
+  href: api/Nautilus.Handlers.BiomeHandler.html
+  commentId: T:Nautilus.Handlers.BiomeHandler
+  fullName: Nautilus.Handlers.BiomeHandler
+  nameWithType: BiomeHandler
+- uid: Nautilus.Handlers.BiomeHandler.AddBiomeAmbience(System.String,FMODAsset,FMODGameParams.InteriorState)
+  name: AddBiomeAmbience(string, FMODAsset, InteriorState)
+  href: api/Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_AddBiomeAmbience_System_String_FMODAsset_FMODGameParams_InteriorState_
+  commentId: M:Nautilus.Handlers.BiomeHandler.AddBiomeAmbience(System.String,FMODAsset,FMODGameParams.InteriorState)
+  name.vb: AddBiomeAmbience(String, FMODAsset, InteriorState)
+  fullName: Nautilus.Handlers.BiomeHandler.AddBiomeAmbience(string, FMODAsset, FMODGameParams.InteriorState)
+  fullName.vb: Nautilus.Handlers.BiomeHandler.AddBiomeAmbience(String, FMODAsset, FMODGameParams.InteriorState)
+  nameWithType: BiomeHandler.AddBiomeAmbience(string, FMODAsset, FMODGameParams.InteriorState)
+  nameWithType.vb: BiomeHandler.AddBiomeAmbience(String, FMODAsset, FMODGameParams.InteriorState)
+- uid: Nautilus.Handlers.BiomeHandler.AddBiomeAmbience*
+  name: AddBiomeAmbience
+  href: api/Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_AddBiomeAmbience_
+  commentId: Overload:Nautilus.Handlers.BiomeHandler.AddBiomeAmbience
+  isSpec: "True"
+  fullName: Nautilus.Handlers.BiomeHandler.AddBiomeAmbience
+  nameWithType: BiomeHandler.AddBiomeAmbience
+- uid: Nautilus.Handlers.BiomeHandler.AddBiomeMusic(System.String,FMODAsset,FMODGameParams.InteriorState)
+  name: AddBiomeMusic(string, FMODAsset, InteriorState)
+  href: api/Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_AddBiomeMusic_System_String_FMODAsset_FMODGameParams_InteriorState_
+  commentId: M:Nautilus.Handlers.BiomeHandler.AddBiomeMusic(System.String,FMODAsset,FMODGameParams.InteriorState)
+  name.vb: AddBiomeMusic(String, FMODAsset, InteriorState)
+  fullName: Nautilus.Handlers.BiomeHandler.AddBiomeMusic(string, FMODAsset, FMODGameParams.InteriorState)
+  fullName.vb: Nautilus.Handlers.BiomeHandler.AddBiomeMusic(String, FMODAsset, FMODGameParams.InteriorState)
+  nameWithType: BiomeHandler.AddBiomeMusic(string, FMODAsset, FMODGameParams.InteriorState)
+  nameWithType.vb: BiomeHandler.AddBiomeMusic(String, FMODAsset, FMODGameParams.InteriorState)
+- uid: Nautilus.Handlers.BiomeHandler.AddBiomeMusic*
+  name: AddBiomeMusic
+  href: api/Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_AddBiomeMusic_
+  commentId: Overload:Nautilus.Handlers.BiomeHandler.AddBiomeMusic
+  isSpec: "True"
+  fullName: Nautilus.Handlers.BiomeHandler.AddBiomeMusic
+  nameWithType: BiomeHandler.AddBiomeMusic
+- uid: Nautilus.Handlers.BiomeHandler.RegisterBiome(System.String,WaterscapeVolume.Settings,Nautilus.Handlers.BiomeHandler.SkyReference)
+  name: RegisterBiome(string, Settings, SkyReference)
+  href: api/Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_RegisterBiome_System_String_WaterscapeVolume_Settings_Nautilus_Handlers_BiomeHandler_SkyReference_
+  commentId: M:Nautilus.Handlers.BiomeHandler.RegisterBiome(System.String,WaterscapeVolume.Settings,Nautilus.Handlers.BiomeHandler.SkyReference)
+  name.vb: RegisterBiome(String, Settings, SkyReference)
+  fullName: Nautilus.Handlers.BiomeHandler.RegisterBiome(string, WaterscapeVolume.Settings, Nautilus.Handlers.BiomeHandler.SkyReference)
+  fullName.vb: Nautilus.Handlers.BiomeHandler.RegisterBiome(String, WaterscapeVolume.Settings, Nautilus.Handlers.BiomeHandler.SkyReference)
+  nameWithType: BiomeHandler.RegisterBiome(string, WaterscapeVolume.Settings, BiomeHandler.SkyReference)
+  nameWithType.vb: BiomeHandler.RegisterBiome(String, WaterscapeVolume.Settings, BiomeHandler.SkyReference)
+- uid: Nautilus.Handlers.BiomeHandler.RegisterBiome*
+  name: RegisterBiome
+  href: api/Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_RegisterBiome_
+  commentId: Overload:Nautilus.Handlers.BiomeHandler.RegisterBiome
+  isSpec: "True"
+  fullName: Nautilus.Handlers.BiomeHandler.RegisterBiome
+  nameWithType: BiomeHandler.RegisterBiome
+- uid: Nautilus.Handlers.BiomeHandler.SkyReference
+  name: BiomeHandler.SkyReference
+  href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html
+  commentId: T:Nautilus.Handlers.BiomeHandler.SkyReference
+  fullName: Nautilus.Handlers.BiomeHandler.SkyReference
+  nameWithType: BiomeHandler.SkyReference
+- uid: Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(System.Func{UnityEngine.GameObject})
+  name: SkyReference(Func<GameObject>)
+  href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html#Nautilus_Handlers_BiomeHandler_SkyReference__ctor_System_Func_UnityEngine_GameObject__
+  commentId: M:Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(System.Func{UnityEngine.GameObject})
+  name.vb: New(Func(Of GameObject))
+  fullName: Nautilus.Handlers.BiomeHandler.SkyReference.SkyReference(System.Func<UnityEngine.GameObject>)
+  fullName.vb: Nautilus.Handlers.BiomeHandler.SkyReference.New(System.Func(Of UnityEngine.GameObject))
+  nameWithType: BiomeHandler.SkyReference.SkyReference(Func<GameObject>)
+  nameWithType.vb: BiomeHandler.SkyReference.New(Func(Of GameObject))
+- uid: Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(System.String)
+  name: SkyReference(string)
+  href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html#Nautilus_Handlers_BiomeHandler_SkyReference__ctor_System_String_
+  commentId: M:Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(System.String)
+  name.vb: New(String)
+  fullName: Nautilus.Handlers.BiomeHandler.SkyReference.SkyReference(string)
+  fullName.vb: Nautilus.Handlers.BiomeHandler.SkyReference.New(String)
+  nameWithType: BiomeHandler.SkyReference.SkyReference(string)
+  nameWithType.vb: BiomeHandler.SkyReference.New(String)
+- uid: Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(UnityEngine.GameObject)
+  name: SkyReference(GameObject)
+  href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html#Nautilus_Handlers_BiomeHandler_SkyReference__ctor_UnityEngine_GameObject_
+  commentId: M:Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(UnityEngine.GameObject)
+  name.vb: New(GameObject)
+  fullName: Nautilus.Handlers.BiomeHandler.SkyReference.SkyReference(UnityEngine.GameObject)
+  fullName.vb: Nautilus.Handlers.BiomeHandler.SkyReference.New(UnityEngine.GameObject)
+  nameWithType: BiomeHandler.SkyReference.SkyReference(GameObject)
+  nameWithType.vb: BiomeHandler.SkyReference.New(GameObject)
+- uid: Nautilus.Handlers.BiomeHandler.SkyReference.#ctor*
+  name: SkyReference
+  href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html#Nautilus_Handlers_BiomeHandler_SkyReference__ctor_
+  commentId: Overload:Nautilus.Handlers.BiomeHandler.SkyReference.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Handlers.BiomeHandler.SkyReference.SkyReference
+  fullName.vb: Nautilus.Handlers.BiomeHandler.SkyReference.New
+  nameWithType: BiomeHandler.SkyReference.SkyReference
+  nameWithType.vb: BiomeHandler.SkyReference.New
+- uid: Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime(WaterBiomeManager)
+  name: GetSkyPrefabAtRuntime(WaterBiomeManager)
+  href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html#Nautilus_Handlers_BiomeHandler_SkyReference_GetSkyPrefabAtRuntime_WaterBiomeManager_
+  commentId: M:Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime(WaterBiomeManager)
+  fullName: Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime(WaterBiomeManager)
+  nameWithType: BiomeHandler.SkyReference.GetSkyPrefabAtRuntime(WaterBiomeManager)
+- uid: Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime*
+  name: GetSkyPrefabAtRuntime
+  href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html#Nautilus_Handlers_BiomeHandler_SkyReference_GetSkyPrefabAtRuntime_
+  commentId: Overload:Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime
+  isSpec: "True"
+  fullName: Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime
+  nameWithType: BiomeHandler.SkyReference.GetSkyPrefabAtRuntime
 - uid: Nautilus.Handlers.ConsoleCommandsHandler
   name: ConsoleCommandsHandler
   href: api/Nautilus.Handlers.ConsoleCommandsHandler.html
@@ -4536,6 +4928,25 @@ references:
   fullName.vb: Nautilus.Handlers.EnumBuilder(Of TEnum).Value
   nameWithType: EnumBuilder<TEnum>.Value
   nameWithType.vb: EnumBuilder(Of TEnum).Value
+- uid: Nautilus.Handlers.EnumBuilder`1.op_Explicit(`0)~Nautilus.Handlers.EnumBuilder{`0}
+  name: explicit operator EnumBuilder<TEnum>(TEnum)
+  href: api/Nautilus.Handlers.EnumBuilder-1.html#Nautilus_Handlers_EnumBuilder_1_op_Explicit__0__Nautilus_Handlers_EnumBuilder__0_
+  commentId: M:Nautilus.Handlers.EnumBuilder`1.op_Explicit(`0)~Nautilus.Handlers.EnumBuilder{`0}
+  name.vb: CType(TEnum)
+  fullName: Nautilus.Handlers.EnumBuilder<TEnum>.explicit operator Nautilus.Handlers.EnumBuilder<TEnum>(TEnum)
+  fullName.vb: Nautilus.Handlers.EnumBuilder(Of TEnum).CType(TEnum)
+  nameWithType: EnumBuilder<TEnum>.explicit operator EnumBuilder<TEnum>(TEnum)
+  nameWithType.vb: EnumBuilder(Of TEnum).CType(TEnum)
+- uid: Nautilus.Handlers.EnumBuilder`1.op_Explicit*
+  name: explicit operator
+  href: api/Nautilus.Handlers.EnumBuilder-1.html#Nautilus_Handlers_EnumBuilder_1_op_Explicit_
+  commentId: Overload:Nautilus.Handlers.EnumBuilder`1.op_Explicit
+  isSpec: "True"
+  name.vb: CType
+  fullName: Nautilus.Handlers.EnumBuilder<TEnum>.explicit operator
+  fullName.vb: Nautilus.Handlers.EnumBuilder(Of TEnum).CType
+  nameWithType: EnumBuilder<TEnum>.explicit operator
+  nameWithType.vb: EnumBuilder(Of TEnum).CType
 - uid: Nautilus.Handlers.EnumBuilder`1.op_Implicit(Nautilus.Handlers.EnumBuilder{`0})~`0
   name: implicit operator TEnum(EnumBuilder<TEnum>)
   href: api/Nautilus.Handlers.EnumBuilder-1.html#Nautilus_Handlers_EnumBuilder_1_op_Implicit_Nautilus_Handlers_EnumBuilder__0____0
@@ -4875,6 +5286,19 @@ references:
   commentId: T:Nautilus.Handlers.KnownTechHandler
   fullName: Nautilus.Handlers.KnownTechHandler
   nameWithType: KnownTechHandler
+- uid: Nautilus.Handlers.KnownTechHandler.AddRequirementForUnlock(TechType,TechType)
+  name: AddRequirementForUnlock(TechType, TechType)
+  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_AddRequirementForUnlock_TechType_TechType_
+  commentId: M:Nautilus.Handlers.KnownTechHandler.AddRequirementForUnlock(TechType,TechType)
+  fullName: Nautilus.Handlers.KnownTechHandler.AddRequirementForUnlock(TechType, TechType)
+  nameWithType: KnownTechHandler.AddRequirementForUnlock(TechType, TechType)
+- uid: Nautilus.Handlers.KnownTechHandler.AddRequirementForUnlock*
+  name: AddRequirementForUnlock
+  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_AddRequirementForUnlock_
+  commentId: Overload:Nautilus.Handlers.KnownTechHandler.AddRequirementForUnlock
+  isSpec: "True"
+  fullName: Nautilus.Handlers.KnownTechHandler.AddRequirementForUnlock
+  nameWithType: KnownTechHandler.AddRequirementForUnlock
 - uid: Nautilus.Handlers.KnownTechHandler.DefaultUnlockData
   name: KnownTechHandler.DefaultUnlockData
   href: api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html
@@ -4967,6 +5391,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.KnownTechHandler.RemoveAnalysisTechEntryFromSpecific
   nameWithType: KnownTechHandler.RemoveAnalysisTechEntryFromSpecific
+- uid: Nautilus.Handlers.KnownTechHandler.RemoveDefaultUnlock(TechType)
+  name: RemoveDefaultUnlock(TechType)
+  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveDefaultUnlock_TechType_
+  commentId: M:Nautilus.Handlers.KnownTechHandler.RemoveDefaultUnlock(TechType)
+  fullName: Nautilus.Handlers.KnownTechHandler.RemoveDefaultUnlock(TechType)
+  nameWithType: KnownTechHandler.RemoveDefaultUnlock(TechType)
+- uid: Nautilus.Handlers.KnownTechHandler.RemoveDefaultUnlock*
+  name: RemoveDefaultUnlock
+  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveDefaultUnlock_
+  commentId: Overload:Nautilus.Handlers.KnownTechHandler.RemoveDefaultUnlock
+  isSpec: "True"
+  fullName: Nautilus.Handlers.KnownTechHandler.RemoveDefaultUnlock
+  nameWithType: KnownTechHandler.RemoveDefaultUnlock
 - uid: Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(KnownTech.AnalysisTech)
   name: SetAnalysisTechEntry(AnalysisTech)
   href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_KnownTech_AnalysisTech_
@@ -5068,6 +5505,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.KnownTechHandler.SetCompoundUnlock
   nameWithType: KnownTechHandler.SetCompoundUnlock
+- uid: Nautilus.Handlers.KnownTechHandler.SetHardLocked(TechType)
+  name: SetHardLocked(TechType)
+  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetHardLocked_TechType_
+  commentId: M:Nautilus.Handlers.KnownTechHandler.SetHardLocked(TechType)
+  fullName: Nautilus.Handlers.KnownTechHandler.SetHardLocked(TechType)
+  nameWithType: KnownTechHandler.SetHardLocked(TechType)
+- uid: Nautilus.Handlers.KnownTechHandler.SetHardLocked*
+  name: SetHardLocked
+  href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_SetHardLocked_
+  commentId: Overload:Nautilus.Handlers.KnownTechHandler.SetHardLocked
+  isSpec: "True"
+  fullName: Nautilus.Handlers.KnownTechHandler.SetHardLocked
+  nameWithType: KnownTechHandler.SetHardLocked
 - uid: Nautilus.Handlers.KnownTechHandler.UnlockOnStart(TechType)
   name: UnlockOnStart(TechType)
   href: api/Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_UnlockOnStart_TechType_
@@ -5748,6 +6198,15 @@ references:
   fullName.vb: Nautilus.Handlers.SpawnInfo.New(String, UnityEngine.Vector3, UnityEngine.Quaternion)
   nameWithType: SpawnInfo.SpawnInfo(string, Vector3, Quaternion)
   nameWithType.vb: SpawnInfo.New(String, Vector3, Quaternion)
+- uid: Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3)
+  name: SpawnInfo(string, Vector3, Quaternion, Vector3)
+  href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Quaternion_UnityEngine_Vector3_
+  commentId: M:Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3)
+  name.vb: New(String, Vector3, Quaternion, Vector3)
+  fullName: Nautilus.Handlers.SpawnInfo.SpawnInfo(string, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Handlers.SpawnInfo.New(String, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Vector3)
+  nameWithType: SpawnInfo.SpawnInfo(string, Vector3, Quaternion, Vector3)
+  nameWithType.vb: SpawnInfo.New(String, Vector3, Quaternion, Vector3)
 - uid: Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Vector3)
   name: SpawnInfo(string, Vector3, Vector3)
   href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Vector3_
@@ -5757,6 +6216,15 @@ references:
   fullName.vb: Nautilus.Handlers.SpawnInfo.New(String, UnityEngine.Vector3, UnityEngine.Vector3)
   nameWithType: SpawnInfo.SpawnInfo(string, Vector3, Vector3)
   nameWithType.vb: SpawnInfo.New(String, Vector3, Vector3)
+- uid: Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)
+  name: SpawnInfo(string, Vector3, Vector3, Vector3)
+  href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_
+  commentId: M:Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)
+  name.vb: New(String, Vector3, Vector3, Vector3)
+  fullName: Nautilus.Handlers.SpawnInfo.SpawnInfo(string, UnityEngine.Vector3, UnityEngine.Vector3, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Handlers.SpawnInfo.New(String, UnityEngine.Vector3, UnityEngine.Vector3, UnityEngine.Vector3)
+  nameWithType: SpawnInfo.SpawnInfo(string, Vector3, Vector3, Vector3)
+  nameWithType.vb: SpawnInfo.New(String, Vector3, Vector3, Vector3)
 - uid: Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3)
   name: SpawnInfo(TechType, Vector3)
   href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_
@@ -5775,6 +6243,15 @@ references:
   fullName.vb: Nautilus.Handlers.SpawnInfo.New(TechType, UnityEngine.Vector3, UnityEngine.Quaternion)
   nameWithType: SpawnInfo.SpawnInfo(TechType, Vector3, Quaternion)
   nameWithType.vb: SpawnInfo.New(TechType, Vector3, Quaternion)
+- uid: Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3)
+  name: SpawnInfo(TechType, Vector3, Quaternion, Vector3)
+  href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Quaternion_UnityEngine_Vector3_
+  commentId: M:Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3)
+  name.vb: New(TechType, Vector3, Quaternion, Vector3)
+  fullName: Nautilus.Handlers.SpawnInfo.SpawnInfo(TechType, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Handlers.SpawnInfo.New(TechType, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Vector3)
+  nameWithType: SpawnInfo.SpawnInfo(TechType, Vector3, Quaternion, Vector3)
+  nameWithType.vb: SpawnInfo.New(TechType, Vector3, Quaternion, Vector3)
 - uid: Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Vector3)
   name: SpawnInfo(TechType, Vector3, Vector3)
   href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Vector3_
@@ -5784,6 +6261,15 @@ references:
   fullName.vb: Nautilus.Handlers.SpawnInfo.New(TechType, UnityEngine.Vector3, UnityEngine.Vector3)
   nameWithType: SpawnInfo.SpawnInfo(TechType, Vector3, Vector3)
   nameWithType.vb: SpawnInfo.New(TechType, Vector3, Vector3)
+- uid: Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)
+  name: SpawnInfo(TechType, Vector3, Vector3, Vector3)
+  href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_
+  commentId: M:Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)
+  name.vb: New(TechType, Vector3, Vector3, Vector3)
+  fullName: Nautilus.Handlers.SpawnInfo.SpawnInfo(TechType, UnityEngine.Vector3, UnityEngine.Vector3, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Handlers.SpawnInfo.New(TechType, UnityEngine.Vector3, UnityEngine.Vector3, UnityEngine.Vector3)
+  nameWithType: SpawnInfo.SpawnInfo(TechType, Vector3, Vector3, Vector3)
+  nameWithType.vb: SpawnInfo.New(TechType, Vector3, Vector3, Vector3)
 - uid: Nautilus.Handlers.SpawnInfo.#ctor*
   name: SpawnInfo
   href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_
@@ -5984,6 +6470,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.StoryGoalHandler.RegisterCompoundGoal
   nameWithType: StoryGoalHandler.RegisterCompoundGoal
+- uid: Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.Action{System.String})
+  name: RegisterCustomEvent(Action<string>)
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_System_Action_System_String__
+  commentId: M:Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.Action{System.String})
+  name.vb: RegisterCustomEvent(Action(Of String))
+  fullName: Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.Action<string>)
+  fullName.vb: Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.Action(Of String))
+  nameWithType: StoryGoalHandler.RegisterCustomEvent(Action<string>)
+  nameWithType.vb: StoryGoalHandler.RegisterCustomEvent(Action(Of String))
 - uid: Nautilus.Handlers.StoryGoalHandler.RegisterCustomEvent(System.String,System.Action)
   name: RegisterCustomEvent(string, Action)
   href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_RegisterCustomEvent_System_String_System_Action_
@@ -6048,6 +6543,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.StoryGoalHandler.RegisterOnGoalUnlockData
   nameWithType: StoryGoalHandler.RegisterOnGoalUnlockData
+- uid: Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.Action{System.String})
+  name: UnregisterCustomEvent(Action<string>)
+  href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_UnregisterCustomEvent_System_Action_System_String__
+  commentId: M:Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.Action{System.String})
+  name.vb: UnregisterCustomEvent(Action(Of String))
+  fullName: Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.Action<string>)
+  fullName.vb: Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.Action(Of String))
+  nameWithType: StoryGoalHandler.UnregisterCustomEvent(Action<string>)
+  nameWithType.vb: StoryGoalHandler.UnregisterCustomEvent(Action(Of String))
 - uid: Nautilus.Handlers.StoryGoalHandler.UnregisterCustomEvent(System.String,System.Action)
   name: UnregisterCustomEvent(string, Action)
   href: api/Nautilus.Handlers.StoryGoalHandler.html#Nautilus_Handlers_StoryGoalHandler_UnregisterCustomEvent_System_String_System_Action_
@@ -6102,6 +6606,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.SurvivalHandler.GiveOxygenOnConsume
   nameWithType: SurvivalHandler.GiveOxygenOnConsume
+- uid: Nautilus.Handlers.SurvivalHandler.RunActionOnConsume(TechType,System.Action,System.Boolean)
+  name: RunActionOnConsume(TechType, Action, bool)
+  href: api/Nautilus.Handlers.SurvivalHandler.html#Nautilus_Handlers_SurvivalHandler_RunActionOnConsume_TechType_System_Action_System_Boolean_
+  commentId: M:Nautilus.Handlers.SurvivalHandler.RunActionOnConsume(TechType,System.Action,System.Boolean)
+  name.vb: RunActionOnConsume(TechType, Action, Boolean)
+  fullName: Nautilus.Handlers.SurvivalHandler.RunActionOnConsume(TechType, System.Action, bool)
+  fullName.vb: Nautilus.Handlers.SurvivalHandler.RunActionOnConsume(TechType, System.Action, Boolean)
+  nameWithType: SurvivalHandler.RunActionOnConsume(TechType, Action, bool)
+  nameWithType.vb: SurvivalHandler.RunActionOnConsume(TechType, Action, Boolean)
+- uid: Nautilus.Handlers.SurvivalHandler.RunActionOnConsume*
+  name: RunActionOnConsume
+  href: api/Nautilus.Handlers.SurvivalHandler.html#Nautilus_Handlers_SurvivalHandler_RunActionOnConsume_
+  commentId: Overload:Nautilus.Handlers.SurvivalHandler.RunActionOnConsume
+  isSpec: "True"
+  fullName: Nautilus.Handlers.SurvivalHandler.RunActionOnConsume
+  nameWithType: SurvivalHandler.RunActionOnConsume
 - uid: Nautilus.Handlers.WorldEntityDatabaseHandler
   name: WorldEntityDatabaseHandler
   href: api/Nautilus.Handlers.WorldEntityDatabaseHandler.html
@@ -10159,6 +10679,152 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.BasicText.ShowMessage
   nameWithType: BasicText.ShowMessage
+- uid: Nautilus.Utility.BiomeUtils
+  name: BiomeUtils
+  href: api/Nautilus.Utility.BiomeUtils.html
+  commentId: T:Nautilus.Utility.BiomeUtils
+  fullName: Nautilus.Utility.BiomeUtils
+  nameWithType: BiomeUtils
+- uid: Nautilus.Utility.BiomeUtils.CreateBiomeSettings(UnityEngine.Vector3,System.Single,UnityEngine.Color,System.Single,UnityEngine.Color,System.Single,System.Single,System.Single,System.Single,System.Single)
+  name: CreateBiomeSettings(Vector3, float, Color, float, Color, float, float, float, float, float)
+  href: api/Nautilus.Utility.BiomeUtils.html#Nautilus_Utility_BiomeUtils_CreateBiomeSettings_UnityEngine_Vector3_System_Single_UnityEngine_Color_System_Single_UnityEngine_Color_System_Single_System_Single_System_Single_System_Single_System_Single_
+  commentId: M:Nautilus.Utility.BiomeUtils.CreateBiomeSettings(UnityEngine.Vector3,System.Single,UnityEngine.Color,System.Single,UnityEngine.Color,System.Single,System.Single,System.Single,System.Single,System.Single)
+  name.vb: CreateBiomeSettings(Vector3, Single, Color, Single, Color, Single, Single, Single, Single, Single)
+  fullName: Nautilus.Utility.BiomeUtils.CreateBiomeSettings(UnityEngine.Vector3, float, UnityEngine.Color, float, UnityEngine.Color, float, float, float, float, float)
+  fullName.vb: Nautilus.Utility.BiomeUtils.CreateBiomeSettings(UnityEngine.Vector3, Single, UnityEngine.Color, Single, UnityEngine.Color, Single, Single, Single, Single, Single)
+  nameWithType: BiomeUtils.CreateBiomeSettings(Vector3, float, Color, float, Color, float, float, float, float, float)
+  nameWithType.vb: BiomeUtils.CreateBiomeSettings(Vector3, Single, Color, Single, Color, Single, Single, Single, Single, Single)
+- uid: Nautilus.Utility.BiomeUtils.CreateBiomeSettings*
+  name: CreateBiomeSettings
+  href: api/Nautilus.Utility.BiomeUtils.html#Nautilus_Utility_BiomeUtils_CreateBiomeSettings_
+  commentId: Overload:Nautilus.Utility.BiomeUtils.CreateBiomeSettings
+  isSpec: "True"
+  fullName: Nautilus.Utility.BiomeUtils.CreateBiomeSettings
+  nameWithType: BiomeUtils.CreateBiomeSettings
+- uid: Nautilus.Utility.BiomeUtils.CreateSkyPrefab(System.String,UnityEngine.Texture,System.Boolean,System.Boolean)
+  name: CreateSkyPrefab(string, Texture, bool, bool)
+  href: api/Nautilus.Utility.BiomeUtils.html#Nautilus_Utility_BiomeUtils_CreateSkyPrefab_System_String_UnityEngine_Texture_System_Boolean_System_Boolean_
+  commentId: M:Nautilus.Utility.BiomeUtils.CreateSkyPrefab(System.String,UnityEngine.Texture,System.Boolean,System.Boolean)
+  name.vb: CreateSkyPrefab(String, Texture, Boolean, Boolean)
+  fullName: Nautilus.Utility.BiomeUtils.CreateSkyPrefab(string, UnityEngine.Texture, bool, bool)
+  fullName.vb: Nautilus.Utility.BiomeUtils.CreateSkyPrefab(String, UnityEngine.Texture, Boolean, Boolean)
+  nameWithType: BiomeUtils.CreateSkyPrefab(string, Texture, bool, bool)
+  nameWithType.vb: BiomeUtils.CreateSkyPrefab(String, Texture, Boolean, Boolean)
+- uid: Nautilus.Utility.BiomeUtils.CreateSkyPrefab*
+  name: CreateSkyPrefab
+  href: api/Nautilus.Utility.BiomeUtils.html#Nautilus_Utility_BiomeUtils_CreateSkyPrefab_
+  commentId: Overload:Nautilus.Utility.BiomeUtils.CreateSkyPrefab
+  isSpec: "True"
+  fullName: Nautilus.Utility.BiomeUtils.CreateSkyPrefab
+  nameWithType: BiomeUtils.CreateSkyPrefab
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer
+  name: BiomeUtils.SkyPrefabFixer
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html
+  commentId: T:Nautilus.Utility.BiomeUtils.SkyPrefabFixer
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer
+  nameWithType: BiomeUtils.SkyPrefabFixer
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.affectedByDayNightCycle
+  name: affectedByDayNightCycle
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_affectedByDayNightCycle
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.affectedByDayNightCycle
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.affectedByDayNightCycle
+  nameWithType: BiomeUtils.SkyPrefabFixer.affectedByDayNightCycle
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.autoDetectColorSpace
+  name: autoDetectColorSpace
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_autoDetectColorSpace
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.autoDetectColorSpace
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.autoDetectColorSpace
+  nameWithType: BiomeUtils.SkyPrefabFixer.autoDetectColorSpace
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.camExposure
+  name: camExposure
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_camExposure
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.camExposure
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.camExposure
+  nameWithType: BiomeUtils.SkyPrefabFixer.camExposure
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.diffIntensity
+  name: diffIntensity
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_diffIntensity
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.diffIntensity
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.diffIntensity
+  nameWithType: BiomeUtils.SkyPrefabFixer.diffIntensity
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.diffIntensityLM
+  name: diffIntensityLM
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_diffIntensityLM
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.diffIntensityLM
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.diffIntensityLM
+  nameWithType: BiomeUtils.SkyPrefabFixer.diffIntensityLM
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.dimensions
+  name: dimensions
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_dimensions
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.dimensions
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.dimensions
+  nameWithType: BiomeUtils.SkyPrefabFixer.dimensions
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.hasDimensions
+  name: hasDimensions
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_hasDimensions
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.hasDimensions
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.hasDimensions
+  nameWithType: BiomeUtils.SkyPrefabFixer.hasDimensions
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.hdrSky
+  name: hdrSky
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_hdrSky
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.hdrSky
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.hdrSky
+  nameWithType: BiomeUtils.SkyPrefabFixer.hdrSky
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.hdrSpec
+  name: hdrSpec
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_hdrSpec
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.hdrSpec
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.hdrSpec
+  nameWithType: BiomeUtils.SkyPrefabFixer.hdrSpec
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.linearSpace
+  name: linearSpace
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_linearSpace
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.linearSpace
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.linearSpace
+  nameWithType: BiomeUtils.SkyPrefabFixer.linearSpace
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.masterIntensity
+  name: masterIntensity
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_masterIntensity
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.masterIntensity
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.masterIntensity
+  nameWithType: BiomeUtils.SkyPrefabFixer.masterIntensity
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.outdoors
+  name: outdoors
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_outdoors
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.outdoors
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.outdoors
+  nameWithType: BiomeUtils.SkyPrefabFixer.outdoors
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.sky
+  name: sky
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_sky
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.sky
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.sky
+  nameWithType: BiomeUtils.SkyPrefabFixer.sky
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.skyIntensity
+  name: skyIntensity
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_skyIntensity
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.skyIntensity
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.skyIntensity
+  nameWithType: BiomeUtils.SkyPrefabFixer.skyIntensity
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.specIntensity
+  name: specIntensity
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_specIntensity
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.specIntensity
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.specIntensity
+  nameWithType: BiomeUtils.SkyPrefabFixer.specIntensity
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.specIntensityLM
+  name: specIntensityLM
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_specIntensityLM
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.specIntensityLM
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.specIntensityLM
+  nameWithType: BiomeUtils.SkyPrefabFixer.specIntensityLM
+- uid: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.specularCube
+  name: specularCube
+  href: api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html#Nautilus_Utility_BiomeUtils_SkyPrefabFixer_specularCube
+  commentId: F:Nautilus.Utility.BiomeUtils.SkyPrefabFixer.specularCube
+  fullName: Nautilus.Utility.BiomeUtils.SkyPrefabFixer.specularCube
+  nameWithType: BiomeUtils.SkyPrefabFixer.specularCube
 - uid: Nautilus.Utility.ConstructableFlags
   name: ConstructableFlags
   href: api/Nautilus.Utility.ConstructableFlags.html
