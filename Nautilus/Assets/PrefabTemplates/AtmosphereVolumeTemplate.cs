@@ -23,6 +23,11 @@ public class AtmosphereVolumeTemplate : PrefabTemplate
     /// The priority of this atmosphere volume. Atmosphere volumes with higher priorities override those with lower priorities. The default priority is 10.
     /// </summary>
     public int Priority { get; set; }
+
+    /// <summary>
+    /// Determines the loading distance of this atmosphere volume prefab. Default value is <see cref="LargeWorldEntity.CellLevel.Far"/>. Although vanilla prefabs always use Batch for this, this does not work with our custom systems.
+    /// </summary>
+    public LargeWorldEntity.CellLevel CellLevel { get; set; }
     
     /// <summary>
     /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
@@ -41,11 +46,13 @@ public class AtmosphereVolumeTemplate : PrefabTemplate
     /// <param name="shape">The shape of this atmosphere volume.</param>
     /// <param name="overrideBiome">The biome type used by this atmosphere volume.</param>
     /// <param name="priority">The priority of this atmosphere volume. Atmosphere volumes with higher priorities override those with lower priorities.</param>
-    public AtmosphereVolumeTemplate(PrefabInfo info, VolumeShape shape, string overrideBiome, int priority = 10) : base(info)
+    /// <param name="cellLevel">Determines the loading distance of this atmosphere volume prefab. Although vanilla prefabs always use Batch for this, this does not work with our custom systems.</param>
+    public AtmosphereVolumeTemplate(PrefabInfo info, VolumeShape shape, string overrideBiome, int priority = 10, LargeWorldEntity.CellLevel cellLevel = LargeWorldEntity.CellLevel.Far) : base(info)
     {
         Shape = shape;
         OverrideBiome = overrideBiome;
         Priority = priority;
+        CellLevel = cellLevel;
     }
 
     /// <summary>
@@ -66,7 +73,7 @@ public class AtmosphereVolumeTemplate : PrefabTemplate
         collider.isTrigger = true;
         
         prefab.AddComponent<PrefabIdentifier>().ClassId = info.ClassID;
-        prefab.AddComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Batch;
+        prefab.AddComponent<LargeWorldEntity>().cellLevel = CellLevel;
 
         var atmosphereVolume = prefab.AddComponent<AtmosphereVolume>();
         atmosphereVolume.overrideBiome = OverrideBiome;
