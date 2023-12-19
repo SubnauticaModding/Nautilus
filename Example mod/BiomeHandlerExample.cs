@@ -21,6 +21,12 @@ public class BiomeHandlerExample : BaseUnityPlugin
 #elif BELOWZERO
         BiomeHandler.RegisterBiome("nautilusexamplebiome", lilyPadsFogSettings, new BiomeHandler.SkyReference("SkyLilyPads"));
 #endif
+        
+        #if SUBNAUTICA
+        // Add wreck ambience & music
+        BiomeHandler.AddBiomeMusic("nautilusexamplebiome", AudioUtils.GetFmodAsset("event:/env/music/wreak_ambience_big_music"));
+        BiomeHandler.AddBiomeAmbience("nautilusexamplebiome", AudioUtils.GetFmodAsset("event:/env/background/wreak_ambience_big"), FMODGameParams.InteriorState.OnlyOutside);
+        #endif
 
         // Create an atmosphere volume for the biome
         PrefabInfo volumePrefabInfo = PrefabInfo.WithTechType("NautilusExampleBiomeSphereVolume");
