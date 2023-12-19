@@ -95,7 +95,9 @@ internal static class BiomePatcher
         emitterObject.transform.parent = parent;
         var emitter = emitterObject.AddComponent<FMOD_CustomLoopingEmitter>();
         emitter.SetAsset(biomeSoundData.SoundAsset);
+#if SUBNAUTICA
         emitter.stopImmediatelyOnDisable = true;
+#endif
         var gameParams = emitterObject.AddComponent<FMODGameParams>();
         gameParams.loopingEmitter = emitter;
         gameParams.onlyInBiome = biomeSoundData.BiomeName;

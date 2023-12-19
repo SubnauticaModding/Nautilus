@@ -20,6 +20,7 @@ public static class BiomeHandler
         BiomePatcher.RegisterBiome(new BiomePatcher.CustomBiomeData(name, settings, sky));
     }
 
+#if SUBNAUTICA
     /// <summary>
     /// Adds music that plays in the given biome(s). The sound emitter is played when the given conditions are ended, until those conditions are no longer true, and then a fadeout is allowed.
     /// </summary>
@@ -30,6 +31,7 @@ public static class BiomeHandler
     {
         BiomePatcher.RegisterBiomeSoundData(new BiomePatcher.CustomBiomeSoundData(BiomePatcher.CustomBiomeSoundData.Type.Music, biomeName, musicAsset, interiorState));
     }
+#endif
     
     /// <summary>
     /// Adds an ambient sound that plays in the given biome(s). The sound emitter is played when the given conditions are ended, until those conditions are no longer true, and then a fadeout is allowed.
