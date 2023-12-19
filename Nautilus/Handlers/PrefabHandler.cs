@@ -26,13 +26,21 @@ public static class PrefabHandler
             yield break;
         }
 
-        yield return prefabFactory(gameObject);
-
-        yield return ProcessPrefabAsync(gameObject.Get(), info, prefabFactory);
+        yield return InitPrefabAsync(gameObject, info, prefabFactory);
     }
 
-    private static IEnumerator ProcessPrefabAsync(GameObject obj, PrefabInfo info, PrefabFactoryAsync prefabFactory)
+    private static IEnumerator InitPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
+        yield return prefabFactory(gameObject);
+
+        var obj = gameObject.Get();
+        if(obj == null)
+        {
+            InternalLogger.Error($"PrefabHandler: PrefabFactory returned null for {info.ClassID}");
+            yield break;
+        }
+        obj.SetActive(false);
+
         var techType = info.TechType;
         var classId = info.ClassID;
 
@@ -69,6 +77,7 @@ public static class PrefabHandler
         if (Prefabs.TryGetPostProcessorForInfo(info, out var postProcessor))
             yield return postProcessor?.Invoke(obj);
 
+        gameObject.Set(obj);
         ModPrefabCache.AddPrefab(obj);
     }
 }

@@ -7,7 +7,7 @@ namespace Nautilus.Utility.ModMessages;
 /// </summary>
 public static class ModMessageSystem
 {
-    static ModMessageSystem()
+    internal static void Patch()
     {
         SaveUtils.RegisterOnStartLoadingEvent(OnStartLoading);
     }

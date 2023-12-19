@@ -1,11 +1,12 @@
+namespace Nautilus.Assets.PrefabTemplates;
+
 using System;
 using System.Collections;
+using Nautilus.Extensions;
 using Nautilus.Utility;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UWE;
-using Object = UnityEngine.Object;
-
-namespace Nautilus.Assets.PrefabTemplates;
 
 /// <summary>
 /// Represents an fabricator template. This template is capable of returning a Fabricator or a Workbench.
@@ -32,15 +33,13 @@ public class FabricatorTemplate : PrefabTemplate
         /// The modification station that upgrades your equipment.
         /// </summary>
         Workbench,
-        
-#if SUBNAUTICA
+
         /// <summary>
         /// The style of fabricator found in the Moon Pool and the Cyclops sub.
         /// </summary>
         MoonPool,
-#endif
     }
-    
+
     /// <summary>
     /// The model this template will use. Leave it to <see cref="Model.Custom"/> if you've got a custom model.
     /// </summary>
@@ -55,13 +54,13 @@ public class FabricatorTemplate : PrefabTemplate
     /// <see cref="Utility.ConstructableFlags.Wall"/> for non-workbench fabricators.<br/>
     /// And <see cref="Utility.ConstructableFlags.Ground"/> and <see cref="Utility.ConstructableFlags.Rotatable"/> for workbench. 
     /// </summary>
-    public ConstructableFlags ConstructableFlags 
+    public ConstructableFlags ConstructableFlags
     {
         get
         {
             if (_constructableFlags == ConstructableFlags.None)
             {
-                _constructableFlags = ConstructableFlags.Inside | 
+                _constructableFlags = ConstructableFlags.Inside |
                     (FabricatorModel == Model.Workbench
                         ? ConstructableFlags.Ground | ConstructableFlags.Rotatable
                         : ConstructableFlags.Wall);
@@ -81,14 +80,14 @@ public class FabricatorTemplate : PrefabTemplate
     /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.
     /// </summary>
     public System.Action<GameObject> ModifyPrefab { get; set; }
-    
+
     /// <summary>
     /// Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more asynchronously.
     /// </summary>
     public System.Func<GameObject, IEnumerator> ModifyPrefabAsync { get; set; }
-    
+
     private readonly CraftTree.Type _craftTreeType;
-    
+
     /// <summary>
     /// Creates a <see cref="FabricatorTemplate"/> instance.
     /// </summary>
@@ -121,8 +120,7 @@ public class FabricatorTemplate : PrefabTemplate
 
     private IEnumerator CreateFabricator(IOut<GameObject> gameObject)
     {
-        var task = GetReferenceTask();
-        if (task is null || FabricatorModel == Model.Custom)
+        if (FabricatorModel == Model.Custom)
         {
             InternalLogger.Error($"""
             Failed retrieving the requested fabricator model. Please ensure the "{nameof(FabricatorTemplate)}.{nameof(FabricatorModel)}" property is assigned.
@@ -131,25 +129,50 @@ public class FabricatorTemplate : PrefabTemplate
             
             yield break;
         }
-        
-        yield return task;
-        
-        task.TryGetPrefab(out var prefab);
-        var obj = Object.Instantiate(prefab);
+
+        var task = new TaskResult<GameObject>();
+
+        yield return GetReferenceTask(task);
+
+        var prefab = task.Get();
+        if (prefab == null)
+        {
+            InternalLogger.Error($"Failed to get prefab for {FabricatorModel}!!!!!!!!   PLEASE REPORT THIS BUG TO THE NAUTILUS TEAM!");
+        }
+
+        var obj = GameObject.Instantiate(prefab);
         yield return ApplyCrafterPrefab(obj);
         gameObject.Set(obj);
     }
 
-    private IPrefabRequest GetReferenceTask()
+    private IEnumerator GetReferenceTask(IOut<GameObject> prefab)
     {
-        return FabricatorModel switch
+        switch (FabricatorModel)
         {
-            Model.Fabricator => PrefabDatabase.GetPrefabAsync(CraftData.GetClassIdForTechType(TechType.Fabricator)),
-            Model.Workbench => PrefabDatabase.GetPrefabAsync(CraftData.GetClassIdForTechType(TechType.Workbench)),
-#if SUBNAUTICA
-            Model.MoonPool => PrefabDatabase.GetPrefabForFilenameAsync("Submarine/Build/CyclopsFabricator.prefab"),
-#endif
-            _ => null,
+            case Model.Fabricator:
+                {
+                    var task = PrefabDatabase.GetPrefabAsync(CraftData.GetClassIdForTechType(TechType.Fabricator));
+                    yield return task;
+                    if (task.TryGetPrefab(out var obj))
+                        prefab.Set(obj);
+                    break;
+                }
+            case Model.Workbench:
+                {
+                    var task = PrefabDatabase.GetPrefabAsync(CraftData.GetClassIdForTechType(TechType.Workbench));
+                    yield return task;
+                    if (task.TryGetPrefab(out var obj))
+                        prefab.Set(obj);
+                    break;
+                }
+            case Model.MoonPool:
+                {
+                    var task = new AssetReferenceGameObject("Submarine/Build/CyclopsFabricator.prefab").ForceValid().LoadAssetAsync();
+                    yield return task;
+                    if (task.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
+                        prefab.Set(task.Result);
+                    break;
+                }
         };
     }
 
@@ -163,7 +186,6 @@ public class FabricatorTemplate : PrefabTemplate
             case Model.Custom:
                 crafter = obj.EnsureComponent<Fabricator>();
                 break;
-#if SUBNAUTICA
             case Model.MoonPool:
                 // Retrieve sub game objects
                 GameObject cyclopsFabLight = obj.FindChild("fabricatorLight");
@@ -179,7 +201,6 @@ public class FabricatorTemplate : PrefabTemplate
                 obj.EnsureComponent<Constructable>().model = cyclopsFabModel;
                 crafter = obj.EnsureComponent<Fabricator>();
                 break;
-#endif
             case Model.Workbench:
                 crafter = obj.EnsureComponent<Workbench>();
                 break;

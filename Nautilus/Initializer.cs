@@ -1,8 +1,10 @@
 using System;
 using BepInEx;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
+using Nautilus.Utility.ModMessages;
 using UnityEngine;
 #if BELOWZERO
 using UnityEngine.U2D;
@@ -55,7 +57,6 @@ public class Initializer : BaseUnityPlugin
         SpritePatcher.Patch(_harmony);
         KnownTechPatcher.Patch(_harmony);
         OptionsPanelPatcher.Patch(_harmony);
-        SMLHelperCompatibilityPatcher.Patch(_harmony);
         ItemsContainerPatcher.Patch(_harmony);
         PDALogPatcher.Patch(_harmony);
         PDAPatcher.Patch(_harmony);
@@ -76,5 +77,7 @@ public class Initializer : BaseUnityPlugin
         NewtonsoftJsonPatcher.Patch(_harmony);
         InventoryPatcher.Patch(_harmony);
         WaterParkPatcher.Patch(_harmony);
+        ModMessageSystem.Patch();
+        BiomePatcher.Patch(_harmony);
     }
 }

@@ -64,9 +64,9 @@ public class CreatureEggExample : BaseUnityPlugin
     private void Awake()
     {
 #if SUBNAUTICA
-        CustomPrefab customEgg = new CustomPrefab("ReaperEgg", "Reaper Leviathan Egg", "Reaper Leviathan Egg that makes me go yes.");
+        CustomPrefab customEgg = new CustomPrefab("ReaperEggExample", "Reaper Leviathan Egg", "Reaper Leviathan Egg that makes me go yes.");
 #else
-        CustomPrefab customEgg = new CustomPrefab("ChelicerateEgg", "Chelicerate Egg", "Chelicerate Egg that makes me go yes.");
+        CustomPrefab customEgg = new CustomPrefab("ChelicerateEggExample", "Chelicerate Egg", "Chelicerate Egg that makes me go yes.");
 #endif
         customEgg.Info.WithSizeInInventory(new Vector2int(3, 3));
 

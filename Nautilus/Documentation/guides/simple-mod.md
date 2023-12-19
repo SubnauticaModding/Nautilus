@@ -53,6 +53,12 @@ MyAwesomeMod/Plugin.cs
 more like `com.author.myawesomemod`. To do this, you must open up your project's csproj file (Right Click -> Edit Project File). Once it's open, add this tag to the
 uppermost property group: `<BepInExPluginGuid>com.author.modname</BepInExPluginGuid>` and modify that to fit your mod.
 
+> [!NOTE]
+> Please ensure that in your entry point class (the class that has a `[BepInPlugin]` attribute, usually called Plugin.cs) Nautilus is marked as a dependency if you use it.
+> To add the dependency, simply add the `[BepInDependency("com.snmodding.nautilus")]` attribute at the top of your entry point class.
+> You may find an example [here](https://github.com/SubnauticaModding/Nautilus/blob/master/Example%20mod/CustomPrefabExamples.cs#L11).
+> For more information, visit the [BepInEx docs](https://docs.bepinex.dev/articles/dev_guide/plugin_tutorial/2_plugin_start.html#specifying-dependencies-on-other-plugins).
+
 This template contains the code of a functional knife that knock-backs enemies on strike. This knife can be found in the Modification station.
 Now that we have the code for the knife, we will make our new custom mineral.
 

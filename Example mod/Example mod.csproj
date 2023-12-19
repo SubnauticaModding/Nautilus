@@ -1,47 +1,48 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\common.props" />
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <RootNamespace>Nautilus.Examples</RootNamespace>
-    <AssemblyName>Nautilus.Example</AssemblyName>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>true</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <Configurations>SN.STABLE;BZ.STABLE</Configurations>
-    <Platforms>AnyCPU</Platforms>
-    <Copyright>Copyright ©  2023</Copyright>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-  </PropertyGroup>
-  <Import Project="$(SolutionDir)Version.targets" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
-    <OutputPath>bin\SN.STABLE\</OutputPath>
-    <DefineConstants>SUBNAUTICA;SUBNAUTICA_STABLE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
-    <OutputPath>bin\BZ.STABLE\</OutputPath>
-    <DefineConstants>BELOWZERO;BELOWZERO_STABLE</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Nautilus\Nautilus.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
-    <PackageReference Include="PolySharp" Version="1.13.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  <Target Name="CopyToOutputPath" AfterTargets="Build">
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\common.props" />
+    <Import Project="$(SolutionDir)Version.targets" />
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+        <RootNamespace>Nautilus.Examples</RootNamespace>
+        <AssemblyName>Nautilus.Example</AssemblyName>
+        <BepInExPluginVersion>$(VersionPrefix).$(SuffixNumber)</BepInExPluginVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Optimize>true</Optimize>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <LangVersion>latest</LangVersion>
+        <Configurations>SN.STABLE;BZ.STABLE</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        <Copyright>Copyright ©  2023</Copyright>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
+        <OutputPath>bin\SN.STABLE\</OutputPath>
+        <DefineConstants>SUBNAUTICA;SUBNAUTICA_STABLE</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
+        <OutputPath>bin\BZ.STABLE\</OutputPath>
+        <DefineConstants>BELOWZERO;BELOWZERO_STABLE</DefineConstants>
+    </PropertyGroup>
     <ItemGroup>
-      <LocalizationFiles Include="Localization\*.*" />
+        <ProjectReference Include="..\Nautilus\Nautilus.csproj">
+            <Private>False</Private>
+        </ProjectReference>
     </ItemGroup>
-    <Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(OutDir)\Localization" SkipUnchangedFiles="true" />
-  </Target>
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
+        <PackageReference Include="PolySharp" Version="1.13.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+    <Target Name="CopyToOutputPath" AfterTargets="Build">
+        <ItemGroup>
+            <LocalizationFiles Include="Localization\*.*" />
+        </ItemGroup>
+        <Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(OutDir)\Localization" SkipUnchangedFiles="true" />
+    </Target>
 </Project>

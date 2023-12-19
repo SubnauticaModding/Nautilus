@@ -43,14 +43,18 @@ internal class SpritePatcher
         PatchSprites();
 #if SUBNAUTICA
         MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
+        MethodInfo spriteManagerGetWithNoDefault = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetWithNoDefault), new Type[] { typeof(SpriteManager.Group), typeof(string) });
 #elif BELOWZERO
-            MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
+        MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
 #endif
         MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
 
-        HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
-        HarmonyMethod patchBackgrounds = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
+        HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
+        HarmonyMethod patchBackgrounds = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
         harmony.Patch(spriteManagerGet, prefix: patchCheck);
+# if SUBNAUTICA
+        harmony.Patch(spriteManagerGetWithNoDefault, prefix: patchCheck);
+#endif
         harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
     }
 

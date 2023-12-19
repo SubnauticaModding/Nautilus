@@ -63,7 +63,14 @@ public abstract class ModOptions
 
     internal void AddOptionsToPanel(uGUI_TabbedControlsPanel panel, int modsTabIndex)
     {
-        BuildModOptions(panel, modsTabIndex, Options);
+        try
+        {
+            BuildModOptions(panel, modsTabIndex, Options);
+        }
+        catch(Exception ex)
+        {
+            InternalLogger.Error($"{Name} Failed to BuildModOptions with exception: \n {ex}");
+        }
     }
 
     /// <summary>

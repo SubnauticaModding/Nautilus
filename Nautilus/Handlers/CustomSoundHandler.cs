@@ -39,9 +39,9 @@ public static class CustomSoundHandler
     /// <returns>the <see cref="Sound"/> loaded</returns>
     public static Sound RegisterCustomSound(string id, string filePath, Bus bus, MODE mode = MODE.DEFAULT)
     {
-        if (bus.getChannelGroup(out _) != RESULT.OK)
+        if (bus.getChannelGroup(out ChannelGroup channelGroup) != RESULT.OK || !channelGroup.hasHandle())
         {
-            bus.lockChannelGroup().CheckResult();
+            bus.lockChannelGroup();
         }
         Sound sound = AudioUtils.CreateSound(filePath, mode);
         CustomSoundPatcher.CustomSounds[id] = sound;
@@ -75,9 +75,9 @@ public static class CustomSoundHandler
     /// <returns>the <see cref="Sound"/> loaded</returns>
     public static Sound RegisterCustomSound(string id, AudioClip audio, Bus bus, MODE mode = MODE.DEFAULT)
     {
-        if (bus.getChannelGroup(out _) != RESULT.OK)
+        if (bus.getChannelGroup(out ChannelGroup channelGroup) != RESULT.OK || !channelGroup.hasHandle())
         {
-            bus.lockChannelGroup().CheckResult();
+            bus.lockChannelGroup();
         }
         Sound sound = AudioUtils.CreateSound(audio, mode);
         CustomSoundPatcher.CustomSounds[id] = sound;
@@ -115,9 +115,9 @@ public static class CustomSoundHandler
     /// <param name="bus">The bus to play the sound on.</param>
     public static void RegisterCustomSound(string id, Sound sound, Bus bus)
     {
-        if (bus.getChannelGroup(out _) != RESULT.OK)
+        if (bus.getChannelGroup(out ChannelGroup channelGroup) != RESULT.OK || !channelGroup.hasHandle())
         {
-            bus.lockChannelGroup().CheckResult();
+            bus.lockChannelGroup();
         }
         CustomSoundPatcher.CustomSounds[id] = sound;
         CustomSoundPatcher.CustomSoundBuses[id] = bus;

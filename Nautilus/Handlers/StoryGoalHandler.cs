@@ -137,10 +137,19 @@ public static class StoryGoalHandler
     /// Registers a given <see cref="Action"/> to be performed when its associated goal is completed.
     /// </summary>
     /// <param name="key">The key of the goal that triggers the <paramref name="customEventCallback"/>.</param>
-    /// <param name="customEventCallback">The method that is called when the associated goal is completed. The name of the goal will be passed as a parameter.</param>
+    /// <param name="customEventCallback">The method that is called when the associated goal is completed.</param>
     public static void RegisterCustomEvent(string key, Action customEventCallback)
     {
         CustomStoryGoalManager.StoryGoalCustomEvents.GetOrAddNew(key).Add(customEventCallback);
+    }
+
+    /// <summary>
+    /// Registers a given <see cref="Action"/> to be performed when a goal is completed.
+    /// </summary>
+    /// <param name="customEventCallback">The method that is called when any goal is completed. The name of the goal will be passed as a parameter.</param>
+    public static void RegisterCustomEvent(Action<string> customEventCallback)
+    {
+        CustomStoryGoalManager.StoryGoalCustomKeyHandlerEvents.Add(customEventCallback);
     }
 
     /// <summary>
@@ -154,5 +163,14 @@ public static class StoryGoalHandler
         {
             callbacks.Remove(customEventCallback);
         }
+    }
+    
+    /// <summary>
+    /// Unregisters a custom event.
+    /// </summary>
+    /// <param name="customEventCallback">The method to unregister.</param>
+    public static void UnregisterCustomEvent(Action<string> customEventCallback)
+    {
+        CustomStoryGoalManager.StoryGoalCustomKeyHandlerEvents.Remove(customEventCallback);
     }
 }

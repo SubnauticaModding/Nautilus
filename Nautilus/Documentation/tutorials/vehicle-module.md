@@ -70,7 +70,7 @@ And finally, let's make the part that interest us: Adding the Upgrade Module Gad
 
 ```csharp
 // This first function defines the equipment type and the quick slot type.
-prefab.SetUpgradeModule(EquipmentType.SeamothModule, QuickSlotType.Passive)
+prefab.SetVehicleUpgradeModule(EquipmentType.SeamothModule, QuickSlotType.Passive)
     .WithDepthUpgrade(1700f, true)  // 1700 is the depth in meters. The boolean after defines if we want the value to be absolute or "relative", added to the default depth. 
                                     // If it is on false, it will set the new crush depth to 1900 meters because the default depth of the Seamoth is 200 meters.
                                     // Otherwise, it will set the new crush depth on 1700 meters.
@@ -92,11 +92,13 @@ prefab.SetUpgradeModule(EquipmentType.SeamothModule, QuickSlotType.Passive)
 Admitting we've already done the prefab info and the custom prefab, let's directly work only with the upgrade module gadget.
 
 ```csharp
-var maxcharge = 50f;
+var maxCharge = 50f;
 var cooldown = 10f;
-prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.SelectableChargeable)
-    .WithMaxCharge(maxcharge)
+var energyCost = 6.9f;
+prefab.SetVehicleUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.SelectableChargeable)
+    .WithMaxCharge(maxCharge)
     .WithCooldown(cooldown)
+    .WithEnergyCost(energyCost)
     .WithOnModuleAdded((Vehicle inst, int slotId) =>
     {
         Subtitles.Add("Self-destruct module installed. The module needs to be charged fully to detonate.");
@@ -107,7 +109,7 @@ prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.SelectableCha
     })
     .WithOnModuleUsed((Vehicle inst, int slotID, float charge, float chargeScalar) =>
     {
-        if(charge != maxCharge)
+        if (charge < maxCharge)
         {
             Subtitles.Add("Self-destruction sequence disengaged.")
             return;
@@ -136,7 +138,7 @@ static IEnumerator EngageSelfDestruct(Vehicle instance, float countdown)
 Yet another example...
 
 ```csharp
-prefab.SetUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.Selectable)
+prefab.SetVehicleUpgradeModule(EquipmentType.VehicleModule, QuickSlotType.Selectable)
     .WithOnModuleUsed((Vehicle inst, int slotID, float _charge, float _chargeScalar) => // charge and chargeScalar are always 0f here.
     {
         Subtitles.Add("Hello world!");

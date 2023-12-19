@@ -1,5 +1,4 @@
 using System.IO;
-using System.Runtime.CompilerServices;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Json.Converters;
@@ -55,11 +54,7 @@ public static class GadgetExtensions
             return null;
         }
 
-        if (!customPrefab.TryGetGadget(out CraftingGadget craftingGadget))
-            return customPrefab.AddGadget(new CraftingGadget(customPrefab, recipeData));
-
-        craftingGadget.RecipeData = recipeData;
-        return craftingGadget;
+        return SetRecipe(customPrefab, recipeData);
     }
 
     /// <summary>
@@ -76,6 +71,27 @@ public static class GadgetExtensions
 
         scanningGadget.RequiredForUnlock = requiredForUnlock;
         scanningGadget.FragmentsToScan = fragmentsToScan;
+        return scanningGadget;
+    }
+
+    /// <summary>
+    /// Makes this prefab a fragment.
+    /// </summary>
+    /// <param name="customPrefab">The fragment custom prefab.</param>
+    /// <param name="blueprint">The blueprint that gets unlocked once this item is scanned</param>
+    /// <param name="scanTime">The amount of seconds it takes to scan this item.</param>
+    /// <param name="fragmentsToScan">The amount of fragments required to be scanned before the blueprint is unlocked.</param>
+    /// <param name="encyKey">The encyclopedia key to unlock once the scanning is completed.</param>
+    /// <param name="destroyAfterScan">Should this object be destroyed after a successful scan?</param>
+    /// <param name="isFragment">If this is set to <see keyword="true"/>, the loot distribution will not bother spawning this fragment if the blueprint is already unlocked.<br/>
+    /// This is the default behaviour for almost all of the vanilla fragments.</param>
+    /// <returns>A reference to the created <see cref="ScanningGadget"/> to continue the scanning settings on.</returns>
+    public static ScanningGadget CreateFragment(this ICustomPrefab customPrefab, TechType blueprint, float scanTime, int fragmentsToScan = 1, string encyKey = null, bool destroyAfterScan = true, bool isFragment = true)
+    {
+        if (!customPrefab.TryGetGadget(out ScanningGadget scanningGadget))
+            scanningGadget = customPrefab.AddGadget(new ScanningGadget(customPrefab, TechType.None, fragmentsToScan));
+
+        scanningGadget.WithScannerEntry(blueprint, scanTime, isFragment, encyKey, destroyAfterScan);
         return scanningGadget;
     }
 
@@ -151,7 +167,7 @@ public static class GadgetExtensions
     /// <summary>
     /// Sets this item as a vehicle upgrade module. Cyclops upgrades are not supported by this function.
     /// <para>If you're using this function, please do not use <see cref="SetEquipment(ICustomPrefab, EquipmentType)"/>,<br/>
-    /// it would interefere with this and possibly make the game crash or cause the mod to not work.</para>
+    /// it would interfere with this and possibly make the game crash or cause the mod to not work.</para>
     /// </summary>
     /// <param name="customPrefab">The custom prefab to set vehicle upgrade for.</param>
     /// <param name="equipmentType">The type of equipment slot this item can fit into. Preferably use something related to vehicles.</param>
@@ -253,7 +269,7 @@ public static class GadgetExtensions
     /// Makes this item have additional creature-egg-related functionality.
     /// </summary>
     /// <param name="customPrefab">The custom prefab the creature egg gadget is created for.</param>
-    /// <param name="requiredAcuSize">The total amount of ACU floors required for the egg to be dropped in the ACU.</param>
+    /// <param name="requiredAcuSize">The total amount of ACU floors required for the egg to be dropped in the ACU. This value is shared between the normal and the large ACU.</param>
     /// <returns>A reference to the created <see cref="EggGadget"/> instance after the operation has completed.</returns>
     public static EggGadget CreateCreatureEgg(this ICustomPrefab customPrefab, int requiredAcuSize = 1)
     {
@@ -261,6 +277,7 @@ public static class GadgetExtensions
             creatureEggGadget = customPrefab.AddGadget(new EggGadget(customPrefab, requiredAcuSize));
 
         creatureEggGadget.RequiredAcuSize = requiredAcuSize;
+        creatureEggGadget.RequiredLargeAcuSize = requiredAcuSize;
         return creatureEggGadget;
     }
 }

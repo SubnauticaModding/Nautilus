@@ -1,3 +1,5 @@
+namespace Nautilus.Patchers;
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -5,8 +7,6 @@ using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Utility;
 using UnityEngine;
-
-namespace Nautilus.Patchers;
 
 internal static class LanguagePatcher
 {
@@ -18,7 +18,7 @@ internal static class LanguagePatcher
     static LanguagePatcher()
     {
         string savedLanguagePath = PlayerPrefs.GetString("Language", null); // tries to find the last loaded language, sets the new variable to null if the last loaded language cannot be found
-        if (!string.IsNullOrEmpty(savedLanguagePath))
+        if (!string.IsNullOrWhiteSpace(savedLanguagePath))
         {
             _currentLanguage = Path.GetFileNameWithoutExtension(savedLanguagePath);
         }
@@ -26,7 +26,7 @@ internal static class LanguagePatcher
 
     internal static void RepatchCheck(ref Language __instance, string key)
     {
-        if (string.IsNullOrEmpty(key))
+        if (string.IsNullOrWhiteSpace(key))
         {
             return;
         }
@@ -81,9 +81,9 @@ internal static class LanguagePatcher
 
     internal static void Patch(Harmony harmony)
     {
-        HarmonyMethod repatchCheckMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(RepatchCheck)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
-        HarmonyMethod insertLinesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(InsertCustomLines)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
-        HarmonyMethod loadLanguagesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(LoadLanguageFilePrefix)), after: new []{SMLHelperCompatibilityPatcher.SMLHarmonyInstance});
+        HarmonyMethod repatchCheckMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(RepatchCheck)));
+        HarmonyMethod insertLinesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(InsertCustomLines)));
+        HarmonyMethod loadLanguagesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(LoadLanguageFilePrefix)));
 
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.ParseMetaData)), prefix: insertLinesMethod);
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.GetKeysFor)), prefix: insertLinesMethod);
@@ -96,6 +96,11 @@ internal static class LanguagePatcher
 
     internal static void AddCustomLanguageLine(string lineId, string text, string language)
     {
+        if (string.IsNullOrWhiteSpace(language))
+        {
+            language = FallbackLanguage;
+        }
+
         if (!_customLines.ContainsKey(language))
             _customLines[language] = new();
 
@@ -104,6 +109,11 @@ internal static class LanguagePatcher
 
     internal static void AddCustomLanguageLines(string language, Dictionary<string, string> languageStrings)
     {
+        if (string.IsNullOrWhiteSpace(language))
+        {
+            language = FallbackLanguage;
+        }
+
         if (!_customLines.ContainsKey(language))
             _customLines[language] = new();
 

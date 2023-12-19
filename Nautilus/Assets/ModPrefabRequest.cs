@@ -7,22 +7,25 @@ using UWE;
 namespace Nautilus.Assets;
 
 // request for getting ModPrefab asynchronously
-internal class ModPrefabRequest: IPrefabRequest, IEnumerator
+internal class ModPrefabRequest: IPrefabRequest
 {
+    internal bool Done { get; private set; }
+    
     private readonly PrefabInfo prefabInfo;
-
-    private int state = 0;
+    
     private CoroutineTask<GameObject> task;
+    
     private TaskResult<GameObject> taskResult;
 
     public ModPrefabRequest(PrefabInfo prefabInfo)
     {
         this.prefabInfo = prefabInfo;
+        ModPrefabCache.Requests[prefabInfo.ClassID] = this;
     }
 
     private void Init()
     {
-        if (task != null)
+        if ((task != null && !Done) || (Done && TryGetPrefab(out _)))
         {
             return;
         }
@@ -42,25 +45,37 @@ internal class ModPrefabRequest: IPrefabRequest, IEnumerator
         get
         {
             Init();
-            return task;
+            return task.Current;
         }
     }
 
     public bool TryGetPrefab(out GameObject result)
     {
-        result = taskResult.Get();
-        return result != null;
+        return ModPrefabCache.TryGetPrefabFromCache(prefabInfo.ClassID, out result) && result != null;
     }
 
     public bool MoveNext()
     {
         Init();
-        return state++ == 0;
+        if (!task.MoveNext())
+        {
+            Done = true;
+        }
+        return !Done;
     }
 
-    public void Reset() {}
+    public void Reset()
+    {
+        Init();
+        task.Reset();
+        Done = false;
+    }
 
     public void Release()
     {
+        ModPrefabCache.RemovePrefabFromCache(prefabInfo.ClassID);
+        taskResult = null;
+        task = null;
+        Done = false;
     }
 }

@@ -12,13 +12,65 @@ namespace Nautilus.Handlers;
 /// </summary>
 public static class KnownTechHandler
 {
+    private static void Reinitialize()
+    {
+        KnownTechPatcher.Reinitialize();
+    }
+    
     /// <summary>
     /// Allows you to unlock a TechType on game start.
     /// </summary>
-    /// <param name="techType"></param>
+    /// <param name="techType">The TechType to unlock at start.</param>
     public static void UnlockOnStart(TechType techType)
     {
         KnownTechPatcher.UnlockedAtStart.Add(techType);
+
+        bool removed = false;
+        var removalList = new List<string>();
+        KnownTechPatcher.DefaultRemovalTechs.ForEach((x) => 
+        {
+            if (x.Value.Remove(techType))
+            {
+                removed = true;
+                InternalLogger.Debug($"Removed {techType.AsString()} from {x.Key}'s DefaultRemovalTechs");
+                if (x.Value.Count > 0 )
+                {
+                    removalList.Add(x.Key);
+                }
+            }
+        });
+
+        foreach (string key in removalList)
+            KnownTechPatcher.DefaultRemovalTechs.Remove(key);
+
+        if (removed)
+            InternalLogger.Debug($"Set {techType.AsString()} to Unlock On Start ");
+        Reinitialize();
+    }
+
+    /// <summary>
+    /// Unlocks the <paramref name="blueprint"/> when the <paramref name="requirement"/> tech type is unlocked.
+    /// </summary>
+    /// <param name="blueprint">The blueprint to unlock.</param>
+    /// <param name="requirement">The tech type that will unlock the specified blueprint once unlocked.</param>
+    public static void AddRequirementForUnlock(TechType blueprint, TechType requirement)
+    {
+        KnownTechPatcher.BlueprintRequirements.GetOrAddNew(requirement).Add(blueprint);
+        Reinitialize();
+    }
+
+    /// <summary>
+    /// Makes the specified tech type hard locked. Hard locking means that the tech type will not be unlocked via the unlockall command and will not be unlocked by default
+    /// in creative. 
+    /// </summary>
+    /// <remarks>Calling this method will remove the specified item from being unlocked at start.</remarks>
+    /// <param name="techType">The tech type to set as hard locked.</param>
+    /// <seealso cref="UnlockOnStart"/>
+    public static void SetHardLocked(TechType techType)
+    {
+        KnownTechPatcher.HardLocked.Add(techType);
+        RemoveDefaultUnlock(techType);
+        Reinitialize();
     }
 
     internal static void AddAnalysisTech(KnownTech.AnalysisTech analysisTech)
@@ -27,17 +79,20 @@ public static class KnownTechHandler
         {
             if (KnownTechPatcher.AnalysisTech.TryGetValue(analysisTech.techType, out KnownTech.AnalysisTech existingEntry))
             {
-                existingEntry.unlockMessage = existingEntry.unlockMessage ?? analysisTech.unlockMessage;
-                existingEntry.unlockSound = existingEntry.unlockSound ?? analysisTech.unlockSound;
-                existingEntry.unlockPopup = existingEntry.unlockPopup ?? analysisTech.unlockPopup;
+                existingEntry.unlockMessage = analysisTech.unlockMessage ?? existingEntry.unlockMessage;
+                existingEntry.unlockSound = analysisTech.unlockSound ?? existingEntry.unlockSound;
+                existingEntry.unlockPopup = analysisTech.unlockPopup ?? existingEntry.unlockPopup;
                 existingEntry.unlockTechTypes.AddRange(analysisTech.unlockTechTypes);
+#if SUBNAUTICA
+                analysisTech.storyGoals ??= existingEntry.storyGoals ?? new();
+#endif
             }
             else
             {
 #if SUBNAUTICA
                 analysisTech.storyGoals ??= new();
 #endif
-                    
+                
                 KnownTechPatcher.AnalysisTech.Add(analysisTech.techType, analysisTech);
             }
         }
@@ -46,8 +101,7 @@ public static class KnownTechHandler
             InternalLogger.Error("Cannot Add Unlock to TechType.None!");
         }
         
-        if (uGUI.isMainLevel)
-            KnownTechPatcher.InitializePostfix();
+        Reinitialize();
     }
 
     internal static void AddAnalysisTech(
@@ -100,61 +154,53 @@ public static class KnownTechHandler
             KnownTechPatcher.CompoundTech.Add(techType, new KnownTech.CompoundTech() { techType = techType, dependencies = compoundTechsForUnlock });
         }
         
-        if (uGUI.isMainLevel)
-            KnownTechPatcher.InitializePostfix();
+        Reinitialize();
     }
 
     internal static void RemoveAnalysisSpecific(TechType targetTechType, List<TechType> techTypes)
     {
         foreach (TechType techType in techTypes)
         {
-            if (KnownTechPatcher.RemoveFromSpecificTechs.TryGetValue(techType, out List<TechType> types))
-            {
-                if (!types.Contains(targetTechType))
-                {
-                    types.Add(targetTechType);
-                }
-            }
+            if (KnownTechPatcher.AnalysisTech.TryGetValue(techType, out var analysisTech) && analysisTech.unlockTechTypes.Remove(targetTechType))
+                InternalLogger.Debug($"Removed unlock for {targetTechType.AsString()} from {techType} that was added by another mod.");
+
+            if (KnownTechPatcher.RemoveFromSpecificTechs.TryGetValue(techType, out HashSet<TechType> types))
+                types.Add(targetTechType);
             else
-            {
-                KnownTechPatcher.RemoveFromSpecificTechs[techType] = new List<TechType>() { targetTechType };
-            }
+                KnownTechPatcher.RemoveFromSpecificTechs[techType] = new HashSet<TechType>() { targetTechType };
         }
         
-        if (uGUI.isMainLevel)
-            KnownTechPatcher.InitializePostfix();
+        Reinitialize();
     }
 
     internal static void RemoveAnalysisTechEntry(TechType targetTechType)
     {
+        if (KnownTechPatcher.AnalysisTech.Remove(targetTechType))
+        {
+            InternalLogger.Debug($"Removed Analysis Tech for {targetTechType.AsString()} that was added by another mod!");
+        }
+
         foreach (KnownTech.AnalysisTech tech in KnownTechPatcher.AnalysisTech.Values)
         {
-            if (tech.unlockTechTypes.Contains(targetTechType))
+            if (tech.unlockTechTypes.Remove(targetTechType))
             {
                 InternalLogger.Debug($"Removed {targetTechType.AsString()} from {tech.techType.AsString()} unlocks that was added by another mod!");
-                tech.unlockTechTypes.Remove(targetTechType);
             }
         }
 
-        if (KnownTechPatcher.CompoundTech.TryGetValue(targetTechType, out KnownTech.CompoundTech types))
+        if (KnownTechPatcher.CompoundTech.Remove(targetTechType))
         {
             InternalLogger.Debug($"Removed Compound Unlock for {targetTechType.AsString()} that was added by another mod!");
-            KnownTechPatcher.CompoundTech.Remove(targetTechType);
         }
 
-        if (KnownTechPatcher.UnlockedAtStart.Contains(targetTechType))
+        if (KnownTechPatcher.UnlockedAtStart.Remove(targetTechType))
         {
             InternalLogger.Debug($"Removed UnlockedAtStart for {targetTechType.AsString()} that was added by another mod!");
-            KnownTechPatcher.UnlockedAtStart.Remove(targetTechType);
         }
 
-        if (!KnownTechPatcher.RemovalTechs.Contains(targetTechType))
-        {
-            KnownTechPatcher.RemovalTechs.Add(targetTechType);
-        }
+        KnownTechPatcher.RemovalTechs.Add(targetTechType);
         
-        if (uGUI.isMainLevel)
-            KnownTechPatcher.InitializePostfix();
+        Reinitialize();
     }
 
 
@@ -162,6 +208,7 @@ public static class KnownTechHandler
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
     /// added to the existing AnalysisTech entry unlocks.
+    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAllCurrentAnalysisTechEntry"/> before calling this method.
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
@@ -174,6 +221,7 @@ public static class KnownTechHandler
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
     /// added to the existing AnalysisTech entry unlocks.
+    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAllCurrentAnalysisTechEntry"/> before calling this method.
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
@@ -187,6 +235,7 @@ public static class KnownTechHandler
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
     /// added to the existing AnalysisTech entry unlocks.
+    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAllCurrentAnalysisTechEntry"/> before calling this method.
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
@@ -200,6 +249,7 @@ public static class KnownTechHandler
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
     /// added to the existing AnalysisTech entry unlocks.
+    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAllCurrentAnalysisTechEntry"/> before calling this method.
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
@@ -213,6 +263,7 @@ public static class KnownTechHandler
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
     /// added to the existing AnalysisTech entry unlocks.
+    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAllCurrentAnalysisTechEntry"/> before calling this method.
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
@@ -227,6 +278,7 @@ public static class KnownTechHandler
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
     /// added to the existing AnalysisTech entry unlocks.
+    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAllCurrentAnalysisTechEntry"/> before calling this method.
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
@@ -241,6 +293,7 @@ public static class KnownTechHandler
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
     /// added to the existing AnalysisTech entry unlocks.
+    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAllCurrentAnalysisTechEntry"/> before calling this method.
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
@@ -255,6 +308,7 @@ public static class KnownTechHandler
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in <see cref="KnownTech.AnalysisTech.unlockTechTypes"/> will be
     /// added to the existing AnalysisTech entry unlocks.
+    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAllCurrentAnalysisTechEntry"/> before calling this method.
     /// </summary>
     /// <param name="analysisTech">The analysis tech entry to add.</param>
     public static void SetAnalysisTechEntry(KnownTech.AnalysisTech analysisTech)
@@ -266,6 +320,7 @@ public static class KnownTechHandler
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
     /// added to the existing AnalysisTech entry unlocks.
+    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAllCurrentAnalysisTechEntry"/> before calling this method.
     /// </summary>
     /// <param name="techTypeToBeAnalysed">This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</param>
     /// <param name="techTypesToUnlock">The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</param>
@@ -279,7 +334,7 @@ public static class KnownTechHandler
 
     /// <summary>
     /// Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
-    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAnalysisTechEntryFromSpecific"/> or <see cref="RemoveAllCurrentAnalysisTechEntry"/>
+    /// ***Note: This will not remove any original unlock and if you need to do so you should use <see cref="RemoveAllCurrentAnalysisTechEntry"/> before calling this method.
     /// </summary>
     /// <param name="techType"></param>
     /// <param name="compoundTechsForUnlock"></param>
@@ -294,6 +349,7 @@ public static class KnownTechHandler
     /// </summary>
     /// <param name="targetTechType">Target <see cref="TechType"/> to remove the unlocks for.</param>
     /// <param name="techTypes">List of <see cref="TechType"/> to remove the targetTechType from.</param>
+    /// <seealso cref="RemoveAllCurrentAnalysisTechEntry"/>
     public static void RemoveAnalysisTechEntryFromSpecific(TechType targetTechType, List<TechType> techTypes)
     {
         RemoveAnalysisSpecific(targetTechType, techTypes);
@@ -301,12 +357,31 @@ public static class KnownTechHandler
 
     /// <summary>
     /// Allows you to remove all unlock entries from a <see cref="TechType"/> to be able to disable or change it to a new unlock.
-    /// ***Note: This is patch time specific so the LAST mod to call this on a techtype will be the only one to control what unlocks said type after its use.***
     /// </summary>
+    /// <remarks>The unlock entry for analysis techs for the specified <paramref name="targetTechType"/> will not be removed. I.E: This method will not remove self-unlocks.<br/>
+    /// To also target unlock entry removal for the specified tech type's analysis tech entry, use <see cref="RemoveAnalysisTechEntryFromSpecific"/> instead.</remarks>
     /// <param name="targetTechType">Target <see cref="TechType"/> to remove the unlocks for.</param>
+    /// <seealso cref="RemoveAnalysisTechEntry"/>
     public static void RemoveAllCurrentAnalysisTechEntry(TechType targetTechType)
     {
         RemoveAnalysisTechEntry(targetTechType);
+    }
+
+    /// <summary>
+    /// Allows you to remove a <see cref="TechType"/> from being unlocked by default.
+    /// </summary>
+    /// <param name="techType"></param>
+    public static void RemoveDefaultUnlock(TechType techType)
+    {
+        var modName = ReflectionHelper.CallingAssemblyByStackTrace().GetName().Name;
+        if (!KnownTechPatcher.DefaultRemovalTechs.TryGetValue(modName, out var techTypes))
+            techTypes = new HashSet<TechType>();
+        techTypes.Add(techType);
+
+        KnownTechPatcher.DefaultRemovalTechs[modName] = techTypes;
+        if (KnownTechPatcher.UnlockedAtStart.Remove(techType))
+            InternalLogger.Debug($"Removed Default unlock for {techType} that was added by another mod.");
+        Reinitialize();
     }
 
     /// <summary>

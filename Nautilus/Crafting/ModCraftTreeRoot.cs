@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Nautilus.Handlers;
@@ -98,7 +98,7 @@ public class ModCraftTreeRoot: ModCraftTreeLinkingNode
         }
         else
         {
-            InternalLogger.Error($"Cannot add tab: {tabId} as it is being added to a parent node that contains crafting nodes.");
+            InternalLogger.Error($"Cannot add tab: {tabId} as it is being added to a parent node that contains crafting nodes. {string.Join(", ", parentTab.ChildNodes.Where(node => node.Action == TreeAction.Craft).Select(x => x.Name))} ");
         }
         return this;
     }
@@ -129,7 +129,7 @@ public class ModCraftTreeRoot: ModCraftTreeLinkingNode
         }
         else
         {
-            InternalLogger.Error($"Cannot add tab: {tabId} as it is being added to a parent node that contains crafting nodes.");
+            InternalLogger.Error($"Cannot add tab: {tabId} as it is being added to a parent node that contains crafting nodes.  {string.Join(", ", parentTab.ChildNodes.Where(node => node.Action == TreeAction.Craft).Select(x => x.Name))} ");
         }
         return this;
     }
@@ -180,7 +180,7 @@ public class ModCraftTreeRoot: ModCraftTreeLinkingNode
             }
             else
             {
-                InternalLogger.Error($"Cannot add crafting node: {techType} as it is being added to a parent node that contains tab nodes.");
+                InternalLogger.Error($"Cannot add crafting node: {techType} as it is being added to a parent node that contains tab nodes. {string.Join(", ", parentTab.ChildNodes.Where(node => node.Action == TreeAction.Expand).Select(x => x.Name))} ");
             }
         }
         else

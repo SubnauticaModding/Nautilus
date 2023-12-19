@@ -1,10 +1,11 @@
+namespace Nautilus.Assets.PrefabTemplates;
+
 using System.Collections;
 using System.Collections.Generic;
 using Nautilus.Utility;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UWE;
-
-namespace Nautilus.Assets.PrefabTemplates;
 
 /// <summary>
 /// Represents a prefab clone template.
@@ -12,6 +13,7 @@ namespace Nautilus.Assets.PrefabTemplates;
 public class CloneTemplate : PrefabTemplate
 {
     private string _classIdToClone;
+    private AssetReferenceGameObject _prefabToClone;
     private TechType _techTypeToClone;
     private SpawnType _spawnType;
 
@@ -35,24 +37,33 @@ public class CloneTemplate : PrefabTemplate
     /// </summary>
     /// <param name="info">The prefab info to base this template off of.</param>
     /// <param name="techTypeToClone">The tech type to clone and use for this template.</param>
-    public CloneTemplate(PrefabInfo info, TechType techTypeToClone) : this(info, techTypeToClone, null) {}
+    public CloneTemplate(PrefabInfo info, TechType techTypeToClone) : this(info, techTypeToClone, null, null) {}
     
     /// <summary>
     /// Creates a <see cref="CloneTemplate"/> instance.
     /// </summary>
     /// <param name="info">The prefab info to base this template off of.</param>
     /// <param name="classIdToClone">The class ID to clone and use for this template.</param>
-    public CloneTemplate(PrefabInfo info, string classIdToClone) : this(info, TechType.None, classIdToClone) {}
+    public CloneTemplate(PrefabInfo info, string classIdToClone) : this(info, TechType.None, classIdToClone, null) {}
 
-    private CloneTemplate(PrefabInfo info, TechType techTypeToClone, string classIdToClone) : base(info)
+    /// <summary>
+    /// Creates a <see cref="CloneTemplate"/> instance.
+    /// </summary>
+    /// <param name="info">The prefab info to base this template off of.</param>
+    /// <param name="prefabToClone">The AssetReferenceGameObject with a valid key to clone and use for this template.</param>
+    public CloneTemplate(PrefabInfo info, AssetReferenceGameObject prefabToClone) : this(info, TechType.None, null, prefabToClone) { }
+
+
+
+    private CloneTemplate(PrefabInfo info, TechType techTypeToClone, string classIdToClone, AssetReferenceGameObject prefabToClone) : base(info)
     {
         _techTypeToClone = techTypeToClone;
         _classIdToClone = classIdToClone;
-        _spawnType = techTypeToClone switch
-        {
-            default(TechType) => SpawnType.ClassId,
-            _ => SpawnType.TechType
-        };
+        _prefabToClone = prefabToClone;
+        _spawnType = techTypeToClone is not TechType.None ? SpawnType.TechType
+            : !string.IsNullOrWhiteSpace(classIdToClone) ? SpawnType.ClassId
+            : prefabToClone is not null ? SpawnType.Prefab
+            : throw new System.Exception("CloneTemplate Missing valid identifier.");
     }
 
     /// <summary>
@@ -65,21 +76,36 @@ public class CloneTemplate : PrefabTemplate
     public override IEnumerator GetPrefabAsync(TaskResult<GameObject> gameObject)
     {
         // If the provided task result already has a game object set to it, only modify it instead.
-        var org = gameObject.Get();
-        if (org)
+        GameObject obj = gameObject.Get();
+        if (obj)
         {
-            ApplySkin(org);
-            ModifyPrefab?.Invoke(org);
+            ApplySkin(obj);
+            ModifyPrefab?.Invoke(obj);
+            if(ModifyPrefabAsync is { })
+                yield return ModifyPrefabAsync(obj);
+
             yield break;
         }
 
-        GameObject obj;
         if (_spawnType == SpawnType.TechType)
         {
             yield return CraftData.InstantiateFromPrefabAsync(_techTypeToClone, gameObject);
             obj = gameObject.Get();
         }
-        else
+        else if(_spawnType == SpawnType.Prefab)
+        {
+            var task = _prefabToClone.InstantiateAsync();
+            yield return task;
+            
+            if (task.Status != UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
+            {
+                InternalLogger.Error($"Couldn't find prefab with key: '{_prefabToClone.RuntimeKey}'.");
+                yield break;
+            }
+
+            obj = task.Result;
+        }
+        else if(_spawnType == SpawnType.ClassId)
         {
             var task = PrefabDatabase.GetPrefabAsync(_classIdToClone);
             yield return task;
@@ -93,7 +119,7 @@ public class CloneTemplate : PrefabTemplate
             obj = Object.Instantiate(prefab);
         }
 
-        ApplySkin(org);
+        ApplySkin(obj);
         ModifyPrefab?.Invoke(obj);
         if (ModifyPrefabAsync is { })
             yield return ModifyPrefabAsync(obj);
@@ -142,6 +168,7 @@ public class CloneTemplate : PrefabTemplate
     private enum SpawnType
     {
         TechType,
-        ClassId
+        ClassId,
+        Prefab
     }
 }

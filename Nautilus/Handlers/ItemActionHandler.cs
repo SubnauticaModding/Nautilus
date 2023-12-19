@@ -17,7 +17,7 @@ public static class ItemActionHandler
     /// <param name="tooltip">The secondary tooltip which will appear in the description of the item. If null or empty, this will use the language line "LeftClickAction_{<paramref name="targetTechType"/>}" instead.</param>
     /// <param name="language">The language for the tooltip. Defaults to English.</param>
     /// <param name="condition">The condition which must return <see langword="true"/> for the action to be called when the item is clicked<para/>If omitted, the action will always be called</param>
-    public static void RegisterLeftClickAction(TechType targetTechType, Action<InventoryItem> callback, string tooltip, string language = null, Predicate<InventoryItem> condition = null)
+    public static void RegisterLeftClickAction(TechType targetTechType, Action<InventoryItem> callback, string tooltip, string language = "English", Predicate<InventoryItem> condition = null)
     {
         string languageLine = $"LeftClickAction_{targetTechType.AsString()}";
         if (!string.IsNullOrEmpty(tooltip))
@@ -41,7 +41,7 @@ public static class ItemActionHandler
     /// <param name="tooltip">The secondary tooltip which will appear in the description of the item</param>
     /// <param name="language">The language for the tooltip. Defaults to English.</param>
     /// <param name="condition">The condition which must return <see langword="true"/> for the action to be called when the item is clicked<para/>If omitted, the action will always be called</param>
-    public static void RegisterMiddleClickAction(TechType targetTechType, Action<InventoryItem> callback, string tooltip, string language = null, Predicate<InventoryItem> condition = null)
+    public static void RegisterMiddleClickAction(TechType targetTechType, Action<InventoryItem> callback, string tooltip, string language = "English", Predicate<InventoryItem> condition = null)
     {
         string languageLine = $"MiddleClickAction_{targetTechType.AsString()}";
         LanguageHandler.SetLanguageLine(languageLine, tooltip, language);

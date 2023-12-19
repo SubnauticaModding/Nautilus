@@ -95,6 +95,8 @@ public static class LootDistributionHandler
     /// <param name="biomeDistribution">The <see cref="LootDistributionData.BiomeData"/> dictating how the prefab should spawn in the world.</param>
     public static void AddLootDistributionData(string classId, params LootDistributionData.BiomeData[] biomeDistribution)
     {
+        CraftData.PreparePrefabIDCache();
+        
         if (!PrefabDatabase.TryGetPrefabFilename(classId, out var filename))
         {
             InternalLogger.Error($"Could not find prefab file path for class ID '{classId}'. Cancelling loot distribution addition.");
@@ -112,6 +114,8 @@ public static class LootDistributionHandler
     /// <param name="biomeDistribution">The <see cref="LootDistributionData.BiomeData"/> dictating how the prefab should spawn in the world.</param>
     public static void AddLootDistributionData(string classId, WorldEntityInfo info, params LootDistributionData.BiomeData[] biomeDistribution)
     {
+        CraftData.PreparePrefabIDCache();
+        
         if (!PrefabDatabase.TryGetPrefabFilename(classId, out var filename))
         {
             InternalLogger.Error($"Could not find prefab file path for class ID '{classId}'. Cancelling loot distribution addition.");

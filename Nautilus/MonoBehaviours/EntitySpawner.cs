@@ -36,7 +36,7 @@ internal class EntitySpawner : MonoBehaviour
         }
 
 
-        GameObject obj = UWE.Utils.InstantiateDeactivated(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
+        GameObject obj = UWE.Utils.InstantiateDeactivated(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation, spawnInfo.ActualScale);
 
         LargeWorldEntity lwe = obj.GetComponent<LargeWorldEntity>();
 

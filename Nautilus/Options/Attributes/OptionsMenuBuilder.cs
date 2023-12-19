@@ -103,7 +103,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
         if (ConfigFileMetadata.MenuAttribute.LoadOn.HasFlag(MenuAttribute.LoadEvents.MenuOpened))
         {
             ConfigFileMetadata.Config.Load();
-            foreach(var option in options)
+            foreach(var option in new List<OptionItem>(Options))
             {
                 RemoveItem(option.Id);
             }
@@ -151,7 +151,8 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
                 }
             }
         }
-        base.BuildModOptions(panel, modsTabIndex, Options);
+        
+        base.BuildModOptions(panel, modsTabIndex, options);
     }
 
     /// <summary>
