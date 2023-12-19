@@ -56,7 +56,7 @@ public static class BiomeUtils
     {
         if (_skyPrefabsParent == null)
         {
-            _skyPrefabsParent = new GameObject("SkyPrefabsParent");
+            _skyPrefabsParent = new GameObject("Nautilus.SkyPrefabsParent");
             _skyPrefabsParent.AddComponent<SceneCleanerPreserve>();
             _skyPrefabsParent.SetActive(false);
             Object.DontDestroyOnLoad(_skyPrefabsParent);
