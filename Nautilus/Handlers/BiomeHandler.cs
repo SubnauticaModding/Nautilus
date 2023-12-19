@@ -96,7 +96,7 @@ public static class BiomeHandler
             {
                 foreach (var settings in waterBiomeManager.biomeSettings)
                 {
-                    if (settings.skyPrefab.name == _existingSkyPrefabNameToLookUp)
+                    if (settings != null && settings.skyPrefab != null && settings.skyPrefab.name == _existingSkyPrefabNameToLookUp)
                     {
                         return settings.skyPrefab;
                     }
@@ -108,7 +108,7 @@ public static class BiomeHandler
 
             if (_type == Type.GetPrefabFromCallback)
             {
-                return _prefabCallback.Invoke();
+                return _prefabCallback?.Invoke();
             }
 
             return _obj;
