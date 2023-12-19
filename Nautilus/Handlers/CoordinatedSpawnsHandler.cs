@@ -66,6 +66,10 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
     internal Quaternion Rotation { get; }
     [JsonProperty]
     internal SpawnType Type { get; }
+    [JsonProperty]
+    internal Vector3 Scale { get; }
+    // For the sake of backwards compatibility, a scale of 0x0x0 is automatically converted to 1x1x1. Sorry, no 0x scale entities allowed.
+    internal Vector3 ActualScale => Scale == default ? Vector3.one : Scale;
 
     /// <summary>
     /// Initializes a new <see cref="SpawnInfo"/>.
@@ -73,7 +77,7 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
     /// <param name="techType">TechType to spawn.</param>
     /// <param name="spawnPosition">Position to spawn into.</param>
     public SpawnInfo(TechType techType, Vector3 spawnPosition)
-        : this(default, techType, spawnPosition, Quaternion.identity) { }
+        : this(default, techType, spawnPosition, Quaternion.identity, Vector3.one) { }
 
     /// <summary>
     /// Initializes a new <see cref="SpawnInfo"/>.
@@ -81,7 +85,7 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
     /// <param name="classId">ClassID to spawn.</param>
     /// <param name="spawnPosition">Position to spawn into.</param>
     public SpawnInfo(string classId, Vector3 spawnPosition)
-        : this(classId, default, spawnPosition, Quaternion.identity) { }
+        : this(classId, default, spawnPosition, Quaternion.identity, Vector3.one) { }
 
     /// <summary>
     /// Initializes a new <see cref="SpawnInfo"/>.
@@ -90,7 +94,7 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
     /// <param name="spawnPosition">Position to spawn into.</param>
     /// <param name="rotation">Rotation to spawn at.</param>
     public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation)
-        : this(default, techType, spawnPosition, rotation) { }
+        : this(default, techType, spawnPosition, rotation, Vector3.one) { }
 
     /// <summary>
     /// Initializes a new <see cref="SpawnInfo"/>.
@@ -99,7 +103,27 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
     /// <param name="spawnPosition">Position to spawn into.</param>
     /// <param name="rotation">Rotation to spawn at.</param>
     public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation)
-        : this(classId, default, spawnPosition, rotation) { }
+        : this(classId, default, spawnPosition, rotation, Vector3.one) { }
+    
+    /// <summary>
+    /// Initializes a new <see cref="SpawnInfo"/>.
+    /// </summary>
+    /// <param name="techType">TechType to spawn.</param>
+    /// <param name="spawnPosition">Position to spawn into.</param>
+    /// <param name="rotation">Rotation to spawn at.</param>
+    /// <param name="scale">Scale to spawn with.</param>
+    public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation, Vector3 scale)
+        : this(default, techType, spawnPosition, rotation, scale) { }
+
+    /// <summary>
+    /// Initializes a new <see cref="SpawnInfo"/>.
+    /// </summary>
+    /// <param name="classId">ClassID to spawn.</param>
+    /// <param name="spawnPosition">Position to spawn into.</param>
+    /// <param name="rotation">Rotation to spawn at.</param>
+    /// <param name="scale">Scale to spawn with.</param>
+    public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation, Vector3 scale)
+        : this(classId, default, spawnPosition, rotation, scale) { }
 
     /// <summary>
     /// Initializes a new <see cref="SpawnInfo"/>.
@@ -108,7 +132,7 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
     /// <param name="spawnPosition">Position to spawn into.</param>
     /// <param name="rotation">Rotation to spawn at.</param>
     public SpawnInfo(TechType techType, Vector3 spawnPosition, Vector3 rotation)
-        : this(default, techType, spawnPosition, Quaternion.Euler(rotation)) { }
+        : this(default, techType, spawnPosition, Quaternion.Euler(rotation), Vector3.one) { }
 
     /// <summary>
     /// Initializes a new <see cref="SpawnInfo"/>.
@@ -117,10 +141,30 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
     /// <param name="spawnPosition">Position to spawn into.</param>
     /// <param name="rotation">Rotation to spawn at.</param>
     public SpawnInfo(string classId, Vector3 spawnPosition, Vector3 rotation)
-        : this(classId, default, spawnPosition, Quaternion.Euler(rotation)) { }
+        : this(classId, default, spawnPosition, Quaternion.Euler(rotation), Vector3.one) { }
+    
+    /// <summary>
+    /// Initializes a new <see cref="SpawnInfo"/>.
+    /// </summary>
+    /// <param name="techType">TechType to spawn.</param>
+    /// <param name="spawnPosition">Position to spawn into.</param>
+    /// <param name="rotation">Rotation to spawn at.</param>
+    /// <param name="scale">Scale to spawn with.</param>
+    public SpawnInfo(TechType techType, Vector3 spawnPosition, Vector3 rotation, Vector3 scale)
+        : this(default, techType, spawnPosition, Quaternion.Euler(rotation), scale) { }
+
+    /// <summary>
+    /// Initializes a new <see cref="SpawnInfo"/>.
+    /// </summary>
+    /// <param name="classId">ClassID to spawn.</param>
+    /// <param name="spawnPosition">Position to spawn into.</param>
+    /// <param name="rotation">Rotation to spawn at.</param>
+    /// <param name="scale">Scale to spawn with.</param>
+    public SpawnInfo(string classId, Vector3 spawnPosition, Vector3 rotation, Vector3 scale)
+        : this(classId, default, spawnPosition, Quaternion.Euler(rotation), scale) { }
 
     [JsonConstructor]
-    internal SpawnInfo(string classId, TechType techType, Vector3 spawnPosition, Quaternion rotation)
+    internal SpawnInfo(string classId, TechType techType, Vector3 spawnPosition, Quaternion rotation, Vector3 scale)
     {
         ClassId = classId;
         TechType = techType;
@@ -131,6 +175,7 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
             default(TechType) => SpawnType.ClassId,
             _ => SpawnType.TechType
         };
+        Scale = scale;
     }
 
     /// <summary>
@@ -165,6 +210,7 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
             hash = (hash * 7) + SpawnPosition.GetHashCode();
             hash = (hash * 7) + Rotation.GetHashCode();
             hash = (hash * 7) + Type.GetHashCode();
+            hash = (hash * 7) + ActualScale.GetHashCode();
             return hash;
         }
     }
@@ -186,7 +232,8 @@ public struct SpawnInfo : IEquatable<SpawnInfo>
                && other.ClassId == ClassId
                && other.SpawnPosition == SpawnPosition
                && other.Rotation == Rotation
-               && other.Type == Type;
+               && other.Type == Type
+               && other.ActualScale == ActualScale;
     }
 
     internal enum SpawnType
