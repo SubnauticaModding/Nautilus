@@ -1,4 +1,5 @@
-﻿using Nautilus.Patchers;
+﻿using System.Collections;
+using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
 
@@ -62,12 +63,15 @@ public static class BiomeHandler
         private enum Type
         {
             GameObjectReference,
-            StringLookup
+            StringLookup,
+            GetPrefabFromCallback
         }
 
         private readonly GameObject _obj;
         private readonly string _existingSkyPrefabNameToLookUp;
+        private System.Func<GameObject> _prefabCallback;
         private readonly Type _type;
+
 
         /// <summary>
         /// Defines a reference to a new or existing Sky prefab.
@@ -89,7 +93,16 @@ public static class BiomeHandler
             _existingSkyPrefabNameToLookUp = existingSkyPrefabName;
             _type = Type.StringLookup;
         }
-
+        
+        /// <summary>
+        /// Defines a reference to a Sky prefab created from a callback at runtime.
+        /// </summary>
+        public SkyReference(System.Func<GameObject> prefabCallback)
+        {
+            _prefabCallback = prefabCallback;
+            _type = Type.GetPrefabFromCallback;
+        }
+        
         public virtual GameObject GetSkyPrefabAtRuntime(WaterBiomeManager waterBiomeManager)
         {
             if (_type == Type.StringLookup)
@@ -104,6 +117,11 @@ public static class BiomeHandler
 
                 InternalLogger.Error($"No existing Sky prefab found by name '{_existingSkyPrefabNameToLookUp}'");
                 return null;
+            }
+
+            if (_type == Type.GetPrefabFromCallback)
+            {
+                return _prefabCallback.Invoke();
             }
 
             return _obj;
