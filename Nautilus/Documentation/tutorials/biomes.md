@@ -6,8 +6,7 @@ This guide provides some information on adding custom biomes.
 
 ## Biomes reference list
 
-<details>
-  <summary>Expand to view base game biome data (SN1):</summary>
+SN1 Biome Settings:
 
 | Biome name   | Sky name | Settings                                              |
 |--------------|-----------------|-------------------------------------------------------|
@@ -157,10 +156,7 @@ This guide provides some information on adding custom biomes.
 | grandReef_wreck | SkyExplorableWreck    | Absorption: (16.0, 12.0, 6.0)<br/>Scattering: 2<br/>Scattering color: RGBA(0.000, 1.000, 0.910, 1.000)<br/>Murkiness: 0.25<br/>Emissive: RGBA(0.000, 0.957, 1.000, 1.000)<br/>Emissive scale: 0.03<br/>Start distance: 40<br/>Sunlight scale: 0<br/>Ambient scale: 0<br/>Temperature: 24<br/> |
 | CrashZone_Trench | SkyCrashZone    | Absorption: (17.0, 20.0, 20.0)<br/>Scattering: 1<br/>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br/>Murkiness: 0.2<br/>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br/>Emissive scale: 0<br/>Start distance: 5<br/>Sunlight scale: 0.75<br/>Ambient scale: 1<br/>Temperature: 24<br/> |
 
-</details><br>
-
-<details>
-  <summary>Expand to view base game biome data (BZ):</summary>
+BZ Biome Settings:
   
 | Biome name   | Sky name | Settings                                              |
 |--------------|-----------------|-------------------------------------------------------|
@@ -265,5 +261,3 @@ This guide provides some information on adding custom biomes.
 | WorldEdge | SkyIceberg    | Absorption: (10.0, 5.0, 4.0)<br/>Scattering: 0.5<br/>Scattering color: RGBA(0.000, 0.498, 0.651, 1.000)<br/>Murkiness: 0.4<br/>Emissive: RGBA(0.098, 0.286, 0.396, 1.000)<br/>Emissive scale: 0.2<br/>Start distance: 25<br/>Sunlight scale: 0.1<br/>Ambient scale: 6<br/>Temperature: 1<br/> |
 | EndGameAsteroids | SkyAsteroids    | Absorption: (10.0, 5.0, 4.0)<br/>Scattering: 0.5<br/>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br/>Murkiness: 0<br/>Emissive: RGBA(0.098, 0.286, 0.396, 1.000)<br/>Emissive scale: 0<br/>Start distance: 25<br/>Sunlight scale: 0<br/>Ambient scale: 0<br/>Temperature: 1<br/> |
 | ArcticSpiresCache | SkyKelpCave    | Absorption: (12.0, 12.0, 7.0)<br/>Scattering: 0<br/>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br/>Murkiness: 0.7<br/>Emissive: RGBA(0.838, 0.639, 0.210, 1.000)<br/>Emissive scale: 0.13<br/>Start distance: 12<br/>Sunlight scale: 0<br/>Ambient scale: 0.8<br/>Temperature: 1<br/> |
-
-</details><br>
