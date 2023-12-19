@@ -2,6 +2,7 @@
 using Nautilus.Assets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Handlers;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace Nautilus.Examples;
@@ -13,7 +14,7 @@ public class BiomeHandlerExample : BaseUnityPlugin
     private void Awake()
     {
         // Register the new biome into the game
-        var lilyPadsFogSettings = BiomeHandler.CreateBiomeSettings(new Vector3(20, 5, 6), 0.6f, Color.white, 0.45f,
+        var lilyPadsFogSettings = BiomeUtils.CreateBiomeSettings(new Vector3(20, 5, 6), 0.6f, Color.white, 0.45f,
             new Color(0.18f, 0.604f, 0.404f), 0.05f, 20, 1, 1.25f, 20);
 #if SUBNAUTICA
         BiomeHandler.RegisterBiome("nautilusexamplebiome", lilyPadsFogSettings, new BiomeHandler.SkyReference("SkyKelpForest"));
