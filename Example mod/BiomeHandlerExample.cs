@@ -30,6 +30,6 @@ public class BiomeHandlerExample : BaseUnityPlugin
         volumePrefab.Register();
         
         // Add the biome somewhere to the world
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(volumePrefabInfo.ClassID, new Vector3(-1400, -30, 600), Quaternion.identity));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(volumePrefabInfo.ClassID, new Vector3(-1400, -80, 600), Quaternion.identity, new Vector3(50, 50, 50)));
     }
 }
