@@ -32,6 +32,8 @@ internal static class BiomePatcher
         CustomBiomeSoundDatas.Add(biomeSoundData);
 
         // Water ambience is the parent of all biome sounds. If it exists, we missed our chance to add it automatically, so add it now.
+        if (Player.main == null)
+            return;
         var waterAmbienceComponent = Player.main.GetComponentInChildren<WaterAmbience>();
         if (waterAmbienceComponent != null)
         {
