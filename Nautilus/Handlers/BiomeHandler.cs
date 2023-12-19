@@ -21,6 +21,28 @@ public static class BiomeHandler
     }
 
     /// <summary>
+    /// Adds music that plays in the given biome(s). The sound emitter is played when the given conditions are ended, until those conditions are no longer true, and then a fadeout is allowed.
+    /// </summary>
+    /// <param name="biomeName">The name of the biome that this music can play in. Prefix matching and case insensitive, so using "canyon" for this value would affect biomes named "canyon_one" and "canyon_TWO".</param>
+    /// <param name="musicAsset">The sound asset that plays in this biome.</param>
+    /// <param name="interiorState">Determines how this sound is affected by being indoors or outside.</param>
+    public static void AddBiomeMusic(string biomeName, FMODAsset musicAsset, FMODGameParams.InteriorState interiorState = FMODGameParams.InteriorState.Always)
+    {
+        BiomePatcher.RegisterBiomeSoundData(new BiomePatcher.CustomBiomeSoundData(BiomePatcher.CustomBiomeSoundData.Type.Music, biomeName, musicAsset, interiorState));
+    }
+    
+    /// <summary>
+    /// Adds an ambient sound that plays in the given biome(s). The sound emitter is played when the given conditions are ended, until those conditions are no longer true, and then a fadeout is allowed.
+    /// </summary>
+    /// <param name="biomeName">The name of the biome that this ambient sound can play in. Prefix matching and case insensitive, so using "canyon" for this value would affect biomes named "canyon_one" and "canyon_TWO".</param>
+    /// <param name="ambienceAsset">The sound asset that plays in this biome.</param>
+    /// <param name="interiorState">Determines how this sound is affected by being indoors or outside.</param>
+    public static void AddBiomeAmbience(string biomeName, FMODAsset ambienceAsset, FMODGameParams.InteriorState interiorState)
+    {
+        BiomePatcher.RegisterBiomeSoundData(new BiomePatcher.CustomBiomeSoundData(BiomePatcher.CustomBiomeSoundData.Type.Ambience, biomeName, ambienceAsset, interiorState));
+    }
+    
+    /// <summary>
     /// Defines a reference to a new or existing Sky prefab.
     /// </summary>
     public class SkyReference
