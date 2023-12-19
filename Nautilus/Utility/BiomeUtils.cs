@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using mset;
+using UnityEngine;
 
 namespace Nautilus.Utility;
 
@@ -7,7 +8,7 @@ namespace Nautilus.Utility;
 /// </summary>
 public static class BiomeUtils
 {
-        /// <summary>
+    /// <summary>
     /// <para>A shorthand for creating an instance of the <see cref="WaterscapeVolume.Settings"/> class.</para>
     /// <para>A list of base game values can be found on this page: https://subnauticamodding.github.io/Nautilus/tutorials/biomes.html</para>
     /// </summary>
@@ -39,5 +40,37 @@ public static class BiomeUtils
             ambientScale = ambientScale,
             temperature = temperature
         };
+    }
+
+    private static GameObject _skyPrefabsParent;
+    
+    /// <summary>
+    /// Creates a new basic Sky prefab.
+    /// </summary>
+    /// <param name="name">The name of the Sky, can be anything.</param>
+    /// <param name="specularCube">The texture of the Sky, VERY important in determining reflections.</param>
+    /// <param name="affectedByDayNightCycle">If true, the Sky will appear darker at night and brighter at day.</param>
+    /// <param name="outdoors">Whether this sky is outdoors or not (should be false for the interiors of player-made structures).</param>
+    /// <returns></returns>
+    public static Sky CreateSkyPrefab(string name, Texture specularCube, bool affectedByDayNightCycle = true, bool outdoors = true)
+    {
+        if (_skyPrefabsParent == null)
+        {
+            _skyPrefabsParent = new GameObject("SkyPrefabsParent");
+            _skyPrefabsParent.AddComponent<SceneCleanerPreserve>();
+            _skyPrefabsParent.SetActive(false);
+            Object.DontDestroyOnLoad(_skyPrefabsParent);
+        }
+
+        var skyObject = new GameObject(name);
+        skyObject.transform.parent = _skyPrefabsParent.transform;
+        skyObject.AddComponent<SceneCleanerPreserve>();
+        
+        var sky = skyObject.AddComponent<Sky>();
+        sky.specularCube = specularCube;
+        sky.affectedByDayNightCycle = affectedByDayNightCycle;
+        sky.outdoors = outdoors;
+        
+        return sky;
     }
 }
