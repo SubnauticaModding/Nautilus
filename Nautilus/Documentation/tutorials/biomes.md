@@ -4,7 +4,7 @@ This guide provides some information on adding custom biomes.
 > [!NOTE]
 > This page is under construction and may not be finished any time soon. However, any information currently provided should still be accurate.
 
-# SN1 Biome Settings:
+## SN1 Biome Settings:
 
 | Biome name   | Sky name | Settings                                              |
 |--------------|-----------------|-------------------------------------------------------|
@@ -154,7 +154,7 @@ This guide provides some information on adding custom biomes.
 | grandReef_wreck | SkyExplorableWreck    | Absorption: (16.0, 12.0, 6.0)<br/>Scattering: 2<br/>Scattering color: RGBA(0.000, 1.000, 0.910, 1.000)<br/>Murkiness: 0.25<br/>Emissive: RGBA(0.000, 0.957, 1.000, 1.000)<br/>Emissive scale: 0.03<br/>Start distance: 40<br/>Sunlight scale: 0<br/>Ambient scale: 0<br/>Temperature: 24<br/> |
 | CrashZone_Trench | SkyCrashZone    | Absorption: (17.0, 20.0, 20.0)<br/>Scattering: 1<br/>Scattering color: RGBA(1.000, 1.000, 1.000, 1.000)<br/>Murkiness: 0.2<br/>Emissive: RGBA(1.000, 1.000, 1.000, 1.000)<br/>Emissive scale: 0<br/>Start distance: 5<br/>Sunlight scale: 0.75<br/>Ambient scale: 1<br/>Temperature: 24<br/> |
 
-# BZ Biome Settings:
+## BZ Biome Settings:
   
 | Biome name   | Sky name | Settings                                              |
 |--------------|-----------------|-------------------------------------------------------|
