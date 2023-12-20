@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Nautilus.Assets.PrefabTemplates;
 
 /// <summary>
-/// A template for Atmosphere Volumes, which are basic invisible triggers for mini-biomes.
+/// A template for Atmosphere Volumes, which are basic invisible triggers for mini-biomes. Atmosphere volumes can affect fog, music, ambient sounds and even the player's swim speed.
 /// </summary>
 public class AtmosphereVolumeTemplate : PrefabTemplate
 {
