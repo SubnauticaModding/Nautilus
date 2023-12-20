@@ -24,6 +24,9 @@ internal static class ConsoleCommandsPatcher
     private static Color ModOriginColor = new(0, 1, 0);
     private static Color ModConflictColor = new(0.75f, 0.75f, 0.75f);
 
+    internal static List<TeleportPosition> GotoTeleportPositionsToAdd = new List<TeleportPosition>();
+    internal static List<TeleportPosition> BiomeTeleportPositionsToAdd = new List<TeleportPosition>();
+
     public static void Patch(Harmony harmony)
     {
         harmony.PatchAll(typeof(ConsoleCommandsPatcher));
@@ -280,5 +283,39 @@ internal static class ConsoleCommandsPatcher
     public static string StripXML(this string source)
     {
         return xmlRegex.Replace(source, string.Empty);
+    }
+
+    [HarmonyPatch(typeof(GotoConsoleCommand), nameof(GotoConsoleCommand.Awake))]
+    [HarmonyPostfix]
+    private static void GotoConsoleCommandAwakePostfix(GotoConsoleCommand __instance)
+    {
+        UpdateTeleportPositions();
+    }
+    
+    [HarmonyPatch(typeof(BiomeConsoleCommand), nameof(BiomeConsoleCommand.Awake))]
+    [HarmonyPostfix]
+    private static void BiomeConsoleCommandAwakePostfix(BiomeConsoleCommand __instance)
+    {
+        UpdateTeleportPositions();
+    }
+
+    internal static void UpdateTeleportPositions()
+    {
+        if (GotoConsoleCommand.main != null && GotoTeleportPositionsToAdd.Count > 0)
+        {
+            AddTeleportPositionsToCommandData(GotoConsoleCommand.main.data, GotoTeleportPositionsToAdd);
+        }
+        if (BiomeConsoleCommand.main != null && BiomeTeleportPositionsToAdd.Count > 0)
+        {
+            AddTeleportPositionsToCommandData(BiomeConsoleCommand.main.data, BiomeTeleportPositionsToAdd);
+        }
+    }
+
+    private static void AddTeleportPositionsToCommandData(TeleportCommandData commandData, List<TeleportPosition> positionsToAdd)
+    {
+        var list = new List<TeleportPosition>(commandData.locations);
+        list.AddRange(positionsToAdd);
+        commandData.locations = list.ToArray();
+        positionsToAdd.Clear();
     }
 }
