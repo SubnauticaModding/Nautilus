@@ -1,4 +1,5 @@
 using System.Collections;
+using Nautilus.Extensions;
 using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
@@ -28,13 +29,17 @@ internal class EntitySpawner : MonoBehaviour
         yield return GetPrefabAsync(task);
 
         GameObject prefab = task.Get();
-
         if (prefab == null)
         {
             InternalLogger.Error($"no prefab found for {stringToLog}; process for Coordinated Spawn canceled.");
             Destroy(gameObject);
+            yield break;
         }
-
+        
+        if (!prefab.IsPrefab())
+        {
+            prefab.SetActive(false);
+        }
 
         GameObject obj = UWE.Utils.InstantiateDeactivated(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation, spawnInfo.ActualScale);
 
