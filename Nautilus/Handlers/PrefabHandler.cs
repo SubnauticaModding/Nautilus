@@ -31,6 +31,12 @@ public static class PrefabHandler
 
     private static IEnumerator InitPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
+        if (prefabFactory == null)
+        {
+            InternalLogger.Error($"PrefabHandler: Prefab Factory for {info.ClassID} is null!");
+            yield break;
+        }
+        
         yield return prefabFactory(gameObject);
 
         var obj = gameObject.Get();
