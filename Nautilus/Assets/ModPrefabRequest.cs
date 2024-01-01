@@ -59,21 +59,22 @@ internal class ModPrefabRequest: IPrefabRequest
         Init();
         if (!task.MoveNext())
         {
-            Done = true;
+            if (TryGetPrefab(out _))
+            {
+                Done = true;
+            }
         }
         return !Done;
     }
 
     public void Reset()
     {
-        Init();
         task.Reset();
         Done = false;
     }
 
     public void Release()
     {
-        ModPrefabCache.RemovePrefabFromCache(prefabInfo.ClassID);
         taskResult = null;
         task = null;
         Done = false;
