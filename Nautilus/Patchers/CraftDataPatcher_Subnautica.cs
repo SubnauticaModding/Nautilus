@@ -155,7 +155,7 @@ internal partial class CraftDataPatcher
     {
         bool techExists = CraftData.techData.TryGetValue(techType, out CraftData.TechData techData);
 
-        bool sameData = false;
+        bool sameData = techExists;
         if (techExists && CustomRecipeData.TryGetValue(techType, out ITechData customTechData))
         {
             sameData = customTechData.craftAmount == techData.craftAmount &&
