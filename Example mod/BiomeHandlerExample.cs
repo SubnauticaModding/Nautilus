@@ -37,5 +37,8 @@ public class BiomeHandlerExample : BaseUnityPlugin
         
         // Add the biome somewhere to the world
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(volumePrefabInfo.ClassID, new Vector3(-1400, -80, 600), Quaternion.identity, new Vector3(50, 50, 50)));
+        
+        // Add this biome to the "biome" command
+        ConsoleCommandsHandler.AddBiomeTeleportPosition("nautilusexamplebiome", new Vector3(-1400, -80, 600));
     }
 }
