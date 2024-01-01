@@ -217,9 +217,9 @@ public static class GadgetExtensions
     {
         customPrefab.AddOnRegister(() =>
         {
-            foreach ((Vector3 position, Vector3 eulerAngles) in spawnLocations)
+            foreach (var spawnLocation in spawnLocations)
             {
-                CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(customPrefab.Info.ClassID, position, eulerAngles));
+                CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(customPrefab.Info.ClassID, spawnLocation.Position, spawnLocation.EulerAngles, spawnLocation.Scale));
             }
         });
 

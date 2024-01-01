@@ -45,7 +45,7 @@ public static class CoordinatedSpawnsHandler
     /// <param name="spawnLocations">The spawn locations to spawn in. Euler angles are optional.</param>
     public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, params SpawnLocation[] spawnLocations)
     {
-        var spawnInfos = spawnLocations.Select(spawnLocation => new SpawnInfo(techTypeToSpawn, spawnLocation.Position, spawnLocation.EulerAngles)).ToList();
+        var spawnInfos = spawnLocations.Select(spawnLocation => new SpawnInfo(techTypeToSpawn, spawnLocation.Position, spawnLocation.EulerAngles, spawnLocation.Scale)).ToList();
         RegisterCoordinatedSpawns(spawnInfos);
     }
 }
