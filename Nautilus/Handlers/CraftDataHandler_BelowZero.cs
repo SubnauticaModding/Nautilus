@@ -2,6 +2,7 @@
 namespace Nautilus.Handlers;
 
 using Crafting;
+using Nautilus.Extensions;
 using Patchers;
 using System.Collections.Generic;
 
@@ -146,7 +147,7 @@ public static partial class CraftDataHandler
 
         if (TechData.TryGetValue(techType, out JsonValue techData))
         {
-            return ConvertToRecipeData(techData);
+            return techData?.ConvertToRecipeData();
         }
 
         return null;
@@ -158,42 +159,7 @@ public static partial class CraftDataHandler
     /// <param name="techData"></param>
     public static RecipeData ConvertToRecipeData(JsonValue techData)
     {
-        RecipeData currentRecipeData = new()
-        {
-            craftAmount = techData.GetInt(TechData.propertyCraftAmount, out int craftAmount, 0) ? craftAmount : TechData.defaultCraftAmount
-        };
-
-        if (techData.GetArray(TechData.propertyIngredients, out JsonValue jsonValue, null))
-        {
-            for (int i = 0; i < jsonValue.Count; i++)
-            {
-                JsonValue jsonValue2 = jsonValue[i];
-                TechType techType = (TechType)jsonValue2.GetInt(TechData.propertyTechType, 0);
-                int int2 = jsonValue2.GetInt(TechData.propertyAmount, 0);
-                if (techType != TechType.None && int2 > 0)
-                {
-                    if (currentRecipeData.Ingredients == null)
-                    {
-                        currentRecipeData.Ingredients = new List<Ingredient>();
-                    }
-                    currentRecipeData.Ingredients.Add(new Ingredient(techType, int2));
-                }
-            }
-        }
-
-        if (techData.GetArray(TechData.propertyLinkedItems, out JsonValue jsonValue3, null))
-        {
-            for (int j = 0; j < jsonValue3.Count; j++)
-            {
-                TechType techType1 = (TechType)jsonValue3[j].GetInt(0);
-                if (currentRecipeData.LinkedItems == null)
-                {
-                    currentRecipeData.LinkedItems = new List<TechType>();
-                }
-                currentRecipeData.LinkedItems.Add(techType1);
-            }
-        }
-        return currentRecipeData;
+        return techData?.ConvertToRecipeData();
     }
 
     /// <summary>
@@ -205,7 +171,7 @@ public static partial class CraftDataHandler
     /// <returns>The RecipeData from the modded item if it exists; Otherwise, returns <c>null</c>.</returns>
     public static RecipeData GetModdedRecipeData(TechType techType)
     {
-        return CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue techData) ? ConvertToRecipeData(techData) : null;
+        return CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue techData) ? techData.ConvertToRecipeData() : null;
     }
 
     /// <summary>
