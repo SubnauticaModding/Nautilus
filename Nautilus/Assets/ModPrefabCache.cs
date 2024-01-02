@@ -114,7 +114,7 @@ internal class ModPrefabCacheInstance: MonoBehaviour
             }
             else // this should never happen
             {
-                InternalLogger.Warn($"ModPrefabCache: prefab {prefabIdentifier.classId} already existed in cache!");
+                InternalLogger.Debug($"ModPrefabCache: prefab {prefabIdentifier.classId} already existed in cache!");
             }   
         }
     }
