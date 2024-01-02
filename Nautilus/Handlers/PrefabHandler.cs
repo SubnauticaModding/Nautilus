@@ -20,6 +20,11 @@ public static class PrefabHandler
 
     internal static IEnumerator GetPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
+        if (ModPrefabCache.RunningPrefabs.Contains(info.ClassID))
+        {
+            yield return new WaitUntil(() => ModPrefabCache.RunningPrefabs.Contains(info.ClassID) is false);
+        }
+        
         if (ModPrefabCache.TryGetPrefabFromCache(info.ClassID, out var prefabInCache))
         {
             gameObject.Set(prefabInCache);
@@ -31,6 +36,16 @@ public static class PrefabHandler
 
     private static IEnumerator InitPrefabAsync(TaskResult<GameObject> gameObject, PrefabInfo info, PrefabFactoryAsync prefabFactory)
     {
+        if (!ModPrefabCache.RunningPrefabs.Add(info.ClassID))
+        {
+            yield return new WaitUntil(() => ModPrefabCache.RunningPrefabs.Contains(info.ClassID) is false);
+            if (ModPrefabCache.TryGetPrefabFromCache(info.ClassID, out var prefabInCache))
+            {
+                gameObject.Set(prefabInCache);
+                yield break;
+            }
+        }
+        
         if (prefabFactory == null)
         {
             InternalLogger.Error($"PrefabHandler: Prefab Factory for {info.ClassID} is null!");
@@ -85,6 +100,7 @@ public static class PrefabHandler
 
         gameObject.Set(obj);
         ModPrefabCache.AddPrefab(obj);
+        ModPrefabCache.RunningPrefabs.Remove(info.ClassID);
     }
 }
 

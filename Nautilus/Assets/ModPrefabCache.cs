@@ -11,6 +11,8 @@ namespace Nautilus.Assets;
 /// </summary>
 public static class ModPrefabCache
 {
+    internal static HashSet<string> RunningPrefabs = new();
+    
     private static ModPrefabCacheInstance _cacheInstance;
 
     /// <summary> Adds the given prefab to the cache. </summary>
