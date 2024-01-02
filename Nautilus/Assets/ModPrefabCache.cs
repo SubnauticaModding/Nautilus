@@ -89,34 +89,31 @@ internal class ModPrefabCacheInstance: MonoBehaviour
     {
         var prefabIdentifier = prefab.GetComponent<PrefabIdentifier>();
 
-        if(prefabIdentifier == null)
+        if (prefabIdentifier == null)
         {
             InternalLogger.Warn($"ModPrefabCache: prefab {prefab.name} is missing a PrefabIdentifier component! Unable to add to cache.");
             return;
         }
 
-        lock (Entries)
+        if (!Entries.ContainsKey(prefabIdentifier.classId))
         {
-            if(!Entries.ContainsKey(prefabIdentifier.classId))
+            Entries.Add(prefabIdentifier.classId, prefab);
+            InternalLogger.Debug($"ModPrefabCache: added prefab {prefab}");
+            // Proper prefabs can never exist in the scene, so parenting them is dangerous and pointless. 
+            if (prefab.IsPrefab())
             {
-                Entries.Add(prefabIdentifier.classId, prefab);
-                InternalLogger.Debug($"ModPrefabCache: added prefab {prefab}");
-                // Proper prefabs can never exist in the scene, so parenting them is dangerous and pointless. 
-                if (prefab.IsPrefab())
-                {
-                    InternalLogger.Debug($"Game Object: {prefab} is a proper prefab. Skipping parenting for cache.");
-                }
-                else
-                {
-                    prefab.transform.parent = _prefabRoot;
-                    prefab.SetActive(true);
-                }
+                InternalLogger.Debug($"Game Object: {prefab} is a proper prefab. Skipping parenting for cache.");
             }
-            else // this should never happen
+            else
             {
-                InternalLogger.Debug($"ModPrefabCache: prefab {prefabIdentifier.classId} already existed in cache!");
-            }   
+                prefab.transform.parent = _prefabRoot;
+                prefab.SetActive(true);
+            }
         }
+        else
+        {
+            InternalLogger.Debug($"ModPrefabCache: prefab {prefabIdentifier.classId} already existed in cache!");
+        }   
     }
 
     public void RemoveCachedPrefab(string classId)
