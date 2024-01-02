@@ -85,6 +85,7 @@ internal class ModPrefabCacheInstance: MonoBehaviour
 
         gameObject.AddComponent<SceneCleanerPreserve>();
         DontDestroyOnLoad(gameObject);
+        SaveUtils.RegisterOnQuitEvent(ModPrefabCache.RunningPrefabs.Clear);
     }
 
     public void EnterPrefabIntoCache(GameObject prefab)
