@@ -11,8 +11,9 @@ namespace Nautilus.Assets;
 /// </summary>
 public static class ModPrefabCache
 {
+    internal static HashSet<string> RunningPrefabs = new();
+    
     private static ModPrefabCacheInstance _cacheInstance;
-    internal static Dictionary<string, ModPrefabRequest> Requests { get; } = new Dictionary<string, ModPrefabRequest>();
 
     /// <summary> Adds the given prefab to the cache. </summary>
     /// <param name="prefab"> The prefab object that is disabled and cached. </param>
@@ -84,39 +85,38 @@ internal class ModPrefabCacheInstance: MonoBehaviour
 
         gameObject.AddComponent<SceneCleanerPreserve>();
         DontDestroyOnLoad(gameObject);
+        SaveUtils.RegisterOnQuitEvent(ModPrefabCache.RunningPrefabs.Clear);
     }
 
     public void EnterPrefabIntoCache(GameObject prefab)
     {
-        // Proper prefabs can never exist in the scene, so parenting them is dangerous and pointless. 
-        if(prefab.IsPrefab())
-        {
-            InternalLogger.Debug($"Game Object: {prefab} is a proper prefab. Skipping parenting for cache.");
-        }
-        else
-        {
-            prefab.transform.parent = _prefabRoot;
-            prefab.SetActive(true);
-        }
-
         var prefabIdentifier = prefab.GetComponent<PrefabIdentifier>();
 
-        if(prefabIdentifier == null)
+        if (prefabIdentifier == null)
         {
             InternalLogger.Warn($"ModPrefabCache: prefab {prefab.name} is missing a PrefabIdentifier component! Unable to add to cache.");
             return;
         }
 
-        // Proper prefabs can never exist in the scene, so parenting them is dangerous and pointless. 
-        if(!Entries.ContainsKey(prefabIdentifier.classId))
+        if (!Entries.ContainsKey(prefabIdentifier.classId))
         {
             Entries.Add(prefabIdentifier.classId, prefab);
             InternalLogger.Debug($"ModPrefabCache: added prefab {prefab}");
+            // Proper prefabs can never exist in the scene, so parenting them is dangerous and pointless. 
+            if (prefab.IsPrefab())
+            {
+                InternalLogger.Debug($"Game Object: {prefab} is a proper prefab. Skipping parenting for cache.");
+            }
+            else
+            {
+                prefab.transform.parent = _prefabRoot;
+                prefab.SetActive(true);
+            }
         }
-        else // this should never happen
+        else // This should never happen
         {
             InternalLogger.Warn($"ModPrefabCache: prefab {prefabIdentifier.classId} already existed in cache!");
-        }
+        }   
     }
 
     public void RemoveCachedPrefab(string classId)

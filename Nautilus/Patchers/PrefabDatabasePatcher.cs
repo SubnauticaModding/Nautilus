@@ -79,11 +79,6 @@ internal static class PrefabDatabasePatcher
             return null;
         }
 
-        if(ModPrefabCache.Requests.TryGetValue(prefabInfo.ClassID, out var request))
-        {            
-            return request;
-        }
-
         return new ModPrefabRequest(prefabInfo);
     }
 
