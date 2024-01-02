@@ -3,7 +3,7 @@
     <PropertyGroup>
         <!-- The assembly uses this version number. !-->
         <VersionPrefix>1.0.0</VersionPrefix>
-        <SuffixNumber>26</SuffixNumber>
+        <SuffixNumber>27</SuffixNumber>
         <VersionSuffix>pre.$(SuffixNumber)</VersionSuffix>
     </PropertyGroup>
 </Project>
