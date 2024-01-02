@@ -13,7 +13,7 @@ internal class ModPrefabRequest: IPrefabRequest
     
     private readonly PrefabInfo prefabInfo;
     
-    private CoroutineTask<GameObject> task;
+    private IEnumerator task;
     
     private TaskResult<GameObject> taskResult;
 
@@ -37,7 +37,7 @@ internal class ModPrefabRequest: IPrefabRequest
             return;
         }
             
-        task = new CoroutineTask<GameObject>(PrefabHandler.GetPrefabAsync(taskResult, prefabInfo, factory), taskResult);
+        task = PrefabHandler.GetPrefabAsync(taskResult, prefabInfo, factory);
     }
 
     public object Current
@@ -66,14 +66,12 @@ internal class ModPrefabRequest: IPrefabRequest
 
     public void Reset()
     {
-        Init();
         task.Reset();
         Done = false;
     }
 
     public void Release()
     {
-        ModPrefabCache.RemovePrefabFromCache(prefabInfo.ClassID);
         taskResult = null;
         task = null;
         Done = false;

@@ -1,6 +1,7 @@
 using System;
 using BepInEx;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using Nautilus.Utility.ModMessages;
@@ -77,5 +78,6 @@ public class Initializer : BaseUnityPlugin
         InventoryPatcher.Patch(_harmony);
         WaterParkPatcher.Patch(_harmony);
         ModMessageSystem.Patch();
+        BiomePatcher.Patch(_harmony);
     }
 }

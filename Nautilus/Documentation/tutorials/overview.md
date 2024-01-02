@@ -10,6 +10,7 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 * [Story goals](story-goals.md)
 * [Databank entries](databank-entries.md)
 * [Custom vehicle upgrade modules](vehicle-module.md)
+* [Custom biomes](biomes.md)
 * TODO: [Audio (FMOD)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
 ### Prefabs

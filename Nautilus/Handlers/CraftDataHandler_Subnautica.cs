@@ -1,10 +1,9 @@
 #if SUBNAUTICA
-using Nautilus.Crafting;
-using Nautilus.Patchers;
-
 namespace Nautilus.Handlers;
 
-using static CraftData;
+using Nautilus.Crafting;
+using Nautilus.Extensions;
+using Nautilus.Patchers;
 
 /// <summary>
 /// A handler class for adding and editing crafted items.
@@ -209,7 +208,7 @@ public partial class CraftDataHandler
         {
             return null;
         }
-        return ConvertToRecipeData(moddedTechData);
+        return moddedTechData.ConvertToRecipeData();
     }
 
     /// <summary>
@@ -223,17 +222,11 @@ public partial class CraftDataHandler
     {
         if(CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out ITechData iTechData))
         {
-            return ConvertToRecipeData(iTechData);
+            return iTechData.ConvertToRecipeData();
         }
 
         iTechData = CraftData.Get(techType, true);
-
-        if(iTechData != null)
-        {
-            return ConvertToRecipeData(iTechData);
-        }
-
-        return null;
+        return iTechData?.ConvertToRecipeData();
     }
 
     /// <summary>
@@ -242,21 +235,7 @@ public partial class CraftDataHandler
     /// <param name="iTechData"></param>
     public static RecipeData ConvertToRecipeData(ITechData iTechData)
     {
-        var recipeData = new RecipeData() { craftAmount = iTechData.craftAmount };
-
-        for (int i = 0; i < iTechData.ingredientCount; i++)
-        {
-            IIngredient ingredient = iTechData.GetIngredient(i);
-            var customIngredient = new Ingredient(ingredient.techType, ingredient.amount);
-            recipeData.Ingredients.Add(customIngredient);
-        }
-
-        for (int i = 0; i < iTechData.linkedItemCount; i++)
-        {
-            recipeData.LinkedItems.Add(iTechData.GetLinkedItem(i));
-        }
-
-        return recipeData;
+        return iTechData?.ConvertToRecipeData();
     }
 }
 #endif
