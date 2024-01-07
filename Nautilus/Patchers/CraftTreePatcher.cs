@@ -163,7 +163,12 @@ internal class CraftTreePatcher
             if (!TraverseTree(tree.nodes, customNode.Path, out var currentNode))
             {
                 InternalLogger.Error($"Cannot add Crafting node: {customNode.TechType.AsString()} to {customNode.Scheme} at {string.Join("/", customNode.Path)} as the parent node could not be found.");
-                continue;
+
+                if (!TraverseTree(tree.nodes, new[] { FallbackTabNode + customNode.Scheme }, out currentNode))
+                {
+                    InternalLogger.Error($"Cannot add Crafting node: {customNode.TechType.AsString()} to {customNode.Scheme} at {string.Join("/", customNode.Path)} as the fallback node could not be found.");
+                    continue;
+                }
             }
 
             if (currentNode.nodes.Any(x => x is CraftNode craftNode && craftNode.action == TreeAction.Expand))
