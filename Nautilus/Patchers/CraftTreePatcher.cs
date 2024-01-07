@@ -15,6 +15,10 @@ internal class CraftTreePatcher
     #region Internal Fields
 
     internal static Dictionary<CraftTree.Type, ModCraftTreeRoot> CustomTrees = new();
+    internal static Dictionary<CraftTree.Type, List<Node>> NodesToRemove = new();
+    internal static Dictionary<CraftTree.Type, List<CraftingNode>> CraftingNodes = new();
+    internal static Dictionary<CraftTree.Type, List<TabNode>> TabNodes = new();
+    internal static Dictionary<CraftTree.Type, CraftTree> CachedTrees = new();
     internal static Dictionary<CraftTree.Type, TechType> Fallbacks = new()
     {
         { CraftTree.Type.Workbench, TechType.Workbench },
@@ -24,9 +28,6 @@ internal class CraftTreePatcher
         { CraftTree.Type.MapRoom, TechType.BaseMapRoom },
         { CraftTree.Type.Workbench, TechType.Workbench },
     };
-    internal static List<Node> NodesToRemove = new();
-    internal static List<CraftingNode> CraftingNodes = new();
-    internal static List<TabNode> TabNodes = new();
     private const string FallbackTabNode = "Modded";
     private const string VanillaRoot = "Vanilla";
 
