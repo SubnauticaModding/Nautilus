@@ -25,8 +25,7 @@ internal class CraftTreePatcher
         { CraftTree.Type.Fabricator, TechType.Fabricator },
         { CraftTree.Type.Constructor, TechType.Constructor },
         { CraftTree.Type.SeamothUpgrades, TechType.BaseUpgradeConsole },
-        { CraftTree.Type.MapRoom, TechType.BaseMapRoom },
-        { CraftTree.Type.Workbench, TechType.Workbench },
+        { CraftTree.Type.MapRoom, TechType.BaseMapRoom }
     };
     private const string FallbackTabNode = "Modded";
     private const string VanillaRoot = "Vanilla";
