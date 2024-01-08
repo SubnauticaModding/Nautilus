@@ -150,14 +150,12 @@ internal partial class CraftDataPatcher
             PatchUtils.PatchList(CraftData.buildables, CustomBuildables);
     }
 
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(CraftData), nameof(CraftData.Get))]
-    private static void GetRecipePostfix(TechType techType, ref ITechData __result)
+    [HarmonyPatch(typeof(CraftData), nameof(CraftData.Get)), HarmonyPrefix, HarmonyPriority(Priority.First)]
+    private static void GetRecipePrefix(TechType techType)
     {
-        if (CustomRecipeData.TryGetValue(techType, out var customTechData) && (__result == null || !customTechData.SameAs(__result)))
+        if (CustomRecipeData.TryGetValue(techType, out var customTechData) && (!CraftData.techData.TryGetValue(techType, out var current) || !customTechData.SameAs(current)))
         {
             CraftData.techData[techType] = customTechData.ConvertToTechData(techType);
-            __result = customTechData;
         }
     }
 }
