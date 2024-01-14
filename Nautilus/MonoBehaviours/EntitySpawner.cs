@@ -36,19 +36,11 @@ internal class EntitySpawner : MonoBehaviour
             yield break;
         }
 
-        LargeWorldEntity lwe = prefab.GetComponent<LargeWorldEntity>();
-
-        if (lwe == null)
-        {
-            InternalLogger.Error($"no LargeWorldEntity found for {stringToLog}; process for Coordinated Spawn canceled.");
-            Destroy(gameObject);
-            yield break;
-        }
-
         GameObject obj = UWE.Utils.InstantiateDeactivated(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation, spawnInfo.ActualScale);
-        lwe = obj.GetComponent<LargeWorldEntity>();
+        var lwe = obj.GetComponent<LargeWorldEntity>();
 
-        yield return new WaitUntil(()=> LargeWorld.main?.streamer?.cellManager?.RegisterEntity(lwe)?? false); // then we register the entity to the cell manager
+        if (lwe != null)
+            yield return new WaitUntil(() => LargeWorld.main?.streamer?.cellManager?.RegisterEntity(lwe) ?? false);
 
         obj.SetActive(true);
         Destroy(gameObject);
