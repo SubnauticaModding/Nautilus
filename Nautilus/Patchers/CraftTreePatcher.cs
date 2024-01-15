@@ -120,7 +120,7 @@ internal class CraftTreePatcher
 
     private static void PatchCraftTree(ref CraftTree __result, CraftTree.Type type)
     {
-        List<Node> removals = NodesToRemove.TryGetValue(type, out removals)? removals: new List<Node>();
+        List<Node> removals = NodesToRemove.TryGetValue(type, out removals) ? removals : new List<Node>();
         RemoveNodes(ref __result, ref removals);
 
         AddCustomTabs(ref __result, type);
@@ -135,7 +135,7 @@ internal class CraftTreePatcher
         List<TabNode> customTabs = TabNodes.TryGetValue(type, out customTabs) ? customTabs : new List<TabNode>();
         foreach (TabNode customNode in customTabs)
         {
-            if(!TraverseTree(tree.nodes, customNode.Path, out var currentNode))
+            if (!TraverseTree(tree.nodes, customNode.Path, out var currentNode))
             {
                 InternalLogger.Error($"Cannot add tab: {customNode.Name} to {customNode.Scheme} at {string.Join("/", customNode.Path)} as the parent node could not be found.");
                 continue;
@@ -147,11 +147,14 @@ internal class CraftTreePatcher
                 continue;
             }
 
-            // Add the new tab node.
-            currentNode.AddNode(new TreeNode[]
+            if (TraverseTree(currentNode, new[] { customNode.Name }, out _))
             {
-                new CraftNode(customNode.Name, TreeAction.Expand, TechType.None)
-            });
+                // This node already exists, skip it.
+                continue;
+            }
+
+            // Add the new tab node.
+            currentNode.AddNode(new CraftNode(customNode.Name, TreeAction.Expand, TechType.None));
             InternalLogger.Debug($"Added tab: {customNode.Name} to {customNode.Scheme} at {string.Join("/", customNode.Path)}");
         }
     }
@@ -184,11 +187,14 @@ internal class CraftTreePatcher
                 }
             }
 
-            // Add the node.
-            currentNode.AddNode(new TreeNode[]
+            if (TraverseTree(currentNode, new[] { customNode.TechType.AsString(false) }, out _))
             {
-                new CraftNode(customNode.TechType.AsString(false), TreeAction.Craft, customNode.TechType)
-            });
+                // This node already exists, skip it.
+                continue;
+            }
+
+            // Add the node.
+            currentNode.AddNode(new CraftNode(customNode.TechType.AsString(false), TreeAction.Craft, customNode.TechType));
             InternalLogger.Debug($"Added Crafting node: {customNode.TechType.AsString()} to {customNode.Scheme} at {string.Join("/", customNode.Path)}");
         }
     }
