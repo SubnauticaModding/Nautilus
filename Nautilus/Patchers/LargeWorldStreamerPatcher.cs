@@ -6,12 +6,15 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using Nautilus.Assets;
 using Nautilus.Handlers;
 using Nautilus.Json.Converters;
 using Nautilus.MonoBehaviours;
 using Nautilus.Utility;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UWE;
 
 internal static class LargeWorldStreamerPatcher
@@ -66,11 +69,87 @@ internal static class LargeWorldStreamerPatcher
         InternalLogger.Debug("Coordinated Spawns have been initialized in the current save.");
 
         // Preload all the prefabs for faster spawning.
-        SpawnInfos.Do((info) =>
+        new List<SpawnInfo>(SpawnInfos).Do((info) =>
         {
-            // Ensures the prefab is loaded in the cache for faster spawning.
-            CoroutineHost.StartCoroutine(EntitySpawner.GetPrefabAsync(new TaskResult<GameObject>(), info));
+            string keyToCheck = info.Type switch
+            {
+                SpawnInfo.SpawnType.TechType => CraftData.GetClassIdForTechType(info.TechType),
+                _ => info.ClassId
+            };
+            if (!PrefabDatabase.TryGetPrefabFilename(keyToCheck, out string prefabName))
+            {
+                InternalLogger.Error($"Failed to get prefab name for {keyToCheck}; process for Coordinated Spawn canceled.");
+                SpawnInfos.Remove(info);
+                return;
+            }
+
+            if (PrefabHandler.Prefabs.TryGetInfoForFileName(prefabName, out var prefabInfo))
+            {
+                InternalLogger.Debug($"Preloading {keyToCheck}");
+                CoroutineHost.StartCoroutine(PreloadModdedPrefab(info ,prefabInfo));
+            }
+            else
+            {
+                var task = new AssetReferenceGameObject(prefabName).LoadAssetAsync();
+                task.Completed += (t) =>
+                {
+                    if (t.Status != AsyncOperationStatus.Succeeded)
+                    {
+                        InternalLogger.Error($"Failed to preload {keyToCheck} with error: {t.OperationException}");
+                        return;
+                    }
+
+                    var prefab = t.Result;
+                    if (prefab == null)
+                    {
+                        InternalLogger.Error($"no prefab found for {keyToCheck}; process for Coordinated Spawn canceled.");
+                        SpawnInfos.Remove(info);
+                        return;
+                    }
+
+                    LargeWorldEntity lwe = prefab.GetComponent<LargeWorldEntity>();
+                    if (lwe is null)
+                    {
+                        InternalLogger.Error($"No LargeWorldEntity found on {keyToCheck}; Please ensure the prefab has a LargeWorldEntity component when using Coordinated Spawns.");
+                        lwe = prefab.AddComponent<LargeWorldEntity>();
+                    }
+
+                    if (lwe is { cellLevel: LargeWorldEntity.CellLevel.Global })
+                    {
+                        CreateSpawner(info);
+                        InternalLogger.Debug($"Created spawner for {keyToCheck} at the Global level.");
+                        SpawnInfos.Remove(info);
+                    }
+
+                    InternalLogger.Debug($"Preloaded {keyToCheck}");
+                };
+            }
         });
+    }
+
+    private static IEnumerator<object> PreloadModdedPrefab(SpawnInfo info, PrefabInfo prefabInfo)
+    {
+        var request = new ModPrefabRequest(prefabInfo);
+        yield return request;
+
+        if (!request.TryGetPrefab(out var prefab))
+        {
+            InternalLogger.Error($"no prefab found for {prefabInfo.ClassID}; process for Coordinated Spawn canceled.");
+            SpawnInfos.Remove(info);
+            yield break;
+        }
+        LargeWorldEntity lwe = prefab.GetComponent<LargeWorldEntity>();
+        if (lwe is null)
+        {
+            InternalLogger.Error($"No LargeWorldEntity found on {prefabInfo.ClassID}; Please ensure the prefab has a LargeWorldEntity component when using Coordinated Spawns.");
+            lwe = prefab.AddComponent<LargeWorldEntity>();
+        }
+        if (lwe is { cellLevel: LargeWorldEntity.CellLevel.Global })
+        {
+            CreateSpawner(info);
+            InternalLogger.Debug($"Created spawner for {info.ClassId} at the Global level.");
+            SpawnInfos.Remove(info);
+        }
     }
 
     private static void SaveData()
@@ -117,21 +196,15 @@ internal static class LargeWorldStreamerPatcher
         {
             if (__instance.GetContainingBatch(spawnInfo.SpawnPosition) == batchId)
             {
-                if (CreateSpawner(spawnInfo, __instance))
-                {
-                    spawned.Add(spawnInfo);
-                }
+                CreateSpawner(spawnInfo);
+                spawned.Add(spawnInfo);
             }
         }
 
-        spawned.Do((info) =>
-        {
-            SavedSpawnInfos.Add(info);
-            SpawnInfos.Remove(info);
-        });
+        SpawnInfos.RemoveWhere(spawned.Contains);
     }
 
-    private static bool CreateSpawner(SpawnInfo spawnInfo, LargeWorldStreamer streamer)
+    private static void CreateSpawner(SpawnInfo spawnInfo)
     {
         string keyToCheck = spawnInfo.Type switch
         {
@@ -141,21 +214,7 @@ internal static class LargeWorldStreamerPatcher
 
         InternalLogger.Debug($"Creating Spawner for {keyToCheck}");
         GameObject obj = new($"{keyToCheck}Spawner");
-
-        obj.SetActive(false);
-
         obj.transform.SetPositionAndRotation(spawnInfo.SpawnPosition, spawnInfo.Rotation);
-        LargeWorldEntity lwe = obj.EnsureComponent<LargeWorldEntity>();
-        lwe.cellLevel = LargeWorldEntity.CellLevel.Batch;
         obj.EnsureComponent<EntitySpawner>().spawnInfo = spawnInfo;
-
-        if (!streamer.cellManager.RegisterEntity(lwe))
-        {
-            GameObject.Destroy(obj);
-            return false;
-        }
-
-        obj.SetActive(true);
-        return true;
     }
 }
