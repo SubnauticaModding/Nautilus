@@ -81,8 +81,17 @@ internal class CustomSoundPatcher
         Channel channel;
         if (CustomFModSounds.TryGetValue(eventPath, out var fModSound))
         {
-            if (!fModSound.TryPlaySound(out channel))
-                return false;
+            if (fModSound is IFModPositionalSound positionalSound)
+            {
+                if (!positionalSound.TryPlaySound(position, out channel))
+                    return false;
+            }
+            else
+            {
+                if (!fModSound.TryPlaySound(out channel))
+                    return false;
+            }
+
         }
         else if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
         {
@@ -114,8 +123,16 @@ internal class CustomSoundPatcher
         Channel channel;
         if (CustomFModSounds.TryGetValue(sound, out var fModSound))
         {
-            if (!fModSound.TryPlaySound(out channel))
-                return false;
+            if (fModSound is IFModPositionalSound positionalSound)
+            {
+                if (!positionalSound.TryPlaySound(Player.main.transform.position, out channel))
+                    return false;
+            }
+            else
+            {
+                if (!fModSound.TryPlaySound(out channel))
+                    return false;
+            }
         }
         else if (CustomSoundBuses.TryGetValue(sound, out Bus bus))
         {
@@ -202,9 +219,17 @@ internal class CustomSoundPatcher
         var soundPath = __instance.asset.path;
         if (CustomFModSounds.TryGetValue(soundPath, out var fModSound))
         {
-            if (!fModSound.TryPlaySound(out channel))
-                return false;
-                
+            if (fModSound is IFModPositionalSound positionalSound)
+            {
+                if (!positionalSound.TryPlaySound(__instance.transform.position, out channel))
+                    return false;
+            }
+            else
+            {
+                if (!fModSound.TryPlaySound(out channel))
+                    return false;
+            }
+
             EmitterPlayedChannels[__instance.GetInstanceID()] = channel;
         }
         else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
@@ -292,8 +317,16 @@ internal class CustomSoundPatcher
         Channel channel;
         if (CustomFModSounds.TryGetValue(soundPath, out var fModSound))
         {
-            if (!fModSound.TryPlaySound(out channel)) 
-                return false;
+            if (fModSound is IFModPositionalSound positionalSound)
+            {
+                if (!positionalSound.TryPlaySound(__instance.transform.position, out channel))
+                    return false;
+            }
+            else
+            {
+                if (!fModSound.TryPlaySound(out channel))
+                    return false;
+            }
         }
         else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
         {
@@ -323,8 +356,16 @@ internal class CustomSoundPatcher
         Channel channel;
         if (CustomFModSounds.TryGetValue(soundPath, out var fModSound))
         {
-            if (!fModSound.TryPlaySound(out channel))
-                return false;                
+            if (fModSound is IFModPositionalSound positionalSound)
+            {
+                if (!positionalSound.TryPlaySound(__instance.transform.position, out channel))
+                    return false;
+            }
+            else
+            {
+                if (!fModSound.TryPlaySound(out channel))
+                    return false;
+            }
         }
         else if (CustomSoundBuses.TryGetValue(soundPath, out Bus bus))
         {
