@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace Nautilus.Patchers;
 
 using System;
@@ -29,9 +31,10 @@ internal static class LargeWorldStreamerPatcher
         HarmonyMethod onBatchFullyLoadedPostfix = new(AccessTools.Method(typeof(LargeWorldStreamerPatcher), nameof(OnBatchFullyLoadedPostfix)));
         harmony.Patch(onBatchFullyLoadedOrig, postfix: onBatchFullyLoadedPostfix);
     }
-
+    
     internal static readonly HashSet<SpawnInfo> SpawnInfos = new();
     internal static readonly HashSet<SpawnInfo> SavedSpawnInfos = new();
+    internal static readonly Dictionary<Int3, HashSet<SpawnInfo>> BatchToSpawnInfos = new();
 
     private static readonly HashSet<SpawnInfo> _initialSpawnInfos = new();
 
@@ -59,7 +62,7 @@ internal static class LargeWorldStreamerPatcher
             }
             catch (Exception ex)
             {
-                InternalLogger.Error($"Failed to load Saved spawn data from {file}\nSkipping static spawning until fixed!\n{ex}");
+                InternalLogger.Error($"Failed to load Saved spawn data from {file}\nSkipping Coordinated spawning until fixed!\n{ex}");
                 reader.Close();
                 return;
             }
@@ -67,6 +70,8 @@ internal static class LargeWorldStreamerPatcher
 
         SpawnInfos.RemoveWhere(s => SavedSpawnInfos.Contains(s));
         InternalLogger.Debug("Coordinated Spawns have been initialized in the current save.");
+
+        var globalSpawns = new HashSet<SpawnInfo>();
 
         // Preload all the prefabs for faster spawning.
         new List<SpawnInfo>(SpawnInfos).Do((info) =>
@@ -86,7 +91,7 @@ internal static class LargeWorldStreamerPatcher
             if (PrefabHandler.Prefabs.TryGetInfoForFileName(prefabName, out var prefabInfo))
             {
                 InternalLogger.Debug($"Preloading {keyToCheck}");
-                CoroutineHost.StartCoroutine(PreloadModdedPrefab(info ,prefabInfo));
+                CoroutineHost.StartCoroutine(PreloadModdedPrefab(info, prefabInfo));
             }
             else
             {
@@ -116,8 +121,8 @@ internal static class LargeWorldStreamerPatcher
 
                     if (lwe is { cellLevel: LargeWorldEntity.CellLevel.Global })
                     {
-                        CreateSpawner(info);
-                        InternalLogger.Debug($"Created spawner for {keyToCheck} at the Global level.");
+                        globalSpawns.Add(info);
+                        InternalLogger.Debug($"Init: Created spawner for {keyToCheck} at the Global level.");
                         SpawnInfos.Remove(info);
                     }
 
@@ -125,9 +130,33 @@ internal static class LargeWorldStreamerPatcher
                 };
             }
         });
+
+        CreateSpawner(LargeWorldStreamer.main.GetContainingBatch(Vector3.zero), globalSpawns, true);
+
+        foreach (var spawnInfo in SpawnInfos)
+        {
+            var batch = LargeWorldStreamer.main.GetContainingBatch(spawnInfo.SpawnPosition);
+
+            if (globalSpawns.Contains(spawnInfo))
+            {
+                continue;
+            }
+            
+            BatchToSpawnInfos.GetOrAddNew(batch).Add(spawnInfo);
+        }
+    }
+    
+    private static void OnBatchFullyLoadedPostfix(Int3 batchId)
+    {
+        if (BatchToSpawnInfos.TryGetValue(batchId, out var spawnInfos))
+        {
+            CreateSpawner(batchId, spawnInfos, false);
+            SpawnInfos.RemoveRange(spawnInfos);
+            BatchToSpawnInfos.Remove(batchId);
+        }
     }
 
-    private static IEnumerator<object> PreloadModdedPrefab(SpawnInfo info, PrefabInfo prefabInfo)
+    private static IEnumerator PreloadModdedPrefab(SpawnInfo info, PrefabInfo prefabInfo)
     {
         var request = new ModPrefabRequest(prefabInfo);
         yield return request;
@@ -146,9 +175,14 @@ internal static class LargeWorldStreamerPatcher
         }
         if (lwe is { cellLevel: LargeWorldEntity.CellLevel.Global })
         {
-            CreateSpawner(info);
-            InternalLogger.Debug($"Created spawner for {info.ClassId} at the Global level.");
+            var batch = LargeWorldStreamer.main.GetContainingBatch(info.SpawnPosition);
+            CreateSpawner(batch, new []{info}, true);
+            InternalLogger.Debug($"Preload: Created spawner for {info.ClassId} at the Global level.");
             SpawnInfos.Remove(info);
+            if (BatchToSpawnInfos.TryGetValue(batch, out var spawnInfos))
+            {
+                spawnInfos.Remove(info);
+            }
         }
     }
 
@@ -189,32 +223,15 @@ internal static class LargeWorldStreamerPatcher
         _initialized = true;
     }
 
-    private static void OnBatchFullyLoadedPostfix(LargeWorldStreamer __instance, Int3 batchId)
+    private static void CreateSpawner(Int3 batch, IReadOnlyCollection<SpawnInfo> spawnInfos, bool global)
     {
-        var spawned = new HashSet<SpawnInfo>();
-        foreach (SpawnInfo spawnInfo in SpawnInfos)
-        {
-            if (__instance.GetContainingBatch(spawnInfo.SpawnPosition) == batchId)
-            {
-                CreateSpawner(spawnInfo);
-                spawned.Add(spawnInfo);
-            }
-        }
-
-        SpawnInfos.RemoveWhere(spawned.Contains);
-    }
-
-    private static void CreateSpawner(SpawnInfo spawnInfo)
-    {
-        string keyToCheck = spawnInfo.Type switch
-        {
-            SpawnInfo.SpawnType.TechType => spawnInfo.TechType.AsString(),
-            _ => spawnInfo.ClassId
-        };
-
-        InternalLogger.Debug($"Creating Spawner for {keyToCheck}");
-        GameObject obj = new($"{keyToCheck}Spawner");
-        obj.transform.SetPositionAndRotation(spawnInfo.SpawnPosition, spawnInfo.Rotation);
-        obj.EnsureComponent<EntitySpawner>().spawnInfo = spawnInfo;
+        var centerPosition = LargeWorldStreamer.main.GetBatchCenter(batch);
+        InternalLogger.Debug($"Creating Spawner for batch: {batch} at {centerPosition}");
+        GameObject obj = new($"{batch} Spawner");
+        obj.transform.position = centerPosition;
+        var spawner = obj.EnsureComponent<EntitySpawner>();
+        spawner.batchId = batch;
+        spawner.spawnInfos = spawnInfos;
+        spawner.global = global;
     }
 }
