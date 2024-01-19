@@ -12,12 +12,12 @@ internal class EntitySpawner : MonoBehaviour
 {
     internal SpawnInfo spawnInfo;
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(SpawnAsync());
     }
 
-    IEnumerator SpawnAsync()
+    private IEnumerator SpawnAsync()
     {
         string stringToLog = spawnInfo.Type switch
         {
@@ -36,41 +36,50 @@ internal class EntitySpawner : MonoBehaviour
             yield break;
         }
 
-        GameObject obj = UWE.Utils.InstantiateDeactivated(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation, spawnInfo.ActualScale);
+        LargeWorldEntity lwe = prefab.GetComponent<LargeWorldEntity>();
 
-        LargeWorldEntity lwe = obj.GetComponent<LargeWorldEntity>();
+        if (!lwe)
+        {
+            InternalLogger.Error($"No LargeWorldEntity component found for prefab '{stringToLog}'; process for Coordinated Spawn canceled.");
+            Destroy(gameObject);
+            yield break;
+        }
 
         LargeWorldStreamer lws = LargeWorldStreamer.main;
         yield return new WaitUntil(() => lws != null && lws.IsReady()); // first we make sure the world streamer is initialized
 
-        // non-global objects cannot be spawned in unloaded terrain so we need to wait
         if (lwe is {cellLevel: not (LargeWorldEntity.CellLevel.Batch or LargeWorldEntity.CellLevel.Global)})
         {
             Int3 batch = lws.GetContainingBatch(spawnInfo.SpawnPosition);
             yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batch)); // then we wait until the terrain is fully loaded (must be checked on each frame for faster spawns)
-        }
 
+            var bounds = new Bounds(spawnInfo.SpawnPosition, Vector3.zero);
+            
+            if (!lws.cellManager.AreCellsLoaded(bounds, lwe.cellLevel))
+            {
+                // Cells aren't ready yet. We have to wait until they are
+                yield return new WaitUntil(() => lws.cellManager.AreCellsLoaded(bounds, lwe.cellLevel));
+            }
+        }
+        
         LargeWorld lw = LargeWorld.main;
 
         yield return new WaitUntil(() => lw != null && lw.streamer.globalRoot != null); // need to make sure global root is ready too for global spawns.
+        
+        GameObject obj = Instantiate(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
+        obj.transform.localScale = spawnInfo.ActualScale;
+        
+        obj.SetActive(true);
+        
+        LargeWorldEntity.Register(obj);
 
-        yield return new WaitUntil(() => obj == null || (LargeWorld.main?.streamer?.cellManager?.RegisterEntity(lwe) ?? false)); // then we register the entity to the cell manager
-
-        if (obj == null)
-        {
-            LargeWorldStreamerPatcher.SpawnInfos.Add(spawnInfo);
-            InternalLogger.Warn($"failed to spawn {stringToLog} will try again later.");
-        }
-        else
-        {
-            obj.SetActive(true); 
-            LargeWorldStreamerPatcher.SavedSpawnInfos.Add(spawnInfo);
-            InternalLogger.Debug($"spawned {stringToLog}.");
-        }
+        LargeWorldStreamerPatcher.SavedSpawnInfos.Add(spawnInfo);
+        InternalLogger.Debug($"spawned {stringToLog}.");
+        
         Destroy(gameObject);
     }
 
-    internal IEnumerator GetPrefabAsync(IOut<GameObject> gameObject)
+    private IEnumerator GetPrefabAsync(IOut<GameObject> gameObject)
     {
         GameObject obj;
 
