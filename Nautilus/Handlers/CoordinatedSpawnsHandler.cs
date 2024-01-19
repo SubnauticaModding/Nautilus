@@ -23,6 +23,13 @@ public static class CoordinatedSpawnsHandler
         if (!LargeWorldStreamerPatcher.SpawnInfos.Add(spawnInfo))
         {
             InternalLogger.Error($"SpawnInfo {spawnInfo} already registered.");
+            return;
+        }
+
+        if (LargeWorldStreamer.main)
+        {
+            var batch = LargeWorldStreamer.main.GetContainingBatch(spawnInfo.SpawnPosition);
+            LargeWorldStreamerPatcher.BatchToSpawnInfos.GetOrAddNew(batch).Add(spawnInfo);
         }
     }
 
