@@ -57,17 +57,18 @@ internal class EntitySpawner : MonoBehaviour
             if (prefab == null)
             {
                 InternalLogger.Error($"no prefab found for {stringToLog}; process for Coordinated Spawn canceled.");
-                Destroy(gameObject);
-                yield break;
+                continue;
             }
 
             LargeWorldEntity lwe = prefab.GetComponent<LargeWorldEntity>();
 
             if (!lwe)
             {
+                // @Metious: I don't think this is necessary because LargeWorldEntity.Register(obj) Ensures that the object has a LargeWorldEntity component so we could replace 
+                // lwe.cellLevel < LargeWorldEntity.CellLevel.Batch with (lwe == null || lwe.cellLevel < LargeWorldEntity.CellLevel.Batch) and it should work fine.
                 InternalLogger.Error($"No LargeWorldEntity component found for prefab '{stringToLog}'; process for Coordinated Spawn canceled.");
-                Destroy(gameObject);
-                yield break;
+                continue;
+                // 😎 Nice.
             }
             
             if (lwe.cellLevel != LargeWorldEntity.CellLevel.Global && lwe.cellLevel != LargeWorldEntity.CellLevel.Batch && !lws.cellManager.AreCellsLoaded(bounds, lwe.cellLevel))
