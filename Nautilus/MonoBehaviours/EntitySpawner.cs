@@ -1,24 +1,24 @@
+namespace Nautilus.MonoBehaviours;
+
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Nautilus.Extensions;
 using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
 using UWE;
 
-namespace Nautilus.MonoBehaviours;
-
 internal class EntitySpawner : MonoBehaviour
 {
     internal Int3 batchId;
     internal IReadOnlyCollection<SpawnInfo> spawnInfos;
     internal bool global;
+    private List<SpawnInfo> delayedSpawns = new List<SpawnInfo>();
 
     private IEnumerator Start()
     {
         yield return SpawnAsync();
+        yield return new WaitUntil(() => delayedSpawns.Count == 0);
         Destroy(gameObject);
     }
 
@@ -32,10 +32,7 @@ internal class EntitySpawner : MonoBehaviour
             // then we wait until the terrain is fully loaded (must be checked on each frame for faster spawns)
             yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batchId));
         }
-        
-        var batchCenter = lws.GetBatchCenter(batchId);
-        var bounds = new Bounds(batchCenter, Vector3.zero);
-        
+
         LargeWorld lw = LargeWorld.main;
         
         yield return new WaitUntil(() => lw != null && lw.streamer.globalRoot != null); // need to make sure global root is ready too for global spawns.
@@ -70,25 +67,39 @@ internal class EntitySpawner : MonoBehaviour
                 continue;
                 // 😎 Nice.
             }
-            
-            if (lwe.cellLevel != LargeWorldEntity.CellLevel.Global && lwe.cellLevel != LargeWorldEntity.CellLevel.Batch && !lws.cellManager.AreCellsLoaded(bounds, lwe.cellLevel))
+
+            if (lwe.cellLevel < LargeWorldEntity.CellLevel.Batch && !lws.IsRangeActiveAndBuilt(new Bounds(spawnInfo.SpawnPosition, Vector3.one)))
             {
-                // Cells aren't ready yet. We have to wait until they are
-                yield return new WaitUntil(() => lws.cellManager.AreCellsLoaded(bounds, lwe.cellLevel));
+                // Cells aren't ready yet. We have to wait until they are.
+                StartCoroutine(WaitForCellLoaded(lws, prefab, spawnInfo, stringToLog));
+                continue;
             }
             
-            GameObject obj = Instantiate(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
-            obj.transform.localScale = spawnInfo.ActualScale;
-        
-            obj.SetActive(true);
-        
-            LargeWorldEntity.Register(obj);
-
-            LargeWorldStreamerPatcher.SavedSpawnInfos.Add(spawnInfo);
-            InternalLogger.Debug($"spawned {stringToLog}.");
+            Spawn(prefab, spawnInfo, stringToLog);
         }
     }
-    
+
+    private IEnumerator WaitForCellLoaded(LargeWorldStreamer lws, GameObject prefab, SpawnInfo spawnInfo, string stringToLog)
+    {
+        delayedSpawns.Add(spawnInfo);
+        yield return new WaitUntil(() => lws.IsRangeActiveAndBuilt(new Bounds(spawnInfo.SpawnPosition, Vector3.one * 5)));
+        Spawn(prefab, spawnInfo, stringToLog);
+        delayedSpawns.Remove(spawnInfo);
+    }
+
+    private void Spawn(GameObject prefab, SpawnInfo spawnInfo, string stringToLog)
+    {
+        GameObject obj = Instantiate(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
+        obj.transform.localScale = spawnInfo.ActualScale;
+
+        obj.SetActive(true);
+
+        LargeWorldEntity.Register(obj);
+
+        LargeWorldStreamerPatcher.SavedSpawnInfos.Add(spawnInfo);
+        InternalLogger.Debug($"spawned {stringToLog}.");
+    }
+
     private IEnumerator GetPrefabAsync(SpawnInfo spawnInfo, IOut<GameObject> gameObject)
     {
         GameObject obj;
