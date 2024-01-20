@@ -65,6 +65,7 @@ internal class EntitySpawner : MonoBehaviour
                 // lwe.cellLevel < LargeWorldEntity.CellLevel.Batch with (lwe == null || lwe.cellLevel < LargeWorldEntity.CellLevel.Batch) and it should work fine.
                 InternalLogger.Error($"No LargeWorldEntity component found for prefab '{stringToLog}'; process for Coordinated Spawn canceled.");
                 continue;
+
                 // 😎 Nice.
             }
 
