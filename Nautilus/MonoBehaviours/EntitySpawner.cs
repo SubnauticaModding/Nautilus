@@ -13,12 +13,12 @@ internal class EntitySpawner : MonoBehaviour
     internal Int3 batchId;
     internal IReadOnlyCollection<SpawnInfo> spawnInfos;
     internal bool global;
-    private List<SpawnInfo> delayedSpawns = new List<SpawnInfo>();
+    private readonly List<SpawnInfo> _delayedSpawns = new List<SpawnInfo>();
 
     private IEnumerator Start()
     {
         yield return SpawnAsync();
-        yield return new WaitUntil(() => delayedSpawns.Count == 0);
+        yield return new WaitUntil(() => _delayedSpawns.Count == 0);
         Destroy(gameObject);
     }
 
@@ -81,10 +81,10 @@ internal class EntitySpawner : MonoBehaviour
 
     private IEnumerator WaitForCellLoaded(LargeWorldStreamer lws, GameObject prefab, SpawnInfo spawnInfo, string stringToLog)
     {
-        delayedSpawns.Add(spawnInfo);
+        _delayedSpawns.Add(spawnInfo);
         yield return new WaitUntil(() => lws.IsRangeActiveAndBuilt(new Bounds(spawnInfo.SpawnPosition, Vector3.one * 5)));
         Spawn(prefab, spawnInfo, stringToLog);
-        delayedSpawns.Remove(spawnInfo);
+        _delayedSpawns.Remove(spawnInfo);
     }
 
     private void Spawn(GameObject prefab, SpawnInfo spawnInfo, string stringToLog)
