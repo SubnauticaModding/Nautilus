@@ -61,44 +61,20 @@ internal class EntitySpawner : MonoBehaviour
 
             if (!lwe)
             {
-                // @Metious: I don't think this is necessary because LargeWorldEntity.Register(obj) Ensures that the object has a LargeWorldEntity component so we could replace 
-                // lwe.cellLevel < LargeWorldEntity.CellLevel.Batch with (lwe == null || lwe.cellLevel < LargeWorldEntity.CellLevel.Batch) and it should work fine.
                 InternalLogger.Error($"No LargeWorldEntity component found for prefab '{stringToLog}'; process for Coordinated Spawn canceled.");
                 continue;
-
-                // 😎 Nice.
             }
 
-            if (lwe.cellLevel < LargeWorldEntity.CellLevel.Batch && !lws.IsRangeActiveAndBuilt(new Bounds(spawnInfo.SpawnPosition, Vector3.one)))
-            {
-                // Cells aren't ready yet. We have to wait until they are.
-                StartCoroutine(WaitForCellLoaded(lws, prefab, spawnInfo, stringToLog));
-                continue;
-            }
-            
-            Spawn(prefab, spawnInfo, stringToLog);
+            GameObject obj = Instantiate(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
+            obj.transform.localScale = spawnInfo.ActualScale;
+
+            obj.SetActive(true);
+
+            LargeWorldEntity.Register(obj);
+
+            LargeWorldStreamerPatcher.SavedSpawnInfos.Add(spawnInfo);
+            InternalLogger.Debug($"spawned {stringToLog}.");
         }
-    }
-
-    private IEnumerator WaitForCellLoaded(LargeWorldStreamer lws, GameObject prefab, SpawnInfo spawnInfo, string stringToLog)
-    {
-        _delayedSpawns.Add(spawnInfo);
-        yield return new WaitUntil(() => lws.IsRangeActiveAndBuilt(new Bounds(spawnInfo.SpawnPosition, Vector3.one * 5)));
-        Spawn(prefab, spawnInfo, stringToLog);
-        _delayedSpawns.Remove(spawnInfo);
-    }
-
-    private void Spawn(GameObject prefab, SpawnInfo spawnInfo, string stringToLog)
-    {
-        GameObject obj = Instantiate(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
-        obj.transform.localScale = spawnInfo.ActualScale;
-
-        obj.SetActive(true);
-
-        LargeWorldEntity.Register(obj);
-
-        LargeWorldStreamerPatcher.SavedSpawnInfos.Add(spawnInfo);
-        InternalLogger.Debug($"spawned {stringToLog}.");
     }
 
     private IEnumerator GetPrefabAsync(SpawnInfo spawnInfo, IOut<GameObject> gameObject)
