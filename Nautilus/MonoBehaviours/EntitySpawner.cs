@@ -13,12 +13,10 @@ internal class EntitySpawner : MonoBehaviour
     internal Int3 batchId;
     internal IReadOnlyCollection<SpawnInfo> spawnInfos;
     internal bool global;
-    private readonly List<SpawnInfo> _delayedSpawns = new List<SpawnInfo>();
 
     private IEnumerator Start()
     {
         yield return SpawnAsync();
-        yield return new WaitUntil(() => _delayedSpawns.Count == 0);
         Destroy(gameObject);
     }
 
