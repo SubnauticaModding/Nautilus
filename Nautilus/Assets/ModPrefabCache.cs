@@ -110,6 +110,7 @@ internal class ModPrefabCacheInstance: MonoBehaviour
             else
             {
                 prefab.transform.parent = _prefabRoot;
+                ResetIds(prefab);
                 prefab.SetActive(true);
             }
         }
@@ -121,12 +122,28 @@ internal class ModPrefabCacheInstance: MonoBehaviour
 
     public void RemoveCachedPrefab(string classId)
     {
-        if(Entries.TryGetValue(classId, out var prefab))
+        if (Entries.TryGetValue(classId, out var prefab))
         {
             if(!prefab.IsPrefab())
                 Destroy(prefab);
             InternalLogger.Debug($"ModPrefabCache: removed prefab {classId}");
             Entries.Remove(classId);
+        }
+    }
+
+    private void ResetIds(GameObject prefab)
+    {
+        var uniqueIds = prefab.GetAllComponentsInChildren<UniqueIdentifier>();
+
+        foreach (var uniqueId in uniqueIds)
+        {
+            if (string.IsNullOrEmpty(uniqueId.id))
+            {
+                continue;
+            }
+            
+            UniqueIdentifier.identifiers.Remove(uniqueId.id);
+            uniqueId.id = null;
         }
     }
 }

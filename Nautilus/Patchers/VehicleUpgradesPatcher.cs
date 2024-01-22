@@ -24,7 +24,6 @@ internal class VehicleUpgradesPatcher
     internal static void Patch(Harmony harmony)
     {
         InternalLogger.Debug("VehicleUpgradePatcher: attempting patch...");
-        HarmonyFileLog.Enabled = true;
         try
         {
             harmony.PatchAll(typeof(VehicleUpgradesPatcher));
