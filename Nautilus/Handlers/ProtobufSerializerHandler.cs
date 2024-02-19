@@ -80,6 +80,75 @@ public static class ProtobufSerializerHandler
     }
 
     /// <summary>
+    /// Automatically generates a serialize method and a deserialize method to be used in .
+    /// </summary>
+    /// <typeparam name="T">Serialized type</typeparam>
+    public static (Action<T, int, ProtoWriter>, Func<T, ProtoReader, T>) GenerateSerializeAndDeserializeMethods<T>() where T : new()
+    {
+        // Extract the fields and to be serialized (marked with SubnauticaSerialized)
+        Type type = typeof(T);
+        FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        
+        Dictionary<int, FieldInfo> serializedFieldsByTag = new();
+
+        foreach (FieldInfo field in fields)
+        {
+            foreach (Attribute attribute in field.GetCustomAttributes())
+            {
+                if (attribute is SubnauticaSerialized subnauticaSerialized)
+                {
+                    serializedFieldsByTag.Add(subnauticaSerialized.tag, field);
+                    break;
+                }
+            }
+        }
+
+        // Generate serialized and deserialize methods using the default serializing and deserializing utilities
+        // provided by the internal methods TrySerializeAuxiliaryType and TryDeserializeAuxiliaryType from TypeModel
+        Action<T, int, ProtoWriter> serialize = new((instance, objectId, writer) =>
+        {
+            foreach (KeyValuePair<int, FieldInfo> pair in serializedFieldsByTag.OrderBy(entry => entry.Key))
+            {
+                int tag = pair.Key;
+                FieldInfo field = pair.Value;
+
+                object value = field.GetValue(instance);
+                writer.model.TrySerializeAuxiliaryType(writer, field.FieldType, DataFormat.Default, tag, value, false);
+            }
+        });
+
+        Func<T, ProtoReader, T> deserialize = new((instance, reader) =>
+        {
+            object value = null;
+            foreach (KeyValuePair<int, FieldInfo> pair in serializedFieldsByTag.OrderBy(entry => entry.Key))
+            {
+                int tag = pair.Key;
+                FieldInfo field = pair.Value;
+                if (reader.model.TryDeserializeAuxiliaryType(reader, DataFormat.Default, tag, field.FieldType, ref value, true, true, false, false))
+                {
+                    field.SetValue(instance, value);
+                }
+            }
+            
+            return instance;
+        });
+
+
+        return (serialize, deserialize);
+    }
+
+    /// <summary>
+    /// Marks the fields to be detectable by <see cref="GenerateSerializeAndDeserializeMethods{T}"/>.
+    /// (Encapsulates <see cref="ProtoMemberAttribute"/>)
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+    public class SubnauticaSerialized : ProtoMemberAttribute
+    {
+        /// <inheritdoc cref="ProtoMemberAttribute(int, bool)" />
+        public SubnauticaSerialized(int tag, bool forced = false) : base(tag, forced) { }
+    }
+
+    /// <summary>
     /// Data structure which holds the method data for serialization and deserialization.
     /// </summary>
     internal class SerializerEntry
@@ -103,8 +172,8 @@ public static class ProtobufSerializerHandler
             if (!deserializeInfo.IsStatic)
             {
                 throw new ArgumentException($"The provided deserialize method '{deserializeInfo.Name}' should be static for type '{type}'");
-
             }
+
             SerializeInfo = serializeInfo;
             DeserializeInfo = deserializeInfo;
             Type = type;
