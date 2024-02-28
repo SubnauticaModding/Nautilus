@@ -30,7 +30,7 @@ internal static class ProtobufSerializerPrecompiledPatcher
     /// </summary>
     private static bool OptimizedSerializePrefix(int num, object obj, ProtoWriter writer, ProtobufSerializerPrecompiled __instance)
     {
-        if (ProtobufSerializerHandler.SerializerEntries.TryGetValue(num, out ProtobufSerializerHandler.SerializerEntry entry))
+        if (ProtobufSerializerHandler.SerializerEntries.TryGetValue(obj.GetType(), out ProtobufSerializerHandler.SerializerEntry entry))
         {
             // Always provide __instance but it's only used for Subnautica's known types as custom types methods must be static
             entry.SerializeInfo.Invoke(__instance, new object[] { Convert.ChangeType(obj, entry.Type), num, writer });
@@ -43,7 +43,7 @@ internal static class ProtobufSerializerPrecompiledPatcher
     /// </summary>
     private static bool OptimizedDeserializePrefix(int num, object obj, ProtoReader reader, ProtobufSerializerPrecompiled __instance, ref object __result)
     {
-        if (ProtobufSerializerHandler.SerializerEntries.TryGetValue(num, out ProtobufSerializerHandler.SerializerEntry entry))
+        if (ProtobufSerializerHandler.SerializerEntries.TryGetValue(obj.GetType(), out ProtobufSerializerHandler.SerializerEntry entry))
         {
             __result = entry.DeserializeInfo.Invoke(__instance, new object[] { Convert.ChangeType(obj, entry.Type), reader });
         }

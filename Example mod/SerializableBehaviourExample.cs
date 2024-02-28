@@ -12,29 +12,10 @@ namespace Nautilus.Examples;
 [BepInDependency("com.snmodding.nautilus")]
 internal class SerializableBehaviourExample : BaseUnityPlugin
 {
-    // You need to store the generated methods so they can be used in your serialize and deserialize static methods
-    public static Action<RealtimeCounter, int, ProtoWriter> realtimeCounterSerializeMethodInfo;
-    public static Func<RealtimeCounter, ProtoReader, RealtimeCounter> realtimeCounterDeserializeMethodInfo;
-    public static Action<StopwatchSignExample, int, ProtoWriter> stopwatchSignExampleSerializeMethodInfo;
-    public static Func<StopwatchSignExample, ProtoReader, StopwatchSignExample> stopwatchSignExampleDeserializeMethodInfo;
-
     private void Awake()
     {
-        // We first generate automatically the serialize and deserialize methods for our serializable type
-        var realtimeCounterMethodInfos = ProtobufSerializerHandler.GenerateSerializeAndDeserializeMethods<RealtimeCounter>();
-        // And we store them somewhere easily accessible
-        realtimeCounterSerializeMethodInfo = realtimeCounterMethodInfos.Item1;
-        realtimeCounterDeserializeMethodInfo = realtimeCounterMethodInfos.Item2;
-        
-        // Do it for the stopwatch
-        var stopwatchSignMethodInfos = ProtobufSerializerHandler.GenerateSerializeAndDeserializeMethods<StopwatchSignExample>();
-        stopwatchSignExampleSerializeMethodInfo = stopwatchSignMethodInfos.Item1;
-        stopwatchSignExampleDeserializeMethodInfo = stopwatchSignMethodInfos.Item2;
-
-        // Don't forget to register your serializable type with the right serialize and deserialize method (those which you created manually)
-        // You can pick whatever type ID (e.g. 3141592) you want as long it's not used by another mod or by Subnautica itself
-        ProtobufSerializerHandler.RegisterSerializableType<RealtimeCounter>(3141592, RealtimeCounter.Serialize, RealtimeCounter.Deserialize);
-        ProtobufSerializerHandler.RegisterSerializableType<StopwatchSignExample>(3141593, StopwatchSignExample.Serialize, StopwatchSignExample.Deserialize);
+        // Don't forget to register your serializable types
+        ProtobufSerializerHandler.RegisterAllSerializableTypesInAssembly();
 
         var stopwatchSign = new CustomPrefab(PrefabInfo.WithTechType("StopwatchSign"));
         var stopwatchSignTemplate = new CloneTemplate(stopwatchSign.Info, TechType.Sign);
@@ -91,31 +72,6 @@ internal class RealtimeCounter : MonoBehaviour, IProtoEventListener
         StartedCounting = DateTimeOffset.UtcNow;
         Debug.Log($"Serialized realtime counter with {totalRealtimeMs}ms [first launch at: {DateTimeOffset.FromUnixTimeMilliseconds(firstLaunchUnixTimeMs)}]");
     }
-
-    // Below are the required static methods for Protobuf serializer to serialize and deserialize this MonoBehaviour
-    // You can find more examples in ProtobufSerializerPrecompiled just like Serialize11492366 and Deserialize11492366
-    // Serialize must be a "static void" with parameters (YourType, int, ProtoWriter)
-    public static void Serialize(RealtimeCounter realtimeCounter, int objTypeId, ProtoWriter writer)
-    {
-        // If you only have basic types you only need to use the generated methods but you may need to adapt this with more complex types
-        // In that situation, please pick the right WireType for your variables and adapt the following Write[Object] call
-
-        // In this case, we only have basic types to serialize so we just invoke the generated method
-        SerializableBehaviourExample.realtimeCounterSerializeMethodInfo.Invoke(realtimeCounter, objTypeId, writer);
-    }
-
-    // Deserialize must be a "static YourType" with parameters (YourType, ProtoReader)
-    public static RealtimeCounter Deserialize(RealtimeCounter realtimeCounter, ProtoReader reader)
-    {
-        // Here you need to use the methods Read[Object] accordingly to what you wrote in Serialize: Write[Object]
-        // Also the different cases must be using the same field numbers as defined in Serialize
-
-        // In this case, we only have basic types to serialize so we just invoke the generated method
-        realtimeCounter = SerializableBehaviourExample.realtimeCounterDeserializeMethodInfo.Invoke(realtimeCounter, reader);
-
-        // Return the same object you've been modifying
-        return realtimeCounter;
-    }
 }
 
 [ProtoContract]
@@ -146,42 +102,14 @@ internal class StopwatchSignExample : MonoBehaviour, IProtoEventListener
         timePassed += Time.deltaTime;
     }
     
-    // Below are two listeners from the optional interface IProtoEventListener:
-    // OnProtoDeserialize happens after this MonoBehaviour's GameObject full hierarchy is deserialized
     public void OnProtoDeserialize(ProtobufSerializer serializer)
     {
         deserializations++;
     }
 
-    // OnProtoSerialize happens before this MonoBehaviour's GameObject full hierarchy is serialized
     public void OnProtoSerialize(ProtobufSerializer serializer)
     {
         version = 1;
         serializations++;
-    }
-
-    // Below are the required static methods for Protobuf serializer to serialize and deserialize this MonoBehaviour
-    // You can find more examples in ProtobufSerializerPrecompiled just like Serialize11492366 and Deserialize11492366
-    // Serialize must be a "static void" with parameters (YourType, int, ProtoWriter)
-    public static void Serialize(StopwatchSignExample stopwatchSignExample, int objTypeId, ProtoWriter writer)
-    {
-        // If you only have basic types you only need to use the generated methods but you may need to adapt this with more complex types
-        // In that situation, please pick the right WireType for your variables and adapt the following Write[Object] call
-
-        // In this case, we only have basic types to serialize so we just invoke the generated method
-        SerializableBehaviourExample.stopwatchSignExampleSerializeMethodInfo.Invoke(stopwatchSignExample, objTypeId, writer);
-    }
-
-    // Deserialize must be a "static YourType" with parameters (YourType, ProtoReader)
-    public static StopwatchSignExample Deserialize(StopwatchSignExample stopwatchSignExample, ProtoReader reader)
-    {
-        // Here you need to use the methods Read[Object] accordingly to what you wrote in Serialize: Write[Object]
-        // Also the different cases must be using the same field numbers as defined in Serialize
-
-        // In this case, we only have basic types to serialize so we just invoke the generated method
-        stopwatchSignExample = SerializableBehaviourExample.stopwatchSignExampleDeserializeMethodInfo.Invoke(stopwatchSignExample, reader);
-
-        // Return the same object you've been modifying
-        return stopwatchSignExample;
     }
 }

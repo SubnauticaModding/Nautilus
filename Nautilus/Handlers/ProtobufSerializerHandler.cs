@@ -15,7 +15,7 @@ namespace Nautilus.Handlers;
 /// </summary>
 public static class ProtobufSerializerHandler
 {
-    internal static Dictionary<int, SerializerEntry> SerializerEntries;
+    internal static Dictionary<Type, SerializerEntry> SerializerEntries;
 
     static ProtobufSerializerHandler()
     {
@@ -38,14 +38,12 @@ public static class ProtobufSerializerHandler
             {
                 // The castclass instruction is always 3 steps before the call instruction
                 Type objectType = (Type) serializeMethodInstructions[i - 3].Value;
-                // The ldc.i4 instruction is always 2 steps before the call instruction
-                int associatedTypeId = (int) serializeMethodInstructions[i - 2].Value;
                 // To get the methodName we remove the 5 first letters and we cut before the opening parenthese
                 string serializeMethodName = instruction.Value.ToString()[5..].Split('(')[0];
                 // The deserialize method name will be the same but with Deserialize[...] instead of Serialize[...]
                 string deserializeMethodName = serializeMethodName.Replace("S", "Des");
 
-                SerializerEntries.Add(associatedTypeId, new(objectType, serializeMethodName, deserializeMethodName));
+                SerializerEntries.Add(objectType, new(objectType, serializeMethodName, deserializeMethodName));
             }
         }
     }
@@ -56,39 +54,95 @@ public static class ProtobufSerializerHandler
     /// <remarks>
     /// This is the only method from <see cref="ProtobufSerializerPrecompiledPatcher"/> which should be used by mods.
     /// </remarks>
-    /// <typeparam name="T">Type of the serializable type</typeparam>
-    /// <param name="typeId">
-    /// An arbitrary unique type id which shouldn't be already used by Subnautica nor by any other mod.
-    /// Look through <see cref="ProtobufSerializerPrecompiled"/> to ensure the id is not already taken.
-    /// </param>
-    /// <param name="serializeMethod">
-    /// A reference to the serialize method.
-    /// NB: Take inspiration from <see cref="ProtobufSerializerPrecompiled.Serialize11492366"/> to understand how make one.
-    /// </param>
-    /// <param name="deserializeMethod">
-    /// A reference to the serialize method.
-    /// NB: Take inspiration from <see cref="ProtobufSerializerPrecompiled.Deserialize11492366"/> to understand how make one.
-    /// </param>
-    public static void RegisterSerializableType<T>(int typeId, Action<T, int, ProtoWriter> serializeMethod, Func<T, ProtoReader, T> deserializeMethod)
+    /// <param name="serializableType">Type of the serializable type</param>
+    public static void RegisterSerializableType(Type serializableType)
     {
-        if (SerializerEntries.ContainsKey(typeId))
-        {
-            throw new DuplicateTypeIdException(typeId, typeof(T));
-        }
-        ProtobufSerializerPrecompiled.knownTypes.Add(typeof(T), typeId);
-        SerializerEntries.Add(typeId, new(serializeMethod.Method, deserializeMethod.Method, typeof(T)));
+        ProtobufSerializerPrecompiled.knownTypes.Add(serializableType, 0);
+
+        Dictionary<int, FieldInfo> serializedFieldsByTag = GetSerializedFieldsByTag(serializableType);
+
+        SerializerEntries.Add(serializableType, new(serializableType, ((Delegate) Serialize).Method, ((Delegate) Deserialize).Method, serializedFieldsByTag));
+        InternalLogger.Log($"Registered serializable type {serializableType}");
     }
 
     /// <summary>
-    /// Automatically generates a serialize method and a deserialize method to be used in .
+    /// Searches for all types marked with attribute <see cref="ProtoContractAttribute"/> in the executing assembly,
+    /// and registers them as serializable by <see cref="RegisterSerializableType"/>.
     /// </summary>
-    /// <typeparam name="T">Serialized type</typeparam>
-    public static (Action<T, int, ProtoWriter>, Func<T, ProtoReader, T>) GenerateSerializeAndDeserializeMethods<T>() where T : new()
+    public static void RegisterAllSerializableTypesInAssembly()
+    {
+        foreach (Type type in Assembly.GetCallingAssembly().GetTypes())
+        {
+            foreach (Attribute attribute in type.GetCustomAttributes())
+            {
+                if (attribute is ProtoContractAttribute)
+                {
+                    RegisterSerializableType(type);
+                    break;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Automatically serializes a registered type from <see cref="SerializerEntries"/> based on its type <typeparamref name="T"/>.
+    /// </summary>
+    /// <remarks>
+    /// Should only be called by <see cref="ProtobufSerializerPrecompiledPatcher.OptimizedSerializePrefix"/>
+    /// </remarks>
+    public static void Serialize(object instance, int objId, ProtoWriter writer)
+    {
+        if (!SerializerEntries.TryGetValue(instance.GetType(), out SerializerEntry serializerEntry))
+        {
+            return;
+        }
+
+        foreach (KeyValuePair<int, FieldInfo> pair in serializerEntry.SerializedFieldsByTag)
+        {
+            int tag = pair.Key;
+            FieldInfo field = pair.Value;
+
+            object value = field.GetValue(instance);
+            writer.model.TrySerializeAuxiliaryType(writer, field.FieldType, DataFormat.Default, tag, value, false);
+        }
+    }
+
+    /// <summary>
+    /// Automatically deserializes a registered type from <see cref="SerializerEntries"/> based on its type <typeparamref name="T"/>.
+    /// </summary>
+    /// <remarks>
+    /// Should only be called by <see cref="ProtobufSerializerPrecompiledPatcher.OptimizedDeserializePrefix"/>
+    /// </remarks>
+    public static object Deserialize(object instance, ProtoReader reader)
+    {
+        if (!SerializerEntries.TryGetValue(instance.GetType(), out SerializerEntry serializerEntry))
+        {
+            return default;
+        }
+
+        object value = null;
+        foreach (KeyValuePair<int, FieldInfo> pair in serializerEntry.SerializedFieldsByTag)
+        {
+            int tag = pair.Key;
+            FieldInfo field = pair.Value;
+            if (reader.model.TryDeserializeAuxiliaryType(reader, DataFormat.Default, tag, field.FieldType, ref value, true, true, false, false))
+            {
+                field.SetValue(instance, value);
+            }
+        }
+
+        return instance;
+    }
+
+    /// <summary>
+    /// Automatically generates an ordered list of fields to serialize
+    /// </summary>
+    /// <param name="serializableType">Serialized type</param>
+    private static Dictionary<int, FieldInfo> GetSerializedFieldsByTag(Type serializableType)
     {
         // Extract the fields and to be serialized (marked with SubnauticaSerialized)
-        Type type = typeof(T);
-        FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-        
+        FieldInfo[] fields = serializableType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
         Dictionary<int, FieldInfo> serializedFieldsByTag = new();
 
         foreach (FieldInfo field in fields)
@@ -102,43 +156,11 @@ public static class ProtobufSerializerHandler
                 }
             }
         }
-
-        // Generate serialized and deserialize methods using the default serializing and deserializing utilities
-        // provided by the internal methods TrySerializeAuxiliaryType and TryDeserializeAuxiliaryType from TypeModel
-        Action<T, int, ProtoWriter> serialize = new((instance, objectId, writer) =>
-        {
-            foreach (KeyValuePair<int, FieldInfo> pair in serializedFieldsByTag.OrderBy(entry => entry.Key))
-            {
-                int tag = pair.Key;
-                FieldInfo field = pair.Value;
-
-                object value = field.GetValue(instance);
-                writer.model.TrySerializeAuxiliaryType(writer, field.FieldType, DataFormat.Default, tag, value, false);
-            }
-        });
-
-        Func<T, ProtoReader, T> deserialize = new((instance, reader) =>
-        {
-            object value = null;
-            foreach (KeyValuePair<int, FieldInfo> pair in serializedFieldsByTag.OrderBy(entry => entry.Key))
-            {
-                int tag = pair.Key;
-                FieldInfo field = pair.Value;
-                if (reader.model.TryDeserializeAuxiliaryType(reader, DataFormat.Default, tag, field.FieldType, ref value, true, true, false, false))
-                {
-                    field.SetValue(instance, value);
-                }
-            }
-            
-            return instance;
-        });
-
-
-        return (serialize, deserialize);
+        return serializedFieldsByTag;
     }
 
     /// <summary>
-    /// Marks the fields to be detectable by <see cref="GenerateSerializeAndDeserializeMethods{T}"/>.
+    /// Marks the fields to be detectable by <see cref="GetSerializedFieldsByTag"/>.
     /// (Encapsulates <see cref="ProtoMemberAttribute"/>)
     /// </summary>
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
@@ -153,30 +175,24 @@ public static class ProtobufSerializerHandler
     /// </summary>
     internal class SerializerEntry
     {
+        internal Type Type;
         internal MethodInfo SerializeInfo;
         internal MethodInfo DeserializeInfo;
-        internal Type Type;
+        internal IOrderedEnumerable<KeyValuePair<int, FieldInfo>> SerializedFieldsByTag;
 
         /// <summary>
         /// Constructor to be commonly used when adding a new serializable type.
         /// </summary>
         /// <param name="serializeInfo">A static method ran when Subnautica serializes the <see cref="Type"/></param>
         /// <param name="deserializeInfo">A static method ran when Subnautica deserializes the <see cref="Type"/></param>
+        /// <param name="serializedFieldsByTag">A dictionary containing all fields to be serialized, linked to their tag</param>
         /// <param name="type">The type to be serializable</param>
-        public SerializerEntry(MethodInfo serializeInfo, MethodInfo deserializeInfo, Type type)
+        public SerializerEntry(Type type, MethodInfo serializeInfo, MethodInfo deserializeInfo, Dictionary<int, FieldInfo> serializedFieldsByTag)
         {
-            if (!serializeInfo.IsStatic)
-            {
-                throw new ArgumentException($"The provided serialize method '{serializeInfo.Name}' should be static for type '{type}'");
-            }
-            if (!deserializeInfo.IsStatic)
-            {
-                throw new ArgumentException($"The provided deserialize method '{deserializeInfo.Name}' should be static for type '{type}'");
-            }
-
+            Type = type;
             SerializeInfo = serializeInfo;
             DeserializeInfo = deserializeInfo;
-            Type = type;
+            SerializedFieldsByTag = serializedFieldsByTag.OrderBy(entry => entry.Key);
         }
 
         /// <summary>
@@ -184,26 +200,9 @@ public static class ProtobufSerializerHandler
         /// </summary>
         public SerializerEntry(Type type, string serializeMethodName, string deserializeMethodName)
         {
+            Type = type;
             SerializeInfo = ReflectionHelper.GetInstanceMethod<ProtobufSerializerPrecompiled>(serializeMethodName);
             DeserializeInfo = ReflectionHelper.GetInstanceMethod<ProtobufSerializerPrecompiled>(deserializeMethodName);
-            Type = type;
-        }
-    }
-
-    /// <summary>
-    /// The exception that is thrown when a <see cref="SerializerEntry"/> is attempted to be added when an existing one of the same type already exists.
-    /// </summary>
-    public class DuplicateTypeIdException : Exception
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DuplicateTypeIdException"/> class with default properties.
-        /// </summary>
-        /// <param name="typeId">Type id of the already registered serializer entry.</param>
-        /// <param name="type">Type of the requested</param>
-        public DuplicateTypeIdException(int typeId, Type type) : base
-            ($"Cannot register serializable type '{type}' with id '{typeId}' because it is already used by either Subnautica or another instance.")
-        {
-
         }
     }
 }
