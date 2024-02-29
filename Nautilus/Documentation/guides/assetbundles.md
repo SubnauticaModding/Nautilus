@@ -35,7 +35,7 @@ Next, follow these steps:
 > If you get the error "<font color="red">Failed to resolve project template</font>", follow these steps:
 > 1. Locate where your editor is. 
 > You can do that by opening Unity Hub, going to Installs, and then right clicking on the version in question and clicking "Show in Explorer."
-> 2. Go to ``Editor\Data\Resources\PackageManager\ProjectTemplates``. You will find a ``manifest.json`` and ``UnityLicense.json`` files. delete them both.
+> 2. Go to ``Editor\Data\Resources\PackageManager\ProjectTemplates``. You will find two files, ``manifest.json`` and ``UnityLicense.json``. Delete them both.
 > 3. Kill Unity Hub in your task manager and open it again.
 > 
 > You should now be able to create your project!
