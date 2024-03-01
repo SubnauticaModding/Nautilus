@@ -266,7 +266,7 @@ namespace ExamplePrefab
 
             // The classID is the same as the one we put into the PrefabInfo.WithTechType up above
             // The LargeWorldEntity.CellLevel determines how far away the object will be loaded from the player
-            PrefabUtils.AddBasicComponents(myCoolPrefab, "myCoolPrefab", MyPrefabInfo.TechType, LargeWorldEntity.CellLevel.Medium);
+            PrefabUtils.AddBasicComponents(myCoolPrefab, MyPrefabInfo.ClassID, MyPrefabInfo.TechType, LargeWorldEntity.CellLevel.Medium);
 
             // Makes the GameObject have the correct shaders
             // You can use the optional inputs here to change the look of your object
