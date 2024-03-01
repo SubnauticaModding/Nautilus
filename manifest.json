@@ -452,6 +452,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Extensions.RecipeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Extensions.RecipeExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Extensions.yml",
       "output": {
         ".html": {
@@ -1754,11 +1764,21 @@
       "type": "Toc",
       "source_relative_path": "Documentation/api/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "api/toc.json"
-        },
         ".html": {
           "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/guides/assetbundles.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/assetbundles.html"
         }
       },
       "version": ""
@@ -1807,11 +1827,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/guides/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "guides/toc.json"
-        },
         ".html": {
           "relative_path": "guides/toc.html"
+        },
+        ".json": {
+          "relative_path": "guides/toc.json"
         }
       },
       "version": ""
@@ -1822,6 +1842,56 @@
       "output": {
         "resource": {
           "relative_path": "Documentation/images/banner.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/assetbundles-assets-folder.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/assetbundles-assets-folder.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/assetbundles-assigning.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/assetbundles-assigning.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/assetbundles-browser.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/assetbundles-browser.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/assetbundles-project-setup.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/assetbundles-project-setup.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/assetbundles-references.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/assetbundles-references.png"
         }
       },
       "version": ""
@@ -2030,11 +2100,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "toc.json"
-        },
         ".html": {
           "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""
@@ -2193,11 +2263,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/tutorials/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "tutorials/toc.json"
-        },
         ".html": {
           "relative_path": "tutorials/toc.html"
+        },
+        ".json": {
+          "relative_path": "tutorials/toc.json"
         }
       },
       "version": ""

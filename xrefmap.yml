@@ -2377,6 +2377,19 @@ references:
   fullName.vb: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.New
   nameWithType: AtmosphereVolumeTemplate.AtmosphereVolumeTemplate
   nameWithType.vb: AtmosphereVolumeTemplate.New
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle
+  name: CanEnterWhileInsideVehicle
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_CanEnterWhileInsideVehicle
+  commentId: P:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle
+  nameWithType: AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle
+- uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle*
+  name: CanEnterWhileInsideVehicle
+  href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_CanEnterWhileInsideVehicle_
+  commentId: Overload:Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle
+  isSpec: "True"
+  fullName: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle
+  nameWithType: AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle
 - uid: Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CellLevel
   name: CellLevel
   href: api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html#Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_CellLevel
@@ -3188,6 +3201,15 @@ references:
   fullName.vb: Nautilus.Assets.SpawnLocation.New(UnityEngine.Vector3, UnityEngine.Vector3)
   nameWithType: SpawnLocation.SpawnLocation(Vector3, Vector3)
   nameWithType.vb: SpawnLocation.New(Vector3, Vector3)
+- uid: Nautilus.Assets.SpawnLocation.#ctor(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)
+  name: SpawnLocation(Vector3, Vector3, Vector3)
+  href: api/Nautilus.Assets.SpawnLocation.html#Nautilus_Assets_SpawnLocation__ctor_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_
+  commentId: M:Nautilus.Assets.SpawnLocation.#ctor(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)
+  name.vb: New(Vector3, Vector3, Vector3)
+  fullName: Nautilus.Assets.SpawnLocation.SpawnLocation(UnityEngine.Vector3, UnityEngine.Vector3, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Assets.SpawnLocation.New(UnityEngine.Vector3, UnityEngine.Vector3, UnityEngine.Vector3)
+  nameWithType: SpawnLocation.SpawnLocation(Vector3, Vector3, Vector3)
+  nameWithType.vb: SpawnLocation.New(Vector3, Vector3, Vector3)
 - uid: Nautilus.Assets.SpawnLocation.#ctor*
   name: SpawnLocation
   href: api/Nautilus.Assets.SpawnLocation.html#Nautilus_Assets_SpawnLocation__ctor_
@@ -3224,6 +3246,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.SpawnLocation.Position
   nameWithType: SpawnLocation.Position
+- uid: Nautilus.Assets.SpawnLocation.Scale
+  name: Scale
+  href: api/Nautilus.Assets.SpawnLocation.html#Nautilus_Assets_SpawnLocation_Scale
+  commentId: P:Nautilus.Assets.SpawnLocation.Scale
+  fullName: Nautilus.Assets.SpawnLocation.Scale
+  nameWithType: SpawnLocation.Scale
+- uid: Nautilus.Assets.SpawnLocation.Scale*
+  name: Scale
+  href: api/Nautilus.Assets.SpawnLocation.html#Nautilus_Assets_SpawnLocation_Scale_
+  commentId: Overload:Nautilus.Assets.SpawnLocation.Scale
+  isSpec: "True"
+  fullName: Nautilus.Assets.SpawnLocation.Scale
+  nameWithType: SpawnLocation.Scale
 - uid: Nautilus.Commands
   name: Nautilus.Commands
   href: api/Nautilus.Commands.html
@@ -3887,6 +3922,51 @@ references:
   isSpec: "True"
   fullName: Nautilus.Extensions.GeneralExtensions.TrimClone
   nameWithType: GeneralExtensions.TrimClone
+- uid: Nautilus.Extensions.RecipeExtensions
+  name: RecipeExtensions
+  href: api/Nautilus.Extensions.RecipeExtensions.html
+  commentId: T:Nautilus.Extensions.RecipeExtensions
+  fullName: Nautilus.Extensions.RecipeExtensions
+  nameWithType: RecipeExtensions
+- uid: Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData(ITechData)
+  name: ConvertToRecipeData(ITechData)
+  href: api/Nautilus.Extensions.RecipeExtensions.html#Nautilus_Extensions_RecipeExtensions_ConvertToRecipeData_ITechData_
+  commentId: M:Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData(ITechData)
+  fullName: Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData(ITechData)
+  nameWithType: RecipeExtensions.ConvertToRecipeData(ITechData)
+- uid: Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData*
+  name: ConvertToRecipeData
+  href: api/Nautilus.Extensions.RecipeExtensions.html#Nautilus_Extensions_RecipeExtensions_ConvertToRecipeData_
+  commentId: Overload:Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData
+  isSpec: "True"
+  fullName: Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData
+  nameWithType: RecipeExtensions.ConvertToRecipeData
+- uid: Nautilus.Extensions.RecipeExtensions.ConvertToTechData(ITechData,TechType)
+  name: ConvertToTechData(ITechData, TechType)
+  href: api/Nautilus.Extensions.RecipeExtensions.html#Nautilus_Extensions_RecipeExtensions_ConvertToTechData_ITechData_TechType_
+  commentId: M:Nautilus.Extensions.RecipeExtensions.ConvertToTechData(ITechData,TechType)
+  fullName: Nautilus.Extensions.RecipeExtensions.ConvertToTechData(ITechData, TechType)
+  nameWithType: RecipeExtensions.ConvertToTechData(ITechData, TechType)
+- uid: Nautilus.Extensions.RecipeExtensions.ConvertToTechData*
+  name: ConvertToTechData
+  href: api/Nautilus.Extensions.RecipeExtensions.html#Nautilus_Extensions_RecipeExtensions_ConvertToTechData_
+  commentId: Overload:Nautilus.Extensions.RecipeExtensions.ConvertToTechData
+  isSpec: "True"
+  fullName: Nautilus.Extensions.RecipeExtensions.ConvertToTechData
+  nameWithType: RecipeExtensions.ConvertToTechData
+- uid: Nautilus.Extensions.RecipeExtensions.SameAs(ITechData,ITechData)
+  name: SameAs(ITechData, ITechData)
+  href: api/Nautilus.Extensions.RecipeExtensions.html#Nautilus_Extensions_RecipeExtensions_SameAs_ITechData_ITechData_
+  commentId: M:Nautilus.Extensions.RecipeExtensions.SameAs(ITechData,ITechData)
+  fullName: Nautilus.Extensions.RecipeExtensions.SameAs(ITechData, ITechData)
+  nameWithType: RecipeExtensions.SameAs(ITechData, ITechData)
+- uid: Nautilus.Extensions.RecipeExtensions.SameAs*
+  name: SameAs
+  href: api/Nautilus.Extensions.RecipeExtensions.html#Nautilus_Extensions_RecipeExtensions_SameAs_
+  commentId: Overload:Nautilus.Extensions.RecipeExtensions.SameAs
+  isSpec: "True"
+  fullName: Nautilus.Extensions.RecipeExtensions.SameAs
+  nameWithType: RecipeExtensions.SameAs
 - uid: Nautilus.FMod
   name: Nautilus.FMod
   href: api/Nautilus.FMod.html
@@ -4092,6 +4172,38 @@ references:
   commentId: T:Nautilus.Handlers.ConsoleCommandsHandler
   fullName: Nautilus.Handlers.ConsoleCommandsHandler
   nameWithType: ConsoleCommandsHandler
+- uid: Nautilus.Handlers.ConsoleCommandsHandler.AddBiomeTeleportPosition(System.String,UnityEngine.Vector3)
+  name: AddBiomeTeleportPosition(string, Vector3)
+  href: api/Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_AddBiomeTeleportPosition_System_String_UnityEngine_Vector3_
+  commentId: M:Nautilus.Handlers.ConsoleCommandsHandler.AddBiomeTeleportPosition(System.String,UnityEngine.Vector3)
+  name.vb: AddBiomeTeleportPosition(String, Vector3)
+  fullName: Nautilus.Handlers.ConsoleCommandsHandler.AddBiomeTeleportPosition(string, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Handlers.ConsoleCommandsHandler.AddBiomeTeleportPosition(String, UnityEngine.Vector3)
+  nameWithType: ConsoleCommandsHandler.AddBiomeTeleportPosition(string, Vector3)
+  nameWithType.vb: ConsoleCommandsHandler.AddBiomeTeleportPosition(String, Vector3)
+- uid: Nautilus.Handlers.ConsoleCommandsHandler.AddBiomeTeleportPosition*
+  name: AddBiomeTeleportPosition
+  href: api/Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_AddBiomeTeleportPosition_
+  commentId: Overload:Nautilus.Handlers.ConsoleCommandsHandler.AddBiomeTeleportPosition
+  isSpec: "True"
+  fullName: Nautilus.Handlers.ConsoleCommandsHandler.AddBiomeTeleportPosition
+  nameWithType: ConsoleCommandsHandler.AddBiomeTeleportPosition
+- uid: Nautilus.Handlers.ConsoleCommandsHandler.AddGotoTeleportPosition(System.String,UnityEngine.Vector3)
+  name: AddGotoTeleportPosition(string, Vector3)
+  href: api/Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_AddGotoTeleportPosition_System_String_UnityEngine_Vector3_
+  commentId: M:Nautilus.Handlers.ConsoleCommandsHandler.AddGotoTeleportPosition(System.String,UnityEngine.Vector3)
+  name.vb: AddGotoTeleportPosition(String, Vector3)
+  fullName: Nautilus.Handlers.ConsoleCommandsHandler.AddGotoTeleportPosition(string, UnityEngine.Vector3)
+  fullName.vb: Nautilus.Handlers.ConsoleCommandsHandler.AddGotoTeleportPosition(String, UnityEngine.Vector3)
+  nameWithType: ConsoleCommandsHandler.AddGotoTeleportPosition(string, Vector3)
+  nameWithType.vb: ConsoleCommandsHandler.AddGotoTeleportPosition(String, Vector3)
+- uid: Nautilus.Handlers.ConsoleCommandsHandler.AddGotoTeleportPosition*
+  name: AddGotoTeleportPosition
+  href: api/Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_AddGotoTeleportPosition_
+  commentId: Overload:Nautilus.Handlers.ConsoleCommandsHandler.AddGotoTeleportPosition
+  isSpec: "True"
+  fullName: Nautilus.Handlers.ConsoleCommandsHandler.AddGotoTeleportPosition
+  nameWithType: ConsoleCommandsHandler.AddGotoTeleportPosition
 - uid: Nautilus.Handlers.ConsoleCommandsHandler.RegisterConsoleCommand(System.String,System.Type,System.String,System.Type[])
   name: RegisterConsoleCommand(string, Type, string, Type[])
   href: api/Nautilus.Handlers.ConsoleCommandsHandler.html#Nautilus_Handlers_ConsoleCommandsHandler_RegisterConsoleCommand_System_String_System_Type_System_String_System_Type___

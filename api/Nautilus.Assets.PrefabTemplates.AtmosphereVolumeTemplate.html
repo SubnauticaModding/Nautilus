@@ -2,12 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class AtmosphereVolumeTemplate
- </title>
+      <title>Class AtmosphereVolumeTemplate </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class AtmosphereVolumeTemplate
- ">
+      <meta name="title" content="Class AtmosphereVolumeTemplate ">
       
+      <meta name="description" content="A template for Atmosphere Volumes, which are basic invisible triggers for mini-biomes. Atmosphere volumes can affect fog, music, ambient sounds and even the player&#39;s swim speed.">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -90,8 +89,7 @@
 
 
   <h1 id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate" class="text-break">
-    Class AtmosphereVolumeTemplate
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L10"><i class="bi bi-code-slash"></i></a>
+Class AtmosphereVolumeTemplate  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -99,7 +97,7 @@
   <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
 
-  <div class="markdown summary">A template for Atmosphere Volumes, which are basic invisible triggers for mini-biomes.</div>
+  <div class="markdown summary">A template for Atmosphere Volumes, which are basic invisible triggers for mini-biomes. Atmosphere volumes can affect fog, music, ambient sounds and even the player's swim speed.</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -120,7 +118,7 @@
 
 
 
-  <dl class="typelist derived">
+  <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
     <div>
@@ -196,7 +194,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate__ctor_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_VolumeShape_System_String_System_Int32_LargeWorldEntity_CellLevel_" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.#ctor(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape,System.String,System.Int32,LargeWorldEntity.CellLevel)">
   AtmosphereVolumeTemplate(PrefabInfo, VolumeShape, string, int, CellLevel)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L50"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L55"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new prefab template for an asset bundle.</div>
@@ -235,11 +233,42 @@
 </h2>
 
 
+  <a id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_CanEnterWhileInsideVehicle_" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle*"></a>
+
+  <h3 id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_CanEnterWhileInsideVehicle" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CanEnterWhileInsideVehicle">
+  CanEnterWhileInsideVehicle
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Whether this atmosphere volume can be entered while inside a vehicle or not. For unknown reasons, this is NOT true for base game volumes. However, in this template, it is true by default.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool CanEnterWhileInsideVehicle { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_CellLevel_" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CellLevel*"></a>
 
   <h3 id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_CellLevel" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.CellLevel">
   CellLevel
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Determines the loading distance of this atmosphere volume prefab. Default value is <span class="xref">LargeWorldEntity.CellLevel.Far</span>. Although vanilla prefabs always use Batch for this, this does not work with our custom systems.</div>
@@ -270,7 +299,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_ModifyPrefab" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefab">
   ModifyPrefab
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more.</div>
@@ -301,7 +330,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_ModifyPrefabAsync" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.ModifyPrefabAsync">
   ModifyPrefabAsync
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Callback that will get called after the prefab is retrieved. Use this to modify or process your prefab further more asynchronously.</div>
@@ -332,7 +361,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_OverrideBiome" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.OverrideBiome">
   OverrideBiome
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The biome type used by this atmosphere volume.</div>
@@ -363,7 +392,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_Priority" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Priority">
   Priority
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L25"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The priority of this atmosphere volume. Atmosphere volumes with higher priorities override those with lower priorities. The default priority is 10.</div>
@@ -394,7 +423,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_Shape" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.Shape">
   Shape
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The shape of this atmosphere volume.</div>
@@ -429,7 +458,7 @@
 
   <h3 id="Nautilus_Assets_PrefabTemplates_AtmosphereVolumeTemplate_GetPrefabAsync_TaskResult_UnityEngine_GameObject__" data-uid="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.GetPrefabAsync(TaskResult{UnityEngine.GameObject})">
   GetPrefabAsync(TaskResult&lt;GameObject&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L66"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates an atmosphere volume prefab.</div>
@@ -465,7 +494,7 @@
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/PrefabTemplates/AtmosphereVolumeTemplate.cs/#L11" class="edit-link">Edit this page</a>
         </div>
 
 

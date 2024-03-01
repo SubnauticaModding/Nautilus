@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Asset Bundles Guide </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Asset Bundles Guide ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/guides/assetbundles.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="asset-bundles-guide">Asset Bundles Guide</h1>
+
+<p>This guide will show you how to convert and package custom files into the Asset Bundle format, which can easily be loaded by your mods.<br>
+You will learn how to take a file exported from a 3D modeling program (such as Blender) and turn it into a GameObject which can then be loaded by your mod.</p>
+<p>Basic modding knowledge is required for this tutorial.
+Here are some things you will need to know:</p>
+<ul>
+<li>Basic modding and C# knowledge</li>
+<li>Basic knowledge of how to navigate the Unity game engine interface</li>
+</ul>
+<p>The first thing you will need to do (Assuming you have a model already) is download the Unity Hub.<br>
+This is where you will get the Unity version you need to use to export your asset bundle.</p>
+<p>The version Subnautica uses is 2019.4.36.<br>
+This is the same on Below Zero.</p>
+<p>Here are the download links you will need:</p>
+<ul>
+<li>Unity hub: <a href="https://unity.com/download">https://unity.com/download</a></li>
+<li>Unity version archive: <a href="https://unity.com/releases/editor/archive">https://unity.com/releases/editor/archive</a></li>
+</ul>
+<h2 id="creating-the-unity-project">Creating the Unity Project</h2>
+<div class="NOTE">
+<h5>Note</h5>
+<p>It's not necessary to make a new Unity project for each mod (individual projects are actually quite large), but for this tutorial we will be making a fresh project.</p>
+</div>
+<p>Once you've installed both, open Unity hub and click &quot;New Project&quot; from the top right.<br>
+Next, follow these steps:</p>
+<ol>
+<li>Verify your Unity version is correct.</li>
+<li>Select 3D core from the template list.</li>
+<li>Configure your project name and location.</li>
+<li>Click on &quot;Create Project.&quot;
+<img src="../Documentation/images/guides/assetbundles-project-setup.png" alt="assetbundles-project-setup"></li>
+</ol>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you get the error &quot;<font color="red">Failed to resolve project template</font>&quot;, follow these steps:</p>
+<ol>
+<li>Locate where your editor is.
+You can do that by opening Unity Hub, going to Installs, and then right clicking on the version in question and clicking &quot;Show in Explorer.&quot;</li>
+<li>Go to <code>Editor\Data\Resources\PackageManager\ProjectTemplates</code>. You will find two files, <code>manifest.json</code> and <code>UnityLicense.json</code>. Delete them both.</li>
+<li>Kill Unity Hub in your task manager and open it again.</li>
+</ol>
+<p>You should now be able to create your project!</p>
+</div>
+<p>The Unity editor will now open. This may take a while.</p>
+<h2 id="installing-the-asset-bundle-browser">Installing the Asset Bundle Browser</h2>
+<p>Once the editor has opened, click on <code>Window</code> at the top of the editor, and then click <code>Package Manager</code>.<br>
+Click on the dropdown at the top left and select <code>Unity Registry</code> if not on it already.<br>
+Search for &quot;Asset Bundle Browser&quot; and install it.</p>
+<h2 id="creating-the-prefab">Creating the Prefab</h2>
+<p>Once the editor is open, drag your model from your file manager into the Scene window.
+You can either click on your model in the scene window or in the hierarchy on the left to select it.</p>
+<p>If you need to, you may place your model under an empty GameObject (in the editor, GameObject -&gt; Create Empty) to apply any necessary model scaling and to separate it from any other children.   Constructable prefabs (aka base modules) specifically REQUIRE the model object to be separate from the entire prefab as an individual child object.</p>
+<p>Next, drag your model from the hierarchy on the left into the <code>Project</code> section at the bottom.<br>
+This will create what is called a <code>Prefab</code>. It can be instantiated (created/spawned) multiple times, but they are all copies of the original.</p>
+<h2 id="editing-the-prefab-and-adding-components">Editing the Prefab and Adding Components</h2>
+<p>To edit the prefab, double click on it in the <code>Project</code> window.<br>
+You can add components to the prefab by clicking &quot;Add Component&quot; in the inspector on the right.<br>
+One example of a component is a <code>Rigidbody</code>, which can apply physics to your Prefab.<br>
+Keep in mind, however, that every (non-kinematic) Rigidbody requires a WorldForces component to work properly, which must be added either through code or with a tool such as Thunderkit.<br>
+Any components you add will be included in the AssetBundle.</p>
+<div class="CAUTION">
+<h5>Caution</h5>
+<p>You <font color="red"><strong>should not</strong></font>, however, add scripts to your prefab that you made in the editor!<br>
+The AssetBundle will not link them to the scripts in your modding project and you will get errors.</p>
+</div>
+<h2 id="assigning-the-asset-bundle">Assigning the Asset Bundle</h2>
+<p>Next, follow these steps to assign an asset bundle to your prefab.</p>
+<ol>
+<li>After all your prefab configuration is done, select it in the <code>Project</code> window.</li>
+<li>Click on &quot;Asset Bundle&quot; in the bottom right of the Inspector.<br>
+Here you can either assign your prefab to an existing AssetBundle or create a new one.</li>
+</ol>
+<p><img src="../Documentation/images/guides/assetbundles-assigning.png" alt="assetbundles-assigning"></p>
+<h2 id="exporting-the-asset-bundle">Exporting the Asset Bundle</h2>
+<p>Once you've assigned your AssetBundle, open the Asset Bundle Browser (Window → AssetBundleBrowser at the top of the editor).<br>
+Here you can see all the assets that will be put into your AssetBundle.<br>
+<img src="../Documentation/images/guides/assetbundles-browser.png" alt="assetbundles-browser"></p>
+<p>Click on the build tab, and change the <code>Build Target</code> to &quot;Standalone Windows&quot; if it isn't already.<br>
+You can also configure the <code>Output Path</code> of the build.<br>
+After all that is set, click <code>Build</code>.</p>
+<p>Once your AssetBundle is built, move the built file to the location of your mod in the Plugins folder.<br>
+It's generally prefered to put them inside a folder named &quot;Assets&quot;, but that isn't necessary.<br>
+<img src="../Documentation/images/guides/assetbundles-assets-folder.png" alt="assetbundles-assets-folder"></p>
+<p>Now the hard part is done! All you need to do is load it within your mod's code.</p>
+<h2 id="referencing-the-assetbundlemodule">Referencing the AssetBundleModule</h2>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>If you are using the Nautilus template or have installed the Nautilus NuGet package, skip this step.
+The template and package include all the <code>UnityEngine</code> references already, so referencing them twice may cause errors.</p>
+</div>
+<p>The first thing you will need to do is add the <code>UnityEngine.AssetBundleModule.dll</code> as a reference in your IDE (Assuming you don't already have it referenced).</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_vs" role="tab" aria-controls="tabpanel_1_vs" data-tab="vs" tabindex="0" aria-selected="true">Visual Studio 2022</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_rider" role="tab" aria-controls="tabpanel_1_rider" data-tab="rider" tabindex="-1">JetBrains Rider</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_cli" role="tab" aria-controls="tabpanel_1_cli" data-tab="cli" tabindex="-1">.NET CLI</a>
+</li>
+</ul>
+<section id="tabpanel_1_vs" role="tabpanel" data-tab="vs">
+
+<ol>
+<li>Open your project tab and right click on References.</li>
+<li>Select <code>Add Reference</code>.</li>
+<li>Click Browse, and navigate to <code>[Game Location]/Subnautica_Data/Managed</code>, and add <code>UnityEngine.AssetBundleModule.dll</code> as a reference.</li>
+<li>Click <code>Ok</code> to close the window.<br>
+<img src="../Documentation/images/guides/assetbundles-references.png" alt="assetbundles-references"></li>
+</ol>
+</section>
+<section id="tabpanel_1_rider" role="tabpanel" data-tab="rider" aria-hidden="true" hidden="hidden">
+
+<ol>
+<li>Right click on your project, and navigate to <code>Add → Add Reference</code>.</li>
+<li>Click <code>Add From</code>.</li>
+<li>Navigate to <code>[Game Location]/Subnautica_Data/Managed</code>, and add <code>UnityEngine.AssetBundleModule.dll</code> as a reference.</li>
+<li>Click <code>Ok</code> to close the window.</li>
+</ol>
+</section>
+<section id="tabpanel_1_cli" role="tabpanel" data-tab="cli" aria-hidden="true" hidden="hidden">
+
+<ol>
+<li>Open a terminal.</li>
+<li>Enter <code>dotnet add [Path to your project file (.csproj)] reference [Subnautica Location]/Subnautica_Data/Managed/UnityEngine.AssetBundleModule.dll</code>.</li>
+</ol>
+</section>
+</div>
+<h2 id="using-the-asset-bundle">Using the Asset Bundle</h2>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The way you load assets from the Asset Bundle will depend on if you're using Nautilus or not.</p>
+</div>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_noNautilus" role="tab" aria-controls="tabpanel_2_noNautilus" data-tab="noNautilus" tabindex="0" aria-selected="true">Not using Nautilus</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_2_nautilus" role="tab" aria-controls="tabpanel_2_nautilus" data-tab="nautilus" tabindex="-1">Using Nautilus</a>
+</li>
+</ul>
+<section id="tabpanel_2_noNautilus" role="tabpanel" data-tab="noNautilus">
+
+<p>Here's some example code of how you can load in your prefab:</p>
+<pre><code class="lang-csharp">using BepInEx;
+using System.IO;
+using System.Reflection;
+using UnityEngine;
+
+namespace Examples
+{
+    internal class AssetBundles : BaseUnityPlugin
+    {
+        // Usually this is done in your Plugin script but technically you can do it wherever
+        public static AssetBundle MyAssetBundle { get; private set; }
+
+        // This gets the path to the &quot;Assets&quot; folder inside my plugin folder
+        // If you don't have an assets folder you can replace &quot;AssetsFolderPath&quot; with Assembly.GetExecutingAssembly().Location
+        // That just gets the path to the .dll of the mod
+        public static string AssetsFolderPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), &quot;Assets&quot;);
+
+        private void Awake()
+        {
+            // Keep in mind that the assetbundle can only be open in one place at a time, so keep a reference
+            MyAssetBundle = AssetBundle.LoadFromFile(Path.Combine(AssetsFolderPath, &quot;myAssetBundle&quot;));
+
+            // This name needs to be the exact same name as the prefab you put in the bundle
+            GameObject mirrorVariant1 = AssetBundle.LoadAsset&lt;GameObject&gt;(&quot;myGameObject&quot;);
+        }
+    }
+}
+</code></pre>
+</section>
+<section id="tabpanel_2_nautilus" role="tabpanel" data-tab="nautilus" aria-hidden="true" hidden="hidden">
+
+<p>Here is one example of how to load in the asset bundle using the Nautilus <code>AssetBundleLoadingUtils</code> class:</p>
+<pre><code class="lang-csharp">using BepInEx;
+using Nautilus.Utility;
+using System.IO;
+using System.Reflection;
+using UnityEngine;
+
+namespace Examples
+{
+    internal class AssetBundles : BaseUnityPlugin
+    {
+        // Usually this is done in your Plugin script but technically you can do it wherever
+        public static AssetBundle MyAssetBundle { get; private set; }
+
+        private void Awake()
+        {
+            // Keep in mind that the assetbundle can only be open in one place at a time, so keep a reference
+            // This method assumes you have a folder named &quot;Assets&quot; in your mod's plugin folder
+            // The second parameter needs to be the name of the asset bundle file (Usually they don't have file extensions)
+            MyAssetBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly.GetExecutingAssembly(), &quot;myAssetBundle&quot;)
+
+            // This name needs to be the exact same name as the prefab you put in the bundle
+            GameObject mirrorVariant1 = MyAssetBundle.LoadAsset&lt;GameObject&gt;(&quot;myGameObject&quot;);
+        }
+    }
+}
+</code></pre>
+</section>
+</div>
+<h2 id="using-the-imported-asset">Using the Imported Asset</h2>
+<p>And just like that you have your prefab in your code!<br>
+To use a GameObject from your Asset Bundle in a Nautilus prefab, simply write</p>
+<pre><code class="lang-csharp">myCustomPrefab.SetGameObject(myAssetBundleGO);
+</code></pre>
+<p>Instead of using a prefab template.<br>
+<br>
+For more complicated prefabs (such as buildables), you can create your own method that loads the prefab from the asset bundle and applies extensive modifications to it.<br>
+You can <em>also</em> apply changes to the prefab directly.</p>
+<p>E.g., <code>myAssetBundleGO.AddComponent&lt;WorldForces&gt;();</code></p>
+<p>Here is one example of how to use an Asset Bundle GameObject in a custom prefab:</p>
+<pre><code class="lang-csharp">using Nautilus.Assets;
+using Nautilus.Assets.Gadgets;
+using Nautilus.Crafting;
+using Nautilus.Utility;
+using UnityEngine;
+using Ingredient = CraftData.Ingredient;
+
+namespace ExamplePrefab
+{
+    internal static class MyCoolPrefab
+    {
+        public static PrefabInfo MyPrefabInfo { get; private set; }
+
+        public static void Patch()
+        {
+            PrefabInfo prefabInfo = PrefabInfo.WithTechType(&quot;MyCoolPrefab&quot;, &quot;My Cool Prefab&quot;, &quot;Pretty cool, right!&quot;)
+                .WithIcon(SpriteManager.Get(TechType.Titanium));
+            // Just using the Titanium sprite as a placeholder
+
+            // Cache the tech type for use in other places
+            MyPrefabInfo = prefabInfo;
+
+            var prefab = new CustomPrefab(prefabInfo);
+
+            // Create the recipe
+            RecipeData recipe = new RecipeData
+            {
+                craftAmount = 1,
+                Ingredients =
+                {
+                    new Ingredient(TechType.Titanium, 2),
+                    new Ingredient(TechType.CopperWire, 2),
+                },
+            };
+
+            // Set the prefab GamrObject to the result of the GetAssetBundlePrefab method
+            prefab.SetGameObject(GetAssetBundlePrefab());
+
+            // Using the Seaglide as a placeholder unlock
+            prefab.SetUnlock(TechType.Seaglide);
+            
+            // Set the recipe
+            prefab.SetRecipe(recipe)
+                .WithCraftingTime(6f);
+
+            // Add the prefab to the Miscellaneous tab of the blueprints in the PDA
+            prefab.SetPdaGroupCategory(TechGroup.Miscellaneous, TechCategory.Misc);
+
+            // Register the prefab to the Nautilus prefab database
+            prefab.Register();
+        }
+
+        private static GameObject GetAssetBundlePrefab()
+        {
+            GameObject myCoolPrefab = assetBundle.LoadAsset&lt;GameObject&gt;(&quot;myCoolPrefab&quot;);
+
+            // The classID is the same as the one we put into the PrefabInfo.WithTechType up above
+            // The LargeWorldEntity.CellLevel determines how far away the object will be loaded from the player
+            PrefabUtils.AddBasicComponents(myCoolPrefab, MyPrefabInfo.ClassID, MyPrefabInfo.TechType, LargeWorldEntity.CellLevel.Medium);
+
+            // Makes the GameObject have the correct shaders
+            // You can use the optional inputs here to change the look of your object
+            MaterialUtils.ApplySNShaders(myCoolPrefab);
+
+            // Allows the object to be picked up
+            myCoolPrefab.AddComponent&lt;Pickupable&gt;();
+
+            // Return the GameObject with all the components added
+            return myCoolPrefab;
+        }
+    }
+}
+</code></pre>
+<p>There are endless possibilities with Asset Bundles, so don't hesitate to experiment!<br>
+If you have more questions about Asset Bundles, feel free to ask in the modding channels of the modding Discord.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/guides/assetbundles.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

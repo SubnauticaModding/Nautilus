@@ -2,12 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class SpawnLocation
- </title>
+      <title>Class SpawnLocation </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class SpawnLocation
- ">
+      <meta name="title" content="Class SpawnLocation ">
       
+      <meta name="description" content="Defines the spawn location with world position and optional euler angles. Used in the Coordinated Spawns system.">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -90,8 +89,7 @@
 
 
   <h1 id="Nautilus_Assets_SpawnLocation" data-uid="Nautilus.Assets.SpawnLocation" class="text-break">
-    Class SpawnLocation
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/SpawnLocation.cs/#L10"><i class="bi bi-code-slash"></i></a>
+Class SpawnLocation  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/SpawnLocation.cs/#L10"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -125,7 +123,7 @@
   </dl>
 
 
-  <dl class="typelist derived">
+  <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
     <div>
@@ -224,6 +222,41 @@
 
 
 
+  <a id="Nautilus_Assets_SpawnLocation__ctor_" data-uid="Nautilus.Assets.SpawnLocation.#ctor*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation__ctor_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Assets.SpawnLocation.#ctor(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)">
+  SpawnLocation(Vector3, Vector3, Vector3)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/SpawnLocation.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Defines the spawn location with world position and optional euler angles. Used in the Coordinated Spawns system.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SpawnLocation(Vector3 Position, Vector3 EulerAngles, Vector3 Scale)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Position</code> <span class="xref">Vector3</span></dt>
+    <dd>The world position.</dd>
+    <dt><code>EulerAngles</code> <span class="xref">Vector3</span></dt>
+    <dd>Euler angles for the rotation the spawned object will appear with.</dd>
+    <dt><code>Scale</code> <span class="xref">Vector3</span></dt>
+    <dd>The scale that the object is spawned at. If default (0, 0, 0) will be resolved to (1, 1, 1).</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
   <h2 class="section" id="properties">Properties
 </h2>
 
@@ -271,6 +304,37 @@
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public Vector3 Position { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation_Scale_" data-uid="Nautilus.Assets.SpawnLocation.Scale*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_Scale" data-uid="Nautilus.Assets.SpawnLocation.Scale">
+  Scale
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/SpawnLocation.cs/#L15"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">The scale that the object is spawned at. If default (0, 0, 0) will be resolved to (1, 1, 1).</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Scale { get; init; }</code></pre>
   </div>
 
 
