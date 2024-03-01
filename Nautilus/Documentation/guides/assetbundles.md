@@ -140,21 +140,21 @@ namespace Examples
 {
     internal class AssetBundles : BaseUnityPlugin
     {
-        //Usually this is done in your Plugin script but technically you can do it wherever
-        public static AssetBundle assetBundle { get; private set; }
+        // Usually this is done in your Plugin script but technically you can do it wherever
+        public static AssetBundle MyAssetBundle { get; private set; }
 
-        //This gets the path to the "Assets" folder inside my plugin folder
-        //If you don't have an assets folder you can replace "AssetsFolderPath" with Assembly.GetExecutingAssembly().Location
-        //That just gets the path to the .dll of the mod
+        // This gets the path to the "Assets" folder inside my plugin folder
+        // If you don't have an assets folder you can replace "AssetsFolderPath" with Assembly.GetExecutingAssembly().Location
+        // That just gets the path to the .dll of the mod
         public static string AssetsFolderPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Assets");
 
         private void Awake()
         {
-            //Keep in mind that the assetbundle can only be open in one place at a time, so keep a reference
-            assetBundle = AssetBundle.LoadFromFile(Path.Combine(AssetsFolderPath, "myAssetBundle"));
+            // Keep in mind that the assetbundle can only be open in one place at a time, so keep a reference
+            MyAssetBundle = AssetBundle.LoadFromFile(Path.Combine(AssetsFolderPath, "myAssetBundle"));
 
-            //This name needs to be the exact same name as the prefab you put in the bundle
-            GameObject mirrorVariant1 = assetBundle.LoadAsset<GameObject>("myGameObject");
+            // This name needs to be the exact same name as the prefab you put in the bundle
+            GameObject mirrorVariant1 = AssetBundle.LoadAsset<GameObject>("myGameObject");
         }
     }
 }
@@ -174,18 +174,18 @@ namespace Examples
 {
     internal class AssetBundles : BaseUnityPlugin
     {
-        //Usually this is done in your Plugin script but technically you can do it wherever
-        public static AssetBundle assetBundle { get; private set; }
+        // Usually this is done in your Plugin script but technically you can do it wherever
+        public static AssetBundle MyAssetBundle { get; private set; }
 
         private void Awake()
         {
-            //Keep in mind that the assetbundle can only be open in one place at a time, so keep a reference
-            //This method assumes you have a folder named "Assets" in your mod's plugin folder
-            //The second parameter needs to be the name of the asset bundle file (Usually they don't have file extensions)
-            assetBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly.GetExecutingAssembly(), "myAssetBundle")
+            // Keep in mind that the assetbundle can only be open in one place at a time, so keep a reference
+            // This method assumes you have a folder named "Assets" in your mod's plugin folder
+            // The second parameter needs to be the name of the asset bundle file (Usually they don't have file extensions)
+            MyAssetBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly.GetExecutingAssembly(), "myAssetBundle")
 
-            //This name needs to be the exact same name as the prefab you put in the bundle
-            GameObject mirrorVariant1 = assetBundle.LoadAsset<GameObject>("myGameObject");
+            // This name needs to be the exact same name as the prefab you put in the bundle
+            GameObject mirrorVariant1 = MyAssetBundle.LoadAsset<GameObject>("myGameObject");
         }
     }
 }
@@ -219,20 +219,20 @@ namespace ExamplePrefab
 {
     internal static class MyCoolPrefab
     {
-        public static TechType techType { get; private set; }
+        public static PrefabInfo MyPrefabInfo { get; private set; }
 
         public static void Patch()
         {
             PrefabInfo prefabInfo = PrefabInfo.WithTechType("myCoolPrefab", "My Cool Prefab", "Pretty cool, right!")
                 .WithIcon(SpriteManager.Get(TechType.Titanium));
-            //Just using the Titanium sprite as a placeholder
+            // Just using the Titanium sprite as a placeholder
 
-            //Cache the tech type for use in other places
-            techType = prefabInfo.TechType;
+            // Cache the tech type for use in other places
+            MyPrefabInfo = prefabInfo;
 
             var prefab = new CustomPrefab(prefabInfo);
 
-            //Create the recipe
+            // Create the recipe
             RecipeData recipe = new RecipeData
             {
                 craftAmount = 1,
@@ -243,19 +243,20 @@ namespace ExamplePrefab
                 },
             };
 
-            //Set the prefab GamrObject to the result of the GetAssetBundlePrefab method
+            // Set the prefab GamrObject to the result of the GetAssetBundlePrefab method
             prefab.SetGameObject(GetAssetBundlePrefab());
 
-            //Using the Seaglide as a placeholder unlock
+            // Using the Seaglide as a placeholder unlock
             prefab.SetUnlock(TechType.Seaglide);
             
-            //Set the recipe
+            // Set the recipe
             prefab.SetRecipe(recipe)
                 .WithCraftingTime(6f);
 
-            //Add the prefab to the Miscellaneous tab of the blueprints in the PDA
+            // Add the prefab to the Miscellaneous tab of the blueprints in the PDA
             prefab.SetPdaGroupCategory(TechGroup.Miscellaneous, TechCategory.Misc);
 
+            // Register the prefab to the Nautilus prefab database
             prefab.Register();
         }
 
@@ -263,15 +264,15 @@ namespace ExamplePrefab
         {
             GameObject myCoolPrefab = assetBundle.LoadAsset<GameObject>("myCoolPrefab");
 
-            //The classID is the same as the one we put into the PrefabInfo.WithTechType up above
-            //The LargeWorldEntity.CellLevel determines how far away the object will be loaded from the player
-            PrefabUtils.AddBasicComponents(myCoolPrefab, "myCoolPrefab", techType, LargeWorldEntity.CellLevel.Medium);
+            // The classID is the same as the one we put into the PrefabInfo.WithTechType up above
+            // The LargeWorldEntity.CellLevel determines how far away the object will be loaded from the player
+            PrefabUtils.AddBasicComponents(myCoolPrefab, "myCoolPrefab", MyPrefabInfo.TechType, LargeWorldEntity.CellLevel.Medium);
 
-            //Makes the GameObject have the correct shaders
-            //You can use the optional inputs here to change the look of your object
+            // Makes the GameObject have the correct shaders
+            // You can use the optional inputs here to change the look of your object
             MaterialUtils.ApplySNShaders(myCoolPrefab);
 
-            //Return the GameObject with all the components added
+            // Return the GameObject with all the components added
             return myCoolPrefab;
         }
     }
