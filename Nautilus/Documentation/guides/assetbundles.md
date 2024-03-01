@@ -273,6 +273,9 @@ namespace ExamplePrefab
             // You can use the optional inputs here to change the look of your object
             MaterialUtils.ApplySNShaders(myCoolPrefab);
 
+            // Allows the object to be picked up
+            myCoolPrefab.AddComponent<Pickupable>();
+
             // Return the GameObject with all the components added
             return myCoolPrefab;
         }
