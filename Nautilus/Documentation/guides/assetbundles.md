@@ -223,7 +223,7 @@ namespace ExamplePrefab
 
         public static void Patch()
         {
-            PrefabInfo prefabInfo = PrefabInfo.WithTechType("myCoolPrefab", "My Cool Prefab", "Pretty cool, right!")
+            PrefabInfo prefabInfo = PrefabInfo.WithTechType("MyCoolPrefab", "My Cool Prefab", "Pretty cool, right!")
                 .WithIcon(SpriteManager.Get(TechType.Titanium));
             // Just using the Titanium sprite as a placeholder
 
