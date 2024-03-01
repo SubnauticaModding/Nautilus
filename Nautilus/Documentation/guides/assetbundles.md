@@ -74,7 +74,7 @@ Any components you add will be included in the AssetBundle.
 
 Next, follow these steps to assign an asset bundle to your prefab.
 1. After all your prefab configuration is done, select it in the ``Project`` window.
-2. Click on on "Asset Bundle" in the bottom right of the Inspector.  
+2. Click on "Asset Bundle" in the bottom right of the Inspector.  
 Here you can either assign your prefab to an existing AssetBundle or create a new one.  
 
 ![assetbundles-assigning](../images/guides/assetbundles-assigning.png)
