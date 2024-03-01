@@ -166,6 +166,7 @@ Here is one example of how to load in the asset bundle using the Nautilus ``Asse
 
 ```csharp
 using BepInEx;
+using Nautilus.Utility;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
