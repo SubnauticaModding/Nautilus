@@ -7,3 +7,5 @@
   href: simple-mod.md
 - name: Updating to Nautilus
   href: sml2-to-nautilus.md
+- name: Using External Assets (Asset Bundles)
+  href: assetbundles.md

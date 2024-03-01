@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Nautilus.Assets;
 using Nautilus.Patchers;
+using Nautilus.Utility;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -19,11 +20,17 @@ public static class CoordinatedSpawnsHandler
     /// <param name="spawnInfo">the SpawnInfo to spawn.</param>
     public static void RegisterCoordinatedSpawn(SpawnInfo spawnInfo)
     {
-        if (!LargeWorldStreamerPatcher.spawnInfos.Add(spawnInfo))
+        if (!LargeWorldStreamerPatcher.SpawnInfos.Add(spawnInfo))
+        {
+            InternalLogger.Error($"SpawnInfo {spawnInfo} already registered.");
             return;
-        
-        if (uGUI.isMainLevel)
-            LargeWorldStreamerPatcher.CreateSpawner(spawnInfo);
+        }
+
+        if (LargeWorldStreamer.main)
+        {
+            var batch = LargeWorldStreamer.main.GetContainingBatch(spawnInfo.SpawnPosition);
+            LargeWorldStreamerPatcher.BatchToSpawnInfos.GetOrAddNew(batch).Add(spawnInfo);
+        }
     }
 
     /// <summary>
@@ -45,7 +52,7 @@ public static class CoordinatedSpawnsHandler
     /// <param name="spawnLocations">The spawn locations to spawn in. Euler angles are optional.</param>
     public static void RegisterCoordinatedSpawnsForOneTechType(TechType techTypeToSpawn, params SpawnLocation[] spawnLocations)
     {
-        var spawnInfos = spawnLocations.Select(spawnLocation => new SpawnInfo(techTypeToSpawn, spawnLocation.Position, spawnLocation.EulerAngles)).ToList();
+        var spawnInfos = spawnLocations.Select(spawnLocation => new SpawnInfo(techTypeToSpawn, spawnLocation.Position, spawnLocation.EulerAngles, spawnLocation.Scale)).ToList();
         RegisterCoordinatedSpawns(spawnInfos);
     }
 }

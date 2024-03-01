@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BepInEx.Logging;
 using HarmonyLib;
+using Nautilus.Extensions;
 using Nautilus.Utility;
 
 #if SUBNAUTICA
@@ -149,147 +150,13 @@ internal partial class CraftDataPatcher
             PatchUtils.PatchList(CraftData.buildables, CustomBuildables);
     }
 
-    [HarmonyPrefix]
-    [HarmonyPatch(typeof(CraftData), nameof(CraftData.Get))]
-    private static void NeedsPatchingCheckPrefix(TechType techType)
+    [HarmonyPatch(typeof(CraftData), nameof(CraftData.Get)), HarmonyPrefix, HarmonyPriority(Priority.First)]
+    private static void GetRecipePrefix(TechType techType)
     {
-        bool techExists = CraftData.techData.TryGetValue(techType, out CraftData.TechData techData);
-
-        bool sameData = false;
-        if (techExists && CustomRecipeData.TryGetValue(techType, out ITechData customTechData))
+        if (CustomRecipeData.TryGetValue(techType, out var customTechData) && (!CraftData.techData.TryGetValue(techType, out var current) || !customTechData.SameAs(current)))
         {
-            sameData = customTechData.craftAmount == techData.craftAmount &&
-                customTechData.ingredientCount == techData.ingredientCount &&
-                customTechData.linkedItemCount == techData.linkedItemCount;
-
-            if (sameData)
-                for (int i = 0; i < customTechData.ingredientCount; i++)
-                {
-                    if (customTechData.GetIngredient(i).techType != techData.GetIngredient(i).techType)
-                    {
-                        sameData = false;
-                        break;
-                    }
-                    if (customTechData.GetIngredient(i).amount != techData.GetIngredient(i).amount)
-                    {
-                        sameData = false;
-                        break;
-                    }
-                }
-
-            if (sameData)
-                for (int i = 0; i < customTechData.linkedItemCount; i++)
-                {
-                    if (customTechData.GetLinkedItem(i) != techData.GetLinkedItem(i))
-                    {
-                        sameData = false;
-                        break;
-                    }
-                }
-        }
-        if (!techExists || !sameData)
-        {
-            PatchCustomTechData();
+            CraftData.techData[techType] = customTechData.ConvertToTechData(techType);
         }
     }
-
-
-    private static void PatchCustomTechData()
-    {
-        short added = 0;
-        short replaced = 0;
-        foreach (TechType techType in CustomRecipeData.Keys)
-        {
-            bool techExists = CraftData.techData.TryGetValue(techType, out CraftData.TechData techData);
-            ITechData customTechData = CustomRecipeData[techType];
-            bool sameData = false;
-
-            if (techExists && customTechData != null)
-            {
-
-                sameData = customTechData.craftAmount == techData.craftAmount &&
-                    customTechData.ingredientCount == techData.ingredientCount &&
-                    customTechData.linkedItemCount == techData.linkedItemCount;
-
-                if (sameData)
-                    for (int i = 0; i < customTechData.ingredientCount; i++)
-                    {
-                        if (customTechData.GetIngredient(i).techType != techData.GetIngredient(i).techType)
-                        {
-                            sameData = false;
-                            break;
-                        }
-                        if (customTechData.GetIngredient(i).amount != techData.GetIngredient(i).amount)
-                        {
-                            sameData = false;
-                            break;
-                        }
-                    }
-
-                if (sameData)
-                    for (int i = 0; i < customTechData.linkedItemCount; i++)
-                    {
-                        if (customTechData.GetLinkedItem(i) != techData.GetLinkedItem(i))
-                        {
-                            sameData = false;
-                            break;
-                        }
-                    }
-            }
-
-            if (!techExists || !sameData)
-            {
-                var techDataInstance = new CraftData.TechData
-                {
-                    _techType = techType,
-                    _craftAmount = customTechData?.craftAmount ?? 0
-                };
-
-                var ingredientsList = new CraftData.Ingredients();
-
-                if (customTechData?.ingredientCount > 0)
-                {
-                    for (int i = 0; i < customTechData.ingredientCount; i++)
-                    {
-                        IIngredient customIngredient = customTechData.GetIngredient(i);
-
-                        var ingredient = new CraftData.Ingredient(customIngredient.techType, customIngredient.amount);
-                        ingredientsList.Add(customIngredient.techType, customIngredient.amount);
-                    }
-                    techDataInstance._ingredients = ingredientsList;
-                }
-
-                if (customTechData?.linkedItemCount > 0)
-                {
-                    var linkedItems = new List<TechType>();
-                    for (int l = 0; l < customTechData.linkedItemCount; l++)
-                    {
-                        linkedItems.Add(customTechData.GetLinkedItem(l));
-                    }
-                    techDataInstance._linkedItems = linkedItems;
-                }
-
-                if (techExists)
-                {
-                    CraftData.techData.Remove(techType);
-                    InternalLogger.Log($"{techType} TechType already existed in the CraftData.techData dictionary. Original value was replaced.", LogLevel.Warning);
-                    replaced++;
-                }
-                else
-                {
-                    added++;
-                }
-                CraftData.techData.Add(techType, techDataInstance);
-            }
-        }
-
-        if (added > 0)
-            InternalLogger.Log($"Added {added} new entries to the CraftData.techData dictionary.", LogLevel.Debug);
-
-        if (replaced > 0)
-            InternalLogger.Log($"Replaced {replaced} existing entries to the CraftData.techData dictionary.", LogLevel.Debug);
-    }
-
-    
 }
 #endif

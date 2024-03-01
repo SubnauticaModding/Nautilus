@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
+using Nautilus.MonoBehaviours;
 using UnityEngine;
 
 namespace Nautilus.Assets.PrefabTemplates;
 
 /// <summary>
-/// A template for Atmosphere Volumes, which are basic invisible triggers for mini-biomes.
+/// A template for Atmosphere Volumes, which are basic invisible triggers for mini-biomes. Atmosphere volumes can affect fog, music, ambient sounds and even the player's swim speed.
 /// </summary>
 public class AtmosphereVolumeTemplate : PrefabTemplate
 {
@@ -23,6 +24,10 @@ public class AtmosphereVolumeTemplate : PrefabTemplate
     /// The priority of this atmosphere volume. Atmosphere volumes with higher priorities override those with lower priorities. The default priority is 10.
     /// </summary>
     public int Priority { get; set; }
+    /// <summary>
+    /// Whether this atmosphere volume can be entered while inside a vehicle or not. For unknown reasons, this is NOT true for base game volumes. However, in this template, it is true by default.
+    /// </summary>
+    public bool CanEnterWhileInsideVehicle { get; set; } = true;
 
     /// <summary>
     /// Determines the loading distance of this atmosphere volume prefab. Default value is <see cref="LargeWorldEntity.CellLevel.Far"/>. Although vanilla prefabs always use Batch for this, this does not work with our custom systems.
@@ -78,6 +83,11 @@ public class AtmosphereVolumeTemplate : PrefabTemplate
         var atmosphereVolume = prefab.AddComponent<AtmosphereVolume>();
         atmosphereVolume.overrideBiome = OverrideBiome;
         atmosphereVolume.priority = Priority;
+
+        if (CanEnterWhileInsideVehicle)
+        {
+            prefab.AddComponent<AtmosphereVolumeTriggerFix>().atmosphereVolume = atmosphereVolume;
+        }
         
         ModifyPrefab?.Invoke(prefab);
         if (ModifyPrefabAsync is { })

@@ -3,6 +3,7 @@ using System.Reflection;
 using HarmonyLib;
 using Nautilus.Commands;
 using Nautilus.Patchers;
+using UnityEngine;
 
 namespace Nautilus.Handlers;
 
@@ -78,5 +79,28 @@ public static class ConsoleCommandsHandler
     public static void RegisterConsoleCommands(Type type)
     {
         ConsoleCommandsPatcher.ParseCustomCommands(type);
+    }
+
+    
+    /// <summary>
+    /// Adds a new teleport position to the "biome" command.
+    /// </summary>
+    /// <param name="biomeName">The name of the teleport. Case-insensitive, no spaces allowed.</param>
+    /// <param name="position">The world coordinates of the teleport.</param>
+    public static void AddBiomeTeleportPosition(string biomeName, Vector3 position)
+    {
+        ConsoleCommandsPatcher.BiomeTeleportPositionsToAdd.Add(new TeleportPosition{name = biomeName, position = position});
+        ConsoleCommandsPatcher.UpdateTeleportPositions();
+    }
+    
+    /// <summary>
+    /// Adds a new teleport position to the "goto" command.
+    /// </summary>
+    /// <param name="locationName">The name of the teleport. Case-insensitive, no spaces allowed.</param>
+    /// <param name="position">The world coordinates of the teleport.</param>
+    public static void AddGotoTeleportPosition(string locationName, Vector3 position)
+    {
+        ConsoleCommandsPatcher.GotoTeleportPositionsToAdd.Add(new TeleportPosition{name = locationName, position = position});
+        ConsoleCommandsPatcher.UpdateTeleportPositions();
     }
 }

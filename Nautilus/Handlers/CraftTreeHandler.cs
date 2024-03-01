@@ -1,6 +1,6 @@
 namespace Nautilus.Handlers;
 
-using System.Linq;
+using System.Collections.Generic;
 using Nautilus.Crafting;
 using Nautilus.Patchers;
 
@@ -22,13 +22,14 @@ public static class CraftTreeHandler
     /// </param>        
     public static void AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem, params string[] stepsToTab)
     {
-        if (CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
+        if (!CraftTreePatcher.CraftingNodes.TryGetValue(craftTree, out var nodes))
         {
-            root.AddCraftNode(craftingItem, stepsToTab.LastOrDefault());
-            return;
+            nodes = new List<CraftingNode>();
         }
 
-        CraftTreePatcher.CraftingNodes.Add(new CraftingNode(stepsToTab, craftTree, craftingItem));
+        nodes.Add(new CraftingNode(stepsToTab, craftTree, craftingItem));
+        CraftTreePatcher.CraftingNodes[craftTree] = nodes;
+        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -39,12 +40,14 @@ public static class CraftTreeHandler
 
     public static void AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem)
     {
-        if (CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
+        if (!CraftTreePatcher.CraftingNodes.TryGetValue(craftTree, out var nodes))
         {
-            root.AddCraftNode(craftingItem);
-            return;
+            nodes = new List<CraftingNode>();
         }
-        CraftTreePatcher.CraftingNodes.Add(new CraftingNode(new string[0], craftTree, craftingItem));
+
+        nodes.Add(new CraftingNode(new string[0], craftTree, craftingItem));
+        CraftTreePatcher.CraftingNodes[craftTree] = nodes;
+        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
 #if SUBNAUTICA
@@ -57,12 +60,14 @@ public static class CraftTreeHandler
     /// <param name="sprite">The sprite of the tab.</param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite)
     {
-        if (CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
+        if (!CraftTreePatcher.TabNodes.TryGetValue(craftTree, out var craftTreeTabNodes))
         {
-            root.AddTabNode(name, displayName, sprite);
-            return;
+            craftTreeTabNodes = new List<TabNode>();
         }
-        CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
+
+        craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
+        CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -75,12 +80,14 @@ public static class CraftTreeHandler
 
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
     {
-        if (CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
+        if (!CraftTreePatcher.TabNodes.TryGetValue(craftTree, out var craftTreeTabNodes))
         {
-            root.AddTabNode(name, displayName, sprite);
-            return;
+            craftTreeTabNodes = new List<TabNode>();
         }
-        CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, new Atlas.Sprite(sprite), name, displayName));
+
+        craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, new Atlas.Sprite(sprite), name, displayName));
+        CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -98,12 +105,14 @@ public static class CraftTreeHandler
     /// </param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite, params string[] stepsToTab)
     {
-        if (CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
+        if (!CraftTreePatcher.TabNodes.TryGetValue(craftTree, out var craftTreeTabNodes))
         {
-            root.AddTabNode(name, displayName, sprite, "English", stepsToTab.LastOrDefault());
-            return;
+            craftTreeTabNodes = new List<TabNode>();
         }
-        CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
+
+        craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
+        CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -121,54 +130,60 @@ public static class CraftTreeHandler
     /// </param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite, params string[] stepsToTab)
     {
-        if (CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
+        if (!CraftTreePatcher.TabNodes.TryGetValue(craftTree, out var craftTreeTabNodes))
         {
-            root.AddTabNode(name, displayName, sprite, "English", stepsToTab.LastOrDefault());
-            return;
+            craftTreeTabNodes = new List<TabNode>();
         }
-        CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, new Atlas.Sprite(sprite), name, displayName));
+
+        craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, new Atlas.Sprite(sprite), name, displayName));
+        CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
 #elif BELOWZERO
-        /// <summary>
-        /// Adds a new tab node to the root of the specified crafting tree.
-        /// </summary>
-        /// <param name="craftTree">The target craft tree to edit.</param>
-        /// <param name="name">The ID of the tab node. Must be unique!</param>
-        /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
-        /// <param name="sprite">The sprite of the tab.</param>        
-        public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
+    /// <summary>
+    /// Adds a new tab node to the root of the specified crafting tree.
+    /// </summary>
+    /// <param name="craftTree">The target craft tree to edit.</param>
+    /// <param name="name">The ID of the tab node. Must be unique!</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="sprite">The sprite of the tab.</param>        
+    public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
+    {
+        if (!CraftTreePatcher.TabNodes.TryGetValue(craftTree, out var craftTreeTabNodes))
         {
-            if(CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
-            {
-                root.AddTabNode(name, displayName, sprite);
-                return;
-            }
-            CraftTreePatcher.TabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
+            craftTreeTabNodes = new List<TabNode>();
         }
 
-        /// <summary>
-        /// Adds a new tab node to the root of the specified crafting tree, at the specified tab location.
-        /// </summary>
-        /// <param name="craftTree">The target craft tree to edit.</param>
-        /// <param name="name">The ID of the tab node. Must be unique!</param>
-        /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
-        /// <param name="sprite">The sprite of the tab.</param>
-        /// <param name="stepsToTab">
-        /// <para>The steps to the target tab.</para>
-        /// <para>These must match the id value of the CraftNode in the crafting tree you're targeting.</para>
-        /// <para>Do not include "root" in this path.</para>
-        /// <para>See <see href="https://subnauticamodding.github.io/Nautilus/tutorials/craft-tree-paths.html"/> or use the <see cref="Paths"/> class for examples of valid parameters.</para>
-        /// </param>        
-        public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite, params string[] stepsToTab)
+        craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
+        CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        CraftTreePatcher.CachedTrees.Remove(craftTree);
+    }
+
+    /// <summary>
+    /// Adds a new tab node to the root of the specified crafting tree, at the specified tab location.
+    /// </summary>
+    /// <param name="craftTree">The target craft tree to edit.</param>
+    /// <param name="name">The ID of the tab node. Must be unique!</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="sprite">The sprite of the tab.</param>
+    /// <param name="stepsToTab">
+    /// <para>The steps to the target tab.</para>
+    /// <para>These must match the id value of the CraftNode in the crafting tree you're targeting.</para>
+    /// <para>Do not include "root" in this path.</para>
+    /// <para>See <see href="https://subnauticamodding.github.io/Nautilus/tutorials/craft-tree-paths.html"/> or use the <see cref="Paths"/> class for examples of valid parameters.</para>
+    /// </param>        
+    public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite, params string[] stepsToTab)
+    {
+        if (!CraftTreePatcher.TabNodes.TryGetValue(craftTree, out var craftTreeTabNodes))
         {
-            if(CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
-            {
-                root.AddTabNode(name, displayName, sprite, stepsToTab.LastOrDefault());
-                return;
-            }
-            CraftTreePatcher.TabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
+            craftTreeTabNodes = new List<TabNode>();
         }
+
+        craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
+        CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        CraftTreePatcher.CachedTrees.Remove(craftTree);
+    }
 
 #endif
 
@@ -187,12 +202,14 @@ public static class CraftTreeHandler
 
     public static void RemoveNode(CraftTree.Type craftTree, params string[] stepsToNode)
     {
-        if (CraftTreePatcher.CustomTrees.TryGetValue(craftTree, out var root))
+        if (!CraftTreePatcher.NodesToRemove.TryGetValue(craftTree, out var nodesToRemove))
         {
-            root.GetNode(stepsToNode)?.RemoveNode();
-            return;
+            nodesToRemove =  new List<Node>();
         }
-        CraftTreePatcher.NodesToRemove.Add(new Node(stepsToNode, craftTree));
+
+        nodesToRemove.Add(new Node(stepsToNode, craftTree));
+        CraftTreePatcher.NodesToRemove[craftTree] = nodesToRemove;
+        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
