@@ -1,10 +1,8 @@
-using Nautilus.Handlers;
-using Nautilus.Utility;
-
 namespace Nautilus.Crafting;
 
-using Nautilus.Assets;
-using Nautilus.Patchers;
+using Assets;
+using Handlers;
+using Utility;
 
 #if SUBNAUTICA
 using Sprite = Atlas.Sprite;
