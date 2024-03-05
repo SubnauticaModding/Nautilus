@@ -7,6 +7,7 @@ using HarmonyLib;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using ProtoBuf;
+using UnityEngine;
 
 namespace Nautilus.Handlers;
 
@@ -38,12 +39,14 @@ public static class ProtobufSerializerHandler
             {
                 // The castclass instruction is always 3 steps before the call instruction
                 Type objectType = (Type) serializeMethodInstructions[i - 3].Value;
+                // The ldc.i4 instruction is always 2 steps before the call instruction
+                int associatedTypeId = (int) serializeMethodInstructions[i - 2].Value;
                 // To get the methodName we remove the 5 first letters and we cut before the opening parenthese
                 string serializeMethodName = instruction.Value.ToString()[5..].Split('(')[0];
                 // The deserialize method name will be the same but with Deserialize[...] instead of Serialize[...]
                 string deserializeMethodName = serializeMethodName.Replace("S", "Des");
 
-                SerializerEntries.Add(objectType, new(objectType, serializeMethodName, deserializeMethodName));
+                SerializerEntries.Add(objectType, new(objectType, associatedTypeId, serializeMethodName, deserializeMethodName));
             }
         }
     }
@@ -55,14 +58,16 @@ public static class ProtobufSerializerHandler
     /// This is the only method from <see cref="ProtobufSerializerPrecompiledPatcher"/> which should be used by mods.
     /// </remarks>
     /// <param name="serializableType">Type of the serializable type</param>
-    public static void RegisterSerializableType(Type serializableType)
+    private static SerializerEntry RegisterSerializableType(Type serializableType)
     {
         ProtobufSerializerPrecompiled.knownTypes.Add(serializableType, 0);
 
         Dictionary<int, FieldInfo> serializedFieldsByTag = GetSerializedFieldsByTag(serializableType);
-
-        SerializerEntries.Add(serializableType, new(serializableType, ((Delegate) Serialize).Method, ((Delegate) Deserialize).Method, serializedFieldsByTag));
-        InternalLogger.Log($"Registered serializable type {serializableType}");
+        SerializerEntry serializerEntry = new(serializableType, ((Delegate) Serialize).Method, ((Delegate) Deserialize).Method, serializedFieldsByTag);
+        SerializerEntries.Add(serializableType, serializerEntry);
+        
+        InternalLogger.Info($"Registered serializable type {serializableType}");
+        return serializerEntry;
     }
 
     /// <summary>
@@ -71,15 +76,32 @@ public static class ProtobufSerializerHandler
     /// </summary>
     public static void RegisterAllSerializableTypesInAssembly()
     {
+        List<SerializerEntry> serializerEntries = new();
         foreach (Type type in Assembly.GetCallingAssembly().GetTypes())
         {
             foreach (Attribute attribute in type.GetCustomAttributes())
             {
                 if (attribute is ProtoContractAttribute)
                 {
-                    RegisterSerializableType(type);
+                    serializerEntries.Add(RegisterSerializableType(type));
                     break;
                 }
+            }
+        }
+
+        foreach (SerializerEntry serializerEntry in serializerEntries)
+        {
+            // If the type inherits (whatever at which depth) a serializable class, make sure to notice it
+            Type derivedType = serializerEntry.Type.BaseType;
+            while (derivedType != null && derivedType != typeof(MonoBehaviour))
+            {
+                if (SerializerEntries.TryGetValue(derivedType, out SerializerEntry inheritedSerializerEntry))
+                {
+                    InternalLogger.Log($"Found derived type for {serializerEntry.Type}: {derivedType}");
+                    serializerEntry.FirstInheritedSerializerEntry = inheritedSerializerEntry;
+                    break;
+                }
+                derivedType = derivedType.BaseType;
             }
         }
     }
@@ -92,9 +114,24 @@ public static class ProtobufSerializerHandler
     /// </remarks>
     public static void Serialize(object instance, int objId, ProtoWriter writer)
     {
-        if (!SerializerEntries.TryGetValue(instance.GetType(), out SerializerEntry serializerEntry))
+        if (SerializerEntries.TryGetValue(instance.GetType(), out SerializerEntry serializerEntry))
         {
-            return;
+            SerializeEntry(serializerEntry, instance, writer);
+        }
+    }
+
+    private static void SerializeEntry(SerializerEntry serializerEntry, object instance, ProtoWriter writer)
+    {
+        if (serializerEntry.FirstInheritedSerializerEntry is SerializerEntry inheritedEntry)
+        {
+            if (inheritedEntry.SerializedFieldsByTag != null)
+            {
+                SerializeEntry(inheritedEntry, instance, writer);
+            }
+            else
+            {
+                inheritedEntry.SerializeInfo.Invoke(writer.model, new object[] { instance, inheritedEntry.TypeId, writer });
+            }
         }
 
         foreach (KeyValuePair<int, FieldInfo> pair in serializerEntry.SerializedFieldsByTag)
@@ -115,9 +152,25 @@ public static class ProtobufSerializerHandler
     /// </remarks>
     public static object Deserialize(object instance, ProtoReader reader)
     {
-        if (!SerializerEntries.TryGetValue(instance.GetType(), out SerializerEntry serializerEntry))
+        if (SerializerEntries.TryGetValue(instance.GetType(), out SerializerEntry serializerEntry))
         {
-            return default;
+            return DeserializeEntry(serializerEntry, instance, reader);
+        }
+        return null;
+    }
+
+    private static object DeserializeEntry(SerializerEntry serializerEntry, object instance, ProtoReader reader)
+    {
+        if (serializerEntry.FirstInheritedSerializerEntry is SerializerEntry inheritedEntry)
+        {
+            if (inheritedEntry.SerializedFieldsByTag != null)
+            {
+                DeserializeEntry(inheritedEntry, instance, reader);
+            }
+            else
+            {
+                inheritedEntry.DeserializeInfo.Invoke(reader.model, new object[] { instance, reader });
+            }
         }
 
         object value = null;
@@ -141,7 +194,7 @@ public static class ProtobufSerializerHandler
     private static Dictionary<int, FieldInfo> GetSerializedFieldsByTag(Type serializableType)
     {
         // Extract the fields and to be serialized (marked with SubnauticaSerialized)
-        FieldInfo[] fields = serializableType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        FieldInfo[] fields = serializableType.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
 
         Dictionary<int, FieldInfo> serializedFieldsByTag = new();
 
@@ -176,8 +229,14 @@ public static class ProtobufSerializerHandler
     internal class SerializerEntry
     {
         internal Type Type;
+        internal int TypeId;
         internal MethodInfo SerializeInfo;
         internal MethodInfo DeserializeInfo;
+        /// <summary>
+        /// <see cref="SerializerEntry"/> corresponding to the first inherited type which is registered to be serialized.
+        /// Can be null if there's none.
+        /// </summary>
+        internal SerializerEntry FirstInheritedSerializerEntry;
         internal IOrderedEnumerable<KeyValuePair<int, FieldInfo>> SerializedFieldsByTag;
 
         /// <summary>
@@ -198,9 +257,10 @@ public static class ProtobufSerializerHandler
         /// <summary>
         /// Constructor to be used for Subnautica's default known types only.
         /// </summary>
-        public SerializerEntry(Type type, string serializeMethodName, string deserializeMethodName)
+        public SerializerEntry(Type type, int typeId, string serializeMethodName, string deserializeMethodName)
         {
             Type = type;
+            TypeId = typeId;
             SerializeInfo = ReflectionHelper.GetInstanceMethod<ProtobufSerializerPrecompiled>(serializeMethodName);
             DeserializeInfo = ReflectionHelper.GetInstanceMethod<ProtobufSerializerPrecompiled>(deserializeMethodName);
         }

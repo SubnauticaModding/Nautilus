@@ -22,7 +22,7 @@ internal static class ProtobufSerializerPrecompiledPatcher
         harmony.Patch(serializeMethodInfo, prefix: optimizedSerialize);
 
         HarmonyMethod optimizedDeserialize = new(AccessTools.Method(typeof(ProtobufSerializerPrecompiledPatcher), nameof(OptimizedDeserializePrefix)));
-        harmony.Patch(deserializeMethodInfo, prefix: optimizedDeserialize);        
+        harmony.Patch(deserializeMethodInfo, prefix: optimizedDeserialize);
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ internal static class ProtobufSerializerPrecompiledPatcher
     /// <summary>
     /// Prefix to replace <see cref="ProtobufSerializerPrecompiled.Deserialize"/>'s if tree by a dictionary lookup
     /// </summary>
-    private static bool OptimizedDeserializePrefix(int num, object obj, ProtoReader reader, ProtobufSerializerPrecompiled __instance, ref object __result)
+    private static bool OptimizedDeserializePrefix(object obj, ProtoReader reader, ProtobufSerializerPrecompiled __instance, ref object __result)
     {
         if (ProtobufSerializerHandler.SerializerEntries.TryGetValue(obj.GetType(), out ProtobufSerializerHandler.SerializerEntry entry))
         {
