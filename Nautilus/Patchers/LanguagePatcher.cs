@@ -63,7 +63,10 @@ internal static class LanguagePatcher
         }
             
         if (_currentLanguage == FallbackLanguage)
+        {
+            __instance.ParseMetaData();
             return;
+        }
             
         var diffStrings = currentStrings.Except(fallbackStrings);
 		
@@ -72,6 +75,8 @@ internal static class LanguagePatcher
         {
             __instance.strings[currentOnlyString.Key] = currentOnlyString.Value;
         }
+        
+        __instance.ParseMetaData();
     }
         
     private static void LoadLanguageFilePrefix(string language)
