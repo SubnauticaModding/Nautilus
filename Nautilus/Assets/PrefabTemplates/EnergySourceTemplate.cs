@@ -55,6 +55,7 @@ public class EnergySourceTemplate : PrefabTemplate
         var obj = gameObject.Get();
         if (obj)
         {
+            obj.SetActive(false);
             ApplyModifications(obj);
             yield break;
         }
@@ -68,7 +69,7 @@ public class EnergySourceTemplate : PrefabTemplate
         var task = CraftData.GetPrefabForTechTypeAsync(tt, false);
         yield return task;
 
-        var obj = GameObject.Instantiate(task.GetResult());
+        var obj = UWE.Utils.InstantiateDeactivated(task.GetResult());
 
         yield return ApplyModifications(obj);
         
