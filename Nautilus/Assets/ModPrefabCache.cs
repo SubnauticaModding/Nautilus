@@ -150,7 +150,7 @@ internal class ModPrefabCacheInstance: MonoBehaviour
     {
         foreach (var prefab in new Dictionary<string, GameObject>(Entries))
         {
-            if (prefab.Value is null)
+            if (prefab.Value.Exists() is null)
             {
                 Entries.Remove(prefab.Key);
                 continue;
