@@ -66,6 +66,7 @@ public class AtmosphereVolumeTemplate : PrefabTemplate
     public override IEnumerator GetPrefabAsync(TaskResult<GameObject> gameObject)
     {
         var prefab = new GameObject(info.ClassID);
+        prefab.SetActive(false);
         prefab.layer = AtmosphereVolumesLayer;
         
         Collider collider = Shape switch

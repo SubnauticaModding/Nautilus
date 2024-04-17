@@ -79,6 +79,7 @@ public class CloneTemplate : PrefabTemplate
         GameObject obj = gameObject.Get();
         if (obj)
         {
+            obj.SetActive(false);
             ApplySkin(obj);
             ModifyPrefab?.Invoke(obj);
             if(ModifyPrefabAsync is { })
@@ -89,12 +90,13 @@ public class CloneTemplate : PrefabTemplate
 
         if (_spawnType == SpawnType.TechType)
         {
-            yield return CraftData.InstantiateFromPrefabAsync(_techTypeToClone, gameObject);
-            obj = gameObject.Get();
+            var task = CraftData.GetPrefabForTechTypeAsync(_techTypeToClone);
+            yield return task;
+            obj = Utils.InstantiateDeactivated(task.GetResult());
         }
         else if(_spawnType == SpawnType.Prefab)
         {
-            var task = _prefabToClone.InstantiateAsync();
+            var task = _prefabToClone.LoadAssetAsync();
             yield return task;
             
             if (task.Status != UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
@@ -103,7 +105,7 @@ public class CloneTemplate : PrefabTemplate
                 yield break;
             }
 
-            obj = task.Result;
+            obj = Utils.InstantiateDeactivated(task.Result);
         }
         else if(_spawnType == SpawnType.ClassId)
         {
@@ -116,7 +118,7 @@ public class CloneTemplate : PrefabTemplate
                 yield break;
             }
 
-            obj = Object.Instantiate(prefab);
+            obj = Utils.InstantiateDeactivated(prefab);
         }
 
         ApplySkin(obj);
