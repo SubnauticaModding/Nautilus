@@ -29,15 +29,15 @@
       <meta name="loc:changeTheme" content="Change theme">
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
   </head>
-
-  <script type="module" src="./../public/docfx.min.js"></script>
-
-  <script>
-    const theme = localStorage.getItem('theme') || 'auto'
-    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
-  </script>
-
 
   <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
     <header class="bg-body border-bottom">
@@ -199,9 +199,7 @@ Class AssetBundleTemplate  <a class="header-action link-secondary" title="View s
 
   <div class="markdown level1 summary">Instantiates a new AssetBundleTemplate. Automatically loads the bundle by calling <a class="xref" href="Nautilus.Utility.AssetBundleLoadingUtils.html#Nautilus_Utility_AssetBundleLoadingUtils_LoadFromAssetsFolder_System_Reflection_Assembly_System_String_">LoadFromAssetsFolder(Assembly, string)</a>,
 which expects the bundle to be in your mod's Assets folder.
-<p>Also caches the loaded bundle for future use.</p>
-<p>If you are loading and using your bundle on your own, it's highly recommended to use the AssetBundle constructor overload instead.</p>
-<p>Bundles are cached per Assembly, and won't work with mods that use multiple seperate bundles.</p></div>
+<p>Also caches the loaded bundle for future use.</p><p>If you are loading and using your bundle on your own, it's highly recommended to use the AssetBundle constructor overload instead.</p><p>Bundles are cached per Assembly, and won't work with mods that use multiple seperate bundles.</p></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
