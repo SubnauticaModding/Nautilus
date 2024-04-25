@@ -5,6 +5,7 @@ using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
 namespace Nautilus.Extensions;
@@ -136,9 +137,10 @@ public static class GameObjectExtensions
     /// </summary>
     /// <param name="gameObject">The game object to check.</param>
     /// <returns>True if this game object is a proper prefab, otherwise false.</returns>
+    /// <exception cref="System.NullReferenceException"><paramref name="gameObject"/> is null.</exception>
     public static bool IsPrefab(this GameObject gameObject)
     {
-        return gameObject.transform.parent == null && !gameObject.activeInHierarchy && gameObject.activeSelf;
+        return gameObject.scene.name is null && gameObject.scene.loadingState is Scene.LoadingState.NotLoaded;
     }
     
     /// <summary>

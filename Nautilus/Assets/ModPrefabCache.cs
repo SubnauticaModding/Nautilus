@@ -38,6 +38,7 @@ public static class ModPrefabCache
     /// Any prefab with the matching <paramref name="classId"/> will be removed from the cache.
     /// </summary>
     /// <param name="classId">The class id of the prefab that will be removed.</param>
+    /// <remarks>This operation is extremely dangerous on custom prefabs that are directly registering an asset bundle prefab as it may make the prefab unusable in the current session.<br/>Avoid using this method unless you know what you're doing.</remarks>
     public static void RemovePrefabFromCache(string classId)
     {
         if(_cacheInstance == null)
@@ -85,7 +86,9 @@ internal class ModPrefabCacheInstance: MonoBehaviour
 
         gameObject.AddComponent<SceneCleanerPreserve>();
         DontDestroyOnLoad(gameObject);
+        
         SaveUtils.RegisterOnQuitEvent(ModPrefabCache.RunningPrefabs.Clear);
+        SaveUtils.RegisterOnQuitEvent(RemoveFakePrefabs);
     }
 
     public void EnterPrefabIntoCache(GameObject prefab)
@@ -122,12 +125,44 @@ internal class ModPrefabCacheInstance: MonoBehaviour
 
     public void RemoveCachedPrefab(string classId)
     {
-        if (Entries.TryGetValue(classId, out var prefab))
+        if (!Entries.TryGetValue(classId, out var prefab))
         {
-            if(!prefab.IsPrefab())
-                Destroy(prefab);
-            InternalLogger.Debug($"ModPrefabCache: removed prefab {classId}");
+            return;
+        }
+        
+        if (!prefab)
+        {
+            InternalLogger.Debug($"ModPrefabCache: Prefab for '{classId}' is null; removing entry.");
             Entries.Remove(classId);
+            return;
+        }
+            
+        if (!prefab.IsPrefab())
+        {
+            Destroy(prefab);
+        }
+            
+        InternalLogger.Debug($"ModPrefabCache: removing prefab '{classId}'");
+        Entries.Remove(classId);
+    }
+
+    private void RemoveFakePrefabs()
+    {
+        foreach (var prefab in new Dictionary<string, GameObject>(Entries))
+        {
+            if (prefab.Value.Exists() is null)
+            {
+                Entries.Remove(prefab.Key);
+                continue;
+            }
+
+            if (prefab.Value.IsPrefab())
+            {
+                continue;
+            }
+            
+            Destroy(prefab.Value);
+            Entries.Remove(prefab.Key);
         }
     }
 
