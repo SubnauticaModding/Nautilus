@@ -50,7 +50,7 @@ internal class ModPrefabRequest: IPrefabRequest
 
     public bool TryGetPrefab(out GameObject result)
     {
-        return ModPrefabCache.TryGetPrefabFromCache(prefabInfo.ClassID, out result) && result != null;
+        return result = taskResult.Get();
     }
 
     public bool MoveNext()
@@ -66,6 +66,7 @@ internal class ModPrefabRequest: IPrefabRequest
     public void Reset()
     {
         task.Reset();
+        taskResult.Set(null);
         Done = false;
     }
 
