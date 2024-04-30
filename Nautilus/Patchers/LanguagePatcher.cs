@@ -90,7 +90,7 @@ internal static class LanguagePatcher
         HarmonyMethod insertLinesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(InsertCustomLines)));
         HarmonyMethod loadLanguagesMethod = new(AccessTools.Method(typeof(LanguagePatcher), nameof(LoadLanguageFilePrefix)));
 
-        harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.ParseMetaData)), prefix: insertLinesMethod);
+        harmony.Patch(AccessTools.Method(typeof(Language), nameof(LanguageSDF.Initialize)), prefix: insertLinesMethod);
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.GetKeysFor)), prefix: insertLinesMethod);
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.TryGet)), prefix: repatchCheckMethod);
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.Contains)), prefix: repatchCheckMethod);
