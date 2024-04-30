@@ -44,6 +44,7 @@ public static class ModPrefabCache
     {
         if (_cacheInstance == null)
         {
+            InternalLogger.Debug($"Removed '{classId}' from prefab cache.");
             ModPrefabCacheInstance.BannedPrefabs.Add(classId);
             return;
         }
