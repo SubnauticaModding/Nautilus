@@ -87,20 +87,19 @@ internal class SaveUtilsPatcher
             OnLoad();
         }
 #endif
-    }
-    
-    private static void OnLoad()
-    {
-        OnFinishLoadingEvents?.Invoke();
-        
-        if (oneTimeUseOnLoadEvents.Count > 0)
+        void OnLoad()
         {
-            foreach (Action action in oneTimeUseOnLoadEvents)
-            {
-                action.Invoke();
-            }
+            OnFinishLoadingEvents?.Invoke();
             
-            oneTimeUseOnLoadEvents.Clear();
+            if (oneTimeUseOnLoadEvents.Count > 0)
+            {
+                foreach (Action action in oneTimeUseOnLoadEvents)
+                {
+                    action.Invoke();
+                }
+                
+                oneTimeUseOnLoadEvents.Clear();
+            }
         }
     }
 
