@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using HarmonyLib;
+using Nautilus.Extensions;
+using UnityEngine;
 
 namespace Nautilus.Patchers;
 
@@ -64,16 +66,40 @@ internal class SaveUtilsPatcher
         {
             yield return enumerator.Current;
         }
-
+        
+#if SUBNAUTICA
+        OnLoad();
+#elif BELOWZERO
+        uGUI_MainMenu.main.StartCoroutine(WaitUntilLoaded());
+        
+        IEnumerator WaitUntilLoaded()
+        {
+            if (uGUI.main.loading.isLoading)
+            {
+                yield return new WaitWhile(() => uGUI.main.loading.isLoading);
+            }
+            
+            if (WaitScreen.main.Exists()?.isShown is true)
+            {
+                yield return new WaitWhile(() => WaitScreen.main.isShown);
+            }
+            
+            OnLoad();
+        }
+#endif
+    }
+    
+    private static void OnLoad()
+    {
         OnFinishLoadingEvents?.Invoke();
-
+        
         if (oneTimeUseOnLoadEvents.Count > 0)
         {
             foreach (Action action in oneTimeUseOnLoadEvents)
             {
                 action.Invoke();
             }
-
+            
             oneTimeUseOnLoadEvents.Clear();
         }
     }
