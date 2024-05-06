@@ -1,6 +1,7 @@
 using Nautilus.Utility;
 using System.Collections.Generic;
 using Nautilus.Extensions;
+using Nautilus.Handlers;
 using UnityEngine;
 
 namespace Nautilus.Assets;
@@ -16,7 +17,7 @@ public static class ModPrefabCache
     private static ModPrefabCacheInstance _cacheInstance;
 
     /// <summary> Adds the given prefab to the cache. </summary>
-    /// <param name="prefab"> The prefab object that is disabled and cached. </param>
+    /// <param name="prefab"> The prefab object that is disabled and cached.</param>
     public static void AddPrefab(GameObject prefab)
     {
         EnsureCacheExists();
@@ -41,8 +42,12 @@ public static class ModPrefabCache
     /// <remarks>This operation is extremely dangerous on custom prefabs that are directly registering an asset bundle prefab as it may make the prefab unusable in the current session.<br/>Avoid using this method unless you know what you're doing.</remarks>
     public static void RemovePrefabFromCache(string classId)
     {
-        if(_cacheInstance == null)
+        if (_cacheInstance == null)
+        {
+            InternalLogger.Debug($"Removed '{classId}' from prefab cache.");
+            ModPrefabCacheInstance.BannedPrefabs.Add(classId);
             return;
+        }
 
         _cacheInstance.RemoveCachedPrefab(classId);
     }
@@ -74,7 +79,10 @@ public static class ModPrefabCache
 
 internal class ModPrefabCacheInstance: MonoBehaviour
 {
-    public Dictionary<string, GameObject> Entries { get; } = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> Entries { get; } = new();
+    
+    // Prefabs that are banned from getting cached
+    internal static readonly HashSet<string> BannedPrefabs = new();
 
     private Transform _prefabRoot;
 
@@ -98,6 +106,11 @@ internal class ModPrefabCacheInstance: MonoBehaviour
         if (prefabIdentifier == null)
         {
             InternalLogger.Warn($"ModPrefabCache: prefab {prefab.name} is missing a PrefabIdentifier component! Unable to add to cache.");
+            return;
+        }
+
+        if (BannedPrefabs.Contains(prefabIdentifier.classId))
+        {
             return;
         }
 
@@ -125,6 +138,8 @@ internal class ModPrefabCacheInstance: MonoBehaviour
 
     public void RemoveCachedPrefab(string classId)
     {
+        BannedPrefabs.Add(classId);
+
         if (!Entries.TryGetValue(classId, out var prefab))
         {
             return;
@@ -142,8 +157,8 @@ internal class ModPrefabCacheInstance: MonoBehaviour
             Destroy(prefab);
         }
             
-        InternalLogger.Debug($"ModPrefabCache: removing prefab '{classId}'");
         Entries.Remove(classId);
+        InternalLogger.Debug($"ModPrefabCache: removing prefab '{classId}'");
     }
 
     private void RemoveFakePrefabs()
