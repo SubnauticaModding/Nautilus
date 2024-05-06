@@ -56,7 +56,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite)
     {
@@ -75,7 +75,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>
 
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
@@ -95,7 +95,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>
     /// <param name="stepsToTab">
     /// <para>The steps to the target tab.</para>
@@ -120,7 +120,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>
     /// <param name="stepsToTab">
     /// <para>The steps to the target tab.</para>
@@ -146,7 +146,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
     {
@@ -165,7 +165,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>
     /// <param name="stepsToTab">
     /// <para>The steps to the target tab.</para>
