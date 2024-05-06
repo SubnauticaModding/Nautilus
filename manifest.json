@@ -62,6 +62,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.CustomPrefabExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.CustomPrefabExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.CraftingGadget.yml",
       "output": {
         ".html": {

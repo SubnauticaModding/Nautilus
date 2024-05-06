@@ -523,6 +523,25 @@ references:
   isSpec: "True"
   fullName: Nautilus.Assets.CustomPrefab.Unregister
   nameWithType: CustomPrefab.Unregister
+- uid: Nautilus.Assets.CustomPrefabExtensions
+  name: CustomPrefabExtensions
+  href: api/Nautilus.Assets.CustomPrefabExtensions.html
+  commentId: T:Nautilus.Assets.CustomPrefabExtensions
+  fullName: Nautilus.Assets.CustomPrefabExtensions
+  nameWithType: CustomPrefabExtensions
+- uid: Nautilus.Assets.CustomPrefabExtensions.RemoveFromCache(Nautilus.Assets.CustomPrefab)
+  name: RemoveFromCache(CustomPrefab)
+  href: api/Nautilus.Assets.CustomPrefabExtensions.html#Nautilus_Assets_CustomPrefabExtensions_RemoveFromCache_Nautilus_Assets_CustomPrefab_
+  commentId: M:Nautilus.Assets.CustomPrefabExtensions.RemoveFromCache(Nautilus.Assets.CustomPrefab)
+  fullName: Nautilus.Assets.CustomPrefabExtensions.RemoveFromCache(Nautilus.Assets.CustomPrefab)
+  nameWithType: CustomPrefabExtensions.RemoveFromCache(CustomPrefab)
+- uid: Nautilus.Assets.CustomPrefabExtensions.RemoveFromCache*
+  name: RemoveFromCache
+  href: api/Nautilus.Assets.CustomPrefabExtensions.html#Nautilus_Assets_CustomPrefabExtensions_RemoveFromCache_
+  commentId: Overload:Nautilus.Assets.CustomPrefabExtensions.RemoveFromCache
+  isSpec: "True"
+  fullName: Nautilus.Assets.CustomPrefabExtensions.RemoveFromCache
+  nameWithType: CustomPrefabExtensions.RemoveFromCache
 - uid: Nautilus.Assets.Gadgets
   name: Nautilus.Assets.Gadgets
   href: api/Nautilus.Assets.Gadgets.html
