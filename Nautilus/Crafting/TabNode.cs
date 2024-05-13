@@ -23,9 +23,9 @@ internal class TabNode : Node
         Sprite = sprite;
         DisplayName = displayName;
         Name = name;
-        Id = $"{Scheme.ToString()}_{Name}";
+        Id = $"{Scheme.ToString()}Menu_{Name}";
 
-        ModSprite.Add(new ModSprite(SpriteManager.Group.Category, Id, Sprite));
+        ModSprite.Add(new ModSprite(SpriteManager.Group.Category, $"{Scheme.ToString()}_{Name}", Sprite));
 
         if (!string.IsNullOrEmpty(displayName))
         {
