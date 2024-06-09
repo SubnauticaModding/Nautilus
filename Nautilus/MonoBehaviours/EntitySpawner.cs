@@ -68,6 +68,8 @@ internal class EntitySpawner : MonoBehaviour
 
             obj.SetActive(true);
 
+            spawnInfo.OnSpawned?.Invoke(obj);
+
             LargeWorldEntity.Register(obj);
 
             LargeWorldStreamerPatcher.SavedSpawnInfos.Add(spawnInfo);
