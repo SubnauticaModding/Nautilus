@@ -60,7 +60,6 @@ public static class PrefabHandler
             InternalLogger.Error($"PrefabHandler: PrefabFactory returned null for {info.ClassID}");
             yield break;
         }
-        obj.SetActive(false);
 
         var techType = info.TechType;
         var classId = info.ClassID;
