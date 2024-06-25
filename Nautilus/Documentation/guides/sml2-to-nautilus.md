@@ -4,9 +4,11 @@ In this article, we will be talking about the necessary changes you must apply t
 
 ## Namespace
 The root namespace for Nautilus is not the same as SMLHelper 2.0.
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- &lt;RootNamespace&gt;SMLHelper.V2&lt;/RootNamespace&gt;</span>
 <span class="lang-diff-add">+ &lt;RootNamespace&gt;Nautilus&lt;/RootNamespace&gt;</span>
+
 </pre>
 
 ## Referencing
@@ -23,7 +25,8 @@ mentioned in your code.
 
 ### Handler.cs
 Following the handler interfaces change, the overly under-used `Handler` class will leave us in Nautilus
-<pre class="lang-diff">
+<pre class="hljs">
+
 // Handler.cs
 <span class="lang-diff-rem">
 - namespace SMLHelper.V2
@@ -45,6 +48,7 @@ Following the handler interfaces change, the overly under-used `Handler` class w
 -         ...
 -     }
 </span>
+
 </pre>  
 
 ### BioReactorHandler
@@ -52,9 +56,11 @@ The `BioReactorHandler` class is removed in Nautilus because it only had one ver
 SML's entry point, it didn't get applied.  
   
 The following example demonstrates how you can implement the same functionality the `BioReactorHandler` class offered.
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- BioReactorHandler.SetBioreactorCharge(TechType.Peeper, 69f);</span>
 <span class="lang-diff-add">+ BaseBioReactor.charge[TechType.Peeper] = 69f;</span>
+
 </pre>
 
 ### FishHandler
@@ -63,7 +69,8 @@ The `FishHandler` has been removed in Nautilus. At the time being, we have not a
 
 ### PDAEncyclopediaHandler And PDALogHandler  
 Beginning with Nautilus, both of these handler methods were moved to `PDAHandler` as they only had one method each.
-<pre class="lang-diff">
+<pre class="hljs">
+
 PDAEncyclopedia.EntryData entry = new PDAEncyclopedia.EntryData()
 {
   key = "SomeEncy",
@@ -76,13 +83,16 @@ PDAEncyclopedia.EntryData entry = new PDAEncyclopedia.EntryData()
 
 <span class="lang-diff-rem">- PDALogHandler.AddCustomEntry("SomeLog", "SomeLanguageKey");</span>
 <span class="lang-diff-add">+ PDAHandler.AddLogEntry("SomeLog", "SomeLanguageKey");</span>
+
 </pre>
 
 ### InGameMenuHandler
 The methods `InGameMenuHandler` class had have been moved to the `Nautilus.Utility` namespace and the class has been renamed to `SaveUtils`.
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- InGameMenuHandler.RegisterOnSaveEvent(() => ErrorMessage.AddMessage("We do be saving!"));</span>
 <span class="lang-diff-add">+ SaveUtils.RegisterOnSaveEvent(() => ErrorMessage.AddMessage("We do be saving!"));</span>
+
 </pre>
 
 ## Enum Handlers
@@ -117,35 +127,44 @@ Below we will talk about the necessary changes you will need to make your custom
 
 
 ### Configuring Custom TechType Objects
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- TechType customTech = TechTypeHandler.AddTechType("CustomTech", "Custom Tech", "Custom Tech that makes me go yes.", SpriteManager.Get(TechType.Titanium), unlockedAtStart: false);</span>
 <span class="lang-diff-add">+ TechType customTech = EnumHandler.AddEntry&lt;TechType&gt;("CustomTech")
 +             .WithPdaInfo("Custom Tech", "Custom Tech that makes me go yes.", unlockedAtStart: false)
 +             .WithIcon(SpriteManager.Get(TechType.Titanium));</span>
+
 </pre>
 
 ### Configuring Custom CraftData.BackgroundType Objects
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- CraftData.BackgroundType customBG = BackgroundTypeHandler.AddBackgroundType("CustomBackground", SpriteManager.GetBackground(TechType.Battery));</span>
 <span class="lang-diff-add">+ CraftData.BackgroundType customBG = EnumHandler.AddEntry&lt;CraftData.BackgroundType&gt;("CustomBackground")
 +             .WithBackground(SpriteManager.GetBackground(TechType.Battery));</span>
+
 </pre>
 
 ### Configuring Custom EquipmentType Objects
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- EquipmentType customEquipment = EquipmentHandler.AddEquipmentType("CustomEquipment");</span>
 <span class="lang-diff-add">+ EquipmentType customEquipment = EnumHandler.AddEntry&lt;EquipmentType&gt;("CustomEquipment");</span>
+
 </pre>
 
 ### Configuring Custom PingType Objects
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- PingType customPing = PingHandler.RegisterNewPingType("CustomPing", SpriteManager.Get(SpriteManager.Group.Pings, PingType.Signal.ToString()));</span>
 <span class="lang-diff-add">+ PingType customPing = EnumHandler.AddEntry&lt;PingType&gt;("CustomPing")
 +             .WithIcon(SpriteManager.Get(SpriteManager.Group.Pings, PingType.Signal.ToString()));</span>
+
 </pre>
 
 ### Configuring Custom TechCategory and TechGroup Objects
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- TechGroup customGroup = TechGroupHandler.AddTechCategory("CustomGroup", "Custom Group");</span>
 <span class="lang-diff-add">+ TechGroup customGroup = EnumHandler.AddEntry&lt;TechCategory&gt;("CustomGroup").WithPdaInfo("Custom Group");</span>
 
@@ -153,15 +172,18 @@ Below we will talk about the necessary changes you will need to make your custom
 - TechCategoryHandler.TryRegisterTechCategoryToTechGroup(customGroup, customCategory);</span>
 <span class="lang-diff-add">+ TechCategory customCategory = EnumHandler.AddEntry&lt;TechCategory&gt;("CustomCategory").WithPdaInfo("Custom Group")
 +             .RegisterToTechGroup(customGroup);</span>
+
 </pre>
 
 ### Configuring Custom CraftTree.Type Objects
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- ModCraftTreeRoot root = CraftTreeHandler.CreateCustomCraftTreeAndType(CustomTree, out CraftTree.Type customTree);</span>
 <span class="lang-diff-add">+ CraftTree.Type customTree = EnumHandler.AddEntry&lt;CraftTree.Type&gt;("CustomTree")
 +             .CreateCraftTreeRoot(out ModCraftTreeRoot root);</span>
 
 root.AddTabNode("SomeTab");
+
 </pre>
 
 ___
@@ -512,7 +534,8 @@ Since we discovered the best practices and better ways to deal with custom sound
 Beginning with Nautilus, all custom sounds will require a bus instead of a SoundChannel to determine the effects (E.G: reverb, muffling, low-pass, etc..) and the volume slider.  
 Additionally, the `PlaySound` signature was also modified and renamed to `TryPlaySound`.
 
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- Channel channel = AudioUtils.PlaySound(soundPath, SoundChannel.Music);</span>
 <span class="lang-diff-add">+ if (AudioUtils.TryPlaySound(soundPath, AudioUtils.BusPaths.Music, out Channel channel))
 + {
@@ -540,6 +563,7 @@ Additionally, the `PlaySound` signature was also modified and renamed to `TryPla
 +   // do something with channel
 + }
 </span>
+
 </pre>
 
 > [!WARNING]
