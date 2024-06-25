@@ -146,7 +146,7 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3)">
   SpawnInfo(string, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L94"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L95"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
@@ -179,7 +179,7 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Quaternion_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion)">
   SpawnInfo(string, Vector3, Quaternion)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L113"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
@@ -214,7 +214,7 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Quaternion_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3)">
   SpawnInfo(string, Vector3, Quaternion, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L133"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
@@ -249,9 +249,48 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <a id="Nautilus_Handlers_SpawnInfo__ctor_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor*"></a>
 
+  <h3 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Quaternion_UnityEngine_Vector3_System_Action_UnityEngine_GameObject__" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3,System.Action{UnityEngine.GameObject})">
+  SpawnInfo(string, Vector3, Quaternion, Vector3, Action&lt;GameObject&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L193"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SpawnInfo(string classId, Vector3 spawnPosition, Quaternion rotation, Vector3 scale, Action&lt;GameObject&gt; onSpawned)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>ClassID to spawn.</dd>
+    <dt><code>spawnPosition</code> <span class="xref">Vector3</span></dt>
+    <dd>Position to spawn into.</dd>
+    <dt><code>rotation</code> <span class="xref">Quaternion</span></dt>
+    <dd>Rotation to spawn at.</dd>
+    <dt><code>scale</code> <span class="xref">Vector3</span></dt>
+    <dd>Scale to spawn with.</dd>
+    <dt><code>onSpawned</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<span class="xref">GameObject</span>&gt;</dt>
+    <dd>Callback that is used when the object is successfully spawned.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_SpawnInfo__ctor_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor*"></a>
+
   <h3 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Vector3)">
   SpawnInfo(string, Vector3, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L150"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L151"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
@@ -286,7 +325,7 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)">
   SpawnInfo(string, Vector3, Vector3, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L170"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L171"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
@@ -323,7 +362,7 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3)">
   SpawnInfo(TechType, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L86"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L87"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
@@ -356,7 +395,7 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Quaternion_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion)">
   SpawnInfo(TechType, Vector3, Quaternion)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L103"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L104"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
@@ -391,7 +430,7 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Quaternion_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3)">
   SpawnInfo(TechType, Vector3, Quaternion, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L123"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
@@ -426,9 +465,48 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <a id="Nautilus_Handlers_SpawnInfo__ctor_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor*"></a>
 
+  <h3 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Quaternion_UnityEngine_Vector3_System_Action_UnityEngine_GameObject__" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3,System.Action{UnityEngine.GameObject})">
+  SpawnInfo(TechType, Vector3, Quaternion, Vector3, Action&lt;GameObject&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L182"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SpawnInfo(TechType techType, Vector3 spawnPosition, Quaternion rotation, Vector3 scale, Action&lt;GameObject&gt; onSpawned)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd>TechType to spawn.</dd>
+    <dt><code>spawnPosition</code> <span class="xref">Vector3</span></dt>
+    <dd>Position to spawn into.</dd>
+    <dt><code>rotation</code> <span class="xref">Quaternion</span></dt>
+    <dd>Rotation to spawn at.</dd>
+    <dt><code>scale</code> <span class="xref">Vector3</span></dt>
+    <dd>Scale to spawn with.</dd>
+    <dt><code>onSpawned</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<span class="xref">GameObject</span>&gt;</dt>
+    <dd>Callback that is used when the object is successfully spawned.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_SpawnInfo__ctor_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor*"></a>
+
   <h3 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Vector3)">
   SpawnInfo(TechType, Vector3, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L141"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L142"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
@@ -463,7 +541,7 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)">
   SpawnInfo(TechType, Vector3, Vector3, Vector3)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L161"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a>.</div>
@@ -504,7 +582,7 @@ Struct SpawnInfo  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Handlers_SpawnInfo_Equals_Nautilus_Handlers_SpawnInfo_" data-uid="Nautilus.Handlers.SpawnInfo.Equals(Nautilus.Handlers.SpawnInfo)">
   Equals(SpawnInfo)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L236"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L260"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Indicates whether the current <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> is equal to another.</div>
@@ -545,7 +623,7 @@ to allow for an approximate comparison of these values.</div>
 
   <h3 id="Nautilus_Handlers_SpawnInfo_Equals_System_Object_" data-uid="Nautilus.Handlers.SpawnInfo.Equals(System.Object)">
   Equals(object)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L200"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L224"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Indicates whether this instance and a specified object are equal.</div>
@@ -592,7 +670,7 @@ to allow for an approximate comparison of these values.</div>
 
   <h3 id="Nautilus_Handlers_SpawnInfo_GetHashCode" data-uid="Nautilus.Handlers.SpawnInfo.GetHashCode">
   GetHashCode()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L210"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L234"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">A custom hash code algorithm that takes into account the values of each property of the <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> instance,
@@ -628,7 +706,7 @@ and attempts to reduce diagonal collisions.</div>
 
   <h3 id="Nautilus_Handlers_SpawnInfo_op_Equality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo_" data-uid="Nautilus.Handlers.SpawnInfo.op_Equality(Nautilus.Handlers.SpawnInfo,Nautilus.Handlers.SpawnInfo)">
   operator ==(SpawnInfo, SpawnInfo)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L260"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L284"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Indicates whether two <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> instances are equal.</div>
@@ -673,7 +751,7 @@ and attempts to reduce diagonal collisions.</div>
 
   <h3 id="Nautilus_Handlers_SpawnInfo_op_Inequality_Nautilus_Handlers_SpawnInfo_Nautilus_Handlers_SpawnInfo_" data-uid="Nautilus.Handlers.SpawnInfo.op_Inequality(Nautilus.Handlers.SpawnInfo,Nautilus.Handlers.SpawnInfo)">
   operator !=(SpawnInfo, SpawnInfo)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L270"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/CoordinatedSpawnsHandler.cs/#L294"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Indicates whether two <a class="xref" href="Nautilus.Handlers.SpawnInfo.html">SpawnInfo</a> instances are not equal.</div>

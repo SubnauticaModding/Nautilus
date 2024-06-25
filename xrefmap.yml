@@ -6338,6 +6338,15 @@ references:
   fullName.vb: Nautilus.Handlers.SpawnInfo.New(String, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Vector3)
   nameWithType: SpawnInfo.SpawnInfo(string, Vector3, Quaternion, Vector3)
   nameWithType.vb: SpawnInfo.New(String, Vector3, Quaternion, Vector3)
+- uid: Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3,System.Action{UnityEngine.GameObject})
+  name: SpawnInfo(string, Vector3, Quaternion, Vector3, Action<GameObject>)
+  href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Quaternion_UnityEngine_Vector3_System_Action_UnityEngine_GameObject__
+  commentId: M:Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3,System.Action{UnityEngine.GameObject})
+  name.vb: New(String, Vector3, Quaternion, Vector3, Action(Of GameObject))
+  fullName: Nautilus.Handlers.SpawnInfo.SpawnInfo(string, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Vector3, System.Action<UnityEngine.GameObject>)
+  fullName.vb: Nautilus.Handlers.SpawnInfo.New(String, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Vector3, System.Action(Of UnityEngine.GameObject))
+  nameWithType: SpawnInfo.SpawnInfo(string, Vector3, Quaternion, Vector3, Action<GameObject>)
+  nameWithType.vb: SpawnInfo.New(String, Vector3, Quaternion, Vector3, Action(Of GameObject))
 - uid: Nautilus.Handlers.SpawnInfo.#ctor(System.String,UnityEngine.Vector3,UnityEngine.Vector3)
   name: SpawnInfo(string, Vector3, Vector3)
   href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_System_String_UnityEngine_Vector3_UnityEngine_Vector3_
@@ -6383,6 +6392,15 @@ references:
   fullName.vb: Nautilus.Handlers.SpawnInfo.New(TechType, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Vector3)
   nameWithType: SpawnInfo.SpawnInfo(TechType, Vector3, Quaternion, Vector3)
   nameWithType.vb: SpawnInfo.New(TechType, Vector3, Quaternion, Vector3)
+- uid: Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3,System.Action{UnityEngine.GameObject})
+  name: SpawnInfo(TechType, Vector3, Quaternion, Vector3, Action<GameObject>)
+  href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Quaternion_UnityEngine_Vector3_System_Action_UnityEngine_GameObject__
+  commentId: M:Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3,System.Action{UnityEngine.GameObject})
+  name.vb: New(TechType, Vector3, Quaternion, Vector3, Action(Of GameObject))
+  fullName: Nautilus.Handlers.SpawnInfo.SpawnInfo(TechType, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Vector3, System.Action<UnityEngine.GameObject>)
+  fullName.vb: Nautilus.Handlers.SpawnInfo.New(TechType, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Vector3, System.Action(Of UnityEngine.GameObject))
+  nameWithType: SpawnInfo.SpawnInfo(TechType, Vector3, Quaternion, Vector3, Action<GameObject>)
+  nameWithType.vb: SpawnInfo.New(TechType, Vector3, Quaternion, Vector3, Action(Of GameObject))
 - uid: Nautilus.Handlers.SpawnInfo.#ctor(TechType,UnityEngine.Vector3,UnityEngine.Vector3)
   name: SpawnInfo(TechType, Vector3, Vector3)
   href: api/Nautilus.Handlers.SpawnInfo.html#Nautilus_Handlers_SpawnInfo__ctor_TechType_UnityEngine_Vector3_UnityEngine_Vector3_

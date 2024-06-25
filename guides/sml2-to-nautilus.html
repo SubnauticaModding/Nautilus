@@ -90,9 +90,11 @@
 <p>In this article, we will be talking about the necessary changes you must apply to update your mod to Nautilus from SMLHelper 2.0.</p>
 <h2 id="namespace">Namespace</h2>
 <p>The root namespace for Nautilus is not the same as SMLHelper 2.0.</p>
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- &lt;RootNamespace&gt;SMLHelper.V2&lt;/RootNamespace&gt;</span>
 <span class="lang-diff-add">+ &lt;RootNamespace&gt;Nautilus&lt;/RootNamespace&gt;</span>
+
 </pre>
 <h2 id="referencing">Referencing</h2>
 <p>In BepInEx, we no longer use a <code>mod.json</code> file to determine dependencies. Instead, this is done via the <code>[BepInDependency]</code> attribute.
@@ -104,7 +106,8 @@ This means they also no longer have a public static <code>Main</code> property a
 mentioned in your code.</p>
 <h3 id="handlercs">Handler.cs</h3>
 <p>Following the handler interfaces change, the overly under-used <code>Handler</code> class will leave us in Nautilus</p>
-<pre class="lang-diff">
+<pre class="hljs">
+
 // Handler.cs
 <span class="lang-diff-rem">
 - namespace SMLHelper.V2
@@ -126,21 +129,25 @@ mentioned in your code.</p>
 -         ...
 -     }
 </span>
+
 </pre>  
 <h3 id="bioreactorhandler">BioReactorHandler</h3>
 <p>The <code>BioReactorHandler</code> class is removed in Nautilus because it only had one very simple method to patch, and was forcing patch-time. That means if you tried to modify a bio charge <em>after</em>
 SML's entry point, it didn't get applied.</p>
 <p>The following example demonstrates how you can implement the same functionality the <code>BioReactorHandler</code> class offered.</p>
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- BioReactorHandler.SetBioreactorCharge(TechType.Peeper, 69f);</span>
 <span class="lang-diff-add">+ BaseBioReactor.charge[TechType.Peeper] = 69f;</span>
+
 </pre>
 <h3 id="fishhandler">FishHandler</h3>
 <p>Ever since this class has been added, it never received any further updates due to unpopularity among modders, and unfamiliarity with how creatures worked in general and thus, has been broken for a long time.<br>
 The <code>FishHandler</code> has been removed in Nautilus. At the time being, we have not added a system to replace it, so stay tuned for that.</p>
 <h3 id="pdaencyclopediahandler-and-pdaloghandler">PDAEncyclopediaHandler And PDALogHandler</h3>
 <p>Beginning with Nautilus, both of these handler methods were moved to <code>PDAHandler</code> as they only had one method each.</p>
-<pre class="lang-diff">
+<pre class="hljs">
+
 PDAEncyclopedia.EntryData entry = new PDAEncyclopedia.EntryData()
 {
   key = "SomeEncy",
@@ -153,12 +160,15 @@ PDAEncyclopedia.EntryData entry = new PDAEncyclopedia.EntryData()
 
 <span class="lang-diff-rem">- PDALogHandler.AddCustomEntry("SomeLog", "SomeLanguageKey");</span>
 <span class="lang-diff-add">+ PDAHandler.AddLogEntry("SomeLog", "SomeLanguageKey");</span>
+
 </pre>
 <h3 id="ingamemenuhandler">InGameMenuHandler</h3>
 <p>The methods <code>InGameMenuHandler</code> class had have been moved to the <code>Nautilus.Utility</code> namespace and the class has been renamed to <code>SaveUtils</code>.</p>
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- InGameMenuHandler.RegisterOnSaveEvent(() => ErrorMessage.AddMessage("We do be saving!"));</span>
 <span class="lang-diff-add">+ SaveUtils.RegisterOnSaveEvent(() => ErrorMessage.AddMessage("We do be saving!"));</span>
+
 </pre>
 <h2 id="enum-handlers">Enum Handlers</h2>
 <p>Beginning with Nautilus, enum handling will be made generic. Instead of working with individual handlers associated with the enum type (E.G: For <code>TechType</code> we had <code>TechTypeHandler</code>),
@@ -207,31 +217,40 @@ Now you can add a new enum value to any enum type by using <code>EnumHandler.Add
 </div>
 <p>Below we will talk about the necessary changes you will need to make your custom enum values work for each of the aforementioned handlers.</p>
 <h3 id="configuring-custom-techtype-objects">Configuring Custom TechType Objects</h3>
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- TechType customTech = TechTypeHandler.AddTechType("CustomTech", "Custom Tech", "Custom Tech that makes me go yes.", SpriteManager.Get(TechType.Titanium), unlockedAtStart: false);</span>
 <span class="lang-diff-add">+ TechType customTech = EnumHandler.AddEntry&lt;TechType&gt;("CustomTech")
 +             .WithPdaInfo("Custom Tech", "Custom Tech that makes me go yes.", unlockedAtStart: false)
 +             .WithIcon(SpriteManager.Get(TechType.Titanium));</span>
+
 </pre>
 <h3 id="configuring-custom-craftdatabackgroundtype-objects">Configuring Custom CraftData.BackgroundType Objects</h3>
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- CraftData.BackgroundType customBG = BackgroundTypeHandler.AddBackgroundType("CustomBackground", SpriteManager.GetBackground(TechType.Battery));</span>
 <span class="lang-diff-add">+ CraftData.BackgroundType customBG = EnumHandler.AddEntry&lt;CraftData.BackgroundType&gt;("CustomBackground")
 +             .WithBackground(SpriteManager.GetBackground(TechType.Battery));</span>
+
 </pre>
 <h3 id="configuring-custom-equipmenttype-objects">Configuring Custom EquipmentType Objects</h3>
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- EquipmentType customEquipment = EquipmentHandler.AddEquipmentType("CustomEquipment");</span>
 <span class="lang-diff-add">+ EquipmentType customEquipment = EnumHandler.AddEntry&lt;EquipmentType&gt;("CustomEquipment");</span>
+
 </pre>
 <h3 id="configuring-custom-pingtype-objects">Configuring Custom PingType Objects</h3>
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- PingType customPing = PingHandler.RegisterNewPingType("CustomPing", SpriteManager.Get(SpriteManager.Group.Pings, PingType.Signal.ToString()));</span>
 <span class="lang-diff-add">+ PingType customPing = EnumHandler.AddEntry&lt;PingType&gt;("CustomPing")
 +             .WithIcon(SpriteManager.Get(SpriteManager.Group.Pings, PingType.Signal.ToString()));</span>
+
 </pre>
 <h3 id="configuring-custom-techcategory-and-techgroup-objects">Configuring Custom TechCategory and TechGroup Objects</h3>
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- TechGroup customGroup = TechGroupHandler.AddTechCategory("CustomGroup", "Custom Group");</span>
 <span class="lang-diff-add">+ TechGroup customGroup = EnumHandler.AddEntry&lt;TechCategory&gt;("CustomGroup").WithPdaInfo("Custom Group");</span>
 
@@ -239,14 +258,17 @@ Now you can add a new enum value to any enum type by using <code>EnumHandler.Add
 - TechCategoryHandler.TryRegisterTechCategoryToTechGroup(customGroup, customCategory);</span>
 <span class="lang-diff-add">+ TechCategory customCategory = EnumHandler.AddEntry&lt;TechCategory&gt;("CustomCategory").WithPdaInfo("Custom Group")
 +             .RegisterToTechGroup(customGroup);</span>
+
 </pre>
 <h3 id="configuring-custom-crafttreetype-objects">Configuring Custom CraftTree.Type Objects</h3>
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- ModCraftTreeRoot root = CraftTreeHandler.CreateCustomCraftTreeAndType(CustomTree, out CraftTree.Type customTree);</span>
 <span class="lang-diff-add">+ CraftTree.Type customTree = EnumHandler.AddEntry&lt;CraftTree.Type&gt;("CustomTree")
 +             .CreateCraftTreeRoot(out ModCraftTreeRoot root);</span>
 
 root.AddTabNode("SomeTab");
+
 </pre>
 <hr>
 <h2 id="options">Options</h2>
@@ -603,7 +625,8 @@ FMOD is the sound engine Subnautica uses. It is more advanced and flexible compa
 <code>CustomSoundHandler</code> and <code>AudioUtils</code> classes, as well as the <code>SoundChannel</code> enumeration in Nautilus.</p>
 <p>Beginning with Nautilus, all custom sounds will require a bus instead of a SoundChannel to determine the effects (E.G: reverb, muffling, low-pass, etc..) and the volume slider.<br>
 Additionally, the <code>PlaySound</code> signature was also modified and renamed to <code>TryPlaySound</code>.</p>
-<pre class="lang-diff">
+<pre class="hljs">
+
 <span class="lang-diff-rem">- Channel channel = AudioUtils.PlaySound(soundPath, SoundChannel.Music);</span>
 <span class="lang-diff-add">+ if (AudioUtils.TryPlaySound(soundPath, AudioUtils.BusPaths.Music, out Channel channel))
 + {
@@ -631,6 +654,7 @@ Additionally, the <code>PlaySound</code> signature was also modified and renamed
 +   // do something with channel
 + }
 </span>
+
 </pre>
 <div class="WARNING">
 <h5>Warning</h5>
