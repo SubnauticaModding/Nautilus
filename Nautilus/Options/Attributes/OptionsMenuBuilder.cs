@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Nautilus.Json;
 using Nautilus.Utility;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Nautilus.Options.Attributes;
@@ -74,6 +75,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
         else if (e.GetType().IsGenericType && e.GetType().GetGenericTypeDefinition() == typeof(ChoiceChangedEventArgs<>))
         {
             var genericParam = e.GetType().GetGenericArguments()[0];
+            InternalLogger.Debug($"Generic param: {genericParam}");
             var genericType = typeof(ChoiceChangedEventArgs<>).MakeGenericType(genericParam);
             var typedEvent = Convert.ChangeType(e, genericType);
             var methodInfo = ConfigFileMetadata.GetType().GetMethod(nameof(ConfigFileMetadata.HandleChoiceChanged));
@@ -186,21 +188,53 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     {
         if (memberInfoMetadata.ValueType.IsEnum && (choiceAttribute.Options == null || !choiceAttribute.Options.Any()))
         {
-            // Enum-based choice where the values are parsed from the enum type
-            string[] options = Enum.GetNames(memberInfoMetadata.ValueType);
-            string value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
-            if(!AddItem(ModChoiceOption<string>.Create(id, label, options, value)))
-                InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
+            try
+            {
+                // Enum-based choice where the values are parsed from the enum type
+                var options = Enum.GetValues(memberInfoMetadata.ValueType);
+                var value = memberInfoMetadata.GetValue(ConfigFileMetadata.Config);
 
+                Type type = memberInfoMetadata.ValueType;
+                Type arrayType = type.MakeArrayType();
+                // make generic constructor for ModChoiceOption<T>
+                var genericType = typeof(ModChoiceOption<>).MakeGenericType(memberInfoMetadata.ValueType);            // get the Create method
+                var methodInfo = genericType.GetMethod("Create", new Type[] { typeof(string), typeof(string), arrayType, type, typeof(string) });
+                OptionItem optionItem = (OptionItem) methodInfo.Invoke(null, new object[] { id, label, options, value, choiceAttribute.Tooltip });
+                if (!AddItem(optionItem))
+                    InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
+            }
+            catch (Exception e)
+            {
+                InternalLogger.Error($"Failed to add ModChoiceOption with id {id} to {Name} due to an error parsing the options: {e}");
+            }
         }
         else if (memberInfoMetadata.ValueType.IsEnum)
         {
-            // Enum-based choice where the values are defined as custom strings
-            string[] options = choiceAttribute.Options;
-            string name = memberInfoMetadata.GetValue(ConfigFileMetadata.Config).ToString();
-            int index = Math.Max(Array.IndexOf(Enum.GetNames(memberInfoMetadata.ValueType), name), 0);
-            if(!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
-                InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
+            try
+            {
+                // Enum-based choice where the values are defined as custom strings
+                var options = Array.CreateInstance(memberInfoMetadata.ValueType, choiceAttribute.Options.Length);                
+                for (int i = 0; i < choiceAttribute.Options.Length; i++)
+                {
+                    options.SetValue(Enum.Parse(memberInfoMetadata.ValueType, choiceAttribute.Options[i], true), i);
+                }
+                var option = memberInfoMetadata.GetValue(ConfigFileMetadata.Config);
+                int index = Array.IndexOf(options, option);
+                if (index < 0)
+                    index = 0;
+                Type type = memberInfoMetadata.ValueType;
+                Type arrayType = type.MakeArrayType();
+                // make generic constructor for ModChoiceOption<T>
+                var genericType = typeof(ModChoiceOption<>).MakeGenericType(memberInfoMetadata.ValueType);            // get the Create method
+                var methodInfo = genericType.GetMethod("Create", new Type[] { typeof(string), typeof(string), arrayType, typeof(int), typeof(string) });
+                OptionItem optionItem = (OptionItem) methodInfo.Invoke(null, new object[] { id, label, options, index, choiceAttribute.Tooltip });
+                if (!AddItem(optionItem))
+                    InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
+            }
+            catch (Exception e)
+            {
+                InternalLogger.Error($"Failed to add ModChoiceOption with id {id} to {Name} due to an error parsing the options: {e}");
+            }
         }
         else if (memberInfoMetadata.ValueType == typeof(string))
         {
@@ -212,11 +246,22 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
         }
         else if (memberInfoMetadata.ValueType == typeof(int))
         {
-            // index-based choice value
-            string[] options = choiceAttribute.Options;
-            int index = memberInfoMetadata.GetValue<int>(ConfigFileMetadata.Config);
-            if(!AddItem(ModChoiceOption<string>.Create(id, label, options, index)))
-                InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
+            try
+            {
+                // index-based choice value
+                int[] options = new int[choiceAttribute.Options.Length];
+                for (int i = 0; i < choiceAttribute.Options.Length; i++)
+                {
+                    options[i] = int.Parse(choiceAttribute.Options[i]);
+                }
+                int index = memberInfoMetadata.GetValue<int>(ConfigFileMetadata.Config);
+                if (!AddItem(ModChoiceOption<int>.Create(id, label, options, index)))
+                    InternalLogger.Warn($"Failed to add ModChoiceOption with id {id} to {Name}");
+            }
+            catch (Exception e)
+            {
+                InternalLogger.Error($"Failed to add ModChoiceOption with id {id} to {Name} due to an error parsing the options: {e}");
+            }
         }
     }
 
