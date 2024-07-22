@@ -22,6 +22,7 @@ internal class CustomSoundPatcher
     internal static List<AttachedChannel> AttachedChannels = new();
 
     private static readonly Dictionary<string, Channel> PlayedChannels = new();
+    private static readonly Dictionary<FMODEventPlayableBehavior, Channel> PlayableBehaviorChannels = new();
     private static readonly List<AttachedChannel> _attachedChannelsToRemove = new();
 
     internal static void Patch(Harmony harmony)
@@ -74,7 +75,180 @@ internal class CustomSoundPatcher
         __result = 0;
         return false;
     }
+    
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.PerformSeek))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_PerformSeek_Prefix(FMODEventPlayableBehavior __instance)
+    {
+        if (!PlayableBehaviorChannels.TryGetValue(__instance, out var channel))
+        {
+            return true;
+        }
+        
+        if (__instance.seek < 0)
+        {
+            return true;
+        }
+        
+        channel.setPosition((uint)__instance.seek, TIMEUNIT.MS);
+        __instance.seek = -1;
+        return false;
+    }
 
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.PlayEvent))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_PlayEvent_Prefix(FMODEventPlayableBehavior __instance)
+    {
+        if (string.IsNullOrEmpty(__instance.eventName))
+        {
+            return true;
+        }
+        
+        if (string.IsNullOrEmpty(__instance.eventName) || !CustomSounds.TryGetValue(__instance.eventName, out Sound soundEvent) 
+            && !CustomFModSounds.ContainsKey(__instance.eventName)) return true;
+        
+        Channel channel;
+        if (CustomFModSounds.TryGetValue(__instance.eventName, out var fModSound))
+        {
+            if (!fModSound.TryPlaySound(out channel))
+                return false;
+        }
+        else if (CustomSoundBuses.TryGetValue(__instance.eventName, out Bus bus))
+        {
+            if (!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+
+        PlayableBehaviorChannels[__instance] = channel;
+
+        channel.setPaused(true);
+        
+        __instance.PerformSeek();
+
+        if (__instance.TrackTargetObject)
+        {
+            CustomSoundHandler.AttachChannelToGameObject(channel, __instance.TrackTargetObject.transform);
+        }
+        else
+        {
+            SetChannel3DAttributes(channel, Vector3.zero);
+        }
+        
+        channel.setVolume(__instance.currentVolume);
+        
+        channel.setPaused(false);
+
+        return false;
+    }
+
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.OnExit))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_OnExit_Prefix(FMODEventPlayableBehavior __instance)
+    {
+        if (!PlayableBehaviorChannels.TryGetValue(__instance, out var channel))
+        {
+            return true;
+        }
+
+        if (!__instance.isPlayheadInside)
+        {
+            return false;
+        }
+
+        if (__instance.stopType != FMODUnity.STOP_MODE.None)
+        {
+            channel.stop();
+        }
+
+        PlayableBehaviorChannels.Remove(__instance);
+        __instance.isPlayheadInside = false;
+        
+        return false;
+    }
+
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.ProcessFrame))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_ProcessFrame_Prefix(FMODEventPlayableBehavior __instance)
+    {
+        return !PlayableBehaviorChannels.ContainsKey(__instance);
+    }
+
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.UpdateBehavior))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_UpdateBehavior_Prefix(FMODEventPlayableBehavior __instance, float time, float volume)
+    {
+        if (!PlayableBehaviorChannels.TryGetValue(__instance, out var channel))
+        {
+            return true;
+        }
+
+        if (volume != __instance.currentVolume)
+        {
+            __instance.currentVolume = volume;
+            channel.setVolume(volume);
+        }
+        
+        if (time >= __instance.OwningClip.start && time < __instance.OwningClip.end)
+        {
+            __instance.OnEnter();
+        }
+        else
+        {
+            __instance.OnExit();
+        }
+
+        return false;
+    }
+
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.OnGraphStop))]
+    [HarmonyPostfix]
+    public static void FMODEventPlayableBehavior_OnGraphStop_Postfix(FMODEventPlayableBehavior __instance)
+    {
+        if (!PlayableBehaviorChannels.TryGetValue(__instance, out var channel))
+        {
+            channel.stop();
+            PlayableBehaviorChannels.Remove(__instance);
+        }
+    }
+    
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.Evaluate))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_Evaluate_Postfix(FMODEventPlayableBehavior __instance, double time, FrameData info, bool evaluate)
+    {
+        if (!PlayableBehaviorChannels.TryGetValue(__instance, out var channel))
+        {
+            return true;
+        }
+        
+        if (!info.timeHeld && time >= __instance.OwningClip.start && time < __instance.OwningClip.end)
+        {
+            if (!__instance.isPlayheadInside)
+            {
+                if (time - __instance.OwningClip.start > 0.1)
+                {
+                    __instance.seek = __instance.GetPosition(time);
+                }
+                __instance.OnEnter();
+                return false;
+            }
+            if ((evaluate || info.seekOccurred || info.timeLooped || info.evaluationType == FrameData.EvaluationType.Evaluate))
+            {
+                __instance.seek = __instance.GetPosition(time);
+                __instance.PerformSeek();
+                return false;
+            }
+        }
+        else
+        {
+            __instance.OnExit();
+        }
+
+        return false;
+    }
 
     [HarmonyPatch(typeof(RuntimeManager), nameof(RuntimeManager.Update))]
     [HarmonyPostfix]

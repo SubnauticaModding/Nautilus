@@ -46,6 +46,7 @@
     <PackageReference Include="PolySharp" Version="1.13.1" PrivateAssets="all" />
 
     <Publicize Include="Newtonsoft.Json" />
+    <Publicize Include="FMODUnity" />
   </ItemGroup>
 
   <ItemGroup>
