@@ -4,19 +4,25 @@ using FMOD.Studio;
 using FMODUnity;
 using HarmonyLib;
 using Nautilus.FMod.Interfaces;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
+using UnityEngine.Playables;
 
 namespace Nautilus.Patchers;
 
 internal class CustomSoundPatcher
 {
+    internal record struct AttachedChannel(Channel Channel, Transform Transform);
+    
     internal static readonly SelfCheckingDictionary<string, Sound> CustomSounds = new("CustomSounds");
     internal static readonly SelfCheckingDictionary<string, Bus> CustomSoundBuses = new("CustomSoundBuses");
     internal static readonly SelfCheckingDictionary<string, IFModSound> CustomFModSounds = new("CustoomFModSounds");
     internal static readonly Dictionary<int, Channel> EmitterPlayedChannels = new();
+    internal static List<AttachedChannel> AttachedChannels = new();
 
     private static readonly Dictionary<string, Channel> PlayedChannels = new();
+    private static readonly List<AttachedChannel> _attachedChannelsToRemove = new();
 
     internal static void Patch(Harmony harmony)
     {
@@ -69,6 +75,38 @@ internal class CustomSoundPatcher
         return false;
     }
 
+
+    [HarmonyPatch(typeof(RuntimeManager), nameof(RuntimeManager.Update))]
+    [HarmonyPostfix]
+    public static void RuntimeManager_Update_Postfix(RuntimeManager __instance)
+    {
+        if (!__instance.studioSystem.isValid())
+        {
+            return;
+        }
+
+        foreach (var attachedChannel in AttachedChannels)
+        {
+            attachedChannel.Channel.isPlaying(out var isPlaying);
+            if (!isPlaying || !attachedChannel.Transform)
+            {
+                _attachedChannelsToRemove.Add(attachedChannel);
+                continue;
+            }
+            
+            SetChannel3DAttributes(attachedChannel.Channel, attachedChannel.Transform);
+        }
+
+        if (_attachedChannelsToRemove.Count > 0)
+        {
+            foreach (var toRemove in _attachedChannelsToRemove)
+            {
+                AttachedChannels.Remove(toRemove);
+            }
+            _attachedChannelsToRemove.Clear();
+        }
+    }
+    
 #if SUBNAUTICA
         
     [HarmonyPatch(typeof(FMODUWE), nameof(FMODUWE.PlayOneShotImpl))]
@@ -700,13 +738,13 @@ internal class CustomSoundPatcher
         }
 #endif
 
-    private static void SetChannel3DAttributes(Channel channel, Transform transform)
+    internal static void SetChannel3DAttributes(Channel channel, Transform transform)
     {
         ATTRIBUTES_3D attributes = transform.To3DAttributes();
         channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
     }
         
-    private static void SetChannel3DAttributes(Channel channel, Vector3 position)
+    internal static void SetChannel3DAttributes(Channel channel, Vector3 position)
     {
         ATTRIBUTES_3D attributes = position.To3DAttributes();
         channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
