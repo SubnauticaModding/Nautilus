@@ -18,9 +18,6 @@ internal class CraftTreePatcher
     internal static Dictionary<CraftTree.Type, List<Node>> NodesToRemove = new();
     internal static Dictionary<CraftTree.Type, List<CraftingNode>> CraftingNodes = new();
     internal static Dictionary<CraftTree.Type, List<TabNode>> TabNodes = new();
-    internal static Dictionary<CraftTree.Type, CraftTree> CachedTrees = new();
-    private const string FallbackTabNode = "Modded";
-    private const string VanillaRoot = "Vanilla";
 
     #endregion
 
@@ -28,74 +25,15 @@ internal class CraftTreePatcher
 
     internal static void Patch(Harmony harmony)
     {
-        CreateFallbackNodes();
         harmony.PatchAll(typeof(CraftTreePatcher));
         InternalLogger.Log($"CraftTreePatcher is done.", LogLevel.Debug);
     }
-
-    private static void CreateFallbackNodes()
-    {
-        // Workbench
-        CreateVanillaTabNode(CraftTree.Type.Workbench, "Modification Station", TechType.Workbench, CraftTree.WorkbenchScheme().root);
-        CraftTreeHandler.AddTabNode(CraftTree.Type.Workbench, FallbackTabNode + CraftTree.Type.Workbench, "Mod Items", SpriteManager.Get(TechType.Workbench));
-
-        // Fabricator
-        CraftTreeHandler.AddTabNode(CraftTree.Type.Fabricator, FallbackTabNode + CraftTree.Type.Fabricator, "Mod Items", SpriteManager.Get(TechType.Fabricator));
-
-        // Constructor
-        CraftTreeHandler.AddTabNode(CraftTree.Type.Constructor, FallbackTabNode + CraftTree.Type.Constructor, "Mod Items", SpriteManager.Get(TechType.Constructor));
-
-        // Seamoth Upgrades
-        CraftTreeHandler.AddTabNode(CraftTree.Type.SeamothUpgrades, FallbackTabNode + CraftTree.Type.SeamothUpgrades, "Mod Items", SpriteManager.Get(TechType.BaseUpgradeConsole));
-
-        // Map Room
-        CreateVanillaTabNode(CraftTree.Type.MapRoom, "Scanner Upgrades", TechType.BaseMapRoom, CraftTree.MapRoomSheme().root);
-        CraftTreeHandler.AddTabNode(CraftTree.Type.MapRoom, FallbackTabNode + CraftTree.Type.MapRoom, "Mod Items", SpriteManager.Get(TechType.BaseMapRoom));
-#if SUBNAUTICA
-        // Cyclops Fabricator
-        CreateVanillaTabNode(CraftTree.Type.CyclopsFabricator, "Cyclops Fabricator", TechType.Cyclops, CraftTree.CyclopsFabricatorScheme().root);
-        CraftTreeHandler.AddTabNode(CraftTree.Type.CyclopsFabricator, FallbackTabNode + CraftTree.Type.CyclopsFabricator, "Mod Items", SpriteManager.Get(TechType.Cyclops));
-#elif BELOWZERO
-        // SeaTruck Fabricator
-        CraftTreeHandler.AddTabNode(CraftTree.Type.SeaTruckFabricator, FallbackTabNode+CraftTree.Type.SeaTruckFabricator, "Mod Items", SpriteManager.Get(TechType.SeaTruckFabricator));
-#endif
-    }
-
-    private static void CreateVanillaTabNode(CraftTree.Type treeType, string DisplayName, TechType spriteTechType, TreeNode root)
-    {
-        var removedNodes = new List<CraftNode>();
-        foreach (var node in root.nodes)
-        {
-            if (node is not CraftNode craftNode || craftNode.action == TreeAction.Expand)
-                continue;
-
-            CraftTreeHandler.RemoveNode(treeType, new[] { node.id });
-            removedNodes.Add(craftNode);
-        }
-
-        if (removedNodes.Count == 0)
-            return;
-
-        var vanillaTab = VanillaRoot + treeType;
-        CraftTreeHandler.AddTabNode(treeType, vanillaTab, DisplayName, SpriteManager.Get(spriteTechType));
-        foreach (var node in removedNodes)
-        {
-            InternalLogger.Debug($"Moved {node.techType0} from {treeType} root into new {vanillaTab} tab.");
-            CraftTreeHandler.AddCraftingNode(treeType, node.techType0, new[] { vanillaTab });
-        }
-        InternalLogger.Info($"Reorganized {removedNodes.Count} {treeType} nodes into new {vanillaTab} tab.");
-    }
+    
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.GetTree))]
     private static void GetTreePreFix(CraftTree.Type treeType, ref CraftTree __result)
     {
-        if (CachedTrees.TryGetValue(treeType, out var cachedTree))
-        {
-            __result = cachedTree;
-            return;
-        }
-
         __result ??= !CustomTrees.TryGetValue(treeType, out var customRoot) ? __result : customRoot.CustomCraftingTree;
 
         if (__result == null)
@@ -107,10 +45,14 @@ internal class CraftTreePatcher
             return;
         }
 
+#if BELOWZERO
+        if (treeType is CraftTree.Type.SeaTruckFabricator)
+        {
+            PatchCraftTree(ref __result, CraftTree.Type.Fabricator);
+        }
+#endif
         PatchCraftTree(ref __result, treeType);
         CraftTree.AddToCraftableTech(__result);
-        CachedTrees.Add(treeType, __result);
-        return;
     }
 
     #endregion
@@ -140,11 +82,11 @@ internal class CraftTreePatcher
                 continue;
             }
 
-            if (currentNode.nodes.Any(node => node is CraftNode craftNode && craftNode.action == TreeAction.Craft))
+            /*if (currentNode.nodes.Any(node => node is CraftNode craftNode && craftNode.action == TreeAction.Craft))
             {
                 InternalLogger.Error($"Cannot add tab: {customNode.Name} to {customNode.Scheme} at {string.Join("/", customNode.Path)} as it is being added to a parent node that contains crafting nodes. {string.Join(", ", currentNode.nodes.Where(node => node is CraftNode craftNode && craftNode.action == TreeAction.Craft).Select(x => x.id))} ");
                 continue;
-            }
+            }*/
 
             // Add the new tab node.
             currentNode.AddNode(new TreeNode[]
@@ -164,18 +106,6 @@ internal class CraftTreePatcher
             {
                 InternalLogger.Error($"Cannot add Crafting node: {customNode.TechType.AsString()} to {customNode.Scheme} at {string.Join("/", customNode.Path)} as the parent node could not be found.");
                 continue;
-            }
-
-            if (currentNode.nodes.Any(x => x is CraftNode craftNode && craftNode.action == TreeAction.Expand))
-            {
-                InternalLogger.Warn($"Cannot add Crafting node: {customNode.TechType.AsString()} as it is being added to {currentNode.id} that contains Tab nodes. {string.Join(", ", currentNode.nodes.Where(node => node is CraftNode craftNode && craftNode.action == TreeAction.Expand).Select(x => x.id))}");
-                InternalLogger.Warn($"Adding to Fallback {FallbackTabNode} node in tree root.");
-
-                if (!TraverseTree(tree.nodes, new[] { FallbackTabNode + customNode.Scheme }, out currentNode))
-                {
-                    InternalLogger.Error($"Cannot add Crafting node: {customNode.TechType.AsString()} to {customNode.Scheme} at {string.Join("/", customNode.Path)} as the fallback node could not be found.");
-                    continue;
-                }
             }
 
             // Add the node.
