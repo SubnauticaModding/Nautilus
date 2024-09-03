@@ -86,6 +86,45 @@ internal class CraftTreePatcher
         }
         InternalLogger.Info($"Reorganized {removedNodes.Count} {treeType} nodes into new {vanillaTab} tab.");
     }
+    
+    [HarmonyPatch(typeof(uGUI_CraftingMenu), nameof(uGUI_CraftingMenu.IsGrid))] 
+    [HarmonyPrefix]
+    private static bool ShouldGridPostfix(uGUI_CraftingMenu.Node node, ref bool __result)
+    { 
+        __result = ShouldGrid();
+        return false;
+        
+        bool ShouldGrid()
+        {
+            var craftings = 0;
+            var tabs = 0;
+
+            foreach (var child in node)
+            {
+                if (child.action == TreeAction.Expand)
+                {
+                    tabs++;
+                }
+                else if (child.action == TreeAction.Craft)
+                {
+                    craftings++;
+                }
+            }
+
+            return craftings > tabs;
+        }
+    }
+
+    [HarmonyPatch(typeof(uGUI_CraftingMenu), nameof(uGUI_CraftingMenu.Collapse))] 
+    [HarmonyPostfix]
+    private static void CollapsePostfix(uGUI_CraftingMenu.Node parent)
+    {
+        if (parent == null) return;
+
+        if (parent.action != TreeAction.Craft) return;
+
+        parent.icon.SetActive(false);
+    }
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.GetTree))]
