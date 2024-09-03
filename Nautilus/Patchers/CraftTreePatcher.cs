@@ -82,12 +82,6 @@ internal class CraftTreePatcher
                 continue;
             }
 
-            /*if (currentNode.nodes.Any(node => node is CraftNode craftNode && craftNode.action == TreeAction.Craft))
-            {
-                InternalLogger.Error($"Cannot add tab: {customNode.Name} to {customNode.Scheme} at {string.Join("/", customNode.Path)} as it is being added to a parent node that contains crafting nodes. {string.Join(", ", currentNode.nodes.Where(node => node is CraftNode craftNode && craftNode.action == TreeAction.Craft).Select(x => x.id))} ");
-                continue;
-            }*/
-
             // Add the new tab node.
             currentNode.AddNode(new TreeNode[]
             {
