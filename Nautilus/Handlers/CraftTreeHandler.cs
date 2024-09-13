@@ -29,7 +29,6 @@ public static class CraftTreeHandler
 
         nodes.Add(new CraftingNode(stepsToTab, craftTree, craftingItem));
         CraftTreePatcher.CraftingNodes[craftTree] = nodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -47,7 +46,6 @@ public static class CraftTreeHandler
 
         nodes.Add(new CraftingNode(new string[0], craftTree, craftingItem));
         CraftTreePatcher.CraftingNodes[craftTree] = nodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
 #if SUBNAUTICA
@@ -67,7 +65,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -87,7 +84,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, new Atlas.Sprite(sprite), name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -112,7 +108,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -137,7 +132,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, new Atlas.Sprite(sprite), name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
 #elif BELOWZERO
@@ -157,7 +151,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -182,7 +175,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
 #endif
@@ -209,7 +201,6 @@ public static class CraftTreeHandler
 
         nodesToRemove.Add(new Node(stepsToNode, craftTree));
         CraftTreePatcher.NodesToRemove[craftTree] = nodesToRemove;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
