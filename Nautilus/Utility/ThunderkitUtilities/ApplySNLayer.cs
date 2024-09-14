@@ -1,5 +1,6 @@
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Nautilus.Utility.ThunderkitUtilities;
 
@@ -9,7 +10,7 @@ internal class ApplySNLayer : MonoBehaviour
     public LayerName layerName;
 
     [Tooltip("How to apply the layer")]
-    public GeneralSetMode layerSetMode;
+    public MaterialSetMode layerSetMode;
 
     private void Start()
     {
@@ -37,20 +38,23 @@ internal class ApplySNLayer : MonoBehaviour
 
         switch(layerSetMode)
         {
-            case GeneralSetMode.SingleObject:
+            case MaterialSetMode.SingleObject:
                 gameObject.layer = layer;
                 break;
-            case GeneralSetMode.AllChildObjects:
+            case MaterialSetMode.AllChildObjects:
                 GetComponentsInChildren<GameObject>().ForEach(g => g.layer = layer);
                 break;
-            case GeneralSetMode.AllChildObjectsIncludeInactive:
+            case MaterialSetMode.AllChildObjectsIncludeInactive:
                 GetComponentsInChildren<GameObject>(true).ForEach(g => g.layer = layer);
+                break;
+            case MaterialSetMode.AllChildGraphics:
+                GetComponentsInChildren<Graphic>(true).ForEach(g => g.gameObject.layer = layer);
                 break;
         }
     }
 
     /// <summary>
-    /// These are taken from <see cref="LayerID"/>, and are retrieved using reflection
+    /// These are taken from <see cref="LayerID"/>
     /// </summary>
     public enum LayerName
     {
