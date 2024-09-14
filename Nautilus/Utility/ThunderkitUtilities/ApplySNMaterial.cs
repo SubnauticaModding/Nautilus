@@ -47,6 +47,12 @@ internal class ApplySNMaterial : MonoBehaviour
             case MaterialSetMode.AllChildObjectsIncludeInactive:
                 ApplyMaterialsOnChildren(true);
                 break;
+            case MaterialSetMode.AllChildGraphics:
+                foreach (var graphic in GetComponentsInChildren<Graphic>(true))
+                {
+                    graphic.material = GetMaterial(materialType);
+                }
+                break;
         }
     }
 
