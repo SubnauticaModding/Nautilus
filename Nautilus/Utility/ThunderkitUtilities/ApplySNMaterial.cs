@@ -104,7 +104,6 @@ internal class ApplySNMaterial : MonoBehaviour
         ExteriorGlass,
         ShinyGlass,
         InteriorWindowGlass,
-        // Kinda icky but these underlying values shouldn't change between versions
 #if SN_STABLE
         WaterBarrier,
         ForceField,
