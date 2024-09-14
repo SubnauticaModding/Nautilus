@@ -17,7 +17,7 @@ internal class ApplySNMaterial : MonoBehaviour
 
     [Header("Single Object Settings:")]
     public Renderer renderer;
-    public int[] materialIndices;
+    public int[] materialIndices = new[] { 0 };
 
     private void OnValidate()
     {
