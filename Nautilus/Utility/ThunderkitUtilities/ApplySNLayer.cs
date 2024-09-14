@@ -9,7 +9,7 @@ internal class ApplySNLayer : MonoBehaviour
     public LayerName layerName;
 
     [Tooltip("How to apply the layer")]
-    public GeneralSetMode applicationMode;
+    public GeneralSetMode layerSetMode;
 
     private void Start()
     {
@@ -35,7 +35,7 @@ internal class ApplySNLayer : MonoBehaviour
             _ => 0
         };
 
-        switch(applicationMode)
+        switch(layerSetMode)
         {
             case GeneralSetMode.SingleObject:
                 gameObject.layer = layer;

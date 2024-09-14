@@ -7,7 +7,7 @@ namespace Nautilus.Utility.ThunderkitUtilities;
 internal class ApplySNMaterial : MonoBehaviour
 {
     [Tooltip("How to apply the material")]
-    public MaterialSetMode applicationMode;
+    public MaterialSetMode materialSetMode;
 
     [Tooltip("What material to apply")]
     public MaterialType materialType;
@@ -36,7 +36,7 @@ internal class ApplySNMaterial : MonoBehaviour
     /// </summary>
     public void AssignMaterials()
     {
-        switch(applicationMode)
+        switch(materialSetMode)
         {
             case MaterialSetMode.SingleObject:
                 ApplyMaterialsOnSingleRend();

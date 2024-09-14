@@ -6,11 +6,11 @@ namespace Nautilus.Utility.ThunderkitUtilities;
 internal class ApplySNFont : MonoBehaviour
 {
     [Tooltip("How to apply the font")]
-    public GeneralSetMode applicationMode;
+    public GeneralSetMode fontSetMode;
 
     private void Start()
     {
-        switch (applicationMode)
+        switch (fontSetMode)
         {
             case GeneralSetMode.SingleObject:
                 GetComponent<TextMeshProUGUI>().font = FontUtils.Aller_Rg;
