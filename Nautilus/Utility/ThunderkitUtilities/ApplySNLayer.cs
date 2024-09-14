@@ -13,8 +13,27 @@ internal class ApplySNLayer : MonoBehaviour
 
     private void Start()
     {
-        FieldInfo field = typeof(LayerID).GetField(layerName.ToString(), BindingFlags.Static | BindingFlags.Public);
-        int layer = (int) field.GetValue(null);
+        int layer = layerName switch
+        {
+            LayerName.Default => LayerID.Default,
+            LayerName.Useable => LayerID.Useable,
+            LayerName.NotUseable => LayerID.NotUseable,
+            LayerName.Player => LayerID.Player,
+            LayerName.TerrainCollider => LayerID.TerrainCollider,
+            LayerName.UI => LayerID.UI,
+            LayerName.Trigger => LayerID.Trigger,
+            LayerName.BaseClipProxy => LayerID.BaseClipProxy,
+            LayerName.OnlyVehicle => LayerID.OnlyVehicle,
+            LayerName.Vehicle => LayerID.Vehicle,
+#if SUBNAUTICA
+            LayerName.DefaultCollisionMask => LayerID.DefaultCollisionMask,
+            LayerName.SubRigidbodyExclude => LayerID.SubRigidbodyExclude,
+#elif BELOWZERO          
+            LayerName.Interior => LayerID.Interior,
+            LayerName.AllowPlayerAndVehicle => LayerID.AllowPlayerAndVehicle,
+#endif
+            _ => 0
+        };
 
         switch(applicationMode)
         {
@@ -45,10 +64,10 @@ internal class ApplySNLayer : MonoBehaviour
         BaseClipProxy,
         OnlyVehicle,
         Vehicle,
-#if SN_STABLE
+#if SUBNAUTICA
         DefaultCollisionMask,
         SubRigidbodyExclude,
-#elif BZ_STABLE
+#elif BELOWZERO
         Interior,
         AllowPlayerAndVehicle
 #endif
