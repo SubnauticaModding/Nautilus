@@ -45,7 +45,12 @@ internal class ApplySNLayer : MonoBehaviour
         BaseClipProxy,
         OnlyVehicle,
         Vehicle,
+#if SN_STABLE
+        DefaultCollisionMask,
         SubRigidbodyExclude,
-        DefaultCollisionMask
+#elif BZ_STABLE
+        Interior,
+        AllowPlayerAndVehicle
+#endif
     }
 }
