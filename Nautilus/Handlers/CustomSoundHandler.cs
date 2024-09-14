@@ -169,4 +169,41 @@ public static class CustomSoundHandler
     {
         return CustomSoundPatcher.EmitterPlayedChannels.TryGetValue(id, out channel);
     }
+
+    
+    /// <summary>
+    /// Attaches the specified channel to the given transform. This results in the sound position following the <paramref name="transform"/>.
+    /// </summary>
+    /// <param name="channel">The channel to attach.</param>
+    /// <param name="transform">The transform which the channel will follow.</param>
+    public static void AttachChannelToGameObject(Channel channel, Transform transform)
+    {
+        var index = CustomSoundPatcher.AttachedChannels.FindIndex(x => x.Channel.handle == channel.handle);
+        var attachedChannel = new CustomSoundPatcher.AttachedChannel(channel, transform);
+        if (index == -1)
+        {
+            CustomSoundPatcher.AttachedChannels.Add(attachedChannel);
+        }
+        else
+        {
+            CustomSoundPatcher.AttachedChannels[index] = attachedChannel;
+        }
+        
+        CustomSoundPatcher.SetChannel3DAttributes(channel, transform);
+    }
+    
+    /// <summary>
+    /// Detaches the specified channel from any game object.
+    /// </summary>
+    /// <param name="channel">The channel to detach.</param>
+    public static void DetachChannelFromGameObject(Channel channel)
+    {
+        var index = CustomSoundPatcher.AttachedChannels.FindIndex(x => x.Channel.handle == channel.handle);
+        if (index == -1)
+        {
+            InternalLogger.Warn($"{nameof(CustomSoundHandler)}: The specified channel is not attached to any game object.");
+        }
+        
+        CustomSoundPatcher.AttachedChannels.RemoveAt(index);
+    }
 }

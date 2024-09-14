@@ -29,7 +29,6 @@ public static class CraftTreeHandler
 
         nodes.Add(new CraftingNode(stepsToTab, craftTree, craftingItem));
         CraftTreePatcher.CraftingNodes[craftTree] = nodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -47,7 +46,6 @@ public static class CraftTreeHandler
 
         nodes.Add(new CraftingNode(new string[0], craftTree, craftingItem));
         CraftTreePatcher.CraftingNodes[craftTree] = nodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
 #if SUBNAUTICA
@@ -56,7 +54,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite)
     {
@@ -67,7 +65,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -75,7 +72,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>
 
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
@@ -87,7 +84,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, new Atlas.Sprite(sprite), name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -95,7 +91,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>
     /// <param name="stepsToTab">
     /// <para>The steps to the target tab.</para>
@@ -112,7 +108,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -120,7 +115,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>
     /// <param name="stepsToTab">
     /// <para>The steps to the target tab.</para>
@@ -137,7 +132,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, new Atlas.Sprite(sprite), name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
 #elif BELOWZERO
@@ -146,7 +140,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
     {
@@ -157,7 +151,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>
@@ -165,7 +158,7 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="name">The ID of the tab node. Must be unique!</param>
-    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab.</param>
+    /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>
     /// <param name="stepsToTab">
     /// <para>The steps to the target tab.</para>
@@ -182,7 +175,6 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
 #endif
@@ -209,7 +201,6 @@ public static class CraftTreeHandler
 
         nodesToRemove.Add(new Node(stepsToNode, craftTree));
         CraftTreePatcher.NodesToRemove[craftTree] = nodesToRemove;
-        CraftTreePatcher.CachedTrees.Remove(craftTree);
     }
 
     /// <summary>

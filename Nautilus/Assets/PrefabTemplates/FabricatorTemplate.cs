@@ -140,7 +140,7 @@ public class FabricatorTemplate : PrefabTemplate
             InternalLogger.Error($"Failed to get prefab for {FabricatorModel}!!!!!!!!   PLEASE REPORT THIS BUG TO THE NAUTILUS TEAM!");
         }
 
-        var obj = GameObject.Instantiate(prefab);
+        var obj = Utils.InstantiateDeactivated(prefab);
         yield return ApplyCrafterPrefab(obj);
         gameObject.Set(obj);
     }

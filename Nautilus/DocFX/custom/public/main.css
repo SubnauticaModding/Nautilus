@@ -3,16 +3,12 @@
   src: url("days_one.ttf");
 }
 
-[data-bs-theme=dark] .lang-diff {
-    background: #0d1117;
-}
-
 .lang-diff-rem {
   color: rgb(236, 89, 117);
 }
 
 .lang-diff-add {
-  color: rgb(62, 175, 124);;
+  color: rgb(62, 175, 124);
 }
 
 @media (min-width: 1600px) {

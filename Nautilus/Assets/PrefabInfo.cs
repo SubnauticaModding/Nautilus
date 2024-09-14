@@ -48,7 +48,7 @@ public record struct PrefabInfo(string ClassID, string PrefabFileName, TechType 
     /// <param name="displayName">The display name of this Tech Type, can be anything. If null or empty, this will use the language line "{enumName}" instead.</param>
     /// <param name="description">The tooltip displayed when hovered in the PDA, can be anything. If null or empty, this will use the language line "Tooltip_{enumName}" instead.</param>
     /// <param name="language">The language for this entry. Defaults to English.</param>
-    /// <param name="unlockAtStart">Whether this tech type should be unlocked on game start or not. Default to <see langword="true"/>.</param>
+    /// <param name="unlockAtStart">Whether this tech type should be unlocked on game start or not. Defaults to <see langword="false"/>.</param>
     /// <param name="techTypeOwner">The assembly that owns the created tech type. The name of this assembly will be shown in the PDA.</param>
     /// <returns>An instance of the constructed <see cref="PrefabInfo"/>.</returns>
     public static PrefabInfo WithTechType(string classId, string displayName, string description, string language = "English", bool unlockAtStart = false, Assembly techTypeOwner = null)

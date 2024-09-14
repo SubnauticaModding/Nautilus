@@ -213,6 +213,7 @@ public class EggTemplate : PrefabTemplate
         var obj = gameObject.Get();
         if (obj)
         {
+            obj.SetActive(false);
             yield return ProcessEgg(obj);
             yield break;
         }
@@ -231,6 +232,7 @@ public class EggTemplate : PrefabTemplate
                                    """);
             yield break;
         }
+        obj.SetActive(false);
         yield return ProcessEgg(obj);
             
         gameObject.Set(obj);
