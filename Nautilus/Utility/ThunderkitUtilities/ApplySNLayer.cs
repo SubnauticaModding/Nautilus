@@ -9,7 +9,7 @@ internal class ApplySNLayer : MonoBehaviour
     public LayerName layerName;
 
     [Tooltip("How to apply the layer")]
-    public GeneralApplicationMode applicationMode;
+    public GeneralSetMode applicationMode;
 
     private void Start()
     {
@@ -18,13 +18,13 @@ internal class ApplySNLayer : MonoBehaviour
 
         switch(applicationMode)
         {
-            case GeneralApplicationMode.SingleObject:
+            case GeneralSetMode.SingleObject:
                 gameObject.layer = layer;
                 break;
-            case GeneralApplicationMode.AllChildObjects:
+            case GeneralSetMode.AllChildObjects:
                 GetComponentsInChildren<GameObject>().ForEach(g => g.layer = layer);
                 break;
-            case GeneralApplicationMode.AllChildObjectsIncludeInactive:
+            case GeneralSetMode.AllChildObjectsIncludeInactive:
                 GetComponentsInChildren<GameObject>(true).ForEach(g => g.layer = layer);
                 break;
         }

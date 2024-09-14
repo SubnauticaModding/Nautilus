@@ -1,13 +1,13 @@
 namespace Nautilus.Utility.ThunderkitUtilities;
 
-internal enum GeneralApplicationMode
+internal enum GeneralSetMode
 {
     SingleObject,
     AllChildObjects,
     AllChildObjectsIncludeInactive,
 }
 
-internal enum MaterialApplicationMode
+internal enum MaterialSetMode
 {
     SingleObject,
     AllChildObjects,

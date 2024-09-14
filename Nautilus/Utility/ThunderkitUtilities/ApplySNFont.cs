@@ -6,19 +6,19 @@ namespace Nautilus.Utility.ThunderkitUtilities;
 internal class ApplySNFont : MonoBehaviour
 {
     [Tooltip("How to apply the font")]
-    public GeneralApplicationMode applicationMode;
+    public GeneralSetMode applicationMode;
 
     private void Start()
     {
         switch (applicationMode)
         {
-            case GeneralApplicationMode.SingleObject:
+            case GeneralSetMode.SingleObject:
                 GetComponent<TextMeshProUGUI>().font = FontUtils.Aller_Rg;
                 break;
-            case GeneralApplicationMode.AllChildObjects:
+            case GeneralSetMode.AllChildObjects:
                 GetComponentsInChildren<TextMeshProUGUI>().ForEach(t => t.font = FontUtils.Aller_Rg);
                 break;
-            case GeneralApplicationMode.AllChildObjectsIncludeInactive:
+            case GeneralSetMode.AllChildObjectsIncludeInactive:
                 GetComponentsInChildren<TextMeshProUGUI>(true).ForEach(t => t.font = FontUtils.Aller_Rg);
                 break;
         }

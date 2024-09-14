@@ -47,6 +47,11 @@ public static partial class MaterialUtils
     /// </summary>
     public static Material GhostMaterial { get; private set; }
 
+    /// <summary>
+    /// Gets the material used by the UI in the Cyclops
+    /// </summary>
+    public static Material HolographicUIMaterial { get; private set; }
+
     private static IEnumerator LoadIonCubeMaterial()
     {
         if (IonCubeMaterial)
@@ -127,6 +132,26 @@ public static partial class MaterialUtils
         {
             GhostMaterial = wallShelf.GetComponentInChildren<Constructable>().ghostMaterial;
         }
+    }
+
+    private static bool _cyclopsLoaded;
+
+    private static IEnumerator LoadUIMaterial()
+    {
+        yield return new WaitUntil(() => LightmappedPrefabs.main);
+
+        LightmappedPrefabs.main.RequestScenePrefab("Cyclops", new LightmappedPrefabs.OnPrefabLoaded(OnCyclopsLoaded));
+
+        yield return new WaitUntil(() => _cyclopsLoaded);
+    }
+
+    private static void OnCyclopsLoaded(GameObject cyclops)
+    {
+        var holoMat = cyclops.transform.Find("HelmHUD/HelmHUDVisuals/Canvas_LeftHUD/EngineOnUI/EngineOff_Button")
+            .GetComponent<UnityEngine.UI.Image>().material;
+
+        HolographicUIMaterial = new Material(holoMat);
+        _cyclopsLoaded = true;
     }
 }
 #endif

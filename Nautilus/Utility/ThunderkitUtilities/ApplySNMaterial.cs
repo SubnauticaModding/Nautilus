@@ -7,7 +7,7 @@ namespace Nautilus.Utility.ThunderkitUtilities;
 internal class ApplySNMaterial : MonoBehaviour
 {
     [Tooltip("How to apply the material")]
-    public MaterialApplicationMode applicationMode;
+    public MaterialSetMode applicationMode;
 
     [Tooltip("What material to apply")]
     public MaterialType materialType;
@@ -41,7 +41,7 @@ internal class ApplySNMaterial : MonoBehaviour
     }
 
     /// <summary>
-    /// Applies the set material using the specified <see cref="MaterialApplicationMode"/>
+    /// Applies the set material using the specified <see cref="MaterialSetMode"/>
     /// A coroutine is required to ensure all material references are retrieved before being applied
     /// </summary>
     public IEnumerator AssignMaterials()
@@ -53,13 +53,13 @@ internal class ApplySNMaterial : MonoBehaviour
 
         switch(applicationMode)
         {
-            case MaterialApplicationMode.SingleObject:
+            case MaterialSetMode.SingleObject:
                 ApplyMaterialsOnSingleRend();
                 break;
-            case MaterialApplicationMode.AllChildObjects:
+            case MaterialSetMode.AllChildObjects:
                 ApplyMaterialsOnChildren(false);
                 break;
-            case MaterialApplicationMode.AllChildObjectsIncludeInactive:
+            case MaterialSetMode.AllChildObjectsIncludeInactive:
                 ApplyMaterialsOnChildren(true);
                 break;
         }
