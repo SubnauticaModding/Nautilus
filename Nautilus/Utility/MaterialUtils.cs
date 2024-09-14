@@ -32,6 +32,11 @@ public static partial class MaterialUtils
     public static bool IsReady { get; private set; }
 
     /// <summary>
+    /// Gets the basic glass material
+    /// </summary>
+    public static Material GlassMaterial { get; private set; }
+
+    /// <summary>
     /// Gets the material for the outside of glass, such as for base windows
     /// </summary>
     public static Material ExteriorGlassMaterial { get; private set; }
