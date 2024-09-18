@@ -19,9 +19,8 @@ public static partial class MaterialUtils
 
     private static IEnumerator LoadReferences()
     {
-#if SUBNAUTICA
         yield return PatchInternal();
-#endif
+
         IsReady = true;
         
         yield break;
@@ -31,6 +30,26 @@ public static partial class MaterialUtils
     /// Only returns true once all relevant materials/shaders have been loaded by the MaterialUtils class and are safe to be used.
     /// </summary>
     public static bool IsReady { get; private set; }
+
+    /// <summary>
+    /// Gets the basic glass material
+    /// </summary>
+    public static Material GlassMaterial { get; private set; }
+
+    /// <summary>
+    /// Gets the material for the outside of glass, such as for base windows
+    /// </summary>
+    public static Material ExteriorGlassMaterial { get; private set; }
+
+    /// <summary>
+    /// Gets the material for the inside of glass, such as the inside of the Cyclops windshield
+    /// </summary>
+    public static Material InteriorGlassMaterial { get; private set; }
+
+    /// <summary>
+    /// Gets a shiny glass material
+    /// </summary>
+    public static Material ShinyGlassMaterial { get; private set; }
 
     /// <summary>
     /// Contains references to various Shaders.
