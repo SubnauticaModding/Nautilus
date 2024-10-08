@@ -21,6 +21,8 @@ internal class CraftTreePatcher
 
     #endregion
 
+    private static Dictionary<CraftTree.Type, CraftTree> _originalTrees = new();
+
     #region Patches
 
     internal static void Patch(Harmony harmony)
@@ -28,15 +30,14 @@ internal class CraftTreePatcher
         harmony.PatchAll(typeof(CraftTreePatcher));
         InternalLogger.Log($"CraftTreePatcher is done.", LogLevel.Debug);
     }
-    
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftTree), nameof(CraftTree.GetTree))]
     private static void GetTreePreFix(CraftTree.Type treeType, ref CraftTree __result)
     {
-        __result ??= !CustomTrees.TryGetValue(treeType, out var customRoot) ? __result : customRoot.CustomCraftingTree;
+        var craftTree = !CustomTrees.TryGetValue(treeType, out var customRoot) ? __result : customRoot.CustomCraftingTree;
 
-        if (__result == null)
+        if (craftTree == null)
         {
             // The game actually has a few CraftTree.Type that are not used...
             // None, Unused1, Unused2, etc...
@@ -45,14 +46,23 @@ internal class CraftTreePatcher
             return;
         }
 
+        if (!_originalTrees.TryGetValue(treeType, out var originalTree))
+        {
+            originalTree = CopyTree(craftTree);
+            _originalTrees.Add(treeType, originalTree);
+        }
+
+        var treeCopy = CopyTree(originalTree);
+        
 #if BELOWZERO
         if (treeType is CraftTree.Type.SeaTruckFabricator)
         {
-            PatchCraftTree(ref __result, CraftTree.Type.Fabricator);
+            PatchCraftTree(ref treeCopy, CraftTree.Type.Fabricator);
         }
 #endif
-        PatchCraftTree(ref __result, treeType);
-        CraftTree.AddToCraftableTech(__result);
+        PatchCraftTree(ref treeCopy, treeType);
+        CraftTree.AddToCraftableTech(treeCopy);
+        __result = treeCopy;
     }
 
     #endregion
@@ -147,6 +157,35 @@ internal class CraftTreePatcher
             nodesToRemove.Remove(nodeToRemove); // Remove the node from the list of nodes to remove
             InternalLogger.Debug($"Removed node from {nodeToRemove.Scheme} tree at {string.Join("/", nodeToRemove.Path)}.");
         }
+    }
+
+    private static CraftTree CopyTree(CraftTree tree)
+    {
+        return new CraftTree(tree.id, (CraftNode)CopyCraftNode(tree.nodes));
+    }
+    
+    /// <summary>
+    /// Copy the specified node and it's inner nodes recursively.
+    /// </summary>
+    /// <param name="treeNode">The node to begin this operation on. Can be used on any node.</param>
+    /// <returns>A complete copy of the passed node.</returns>
+    private static TreeNode CopyCraftNode(TreeNode treeNode)
+    {
+        var copiedNode = treeNode.Copy();
+        copiedNode.nodes = treeNode.nodes.ToList();
+
+        if (copiedNode.nodes.Count == 0)
+        {
+            return copiedNode;
+        }
+
+        for (var i = 0; i < copiedNode.nodes.Count; i++)
+        {
+            treeNode.nodes[i] = CopyCraftNode(treeNode.nodes[i]);
+            treeNode.nodes[i].parent = copiedNode;
+        }
+        
+        return copiedNode;
     }
 
     private static bool TraverseTree(TreeNode nodes, string[] path, out TreeNode currentNode)
