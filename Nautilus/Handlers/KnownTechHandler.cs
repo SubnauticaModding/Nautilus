@@ -316,6 +316,7 @@ public static class KnownTechHandler
         AddAnalysisTech(analysisTech);
     }
         
+    #if SUBNAUTICA
     /// <summary>
     /// Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
     /// If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
@@ -329,8 +330,9 @@ public static class KnownTechHandler
     /// <param name="storyGoals">The story goals that will be triggered when you unlock the blueprint.</param>
     public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable<TechType> techTypesToUnlock, FMODAsset unlockSound, Sprite unlockSprite, List<StoryGoal> storyGoals)
     {
-        AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, "NotificationBlueprintUnlocked", unlockSound, unlockSprite);
+        AddAnalysisTech(techTypeToBeAnalysed, techTypesToUnlock, "NotificationBlueprintUnlocked", unlockSound, unlockSprite, storyGoals);
     }
+    #endif
 
     /// <summary>
     /// Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
