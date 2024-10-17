@@ -112,13 +112,28 @@ public static class PrefabUtils
     /// <returns>A reference to the added <see cref="Constructable"/> instance.</returns>
     public static Constructable AddConstructable(GameObject prefab, TechType techType, ConstructableFlags constructableFlags, GameObject model = null)
     {
+        return AddConstructable<Constructable>(prefab, techType, constructableFlags, model);
+    }
+    
+    /// <summary>
+    /// Adds and configures the <see cref="Constructable"/> component or a derived type on the specified prefab.
+    /// </summary>
+    /// <param name="prefab">The prefab to operate on.</param>
+    /// <param name="techType">The tech type associated with the specified prefab.</param>
+    /// <param name="constructableFlags">A bitmask comprised of one or more <see cref="ConstructableFlags"/> that specify how the prefab should be treated during placement.</param>
+    /// <param name="model"><para>The child GameObject that holds all the renderers that are used for the ghost model.
+    /// If assigned, this parameter will control the <see cref="Constructable.model"/> field. This field MUST BE ASSIGNED A VALUE to avoid errors when building!</para>
+    /// <para>This should be a child of <paramref name="prefab"/>, and NOT the root. If it is the same value as <paramref name="prefab"/>, you have done something wrong!</para></param>
+    /// <returns>A reference to the added <see cref="Constructable"/> instance.</returns>
+    public static T AddConstructable<T>(GameObject prefab, TechType techType, ConstructableFlags constructableFlags, GameObject model = null) where T : Constructable
+    {
         if (techType is TechType.None)
         {
             InternalLogger.Error($"TechType is required for constructable and cannot be null. Skipping {nameof(AddConstructable)}.");
             return null;
         }
 
-        var constructable = prefab.EnsureComponent<Constructable>();
+        var constructable = prefab.EnsureComponent<T>();
         constructable.controlModelState = true;
         // TODO: Add ghost material for BZ
 #if SUBNAUTICA
