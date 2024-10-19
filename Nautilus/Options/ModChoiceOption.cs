@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Nautilus.Options.Utility;
+using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,7 +18,6 @@ public class ChoiceChangedEventArgs<T> : ConfigOptionEventArgs<T>
     /// The new index for the <see cref="ModChoiceOption{T}"/>.
     /// </summary>
     public int Index { get; }
-
 
     /// <summary>
     /// Constructs a new <see cref="ChoiceChangedEventArgs{T}"/>.
@@ -79,6 +79,9 @@ public class ModChoiceOption<T> : ModOption<T, ChoiceChangedEventArgs<T>>
 
     private ModChoiceOption(string id, string label, T[] options, int index, string tooltip) : base(label, id, options[index])
     {
+        // log type of T
+        InternalLogger.Debug($"ModChoiceOption<{typeof(T)}> - {id} - {label} - {options} - {index} - {tooltip}");
+
         Options = options;
         List<string> optionStrings = new List<string>();
         foreach(var option in options)
