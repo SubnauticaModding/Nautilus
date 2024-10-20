@@ -1,8 +1,11 @@
 namespace Nautilus.Handlers;
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Nautilus.Crafting;
 using Nautilus.Patchers;
+using Nautilus.Utility;
 
 /// <summary>
 /// A handler class for creating and modifying crafting trees.
@@ -29,6 +32,17 @@ public static class CraftTreeHandler
 
         nodes.Add(new CraftingNode(stepsToTab, craftTree, craftingItem));
         CraftTreePatcher.CraftingNodes[craftTree] = nodes;
+        
+        // If this node had previously been slated for removal, undo that instruction.
+        if (CraftTreePatcher.NodesToRemove.TryGetValue(craftTree, out List<Node> queuedNodes))
+        {
+            var fullPath = stepsToTab.Append(craftingItem.AsString(false));
+            int removedNodes = queuedNodes.RemoveAll(node => node.Path.SequenceEqual(fullPath));
+            if (removedNodes > 0)
+            {
+                InternalLogger.Debug($"Removal of CraftNode at {string.Join("/", fullPath)} overwritten by new custom CraftNode.");
+            }
+        }
     }
 
     /// <summary>
@@ -36,16 +50,9 @@ public static class CraftTreeHandler
     /// </summary>
     /// <param name="craftTree">The target craft tree to edit.</param>
     /// <param name="craftingItem">The item to craft.</param>
-
     public static void AddCraftingNode(CraftTree.Type craftTree, TechType craftingItem)
     {
-        if (!CraftTreePatcher.CraftingNodes.TryGetValue(craftTree, out var nodes))
-        {
-            nodes = new List<CraftingNode>();
-        }
-
-        nodes.Add(new CraftingNode(new string[0], craftTree, craftingItem));
-        CraftTreePatcher.CraftingNodes[craftTree] = nodes;
+        AddCraftingNode(craftTree, craftingItem, Array.Empty<string>());
     }
 
 #if SUBNAUTICA
@@ -58,13 +65,7 @@ public static class CraftTreeHandler
     /// <param name="sprite">The sprite of the tab.</param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, Atlas.Sprite sprite)
     {
-        if (!CraftTreePatcher.TabNodes.TryGetValue(craftTree, out var craftTreeTabNodes))
-        {
-            craftTreeTabNodes = new List<TabNode>();
-        }
-
-        craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
-        CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        AddTabNode(craftTree, name, displayName, sprite, Array.Empty<string>());
     }
 
     /// <summary>
@@ -74,16 +75,9 @@ public static class CraftTreeHandler
     /// <param name="name">The ID of the tab node. Must be unique!</param>
     /// <param name="displayName">The display name of the tab, which will show up when you hover your mouse on the tab. If null or empty, this will use the language line "{craftTreeName}_{tabName}" instead.</param>
     /// <param name="sprite">The sprite of the tab.</param>
-
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
     {
-        if (!CraftTreePatcher.TabNodes.TryGetValue(craftTree, out var craftTreeTabNodes))
-        {
-            craftTreeTabNodes = new List<TabNode>();
-        }
-
-        craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, new Atlas.Sprite(sprite), name, displayName));
-        CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        AddTabNode(craftTree, name, displayName, new Atlas.Sprite(sprite), Array.Empty<string>());
     }
 
     /// <summary>
@@ -108,6 +102,17 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        
+        // If this node had previously been slated for removal, undo that instruction.
+        if (CraftTreePatcher.NodesToRemove.TryGetValue(craftTree, out List<Node> queuedNodes))
+        {
+            var fullPath = stepsToTab.Append(name);
+            int removedNodes = queuedNodes.RemoveAll(node => node.Path.SequenceEqual(fullPath));
+            if (removedNodes > 0)
+            {
+                InternalLogger.Debug($"Removal of TabNode at {string.Join("/", fullPath)} overwritten by new custom TabNode.");
+            }
+        }
     }
 
     /// <summary>
@@ -125,13 +130,7 @@ public static class CraftTreeHandler
     /// </param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite, params string[] stepsToTab)
     {
-        if (!CraftTreePatcher.TabNodes.TryGetValue(craftTree, out var craftTreeTabNodes))
-        {
-            craftTreeTabNodes = new List<TabNode>();
-        }
-
-        craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, new Atlas.Sprite(sprite), name, displayName));
-        CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        AddTabNode(craftTree, name, displayName, new Atlas.Sprite(sprite), stepsToTab);
     }
 
 #elif BELOWZERO
@@ -144,13 +143,7 @@ public static class CraftTreeHandler
     /// <param name="sprite">The sprite of the tab.</param>        
     public static void AddTabNode(CraftTree.Type craftTree, string name, string displayName, UnityEngine.Sprite sprite)
     {
-        if (!CraftTreePatcher.TabNodes.TryGetValue(craftTree, out var craftTreeTabNodes))
-        {
-            craftTreeTabNodes = new List<TabNode>();
-        }
-
-        craftTreeTabNodes.Add(new TabNode(new string[0], craftTree, sprite, name, displayName));
-        CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        AddTabNode(craftTree, name, displayName, sprite, Array.Empty<string>());
     }
 
     /// <summary>
@@ -175,6 +168,17 @@ public static class CraftTreeHandler
 
         craftTreeTabNodes.Add(new TabNode(stepsToTab, craftTree, sprite, name, displayName));
         CraftTreePatcher.TabNodes[craftTree] = craftTreeTabNodes;
+        
+        // If this node had previously been slated for removal, undo that instruction.
+        if (CraftTreePatcher.NodesToRemove.TryGetValue(craftTree, out List<Node> queuedNodes))
+        {
+            var fullPath = stepsToTab.Append(name);
+            int removedNodes = queuedNodes.RemoveAll(node => node.Path.SequenceEqual(fullPath));
+            if (removedNodes > 0)
+            {
+                InternalLogger.Debug($"Removal of TabNode at {string.Join("/", fullPath)} overwritten by new custom TabNode.");
+            }
+        }
     }
 
 #endif
@@ -201,6 +205,24 @@ public static class CraftTreeHandler
 
         nodesToRemove.Add(new Node(stepsToNode, craftTree));
         CraftTreePatcher.NodesToRemove[craftTree] = nodesToRemove;
+        
+        // If this is a previously registered custom node, undo that instruction.
+        // This avoids accumulation of instructions that cancel each other out.
+        int removedNodes = 0;
+        if (CraftTreePatcher.CraftingNodes.TryGetValue(craftTree, out List<CraftingNode> craftingNodes))
+        {
+            removedNodes += craftingNodes.RemoveAll(node => node.Path.Append(node.TechType.ToString()).SequenceEqual(stepsToNode));
+        }
+        
+        if (CraftTreePatcher.TabNodes.TryGetValue(craftTree, out List<TabNode> tabNodes))
+        {
+            removedNodes += tabNodes.RemoveAll(node => node.Path.Append(node.Id).SequenceEqual(stepsToNode));
+        }
+        
+        if (removedNodes > 0)
+        {
+            InternalLogger.Debug($"Removed another mod's custom node at {string.Join("/", stepsToNode)} from future craft trees.");
+        }
     }
 
     /// <summary>
