@@ -502,7 +502,7 @@ internal class CustomSoundPatcher
         if (__instance.asset == null || !CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
         if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return false; // known sound but not played yet
 
-        !TryFadeOutBeforeStop(channel);
+        TryFadeOutBeforeStop(channel);
         
         EmitterPlayedChannels.Remove(__instance.GetInstanceID());
 
