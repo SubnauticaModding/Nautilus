@@ -112,13 +112,28 @@ public static class PrefabUtils
     /// <returns>A reference to the added <see cref="Constructable"/> instance.</returns>
     public static Constructable AddConstructable(GameObject prefab, TechType techType, ConstructableFlags constructableFlags, GameObject model = null)
     {
+        return AddConstructable<Constructable>(prefab, techType, constructableFlags, model);
+    }
+    
+    /// <summary>
+    /// Adds and configures the <see cref="Constructable"/> component or a derived type on the specified prefab.
+    /// </summary>
+    /// <param name="prefab">The prefab to operate on.</param>
+    /// <param name="techType">The tech type associated with the specified prefab.</param>
+    /// <param name="constructableFlags">A bitmask comprised of one or more <see cref="ConstructableFlags"/> that specify how the prefab should be treated during placement.</param>
+    /// <param name="model"><para>The child GameObject that holds all the renderers that are used for the ghost model.
+    /// If assigned, this parameter will control the <see cref="Constructable.model"/> field. This field MUST BE ASSIGNED A VALUE to avoid errors when building!</para>
+    /// <para>This should be a child of <paramref name="prefab"/>, and NOT the root. If it is the same value as <paramref name="prefab"/>, you have done something wrong!</para></param>
+    /// <returns>A reference to the added <see cref="Constructable"/> instance.</returns>
+    public static T AddConstructable<T>(GameObject prefab, TechType techType, ConstructableFlags constructableFlags, GameObject model = null) where T : Constructable
+    {
         if (techType is TechType.None)
         {
             InternalLogger.Error($"TechType is required for constructable and cannot be null. Skipping {nameof(AddConstructable)}.");
             return null;
         }
 
-        var constructable = prefab.EnsureComponent<Constructable>();
+        var constructable = prefab.EnsureComponent<T>();
         constructable.controlModelState = true;
         // TODO: Add ghost material for BZ
 #if SUBNAUTICA
@@ -190,6 +205,25 @@ public static class PrefabUtils
     /// <returns>A reference to the added <see cref="StorageContainer"/> instance.</returns>
     public static StorageContainer AddStorageContainer(GameObject prefabRoot, string storageRootName, string storageRootClassId, int width, int height, bool preventDeconstructionIfNotEmpty = true)
     {
+        return AddStorageContainer<StorageContainer>(prefabRoot, storageRootName, storageRootClassId, width, height,
+            preventDeconstructionIfNotEmpty);
+    }
+    
+    /// <summary>
+    /// <para>Adds a component of the type <see cref="StorageContainer"/> or a derived class to the given prefab, for basic use cases with lockers and such.</para>
+    /// <para>Due to how this component needs to be initialized, this method will disable the object and re-enable it after the component is added (assuming it was already active). This all happens within the same frame and will not be seen.</para>
+    /// </summary>
+    /// <param name="prefabRoot">The prefab that the component is added onto. This does not necessarily NEED to be the "prefab root". You can set it to a
+    /// child collider if you want a smaller area of interaction or to have multiple storage containers on one prefab.</param>
+    /// <param name="storageRootName">The name of the object that internally holds all of the items.</param>
+    /// <param name="storageRootClassId">A unique string for the <see cref="ChildObjectIdentifier"/> component.</param>
+    /// <param name="width">The width of this container's face.</param>
+    /// <param name="height">The height of this container's interface.</param>
+    /// <param name="preventDeconstructionIfNotEmpty">If true, you cannot destroy this prefab unless all of its storage containers are empty.</param>
+    /// <returns>A reference to the added <see cref="StorageContainer"/> instance.</returns>
+    public static T AddStorageContainer<T>(GameObject prefabRoot, string storageRootName, string storageRootClassId,
+            int width, int height, bool preventDeconstructionIfNotEmpty = true) where T : StorageContainer
+    {
         var wasActive = prefabRoot.activeSelf;
 
         if (wasActive) prefabRoot.SetActive(false);
@@ -200,7 +234,7 @@ public static class PrefabUtils
         var childObjectIdentifier = storageRoot.AddComponent<ChildObjectIdentifier>();
         childObjectIdentifier.ClassId = storageRootClassId;
     
-        var container = prefabRoot.AddComponent<StorageContainer>();
+        var container = prefabRoot.AddComponent<T>();
         container.prefabRoot = prefabRoot;
         container.width = width;
         container.height = height;
