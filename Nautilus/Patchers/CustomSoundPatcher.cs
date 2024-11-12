@@ -958,6 +958,11 @@ internal class CustomSoundPatcher
             channel.stop();
             return false;
         }
+
+        channel.getDelay(out ulong _, out ulong _, out bool stopChannels);
+        
+        if (stopChannels)
+            return false;
             
         RuntimeManager.CoreSystem.getSoftwareFormat(out var samplesRate, out _, out _);
         channel.AddFadeOut(fadeOut.Seconds, out var dspClock);
