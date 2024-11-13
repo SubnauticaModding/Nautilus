@@ -26,7 +26,7 @@ public static partial class AudioUtils
     /// For music, PDA voices and any 2D sounds that can have more than one instance at a time.
     /// </summary>
     public const MODE StandardSoundModes_Stream = StandardSoundModes_2D | MODE.CREATESTREAM;
-
+    
     private static FMOD.System FMOD_System => RuntimeManager.CoreSystem;
 
     /// <summary>
@@ -84,14 +84,8 @@ public static partial class AudioUtils
     public static bool TryPlaySound(Sound sound, string busPath, out Channel channel)
     {
         channel = default;
-        Bus bus = RuntimeManager.GetBus(busPath);
-        if (bus.getChannelGroup(out ChannelGroup channelGroup) != RESULT.OK || !channelGroup.hasHandle())
-        {
-            bus.lockChannelGroup();
-        }
-        return bus.getChannelGroup(out channelGroup) == RESULT.OK &&
-               channelGroup.getPaused(out bool paused) == RESULT.OK &&
-               FMOD_System.playSound(sound, channelGroup, paused, out channel) == RESULT.OK;
+        var bus = RuntimeManager.GetBus(busPath);
+        return TryPlaySound(sound, bus, out channel);
     }
 
     /// <summary>
@@ -108,9 +102,17 @@ public static partial class AudioUtils
         {
             bus.lockChannelGroup();
         }
-        return bus.getChannelGroup(out channelGroup) == RESULT.OK &&
+        
+        var success = bus.getChannelGroup(out channelGroup) == RESULT.OK &&
                channelGroup.getPaused(out bool paused) == RESULT.OK &&
                FMOD_System.playSound(sound, channelGroup, paused, out channel) == RESULT.OK;
+
+        if (!success)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     /// <summary>

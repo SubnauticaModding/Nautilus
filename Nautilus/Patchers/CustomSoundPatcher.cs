@@ -1,24 +1,29 @@
+using System;
 using System.Collections.Generic;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
 using HarmonyLib;
+using Nautilus.Extensions;
 using Nautilus.FMod.Interfaces;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.Playables;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Nautilus.Patchers;
 
 internal class CustomSoundPatcher
 {
     internal record struct AttachedChannel(Channel Channel, Transform Transform);
+    internal record struct FadeInfo(Sound Sound, float Seconds);
     
     internal static readonly SelfCheckingDictionary<string, Sound> CustomSounds = new("CustomSounds");
     internal static readonly SelfCheckingDictionary<string, Bus> CustomSoundBuses = new("CustomSoundBuses");
     internal static readonly SelfCheckingDictionary<string, IFModSound> CustomFModSounds = new("CustoomFModSounds");
     internal static readonly Dictionary<int, Channel> EmitterPlayedChannels = new();
+    internal static readonly Dictionary<IntPtr, FadeInfo> FadeOuts = new();
     internal static List<AttachedChannel> AttachedChannels = new();
 
     private static readonly Dictionary<string, Channel> PlayedChannels = new();
@@ -159,9 +164,13 @@ internal class CustomSoundPatcher
             return false;
         }
 
-        if (__instance.stopType != FMODUnity.STOP_MODE.None)
+        if (__instance.stopType == FMODUnity.STOP_MODE.Immediate)
         {
             channel.stop();
+        }
+        else if (__instance.stopType == FMODUnity.STOP_MODE.AllowFadeout)
+        {
+            TryFadeOutBeforeStop(channel);
         }
 
         PlayableBehaviorChannels.Remove(__instance);
@@ -440,11 +449,18 @@ internal class CustomSoundPatcher
         
     [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.Stop))]
     [HarmonyPrefix]
-    public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance)
+    public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance, STOP_MODE stopMode)
     {
         if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
 
-        channel.stop();
+        if (stopMode == STOP_MODE.IMMEDIATE)
+        {
+            channel.stop();
+        }
+        else
+        {
+            TryFadeOutBeforeStop(channel);
+        }
         __instance._playing = false;
         __instance.OnStop();
 
@@ -486,7 +502,8 @@ internal class CustomSoundPatcher
         if (__instance.asset == null || !CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
         if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return false; // known sound but not played yet
 
-        channel.stop();
+        TryFadeOutBeforeStop(channel);
+        
         EmitterPlayedChannels.Remove(__instance.GetInstanceID());
 
         return false;
@@ -761,14 +778,22 @@ internal class CustomSoundPatcher
         
         [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.Stop))]
         [HarmonyPrefix]
-        public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance)
+        public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance, STOP_MODE stopMode)
         {
             if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out Channel channel))
             {
                 return true;
             }
 
-            channel.stop();
+            if (stopMode == STOP_MODE.ALLOWFADEOUT)
+            {
+                TryFadeOutBeforeStop(channel);
+            }
+            else
+            {
+                channel.stop();
+            }
+            
             __instance._playing = false;
             __instance.OnStop();
 
@@ -827,7 +852,9 @@ internal class CustomSoundPatcher
                 return false; // known sound but not played yet
             }
 
-            channel.stop();
+            TryFadeOutBeforeStop(channel);
+
+            
             EmitterPlayedChannels.Remove(__instance.GetInstanceID());
 
             return false;
@@ -922,5 +949,24 @@ internal class CustomSoundPatcher
     {
         ATTRIBUTES_3D attributes = position.To3DAttributes();
         channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
+    }
+    
+    private static bool TryFadeOutBeforeStop(Channel channel)
+    {
+        if (channel.getCurrentSound(out var sound) != RESULT.OK || !FadeOuts.TryGetValue(sound.handle, out var fadeOut))
+        {
+            channel.stop();
+            return false;
+        }
+
+        channel.getDelay(out ulong _, out ulong _, out bool stopChannels);
+        
+        if (stopChannels)
+            return false;
+            
+        RuntimeManager.CoreSystem.getSoftwareFormat(out var samplesRate, out _, out _);
+        channel.AddFadeOut(fadeOut.Seconds, out var dspClock);
+        channel.setDelay(0, dspClock + (ulong)(samplesRate * fadeOut.Seconds));
+        return true;
     }
 }
