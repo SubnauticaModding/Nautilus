@@ -1,22 +1,34 @@
+using System;
 using System.Collections.Generic;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
 using HarmonyLib;
+using Nautilus.Extensions;
 using Nautilus.FMod.Interfaces;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
+using UnityEngine.Playables;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Nautilus.Patchers;
 
 internal class CustomSoundPatcher
 {
+    internal record struct AttachedChannel(Channel Channel, Transform Transform);
+    internal record struct FadeInfo(Sound Sound, float Seconds);
+    
     internal static readonly SelfCheckingDictionary<string, Sound> CustomSounds = new("CustomSounds");
     internal static readonly SelfCheckingDictionary<string, Bus> CustomSoundBuses = new("CustomSoundBuses");
     internal static readonly SelfCheckingDictionary<string, IFModSound> CustomFModSounds = new("CustoomFModSounds");
     internal static readonly Dictionary<int, Channel> EmitterPlayedChannels = new();
+    internal static readonly Dictionary<IntPtr, FadeInfo> FadeOuts = new();
+    internal static List<AttachedChannel> AttachedChannels = new();
 
     private static readonly Dictionary<string, Channel> PlayedChannels = new();
+    private static readonly Dictionary<FMODEventPlayableBehavior, Channel> PlayableBehaviorChannels = new();
+    private static readonly List<AttachedChannel> _attachedChannelsToRemove = new();
 
     internal static void Patch(Harmony harmony)
     {
@@ -68,7 +80,216 @@ internal class CustomSoundPatcher
         __result = 0;
         return false;
     }
+    
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.PerformSeek))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_PerformSeek_Prefix(FMODEventPlayableBehavior __instance)
+    {
+        if (!PlayableBehaviorChannels.TryGetValue(__instance, out var channel))
+        {
+            return true;
+        }
+        
+        if (__instance.seek < 0)
+        {
+            return true;
+        }
+        
+        channel.setPosition((uint)__instance.seek, TIMEUNIT.MS);
+        __instance.seek = -1;
+        return false;
+    }
 
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.PlayEvent))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_PlayEvent_Prefix(FMODEventPlayableBehavior __instance)
+    {
+        if (string.IsNullOrEmpty(__instance.eventName))
+        {
+            return true;
+        }
+        
+        if (string.IsNullOrEmpty(__instance.eventName) || !CustomSounds.TryGetValue(__instance.eventName, out Sound soundEvent) 
+            && !CustomFModSounds.ContainsKey(__instance.eventName)) return true;
+        
+        Channel channel;
+        if (CustomFModSounds.TryGetValue(__instance.eventName, out var fModSound))
+        {
+            if (!fModSound.TryPlaySound(out channel))
+                return false;
+        }
+        else if (CustomSoundBuses.TryGetValue(__instance.eventName, out Bus bus))
+        {
+            if (!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+
+        PlayableBehaviorChannels[__instance] = channel;
+
+        channel.setPaused(true);
+        
+        __instance.PerformSeek();
+
+        if (__instance.TrackTargetObject)
+        {
+            CustomSoundHandler.AttachChannelToGameObject(channel, __instance.TrackTargetObject.transform);
+        }
+        else
+        {
+            SetChannel3DAttributes(channel, Vector3.zero);
+        }
+        
+        channel.setVolume(__instance.currentVolume);
+        
+        channel.setPaused(false);
+
+        return false;
+    }
+
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.OnExit))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_OnExit_Prefix(FMODEventPlayableBehavior __instance)
+    {
+        if (!PlayableBehaviorChannels.TryGetValue(__instance, out var channel))
+        {
+            return true;
+        }
+
+        if (!__instance.isPlayheadInside)
+        {
+            return false;
+        }
+
+        if (__instance.stopType == FMODUnity.STOP_MODE.Immediate)
+        {
+            channel.stop();
+        }
+        else if (__instance.stopType == FMODUnity.STOP_MODE.AllowFadeout)
+        {
+            TryFadeOutBeforeStop(channel);
+        }
+
+        PlayableBehaviorChannels.Remove(__instance);
+        __instance.isPlayheadInside = false;
+        
+        return false;
+    }
+
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.ProcessFrame))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_ProcessFrame_Prefix(FMODEventPlayableBehavior __instance)
+    {
+        return !PlayableBehaviorChannels.ContainsKey(__instance);
+    }
+
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.UpdateBehavior))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_UpdateBehavior_Prefix(FMODEventPlayableBehavior __instance, float time, float volume)
+    {
+        if (!PlayableBehaviorChannels.TryGetValue(__instance, out var channel))
+        {
+            return true;
+        }
+
+        if (volume != __instance.currentVolume)
+        {
+            __instance.currentVolume = volume;
+            channel.setVolume(volume);
+        }
+        
+        if (time >= __instance.OwningClip.start && time < __instance.OwningClip.end)
+        {
+            __instance.OnEnter();
+        }
+        else
+        {
+            __instance.OnExit();
+        }
+
+        return false;
+    }
+
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.OnGraphStop))]
+    [HarmonyPostfix]
+    public static void FMODEventPlayableBehavior_OnGraphStop_Postfix(FMODEventPlayableBehavior __instance)
+    {
+        if (!PlayableBehaviorChannels.TryGetValue(__instance, out var channel))
+        {
+            channel.stop();
+            PlayableBehaviorChannels.Remove(__instance);
+        }
+    }
+    
+    [HarmonyPatch(typeof(FMODEventPlayableBehavior), nameof(FMODEventPlayableBehavior.Evaluate))]
+    [HarmonyPrefix]
+    public static bool FMODEventPlayableBehavior_Evaluate_Postfix(FMODEventPlayableBehavior __instance, double time, FrameData info, bool evaluate)
+    {
+        if (!PlayableBehaviorChannels.TryGetValue(__instance, out var channel))
+        {
+            return true;
+        }
+        
+        if (!info.timeHeld && time >= __instance.OwningClip.start && time < __instance.OwningClip.end)
+        {
+            if (!__instance.isPlayheadInside)
+            {
+                if (time - __instance.OwningClip.start > 0.1)
+                {
+                    __instance.seek = __instance.GetPosition(time);
+                }
+                __instance.OnEnter();
+                return false;
+            }
+            if ((evaluate || info.seekOccurred || info.timeLooped || info.evaluationType == FrameData.EvaluationType.Evaluate))
+            {
+                __instance.seek = __instance.GetPosition(time);
+                __instance.PerformSeek();
+                return false;
+            }
+        }
+        else
+        {
+            __instance.OnExit();
+        }
+
+        return false;
+    }
+
+    [HarmonyPatch(typeof(RuntimeManager), nameof(RuntimeManager.Update))]
+    [HarmonyPostfix]
+    public static void RuntimeManager_Update_Postfix(RuntimeManager __instance)
+    {
+        if (!__instance.studioSystem.isValid())
+        {
+            return;
+        }
+
+        foreach (var attachedChannel in AttachedChannels)
+        {
+            attachedChannel.Channel.isPlaying(out var isPlaying);
+            if (!isPlaying || !attachedChannel.Transform)
+            {
+                _attachedChannelsToRemove.Add(attachedChannel);
+                continue;
+            }
+            
+            SetChannel3DAttributes(attachedChannel.Channel, attachedChannel.Transform);
+        }
+
+        if (_attachedChannelsToRemove.Count > 0)
+        {
+            foreach (var toRemove in _attachedChannelsToRemove)
+            {
+                AttachedChannels.Remove(toRemove);
+            }
+            _attachedChannelsToRemove.Clear();
+        }
+    }
+    
 #if SUBNAUTICA
         
     [HarmonyPatch(typeof(FMODUWE), nameof(FMODUWE.PlayOneShotImpl))]
@@ -228,11 +449,18 @@ internal class CustomSoundPatcher
         
     [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.Stop))]
     [HarmonyPrefix]
-    public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance)
+    public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance, STOP_MODE stopMode)
     {
         if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return true;
 
-        channel.stop();
+        if (stopMode == STOP_MODE.IMMEDIATE)
+        {
+            channel.stop();
+        }
+        else
+        {
+            TryFadeOutBeforeStop(channel);
+        }
         __instance._playing = false;
         __instance.OnStop();
 
@@ -274,7 +502,8 @@ internal class CustomSoundPatcher
         if (__instance.asset == null || !CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
         if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return false; // known sound but not played yet
 
-        channel.stop();
+        TryFadeOutBeforeStop(channel);
+        
         EmitterPlayedChannels.Remove(__instance.GetInstanceID());
 
         return false;
@@ -549,14 +778,22 @@ internal class CustomSoundPatcher
         
         [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.Stop))]
         [HarmonyPrefix]
-        public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance)
+        public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance, STOP_MODE stopMode)
         {
             if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out Channel channel))
             {
                 return true;
             }
 
-            channel.stop();
+            if (stopMode == STOP_MODE.ALLOWFADEOUT)
+            {
+                TryFadeOutBeforeStop(channel);
+            }
+            else
+            {
+                channel.stop();
+            }
+            
             __instance._playing = false;
             __instance.OnStop();
 
@@ -615,7 +852,9 @@ internal class CustomSoundPatcher
                 return false; // known sound but not played yet
             }
 
-            channel.stop();
+            TryFadeOutBeforeStop(channel);
+
+            
             EmitterPlayedChannels.Remove(__instance.GetInstanceID());
 
             return false;
@@ -700,15 +939,34 @@ internal class CustomSoundPatcher
         }
 #endif
 
-    private static void SetChannel3DAttributes(Channel channel, Transform transform)
+    internal static void SetChannel3DAttributes(Channel channel, Transform transform)
     {
         ATTRIBUTES_3D attributes = transform.To3DAttributes();
         channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
     }
         
-    private static void SetChannel3DAttributes(Channel channel, Vector3 position)
+    internal static void SetChannel3DAttributes(Channel channel, Vector3 position)
     {
         ATTRIBUTES_3D attributes = position.To3DAttributes();
         channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
+    }
+    
+    private static bool TryFadeOutBeforeStop(Channel channel)
+    {
+        if (channel.getCurrentSound(out var sound) != RESULT.OK || !FadeOuts.TryGetValue(sound.handle, out var fadeOut))
+        {
+            channel.stop();
+            return false;
+        }
+
+        channel.getDelay(out ulong _, out ulong _, out bool stopChannels);
+        
+        if (stopChannels)
+            return false;
+            
+        RuntimeManager.CoreSystem.getSoftwareFormat(out var samplesRate, out _, out _);
+        channel.AddFadeOut(fadeOut.Seconds, out var dspClock);
+        channel.setDelay(0, dspClock + (ulong)(samplesRate * fadeOut.Seconds));
+        return true;
     }
 }
