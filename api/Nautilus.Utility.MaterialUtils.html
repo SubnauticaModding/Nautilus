@@ -77,7 +77,7 @@
 
       <div class="content">
         <div class="actionbar">
-          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
             <i class="bi bi-list"></i>
           </button>
 
@@ -155,7 +155,7 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
   <h3 id="Nautilus_Utility_MaterialUtils_kOpaqueRenderQueue" data-uid="Nautilus.Utility.MaterialUtils.kOpaqueRenderQueue">
   kOpaqueRenderQueue
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L115"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L134"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Render queue used by opaque objects.</div>
@@ -185,7 +185,7 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
   <h3 id="Nautilus_Utility_MaterialUtils_kTransparencyRenderQueue" data-uid="Nautilus.Utility.MaterialUtils.kTransparencyRenderQueue">
   kTransparencyRenderQueue
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L119"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L138"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Render queue used by transparent objects.</div>
@@ -220,7 +220,7 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
   <h3 id="Nautilus_Utility_MaterialUtils_AirWaterBarrierMaterial" data-uid="Nautilus.Utility.MaterialUtils.AirWaterBarrierMaterial">
   AirWaterBarrierMaterial
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L43"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the Material used by Alien Bases for the transition between water and air.</div>
@@ -247,11 +247,42 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
 
 
+  <a id="Nautilus_Utility_MaterialUtils_ExteriorGlassMaterial_" data-uid="Nautilus.Utility.MaterialUtils.ExteriorGlassMaterial*"></a>
+
+  <h3 id="Nautilus_Utility_MaterialUtils_ExteriorGlassMaterial" data-uid="Nautilus.Utility.MaterialUtils.ExteriorGlassMaterial">
+  ExteriorGlassMaterial
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Gets the material for the outside of glass, such as for base windows</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Material ExteriorGlassMaterial { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Material</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Nautilus_Utility_MaterialUtils_ForceFieldMaterial_" data-uid="Nautilus.Utility.MaterialUtils.ForceFieldMaterial*"></a>
 
   <h3 id="Nautilus_Utility_MaterialUtils_ForceFieldMaterial" data-uid="Nautilus.Utility.MaterialUtils.ForceFieldMaterial">
   ForceFieldMaterial
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L40"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the Precursor Force Field Material.</div>
@@ -282,7 +313,7 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
   <h3 id="Nautilus_Utility_MaterialUtils_GhostMaterial" data-uid="Nautilus.Utility.MaterialUtils.GhostMaterial">
   GhostMaterial
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L48"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L50"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the material used by unfinished constructions.</div>
@@ -309,11 +340,104 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
 
 
+  <a id="Nautilus_Utility_MaterialUtils_GlassMaterial_" data-uid="Nautilus.Utility.MaterialUtils.GlassMaterial*"></a>
+
+  <h3 id="Nautilus_Utility_MaterialUtils_GlassMaterial" data-uid="Nautilus.Utility.MaterialUtils.GlassMaterial">
+  GlassMaterial
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L37"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Gets the basic glass material</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Material GlassMaterial { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Material</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_MaterialUtils_HolographicUIMaterial_" data-uid="Nautilus.Utility.MaterialUtils.HolographicUIMaterial*"></a>
+
+  <h3 id="Nautilus_Utility_MaterialUtils_HolographicUIMaterial" data-uid="Nautilus.Utility.MaterialUtils.HolographicUIMaterial">
+  HolographicUIMaterial
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Gets the material used by the UI in the Cyclops</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Material HolographicUIMaterial { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Material</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_MaterialUtils_InteriorGlassMaterial_" data-uid="Nautilus.Utility.MaterialUtils.InteriorGlassMaterial*"></a>
+
+  <h3 id="Nautilus_Utility_MaterialUtils_InteriorGlassMaterial" data-uid="Nautilus.Utility.MaterialUtils.InteriorGlassMaterial">
+  InteriorGlassMaterial
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Gets the material for the inside of glass, such as the inside of the Cyclops windshield</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Material InteriorGlassMaterial { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Material</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Nautilus_Utility_MaterialUtils_IonCubeMaterial_" data-uid="Nautilus.Utility.MaterialUtils.IonCubeMaterial*"></a>
 
   <h3 id="Nautilus_Utility_MaterialUtils_IonCubeMaterial" data-uid="Nautilus.Utility.MaterialUtils.IonCubeMaterial">
   IonCubeMaterial
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L23"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L25"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the default Ion Cube Material.</div>
@@ -344,7 +468,7 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
   <h3 id="Nautilus_Utility_MaterialUtils_IsReady" data-uid="Nautilus.Utility.MaterialUtils.IsReady">
   IsReady
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L32"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Only returns true once all relevant materials/shaders have been loaded by the MaterialUtils class and are safe to be used.</div>
@@ -375,7 +499,7 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
   <h3 id="Nautilus_Utility_MaterialUtils_PrecursorGlassMaterial" data-uid="Nautilus.Utility.MaterialUtils.PrecursorGlassMaterial">
   PrecursorGlassMaterial
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L30"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the Precursor Glass Material.</div>
@@ -402,11 +526,42 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
 
 
+  <a id="Nautilus_Utility_MaterialUtils_ShinyGlassMaterial_" data-uid="Nautilus.Utility.MaterialUtils.ShinyGlassMaterial*"></a>
+
+  <h3 id="Nautilus_Utility_MaterialUtils_ShinyGlassMaterial" data-uid="Nautilus.Utility.MaterialUtils.ShinyGlassMaterial">
+  ShinyGlassMaterial
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Gets a shiny glass material</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Material ShinyGlassMaterial { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Material</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
   <a id="Nautilus_Utility_MaterialUtils_StasisFieldMaterial_" data-uid="Nautilus.Utility.MaterialUtils.StasisFieldMaterial*"></a>
 
   <h3 id="Nautilus_Utility_MaterialUtils_StasisFieldMaterial" data-uid="Nautilus.Utility.MaterialUtils.StasisFieldMaterial">
   StasisFieldMaterial
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils_Subnautica.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the Stasis Rifle's ball Material.</div>
@@ -441,7 +596,7 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
   <h3 id="Nautilus_Utility_MaterialUtils_ApplySNShaders_UnityEngine_GameObject_System_Single_System_Single_System_Single_Nautilus_Utility_MaterialModifiers_MaterialModifier___" data-uid="Nautilus.Utility.MaterialUtils.ApplySNShaders(UnityEngine.GameObject,System.Single,System.Single,System.Single,Nautilus.Utility.MaterialModifiers.MaterialModifier[])">
   ApplySNShaders(GameObject, float, float, float, params MaterialModifier[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L132"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L151"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary"><p>Applies the necessary settings for Subnautica's standard shader (<a class="xref" href="Nautilus.Utility.MaterialUtils.Shaders.html#Nautilus_Utility_MaterialUtils_Shaders_MarmosetUBER">MarmosetUBER</a>) to the passed <span class="xref">UnityEngine.GameObject</span>.</p>
@@ -484,7 +639,7 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
   <h3 id="Nautilus_Utility_MaterialUtils_ApplyUBERShader_UnityEngine_Material_System_Single_System_Single_System_Single_Nautilus_Utility_MaterialUtils_MaterialType_" data-uid="Nautilus.Utility.MaterialUtils.ApplyUBERShader(UnityEngine.Material,System.Single,System.Single,System.Single,Nautilus.Utility.MaterialUtils.MaterialType)">
   ApplyUBERShader(Material, float, float, float, MaterialType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L190"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L209"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Applies the <a class="xref" href="Nautilus.Utility.MaterialUtils.Shaders.html#Nautilus_Utility_MaterialUtils_Shaders_MarmosetUBER">MarmosetUBER</a> Shader to the given material.</div>
@@ -523,7 +678,7 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
   <h3 id="Nautilus_Utility_MaterialUtils_SetMaterialCutout_UnityEngine_Material_System_Boolean_" data-uid="Nautilus.Utility.MaterialUtils.SetMaterialCutout(UnityEngine.Material,System.Boolean)">
   SetMaterialCutout(Material, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L298"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L317"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Toggle alpha clipping on a material. Incompatbile with transparency.</div>
@@ -556,7 +711,7 @@ Class MaterialUtils  <a class="header-action link-secondary" title="View source"
 
   <h3 id="Nautilus_Utility_MaterialUtils_SetMaterialTransparent_UnityEngine_Material_System_Boolean_" data-uid="Nautilus.Utility.MaterialUtils.SetMaterialTransparent(UnityEngine.Material,System.Boolean)">
   SetMaterialTransparent(Material, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L260"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/MaterialUtils.cs/#L279"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Toggle the transparency on a material.</div>

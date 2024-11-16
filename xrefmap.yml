@@ -3747,6 +3747,37 @@ references:
   commentId: N:Nautilus.Extensions
   fullName: Nautilus.Extensions
   nameWithType: Nautilus.Extensions
+- uid: Nautilus.Extensions.FModExtensions
+  name: FModExtensions
+  href: api/Nautilus.Extensions.FModExtensions.html
+  commentId: T:Nautilus.Extensions.FModExtensions
+  fullName: Nautilus.Extensions.FModExtensions
+  nameWithType: FModExtensions
+- uid: Nautilus.Extensions.FModExtensions.AddFadeOut(FMOD.Channel,System.Single,System.UInt64@)
+  name: AddFadeOut(Channel, float, out ulong)
+  href: api/Nautilus.Extensions.FModExtensions.html#Nautilus_Extensions_FModExtensions_AddFadeOut_FMOD_Channel_System_Single_System_UInt64__
+  commentId: M:Nautilus.Extensions.FModExtensions.AddFadeOut(FMOD.Channel,System.Single,System.UInt64@)
+  name.vb: AddFadeOut(Channel, Single, ULong)
+  fullName: Nautilus.Extensions.FModExtensions.AddFadeOut(FMOD.Channel, float, out ulong)
+  fullName.vb: Nautilus.Extensions.FModExtensions.AddFadeOut(FMOD.Channel, Single, ULong)
+  nameWithType: FModExtensions.AddFadeOut(Channel, float, out ulong)
+  nameWithType.vb: FModExtensions.AddFadeOut(Channel, Single, ULong)
+- uid: Nautilus.Extensions.FModExtensions.AddFadeOut(FMOD.Sound,System.Single)
+  name: AddFadeOut(Sound, float)
+  href: api/Nautilus.Extensions.FModExtensions.html#Nautilus_Extensions_FModExtensions_AddFadeOut_FMOD_Sound_System_Single_
+  commentId: M:Nautilus.Extensions.FModExtensions.AddFadeOut(FMOD.Sound,System.Single)
+  name.vb: AddFadeOut(Sound, Single)
+  fullName: Nautilus.Extensions.FModExtensions.AddFadeOut(FMOD.Sound, float)
+  fullName.vb: Nautilus.Extensions.FModExtensions.AddFadeOut(FMOD.Sound, Single)
+  nameWithType: FModExtensions.AddFadeOut(Sound, float)
+  nameWithType.vb: FModExtensions.AddFadeOut(Sound, Single)
+- uid: Nautilus.Extensions.FModExtensions.AddFadeOut*
+  name: AddFadeOut
+  href: api/Nautilus.Extensions.FModExtensions.html#Nautilus_Extensions_FModExtensions_AddFadeOut_
+  commentId: Overload:Nautilus.Extensions.FModExtensions.AddFadeOut
+  isSpec: "True"
+  fullName: Nautilus.Extensions.FModExtensions.AddFadeOut
+  nameWithType: FModExtensions.AddFadeOut
 - uid: Nautilus.Extensions.GameObjectExtensions
   name: GameObjectExtensions
   href: api/Nautilus.Extensions.GameObjectExtensions.html
@@ -4898,6 +4929,32 @@ references:
   commentId: T:Nautilus.Handlers.CustomSoundHandler
   fullName: Nautilus.Handlers.CustomSoundHandler
   nameWithType: CustomSoundHandler
+- uid: Nautilus.Handlers.CustomSoundHandler.AttachChannelToGameObject(FMOD.Channel,UnityEngine.Transform)
+  name: AttachChannelToGameObject(Channel, Transform)
+  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_AttachChannelToGameObject_FMOD_Channel_UnityEngine_Transform_
+  commentId: M:Nautilus.Handlers.CustomSoundHandler.AttachChannelToGameObject(FMOD.Channel,UnityEngine.Transform)
+  fullName: Nautilus.Handlers.CustomSoundHandler.AttachChannelToGameObject(FMOD.Channel, UnityEngine.Transform)
+  nameWithType: CustomSoundHandler.AttachChannelToGameObject(Channel, Transform)
+- uid: Nautilus.Handlers.CustomSoundHandler.AttachChannelToGameObject*
+  name: AttachChannelToGameObject
+  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_AttachChannelToGameObject_
+  commentId: Overload:Nautilus.Handlers.CustomSoundHandler.AttachChannelToGameObject
+  isSpec: "True"
+  fullName: Nautilus.Handlers.CustomSoundHandler.AttachChannelToGameObject
+  nameWithType: CustomSoundHandler.AttachChannelToGameObject
+- uid: Nautilus.Handlers.CustomSoundHandler.DetachChannelFromGameObject(FMOD.Channel)
+  name: DetachChannelFromGameObject(Channel)
+  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_DetachChannelFromGameObject_FMOD_Channel_
+  commentId: M:Nautilus.Handlers.CustomSoundHandler.DetachChannelFromGameObject(FMOD.Channel)
+  fullName: Nautilus.Handlers.CustomSoundHandler.DetachChannelFromGameObject(FMOD.Channel)
+  nameWithType: CustomSoundHandler.DetachChannelFromGameObject(Channel)
+- uid: Nautilus.Handlers.CustomSoundHandler.DetachChannelFromGameObject*
+  name: DetachChannelFromGameObject
+  href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_DetachChannelFromGameObject_
+  commentId: Overload:Nautilus.Handlers.CustomSoundHandler.DetachChannelFromGameObject
+  isSpec: "True"
+  fullName: Nautilus.Handlers.CustomSoundHandler.DetachChannelFromGameObject
+  nameWithType: CustomSoundHandler.DetachChannelFromGameObject
 - uid: Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,FMOD.Sound,FMOD.Studio.Bus)
   name: RegisterCustomSound(string, Sound, Bus)
   href: api/Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_FMOD_Sound_FMOD_Studio_Bus_
@@ -11595,6 +11652,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.MaterialUtils.ApplyUBERShader
   nameWithType: MaterialUtils.ApplyUBERShader
+- uid: Nautilus.Utility.MaterialUtils.ExteriorGlassMaterial
+  name: ExteriorGlassMaterial
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_ExteriorGlassMaterial
+  commentId: P:Nautilus.Utility.MaterialUtils.ExteriorGlassMaterial
+  fullName: Nautilus.Utility.MaterialUtils.ExteriorGlassMaterial
+  nameWithType: MaterialUtils.ExteriorGlassMaterial
+- uid: Nautilus.Utility.MaterialUtils.ExteriorGlassMaterial*
+  name: ExteriorGlassMaterial
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_ExteriorGlassMaterial_
+  commentId: Overload:Nautilus.Utility.MaterialUtils.ExteriorGlassMaterial
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialUtils.ExteriorGlassMaterial
+  nameWithType: MaterialUtils.ExteriorGlassMaterial
 - uid: Nautilus.Utility.MaterialUtils.ForceFieldMaterial
   name: ForceFieldMaterial
   href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_ForceFieldMaterial
@@ -11621,6 +11691,45 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.MaterialUtils.GhostMaterial
   nameWithType: MaterialUtils.GhostMaterial
+- uid: Nautilus.Utility.MaterialUtils.GlassMaterial
+  name: GlassMaterial
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_GlassMaterial
+  commentId: P:Nautilus.Utility.MaterialUtils.GlassMaterial
+  fullName: Nautilus.Utility.MaterialUtils.GlassMaterial
+  nameWithType: MaterialUtils.GlassMaterial
+- uid: Nautilus.Utility.MaterialUtils.GlassMaterial*
+  name: GlassMaterial
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_GlassMaterial_
+  commentId: Overload:Nautilus.Utility.MaterialUtils.GlassMaterial
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialUtils.GlassMaterial
+  nameWithType: MaterialUtils.GlassMaterial
+- uid: Nautilus.Utility.MaterialUtils.HolographicUIMaterial
+  name: HolographicUIMaterial
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_HolographicUIMaterial
+  commentId: P:Nautilus.Utility.MaterialUtils.HolographicUIMaterial
+  fullName: Nautilus.Utility.MaterialUtils.HolographicUIMaterial
+  nameWithType: MaterialUtils.HolographicUIMaterial
+- uid: Nautilus.Utility.MaterialUtils.HolographicUIMaterial*
+  name: HolographicUIMaterial
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_HolographicUIMaterial_
+  commentId: Overload:Nautilus.Utility.MaterialUtils.HolographicUIMaterial
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialUtils.HolographicUIMaterial
+  nameWithType: MaterialUtils.HolographicUIMaterial
+- uid: Nautilus.Utility.MaterialUtils.InteriorGlassMaterial
+  name: InteriorGlassMaterial
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_InteriorGlassMaterial
+  commentId: P:Nautilus.Utility.MaterialUtils.InteriorGlassMaterial
+  fullName: Nautilus.Utility.MaterialUtils.InteriorGlassMaterial
+  nameWithType: MaterialUtils.InteriorGlassMaterial
+- uid: Nautilus.Utility.MaterialUtils.InteriorGlassMaterial*
+  name: InteriorGlassMaterial
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_InteriorGlassMaterial_
+  commentId: Overload:Nautilus.Utility.MaterialUtils.InteriorGlassMaterial
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialUtils.InteriorGlassMaterial
+  nameWithType: MaterialUtils.InteriorGlassMaterial
 - uid: Nautilus.Utility.MaterialUtils.IonCubeMaterial
   name: IonCubeMaterial
   href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_IonCubeMaterial
@@ -11761,6 +11870,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.MaterialUtils.Shaders.ParticlesUBER
   nameWithType: MaterialUtils.Shaders.ParticlesUBER
+- uid: Nautilus.Utility.MaterialUtils.ShinyGlassMaterial
+  name: ShinyGlassMaterial
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_ShinyGlassMaterial
+  commentId: P:Nautilus.Utility.MaterialUtils.ShinyGlassMaterial
+  fullName: Nautilus.Utility.MaterialUtils.ShinyGlassMaterial
+  nameWithType: MaterialUtils.ShinyGlassMaterial
+- uid: Nautilus.Utility.MaterialUtils.ShinyGlassMaterial*
+  name: ShinyGlassMaterial
+  href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_ShinyGlassMaterial_
+  commentId: Overload:Nautilus.Utility.MaterialUtils.ShinyGlassMaterial
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialUtils.ShinyGlassMaterial
+  nameWithType: MaterialUtils.ShinyGlassMaterial
 - uid: Nautilus.Utility.MaterialUtils.StasisFieldMaterial
   name: StasisFieldMaterial
   href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_StasisFieldMaterial
@@ -12443,6 +12565,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PrefabUtils.AddConstructable
   nameWithType: PrefabUtils.AddConstructable
+- uid: Nautilus.Utility.PrefabUtils.AddConstructable``1(UnityEngine.GameObject,TechType,Nautilus.Utility.ConstructableFlags,UnityEngine.GameObject)
+  name: AddConstructable<T>(GameObject, TechType, ConstructableFlags, GameObject)
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddConstructable__1_UnityEngine_GameObject_TechType_Nautilus_Utility_ConstructableFlags_UnityEngine_GameObject_
+  commentId: M:Nautilus.Utility.PrefabUtils.AddConstructable``1(UnityEngine.GameObject,TechType,Nautilus.Utility.ConstructableFlags,UnityEngine.GameObject)
+  name.vb: AddConstructable(Of T)(GameObject, TechType, ConstructableFlags, GameObject)
+  fullName: Nautilus.Utility.PrefabUtils.AddConstructable<T>(UnityEngine.GameObject, TechType, Nautilus.Utility.ConstructableFlags, UnityEngine.GameObject)
+  fullName.vb: Nautilus.Utility.PrefabUtils.AddConstructable(Of T)(UnityEngine.GameObject, TechType, Nautilus.Utility.ConstructableFlags, UnityEngine.GameObject)
+  nameWithType: PrefabUtils.AddConstructable<T>(GameObject, TechType, ConstructableFlags, GameObject)
+  nameWithType.vb: PrefabUtils.AddConstructable(Of T)(GameObject, TechType, ConstructableFlags, GameObject)
 - uid: Nautilus.Utility.PrefabUtils.AddEnergyMixin(UnityEngine.GameObject,System.String,TechType,System.Collections.Generic.List{TechType},EnergyMixin.BatteryModels[],System.String)
   name: AddEnergyMixin(GameObject, string, TechType, List<TechType>, BatteryModels[], string)
   href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddEnergyMixin_UnityEngine_GameObject_System_String_TechType_System_Collections_Generic_List_TechType__EnergyMixin_BatteryModels___System_String_
@@ -12488,6 +12619,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PrefabUtils.AddStorageContainer
   nameWithType: PrefabUtils.AddStorageContainer
+- uid: Nautilus.Utility.PrefabUtils.AddStorageContainer``1(UnityEngine.GameObject,System.String,System.String,System.Int32,System.Int32,System.Boolean)
+  name: AddStorageContainer<T>(GameObject, string, string, int, int, bool)
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddStorageContainer__1_UnityEngine_GameObject_System_String_System_String_System_Int32_System_Int32_System_Boolean_
+  commentId: M:Nautilus.Utility.PrefabUtils.AddStorageContainer``1(UnityEngine.GameObject,System.String,System.String,System.Int32,System.Int32,System.Boolean)
+  name.vb: AddStorageContainer(Of T)(GameObject, String, String, Integer, Integer, Boolean)
+  fullName: Nautilus.Utility.PrefabUtils.AddStorageContainer<T>(UnityEngine.GameObject, string, string, int, int, bool)
+  fullName.vb: Nautilus.Utility.PrefabUtils.AddStorageContainer(Of T)(UnityEngine.GameObject, String, String, Integer, Integer, Boolean)
+  nameWithType: PrefabUtils.AddStorageContainer<T>(GameObject, string, string, int, int, bool)
+  nameWithType.vb: PrefabUtils.AddStorageContainer(Of T)(GameObject, String, String, Integer, Integer, Boolean)
 - uid: Nautilus.Utility.PrefabUtils.AddVFXFabricating(UnityEngine.GameObject,System.String,System.Single,System.Single,UnityEngine.Vector3,System.Single,UnityEngine.Vector3)
   name: AddVFXFabricating(GameObject, string, float, float, Vector3, float, Vector3)
   href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddVFXFabricating_UnityEngine_GameObject_System_String_System_Single_System_Single_UnityEngine_Vector3_System_Single_UnityEngine_Vector3_

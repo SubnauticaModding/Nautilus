@@ -442,6 +442,16 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Extensions.FModExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Extensions.FModExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Extensions.GameObjectExtensions.yml",
       "output": {
         ".html": {
