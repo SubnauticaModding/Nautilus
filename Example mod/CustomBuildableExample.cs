@@ -32,13 +32,15 @@ public static class BuildableTallLocker
         // create prefab:
         CustomPrefab prefab = new CustomPrefab(Info);
 
-        // copy the model of a vanilla wreck piece (which looks like a taller locker):
+        // copy the model of a vanilla wreck piece (which looks like a taller locker)
+        // we pass in the Class ID of the original prefab, which was found on this page:
+        // https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-PrefabPaths.json
         CloneTemplate lockerClone = new CloneTemplate(Info, "cd34fecd-794c-4a0c-8012-dd81b77f2840");
 
         // modify the cloned model:
         lockerClone.ModifyPrefab += obj =>
         {
-            // allow it to be placced inside bases and submarines on the ground, and can be rotated:
+            // allow it to be placed inside bases and submarines on the ground, and can be rotated:
             ConstructableFlags constructableFlags = ConstructableFlags.Inside | ConstructableFlags.Rotatable | ConstructableFlags.Ground | ConstructableFlags.Submarine;
 
             // find the object that holds the model:
