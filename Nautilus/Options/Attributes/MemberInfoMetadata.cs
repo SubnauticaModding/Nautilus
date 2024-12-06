@@ -116,7 +116,14 @@ internal class MemberInfoMetadata<T> where T : ConfigFile, new()
             return;
         }
 
-        Traverse.Create(config).Method(Name, MethodParameterTypes).GetValue(arguments);
+        MethodInfo methodInfo = AccessTools.Method(typeof(T), Name, MethodParameterTypes);
+        if (methodInfo.ContainsGenericParameters)
+        {
+            methodInfo.MakeGenericMethod(ValueType).Invoke(config, arguments);
+            return;
+        }
+
+        methodInfo.Invoke(config, arguments);
     }
 
     public Action<V> GetMethodAsAction<V>(T config)
