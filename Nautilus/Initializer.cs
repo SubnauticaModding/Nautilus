@@ -19,6 +19,7 @@ namespace Nautilus;
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 #if BELOWZERO
 [BepInProcess("SubnauticaZero.exe")]
+[BepInProcess("Subnautica Below Zero")] // actual macOS executable file within SubnauticaZero.app
 #else
 [BepInProcess("Subnautica.exe")]
 #endif
