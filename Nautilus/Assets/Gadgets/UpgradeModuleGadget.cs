@@ -7,62 +7,58 @@ using Nautilus.MonoBehaviours;
 namespace Nautilus.Assets.Gadgets;
 
 /// <summary>
-/// Represents a vehicle module (or upgrade) gadget.
+/// Represents a vehicle upgrade module gadget.
 /// </summary>
 public class UpgradeModuleGadget : Gadget
 {
     // UNIVERSAL
 
     /// <summary>
-    /// Max charge of this item.
-    /// Should apply to modules of vehicles and to chargeable items.
+    /// Defines the max charge in units of energy of this upgrade module when activated.
+    /// Applicable for chargeable vehicle modules.
     /// </summary>
     public double MaxCharge { get; set; }
 
     /// <summary>
-    /// Energy cost of this item.
-    /// Should apply to modules of vehicles.
+    /// Defines the energy cost of this upgrade module when activated. Applicable for all usable vehicle modules.
     /// </summary>
+    /// <remarks>For chargeable modules, this defines the number of units of energy expended per second.</remarks>
     public double EnergyCost { get; set; }
 
     /// <summary>
-    /// Cooldown for this module.
-    /// Does not work with Toggleable items.
-    /// May not work with certain vehicles.
+    /// Defines the cooldown of this upgrade module after being activated. Applicable for non-toggleable vehicle modules,
+    /// with some potential limitations.
     /// </summary>
     public double Cooldown { get; set; } = 0f;
 
     /// <summary>
-    /// Crush depth of this upgrade.
-    /// Leave to -1f to disable
+    /// Defines the crush depth of this upgrade module. Default value is -1. Only used when values are above 0.
     /// </summary>
     public float CrushDepth { get; set; } = -1f;
 
     /// <summary>
-    /// Wether the depth provided should be absolute or added to the default depth of the vehicle.
+    /// Whether the crush depth provided (if any) should be absolute or added to the default depth of the vehicle.
     /// Default value is false.
     /// </summary>
     public bool AbsoluteDepth { get; set; } = false;
-
-
+    
     // ON ADDED
 
     /// <summary>
-    /// This happens when the module is added to the vehicle.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// The Action that is executed after the vehicle module is added, called after default events.
     /// </summary>
     public Action<Vehicle, int> delegateOnAdded { get; private set; }
 
 #if BELOWZERO
     /// <summary>
-    /// This happens when the module is added to the SeaTruck.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// The Action that is executed after the vehicle module is added to a Seatruck,
+    /// called after default events.
     /// </summary>
     public Action<SeaTruckUpgrades, SeaTruckMotor, int> seatruckOnAdded { get; private set; }
 
     /// <summary>
-    /// This happens when the module is added to the Hoverbike.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// The Action that is executed after the vehicle module is added to a Snowfox,
+    /// called after default events.
     /// </summary>
     public Action<Hoverbike, int> hoverbikeOnAdded { get; private set; }
 #endif
@@ -70,20 +66,18 @@ public class UpgradeModuleGadget : Gadget
     // ON REMOVED
 
     /// <summary>
-    /// This happens when the module is removed from the vehicle.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// The Action that is executed after the vehicle module is removed.
     /// </summary>
     public Action<Vehicle, int> delegateOnRemoved { get; private set; }
 
 #if BELOWZERO
     /// <summary>
-    /// This happens when the module is removed from the SeaTruck.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// The Action that is executed after the vehicle module is removed from a Seatruck.
     /// </summary>
     public Action<SeaTruckUpgrades, SeaTruckMotor, int> seatruckOnRemoved { get; private set; }
 
     /// <summary>
-    /// This happens when the module is removed from the Hoverbike.
+    /// The Action that is executed after the vehicle module is removed from a Snowfox.
     /// </summary>
     public Action<Hoverbike, int> hoverbikeOnRemoved { get; private set; }
 #endif
@@ -91,25 +85,20 @@ public class UpgradeModuleGadget : Gadget
     // ON USED
 
     /// <summary>
-    /// This happens when the module is used.
-    /// The delegate is not run when the module is a toggleable.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// The Action that is executed when the module is used. Applies to non-toggleable vehicle modules.
     /// </summary>
     public Action<Vehicle, int, float, float> delegateOnUsed { get; private set; }
 
 #if BELOWZERO
     /// <summary>
-    /// This happens when the module is used.
-    /// The delegate is not run when the module is a togglable.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
-    /// <para>The first <c>float</c> represents the current quick slot charge, and the second one represents the charge scalar (a game internal).</para>
+    /// The Action that is executed when the module is used on a Seatruck. Applies to non-toggleable vehicle modules.
+    /// <para>The first <c>float</c> represents the current quick slot charge, and the second one represents the charge scalar.</para>
     /// </summary>
     public Action<SeaTruckUpgrades, SeaTruckMotor, int, float, float> seatruckOnUsed { get; private set; }
 
     /// <summary>
-    /// This happens when the module is used.
-    /// The delegate is not run when the module is a togglable.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// The Action that is executed when the module is used on a Snowfox. Applies to non-toggleable vehicle modules.
+    /// <para>The first <c>float</c> represents the current quick slot charge, and the second one represents the charge scalar.</para>
     /// </summary>
     public Action<Hoverbike, int, float, float> hoverbikeOnUsed { get; private set; }
 #endif
@@ -117,32 +106,31 @@ public class UpgradeModuleGadget : Gadget
     // ON TOGGLED
 
     /// <summary>
-    /// This happens when the module is toggled.<br/>
-    /// The boolean represents wether the module is on or off.<br/>
-    /// The delegate is not executed when the module is a selectable, selectableChargeable or a chargeable.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// The Action that is executed when the module is toggled. Only applies to toggleable vehicle modules.
     /// </summary>
+    /// <remarks>
+    /// The boolean represents whether the module is on or off.
+    /// </remarks>
     public Action<Vehicle, int, float, bool> delegateOnToggled { get; private set; }
 
 #if BELOWZERO
     /// <summary>
-    /// This happens when the module is toggled.<br/>
-    /// The boolean represents wether the module is on or off.<br/>
-    /// The delegate is not executed when the module is a selectable, selectableChargeable or a chargeable.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// The Action that is executed when the module is toggled in a Seatruck. Only applies to toggleable vehicle modules.
     /// </summary>
+    /// <remarks>
+    /// The boolean represents whether the module is on or off.
+    /// </remarks>
     public Action<SeaTruckUpgrades, SeaTruckMotor, int, float, bool> seatruckOnToggled { get; private set; }
 
     /// <summary>
-    /// This happens when the module is toggled.<br/>
-    /// The boolean represents wether the module is on or off.<br/>
-    /// The delegate is not executed when the module is a selectable, selectableChargeable or a chargeable.
-    /// <para>Action that is executed after Nautilus' default action (if there is) on this event.</para>
+    /// The Action that is executed when the module is toggled in a Snowfox. Only applies to toggleable vehicle modules.
     /// </summary>
+    /// <remarks>
+    /// The boolean represents whether the module is on or off.
+    /// </remarks>
     public Action<Hoverbike, int, float, bool> hoverbikeOnToggled { get; private set; }
 #endif
-
-
+    
     /// <summary>
     /// Constructs an equipment gadget.
     /// </summary>
@@ -150,13 +138,14 @@ public class UpgradeModuleGadget : Gadget
     public UpgradeModuleGadget(ICustomPrefab prefab) : base(prefab) { }
 
     /// <summary>
-    /// The maximum charge of the item.
-    /// Usually used as a multiplier for vehicle modules.
-    /// (Seamoth defense perimeter, Seatruck defense perimeter)
-    /// <para>Example: The Seamoth defense perimeter can be charged by holding the action key to make its damage bigger.</para>
+    /// Sets the maximum charge of an upgrade module, in units of energy.
     /// </summary>
-    /// <param name="maxCharge">Charge multiplier</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <param name="maxCharge">The maximum charge in total units of energy that can be expended.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
+    /// <remarks>
+    /// This is used for the Seamoth and Seatruck Perimeter Defense Module to provide a strength modifier
+    /// based on how long the player holds the key.
+    /// </remarks>
     public UpgradeModuleGadget WithMaxCharge(double maxCharge)
     {
         MaxCharge = maxCharge;
@@ -164,12 +153,14 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
-    /// The energy cost of the item.
-    /// Usually used for vehicle modules to consume energy.
-    /// (Seamoth perimeter defense, Seamoth sonar)
+    /// Sets the energy cost of this upgrade module when used.
     /// </summary>
-    /// <param name="energyCost">Energy cost</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <param name="energyCost">The energy cost per use (or per second for chargeable modules).</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
+    /// <remarks>
+    /// For chargeable modules, this defines the number of units of energy expended per second
+    /// towards the total charge.
+    /// </remarks>
     public UpgradeModuleGadget WithEnergyCost(double energyCost)
     {
         EnergyCost = energyCost;
@@ -177,12 +168,11 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
-    /// The cooldown of the module when it is used.
-    /// <para>Cooldown may not work with certain vehicles.</para>
-    /// <para>Does not work with toggleable and passive items.</para>
+    /// Sets the cooldown of the module after it is used.
     /// </summary>
-    /// <param name="cooldown">Cooldown of the module in seconds.</param>
-    /// <returns>A reference to thihs instance after the operation has completed.</returns>
+    /// <param name="cooldown">The cooldown of the module in seconds.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
+    /// <remarks>Does not work with toggleable or passive items, and may not be implemented by all vehicles.</remarks>
     public UpgradeModuleGadget WithCooldown(double cooldown)
     {
         Cooldown = cooldown;
@@ -192,9 +182,9 @@ public class UpgradeModuleGadget : Gadget
     /// <summary>
     /// Sets the crush depth given by this upgrade.
     /// </summary>
-    /// <param name="newCrushDepth">New crush depth, in meters.</param>
-    /// <param name="absolute">Wether the provided depth should be absolute or added to the default max depth of the vehicle.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <param name="newCrushDepth">The new crush depth in meters.</param>
+    /// <param name="absolute">Whether the provided depth should be absolute or added to the default max depth of the vehicle.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
     public UpgradeModuleGadget WithDepthUpgrade(float newCrushDepth, bool absolute = false)
     {
         CrushDepth = newCrushDepth;
@@ -206,12 +196,10 @@ public class UpgradeModuleGadget : Gadget
     // DELEGATES
 
     /// <summary>
-    /// What happens when the module is added to a vehicle ?<br/>
-    /// This action is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
-    /// For removed, see also <see cref="WithOnModuleRemoved(Action{Vehicle, int})"/>.
+    /// Defines extra functionality when this upgrade module is added.
     /// </summary>
-    /// <param name="onAdded">Action that occurs when the module is added.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <param name="onAdded">Action that occurs after the module is added.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
     public UpgradeModuleGadget WithOnModuleAdded(Action<Vehicle, int> onAdded)
     {
         delegateOnAdded = onAdded;
@@ -220,12 +208,10 @@ public class UpgradeModuleGadget : Gadget
 
 #if BELOWZERO
     /// <summary>
-    /// What happens when the module is added to a Seatruck ?<br/>
-    /// This actions is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
-    /// For removed, see also <see cref="WithOnModuleRemoved(Action{SeaTruckUpgrades, SeaTruckMotor, int})"/>.
+    /// Defines extra functionality when this upgrade module is added.
     /// </summary>
-    /// <param name="onAdded">Action that occurs when the module is added.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <param name="onAdded">Action that occurs after the module is added.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
     public UpgradeModuleGadget WithOnModuleAdded(Action<SeaTruckUpgrades, SeaTruckMotor, int> onAdded)
     {
         seatruckOnAdded = onAdded;
@@ -233,12 +219,10 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
-    /// What happens when the module is added to a seatruck ?<br/>
-    /// This action is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
-    /// For removed, see also <see cref="WithOnModuleRemoved(Action{Hoverbike, int})"/>
+    /// Defines extra functionality when this upgrade module is added.
     /// </summary>
-    /// <param name="onAdded"></param>
-    /// <returns></returns>
+    /// <param name="onAdded">Action that occurs after the module is added.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
     public UpgradeModuleGadget WithOnModuleAdded(Action<Hoverbike, int> onAdded)
     {
         hoverbikeOnAdded = onAdded;
@@ -247,12 +231,10 @@ public class UpgradeModuleGadget : Gadget
 #endif
 
     /// <summary>
-    /// What happens when the module is removed from a vehicle ?<br/>
-    /// This action is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
-    /// For added, see also <see cref="WithOnModuleAdded(Action{Vehicle, int})"/>.
+    /// Defines extra functionality when this upgrade module is removed.
     /// </summary>
-    /// <param name="onRemoved">Action that occurs when the module is removed.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <param name="onRemoved">Action that occurs after the module is removed.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
     public UpgradeModuleGadget WithOnModuleRemoved(Action<Vehicle, int> onRemoved)
     {
         delegateOnRemoved = onRemoved;
@@ -261,12 +243,10 @@ public class UpgradeModuleGadget : Gadget
 
 #if BELOWZERO
     /// <summary>
-    /// What happens when the module is removed from a Seatruck ?<br/>
-    /// This action is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
-    /// For added, see also <see cref="WithOnModuleAdded(Action{SeaTruckUpgrades, SeaTruckMotor, int})"/>.
+    /// Defines extra functionality when this upgrade module is removed.
     /// </summary>
-    /// <param name="onRemoved">Action that occurs when the module is removed.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <param name="onRemoved">Action that occurs after the module is removed.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
     public UpgradeModuleGadget WithOnModuleRemoved(Action<SeaTruckUpgrades, SeaTruckMotor, int> onRemoved)
     {
         seatruckOnRemoved = onRemoved;
@@ -274,12 +254,10 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
-    /// What happens when the module is removed from a Hoverbike ?<br/>
-    /// This action is run <b>after</b> Nautilus' default action (if the module is a hull, the new hull of the vehicle is automatically updated).<br/>
-    /// For added, see also <see cref="WithOnModuleAdded(Action{Hoverbike, int})"/>.
+    /// Defines extra functionality when this upgrade module is removed.
     /// </summary>
-    /// <param name="onRemoved">Action that occurs when the module is removed.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <param name="onRemoved">Action that occurs after the module is removed.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
     public UpgradeModuleGadget WithOnModuleRemoved(Action<Hoverbike, int> onRemoved)
     {
         hoverbikeOnRemoved = onRemoved;
@@ -288,12 +266,11 @@ public class UpgradeModuleGadget : Gadget
 #endif
 
     /// <summary>
-    /// What happens when the module is used ?<br/>
-    /// This action is run <b>after</b> Nautilus' default action (cooldown and energy consumption are automatically set).<br/>
-    /// For toggle, see also <see cref="WithOnModuleToggled(Action{Vehicle, int, float, bool})"/>.
+    /// Defines extra functionality when this upgrade module is used, for non-toggleable modules.
     /// </summary>
     /// <param name="onUsed">Action that occurs when the module is used.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
+    /// <remarks>The first <c>float</c> represents the current quick slot charge, and the second one represents the charge scalar.</remarks>
     public UpgradeModuleGadget WithOnModuleUsed(Action<Vehicle, int, float, float> onUsed)
     {
         delegateOnUsed = onUsed;
@@ -302,13 +279,11 @@ public class UpgradeModuleGadget : Gadget
 
 #if BELOWZERO
     /// <summary>
-    /// What happens when the module is used ?<br/>
-    /// This action is run <b>after</b> Nautilus' default action (cooldown and energy consumption are automatically set).<br/>
-    /// For toggle, see also <see cref="WithOnModuleToggled(Action{SeaTruckUpgrades, SeaTruckMotor, int, float, bool})"/>.
-    /// <para>The first <c>float</c> represents the current quick slot charge, and the second one represents the charge scalar (a game internal).</para>
+    /// Defines extra functionality when this upgrade module is used, for non-toggleable modules.
     /// </summary>
     /// <param name="onUsed">Action that occurs when the module is used.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
+    /// <remarks>The first <c>float</c> represents the current quick slot charge, and the second one represents the charge scalar.</remarks>
     public UpgradeModuleGadget WithOnModuleUsed(Action<SeaTruckUpgrades, SeaTruckMotor, int, float, float> onUsed)
     {
         seatruckOnUsed = onUsed;
@@ -316,12 +291,11 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
-    /// What happens when the module is used ?<br/>
-    /// This action is run <b>after</b> Nautilus' default action (cooldown and energy consumption are automatically set).<br/>
-    /// For toggle, see also <see cref="WithOnModuleToggled(Action{Hoverbike, int, float, bool})"/>.
+    /// Defines extra functionality when this upgrade module is used, for non-toggleable modules.
     /// </summary>
     /// <param name="onUsed">Action that occurs when the module is used.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
+    /// <remarks>The first <c>float</c> represents the current quick slot charge, and the second one represents the charge scalar.</remarks>
     public UpgradeModuleGadget WithOnModuleUsed(Action<Hoverbike, int, float, float> onUsed)
     {
         hoverbikeOnUsed = onUsed;
@@ -330,13 +304,11 @@ public class UpgradeModuleGadget : Gadget
 #endif
 
     /// <summary>
-    /// What happens when the module is toggled ?<br/>
-    /// This actions is run <b>after</b> Nautilus' default action (energy consumption is automatically set).<br/>
-    /// For use, see also <see cref="WithOnModuleUsed(Action{Vehicle, int, float, float})"/>.
+    /// Defines extra functionality when this upgrade module is toggled.
     /// </summary>
-    /// <param name="onToggled">Action that occurs <b>when the module turns on and when it turns off</b>.<br/>
-    /// The boolean determines wether it is added or removed (added=true).</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <param name="onToggled">Action that occurs when the module is toggled.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
+    /// <remarks>The boolean represents whether it is being added or removed.</remarks>
     public UpgradeModuleGadget WithOnModuleToggled(Action<Vehicle, int, float, bool> onToggled)
     {
         delegateOnToggled = onToggled;
@@ -345,13 +317,11 @@ public class UpgradeModuleGadget : Gadget
 
 #if BELOWZERO
     /// <summary>
-    /// What happens when the module is toggled ?<br/>
-    /// This action is run <b>after</b> Nautilus' default action (energy consumption is automatically set)<br/>
-    /// For use, see also <see cref="WithOnModuleUsed(Action{SeaTruckUpgrades, SeaTruckMotor, int, float, float})"/>.
+    /// Defines extra functionality when this upgrade module is toggled.
     /// </summary>
-    /// <param name="onToggled">Action that occurs <b>when the module turns on and when it turns off</b>.<br/>
-    /// The boolean determines wether it is added or removed (added=true).</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <param name="onToggled">Action that occurs when the module is toggled.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
+    /// <remarks>The boolean represents whether it is being added or removed.</remarks>
     public UpgradeModuleGadget WithOnModuleToggled(Action<SeaTruckUpgrades, SeaTruckMotor, int, float, bool> onToggled)
     {
         seatruckOnToggled = onToggled;
@@ -359,20 +329,17 @@ public class UpgradeModuleGadget : Gadget
     }
 
     /// <summary>
-    /// What happens when the module is toggled ?<br/>
-    /// This action is run <b>after</b> Nautilus' default action (energy consumption is automatically set)<br/>
-    /// For use, see also <see cref="WithOnModuleUsed(Action{Hoverbike, int, float, float})"/>
+    /// Defines extra functionality when this upgrade module is toggled.
     /// </summary>
-    /// <param name="onToggled"></param>
-    /// <returns></returns>
+    /// <param name="onToggled">Action that occurs when the module is toggled.</param>
+    /// <returns>A reference to this instance after the operation has been completed.</returns>
+    /// <remarks>The boolean represents whether it is being added or removed.</remarks>
     public UpgradeModuleGadget WithOnModuleToggled(Action<Hoverbike, int, float, bool> onToggled)
     {
         hoverbikeOnToggled = onToggled;
         return this;
     }
 #endif
-
-
 
     /// <inheritdoc/>
     protected internal override void Build()
