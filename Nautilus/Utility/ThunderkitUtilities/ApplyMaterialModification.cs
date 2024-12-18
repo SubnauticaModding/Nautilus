@@ -149,6 +149,7 @@ public class ApplyMaterialModification : MonoBehaviour
         {
             var useFilter = materialFilter.Length > 0;
             string materialNameForFilter = null;
+            
             if (useFilter)
             {
                 // Removes the "(Instance)" string from the end of the material name
@@ -156,44 +157,48 @@ public class ApplyMaterialModification : MonoBehaviour
                     gameMaterial.name.Substring(0, gameMaterial.name.Length - 11) : gameMaterial.name;
             }
 
-            foreach (var searchMat in materialFilter)
+            if (useFilter)
             {
-                if (useFilter && !materialNameForFilter.Equals(searchMat.name, StringComparison.OrdinalIgnoreCase))
-                    continue;
-                
-                for (var i = 0; i < texturePropertyNames.Length; i++)
+                var materialExistsInFilter = false;
+                foreach (var filterEntry in materialFilter)
                 {
-                    gameMaterial.SetTexture(texturePropertyNames[i], texturePropertyValues[i]);
+                    if (!materialNameForFilter.Equals(filterEntry.name, StringComparison.OrdinalIgnoreCase))
+                        materialExistsInFilter = true;
                 }
+                if (!materialExistsInFilter) continue;
+            }
+            
+            for (var i = 0; i < texturePropertyNames.Length; i++)
+            {
+                gameMaterial.SetTexture(texturePropertyNames[i], texturePropertyValues[i]);
+            }
 
-                for (var i = 0; i < colorPropertyNames.Length; i++)
-                {
-                    gameMaterial.SetColor(colorPropertyNames[i], colorPropertyValues[i]);
-                }
+            for (var i = 0; i < colorPropertyNames.Length; i++)
+            {
+                gameMaterial.SetColor(colorPropertyNames[i], colorPropertyValues[i]);
+            }
 
-                for (var i = 0; i < floatPropertyNames.Length; i++)
-                {
-                    gameMaterial.SetFloat(floatPropertyNames[i], floatPropertyValues[i]);
-                }
+            for (var i = 0; i < floatPropertyNames.Length; i++)
+            {
+                gameMaterial.SetFloat(floatPropertyNames[i], floatPropertyValues[i]);
+            }
 
-                for (var i = 0; i < enablePropertyNames.Length; i++)
-                {
-                    gameMaterial.SetFloat(enablePropertyNames[i], enablePropertyValues[i] ? 1f : 0f);
-                }
+            for (var i = 0; i < enablePropertyNames.Length; i++)
+            {
+                gameMaterial.SetFloat(enablePropertyNames[i], enablePropertyValues[i] ? 1f : 0f);
+            }
 
-                for (var i = 0; i < keywordPropertyNames.Length; i++)
-                {
-                    if (keywordPropertyValues[i])
-                        gameMaterial.EnableKeyword(keywordPropertyNames[i]);
-                    else
-                        gameMaterial.DisableKeyword(keywordPropertyNames[i]);
-                }
+            for (var i = 0; i < keywordPropertyNames.Length; i++)
+            {
+                if (keywordPropertyValues[i])
+                    gameMaterial.EnableKeyword(keywordPropertyNames[i]);
+                else
+                    gameMaterial.DisableKeyword(keywordPropertyNames[i]);
+            }
 
-                for (var i = 0; i < vectorPropertyNames.Length; i++)
-                {
-                    gameMaterial.SetVector(vectorPropertyNames[i], vectorPropertyValues[i]);
-                }
-                break;
+            for (var i = 0; i < vectorPropertyNames.Length; i++)
+            {
+                gameMaterial.SetVector(vectorPropertyNames[i], vectorPropertyValues[i]);
             }
         }
     }
