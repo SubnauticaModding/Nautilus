@@ -162,8 +162,9 @@ public class ApplyMaterialModification : MonoBehaviour
                 var materialExistsInFilter = false;
                 foreach (var filterEntry in materialFilter)
                 {
-                    if (!materialNameForFilter.Equals(filterEntry.name, StringComparison.OrdinalIgnoreCase))
-                        materialExistsInFilter = true;
+                    if (!materialNameForFilter.Equals(filterEntry.name, StringComparison.OrdinalIgnoreCase)) continue;
+                    materialExistsInFilter = true;
+                    break;
                 }
                 if (!materialExistsInFilter) continue;
             }
