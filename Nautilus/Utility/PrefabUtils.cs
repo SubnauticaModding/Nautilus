@@ -322,7 +322,7 @@ public static class PrefabUtils
     /// <param name="underwaterDrag">The underwater drag coefficient (using Unity's arbitrary unit for drag).</param>
     /// <param name="isKinematic">If true, the Rigidbody will be kinematic when spawned and therefore immovable.
     /// Note that if the player picks up an item and drops it, its kinematic state will be reset to false.</param>
-    /// <returns></returns>
+    /// <returns>A reference to the newly added (or previously existing) <see cref="WorldForces"/> component.</returns>
     public static WorldForces AddWorldForces(GameObject prefab, float mass, float underwaterGravity = 1f, float underwaterDrag = 1f, bool isKinematic = false)
     {
         if (!prefab.TryGetComponent<Rigidbody>(out var rb))
