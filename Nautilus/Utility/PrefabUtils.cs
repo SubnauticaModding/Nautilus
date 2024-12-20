@@ -312,4 +312,30 @@ public static class PrefabUtils
         return resourceTracker;
     }
 
+    /// <summary>
+    /// Adds the World Forces component to the prefab, which is required for proper physics handling.
+    /// </summary>
+    /// <param name="prefab">The prefab to modify.</param>
+    /// <param name="mass">The mass of the new rigidbody (only if a rigidbody is being added).
+    /// If the prefab already has a Rigidbody, this has NO EFFECT.</param>
+    /// <param name="underwaterGravity">The underwater gravity in m/s/s.</param>
+    /// <param name="underwaterDrag">The underwater drag coefficient (using Unity's arbitrary unit for drag).</param>
+    /// <param name="isKinematic">If true, the Rigidbody will be kinematic when spawned and therefore immovable.
+    /// Note that if the player picks up an item and drops it, its kinematic state will be reset to false.</param>
+    /// <returns>A reference to the newly added (or previously existing) <see cref="WorldForces"/> component.</returns>
+    public static WorldForces AddWorldForces(GameObject prefab, float mass, float underwaterGravity = 1f, float underwaterDrag = 1f, bool isKinematic = false)
+    {
+        if (!prefab.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb = prefab.AddComponent<Rigidbody>();
+            rb.mass = mass;
+        }
+        rb.useGravity = false;
+        rb.isKinematic = isKinematic;
+        var wf = prefab.EnsureComponent<WorldForces>();
+        wf.useRigidbody = rb;
+        wf.underwaterGravity = underwaterGravity;
+        wf.underwaterDrag = underwaterDrag;
+        return wf;
+    }
 }
