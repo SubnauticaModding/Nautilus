@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Nautilus.Utility.ModMessages;
 
 /// <summary>
@@ -31,5 +33,55 @@ public readonly struct ModMessage
         Recipient = recipient;
         Subject = subject;
         Contents = contents;
+    }
+
+    /// <summary>
+    /// Returns the message data represented as a string. 
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.Append("Subject: ");
+        sb.Append(Subject);
+        sb.Append(", Recipient: ");
+        sb.Append(Recipient);
+        sb.Append(", Contents: ");
+        
+        if (Contents == null)
+        {
+            sb.Append("[Null]");
+            return sb.ToString();
+        }
+
+        if (Contents.Length == 0)
+        {
+            sb.Append("[Empty]");
+            return sb.ToString();
+        }
+
+        sb.Append("{ ");
+        for (var i = 0; i < Contents.Length; i++)
+        {
+            if (Contents[i] == null)
+            {
+                sb.Append("Null");
+            }
+            else
+            {
+                sb.Append(Contents[i]);
+                sb.Append(" (");
+                sb.Append(Contents[i].GetType());
+                sb.Append(')');
+            }
+            if (i < Contents.Length - 1)
+            {
+                sb.Append(", ");
+            }
+        }
+
+        sb.Append(" }");
+
+        return sb.ToString();
     }
 }
