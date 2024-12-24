@@ -184,6 +184,7 @@ public static partial class MaterialUtils
         var holoMat = cyclops.transform.Find("HelmHUD/HelmHUDVisuals/Canvas_LeftHUD/EngineOnUI/EngineOff_Button")
             .GetComponent<UnityEngine.UI.Image>().material;
 
+        Object.Destroy(HolographicUIMaterial);
         HolographicUIMaterial = new Material(holoMat);
         _cyclopsLoaded = true;
     }
