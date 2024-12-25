@@ -23,7 +23,7 @@ public static partial class MaterialUtils
             _sceneEventAdded = true;
         }
     }
-
+    
     private static IEnumerator LoadReferences()
     {
         yield return PatchInternal();
@@ -337,6 +337,6 @@ public static partial class MaterialUtils
     {
         if (scene.name != "MenuEnvironment") return;
 
-        CoroutineHost.StartCoroutine(LoadReferences());
+        CoroutineHost.StartCoroutine(ReloadStaleReferences());
     }
 }
