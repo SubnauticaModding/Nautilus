@@ -5,7 +5,7 @@ namespace Nautilus.Utility.MaterialModifiers;
 /// <summary>
 /// A material modifier that changes the '_Fresnel' property of all materials.
 /// </summary>
-public class FresnelMaterialModifier : MaterialModifier
+public class FresnelModifier : MaterialModifier
 {
     private readonly float _fresnel;
     private static readonly int Fresnel = Shader.PropertyToID("_Fresnel");
@@ -22,7 +22,7 @@ public class FresnelMaterialModifier : MaterialModifier
     /// <item>0.70: high fresnel; ideal for transparent membranes (ghost leviathans use this value).</item>
     /// <item>1.00: full fresnel. Only geometry at a 90° angle is shiny, which results in essentially no reflections.</item>
     /// </list></remarks>
-    public FresnelMaterialModifier(float fresnel)
+    public FresnelModifier(float fresnel)
     {
         _fresnel = fresnel;
     }

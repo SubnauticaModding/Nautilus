@@ -5,7 +5,7 @@ namespace Nautilus.Utility.MaterialModifiers;
 /// <summary>
 /// A material modifier that enables a "waving" effect on all materials, commonly used for plants.
 /// </summary>
-public class WavingMaterialModifier : MaterialModifier
+public class WavingEffectModifier : MaterialModifier
 {
     private static readonly int _waveUpMinParam = Shader.PropertyToID("_WaveUpMin");
     private static readonly int _scaleParam = Shader.PropertyToID("_Scale");
@@ -28,11 +28,11 @@ public class WavingMaterialModifier : MaterialModifier
     public Vector2 Speed { get; init; } = new Vector2(0.6f, 0.3f);
 
     /// <summary>
-    /// Creates a <see cref="WavingMaterialModifier"/> that enables the plant waving effect on all materials.
+    /// Creates a <see cref="WavingEffectModifier"/> that enables the plant waving effect on all materials.
     /// </summary>
     /// <param name="waveUpMin">Also referred to as the "influence cutoff y". Range is 0-1. Higher values tend to lead
     /// to higher intensities of the waving effect towards the "base" of the plant.</param>
-    public WavingMaterialModifier(float waveUpMin)
+    public WavingEffectModifier(float waveUpMin)
     {
         _waveUpMin = waveUpMin;
     }
