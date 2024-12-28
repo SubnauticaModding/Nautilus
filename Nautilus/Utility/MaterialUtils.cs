@@ -233,7 +233,6 @@ public static partial class MaterialUtils
             material.EnableKeyword("_ZWRITE_ON");
             material.EnableKeyword("MARMO_SPECMAP");
             material.SetColor(ShaderPropertyID._SpecColor, new Color(1f, 1f, 1f, 1f));
-            material.SetVector("_SpecTex_ST", new Vector4(1.0f, 1.0f, 0.0f, 0.0f));
             material.SetFloat(_fresnel, 0.24f);
         }
 
