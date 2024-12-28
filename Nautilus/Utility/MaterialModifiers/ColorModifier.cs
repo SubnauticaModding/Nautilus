@@ -7,15 +7,15 @@ namespace Nautilus.Utility.MaterialModifiers;
 /// </summary>
 public sealed class ColorModifier : MaterialModifier 
 {
-    private Color color;
+    private readonly Color _color;
 
     /// <summary>
     /// Sets the <see cref="Material.color"/> property on all materials.
     /// </summary>
-    /// <param name="color"></param>
+    /// <param name="color">The new color to be used.</param>
     public ColorModifier(Color color)
     {
-        this.color = color;
+        _color = color;
     }
 
     /// <summary>
@@ -23,6 +23,6 @@ public sealed class ColorModifier : MaterialModifier
     /// </summary>
     public override void EditMaterial(Material material, Renderer renderer, int materialIndex, MaterialUtils.MaterialType materialType)
     {
-        material.color = color;
+        material.color = _color;
     }
 }
