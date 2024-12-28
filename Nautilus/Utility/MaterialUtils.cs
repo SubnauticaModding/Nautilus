@@ -255,7 +255,6 @@ public static partial class MaterialUtils
         }
         
         material.enableInstancing = true;
-        material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack | MaterialGlobalIlluminationFlags.RealtimeEmissive;
 
         switch (materialType)
         {
