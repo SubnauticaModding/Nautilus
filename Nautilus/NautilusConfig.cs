@@ -18,6 +18,9 @@ internal class NautilusConfig : ConfigFile
     [OnChange(nameof(OnItemInfoChange))]
     public string extraItemInfo = "Mod name (default)";
 
+    [Toggle(Label = "Hide Root Craft Nodes", Tooltip = "When opening a tab node, hide all craft nodes from the same level as the opened tab node. This helps against overlapping nodes, but some users may not like how it looks")]
+    public bool hideRootCraftNodes = true;
+
     private void OnDebugLogChange(ToggleChangedEventArgs args)
     {
         Utility.InternalLogger.SetDebugging(args.Value);
