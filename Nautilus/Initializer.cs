@@ -26,6 +26,7 @@ namespace Nautilus;
 public class Initializer : BaseUnityPlugin
 {
     private static readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
+    internal static NautilusConfig ConfigFile { get; private set; } = OptionsPanelHandler.RegisterModOptions<NautilusConfig>();
 
 #if BELOWZERO
     static Initializer()
@@ -85,5 +86,6 @@ public class Initializer : BaseUnityPlugin
         WaterParkPatcher.Patch(_harmony);
         ModMessageSystem.Patch();
         BiomePatcher.Patch(_harmony);
+        uGUI_CraftingMenuPatcher.Patch(_harmony);
     }
 }
