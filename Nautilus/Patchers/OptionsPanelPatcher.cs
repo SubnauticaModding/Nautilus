@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Nautilus.Handlers;
@@ -87,8 +88,15 @@ internal class OptionsPanelPatcher
             modsTab = optionsPanel.AddTab("Mods");
         }
 
+        var optionsToAdd = new List<ModOptions>(modOptions.Values);
+
+        var nautilusOptions = optionsToAdd.FirstOrDefault(options => options.Name == "Nautilus");
+        optionsToAdd.Remove(nautilusOptions);
+
+        nautilusOptions.AddOptionsToPanel(optionsPanel, modsTab);
+
         // adding all other options here
-        modOptions.Values.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
+        optionsToAdd.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
     }
 
     // Class for collapsing/expanding options in 'Mods' tab
