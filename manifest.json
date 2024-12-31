@@ -1592,10 +1592,60 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.FresnelModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.FresnelModifier.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.MaterialModifier.yml",
       "output": {
         ".html": {
           "relative_path": "api/Nautilus.Utility.MaterialModifiers.MaterialModifier.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html"
         }
       },
       "version": ""
@@ -1756,6 +1806,26 @@
       "output": {
         ".html": {
           "relative_path": "api/Nautilus.Utility.StorageHelperExtensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ThunderkitUtilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ThunderkitUtilities.html"
         }
       },
       "version": ""

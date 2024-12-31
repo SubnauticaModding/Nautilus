@@ -11566,6 +11566,173 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.MaterialModifiers.ColorModifier.EditMaterial
   nameWithType: ColorModifier.EditMaterial
+- uid: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier
+  name: DoubleSidedModifier
+  href: api/Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.html
+  commentId: T:Nautilus.Utility.MaterialModifiers.DoubleSidedModifier
+  fullName: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier
+  nameWithType: DoubleSidedModifier
+- uid: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.#ctor(Nautilus.Utility.MaterialUtils.MaterialType[])
+  name: DoubleSidedModifier(params MaterialType[])
+  href: api/Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.html#Nautilus_Utility_MaterialModifiers_DoubleSidedModifier__ctor_Nautilus_Utility_MaterialUtils_MaterialType___
+  commentId: M:Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.#ctor(Nautilus.Utility.MaterialUtils.MaterialType[])
+  name.vb: New(ParamArray MaterialType())
+  fullName: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.DoubleSidedModifier(params Nautilus.Utility.MaterialUtils.MaterialType[])
+  fullName.vb: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.New(ParamArray Nautilus.Utility.MaterialUtils.MaterialType())
+  nameWithType: DoubleSidedModifier.DoubleSidedModifier(params MaterialUtils.MaterialType[])
+  nameWithType.vb: DoubleSidedModifier.New(ParamArray MaterialUtils.MaterialType())
+- uid: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.#ctor*
+  name: DoubleSidedModifier
+  href: api/Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.html#Nautilus_Utility_MaterialModifiers_DoubleSidedModifier__ctor_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.DoubleSidedModifier
+  fullName.vb: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.New
+  nameWithType: DoubleSidedModifier.DoubleSidedModifier
+  nameWithType.vb: DoubleSidedModifier.New
+- uid: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.EditMaterial(UnityEngine.Material,UnityEngine.Renderer,System.Int32,Nautilus.Utility.MaterialUtils.MaterialType)
+  name: EditMaterial(Material, Renderer, int, MaterialType)
+  href: api/Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.html#Nautilus_Utility_MaterialModifiers_DoubleSidedModifier_EditMaterial_UnityEngine_Material_UnityEngine_Renderer_System_Int32_Nautilus_Utility_MaterialUtils_MaterialType_
+  commentId: M:Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.EditMaterial(UnityEngine.Material,UnityEngine.Renderer,System.Int32,Nautilus.Utility.MaterialUtils.MaterialType)
+  name.vb: EditMaterial(Material, Renderer, Integer, MaterialType)
+  fullName: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.EditMaterial(UnityEngine.Material, UnityEngine.Renderer, int, Nautilus.Utility.MaterialUtils.MaterialType)
+  fullName.vb: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.EditMaterial(UnityEngine.Material, UnityEngine.Renderer, Integer, Nautilus.Utility.MaterialUtils.MaterialType)
+  nameWithType: DoubleSidedModifier.EditMaterial(Material, Renderer, int, MaterialUtils.MaterialType)
+  nameWithType.vb: DoubleSidedModifier.EditMaterial(Material, Renderer, Integer, MaterialUtils.MaterialType)
+- uid: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.EditMaterial*
+  name: EditMaterial
+  href: api/Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.html#Nautilus_Utility_MaterialModifiers_DoubleSidedModifier_EditMaterial_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.EditMaterial
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.EditMaterial
+  nameWithType: DoubleSidedModifier.EditMaterial
+- uid: Nautilus.Utility.MaterialModifiers.FresnelModifier
+  name: FresnelModifier
+  href: api/Nautilus.Utility.MaterialModifiers.FresnelModifier.html
+  commentId: T:Nautilus.Utility.MaterialModifiers.FresnelModifier
+  fullName: Nautilus.Utility.MaterialModifiers.FresnelModifier
+  nameWithType: FresnelModifier
+- uid: Nautilus.Utility.MaterialModifiers.FresnelModifier.#ctor(System.Single)
+  name: FresnelModifier(float)
+  href: api/Nautilus.Utility.MaterialModifiers.FresnelModifier.html#Nautilus_Utility_MaterialModifiers_FresnelModifier__ctor_System_Single_
+  commentId: M:Nautilus.Utility.MaterialModifiers.FresnelModifier.#ctor(System.Single)
+  name.vb: New(Single)
+  fullName: Nautilus.Utility.MaterialModifiers.FresnelModifier.FresnelModifier(float)
+  fullName.vb: Nautilus.Utility.MaterialModifiers.FresnelModifier.New(Single)
+  nameWithType: FresnelModifier.FresnelModifier(float)
+  nameWithType.vb: FresnelModifier.New(Single)
+- uid: Nautilus.Utility.MaterialModifiers.FresnelModifier.#ctor*
+  name: FresnelModifier
+  href: api/Nautilus.Utility.MaterialModifiers.FresnelModifier.html#Nautilus_Utility_MaterialModifiers_FresnelModifier__ctor_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.FresnelModifier.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Utility.MaterialModifiers.FresnelModifier.FresnelModifier
+  fullName.vb: Nautilus.Utility.MaterialModifiers.FresnelModifier.New
+  nameWithType: FresnelModifier.FresnelModifier
+  nameWithType.vb: FresnelModifier.New
+- uid: Nautilus.Utility.MaterialModifiers.FresnelModifier.EditMaterial(UnityEngine.Material,UnityEngine.Renderer,System.Int32,Nautilus.Utility.MaterialUtils.MaterialType)
+  name: EditMaterial(Material, Renderer, int, MaterialType)
+  href: api/Nautilus.Utility.MaterialModifiers.FresnelModifier.html#Nautilus_Utility_MaterialModifiers_FresnelModifier_EditMaterial_UnityEngine_Material_UnityEngine_Renderer_System_Int32_Nautilus_Utility_MaterialUtils_MaterialType_
+  commentId: M:Nautilus.Utility.MaterialModifiers.FresnelModifier.EditMaterial(UnityEngine.Material,UnityEngine.Renderer,System.Int32,Nautilus.Utility.MaterialUtils.MaterialType)
+  name.vb: EditMaterial(Material, Renderer, Integer, MaterialType)
+  fullName: Nautilus.Utility.MaterialModifiers.FresnelModifier.EditMaterial(UnityEngine.Material, UnityEngine.Renderer, int, Nautilus.Utility.MaterialUtils.MaterialType)
+  fullName.vb: Nautilus.Utility.MaterialModifiers.FresnelModifier.EditMaterial(UnityEngine.Material, UnityEngine.Renderer, Integer, Nautilus.Utility.MaterialUtils.MaterialType)
+  nameWithType: FresnelModifier.EditMaterial(Material, Renderer, int, MaterialUtils.MaterialType)
+  nameWithType.vb: FresnelModifier.EditMaterial(Material, Renderer, Integer, MaterialUtils.MaterialType)
+- uid: Nautilus.Utility.MaterialModifiers.FresnelModifier.EditMaterial*
+  name: EditMaterial
+  href: api/Nautilus.Utility.MaterialModifiers.FresnelModifier.html#Nautilus_Utility_MaterialModifiers_FresnelModifier_EditMaterial_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.FresnelModifier.EditMaterial
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialModifiers.FresnelModifier.EditMaterial
+  nameWithType: FresnelModifier.EditMaterial
+- uid: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier
+  name: GlowStrengthNightModifier
+  href: api/Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.html
+  commentId: T:Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier
+  fullName: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier
+  nameWithType: GlowStrengthNightModifier
+- uid: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.#ctor(System.Single)
+  name: GlowStrengthNightModifier(float)
+  href: api/Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.html#Nautilus_Utility_MaterialModifiers_GlowStrengthNightModifier__ctor_System_Single_
+  commentId: M:Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.#ctor(System.Single)
+  name.vb: New(Single)
+  fullName: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.GlowStrengthNightModifier(float)
+  fullName.vb: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.New(Single)
+  nameWithType: GlowStrengthNightModifier.GlowStrengthNightModifier(float)
+  nameWithType.vb: GlowStrengthNightModifier.New(Single)
+- uid: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.#ctor(System.Single,System.Single)
+  name: GlowStrengthNightModifier(float, float)
+  href: api/Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.html#Nautilus_Utility_MaterialModifiers_GlowStrengthNightModifier__ctor_System_Single_System_Single_
+  commentId: M:Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.#ctor(System.Single,System.Single)
+  name.vb: New(Single, Single)
+  fullName: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.GlowStrengthNightModifier(float, float)
+  fullName.vb: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.New(Single, Single)
+  nameWithType: GlowStrengthNightModifier.GlowStrengthNightModifier(float, float)
+  nameWithType.vb: GlowStrengthNightModifier.New(Single, Single)
+- uid: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.#ctor*
+  name: GlowStrengthNightModifier
+  href: api/Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.html#Nautilus_Utility_MaterialModifiers_GlowStrengthNightModifier__ctor_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.GlowStrengthNightModifier
+  fullName.vb: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.New
+  nameWithType: GlowStrengthNightModifier.GlowStrengthNightModifier
+  nameWithType.vb: GlowStrengthNightModifier.New
+- uid: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.EditMaterial(UnityEngine.Material,UnityEngine.Renderer,System.Int32,Nautilus.Utility.MaterialUtils.MaterialType)
+  name: EditMaterial(Material, Renderer, int, MaterialType)
+  href: api/Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.html#Nautilus_Utility_MaterialModifiers_GlowStrengthNightModifier_EditMaterial_UnityEngine_Material_UnityEngine_Renderer_System_Int32_Nautilus_Utility_MaterialUtils_MaterialType_
+  commentId: M:Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.EditMaterial(UnityEngine.Material,UnityEngine.Renderer,System.Int32,Nautilus.Utility.MaterialUtils.MaterialType)
+  name.vb: EditMaterial(Material, Renderer, Integer, MaterialType)
+  fullName: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.EditMaterial(UnityEngine.Material, UnityEngine.Renderer, int, Nautilus.Utility.MaterialUtils.MaterialType)
+  fullName.vb: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.EditMaterial(UnityEngine.Material, UnityEngine.Renderer, Integer, Nautilus.Utility.MaterialUtils.MaterialType)
+  nameWithType: GlowStrengthNightModifier.EditMaterial(Material, Renderer, int, MaterialUtils.MaterialType)
+  nameWithType.vb: GlowStrengthNightModifier.EditMaterial(Material, Renderer, Integer, MaterialUtils.MaterialType)
+- uid: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.EditMaterial*
+  name: EditMaterial
+  href: api/Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.html#Nautilus_Utility_MaterialModifiers_GlowStrengthNightModifier_EditMaterial_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.EditMaterial
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.EditMaterial
+  nameWithType: GlowStrengthNightModifier.EditMaterial
+- uid: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier
+  name: IgnoreParticleSystemsModifier
+  href: api/Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.html
+  commentId: T:Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier
+  fullName: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier
+  nameWithType: IgnoreParticleSystemsModifier
+- uid: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.BlockShaderConversion(UnityEngine.Material,UnityEngine.Renderer,Nautilus.Utility.MaterialUtils.MaterialType)
+  name: BlockShaderConversion(Material, Renderer, MaterialType)
+  href: api/Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.html#Nautilus_Utility_MaterialModifiers_IgnoreParticleSystemsModifier_BlockShaderConversion_UnityEngine_Material_UnityEngine_Renderer_Nautilus_Utility_MaterialUtils_MaterialType_
+  commentId: M:Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.BlockShaderConversion(UnityEngine.Material,UnityEngine.Renderer,Nautilus.Utility.MaterialUtils.MaterialType)
+  fullName: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.BlockShaderConversion(UnityEngine.Material, UnityEngine.Renderer, Nautilus.Utility.MaterialUtils.MaterialType)
+  nameWithType: IgnoreParticleSystemsModifier.BlockShaderConversion(Material, Renderer, MaterialUtils.MaterialType)
+- uid: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.BlockShaderConversion*
+  name: BlockShaderConversion
+  href: api/Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.html#Nautilus_Utility_MaterialModifiers_IgnoreParticleSystemsModifier_BlockShaderConversion_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.BlockShaderConversion
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.BlockShaderConversion
+  nameWithType: IgnoreParticleSystemsModifier.BlockShaderConversion
+- uid: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.EditMaterial(UnityEngine.Material,UnityEngine.Renderer,System.Int32,Nautilus.Utility.MaterialUtils.MaterialType)
+  name: EditMaterial(Material, Renderer, int, MaterialType)
+  href: api/Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.html#Nautilus_Utility_MaterialModifiers_IgnoreParticleSystemsModifier_EditMaterial_UnityEngine_Material_UnityEngine_Renderer_System_Int32_Nautilus_Utility_MaterialUtils_MaterialType_
+  commentId: M:Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.EditMaterial(UnityEngine.Material,UnityEngine.Renderer,System.Int32,Nautilus.Utility.MaterialUtils.MaterialType)
+  name.vb: EditMaterial(Material, Renderer, Integer, MaterialType)
+  fullName: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.EditMaterial(UnityEngine.Material, UnityEngine.Renderer, int, Nautilus.Utility.MaterialUtils.MaterialType)
+  fullName.vb: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.EditMaterial(UnityEngine.Material, UnityEngine.Renderer, Integer, Nautilus.Utility.MaterialUtils.MaterialType)
+  nameWithType: IgnoreParticleSystemsModifier.EditMaterial(Material, Renderer, int, MaterialUtils.MaterialType)
+  nameWithType.vb: IgnoreParticleSystemsModifier.EditMaterial(Material, Renderer, Integer, MaterialUtils.MaterialType)
+- uid: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.EditMaterial*
+  name: EditMaterial
+  href: api/Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.html#Nautilus_Utility_MaterialModifiers_IgnoreParticleSystemsModifier_EditMaterial_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.EditMaterial
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.EditMaterial
+  nameWithType: IgnoreParticleSystemsModifier.EditMaterial
 - uid: Nautilus.Utility.MaterialModifiers.MaterialModifier
   name: MaterialModifier
   href: api/Nautilus.Utility.MaterialModifiers.MaterialModifier.html
@@ -11601,6 +11768,86 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.MaterialModifiers.MaterialModifier.EditMaterial
   nameWithType: MaterialModifier.EditMaterial
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier
+  name: WavingEffectModifier
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html
+  commentId: T:Nautilus.Utility.MaterialModifiers.WavingEffectModifier
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier
+  nameWithType: WavingEffectModifier
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.#ctor(System.Single)
+  name: WavingEffectModifier(float)
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html#Nautilus_Utility_MaterialModifiers_WavingEffectModifier__ctor_System_Single_
+  commentId: M:Nautilus.Utility.MaterialModifiers.WavingEffectModifier.#ctor(System.Single)
+  name.vb: New(Single)
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.WavingEffectModifier(float)
+  fullName.vb: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.New(Single)
+  nameWithType: WavingEffectModifier.WavingEffectModifier(float)
+  nameWithType.vb: WavingEffectModifier.New(Single)
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.#ctor*
+  name: WavingEffectModifier
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html#Nautilus_Utility_MaterialModifiers_WavingEffectModifier__ctor_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.WavingEffectModifier.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.WavingEffectModifier
+  fullName.vb: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.New
+  nameWithType: WavingEffectModifier.WavingEffectModifier
+  nameWithType.vb: WavingEffectModifier.New
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.EditMaterial(UnityEngine.Material,UnityEngine.Renderer,System.Int32,Nautilus.Utility.MaterialUtils.MaterialType)
+  name: EditMaterial(Material, Renderer, int, MaterialType)
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html#Nautilus_Utility_MaterialModifiers_WavingEffectModifier_EditMaterial_UnityEngine_Material_UnityEngine_Renderer_System_Int32_Nautilus_Utility_MaterialUtils_MaterialType_
+  commentId: M:Nautilus.Utility.MaterialModifiers.WavingEffectModifier.EditMaterial(UnityEngine.Material,UnityEngine.Renderer,System.Int32,Nautilus.Utility.MaterialUtils.MaterialType)
+  name.vb: EditMaterial(Material, Renderer, Integer, MaterialType)
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.EditMaterial(UnityEngine.Material, UnityEngine.Renderer, int, Nautilus.Utility.MaterialUtils.MaterialType)
+  fullName.vb: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.EditMaterial(UnityEngine.Material, UnityEngine.Renderer, Integer, Nautilus.Utility.MaterialUtils.MaterialType)
+  nameWithType: WavingEffectModifier.EditMaterial(Material, Renderer, int, MaterialUtils.MaterialType)
+  nameWithType.vb: WavingEffectModifier.EditMaterial(Material, Renderer, Integer, MaterialUtils.MaterialType)
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.EditMaterial*
+  name: EditMaterial
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html#Nautilus_Utility_MaterialModifiers_WavingEffectModifier_EditMaterial_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.WavingEffectModifier.EditMaterial
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.EditMaterial
+  nameWithType: WavingEffectModifier.EditMaterial
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Frequency
+  name: Frequency
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html#Nautilus_Utility_MaterialModifiers_WavingEffectModifier_Frequency
+  commentId: P:Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Frequency
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Frequency
+  nameWithType: WavingEffectModifier.Frequency
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Frequency*
+  name: Frequency
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html#Nautilus_Utility_MaterialModifiers_WavingEffectModifier_Frequency_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Frequency
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Frequency
+  nameWithType: WavingEffectModifier.Frequency
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Scale
+  name: Scale
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html#Nautilus_Utility_MaterialModifiers_WavingEffectModifier_Scale
+  commentId: P:Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Scale
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Scale
+  nameWithType: WavingEffectModifier.Scale
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Scale*
+  name: Scale
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html#Nautilus_Utility_MaterialModifiers_WavingEffectModifier_Scale_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Scale
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Scale
+  nameWithType: WavingEffectModifier.Scale
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Speed
+  name: Speed
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html#Nautilus_Utility_MaterialModifiers_WavingEffectModifier_Speed
+  commentId: P:Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Speed
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Speed
+  nameWithType: WavingEffectModifier.Speed
+- uid: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Speed*
+  name: Speed
+  href: api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html#Nautilus_Utility_MaterialModifiers_WavingEffectModifier_Speed_
+  commentId: Overload:Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Speed
+  isSpec: "True"
+  fullName: Nautilus.Utility.MaterialModifiers.WavingEffectModifier.Speed
+  nameWithType: WavingEffectModifier.Speed
 - uid: Nautilus.Utility.MaterialUtils
   name: MaterialUtils
   href: api/Nautilus.Utility.MaterialUtils.html
@@ -12106,6 +12353,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.ModMessages.ModMessage.Subject
   nameWithType: ModMessage.Subject
+- uid: Nautilus.Utility.ModMessages.ModMessage.ToString
+  name: ToString()
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html#Nautilus_Utility_ModMessages_ModMessage_ToString
+  commentId: M:Nautilus.Utility.ModMessages.ModMessage.ToString
+  fullName: Nautilus.Utility.ModMessages.ModMessage.ToString()
+  nameWithType: ModMessage.ToString()
+- uid: Nautilus.Utility.ModMessages.ModMessage.ToString*
+  name: ToString
+  href: api/Nautilus.Utility.ModMessages.ModMessage.html#Nautilus_Utility_ModMessages_ModMessage_ToString_
+  commentId: Overload:Nautilus.Utility.ModMessages.ModMessage.ToString
+  isSpec: "True"
+  fullName: Nautilus.Utility.ModMessages.ModMessage.ToString
+  nameWithType: ModMessage.ToString
 - uid: Nautilus.Utility.ModMessages.ModMessageReader
   name: ModMessageReader
   href: api/Nautilus.Utility.ModMessages.ModMessageReader.html
@@ -12644,6 +12904,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PrefabUtils.AddVFXFabricating
   nameWithType: PrefabUtils.AddVFXFabricating
+- uid: Nautilus.Utility.PrefabUtils.AddWorldForces(UnityEngine.GameObject,System.Single,System.Single,System.Single,System.Boolean)
+  name: AddWorldForces(GameObject, float, float, float, bool)
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddWorldForces_UnityEngine_GameObject_System_Single_System_Single_System_Single_System_Boolean_
+  commentId: M:Nautilus.Utility.PrefabUtils.AddWorldForces(UnityEngine.GameObject,System.Single,System.Single,System.Single,System.Boolean)
+  name.vb: AddWorldForces(GameObject, Single, Single, Single, Boolean)
+  fullName: Nautilus.Utility.PrefabUtils.AddWorldForces(UnityEngine.GameObject, float, float, float, bool)
+  fullName.vb: Nautilus.Utility.PrefabUtils.AddWorldForces(UnityEngine.GameObject, Single, Single, Single, Boolean)
+  nameWithType: PrefabUtils.AddWorldForces(GameObject, float, float, float, bool)
+  nameWithType.vb: PrefabUtils.AddWorldForces(GameObject, Single, Single, Single, Boolean)
+- uid: Nautilus.Utility.PrefabUtils.AddWorldForces*
+  name: AddWorldForces
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddWorldForces_
+  commentId: Overload:Nautilus.Utility.PrefabUtils.AddWorldForces
+  isSpec: "True"
+  fullName: Nautilus.Utility.PrefabUtils.AddWorldForces
+  nameWithType: PrefabUtils.AddWorldForces
 - uid: Nautilus.Utility.ReflectionHelper
   name: ReflectionHelper
   href: api/Nautilus.Utility.ReflectionHelper.html
@@ -13334,6 +13610,49 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.StorageHelperExtensions.IsFull
   nameWithType: StorageHelperExtensions.IsFull
+- uid: Nautilus.Utility.ThunderkitUtilities
+  name: Nautilus.Utility.ThunderkitUtilities
+  href: api/Nautilus.Utility.ThunderkitUtilities.html
+  commentId: N:Nautilus.Utility.ThunderkitUtilities
+  fullName: Nautilus.Utility.ThunderkitUtilities
+  nameWithType: Nautilus.Utility.ThunderkitUtilities
+- uid: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification
+  name: ApplyMaterialModification
+  href: api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.html
+  commentId: T:Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification
+  fullName: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification
+  nameWithType: ApplyMaterialModification
+- uid: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.ApplyMaterialModifications
+  name: ApplyMaterialModifications()
+  href: api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.html#Nautilus_Utility_ThunderkitUtilities_ApplyMaterialModification_ApplyMaterialModifications
+  commentId: M:Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.ApplyMaterialModifications
+  fullName: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.ApplyMaterialModifications()
+  nameWithType: ApplyMaterialModification.ApplyMaterialModifications()
+- uid: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.ApplyMaterialModifications*
+  name: ApplyMaterialModifications
+  href: api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.html#Nautilus_Utility_ThunderkitUtilities_ApplyMaterialModification_ApplyMaterialModifications_
+  commentId: Overload:Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.ApplyMaterialModifications
+  isSpec: "True"
+  fullName: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.ApplyMaterialModifications
+  nameWithType: ApplyMaterialModification.ApplyMaterialModifications
+- uid: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.applyOnStart
+  name: applyOnStart
+  href: api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.html#Nautilus_Utility_ThunderkitUtilities_ApplyMaterialModification_applyOnStart
+  commentId: F:Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.applyOnStart
+  fullName: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.applyOnStart
+  nameWithType: ApplyMaterialModification.applyOnStart
+- uid: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.materialFilter
+  name: materialFilter
+  href: api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.html#Nautilus_Utility_ThunderkitUtilities_ApplyMaterialModification_materialFilter
+  commentId: F:Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.materialFilter
+  fullName: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.materialFilter
+  nameWithType: ApplyMaterialModification.materialFilter
+- uid: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.renderer
+  name: renderer
+  href: api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.html#Nautilus_Utility_ThunderkitUtilities_ApplyMaterialModification_renderer
+  commentId: F:Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.renderer
+  fullName: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.renderer
+  nameWithType: ApplyMaterialModification.renderer
 - uid: Nautilus.Utility.WorldEntityInfoUtils
   name: WorldEntityInfoUtils
   href: api/Nautilus.Utility.WorldEntityInfoUtils.html
