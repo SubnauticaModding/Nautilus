@@ -306,12 +306,14 @@ public static partial class MaterialUtils
                     foreach (var baseGameMat in baseGameRenderer.materials)
                     {
                         string baseMatName = baseGameMat.name.ToLower();
+                        string plainBaseMatName = "";
                         
                         //Removes the (instance) portion of the mat name, if it's present.
                         if (baseMatName.Contains("(instance)"))
-                            baseMatName = baseMatName.Substring(0, baseMatName.LastIndexOf('(') - 1);
+                            plainBaseMatName = baseMatName.Substring(0, baseMatName.LastIndexOf('(') - 1);
 
-                        if (newMaterialList[j].name.ToLower().Contains(baseMatName))
+                        string customMatName = newMaterialList[j].name.ToLower();
+                        if (customMatName.Equals(baseMatName) || customMatName.Equals(plainBaseMatName))
                         {
                             newMaterialList[j] = baseGameMat;
                             
