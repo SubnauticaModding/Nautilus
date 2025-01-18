@@ -285,6 +285,12 @@ public static partial class MaterialUtils
     /// <param name="baseGamePrefab">The base-game prefab which contains the material(s) you want to apply.</param>
     public static void ApplyGameMaterials(GameObject customPrefab, GameObject baseGamePrefab)
     {
+        if (customPrefab is null || baseGamePrefab is null)
+        {
+            InternalLogger.Error("Couldn't apply game materials because a null object was passed into the method.");
+            return;
+        }
+        
         var customRenderers = customPrefab.GetComponentsInChildren<Renderer>(true);
 
         for (int i = 0; i < customRenderers.Length; i++)
