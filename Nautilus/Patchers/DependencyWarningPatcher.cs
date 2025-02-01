@@ -83,6 +83,11 @@ internal static class DependencyWarningPatcher
         var panesHolder = errorsMenuPanel.transform.Find("Middle/PanesHolder");
         var mainPaneTransform = Object.Instantiate(panePrefab, panesHolder).transform;
         var mainPaneContent = mainPaneTransform.Find("Viewport/Content");
+#if BELOWZERO
+        var layoutGroup = mainPaneContent.gameObject.GetComponent<VerticalLayoutGroup>();
+        layoutGroup.spacing = 65;
+        layoutGroup.padding = new RectOffset(15, 15, 40, 15);
+#endif
         // Create a list of all error messages that should be displayed
         var errorsToDisplay = new List<string> { formattedMissingDependencies };
         errorsToDisplay.AddRange(dependencyErrors.Where(ShouldDisplayError));
