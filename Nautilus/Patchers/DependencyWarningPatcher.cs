@@ -115,8 +115,8 @@ internal static class DependencyWarningPatcher
         openButton.name = "NautilusViewModLoadErrorsButton";
         var buttonTransform = openButton.GetComponent<RectTransform>();
         buttonTransform.SetSiblingIndex(0);
-        buttonTransform.anchorMin = new Vector2(0.65f, 0.77f);
-        buttonTransform.anchorMax = new Vector2(0.99f, 0.88f);
+        buttonTransform.anchorMin = new Vector2(0.65f, 0.01f);
+        buttonTransform.anchorMax = new Vector2(0.99f, 0.12f);
         buttonTransform.offsetMin = new Vector2(-0.5f, -0.5f);
         buttonTransform.offsetMax = new Vector2(0.5f, 0.5f);
         buttonTransform.sizeDelta = Vector2.one;
