@@ -81,6 +81,10 @@ internal static class DependencyWarningPatcher
         Object.DestroyImmediate(errorsMenuHeader.GetComponent<TranslationLiveUpdate>());
         errorsMenuPanel.transform.Find("Middle/TabsHolder").gameObject.SetActive(false);
         var panesHolder = errorsMenuPanel.transform.Find("Middle/PanesHolder");
+        foreach (Transform child in panesHolder)
+        {
+            Object.Destroy(child.gameObject);
+        }
         var mainPaneTransform = Object.Instantiate(panePrefab, panesHolder).transform;
         var mainPaneContent = mainPaneTransform.Find("Viewport/Content");
 #if BELOWZERO
