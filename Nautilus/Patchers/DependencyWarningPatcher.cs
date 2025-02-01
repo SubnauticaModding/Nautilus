@@ -93,7 +93,11 @@ internal static class DependencyWarningPatcher
         layoutGroup.padding = new RectOffset(15, 15, 40, 15);
 #endif
         // Create a list of all error messages that should be displayed
-        var errorsToDisplay = new List<string> { formattedMissingDependencies };
+        var errorsToDisplay = new List<string>
+        {
+            $"<color=#FF0000>{formattedMissingDependencies}</color>",
+            "<color=#FFFFFF>Mod load errors:</color>"
+        };
         errorsToDisplay.AddRange(dependencyErrors.Where(ShouldDisplayError));
         // Add error messages to menu
         foreach (var error in errorsToDisplay)
@@ -104,6 +108,7 @@ internal static class DependencyWarningPatcher
             errorEntryText.text = error;
             errorEntryText.enableWordWrapping = true;
             errorEntryText.fontSize = 25;
+            errorEntryText.richText = true;
             errorEntryTextObj.SetActive(true);
             errorEntryTextObj.transform.localScale = Vector3.one;
         }
