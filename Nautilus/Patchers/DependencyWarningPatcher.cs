@@ -36,7 +36,7 @@ internal static class DependencyWarningPatcher
 
     private static void CreateDependencyWarningUI(uGUI_MainMenu mainMenu)
     {
-        var dependencyErrors = Chainloader.DependencyErrors;
+        var dependencyErrors = new List<string>(Chainloader.DependencyErrors.Where(ShouldDisplayError));
         if (dependencyErrors.Count == 0)
             return;
 
@@ -85,6 +85,7 @@ internal static class DependencyWarningPatcher
         {
             Object.Destroy(child.gameObject);
         }
+
         var mainPaneTransform = Object.Instantiate(panePrefab, panesHolder).transform;
         var mainPaneContent = mainPaneTransform.Find("Viewport/Content");
 #if BELOWZERO
@@ -98,7 +99,7 @@ internal static class DependencyWarningPatcher
             $"<color=#FF0000>{formattedMissingDependencies}</color>",
             "<color=#FFFFFF>Mod load errors:</color>"
         };
-        errorsToDisplay.AddRange(dependencyErrors.Where(ShouldDisplayError));
+        errorsToDisplay.AddRange(dependencyErrors);
         // Add error messages to menu
         foreach (var error in errorsToDisplay)
         {
@@ -173,7 +174,7 @@ internal static class DependencyWarningPatcher
 
     private static List<string> GetMissingDependencies()
     {
-        var missingDependencies = new HashSet<string>();
+        var missingDependencies = new Dictionary<string, Version>();
         // Get the list of dependency log warning messages
         // The format is as follows: "Could not load [{0}] because it has missing dependencies: {1}"
         var dependencyErrors = new List<string>(Chainloader.DependencyErrors);
@@ -188,15 +189,73 @@ internal static class DependencyWarningPatcher
             if (indexOfIncompatible >= 0 && indexOfIncompatible < indexOfColon) continue;
             // Otherwise, get the remainder of the string, which should be the dependency's GUID
             var dependencyGuidText = error[(indexOfColon + 2)..];
+            // Split up separate GUIDs if there are multiple
             var dependencyGuids = dependencyGuidText.Split(new[] {", "}, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var guid in dependencyGuids)
+            // Format individual GUIDs and add them to the list
+            foreach (var formattedGuid in dependencyGuids)
             {
-                missingDependencies.Add(guid);
+                // Separate the name and version of each formatted GUID string
+                var dependencyData = SeparateDependencyNameAndVersion(formattedGuid);
+                // Update the dictionary of dependencies, avoiding duplicates and displaying the highest version
+                if (missingDependencies.TryGetValue(dependencyData.Item1, out var previousHighestVersion))
+                {
+                    // Make sure only the highest version requirement is present
+                    // E.g., if we have Nautilus (1.0 or newer) and Nautilus (2.0 or newer), only display the latter
+                    if (previousHighestVersion == null ||
+                        dependencyData.Item2 != null && dependencyData.Item2 > previousHighestVersion)
+                    {
+                        missingDependencies[dependencyData.Item1] = dependencyData.Item2;
+                    }
+                }
+                else
+                {
+                    missingDependencies.Add(dependencyData.Item1, dependencyData.Item2);
+                }
             }
         }
 
-        var list = missingDependencies.ToList();
-        list.Sort();
-        return list;
+        // Finally, make a list of formatted strings:
+        var formattedDependencyStrings = new List<string>();
+        foreach (var dependency in missingDependencies)
+        {
+            var formattedString = dependency.Key;
+            // Only add the version number if the requirement exists and isn't 0.0.0
+            if (dependency.Value != default)
+            {
+                formattedString += $" ({dependency.Value} or newer)";
+            }
+
+            formattedDependencyStrings.Add(formattedString);
+        }
+
+        formattedDependencyStrings.Sort();
+        return formattedDependencyStrings;
+    }
+
+    // Attempts to find a version from the given dependency name and returns the GUID name by itself
+    // Example string of a formatted dependency name with version:
+    // "com.snmodding.nautilus (v1.0.0.34 or newer)"
+    private static (string, Version) SeparateDependencyNameAndVersion(string formattedDependency)
+    {
+        try
+        {
+            // Parentheses cannot exist in GUIDs, so this is ONLY present if the GUID is accompanied by a version
+            if (!formattedDependency.Contains("("))
+            {
+                return (formattedDependency, default);
+            }
+            
+            // Surpass the "(v"
+            var versionBeginIndex = formattedDependency.IndexOf('(') + 2;
+            var length = formattedDependency.LastIndexOf(" or newer)", StringComparison.Ordinal) + 1 -
+                         versionBeginIndex;
+            var rawGuidName = formattedDependency.Substring(0, versionBeginIndex - 3);
+            return (rawGuidName, Version.Parse(formattedDependency.Substring(versionBeginIndex, length)));
+        }
+        catch (Exception e)
+        {
+            InternalLogger.Warn($"Exception getting version from string '{formattedDependency}'" + e);
+            return (formattedDependency, default);
+        }
     }
 }
