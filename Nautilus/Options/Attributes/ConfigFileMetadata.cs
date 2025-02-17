@@ -65,10 +65,12 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
             switch (member)
             {
                 case FieldInfo field:
-                    processFieldOrProperty(field, MemberType.Field, field.FieldType);
+                    if (!field.IsStatic)
+                        processFieldOrProperty(field, MemberType.Field, field.FieldType);
                     break;
                 case PropertyInfo property:
-                    processFieldOrProperty(property, MemberType.Property, property.PropertyType);
+                    if (!property.GetGetMethod(true).IsStatic)
+                        processFieldOrProperty(property, MemberType.Property, property.PropertyType);
                     break;
                 case MethodInfo method:
                     processMethod(method);
