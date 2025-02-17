@@ -158,7 +158,6 @@ internal class CraftTreePatcher
                 continue;
             }
             currentNode.Clear(); // Remove all child nodes (if any)
-            currentNode.parent.RemoveNode(currentNode); // Remove the node from its parent
             nodesToRemove.Remove(nodeToRemove); // Remove the node from the list of nodes to remove
             InternalLogger.Debug($"Removed node from {nodeToRemove.Scheme} tree at {string.Join("/", nodeToRemove.Path)}.");
         }
