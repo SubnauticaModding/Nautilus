@@ -24,6 +24,8 @@
     <Description>Core library for modding Subnautica.</Description>
     <PackageId>Subnautica.Nautilus</PackageId>
     <PackageTags>Nautilus;Subnautica Modding Library;Subnautica Modding API;Subnautica;SN1;Modding;Library;API</PackageTags>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
     <OutputPath>bin\BZ.STABLE\</OutputPath>
