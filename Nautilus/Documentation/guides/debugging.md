@@ -3,7 +3,7 @@
 This guide will show you how to enable advanced tools to make it easier to diagnose errors in your mods.
 
 You should at least be somewhat familiar with modding for this tutorial. It is assumed that you have a development
-environment set up, know basic C#, and have developed your first mod.
+environment set up with both a Debug and a Release configuration, know basic C#, and have developed your first mod.
 
 > [!NOTE]
 > The contents of this guide are not specific to Subnautica and will work for any Unity game as long as a
@@ -85,11 +85,25 @@ attached.
 
 ### Using Visual Studio's built-in Debugger
 
+Visual Studio does not provide support for Unity out of the box. We first need to make sure you have the correct plugin
+installed to enable Unity debugging.
+
+- Follow the instructions on [Microsoft's help page](https://learn.microsoft.com/en-us/visualstudio/gamedev/unity/get-started/getting-started-with-visual-studio-tools-for-unity?pivots=windows)
+  to install the `Game Development with Unity` workload.
+  - You do not need to install Unity itself or the Unity Hub, just the VS workload is enough.
+- To make sure you won't have to repeat the following steps every time you want to debug, ensure that in the options
+  menu found via the menu bar under `Tools > Options > Tools for Unity > General` the setting `Use saved debug targets`
+  is set to `true`.
 - In the menu bar at the top of the screen, select `Debug > Attach Unity Debugger`.
 - In the new window that pops up, click `Input IP`.
 - Enter the address you noted down earlier from the doorstep config. By default, the
   hostname will be 127.0.0.1 and the port 10000.
 - Save the connection.
+
+From now on, you can debug your mod at any time by choosing your saved connection from the
+`Attach to Unity Player` button with the green play symbol in the top right of your IDE.
+Note that you must start Subnautica *first* and then connect the debugger *second*. Start
+setting breakpoints, explore your code in real time, and see what your variables are really doing.
 
 Learn more about Visual Studio's debugger and what it can do [in the official docs](https://learn.microsoft.com/en-us/visualstudio/debugger/debugger-feature-tour?view=vs-2022).
 
@@ -108,7 +122,7 @@ Learn more about Visual Studio's debugger and what it can do [in the official do
   hostname will be 127.0.0.1 and the port 10000.
 - Save the connection.
 
-From now on, you can choose the debugging configuration and press the green bug icon to start the debugger and connect
+From now on, you can choose your debugging connection and press the green bug icon to start the debugger and connect
 to Subnautica at any time. Note that you must start Subnautica *first* and then connect the debugger *second*. Start
 setting breakpoints, explore your code in real time, and see what your variables are really doing.
 
