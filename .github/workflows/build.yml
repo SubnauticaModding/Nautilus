@@ -16,12 +16,6 @@ jobs:
               uses: actions/setup-dotnet@v3
               with:
                   dotnet-version: 7.x
-                
-            - name: Nuget Setup
-              uses: nuget/setup-nuget@v1
-              
-            - name: Nuget Restore
-              run: nuget restore Nautilus.sln
               
             - name: Build Project
               run: dotnet build Nautilus.sln -c SN.STABLE         
@@ -35,12 +29,6 @@ jobs:
                 uses: actions/setup-dotnet@v3
                 with:
                     dotnet-version: 7.x
-
-            -   name: Nuget Setup
-                uses: nuget/setup-nuget@v1
-
-            -   name: Nuget Restore
-                run: nuget restore Nautilus.sln
 
             -   name: Build Project
                 run: dotnet build Nautilus.sln -c BZ.STABLE
