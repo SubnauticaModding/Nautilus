@@ -17,7 +17,7 @@ public class FModSoundBuilder : IFModSoundBuilder
 {
     // - Persistent data -
 
-    private readonly AssetBundle _bundle;
+    private readonly FModSoundBuilderLoader _loader;
 
     // - Builder class data -
 
@@ -30,11 +30,11 @@ public class FModSoundBuilder : IFModSoundBuilder
     private string[] _clipNamesForMultipleSounds;
     private bool _randomizeSoundOrder;
 
-    public FModSoundBuilder(AssetBundle assetBundle)
+    public FModSoundBuilder(FModSoundBuilderLoader loader)
     {
-        _bundle = assetBundle;
+        _loader = loader;
     }
-    
+
     // Essential methods
 
     public IFModSoundBuilder CreateNewEvent(string id, string bus)
@@ -49,7 +49,7 @@ public class FModSoundBuilder : IFModSoundBuilder
         _mode = mode;
         return this;
     }
-    
+
     IFModSoundBuilder IFModSoundBuilder.SetSound(string clipName)
     {
         _clipNamesForMultipleSounds = null;
@@ -64,23 +64,23 @@ public class FModSoundBuilder : IFModSoundBuilder
         _randomizeSoundOrder = randomizeOrder;
         return this;
     }
-    
+
     // Optional methods
 
     IFModSoundBuilder IFModSoundBuilder.SetMode3D(float minDistance, float maxDistance)
     {
         _minAndMaxDistances = (minDistance, maxDistance);
-        return ((IFModSoundBuilder)this).SetMode(AudioUtils.StandardSoundModes_3D);
+        return ((IFModSoundBuilder) this).SetMode(AudioUtils.StandardSoundModes_3D);
     }
 
     IFModSoundBuilder IFModSoundBuilder.SetMode2D()
     {
-        return ((IFModSoundBuilder)this).SetMode(AudioUtils.StandardSoundModes_2D);
+        return ((IFModSoundBuilder) this).SetMode(AudioUtils.StandardSoundModes_2D);
     }
 
     IFModSoundBuilder IFModSoundBuilder.SetModeMusic()
     {
-        return ((IFModSoundBuilder)this).SetMode(AudioUtils.StandardSoundModes_Stream);
+        return ((IFModSoundBuilder) this).SetMode(AudioUtils.StandardSoundModes_Stream);
     }
 
     IFModSoundBuilder IFModSoundBuilder.SetFadeDuration(float fadeDuration)
@@ -88,7 +88,7 @@ public class FModSoundBuilder : IFModSoundBuilder
         _fadeDuration = fadeDuration;
         return this;
     }
-    
+
     // Registration
 
     void IFModSoundBuilder.Register()
@@ -111,17 +111,17 @@ public class FModSoundBuilder : IFModSoundBuilder
         // For single clips
         if (_clipName != null)
         {
-            var sound = AudioUtils.CreateSound(_bundle.LoadAsset<AudioClip>(_clipName), _mode.Value);
+            var sound = _loader.LoadSound(_clipName, _mode.Value);
+
             AssignSoundData(sound);
+
             CustomSoundHandler.RegisterCustomSound(_id, sound, _bus);
         }
         // For multiple clips
         else if (_clipNamesForMultipleSounds != null)
         {
-            var clipList = new List<AudioClip>();
-            _clipNamesForMultipleSounds.ForEach(clipName => clipList.Add(_bundle.LoadAsset<AudioClip>(clipName)));
+            var sounds = _loader.LoadSounds(_clipNamesForMultipleSounds, _mode.Value);
 
-            var sounds = AudioUtils.CreateSounds(clipList, _mode.Value).ToArray();
             foreach (var sound in sounds)
             {
                 AssignSoundData(sound);
@@ -138,7 +138,7 @@ public class FModSoundBuilder : IFModSoundBuilder
         // Reset the builder's data
         Reset();
     }
-    
+
     private void AssignSoundData(Sound sound)
     {
         if (_minAndMaxDistances.HasValue)
