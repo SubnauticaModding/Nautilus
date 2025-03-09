@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using FMOD;
 using Nautilus.Extensions;
@@ -111,7 +112,10 @@ public class FModSoundBuilder : IFModSoundBuilder
         // For multiple clips
         else if (_clipNamesForMultipleSounds != null)
         {
-            var sounds = AudioUtils.CreateSounds(_clipNamesForMultipleSounds, _mode.Value).ToArray();
+            var clipList = new List<AudioClip>();
+            _clipNamesForMultipleSounds.ForEach(clipName => clipList.Add(_bundle.LoadAsset<AudioClip>(clipName)));
+
+            var sounds = AudioUtils.CreateSounds(clipList, _mode.Value).ToArray();
             foreach (var sound in sounds)
             {
                 AssignSoundData(sound);
