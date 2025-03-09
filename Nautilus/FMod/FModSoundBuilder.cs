@@ -34,6 +34,8 @@ public class FModSoundBuilder : IFModSoundBuilder
     {
         _bundle = assetBundle;
     }
+    
+    // Essential methods
 
     public IFModSoundBuilder CreateNewEvent(string id, string bus)
     {
@@ -47,6 +49,23 @@ public class FModSoundBuilder : IFModSoundBuilder
         _mode = mode;
         return this;
     }
+    
+    IFModSoundBuilder IFModSoundBuilder.SetSound(string clipName)
+    {
+        _clipNamesForMultipleSounds = null;
+        _clipName = clipName;
+        return this;
+    }
+
+    IFModSoundBuilder IFModSoundBuilder.SetSounds(bool randomizeOrder, params string[] clipNames)
+    {
+        _clipName = null;
+        _clipNamesForMultipleSounds = clipNames;
+        _randomizeSoundOrder = randomizeOrder;
+        return this;
+    }
+    
+    // Optional methods
 
     IFModSoundBuilder IFModSoundBuilder.SetMode3D(float minDistance, float maxDistance)
     {
@@ -69,21 +88,8 @@ public class FModSoundBuilder : IFModSoundBuilder
         _fadeDuration = fadeDuration;
         return this;
     }
-
-    IFModSoundBuilder IFModSoundBuilder.SetSound(string clipName)
-    {
-        _clipNamesForMultipleSounds = null;
-        _clipName = clipName;
-        return this;
-    }
-
-    IFModSoundBuilder IFModSoundBuilder.SetSounds(bool randomizeOrder, params string[] clipNames)
-    {
-        _clipName = null;
-        _clipNamesForMultipleSounds = clipNames;
-        _randomizeSoundOrder = randomizeOrder;
-        return this;
-    }
+    
+    // Registration
 
     void IFModSoundBuilder.Register()
     {
@@ -132,7 +138,7 @@ public class FModSoundBuilder : IFModSoundBuilder
         // Reset the builder's data
         Reset();
     }
-
+    
     private void AssignSoundData(Sound sound)
     {
         if (_minAndMaxDistances.HasValue)
