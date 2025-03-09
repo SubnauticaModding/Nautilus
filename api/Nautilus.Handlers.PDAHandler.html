@@ -382,11 +382,11 @@ Class PDAHandler  <a class="header-action link-secondary" title="View source" hr
     <dd>Key (internal ID) of this PDA entry, primarily used for the language system.</dd>
     <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>Path to this entry in the databank.</p>
-<p>To find examples of this string, open "Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".
-Remember to omit the "EncyPath_" prefix from these language keys. An example of a proper value is: "Lifeforms/Fauna/Leviathans".</p>
-<p>A list of all Databank paths can also be found in
-<a href="https://subnauticamodding.github.io/Nautilus/tutorials/databank-entries.html#creating-an-entry-path">this section</a>
-of Nautilus's documentation.</p></dd>
+    <p>To find examples of this string, open "Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".
+    Remember to omit the "EncyPath_" prefix from these language keys. An example of a proper value is: "Lifeforms/Fauna/Leviathans".</p>
+    <p>A list of all Databank paths can also be found in
+    <a href="https://subnauticamodding.github.io/Nautilus/tutorials/databank-entries.html#creating-an-entry-path">this section</a>
+    of Nautilus's documentation.</p></dd>
     <dt><code>title</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>Displayed title of the PDA entry in English. If set to null, you must implement your own translations. Language key is 'Ency_{<code class="paramref">key</code>}'.</dd>
     <dt><code>desc</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
@@ -471,7 +471,7 @@ of Nautilus's documentation.</p></dd>
     <dd>The subtitles language key for this entry. Also see: <a class="xref" href="Nautilus.Handlers.LanguageHandler.html#Nautilus_Handlers_LanguageHandler_SetLanguageLine_System_String_System_String_System_String_">SetLanguageLine(string, string, string)</a>.</dd>
     <dt><code>sound</code> <span class="xref">FMODAsset</span></dt>
     <dd><p>The sound that will be played once this log entry is unlocked or played through the PDA's Log tab.</p>
-<p>Note that the SoundQueue system (which plays the PDA sounds) accesses the FMODAsset's "id" field rather than the path, so make sure it is assigned properly.</p></dd>
+    <p>Note that the SoundQueue system (which plays the PDA sounds) accesses the FMODAsset's "id" field rather than the path, so make sure it is assigned properly.</p></dd>
     <dt><code>icon</code> <span class="xref">Sprite</span></dt>
     <dd>The icon that will be used in the Log tab for this entry. if unassigned, it will use the default log entry icon.</dd>
   </dl>

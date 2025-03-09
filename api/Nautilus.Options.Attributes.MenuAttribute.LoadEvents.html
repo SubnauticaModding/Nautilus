@@ -125,11 +125,14 @@ public enum MenuAttribute.LoadEvents : byte</code></pre>
 </h2>
   <dl class="parameters">
     <dt id="Nautilus_Options_Attributes_MenuAttribute_LoadEvents_MenuOpened"><code>MenuOpened = 2</code></dt>
-    <dd>Load when the menu is opened by the player.</dd>
+  <dd>Load when the menu is opened by the player.Useful for allowing players to edit their config files manually without restarting the game for their changes to take effect.</dd>
+  
     <dt id="Nautilus_Options_Attributes_MenuAttribute_LoadEvents_MenuRegistered"><code>MenuRegistered = 1</code></dt>
-    <dd>Load when the menu is registered to Nautilus via <a class="xref" href="Nautilus.Handlers.OptionsPanelHandler.html#Nautilus_Handlers_OptionsPanelHandler_RegisterModOptions__1">RegisterModOptions&lt;T&gt;()</a>.</dd>
+  <dd>Load when the menu is registered to Nautilus via <a class="xref" href="Nautilus.Handlers.OptionsPanelHandler.html#Nautilus_Handlers_OptionsPanelHandler_RegisterModOptions__1">RegisterModOptions&lt;T&gt;()</a>.In normal usage, this option is equivalent to loading when the game is launched.</dd>
+  
     <dt id="Nautilus_Options_Attributes_MenuAttribute_LoadEvents_None"><code>None = 0</code></dt>
-    <dd>Never automatically load.</dd>
+  
+  <dd>Never automatically load.</dd>
   </dl>
 
 
