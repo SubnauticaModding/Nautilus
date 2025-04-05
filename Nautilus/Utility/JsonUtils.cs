@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -16,9 +17,19 @@ namespace Nautilus.Utility;
 /// </summary>
 public static class JsonUtils
 {
-    private static class Defaults<T>
+    private static class Defaults
     {
-        public static T Value { get; } = Activator.CreateInstance<T>();
+        private static Dictionary<Type, object> _defaults = new();
+
+        public static object GetValue(Type type)
+        {
+            if (_defaults.TryGetValue(type, out var result))
+            {
+                return result;
+            }
+            
+            return _defaults[type] = Activator.CreateInstance(type);
+        }
     }
     
     private static string GetDefaultPath<T>(Assembly assembly) where T : class
@@ -48,12 +59,14 @@ public static class JsonUtils
         {
             throw new ArgumentNullException(nameof(contract));
         }
+
+        var @default = Defaults.GetValue(target.GetType());
         
         foreach (var property in contract.Properties)
         {
             if (property.Writable && property.ValueProvider != null)
             {
-                property.ValueProvider.SetValue(target, property.ValueProvider.GetValue(Defaults<T>.Value));
+                property.ValueProvider.SetValue(target, property.ValueProvider.GetValue(@default));
             }
         }
     }
@@ -156,7 +169,7 @@ public static class JsonUtils
             try
             {
                 PopulateDefaults(jsonObject,
-                    jsonSerializerSettings.ContractResolver.ResolveContract(typeof(T)) as JsonObjectContract);
+                    jsonSerializerSettings.ContractResolver.ResolveContract(jsonObject.GetType()) as JsonObjectContract);
                 Save(jsonObject, path, jsonConverters);
             }
             catch (Exception e)
