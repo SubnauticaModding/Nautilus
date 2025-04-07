@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using BepInEx.Logging;
+using Nautilus.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -64,7 +65,7 @@ public static class JsonUtils
         
         foreach (var property in contract.Properties)
         {
-            if (property.Writable && property.ValueProvider != null)
+            if (property.Writable && property.ValueProvider != null && !property.Ignored)
             {
                 property.ValueProvider.SetValue(target, property.ValueProvider.GetValue(@default));
             }
