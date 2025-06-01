@@ -109,6 +109,15 @@ Learn more about Visual Studio's debugger and what it can do [in the official do
 
 # [JetBrains Rider](#tab/rider)
 
+> [!WARNING]
+> Debugging with Rider on Windows can show NullReferenceExceptions in the variable debugging view for types which are
+> defined in UnityEngine.CoreModule (notably MonoBehaviours!). Sometimes you can still see the contents of every 
+> variable of a supposedly "null" MonoBehaviour and set breakpoints as usual, but in our testing this has been
+> inconsistent.
+>
+> This issue was not encountered on Linux, which makes us think it's a problem with Rider itself. As of Rider v2025.1.2,
+> the Windows version still has this issue.
+
 ### Using Rider's built-in Debugger
 
 ![debugging-rider-attach-process.png](../images/guides/debugging-rider-attach-process.png)
