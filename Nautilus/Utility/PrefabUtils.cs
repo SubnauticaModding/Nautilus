@@ -94,7 +94,7 @@ public static class PrefabUtils
         prefab.EnsureComponent<LargeWorldEntity>().cellLevel = cellLevel;
             
         var renderers = prefab.GetComponentsInChildren<Renderer>(true);
-        if (renderers != null)
+        if (renderers != null && renderers.Length > 0)
         {
             prefab.EnsureComponent<SkyApplier>().renderers = renderers;
         }
