@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using HarmonyLib;
-using Nautilus.Extensions;
-using UnityEngine;
 
 namespace Nautilus.Patchers;
 
@@ -60,7 +58,7 @@ internal class SaveUtilsPatcher
 
     internal static IEnumerator InvokeLoadEvents(IEnumerator enumerator)
     {
-        OnStartLoadingEvents?.Invoke();
+        yield return WaitScreenPatcher.LoadEarlyModDataAsync();
 
         while (enumerator.MoveNext())
         {
