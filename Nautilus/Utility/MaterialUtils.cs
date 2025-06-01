@@ -11,8 +11,12 @@ namespace Nautilus.Utility;
 /// </summary>
 public static partial class MaterialUtils
 {
-    private static readonly int _emissionMap = Shader.PropertyToID("_EmissionMap");
     private static bool _sceneEventAdded;
+    private static readonly int _emissionMap = Shader.PropertyToID("_EmissionMap");
+    private static readonly int _specInt = Shader.PropertyToID("_SpecInt");
+    private static readonly int _shininess = Shader.PropertyToID("_Shininess");
+    private static readonly int _fresnel = Shader.PropertyToID("_Fresnel");
+    private static readonly int _bumpMap = Shader.PropertyToID("_BumpMap");
 
     internal static void Patch()
     {
@@ -231,13 +235,12 @@ public static partial class MaterialUtils
         if (specularTexture != null)
         {
             material.SetTexture(ShaderPropertyID._SpecTex, specularTexture);
-            material.SetFloat("_SpecInt", specularIntensity);
-            material.SetFloat("_Shininess", shininess);
+            material.SetFloat(_specInt, specularIntensity);
+            material.SetFloat(_shininess, shininess);
             material.EnableKeyword("_ZWRITE_ON");
             material.EnableKeyword("MARMO_SPECMAP");
             material.SetColor(ShaderPropertyID._SpecColor, new Color(1f, 1f, 1f, 1f));
-            material.SetFloat("_Fresnel", 0.24f);
-            material.SetVector("_SpecTex_ST", new Vector4(1.0f, 1.0f, 0.0f, 0.0f));
+            material.SetFloat(_fresnel, 0.24f);
         }
 
         // Apply emission if it was enabled in the standard shader
@@ -252,13 +255,12 @@ public static partial class MaterialUtils
         }
 
         // Apply normal map if it was applied in the standard shader
-        if (material.GetTexture("_BumpMap"))
+        if (material.GetTexture(_bumpMap))
         {
             material.EnableKeyword("MARMO_NORMALMAP");
         }
 
         material.enableInstancing = true;
-        material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.EmissiveIsBlack | MaterialGlobalIlluminationFlags.RealtimeEmissive;
 
         switch (materialType)
         {

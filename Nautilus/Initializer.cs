@@ -85,5 +85,6 @@ public class Initializer : BaseUnityPlugin
         WaterParkPatcher.Patch(_harmony);
         ModMessageSystem.Patch();
         BiomePatcher.Patch(_harmony);
+        DependencyWarningPatcher.Patch(_harmony);
     }
 }

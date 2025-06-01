@@ -778,21 +778,14 @@ internal class CustomSoundPatcher
         
         [HarmonyPatch(typeof(FMOD_CustomEmitter), nameof(FMOD_CustomEmitter.Stop))]
         [HarmonyPrefix]
-        public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance, STOP_MODE stopMode)
+        public static bool FMOD_CustomEmitter_Stop_Prefix(FMOD_CustomEmitter __instance)
         {
             if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out Channel channel))
             {
                 return true;
             }
 
-            if (stopMode == STOP_MODE.ALLOWFADEOUT)
-            {
-                TryFadeOutBeforeStop(channel);
-            }
-            else
-            {
-                channel.stop();
-            }
+            TryFadeOutBeforeStop(channel);
             
             __instance._playing = false;
             __instance.OnStop();
