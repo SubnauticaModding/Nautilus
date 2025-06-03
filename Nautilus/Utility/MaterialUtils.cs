@@ -1,6 +1,7 @@
 using Nautilus.Utility.MaterialModifiers;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UWE;
 
 namespace Nautilus.Utility;
@@ -10,6 +11,7 @@ namespace Nautilus.Utility;
 /// </summary>
 public static partial class MaterialUtils
 {
+    private static bool _sceneEventAdded;
     private static readonly int _emissionMap = Shader.PropertyToID("_EmissionMap");
     private static readonly int _specInt = Shader.PropertyToID("_SpecInt");
     private static readonly int _shininess = Shader.PropertyToID("_Shininess");
@@ -19,14 +21,19 @@ public static partial class MaterialUtils
     internal static void Patch()
     {
         CoroutineHost.StartCoroutine(LoadReferences());
+        if (!_sceneEventAdded)
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            _sceneEventAdded = true;
+        }
     }
-
+    
     private static IEnumerator LoadReferences()
     {
         yield return PatchInternal();
 
         IsReady = true;
-        
+
         yield break;
     }
 
@@ -252,7 +259,7 @@ public static partial class MaterialUtils
         {
             material.EnableKeyword("MARMO_NORMALMAP");
         }
-        
+
         material.enableInstancing = true;
 
         switch (materialType)
@@ -326,5 +333,12 @@ public static partial class MaterialUtils
         {
             material.DisableKeyword("MARMO_ALPHA_CLIP");
         }
+    }
+
+    private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != "MenuEnvironment") return;
+
+        CoroutineHost.StartCoroutine(ReloadStaleReferences());
     }
 }

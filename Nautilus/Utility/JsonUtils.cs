@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using BepInEx.Logging;
+using Nautilus.Json;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Nautilus.Utility;
 
@@ -14,6 +18,21 @@ namespace Nautilus.Utility;
 /// </summary>
 public static class JsonUtils
 {
+    private static class Defaults
+    {
+        private static Dictionary<Type, object> _defaults = new();
+
+        public static object GetValue(Type type)
+        {
+            if (_defaults.TryGetValue(type, out var result))
+            {
+                return result;
+            }
+            
+            return _defaults[type] = Activator.CreateInstance(type);
+        }
+    }
+    
     private static string GetDefaultPath<T>(Assembly assembly) where T : class
     {
         return Path.Combine(
@@ -33,6 +52,24 @@ public static class JsonUtils
             name = char.ToLowerInvariant(name[0]) + name.Substring(1);
         }
         return name;
+    }
+    
+    private static void PopulateDefaults<T>(T target, JsonObjectContract contract) where T : class
+    {
+        if (contract == null)
+        {
+            throw new ArgumentNullException(nameof(contract));
+        }
+
+        var @default = Defaults.GetValue(target.GetType());
+        
+        foreach (var property in contract.Properties)
+        {
+            if (property.Writable && property.ValueProvider != null && !property.Ignored)
+            {
+                property.ValueProvider.SetValue(target, property.ValueProvider.GetValue(@default));
+            }
+        }
     }
 
     /// <summary>
@@ -104,17 +141,18 @@ public static class JsonUtils
         {
             path = GetDefaultPath<T>(Assembly.GetCallingAssembly());
         }
-
+        
+        JsonSerializerSettings jsonSerializerSettings = new()
+        {
+            Converters = jsonConverters,
+            ObjectCreationHandling = ObjectCreationHandling.Replace,
+            ContractResolver = new DefaultContractResolver(),
+        };
+        
         if (Directory.Exists(Path.GetDirectoryName(path)) && File.Exists(path))
         {
             try
             {
-                JsonSerializerSettings jsonSerializerSettings = new()
-                {
-                    Converters = jsonConverters,
-                    ObjectCreationHandling = ObjectCreationHandling.Replace
-                };
-
                 string serializedJson = File.ReadAllText(path);
                 JsonConvert.PopulateObject(
                     serializedJson, jsonObject, jsonSerializerSettings
@@ -129,7 +167,18 @@ public static class JsonUtils
         }
         else if (createFileIfNotExist)
         {
-            Save(jsonObject, path, jsonConverters);
+            try
+            {
+                PopulateDefaults(jsonObject,
+                    jsonSerializerSettings.ContractResolver.ResolveContract(jsonObject.GetType()) as JsonObjectContract);
+                Save(jsonObject, path, jsonConverters);
+            }
+            catch (Exception e)
+            {
+                InternalLogger.Announce($"Could not create defaults, instance values unchanged: {path}", LogLevel.Warning, true);
+                InternalLogger.Error(e.Message);
+                InternalLogger.Error(e.StackTrace);
+            }
         }
     }
 
