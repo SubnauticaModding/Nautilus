@@ -44,8 +44,8 @@ internal static class WaitScreenPatcher
     
     public static void Patch(Harmony harmony)
     {
-        harmony.Patch(AccessTools.Method(typeof(LoadingStage), nameof(LoadingStage.GetDuration)),
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(AddModLoadStageDuration))));
+        harmony.Patch(AccessTools.Method(typeof(WaitScreen), nameof(WaitScreen.Awake)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(AddModLoadStageDuration))));
         harmony.Patch(AccessTools.Method(typeof(MainGameController), nameof(MainGameController.StartGame)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(LoadModDataAsync))));
         harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.SetProgress)),
@@ -53,23 +53,13 @@ internal static class WaitScreenPatcher
     }
 
     /// <summary>
-    /// Patch in the amount of space that the mod load stages take up in the loading bar. These are relational to all
+    /// Patch in the amount of space that the mod load stages take up in the loading bar. These are relative to all
     /// other stages. The vanilla spacing was likely set based on measured load times (total ~20).
     /// </summary>
-    private static bool AddModLoadStageDuration(ref float __result, string stage)
+    private static void AddModLoadStageDuration()
     {
-        switch (stage)
-        {
-            case EarlyModLoadingStage:
-                // Roughly equal to the width of the bar used for terrain loading. Should be around 15-20%.
-                __result = 4f;
-                return false;
-            case ModLoadingStage:
-                __result = 4f;
-                return false;
-            default:
-                return true;
-        }
+        LoadingStage.durations[EarlyModLoadingStage] = 4f;
+        LoadingStage.durations[ModLoadingStage] = 4f;
     }
 
     /// <summary>
