@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- Define the name of the file containing information about the game directory. -->
+    <PropertyGroup>
+        <GameDirInfoFile>GameDir.targets</GameDirInfoFile>
+    </PropertyGroup>
+
+    <!-- Import the location of the game directory. -->
+    <Import Project="$(GameDirInfoFile)" Condition="Exists('$(GameDirInfoFile)')"/>
+    <PropertyGroup>
+        <!-- The mod directory to install our mod to. -->
+        <ModDirectory>$(GameDir)\BepInEx\plugins\$(AssemblyName)</ModDirectory>
+    </PropertyGroup>
+
+    <!-- Copy newly built files to the game directory. -->
+    <Target Name="CopyToGameFolder" AfterTargets="Build" Condition="Exists('$(GameDir)')">
+        <Message Importance="high" Text="Copying files to game directory." />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModDirectory)" />
+    </Target>
+    <Target Name="CopyPdbToGameFolder" AfterTargets="Build" Condition="$(DebugSymbols) == 'true'">
+        <Message Importance="high" Text="Copying debug info files to game directory." />
+        <Copy SourceFiles="$(ProjectDir)$(OutputPath)$(TargetName).pdb" DestinationFolder="$(ModDirectory)" />
+    </Target>
+    
+    
     <Target Name="ZipPlugin" AfterTargets="Build">
         <PropertyGroup>
             <BuildPath>Nautilus</BuildPath>
