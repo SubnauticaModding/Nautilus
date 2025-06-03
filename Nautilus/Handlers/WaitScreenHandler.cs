@@ -30,7 +30,7 @@ public static class WaitScreenHandler
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
     }
     
-    /// <inheritdoc cref="RegisterEarlyLoadTask"/>>
+    /// <inheritdoc cref="RegisterEarlyLoadTask"/>
     public static void RegisterEarlyAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
         string description = null)
     {
@@ -57,7 +57,7 @@ public static class WaitScreenHandler
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
     }
 
-    /// <inheritdoc cref="RegisterLoadTask"/>>
+    /// <inheritdoc cref="RegisterLoadTask"/>
     public static void RegisterAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
         string description = null)
     {
@@ -81,7 +81,7 @@ public static class WaitScreenHandler
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
     }
     
-    /// <inheritdoc cref="RegisterLateLoadTask"/>>
+    /// <inheritdoc cref="RegisterLateLoadTask"/>
     public static void RegisterLateAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
         string description = null)
     {

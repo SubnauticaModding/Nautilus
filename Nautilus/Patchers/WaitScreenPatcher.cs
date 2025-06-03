@@ -46,6 +46,13 @@ internal static class WaitScreenPatcher
         {"Equipment", "Loading equipment"}
         // Late Mod Loading
     };
+
+    private static readonly Dictionary<string, string> _modStatusMap = new()
+    {
+        {EarlyModLoadingStage, "Early mod setup"},
+        {ModLoadingStage, "Mod setup"},
+        {LateModLoadingStage, "Late mod setup"},
+    };
     
     public static void Patch(Harmony harmony)
     {
@@ -75,7 +82,8 @@ internal static class WaitScreenPatcher
     /// </summary>
     internal static IEnumerator LoadEarlyModDataAsync()
     {
-        _statusText ??= CreateStatusText();
+        if (!_statusText)
+            _statusText = CreateStatusText();
         _statusText.text = "Early Mod Loading";
         
         var loadingStage = WaitScreen.Add(EarlyModLoadingStage);
@@ -119,7 +127,7 @@ internal static class WaitScreenPatcher
         {
             var task = tasks[i];
             loadingStage.SetProgress((float)i / tasks.Count);
-            SetModStatus(task.ModName, task.Status, i, tasks.Count);
+            SetModStatus(loadingStage, task.ModName, task.Status, i + 1, tasks.Count);
             
             task.ModActionSync?.Invoke(task);
             if (task.ModActionAsync == null)
@@ -129,7 +137,7 @@ internal static class WaitScreenPatcher
             while (taskEnumerator.MoveNext())
             {
                 // Give the mod a chance to update its status label during longer tasks.
-                SetModStatus(task.ModName, task.Status, i, tasks.Count);
+                SetModStatus(loadingStage, task.ModName, task.Status, i + 1, tasks.Count);
                 yield return taskEnumerator.Current;
             }
         }
@@ -145,14 +153,21 @@ internal static class WaitScreenPatcher
         if (!_statusText)
             return;
 
+        var waitItems = WaitScreen.main.items;
+        if (waitItems == null || waitItems.Count == 0)
+            return;
+
+        // The last item on the list is always the newest addition, which in practice means the currently active stage.
+        var waitItem = waitItems.Last();
         // Only handle vanilla stages, modded stages need more granular control during their processing.
-        if (_statusMap.TryGetValue(WaitScreen.main.items.Last().stage, out string description))
+        if (_statusMap.TryGetValue(waitItem.stage, out string description))
             _statusText.text = description;
     }
     
-    private static void SetModStatus(string modName, string status, int current, int total)
+    private static void SetModStatus(WaitScreen.ManualWaitItem stage, string modName, string status, int current, int total)
     {
-        var text = $"Loading Mod ({current}/{total}): {modName}";
+        var stageDescriptor = _modStatusMap[stage.stage];
+        var text = $"{stageDescriptor} ({current}/{total}): {modName}";
         if (!string.IsNullOrEmpty(status))
             text += " - " + status;
         _statusText.text = text;
