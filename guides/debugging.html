@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Setting up Debugging </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Setting up Debugging ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/guides/debugging.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="setting-up-debugging">Setting up Debugging</h1>
+
+<p>This guide will show you how to enable advanced tools to make it easier to diagnose errors in your mods.</p>
+<p>You should at least be somewhat familiar with modding for this tutorial. It is assumed that you have a development
+environment set up with both a Debug and a Release configuration, know basic C#, and have developed your first mod.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The contents of this guide are not specific to Subnautica and will work for any Unity game as long as a
+version of BepInEx that uses Unity Doorstop 4 is installed (v5.4.23.2+).</p>
+</div>
+<h2 id="features-and-limitations">Features and Limitations</h2>
+<p>Using debug information generated during build, you can:</p>
+<ul>
+<li>Get exact line numbers in exceptions that show up in the log file.</li>
+<li>Attach a debugger to the game.</li>
+<li>Use standard debugging features like breakpoints, executing code one line at a time, and watching what's happening in
+your variables.</li>
+</ul>
+<p>However, you cannot:</p>
+<ul>
+<li>Use the above features for code for which you do not have a .pdb file, i.e. any code you did not write yourself.</li>
+<li>In particular, you cannot use this to debug code that is part of Subnautica.</li>
+</ul>
+<h2 id="generating-debug-symbols">Generating Debug Symbols</h2>
+<p>The first step is to make your IDE generate debugging information while it builds your mod. We will do this only for
+the Debug configuration, so that you can use Debug for your own testing and Release for sharing your finished mod with
+others.</p>
+<p>Depending on your IDE the settings will be located in different places.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_vs" role="tab" aria-controls="tabpanel_1_vs" data-tab="vs" tabindex="0" aria-selected="true">Visual Studio</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_rider" role="tab" aria-controls="tabpanel_1_rider" data-tab="rider" tabindex="-1">JetBrains Rider</a>
+</li>
+</ul>
+<section id="tabpanel_1_vs" role="tabpanel" data-tab="vs">
+
+<ul>
+<li>In the file explorer window on the left, right-click on your project and choose <code>Properties...</code></li>
+<li>At the top of this new popup window, select the <code>Debug</code> configuration from the dropdown.</li>
+<li>On the left, navigate to the <code>Build</code> submenu.</li>
+<li>Set the <code>Debug Symbols</code> dropdown to <code>Portable</code>.</li>
+</ul>
+</section>
+<section id="tabpanel_1_rider" role="tabpanel" data-tab="rider" aria-hidden="true" hidden="hidden">
+
+<ul>
+<li>In the file explorer window on the left, right-click on your project and choose <code>Properties...</code></li>
+<li>Navigate to the <code>Debug</code> configuration.</li>
+<li>Tick <code>Debug Symbols</code> and set the debug type to <code>Portable</code>.</li>
+</ul>
+<p><img src="../Documentation/images/guides/debugging-rider-project-properties.png" alt="debugging-rider-project-properties"></p>
+</section>
+</div>
+
+<p>Your IDE now generates a {projectname}.pdb file on every build. This file contains all the debug information about your
+project. Place this file next to your mod's .dll in the BepInEx/plugins directory so that debugging tools can read it.
+It is important that whenever you build a new version of your mod you also remember to update the .pdb file.
+Otherwise, the debug information will not line up with your actual code and the debugger will get confused.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>To ensure your files are always in sync, use MSBuild's post-build actions to automatically deploy both the .dll and
+the .pdb to your game folder.</p>
+</div>
+<h2 id="enabling-the-debugging-server">Enabling the Debugging Server</h2>
+<p>Since version 5.4.23.2, BepInEx ships with Unity Doorstop 4, which provides a built-in debugging server. Navigate to
+your Subnautica install directory (the same place as <code>Subnautica.exe</code>), where you should find a file called <code>doorstop_config.ini</code>. If you do not have this
+file, ensure you have the correct version of BepInEx installed.</p>
+<p>In <code>doorstop_config.ini</code>, do the following:</p>
+<ul>
+<li>Set <code>debug_enabled</code> to <code>true</code>.</li>
+<li>Take note of the address in <code>debug_address</code> for later.</li>
+<li>Optionally, set <code>debug_suspend</code> to true. This will force the game to freeze until you attach a debugger. This is useful
+if you need to debug code that executes very early on, before the game even loads into the main menu. If unsure, leave
+this off.</li>
+</ul>
+<p>With the debugging server enabled and the information from your .pdb files in the right place,
+any exceptions that happen in your mod will now display the correct line numbers, regardless of whether a debugger is
+attached.</p>
+<h2 id="connecting-a-debugger-to-the-debugging-server">Connecting a Debugger to the Debugging Server</h2>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_vs" role="tab" aria-controls="tabpanel_2_vs" data-tab="vs" tabindex="0" aria-selected="true">Visual Studio</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_2_rider" role="tab" aria-controls="tabpanel_2_rider" data-tab="rider" tabindex="-1">JetBrains Rider</a>
+</li>
+</ul>
+<section id="tabpanel_2_vs" role="tabpanel" data-tab="vs">
+<h3 id="using-visual-studios-built-in-debugger">Using Visual Studio's built-in Debugger</h3>
+<p>Visual Studio does not provide support for Unity out of the box. We first need to make sure you have the correct plugin
+installed to enable Unity debugging.</p>
+<ul>
+<li>Follow the instructions on <a href="https://learn.microsoft.com/en-us/visualstudio/gamedev/unity/get-started/getting-started-with-visual-studio-tools-for-unity?pivots=windows">Microsoft's help page</a>
+to install the <code>Game Development with Unity</code> workload.
+<ul>
+<li>You do not need to install Unity itself or the Unity Hub, just the VS workload is enough.</li>
+</ul>
+</li>
+<li>To make sure you won't have to repeat the following steps every time you want to debug, ensure that in the options
+menu found via the menu bar under <code>Tools &gt; Options &gt; Tools for Unity &gt; General</code> the setting <code>Use saved debug targets</code>
+is set to <code>true</code>.</li>
+<li>In the menu bar at the top of the screen, select <code>Debug &gt; Attach Unity Debugger</code>.</li>
+<li>In the new window that pops up, click <code>Input IP</code>.</li>
+<li>Enter the address you noted down earlier from the doorstep config. By default, the
+hostname will be 127.0.0.1 and the port 10000.</li>
+<li>Save the connection.</li>
+</ul>
+<p>From now on, you can debug your mod at any time by choosing your saved connection from the
+<code>Attach to Unity Player</code> button with the green play symbol in the top right of your IDE.
+Note that you must start Subnautica <em>first</em> and then connect the debugger <em>second</em>. Start
+setting breakpoints, explore your code in real time, and see what your variables are really doing.</p>
+<p>Learn more about Visual Studio's debugger and what it can do <a href="https://learn.microsoft.com/en-us/visualstudio/debugger/debugger-feature-tour?view=vs-2022">in the official docs</a>.</p>
+</section>
+<section id="tabpanel_2_rider" role="tabpanel" data-tab="rider" aria-hidden="true" hidden="hidden">
+
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Debugging with Rider on Windows can show NullReferenceExceptions in the variable debugging view for types which are
+defined in UnityEngine.CoreModule (notably MonoBehaviours!). Sometimes you can still see the contents of every
+variable of a supposedly &quot;null&quot; MonoBehaviour and set breakpoints as usual, but in our testing this has been
+inconsistent.</p>
+<p>This issue was not encountered on Linux, which makes us think it's a problem with Rider itself. As of Rider v2025.1.2,
+the Windows version still has this issue.</p>
+</div>
+<h3 id="using-riders-built-in-debugger">Using Rider's built-in Debugger</h3>
+<p><img src="../Documentation/images/guides/debugging-rider-attach-process.png" alt="debugging-rider-attach-process.png"></p>
+<ul>
+<li>At the top right of your screen next to the green debug icon, click on the More Actions dropdown (indicated by
+three vertical dots) and <code>Attach to Unity Process...</code>
+<ul>
+<li>If these dots are not there for you, you can also find this option in the menu bar under
+<code>Run &gt; Attach to Unity Process...</code></li>
+</ul>
+</li>
+<li>Click <code>Add Player Address Manually</code>.</li>
+<li>Give the connection a name and fill in the address you noted down earlier from the doorstop config. By default, the
+hostname will be 127.0.0.1 and the port 10000.</li>
+<li>Save the connection.</li>
+</ul>
+<p>From now on, you can choose your debugging connection and press the green bug icon to start the debugger and connect
+to Subnautica at any time. Note that you must start Subnautica <em>first</em> and then connect the debugger <em>second</em>. Start
+setting breakpoints, explore your code in real time, and see what your variables are really doing.</p>
+<p>Learn more about Rider's debugger and what it can do <a href="https://www.jetbrains.com/help/rider/Debugging_Code.html">in their docs</a>.</p>
+</section>
+</div>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/guides/debugging.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

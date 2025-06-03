@@ -12850,6 +12850,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.PrefabUtils.AddEnergyMixin
   nameWithType: PrefabUtils.AddEnergyMixin
+- uid: Nautilus.Utility.PrefabUtils.AddEnergyMixin``1(UnityEngine.GameObject,System.String,TechType,System.Collections.Generic.List{TechType},EnergyMixin.BatteryModels[],System.String)
+  name: AddEnergyMixin<T>(GameObject, string, TechType, List<TechType>, BatteryModels[], string)
+  href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddEnergyMixin__1_UnityEngine_GameObject_System_String_TechType_System_Collections_Generic_List_TechType__EnergyMixin_BatteryModels___System_String_
+  commentId: M:Nautilus.Utility.PrefabUtils.AddEnergyMixin``1(UnityEngine.GameObject,System.String,TechType,System.Collections.Generic.List{TechType},EnergyMixin.BatteryModels[],System.String)
+  name.vb: AddEnergyMixin(Of T)(GameObject, String, TechType, List(Of TechType), BatteryModels(), String)
+  fullName: Nautilus.Utility.PrefabUtils.AddEnergyMixin<T>(UnityEngine.GameObject, string, TechType, System.Collections.Generic.List<TechType>, EnergyMixin.BatteryModels[], string)
+  fullName.vb: Nautilus.Utility.PrefabUtils.AddEnergyMixin(Of T)(UnityEngine.GameObject, String, TechType, System.Collections.Generic.List(Of TechType), EnergyMixin.BatteryModels(), String)
+  nameWithType: PrefabUtils.AddEnergyMixin<T>(GameObject, string, TechType, List<TechType>, EnergyMixin.BatteryModels[], string)
+  nameWithType.vb: PrefabUtils.AddEnergyMixin(Of T)(GameObject, String, TechType, List(Of TechType), EnergyMixin.BatteryModels(), String)
 - uid: Nautilus.Utility.PrefabUtils.AddResourceTracker(UnityEngine.GameObject,TechType)
   name: AddResourceTracker(GameObject, TechType)
   href: api/Nautilus.Utility.PrefabUtils.html#Nautilus_Utility_PrefabUtils_AddResourceTracker_UnityEngine_GameObject_TechType_

@@ -333,11 +333,63 @@ Class PrefabUtils  <a class="header-action link-secondary" title="View source" h
 
 
 
+  <a id="Nautilus_Utility_PrefabUtils_AddEnergyMixin_" data-uid="Nautilus.Utility.PrefabUtils.AddEnergyMixin*"></a>
+
+  <h3 id="Nautilus_Utility_PrefabUtils_AddEnergyMixin__1_UnityEngine_GameObject_System_String_TechType_System_Collections_Generic_List_TechType__EnergyMixin_BatteryModels___System_String_" data-uid="Nautilus.Utility.PrefabUtils.AddEnergyMixin``1(UnityEngine.GameObject,System.String,TechType,System.Collections.Generic.List{TechType},EnergyMixin.BatteryModels[],System.String)">
+  AddEnergyMixin&lt;T&gt;(GameObject, string, TechType, List&lt;TechType&gt;, BatteryModels[], string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L283"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Adds the <span class="xref">EnergyMixin</span> component to an object that is expected to have a slot for one battery or other power source.</p>
+<p>Due to how this component needs to be initialized, this method will disable the object and re-enable it after the component is added (assuming it was already active). This all happens within the same frame and will not be seen.</p></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T AddEnergyMixin&lt;T&gt;(GameObject prefabRoot, string storageRootClassId, TechType defaultBattery, List&lt;TechType&gt; compatibleBatteries, EnergyMixin.BatteryModels[] batteryModels = null, string storageRootName = &quot;BatterySlot&quot;) where T : EnergyMixin</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefabRoot</code> <span class="xref">GameObject</span></dt>
+    <dd>The root of the prefab object, where the component is added.</dd>
+    <dt><code>storageRootClassId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>A unique string for the <span class="xref">ChildObjectIdentifier</span> component.</dd>
+    <dt><code>defaultBattery</code> <span class="xref">TechType</span></dt>
+    <dd>The TechType of the battery that is added by default. If there should be no default, set this value to <span class="xref">TechType.None</span>.</dd>
+    <dt><code>compatibleBatteries</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The list of all compatible batteries. By default is typically <span class="xref">TechType.Battery</span> and <span class="xref">TechType.PrecursorIonBattery</span>. Must not be null!</dd>
+    <dt><code>batteryModels</code> <span class="xref">BatteryModels</span>[]</dt>
+    <dd>If assigned a value, allows different models to appear with different battery TechTypes. Also consider <span class="xref">EnergyMixin.controlledObjects</span> for a more basic version of this that is not TechType-dependent.</dd>
+    <dt><code>storageRootName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name of the object that internally holds all of the batteries.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd>A reference to the added <span class="xref">EnergyMixin</span> instance.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Utility_PrefabUtils_AddResourceTracker_" data-uid="Nautilus.Utility.PrefabUtils.AddResourceTracker*"></a>
 
   <h3 id="Nautilus_Utility_PrefabUtils_AddResourceTracker_UnityEngine_GameObject_TechType_" data-uid="Nautilus.Utility.PrefabUtils.AddResourceTracker(UnityEngine.GameObject,TechType)">
   AddResourceTracker(GameObject, TechType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L295"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L316"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds the <span class="xref">ResourceTracker</span> component to the passed game object to allow scanning via the Scanner Room.</div>
@@ -526,7 +578,7 @@ Class PrefabUtils  <a class="header-action link-secondary" title="View source" h
 
   <h3 id="Nautilus_Utility_PrefabUtils_AddWorldForces_UnityEngine_GameObject_System_Single_System_Single_System_Single_System_Boolean_" data-uid="Nautilus.Utility.PrefabUtils.AddWorldForces(UnityEngine.GameObject,System.Single,System.Single,System.Single,System.Boolean)">
   AddWorldForces(GameObject, float, float, float, bool)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L326"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/PrefabUtils.cs/#L347"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds the World Forces component to the prefab, which is required for proper physics handling.</div>

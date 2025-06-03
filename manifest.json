@@ -2582,11 +2582,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/api/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "api/toc.json"
-        },
         ".html": {
           "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
         }
       },
       "version": ""
@@ -2597,6 +2597,16 @@
       "output": {
         ".html": {
           "relative_path": "guides/assetbundles.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/guides/debugging.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/debugging.html"
         }
       },
       "version": ""
@@ -2645,11 +2655,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/guides/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "guides/toc.json"
-        },
         ".html": {
           "relative_path": "guides/toc.html"
+        },
+        ".json": {
+          "relative_path": "guides/toc.json"
         }
       },
       "version": ""
@@ -2710,6 +2720,26 @@
       "output": {
         "resource": {
           "relative_path": "Documentation/images/guides/assetbundles-references.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/debugging-rider-attach-process.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/debugging-rider-attach-process.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "Documentation/images/guides/debugging-rider-project-properties.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/guides/debugging-rider-project-properties.png"
         }
       },
       "version": ""
@@ -2918,11 +2948,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "toc.json"
-        },
         ".html": {
           "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""
@@ -3081,11 +3111,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/tutorials/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "tutorials/toc.json"
-        },
         ".html": {
           "relative_path": "tutorials/toc.html"
+        },
+        ".json": {
+          "relative_path": "tutorials/toc.json"
         }
       },
       "version": ""
