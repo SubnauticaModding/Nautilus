@@ -14,18 +14,22 @@ internal static class WaitScreenPatcher
 {
     public const string EarlyModLoadingStage = "ModLoadingEarly";
     public const string ModLoadingStage = "ModLoading";
+    public const string LateModLoadingStage = "ModLoadingLate";
 
     internal static readonly List<WaitScreenHandler.WaitScreenTask> EarlyInitTasks = new();
     internal static readonly List<WaitScreenHandler.WaitScreenTask> InitTasks = new();
+    internal static readonly List<WaitScreenHandler.WaitScreenTask> LateInitTasks = new();
 
     private static TextMeshProUGUI _statusText;
 
     private static readonly Dictionary<string, string> _statusMap = new()
     {
+        // Early Mod Loading
         {"FadeInDummy", "Preparing..."},
         {"SaveFilesLoad", "Loading save files"},
-        {"SceneMain", "Loading main game"},
-        {"SceneEssentials", "Loading main game"},
+        {"SceneMain", "Loading game environment"},
+        // Mod Loading
+        {"SceneEssentials", "Loading game environment"},
         {"SceneCyclops", "Loading Cyclops assets"},
         {"SceneEscapePod", "Loading Lifepod assets"},
         {"SceneAurora", "Loading Aurora assets"},
@@ -40,6 +44,7 @@ internal static class WaitScreenPatcher
         {"EntityCells", "Loading entities"},
         {"WorldSettle", "Finalising world"},
         {"Equipment", "Loading equipment"}
+        // Late Mod Loading
     };
     
     public static void Patch(Harmony harmony)
@@ -60,6 +65,7 @@ internal static class WaitScreenPatcher
     {
         LoadingStage.durations[EarlyModLoadingStage] = 4f;
         LoadingStage.durations[ModLoadingStage] = 4f;
+        LoadingStage.durations[LateModLoadingStage] = 2f; // Shorter since it will probably see less use.
     }
 
     /// <summary>
@@ -89,13 +95,19 @@ internal static class WaitScreenPatcher
     {
         var loadingStage = WaitScreen.Add(ModLoadingStage);
         yield return ProcessModTasks(InitTasks, loadingStage);
-
         // Count the mod loading stage as completed and remove it from the stack.
         loadingStage.SetProgress(1f);
         WaitScreen.Remove(loadingStage);
+        
         // Let the vanilla method continue as normal.
         yield return enumerator;
 
+        // Usually the loading screen would have ended here. Instead, add another opportunity for mods to set up.
+        var lateLoading = WaitScreen.Add(LateModLoadingStage);
+        yield return ProcessModTasks(LateInitTasks, lateLoading);
+        lateLoading.SetProgress(1f);
+        WaitScreen.Remove(lateLoading);
+        
         // The entire loading screen remains loaded at all times anyway so this isn't super necessary, but it also
         // doesn't hurt.
         Object.Destroy(_statusText.gameObject);

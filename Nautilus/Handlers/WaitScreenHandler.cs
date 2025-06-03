@@ -18,7 +18,7 @@ public static class WaitScreenHandler
     /// <br />
     /// Do not use this task to set up GameObjects for your mod, as at this point the game is still in the MainMenu
     /// scene and any GameObjects you create now will be destroyed once the in-game Main scene is loaded. Consider using
-    /// <see cref="RegisterLoadTask"/> for that instead.
+    /// <see cref="RegisterAsyncLoadTask"/> or <see cref="RegisterLateAsyncLoadTask"/> for that instead.
     /// </summary>
     /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on.</param>
     /// <param name="loadingFunction">The function that will be called.</param>
@@ -38,13 +38,14 @@ public static class WaitScreenHandler
     }
     
     /// <summary>
-    /// Register a task for doing something during the loading screen.
-    /// <br />
+    /// Register a task for doing something midway through the loading screen.
+    /// <br /><br />
     /// The task will execute just after the Main scene has finished loading in, meaning any GameObjects created during
     /// this task will not be destroyed by a unity scene switch.
     /// <br />
     /// However, nothing in the game exists yet. You cannot access in-game concepts like Player.main, EscapePod.main or
-    /// similar at this time during the loading process.
+    /// similar at this time during the loading process. For that purpose, consider using
+    /// <see cref="RegisterLateAsyncLoadTask"/>.
     /// </summary>
     /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on.</param>
     /// <param name="loadingFunction">The function that will be called.</param>
@@ -61,6 +62,30 @@ public static class WaitScreenHandler
         string description = null)
     {
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
+    }
+    
+    /// <summary>
+    /// Register a task for doing something just before the loading screen ends and the player gains control.
+    /// <br /><br />
+    /// The task will execute at the last possible moment before the loading screen ends. The game has finished all its
+    /// setup at this point and is only waiting for any tasks registered through this method. Use this method for tasks
+    /// that heavily rely on other GameObjects or singletons to be present, such as the Player, Inventory, or other mods.
+    /// </summary>
+    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on.</param>
+    /// <param name="loadingFunction">The function that will be called.</param>
+    /// <param name="description">An optional description to give users detailed information about what your task is
+    /// doing. Can be updated even while your task is executing by setting
+    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>.</param>
+    public static void RegisterLateLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
+    {
+        WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
+    }
+    
+    /// <inheritdoc cref="RegisterLateLoadTask"/>>
+    public static void RegisterLateAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
+        string description = null)
+    {
+        WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
     }
 
     /// <summary>
