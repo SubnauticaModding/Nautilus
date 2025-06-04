@@ -41,9 +41,14 @@ public abstract class SaveDataCache : JsonFile
 
     /// <summary>
     /// Loads the JSON properties from the file on disk into the <see cref="SaveDataCache"/>.
+    /// <br />
+    /// If you are overriding this in a subclass, be aware that <see cref="Nautilus.Handlers.SaveDataHandler"/>.
+    /// <see cref="Nautilus.Handlers.SaveDataHandler.RegisterSaveDataCache{T}"/> calls the <em>async</em> load function
+    /// <see cref="LoadAsync"/>!
     /// </summary>
     /// <param name="createFileIfNotExist">Whether a new JSON file should be created with default values if it does not
     /// already exist.</param>
+    /// <seealso cref="LoadAsync"/>
     /// <seealso cref="Save()"/>
     /// <seealso cref="LoadWithConverters(bool, JsonConverter[])"/>
     /// <exception cref="InvalidOperationException">Thrown when the player is not in-game.</exception>
@@ -84,8 +89,13 @@ public abstract class SaveDataCache : JsonFile
 
     /// <summary>
     /// Saves the current fields and properties of the <see cref="SaveDataCache"/> as JSON properties to the file on disk.
+    /// <br />
+    /// If you are overriding this in a subclass, be aware that <see cref="Nautilus.Handlers.SaveDataHandler"/>.
+    /// <see cref="Nautilus.Handlers.SaveDataHandler.RegisterSaveDataCache{T}"/> calls the <em>async</em> saving
+    /// function <see cref="SaveAsync"/>!
     /// </summary>
     /// <seealso cref="Load(bool)"/>
+    /// <seealso cref="SaveAsync"/>
     /// <seealso cref="SaveWithConverters(JsonConverter[])"/>
     /// <exception cref="InvalidOperationException">Thrown when the player is not in-game.</exception>
     public override void Save()

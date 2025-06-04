@@ -58,6 +58,8 @@ internal static class WaitScreenPatcher
     {
         harmony.Patch(AccessTools.Method(typeof(WaitScreen), nameof(WaitScreen.Awake)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(AddModLoadStageDuration))));
+        harmony.Patch(AccessTools.Method(typeof(MainSceneLoading), nameof(MainSceneLoading.Launch)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(LoadEarlyModDataAsync))));
         harmony.Patch(AccessTools.Method(typeof(MainGameController), nameof(MainGameController.StartGame)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(LoadModDataAsync))));
         harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.SetProgress)),
@@ -80,7 +82,7 @@ internal static class WaitScreenPatcher
     /// get while still showing the loading screen (and thereby delaying any freezes/stutters to a point where users
     /// expect them to happen).
     /// </summary>
-    internal static IEnumerator LoadEarlyModDataAsync()
+    internal static IEnumerator LoadEarlyModDataAsync(IEnumerator enumerator)
     {
         if (!_statusText)
             _statusText = CreateStatusText();
@@ -92,6 +94,11 @@ internal static class WaitScreenPatcher
         // Count the mod loading stage as completed and remove it from the stack.
         loadingStage.SetProgress(1f);
         WaitScreen.Remove(loadingStage);
+
+        // Let the rest of the method continue, which takes it to the end of the loading screen.
+        // Patching in the other loading stages here is undesirable because this method simply waits for the one that
+        // *actually* does the work to complete.
+        yield return enumerator;
     }
 
     /// <summary>
