@@ -12,13 +12,14 @@ internal class SaveUtilsPatcher
     private static readonly List<Action> oneTimeUseOnQuitEvents = new();
 
     internal static Action OnSaveEvents;
+    internal static List<Func<IEnumerator>> OnSaveAsyncEvents = new();
     internal static Action OnFinishLoadingEvents;
     internal static Action OnStartLoadingEvents;
     internal static Action OnQuitEvents;
 
     public static void Patch(Harmony harmony)
     {
-        harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.CaptureSaveScreenshot)),
+        harmony.Patch(AccessTools.Method(typeof(IngameMenu), nameof(IngameMenu.SaveGameAsync)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeSaveEvents))));
         harmony.Patch(AccessTools.Method(typeof(MainSceneLoading), nameof(MainSceneLoading.Launch)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(SaveUtilsPatcher), nameof(InvokeLoadEvents))));
@@ -41,9 +42,22 @@ internal class SaveUtilsPatcher
         oneTimeUseOnQuitEvents.Add(onQuitAction);
     }
 
-    internal static void InvokeSaveEvents()
+    internal static IEnumerator InvokeSaveEvents(IEnumerator enumerator)
     {
+        // Progress the saving function up to the point where a screenshot has been taken and saved to temporary storage.
+        // This puts us at a point where the game knows it is saving but has not yet started saving scene objects.
+        while (enumerator.MoveNext())
+        {
+            yield return enumerator.Current;
+            if (enumerator.Current is CoroutineTask<SaveLoadManager.SaveResult>)
+                break;
+        }
+        
         OnSaveEvents?.Invoke();
+        foreach (Func<IEnumerator> task in OnSaveAsyncEvents)
+        {
+            yield return task.Invoke();
+        }
             
         if (oneTimeUseOnSaveEvents.Count > 0)
         {
@@ -54,11 +68,14 @@ internal class SaveUtilsPatcher
 
             oneTimeUseOnSaveEvents.Clear();
         }
+
+        // Finish the vanilla function.
+        yield return enumerator;
     }
 
     internal static IEnumerator InvokeLoadEvents(IEnumerator enumerator)
     {
-        yield return WaitScreenPatcher.LoadEarlyModDataAsync();
+        OnStartLoadingEvents.Invoke();
 
         while (enumerator.MoveNext())
         {
