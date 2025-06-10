@@ -6,7 +6,7 @@ public abstract class TitleAddon
 {
     public bool isEnabled;
     
-    public virtual void Initialize(GameObject functionalityRoot) { }
+    public virtual void Initialize() { }
     public abstract void OnEnable();
     public abstract void OnDisable();
 }

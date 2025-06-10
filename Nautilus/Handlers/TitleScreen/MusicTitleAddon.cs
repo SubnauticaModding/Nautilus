@@ -4,16 +4,17 @@ namespace Nautilus.Handlers.TitleScreen;
 
 public class MusicTitleAddon : TitleAddon
 {
-    private readonly FMODAsset _asset;
-    private FMOD_CustomEmitter _customEmitter;
+    protected readonly FMODAsset _asset;
+    protected FMOD_CustomEmitter _customEmitter;
     
     public MusicTitleAddon(FMODAsset asset)
     {
         _asset = asset;
     }
 
-    public override void Initialize(GameObject functionalityRoot)
+    public override void Initialize()
     {
+        var functionalityRoot = MainMenuMusic.main.gameObject;
         _customEmitter = functionalityRoot.AddComponent<FMOD_CustomLoopingEmitter>();
         _customEmitter.asset = _asset;
         _customEmitter.restartOnPlay = true;
