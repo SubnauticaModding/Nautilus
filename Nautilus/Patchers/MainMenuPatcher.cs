@@ -15,6 +15,9 @@ internal static class MainMenuPatcher
 {
     internal static readonly SelfCheckingDictionary<string, TitleScreenHandler.CustomTitleData> TitleObjectDatas = new("TitleObjectData");
 
+    internal static readonly SelfCheckingDictionary<string, TitleScreenHandler.CollaborationData> CollaborationData =
+        new("TitleCollaborationData");
+    
     private static string _activeModGUID;
     private static uGUI_Choice _choiceOption;
     
@@ -33,14 +36,17 @@ internal static class MainMenuPatcher
     {
         foreach (var titleObjectData in TitleObjectDatas)
         {
-            var functionalityObject = new GameObject($"{titleObjectData.Key}_titleFunctionality");
-            titleObjectData.Value.functionalityRoot = functionalityObject;
-            
-            foreach (var addon in titleObjectData.Value.addons)
-            {
-                addon.Value.Initialize();
-                addon.Value.OnDisable();
-            }
+            InititalizeAddons(titleObjectData.Key, titleObjectData.Value);
+        }
+    }
+
+    private static void InititalizeAddons(string guid, TitleScreenHandler.CustomTitleData titleData)
+    {
+        foreach (var addon in titleData.addons)
+        {
+            addon.modGUID = guid;
+            addon.Initialize();
+            addon.OnDisable();
         }
     }
 
@@ -59,19 +65,33 @@ internal static class MainMenuPatcher
         selector.localPosition = new Vector3(-750, -450, 0);
 
         _choiceOption = selector.GetComponent<uGUI_Choice>();
-        List<string> options = new() { "Subnautica" };
-        foreach (var titleData in TitleObjectDatas.Values)
-        {
-            options.Add(titleData.localizationKey);
-        }
-        
         _choiceOption.currentText.raycastTarget = false;
-        _choiceOption.SetOptions(options.ToArray());
-
-        UpdateButtonPositions(_choiceOption);
+        RefreshModOptions(_choiceOption);
+        
         Language.main.onLanguageChanged += () => UpdateButtonPositions(_choiceOption);
 
         UWE.CoroutineHost.StartCoroutine(AddButtonListeners(_choiceOption));
+    }
+
+    private static void RefreshModOptions(uGUI_Choice choice)
+    {
+        List<string> options = new() { "Subnautica" };
+        foreach (var titleData in TitleObjectDatas)
+        {
+            if (!titleData.Value.addons.Any(AddonApprovedForCollab))
+            {
+                InternalLogger.Log(
+                    $"{titleData.Key} did not have any addons that were approved for collaboration. Skipping option registration",
+                    LogLevel.Warning);
+                continue;
+            }
+            
+            options.Add(titleData.Value.localizationKey);
+        }
+        
+        choice.SetOptions(options.ToArray());
+        
+        UpdateButtonPositions(choice);
     }
 
     private static void UpdateButtonPositions(uGUI_Choice choice)
@@ -114,9 +134,9 @@ internal static class MainMenuPatcher
         {
             if (index == choice.currentIndex - 1)
             {
-                foreach (var addon in titleData.Value.addons.Values)
+                foreach (var addon in titleData.Value.addons)
                 {
-                    if (!ModsInstalledForAddon(addon)) continue;
+                    if (!AddonApprovedForCollab(addon)) continue;
                     
                     addon.OnEnable();
                     addon.isEnabled = true;
@@ -129,7 +149,7 @@ internal static class MainMenuPatcher
             }
             else
             {
-                foreach (var addon in titleData.Value.addons.Values)
+                foreach (var addon in titleData.Value.addons)
                 {
                     addon.OnDisable();
                     addon.isEnabled = false;
@@ -140,24 +160,48 @@ internal static class MainMenuPatcher
         }
         
         bool customMusicActive = TitleObjectDatas.Values.Any(data =>
-            data.addons.Any(addon => addon.Value is MusicTitleAddon && addon.Value.isEnabled));
+            data.addons.Any(addon => addon is MusicTitleAddon && addon.isEnabled));
         if (!customMusicActive)
         {
+            MainMenuMusic.main.evt.getPlaybackState(out var state);
+            if (state is PLAYBACK_STATE.PLAYING or PLAYBACK_STATE.SUSTAINING) return;
+            
             MainMenuMusic.main.evt.start();
         }
     }
 
-    private static bool ModsInstalledForAddon(TitleAddon addon)
+    private static bool AddonApprovedForCollab(TitleAddon addon)
     {
         bool hasRequiredMods = true;
         foreach (var guid in addon.requiredGUIDs)
         {
-            bool hasGUID = BepInEx.Bootstrap.Chainloader.PluginInfos.Keys.Contains(guid);
-            if (!hasGUID)
+            hasRequiredMods = false;
+
+            if (!CollaborationData.TryGetValue(guid, out var collabData))
             {
-                hasRequiredMods = false;
+                InternalLogger.Log(
+                    $"{guid} was not installed/registered for the addon {addon.GetType()} from {addon.modGUID}. Not allowing addon to be enabled", 
+                    LogLevel.Debug);
                 break;
             }
+
+            if (!collabData.modApprovedAddons.TryGetValue(addon.modGUID, out var approvedTypes))
+            {
+                InternalLogger.Log(
+                    $"{guid} did not have {addon.modGUID} listed as a collaborator. Not allowing {addon.GetType()} to be enabled", 
+                    LogLevel.Debug);
+                break;
+            }
+
+            if (!approvedTypes.Contains(addon.GetType()))
+            {
+                InternalLogger.Log(
+                    $"{guid} had {addon.modGUID} listed as a collaborator, but {addon.GetType()} was not a whitelisted type. Not allowing addon to be enabled", 
+                    LogLevel.Debug);
+                break;
+            }
+
+            hasRequiredMods = true;
         }
 
         return hasRequiredMods;
@@ -170,12 +214,13 @@ internal static class MainMenuPatcher
             InternalLogger.Log($"MainMenuPatcher already contain title data for {guid}! Skipping.", LogLevel.Error);
             return;
         }
+
+        InititalizeAddons(guid, data);
         
         TitleObjectDatas.Add(guid, data);
 
         if (!_choiceOption) return;
-        
-        _choiceOption.options.Add(data.localizationKey);
-        UpdateButtonPositions(_choiceOption);
+
+        RefreshModOptions(_choiceOption);
     }
 }

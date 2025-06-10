@@ -12,21 +12,31 @@ public static class TitleScreenHandler
         MainMenuPatcher.RegisterTitleObjectData(guid, customTitleData);
     }
 
+    public static void ApproveTitleCollaboration(string guid, CollaborationData collaborationData)
+    {
+        MainMenuPatcher.CollaborationData.Add(guid, collaborationData);
+    }
+
     public class CustomTitleData
     {
         public readonly string localizationKey;
-        public readonly Dictionary<Type, TitleAddon> addons;
-        public GameObject functionalityRoot;
+        public readonly TitleAddon[] addons;
         
         public CustomTitleData(string localizationKey, params TitleAddon[] addons)
         {
             this.localizationKey = localizationKey;
 
-            this.addons = new();
-            foreach (var addon in addons)
-            {
-                this.addons.Add(addon.GetType(), addon);
-            }
+            this.addons = addons;
+        }
+    }
+
+    public struct CollaborationData
+    {
+        public Dictionary<string, Type[]> modApprovedAddons;
+
+        public CollaborationData(Dictionary<string, Type[]> modApprovedAddons)
+        {
+            this.modApprovedAddons = modApprovedAddons;
         }
     }
 }

@@ -4,6 +4,7 @@ namespace Nautilus.Handlers.TitleScreen;
 
 public abstract class TitleAddon
 {
+    public string modGUID;
     public bool isEnabled;
     public string[] requiredGUIDs;
 
