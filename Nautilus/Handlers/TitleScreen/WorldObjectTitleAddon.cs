@@ -1,32 +1,35 @@
-﻿using System;
-using Nautilus.Assets;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Nautilus.Handlers.TitleScreen;
 
 public class WorldObjectTitleAddon : TitleAddon
 {
-    private readonly Func<GameObject> _worldObjectPrefab;
-    private readonly SpawnLocation _spawnLocation;
     private GameObject _worldObject;
-    
-    public WorldObjectTitleAddon(Func<GameObject> worldObject, SpawnLocation spawnLocation)
+
+    public WorldObjectTitleAddon(GameObject worldObject)
     {
-        _worldObjectPrefab = worldObject;
-        if (spawnLocation.Scale == default)
-        {
-            spawnLocation = new SpawnLocation(spawnLocation.Position, spawnLocation.EulerAngles, Vector3.one);
-        }
-        
-        _spawnLocation = spawnLocation;
+        _worldObject = worldObject;
     }
 
-    public override void Initialize(GameObject functionalityRoot)
+    public override void Initialize()
     {
-        _worldObject = GameObject.Instantiate(_worldObjectPrefab());
-        _worldObject.transform.position = _spawnLocation.Position;
-        _worldObject.transform.rotation = Quaternion.Euler(_spawnLocation.EulerAngles);
-        _worldObject.transform.localScale = _spawnLocation.Scale;
+        UWE.CoroutineHost.StartCoroutine(SetupObjectSkyAppliers());
+    }
+
+    protected virtual IEnumerator SetupObjectSkyAppliers()
+    {
+        var menuLogo = GameObject.FindObjectOfType<MenuLogo>();
+
+        yield return new WaitUntil(() => menuLogo.logoObject);
+
+        var customSky = menuLogo.logoObject.GetComponent<SkyApplier>().customSkyPrefab;
+        foreach (var applier in _worldObject.GetComponentsInChildren<SkyApplier>(true))
+        {
+            applier.customSkyPrefab = customSky;
+            
+            applier.Start();
+        }
     }
     
     public override void OnEnable()
