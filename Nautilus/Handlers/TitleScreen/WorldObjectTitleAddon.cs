@@ -7,7 +7,7 @@ public class WorldObjectTitleAddon : TitleAddon
 {
     private GameObject _worldObject;
 
-    public WorldObjectTitleAddon(GameObject worldObject)
+    public WorldObjectTitleAddon(GameObject worldObject, params string[] requiredGUIDs) : base (requiredGUIDs)
     {
         _worldObject = worldObject;
     }

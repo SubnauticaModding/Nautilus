@@ -7,7 +7,7 @@ public class MusicTitleAddon : TitleAddon
     protected readonly FMODAsset _asset;
     protected FMOD_CustomEmitter _customEmitter;
     
-    public MusicTitleAddon(FMODAsset asset)
+    public MusicTitleAddon(FMODAsset asset, params string[] requiredGUIDs) : base (requiredGUIDs)
     {
         _asset = asset;
     }

@@ -116,6 +116,8 @@ internal static class MainMenuPatcher
             {
                 foreach (var addon in titleData.Value.addons.Values)
                 {
+                    if (!ModsInstalledForAddon(addon)) continue;
+                    
                     addon.OnEnable();
                     addon.isEnabled = true;
 
@@ -133,16 +135,32 @@ internal static class MainMenuPatcher
                     addon.isEnabled = false;
                 }
             }
-
-            bool customMusicActive = TitleObjectDatas.Values.Any(data =>
-                data.addons.Any(addon => addon.Value is MusicTitleAddon && addon.Value.isEnabled));
-            if (!customMusicActive)
-            {
-                MainMenuMusic.main.evt.start();
-            }
             
             index++;
         }
+        
+        bool customMusicActive = TitleObjectDatas.Values.Any(data =>
+            data.addons.Any(addon => addon.Value is MusicTitleAddon && addon.Value.isEnabled));
+        if (!customMusicActive)
+        {
+            MainMenuMusic.main.evt.start();
+        }
+    }
+
+    private static bool ModsInstalledForAddon(TitleAddon addon)
+    {
+        bool hasRequiredMods = true;
+        foreach (var guid in addon.requiredGUIDs)
+        {
+            bool hasGUID = BepInEx.Bootstrap.Chainloader.PluginInfos.Keys.Contains(guid);
+            if (!hasGUID)
+            {
+                hasRequiredMods = false;
+                break;
+            }
+        }
+
+        return hasRequiredMods;
     }
 
     internal static void RegisterTitleObjectData(string guid, TitleScreenHandler.CustomTitleData data)
