@@ -16,7 +16,7 @@ internal static class MainMenuPatcher
     internal static readonly SelfCheckingDictionary<string, TitleScreenHandler.CustomTitleData> TitleObjectDatas = new("TitleObjectData");
 
     private static string _activeModGUID;
-    private static EventInstance _vanillaMusicEvent;
+    private static uGUI_Choice _choiceOption;
     
     internal static void Patch(Harmony harmony)
     {
@@ -25,16 +25,8 @@ internal static class MainMenuPatcher
 
         harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.Start)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.StartPostfix))));
-        
-        harmony.Patch(AccessTools.Method(typeof(MainMenuMusic), nameof(MainMenuMusic.Start)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.MainMenuMusicStartPostfix))));
-        
-        InternalLogger.Log("MainMenuPatcher is done.", LogLevel.Debug);
-    }
 
-    private static void MainMenuMusicStartPostfix(MainMenuMusic __instance)
-    {
-        _vanillaMusicEvent = __instance.evt;
+        InternalLogger.Log("MainMenuPatcher is done.", LogLevel.Debug);
     }
 
     private static void AwakePostfix()
@@ -46,7 +38,7 @@ internal static class MainMenuPatcher
             
             foreach (var addon in titleObjectData.Value.addons)
             {
-                addon.Value.Initialize(functionalityObject);
+                addon.Value.Initialize();
                 addon.Value.OnDisable();
             }
         }
@@ -66,16 +58,24 @@ internal static class MainMenuPatcher
         selector.gameObject.name = "ActiveModSelector";
         selector.localPosition = new Vector3(-750, -450, 0);
 
-        var choice = selector.GetComponent<uGUI_Choice>();
+        _choiceOption = selector.GetComponent<uGUI_Choice>();
         List<string> options = new() { "Subnautica" };
         foreach (var titleData in TitleObjectDatas.Values)
         {
             options.Add(titleData.localizationKey);
         }
         
-        choice.currentText.raycastTarget = false;
-        choice.SetOptions(options.ToArray());
+        _choiceOption.currentText.raycastTarget = false;
+        _choiceOption.SetOptions(options.ToArray());
 
+        UpdateButtonPositions(_choiceOption);
+        Language.main.onLanguageChanged += () => UpdateButtonPositions(_choiceOption);
+
+        UWE.CoroutineHost.StartCoroutine(AddButtonListeners(_choiceOption));
+    }
+
+    private static void UpdateButtonPositions(uGUI_Choice choice)
+    {
         float maxWidth = float.MinValue;
         choice.currentText.transform.localPosition = Vector3.zero;
         for (int i = 0; i <= choice.options.Count; i++)
@@ -94,8 +94,6 @@ internal static class MainMenuPatcher
         
         nextButtonRect.localPosition = new Vector3(offset, nextButtonRect.localPosition.y, nextButtonRect.localPosition.z);
         prevButtonRect.localPosition = new Vector3(-offset, prevButtonRect.localPosition.y, prevButtonRect.localPosition.z);
-
-        UWE.CoroutineHost.StartCoroutine(AddButtonListeners(choice));
     }
 
     private static IEnumerator AddButtonListeners(uGUI_Choice choice)
@@ -136,8 +134,8 @@ internal static class MainMenuPatcher
                 }
             }
 
-            bool customMusicActive = TitleObjectDatas.Values.Any(titleData =>
-                titleData.addons.Any(addon => addon.Value is MusicTitleAddon && addon.Value.isEnabled));
+            bool customMusicActive = TitleObjectDatas.Values.Any(data =>
+                data.addons.Any(addon => addon.Value is MusicTitleAddon && addon.Value.isEnabled));
             if (!customMusicActive)
             {
                 MainMenuMusic.main.evt.start();
@@ -145,5 +143,21 @@ internal static class MainMenuPatcher
             
             index++;
         }
+    }
+
+    internal static void RegisterTitleObjectData(string guid, TitleScreenHandler.CustomTitleData data)
+    {
+        if (TitleObjectDatas.ContainsKey(guid))
+        {
+            InternalLogger.Log($"MainMenuPatcher already contain title data for {guid}! Skipping.", LogLevel.Error);
+            return;
+        }
+        
+        TitleObjectDatas.Add(guid, data);
+
+        if (!_choiceOption) return;
+        
+        _choiceOption.options.Add(data.localizationKey);
+        UpdateButtonPositions(_choiceOption);
     }
 }

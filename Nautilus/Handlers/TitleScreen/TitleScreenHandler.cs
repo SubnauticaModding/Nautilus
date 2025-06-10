@@ -9,7 +9,7 @@ public static class TitleScreenHandler
 {
     public static void RegisterTitleScreenObject(string guid, CustomTitleData customTitleData)
     {
-        MainMenuPatcher.TitleObjectDatas.Add(guid, customTitleData);
+        MainMenuPatcher.RegisterTitleObjectData(guid, customTitleData);
     }
 
     public class CustomTitleData
