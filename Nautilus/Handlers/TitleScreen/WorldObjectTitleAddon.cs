@@ -21,7 +21,7 @@ public class WorldObjectTitleAddon : TitleAddon
         _spawnLocation = spawnLocation;
     }
 
-    public override void Initialize()
+    public override void Initialize(GameObject functionalityRoot)
     {
         _worldObject = GameObject.Instantiate(_worldObjectPrefab());
         _worldObject.transform.position = _spawnLocation.Position;

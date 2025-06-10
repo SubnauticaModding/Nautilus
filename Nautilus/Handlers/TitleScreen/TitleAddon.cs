@@ -1,8 +1,12 @@
-﻿namespace Nautilus.Handlers.TitleScreen;
+﻿using UnityEngine;
+
+namespace Nautilus.Handlers.TitleScreen;
 
 public abstract class TitleAddon
 {
-    public virtual void Initialize() { }
+    public bool isEnabled;
+    
+    public virtual void Initialize(GameObject functionalityRoot) { }
     public abstract void OnEnable();
     public abstract void OnDisable();
 }

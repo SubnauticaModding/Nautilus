@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nautilus.Patchers;
+using UnityEngine;
 
 namespace Nautilus.Handlers.TitleScreen;
 
@@ -15,6 +16,7 @@ public static class TitleScreenHandler
     {
         public readonly string localizationKey;
         public readonly Dictionary<Type, TitleAddon> addons;
+        public GameObject functionalityRoot;
         
         public CustomTitleData(string localizationKey, params TitleAddon[] addons)
         {

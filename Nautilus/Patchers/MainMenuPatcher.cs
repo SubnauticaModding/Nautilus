@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Logging;
+using FMOD.Studio;
 using HarmonyLib;
 using Nautilus.Handlers.TitleScreen;
 using Nautilus.Utility;
@@ -15,6 +16,7 @@ internal static class MainMenuPatcher
     internal static readonly SelfCheckingDictionary<string, TitleScreenHandler.CustomTitleData> TitleObjectDatas = new("TitleObjectData");
 
     private static string _activeModGUID;
+    private static EventInstance _vanillaMusicEvent;
     
     internal static void Patch(Harmony harmony)
     {
@@ -24,16 +26,27 @@ internal static class MainMenuPatcher
         harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.Start)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.StartPostfix))));
         
+        harmony.Patch(AccessTools.Method(typeof(MainMenuMusic), nameof(MainMenuMusic.Start)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.MainMenuMusicStartPostfix))));
+        
         InternalLogger.Log("MainMenuPatcher is done.", LogLevel.Debug);
+    }
+
+    private static void MainMenuMusicStartPostfix(MainMenuMusic __instance)
+    {
+        _vanillaMusicEvent = __instance.evt;
     }
 
     private static void AwakePostfix()
     {
-        foreach (var titleObjectData in TitleObjectDatas.Values)
+        foreach (var titleObjectData in TitleObjectDatas)
         {
-            foreach (var addon in titleObjectData.addons)
+            var functionalityObject = new GameObject($"{titleObjectData.Key}_titleFunctionality");
+            titleObjectData.Value.functionalityRoot = functionalityObject;
+            
+            foreach (var addon in titleObjectData.Value.addons)
             {
-                addon.Value.Initialize();
+                addon.Value.Initialize(functionalityObject);
                 addon.Value.OnDisable();
             }
         }
@@ -60,6 +73,7 @@ internal static class MainMenuPatcher
             options.Add(titleData.localizationKey);
         }
         
+        choice.currentText.raycastTarget = false;
         choice.SetOptions(options.ToArray());
 
         float maxWidth = float.MinValue;
@@ -105,6 +119,12 @@ internal static class MainMenuPatcher
                 foreach (var addon in titleData.Value.addons.Values)
                 {
                     addon.OnEnable();
+                    addon.isEnabled = true;
+
+                    if (addon is MusicTitleAddon)
+                    {
+                        MainMenuMusic.main.evt.stop(STOP_MODE.ALLOWFADEOUT);
+                    }
                 }
             }
             else
@@ -112,7 +132,15 @@ internal static class MainMenuPatcher
                 foreach (var addon in titleData.Value.addons.Values)
                 {
                     addon.OnDisable();
+                    addon.isEnabled = false;
                 }
+            }
+
+            bool customMusicActive = TitleObjectDatas.Values.Any(titleData =>
+                titleData.addons.Any(addon => addon.Value is MusicTitleAddon && addon.Value.isEnabled));
+            if (!customMusicActive)
+            {
+                MainMenuMusic.main.evt.start();
             }
             
             index++;
