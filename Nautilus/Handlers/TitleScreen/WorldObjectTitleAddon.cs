@@ -1,19 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Nautilus.Handlers.TitleScreen;
 
 public class WorldObjectTitleAddon : TitleAddon
 {
+    private Func<GameObject> _spawnObject;
     private GameObject _worldObject;
 
-    public WorldObjectTitleAddon(GameObject worldObject, params string[] requiredGUIDs) : base (requiredGUIDs)
+    public WorldObjectTitleAddon(Func<GameObject> spawnObject, params string[] requiredGUIDs) : base (requiredGUIDs)
     {
-        _worldObject = worldObject;
+        _spawnObject = spawnObject;
     }
 
     public override void Initialize()
     {
+        _worldObject = _spawnObject();
         UWE.CoroutineHost.StartCoroutine(SetupObjectSkyAppliers());
     }
 

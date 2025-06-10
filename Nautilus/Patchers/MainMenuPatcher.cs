@@ -193,7 +193,8 @@ internal static class MainMenuPatcher
                 break;
             }
 
-            if (!approvedTypes.Contains(addon.GetType()))
+            bool approvesAll = approvedTypes[0] == typeof(ApproveAllAddons);
+            if (!approvesAll && !approvedTypes.Contains(addon.GetType()))
             {
                 InternalLogger.Log(
                     $"{guid} had {addon.modGUID} listed as a collaborator, but {addon.GetType()} was not a whitelisted type. Not allowing addon to be enabled", 
@@ -214,13 +215,12 @@ internal static class MainMenuPatcher
             InternalLogger.Log($"MainMenuPatcher already contain title data for {guid}! Skipping.", LogLevel.Error);
             return;
         }
-
-        InititalizeAddons(guid, data);
         
         TitleObjectDatas.Add(guid, data);
 
         if (!_choiceOption) return;
-
+        
+        InititalizeAddons(guid, data);
         RefreshModOptions(_choiceOption);
     }
 }
