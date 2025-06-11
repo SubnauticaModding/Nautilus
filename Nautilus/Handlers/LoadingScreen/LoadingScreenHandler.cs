@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿using System;
+using BepInEx;
 using UnityEngine;
 
 namespace Nautilus.Handlers.LoadingScreen;
@@ -13,14 +14,18 @@ public static class LoadingScreenHandler
     public class LoadingScreenData
     {
         public Sprite loadingScreenImage;
-        public float minTimeToNextScreen;
+        public int priority;
+        public float timeToNextScreen;
         public string storyGoalRequirement;
+        public Func<bool> customRequirement;
         
-        public LoadingScreenData(Sprite loadingScreenImage, float minTimeToNextScreen = 7f, string storyGoalRequirement = null)
+        public LoadingScreenData(Sprite loadingScreenImage, int priority = 1, float timeToNextScreen = 7f, string storyGoalRequirement = null, Func<bool> customRequirement = null)
         {
             this.loadingScreenImage = loadingScreenImage;
-            this.minTimeToNextScreen = minTimeToNextScreen;
+            this.priority = priority;
+            this.timeToNextScreen = timeToNextScreen;
             this.storyGoalRequirement = storyGoalRequirement;
+            this.customRequirement = customRequirement;
         }
     }
 }

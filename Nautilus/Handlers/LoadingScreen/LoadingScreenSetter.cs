@@ -48,8 +48,8 @@ internal class LoadingScreenSetter : MonoBehaviour
         if (_sceneLoading.isLoading && !_wasLoading)
         {
             _currentScreenIndex = 0;
-            IncrementTimer();
             SetCurrentImage(GetNextImage(), true);
+            IncrementTimer();
         }
         
         _wasLoading = _sceneLoading.isLoading;
@@ -71,9 +71,9 @@ internal class LoadingScreenSetter : MonoBehaviour
 
     private void SetCurrentImage(Sprite sprite, bool instant = false)
     {
+        sprite ??= _defaultLoadingSprite;
         if (_targetFadeImage && sprite == BufferImage.sprite) return;
         
-        sprite ??= _defaultLoadingSprite;
         _targetFadeImage = BufferImage;
         _targetFadeImage.sprite = sprite;
 
@@ -97,22 +97,27 @@ internal class LoadingScreenSetter : MonoBehaviour
         if (_possibleLoadingScreens.Length == 1 && ScreenIsValid(_possibleLoadingScreens[0]))
             return _possibleLoadingScreens[0].loadingScreenImage;
         
-        _currentScreenIndex++;
-        _currentScreenIndex %= _possibleLoadingScreens.Length;
+        _currentScreenIndex = (_currentScreenIndex + 1) % _possibleLoadingScreens.Length;
         
-        Sprite nextImage = null;
+        LoadingScreenHandler.LoadingScreenData firstScreen = null;
+        LoadingScreenHandler.LoadingScreenData highestPriorityData = null;
         for (int i = _currentScreenIndex; i < _possibleLoadingScreens.Length; i++)
         {
             var screen = _possibleLoadingScreens[i];
+            
+            if (!ScreenIsValid(screen)) continue;
 
-            if (ScreenIsValid(screen))
+            if (screen.customRequirement != null && !screen.customRequirement()) continue;
+            
+            if (firstScreen == null) firstScreen = screen;
+
+            if (highestPriorityData == null || highestPriorityData.priority < screen.priority)
             {
-                nextImage = screen.loadingScreenImage;
-                break;
+                highestPriorityData = screen;
             }
         }
         
-        return nextImage;
+        return highestPriorityData.priority == firstScreen.priority ? firstScreen.loadingScreenImage : highestPriorityData.loadingScreenImage;
     }
 
     private bool ScreenIsValid(LoadingScreenHandler.LoadingScreenData screen)
@@ -141,10 +146,8 @@ internal class LoadingScreenSetter : MonoBehaviour
     {
         float timeIncrement = _possibleLoadingScreens == null
             ? 2
-            : _possibleLoadingScreens[_currentScreenIndex].minTimeToNextScreen;
+            : _possibleLoadingScreens[_currentScreenIndex].timeToNextScreen;
         _timeNextScreen = Time.realtimeSinceStartup + timeIncrement;
-        
-        InternalLogger.Log($"Incrementing timer. Index = {_currentScreenIndex} | Time next screen = {_timeNextScreen} | Time = {Time.realtimeSinceStartup}");
     }
 
     private void UpdatePotentialBackgrounds()
