@@ -130,7 +130,6 @@ internal class LoadingScreenSetter : MonoBehaviour
 
         if (!StoryGoalManager.main) return false;
         
-        InternalLogger.Log($"Story goal manager = {StoryGoalManager.main}");
         if (StoryGoalManager.main.IsGoalComplete(screen.storyGoalRequirement)) return true;
 
         return false;
