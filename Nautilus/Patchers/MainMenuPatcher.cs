@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Logging;
 using FMOD.Studio;
 using HarmonyLib;
+using Nautilus.Handlers.LoadingScreen;
 using Nautilus.Handlers.TitleScreen;
 using Nautilus.Utility;
 using UnityEngine;
@@ -17,8 +19,9 @@ internal static class MainMenuPatcher
 
     internal static readonly SelfCheckingDictionary<string, TitleScreenHandler.CollaborationData> CollaborationData =
         new("TitleCollaborationData");
-    
-    private static string _activeModGUID;
+
+    internal static event Action onActiveModChanged;
+    private static string _activeModGUID = "Subnautica";
     private static uGUI_Choice _choiceOption;
     
     internal static void Patch(Harmony harmony)
@@ -29,6 +32,12 @@ internal static class MainMenuPatcher
         harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.Start)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.StartPostfix))));
 
+        harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.SceneLoadingAwakePostfix))));
+        
+        harmony.Patch(AccessTools.Method(typeof(MainMenuMusic), nameof(MainMenuMusic.Stop)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.MainMenuMusicStopPostfix))));
+        
         InternalLogger.Log("MainMenuPatcher is done.", LogLevel.Debug);
     }
 
@@ -36,11 +45,30 @@ internal static class MainMenuPatcher
     {
         foreach (var titleObjectData in TitleObjectDatas)
         {
-            InititalizeAddons(titleObjectData.Key, titleObjectData.Value);
+            InitializeAddons(titleObjectData.Key, titleObjectData.Value);
         }
     }
 
-    private static void InititalizeAddons(string guid, TitleScreenHandler.CustomTitleData titleData)
+    private static void SceneLoadingAwakePostfix(uGUI_SceneLoading __instance)
+    {
+        __instance.gameObject.EnsureComponent<LoadingScreenSetter>();
+    }
+
+    private static void MainMenuMusicStopPostfix()
+    {
+        foreach (var titleObjectData in TitleObjectDatas)
+        {
+            foreach (var addon in titleObjectData.Value.addons)
+            {
+                if (addon is MusicTitleAddon)
+                {
+                    addon.OnDisable();
+                }
+            }
+        }
+    }
+
+    private static void InitializeAddons(string guid, TitleScreenHandler.CustomTitleData titleData)
     {
         foreach (var addon in titleData.addons)
         {
@@ -127,7 +155,7 @@ internal static class MainMenuPatcher
         prevButton.onClick.AddListener(() => OnActiveModChanged(choice));
     }
 
-    internal static void OnActiveModChanged(uGUI_Choice choice)
+    private static void OnActiveModChanged(uGUI_Choice choice)
     {
         int index = 0;
         foreach (var titleData in TitleObjectDatas)
@@ -168,6 +196,11 @@ internal static class MainMenuPatcher
             
             MainMenuMusic.main.evt.start();
         }
+
+        var data = TitleObjectDatas.FirstOrDefault(d => d.Value.localizationKey == choice.options[choice.currentIndex]);
+        _activeModGUID = choice.currentIndex == 0 ? "Subnautica" : data.Key;
+
+        onActiveModChanged?.Invoke();
     }
 
     private static bool AddonApprovedForCollab(TitleAddon addon)
@@ -220,7 +253,9 @@ internal static class MainMenuPatcher
 
         if (!_choiceOption) return;
         
-        InititalizeAddons(guid, data);
+        InitializeAddons(guid, data);
         RefreshModOptions(_choiceOption);
     }
+
+    internal static string GetActiveModGUID() => _activeModGUID;
 }
