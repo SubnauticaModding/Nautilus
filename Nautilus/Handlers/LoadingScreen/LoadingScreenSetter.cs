@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using Story;
@@ -40,6 +41,7 @@ internal class LoadingScreenSetter : MonoBehaviour
         _targetFadeImage = _loadingScreenImage;
 
         MainMenuPatcher.onActiveModChanged += UpdatePotentialBackgrounds;
+        UpdatePotentialBackgrounds();
         SetCurrentImage(null, true);
     }
 
@@ -91,22 +93,24 @@ internal class LoadingScreenSetter : MonoBehaviour
     private Sprite GetNextImage()
     {
         if (_possibleLoadingScreens == null) return null;
-
+        
         if (_possibleLoadingScreens.Length == 0) return null;
-
+        
         if (_possibleLoadingScreens.Length == 1 && ScreenIsValid(_possibleLoadingScreens[0]))
             return _possibleLoadingScreens[0].loadingScreenImage;
+
+        if (!_possibleLoadingScreens.Any(ScreenIsValid)) return null;
         
         _currentScreenIndex = (_currentScreenIndex + 1) % _possibleLoadingScreens.Length;
         
         LoadingScreenHandler.LoadingScreenData firstScreen = null;
         LoadingScreenHandler.LoadingScreenData highestPriorityData = null;
-        for (int i = _currentScreenIndex; i < _possibleLoadingScreens.Length; i++)
+        for (int i = 0; i < _possibleLoadingScreens.Length; i++)
         {
-            var screen = _possibleLoadingScreens[i];
+            var screen = _possibleLoadingScreens[(_currentScreenIndex + i) % _possibleLoadingScreens.Length];
             
             if (!ScreenIsValid(screen)) continue;
-
+            
             if (screen.customRequirement != null && !screen.customRequirement()) continue;
             
             if (firstScreen == null) firstScreen = screen;
@@ -124,6 +128,9 @@ internal class LoadingScreenSetter : MonoBehaviour
     {
         if (screen.storyGoalRequirement == null) return true;
 
+        if (!StoryGoalManager.main) return false;
+        
+        InternalLogger.Log($"Story goal manager = {StoryGoalManager.main}");
         if (StoryGoalManager.main.IsGoalComplete(screen.storyGoalRequirement)) return true;
 
         return false;
