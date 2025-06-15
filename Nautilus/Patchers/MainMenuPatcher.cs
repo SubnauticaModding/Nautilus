@@ -150,6 +150,9 @@ internal static class MainMenuPatcher
         var prevButtonRect = choice.previousButton.GetComponent<RectTransform>();
         float offset = maxWidth * 0.5f + nextButtonRect.sizeDelta.x + 10;
         
+        // Stop buttons from going offscreen with really long mod names
+        offset = Mathf.Min(offset, 180);
+        
         nextButtonRect.localPosition = new Vector3(offset, nextButtonRect.localPosition.y, nextButtonRect.localPosition.z);
         prevButtonRect.localPosition = new Vector3(-offset, prevButtonRect.localPosition.y, prevButtonRect.localPosition.z);
     }
