@@ -15,7 +15,8 @@ public class WorldObjectTitleAddon : TitleAddon
     /// <summary>
     /// Spawns in the specified <see cref="GameObject"/> when your mod is selected
     /// </summary>
-    /// <param name="spawnObject">A function to get the object to enable. Nautilus expects this object to already be instantiated</param>
+    /// <param name="spawnObject">A function to get the object to enable. It is recommended to spawn your object in this method to ensure
+    /// returning to the main menu from a save does not cause NREs</param>
     /// <param name="requiredGUIDs">The required mod GUIDs for this addon to enable. Each required mod must approve
     /// this addon by using <see cref="TitleScreenHandler.ApproveTitleCollaboration"/></param>
     public WorldObjectTitleAddon(Func<GameObject> spawnObject, params string[] requiredGUIDs) : base (requiredGUIDs)
