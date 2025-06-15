@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using FMOD.Studio;
 using HarmonyLib;
@@ -21,10 +22,10 @@ internal static class MainMenuPatcher
         new("TitleCollaborationData");
 
     internal static event Action onActiveModChanged;
-    private static string _activeModGUID = "Subnautica";
+    private static ConfigEntry<string> _activeModGUID;
     private static uGUI_Choice _choiceOption;
     
-    internal static void Patch(Harmony harmony)
+    internal static void Patch(Harmony harmony, ConfigFile config)
     {
         harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.Awake)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.AwakePostfix))));
@@ -37,7 +38,8 @@ internal static class MainMenuPatcher
         
         harmony.Patch(AccessTools.Method(typeof(MainMenuMusic), nameof(MainMenuMusic.Stop)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.MainMenuMusicStopPostfix))));
-        
+
+        _activeModGUID = config.Bind("Nautilus", "ActiveModTheme", "Subnautica");
         InternalLogger.Log("MainMenuPatcher is done.", LogLevel.Debug);
     }
 
@@ -96,7 +98,7 @@ internal static class MainMenuPatcher
         _choiceOption.currentText.raycastTarget = false;
         RefreshModOptions(_choiceOption);
         
-        if (TitleObjectDatas.TryGetValue(_activeModGUID, out var data))
+        if (TitleObjectDatas.TryGetValue(_activeModGUID.Value, out var data))
         {
             int currentIndex = _choiceOption.options.IndexOf(data.localizationKey);
             if (currentIndex >= 0)
@@ -211,7 +213,7 @@ internal static class MainMenuPatcher
         }
 
         var data = TitleObjectDatas.FirstOrDefault(d => d.Value.localizationKey == choice.options[choice.currentIndex]);
-        _activeModGUID = choice.currentIndex == 0 ? "Subnautica" : data.Key;
+        _activeModGUID.Value = choice.currentIndex == 0 ? "Subnautica" : data.Key;
 
         onActiveModChanged?.Invoke();
     }
@@ -270,5 +272,5 @@ internal static class MainMenuPatcher
         RefreshModOptions(_choiceOption);
     }
 
-    internal static string GetActiveModGUID() => _activeModGUID;
+    internal static string GetActiveModGUID() => _activeModGUID.Value;
 }

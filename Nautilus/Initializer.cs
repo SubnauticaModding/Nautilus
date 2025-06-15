@@ -86,6 +86,6 @@ public class Initializer : BaseUnityPlugin
         ModMessageSystem.Patch();
         BiomePatcher.Patch(_harmony);
         DependencyWarningPatcher.Patch(_harmony);
-        MainMenuPatcher.Patch(_harmony);
+        MainMenuPatcher.Patch(_harmony, Config);
     }
 }
