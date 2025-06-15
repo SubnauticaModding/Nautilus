@@ -4,23 +4,35 @@ using UnityEngine;
 
 namespace Nautilus.Handlers.TitleScreen;
 
+/// <summary>
+/// Enables and disables a custom GameObject in the main menu depending on what mod theme is selected
+/// </summary>
 public class WorldObjectTitleAddon : TitleAddon
 {
     private Func<GameObject> _spawnObject;
     private GameObject _worldObject;
 
+    /// <summary>
+    /// Spawns in the specified <see cref="GameObject"/> when your mod is selected
+    /// </summary>
+    /// <param name="spawnObject">A function to get the object to enable. Nautilus expects this object to already be instantiated</param>
+    /// <param name="requiredGUIDs">The required mod GUIDs for this addon to enable. Each required mod must approve
+    /// this addon by using <see cref="TitleScreenHandler.ApproveTitleCollaboration"/></param>
     public WorldObjectTitleAddon(Func<GameObject> spawnObject, params string[] requiredGUIDs) : base (requiredGUIDs)
     {
         _spawnObject = spawnObject;
     }
 
+    /// <summary>
+    /// Sets the correct sky appliers on the managed object
+    /// </summary>
     public override void Initialize()
     {
         _worldObject = _spawnObject();
         UWE.CoroutineHost.StartCoroutine(SetupObjectSkyAppliers());
     }
 
-    protected virtual IEnumerator SetupObjectSkyAppliers()
+    private IEnumerator SetupObjectSkyAppliers()
     {
         var menuLogo = GameObject.FindObjectOfType<MenuLogo>();
 
@@ -35,11 +47,17 @@ public class WorldObjectTitleAddon : TitleAddon
         }
     }
     
+    /// <summary>
+    /// Enables the managed object
+    /// </summary>
     public override void OnEnable()
     {
         _worldObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Disables the managed object
+    /// </summary>
     public override void OnDisable()
     {
         _worldObject.SetActive(false);
