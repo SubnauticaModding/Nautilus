@@ -96,6 +96,16 @@ internal static class MainMenuPatcher
         _choiceOption.currentText.raycastTarget = false;
         RefreshModOptions(_choiceOption);
         
+        if (TitleObjectDatas.TryGetValue(_activeModGUID, out var data))
+        {
+            int currentIndex = _choiceOption.options.IndexOf(data.localizationKey);
+            if (currentIndex >= 0)
+            {
+                _choiceOption.value = currentIndex;
+                OnActiveModChanged(_choiceOption);
+            }
+        }
+        
         Language.main.onLanguageChanged += () => UpdateButtonPositions(_choiceOption);
 
         UWE.CoroutineHost.StartCoroutine(AddButtonListeners(_choiceOption));
