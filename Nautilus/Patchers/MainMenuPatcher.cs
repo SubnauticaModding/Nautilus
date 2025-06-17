@@ -186,9 +186,12 @@ internal static class MainMenuPatcher
                 foreach (var addon in titleData.Value.addons)
                 {
                     if (!AddonApprovedForCollab(addon)) continue;
-                    
-                    addon.OnEnable();
-                    addon.isEnabled = true;
+
+                    if (!addon.isEnabled)
+                    {
+                        addon.OnEnable();
+                        addon.isEnabled = true;
+                    }
 
                     if (addon is MusicTitleAddon)
                     {
@@ -200,8 +203,11 @@ internal static class MainMenuPatcher
             {
                 foreach (var addon in titleData.Value.addons)
                 {
-                    addon.OnDisable();
-                    addon.isEnabled = false;
+                    if (addon.isEnabled)
+                    {
+                        addon.OnDisable();
+                        addon.isEnabled = false;
+                    }
                 }
             }
             
