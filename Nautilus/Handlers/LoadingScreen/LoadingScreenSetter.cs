@@ -158,7 +158,7 @@ internal class LoadingScreenSetter : MonoBehaviour
 
     private void UpdatePotentialBackgrounds()
     {
-        var currentModGUID = MainMenuPatcher.GetActiveModGUID();
+        var currentModGUID = MainMenuPatcher.GetActiveModGuid();
         if (currentModGUID == "Subnautica")
         {
             _possibleLoadingScreens = null;

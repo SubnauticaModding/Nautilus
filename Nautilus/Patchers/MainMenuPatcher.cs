@@ -16,30 +16,36 @@ namespace Nautilus.Patchers;
 
 internal static class MainMenuPatcher
 {
+    #if SUBNAUTICA
+    private const string GameName = "Subnautica";
+    #elif BELOWZERO
+    private const string GameName = "Below Zero";
+    #endif
+    
     internal static readonly SelfCheckingDictionary<string, TitleScreenHandler.CustomTitleData> TitleObjectDatas = new("TitleObjectData");
 
     internal static readonly SelfCheckingDictionary<string, TitleScreenHandler.CollaborationData> CollaborationData =
         new("TitleCollaborationData");
 
     internal static event Action onActiveModChanged;
-    private static ConfigEntry<string> _activeModGUID;
+    private static ConfigEntry<string> _activeModGuid;
     private static uGUI_Choice _choiceOption;
     
     internal static void Patch(Harmony harmony, ConfigFile config)
     {
         harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.Awake)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.AwakePostfix))));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(AwakePostfix))));
 
         harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.Start)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.StartPostfix))));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(StartPostfix))));
 
         harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.SceneLoadingAwakePostfix))));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(SceneLoadingAwakePostfix))));
         
         harmony.Patch(AccessTools.Method(typeof(MainMenuMusic), nameof(MainMenuMusic.Stop)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuPatcher.MainMenuMusicStopPostfix))));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuMusicStopPostfix))));
 
-        _activeModGUID = config.Bind("Nautilus", "ActiveModTheme", "Subnautica");
+        _activeModGuid = config.Bind("Nautilus", "ActiveModTheme", GameName);
         InternalLogger.Log("MainMenuPatcher is done.", LogLevel.Debug);
     }
 
@@ -98,7 +104,7 @@ internal static class MainMenuPatcher
         _choiceOption.currentText.raycastTarget = false;
         RefreshModOptions(_choiceOption);
         
-        if (TitleObjectDatas.TryGetValue(_activeModGUID.Value, out var data))
+        if (TitleObjectDatas.TryGetValue(_activeModGuid.Value, out var data))
         {
             int currentIndex = _choiceOption.options.IndexOf(data.localizationKey);
             if (currentIndex >= 0)
@@ -115,7 +121,7 @@ internal static class MainMenuPatcher
 
     private static void RefreshModOptions(uGUI_Choice choice)
     {
-        List<string> options = new() { "Subnautica" };
+        List<string> options = new() { GameName };
         foreach (var titleData in TitleObjectDatas)
         {
             if (!titleData.Value.addons.Any(AddonApprovedForCollab))
@@ -213,7 +219,7 @@ internal static class MainMenuPatcher
         }
 
         var data = TitleObjectDatas.FirstOrDefault(d => d.Value.localizationKey == choice.options[choice.currentIndex]);
-        _activeModGUID.Value = choice.currentIndex == 0 ? "Subnautica" : data.Key;
+        _activeModGuid.Value = choice.currentIndex == 0 ? GameName : data.Key;
 
         onActiveModChanged?.Invoke();
     }
@@ -272,5 +278,5 @@ internal static class MainMenuPatcher
         RefreshModOptions(_choiceOption);
     }
 
-    internal static string GetActiveModGUID() => _activeModGUID.Value;
+    internal static string GetActiveModGuid() => _activeModGuid.Value;
 }
