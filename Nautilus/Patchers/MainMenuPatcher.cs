@@ -163,6 +163,8 @@ internal static class MainMenuPatcher
         
         nextButtonRect.localPosition = new Vector3(offset, nextButtonRect.localPosition.y, nextButtonRect.localPosition.z);
         prevButtonRect.localPosition = new Vector3(-offset, prevButtonRect.localPosition.y, prevButtonRect.localPosition.z);
+
+        choice.gameObject.SetActive(choice.options.Count > 1);
     }
 
     private static IEnumerator AddButtonListeners(uGUI_Choice choice)
