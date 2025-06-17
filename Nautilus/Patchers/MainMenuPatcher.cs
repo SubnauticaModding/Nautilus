@@ -70,7 +70,7 @@ internal static class MainMenuPatcher
             {
                 if (addon is MusicTitleAddon)
                 {
-                    addon.OnDisable();
+                    addon.Disable();
                 }
             }
         }
@@ -82,7 +82,7 @@ internal static class MainMenuPatcher
         {
             addon.ModGuid = guid;
             addon.Initialize();
-            addon.OnDisable();
+            addon.Disable();
         }
     }
 
@@ -191,7 +191,7 @@ internal static class MainMenuPatcher
 
                     if (!addon.IsEnabled)
                     {
-                        addon.OnEnable();
+                        addon.Enable();
                     }
 
                     if (addon is MusicTitleAddon)
@@ -206,7 +206,7 @@ internal static class MainMenuPatcher
                 {
                     if (addon.IsEnabled)
                     {
-                        addon.OnDisable();
+                        addon.Disable();
                     }
                 }
             }

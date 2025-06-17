@@ -43,7 +43,7 @@ public class SkyChangeTitleAddon : TitleAddon, IManagedUpdateBehaviour
     /// <summary>
     /// Activates the sky change.
     /// </summary>
-    public override void OnEnable()
+    protected override void OnEnable()
     {
         DeregisterPreviousSkyChange();
         _previousSettings = uSkyManager.main != null ? GetSettingsFromSkyManager(uSkyManager.main) : null;
@@ -52,14 +52,12 @@ public class SkyChangeTitleAddon : TitleAddon, IManagedUpdateBehaviour
         _revertingToDefaultSky = false;
         BehaviourUpdateUtils.Register(this);
         _activeSkyChange = this;
-        
-        base.OnEnable();
     }
 
     /// <summary>
     /// De-activates the sky change.
     /// </summary>
-    public override void OnDisable()
+    protected override void OnDisable()
     {
         // Don't de-register JUST yet, let's first revert to the default sky until someone else takes over
         var skyManager = uSkyManager.main;
@@ -71,8 +69,6 @@ public class SkyChangeTitleAddon : TitleAddon, IManagedUpdateBehaviour
         {
             BehaviourUpdateUtils.Deregister(this);
         }
-        
-        base.OnDisable();
     }
 
     /// <summary>

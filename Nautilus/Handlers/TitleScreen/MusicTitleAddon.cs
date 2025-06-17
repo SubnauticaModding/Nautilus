@@ -11,7 +11,7 @@ public class MusicTitleAddon : TitleAddon
     protected readonly FMODAsset Asset;
     
     /// <summary>
-    /// The custom emitter created in <see cref="MusicTitleAddon.Initialize"/>.
+    /// The custom emitter created in <see cref="OnInitialize"/>.
     /// </summary>
     protected FMOD_CustomEmitter CustomEmitter;
     
@@ -30,7 +30,7 @@ public class MusicTitleAddon : TitleAddon
     /// <summary>
     /// Sets up the FMOD looping emitter with the provided asset.
     /// </summary>
-    public override void Initialize()
+    protected override void OnInitialize()
     {
         var functionalityRoot = MainMenuMusic.main.gameObject;
         CustomEmitter = functionalityRoot.AddComponent<FMOD_CustomLoopingEmitter>();
@@ -41,20 +41,16 @@ public class MusicTitleAddon : TitleAddon
     /// <summary>
     /// Enables the music.
     /// </summary>
-    public override void OnEnable()
+    protected override void OnEnable()
     {
-        base.OnEnable();
-        
         CustomEmitter.Play();
     }
 
     /// <summary>
     /// Disables the music.
     /// </summary>
-    public override void OnDisable()
+    protected override void OnDisable()
     {
-        base.OnDisable();
-        
         CustomEmitter.Stop();
     }
 }

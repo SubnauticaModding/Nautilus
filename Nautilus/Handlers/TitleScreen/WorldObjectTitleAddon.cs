@@ -46,7 +46,7 @@ public class WorldObjectTitleAddon : TitleAddon, IManagedUpdateBehaviour
     /// <summary>
     /// Sets the correct sky appliers on the managed object.
     /// </summary>
-    public override void Initialize()
+    protected override void OnInitialize()
     {
         WorldObject = SpawnObject();
         UWE.CoroutineHost.StartCoroutine(SetupObjectSkyAppliers());
@@ -72,10 +72,8 @@ public class WorldObjectTitleAddon : TitleAddon, IManagedUpdateBehaviour
     /// <summary>
     /// Enables the managed object.
     /// </summary>
-    public override void OnEnable()
+    protected override void OnEnable()
     {
-        base.OnEnable();
-        
         BehaviourUpdateUtils.Register(this);
         _currentFadeInTime = 0;
         _fadingIn = true;
@@ -84,10 +82,8 @@ public class WorldObjectTitleAddon : TitleAddon, IManagedUpdateBehaviour
     /// <summary>
     /// Disables the managed object.
     /// </summary>
-    public override void OnDisable()
+    protected override void OnDisable()
     {
-        base.OnDisable();
-
         _fadingIn = false;
         _currentFadeInTime = 0;
     }
