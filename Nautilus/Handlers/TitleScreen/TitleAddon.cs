@@ -13,7 +13,7 @@ public abstract class TitleAddon
     /// <summary>
     /// Whether the addon is currently enabled.
     /// </summary>
-    public bool IsEnabled { get; protected set; }
+    public bool IsEnabled { get; private set; }
     
     /// <summary>
     /// The required mod GUIDs for this addon to be enabled.
