@@ -8,17 +8,17 @@ public abstract class TitleAddon
     /// <summary>
     /// The GUID of the mod that owns this addon.
     /// </summary>
-    protected internal string ModGuid { get; internal set; }
+    public string ModGuid { get; internal set; }
     
     /// <summary>
     /// Whether the addon is currently enabled.
     /// </summary>
-    protected internal bool IsEnabled { get; internal set; }
+    public bool IsEnabled { get; protected set; }
     
     /// <summary>
     /// The required mod GUIDs for this addon to be enabled.
     /// </summary>
-    protected internal string[] RequiredGUIDs { get; }
+    public string[] RequiredGUIDs { get; }
 
     /// <summary>
     /// Creates a new instance of TitleAddon.
@@ -42,15 +42,21 @@ public abstract class TitleAddon
     /// Runs initialization code once before the main menu is loaded to set up required fields.
     /// </summary>
     public virtual void Initialize() { }
-    
+
     /// <summary>
     /// Called when the addon is enabled. This occurs when your mod is selected as the current theme.
     /// </summary>
-    public abstract void OnEnable();
-    
+    public virtual void OnEnable()
+    {
+        IsEnabled = true;
+    }
+
     /// <summary>
     /// Called when the addon is disabled. This occurs when your mod is deselected as the current theme, or
     /// if the addon inherits from <see cref="MusicTitleAddon"/> and the game starts.
     /// </summary>
-    public abstract void OnDisable();
+    public virtual void OnDisable()
+    {
+        IsEnabled = false;
+    }
 }

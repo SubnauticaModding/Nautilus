@@ -190,7 +190,6 @@ internal static class MainMenuPatcher
                     if (!addon.IsEnabled)
                     {
                         addon.OnEnable();
-                        addon.IsEnabled = true;
                     }
 
                     if (addon is MusicTitleAddon)
@@ -206,7 +205,6 @@ internal static class MainMenuPatcher
                     if (addon.IsEnabled)
                     {
                         addon.OnDisable();
-                        addon.IsEnabled = false;
                     }
                 }
             }

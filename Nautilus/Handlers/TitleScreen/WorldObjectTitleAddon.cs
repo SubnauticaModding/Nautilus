@@ -9,8 +9,15 @@ namespace Nautilus.Handlers.TitleScreen;
 /// </summary>
 public class WorldObjectTitleAddon : TitleAddon
 {
-    private Func<GameObject> _spawnObject;
-    private GameObject _worldObject;
+    /// <summary>
+    /// The func to spawn the world object. Set in the constructor
+    /// </summary>
+    protected readonly Func<GameObject> SpawnObject;
+    
+    /// <summary>
+    /// The object that is spawned in the world and managed
+    /// </summary>
+    protected GameObject WorldObject;
 
     /// <summary>
     /// Spawns in the specified <see cref="GameObject"/> when your mod is selected.
@@ -21,7 +28,7 @@ public class WorldObjectTitleAddon : TitleAddon
     /// this addon by using <see cref="TitleScreenHandler.ApproveTitleCollaboration"/>.</param>
     public WorldObjectTitleAddon(Func<GameObject> spawnObject, params string[] requiredGUIDs) : base (requiredGUIDs)
     {
-        _spawnObject = spawnObject;
+        SpawnObject = spawnObject;
     }
 
     /// <summary>
@@ -29,7 +36,7 @@ public class WorldObjectTitleAddon : TitleAddon
     /// </summary>
     public override void Initialize()
     {
-        _worldObject = _spawnObject();
+        WorldObject = SpawnObject();
         UWE.CoroutineHost.StartCoroutine(SetupObjectSkyAppliers());
     }
 
@@ -40,7 +47,7 @@ public class WorldObjectTitleAddon : TitleAddon
         yield return new WaitUntil(() => menuLogo.logoObject);
 
         var customSky = menuLogo.logoObject.GetComponent<SkyApplier>().customSkyPrefab;
-        foreach (var applier in _worldObject.GetComponentsInChildren<SkyApplier>(true))
+        foreach (var applier in WorldObject.GetComponentsInChildren<SkyApplier>(true))
         {
             applier.customSkyPrefab = customSky;
             
@@ -53,7 +60,9 @@ public class WorldObjectTitleAddon : TitleAddon
     /// </summary>
     public override void OnEnable()
     {
-        _worldObject.SetActive(true);
+        base.OnEnable();
+        
+        WorldObject.SetActive(true);
     }
 
     /// <summary>
@@ -61,6 +70,8 @@ public class WorldObjectTitleAddon : TitleAddon
     /// </summary>
     public override void OnDisable()
     {
-        _worldObject.SetActive(false);
+        base.OnDisable();
+        
+        WorldObject.SetActive(false);
     }
 }

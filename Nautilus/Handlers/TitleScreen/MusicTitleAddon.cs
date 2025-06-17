@@ -8,12 +8,12 @@ public class MusicTitleAddon : TitleAddon
     /// <summary>
     /// The FMOD asset passed into the instance when created.
     /// </summary>
-    protected readonly FMODAsset _asset;
+    protected readonly FMODAsset Asset;
     
     /// <summary>
     /// The custom emitter created in <see cref="MusicTitleAddon.Initialize"/>.
     /// </summary>
-    protected FMOD_CustomEmitter _customEmitter;
+    protected FMOD_CustomEmitter CustomEmitter;
     
     /// <summary>
     /// Creates a new <see cref="MusicTitleAddon"/>. The music will be enabled when your mod is selected and disabled when the game starts or
@@ -24,7 +24,7 @@ public class MusicTitleAddon : TitleAddon
     /// this addon by using <see cref="TitleScreenHandler.ApproveTitleCollaboration"/>.</param>
     public MusicTitleAddon(FMODAsset asset, params string[] requiredGUIDs) : base (requiredGUIDs)
     {
-        _asset = asset;
+        Asset = asset;
     }
 
     /// <summary>
@@ -33,9 +33,9 @@ public class MusicTitleAddon : TitleAddon
     public override void Initialize()
     {
         var functionalityRoot = MainMenuMusic.main.gameObject;
-        _customEmitter = functionalityRoot.AddComponent<FMOD_CustomLoopingEmitter>();
-        _customEmitter.asset = _asset;
-        _customEmitter.restartOnPlay = true;
+        CustomEmitter = functionalityRoot.AddComponent<FMOD_CustomLoopingEmitter>();
+        CustomEmitter.asset = Asset;
+        CustomEmitter.restartOnPlay = true;
     }
 
     /// <summary>
@@ -43,7 +43,9 @@ public class MusicTitleAddon : TitleAddon
     /// </summary>
     public override void OnEnable()
     {
-        _customEmitter.Play();
+        base.OnEnable();
+        
+        CustomEmitter.Play();
     }
 
     /// <summary>
@@ -51,6 +53,8 @@ public class MusicTitleAddon : TitleAddon
     /// </summary>
     public override void OnDisable()
     {
-        _customEmitter.Stop();
+        base.OnDisable();
+        
+        CustomEmitter.Stop();
     }
 }
