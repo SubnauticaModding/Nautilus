@@ -8,17 +8,17 @@ public abstract class TitleAddon
     /// <summary>
     /// The GUID of the mod that owns this addon.
     /// </summary>
-    public string modGUID;
+    protected internal string ModGuid { get; internal set; }
     
     /// <summary>
     /// Whether the addon is currently enabled.
     /// </summary>
-    public bool isEnabled;
+    protected internal bool IsEnabled { get; internal set; }
     
     /// <summary>
     /// The required mod GUIDs for this addon to be enabled.
     /// </summary>
-    public string[] requiredGUIDs;
+    protected internal string[] RequiredGUIDs { get; }
 
     /// <summary>
     /// Creates a new instance of TitleAddon.
@@ -35,7 +35,7 @@ public abstract class TitleAddon
     /// this addon by using <see cref="TitleScreenHandler.ApproveTitleCollaboration"/>.</param>
     protected TitleAddon(string[] requiredGUIDs)
     {
-        this.requiredGUIDs = requiredGUIDs;
+        this.RequiredGUIDs = requiredGUIDs;
     }
 
     /// <summary>

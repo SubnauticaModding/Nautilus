@@ -80,7 +80,7 @@ internal static class MainMenuPatcher
     {
         foreach (var addon in titleData.addons)
         {
-            addon.modGUID = guid;
+            addon.ModGuid = guid;
             addon.Initialize();
             addon.OnDisable();
         }
@@ -187,10 +187,10 @@ internal static class MainMenuPatcher
                 {
                     if (!AddonApprovedForCollab(addon)) continue;
 
-                    if (!addon.isEnabled)
+                    if (!addon.IsEnabled)
                     {
                         addon.OnEnable();
-                        addon.isEnabled = true;
+                        addon.IsEnabled = true;
                     }
 
                     if (addon is MusicTitleAddon)
@@ -203,10 +203,10 @@ internal static class MainMenuPatcher
             {
                 foreach (var addon in titleData.Value.addons)
                 {
-                    if (addon.isEnabled)
+                    if (addon.IsEnabled)
                     {
                         addon.OnDisable();
-                        addon.isEnabled = false;
+                        addon.IsEnabled = false;
                     }
                 }
             }
@@ -215,7 +215,7 @@ internal static class MainMenuPatcher
         }
         
         bool customMusicActive = TitleObjectDatas.Values.Any(data =>
-            data.addons.Any(addon => addon is MusicTitleAddon && addon.isEnabled));
+            data.addons.Any(addon => addon is MusicTitleAddon && addon.IsEnabled));
         if (!customMusicActive)
         {
             MainMenuMusic.main.evt.getPlaybackState(out var state);
@@ -233,22 +233,22 @@ internal static class MainMenuPatcher
     private static bool AddonApprovedForCollab(TitleAddon addon)
     {
         bool hasRequiredMods = true;
-        foreach (var guid in addon.requiredGUIDs)
+        foreach (var guid in addon.RequiredGUIDs)
         {
             hasRequiredMods = false;
 
             if (!CollaborationData.TryGetValue(guid, out var collabData))
             {
                 InternalLogger.Log(
-                    $"{guid} was not installed/registered for the addon {addon.GetType()} from {addon.modGUID}. Not allowing addon to be enabled", 
+                    $"{guid} was not installed/registered for the addon {addon.GetType()} from {addon.ModGuid}. Not allowing addon to be enabled", 
                     LogLevel.Debug);
                 break;
             }
 
-            if (!collabData.modApprovedAddons.TryGetValue(addon.modGUID, out var approvedTypes))
+            if (!collabData.modApprovedAddons.TryGetValue(addon.ModGuid, out var approvedTypes))
             {
                 InternalLogger.Log(
-                    $"{guid} did not have {addon.modGUID} listed as a collaborator. Not allowing {addon.GetType()} to be enabled", 
+                    $"{guid} did not have {addon.ModGuid} listed as a collaborator. Not allowing {addon.GetType()} to be enabled", 
                     LogLevel.Debug);
                 break;
             }
@@ -257,7 +257,7 @@ internal static class MainMenuPatcher
             if (!approvesAll && !approvedTypes.Contains(addon.GetType()))
             {
                 InternalLogger.Log(
-                    $"{guid} had {addon.modGUID} listed as a collaborator, but {addon.GetType()} was not a whitelisted type. Not allowing addon to be enabled", 
+                    $"{guid} had {addon.ModGuid} listed as a collaborator, but {addon.GetType()} was not a whitelisted type. Not allowing addon to be enabled", 
                     LogLevel.Debug);
                 break;
             }
