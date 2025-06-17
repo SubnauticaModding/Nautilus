@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Nautilus.Handlers.TitleScreen;
 
 /// <summary>
-/// Enables and disables a custom GameObject in the main menu depending on what mod theme is selected
+/// Enables and disables a custom GameObject in the main menu depending on what mod theme is selected.
 /// </summary>
 public class WorldObjectTitleAddon : TitleAddon
 {
@@ -13,19 +13,19 @@ public class WorldObjectTitleAddon : TitleAddon
     private GameObject _worldObject;
 
     /// <summary>
-    /// Spawns in the specified <see cref="GameObject"/> when your mod is selected
+    /// Spawns in the specified <see cref="GameObject"/> when your mod is selected.
     /// </summary>
     /// <param name="spawnObject">A function to get the object to enable. It is recommended to spawn your object in this method to ensure
-    /// returning to the main menu from a save does not cause NREs</param>
+    /// returning to the main menu from a save does not cause NREs.</param>
     /// <param name="requiredGUIDs">The required mod GUIDs for this addon to enable. Each required mod must approve
-    /// this addon by using <see cref="TitleScreenHandler.ApproveTitleCollaboration"/></param>
+    /// this addon by using <see cref="TitleScreenHandler.ApproveTitleCollaboration"/>.</param>
     public WorldObjectTitleAddon(Func<GameObject> spawnObject, params string[] requiredGUIDs) : base (requiredGUIDs)
     {
         _spawnObject = spawnObject;
     }
 
     /// <summary>
-    /// Sets the correct sky appliers on the managed object
+    /// Sets the correct sky appliers on the managed object.
     /// </summary>
     public override void Initialize()
     {
@@ -49,7 +49,7 @@ public class WorldObjectTitleAddon : TitleAddon
     }
     
     /// <summary>
-    /// Enables the managed object
+    /// Enables the managed object.
     /// </summary>
     public override void OnEnable()
     {
@@ -57,7 +57,7 @@ public class WorldObjectTitleAddon : TitleAddon
     }
 
     /// <summary>
-    /// Disables the managed object
+    /// Disables the managed object.
     /// </summary>
     public override void OnDisable()
     {
