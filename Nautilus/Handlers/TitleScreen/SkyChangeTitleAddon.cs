@@ -75,8 +75,10 @@ public class SkyChangeTitleAddon : TitleAddon, IManagedUpdateBehaviour
         base.OnDisable();
     }
 
-    // Called every frame while registered.
-    void IManagedUpdateBehaviour.ManagedUpdate()
+    /// <summary>
+    /// Called every frame while registered.
+    /// </summary>
+    public virtual void ManagedUpdate()
     {
         if (!_transitionActive)
             return;
