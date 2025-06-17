@@ -35,7 +35,7 @@ public abstract class TitleAddon
     /// this addon by using <see cref="TitleScreenHandler.ApproveTitleCollaboration"/>.</param>
     protected TitleAddon(string[] requiredGUIDs)
     {
-        this.RequiredGUIDs = requiredGUIDs;
+        RequiredGUIDs = requiredGUIDs;
     }
 
     /// <summary>

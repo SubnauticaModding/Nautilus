@@ -1,5 +1,4 @@
-﻿using Nautilus.Utility;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Nautilus.Handlers.TitleScreen;
 
