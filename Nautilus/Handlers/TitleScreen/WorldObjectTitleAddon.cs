@@ -25,6 +25,8 @@ public class WorldObjectTitleAddon : TitleAddon, IManagedUpdateBehaviour
     /// </summary>
     protected GameObject WorldObject;
 
+    private Renderer[] _fadeRenderers;
+    private Graphic[] _fadeGraphics;
     private float _currentFadeInTime;
     private bool _fadingIn;
     
@@ -51,6 +53,9 @@ public class WorldObjectTitleAddon : TitleAddon, IManagedUpdateBehaviour
         WorldObject = SpawnObject();
         UWE.CoroutineHost.StartCoroutine(SetupObjectSkyAppliers());
         WorldObject.SetActive(false);
+
+        _fadeRenderers = WorldObject.GetComponentsInChildren<Renderer>(true);
+        _fadeGraphics = WorldObject.GetComponentsInChildren<Graphic>(true);
     }
 
     private IEnumerator SetupObjectSkyAppliers()
@@ -92,12 +97,12 @@ public class WorldObjectTitleAddon : TitleAddon, IManagedUpdateBehaviour
     {
         if (!WorldObject) return;
 
-        foreach (var rend in WorldObject.GetComponentsInChildren<Renderer>(true))
+        foreach (var rend in _fadeRenderers)
         {
             rend.SetFadeAmount(alpha);
         }
         
-        foreach (var graphic in WorldObject.GetComponentsInChildren<Graphic>(true))
+        foreach (var graphic in _fadeGraphics)
         {
             var col = new Color(graphic.color.r, graphic.color.g, graphic.color.b, alpha);
             graphic.color = col;
