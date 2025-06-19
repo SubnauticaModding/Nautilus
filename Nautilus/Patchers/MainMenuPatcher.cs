@@ -196,7 +196,14 @@ internal static class MainMenuPatcher
 
                     if (addon is MusicTitleAddon)
                     {
-                        MainMenuMusic.main.evt.stop(STOP_MODE.ALLOWFADEOUT);
+                        EventInstance musicEvent;
+                        #if SN_STABLE
+                        musicEvent = MainMenuMusic.main.evt;
+                        #elif BZ_STABLE
+                        musicEvent = MainMenuMusic.main.eventMusic;
+                        #endif
+                        
+                        musicEvent.stop(STOP_MODE.ALLOWFADEOUT);
                     }
                 }
             }
@@ -218,10 +225,17 @@ internal static class MainMenuPatcher
             data.addons.Any(addon => addon is MusicTitleAddon && addon.IsEnabled));
         if (!customMusicActive)
         {
-            MainMenuMusic.main.evt.getPlaybackState(out var state);
+            EventInstance musicEvent;
+            #if SN_STABLE
+            musicEvent = MainMenuMusic.main.evt;
+            #elif BZ_STABLE
+            musicEvent = MainMenuMusic.main.eventMusic;
+            #endif
+            
+            musicEvent.getPlaybackState(out var state);
             if (state is PLAYBACK_STATE.PLAYING or PLAYBACK_STATE.SUSTAINING) return;
             
-            MainMenuMusic.main.evt.start();
+            musicEvent.start();
         }
 
         var data = TitleObjectDatas.FirstOrDefault(d => d.Value.localizationKey == choice.options[choice.currentIndex]);
