@@ -197,9 +197,9 @@ internal static class MainMenuPatcher
                     if (addon is MusicTitleAddon)
                     {
                         EventInstance musicEvent;
-                        #if SN_STABLE
+                        #if SUBNAUTICA
                         musicEvent = MainMenuMusic.main.evt;
-                        #elif BZ_STABLE
+                        #elif BELOWZERO
                         musicEvent = MainMenuMusic.main.eventMusic;
                         #endif
                         
@@ -226,9 +226,9 @@ internal static class MainMenuPatcher
         if (!customMusicActive)
         {
             EventInstance musicEvent;
-            #if SN_STABLE
+            #if SUBNAUTICA
             musicEvent = MainMenuMusic.main.evt;
-            #elif BZ_STABLE
+            #elif BELOWZERO
             musicEvent = MainMenuMusic.main.eventMusic;
             #endif
             
