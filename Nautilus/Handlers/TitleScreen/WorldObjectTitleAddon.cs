@@ -89,8 +89,11 @@ public class WorldObjectTitleAddon : TitleAddon, IManagedUpdateBehaviour
     /// </summary>
     protected override void OnDisable()
     {
+        if (!_fadingIn)
+            _currentFadeInTime = 0;
+        else
+            _currentFadeInTime = FadeInTime - _currentFadeInTime;
         _fadingIn = false;
-        _currentFadeInTime = 0;
     }
 
     private void UpdateObjectOpacities(float alpha)
