@@ -119,7 +119,11 @@ public class WorldObjectTitleAddon : TitleAddon, IManagedUpdateBehaviour
     /// </summary>
     public virtual void ManagedUpdate()
     {
-        if (!WorldObject) return;
+        if (!WorldObject)
+        {
+            BehaviourUpdateUtils.Deregister(this);
+            return;
+        }
         
         if (_currentFadeInTime < FadeInTime)
         {
