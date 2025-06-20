@@ -147,7 +147,7 @@ Call the builder's `CreateNewEvent(id, bus)` method, passing in the ID/event pat
 bus path.
 
 Now, use the returned value to set any settings as necessary using the fluent syntax setup.
-See [IFmodSoundBuilder](xref:Nautilus.FMod.Interfaces.IFmodSoundBuilder) for a list of possible functions.
+See [IFModSoundBuilder](xref:Nautilus.FMod.Interfaces.IFModSoundBuilder) for a list of possible functions.
 
 Be sure to always call the `Register` method on the builder when you are done with a sound.
 
