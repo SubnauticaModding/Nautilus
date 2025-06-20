@@ -18,9 +18,9 @@ Therefore, FMOD support for mods is relatively limited. However, many options st
 While Unity audio (AudioSources, AudioClips, etc.) does function in Subnautica thanks to the BepInEx pack, it has
 various issues:
 
-- It is not affected by the volume slider
-- Any effects, such as muffling and reverb, are not supported
-- These sounds continue to play while the game is paused
+- It is not affected by the volume slider.
+- Any effects, such as muffling and reverb, are not supported.
+- These sounds continue to play while the game is paused.
 - A problematic setup can cause ear-piercing screeching sounds.
 - There is a risk of it using the wrong sound device.
 - Unity audio cannot directly be used in any of the game's sound systems.
