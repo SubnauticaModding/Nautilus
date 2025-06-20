@@ -52,6 +52,16 @@ public static partial class AudioUtils
         /// Used for player and hand-held tools SFXs. Tied to the master volume.
         /// </summary>
         public const string PlayerSFXs = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend";
+        
+        /// <summary>
+        /// Used for general SFX that plays above and below water. Tied to the ambient volume.
+        /// </summary>
+        public const string SFX = "bus:/master/SFX_for_pause/PDA_pause/all/SFX";
+        
+        /// <summary>
+        /// Used for the Cyclops voice. Tied to the voice volume.
+        /// </summary>
+        public const string CyclopsVoice = "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice";
     }
 }
 #endif
