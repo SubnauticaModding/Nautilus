@@ -169,7 +169,7 @@ builder.CreateNewEvent("NewButtonSound", "bus:/master/SFX_for_pause/PDA_pause/al
 // Registers a creature sound
 builder.CreateNewEvent("NewCreatureSound", "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures")
     .SetMode3D(1, 20) // Distance falloff starts at 1 meter, and it cannot be heard beyond 20 meters.
-    .SetSounds(true, s => s.StartsWith("CreatureSound")) // Loads all files that start with "NewCreatureSound", such as "CreatureSound1", "CreatureSound2", etc.
+    .SetSounds(true, s => s.StartsWith("CreatureSound")) // Loads all files that start with "CreatureSound", such as "CreatureSound1", "CreatureSound2", etc.
     .Register();
 
 // Registers custom music
