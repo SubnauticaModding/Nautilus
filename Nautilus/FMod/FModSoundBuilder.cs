@@ -50,6 +50,7 @@ public class FModSoundBuilder : IFModSoundBuilder
     /// <returns>An instance of the builder for further setup.</returns>
     public IFModSoundBuilder CreateNewEvent(string id, string bus)
     {
+        Reset();
         _id = id;
         _bus = bus;
         return this;
