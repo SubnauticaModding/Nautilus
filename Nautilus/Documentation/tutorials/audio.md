@@ -34,7 +34,7 @@ There is, however, no issue with converting an AudioClip to an FMOD Event.
 A `Sound` in FMOD is a struct which essentially points to byte data of an audio clip. Sounds also have a `MODE`, as
 explained below. Sounds are necessary to create events.
 
-To create a Sound, see [AudioUtils.CreateSound](xref:Nautilus.Utility.AudioUtils.CreateSound) and similar methods in the
+To create a Sound, see [AudioUtils.CreateSound](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_CreateSound_UnityEngine_AudioClip_FMOD_MODE_) and similar methods in the
 same class. In Nautilus, you can create a Sound from a Unity AudioClip (with an Asset Bundle) or a raw sound file.
 
 You cannot (or at least generally should not) directly play a Sound. Instead, register the sound as an Event.
@@ -59,7 +59,7 @@ In most cases, the game's system only uses the path, but it's a good practice to
 sounds, the two are interchangeable).
 
 To quickly create an FMOD Asset, you can call
-[AudioUtils.GetFmodAsset](xref:Nautilus.Utility.AudioUtils.GetFmodAsset),
+[AudioUtils.GetFmodAsset](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_),
 store the result, and use it as needed.
 It is recommended that you cache this reference to prevent memory leaks.
 
