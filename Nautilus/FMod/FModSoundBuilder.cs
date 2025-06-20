@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using FMOD;
 using Nautilus.Extensions;
 using Nautilus.FMod.Interfaces;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using UnityEngine;
 
 namespace Nautilus.FMod;
 
@@ -17,7 +14,7 @@ public class FModSoundBuilder : IFModSoundBuilder
 {
     // - Persistent data -
 
-    private readonly FModSoundBuilderLoader _loader;
+    private readonly CustomSoundSourceBase _loader;
 
     // - Builder class data -
 
@@ -28,15 +25,29 @@ public class FModSoundBuilder : IFModSoundBuilder
     private float? _fadeDuration;
     private string _clipName;
     private string[] _clipNamesForMultipleSounds;
+    private Func<string, bool> _predicateForMultipleSounds;
     private bool _randomizeSoundOrder;
 
-    public FModSoundBuilder(FModSoundBuilderLoader loader)
+    /// <summary>
+    /// Creates a new sound builder that loads sounds from a given source.
+    /// </summary>
+    /// <param name="loader">Determines how the sound builder locates and loads sounds.</param>
+    /// <seealso cref="AssetBundleSoundSource"/>
+    /// <seealso cref="ModFolderSoundSource"/>
+    public FModSoundBuilder(CustomSoundSourceBase loader)
     {
         _loader = loader;
     }
 
     // Essential methods
 
+    /// <summary>
+    /// Begins constructing a new FMOD sound event with the given parameters.
+    /// </summary>
+    /// <param name="id">The unique ID or event path of the sound.</param>
+    /// <param name="bus">The bus that the sound is played on.
+    /// See <see cref="Nautilus.Utility.AudioUtils.BusPaths"/>.</param>
+    /// <returns>An instance of the builder for further setup.</returns>
     public IFModSoundBuilder CreateNewEvent(string id, string bus)
     {
         _id = id;
@@ -46,6 +57,11 @@ public class FModSoundBuilder : IFModSoundBuilder
 
     IFModSoundBuilder IFModSoundBuilder.SetMode(MODE mode)
     {
+        if (_mode.HasValue)
+        {
+            InternalLogger.Warn($"Trying to override mode on sound builder '{this}' when it has already been set!");
+        }
+
         _mode = mode;
         return this;
     }
@@ -53,34 +69,57 @@ public class FModSoundBuilder : IFModSoundBuilder
     IFModSoundBuilder IFModSoundBuilder.SetSound(string clipName)
     {
         _clipNamesForMultipleSounds = null;
+        _predicateForMultipleSounds = null;
+
         _clipName = clipName;
+
         return this;
     }
 
     IFModSoundBuilder IFModSoundBuilder.SetSounds(bool randomizeOrder, params string[] clipNames)
     {
         _clipName = null;
+        _predicateForMultipleSounds = null;
+
         _clipNamesForMultipleSounds = clipNames;
         _randomizeSoundOrder = randomizeOrder;
+
+        return this;
+    }
+
+    IFModSoundBuilder IFModSoundBuilder.SetSounds(bool randomizeOrder, Func<string, bool> predicate)
+    {
+        _clipName = null;
+        _clipNamesForMultipleSounds = null;
+
+        _predicateForMultipleSounds = predicate;
+        _randomizeSoundOrder = randomizeOrder;
+
         return this;
     }
 
     // Optional methods
 
-    IFModSoundBuilder IFModSoundBuilder.SetMode3D(float minDistance, float maxDistance)
+    IFModSoundBuilder IFModSoundBuilder.SetMode3D(float minDistance, float maxDistance, bool looping)
     {
         _minAndMaxDistances = (minDistance, maxDistance);
-        return ((IFModSoundBuilder) this).SetMode(AudioUtils.StandardSoundModes_3D);
+        var mode = AudioUtils.StandardSoundModes_3D;
+        if (looping) mode |= MODE.LOOP_NORMAL;
+        return ((IFModSoundBuilder) this).SetMode(mode);
     }
 
-    IFModSoundBuilder IFModSoundBuilder.SetMode2D()
+    IFModSoundBuilder IFModSoundBuilder.SetMode2D(bool looping)
     {
-        return ((IFModSoundBuilder) this).SetMode(AudioUtils.StandardSoundModes_2D);
+        var mode = AudioUtils.StandardSoundModes_2D;
+        if (looping) mode |= MODE.LOOP_NORMAL;
+        return ((IFModSoundBuilder) this).SetMode(mode);
     }
 
-    IFModSoundBuilder IFModSoundBuilder.SetModeMusic()
+    IFModSoundBuilder IFModSoundBuilder.SetModeMusic(bool looping)
     {
-        return ((IFModSoundBuilder) this).SetMode(AudioUtils.StandardSoundModes_Stream);
+        var mode = AudioUtils.StandardSoundModes_Stream;
+        if (looping) mode |= MODE.LOOP_NORMAL;
+        return ((IFModSoundBuilder) this).SetMode(mode);
     }
 
     IFModSoundBuilder IFModSoundBuilder.SetFadeDuration(float fadeDuration)
@@ -95,32 +134,56 @@ public class FModSoundBuilder : IFModSoundBuilder
     {
         // Throw exceptions and print warnings for common mistakes
         if (string.IsNullOrEmpty(_id))
-            throw new SoundBuilderException("Cannot register a sound with no ID!");
+            throw new SoundBuilderException($"{this}: Cannot register a sound with no ID!");
 
         if (string.IsNullOrEmpty(_bus))
-            throw new SoundBuilderException("Cannot register a sound with no bus!");
+            throw new SoundBuilderException($"{this}: Cannot register a sound with no bus!");
 
         if (_mode is null or MODE.DEFAULT)
-            throw new SoundBuilderException("Cannot register a sound with no mode assigned!");
+            throw new SoundBuilderException($"{this}: Cannot register a sound with no mode assigned!");
 
         if (_mode.Value.HasFlag(MODE._2D) && _minAndMaxDistances.HasValue)
             InternalLogger.Warn(
-                $"Sound '{_id}' is 2D but has a max distance assigned! This may have unexpected results.");
+                $"{this}: Sound '{_id}' is 2D but has a max distance assigned! This may have unexpected results.");
 
         // Registration
         // For single clips
         if (_clipName != null)
         {
-            var sound = _loader.LoadSound(_clipName, _mode.Value);
+            Sound sound;
+            try
+            {
+                sound = _loader.LoadSound(_clipName, _mode.Value);
+            }
+            catch (Exception e)
+            {
+                throw new SoundBuilderException($"{this}: Exception thrown while loading sound '{_clipName}': {e}");
+            }
 
             AssignSoundData(sound);
 
             CustomSoundHandler.RegisterCustomSound(_id, sound, _bus);
         }
         // For multiple clips
-        else if (_clipNamesForMultipleSounds != null)
+        else if (_clipNamesForMultipleSounds != null || _predicateForMultipleSounds != null)
         {
-            var sounds = _loader.LoadSounds(_clipNamesForMultipleSounds, _mode.Value);
+            Sound[] sounds;
+
+            try
+            {
+                if (_predicateForMultipleSounds != null)
+                {
+                    sounds = _loader.LoadSoundsWithPredicate(_predicateForMultipleSounds, _mode.Value);
+                }
+                else
+                {
+                    sounds = _loader.LoadSounds(_clipNamesForMultipleSounds, _mode.Value);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new SoundBuilderException($"{this}: Exception thrown while loading sounds: {e}");
+            }
 
             foreach (var sound in sounds)
             {
@@ -132,7 +195,7 @@ public class FModSoundBuilder : IFModSoundBuilder
         }
         else
         {
-            throw new SoundBuilderException("Cannot register a sound with no sound clip names assigned!");
+            throw new SoundBuilderException($"{this}: Cannot register a sound with no sound clip names assigned!");
         }
 
         // Reset the builder's data
@@ -160,6 +223,18 @@ public class FModSoundBuilder : IFModSoundBuilder
         _minAndMaxDistances = null;
         _fadeDuration = null;
         _randomizeSoundOrder = false;
+        _predicateForMultipleSounds = null;
+    }
+
+    /// <summary>
+    /// Returns a string representing this object for debugging purposes.
+    /// </summary>
+    /// <returns>A string with some information to help identify the context of the object.</returns>
+    public override string ToString()
+    {
+        if (_loader != null)
+            return _loader + "SoundBuilder";
+        return base.ToString();
     }
 
     private class SoundBuilderException : Exception
