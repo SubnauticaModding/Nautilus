@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>FMOD and Custom Audio </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="FMOD and Custom Audio ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/audio.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="fmod-and-custom-audio">FMOD and Custom Audio</h1>
+
+<p>This is a tutorial on adding custom sounds to Subnautica using FMOD.</p>
+<h2 id="what-is-fmod">What is FMOD?</h2>
+<p><a href="https://www.fmod.com/">FMOD</a> is the proprietary sound engine used by Subnautica. The specific version used by
+Subnautica
+is <a href="https://www.fmod.com/unity">FMOD for Unity</a>, also known as FMODUnity.</p>
+<p>The developers of Subnautica used a program called FMOD Studio, software specifically designed to create sound events,
+buses, effects, etc. for use in games. Unfortunately, modders cannot utilize this until the game's metadata is released.</p>
+<p>Therefore, FMOD support for mods is relatively limited. However, many options still exist, as this guide will show.</p>
+<h2 id="can-i-use-unity-audio">Can I Use Unity Audio?</h2>
+<p>While Unity audio (AudioSources, AudioClips, etc.) does function in Subnautica thanks to the BepInEx pack, it has
+various issues:</p>
+<ul>
+<li>It is not affected by the volume slider</li>
+<li>Any effects, such as muffling and reverb, are not supported</li>
+<li>These sounds continue to play while the game is paused</li>
+<li>A problematic setup can cause ear-piercing screeching sounds.</li>
+<li>There is a risk of it using the wrong sound device.</li>
+<li>Unity audio cannot directly be used in any of the game's sound systems.</li>
+</ul>
+<p>There is, however, no issue with converting an AudioClip to an FMOD Event.</p>
+<h2 id="important-concepts">Important Concepts</h2>
+<h3 id="sounds">Sounds</h3>
+<p>A <code>Sound</code> in FMOD is a struct which essentially points to byte data of an audio clip. Sounds also have a <code>MODE</code>, as
+explained below. Sounds are necessary to create events.</p>
+<p>To create a Sound, see <a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_CreateSound_UnityEngine_AudioClip_FMOD_MODE_">AudioUtils.CreateSound</a> and similar methods in the
+same class. In Nautilus, you can create a Sound from a Unity AudioClip (with an Asset Bundle) or a raw sound file.</p>
+<p>You cannot (or at least generally should not) directly play a Sound. Instead, register the sound as an Event.</p>
+<h3 id="events">Events</h3>
+<p>FMOD events are what the game actually recognizes, interacts with and executes to play audio. Events
+can contain one sound or multiple random sounds, are assigned a bus, and can have various effects added.</p>
+<p>Every FMOD Event has a path and an ID. In custom sounds these are interchangeable. The path/ID is required to play the
+sound.</p>
+<p>To directly register a sound (or multiple) as an event, use the methods in
+the <a class="xref" href="../api/Nautilus.Handlers.CustomSoundHandler.html">CustomSoundHandler</a>.</p>
+<h3 id="fmodassets">FMODAssets</h3>
+<p>This is a concept created by Unknown Worlds, rather than being a part of FMOD. An <code>FMODAsset</code> is a type of
+<a href="https://docs.unity3d.com/6000.1/Documentation/Manual/class-ScriptableObject.html">ScriptableObject</a>
+that contains fields for the event's <code>path</code> and <code>id</code>. These are used by the vast majority of the game's sound systems.
+In most cases, the game's system only uses the path, but it's a good practice to set both values (though for custom
+sounds, the two are interchangeable).</p>
+<p>To quickly create an FMOD Asset, you can call
+<a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_">AudioUtils.GetFmodAsset</a>,
+store the result, and use it as needed.
+It is recommended that you cache this reference to prevent memory leaks.</p>
+<p><a href="https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-FMODEvents.txt">List of FMOD Events for SN1</a></p>
+<p><a href="https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/BZ-FMODEvents.txt">List of FMOD Events for BZ</a></p>
+<h4 id="common-ways-to-play-fmod-assets">Common ways to play FMOD Assets:</h4>
+<ol>
+<li>Assigning it to the <code>asset</code> field on one of the following built-in components. These components do not typically play
+the event automatically.
+<ul>
+<li><code>FMOD_CustomEmitter</code></li>
+<li><code>FMOD_CustomLoopingEmitter</code></li>
+<li><code>FMOD_StudioEventEmitter</code></li>
+</ul>
+</li>
+<li>Using <code>Utils.PlayFMODAsset(asset, position)</code>
+<ul>
+<li>Don't use the overload that doesn't take a position— this typically results in silence, regardless of mode.</li>
+<li>Do not confuse <code>Utils</code> with <code>UWE.Utils</code>. These are two different classes.</li>
+</ul>
+</li>
+</ol>
+<h3 id="buses">Buses</h3>
+<p>In FMOD, &quot;buses&quot; are used to organize sounds into categories, typically for volume control and special effects. For
+instance, most buses are affected by various aspects of the game, such as being inside a base or swimming underwater.
+This is how muffling effects are controlled.</p>
+<p>Every sound event must be assigned a valid bus. You can find a complete list of bus paths for SN1
+<a href="https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-FMODBuses.txt">here</a>,
+and a list for BZ
+<a href="https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/BZ-FMODBuses.txt">here</a>.</p>
+<h3 id="modes">Modes</h3>
+<p>FMOD sounds can have various 'modes' applied to them. At least some must be applied for any sound to work properly. This
+is especially important for the distinction between directional (3D) and non-directional (2D) audio.</p>
+<h4 id="recommended-modes">Recommended modes:</h4>
+<ul>
+<li>For 3D sounds: <a class="xref" href="../api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_3D">AudioUtils.StandardSoundModes_3D</a>:
+<code>MODE._3D | MODE.ACCURATETIME | MODE._3D_LINEARSQUAREROLLOFF</code></li>
+<li>For 2D sounds: <a class="xref" href="../api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_2D">AudioUtils.StandardSoundModes_2D</a>:
+<code>MODE._2D | MODE.ACCURATETIME</code></li>
+<li>For music: <a class="xref" href="../api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_Stream">AudioUtils.StandardSoundModes_Stream</a>:
+<code>MODE._2D | MODE.ACCURATETIME | MODE.CREATESTREAM</code> (this is a complicated topic of optimization)</li>
+</ul>
+<h2 id="the-fmodsoundbuilder">The FModSoundBuilder</h2>
+<p>The <a class="xref" href="../api/Nautilus.FMod.FModSoundBuilder.html">FModSoundBuilder</a> is a helpful builder class that simplifies the registration
+of audio in mods.</p>
+<h3 id="step-1-define-the-audio-source">Step 1: Define the audio source</h3>
+<p>The FModSoundBuilder requires a 'CustomSoundSource' to function properly. The two implementations of this in Nautilus
+that you can use are the <code>AssetBundleSoundSource</code>, which takes in a loaded AssetBundle (so that you load clips by their
+clip name), and the <code>ModFolderSoundSource</code>, which loads clips directly from a folder within your mod folder. Keep in
+mind that the folder should be devoid of any other unrelated files if you choose to use that option.</p>
+<p>Example 1 (AssetBundleSoundSource):</p>
+<pre><code class="lang-csharp">// Load the asset bundle (keep in mind, you should cache the AssetBundle in an actual project, and never load one twice)
+AssetBundle bundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, &quot;assetbundlename&quot;);
+// Tell the system to load clips from the given asset bundle by their name
+CustomSoundSourceBase soundSource = new AssetBundleSoundSource(bundle);
+</code></pre>
+<p>Example 2 (ModFolderSoundSource)</p>
+<pre><code class="lang-csharp">// Tell the system to load clips from a folder called &quot;SoundsFolder&quot;, which is directly inside your mod folder
+CustomSoundSourceBase soundSource = new ModFolderSoundSource(&quot;SoundsFolder&quot;);
+</code></pre>
+<h3 id="step-2-create-the-builder">Step 2: Create the builder</h3>
+<pre><code class="lang-csharp">FModSoundBuilder builder = new FModSoundBuilder(soundSource);
+</code></pre>
+<h3 id="step-3-register-events">Step 3: Register events</h3>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Do not use any file extensions with the FModSoundBuilder class. Extensions should be excluded from any strings here.
+For example, it would be 'CreatureSound1', not 'CreatureSound1.mp3'.</p>
+</div>
+<p>Call the builder's <code>CreateNewEvent(id, bus)</code> method, passing in the ID/event path you want to register, and an existing
+bus path.</p>
+<p>Now, use the returned value to set any settings as necessary using the fluent syntax setup.
+See <a class="xref" href="../api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html">IFModSoundBuilder</a> for a list of possible functions.</p>
+<p>Be sure to always call the <code>Register</code> method on the builder when you are done with a sound.</p>
+<p>Examples:</p>
+<pre><code class="lang-csharp">// Registers a generic underwater sound
+builder.CreateNewEvent(&quot;EpicExplosionSound&quot;, Nautilus.Utility.AudioUtils.BusPaths.UnderwaterAmbient)
+    .SetMode3D(3, 70) // Distance falloff starts at 3 meters, and it cannot be heard beyond 70 meters.
+    .SetSound(&quot;ExplosionSound&quot;) // This could load ExplosionSound.mp3, ExplosionSound.wav, or an AssetBundle clip with the name, depending on the source and setup.
+    .Register(); // Never forget to register your audio.
+
+// Registers a 2D user interface sound
+builder.CreateNewEvent(&quot;NewButtonSound&quot;, &quot;bus:/master/SFX_for_pause/PDA_pause/all/SFX&quot;)
+    .SetMode2D()
+    .SetSounds(true, &quot;NewButtonSound1&quot;, &quot;NewButtonSound2&quot;) // This loads two sounds. The one that plays each time is random.
+    .Register();
+
+// Registers a creature sound
+builder.CreateNewEvent(&quot;NewCreatureSound&quot;, &quot;bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures&quot;)
+    .SetMode3D(1, 20) // Distance falloff starts at 1 meter, and it cannot be heard beyond 20 meters.
+    .SetSounds(true, s =&gt; s.StartsWith(&quot;CreatureSound&quot;)) // Loads all files that start with &quot;CreatureSound&quot;, such as &quot;CreatureSound1&quot;, &quot;CreatureSound2&quot;, etc.
+    .Register();
+
+// Registers custom music
+builder.CreateNewEvent(&quot;EpicBiomeMusic&quot;, AudioUtils.BusPaths.Music)
+    .SetModeMusic() // Sets the mode to be 2D and optimized for music.
+    .SetFadeDuration(2) // The music will take 2 seconds to fade out if stopped while playing.
+    .SetSounds(true, &quot;BiomeTrack1&quot;, &quot;BiomeTrack2&quot;, &quot;BiomeTrack3&quot;) // The music will play one of these tracks at random.
+    .Register();
+</code></pre>
+<p>If you wanted to, you could now play one of those sounds like this:</p>
+<pre><code class="lang-csharp">Utils.PlayFMODAsset(Nautilus.Utility.AudioUtils.GetFmodAsset(&quot;NewCreatureSound&quot;), Player.main.transform.position);
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/audio.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

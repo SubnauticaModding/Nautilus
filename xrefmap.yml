@@ -4023,6 +4023,159 @@ references:
   commentId: N:Nautilus.FMod
   fullName: Nautilus.FMod
   nameWithType: Nautilus.FMod
+- uid: Nautilus.FMod.AssetBundleSoundSource
+  name: AssetBundleSoundSource
+  href: api/Nautilus.FMod.AssetBundleSoundSource.html
+  commentId: T:Nautilus.FMod.AssetBundleSoundSource
+  fullName: Nautilus.FMod.AssetBundleSoundSource
+  nameWithType: AssetBundleSoundSource
+- uid: Nautilus.FMod.AssetBundleSoundSource.#ctor(UnityEngine.AssetBundle)
+  name: AssetBundleSoundSource(AssetBundle)
+  href: api/Nautilus.FMod.AssetBundleSoundSource.html#Nautilus_FMod_AssetBundleSoundSource__ctor_UnityEngine_AssetBundle_
+  commentId: M:Nautilus.FMod.AssetBundleSoundSource.#ctor(UnityEngine.AssetBundle)
+  name.vb: New(AssetBundle)
+  fullName: Nautilus.FMod.AssetBundleSoundSource.AssetBundleSoundSource(UnityEngine.AssetBundle)
+  fullName.vb: Nautilus.FMod.AssetBundleSoundSource.New(UnityEngine.AssetBundle)
+  nameWithType: AssetBundleSoundSource.AssetBundleSoundSource(AssetBundle)
+  nameWithType.vb: AssetBundleSoundSource.New(AssetBundle)
+- uid: Nautilus.FMod.AssetBundleSoundSource.#ctor*
+  name: AssetBundleSoundSource
+  href: api/Nautilus.FMod.AssetBundleSoundSource.html#Nautilus_FMod_AssetBundleSoundSource__ctor_
+  commentId: Overload:Nautilus.FMod.AssetBundleSoundSource.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.FMod.AssetBundleSoundSource.AssetBundleSoundSource
+  fullName.vb: Nautilus.FMod.AssetBundleSoundSource.New
+  nameWithType: AssetBundleSoundSource.AssetBundleSoundSource
+  nameWithType.vb: AssetBundleSoundSource.New
+- uid: Nautilus.FMod.AssetBundleSoundSource.InitializeCachedSounds
+  name: InitializeCachedSounds()
+  href: api/Nautilus.FMod.AssetBundleSoundSource.html#Nautilus_FMod_AssetBundleSoundSource_InitializeCachedSounds
+  commentId: M:Nautilus.FMod.AssetBundleSoundSource.InitializeCachedSounds
+  fullName: Nautilus.FMod.AssetBundleSoundSource.InitializeCachedSounds()
+  nameWithType: AssetBundleSoundSource.InitializeCachedSounds()
+- uid: Nautilus.FMod.AssetBundleSoundSource.InitializeCachedSounds*
+  name: InitializeCachedSounds
+  href: api/Nautilus.FMod.AssetBundleSoundSource.html#Nautilus_FMod_AssetBundleSoundSource_InitializeCachedSounds_
+  commentId: Overload:Nautilus.FMod.AssetBundleSoundSource.InitializeCachedSounds
+  isSpec: "True"
+  fullName: Nautilus.FMod.AssetBundleSoundSource.InitializeCachedSounds
+  nameWithType: AssetBundleSoundSource.InitializeCachedSounds
+- uid: Nautilus.FMod.CustomSoundSourceBase
+  name: CustomSoundSourceBase
+  href: api/Nautilus.FMod.CustomSoundSourceBase.html
+  commentId: T:Nautilus.FMod.CustomSoundSourceBase
+  fullName: Nautilus.FMod.CustomSoundSourceBase
+  nameWithType: CustomSoundSourceBase
+- uid: Nautilus.FMod.CustomSoundSourceBase.#ctor(System.String)
+  name: CustomSoundSourceBase(string)
+  href: api/Nautilus.FMod.CustomSoundSourceBase.html#Nautilus_FMod_CustomSoundSourceBase__ctor_System_String_
+  commentId: M:Nautilus.FMod.CustomSoundSourceBase.#ctor(System.String)
+  name.vb: New(String)
+  fullName: Nautilus.FMod.CustomSoundSourceBase.CustomSoundSourceBase(string)
+  fullName.vb: Nautilus.FMod.CustomSoundSourceBase.New(String)
+  nameWithType: CustomSoundSourceBase.CustomSoundSourceBase(string)
+  nameWithType.vb: CustomSoundSourceBase.New(String)
+- uid: Nautilus.FMod.CustomSoundSourceBase.#ctor*
+  name: CustomSoundSourceBase
+  href: api/Nautilus.FMod.CustomSoundSourceBase.html#Nautilus_FMod_CustomSoundSourceBase__ctor_
+  commentId: Overload:Nautilus.FMod.CustomSoundSourceBase.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.FMod.CustomSoundSourceBase.CustomSoundSourceBase
+  fullName.vb: Nautilus.FMod.CustomSoundSourceBase.New
+  nameWithType: CustomSoundSourceBase.CustomSoundSourceBase
+  nameWithType.vb: CustomSoundSourceBase.New
+- uid: Nautilus.FMod.CustomSoundSourceBase.CachedSound
+  name: CustomSoundSourceBase.CachedSound
+  href: api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.html
+  commentId: T:Nautilus.FMod.CustomSoundSourceBase.CachedSound
+  fullName: Nautilus.FMod.CustomSoundSourceBase.CachedSound
+  nameWithType: CustomSoundSourceBase.CachedSound
+- uid: Nautilus.FMod.CustomSoundSourceBase.CachedSound.#ctor(System.String,System.String)
+  name: CachedSound(string, string)
+  href: api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.html#Nautilus_FMod_CustomSoundSourceBase_CachedSound__ctor_System_String_System_String_
+  commentId: M:Nautilus.FMod.CustomSoundSourceBase.CachedSound.#ctor(System.String,System.String)
+  name.vb: New(String, String)
+  fullName: Nautilus.FMod.CustomSoundSourceBase.CachedSound.CachedSound(string, string)
+  fullName.vb: Nautilus.FMod.CustomSoundSourceBase.CachedSound.New(String, String)
+  nameWithType: CustomSoundSourceBase.CachedSound.CachedSound(string, string)
+  nameWithType.vb: CustomSoundSourceBase.CachedSound.New(String, String)
+- uid: Nautilus.FMod.CustomSoundSourceBase.CachedSound.#ctor*
+  name: CachedSound
+  href: api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.html#Nautilus_FMod_CustomSoundSourceBase_CachedSound__ctor_
+  commentId: Overload:Nautilus.FMod.CustomSoundSourceBase.CachedSound.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.FMod.CustomSoundSourceBase.CachedSound.CachedSound
+  fullName.vb: Nautilus.FMod.CustomSoundSourceBase.CachedSound.New
+  nameWithType: CustomSoundSourceBase.CachedSound.CachedSound
+  nameWithType.vb: CustomSoundSourceBase.CachedSound.New
+- uid: Nautilus.FMod.CustomSoundSourceBase.CachedSound.Locator
+  name: Locator
+  href: api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.html#Nautilus_FMod_CustomSoundSourceBase_CachedSound_Locator
+  commentId: P:Nautilus.FMod.CustomSoundSourceBase.CachedSound.Locator
+  fullName: Nautilus.FMod.CustomSoundSourceBase.CachedSound.Locator
+  nameWithType: CustomSoundSourceBase.CachedSound.Locator
+- uid: Nautilus.FMod.CustomSoundSourceBase.CachedSound.Locator*
+  name: Locator
+  href: api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.html#Nautilus_FMod_CustomSoundSourceBase_CachedSound_Locator_
+  commentId: Overload:Nautilus.FMod.CustomSoundSourceBase.CachedSound.Locator
+  isSpec: "True"
+  fullName: Nautilus.FMod.CustomSoundSourceBase.CachedSound.Locator
+  nameWithType: CustomSoundSourceBase.CachedSound.Locator
+- uid: Nautilus.FMod.CustomSoundSourceBase.CachedSound.Name
+  name: Name
+  href: api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.html#Nautilus_FMod_CustomSoundSourceBase_CachedSound_Name
+  commentId: P:Nautilus.FMod.CustomSoundSourceBase.CachedSound.Name
+  fullName: Nautilus.FMod.CustomSoundSourceBase.CachedSound.Name
+  nameWithType: CustomSoundSourceBase.CachedSound.Name
+- uid: Nautilus.FMod.CustomSoundSourceBase.CachedSound.Name*
+  name: Name
+  href: api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.html#Nautilus_FMod_CustomSoundSourceBase_CachedSound_Name_
+  commentId: Overload:Nautilus.FMod.CustomSoundSourceBase.CachedSound.Name
+  isSpec: "True"
+  fullName: Nautilus.FMod.CustomSoundSourceBase.CachedSound.Name
+  nameWithType: CustomSoundSourceBase.CachedSound.Name
+- uid: Nautilus.FMod.CustomSoundSourceBase.GetAllCachedSounds
+  name: GetAllCachedSounds()
+  href: api/Nautilus.FMod.CustomSoundSourceBase.html#Nautilus_FMod_CustomSoundSourceBase_GetAllCachedSounds
+  commentId: M:Nautilus.FMod.CustomSoundSourceBase.GetAllCachedSounds
+  fullName: Nautilus.FMod.CustomSoundSourceBase.GetAllCachedSounds()
+  nameWithType: CustomSoundSourceBase.GetAllCachedSounds()
+- uid: Nautilus.FMod.CustomSoundSourceBase.GetAllCachedSounds*
+  name: GetAllCachedSounds
+  href: api/Nautilus.FMod.CustomSoundSourceBase.html#Nautilus_FMod_CustomSoundSourceBase_GetAllCachedSounds_
+  commentId: Overload:Nautilus.FMod.CustomSoundSourceBase.GetAllCachedSounds
+  isSpec: "True"
+  fullName: Nautilus.FMod.CustomSoundSourceBase.GetAllCachedSounds
+  nameWithType: CustomSoundSourceBase.GetAllCachedSounds
+- uid: Nautilus.FMod.CustomSoundSourceBase.InitializeCachedSounds
+  name: InitializeCachedSounds()
+  href: api/Nautilus.FMod.CustomSoundSourceBase.html#Nautilus_FMod_CustomSoundSourceBase_InitializeCachedSounds
+  commentId: M:Nautilus.FMod.CustomSoundSourceBase.InitializeCachedSounds
+  fullName: Nautilus.FMod.CustomSoundSourceBase.InitializeCachedSounds()
+  nameWithType: CustomSoundSourceBase.InitializeCachedSounds()
+- uid: Nautilus.FMod.CustomSoundSourceBase.InitializeCachedSounds*
+  name: InitializeCachedSounds
+  href: api/Nautilus.FMod.CustomSoundSourceBase.html#Nautilus_FMod_CustomSoundSourceBase_InitializeCachedSounds_
+  commentId: Overload:Nautilus.FMod.CustomSoundSourceBase.InitializeCachedSounds
+  isSpec: "True"
+  fullName: Nautilus.FMod.CustomSoundSourceBase.InitializeCachedSounds
+  nameWithType: CustomSoundSourceBase.InitializeCachedSounds
+- uid: Nautilus.FMod.CustomSoundSourceBase.ToString
+  name: ToString()
+  href: api/Nautilus.FMod.CustomSoundSourceBase.html#Nautilus_FMod_CustomSoundSourceBase_ToString
+  commentId: M:Nautilus.FMod.CustomSoundSourceBase.ToString
+  fullName: Nautilus.FMod.CustomSoundSourceBase.ToString()
+  nameWithType: CustomSoundSourceBase.ToString()
+- uid: Nautilus.FMod.CustomSoundSourceBase.ToString*
+  name: ToString
+  href: api/Nautilus.FMod.CustomSoundSourceBase.html#Nautilus_FMod_CustomSoundSourceBase_ToString_
+  commentId: Overload:Nautilus.FMod.CustomSoundSourceBase.ToString
+  isSpec: "True"
+  fullName: Nautilus.FMod.CustomSoundSourceBase.ToString
+  nameWithType: CustomSoundSourceBase.ToString
 - uid: Nautilus.FMod.FModMultiSounds
   name: FModMultiSounds
   href: api/Nautilus.FMod.FModMultiSounds.html
@@ -4072,6 +4225,60 @@ references:
   commentId: F:Nautilus.FMod.FModMultiSounds.randomizeSounds
   fullName: Nautilus.FMod.FModMultiSounds.randomizeSounds
   nameWithType: FModMultiSounds.randomizeSounds
+- uid: Nautilus.FMod.FModSoundBuilder
+  name: FModSoundBuilder
+  href: api/Nautilus.FMod.FModSoundBuilder.html
+  commentId: T:Nautilus.FMod.FModSoundBuilder
+  fullName: Nautilus.FMod.FModSoundBuilder
+  nameWithType: FModSoundBuilder
+- uid: Nautilus.FMod.FModSoundBuilder.#ctor(Nautilus.FMod.CustomSoundSourceBase)
+  name: FModSoundBuilder(CustomSoundSourceBase)
+  href: api/Nautilus.FMod.FModSoundBuilder.html#Nautilus_FMod_FModSoundBuilder__ctor_Nautilus_FMod_CustomSoundSourceBase_
+  commentId: M:Nautilus.FMod.FModSoundBuilder.#ctor(Nautilus.FMod.CustomSoundSourceBase)
+  name.vb: New(CustomSoundSourceBase)
+  fullName: Nautilus.FMod.FModSoundBuilder.FModSoundBuilder(Nautilus.FMod.CustomSoundSourceBase)
+  fullName.vb: Nautilus.FMod.FModSoundBuilder.New(Nautilus.FMod.CustomSoundSourceBase)
+  nameWithType: FModSoundBuilder.FModSoundBuilder(CustomSoundSourceBase)
+  nameWithType.vb: FModSoundBuilder.New(CustomSoundSourceBase)
+- uid: Nautilus.FMod.FModSoundBuilder.#ctor*
+  name: FModSoundBuilder
+  href: api/Nautilus.FMod.FModSoundBuilder.html#Nautilus_FMod_FModSoundBuilder__ctor_
+  commentId: Overload:Nautilus.FMod.FModSoundBuilder.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.FMod.FModSoundBuilder.FModSoundBuilder
+  fullName.vb: Nautilus.FMod.FModSoundBuilder.New
+  nameWithType: FModSoundBuilder.FModSoundBuilder
+  nameWithType.vb: FModSoundBuilder.New
+- uid: Nautilus.FMod.FModSoundBuilder.CreateNewEvent(System.String,System.String)
+  name: CreateNewEvent(string, string)
+  href: api/Nautilus.FMod.FModSoundBuilder.html#Nautilus_FMod_FModSoundBuilder_CreateNewEvent_System_String_System_String_
+  commentId: M:Nautilus.FMod.FModSoundBuilder.CreateNewEvent(System.String,System.String)
+  name.vb: CreateNewEvent(String, String)
+  fullName: Nautilus.FMod.FModSoundBuilder.CreateNewEvent(string, string)
+  fullName.vb: Nautilus.FMod.FModSoundBuilder.CreateNewEvent(String, String)
+  nameWithType: FModSoundBuilder.CreateNewEvent(string, string)
+  nameWithType.vb: FModSoundBuilder.CreateNewEvent(String, String)
+- uid: Nautilus.FMod.FModSoundBuilder.CreateNewEvent*
+  name: CreateNewEvent
+  href: api/Nautilus.FMod.FModSoundBuilder.html#Nautilus_FMod_FModSoundBuilder_CreateNewEvent_
+  commentId: Overload:Nautilus.FMod.FModSoundBuilder.CreateNewEvent
+  isSpec: "True"
+  fullName: Nautilus.FMod.FModSoundBuilder.CreateNewEvent
+  nameWithType: FModSoundBuilder.CreateNewEvent
+- uid: Nautilus.FMod.FModSoundBuilder.ToString
+  name: ToString()
+  href: api/Nautilus.FMod.FModSoundBuilder.html#Nautilus_FMod_FModSoundBuilder_ToString
+  commentId: M:Nautilus.FMod.FModSoundBuilder.ToString
+  fullName: Nautilus.FMod.FModSoundBuilder.ToString()
+  nameWithType: FModSoundBuilder.ToString()
+- uid: Nautilus.FMod.FModSoundBuilder.ToString*
+  name: ToString
+  href: api/Nautilus.FMod.FModSoundBuilder.html#Nautilus_FMod_FModSoundBuilder_ToString_
+  commentId: Overload:Nautilus.FMod.FModSoundBuilder.ToString
+  isSpec: "True"
+  fullName: Nautilus.FMod.FModSoundBuilder.ToString
+  nameWithType: FModSoundBuilder.ToString
 - uid: Nautilus.FMod.Interfaces
   name: Nautilus.FMod.Interfaces
   href: api/Nautilus.FMod.Interfaces.html
@@ -4100,6 +4307,181 @@ references:
   isSpec: "True"
   fullName: Nautilus.FMod.Interfaces.IFModSound.TryPlaySound
   nameWithType: IFModSound.TryPlaySound
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder
+  name: IFModSoundBuilder
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html
+  commentId: T:Nautilus.FMod.Interfaces.IFModSoundBuilder
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder
+  nameWithType: IFModSoundBuilder
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.Register
+  name: Register()
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_Register
+  commentId: M:Nautilus.FMod.Interfaces.IFModSoundBuilder.Register
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.Register()
+  nameWithType: IFModSoundBuilder.Register()
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.Register*
+  name: Register
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_Register_
+  commentId: Overload:Nautilus.FMod.Interfaces.IFModSoundBuilder.Register
+  isSpec: "True"
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.Register
+  nameWithType: IFModSoundBuilder.Register
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetFadeDuration(System.Single)
+  name: SetFadeDuration(float)
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetFadeDuration_System_Single_
+  commentId: M:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetFadeDuration(System.Single)
+  name.vb: SetFadeDuration(Single)
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetFadeDuration(float)
+  fullName.vb: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetFadeDuration(Single)
+  nameWithType: IFModSoundBuilder.SetFadeDuration(float)
+  nameWithType.vb: IFModSoundBuilder.SetFadeDuration(Single)
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetFadeDuration*
+  name: SetFadeDuration
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetFadeDuration_
+  commentId: Overload:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetFadeDuration
+  isSpec: "True"
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetFadeDuration
+  nameWithType: IFModSoundBuilder.SetFadeDuration
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode(FMOD.MODE)
+  name: SetMode(MODE)
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetMode_FMOD_MODE_
+  commentId: M:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode(FMOD.MODE)
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode(FMOD.MODE)
+  nameWithType: IFModSoundBuilder.SetMode(MODE)
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode*
+  name: SetMode
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetMode_
+  commentId: Overload:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode
+  isSpec: "True"
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode
+  nameWithType: IFModSoundBuilder.SetMode
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode2D(System.Boolean)
+  name: SetMode2D(bool)
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetMode2D_System_Boolean_
+  commentId: M:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode2D(System.Boolean)
+  name.vb: SetMode2D(Boolean)
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode2D(bool)
+  fullName.vb: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode2D(Boolean)
+  nameWithType: IFModSoundBuilder.SetMode2D(bool)
+  nameWithType.vb: IFModSoundBuilder.SetMode2D(Boolean)
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode2D*
+  name: SetMode2D
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetMode2D_
+  commentId: Overload:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode2D
+  isSpec: "True"
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode2D
+  nameWithType: IFModSoundBuilder.SetMode2D
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode3D(System.Single,System.Single,System.Boolean)
+  name: SetMode3D(float, float, bool)
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetMode3D_System_Single_System_Single_System_Boolean_
+  commentId: M:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode3D(System.Single,System.Single,System.Boolean)
+  name.vb: SetMode3D(Single, Single, Boolean)
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode3D(float, float, bool)
+  fullName.vb: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode3D(Single, Single, Boolean)
+  nameWithType: IFModSoundBuilder.SetMode3D(float, float, bool)
+  nameWithType.vb: IFModSoundBuilder.SetMode3D(Single, Single, Boolean)
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode3D*
+  name: SetMode3D
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetMode3D_
+  commentId: Overload:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode3D
+  isSpec: "True"
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetMode3D
+  nameWithType: IFModSoundBuilder.SetMode3D
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetModeMusic(System.Boolean)
+  name: SetModeMusic(bool)
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetModeMusic_System_Boolean_
+  commentId: M:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetModeMusic(System.Boolean)
+  name.vb: SetModeMusic(Boolean)
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetModeMusic(bool)
+  fullName.vb: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetModeMusic(Boolean)
+  nameWithType: IFModSoundBuilder.SetModeMusic(bool)
+  nameWithType.vb: IFModSoundBuilder.SetModeMusic(Boolean)
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetModeMusic*
+  name: SetModeMusic
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetModeMusic_
+  commentId: Overload:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetModeMusic
+  isSpec: "True"
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetModeMusic
+  nameWithType: IFModSoundBuilder.SetModeMusic
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSound(System.String)
+  name: SetSound(string)
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetSound_System_String_
+  commentId: M:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSound(System.String)
+  name.vb: SetSound(String)
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSound(string)
+  fullName.vb: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSound(String)
+  nameWithType: IFModSoundBuilder.SetSound(string)
+  nameWithType.vb: IFModSoundBuilder.SetSound(String)
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSound*
+  name: SetSound
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetSound_
+  commentId: Overload:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSound
+  isSpec: "True"
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSound
+  nameWithType: IFModSoundBuilder.SetSound
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds(System.Boolean,System.Func{System.String,System.Boolean})
+  name: SetSounds(bool, Func<string, bool>)
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetSounds_System_Boolean_System_Func_System_String_System_Boolean__
+  commentId: M:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds(System.Boolean,System.Func{System.String,System.Boolean})
+  name.vb: SetSounds(Boolean, Func(Of String, Boolean))
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds(bool, System.Func<string, bool>)
+  fullName.vb: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds(Boolean, System.Func(Of String, Boolean))
+  nameWithType: IFModSoundBuilder.SetSounds(bool, Func<string, bool>)
+  nameWithType.vb: IFModSoundBuilder.SetSounds(Boolean, Func(Of String, Boolean))
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds(System.Boolean,System.String[])
+  name: SetSounds(bool, params string[])
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetSounds_System_Boolean_System_String___
+  commentId: M:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds(System.Boolean,System.String[])
+  name.vb: SetSounds(Boolean, ParamArray String())
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds(bool, params string[])
+  fullName.vb: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds(Boolean, ParamArray String())
+  nameWithType: IFModSoundBuilder.SetSounds(bool, params string[])
+  nameWithType.vb: IFModSoundBuilder.SetSounds(Boolean, ParamArray String())
+- uid: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds*
+  name: SetSounds
+  href: api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html#Nautilus_FMod_Interfaces_IFModSoundBuilder_SetSounds_
+  commentId: Overload:Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds
+  isSpec: "True"
+  fullName: Nautilus.FMod.Interfaces.IFModSoundBuilder.SetSounds
+  nameWithType: IFModSoundBuilder.SetSounds
+- uid: Nautilus.FMod.ModFolderSoundSource
+  name: ModFolderSoundSource
+  href: api/Nautilus.FMod.ModFolderSoundSource.html
+  commentId: T:Nautilus.FMod.ModFolderSoundSource
+  fullName: Nautilus.FMod.ModFolderSoundSource
+  nameWithType: ModFolderSoundSource
+- uid: Nautilus.FMod.ModFolderSoundSource.#ctor(System.String,System.Reflection.Assembly)
+  name: ModFolderSoundSource(string, Assembly)
+  href: api/Nautilus.FMod.ModFolderSoundSource.html#Nautilus_FMod_ModFolderSoundSource__ctor_System_String_System_Reflection_Assembly_
+  commentId: M:Nautilus.FMod.ModFolderSoundSource.#ctor(System.String,System.Reflection.Assembly)
+  name.vb: New(String, Assembly)
+  fullName: Nautilus.FMod.ModFolderSoundSource.ModFolderSoundSource(string, System.Reflection.Assembly)
+  fullName.vb: Nautilus.FMod.ModFolderSoundSource.New(String, System.Reflection.Assembly)
+  nameWithType: ModFolderSoundSource.ModFolderSoundSource(string, Assembly)
+  nameWithType.vb: ModFolderSoundSource.New(String, Assembly)
+- uid: Nautilus.FMod.ModFolderSoundSource.#ctor*
+  name: ModFolderSoundSource
+  href: api/Nautilus.FMod.ModFolderSoundSource.html#Nautilus_FMod_ModFolderSoundSource__ctor_
+  commentId: Overload:Nautilus.FMod.ModFolderSoundSource.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.FMod.ModFolderSoundSource.ModFolderSoundSource
+  fullName.vb: Nautilus.FMod.ModFolderSoundSource.New
+  nameWithType: ModFolderSoundSource.ModFolderSoundSource
+  nameWithType.vb: ModFolderSoundSource.New
+- uid: Nautilus.FMod.ModFolderSoundSource.InitializeCachedSounds
+  name: InitializeCachedSounds()
+  href: api/Nautilus.FMod.ModFolderSoundSource.html#Nautilus_FMod_ModFolderSoundSource_InitializeCachedSounds
+  commentId: M:Nautilus.FMod.ModFolderSoundSource.InitializeCachedSounds
+  fullName: Nautilus.FMod.ModFolderSoundSource.InitializeCachedSounds()
+  nameWithType: ModFolderSoundSource.InitializeCachedSounds()
+- uid: Nautilus.FMod.ModFolderSoundSource.InitializeCachedSounds*
+  name: InitializeCachedSounds
+  href: api/Nautilus.FMod.ModFolderSoundSource.html#Nautilus_FMod_ModFolderSoundSource_InitializeCachedSounds_
+  commentId: Overload:Nautilus.FMod.ModFolderSoundSource.InitializeCachedSounds
+  isSpec: "True"
+  fullName: Nautilus.FMod.ModFolderSoundSource.InitializeCachedSounds
+  nameWithType: ModFolderSoundSource.InitializeCachedSounds
 - uid: Nautilus.Handlers
   name: Nautilus.Handlers
   href: api/Nautilus.Handlers.html
@@ -5805,6 +6187,89 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.LanguageHandler.SetTechTypeTooltip
   nameWithType: LanguageHandler.SetTechTypeTooltip
+- uid: Nautilus.Handlers.LoadingScreen
+  name: Nautilus.Handlers.LoadingScreen
+  href: api/Nautilus.Handlers.LoadingScreen.html
+  commentId: N:Nautilus.Handlers.LoadingScreen
+  fullName: Nautilus.Handlers.LoadingScreen
+  nameWithType: Nautilus.Handlers.LoadingScreen
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler
+  name: LoadingScreenHandler
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.html
+  commentId: T:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler
+  nameWithType: LoadingScreenHandler
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData
+  name: LoadingScreenHandler.LoadingScreenData
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html
+  commentId: T:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData
+  nameWithType: LoadingScreenHandler.LoadingScreenData
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.#ctor(UnityEngine.Sprite,System.Int32,System.Single,System.String,System.Func{System.Boolean})
+  name: LoadingScreenData(Sprite, int, float, string, Func<bool>)
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData__ctor_UnityEngine_Sprite_System_Int32_System_Single_System_String_System_Func_System_Boolean__
+  commentId: M:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.#ctor(UnityEngine.Sprite,System.Int32,System.Single,System.String,System.Func{System.Boolean})
+  name.vb: New(Sprite, Integer, Single, String, Func(Of Boolean))
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.LoadingScreenData(UnityEngine.Sprite, int, float, string, System.Func<bool>)
+  fullName.vb: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.New(UnityEngine.Sprite, Integer, Single, String, System.Func(Of Boolean))
+  nameWithType: LoadingScreenHandler.LoadingScreenData.LoadingScreenData(Sprite, int, float, string, Func<bool>)
+  nameWithType.vb: LoadingScreenHandler.LoadingScreenData.New(Sprite, Integer, Single, String, Func(Of Boolean))
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.#ctor*
+  name: LoadingScreenData
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData__ctor_
+  commentId: Overload:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.LoadingScreenData
+  fullName.vb: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.New
+  nameWithType: LoadingScreenHandler.LoadingScreenData.LoadingScreenData
+  nameWithType.vb: LoadingScreenHandler.LoadingScreenData.New
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.customRequirement
+  name: customRequirement
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData_customRequirement
+  commentId: F:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.customRequirement
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.customRequirement
+  nameWithType: LoadingScreenHandler.LoadingScreenData.customRequirement
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.loadingScreenImage
+  name: loadingScreenImage
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData_loadingScreenImage
+  commentId: F:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.loadingScreenImage
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.loadingScreenImage
+  nameWithType: LoadingScreenHandler.LoadingScreenData.loadingScreenImage
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.priority
+  name: priority
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData_priority
+  commentId: F:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.priority
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.priority
+  nameWithType: LoadingScreenHandler.LoadingScreenData.priority
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.storyGoalRequirement
+  name: storyGoalRequirement
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData_storyGoalRequirement
+  commentId: F:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.storyGoalRequirement
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.storyGoalRequirement
+  nameWithType: LoadingScreenHandler.LoadingScreenData.storyGoalRequirement
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.timeToNextScreen
+  name: timeToNextScreen
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData_timeToNextScreen
+  commentId: F:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.timeToNextScreen
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.timeToNextScreen
+  nameWithType: LoadingScreenHandler.LoadingScreenData.timeToNextScreen
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(BepInEx.BaseUnityPlugin,Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])
+  name: RegisterLoadingScreen(BaseUnityPlugin, LoadingScreenData[])
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_RegisterLoadingScreen_BepInEx_BaseUnityPlugin_Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData___
+  commentId: M:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(BepInEx.BaseUnityPlugin,Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])
+  name.vb: RegisterLoadingScreen(BaseUnityPlugin, LoadingScreenData())
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(BepInEx.BaseUnityPlugin, Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])
+  fullName.vb: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(BepInEx.BaseUnityPlugin, Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData())
+  nameWithType: LoadingScreenHandler.RegisterLoadingScreen(BaseUnityPlugin, LoadingScreenHandler.LoadingScreenData[])
+  nameWithType.vb: LoadingScreenHandler.RegisterLoadingScreen(BaseUnityPlugin, LoadingScreenHandler.LoadingScreenData())
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen*
+  name: RegisterLoadingScreen
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_RegisterLoadingScreen_
+  commentId: Overload:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen
+  isSpec: "True"
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen
+  nameWithType: LoadingScreenHandler.RegisterLoadingScreen
 - uid: Nautilus.Handlers.LootDistributionHandler
   name: LootDistributionHandler
   href: api/Nautilus.Handlers.LootDistributionHandler.html
@@ -6828,6 +7293,539 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.SurvivalHandler.RunActionOnConsume
   nameWithType: SurvivalHandler.RunActionOnConsume
+- uid: Nautilus.Handlers.TitleScreen
+  name: Nautilus.Handlers.TitleScreen
+  href: api/Nautilus.Handlers.TitleScreen.html
+  commentId: N:Nautilus.Handlers.TitleScreen
+  fullName: Nautilus.Handlers.TitleScreen
+  nameWithType: Nautilus.Handlers.TitleScreen
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon
+  name: MusicTitleAddon
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html
+  commentId: T:Nautilus.Handlers.TitleScreen.MusicTitleAddon
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon
+  nameWithType: MusicTitleAddon
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon.#ctor(FMODAsset,System.String[])
+  name: MusicTitleAddon(FMODAsset, params string[])
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html#Nautilus_Handlers_TitleScreen_MusicTitleAddon__ctor_FMODAsset_System_String___
+  commentId: M:Nautilus.Handlers.TitleScreen.MusicTitleAddon.#ctor(FMODAsset,System.String[])
+  name.vb: New(FMODAsset, ParamArray String())
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon.MusicTitleAddon(FMODAsset, params string[])
+  fullName.vb: Nautilus.Handlers.TitleScreen.MusicTitleAddon.New(FMODAsset, ParamArray String())
+  nameWithType: MusicTitleAddon.MusicTitleAddon(FMODAsset, params string[])
+  nameWithType.vb: MusicTitleAddon.New(FMODAsset, ParamArray String())
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon.#ctor*
+  name: MusicTitleAddon
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html#Nautilus_Handlers_TitleScreen_MusicTitleAddon__ctor_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.MusicTitleAddon.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon.MusicTitleAddon
+  fullName.vb: Nautilus.Handlers.TitleScreen.MusicTitleAddon.New
+  nameWithType: MusicTitleAddon.MusicTitleAddon
+  nameWithType.vb: MusicTitleAddon.New
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon.Asset
+  name: Asset
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html#Nautilus_Handlers_TitleScreen_MusicTitleAddon_Asset
+  commentId: F:Nautilus.Handlers.TitleScreen.MusicTitleAddon.Asset
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon.Asset
+  nameWithType: MusicTitleAddon.Asset
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon.CustomEmitter
+  name: CustomEmitter
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html#Nautilus_Handlers_TitleScreen_MusicTitleAddon_CustomEmitter
+  commentId: F:Nautilus.Handlers.TitleScreen.MusicTitleAddon.CustomEmitter
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon.CustomEmitter
+  nameWithType: MusicTitleAddon.CustomEmitter
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnDisable
+  name: OnDisable()
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html#Nautilus_Handlers_TitleScreen_MusicTitleAddon_OnDisable
+  commentId: M:Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnDisable
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnDisable()
+  nameWithType: MusicTitleAddon.OnDisable()
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnDisable*
+  name: OnDisable
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html#Nautilus_Handlers_TitleScreen_MusicTitleAddon_OnDisable_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnDisable
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnDisable
+  nameWithType: MusicTitleAddon.OnDisable
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnEnable
+  name: OnEnable()
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html#Nautilus_Handlers_TitleScreen_MusicTitleAddon_OnEnable
+  commentId: M:Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnEnable
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnEnable()
+  nameWithType: MusicTitleAddon.OnEnable()
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnEnable*
+  name: OnEnable
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html#Nautilus_Handlers_TitleScreen_MusicTitleAddon_OnEnable_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnEnable
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnEnable
+  nameWithType: MusicTitleAddon.OnEnable
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnInitialize
+  name: OnInitialize()
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html#Nautilus_Handlers_TitleScreen_MusicTitleAddon_OnInitialize
+  commentId: M:Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnInitialize
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnInitialize()
+  nameWithType: MusicTitleAddon.OnInitialize()
+- uid: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnInitialize*
+  name: OnInitialize
+  href: api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html#Nautilus_Handlers_TitleScreen_MusicTitleAddon_OnInitialize_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnInitialize
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.MusicTitleAddon.OnInitialize
+  nameWithType: MusicTitleAddon.OnInitialize
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon
+  name: SkyChangeTitleAddon
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html
+  commentId: T:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon
+  nameWithType: SkyChangeTitleAddon
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.#ctor(System.Single,Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings,System.String[])
+  name: SkyChangeTitleAddon(float, Settings, params string[])
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon__ctor_System_Single_Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings_System_String___
+  commentId: M:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.#ctor(System.Single,Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings,System.String[])
+  name.vb: New(Single, Settings, ParamArray String())
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.SkyChangeTitleAddon(float, Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings, params string[])
+  fullName.vb: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.New(Single, Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings, ParamArray String())
+  nameWithType: SkyChangeTitleAddon.SkyChangeTitleAddon(float, SkyChangeTitleAddon.Settings, params string[])
+  nameWithType.vb: SkyChangeTitleAddon.New(Single, SkyChangeTitleAddon.Settings, ParamArray String())
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.#ctor*
+  name: SkyChangeTitleAddon
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon__ctor_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.SkyChangeTitleAddon
+  fullName.vb: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.New
+  nameWithType: SkyChangeTitleAddon.SkyChangeTitleAddon
+  nameWithType.vb: SkyChangeTitleAddon.New
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.ManagedUpdate
+  name: ManagedUpdate()
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_ManagedUpdate
+  commentId: M:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.ManagedUpdate
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.ManagedUpdate()
+  nameWithType: SkyChangeTitleAddon.ManagedUpdate()
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.ManagedUpdate*
+  name: ManagedUpdate
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_ManagedUpdate_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.ManagedUpdate
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.ManagedUpdate
+  nameWithType: SkyChangeTitleAddon.ManagedUpdate
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnDisable
+  name: OnDisable()
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_OnDisable
+  commentId: M:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnDisable
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnDisable()
+  nameWithType: SkyChangeTitleAddon.OnDisable()
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnDisable*
+  name: OnDisable
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_OnDisable_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnDisable
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnDisable
+  nameWithType: SkyChangeTitleAddon.OnDisable
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnable
+  name: OnEnable()
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_OnEnable
+  commentId: M:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnable
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnable()
+  nameWithType: SkyChangeTitleAddon.OnEnable()
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnable*
+  name: OnEnable
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_OnEnable_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnable
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnable
+  nameWithType: SkyChangeTitleAddon.OnEnable
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings
+  name: SkyChangeTitleAddon.Settings
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html
+  commentId: T:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings
+  nameWithType: SkyChangeTitleAddon.Settings
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.#ctor(System.Single,System.Single,System.Single,System.Single)
+  name: Settings(float, float, float, float)
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings__ctor_System_Single_System_Single_System_Single_System_Single_
+  commentId: M:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.#ctor(System.Single,System.Single,System.Single,System.Single)
+  name.vb: New(Single, Single, Single, Single)
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.Settings(float, float, float, float)
+  fullName.vb: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.New(Single, Single, Single, Single)
+  nameWithType: SkyChangeTitleAddon.Settings.Settings(float, float, float, float)
+  nameWithType.vb: SkyChangeTitleAddon.Settings.New(Single, Single, Single, Single)
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.#ctor*
+  name: Settings
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings__ctor_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.Settings
+  fullName.vb: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.New
+  nameWithType: SkyChangeTitleAddon.Settings.Settings
+  nameWithType.vb: SkyChangeTitleAddon.Settings.New
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.Exposure
+  name: Exposure
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings_Exposure
+  commentId: P:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.Exposure
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.Exposure
+  nameWithType: SkyChangeTitleAddon.Settings.Exposure
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.Exposure*
+  name: Exposure
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings_Exposure_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.Exposure
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.Exposure
+  nameWithType: SkyChangeTitleAddon.Settings.Exposure
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.FogDensity
+  name: FogDensity
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings_FogDensity
+  commentId: P:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.FogDensity
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.FogDensity
+  nameWithType: SkyChangeTitleAddon.Settings.FogDensity
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.FogDensity*
+  name: FogDensity
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings_FogDensity_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.FogDensity
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.FogDensity
+  nameWithType: SkyChangeTitleAddon.Settings.FogDensity
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.RayleighScattering
+  name: RayleighScattering
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings_RayleighScattering
+  commentId: P:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.RayleighScattering
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.RayleighScattering
+  nameWithType: SkyChangeTitleAddon.Settings.RayleighScattering
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.RayleighScattering*
+  name: RayleighScattering
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings_RayleighScattering_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.RayleighScattering
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.RayleighScattering
+  nameWithType: SkyChangeTitleAddon.Settings.RayleighScattering
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.TimeOfDay
+  name: TimeOfDay
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings_TimeOfDay
+  commentId: P:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.TimeOfDay
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.TimeOfDay
+  nameWithType: SkyChangeTitleAddon.Settings.TimeOfDay
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.TimeOfDay*
+  name: TimeOfDay
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_Settings_TimeOfDay_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.TimeOfDay
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.TimeOfDay
+  nameWithType: SkyChangeTitleAddon.Settings.TimeOfDay
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon
+  name: TitleAddon
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html
+  commentId: T:Nautilus.Handlers.TitleScreen.TitleAddon
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon
+  nameWithType: TitleAddon
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.#ctor
+  name: TitleAddon()
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon__ctor
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleAddon.#ctor
+  name.vb: New()
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.TitleAddon()
+  fullName.vb: Nautilus.Handlers.TitleScreen.TitleAddon.New()
+  nameWithType: TitleAddon.TitleAddon()
+  nameWithType.vb: TitleAddon.New()
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.#ctor(System.String[])
+  name: TitleAddon(string[])
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon__ctor_System_String___
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleAddon.#ctor(System.String[])
+  name.vb: New(String())
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.TitleAddon(string[])
+  fullName.vb: Nautilus.Handlers.TitleScreen.TitleAddon.New(String())
+  nameWithType: TitleAddon.TitleAddon(string[])
+  nameWithType.vb: TitleAddon.New(String())
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.#ctor*
+  name: TitleAddon
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon__ctor_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleAddon.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.TitleAddon
+  fullName.vb: Nautilus.Handlers.TitleScreen.TitleAddon.New
+  nameWithType: TitleAddon.TitleAddon
+  nameWithType.vb: TitleAddon.New
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.IsEnabled
+  name: IsEnabled
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_IsEnabled
+  commentId: P:Nautilus.Handlers.TitleScreen.TitleAddon.IsEnabled
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.IsEnabled
+  nameWithType: TitleAddon.IsEnabled
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.IsEnabled*
+  name: IsEnabled
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_IsEnabled_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleAddon.IsEnabled
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.IsEnabled
+  nameWithType: TitleAddon.IsEnabled
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.ModGuid
+  name: ModGuid
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_ModGuid
+  commentId: P:Nautilus.Handlers.TitleScreen.TitleAddon.ModGuid
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.ModGuid
+  nameWithType: TitleAddon.ModGuid
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.ModGuid*
+  name: ModGuid
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_ModGuid_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleAddon.ModGuid
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.ModGuid
+  nameWithType: TitleAddon.ModGuid
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.OnDisable
+  name: OnDisable()
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_OnDisable
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleAddon.OnDisable
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.OnDisable()
+  nameWithType: TitleAddon.OnDisable()
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.OnDisable*
+  name: OnDisable
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_OnDisable_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleAddon.OnDisable
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.OnDisable
+  nameWithType: TitleAddon.OnDisable
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.OnEnable
+  name: OnEnable()
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_OnEnable
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleAddon.OnEnable
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.OnEnable()
+  nameWithType: TitleAddon.OnEnable()
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.OnEnable*
+  name: OnEnable
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_OnEnable_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleAddon.OnEnable
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.OnEnable
+  nameWithType: TitleAddon.OnEnable
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.OnInitialize
+  name: OnInitialize()
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_OnInitialize
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleAddon.OnInitialize
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.OnInitialize()
+  nameWithType: TitleAddon.OnInitialize()
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.OnInitialize*
+  name: OnInitialize
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_OnInitialize_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleAddon.OnInitialize
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.OnInitialize
+  nameWithType: TitleAddon.OnInitialize
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.RequiredGUIDs
+  name: RequiredGUIDs
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_RequiredGUIDs
+  commentId: P:Nautilus.Handlers.TitleScreen.TitleAddon.RequiredGUIDs
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.RequiredGUIDs
+  nameWithType: TitleAddon.RequiredGUIDs
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.RequiredGUIDs*
+  name: RequiredGUIDs
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_RequiredGUIDs_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleAddon.RequiredGUIDs
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.RequiredGUIDs
+  nameWithType: TitleAddon.RequiredGUIDs
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler
+  name: TitleScreenHandler
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html
+  commentId: T:Nautilus.Handlers.TitleScreen.TitleScreenHandler
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler
+  nameWithType: TitleScreenHandler
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.ApproveTitleCollaboration(BepInEx.BaseUnityPlugin,Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData)
+  name: ApproveTitleCollaboration(BaseUnityPlugin, CollaborationData)
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_ApproveTitleCollaboration_BepInEx_BaseUnityPlugin_Nautilus_Handlers_TitleScreen_TitleScreenHandler_CollaborationData_
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleScreenHandler.ApproveTitleCollaboration(BepInEx.BaseUnityPlugin,Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData)
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.ApproveTitleCollaboration(BepInEx.BaseUnityPlugin, Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData)
+  nameWithType: TitleScreenHandler.ApproveTitleCollaboration(BaseUnityPlugin, TitleScreenHandler.CollaborationData)
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.ApproveTitleCollaboration*
+  name: ApproveTitleCollaboration
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_ApproveTitleCollaboration_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleScreenHandler.ApproveTitleCollaboration
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.ApproveTitleCollaboration
+  nameWithType: TitleScreenHandler.ApproveTitleCollaboration
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData
+  name: TitleScreenHandler.CollaborationData
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.html
+  commentId: T:Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData
+  nameWithType: TitleScreenHandler.CollaborationData
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.#ctor(System.Collections.Generic.Dictionary{System.String,System.Type[]})
+  name: CollaborationData(Dictionary<string, Type[]>)
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_CollaborationData__ctor_System_Collections_Generic_Dictionary_System_String_System_Type____
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.#ctor(System.Collections.Generic.Dictionary{System.String,System.Type[]})
+  name.vb: New(Dictionary(Of String, Type()))
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.CollaborationData(System.Collections.Generic.Dictionary<string, System.Type[]>)
+  fullName.vb: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.New(System.Collections.Generic.Dictionary(Of String, System.Type()))
+  nameWithType: TitleScreenHandler.CollaborationData.CollaborationData(Dictionary<string, Type[]>)
+  nameWithType.vb: TitleScreenHandler.CollaborationData.New(Dictionary(Of String, Type()))
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.#ctor(System.String[])
+  name: CollaborationData(string[])
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_CollaborationData__ctor_System_String___
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.#ctor(System.String[])
+  name.vb: New(String())
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.CollaborationData(string[])
+  fullName.vb: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.New(String())
+  nameWithType: TitleScreenHandler.CollaborationData.CollaborationData(string[])
+  nameWithType.vb: TitleScreenHandler.CollaborationData.New(String())
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.#ctor*
+  name: CollaborationData
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_CollaborationData__ctor_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.CollaborationData
+  fullName.vb: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.New
+  nameWithType: TitleScreenHandler.CollaborationData.CollaborationData
+  nameWithType.vb: TitleScreenHandler.CollaborationData.New
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData
+  name: TitleScreenHandler.CustomTitleData
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.html
+  commentId: T:Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData
+  nameWithType: TitleScreenHandler.CustomTitleData
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.#ctor(System.String,Nautilus.Handlers.TitleScreen.TitleAddon[])
+  name: CustomTitleData(string, params TitleAddon[])
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_CustomTitleData__ctor_System_String_Nautilus_Handlers_TitleScreen_TitleAddon___
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.#ctor(System.String,Nautilus.Handlers.TitleScreen.TitleAddon[])
+  name.vb: New(String, ParamArray TitleAddon())
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.CustomTitleData(string, params Nautilus.Handlers.TitleScreen.TitleAddon[])
+  fullName.vb: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.New(String, ParamArray Nautilus.Handlers.TitleScreen.TitleAddon())
+  nameWithType: TitleScreenHandler.CustomTitleData.CustomTitleData(string, params TitleAddon[])
+  nameWithType.vb: TitleScreenHandler.CustomTitleData.New(String, ParamArray TitleAddon())
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.#ctor*
+  name: CustomTitleData
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_CustomTitleData__ctor_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.CustomTitleData
+  fullName.vb: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.New
+  nameWithType: TitleScreenHandler.CustomTitleData.CustomTitleData
+  nameWithType.vb: TitleScreenHandler.CustomTitleData.New
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.addons
+  name: addons
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_CustomTitleData_addons
+  commentId: F:Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.addons
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.addons
+  nameWithType: TitleScreenHandler.CustomTitleData.addons
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.localizationKey
+  name: localizationKey
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_CustomTitleData_localizationKey
+  commentId: F:Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.localizationKey
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.localizationKey
+  nameWithType: TitleScreenHandler.CustomTitleData.localizationKey
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject(BepInEx.BaseUnityPlugin,Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData)
+  name: RegisterTitleScreenObject(BaseUnityPlugin, CustomTitleData)
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_RegisterTitleScreenObject_BepInEx_BaseUnityPlugin_Nautilus_Handlers_TitleScreen_TitleScreenHandler_CustomTitleData_
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject(BepInEx.BaseUnityPlugin,Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData)
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject(BepInEx.BaseUnityPlugin, Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData)
+  nameWithType: TitleScreenHandler.RegisterTitleScreenObject(BaseUnityPlugin, TitleScreenHandler.CustomTitleData)
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject*
+  name: RegisterTitleScreenObject
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_RegisterTitleScreenObject_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject
+  nameWithType: TitleScreenHandler.RegisterTitleScreenObject
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon
+  name: WorldObjectTitleAddon
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html
+  commentId: T:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon
+  nameWithType: WorldObjectTitleAddon
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.#ctor(System.Func{UnityEngine.GameObject},System.Single,System.String[])
+  name: WorldObjectTitleAddon(Func<GameObject>, float, params string[])
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon__ctor_System_Func_UnityEngine_GameObject__System_Single_System_String___
+  commentId: M:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.#ctor(System.Func{UnityEngine.GameObject},System.Single,System.String[])
+  name.vb: New(Func(Of GameObject), Single, ParamArray String())
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.WorldObjectTitleAddon(System.Func<UnityEngine.GameObject>, float, params string[])
+  fullName.vb: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.New(System.Func(Of UnityEngine.GameObject), Single, ParamArray String())
+  nameWithType: WorldObjectTitleAddon.WorldObjectTitleAddon(Func<GameObject>, float, params string[])
+  nameWithType.vb: WorldObjectTitleAddon.New(Func(Of GameObject), Single, ParamArray String())
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.#ctor*
+  name: WorldObjectTitleAddon
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon__ctor_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.#ctor
+  isSpec: "True"
+  name.vb: New
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.WorldObjectTitleAddon
+  fullName.vb: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.New
+  nameWithType: WorldObjectTitleAddon.WorldObjectTitleAddon
+  nameWithType.vb: WorldObjectTitleAddon.New
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.FadeInTime
+  name: FadeInTime
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_FadeInTime
+  commentId: F:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.FadeInTime
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.FadeInTime
+  nameWithType: WorldObjectTitleAddon.FadeInTime
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.ManagedUpdate
+  name: ManagedUpdate()
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_ManagedUpdate
+  commentId: M:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.ManagedUpdate
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.ManagedUpdate()
+  nameWithType: WorldObjectTitleAddon.ManagedUpdate()
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.ManagedUpdate*
+  name: ManagedUpdate
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_ManagedUpdate_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.ManagedUpdate
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.ManagedUpdate
+  nameWithType: WorldObjectTitleAddon.ManagedUpdate
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnDisable
+  name: OnDisable()
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_OnDisable
+  commentId: M:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnDisable
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnDisable()
+  nameWithType: WorldObjectTitleAddon.OnDisable()
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnDisable*
+  name: OnDisable
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_OnDisable_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnDisable
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnDisable
+  nameWithType: WorldObjectTitleAddon.OnDisable
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnEnable
+  name: OnEnable()
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_OnEnable
+  commentId: M:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnEnable
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnEnable()
+  nameWithType: WorldObjectTitleAddon.OnEnable()
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnEnable*
+  name: OnEnable
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_OnEnable_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnEnable
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnEnable
+  nameWithType: WorldObjectTitleAddon.OnEnable
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnInitialize
+  name: OnInitialize()
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_OnInitialize
+  commentId: M:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnInitialize
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnInitialize()
+  nameWithType: WorldObjectTitleAddon.OnInitialize()
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnInitialize*
+  name: OnInitialize
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_OnInitialize_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnInitialize
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.OnInitialize
+  nameWithType: WorldObjectTitleAddon.OnInitialize
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.SpawnObject
+  name: SpawnObject
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_SpawnObject
+  commentId: F:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.SpawnObject
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.SpawnObject
+  nameWithType: WorldObjectTitleAddon.SpawnObject
+- uid: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.WorldObject
+  name: WorldObject
+  href: api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html#Nautilus_Handlers_TitleScreen_WorldObjectTitleAddon_WorldObject
+  commentId: F:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.WorldObject
+  fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.WorldObject
+  nameWithType: WorldObjectTitleAddon.WorldObject
 - uid: Nautilus.Handlers.WorldEntityDatabaseHandler
   name: WorldEntityDatabaseHandler
   href: api/Nautilus.Handlers.WorldEntityDatabaseHandler.html
@@ -10410,6 +11408,12 @@ references:
   commentId: T:Nautilus.Utility.AudioUtils.BusPaths
   fullName: Nautilus.Utility.AudioUtils.BusPaths
   nameWithType: AudioUtils.BusPaths
+- uid: Nautilus.Utility.AudioUtils.BusPaths.CyclopsVoice
+  name: CyclopsVoice
+  href: api/Nautilus.Utility.AudioUtils.BusPaths.html#Nautilus_Utility_AudioUtils_BusPaths_CyclopsVoice
+  commentId: F:Nautilus.Utility.AudioUtils.BusPaths.CyclopsVoice
+  fullName: Nautilus.Utility.AudioUtils.BusPaths.CyclopsVoice
+  nameWithType: AudioUtils.BusPaths.CyclopsVoice
 - uid: Nautilus.Utility.AudioUtils.BusPaths.EnvironmentalMusic
   name: EnvironmentalMusic
   href: api/Nautilus.Utility.AudioUtils.BusPaths.html#Nautilus_Utility_AudioUtils_BusPaths_EnvironmentalMusic
@@ -10434,6 +11438,12 @@ references:
   commentId: F:Nautilus.Utility.AudioUtils.BusPaths.PlayerSFXs
   fullName: Nautilus.Utility.AudioUtils.BusPaths.PlayerSFXs
   nameWithType: AudioUtils.BusPaths.PlayerSFXs
+- uid: Nautilus.Utility.AudioUtils.BusPaths.SFX
+  name: SFX
+  href: api/Nautilus.Utility.AudioUtils.BusPaths.html#Nautilus_Utility_AudioUtils_BusPaths_SFX
+  commentId: F:Nautilus.Utility.AudioUtils.BusPaths.SFX
+  fullName: Nautilus.Utility.AudioUtils.BusPaths.SFX
+  nameWithType: AudioUtils.BusPaths.SFX
 - uid: Nautilus.Utility.AudioUtils.BusPaths.SurfaceAmbient
   name: SurfaceAmbient
   href: api/Nautilus.Utility.AudioUtils.BusPaths.html#Nautilus_Utility_AudioUtils_BusPaths_SurfaceAmbient

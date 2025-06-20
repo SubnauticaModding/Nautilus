@@ -676,6 +676,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.AssetBundleSoundSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.AssetBundleSoundSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.AssetBundleSoundSource",
+      "Summary": "Enables loading sounds from an asset bundle by the name of AudioClips."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.CustomSoundSourceBase.CachedSound",
+      "Summary": "Contains the locator and truncated name of a sound file."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.CustomSoundSourceBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.CustomSoundSourceBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.CustomSoundSourceBase",
+      "Summary": "The base class used for loading sounds."
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.FMod.FModMultiSounds.yml",
       "output": {
         ".html": {
@@ -687,6 +729,20 @@
       "IsMRef": true,
       "Title": "Nautilus.FMod.FModMultiSounds",
       "Summary": "This class is used to register FMOD events with multiple sounds in one event."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.FModSoundBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.FModSoundBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.FModSoundBuilder",
+      "Summary": "Allows for easy creation and registration of sounds from an Asset Bundle."
     },
     {
       "type": "ManagedReference",
@@ -704,6 +760,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.Interfaces.IFModSoundBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.Interfaces.IFModSoundBuilder",
+      "Summary": "The interface for registering FMOD Sounds using the <xref href=\"Nautilus.FMod.FModSoundBuilder\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.FMod.Interfaces.yml",
       "output": {
         ".html": {
@@ -715,6 +785,20 @@
       "IsMRef": true,
       "Title": "Nautilus.FMod.Interfaces",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.ModFolderSoundSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.ModFolderSoundSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.ModFolderSoundSource",
+      "Summary": "Enables loading sounds from a folder by the name of each sound file, EXCLUDING extensions."
     },
     {
       "type": "ManagedReference",
@@ -942,6 +1026,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData",
+      "Summary": "A data class containing info for Nautilus to register a custom loading screen"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.LoadingScreen.LoadingScreenHandler",
+      "Summary": "Handles custom loading screens"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.LoadingScreen.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.LoadingScreen.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.LoadingScreen",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Handlers.LootDistributionHandler.yml",
       "output": {
         ".html": {
@@ -1121,6 +1247,132 @@
       "IsMRef": true,
       "Title": "Nautilus.Handlers.SurvivalHandler",
       "Summary": "Handler class that relates to the <xref href=\"Survival\" data-throw-if-not-resolved=\"false\"></xref> component. Allows the defining of oxygen or health gains when consuming specific items."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.MusicTitleAddon",
+      "Summary": "Enables and disables custom music depending on what mod theme is selected."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings",
+      "Summary": "Settings pertaining to the <xref href=\"uSkyManager\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon",
+      "Summary": "Handles changes to the sky in the main menu."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.TitleAddon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.TitleAddon.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.TitleAddon",
+      "Summary": "A custom title addon for the main menu. Inherit from this class to create your own main menu functionality."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData",
+      "Summary": "A data class containing info allowing other mods to add mod-specific additions to the title screen."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData",
+      "Summary": "A data class containing additions for Nautilus to add to the main menu when your mod is selected as the current theme."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.TitleScreenHandler",
+      "Summary": "Handles custom additions to the main menu (Title screen)."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon",
+      "Summary": "Enables and disables a custom GameObject in the main menu depending on what mod theme is selected."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen",
+      "Summary": null
     },
     {
       "type": "ManagedReference",
@@ -2953,6 +3205,16 @@
         },
         ".json": {
           "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/audio.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/audio.html"
         }
       },
       "version": ""
