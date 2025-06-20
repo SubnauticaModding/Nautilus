@@ -198,9 +198,6 @@ public class FModSoundBuilder : IFModSoundBuilder
         {
             throw new SoundBuilderException($"{this}: Cannot register a sound with no sound clip names assigned!");
         }
-
-        // Reset the builder's data
-        Reset();
     }
 
     private void AssignSoundData(Sound sound)
