@@ -6,6 +6,8 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UWE;
 using Object = UnityEngine.Object;
 
 namespace Nautilus.Patchers;
@@ -56,10 +58,16 @@ internal static class WaitScreenPatcher
     
     public static void Patch(Harmony harmony)
     {
+ #if SUBNAUTICA       
         harmony.Patch(AccessTools.Method(typeof(WaitScreen), nameof(WaitScreen.Awake)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(AddModLoadStageDuration))));
         harmony.Patch(AccessTools.Method(typeof(MainSceneLoading), nameof(MainSceneLoading.Launch)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(LoadEarlyModDataAsync))));
+#endif
+#if BELOWZERO
+        harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.DelayedSceneLoad)),
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(LaunchBelowZero))));
+#endif
         harmony.Patch(AccessTools.Method(typeof(MainGameController), nameof(MainGameController.StartGame)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(LoadModDataAsync))));
         harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.SetProgress)),
@@ -78,6 +86,27 @@ internal static class WaitScreenPatcher
     }
 
     /// <summary>
+    /// The transition from main menu to ingame works differently in BZ. Exactly nothing happens between the loading
+    /// screen appearing and the main scene being loaded, which makes it difficult to hook into anything. So,
+    /// this patch intercepts the main scene load directly.
+    /// </summary>
+    private static bool LaunchBelowZero(uGUI_SceneLoading __instance)
+    {
+        // The WaitScreen patch for this does not work since in BZ the WaitScreen is part of the Main scene.
+        AddModLoadStageDuration();
+        CoroutineHost.StartCoroutine(LaunchBelowZeroAsync(__instance));
+        // Usually, this is where the game would load the Main scene. Force it to wait until the coroutine is done.
+        return false;
+    }
+
+    private static IEnumerator LaunchBelowZeroAsync(uGUI_SceneLoading sceneLoading)
+    {
+        yield return LoadEarlyModDataAsync(null);
+        // The original method the game was made to delay. Load the Main scene.
+        sceneLoading.levelLoadingOp = AddressablesUtility.LoadSceneAsync(sceneLoading.levelNameToLoad, LoadSceneMode.Single);
+    }
+
+    /// <summary>
     /// Perform an early, initial load stage for mods. This is as early into the save game launch process as you can
     /// get while still showing the loading screen (and thereby delaying any freezes/stutters to a point where users
     /// expect them to happen).
@@ -89,6 +118,9 @@ internal static class WaitScreenPatcher
         _statusText.text = "Early Mod Loading";
         
         var loadingStage = WaitScreen.Add(EarlyModLoadingStage);
+        // In BZ the WaitScreen is part of the Main scene and does not exist yet. Set up a dummy stage instead.
+        if (loadingStage == null)
+            loadingStage = new WaitScreen.ManualWaitItem(EarlyModLoadingStage);
         yield return ProcessModTasks(EarlyInitTasks, loadingStage);
         
         // Count the mod loading stage as completed and remove it from the stack.
@@ -123,8 +155,8 @@ internal static class WaitScreenPatcher
         lateLoading.SetProgress(1f);
         WaitScreen.Remove(lateLoading);
         
-        // The entire loading screen remains loaded at all times anyway so this isn't super necessary, but it also
-        // doesn't hurt.
+        // Destroy the status display. In SN this would have persisted anyway, but in BZ it would get cleaned up
+        // on return to main menu.
         Object.Destroy(_statusText.gameObject);
     }
 
@@ -133,6 +165,7 @@ internal static class WaitScreenPatcher
         for (int i = 0; i < tasks.Count; i++)
         {
             var task = tasks[i];
+            InternalLogger.Debug($"Processing mod task by '{task.ModName}' ({i}/{tasks.Count})");
             loadingStage.SetProgress((float)i / tasks.Count);
             SetModStatus(loadingStage, task.ModName, task.Status, i + 1, tasks.Count);
             
@@ -157,7 +190,7 @@ internal static class WaitScreenPatcher
     private static void UpdateStatusText()
     {
         // Cannot update a label that does not exist.
-        if (!_statusText)
+        if (!_statusText || !WaitScreen.main)
             return;
 
         var waitItems = WaitScreen.main.items;
