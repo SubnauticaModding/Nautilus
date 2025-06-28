@@ -1,4 +1,5 @@
-﻿using Nautilus.Utility;
+﻿using System.Threading.Tasks;
+using Nautilus.Utility;
 using Newtonsoft.Json;
 
 namespace Nautilus.Json.ExtensionMethods;
@@ -23,6 +24,13 @@ public static class JsonExtensions
     {
         JsonUtils.Load(jsonObject, path, createIfNotExist, jsonConverters);
     }
+    
+    /// <inheritdoc cref="LoadJson{T}"/>
+    public static async Task LoadJsonAsync<T>(this T jsonObject, string path = null,
+        bool createIfNotExist = true, params JsonConverter[] jsonConverters) where T : class
+    {
+        await JsonUtils.LoadAsync(jsonObject, path, createIfNotExist, jsonConverters);
+    }
 
     /// <summary>
     /// Saves the fields and properties of the <paramref name="jsonObject"/> as JSON properties to the file on disk.
@@ -35,5 +43,12 @@ public static class JsonExtensions
         params JsonConverter[] jsonConverters) where T : class
     {
         JsonUtils.Save(jsonObject, path, jsonConverters);
+    }
+    
+    /// <inheritdoc cref="SaveJson{T}"/>
+    public static async Task SaveJsonAsync<T>(this T jsonObject, string path = null,
+        params JsonConverter[] jsonConverters) where T : class
+    {
+        await JsonUtils.SaveAsync(jsonObject, path, jsonConverters);
     }
 }
