@@ -38,6 +38,9 @@ internal static class MainMenuPatcher
 
         harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.Start)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(StartPostfix))));
+        
+        harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.StartNewGame)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(StartNewGamePostfix))));
 
         harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(SceneLoadingAwakePostfix))));
@@ -89,6 +92,14 @@ internal static class MainMenuPatcher
     private static void StartPostfix(uGUI_MainMenu __instance)
     {
         CreateSelectionUI(__instance);
+    }
+
+    private static void StartNewGamePostfix()
+    {
+        foreach (var addon in TitleObjectDatas[_activeModGuid.Value].addons)
+        {
+            addon.CleanupUponLoadScreen();
+        }
     }
 
     private static void CreateSelectionUI(uGUI_MainMenu mainMenu)

@@ -54,6 +54,11 @@ public abstract class TitleAddon
         IsEnabled = false;
         OnDisable();
     }
+
+    internal void CleanupUponLoadScreen()
+    {
+        OnEnterLoadScreen();
+    }
     
     /// <summary>
     /// Runs initialization code once before the main menu is loaded to set up required fields.
@@ -64,6 +69,11 @@ public abstract class TitleAddon
     /// Called when the addon is enabled. This occurs when your mod is selected as the current theme.
     /// </summary>
     protected abstract void OnEnable();
+
+    /// <summary>
+    /// Is called when the player clicks on a save, and the loading screen is enabled.
+    /// </summary>
+    protected virtual void OnEnterLoadScreen() { }
 
     /// <summary>
     /// Called when the addon is disabled. This occurs when your mod is deselected as the current theme, or
