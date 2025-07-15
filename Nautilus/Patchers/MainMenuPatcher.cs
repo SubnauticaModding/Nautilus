@@ -282,19 +282,19 @@ internal static class MainMenuPatcher
         return hasRequiredMods;
     }
 
-    internal static void RegisterTitleObjectData(string guid, TitleScreenHandler.CustomTitleData data)
+    internal static void RegisterTitleObjectData(string key, TitleScreenHandler.CustomTitleData data)
     {
-        if (TitleObjectDatas.ContainsKey(guid))
+        if (TitleObjectDatas.ContainsKey(key))
         {
-            InternalLogger.Log($"MainMenuPatcher already contain title data for {guid}! Skipping.", LogLevel.Error);
+            InternalLogger.Log($"MainMenuPatcher already contain title data for {key}! Skipping.", LogLevel.Error);
             return;
         }
         
-        TitleObjectDatas.Add(guid, data);
+        TitleObjectDatas.Add(key, data);
 
         if (!_choiceOption) return;
         
-        InitializeAddons(guid, data);
+        InitializeAddons(key, data);
         RefreshModOptions(_choiceOption);
     }
 
