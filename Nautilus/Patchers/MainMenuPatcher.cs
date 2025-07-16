@@ -40,7 +40,10 @@ internal static class MainMenuPatcher
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(StartPostfix))));
         
         harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.StartNewGame)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(StartNewGamePostfix))));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(CallAddonCleanups))));
+        
+        harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.LoadGameAsync)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(CallAddonCleanups))));
 
         harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(SceneLoadingAwakePostfix))));
@@ -94,9 +97,11 @@ internal static class MainMenuPatcher
         CreateSelectionUI(__instance);
     }
 
-    private static void StartNewGamePostfix()
+    private static void CallAddonCleanups()
     {
-        foreach (var addon in TitleObjectDatas[_activeModGuid.Value].addons)
+        if (!TitleObjectDatas.TryGetValue(_activeModGuid.Value, out var titleData)) return;
+        
+        foreach (var addon in titleData.addons)
         {
             addon.CleanupUponLoadScreen();
         }
