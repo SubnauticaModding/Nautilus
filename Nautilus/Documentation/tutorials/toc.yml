@@ -17,8 +17,10 @@
       href: biomes.md
     - name: FMOD and Custom Audio
       href: audio.md
-    - name : Adding Custom Titles
+    - name : Custom title screens
       href: title-addons.md
+    - name : Custom loading screens
+      href: loading-screens.md
 
 - name: Prefabs
   items:
