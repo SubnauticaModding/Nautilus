@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using HarmonyLib;
+using Nautilus.Extensions;
+using UnityEngine;
 
 namespace Nautilus.Patchers;
 
