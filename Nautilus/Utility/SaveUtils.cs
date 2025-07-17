@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Threading.Tasks;
 using Nautilus.Patchers;
 
 namespace Nautilus.Utility;
@@ -25,10 +27,26 @@ public static class SaveUtils
     }
 
     /// <summary>
+    /// Registers an async method to invoke whenever the player saves the game via the in game menu.
+    /// </summary>
+    /// <param name="onSaveTask">The async method to invoke.</param>
+    public static void RegisterOnSaveAsyncEvent(Func<IEnumerator> onSaveTask)
+    {
+        SaveUtilsPatcher.OnSaveAsyncEvents.Add(onSaveTask);
+    }
+    
+    /// <inheritdoc cref="RegisterOnSaveAsyncEvent(System.Func{System.Collections.IEnumerator})"/>
+    public static void RegisterOnSaveAsyncEvent(Func<Task> onSaveTask)
+    {
+        RegisterOnSaveAsyncEvent(() => AsyncUtils.WaitUntilTaskComplete(onSaveTask.Invoke()));
+    }
+
+    /// <summary>
     /// Registers a simple <see cref="Action"/> method to invoke the <c>first time</c> the player loads a saved game via the in game menu.
     /// This is only invoked after the game (including most objects around the player) has FULLY loaded. For an earlier alternative, see <see cref="RegisterOnStartLoadingEvent"/>.
     /// </summary>
     /// <param name="onFinishLoadingAction">The method to invoke. This action will not be invoked a second time.</param>
+    [Obsolete("Use WaitScreenHandler.RegisterLateLoadTask() instead.")]
     public static void RegisterOnFinishLoadingEvent(Action onFinishLoadingAction)
     {
         SaveUtilsPatcher.OnFinishLoadingEvents += onFinishLoadingAction;
@@ -38,6 +56,7 @@ public static class SaveUtils
     /// Registers a simple <see cref="Action"/> method to invoke immediately after the <c>first time</c> the player loads a saved game via the in game menu.
     /// </summary>
     /// <param name="onStartLoadingAction">The method to invoke. This action will not be invoked a second time.</param>
+    [Obsolete("Use WaitScreenHandler.RegisterEarlyLoadTask() instead.")]
     public static void RegisterOnStartLoadingEvent(Action onStartLoadingAction)
     {
         SaveUtilsPatcher.OnStartLoadingEvents += onStartLoadingAction;
