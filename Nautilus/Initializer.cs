@@ -90,5 +90,6 @@ public class Initializer : BaseUnityPlugin
         DependencyWarningPatcher.Patch(_harmony);
         MainMenuPatcher.Patch(_harmony, Config);
         WaitScreenPatcher.Patch(_harmony);
+        uGUI_CraftingMenuPatcher.Patch(_harmony);
     }
 }
