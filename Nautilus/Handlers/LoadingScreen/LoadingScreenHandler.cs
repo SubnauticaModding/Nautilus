@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using BepInEx;
 using UnityEngine;
 
@@ -12,11 +13,11 @@ public static class LoadingScreenHandler
     /// <summary>
     /// Register loading screens with Nautilus. Note that custom loading screens will only appear when your mod is selected as the current theme
     /// </summary>
-    /// <param name="plugin">The plugin registering the loading screens</param>
+    /// <param name="titleAddonKey">The key used when registering the TitleScreenHandler.CollaborationData that should control this loading screen</param>
     /// <param name="loadingScreenDatas">The loading screens to register</param>
-    public static void RegisterLoadingScreen(BaseUnityPlugin plugin, LoadingScreenData[] loadingScreenDatas)
+    public static void RegisterLoadingScreen(string titleAddonKey, LoadingScreenData[] loadingScreenDatas)
     {
-        LoadingScreenSetter.LoadingScreenDatas.Add(plugin.Info.Metadata.GUID, loadingScreenDatas);
+        LoadingScreenSetter.LoadingScreenDatas.Add($"{Assembly.GetCallingAssembly().GetName().Name}_{titleAddonKey}", loadingScreenDatas);
     }
 
     /// <summary>

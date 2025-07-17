@@ -71,6 +71,19 @@ public class SkyChangeTitleAddon : TitleAddon, IManagedUpdateBehaviour
         }
     }
 
+    protected override void OnEnterLoadScreen()
+    {
+        _transitionActive = false;
+        var skyManager = uSkyManager.main;
+        if (skyManager == null)
+            return;
+
+        skyManager.Timeline = _defaultSettings.Value.TimeOfDay;
+        skyManager.Exposure = _defaultSettings.Value.Exposure;
+        skyManager.RayleighScattering = _defaultSettings.Value.RayleighScattering;
+        skyManager.skyFogDensity = _defaultSettings.Value.FogDensity;
+    }
+
     /// <summary>
     /// Called every frame while registered.
     /// </summary>

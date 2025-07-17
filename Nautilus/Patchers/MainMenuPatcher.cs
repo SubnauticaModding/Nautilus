@@ -38,6 +38,12 @@ internal static class MainMenuPatcher
 
         harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.Start)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(StartPostfix))));
+        
+        harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.StartNewGame)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(CallAddonCleanups))));
+        
+        harmony.Patch(AccessTools.Method(typeof(uGUI_MainMenu), nameof(uGUI_MainMenu.LoadGameAsync)),
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(CallAddonCleanups))));
 
         harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.Awake)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(SceneLoadingAwakePostfix))));
@@ -89,6 +95,16 @@ internal static class MainMenuPatcher
     private static void StartPostfix(uGUI_MainMenu __instance)
     {
         CreateSelectionUI(__instance);
+    }
+
+    private static void CallAddonCleanups()
+    {
+        if (!TitleObjectDatas.TryGetValue(_activeModGuid.Value, out var titleData)) return;
+        
+        foreach (var addon in titleData.addons)
+        {
+            addon.CleanupUponLoadScreen();
+        }
     }
 
     private static void CreateSelectionUI(uGUI_MainMenu mainMenu)
@@ -282,19 +298,19 @@ internal static class MainMenuPatcher
         return hasRequiredMods;
     }
 
-    internal static void RegisterTitleObjectData(string guid, TitleScreenHandler.CustomTitleData data)
+    internal static void RegisterTitleObjectData(string key, TitleScreenHandler.CustomTitleData data)
     {
-        if (TitleObjectDatas.ContainsKey(guid))
+        if (TitleObjectDatas.ContainsKey(key))
         {
-            InternalLogger.Log($"MainMenuPatcher already contain title data for {guid}! Skipping.", LogLevel.Error);
+            InternalLogger.Log($"MainMenuPatcher already contain title data for {key}! Skipping.", LogLevel.Error);
             return;
         }
         
-        TitleObjectDatas.Add(guid, data);
+        TitleObjectDatas.Add(key, data);
 
         if (!_choiceOption) return;
         
-        InitializeAddons(guid, data);
+        InitializeAddons(key, data);
         RefreshModOptions(_choiceOption);
     }
 

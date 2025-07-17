@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using BepInEx;
 using HarmonyLib;
 using Nautilus.Handlers;
@@ -15,7 +16,7 @@ namespace Nautilus;
 /// <summary>
 /// WARNING: This class is for use only by BepInEx.
 /// </summary>
-[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+[EditorBrowsable(EditorBrowsableState.Never)]
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 #if BELOWZERO
 [BepInProcess("SubnauticaZero.exe")]
@@ -26,6 +27,7 @@ namespace Nautilus;
 public class Initializer : BaseUnityPlugin
 {
     private static readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
+    internal static NautilusConfig ConfigFile { get; private set; } = OptionsPanelHandler.RegisterModOptions<NautilusConfig>();
 
 #if BELOWZERO
     static Initializer()
@@ -87,5 +89,7 @@ public class Initializer : BaseUnityPlugin
         BiomePatcher.Patch(_harmony);
         DependencyWarningPatcher.Patch(_harmony);
         MainMenuPatcher.Patch(_harmony, Config);
+        WaitScreenPatcher.Patch(_harmony);
+        uGUI_CraftingMenuPatcher.Patch(_harmony);
     }
 }

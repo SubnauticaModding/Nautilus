@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using BepInEx;
 using Nautilus.Patchers;
 
@@ -13,11 +14,11 @@ public static class TitleScreenHandler
     /// <summary>
     /// Register title screen additions with Nautilus for automatic handling.
     /// </summary>
-    /// <param name="plugin">The plugin for your mod.</param>
+    /// <param name="key">The key for your custom title data. Must be unique.</param>
     /// <param name="customTitleData">The custom title data for your additions.</param>
-    public static void RegisterTitleScreenObject(BaseUnityPlugin plugin, CustomTitleData customTitleData)
+    public static void RegisterTitleScreenObject(string key, CustomTitleData customTitleData)
     {
-        MainMenuPatcher.RegisterTitleObjectData(plugin.Info.Metadata.GUID, customTitleData);
+        MainMenuPatcher.RegisterTitleObjectData($"{Assembly.GetCallingAssembly().GetName().Name}_{key}", customTitleData);
     }
 
     /// <summary>
