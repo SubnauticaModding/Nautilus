@@ -6254,15 +6254,15 @@ references:
   commentId: F:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.timeToNextScreen
   fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.timeToNextScreen
   nameWithType: LoadingScreenHandler.LoadingScreenData.timeToNextScreen
-- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(BepInEx.BaseUnityPlugin,Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])
-  name: RegisterLoadingScreen(BaseUnityPlugin, LoadingScreenData[])
-  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_RegisterLoadingScreen_BepInEx_BaseUnityPlugin_Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData___
-  commentId: M:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(BepInEx.BaseUnityPlugin,Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])
-  name.vb: RegisterLoadingScreen(BaseUnityPlugin, LoadingScreenData())
-  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(BepInEx.BaseUnityPlugin, Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])
-  fullName.vb: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(BepInEx.BaseUnityPlugin, Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData())
-  nameWithType: LoadingScreenHandler.RegisterLoadingScreen(BaseUnityPlugin, LoadingScreenHandler.LoadingScreenData[])
-  nameWithType.vb: LoadingScreenHandler.RegisterLoadingScreen(BaseUnityPlugin, LoadingScreenHandler.LoadingScreenData())
+- uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(System.String,Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])
+  name: RegisterLoadingScreen(string, LoadingScreenData[])
+  href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_RegisterLoadingScreen_System_String_Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData___
+  commentId: M:Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(System.String,Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])
+  name.vb: RegisterLoadingScreen(String, LoadingScreenData())
+  fullName: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(string, Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])
+  fullName.vb: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(String, Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData())
+  nameWithType: LoadingScreenHandler.RegisterLoadingScreen(string, LoadingScreenHandler.LoadingScreenData[])
+  nameWithType.vb: LoadingScreenHandler.RegisterLoadingScreen(String, LoadingScreenHandler.LoadingScreenData())
 - uid: Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen*
   name: RegisterLoadingScreen
   href: api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.html#Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_RegisterLoadingScreen_
@@ -7439,6 +7439,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnable
   nameWithType: SkyChangeTitleAddon.OnEnable
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnterLoadScreen
+  name: OnEnterLoadScreen()
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_OnEnterLoadScreen
+  commentId: M:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnterLoadScreen
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnterLoadScreen()
+  nameWithType: SkyChangeTitleAddon.OnEnterLoadScreen()
+- uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnterLoadScreen*
+  name: OnEnterLoadScreen
+  href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html#Nautilus_Handlers_TitleScreen_SkyChangeTitleAddon_OnEnterLoadScreen_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnterLoadScreen
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.OnEnterLoadScreen
+  nameWithType: SkyChangeTitleAddon.OnEnterLoadScreen
 - uid: Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings
   name: SkyChangeTitleAddon.Settings
   href: api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html
@@ -7602,6 +7615,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.TitleScreen.TitleAddon.OnEnable
   nameWithType: TitleAddon.OnEnable
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.OnEnterLoadScreen
+  name: OnEnterLoadScreen()
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_OnEnterLoadScreen
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleAddon.OnEnterLoadScreen
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.OnEnterLoadScreen()
+  nameWithType: TitleAddon.OnEnterLoadScreen()
+- uid: Nautilus.Handlers.TitleScreen.TitleAddon.OnEnterLoadScreen*
+  name: OnEnterLoadScreen
+  href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_OnEnterLoadScreen_
+  commentId: Overload:Nautilus.Handlers.TitleScreen.TitleAddon.OnEnterLoadScreen
+  isSpec: "True"
+  fullName: Nautilus.Handlers.TitleScreen.TitleAddon.OnEnterLoadScreen
+  nameWithType: TitleAddon.OnEnterLoadScreen
 - uid: Nautilus.Handlers.TitleScreen.TitleAddon.OnInitialize
   name: OnInitialize()
   href: api/Nautilus.Handlers.TitleScreen.TitleAddon.html#Nautilus_Handlers_TitleScreen_TitleAddon_OnInitialize
@@ -7718,12 +7744,15 @@ references:
   commentId: F:Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.localizationKey
   fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.localizationKey
   nameWithType: TitleScreenHandler.CustomTitleData.localizationKey
-- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject(BepInEx.BaseUnityPlugin,Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData)
-  name: RegisterTitleScreenObject(BaseUnityPlugin, CustomTitleData)
-  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_RegisterTitleScreenObject_BepInEx_BaseUnityPlugin_Nautilus_Handlers_TitleScreen_TitleScreenHandler_CustomTitleData_
-  commentId: M:Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject(BepInEx.BaseUnityPlugin,Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData)
-  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject(BepInEx.BaseUnityPlugin, Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData)
-  nameWithType: TitleScreenHandler.RegisterTitleScreenObject(BaseUnityPlugin, TitleScreenHandler.CustomTitleData)
+- uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject(System.String,Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData)
+  name: RegisterTitleScreenObject(string, CustomTitleData)
+  href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_RegisterTitleScreenObject_System_String_Nautilus_Handlers_TitleScreen_TitleScreenHandler_CustomTitleData_
+  commentId: M:Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject(System.String,Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData)
+  name.vb: RegisterTitleScreenObject(String, CustomTitleData)
+  fullName: Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject(string, Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData)
+  fullName.vb: Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject(String, Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData)
+  nameWithType: TitleScreenHandler.RegisterTitleScreenObject(string, TitleScreenHandler.CustomTitleData)
+  nameWithType.vb: TitleScreenHandler.RegisterTitleScreenObject(String, TitleScreenHandler.CustomTitleData)
 - uid: Nautilus.Handlers.TitleScreen.TitleScreenHandler.RegisterTitleScreenObject*
   name: RegisterTitleScreenObject
   href: api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html#Nautilus_Handlers_TitleScreen_TitleScreenHandler_RegisterTitleScreenObject_
@@ -7826,6 +7855,140 @@ references:
   commentId: F:Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.WorldObject
   fullName: Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.WorldObject
   nameWithType: WorldObjectTitleAddon.WorldObject
+- uid: Nautilus.Handlers.WaitScreenHandler
+  name: WaitScreenHandler
+  href: api/Nautilus.Handlers.WaitScreenHandler.html
+  commentId: T:Nautilus.Handlers.WaitScreenHandler
+  fullName: Nautilus.Handlers.WaitScreenHandler
+  nameWithType: WaitScreenHandler
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterAsyncLoadTask(System.String,System.Func{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask,System.Collections.IEnumerator},System.String)
+  name: RegisterAsyncLoadTask(string, Func<WaitScreenTask, IEnumerator>, string)
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterAsyncLoadTask_System_String_System_Func_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_System_Collections_IEnumerator__System_String_
+  commentId: M:Nautilus.Handlers.WaitScreenHandler.RegisterAsyncLoadTask(System.String,System.Func{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask,System.Collections.IEnumerator},System.String)
+  name.vb: RegisterAsyncLoadTask(String, Func(Of WaitScreenTask, IEnumerator), String)
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterAsyncLoadTask(string, System.Func<Nautilus.Handlers.WaitScreenHandler.WaitScreenTask, System.Collections.IEnumerator>, string)
+  fullName.vb: Nautilus.Handlers.WaitScreenHandler.RegisterAsyncLoadTask(String, System.Func(Of Nautilus.Handlers.WaitScreenHandler.WaitScreenTask, System.Collections.IEnumerator), String)
+  nameWithType: WaitScreenHandler.RegisterAsyncLoadTask(string, Func<WaitScreenHandler.WaitScreenTask, IEnumerator>, string)
+  nameWithType.vb: WaitScreenHandler.RegisterAsyncLoadTask(String, Func(Of WaitScreenHandler.WaitScreenTask, IEnumerator), String)
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterAsyncLoadTask*
+  name: RegisterAsyncLoadTask
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterAsyncLoadTask_
+  commentId: Overload:Nautilus.Handlers.WaitScreenHandler.RegisterAsyncLoadTask
+  isSpec: "True"
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterAsyncLoadTask
+  nameWithType: WaitScreenHandler.RegisterAsyncLoadTask
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterEarlyAsyncLoadTask(System.String,System.Func{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask,System.Collections.IEnumerator},System.String)
+  name: RegisterEarlyAsyncLoadTask(string, Func<WaitScreenTask, IEnumerator>, string)
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterEarlyAsyncLoadTask_System_String_System_Func_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_System_Collections_IEnumerator__System_String_
+  commentId: M:Nautilus.Handlers.WaitScreenHandler.RegisterEarlyAsyncLoadTask(System.String,System.Func{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask,System.Collections.IEnumerator},System.String)
+  name.vb: RegisterEarlyAsyncLoadTask(String, Func(Of WaitScreenTask, IEnumerator), String)
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterEarlyAsyncLoadTask(string, System.Func<Nautilus.Handlers.WaitScreenHandler.WaitScreenTask, System.Collections.IEnumerator>, string)
+  fullName.vb: Nautilus.Handlers.WaitScreenHandler.RegisterEarlyAsyncLoadTask(String, System.Func(Of Nautilus.Handlers.WaitScreenHandler.WaitScreenTask, System.Collections.IEnumerator), String)
+  nameWithType: WaitScreenHandler.RegisterEarlyAsyncLoadTask(string, Func<WaitScreenHandler.WaitScreenTask, IEnumerator>, string)
+  nameWithType.vb: WaitScreenHandler.RegisterEarlyAsyncLoadTask(String, Func(Of WaitScreenHandler.WaitScreenTask, IEnumerator), String)
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterEarlyAsyncLoadTask*
+  name: RegisterEarlyAsyncLoadTask
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterEarlyAsyncLoadTask_
+  commentId: Overload:Nautilus.Handlers.WaitScreenHandler.RegisterEarlyAsyncLoadTask
+  isSpec: "True"
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterEarlyAsyncLoadTask
+  nameWithType: WaitScreenHandler.RegisterEarlyAsyncLoadTask
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterEarlyLoadTask(System.String,System.Action{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask},System.String)
+  name: RegisterEarlyLoadTask(string, Action<WaitScreenTask>, string)
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterEarlyLoadTask_System_String_System_Action_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask__System_String_
+  commentId: M:Nautilus.Handlers.WaitScreenHandler.RegisterEarlyLoadTask(System.String,System.Action{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask},System.String)
+  name.vb: RegisterEarlyLoadTask(String, Action(Of WaitScreenTask), String)
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterEarlyLoadTask(string, System.Action<Nautilus.Handlers.WaitScreenHandler.WaitScreenTask>, string)
+  fullName.vb: Nautilus.Handlers.WaitScreenHandler.RegisterEarlyLoadTask(String, System.Action(Of Nautilus.Handlers.WaitScreenHandler.WaitScreenTask), String)
+  nameWithType: WaitScreenHandler.RegisterEarlyLoadTask(string, Action<WaitScreenHandler.WaitScreenTask>, string)
+  nameWithType.vb: WaitScreenHandler.RegisterEarlyLoadTask(String, Action(Of WaitScreenHandler.WaitScreenTask), String)
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterEarlyLoadTask*
+  name: RegisterEarlyLoadTask
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterEarlyLoadTask_
+  commentId: Overload:Nautilus.Handlers.WaitScreenHandler.RegisterEarlyLoadTask
+  isSpec: "True"
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterEarlyLoadTask
+  nameWithType: WaitScreenHandler.RegisterEarlyLoadTask
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterLateAsyncLoadTask(System.String,System.Func{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask,System.Collections.IEnumerator},System.String)
+  name: RegisterLateAsyncLoadTask(string, Func<WaitScreenTask, IEnumerator>, string)
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterLateAsyncLoadTask_System_String_System_Func_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_System_Collections_IEnumerator__System_String_
+  commentId: M:Nautilus.Handlers.WaitScreenHandler.RegisterLateAsyncLoadTask(System.String,System.Func{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask,System.Collections.IEnumerator},System.String)
+  name.vb: RegisterLateAsyncLoadTask(String, Func(Of WaitScreenTask, IEnumerator), String)
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterLateAsyncLoadTask(string, System.Func<Nautilus.Handlers.WaitScreenHandler.WaitScreenTask, System.Collections.IEnumerator>, string)
+  fullName.vb: Nautilus.Handlers.WaitScreenHandler.RegisterLateAsyncLoadTask(String, System.Func(Of Nautilus.Handlers.WaitScreenHandler.WaitScreenTask, System.Collections.IEnumerator), String)
+  nameWithType: WaitScreenHandler.RegisterLateAsyncLoadTask(string, Func<WaitScreenHandler.WaitScreenTask, IEnumerator>, string)
+  nameWithType.vb: WaitScreenHandler.RegisterLateAsyncLoadTask(String, Func(Of WaitScreenHandler.WaitScreenTask, IEnumerator), String)
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterLateAsyncLoadTask*
+  name: RegisterLateAsyncLoadTask
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterLateAsyncLoadTask_
+  commentId: Overload:Nautilus.Handlers.WaitScreenHandler.RegisterLateAsyncLoadTask
+  isSpec: "True"
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterLateAsyncLoadTask
+  nameWithType: WaitScreenHandler.RegisterLateAsyncLoadTask
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterLateLoadTask(System.String,System.Action{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask},System.String)
+  name: RegisterLateLoadTask(string, Action<WaitScreenTask>, string)
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterLateLoadTask_System_String_System_Action_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask__System_String_
+  commentId: M:Nautilus.Handlers.WaitScreenHandler.RegisterLateLoadTask(System.String,System.Action{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask},System.String)
+  name.vb: RegisterLateLoadTask(String, Action(Of WaitScreenTask), String)
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterLateLoadTask(string, System.Action<Nautilus.Handlers.WaitScreenHandler.WaitScreenTask>, string)
+  fullName.vb: Nautilus.Handlers.WaitScreenHandler.RegisterLateLoadTask(String, System.Action(Of Nautilus.Handlers.WaitScreenHandler.WaitScreenTask), String)
+  nameWithType: WaitScreenHandler.RegisterLateLoadTask(string, Action<WaitScreenHandler.WaitScreenTask>, string)
+  nameWithType.vb: WaitScreenHandler.RegisterLateLoadTask(String, Action(Of WaitScreenHandler.WaitScreenTask), String)
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterLateLoadTask*
+  name: RegisterLateLoadTask
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterLateLoadTask_
+  commentId: Overload:Nautilus.Handlers.WaitScreenHandler.RegisterLateLoadTask
+  isSpec: "True"
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterLateLoadTask
+  nameWithType: WaitScreenHandler.RegisterLateLoadTask
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterLoadTask(System.String,System.Action{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask},System.String)
+  name: RegisterLoadTask(string, Action<WaitScreenTask>, string)
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterLoadTask_System_String_System_Action_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask__System_String_
+  commentId: M:Nautilus.Handlers.WaitScreenHandler.RegisterLoadTask(System.String,System.Action{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask},System.String)
+  name.vb: RegisterLoadTask(String, Action(Of WaitScreenTask), String)
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterLoadTask(string, System.Action<Nautilus.Handlers.WaitScreenHandler.WaitScreenTask>, string)
+  fullName.vb: Nautilus.Handlers.WaitScreenHandler.RegisterLoadTask(String, System.Action(Of Nautilus.Handlers.WaitScreenHandler.WaitScreenTask), String)
+  nameWithType: WaitScreenHandler.RegisterLoadTask(string, Action<WaitScreenHandler.WaitScreenTask>, string)
+  nameWithType.vb: WaitScreenHandler.RegisterLoadTask(String, Action(Of WaitScreenHandler.WaitScreenTask), String)
+- uid: Nautilus.Handlers.WaitScreenHandler.RegisterLoadTask*
+  name: RegisterLoadTask
+  href: api/Nautilus.Handlers.WaitScreenHandler.html#Nautilus_Handlers_WaitScreenHandler_RegisterLoadTask_
+  commentId: Overload:Nautilus.Handlers.WaitScreenHandler.RegisterLoadTask
+  isSpec: "True"
+  fullName: Nautilus.Handlers.WaitScreenHandler.RegisterLoadTask
+  nameWithType: WaitScreenHandler.RegisterLoadTask
+- uid: Nautilus.Handlers.WaitScreenHandler.WaitScreenTask
+  name: WaitScreenHandler.WaitScreenTask
+  href: api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html
+  commentId: T:Nautilus.Handlers.WaitScreenHandler.WaitScreenTask
+  fullName: Nautilus.Handlers.WaitScreenHandler.WaitScreenTask
+  nameWithType: WaitScreenHandler.WaitScreenTask
+- uid: Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.ModName
+  name: ModName
+  href: api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_ModName
+  commentId: P:Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.ModName
+  fullName: Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.ModName
+  nameWithType: WaitScreenHandler.WaitScreenTask.ModName
+- uid: Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.ModName*
+  name: ModName
+  href: api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_ModName_
+  commentId: Overload:Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.ModName
+  isSpec: "True"
+  fullName: Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.ModName
+  nameWithType: WaitScreenHandler.WaitScreenTask.ModName
+- uid: Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.Status
+  name: Status
+  href: api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status
+  commentId: P:Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.Status
+  fullName: Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.Status
+  nameWithType: WaitScreenHandler.WaitScreenTask.Status
+- uid: Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.Status*
+  name: Status
+  href: api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status_
+  commentId: Overload:Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.Status
+  isSpec: "True"
+  fullName: Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.Status
+  nameWithType: WaitScreenHandler.WaitScreenTask.Status
 - uid: Nautilus.Handlers.WorldEntityDatabaseHandler
   name: WorldEntityDatabaseHandler
   href: api/Nautilus.Handlers.WorldEntityDatabaseHandler.html
@@ -8722,6 +8885,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJson
   nameWithType: JsonExtensions.LoadJson
+- uid: Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJsonAsync*
+  name: LoadJsonAsync
+  href: api/Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync_
+  commentId: Overload:Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJsonAsync
+  isSpec: "True"
+  fullName: Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJsonAsync
+  nameWithType: JsonExtensions.LoadJsonAsync
+- uid: Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJsonAsync``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name: LoadJsonAsync<T>(T, string, bool, params JsonConverter[])
+  href: api/Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___
+  commentId: M:Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJsonAsync``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name.vb: LoadJsonAsync(Of T)(T, String, Boolean, ParamArray JsonConverter())
+  fullName: Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJsonAsync<T>(T, string, bool, params Newtonsoft.Json.JsonConverter[])
+  fullName.vb: Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJsonAsync(Of T)(T, String, Boolean, ParamArray Newtonsoft.Json.JsonConverter())
+  nameWithType: JsonExtensions.LoadJsonAsync<T>(T, string, bool, params JsonConverter[])
+  nameWithType.vb: JsonExtensions.LoadJsonAsync(Of T)(T, String, Boolean, ParamArray JsonConverter())
 - uid: Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJson``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
   name: LoadJson<T>(T, string, bool, params JsonConverter[])
   href: api/Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___
@@ -8738,6 +8917,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJson
   nameWithType: JsonExtensions.SaveJson
+- uid: Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJsonAsync*
+  name: SaveJsonAsync
+  href: api/Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync_
+  commentId: Overload:Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJsonAsync
+  isSpec: "True"
+  fullName: Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJsonAsync
+  nameWithType: JsonExtensions.SaveJsonAsync
+- uid: Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJsonAsync``1(``0,System.String,Newtonsoft.Json.JsonConverter[])
+  name: SaveJsonAsync<T>(T, string, params JsonConverter[])
+  href: api/Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___
+  commentId: M:Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJsonAsync``1(``0,System.String,Newtonsoft.Json.JsonConverter[])
+  name.vb: SaveJsonAsync(Of T)(T, String, ParamArray JsonConverter())
+  fullName: Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJsonAsync<T>(T, string, params Newtonsoft.Json.JsonConverter[])
+  fullName.vb: Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJsonAsync(Of T)(T, String, ParamArray Newtonsoft.Json.JsonConverter())
+  nameWithType: JsonExtensions.SaveJsonAsync<T>(T, string, params JsonConverter[])
+  nameWithType.vb: JsonExtensions.SaveJsonAsync(Of T)(T, String, ParamArray JsonConverter())
 - uid: Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJson``1(``0,System.String,Newtonsoft.Json.JsonConverter[])
   name: SaveJson<T>(T, string, params JsonConverter[])
   href: api/Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___
@@ -8894,6 +9089,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Json.JsonFile.Load
   nameWithType: JsonFile.Load
+- uid: Nautilus.Json.JsonFile.LoadAsync(System.Boolean)
+  name: LoadAsync(bool)
+  href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_LoadAsync_System_Boolean_
+  commentId: M:Nautilus.Json.JsonFile.LoadAsync(System.Boolean)
+  name.vb: LoadAsync(Boolean)
+  fullName: Nautilus.Json.JsonFile.LoadAsync(bool)
+  fullName.vb: Nautilus.Json.JsonFile.LoadAsync(Boolean)
+  nameWithType: JsonFile.LoadAsync(bool)
+  nameWithType.vb: JsonFile.LoadAsync(Boolean)
+- uid: Nautilus.Json.JsonFile.LoadAsync*
+  name: LoadAsync
+  href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_LoadAsync_
+  commentId: Overload:Nautilus.Json.JsonFile.LoadAsync
+  isSpec: "True"
+  fullName: Nautilus.Json.JsonFile.LoadAsync
+  nameWithType: JsonFile.LoadAsync
 - uid: Nautilus.Json.JsonFile.LoadWithConverters(System.Boolean,Newtonsoft.Json.JsonConverter[])
   name: LoadWithConverters(bool, params JsonConverter[])
   href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_LoadWithConverters_System_Boolean_Newtonsoft_Json_JsonConverter___
@@ -8910,6 +9121,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Json.JsonFile.LoadWithConverters
   nameWithType: JsonFile.LoadWithConverters
+- uid: Nautilus.Json.JsonFile.LoadWithConvertersAsync(System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name: LoadWithConvertersAsync(bool, params JsonConverter[])
+  href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_LoadWithConvertersAsync_System_Boolean_Newtonsoft_Json_JsonConverter___
+  commentId: M:Nautilus.Json.JsonFile.LoadWithConvertersAsync(System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name.vb: LoadWithConvertersAsync(Boolean, ParamArray JsonConverter())
+  fullName: Nautilus.Json.JsonFile.LoadWithConvertersAsync(bool, params Newtonsoft.Json.JsonConverter[])
+  fullName.vb: Nautilus.Json.JsonFile.LoadWithConvertersAsync(Boolean, ParamArray Newtonsoft.Json.JsonConverter())
+  nameWithType: JsonFile.LoadWithConvertersAsync(bool, params JsonConverter[])
+  nameWithType.vb: JsonFile.LoadWithConvertersAsync(Boolean, ParamArray JsonConverter())
+- uid: Nautilus.Json.JsonFile.LoadWithConvertersAsync*
+  name: LoadWithConvertersAsync
+  href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_LoadWithConvertersAsync_
+  commentId: Overload:Nautilus.Json.JsonFile.LoadWithConvertersAsync
+  isSpec: "True"
+  fullName: Nautilus.Json.JsonFile.LoadWithConvertersAsync
+  nameWithType: JsonFile.LoadWithConvertersAsync
 - uid: Nautilus.Json.JsonFile.OnFinishedLoading
   name: OnFinishedLoading
   href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_OnFinishedLoading
@@ -8947,6 +9174,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Json.JsonFile.Save
   nameWithType: JsonFile.Save
+- uid: Nautilus.Json.JsonFile.SaveAsync
+  name: SaveAsync()
+  href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_SaveAsync
+  commentId: M:Nautilus.Json.JsonFile.SaveAsync
+  fullName: Nautilus.Json.JsonFile.SaveAsync()
+  nameWithType: JsonFile.SaveAsync()
+- uid: Nautilus.Json.JsonFile.SaveAsync*
+  name: SaveAsync
+  href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_SaveAsync_
+  commentId: Overload:Nautilus.Json.JsonFile.SaveAsync
+  isSpec: "True"
+  fullName: Nautilus.Json.JsonFile.SaveAsync
+  nameWithType: JsonFile.SaveAsync
 - uid: Nautilus.Json.JsonFile.SaveWithConverters(Newtonsoft.Json.JsonConverter[])
   name: SaveWithConverters(params JsonConverter[])
   href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_SaveWithConverters_Newtonsoft_Json_JsonConverter___
@@ -8963,6 +9203,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Json.JsonFile.SaveWithConverters
   nameWithType: JsonFile.SaveWithConverters
+- uid: Nautilus.Json.JsonFile.SaveWithConvertersAsync(Newtonsoft.Json.JsonConverter[])
+  name: SaveWithConvertersAsync(params JsonConverter[])
+  href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_SaveWithConvertersAsync_Newtonsoft_Json_JsonConverter___
+  commentId: M:Nautilus.Json.JsonFile.SaveWithConvertersAsync(Newtonsoft.Json.JsonConverter[])
+  name.vb: SaveWithConvertersAsync(ParamArray JsonConverter())
+  fullName: Nautilus.Json.JsonFile.SaveWithConvertersAsync(params Newtonsoft.Json.JsonConverter[])
+  fullName.vb: Nautilus.Json.JsonFile.SaveWithConvertersAsync(ParamArray Newtonsoft.Json.JsonConverter())
+  nameWithType: JsonFile.SaveWithConvertersAsync(params JsonConverter[])
+  nameWithType.vb: JsonFile.SaveWithConvertersAsync(ParamArray JsonConverter())
+- uid: Nautilus.Json.JsonFile.SaveWithConvertersAsync*
+  name: SaveWithConvertersAsync
+  href: api/Nautilus.Json.JsonFile.html#Nautilus_Json_JsonFile_SaveWithConvertersAsync_
+  commentId: Overload:Nautilus.Json.JsonFile.SaveWithConvertersAsync
+  isSpec: "True"
+  fullName: Nautilus.Json.JsonFile.SaveWithConvertersAsync
+  nameWithType: JsonFile.SaveWithConvertersAsync
 - uid: Nautilus.Json.JsonFileEventArgs
   name: JsonFileEventArgs
   href: api/Nautilus.Json.JsonFileEventArgs.html
@@ -9055,6 +9311,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Json.SaveDataCache.Load
   nameWithType: SaveDataCache.Load
+- uid: Nautilus.Json.SaveDataCache.LoadAsync(System.Boolean)
+  name: LoadAsync(bool)
+  href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_LoadAsync_System_Boolean_
+  commentId: M:Nautilus.Json.SaveDataCache.LoadAsync(System.Boolean)
+  name.vb: LoadAsync(Boolean)
+  fullName: Nautilus.Json.SaveDataCache.LoadAsync(bool)
+  fullName.vb: Nautilus.Json.SaveDataCache.LoadAsync(Boolean)
+  nameWithType: SaveDataCache.LoadAsync(bool)
+  nameWithType.vb: SaveDataCache.LoadAsync(Boolean)
+- uid: Nautilus.Json.SaveDataCache.LoadAsync*
+  name: LoadAsync
+  href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_LoadAsync_
+  commentId: Overload:Nautilus.Json.SaveDataCache.LoadAsync
+  isSpec: "True"
+  fullName: Nautilus.Json.SaveDataCache.LoadAsync
+  nameWithType: SaveDataCache.LoadAsync
 - uid: Nautilus.Json.SaveDataCache.LoadWithConverters(System.Boolean,Newtonsoft.Json.JsonConverter[])
   name: LoadWithConverters(bool, params JsonConverter[])
   href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_LoadWithConverters_System_Boolean_Newtonsoft_Json_JsonConverter___
@@ -9071,6 +9343,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Json.SaveDataCache.LoadWithConverters
   nameWithType: SaveDataCache.LoadWithConverters
+- uid: Nautilus.Json.SaveDataCache.LoadWithConvertersAsync(System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name: LoadWithConvertersAsync(bool, params JsonConverter[])
+  href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_LoadWithConvertersAsync_System_Boolean_Newtonsoft_Json_JsonConverter___
+  commentId: M:Nautilus.Json.SaveDataCache.LoadWithConvertersAsync(System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name.vb: LoadWithConvertersAsync(Boolean, ParamArray JsonConverter())
+  fullName: Nautilus.Json.SaveDataCache.LoadWithConvertersAsync(bool, params Newtonsoft.Json.JsonConverter[])
+  fullName.vb: Nautilus.Json.SaveDataCache.LoadWithConvertersAsync(Boolean, ParamArray Newtonsoft.Json.JsonConverter())
+  nameWithType: SaveDataCache.LoadWithConvertersAsync(bool, params JsonConverter[])
+  nameWithType.vb: SaveDataCache.LoadWithConvertersAsync(Boolean, ParamArray JsonConverter())
+- uid: Nautilus.Json.SaveDataCache.LoadWithConvertersAsync*
+  name: LoadWithConvertersAsync
+  href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_LoadWithConvertersAsync_
+  commentId: Overload:Nautilus.Json.SaveDataCache.LoadWithConvertersAsync
+  isSpec: "True"
+  fullName: Nautilus.Json.SaveDataCache.LoadWithConvertersAsync
+  nameWithType: SaveDataCache.LoadWithConvertersAsync
 - uid: Nautilus.Json.SaveDataCache.Save
   name: Save()
   href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_Save
@@ -9084,6 +9372,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Json.SaveDataCache.Save
   nameWithType: SaveDataCache.Save
+- uid: Nautilus.Json.SaveDataCache.SaveAsync
+  name: SaveAsync()
+  href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_SaveAsync
+  commentId: M:Nautilus.Json.SaveDataCache.SaveAsync
+  fullName: Nautilus.Json.SaveDataCache.SaveAsync()
+  nameWithType: SaveDataCache.SaveAsync()
+- uid: Nautilus.Json.SaveDataCache.SaveAsync*
+  name: SaveAsync
+  href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_SaveAsync_
+  commentId: Overload:Nautilus.Json.SaveDataCache.SaveAsync
+  isSpec: "True"
+  fullName: Nautilus.Json.SaveDataCache.SaveAsync
+  nameWithType: SaveDataCache.SaveAsync
 - uid: Nautilus.Json.SaveDataCache.SaveWithConverters(Newtonsoft.Json.JsonConverter[])
   name: SaveWithConverters(params JsonConverter[])
   href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_SaveWithConverters_Newtonsoft_Json_JsonConverter___
@@ -9100,6 +9401,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Json.SaveDataCache.SaveWithConverters
   nameWithType: SaveDataCache.SaveWithConverters
+- uid: Nautilus.Json.SaveDataCache.SaveWithConvertersAsync(Newtonsoft.Json.JsonConverter[])
+  name: SaveWithConvertersAsync(params JsonConverter[])
+  href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_SaveWithConvertersAsync_Newtonsoft_Json_JsonConverter___
+  commentId: M:Nautilus.Json.SaveDataCache.SaveWithConvertersAsync(Newtonsoft.Json.JsonConverter[])
+  name.vb: SaveWithConvertersAsync(ParamArray JsonConverter())
+  fullName: Nautilus.Json.SaveDataCache.SaveWithConvertersAsync(params Newtonsoft.Json.JsonConverter[])
+  fullName.vb: Nautilus.Json.SaveDataCache.SaveWithConvertersAsync(ParamArray Newtonsoft.Json.JsonConverter())
+  nameWithType: SaveDataCache.SaveWithConvertersAsync(params JsonConverter[])
+  nameWithType.vb: SaveDataCache.SaveWithConvertersAsync(ParamArray JsonConverter())
+- uid: Nautilus.Json.SaveDataCache.SaveWithConvertersAsync*
+  name: SaveWithConvertersAsync
+  href: api/Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_SaveWithConvertersAsync_
+  commentId: Overload:Nautilus.Json.SaveDataCache.SaveWithConvertersAsync
+  isSpec: "True"
+  fullName: Nautilus.Json.SaveDataCache.SaveWithConvertersAsync
+  nameWithType: SaveDataCache.SaveWithConvertersAsync
 - uid: Nautilus.Options
   name: Nautilus.Options
   href: api/Nautilus.Options.html
@@ -11396,6 +11713,25 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.AssetBundleLoadingUtils.LoadFromModFolder
   nameWithType: AssetBundleLoadingUtils.LoadFromModFolder
+- uid: Nautilus.Utility.AsyncUtils
+  name: AsyncUtils
+  href: api/Nautilus.Utility.AsyncUtils.html
+  commentId: T:Nautilus.Utility.AsyncUtils
+  fullName: Nautilus.Utility.AsyncUtils
+  nameWithType: AsyncUtils
+- uid: Nautilus.Utility.AsyncUtils.WaitUntilTaskComplete(System.Threading.Tasks.Task)
+  name: WaitUntilTaskComplete(Task)
+  href: api/Nautilus.Utility.AsyncUtils.html#Nautilus_Utility_AsyncUtils_WaitUntilTaskComplete_System_Threading_Tasks_Task_
+  commentId: M:Nautilus.Utility.AsyncUtils.WaitUntilTaskComplete(System.Threading.Tasks.Task)
+  fullName: Nautilus.Utility.AsyncUtils.WaitUntilTaskComplete(System.Threading.Tasks.Task)
+  nameWithType: AsyncUtils.WaitUntilTaskComplete(Task)
+- uid: Nautilus.Utility.AsyncUtils.WaitUntilTaskComplete*
+  name: WaitUntilTaskComplete
+  href: api/Nautilus.Utility.AsyncUtils.html#Nautilus_Utility_AsyncUtils_WaitUntilTaskComplete_
+  commentId: Overload:Nautilus.Utility.AsyncUtils.WaitUntilTaskComplete
+  isSpec: "True"
+  fullName: Nautilus.Utility.AsyncUtils.WaitUntilTaskComplete
+  nameWithType: AsyncUtils.WaitUntilTaskComplete
 - uid: Nautilus.Utility.AudioUtils
   name: AudioUtils
   href: api/Nautilus.Utility.AudioUtils.html
@@ -12337,6 +12673,31 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.JsonUtils.Load
   nameWithType: JsonUtils.Load
+- uid: Nautilus.Utility.JsonUtils.LoadAsync*
+  name: LoadAsync
+  href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_LoadAsync_
+  commentId: Overload:Nautilus.Utility.JsonUtils.LoadAsync
+  isSpec: "True"
+  fullName: Nautilus.Utility.JsonUtils.LoadAsync
+  nameWithType: JsonUtils.LoadAsync
+- uid: Nautilus.Utility.JsonUtils.LoadAsync``1(System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name: LoadAsync<T>(string, bool, params JsonConverter[])
+  href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_LoadAsync__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___
+  commentId: M:Nautilus.Utility.JsonUtils.LoadAsync``1(System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name.vb: LoadAsync(Of T)(String, Boolean, ParamArray JsonConverter())
+  fullName: Nautilus.Utility.JsonUtils.LoadAsync<T>(string, bool, params Newtonsoft.Json.JsonConverter[])
+  fullName.vb: Nautilus.Utility.JsonUtils.LoadAsync(Of T)(String, Boolean, ParamArray Newtonsoft.Json.JsonConverter())
+  nameWithType: JsonUtils.LoadAsync<T>(string, bool, params JsonConverter[])
+  nameWithType.vb: JsonUtils.LoadAsync(Of T)(String, Boolean, ParamArray JsonConverter())
+- uid: Nautilus.Utility.JsonUtils.LoadAsync``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name: LoadAsync<T>(T, string, bool, params JsonConverter[])
+  href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_LoadAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___
+  commentId: M:Nautilus.Utility.JsonUtils.LoadAsync``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
+  name.vb: LoadAsync(Of T)(T, String, Boolean, ParamArray JsonConverter())
+  fullName: Nautilus.Utility.JsonUtils.LoadAsync<T>(T, string, bool, params Newtonsoft.Json.JsonConverter[])
+  fullName.vb: Nautilus.Utility.JsonUtils.LoadAsync(Of T)(T, String, Boolean, ParamArray Newtonsoft.Json.JsonConverter())
+  nameWithType: JsonUtils.LoadAsync<T>(T, string, bool, params JsonConverter[])
+  nameWithType.vb: JsonUtils.LoadAsync(Of T)(T, String, Boolean, ParamArray JsonConverter())
 - uid: Nautilus.Utility.JsonUtils.Load``1(System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])
   name: Load<T>(string, bool, params JsonConverter[])
   href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___
@@ -12362,6 +12723,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.JsonUtils.Save
   nameWithType: JsonUtils.Save
+- uid: Nautilus.Utility.JsonUtils.SaveAsync*
+  name: SaveAsync
+  href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_SaveAsync_
+  commentId: Overload:Nautilus.Utility.JsonUtils.SaveAsync
+  isSpec: "True"
+  fullName: Nautilus.Utility.JsonUtils.SaveAsync
+  nameWithType: JsonUtils.SaveAsync
+- uid: Nautilus.Utility.JsonUtils.SaveAsync``1(``0,System.String,Newtonsoft.Json.JsonConverter[])
+  name: SaveAsync<T>(T, string, params JsonConverter[])
+  href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_SaveAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___
+  commentId: M:Nautilus.Utility.JsonUtils.SaveAsync``1(``0,System.String,Newtonsoft.Json.JsonConverter[])
+  name.vb: SaveAsync(Of T)(T, String, ParamArray JsonConverter())
+  fullName: Nautilus.Utility.JsonUtils.SaveAsync<T>(T, string, params Newtonsoft.Json.JsonConverter[])
+  fullName.vb: Nautilus.Utility.JsonUtils.SaveAsync(Of T)(T, String, ParamArray Newtonsoft.Json.JsonConverter())
+  nameWithType: JsonUtils.SaveAsync<T>(T, string, params JsonConverter[])
+  nameWithType.vb: JsonUtils.SaveAsync(Of T)(T, String, ParamArray JsonConverter())
 - uid: Nautilus.Utility.JsonUtils.Save``1(``0,System.String,Newtonsoft.Json.JsonConverter[])
   name: Save<T>(T, string, params JsonConverter[])
   href: api/Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___
@@ -14138,6 +14515,31 @@ references:
   isSpec: "True"
   fullName: Nautilus.Utility.SaveUtils.RegisterOnQuitEvent
   nameWithType: SaveUtils.RegisterOnQuitEvent
+- uid: Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent(System.Func{System.Collections.IEnumerator})
+  name: RegisterOnSaveAsyncEvent(Func<IEnumerator>)
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnSaveAsyncEvent_System_Func_System_Collections_IEnumerator__
+  commentId: M:Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent(System.Func{System.Collections.IEnumerator})
+  name.vb: RegisterOnSaveAsyncEvent(Func(Of IEnumerator))
+  fullName: Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent(System.Func<System.Collections.IEnumerator>)
+  fullName.vb: Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent(System.Func(Of System.Collections.IEnumerator))
+  nameWithType: SaveUtils.RegisterOnSaveAsyncEvent(Func<IEnumerator>)
+  nameWithType.vb: SaveUtils.RegisterOnSaveAsyncEvent(Func(Of IEnumerator))
+- uid: Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent(System.Func{System.Threading.Tasks.Task})
+  name: RegisterOnSaveAsyncEvent(Func<Task>)
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnSaveAsyncEvent_System_Func_System_Threading_Tasks_Task__
+  commentId: M:Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent(System.Func{System.Threading.Tasks.Task})
+  name.vb: RegisterOnSaveAsyncEvent(Func(Of Task))
+  fullName: Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent(System.Func<System.Threading.Tasks.Task>)
+  fullName.vb: Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent(System.Func(Of System.Threading.Tasks.Task))
+  nameWithType: SaveUtils.RegisterOnSaveAsyncEvent(Func<Task>)
+  nameWithType.vb: SaveUtils.RegisterOnSaveAsyncEvent(Func(Of Task))
+- uid: Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent*
+  name: RegisterOnSaveAsyncEvent
+  href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnSaveAsyncEvent_
+  commentId: Overload:Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent
+  isSpec: "True"
+  fullName: Nautilus.Utility.SaveUtils.RegisterOnSaveAsyncEvent
+  nameWithType: SaveUtils.RegisterOnSaveAsyncEvent
 - uid: Nautilus.Utility.SaveUtils.RegisterOnSaveEvent(System.Action)
   name: RegisterOnSaveEvent(Action)
   href: api/Nautilus.Utility.SaveUtils.html#Nautilus_Utility_SaveUtils_RegisterOnSaveEvent_System_Action_

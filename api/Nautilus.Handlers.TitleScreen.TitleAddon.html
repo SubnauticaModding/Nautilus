@@ -155,7 +155,13 @@ Class TitleAddon  <a class="header-action link-secondary" title="View source" hr
     <dt>Extension Methods</dt>
     <dd>
   <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJsonAsync&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
       <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJsonAsync&lt;T&gt;(T, string, params JsonConverter[])</a>
   </div>
   <div>
       <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a>
@@ -354,7 +360,7 @@ Class TitleAddon  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Handlers_TitleScreen_TitleAddon_OnDisable" data-uid="Nautilus.Handlers.TitleScreen.TitleAddon.OnDisable">
   OnDisable()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/TitleScreen/TitleAddon.cs/#L72"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/TitleScreen/TitleAddon.cs/#L82"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Called when the addon is disabled. This occurs when your mod is deselected as the current theme, or
@@ -381,7 +387,7 @@ if the addon inherits from <a class="xref" href="Nautilus.Handlers.TitleScreen.M
 
   <h3 id="Nautilus_Handlers_TitleScreen_TitleAddon_OnEnable" data-uid="Nautilus.Handlers.TitleScreen.TitleAddon.OnEnable">
   OnEnable()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/TitleScreen/TitleAddon.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/TitleScreen/TitleAddon.cs/#L71"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Called when the addon is enabled. This occurs when your mod is selected as the current theme.</div>
@@ -403,11 +409,37 @@ if the addon inherits from <a class="xref" href="Nautilus.Handlers.TitleScreen.M
 
 
 
+  <a id="Nautilus_Handlers_TitleScreen_TitleAddon_OnEnterLoadScreen_" data-uid="Nautilus.Handlers.TitleScreen.TitleAddon.OnEnterLoadScreen*"></a>
+
+  <h3 id="Nautilus_Handlers_TitleScreen_TitleAddon_OnEnterLoadScreen" data-uid="Nautilus.Handlers.TitleScreen.TitleAddon.OnEnterLoadScreen">
+  OnEnterLoadScreen()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/TitleScreen/TitleAddon.cs/#L76"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Is called when the player clicks on a save, and the loading screen is enabled.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnEnterLoadScreen()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_TitleScreen_TitleAddon_OnInitialize_" data-uid="Nautilus.Handlers.TitleScreen.TitleAddon.OnInitialize*"></a>
 
   <h3 id="Nautilus_Handlers_TitleScreen_TitleAddon_OnInitialize" data-uid="Nautilus.Handlers.TitleScreen.TitleAddon.OnInitialize">
   OnInitialize()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/TitleScreen/TitleAddon.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/TitleScreen/TitleAddon.cs/#L66"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Runs initialization code once before the main menu is loaded to set up required fields.</div>

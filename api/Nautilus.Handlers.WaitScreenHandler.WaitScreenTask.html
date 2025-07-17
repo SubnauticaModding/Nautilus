@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class Vector3IntConverter </title>
+      <title>Class WaitScreenHandler.WaitScreenTask </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class Vector3IntConverter ">
+      <meta name="title" content="Class WaitScreenHandler.WaitScreenTask ">
       
-      <meta name="description" content="A Vector3Int json converter that simplifies the Vector3Int to only x,y,z serialization.">
+      <meta name="description" content="Represents the unit of work performed by a mod during the loading screen.">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Json_Converters_Vector3IntConverter.md&amp;value=---%0Auid%3A%20Nautilus.Json.Converters.Vector3IntConverter%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_WaitScreenHandler_WaitScreenTask.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.WaitScreenHandler.WaitScreenTask%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,24 +84,24 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Nautilus.Json.Converters.Vector3IntConverter">
+        <article data-uid="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask">
 
 
 
-  <h1 id="Nautilus_Json_Converters_Vector3IntConverter" data-uid="Nautilus.Json.Converters.Vector3IntConverter" class="text-break">
-Class Vector3IntConverter  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/Converters/Vector3IntConverter.cs/#L10"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Nautilus_Handlers_WaitScreenHandler_WaitScreenTask" data-uid="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask" class="text-break">
+Class WaitScreenHandler.WaitScreenTask  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L94"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Json.html">Json</a>.<a class="xref" href="Nautilus.Json.Converters.html">Converters</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></dd></dl>
   <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
 
-  <div class="markdown summary">A Vector3Int json converter that simplifies the Vector3Int to only x,y,z serialization.</div>
+  <div class="markdown summary">Represents the unit of work performed by a mod during the loading screen.</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class Vector3IntConverter : JsonConverter</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class WaitScreenHandler.WaitScreenTask</code></pre>
   </div>
 
 
@@ -111,8 +111,7 @@ Class Vector3IntConverter  <a class="header-action link-secondary" title="View s
     <dt>Inheritance</dt>
     <dd>
       <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><span class="xref">JsonConverter</span></div>
-      <div><span class="xref">Vector3IntConverter</span></div>
+      <div><span class="xref">WaitScreenHandler.WaitScreenTask</span></div>
     </dd>
   </dl>
 
@@ -121,12 +120,6 @@ Class Vector3IntConverter  <a class="header-action link-secondary" title="View s
   <dl class="typelist inheritedMembers">
     <dt>Inherited Members</dt>
     <dd>
-    <div>
-      <span class="xref">JsonConverter.CanRead</span>
-    </div>
-    <div>
-      <span class="xref">JsonConverter.CanWrite</span>
-    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
     </div>
@@ -144,9 +137,6 @@ Class Vector3IntConverter  <a class="header-action link-secondary" title="View s
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
   </dd></dl>
 
@@ -192,33 +182,31 @@ Class Vector3IntConverter  <a class="header-action link-secondary" title="View s
 
 
 
-  <h2 class="section" id="methods">Methods
+  <h2 class="section" id="properties">Properties
 </h2>
 
 
-  <a id="Nautilus_Json_Converters_Vector3IntConverter_CanConvert_" data-uid="Nautilus.Json.Converters.Vector3IntConverter.CanConvert*"></a>
+  <a id="Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_ModName_" data-uid="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.ModName*"></a>
 
-  <h3 id="Nautilus_Json_Converters_Vector3IntConverter_CanConvert_System_Type_" data-uid="Nautilus.Json.Converters.Vector3IntConverter.CanConvert(System.Type)">
-  CanConvert(Type)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/Converters/Vector3IntConverter.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_ModName" data-uid="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.ModName">
+  ModName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L99"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary">A method that determines when this converter should process.</div>
+  <div class="markdown level1 summary">Determines the name displayed while this task is being performed.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool CanConvert(Type objectType)</code></pre>
+    <pre><code class="lang-csharp hljs">public string ModName { get; }</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>objectType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
-    <dd>the current object type</dd>
-  </dl>
 
-  <h4 class="section">Returns</h4>
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
 
@@ -229,78 +217,30 @@ Class Vector3IntConverter  <a class="header-action link-secondary" title="View s
 
 
 
+  <a id="Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status_" data-uid="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.Status*"></a>
 
-
-
-  <a id="Nautilus_Json_Converters_Vector3IntConverter_ReadJson_" data-uid="Nautilus.Json.Converters.Vector3IntConverter.ReadJson*"></a>
-
-  <h3 id="Nautilus_Json_Converters_Vector3IntConverter_ReadJson_Newtonsoft_Json_JsonReader_System_Type_System_Object_Newtonsoft_Json_JsonSerializer_" data-uid="Nautilus.Json.Converters.Vector3IntConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
-  ReadJson(JsonReader, Type, object, JsonSerializer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/Converters/Vector3IntConverter.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status" data-uid="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.Status">
+  Status
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L105"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary">A method that tells Newtonsoft how to Deserialize and read the current object.</div>
+  <div class="markdown level1 summary">Optional detailed information about what the mod is working on during this task. Can be updated during
+tasks to give the user detailed feedback about what exactly the mod is doing.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)</code></pre>
+    <pre><code class="lang-csharp hljs">public string Status { get; set; }</code></pre>
   </div>
 
-  <h4 class="section">Parameters</h4>
+
+
+
+
+  <h4 class="section">Property Value</h4>
   <dl class="parameters">
-    <dt><code>reader</code> <span class="xref">JsonReader</span></dt>
-    <dd></dd>
-    <dt><code>objectType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
-    <dd></dd>
-    <dt><code>existingValue</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-    <dt><code>serializer</code> <span class="xref">JsonSerializer</span></dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd></dd>
   </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Nautilus_Json_Converters_Vector3IntConverter_WriteJson_" data-uid="Nautilus.Json.Converters.Vector3IntConverter.WriteJson*"></a>
-
-  <h3 id="Nautilus_Json_Converters_Vector3IntConverter_WriteJson_Newtonsoft_Json_JsonWriter_System_Object_Newtonsoft_Json_JsonSerializer_" data-uid="Nautilus.Json.Converters.Vector3IntConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
-  WriteJson(JsonWriter, object, JsonSerializer)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/Converters/Vector3IntConverter.cs/#L28"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary">A method that tells Newtonsoft how to Serialize the current object.</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>writer</code> <span class="xref">JsonWriter</span></dt>
-    <dd></dd>
-    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
-    <dd></dd>
-    <dt><code>serializer</code> <span class="xref">JsonSerializer</span></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
 
 
 
@@ -313,7 +253,7 @@ Class Vector3IntConverter  <a class="header-action link-secondary" title="View s
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/Converters/Vector3IntConverter.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L94" class="edit-link">Edit this page</a>
         </div>
 
 

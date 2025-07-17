@@ -89,7 +89,7 @@
 
 
   <h1 id="Nautilus_Json_ExtensionMethods_JsonExtensions" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions" class="text-break">
-Class JsonExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L9"><i class="bi bi-code-slash"></i></a>
+Class JsonExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L10"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -152,11 +152,65 @@ Class JsonExtensions  <a class="header-action link-secondary" title="View source
 </h2>
 
 
+  <a id="Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync_" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJsonAsync*"></a>
+
+  <h3 id="Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJsonAsync``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">
+  LoadJsonAsync&lt;T&gt;(T, string, bool, params JsonConverter[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Loads the JSON properties from a file on disk into the <code class="paramref">jsonObject</code>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task LoadJsonAsync&lt;T&gt;(this T jsonObject, string path = null, bool createIfNotExist = true, params JsonConverter[] jsonConverters) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jsonObject</code> <span class="xref">T</span></dt>
+    <dd>The object instance to load the properties into.</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The file path to the JSON file to parse.</dd>
+    <dt><code>createIfNotExist</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether a new JSON file should be created with default values if it does not
+    already exist.</dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd>The <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for deserialization.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>The type of the <code class="paramref">jsonObject</code>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a></div>
+    </dd>
+  </dl>
+
+
   <a id="Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson_" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJson*"></a>
 
   <h3 id="Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions.LoadJson``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">
   LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L22"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Loads the JSON properties from a file on disk into the <code class="paramref">jsonObject</code>.</div>
@@ -201,11 +255,56 @@ Class JsonExtensions  <a class="header-action link-secondary" title="View source
   </dl>
 
 
+  <a id="Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync_" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJsonAsync*"></a>
+
+  <h3 id="Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJsonAsync``1(``0,System.String,Newtonsoft.Json.JsonConverter[])">
+  SaveJsonAsync&lt;T&gt;(T, string, params JsonConverter[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Saves the fields and properties of the <code class="paramref">jsonObject</code> as JSON properties to the file on disk.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task SaveJsonAsync&lt;T&gt;(this T jsonObject, string path = null, params JsonConverter[] jsonConverters) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jsonObject</code> <span class="xref">T</span></dt>
+    <dd>The object instance to save the fields and properties from.</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The file path at which to save the JSON file.</dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd>The <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for serialization.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>The type of the <code class="paramref">jsonObject</code>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson_" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJson*"></a>
 
   <h3 id="Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Json.ExtensionMethods.JsonExtensions.SaveJson``1(``0,System.String,Newtonsoft.Json.JsonConverter[])">
   SaveJson&lt;T&gt;(T, string, params JsonConverter[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Saves the fields and properties of the <code class="paramref">jsonObject</code> as JSON properties to the file on disk.</div>
@@ -245,7 +344,7 @@ Class JsonExtensions  <a class="header-action link-secondary" title="View source
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L9" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Json/ExtensionMethods/JsonExtensions.cs/#L10" class="edit-link">Edit this page</a>
         </div>
 
 

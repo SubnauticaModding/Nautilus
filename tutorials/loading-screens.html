@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Tutorials </title>
+      <title>Custom Loading Screens </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Tutorials ">
+      <meta name="title" content="Custom Loading Screens ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/overview.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/loading-screens.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,48 +85,48 @@
         </div>
 
         <article data-uid="">
-<h1 id="tutorials">Tutorials</h1>
+<h1 id="custom-loading-screens">Custom Loading Screens</h1>
 
-<p>This section covers step-by-step tutorials on how to get some of the useful features of Nautilus done with images, demos, and working code. If you've used SML 2.0 before, please start with our <a href="../guides/sml2-to-nautilus.html">Updating to Nautilus Guide</a>.</p>
-<h2 id="sections">Sections</h2>
-<h3 id="adding-content">Adding Content</h3>
+<p>Nautilus provides a way for modders to add custom loading screens, which is tied in with the custom title screen system.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This tutorial builds off the one for the <a href="title-addons.html">custom title screens</a> tutorial, so if you have not already, it's highly recommended to go through that first.</p>
+</div>
+<h2 id="system-summary">System Summary</h2>
+<p>The loading screen system consists of two parts.</p>
+<ol>
+<li>The current custom title screen, handled by Nautilus's <code>TitleScreenHandler</code></li>
+<li>Custom <code>LoadingScreenData</code>, which handles image registration and how loading screens are selected.</li>
+</ol>
+<p>For a loading screen to be available to be selected, the specified <code>CustomTitleData</code> key must be the active theme. Once that check has passed, Nautilus looks at the parameters on each <code>LoadingScreenData</code> itself.</p>
+<p>Here are all the parameters required for creating a <code>LoadingScreenData</code> instance:</p>
 <ul>
-<li><a href="spawns.html">Spawning objects in the world</a></li>
-<li><a href="console-commands.html">Custom console commands</a></li>
-<li><a href="story-goals.html">Story goals</a></li>
-<li><a href="databank-entries.html">Databank entries</a></li>
-<li><a href="vehicle-module.html">Custom vehicle upgrade modules</a></li>
-<li><a href="biomes.html">Custom biomes</a></li>
-<li><a href="audio.html">FMOD and Custom Audio</a></li>
-<li><a href="title-addons.html">Custom title screens</a></li>
-<li><a href="loading-screens.html">Custom loading screens</a></li>
+<li><code>loadingScreenImage</code>: The loading screen sprite. This is the actual image that will show.</li>
+<li><code>priority</code>: The priority of this loading screen over other registered screens.</li>
+<li><code>timeToNextScreen</code>: The duration in seconds for which this loading screen will stay active.</li>
+<li><code>storyGoalRequirement</code>: A story goal requirement for the loading screen to be enabled (not required).</li>
+<li><code>customRequirement</code>: A custom requirement for the loading screen to be enabled (not required).</li>
 </ul>
-<h3 id="prefabs">Prefabs</h3>
-<ul>
-<li><a href="prefabs-overview.html">Prefab basics</a></li>
-<li><a href="loading-and-instantiating-prefabs.html">Loading &amp; instantiating prefabs</a></li>
-</ul>
-<h3 id="editing-content">Editing Content</h3>
-<ul>
-<li><a href="background-type.html">Background type</a></li>
-<li><a href="equipment-type.html">Equipment type</a></li>
-<li><a href="crafting-recipes.html">Crafting recipes</a></li>
-</ul>
-<h3 id="utilities">Utilities</h3>
-<ul>
-<li><a href="localization.html">Localization</a></li>
-<li><a href="options.html">In-Game options</a></li>
-</ul>
-<h3 id="quick-references">Quick References</h3>
-<ul>
-<li><a href="csproj-tutorials.html">Customizing your C# project</a></li>
-<li><a href="craft-tree-paths.html">Craft tree paths</a></li>
-</ul>
+<h2 id="loading-screen-example">Loading Screen Example</h2>
+<pre><code class="lang-csharp">private void RegisterLoadingScreens()
+{
+    // The &quot;ModTitleAddons&quot; theme will need to be active for these screens to show up
+    LoadingScreenHandler.RegisterLoadingScreen(&quot;ModTitleAddons&quot;, new []
+    {
+        // Register a simple loading screen with just a sprite
+        new LoadingScreenHandler.LoadingScreenData(Plugin.AssetBundle.LoadAsset&lt;Sprite&gt;(&quot;LoadingSprite1&quot;)),
+        // Register a loading screen with the &quot;MyEpicStoryGoal&quot; story goal requirement
+        new LoadingScreenHandler.LoadingScreenData(Plugin.AssetBundle.LoadAsset&lt;Sprite&gt;(&quot;LoadingSprite2&quot;), storyGoalRequirement: &quot;MyEpicStoryGoal&quot;),
+        // Register a loading screen that only appears when the &quot;storyBool&quot; in the mod's save data is set to true
+        new LoadingScreenHandler.LoadingScreenData(Plugin.AssetBundle.LoadAsset&lt;Sprite&gt;(&quot;LoadingSprite3&quot;), customRequirement: () =&gt; Plugin.SaveData.storyBool),
+    })
+}
+</code></pre>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/overview.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/loading-screens.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

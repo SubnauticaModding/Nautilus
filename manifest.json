@@ -1376,6 +1376,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.WaitScreenHandler.WaitScreenTask",
+      "Summary": "Represents the unit of work performed by a mod during the loading screen."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.WaitScreenHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.WaitScreenHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.WaitScreenHandler",
+      "Summary": "A handler for registering mod loading actions to be performed during the loading screen."
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Handlers.WorldEntityDatabaseHandler.yml",
       "output": {
         ".html": {
@@ -2283,6 +2311,20 @@
       "IsMRef": true,
       "Title": "Nautilus.Utility.AssetBundleLoadingUtils",
       "Summary": "Utilities related to loading Asset Bundles."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AsyncUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AsyncUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AsyncUtils",
+      "Summary": "Utilities that make it easier to work with async methods in the context of Unity."
     },
     {
       "type": "ManagedReference",
@@ -3311,6 +3353,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/loading-screens.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/loading-screens.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Documentation/tutorials/localization.md",
       "output": {
         ".html": {
@@ -3365,6 +3417,16 @@
       "output": {
         ".html": {
           "relative_path": "tutorials/story-goals.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/title-addons.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/title-addons.html"
         }
       },
       "version": ""

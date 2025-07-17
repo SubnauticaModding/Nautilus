@@ -89,7 +89,7 @@
 
 
   <h1 id="Nautilus_Handlers_LoadingScreen_LoadingScreenHandler" data-uid="Nautilus.Handlers.LoadingScreen.LoadingScreenHandler" class="text-break">
-Class LoadingScreenHandler  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LoadingScreen/LoadingScreenHandler.cs/#L10"><i class="bi bi-code-slash"></i></a>
+Class LoadingScreenHandler  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LoadingScreen/LoadingScreenHandler.cs/#L11"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -154,22 +154,22 @@ Class LoadingScreenHandler  <a class="header-action link-secondary" title="View 
 
   <a id="Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_RegisterLoadingScreen_" data-uid="Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen*"></a>
 
-  <h3 id="Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_RegisterLoadingScreen_BepInEx_BaseUnityPlugin_Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData___" data-uid="Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(BepInEx.BaseUnityPlugin,Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])">
-  RegisterLoadingScreen(BaseUnityPlugin, LoadingScreenData[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LoadingScreen/LoadingScreenHandler.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_RegisterLoadingScreen_System_String_Nautilus_Handlers_LoadingScreen_LoadingScreenHandler_LoadingScreenData___" data-uid="Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.RegisterLoadingScreen(System.String,Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData[])">
+  RegisterLoadingScreen(string, LoadingScreenData[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LoadingScreen/LoadingScreenHandler.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Register loading screens with Nautilus. Note that custom loading screens will only appear when your mod is selected as the current theme</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RegisterLoadingScreen(BaseUnityPlugin plugin, LoadingScreenHandler.LoadingScreenData[] loadingScreenDatas)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void RegisterLoadingScreen(string titleAddonKey, LoadingScreenHandler.LoadingScreenData[] loadingScreenDatas)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>plugin</code> <span class="xref">BaseUnityPlugin</span></dt>
-    <dd>The plugin registering the loading screens</dd>
+    <dt><code>titleAddonKey</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The key used when registering the TitleScreenHandler.CollaborationData that should control this loading screen</dd>
     <dt><code>loadingScreenDatas</code> <a class="xref" href="Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html">LoadingScreenData</a>[]</dt>
     <dd>The loading screens to register</dd>
   </dl>
@@ -189,7 +189,7 @@ Class LoadingScreenHandler  <a class="header-action link-secondary" title="View 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LoadingScreen/LoadingScreenHandler.cs/#L10" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/LoadingScreen/LoadingScreenHandler.cs/#L11" class="edit-link">Edit this page</a>
         </div>
 
 

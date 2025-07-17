@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Adding a Custom Title Screen </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Adding a Custom Title Screen ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/title-addons.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="adding-a-custom-title-screen">Adding a Custom Title Screen</h1>
+
+<p>Nautilus provides a way for mods to add their own title screen additions without interfering with those from other mods.</p>
+<h2 id="understanding-addons">Understanding Addons</h2>
+<p>Nautilus uses a modular system for title screen additions, allowing for a near endless amount of customizability.</p>
+<p>The foundation of these additions is the <code>TitleAddon</code>. This class is inherited from by many other addons and provides basic functionality, should you wish to create your own custom addon.</p>
+<h2 id="how-the-title-system-works">How the Title System Works</h2>
+<p>Nautilus's title screen management is accessed primarily through the <a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html"><code>TitleScreenHandler</code></a> class. It contains methods to register <code>TitleAddon</code>s, as well as for registering mod collabs, which we'll go into later.</p>
+<p>The <code>TitleScreenHandler</code> contains a subclass called <code>CustomTitleData</code>, which is used to register <code>TitleAddon</code>s to Nautilus. It takes in a localization key for the name of your mod, which will be shown in the theme selector, and your title addons.</p>
+<p>Once you have your title data, you can register it with Nautilus by calling <code>TitleScreenHandler.RegisterTitleScreenObject</code>. This method takes in a key for your data, so that if you create multiple Nautilus knows how to differentiate between the two.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This tutorial will refer to registered <code>CustomTitleDatas</code> as &quot;themes&quot;. For example, if a mod registered a custom object and some music, that would be considered the mod's theme.</p>
+</div>
+<h2 id="adding-an-object">Adding an Object</h2>
+<p>To add an object to the title screen, you will need to use the <code>WorldObjectTitleAddon</code> class. Create a new instance of this class, and you will see that it takes in a <code>Func&lt;GameObject&gt;</code>.</p>
+<p>This <code>Func</code> is used to spawn your object when you enter the main menu. The reason it is a Func and not a GameObject that you can pass in is so that Nautilus can handle spawning it back in when you exit to the main menu from a save.</p>
+<p>The recommended way to do this is to create a <a href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/local-functions">local function</a> or <a href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions">anonymous function</a> and then pass that into the constructor. An example of this is shown below.</p>
+<pre><code class="lang-csharp">GameObject SpawnObject()
+{
+    var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+    obj.transform.position = new Vector3(-27, 2.5f, 38);
+    obj.transform.rotation = Quaternion.Euler(270, 325.7f, 0);
+    obj.AddComponent&lt;SkyApplier&gt;();
+
+    MaterialUtils.ApplySNShaders(obj);
+
+    return obj;
+}
+
+var objectAddon = new WorldObjectTitleAddon(SpawnObject);
+</code></pre>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>For proper shading and fade transitions, your object must have a SkyApplier component and <a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Utility.MaterialUtils.html#methods">Subnautica materials applied</a>.</p>
+</div>
+<p>This code will place a default cube to the left of the Subnautica logo once registered with Nautilus.</p>
+<p>You may have also noticed the optional parameters: <code>fadeInTime</code> and <code>requiredGUIDs</code>. The <code>requiredGUIDs</code> will be discussed later, but the <code>fadeInTime</code> controls how long the fade in duration is for your registered object. Nautilus automatically fades in objects using Subnautica's <code>Renderer.fadeAmount</code> when switching between themes, and this variable controls how long the transition is. By default, it is set to one second.</p>
+<h2 id="adding-music">Adding Music</h2>
+<p>Similarly to adding a custom object, you will need to use the <code>MusicTitleAddon</code> to register custom music with Nautilus.</p>
+<p>If you have Thunderkit and automatic sound registration, this becomes extremely simple, although it requires more set up.
+Here are various examples of how to create a music addon:</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_manualloadassetbundle" role="tab" aria-controls="tabpanel_1_manualloadassetbundle" data-tab="manualloadassetbundle" tabindex="0" aria-selected="true">Manual Load (From Asset Bundle)</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_manualloadmodfolder" role="tab" aria-controls="tabpanel_1_manualloadmodfolder" data-tab="manualloadmodfolder" tabindex="-1">Manual Load (From mod folder)</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_thunderkit" role="tab" aria-controls="tabpanel_1_thunderkit" data-tab="thunderkit" tabindex="-1">Thunderkit</a>
+</li>
+</ul>
+<section id="tabpanel_1_manualloadassetbundle" role="tabpanel" data-tab="manualloadassetbundle">
+
+<pre><code class="lang-cs">private MusicTitleAddon GetMusicAddon()
+{
+    // Creates a sound using the standard modes for a &quot;streamed&quot; sound, loading the audio clip by name from the Asset Bundle
+    var sound = AudioUtils.CreateSound(MyAssetBundle.LoadAsset&lt;AudioClip&gt;(audioClipName), AudioUtils.StandardSoundModes_Stream);
+
+    // Register the sound under the Music bus
+    CustomSoundHandler.RegisterCustomSound(soundId, sound, AudioUtils.BusPaths.Music);
+    
+    return new MusicTitleAddon(AudioUtils.GetFmodAsset(soundId));
+}
+</code></pre>
+</section>
+<section id="tabpanel_1_manualloadmodfolder" role="tabpanel" data-tab="manualloadmodfolder" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-cs">private MusicTitleAddon GetMusicAddon()
+{
+    // Creates a sound using the standard modes for a &quot;streamed&quot; sound, loading the audio at the given file path
+    var sound = AudioUtils.CreateSound(soundFilePath, AudioUtils.StandardSoundModes_Stream);
+
+    // Register the sound under the Music bus
+    CustomSoundHandler.RegisterCustomSound(soundId, sound, AudioUtils.BusPaths.Music);
+    
+    return new MusicTitleAddon(AudioUtils.GetFmodAsset(soundId));
+}
+</code></pre>
+</section>
+<section id="tabpanel_1_thunderkit" role="tabpanel" data-tab="thunderkit" aria-hidden="true" hidden="hidden">
+
+<pre><code class="lang-cs">private MusicTitleAddon GetMusicAddon()
+{
+    return new MusicTitleAddon(MyAssetBundle.LoadAsset&lt;FMODAsset&gt;(&quot;MyMusic&quot;));
+}
+</code></pre>
+</section>
+</div>
+<h2 id="changing-the-sky">Changing the Sky</h2>
+<p>To change the sky, including the time of day, exposure, fog, etc., you will need to create a <code>SkyChangeTitleAddon</code>. This addon can be used to achieve an effect identical to the Return of the Ancients demo title screen, which is set to night.</p>
+<p>The main parameters are the <code>fadeInDuration</code>, and <code>settings</code> (of type <code>Settings</code>, a subclass of <code>SkyChangeTitleAddon</code>). The fade duration determines how long the game should take to transition from the default sky to your custom sky. The settings, however, are slightly more complicated.</p>
+<p>The parameters are fully explained on the <a href="https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html">API documentation</a>, but here is a quick rundown of them:</p>
+<ul>
+<li><code>timeOfDay</code>: The time of day of the in game sky. Similar to a 24-hour Earth time.</li>
+<li><code>exposure</code>: The exposure (brightness) of the sky.</li>
+<li><code>rayleighScattering</code>: The strength of light scattering in the sky. Will affect how blue the sky looks and what the atmosphere looks like when the sun is at grazing angles.</li>
+<li><code>fogDensity</code>: The density of the fog.</li>
+</ul>
+<p>All of these have default values set to that of the vanilla sky, but you can mess around with these to find settings that look good to you.</p>
+<p>For example, this code creates a <code>SkyChangeTitleAddon</code> with a transition time of 2 seconds that sets the time to in-game midnight and increases fog.</p>
+<pre><code class="lang-csharp">var skyChangeAddon = new SkyChangeTitleAddon(2f, new SkyChangeTitleAddon.Settings(0f, fogDensity: 0.001f));
+</code></pre>
+<h2 id="registering-your-addons">Registering Your Addons</h2>
+<p>To register your title addons, you will need to create a <code>TitleScreenHandler.CustomTitleData</code> to hold the data. This class also takes in a localization key for the name of your mod, which will be displayed in the theme selector.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>See the <a href="localization.html">localization tutorial</a> for information on how to create localization lines.</p>
+</div>
+<p>After entering your mod name localization key, you can add the rest of your title addons, like so.</p>
+<pre><code class="lang-csharp">var customData = new TitleScreenHandler.CustomTitleData(&quot;MyModLocalizationKey&quot;, objectAddon, musicAddon, skyChangeAddon);
+</code></pre>
+<p>After creating your custom data, you will need to register it with Nautilus by calling <code>TitleScreenHandler.RegisterTitleScreenObject</code>. This method takes in a key for your custom title data, so that if you add multiple custom title datas Nautilus knows how to keep track of which is active. The key needs to be unique within the data added by your mod.</p>
+<p>Here is an example of how to register your data:</p>
+<pre><code class="lang-csharp">TitleScreenHandler.RegisterTitleScreenObject(&quot;MyEpicTitleData&quot;, customData);
+</code></pre>
+<p>Now that you have registered your data, a selector will pop up in the bottom left of the screen when in Subnautica's main menu. You can use the arrows to switch between the default title screen and your custom one, and, if you have other mods installed that add custom title screens, those too.</p>
+<h2 id="title-collaborations">Title Collaborations</h2>
+<p>As you may have already noticed, all <code>TitleAddons</code> have an optional parameter for <code>requiredGUIDs</code>. This is so if two mods want to create a collaboration title screen, one mod can create the addons and have the other mod required to be installed for them to show up. To make a mod required for an addon, simply add its GUID to the required GUID parameters.</p>
+<p>A mod's GUID is the string you place in the <code>[BepInPlugin()]</code> attribute in your plugin class. To find another mod's GUID, you can open up their mod DLL in dnSpy or some other DLL viewing program, and navigate to their plugin to find the <code>BepInPlugin</code> attribute. You can then copy their GUID from there.</p>
+<p>If you were to try this however, you might find that your addons do not show up even when the required mod is installed. This is because mods that are required by <code>TitleAddons</code> need to approve addons from other mods. This can be done by calling <code>TitleScreenHandler.ApproveTitleCollaboration</code> with your mod's <code>CollaborationData</code>.</p>
+<p><code>CollaborationData</code> has multiple constructors, depending on how strict you want to be approving mods. You can either approve all types of <code>TitleAddons</code> using the constructor that only takes in GUIDs, or you can be more specific and whitelist only certain types by using the constructor with a GUID/Type array dictionary.</p>
+<p>Examples:</p>
+<pre><code class="lang-csharp">// Approve all collaborations from the map mod. The &quot;this&quot; keyword is the instance of your plugin.
+// This method assumes that it is being called from your plugin.
+TitleScreenHandler.ApproveTitleCollaboration(this, new TitleScreenHandler.CollaborationData(new string[] { &quot;sn.subnauticamap.mod&quot; } ))
+
+// Only approves collabs from the map mod that are WorldObjectTitleAddons
+TitleScreenHandler.ApproveTitleCollaboration(this, new TitleScreenHandler.CollaborationData(new () {
+     { &quot;sn.subnauticamap.mod&quot;, new Type[] { typeof(WorldObjectTitleAddon) } }
+     } ));
+</code></pre>
+<h2 id="extending-the-given-addons">Extending the Given Addons</h2>
+<p>If you find that the base <code>TitleAddons</code> are not suited for your specific title requirements, you can make a new class that inherits from <code>TitleAddon</code> to create your own behavior. These classes can be registered.</p>
+<p>This simple addon logs a message to the in-game <code>ErrorMessage</code> class when the addon is enabled and disabled.</p>
+<pre><code class="lang-csharp">using Nautilus.Handlers.TitleScreen;
+
+public class MyCoolAddon : TitleAddon
+{
+    // Pass the required GUIDs for collaborations to the TitleAddon base
+    public MyCoolAddon(params string[] requiredGUIDs) : base(requiredGUIDs) { }
+
+    protected override void OnEnable()
+    {
+        ErrorMessage.AddError(&quot;MyCoolAddon enabled!&quot;);
+    }
+
+    protected override void OnDisable()
+    {
+        ErrorMessage.AddError(&quot;MyCoolAddon disabled!&quot;);
+    }
+}
+</code></pre>
+<p>There are also additional methods that can be overridden if additional behavior is required. Here are the two others that can be extended:</p>
+<ul>
+<li><code>OnInitialize()</code>: Called once when all the addons are loaded in. Can be used for one time setups, such as in the <code>WorldObjectTitleAddon</code> where it is used to spawn the object passed in.</li>
+<li><code>OnEnterLoadScreen()</code>: Called when the player starts loading a save. Can be used to cleanup persistent changes, such as in the <code>SkyChangeTitleAddon</code>.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Documentation/tutorials/title-addons.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

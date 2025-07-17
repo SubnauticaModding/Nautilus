@@ -152,6 +152,117 @@ Class JsonUtils  <a class="header-action link-secondary" title="View source" hre
 </h2>
 
 
+  <a id="Nautilus_Utility_JsonUtils_LoadAsync_" data-uid="Nautilus.Utility.JsonUtils.LoadAsync*"></a>
+
+  <h3 id="Nautilus_Utility_JsonUtils_LoadAsync__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.LoadAsync``1(System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">
+  LoadAsync&lt;T&gt;(string, bool, params JsonConverter[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/JsonUtils.cs/#L186"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Create an instance of <code class="typeparamref">T</code>, populated with data from the JSON file at the given 
+<code class="paramref">path</code>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; LoadAsync&lt;T&gt;(string path = null, bool createFileIfNotExist = true, params JsonConverter[] jsonConverters) where T : class, new()</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The path on disk at which the JSON file can be found.</dd>
+    <dt><code>createFileIfNotExist</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether a new JSON file should be created with default values if it does not 
+    already exist.</dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd>An array of <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for deserialization.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</dt>
+    <dd>The <code class="typeparamref">T</code> instance populated with data from the JSON file at
+    <code class="paramref">path</code>, or default values if it cannot be found or an error is encountered while parsing the
+    file.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>The type of object to initialise and populate with JSON data.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(T, string, bool, params JsonConverter[])</a></div>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___">Save&lt;T&gt;(T, string, params JsonConverter[])</a></div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Utility_JsonUtils_LoadAsync_" data-uid="Nautilus.Utility.JsonUtils.LoadAsync*"></a>
+
+  <h3 id="Nautilus_Utility_JsonUtils_LoadAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.LoadAsync``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">
+  LoadAsync&lt;T&gt;(T, string, bool, params JsonConverter[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/JsonUtils.cs/#L225"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Loads data from the JSON file at <code class="paramref">path</code> into the <code class="paramref">jsonObject</code>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task LoadAsync&lt;T&gt;(T jsonObject, string path = null, bool createFileIfNotExist = true, params JsonConverter[] jsonConverters) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jsonObject</code> <span class="xref">T</span></dt>
+    <dd>The <code class="typeparamref">T</code> instance to popular with JSON data.</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The path on disk at which the JSON file can be found.</dd>
+    <dt><code>createFileIfNotExist</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether a new JSON file should be created with default values if it does not
+    already exist.</dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd>An array of <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for deserialization.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>The type of <code class="paramref">jsonObject</code> to populate with JSON data.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(string, bool, params JsonConverter[])</a></div>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___">Save&lt;T&gt;(T, string, params JsonConverter[])</a></div>
+    </dd>
+  </dl>
+
+
   <a id="Nautilus_Utility_JsonUtils_Load_" data-uid="Nautilus.Utility.JsonUtils.Load*"></a>
 
   <h3 id="Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.Load``1(System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">
@@ -258,11 +369,64 @@ Class JsonUtils  <a class="header-action link-secondary" title="View source" hre
   </dl>
 
 
+  <a id="Nautilus_Utility_JsonUtils_SaveAsync_" data-uid="Nautilus.Utility.JsonUtils.SaveAsync*"></a>
+
+  <h3 id="Nautilus_Utility_JsonUtils_SaveAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.SaveAsync``1(``0,System.String,Newtonsoft.Json.JsonConverter[])">
+  SaveAsync&lt;T&gt;(T, string, params JsonConverter[])
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/JsonUtils.cs/#L300"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Saves the <code class="paramref">jsonObject</code> parsed as JSON data to the JSON file at <code class="paramref">path</code>,
+creating it if it does not exist.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task SaveAsync&lt;T&gt;(T jsonObject, string path = null, params JsonConverter[] jsonConverters) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jsonObject</code> <span class="xref">T</span></dt>
+    <dd>The <code class="typeparamref">T</code> instance to parse into JSON data.</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The path on disk at which to store the JSON file.</dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd>An array of <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for serialization.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>The type of <code class="paramref">jsonObject</code> to parse into JSON data.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(T, string, bool, params JsonConverter[])</a></div>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(string, bool, params JsonConverter[])</a></div>
+    </dd>
+  </dl>
+
+
   <a id="Nautilus_Utility_JsonUtils_Save_" data-uid="Nautilus.Utility.JsonUtils.Save*"></a>
 
   <h3 id="Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.Save``1(``0,System.String,Newtonsoft.Json.JsonConverter[])">
   Save&lt;T&gt;(T, string, params JsonConverter[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/JsonUtils.cs/#L195"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Utility/JsonUtils.cs/#L284"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Saves the <code class="paramref">jsonObject</code> parsed as JSON data to the JSON file at <code class="paramref">path</code>,

@@ -156,10 +156,13 @@ Class SaveDataHandler  <a class="header-action link-secondary" title="View sourc
 
   <h3 id="Nautilus_Handlers_SaveDataHandler_RegisterSaveDataCache__1" data-uid="Nautilus.Handlers.SaveDataHandler.RegisterSaveDataCache``1">
   RegisterSaveDataCache&lt;T&gt;()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SaveDataHandler.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/SaveDataHandler.cs/#L20"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary">Registers your <a class="xref" href="Nautilus.Json.SaveDataCache.html">SaveDataCache</a> to be automatically loaded and saved whenever the game is.</div>
+  <div class="markdown level1 summary">Registers your <a class="xref" href="Nautilus.Json.SaveDataCache.html">SaveDataCache</a> to be automatically loaded and saved whenever the game is.
+<br>
+If you have overridden either the <a class="xref" href="Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_Load_System_Boolean_">Load(bool)</a> or <a class="xref" href="Nautilus.Json.SaveDataCache.html#Nautilus_Json_SaveDataCache_Save">Save()</a> methods
+in your cache be aware that this handler calls the <em>async</em> versions of those functions!</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
