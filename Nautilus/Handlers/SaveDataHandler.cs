@@ -10,6 +10,9 @@ public static class SaveDataHandler
 {
     /// <summary>
     /// Registers your <see cref="SaveDataCache"/> to be automatically loaded and saved whenever the game is.
+    /// <br />
+    /// If you have overridden either the <see cref="SaveDataCache.Load"/> or <see cref="SaveDataCache.Save"/> methods
+    /// in your cache be aware that this handler calls the <em>async</em> versions of those functions!
     /// </summary>
     /// <typeparam name="T">A class derived from <see cref="SaveDataCache"/> to hold your save data.</typeparam>
     /// <returns>An instance of the <typeparamref name="T"/> : <see cref="SaveDataCache"/> with values loaded
@@ -18,8 +21,9 @@ public static class SaveDataHandler
     {
         T cache = new();
 
-        SaveUtils.RegisterOnStartLoadingEvent(() => cache.Load());
-        SaveUtils.RegisterOnSaveEvent(() => cache.Save());
+        WaitScreenHandler.RegisterEarlyAsyncLoadTask(typeof(T).Assembly.GetName().Name, 
+            task => AsyncUtils.WaitUntilTaskComplete(cache.LoadAsync()), "Loading save data");
+        SaveUtils.RegisterOnSaveAsyncEvent(cache.SaveAsync);
 
         return cache;
     }
