@@ -17,7 +17,7 @@ public static class LoadingScreenHandler
     /// <param name="loadingScreenDatas">The loading screens to register</param>
     public static void RegisterLoadingScreen(string titleAddonKey, LoadingScreenData[] loadingScreenDatas)
     {
-        LoadingScreenSetter.LoadingScreenDatas.Add($"{Assembly.GetCallingAssembly().FullName}_{titleAddonKey}", loadingScreenDatas);
+        LoadingScreenSetter.LoadingScreenDatas.Add($"{Assembly.GetCallingAssembly().GetName().Name}_{titleAddonKey}", loadingScreenDatas);
     }
 
     /// <summary>
