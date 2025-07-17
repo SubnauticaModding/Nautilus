@@ -18,7 +18,7 @@ public static class TitleScreenHandler
     /// <param name="customTitleData">The custom title data for your additions.</param>
     public static void RegisterTitleScreenObject(string key, CustomTitleData customTitleData)
     {
-        MainMenuPatcher.RegisterTitleObjectData($"{Assembly.GetCallingAssembly().FullName}_{key}", customTitleData);
+        MainMenuPatcher.RegisterTitleObjectData($"{Assembly.GetCallingAssembly().GetName().Name}_{key}", customTitleData);
     }
 
     /// <summary>
