@@ -45,6 +45,11 @@ internal static class BiomePatcher
     [HarmonyPostfix]
     internal static void WaterBiomeManagerStartPostfix(WaterBiomeManager __instance)
     {
+        if (__instance.biomeSkies == null || __instance.biomeSkies.Count == 1)
+        {
+            return;
+        }
+
         foreach (var customBiome in CustomBiomes)
         {
             AddBiomeToWaterBiomeManager(__instance, customBiome);
