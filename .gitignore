@@ -260,3 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 Assembly-CSharp*
+
+# Personalised information about game installation directory for post-build deploy
+GameDir.targets

@@ -94,7 +94,7 @@ public static class PrefabUtils
         prefab.EnsureComponent<LargeWorldEntity>().cellLevel = cellLevel;
             
         var renderers = prefab.GetComponentsInChildren<Renderer>(true);
-        if (renderers != null)
+        if (renderers != null && renderers.Length > 0)
         {
             prefab.EnsureComponent<SkyApplier>().renderers = renderers;
         }
@@ -261,7 +261,28 @@ public static class PrefabUtils
     /// <param name="batteryModels">If assigned a value, allows different models to appear with different battery TechTypes. Also consider <see cref="EnergyMixin.controlledObjects"/> for a more basic version of this that is not TechType-dependent.</param>
     /// <param name="storageRootName">The name of the object that internally holds all of the batteries.</param>
     /// <returns>A reference to the added <see cref="EnergyMixin"/> instance.</returns>
-    public static EnergyMixin AddEnergyMixin(GameObject prefabRoot, string storageRootClassId, TechType defaultBattery, List<TechType> compatibleBatteries, EnergyMixin.BatteryModels[] batteryModels = null, string storageRootName = "BatterySlot")
+    public static EnergyMixin AddEnergyMixin(GameObject prefabRoot, string storageRootClassId, TechType defaultBattery,
+        List<TechType> compatibleBatteries, EnergyMixin.BatteryModels[] batteryModels = null,
+        string storageRootName = "BatterySlot")
+    {
+        return AddEnergyMixin<EnergyMixin>(prefabRoot, storageRootClassId, defaultBattery, compatibleBatteries,
+            batteryModels, storageRootName);
+    }
+
+    /// <summary>
+    /// <para>Adds the <see cref="EnergyMixin"/> component to an object that is expected to have a slot for one battery or other power source.</para>
+    /// <para>Due to how this component needs to be initialized, this method will disable the object and re-enable it after the component is added (assuming it was already active). This all happens within the same frame and will not be seen.</para>
+    /// </summary>
+    /// <param name="prefabRoot">The root of the prefab object, where the component is added.</param>
+    /// <param name="storageRootClassId">A unique string for the <see cref="ChildObjectIdentifier"/> component.</param>
+    /// <param name="defaultBattery">The TechType of the battery that is added by default. If there should be no default, set this value to <see cref="TechType.None"/>.</param>
+    /// <param name="compatibleBatteries">The list of all compatible batteries. By default is typically <see cref="TechType.Battery"/> and <see cref="TechType.PrecursorIonBattery"/>. Must not be null!</param>
+    /// <param name="batteryModels">If assigned a value, allows different models to appear with different battery TechTypes. Also consider <see cref="EnergyMixin.controlledObjects"/> for a more basic version of this that is not TechType-dependent.</param>
+    /// <param name="storageRootName">The name of the object that internally holds all of the batteries.</param>
+    /// <returns>A reference to the added <see cref="EnergyMixin"/> instance.</returns>
+    public static T AddEnergyMixin<T>(GameObject prefabRoot, string storageRootClassId, TechType defaultBattery,
+        List<TechType> compatibleBatteries, EnergyMixin.BatteryModels[] batteryModels = null,
+        string storageRootName = "BatterySlot") where T : EnergyMixin
     {
         var wasActive = prefabRoot.activeSelf;
 
@@ -272,7 +293,7 @@ public static class PrefabUtils
         var childObjectIdentifier = batterySlot.AddComponent<ChildObjectIdentifier>();
         childObjectIdentifier.ClassId = storageRootClassId;
 
-        var em = prefabRoot.AddComponent<EnergyMixin>();
+        var em = prefabRoot.AddComponent<T>();
         em.storageRoot = childObjectIdentifier;
         em.defaultBattery = defaultBattery;
         em.compatibleBatteries = compatibleBatteries;

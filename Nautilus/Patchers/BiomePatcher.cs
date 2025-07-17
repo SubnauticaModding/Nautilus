@@ -21,7 +21,7 @@ internal static class BiomePatcher
         CustomBiomes.Add(biome);
 
         var manager = WaterBiomeManager.main;
-        if (manager != null)
+        if (manager != null && !InMainMenu(manager))
         {
             AddBiomeToWaterBiomeManager(manager, biome);
         }
@@ -45,6 +45,11 @@ internal static class BiomePatcher
     [HarmonyPostfix]
     internal static void WaterBiomeManagerStartPostfix(WaterBiomeManager __instance)
     {
+        if (InMainMenu(__instance))
+        {
+            return;
+        }
+        
         foreach (var customBiome in CustomBiomes)
         {
             AddBiomeToWaterBiomeManager(__instance, customBiome);
@@ -59,6 +64,11 @@ internal static class BiomePatcher
         {
             AddBiomeSoundEmitterToWaterAmbience(__instance, soundData);
         }
+    }
+    
+    private static bool InMainMenu(WaterBiomeManager waterBiomeManager)
+    {
+        return waterBiomeManager.biomeSkies == null || waterBiomeManager.biomeSkies.Count == 1;
     }
 
     internal static void AddBiomeToWaterBiomeManager(WaterBiomeManager manager, CustomBiomeData biome)
