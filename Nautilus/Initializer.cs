@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using BepInEx;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using Nautilus.Utility.ModMessages;
@@ -26,6 +27,7 @@ namespace Nautilus;
 public class Initializer : BaseUnityPlugin
 {
     private static readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
+    internal static NautilusConfig ConfigFile { get; private set; } = OptionsPanelHandler.RegisterModOptions<NautilusConfig>();
 
 #if BELOWZERO
     static Initializer()
