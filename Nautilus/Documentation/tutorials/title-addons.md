@@ -10,14 +10,14 @@ The foundation of these additions is the `TitleAddon`. This class is inherited f
 
 ## How the Title System Works
 
-Nautilus' title screen management is mainly based off of the `TitleScreenHandler` class. It contains methods to register `TitleAddon`s, as well as for registering mod collabs, which we'll go into later.
+Nautilus's title screen management is accessed primarily through the [`TitleScreenHandler`](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html) class. It contains methods to register `TitleAddon`s, as well as for registering mod collabs, which we'll go into later.
 
-The `TitleScreenHandler` contains a subclass called `CustomTitleData`, which is used to register `TitleAddons` to Nautilus. It takes in a localization key for the name of your mod, which will be shown in the theme selector, and your title addons.
+The `TitleScreenHandler` contains a subclass called `CustomTitleData`, which is used to register `TitleAddon`s to Nautilus. It takes in a localization key for the name of your mod, which will be shown in the theme selector, and your title addons.
 
 Once you have your title data, you can register it with Nautilus by calling `TitleScreenHandler.RegisterTitleScreenObject`. This method takes in a key for your data, so that if you create multiple Nautilus knows how to differentiate between the two.
 
 > [!NOTE]
-> This tutorial will refer to registered `CustomTitleDatas` as "Themes". I.e. if a mod registered a custom object and some music, that would be considered the mod's theme.
+> This tutorial will refer to registered `CustomTitleDatas` as "themes". For example, if a mod registered a custom object and some music, that would be considered the mod's theme.
 
 ## Adding an Object
 
@@ -44,7 +44,7 @@ var objectAddon = new WorldObjectTitleAddon(SpawnObject);
 ```
 
 > [!WARNING]
-> Your object needs to have a SkyApplier on it, and have Subnautica materials applied to have proper shading in-game, and for the fade transition to work.
+> For proper shading and fade transitions, your object must have a SkyApplier component and [Subnautica materials applied](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Utility.MaterialUtils.html#methods).
 
 This code will place a default cube to the left of the Subnautica logo once registered with Nautilus.
 
@@ -54,9 +54,38 @@ You may have also noticed the optional parameters: `fadeInTime` and `requiredGUI
 
 Similarly to adding a custom object, you will need to use the `MusicTitleAddon` to register custom music with Nautilus.
 
-It is recommended to load your audio through and asset bundle, however that is not required. Here is an example of how to create a music addon:
+If you have Thunderkit and automatic sound registration, this becomes extremely simple, although it requires more set up.
+Here are various examples of how to create a music addon:
 
-## [Asset Bundle](#tab/assetbundle)
+## [Manual Load (From Asset Bundle)](#tab/manualloadassetbundle)
+
+```cs
+private MusicTitleAddon GetMusicAddon()
+{
+    // Creates a sound using the standard modes for a "streamed" sound, loading the audio clip by name from the Asset Bundle
+    var sound = AudioUtils.CreateSound(MyAssetBundle.LoadAsset<AudioClip>(audioClipName), AudioUtils.StandardSoundModes_Stream);
+
+    // Register the sound under the Music bus
+    CustomSoundHandler.RegisterCustomSound(soundId, sound, AudioUtils.BusPaths.Music);
+    
+    return new MusicTitleAddon(AudioUtils.GetFmodAsset(soundId));
+}
+```
+## [Manual Load (From mod folder)](#tab/manualloadmodfolder)
+
+```cs
+private MusicTitleAddon GetMusicAddon()
+{
+    // Creates a sound using the standard modes for a "streamed" sound, loading the audio at the given file path
+    var sound = AudioUtils.CreateSound(soundFilePath, AudioUtils.StandardSoundModes_Stream);
+
+    // Register the sound under the Music bus
+    CustomSoundHandler.RegisterCustomSound(soundId, sound, AudioUtils.BusPaths.Music);
+    
+    return new MusicTitleAddon(AudioUtils.GetFmodAsset(soundId));
+}
+```
+## [Thunderkit](#tab/thunderkit)
 
 ```cs
 private MusicTitleAddon GetMusicAddon()
@@ -64,54 +93,15 @@ private MusicTitleAddon GetMusicAddon()
     return new MusicTitleAddon(MyAssetBundle.LoadAsset<FMODAsset>("MyMusic"));
 }
 ```
-
-## [Manual Load](#tab/manualload)
-
-```cs
-private IEnumerator GetMusicAddon(string filePath, IOut<MusicTitleAddon> addonOut)
-{
-    AudioClip clip = null;
-    // There are multiple audio extensions you can retrieve by changing the AudioType here
-    using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(filePath, AudioType.WAV))
-    {
-        yield return www.SendWebRequest();
-        if(www.isHttpError)
-        {
-            Logger.LogError("Http error retrieving audio file");
-        }
-        else if (www.isNetworkError)
-        {
-            Logger.LogError("Network error retrieving audio file");
-        }
-        else
-        {
-            clip = DownloadHandlerAudioClip.GetContent(www);
-            if (clip == null)
-            {
-                Logger.LogError("Failed to retrieve AudioClip from file: " + filePath);
-            }
-        }
-    }
-
-    // Creates a sound using the standard 3d modes
-    var sound = AudioUtils.CreateSound(clip, AudioUtils.StandardSoundModes_3D);
-
-    // Register the sound under the Player SFX bus (Tools)
-    CustomSoundHandler.RegisterCustomSound(clip.name, sound, AudioUtils.BusPaths.PlayerSFXs);
-
-    var musicAddon = new MusicTitleAddon(AudioUtils.GetFmodAsset(clip, name));
-    addonOut.Set(musicAddon);
-}
-```
 ---
 
 ## Changing the Sky
 
-To change the sky, you will need to create a `SkyChangeTitleAddon`. This will allow you to do things such as change the time of day when your mod theme is selected, or change the exposure and fog intensity. This addon can be used to achieve an effect similar to the one used by the Return of the Ancient demo title screen, where the game is set to night.
+To change the sky, including the time of day, exposure, fog, etc., you will need to create a `SkyChangeTitleAddon`. This addon can be used to achieve an effect identical to the Return of the Ancients demo title screen, which is set to night.
 
-The main parameters are the `fadeInDuration`, and `Settings` (A sub class of `SkyChangeTitleAddon`). The fade duration is how long the game should take to transition from the default sky to your custom settings. The settings, however, are slightly more complicated.
+The main parameters are the `fadeInDuration`, and `settings` (of type `Settings`, a subclass of `SkyChangeTitleAddon`). The fade duration determines how long the game should take to transition from the default sky to your custom sky. The settings, however, are slightly more complicated.
 
-The parameters are documented on the [API documentation](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html), but here is a quick rundown of them.
+The parameters are fully explained on the [API documentation](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html), but here is a quick rundown of them:
 - `timeOfDay`: The time of day of the in game sky. Similar to a 24-hour Earth time.
 - `exposure`: The exposure (brightness) of the sky.
 - `rayleighScattering`: The strength of light scattering in the sky. Will affect how blue the sky looks and what the atmosphere looks like when the sun is at grazing angles.
