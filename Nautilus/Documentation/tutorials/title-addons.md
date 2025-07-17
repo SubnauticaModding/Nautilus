@@ -12,7 +12,7 @@ The foundation of these additions is the `TitleAddon`. This class is inherited f
 
 Nautilus' title screen management is mainly based off of the `TitleScreenHandler` class. It contains methods to register `TitleAddon`s, as well as for registering mod collabs, which we'll go into later.
 
-The `TitleScreenHandler` contains a subclass called `CustomTitleData`, which is used to register `TitleAddons` to Nautilus. It takes in a localizaztion key for the name of your mod, which will be shown in the theme selector, and your title addons.
+The `TitleScreenHandler` contains a subclass called `CustomTitleData`, which is used to register `TitleAddons` to Nautilus. It takes in a localization key for the name of your mod, which will be shown in the theme selector, and your title addons.
 
 Once you have your title data, you can register it with Nautilus by calling `TitleScreenHandler.RegisterTitleScreenObject`. This method takes in a key for your data, so that if you create multiple Nautilus knows how to differentiate between the two.
 
@@ -48,7 +48,7 @@ var objectAddon = new WorldObjectTitleAddon(SpawnObject);
 
 This code will place a default cube to the left of the Subnautica logo once registered with Nautilus.
 
-You may have also noticed the optional parameters: `fadeInTime` and `requiredGUIDs`. The `requiredGUIDs` will be discussed later, but the `fadeInTime` controls how long the fade in duration is for your registered object. Nautilus automatically fades in objects using Subnautica's `Renderer.fadeAmount` when switching between themes, and this variable controls how long the transition is. By default it is set to one second.
+You may have also noticed the optional parameters: `fadeInTime` and `requiredGUIDs`. The `requiredGUIDs` will be discussed later, but the `fadeInTime` controls how long the fade in duration is for your registered object. Nautilus automatically fades in objects using Subnautica's `Renderer.fadeAmount` when switching between themes, and this variable controls how long the transition is. By default, it is set to one second.
 
 ## Adding Music
 
@@ -137,7 +137,7 @@ After entering your mod name localization key, you can add the rest of your titl
 var customData = new TitleScreenHandler.CustomTitleData("MyModLocalizationKey", objectAddon, musicAddon, skyChangeAddon);
 ```
 
-After creating your custom data, you will need to register it with Nautilus by calling `TitleScreenHandler.RegisterTitleScreenObject`. This method takes in a key for your custom title data, so that if you add multiple custom title datas Nautilus knows how to keep track of which is active. The key needs to be unique within the datas added by your mod.
+After creating your custom data, you will need to register it with Nautilus by calling `TitleScreenHandler.RegisterTitleScreenObject`. This method takes in a key for your custom title data, so that if you add multiple custom title datas Nautilus knows how to keep track of which is active. The key needs to be unique within the data added by your mod.
 
 Here is an example of how to register your data:
 ```csharp
@@ -148,7 +148,7 @@ Now that you have registered your data, a selector will pop up in the bottom lef
 
 ## Title Collaborations
 
-As you may have already noticed, all `TitleAddons` have an optional parameter for `requiredGUIDs`. This is so if two mods want to create a collaboration title screen, one mod can create the addons and have the other mod required to be installed for them to show up. To make a mod required for an addon, simply add it's GUID to the required GUID parameters.
+As you may have already noticed, all `TitleAddons` have an optional parameter for `requiredGUIDs`. This is so if two mods want to create a collaboration title screen, one mod can create the addons and have the other mod required to be installed for them to show up. To make a mod required for an addon, simply add its GUID to the required GUID parameters.
 
 A mod's GUID is the string you place in the `[BepInPlugin()]` attribute in your plugin class. To find another mod's GUID, you can open up their mod DLL in dnSpy or some other DLL viewing program, and navigate to their plugin to find the `BepInPlugin` attribute. You can then copy their GUID from there.
 
@@ -170,9 +170,9 @@ TitleScreenHandler.ApproveTitleCollaboration(this, new TitleScreenHandler.Collab
 
 ## Extending the Given Addons
 
-If you find that the base `TitleAddons` are not suited for your specific title requirements, you can make a new class that inherits from `TitleAddon` to create your own behavior. These classes can be registered
+If you find that the base `TitleAddons` are not suited for your specific title requirements, you can make a new class that inherits from `TitleAddon` to create your own behavior. These classes can be registered.
 
-This simple addon logs a message to the ingame `ErrorMessage` class when the addon is enabled and disabled.
+This simple addon logs a message to the in-game `ErrorMessage` class when the addon is enabled and disabled.
 
 ```csharp
 using Nautilus.Handlers.TitleScreen;
