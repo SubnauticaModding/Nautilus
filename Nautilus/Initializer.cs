@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using BepInEx;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using Nautilus.Utility.ModMessages;
