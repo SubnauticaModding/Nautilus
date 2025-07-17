@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using BepInEx;
 using BepInEx.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Nautilus.Utility;
 
@@ -14,10 +18,25 @@ namespace Nautilus.Utility;
 /// </summary>
 public static class JsonUtils
 {
+    private static class Defaults
+    {
+        private static Dictionary<Type, object> _defaults = new();
+
+        public static object GetValue(Type type)
+        {
+            if (_defaults.TryGetValue(type, out var result))
+            {
+                return result;
+            }
+            
+            return _defaults[type] = Activator.CreateInstance(type);
+        }
+    }
+    
     private static string GetDefaultPath<T>(Assembly assembly) where T : class
     {
         return Path.Combine(
-            Path.Combine(BepInEx.Paths.ConfigPath, assembly.GetName().Name),
+            Path.Combine(Paths.ConfigPath, assembly.GetName().Name),
             $"{GetName<T>()}.json"
         );
     }
@@ -33,6 +52,24 @@ public static class JsonUtils
             name = char.ToLowerInvariant(name[0]) + name.Substring(1);
         }
         return name;
+    }
+    
+    private static void PopulateDefaults<T>(T target, JsonObjectContract contract) where T : class
+    {
+        if (contract == null)
+        {
+            throw new ArgumentNullException(nameof(contract));
+        }
+
+        var @default = Defaults.GetValue(target.GetType());
+        
+        foreach (var property in contract.Properties)
+        {
+            if (property.Writable && property.ValueProvider != null && !property.Ignored)
+            {
+                property.ValueProvider.SetValue(target, property.ValueProvider.GetValue(@default));
+            }
+        }
     }
 
     /// <summary>
@@ -104,17 +141,18 @@ public static class JsonUtils
         {
             path = GetDefaultPath<T>(Assembly.GetCallingAssembly());
         }
-
+        
+        JsonSerializerSettings jsonSerializerSettings = new()
+        {
+            Converters = jsonConverters,
+            ObjectCreationHandling = ObjectCreationHandling.Replace,
+            ContractResolver = new DefaultContractResolver(),
+        };
+        
         if (Directory.Exists(Path.GetDirectoryName(path)) && File.Exists(path))
         {
             try
             {
-                JsonSerializerSettings jsonSerializerSettings = new()
-                {
-                    Converters = jsonConverters,
-                    ObjectCreationHandling = ObjectCreationHandling.Replace
-                };
-
                 string serializedJson = File.ReadAllText(path);
                 JsonConvert.PopulateObject(
                     serializedJson, jsonObject, jsonSerializerSettings
@@ -129,7 +167,107 @@ public static class JsonUtils
         }
         else if (createFileIfNotExist)
         {
-            Save(jsonObject, path, jsonConverters);
+            try
+            {
+                PopulateDefaults(jsonObject,
+                    jsonSerializerSettings.ContractResolver.ResolveContract(jsonObject.GetType()) as JsonObjectContract);
+                Save(jsonObject, path, jsonConverters);
+            }
+            catch (Exception e)
+            {
+                InternalLogger.Announce($"Could not create defaults, instance values unchanged: {path}", LogLevel.Warning, true);
+                InternalLogger.Error(e.Message);
+                InternalLogger.Error(e.StackTrace);
+            }
+        }
+    }
+    
+    /// <inheritdoc cref="Load{T}(string,bool,Newtonsoft.Json.JsonConverter[])"/>
+    public static async Task<T> LoadAsync<T>(string path = null, bool createFileIfNotExist = true,
+        params JsonConverter[] jsonConverters) where T : class, new()
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            path = GetDefaultPath<T>(Assembly.GetCallingAssembly());
+        }
+
+        if (Directory.Exists(Path.GetDirectoryName(path)) && File.Exists(path))
+        {
+            try
+            {
+                using var reader = new StreamReader(File.OpenRead(path));
+                string serializedJson = await reader.ReadToEndAsync();
+                return JsonConvert.DeserializeObject<T>(
+                    serializedJson, jsonConverters
+                );
+            }
+            catch (Exception ex)
+            {
+                InternalLogger.Announce($"Could not parse JSON file, loading default values: {path}", LogLevel.Warning, true);
+                InternalLogger.Error(ex.Message);
+                InternalLogger.Error(ex.StackTrace);
+                return new T();
+            }
+        }
+        else if (createFileIfNotExist)
+        {
+            T jsonObject = new();
+            await SaveAsync(jsonObject, path, jsonConverters);
+            return jsonObject;
+        }
+        else
+        {
+            return new T();
+        }
+    }
+
+    /// <inheritdoc cref="Load{T}(T,string,bool,Newtonsoft.Json.JsonConverter[])"/>
+    public static async Task LoadAsync<T>(T jsonObject, string path = null, bool createFileIfNotExist = true,
+        params JsonConverter[] jsonConverters) where T : class
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            path = GetDefaultPath<T>(Assembly.GetCallingAssembly());
+        }
+        
+        JsonSerializerSettings jsonSerializerSettings = new()
+        {
+            Converters = jsonConverters,
+            ObjectCreationHandling = ObjectCreationHandling.Replace,
+            ContractResolver = new DefaultContractResolver(),
+        };
+        
+        if (Directory.Exists(Path.GetDirectoryName(path)) && File.Exists(path))
+        {
+            try
+            {
+                using var reader = new StreamReader(File.OpenRead(path));
+                string serializedJson = await reader.ReadToEndAsync();
+                JsonConvert.PopulateObject(
+                    serializedJson, jsonObject, jsonSerializerSettings
+                );
+            }
+            catch (Exception ex)
+            {
+                InternalLogger.Announce($"Could not parse JSON file, instance values unchanged: {path}", LogLevel.Warning, true);
+                InternalLogger.Error(ex.Message);
+                InternalLogger.Error(ex.StackTrace);
+            }
+        }
+        else if (createFileIfNotExist)
+        {
+            try
+            {
+                PopulateDefaults(jsonObject,
+                    jsonSerializerSettings.ContractResolver.ResolveContract(jsonObject.GetType()) as JsonObjectContract);
+                await SaveAsync(jsonObject, path, jsonConverters);
+            }
+            catch (Exception e)
+            {
+                InternalLogger.Announce($"Could not create defaults, instance values unchanged: {path}", LogLevel.Warning, true);
+                InternalLogger.Error(e.Message);
+                InternalLogger.Error(e.StackTrace);
+            }
         }
     }
 
@@ -151,14 +289,38 @@ public static class JsonUtils
             path = GetDefaultPath<T>(Assembly.GetCallingAssembly());
         }
 
+        string json = ConvertToJson(jsonObject, jsonConverters);
+
+        FileInfo fileInfo = new(path);
+        fileInfo.Directory.Create(); // Only creates the directory if it doesn't already exist
+        File.WriteAllText(path, json);
+    }
+
+    /// <inheritdoc cref="Save{T}"/>
+    public static async Task SaveAsync<T>(T jsonObject, string path = null, 
+        params JsonConverter[] jsonConverters) where T : class
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            path = GetDefaultPath<T>(Assembly.GetCallingAssembly());
+        }
+
+        string json = ConvertToJson(jsonObject, jsonConverters);
+
+        FileInfo fileInfo = new(path);
+        fileInfo.Directory.Create();
+        using var writer = new StreamWriter(File.OpenWrite(path));
+        await writer.WriteAsync(json);
+    }
+
+    private static string ConvertToJson<T>(T jsonObject, params JsonConverter[] jsonConverters) where T : class
+    {
         StringBuilder stringBuilder = new();
         StringWriter stringWriter = new(stringBuilder);
-        using (JsonTextWriter jsonTextWriter = new(stringWriter)
-               {
-                   Indentation = 4,
-                   Formatting = Formatting.Indented
-               })
+        using (JsonTextWriter jsonTextWriter = new(stringWriter))
         {
+            jsonTextWriter.Indentation = 4;
+            jsonTextWriter.Formatting = Formatting.Indented;
             JsonSerializer jsonSerializer = new();
             foreach (JsonConverter jsonConverter in jsonConverters)
             {
@@ -167,8 +329,6 @@ public static class JsonUtils
             jsonSerializer.Serialize(jsonTextWriter, jsonObject);
         }
 
-        FileInfo fileInfo = new(path);
-        fileInfo.Directory.Create(); // Only creates the directory if it doesn't already exist
-        File.WriteAllText(path, stringBuilder.ToString());
+        return stringBuilder.ToString();
     }
 }

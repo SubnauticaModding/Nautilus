@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using HarmonyLib;
 using Handlers;
 using Utility;
@@ -44,7 +45,9 @@ internal class KnownTechPatcher
         KnownTech.compoundTech = KnownTech.ValidateCompoundTech(pdaData.compoundTech);
         KnownTech.analysisTech = KnownTech.ValidateAnalysisTech(pdaData.analysisTech);
         KnownTech.knownTech.AddRange(knownTech);
-        knownCompound.ForEach(x => KnownTech.knownCompoundTech.Add(x.Key, x.Value));
+        knownCompound
+            .Where(tech => !KnownTech.knownCompoundTech.ContainsKey(tech.Key))
+            .ForEach(tech => KnownTech.knownCompoundTech.Add(tech.Key, tech.Value));
         KnownTech.AddRange(pdaData.defaultTech, false);
     }
 

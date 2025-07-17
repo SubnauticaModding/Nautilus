@@ -187,5 +187,17 @@ public static partial class MaterialUtils
         HolographicUIMaterial = new Material(holoMat);
         _cyclopsLoaded = true;
     }
+
+    private static IEnumerator ReloadStaleReferences()
+    {
+        Object.Destroy(GlassMaterial);
+        Object.Destroy(ExteriorGlassMaterial);
+        Object.Destroy(ShinyGlassMaterial);
+        Object.Destroy(InteriorGlassMaterial);
+        Object.Destroy(HolographicUIMaterial);
+
+        yield return LoadGlassMaterials();
+        yield return LoadUIMaterial();
+    }
 }
 #endif

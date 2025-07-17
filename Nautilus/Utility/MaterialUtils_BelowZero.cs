@@ -42,6 +42,16 @@ public static partial class MaterialUtils
         InteriorGlassMaterial.SetFloat("_Shininess", 6f);
         InteriorGlassMaterial.SetFloat("_Fresnel", 0.88f);
     }
+
+    private static IEnumerator ReloadStaleReferences()
+    {
+        Object.Destroy(GlassMaterial);
+        Object.Destroy(ExteriorGlassMaterial);
+        Object.Destroy(ShinyGlassMaterial);
+        Object.Destroy(InteriorGlassMaterial);
+
+        yield return LoadGlassMaterials();
+    }
 }
 
 #endif
