@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
@@ -110,6 +111,46 @@ internal partial class CraftDataPatcher
         go = null;
         __result = TechType.None;
         return;
+    }
+    
+    [HarmonyPatch(typeof(uGUI_CraftingMenu.Node), nameof(uGUI_CraftingMenu.Node.GetEnumerator), MethodType.Enumerator)]
+    [HarmonyPrefix]
+    public static bool OrderNodes(uGUI_CraftingMenu.Node __instance, ref IEnumerator<uGUI_CraftingMenu.Node> __result)
+    {
+        //The number of nodes to space out each tab node by
+        //Also equal to the width of the crafting grid
+        //In other words, if the grid is 3 wide (a 3x3 grid, roughly)
+        //We space them out every 3 nodes
+        //Meaning the craft nodes are always on the leftmost side
+        var offset = Mathf.CeilToInt(Mathf.Sqrt(__instance.childCount));
+        var tabs = __instance.nodes.Where(node => node is uGUI_CraftingMenu.Node craftMenuNode && craftMenuNode.action == TreeAction.Expand).ToList();
+
+        if (tabs.Count == 0)
+        {
+            // Run original
+            return true;
+        }
+
+        var craftNodes = __instance.nodes.Where(node => !tabs.Contains(node)).ToList();
+
+        var sortedNodes = new List<uGUI_CraftingMenu.Node>();
+
+        var tabsUsed = 0;    
+
+        for (var i = 0; i < __instance.childCount; i++)
+        {
+            if(i % offset == 0 && tabs.Count > tabsUsed)
+            {
+                sortedNodes.Add((uGUI_CraftingMenu.Node)tabs[tabsUsed]);
+                tabsUsed++;
+                continue;
+            }
+            sortedNodes.Add((uGUI_CraftingMenu.Node)craftNodes[i - tabsUsed]);
+        }
+
+        __result = sortedNodes.GetEnumerator();
+        // Skip original
+        return false;
     }
 
     private static bool NeedsPatching = true;
