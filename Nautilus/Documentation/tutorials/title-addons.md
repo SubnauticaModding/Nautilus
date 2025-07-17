@@ -25,7 +25,7 @@ To add an object to the title screen, you will need to use the `WorldObjectTitle
 
 This `Func` is used to spawn your object when you enter the main menu. The reason it is a Func and not a GameObject that you can pass in is so that Nautilus can handle spawning it back in when you exit to the main menu from a save.
 
-The recommended way to do this is to create a [local function](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/local-functions) and then pass that into the constructor. An example of this is shown below.
+The recommended way to do this is to create a [local function](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/local-functions) or [anonymous function](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/lambda-expressions) and then pass that into the constructor. An example of this is shown below.
 
 ```csharp
 GameObject SpawnObject()
