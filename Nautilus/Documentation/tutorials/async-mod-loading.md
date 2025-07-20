@@ -4,7 +4,7 @@ The more complex your project, the more loading and/or setup it is likely to hav
 to do all their initial loading in their plugin's `Awake()` method. On its own, this is not a problem. However, when
 a user installs many mods, all of which do all their loading at the very beginning, it can look like the game has
 crashed on a black screen before the main menu even loads. Imagine if, instead, all this loading happened at a time
-where the user knows that loading is *going* to happen, and can even see the current progress. Imagine if mods could
+when the user knows that loading is *going* to happen, and can even see the current progress. Imagine if mods could
 do all their loading as part of the game's actual loading screen.
 
 Enter the [WaitScreenTask](xref:Nautilus.Handlers.WaitScreenHandler.WaitScreenTask).
@@ -31,7 +31,7 @@ screen until every single task is done.**
 The tasks are always completed in the order they were registered. This allows you to set up chains of tasks that depend
 on the result of the previous one. For example, you could create one task that loads an asset bundle, and then a second
 task that uses said bundle to do something else, or register a [SaveDataCache](xref:Nautilus.Json.SaveDataCache) and
-then a second task which requires access to save data ([see below](#4-savedatacache-uses-waitscreentask)).
+then a second task which requires access to save data ([see below](#example-using-a-savedatacache)).
 
 ### 3. Three Loading Stages
 
@@ -72,7 +72,7 @@ private void Awake()
     
     // First, register your task, for example during your plugin Awake().
     // We choose the Late stage for this task because we need access to the life pod.
-    WaitScreenHandler.RegisterLateLoadTask("ExampleMod", ExpandPodInventory)
+    WaitScreenHandler.RegisterLateLoadTask("ExampleMod", ExpandPodInventory);
 }
 
 // This function will be called by Nautilus as part of the task during the loading screen.
@@ -106,7 +106,7 @@ public class ExampleMod : BaseUnityPlugin
         // because we registered the save data first.
         // Our function expects to be given ExampleSaveData, but Nautilus will always try to give it a WaitScreenTask.
         // Here, we use a lambda expression to discard the task and pass the save data instead.
-        WaitScreenHandler.RegisterEarlyLoadTask("ExampleMod", _ => DoSaveDependentThing(saveData))
+        WaitScreenHandler.RegisterEarlyLoadTask("ExampleMod", _ => DoSaveDependentThing(saveData));
     }
     
     private void DoSaveDependentThing(ExampleSaveData saveData)
@@ -124,8 +124,198 @@ If the above example confuses you, you may want to read up on [C# lambda express
 
 ## Reporting Status
 
+By default, while a task is executing Nautilus will simply show the task number and your mod's name. You can add
+more context for the player in one of two ways: Either by adding a decription while you register your
+task or by editing the status text during task execution.
 
+### Adding a description
+
+The description will persist through the entire duration of the task.
+
+```csharp
+private void Awake()
+{
+    ...
+    
+    // This is the same escape pod inventory example as above, but this time we add more context.
+    WaitScreenHandler.RegisterLateLoadTask("ExampleMod", ExpandPodInventory, "Expanding Inventory!");
+}
+
+// Other code
+...
+```
+
+### Updating status during a task
+
+You can set the status text directly through the [WaitScreenTask](xref:Nautilus.Handlers.WaitScreenHandler.WaitScreenTask) argument you are given by Nautilus. Note that
+this only makes sense for longer tasks that take a long time to complete. Your task also *must* be an async task,
+otherwise the loading screen never gets to run the code that shows any changes you make to the status.
+
+```csharp
+private void Awake()
+{
+    ...
+        
+    WaitScreenHandler.RegisterAsyncLoadTask("ExampleMod", PerformSetupAsync);
+}
+
+private IEnumerator PerformSetupAsync(WaitScreenHandler.WaitScreenTask task)
+{
+    // Set the new status.
+    task.Status = "Loading important assets...";
+    // The loading screen will show the new status the next time you yield.
+    yield return CoroutineThatLoadsAssetBundles();
+    
+    // Set the status again to show the task has progressed.
+    task.Status = "Modifying game prefabs...";
+    // This advances the game by one frame and lets the loading screen update.
+    yield return null;
+    // Run other code
+    ...
+}
+```
+
+You can also mix and match the two by adding a description during registration and then editing the status text later.
 
 ## File loading with WaitScreenTasks
 
-show async usage
+WaitScreenTasks force the loading screen to wait until they're complete, which makes them ideal for loading files.
+This way, you do not have to worry about whether the game is already way ahead of you by the time your mod has finally
+finished prep work. Nautilus ensures that it isn't.
+
+### Loading AssetBundles
+
+A good way to go about loading asset bundles is to use an async task to simply wait until the bundle is loaded.
+This way, you avoid loading the bundle again on subsequent loads.
+
+```csharp
+private static AssetBundle _assetBundle;
+
+private void Awake()
+{
+    ...
+        
+    WaitScreenHandler.RegisterAsyncLoadTask("ExampleMod", LoadAssetsAsync);
+}
+
+private IEnumerator LoadAssetsAsync(WaitScreenHandler.WaitScreenTask task)
+{
+    task.Status = "Loading asset bundle...";
+    // By caching the asset bundle we avoid loading it again later and speed up subsequent loads.
+    if (_assetBundle == null)
+    {
+        // Load an asset bundle from the mod folder.
+        request = AssetBundle.LoadFromFileAsync("exampleAssetBundle");
+        // Wait until the bundle has finished loading.
+        yield return request;
+        // Cache the bundle for later.
+        _assetBundle = request.assetBundle;
+    }
+    
+    task.Status = "Loading data from bundle...";
+    // Load a GameObject for a custom plant from the asset bundle.
+    var objRequest = _assetBundle.LoadAssetAsync<GameObject>("CustomPlant1");
+    // Wait until the plant has finished loading.
+    yield return objRequest;
+    var gameObject = objRequest.asset as GameObject;
+    // Do something with the GameObject
+    ...
+}
+```
+
+### Loading non-bundle files
+
+You may need to load files that are not asset bundles for your mod to work properly. For example, mods which
+edit a lot of recipes often prefer to load their recipe changes from a JSON file rather than hardcoding it all.
+
+This can get a little more complicated because we need to convert from [C# Async](https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/)
+to Unity [Coroutines](https://docs.unity3d.com/2019.4/Documentation/Manual/Coroutines.html).
+
+```csharp
+private void Awake()
+{
+    ...
+        
+    // We use an async WaitScreenTask for file loading.
+    WaitScreenHandler.RegisterAsyncLoadTask("ExampleMod", LoadFileAsync);
+}
+
+// This method is a coroutine wrapped around the method that *actually* loads the file.
+private IEnumerator LoadFileAsync(WaitScreenHandler.WaitScreenTask task)
+{
+    task.Status = "Loading very important file...";
+    
+    // Start loading the file.
+    Task<string> loadOperation = LoadImportantFileAsync();
+    // Wait until the file has finished loading.
+    yield return new WaitUntil(() => loadOperation.IsCompleted);
+    // Get the contents of the file.
+    string contents = loadOperation.Result;
+    
+    // Do something with the file contents.
+    ...
+}
+
+// This method is what actually loads the file. Unfortunately, Unity has poor async support
+// so it cannot be used directly.
+private async Task<string> LoadImportantFileAsync()
+{
+    // Always open files with a 'using' statement so they don't stay opened indefinitely.
+    using StreamReader reader = new StreamReader(File.OpenRead("recipeChanges.json"));
+    // Read everything and return it when done.
+    string fileContents = await reader.ReadToEndAsync();
+    return fileContents;
+}
+```
+
+### Loading multiple files in one WaitScreenTask
+
+If you have multiple non-bundle files that each need loading you could follow the steps above for each one
+of these files individually, which would load one file, wait until it's done, then load the next, etc.
+
+Alternatively, you can start loading every file at once and simply wait until all of them have finished.
+
+```csharp
+// Define the filenames of each file that needs to be loaded.
+private string[] _fileNames = new[] { "recipeChanges.json", "fragmentChanges.json", "databankChanges.json" };
+
+private void Awake()
+{
+    ...
+        
+    // We use an async WaitScreenTask for file loading.
+    WaitScreenHandler.RegisterAsyncLoadTask("ExampleMod", LoadFilesAsync);
+}
+
+// This method is a coroutine wrapped around the method that *actually* loads the file.
+private IEnumerator LoadFilesAsync(WaitScreenHandler.WaitScreenTask task)
+{
+    task.Status = "Loading very important files...";
+    
+    // Keep a list of all active async Tasks.
+    var fileTasks = new List<Task>();
+    
+    // Start loading each file and keep track of its Task.
+    foreach (string fileName of _fileNames)
+    {
+        fileTasks.Add(LoadImportantFileAsync(fileName));
+    }
+    
+    // Wait until all files have finished loading.
+    yield return new WaitUntil(fileTasks.TrueForAll(fileTask => fileTask.IsCompleted));
+    
+    // Do something with the file contents.
+    ...
+}
+
+// This method is what actually loads the file. Unfortunately, Unity has poor async support
+// so it cannot be used directly.
+private async Task<string> LoadImportantFileAsync(string filePath)
+{
+    // This time, we pass in the file path as an argument for reusability.
+    using StreamReader reader = new StreamReader(File.OpenRead(filePath));
+    // Read everything and return it when done.
+    string fileContents = await reader.ReadToEndAsync();
+    return fileContents;
+}
+```
