@@ -28,6 +28,7 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 ### Utilities
 * [Localization](localization.md)
 * [In-Game options](options.md)
+* [Mod loading during loading screen](async-mod-loading.md)
 
 
 ### Quick References
