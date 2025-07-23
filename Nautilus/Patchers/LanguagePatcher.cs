@@ -93,6 +93,7 @@ internal static class LanguagePatcher
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(LanguageSDF.Initialize)), prefix: insertLinesMethod);
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.GetKeysFor)), prefix: insertLinesMethod);
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.TryGet)), prefix: repatchCheckMethod);
+        harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.GetMetaData)), prefix: repatchCheckMethod);
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.Contains)), prefix: repatchCheckMethod);
         harmony.Patch(AccessTools.Method(typeof(Language), nameof(Language.LoadLanguageFile)), prefix: loadLanguagesMethod);
 
