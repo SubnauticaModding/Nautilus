@@ -3253,6 +3253,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "Documentation/tutorials/async-mod-loading.md",
+      "output": {
+        ".html": {
+          "relative_path": "tutorials/async-mod-loading.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "Documentation/tutorials/audio.md",
       "output": {
         ".html": {
