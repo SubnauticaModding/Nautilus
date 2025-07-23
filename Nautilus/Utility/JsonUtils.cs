@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -309,7 +309,7 @@ public static class JsonUtils
 
         FileInfo fileInfo = new(path);
         fileInfo.Directory.Create();
-        using var writer = new StreamWriter(File.OpenWrite(path));
+        using var writer = new StreamWriter(File.Open(path, FileMode.Create, FileAccess.Write, FileShare.Read));
         await writer.WriteAsync(json);
     }
 
