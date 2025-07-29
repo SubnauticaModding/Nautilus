@@ -115,6 +115,10 @@ internal static class MainMenuPatcher
         var selector = GameObject.Instantiate(background, mainMenu.transform, false);
         selector.gameObject.name = "ActiveModSelector";
         selector.localPosition = new Vector3(-750, -450, 0);
+        var rect = selector.GetComponent<RectTransform>();
+        rect.anchoredPosition = new Vector3(-1700, -450, 0);
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
 
         _choiceOption = selector.GetComponent<uGUI_Choice>();
         _choiceOption.currentText.raycastTarget = false;
