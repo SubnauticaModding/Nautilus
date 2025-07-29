@@ -126,13 +126,24 @@ internal static class MainMenuPatcher
             if (currentIndex >= 0)
             {
                 _choiceOption.value = currentIndex;
-                OnActiveModChanged(_choiceOption);
+                OnActiveModChanged();
             }
         }
         
         Language.main.onLanguageChanged += () => UpdateButtonPositions(_choiceOption);
 
-        UWE.CoroutineHost.StartCoroutine(AddButtonListeners(_choiceOption));
+        UWE.CoroutineHost.StartCoroutine(AddListenersDelayed());
+    }
+
+    private static IEnumerator AddListenersDelayed()
+    {
+        yield return new WaitForEndOfFrame();
+        
+        var nextButton = _choiceOption.nextButton.GetComponent<Button>();
+        var prevButton = _choiceOption.previousButton.GetComponent<Button>();
+        
+        nextButton.onClick.AddListener(OnActiveModChanged);
+        prevButton.onClick.AddListener(OnActiveModChanged);
     }
 
     private static void RefreshModOptions(uGUI_Choice choice)
@@ -183,19 +194,10 @@ internal static class MainMenuPatcher
         choice.gameObject.SetActive(choice.options.Count > 1);
     }
 
-    private static IEnumerator AddButtonListeners(uGUI_Choice choice)
+    private static void OnActiveModChanged()
     {
-        yield return new WaitForEndOfFrame();
+        var choice = _choiceOption;
         
-        var nextButton = choice.nextButton.GetComponent<Button>();
-        var prevButton = choice.previousButton.GetComponent<Button>();
-        
-        nextButton.onClick.AddListener(() => OnActiveModChanged(choice));
-        prevButton.onClick.AddListener(() => OnActiveModChanged(choice));
-    }
-
-    private static void OnActiveModChanged(uGUI_Choice choice)
-    {
         int index = 0;
         foreach (var titleData in TitleObjectDatas)
         {
@@ -249,9 +251,10 @@ internal static class MainMenuPatcher
             #endif
             
             musicEvent.getPlaybackState(out var state);
-            if (state is PLAYBACK_STATE.PLAYING or PLAYBACK_STATE.SUSTAINING) return;
-            
-            musicEvent.start();
+            if (state is not (PLAYBACK_STATE.PLAYING or PLAYBACK_STATE.SUSTAINING))
+            {
+                musicEvent.start();
+            }
         }
 
         var data = TitleObjectDatas.FirstOrDefault(d => d.Value.localizationKey == choice.options[choice.currentIndex]);
