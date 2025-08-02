@@ -202,14 +202,14 @@ internal static class MainMenuPatcher
         var nextButtonRect = choice.nextButton.GetComponent<RectTransform>();
         var prevButtonRect = choice.previousButton.GetComponent<RectTransform>();
         var textRect = choice.currentText.rectTransform;
-        float offset = maxWidth * 0.5f + nextButtonRect.sizeDelta.x + 10;
+        float offset = maxWidth * 0.5f + nextButtonRect.sizeDelta.x - 10;
         
         // Stop buttons from going offscreen with really long mod names
         offset = Mathf.Min(offset, 180);
 
         var localPosPrev = new Vector3(-offset, 0, 0);
         prevButtonRect.localPosition = localPosPrev;
-        prevButtonRect.pivot = new Vector2(0, 0.5f);
+        prevButtonRect.pivot = new Vector2(1, 0.5f);
         prevButtonRect.anchorMin = new Vector2(0, 0.5f);
         prevButtonRect.anchorMax = new Vector2(0, 0.5f);
         prevButtonRect.offsetMin = Vector2.zero;
@@ -219,7 +219,7 @@ internal static class MainMenuPatcher
 
         var localPosNext = new Vector3(offset, 0, 0);
         nextButtonRect.localPosition = localPosNext;
-        nextButtonRect.pivot = new Vector2(1, 0.5f);
+        nextButtonRect.pivot = new Vector2(0, 0.5f);
         nextButtonRect.anchorMin = new Vector2(1, 0.5f);
         nextButtonRect.anchorMax = new Vector2(1, 0.5f);
         nextButtonRect.offsetMin = Vector2.zero;
