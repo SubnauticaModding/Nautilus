@@ -86,6 +86,7 @@ public class Initializer : BaseUnityPlugin
         InventoryPatcher.Patch(_harmony);
         WaterParkPatcher.Patch(_harmony);
         ModMessageSystem.Patch();
+        FindMyUpdatesPatcher.Patch();
         BiomePatcher.Patch(_harmony);
         DependencyWarningPatcher.Patch(_harmony);
         MainMenuPatcher.Patch(_harmony, Config);
