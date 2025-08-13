@@ -31,7 +31,8 @@ public static class PDAHandler
 #else
     public static FMODAsset UnlockImportant { get; } = AudioUtils.GetFmodAsset("event:/bz/ui/story_unlocked");
 #endif
-    
+
+    private static bool _gameHasLoadedFirstScene;
 
     /// <summary>
     /// Edits how many fragments must be scanned before unlocking the techtype's blueprint.
@@ -47,7 +48,7 @@ public static class PDAHandler
 
         PDAPatcher.FragmentCount[techType] = fragmentCount;
         
-        if (uGUI.isMainLevel)
+        if (GetShouldReinitialize())
             PDAPatcher.InitializePostfix();
     }
 
@@ -65,7 +66,7 @@ public static class PDAHandler
 
         PDAPatcher.FragmentScanTime[techType] = scanTime;
         
-        if(uGUI.isMainLevel)
+        if(GetShouldReinitialize())
             PDAPatcher.InitializePostfix();
     }
 
@@ -82,7 +83,7 @@ public static class PDAHandler
 
         PDAPatcher.CustomEntryData[entryData.key] = entryData;
         
-        if (uGUI.isMainLevel)
+        if (GetShouldReinitialize())
             PDAPatcher.InitializePostfix();
     }
 
@@ -141,7 +142,7 @@ public static class PDAHandler
         
         PDALogPatcher.CustomEntryData[key] = entry;
         
-        if (uGUI.isMainLevel)
+        if (GetShouldReinitialize())
             PDALogPatcher.InitializePostfix();
     }
 
@@ -272,5 +273,21 @@ public static class PDAHandler
         if (!string.IsNullOrEmpty(desc)) LanguageHandler.SetLanguageLine("EncyDesc_" + key, desc);
 
         AddEncyclopediaEntry(encyEntryData);
+    }
+    
+    // This is a hotfix to address how sceneName returns a null value in the 2025 patch for SN1 at Plugin.Awake
+    private static bool GetShouldReinitialize()
+    {
+        if (!_gameHasLoadedFirstScene)
+        {
+            if (string.IsNullOrEmpty(Application.loadedLevelName))
+            {
+                return false;
+            }
+
+            _gameHasLoadedFirstScene = true;
+        }
+        
+        return uGUI.isMainLevel;
     }
 }
