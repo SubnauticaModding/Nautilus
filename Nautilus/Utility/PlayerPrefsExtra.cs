@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using BepInEx.Logging;
+using Nautilus.Extensions;
+using UnityEngine;
 
 namespace Nautilus.Utility;
 
@@ -35,7 +38,7 @@ public static class PlayerPrefsExtra
     /// <returns></returns>
     public static KeyCode GetKeyCode(string key, KeyCode defaultValue)
     {
-        return KeyCodeUtils.StringToKeyCode(PlayerPrefs.GetString(key, KeyCodeUtils.KeyCodeToString(defaultValue)));
+        return StringToKeyCode(PlayerPrefs.GetString(key, defaultValue.KeyCodeToString()));
     }
     /// <summary>
     /// Set a <see cref="KeyCode"/> value using <see cref="PlayerPrefs"/>
@@ -44,7 +47,7 @@ public static class PlayerPrefsExtra
     /// <param name="value"></param>
     public static void SetKeyCode(string key, KeyCode value)
     {
-        PlayerPrefs.SetString(key, KeyCodeUtils.KeyCodeToString(value));
+        PlayerPrefs.SetString(key, value.KeyCodeToString());
     }
 
     /// <summary>
@@ -255,5 +258,68 @@ public static class PlayerPrefsExtra
         PlayerPrefs.SetFloat($"{key}_y", value.y);
         PlayerPrefs.SetFloat($"{key}_z", value.z);
         PlayerPrefs.SetFloat($"{key}_w", value.w);
+    }
+    
+    private static KeyCode StringToKeyCode(string s)
+    {
+        switch (s)
+        {
+            case "0":
+                return KeyCode.Alpha0;
+            case "1":
+                return KeyCode.Alpha1;
+            case "2":
+                return KeyCode.Alpha2;
+            case "3":
+                return KeyCode.Alpha3;
+            case "4":
+                return KeyCode.Alpha4;
+            case "5":
+                return KeyCode.Alpha5;
+            case "6":
+                return KeyCode.Alpha6;
+            case "7":
+                return KeyCode.Alpha7;
+            case "8":
+                return KeyCode.Alpha8;
+            case "9":
+                return KeyCode.Alpha9;
+            case "MouseButtonLeft":
+                return KeyCode.Mouse0;
+            case "MouseButtonRight":
+                return KeyCode.Mouse1;
+            case "MouseButtonMiddle":
+                return KeyCode.Mouse2;
+            case "ControllerButtonA":
+                return KeyCode.JoystickButton0;
+            case "ControllerButtonB":
+                return KeyCode.JoystickButton1;
+            case "ControllerButtonX":
+                return KeyCode.JoystickButton2;
+            case "ControllerButtonY":
+                return KeyCode.JoystickButton3;
+            case "ControllerButtonLeftBumper":
+                return KeyCode.JoystickButton4;
+            case "ControllerButtonRightBumper":
+                return KeyCode.JoystickButton5;
+            case "ControllerButtonBack":
+                return KeyCode.JoystickButton6;
+            case "ControllerButtonHome":
+                return KeyCode.JoystickButton7;
+            case "ControllerButtonLeftStick":
+                return KeyCode.JoystickButton8;
+            case "ControllerButtonRightStick":
+                return KeyCode.JoystickButton9;
+            default:
+                try
+                {
+                    return (KeyCode)Enum.Parse(typeof(KeyCode), s);
+                }
+                catch (Exception)
+                {
+                    InternalLogger.Log($"Failed to parse {s} as a valid KeyCode!", LogLevel.Error);
+                    return 0;
+                }
+        }
     }
 }

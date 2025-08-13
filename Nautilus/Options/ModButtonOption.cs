@@ -49,7 +49,13 @@ public class ModButtonOption : OptionItem
     public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
     {
         // Add button to GUI
+#if SUBNAUTICA
+        Button componentInChildren = panel.AddItem(tabIndex, panel.controls.prefabButton).GetComponentInChildren<Button>();
+        uGUI_Controls.AssignLabel(componentInChildren.gameObject, Label);
+#else
         Button componentInChildren = panel.AddItem(tabIndex, panel.buttonPrefab, Label).GetComponentInChildren<Button>();
+#endif
+        
 
         // Store a reference to parent object to simplify further modifications
         OptionGameObject = componentInChildren.transform.parent.gameObject;

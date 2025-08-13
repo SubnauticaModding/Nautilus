@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Nautilus.Extensions;
 using Nautilus.Utility;
 using TMPro;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class KeybindChangedEventArgs : ConfigOptionEventArgs<KeyCode>
 /// </summary>
 public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
 {
+    
     /// <summary>
     /// The currently select input source device for the <see cref="ModKeybindOption"/>.
     /// </summary>
@@ -38,7 +40,12 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     {
         Device = device;
         Tooltip = tooltip;
+#if SUBNAUTICA
+        GameInput.OnPrimaryDeviceChanged += () => { Device = GameInput.PrimaryDevice; };
+#else
         GameInput.OnPrimaryDeviceChanged += () => { Device = GameInput.GetPrimaryDevice(); };
+#endif
+        
     }
 
     /// <summary>
@@ -53,18 +60,6 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     {
         return new ModKeybindOption(id, label, device, key, tooltip);
     }
-    /// <summary>
-    /// Creates a new <see cref="ModKeybindOption"/> for handling an option that is a keybind.
-    /// </summary>
-    /// <param name="id">The internal ID for the toggle option.</param>
-    /// <param name="label">The display text to use in the in-game menu.</param>
-    /// <param name="device">The device name.</param>
-    /// <param name="key">The starting keybind value.</param>
-    /// /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
-    public static ModKeybindOption Create(string id, string label, GameInput.Device device, string key, string tooltip = null)
-    {
-        return Create(id, label, device, KeyCodeUtils.StringToKeyCode(key), tooltip);
-    }
 
     /// <summary>
     /// The base method for adding an object to the options panel
@@ -74,7 +69,12 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
     {
         // Add item
+#if SUBNAUTICA
+        OptionGameObject = panel.AddItem(tabIndex, panel.controls.prefabBinding);
+#else
         OptionGameObject = panel.AddItem(tabIndex, panel.bindingOptionPrefab);
+#endif
+        
 
         // Update text
         TextMeshProUGUI text = OptionGameObject.GetComponentInChildren<TextMeshProUGUI>();
@@ -99,17 +99,21 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
 
         // Update bindings
         binding.device = Device;
-        binding.value = KeyCodeUtils.GetDisplayTextForKeyCode(Value);
+#if SUBNAUTICA
+        binding.binding = GameInput.GetDisplayText(Value.KeyCodeToString());
+#else
+        binding.value = GameInput.GetKeyCodeAsInputName(Value);
+#endif
         binding.gameObject.EnsureComponent<ModBindingTag>();
         binding.bindingSet = GameInput.BindingSet.Primary;
-        binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
+        /*binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
         {
             var keyCode = KeyCodeUtils.StringToKeyCode(s);
             binding.value = KeyCodeUtils.GetDisplayTextForKeyCode(keyCode);
             OnChange(Id, keyCode);
             parentOptions.OnChange<KeyCode, KeybindChangedEventArgs>(Id, KeyCodeUtils.StringToKeyCode(s));
             binding.RefreshValue();
-        });
+        });*/
 
         base.AddToPanel(panel, tabIndex);
     }

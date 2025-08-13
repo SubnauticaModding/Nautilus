@@ -110,7 +110,12 @@ internal static class MainMenuPatcher
     private static void CreateSelectionUI(uGUI_MainMenu mainMenu)
     {
         var optionsMenu = mainMenu.GetComponentInChildren<uGUI_OptionsPanel>(true);
+#if SUBNAUTICA
+        var background = optionsMenu.controls.prefabChoice.transform.Find("Choice/Background");
+#else
         var background = optionsMenu.choiceOptionPrefab.transform.Find("Choice/Background");
+#endif
+        
         
         var selector = GameObject.Instantiate(background, mainMenu.transform, false);
         selector.gameObject.name = "ActiveModSelector";

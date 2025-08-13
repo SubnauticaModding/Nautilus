@@ -55,7 +55,11 @@ internal class OptionsPanelPatcher
             return true;
         }
 
+#if SUBNAUTICA
+        __instance.currentText.text = (__instance.isRebinding || __instance.binding == null) ? "" : __instance.binding;
+#else
         __instance.currentText.text = (__instance.active || __instance.value == null) ? "" : __instance.value;
+#endif
         __instance.UpdateState();
         return false;
     }
@@ -160,12 +164,20 @@ internal class OptionsPanelPatcher
                 return;
             }
 
+#if SUBNAUTICA
+            _headingPrefab = Object.Instantiate(panel.controls.prefabHeading);
+#else
             _headingPrefab = Object.Instantiate(panel.headingPrefab);
+#endif
             _headingPrefab.name = "OptionHeadingToggleable";
             _headingPrefab.AddComponent<HeadingToggle>();
 
             var option = _headingPrefab.AddComponent<uGUI_OptionSelection>();
+#if SUBNAUTICA
+            option.selectionBackground = Object.Instantiate(panel.controls.prefabToggle.GetComponentInChildren<uGUI_OptionSelection>(true).selectionBackground);
+#else
             option.selectionBackground = Object.Instantiate(panel.toggleOptionPrefab.GetComponentInChildren<uGUI_OptionSelection>(true).selectionBackground);
+#endif
             option.selectionBackground.transform.SetParent(_headingPrefab.transform);
             option.hoverSound = AudioUtils.GetFmodAsset("event:/tools/pda/select");
 
@@ -173,7 +185,11 @@ internal class OptionsPanelPatcher
             captionTransform.localPosition = new Vector3(45f, 0f, 0f);
             captionTransform.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
 
+#if SUBNAUTICA
+            GameObject button = Object.Instantiate(panel.controls.prefabChoice.transform.Find("Choice/Background/NextButton").gameObject);
+#else
             GameObject button = Object.Instantiate(panel.choiceOptionPrefab.transform.Find("Choice/Background/NextButton").gameObject);
+#endif
             button.name = "HeadingToggleButton";
             button.AddComponent<ToggleButtonClickHandler>();
             Object.Destroy(button.GetComponent<Button>());
@@ -197,12 +213,8 @@ internal class OptionsPanelPatcher
             private HeadingState _headingState = HeadingState.Expanded;
             private string _headingName = null;
             private List<GameObject> _childOptions = null;
-
-#if SUBNAUTICA
+            
             protected override void OnEnable()
-#elif BELOWZERO
-            public override void OnEnable()
-#endif
             {
                 base.OnEnable();
                 transform.Find("Caption").GetComponent<TextMeshProUGUI>().color = _headerColor;
@@ -311,7 +323,12 @@ internal class OptionsPanelPatcher
             if (tabIndex != _modsTabIndex || __instance is not uGUI_OptionsPanel)
                 return true;
 
-            __instance.AddItem(tabIndex, _headingPrefab, label);
+#if SUBNAUTICA
+            var item = __instance.AddItem(tabIndex, _headingPrefab);
+            uGUI_Controls.AssignLabel(item, label);
+#else
+            var item = __instance.AddItem(tabIndex, _headingPrefab, label);
+#endif
             return false;
         }
 

@@ -38,7 +38,7 @@ internal class SurvivalPatcher
         {
 #if SUBNAUTICA
 #pragma warning disable CS0618 // Type or member is obsolete and yet IS still used by Subnautica itself.
-            string sound = CraftData.GetUseEatSound(tt);
+            string sound = TechData.GetSoundUse(tt);
             if(!string.IsNullOrEmpty(sound))
                 FMODUWE.PlayOneShot(sound, Player.main.transform.position); // only play the sound if its useable
 #pragma warning restore CS0618 
