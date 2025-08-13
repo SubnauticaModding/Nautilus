@@ -3,9 +3,6 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
-#if SUBNAUTICA
-using Ingredient = CraftData.Ingredient;
-#endif
 
 namespace Nautilus.Examples;
 
