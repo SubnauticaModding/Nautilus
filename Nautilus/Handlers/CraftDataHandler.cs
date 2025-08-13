@@ -391,6 +391,21 @@ public static partial class CraftDataHandler
     {
         AddJsonProperty(consumable, "soundPickup", new JsonValue(soundPath));
     }
+    /// <summary>
+    /// Sets the drop sound for the provided TechType.
+    /// </summary>
+    /// <param name="consumable">The item to add the new drop sound to.</param>
+    /// <param name="soundPath">
+    /// The sound path. A list of all sound paths can be viewed
+    /// <a href="https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-FMODEvents.txt">on this page</a>.
+    /// <para>
+    /// The default sound is "event:/tools/pda/drop_item".
+    /// </para>
+    /// </param>
+    public static void SetDropSound(TechType consumable, string soundPath)
+    {
+        AddJsonProperty(consumable, "soundDrop", new JsonValue(soundPath));
+    }
 #else
     /// <summary>
     /// Sets the type of the sound.
