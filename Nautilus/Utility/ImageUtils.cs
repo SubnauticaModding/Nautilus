@@ -5,9 +5,6 @@ using UnityEngine;
 namespace Nautilus.Utility;
 
 using Logger = InternalLogger;
-#if SUBNAUTICA
-using Sprite = Atlas.Sprite;
-#endif
 
 /// <summary>
 /// A collection of image loading utility methods that can create Unity objects from image files at runtime.
@@ -78,10 +75,6 @@ public static class ImageUtils
     /// </returns>
     public static Sprite LoadSpriteFromTexture(Texture2D texture2D)
     {
-#if SUBNAUTICA
-        return new Sprite(texture2D);
-#elif BELOWZERO
-            return Sprite.Create(texture2D, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
-#endif
+        return Sprite.Create(texture2D, new Rect(0.0f, 0.0f, texture2D.width, texture2D.height), new Vector2(0.5f, 0.5f));
     }
 }

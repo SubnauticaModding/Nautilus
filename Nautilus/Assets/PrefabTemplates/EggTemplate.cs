@@ -191,11 +191,7 @@ public class EggTemplate : PrefabTemplate
         UndiscoveredTechType = EnumHandler.AddEntry<TechType>(info.ClassID + "Undiscovered")
             .WithPdaInfo("Creature Egg", "An unidentified egg.")
             .WithIcon(SpriteManager.Get(info.TechType))
-#if SUBNAUTICA
-            .WithSizeInInventory(CraftData.GetItemSize(info.TechType));
-#else
             .WithSizeInInventory(TechData.GetItemSize(info.TechType));
-#endif
 
         // eggs with undiscovered tech types shouldn't be unlocked by default at all, even on creative.
         KnownTechHandler.SetHardLocked(info.TechType);

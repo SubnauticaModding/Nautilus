@@ -5,15 +5,9 @@ using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using Nautilus.Handlers;
+using UnityEngine;
 
 namespace Nautilus.Patchers;
-
-#if SUBNAUTICA
-using Sprite = Atlas.Sprite;
-#elif BELOWZERO
-using Sprite = UnityEngine.Sprite;
-
-#endif
 
 internal class SpritePatcher
 {
@@ -24,12 +18,12 @@ internal class SpritePatcher
         {
             return;
         }
-#if BELOWZERO
-            if (!SpriteManager.hasInitialized)
-            {
-                return;
-            }
-#endif
+
+        if (!SpriteManager.hasInitialized)
+        {
+            return;
+        }
+
         Dictionary<string, Sprite> atlas = GetSpriteAtlas(group);
             
         if (atlas != null && !atlas.TryGetValue(name, out _))
@@ -41,20 +35,12 @@ internal class SpritePatcher
     internal static void Patch(Harmony harmony)
     {
         PatchSprites();
-#if SUBNAUTICA
-        MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string) });
-        MethodInfo spriteManagerGetWithNoDefault = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetWithNoDefault), new Type[] { typeof(SpriteManager.Group), typeof(string) });
-#elif BELOWZERO
         MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
-#endif
         MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
 
         HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
         HarmonyMethod patchBackgrounds = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
         harmony.Patch(spriteManagerGet, prefix: patchCheck);
-# if SUBNAUTICA
-        harmony.Patch(spriteManagerGetWithNoDefault, prefix: patchCheck);
-#endif
         harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
     }
 
@@ -105,16 +91,12 @@ internal class SpritePatcher
             InternalLogger.Error($"SpritePatcher was unable to find a sprite mapping for {nameof(SpriteManager.Group)}.{groupKey}");
             return null;
         }
-#if SUBNAUTICA
-        var atlas = Atlas.GetAtlas(atlasName);
-        if (atlas?.nameToSprite != null)
-            return atlas.nameToSprite;
-#elif BELOWZERO
-            if (SpriteManager.atlases.TryGetValue(atlasName, out Dictionary<string, Sprite> spriteGroup))
-            {
-                return spriteGroup;
-            }
-#endif
+
+        if (SpriteManager.atlases.TryGetValue(atlasName, out Dictionary<string, Sprite> spriteGroup))
+        {
+            return spriteGroup;
+        }
+
         InternalLogger.Error($"SpritePatcher was unable to find a sprite atlas for {nameof(SpriteManager.Group)}.{groupKey}");
         return null;
     }

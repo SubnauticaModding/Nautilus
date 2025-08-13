@@ -21,26 +21,6 @@ public abstract class ModCraftTreeLinkingNode : ModCraftTreeNode
         : base(name, action, techType)
     {
     }
-#if SUBNAUTICA
-    /// <summary>
-    /// Creates a new tab node for the crafting tree and links it to the calling node.
-    /// </summary>
-    /// <param name="nameID">The name/ID of this node.</param>
-    /// <param name="displayText">The hover text to display in-game. If null or empty, this will use the language line "{CraftTreeName}_{<paramref name="nameID"/>}" instead.</param>
-    /// <param name="sprite">The custom sprite to display on this tab node.</param>
-    /// <param name="language">The language for the display name. Defaults to English.</param>
-    /// <returns>A new tab node linked to the root node and ready to use.</returns>
-    public ModCraftTreeTab AddTabNode(string nameID, string displayText, Atlas.Sprite sprite, string language = "English")
-    {
-        var tabNode = new ModCraftTreeTab(nameID, displayText, language, sprite);
-        tabNode.LinkToParent(this);
-
-        ChildNodes.Add(tabNode);
-
-        return tabNode;
-    }
-
-#endif
     /// <summary>
     /// Creates a new tab node for the crafting tree and links it to the calling node.
     /// </summary>
