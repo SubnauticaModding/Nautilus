@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Condition="'$(Configuration)'=='SN.STABLE' Or '$(Configuration)'=='Release' Or '$(Configuration)'=='Debug'">
-    <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
+    <PackageReference Include="Subnautica.GameLibs" Version="82304.0.0-r.0" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='BZ.STABLE'">
-    <PackageReference Include="Subnautica.BelowZero.GameLibs" Version="49371.0.0.1-r.0" />
+    <PackageReference Include="Subnautica.BelowZero.GameLibs" Version="53115.0.0-r.0" />
   </ItemGroup>
 </Project>
