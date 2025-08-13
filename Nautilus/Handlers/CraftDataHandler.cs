@@ -365,7 +365,7 @@ public static partial class CraftDataHandler
     /// <param name="soundPath">
     /// The sound path.
     /// <para>
-    /// Value values are
+    /// Valid values are
     /// - "event:/player/drink"
     /// - "event:/player/drink_stillsuit"
     /// - "event:/player/use_first_aid"
@@ -375,6 +375,21 @@ public static partial class CraftDataHandler
     public static void SetEatingSound(TechType consumable, string soundPath)
     {
         AddJsonProperty(consumable, "soundUse", new JsonValue(soundPath));
+    }
+    /// <summary>
+    /// Sets the pickup sound for the provided TechType.
+    /// </summary>
+    /// <param name="consumable">The item to add the new pickup sound to.</param>
+    /// <param name="soundPath">
+    /// The sound path. A list of all sound paths can be viewed
+    /// <a href="https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-FMODEvents.txt">on this page</a>.
+    /// <para>
+    /// The default sound is "event:/loot/pickup_default".
+    /// </para>
+    /// </param>
+    public static void SetPickupSound(TechType consumable, string soundPath)
+    {
+        AddJsonProperty(consumable, "soundPickup", new JsonValue(soundPath));
     }
 #else
     /// <summary>
