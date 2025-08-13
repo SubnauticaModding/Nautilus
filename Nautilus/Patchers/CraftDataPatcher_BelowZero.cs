@@ -1,4 +1,5 @@
-﻿#if BELOWZERO
+﻿/*
+#if BELOWZERO
 namespace Nautilus.Patchers;
 
 using System;
@@ -90,3 +91,4 @@ internal partial class CraftDataPatcher
     }
 }
 #endif
+*/

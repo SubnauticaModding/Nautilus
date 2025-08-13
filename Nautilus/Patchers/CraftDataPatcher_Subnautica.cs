@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Extensions;
@@ -159,4 +159,4 @@ internal partial class CraftDataPatcher
         }
     }
 }
-#endif
+#endif*/

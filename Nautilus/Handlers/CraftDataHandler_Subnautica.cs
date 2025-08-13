@@ -1,4 +1,4 @@
-#if SUBNAUTICA
+/*#if SUBNAUTICA
 namespace Nautilus.Handlers;
 
 using Nautilus.Crafting;
@@ -238,4 +238,4 @@ public partial class CraftDataHandler
         return iTechData?.ConvertToRecipeData();
     }
 }
-#endif
+#endif*/

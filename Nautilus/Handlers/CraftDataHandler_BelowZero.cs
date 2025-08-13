@@ -1,3 +1,4 @@
+/*
 #if BELOWZERO
 namespace Nautilus.Handlers;
 
@@ -391,3 +392,4 @@ public static partial class CraftDataHandler
     }
 }
 #endif
+*/
