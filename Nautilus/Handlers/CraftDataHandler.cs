@@ -8,7 +8,7 @@ namespace Nautilus.Handlers;
 /// <summary>
 /// A handler class for adding and editing crafted items.
 /// </summary>
-public static partial class CraftDataHandler
+public static class CraftDataHandler
 {
     /// <summary>
     /// <para>Allows you to add or edit RecipeData for TechTypes.</para>

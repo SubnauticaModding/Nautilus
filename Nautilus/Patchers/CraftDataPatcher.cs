@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Nautilus.Patchers;
 
-internal partial class CraftDataPatcher
+internal class CraftDataPatcher
 {
     internal static readonly IDictionary<TechType, JsonValue> CustomRecipeData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
 
