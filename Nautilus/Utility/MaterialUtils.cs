@@ -12,6 +12,7 @@ namespace Nautilus.Utility;
 public static partial class MaterialUtils
 {
     private static bool _sceneEventAdded;
+    private static bool _startedLoadingMaterials;
     private static readonly int _emissionMap = Shader.PropertyToID("_EmissionMap");
     private static readonly int _specInt = Shader.PropertyToID("_SpecInt");
     private static readonly int _shininess = Shader.PropertyToID("_Shininess");
@@ -20,7 +21,6 @@ public static partial class MaterialUtils
 
     internal static void Patch()
     {
-        CoroutineHost.StartCoroutine(LoadReferences());
         if (!_sceneEventAdded)
         {
             SceneManager.sceneLoaded += OnSceneLoaded;
@@ -33,8 +33,6 @@ public static partial class MaterialUtils
         yield return PatchInternal();
 
         IsReady = true;
-
-        yield break;
     }
 
     /// <summary>
@@ -339,6 +337,15 @@ public static partial class MaterialUtils
     {
         if (scene.name != "MenuEnvironment") return;
 
+        // Following the 2025 patch, it is possible (and normal) for Nautilus to load before any scene has loaded
+        // So we delay it until the main menu
+        if (!_startedLoadingMaterials)
+        {
+            _startedLoadingMaterials = true;
+            CoroutineHost.StartCoroutine(LoadReferences());
+            return;
+        }
+        
         CoroutineHost.StartCoroutine(ReloadStaleReferences());
     }
 }
