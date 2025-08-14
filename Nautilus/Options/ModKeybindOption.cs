@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using BepInEx.Logging;
 using Nautilus.Extensions;
 using Nautilus.Utility;
 using TMPro;
@@ -106,19 +107,87 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
 #endif
         binding.gameObject.EnsureComponent<ModBindingTag>();
         binding.bindingSet = GameInput.BindingSet.Primary;
-        /*binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
+#if BELOWZERO
+        binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
         {
-            var keyCode = KeyCodeUtils.StringToKeyCode(s);
-            binding.value = KeyCodeUtils.GetDisplayTextForKeyCode(keyCode);
+            var keyCode = StringToKeyCode(s);
+            binding.value = uGUI.GetDisplayTextForBinding(GameInput.GetInputName(binding.value));
             OnChange(Id, keyCode);
-            parentOptions.OnChange<KeyCode, KeybindChangedEventArgs>(Id, KeyCodeUtils.StringToKeyCode(s));
+            parentOptions.OnChange<KeyCode, KeybindChangedEventArgs>(Id, StringToKeyCode(s));
             binding.RefreshValue();
-        });*/
+        });
+#endif
 
         base.AddToPanel(panel, tabIndex);
     }
+    
+     private static KeyCode StringToKeyCode(string s)
+    {
+        switch (s)
+        {
+            case "0":
+                return KeyCode.Alpha0;
+            case "1":
+                return KeyCode.Alpha1;
+            case "2":
+                return KeyCode.Alpha2;
+            case "3":
+                return KeyCode.Alpha3;
+            case "4":
+                return KeyCode.Alpha4;
+            case "5":
+                return KeyCode.Alpha5;
+            case "6":
+                return KeyCode.Alpha6;
+            case "7":
+                return KeyCode.Alpha7;
+            case "8":
+                return KeyCode.Alpha8;
+            case "9":
+                return KeyCode.Alpha9;
+            case "MouseButtonLeft":
+                return KeyCode.Mouse0;
+            case "MouseButtonRight":
+                return KeyCode.Mouse1;
+            case "MouseButtonMiddle":
+                return KeyCode.Mouse2;
+            case "ControllerButtonA":
+                return KeyCode.JoystickButton0;
+            case "ControllerButtonB":
+                return KeyCode.JoystickButton1;
+            case "ControllerButtonX":
+                return KeyCode.JoystickButton2;
+            case "ControllerButtonY":
+                return KeyCode.JoystickButton3;
+            case "ControllerButtonLeftBumper":
+                return KeyCode.JoystickButton4;
+            case "ControllerButtonRightBumper":
+                return KeyCode.JoystickButton5;
+            case "ControllerButtonBack":
+                return KeyCode.JoystickButton6;
+            case "ControllerButtonHome":
+                return KeyCode.JoystickButton7;
+            case "ControllerButtonLeftStick":
+                return KeyCode.JoystickButton8;
+            case "ControllerButtonRightStick":
+                return KeyCode.JoystickButton9;
+            default:
+                try
+                {
+                    return (KeyCode)Enum.Parse(typeof(KeyCode), s);
+                }
+                catch (Exception)
+                {
+                    InternalLogger.Log($"Failed to parse {s} as a valid KeyCode!", LogLevel.Error);
+                    return 0;
+                }
+        }
+    }
 
-    internal class ModBindingTag: MonoBehaviour { };
+    internal class ModBindingTag : MonoBehaviour
+    {
+        public ModOptions parentOptions;
+    };
 
     internal class BindingOptionAdjust: ModOptionAdjust
     {
