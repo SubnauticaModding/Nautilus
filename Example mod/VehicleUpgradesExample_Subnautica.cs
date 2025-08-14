@@ -7,6 +7,7 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Nautilus.Examples;
 
@@ -65,11 +66,11 @@ public class VehicleUpgradesExample : BaseUnityPlugin
             /*
              * And here, we're making a list of ingredients.
              */
-            Ingredients = new List<CraftData.Ingredient>()
+            Ingredients = new List<Ingredient>()
             {
-                new CraftData.Ingredient(TechType.PlasteelIngot, 3),
-                new CraftData.Ingredient(TechType.Copper, 1),
-                new CraftData.Ingredient(TechType.Aerogel, 1),
+                new Ingredient(TechType.PlasteelIngot, 3),
+                new Ingredient(TechType.Copper, 1),
+                new Ingredient(TechType.Aerogel, 1),
             }
         })
             /*
@@ -133,14 +134,14 @@ public class VehicleUpgradesExample : BaseUnityPlugin
         var selfDefClone = new CloneTemplate(SelfDefenseMK2Info, TechType.SeamothElectricalDefense);
 
         selfDefMK2prefab.SetGameObject(selfDefClone);
-
+        
         selfDefMK2prefab.SetRecipe(new Crafting.RecipeData()
         {
             craftAmount = 1,
-            Ingredients = new List<CraftData.Ingredient>()
+            Ingredients = new List<Ingredient>()
                 {
-                    new CraftData.Ingredient(TechType.SeamothElectricalDefense),
-                    new CraftData.Ingredient(TechType.Diamond, 2)
+                    new Ingredient(TechType.SeamothElectricalDefense, 1),
+                    new Ingredient(TechType.Diamond, 2)
                 }
         })
             .WithFabricatorType(CraftTree.Type.Workbench);
@@ -167,7 +168,7 @@ public class VehicleUpgradesExample : BaseUnityPlugin
 public class VehicleUpgradesExampleConfig : ConfigFile
 {
     [Slider(Format = "{0:F0}m", Label = "Seamoth Upgrade Max Depth", Min = 100f, Max = 10000f, Step = 10f,
-        Tooltip = "This is the max depth of the seamtoh when the depth module is equipped. It is absolute.")]
+        Tooltip = "This is the max depth of the Seamoth when the depth module is equipped. It is absolute.")]
     public float MaxDepth = 500.0f;
 }
 #endif

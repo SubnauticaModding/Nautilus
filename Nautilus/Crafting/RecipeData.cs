@@ -3,17 +3,10 @@ using Newtonsoft.Json;
 
 namespace Nautilus.Crafting;
 
-#if SUBNAUTICA
-using static CraftData;
-#endif
-
 /// <summary>
 /// A class that fully describes a recipe for a <see cref="TechType"/> identified item.
 /// </summary>
 public class RecipeData
-#if SUBNAUTICA
-    : ITechData
-#endif
 {
     /// <summary>
     /// Gets or sets the how many copies of the item are created when crafting this recipe.
@@ -102,13 +95,6 @@ public class RecipeData
 
         return null;
     }
-
-#if SUBNAUTICA
-    IIngredient ITechData.GetIngredient(int index)
-    {
-        return GetIngredient(index);
-    }
-#endif
 
     /// <summary>
     /// Gets the linked item at the specified index.

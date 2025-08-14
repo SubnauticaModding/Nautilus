@@ -1,6 +1,4 @@
-﻿#if BELOWZERO
-
-namespace Nautilus.Assets;
+﻿namespace Nautilus.Assets;
 using System;
 using System.Collections.Generic;
 
@@ -100,4 +98,3 @@ internal class ModSprite
         TechType = type;
     }
 }
-#endif

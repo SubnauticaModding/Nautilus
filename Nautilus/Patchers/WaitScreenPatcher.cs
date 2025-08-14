@@ -58,16 +58,11 @@ internal static class WaitScreenPatcher
 
     public static void Patch(Harmony harmony)
     {
- #if SUBNAUTICA       
         harmony.Patch(AccessTools.Method(typeof(WaitScreen), nameof(WaitScreen.Awake)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(AddModLoadStageDuration))));
         harmony.Patch(AccessTools.Method(typeof(MainSceneLoading), nameof(MainSceneLoading.Launch)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(LoadEarlyModDataAsync))));
-#endif
-#if BELOWZERO
-        harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.DelayedSceneLoad)),
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(LaunchBelowZero))));
-#endif
+
         harmony.Patch(AccessTools.Method(typeof(MainGameController), nameof(MainGameController.StartGame)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(WaitScreenPatcher), nameof(LoadModDataAsync))));
         harmony.Patch(AccessTools.Method(typeof(uGUI_SceneLoading), nameof(uGUI_SceneLoading.SetProgress)),
@@ -84,29 +79,6 @@ internal static class WaitScreenPatcher
         LoadingStage.durations[ModLoadingStage] = 4f;
         LoadingStage.durations[LateModLoadingStage] = 2f; // Shorter since it will probably see less use.
     }
-
-#if BELOWZERO
-    /// <summary>
-    /// The transition from main menu to ingame works differently in BZ. Exactly nothing happens between the loading
-    /// screen appearing and the main scene being loaded, which makes it difficult to hook into anything. So,
-    /// this patch intercepts the main scene load directly.
-    /// </summary>
-    private static bool LaunchBelowZero(uGUI_SceneLoading __instance)
-    {
-        // The WaitScreen patch for this does not work since in BZ the WaitScreen is part of the Main scene.
-        AddModLoadStageDuration();
-        CoroutineHost.StartCoroutine(LaunchBelowZeroAsync(__instance));
-        // Usually, this is where the game would load the Main scene. Force it to wait until the coroutine is done.
-        return false;
-    }
-
-    private static IEnumerator LaunchBelowZeroAsync(uGUI_SceneLoading sceneLoading)
-    {
-        yield return LoadEarlyModDataAsync(null);
-        // The original method the game was made to delay. Load the Main scene.
-        sceneLoading.levelLoadingOp = AddressablesUtility.LoadSceneAsync(sceneLoading.levelNameToLoad, LoadSceneMode.Single);
-    }
-#endif
 
     /// <summary>
     /// Perform an early, initial load stage for mods. This is as early into the save game launch process as you can

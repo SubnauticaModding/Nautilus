@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-#if SUBNAUTICA
-using Sprite = Atlas.Sprite;
-#elif BELOWZERO
-using Sprite = UnityEngine.Sprite;
-#endif
+using UnityEngine;
 
 namespace Nautilus.Assets.Gadgets;
 

@@ -5,9 +5,6 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
 using UnityEngine;
 using Nautilus.Assets.PrefabTemplates;
-#if SUBNAUTICA
-using Ingredient = CraftData.Ingredient;
-#endif
 
 namespace Nautilus.Examples;
 

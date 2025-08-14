@@ -72,38 +72,6 @@ public class ModCraftTreeRoot: ModCraftTreeLinkingNode
     /// </summary>
     public Func<CraftTree> CraftTreeCreation;
 
-#if SUBNAUTICA
-    /// <summary>
-    /// Adds a new tab node to the custom crafting tree of this fabricator.
-    /// </summary>
-    /// <param name="tabId">The internal ID for the tab node.</param>
-    /// <param name="displayText">The in-game text shown for the tab node. If null or empty, this will use the language line "{CraftTreeName}_{<paramref name="tabId"/>}" instead.</param>
-    /// <param name="tabSprite">The sprite used for the tab node.</param>
-    /// <param name="language">The language for the display name. Defaults to English.</param>
-    /// <param name="parentTabId">Optional. The parent tab of this tab.<para/>
-    /// When this value is null, the tab will be added to the root of the craft tree.</param>
-    public ModCraftTreeRoot AddTabNode(string tabId, string displayText, Atlas.Sprite tabSprite, string language = "English", string parentTabId = null)
-    {
-        if(string.IsNullOrWhiteSpace(tabId))
-            throw new ArgumentNullException($"{this.SchemeAsString} tried to add a tab without an id! tabid cannot be null or empty spaces!");
-
-        ModCraftTreeLinkingNode parentTab;
-        if(!CraftTreeLinkingNodes.TryGetValue(parentTabId ?? RootNode, out parentTab))
-            parentTab = CraftTreeLinkingNodes[RootNode];
-
-        if(!parentTab.ChildNodes.Any(node => node.Action == TreeAction.Craft))
-        {
-            ModCraftTreeTab tab = parentTab.AddTabNode(tabId, displayText, tabSprite, language);
-            CraftTreeLinkingNodes[tabId] = tab;
-        }
-        else
-        {
-            InternalLogger.Error($"Cannot add tab: {tabId} as it is being added to a parent node that contains crafting nodes. {string.Join(", ", parentTab.ChildNodes.Where(node => node.Action == TreeAction.Craft).Select(x => x.Name))} ");
-        }
-        return this;
-    }
-#endif
-
     /// <summary>
     /// Adds a new tab node to the custom crafting tree of this fabricator.
     /// </summary>

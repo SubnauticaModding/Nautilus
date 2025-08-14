@@ -1,9 +1,5 @@
 using System.Collections.Generic;
-#if SUBNAUTICA
-using Sprite = Atlas.Sprite;
-#elif BELOWZERO
-using Sprite = UnityEngine.Sprite;
-#endif
+using UnityEngine;
 
 // ReSharper disable once CheckNamespace
 namespace Nautilus.Handlers;

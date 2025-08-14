@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using BepInEx.Logging;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace Nautilus.Extensions;
@@ -10,6 +12,42 @@ namespace Nautilus.Extensions;
 /// </summary>
 public static class GeneralExtensions
 {
+    /// <summary>
+    /// Turns a <seealso cref="KeyCode"/> into a <seealso cref="string"/>.
+    /// </summary>
+    /// <param name="keyCode">The keycode to convert</param>
+    /// <returns>The text equivalent of the keycode.</returns>
+    public static string KeyCodeToString(this KeyCode keyCode)
+    {
+        return keyCode switch
+        {
+            KeyCode.Alpha0 => "0",
+            KeyCode.Alpha1 => "1",
+            KeyCode.Alpha2 => "2",
+            KeyCode.Alpha3 => "3",
+            KeyCode.Alpha4 => "4",
+            KeyCode.Alpha5 => "5",
+            KeyCode.Alpha6 => "6",
+            KeyCode.Alpha7 => "7",
+            KeyCode.Alpha8 => "8",
+            KeyCode.Alpha9 => "9",
+            KeyCode.Mouse0 => "MouseButtonLeft",
+            KeyCode.Mouse1 => "MouseButtonRight",
+            KeyCode.Mouse2 => "MouseButtonMiddle",
+            KeyCode.JoystickButton0 => "ControllerButtonA",
+            KeyCode.JoystickButton1 => "ControllerButtonB",
+            KeyCode.JoystickButton2 => "ControllerButtonX",
+            KeyCode.JoystickButton3 => "ControllerButtonY",
+            KeyCode.JoystickButton4 => "ControllerButtonLeftBumper",
+            KeyCode.JoystickButton5 => "ControllerButtonRightBumper",
+            KeyCode.JoystickButton6 => "ControllerButtonBack",
+            KeyCode.JoystickButton7 => "ControllerButtonHome",
+            KeyCode.JoystickButton8 => "ControllerButtonLeftStick",
+            KeyCode.JoystickButton9 => "ControllerButtonRightStick",
+            _ => keyCode.ToString()
+        };
+    }
+    
     /// <summary>
     /// Adds an object to the end of the <see cref="Array"/>.
     /// </summary>
