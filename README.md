@@ -42,7 +42,8 @@ This project is a continuation of [SMLHelper](https://github.com/SubnauticaModdi
 
 We hope to keep improving the modding experience in Subnautica to allow developers to create mods more easily and eliminate the implementation concerns in the mod-making process. For more information on Nautilus and its capabilities, please refer to our [documentation](https://subnauticamodding.github.io/Nautilus).  
 
-### ⚠️ Nautilus will only recieve continued support for the latest version of Subnautica (post [2025 patch](https://unknownworlds.com/en/news/subnautica-2025-patch))
+### ⚠️ Nautilus will only receive continued support for the latest version of Subnautica
+- #### If you are using the latest version of Subnautica (post [2025 patch](https://unknownworlds.com/en/news/subnautica-2025-patch)) or Below Zero, use [the latest release of Nautilus](https://github.com/SubnauticaModding/Nautilus/releases)
 - #### If you are using the `march_2023` Steam branch, use [Nautilus pre.41](https://github.com/SubnauticaModding/Nautilus/releases/tag/1.0.0-pre.41)
 - #### If you are using the `legacy` Steam branch, use [SMLHelper](https://www.nexusmods.com/subnautica/mods/113)
 
