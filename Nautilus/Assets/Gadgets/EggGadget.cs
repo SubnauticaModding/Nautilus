@@ -80,7 +80,7 @@ public class EggGadget : Gadget
     /// <summary>
     /// Sets the pickup sound for the egg.
     /// </summary>
-    /// <param name="pickupSound">The sound that plays when picking up the egg.</param>
+    /// <param name="pickupSound">The FMOD sound event path that plays when picking up the egg.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     public EggGadget SetPickupSound(string pickupSound)
     {
