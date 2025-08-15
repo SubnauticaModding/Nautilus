@@ -32,10 +32,16 @@ public class EquipmentGadget : Gadget
     /// </summary>
     /// <param name="prefab">The custom prefab to operate on.</param>
     /// <param name="equipmentType">The type of equipment slot this item can fit into.</param>
+    /// <remarks>This method automatically sets the quick slot type to <see cref="QuickSlotType.Selectable"/> if the
+    /// equipment type is <see cref="EquipmentType.Hand"/>. This is required for controllers to navigate the hotbar.</remarks>
     [SetsRequiredMembers]
     public EquipmentGadget(ICustomPrefab prefab, EquipmentType equipmentType) : base(prefab)
     {
         EquipmentType = equipmentType;
+        if (equipmentType == EquipmentType.Hand)
+        {
+            QuickSlotType = QuickSlotType.Selectable;
+        }
     }
 
 
