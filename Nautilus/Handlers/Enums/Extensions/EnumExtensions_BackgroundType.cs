@@ -18,9 +18,7 @@ public static partial class EnumExtensions
     /// <remarks>This overload always registers background icons with a circular background.</remarks>
     public static EnumBuilder<CraftData.BackgroundType> WithBackground(this EnumBuilder<CraftData.BackgroundType> builder, Sprite backgroundSprite)
     {
-        BackgroundSprites[builder] = backgroundSprite;
-        Splice9GridBackgroundSprites.Add(backgroundSprite);
-        return builder;
+        return WithBackground(builder, backgroundSprite, true);
     }
     
     /// <summary>
