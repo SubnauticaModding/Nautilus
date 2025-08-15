@@ -38,10 +38,14 @@ internal class SpritePatcher
         MethodInfo spriteManagerGet = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.Get), new Type[] { typeof(SpriteManager.Group), typeof(string), typeof(Sprite) });
         MethodInfo spriteManagerGetBackground = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetBackground), new Type[] { typeof(CraftData.BackgroundType) });
 
-        HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(SpritePatcher.PatchCheck)));
+        HarmonyMethod patchCheck = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchCheck)));
         HarmonyMethod patchBackgrounds = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchBackgrounds)));
         harmony.Patch(spriteManagerGet, prefix: patchCheck);
         harmony.Patch(spriteManagerGetBackground, prefix: patchBackgrounds);
+        
+        MethodInfo originalSplice9Method = AccessTools.Method(typeof(SpriteManager), nameof(SpriteManager.GetProceduralSlice9Grid));
+        HarmonyMethod patchSplice9 = new(AccessTools.Method(typeof(SpritePatcher), nameof(PatchGetProceduralSlice9Grid)));
+        harmony.Patch(originalSplice9Method, postfix: patchSplice9);
     }
 
     private static void PatchSprites()
@@ -82,6 +86,14 @@ internal class SpritePatcher
             return false;
         }
         return true;
+    }
+    
+    private static void PatchGetProceduralSlice9Grid(Sprite sprite, ref bool __result)
+    {
+        if (!__result && EnumExtensions.Splice9GridBackgroundSprites.Contains(sprite))
+        {
+            __result = true;
+        }
     }
 
     private static Dictionary<string, Sprite> GetSpriteAtlas(SpriteManager.Group groupKey)
