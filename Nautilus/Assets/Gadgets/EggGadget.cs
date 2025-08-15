@@ -1,4 +1,5 @@
 ﻿using Nautilus.Extensions;
+using Nautilus.Handlers;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 
@@ -23,6 +24,11 @@ public class EggGadget : Gadget
     /// makes the egg immune to the Lost River's Acidic Brine.
     /// </summary>
     public bool AcidImmune { get; set; } = true;
+
+    /// <summary>
+    /// The sound that plays when picking up the egg.
+    /// </summary>
+    public string PickupSound { get; set; } = "event:/loot/pickup_egg";
 
     /// <summary>
     /// Constructs a Creature egg gadget instance.
@@ -70,6 +76,18 @@ public class EggGadget : Gadget
 
         return this;
     }
+    
+    /// <summary>
+    /// Sets the pickup sound for the egg.
+    /// </summary>
+    /// <param name="pickupSound">The FMOD sound event path that plays when picking up the egg.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public EggGadget SetPickupSound(string pickupSound)
+    {
+        PickupSound = pickupSound;
+
+        return this;
+    }
 
     /// <inheritdoc/>
     protected internal override void Build()
@@ -82,6 +100,9 @@ public class EggGadget : Gadget
         
         if (AcidImmune)
             DamageSystem.acidImmune.Add(prefab.Info.TechType);
+
+        if (!string.IsNullOrEmpty(PickupSound))
+            CraftDataHandler.SetPickupSound(prefab.Info.TechType, PickupSound);
 
         WaterParkPatcher.requiredAcuSize[prefab.Info.TechType] = this;
     }
