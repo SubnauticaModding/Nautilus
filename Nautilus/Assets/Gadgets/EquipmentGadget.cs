@@ -73,10 +73,15 @@ public class EquipmentGadget : Gadget
         {
             InternalLogger.Error($"Prefab '{prefab.Info}' cannot have an {nameof(EquipmentGadget)} where the EquipmentType is set to None.");
         }
-        
+
         if (QuickSlotType != QuickSlotType.None)
         {
             CraftDataHandler.SetQuickSlotType(prefab.Info.TechType, QuickSlotType);
+        }
+        else if (EquipmentType is EquipmentType.VehicleModule or EquipmentType.ExosuitArm or EquipmentType.ExosuitModule
+                 or EquipmentType.SeamothModule or EquipmentType.Hand)
+        {
+            InternalLogger.Warn($"Registering EquipmentGadget for TechType '{prefab.Info.TechType}' with QuickSlotType.None for an EquipmentType that expects a valid QuickSlotType.");
         }
     }
 }
