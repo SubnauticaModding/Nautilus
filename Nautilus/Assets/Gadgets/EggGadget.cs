@@ -25,11 +25,18 @@ public class EggGadget : Gadget
     /// </summary>
     public bool AcidImmune { get; set; } = true;
 
+#if SUBNAUTICA
     /// <summary>
     /// The sound that plays when picking up the egg.
     /// </summary>
     public string PickupSound { get; set; } = "event:/loot/pickup_egg";
-
+#elif BELOWZERO
+    /// <summary>
+    /// Determines the sounds that play when interacting with the egg.
+    /// </summary>
+    public TechData.SoundType SoundType { get; set; } = TechData.SoundType.Egg;
+#endif
+    
     /// <summary>
     /// Constructs a Creature egg gadget instance.
     /// </summary>
@@ -77,6 +84,7 @@ public class EggGadget : Gadget
         return this;
     }
     
+#if SUBNAUTICA
     /// <summary>
     /// Sets the pickup sound for the egg.
     /// </summary>
@@ -88,6 +96,19 @@ public class EggGadget : Gadget
 
         return this;
     }
+#elif BELOWZERO
+    /// <summary>
+    /// Sets the pickup sound for the egg.
+    /// </summary>
+    /// <param name="soundType">Determines the type of sounds that play when interacting with the egg (e.g., picking up).</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public EggGadget SetSoundType(TechData.SoundType soundType)
+    {
+        SoundType = soundType;
+
+        return this;
+    }
+#endif
 
     /// <inheritdoc/>
     protected internal override void Build()
@@ -100,9 +121,14 @@ public class EggGadget : Gadget
         
         if (AcidImmune)
             DamageSystem.acidImmune.Add(prefab.Info.TechType);
-
+        
+#if SUBNAUTICA
         if (!string.IsNullOrEmpty(PickupSound))
             CraftDataHandler.SetPickupSound(prefab.Info.TechType, PickupSound);
+#elif BELOWZERO
+        if (SoundType != TechData.SoundType.Default)
+            CraftDataHandler.SetSoundType(prefab.Info.TechType, SoundType);
+#endif
 
         WaterParkPatcher.requiredAcuSize[prefab.Info.TechType] = this;
     }
