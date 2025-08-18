@@ -89,7 +89,7 @@
 
 
   <h1 id="Nautilus_Crafting_RecipeData" data-uid="Nautilus.Crafting.RecipeData" class="text-break">
-Class RecipeData  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L13"><i class="bi bi-code-slash"></i></a>
+Class RecipeData  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L9"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -101,7 +101,7 @@ Class RecipeData  <a class="header-action link-secondary" title="View source" hr
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class RecipeData : ITechData</code></pre>
+    <pre><code class="lang-csharp hljs">public class RecipeData</code></pre>
   </div>
 
 
@@ -115,12 +115,6 @@ Class RecipeData  <a class="header-action link-secondary" title="View source" hr
     </dd>
   </dl>
 
-  <dl class="typelist implements">
-    <dt>Implements</dt>
-    <dd>
-      <div><span class="xref">ITechData</span></div>
-    </dd>
-  </dl>
 
 
   <dl class="typelist inheritedMembers">
@@ -153,13 +147,7 @@ Class RecipeData  <a class="header-action link-secondary" title="View source" hr
     <dt>Extension Methods</dt>
     <dd>
   <div>
-      <a class="xref" href="Nautilus.Extensions.RecipeExtensions.html#Nautilus_Extensions_RecipeExtensions_ConvertToRecipeData_ITechData_">RecipeExtensions.ConvertToRecipeData(ITechData)</a>
-  </div>
-  <div>
-      <a class="xref" href="Nautilus.Extensions.RecipeExtensions.html#Nautilus_Extensions_RecipeExtensions_ConvertToTechData_ITechData_TechType_">RecipeExtensions.ConvertToTechData(ITechData, TechType)</a>
-  </div>
-  <div>
-      <a class="xref" href="Nautilus.Extensions.RecipeExtensions.html#Nautilus_Extensions_RecipeExtensions_SameAs_ITechData_ITechData_">RecipeExtensions.SameAs(ITechData, ITechData)</a>
+      <a class="xref" href="Nautilus.Extensions.RecipeExtensions.html#Nautilus_Extensions_RecipeExtensions_ConvertToJsonValue_Nautilus_Crafting_RecipeData_TechType_">RecipeExtensions.ConvertToJsonValue(RecipeData, TechType)</a>
   </div>
   <div>
       <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJsonAsync&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
@@ -208,7 +196,7 @@ Class RecipeData  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Crafting_RecipeData__ctor" data-uid="Nautilus.Crafting.RecipeData.#ctor">
   RecipeData()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L60"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L53"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new instance of the <a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a> class a custom recipe.</div>
@@ -232,16 +220,16 @@ Class RecipeData  <a class="header-action link-secondary" title="View source" hr
 
   <a id="Nautilus_Crafting_RecipeData__ctor_" data-uid="Nautilus.Crafting.RecipeData.#ctor*"></a>
 
-  <h3 id="Nautilus_Crafting_RecipeData__ctor_CraftData_Ingredient___" data-uid="Nautilus.Crafting.RecipeData.#ctor(CraftData.Ingredient[])">
+  <h3 id="Nautilus_Crafting_RecipeData__ctor_Ingredient___" data-uid="Nautilus.Crafting.RecipeData.#ctor(Ingredient[])">
   RecipeData(params Ingredient[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L68"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new instance of the <a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a> class for a custom recipe with a collection of ingridients.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RecipeData(params CraftData.Ingredient[] ingredients)</code></pre>
+    <pre><code class="lang-csharp hljs">public RecipeData(params Ingredient[] ingredients)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -263,21 +251,21 @@ Class RecipeData  <a class="header-action link-secondary" title="View source" hr
 
   <a id="Nautilus_Crafting_RecipeData__ctor_" data-uid="Nautilus.Crafting.RecipeData.#ctor*"></a>
 
-  <h3 id="Nautilus_Crafting_RecipeData__ctor_System_Collections_Generic_List_CraftData_Ingredient__" data-uid="Nautilus.Crafting.RecipeData.#ctor(System.Collections.Generic.List{CraftData.Ingredient})">
+  <h3 id="Nautilus_Crafting_RecipeData__ctor_System_Collections_Generic_List_Ingredient__" data-uid="Nautilus.Crafting.RecipeData.#ctor(System.Collections.Generic.List{Ingredient})">
   RecipeData(List&lt;Ingredient&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L66"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L59"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes a new instance of the <a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a> class for a custom recipe with a list of ingridients.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public RecipeData(List&lt;CraftData.Ingredient&gt; ingredients)</code></pre>
+    <pre><code class="lang-csharp hljs">public RecipeData(List&lt;Ingredient&gt; ingredients)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>ingredients</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">CraftData</span>.<span class="xref">Ingredient</span>&gt;</dt>
+    <dt><code>ingredients</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Ingredient</span>&gt;</dt>
     <dd>The ingredients.</dd>
   </dl>
 
@@ -299,7 +287,7 @@ Class RecipeData  <a class="header-action link-secondary" title="View source" hr
 
   <h3 id="Nautilus_Crafting_RecipeData_Ingredients" data-uid="Nautilus.Crafting.RecipeData.Ingredients">
   Ingredients
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L49"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L42"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The list of ingredients required for this recipe.</div>
@@ -307,7 +295,7 @@ Class RecipeData  <a class="header-action link-secondary" title="View source" hr
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[JsonProperty]
-public List&lt;CraftData.Ingredient&gt; Ingredients</code></pre>
+public List&lt;Ingredient&gt; Ingredients</code></pre>
   </div>
 
 
@@ -315,7 +303,7 @@ public List&lt;CraftData.Ingredient&gt; Ingredients</code></pre>
 
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">CraftData</span>.<span class="xref">Ingredient</span>&gt;</dt>
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">Ingredient</span>&gt;</dt>
     <dd></dd>
   </dl>
 
@@ -330,7 +318,7 @@ public List&lt;CraftData.Ingredient&gt; Ingredients</code></pre>
 
   <h3 id="Nautilus_Crafting_RecipeData_LinkedItems" data-uid="Nautilus.Crafting.RecipeData.LinkedItems">
   LinkedItems
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L48"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The items that will also be created when this recipe is crafted.</div>
@@ -366,7 +354,7 @@ public List&lt;TechType&gt; LinkedItems</code></pre>
 
   <h3 id="Nautilus_Crafting_RecipeData_craftAmount" data-uid="Nautilus.Crafting.RecipeData.craftAmount">
   craftAmount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L24"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L17"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets or sets the how many copies of the item are created when crafting this recipe.</div>
@@ -398,7 +386,7 @@ public int craftAmount { get; set; }</code></pre>
 
   <h3 id="Nautilus_Crafting_RecipeData_ingredientCount" data-uid="Nautilus.Crafting.RecipeData.ingredientCount">
   ingredientCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L26"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the number of different ingredients for this recipe.</div>
@@ -430,7 +418,7 @@ public int ingredientCount { get; }</code></pre>
 
   <h3 id="Nautilus_Crafting_RecipeData_linkedItemCount" data-uid="Nautilus.Crafting.RecipeData.linkedItemCount">
   linkedItemCount
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L42"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the number of items linked to this recipe.</div>
@@ -466,14 +454,14 @@ public int linkedItemCount { get; }</code></pre>
 
   <h3 id="Nautilus_Crafting_RecipeData_GetIngredient_System_Int32_" data-uid="Nautilus.Crafting.RecipeData.GetIngredient(System.Int32)">
   GetIngredient(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L96"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L89"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the ingredient at the specified index.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public CraftData.Ingredient GetIngredient(int index)</code></pre>
+    <pre><code class="lang-csharp hljs">public Ingredient GetIngredient(int index)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -484,8 +472,8 @@ public int linkedItemCount { get; }</code></pre>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
-    <dt><span class="xref">CraftData</span>.<span class="xref">Ingredient</span></dt>
-    <dd>The <span class="xref">CraftData.Ingredient</span> at the requested the index if the index is value; Otherwise returns null.</dd>
+    <dt><span class="xref">Ingredient</span></dt>
+    <dd>The <span class="xref">Ingredient</span> at the requested the index if the index is value; Otherwise returns null.</dd>
   </dl>
 
 
@@ -502,7 +490,7 @@ public int linkedItemCount { get; }</code></pre>
 
   <h3 id="Nautilus_Crafting_RecipeData_GetLinkedItem_System_Int32_" data-uid="Nautilus.Crafting.RecipeData.GetLinkedItem(System.Int32)">
   GetLinkedItem(int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L118"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L104"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the linked item at the specified index.</div>
@@ -538,7 +526,7 @@ public int linkedItemCount { get; }</code></pre>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L13" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/RecipeData.cs/#L9" class="edit-link">Edit this page</a>
         </div>
 
 

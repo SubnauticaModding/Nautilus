@@ -89,7 +89,7 @@
 
 
   <h1 id="Nautilus_Extensions_GeneralExtensions" data-uid="Nautilus.Extensions.GeneralExtensions" class="text-break">
-Class GeneralExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L11"><i class="bi bi-code-slash"></i></a>
+Class GeneralExtensions  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -156,7 +156,7 @@ Class GeneralExtensions  <a class="header-action link-secondary" title="View sou
 
   <h3 id="Nautilus_Extensions_GeneralExtensions_AddHint_ErrorMessage_System_String_" data-uid="Nautilus.Extensions.GeneralExtensions.AddHint(ErrorMessage,System.String)">
   AddHint(ErrorMessage, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L78"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a message and increases the life of it, instead of spamming it.</div>
@@ -189,7 +189,7 @@ Class GeneralExtensions  <a class="header-action link-secondary" title="View sou
 
   <h3 id="Nautilus_Extensions_GeneralExtensions_Add__1___0_____0_" data-uid="Nautilus.Extensions.GeneralExtensions.Add``1(``0[],``0)">
   Add&lt;T&gt;(T[], T)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L18"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L56"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds an object to the end of the <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.array">Array</a>.</div>
@@ -227,7 +227,7 @@ Class GeneralExtensions  <a class="header-action link-secondary" title="View sou
 
   <h3 id="Nautilus_Extensions_GeneralExtensions_AppendJoin__1_System_Text_StringBuilder_System_String_System_Collections_Generic_IEnumerable___0__" data-uid="Nautilus.Extensions.GeneralExtensions.AppendJoin``1(System.Text.StringBuilder,System.String,System.Collections.Generic.IEnumerable{``0})">
   AppendJoin&lt;T&gt;(StringBuilder, string, IEnumerable&lt;T&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L58"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L96"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Concatenates string representations of the provided <code class="paramref">values</code>,
@@ -269,11 +269,47 @@ using the specified <code class="paramref">separator</code> between them.</div>
 
 
 
+  <a id="Nautilus_Extensions_GeneralExtensions_KeyCodeToString_" data-uid="Nautilus.Extensions.GeneralExtensions.KeyCodeToString*"></a>
+
+  <h3 id="Nautilus_Extensions_GeneralExtensions_KeyCodeToString_UnityEngine_KeyCode_" data-uid="Nautilus.Extensions.GeneralExtensions.KeyCodeToString(UnityEngine.KeyCode)">
+  KeyCodeToString(KeyCode)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L20"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Turns a <span class="xref">UnityEngine.KeyCode</span> into a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string KeyCodeToString(this KeyCode keyCode)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>keyCode</code> <span class="xref">KeyCode</span></dt>
+    <dd>The keycode to convert</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The text equivalent of the keycode.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Extensions_GeneralExtensions_TrimClone_" data-uid="Nautilus.Extensions.GeneralExtensions.TrimClone*"></a>
 
   <h3 id="Nautilus_Extensions_GeneralExtensions_TrimClone_System_String_" data-uid="Nautilus.Extensions.GeneralExtensions.TrimClone(System.String)">
   TrimClone(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L29"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L67"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Removes the "(Clone)" part from names.</div>
@@ -309,7 +345,7 @@ using the specified <code class="paramref">separator</code> between them.</div>
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/GeneralExtensions.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
 

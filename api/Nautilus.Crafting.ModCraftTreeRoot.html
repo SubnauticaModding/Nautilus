@@ -129,9 +129,6 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
       <a class="xref" href="Nautilus.Crafting.ModCraftTreeLinkingNode.html#Nautilus_Crafting_ModCraftTreeLinkingNode_ChildNodes">ModCraftTreeLinkingNode.ChildNodes</a>
     </div>
     <div>
-      <a class="xref" href="Nautilus.Crafting.ModCraftTreeLinkingNode.html#Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_System_String_Atlas_Sprite_System_String_">ModCraftTreeLinkingNode.AddTabNode(string, string, Atlas.Sprite, string)</a>
-    </div>
-    <div>
       <a class="xref" href="Nautilus.Crafting.ModCraftTreeLinkingNode.html#Nautilus_Crafting_ModCraftTreeLinkingNode_AddTabNode_System_String_System_String_UnityEngine_Sprite_System_String_">ModCraftTreeLinkingNode.AddTabNode(string, string, Sprite, string)</a>
     </div>
     <div>
@@ -282,7 +279,7 @@ You can replace this function with your own to have more control of the crafting
 
   <h3 id="Nautilus_Crafting_ModCraftTreeRoot_AddCraftNode_System_String_System_String_" data-uid="Nautilus.Crafting.ModCraftTreeRoot.AddCraftNode(System.String,System.String)">
   AddCraftNode(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L168"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L136"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Safely attempts to add a new crafting node to the custom crafting tree of this fabricator.<p></p>
@@ -322,7 +319,7 @@ If the modded TechType is not found, the craft node will not be added.</div>
 
   <h3 id="Nautilus_Crafting_ModCraftTreeRoot_AddCraftNode_TechType_System_String_" data-uid="Nautilus.Crafting.ModCraftTreeRoot.AddCraftNode(TechType,System.String)">
   AddCraftNode(TechType, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L143"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L111"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a new crafting node to the custom crafting tree of this fabricator.</div>
@@ -359,54 +356,9 @@ If the modded TechType is not found, the craft node will not be added.</div>
 
   <a id="Nautilus_Crafting_ModCraftTreeRoot_AddTabNode_" data-uid="Nautilus.Crafting.ModCraftTreeRoot.AddTabNode*"></a>
 
-  <h3 id="Nautilus_Crafting_ModCraftTreeRoot_AddTabNode_System_String_System_String_Atlas_Sprite_System_String_System_String_" data-uid="Nautilus.Crafting.ModCraftTreeRoot.AddTabNode(System.String,System.String,Atlas.Sprite,System.String,System.String)">
-  AddTabNode(string, string, Sprite, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L85"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary">Adds a new tab node to the custom crafting tree of this fabricator.</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ModCraftTreeRoot AddTabNode(string tabId, string displayText, Atlas.Sprite tabSprite, string language = &quot;English&quot;, string parentTabId = null)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>tabId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The internal ID for the tab node.</dd>
-    <dt><code>displayText</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The in-game text shown for the tab node. If null or empty, this will use the language line "{CraftTreeName}_{<code class="paramref">tabId</code>}" instead.</dd>
-    <dt><code>tabSprite</code> <span class="xref">Atlas</span>.<span class="xref">Sprite</span></dt>
-    <dd>The sprite used for the tab node.</dd>
-    <dt><code>language</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The language for the display name. Defaults to English.</dd>
-    <dt><code>parentTabId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>Optional. The parent tab of this tab.<p></p>
-    When this value is null, the tab will be added to the root of the craft tree.</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Nautilus.Crafting.ModCraftTreeRoot.html">ModCraftTreeRoot</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Nautilus_Crafting_ModCraftTreeRoot_AddTabNode_" data-uid="Nautilus.Crafting.ModCraftTreeRoot.AddTabNode*"></a>
-
   <h3 id="Nautilus_Crafting_ModCraftTreeRoot_AddTabNode_System_String_System_String_UnityEngine_Sprite_System_String_System_String_" data-uid="Nautilus.Crafting.ModCraftTreeRoot.AddTabNode(System.String,System.String,UnityEngine.Sprite,System.String,System.String)">
   AddTabNode(string, string, Sprite, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L116"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L84"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a new tab node to the custom crafting tree of this fabricator.</div>
@@ -451,7 +403,7 @@ If the modded TechType is not found, the craft node will not be added.</div>
 
   <h3 id="Nautilus_Crafting_ModCraftTreeRoot_GetNode_System_String___" data-uid="Nautilus.Crafting.ModCraftTreeRoot.GetNode(System.String[])">
   GetNode(params string[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L223"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L191"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the node at the specified path from the root.</div>
@@ -489,7 +441,7 @@ If the modded TechType is not found, the craft node will not be added.</div>
 
   <h3 id="Nautilus_Crafting_ModCraftTreeRoot_GetTabNode_System_String___" data-uid="Nautilus.Crafting.ModCraftTreeRoot.GetTabNode(System.String[])">
   GetTabNode(params string[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L202"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Crafting/ModCraftTreeRoot.cs/#L170"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Gets the tab node at the specified path from the root.</div>

@@ -658,7 +658,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Nautilus.Extensions.RecipeExtensions",
-      "Summary": "Contains extensions that are specific to the <xref href=\"Nautilus.Crafting.RecipeData\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"ITechData\" data-throw-if-not-resolved=\"false\"></xref> classes."
+      "Summary": "Contains extensions that are specific to the <xref href=\"Nautilus.Crafting.RecipeData\" data-throw-if-not-resolved=\"false\"></xref> class."
     },
     {
       "type": "ManagedReference",
@@ -2479,20 +2479,6 @@
       "IsMRef": true,
       "Title": "Nautilus.Utility.JsonUtils",
       "Summary": "A collection of utilities for interacting with JSON files."
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "Documentation/api/Nautilus.Utility.KeyCodeUtils.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Nautilus.Utility.KeyCodeUtils.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Nautilus.Utility.KeyCodeUtils",
-      "Summary": "A collection of <xref href=\"UnityEngine.KeyCode\" data-throw-if-not-resolved=\"false\"></xref> related utility methods."
     },
     {
       "type": "ManagedReference",

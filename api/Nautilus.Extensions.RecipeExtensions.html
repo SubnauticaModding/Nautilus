@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class RecipeExtensions ">
       
-      <meta name="description" content="Contains extensions that are specific to the  and  classes.">
+      <meta name="description" content="Contains extensions that are specific to the  class.">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,7 +97,7 @@ Class RecipeExtensions  <a class="header-action link-secondary" title="View sour
   <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
 
-  <div class="markdown summary">Contains extensions that are specific to the <a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a> and <span class="xref">ITechData</span> classes.</div>
+  <div class="markdown summary">Contains extensions that are specific to the <a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a> class.</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -152,105 +152,67 @@ Class RecipeExtensions  <a class="header-action link-secondary" title="View sour
 </h2>
 
 
-  <a id="Nautilus_Extensions_RecipeExtensions_ConvertToRecipeData_" data-uid="Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData*"></a>
+  <a id="Nautilus_Extensions_RecipeExtensions_ConvertToJsonValue_" data-uid="Nautilus.Extensions.RecipeExtensions.ConvertToJsonValue*"></a>
 
-  <h3 id="Nautilus_Extensions_RecipeExtensions_ConvertToRecipeData_ITechData_" data-uid="Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData(ITechData)">
-  ConvertToRecipeData(ITechData)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/RecipeExtensions.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Extensions_RecipeExtensions_ConvertToJsonValue_Nautilus_Crafting_RecipeData_TechType_" data-uid="Nautilus.Extensions.RecipeExtensions.ConvertToJsonValue(Nautilus.Crafting.RecipeData,TechType)">
+  ConvertToJsonValue(RecipeData, TechType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/RecipeExtensions.cs/#L71"><i class="bi bi-code-slash"></i></a>
   </h3>
 
-  <div class="markdown level1 summary">Converts the games ITechData into Nautilus RecipeData.</div>
+  <div class="markdown level1 summary">Converts the Nautilus RecipeData into the Games JsonValue data.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static RecipeData ConvertToRecipeData(this ITechData iTechData)</code></pre>
+    <pre><code class="lang-csharp hljs">public static JsonValue ConvertToJsonValue(this RecipeData recipeData, TechType techType)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
-    <dt><code>iTechData</code> <span class="xref">ITechData</span></dt>
+    <dt><code>recipeData</code> <a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a></dt>
+    <dd></dd>
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">JsonValue</span></dt>
+    <dd><span class="xref">JsonValue</span> or null</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Extensions_RecipeExtensions_ConvertToRecipeData_" data-uid="Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData*"></a>
+
+  <h3 id="Nautilus_Extensions_RecipeExtensions_ConvertToRecipeData_JsonValue_" data-uid="Nautilus.Extensions.RecipeExtensions.ConvertToRecipeData(JsonValue)">
+  ConvertToRecipeData(JsonValue)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/RecipeExtensions.cs/#L17"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Converts the Games JsonValue data into Nautilus RecipeData.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RecipeData ConvertToRecipeData(this JsonValue techData)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techData</code> <span class="xref">JsonValue</span></dt>
     <dd></dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Nautilus_Extensions_RecipeExtensions_ConvertToTechData_" data-uid="Nautilus.Extensions.RecipeExtensions.ConvertToTechData*"></a>
-
-  <h3 id="Nautilus_Extensions_RecipeExtensions_ConvertToTechData_ITechData_TechType_" data-uid="Nautilus.Extensions.RecipeExtensions.ConvertToTechData(ITechData,TechType)">
-  ConvertToTechData(ITechData, TechType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/RecipeExtensions.cs/#L22"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary">Converts a <a class="xref" href="Nautilus.Crafting.RecipeData.html">RecipeData</a> to an <span class="xref">ITechData</span>.</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static CraftData.TechData ConvertToTechData(this ITechData techData, TechType techType)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>techData</code> <span class="xref">ITechData</span></dt>
-    <dd>the original data to convert.</dd>
-    <dt><code>techType</code> <span class="xref">TechType</span></dt>
-    <dd>The Techtype</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><span class="xref">CraftData</span>.<span class="xref">TechData</span></dt>
-    <dd><span class="xref">CraftData.TechData</span></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Nautilus_Extensions_RecipeExtensions_SameAs_" data-uid="Nautilus.Extensions.RecipeExtensions.SameAs*"></a>
-
-  <h3 id="Nautilus_Extensions_RecipeExtensions_SameAs_ITechData_ITechData_" data-uid="Nautilus.Extensions.RecipeExtensions.SameAs(ITechData,ITechData)">
-  SameAs(ITechData, ITechData)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Extensions/RecipeExtensions.cs/#L86"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary">Checks if the two ITechData are equal.</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool SameAs(this ITechData originalTechData, ITechData techData)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>originalTechData</code> <span class="xref">ITechData</span></dt>
-    <dd></dd>
-    <dt><code>techData</code> <span class="xref">ITechData</span></dt>
-    <dd></dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd></dd>
   </dl>
 

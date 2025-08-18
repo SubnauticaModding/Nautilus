@@ -89,7 +89,7 @@
 
 
   <h1 id="Nautilus_Options_ModKeybindOption" data-uid="Nautilus.Options.ModKeybindOption" class="text-break">
-Class ModKeybindOption  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L25"><i class="bi bi-code-slash"></i></a>
+Class ModKeybindOption  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L27"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -219,7 +219,7 @@ Class ModKeybindOption  <a class="header-action link-secondary" title="View sour
 
   <h3 id="Nautilus_Options_ModKeybindOption_AdjusterComponent" data-uid="Nautilus.Options.ModKeybindOption.AdjusterComponent">
   AdjusterComponent
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L145"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L218"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The Adjuster for this <a class="xref" href="Nautilus.Options.OptionItem.html">OptionItem</a>.</div>
@@ -250,7 +250,7 @@ Class ModKeybindOption  <a class="header-action link-secondary" title="View sour
 
   <h3 id="Nautilus_Options_ModKeybindOption_Device" data-uid="Nautilus.Options.ModKeybindOption.Device">
   Device
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L30"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L33"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The currently select input source device for the <a class="xref" href="Nautilus.Options.ModKeybindOption.html">ModKeybindOption</a>.</div>
@@ -281,7 +281,7 @@ Class ModKeybindOption  <a class="header-action link-secondary" title="View sour
 
   <h3 id="Nautilus_Options_ModKeybindOption_Tooltip" data-uid="Nautilus.Options.ModKeybindOption.Tooltip">
   Tooltip
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The tooltip to show when hovering over the option.</div>
@@ -316,7 +316,7 @@ Class ModKeybindOption  <a class="header-action link-secondary" title="View sour
 
   <h3 id="Nautilus_Options_ModKeybindOption_AddToPanel_uGUI_TabbedControlsPanel_System_Int32_" data-uid="Nautilus.Options.ModKeybindOption.AddToPanel(uGUI_TabbedControlsPanel,System.Int32)">
   AddToPanel(uGUI_TabbedControlsPanel, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L70"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The base method for adding an object to the options panel</div>
@@ -347,53 +347,9 @@ Class ModKeybindOption  <a class="header-action link-secondary" title="View sour
 
   <a id="Nautilus_Options_ModKeybindOption_Create_" data-uid="Nautilus.Options.ModKeybindOption.Create*"></a>
 
-  <h3 id="Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_System_String_System_String_" data-uid="Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,System.String,System.String)">
-  Create(string, string, Device, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L64"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary">Creates a new <a class="xref" href="Nautilus.Options.ModKeybindOption.html">ModKeybindOption</a> for handling an option that is a keybind.</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ModKeybindOption Create(string id, string label, GameInput.Device device, string key, string tooltip = null)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The internal ID for the toggle option.</dd>
-    <dt><code>label</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The display text to use in the in-game menu.</dd>
-    <dt><code>device</code> <span class="xref">GameInput</span>.<span class="xref">Device</span></dt>
-    <dd>The device name.</dd>
-    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The starting keybind value.</dd>
-    <dt><code>tooltip</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The tooltip to show when hovering over the option.</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Nautilus.Options.ModKeybindOption.html">ModKeybindOption</a></dt>
-    <dd></dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Nautilus_Options_ModKeybindOption_Create_" data-uid="Nautilus.Options.ModKeybindOption.Create*"></a>
-
   <h3 id="Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_UnityEngine_KeyCode_System_String_" data-uid="Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,UnityEngine.KeyCode,System.String)">
   Create(string, string, Device, KeyCode, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new <a class="xref" href="Nautilus.Options.ModKeybindOption.html">ModKeybindOption</a> for handling an option that is a keybind.</div>
@@ -437,7 +393,7 @@ Class ModKeybindOption  <a class="header-action link-secondary" title="View sour
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L25" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L27" class="edit-link">Edit this page</a>
         </div>
 
 

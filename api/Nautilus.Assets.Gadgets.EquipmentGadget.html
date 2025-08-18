@@ -228,7 +228,7 @@ Class EquipmentGadget  <a class="header-action link-secondary" title="View sourc
 
   <h3 id="Nautilus_Assets_Gadgets_EquipmentGadget__ctor_Nautilus_Assets_ICustomPrefab_EquipmentType_" data-uid="Nautilus.Assets.Gadgets.EquipmentGadget.#ctor(Nautilus.Assets.ICustomPrefab,EquipmentType)">
   EquipmentGadget(ICustomPrefab, EquipmentType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/EquipmentGadget.cs/#L35"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/EquipmentGadget.cs/#L37"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Constructs an equipment gadget.</div>
@@ -253,6 +253,9 @@ Class EquipmentGadget  <a class="header-action link-secondary" title="View sourc
 
 
 
+  <h4 class="section" id="Nautilus_Assets_Gadgets_EquipmentGadget__ctor_Nautilus_Assets_ICustomPrefab_EquipmentType__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">This method automatically sets the quick slot type to <span class="xref">QuickSlotType.Selectable</span> if the
+    equipment type is <span class="xref">EquipmentType.Hand</span>. This is required for controllers to navigate the hotbar.</div>
 
 
 
@@ -331,7 +334,7 @@ Class EquipmentGadget  <a class="header-action link-secondary" title="View sourc
 
   <h3 id="Nautilus_Assets_Gadgets_EquipmentGadget_Build" data-uid="Nautilus.Assets.Gadgets.EquipmentGadget.Build">
   Build()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/EquipmentGadget.cs/#L54"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/EquipmentGadget.cs/#L60"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Where the data actually gets registered to the game.<br>
@@ -358,7 +361,7 @@ This is called after prefab register and PostRegisters in <a class="xref" href="
 
   <h3 id="Nautilus_Assets_Gadgets_EquipmentGadget_WithQuickSlotType_QuickSlotType_" data-uid="Nautilus.Assets.Gadgets.EquipmentGadget.WithQuickSlotType(QuickSlotType)">
   WithQuickSlotType(QuickSlotType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/EquipmentGadget.cs/#L47"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Assets/Gadgets/EquipmentGadget.cs/#L53"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the way the game should treat this item as when in a quick slot.</div>

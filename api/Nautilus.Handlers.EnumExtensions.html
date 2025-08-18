@@ -275,24 +275,67 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <a id="Nautilus_Handlers_EnumExtensions_WithBackground_" data-uid="Nautilus.Handlers.EnumExtensions.WithBackground*"></a>
 
-  <h3 id="Nautilus_Handlers_EnumExtensions_WithBackground_Nautilus_Handlers_EnumBuilder_CraftData_BackgroundType__Atlas_Sprite_" data-uid="Nautilus.Handlers.EnumExtensions.WithBackground(Nautilus.Handlers.EnumBuilder{CraftData.BackgroundType},Atlas.Sprite)">
+  <h3 id="Nautilus_Handlers_EnumExtensions_WithBackground_Nautilus_Handlers_EnumBuilder_CraftData_BackgroundType__UnityEngine_Sprite_" data-uid="Nautilus.Handlers.EnumExtensions.WithBackground(Nautilus.Handlers.EnumBuilder{CraftData.BackgroundType},UnityEngine.Sprite)">
   WithBackground(EnumBuilder&lt;BackgroundType&gt;, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_BackgroundType.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_BackgroundType.cs/#L19"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a sprite for this instance.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;CraftData.BackgroundType&gt; WithBackground(this EnumBuilder&lt;CraftData.BackgroundType&gt; builder, Atlas.Sprite backgroundSprite)</code></pre>
+    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;CraftData.BackgroundType&gt; WithBackground(this EnumBuilder&lt;CraftData.BackgroundType&gt; builder, Sprite backgroundSprite)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>builder</code> <a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;<span class="xref">CraftData</span>.<span class="xref">BackgroundType</span>&gt;</dt>
     <dd>The current custom enum object instance</dd>
-    <dt><code>backgroundSprite</code> <span class="xref">Atlas</span>.<span class="xref">Sprite</span></dt>
+    <dt><code>backgroundSprite</code> <span class="xref">Sprite</span></dt>
     <dd>The sprite to add for this instance.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;<span class="xref">CraftData</span>.<span class="xref">BackgroundType</span>&gt;</dt>
+    <dd>A reference to this instance after the operation has completed.</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Handlers_EnumExtensions_WithBackground_Nautilus_Handlers_EnumBuilder_CraftData_BackgroundType__UnityEngine_Sprite__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">This overload always registers background icons with a circular background.</div>
+
+
+
+
+  <a id="Nautilus_Handlers_EnumExtensions_WithBackground_" data-uid="Nautilus.Handlers.EnumExtensions.WithBackground*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumExtensions_WithBackground_Nautilus_Handlers_EnumBuilder_CraftData_BackgroundType__UnityEngine_Sprite_System_Boolean_" data-uid="Nautilus.Handlers.EnumExtensions.WithBackground(Nautilus.Handlers.EnumBuilder{CraftData.BackgroundType},UnityEngine.Sprite,System.Boolean)">
+  WithBackground(EnumBuilder&lt;BackgroundType&gt;, Sprite, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_BackgroundType.cs/#L32"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds a sprite for this instance.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;CraftData.BackgroundType&gt; WithBackground(this EnumBuilder&lt;CraftData.BackgroundType&gt; builder, Sprite backgroundSprite, bool useCircularIcon)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;<span class="xref">CraftData</span>.<span class="xref">BackgroundType</span>&gt;</dt>
+    <dd>The current custom enum object instance</dd>
+    <dt><code>backgroundSprite</code> <span class="xref">Sprite</span></dt>
+    <dd>The sprite to add for this instance.</dd>
+    <dt><code>useCircularIcon</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>If true, the 'splice 9' setting will be applied, allowing tall rectangular
+    sprites (usually 2x23) to become circular.</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -313,47 +356,9 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <a id="Nautilus_Handlers_EnumExtensions_WithIcon_" data-uid="Nautilus.Handlers.EnumExtensions.WithIcon*"></a>
 
-  <h3 id="Nautilus_Handlers_EnumExtensions_WithIcon_Nautilus_Handlers_EnumBuilder_PingType__Atlas_Sprite_" data-uid="Nautilus.Handlers.EnumExtensions.WithIcon(Nautilus.Handlers.EnumBuilder{PingType},Atlas.Sprite)">
-  WithIcon(EnumBuilder&lt;PingType&gt;, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_PingType.cs/#L15"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary">Adds an icon for this instance.</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;PingType&gt; WithIcon(this EnumBuilder&lt;PingType&gt; builder, Atlas.Sprite sprite)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>builder</code> <a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;<span class="xref">PingType</span>&gt;</dt>
-    <dd>The current custom enum object instance.</dd>
-    <dt><code>sprite</code> <span class="xref">Atlas</span>.<span class="xref">Sprite</span></dt>
-    <dd>The icon to add for this instance.</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;<span class="xref">PingType</span>&gt;</dt>
-    <dd>A reference to this instance after the operation has completed.</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Nautilus_Handlers_EnumExtensions_WithIcon_" data-uid="Nautilus.Handlers.EnumExtensions.WithIcon*"></a>
-
   <h3 id="Nautilus_Handlers_EnumExtensions_WithIcon_Nautilus_Handlers_EnumBuilder_PingType__UnityEngine_Sprite_" data-uid="Nautilus.Handlers.EnumExtensions.WithIcon(Nautilus.Handlers.EnumBuilder{PingType},UnityEngine.Sprite)">
   WithIcon(EnumBuilder&lt;PingType&gt;, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_PingType.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_PingType.cs/#L14"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds an icon for this instance.</div>
@@ -389,47 +394,9 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <a id="Nautilus_Handlers_EnumExtensions_WithIcon_" data-uid="Nautilus.Handlers.EnumExtensions.WithIcon*"></a>
 
-  <h3 id="Nautilus_Handlers_EnumExtensions_WithIcon_Nautilus_Handlers_EnumBuilder_TechType__Atlas_Sprite_" data-uid="Nautilus.Handlers.EnumExtensions.WithIcon(Nautilus.Handlers.EnumBuilder{TechType},Atlas.Sprite)">
-  WithIcon(EnumBuilder&lt;TechType&gt;, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_TechType.cs/#L58"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary">Adds an icon for this instance.</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;TechType&gt; WithIcon(this EnumBuilder&lt;TechType&gt; builder, Atlas.Sprite sprite)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>builder</code> <a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;<span class="xref">TechType</span>&gt;</dt>
-    <dd>The current custom enum object instance.</dd>
-    <dt><code>sprite</code> <span class="xref">Atlas</span>.<span class="xref">Sprite</span></dt>
-    <dd>The icon to add for this instance.</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;<span class="xref">TechType</span>&gt;</dt>
-    <dd>A reference to this instance after the operation has completed.</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-  <a id="Nautilus_Handlers_EnumExtensions_WithIcon_" data-uid="Nautilus.Handlers.EnumExtensions.WithIcon*"></a>
-
   <h3 id="Nautilus_Handlers_EnumExtensions_WithIcon_Nautilus_Handlers_EnumBuilder_TechType__UnityEngine_Sprite_" data-uid="Nautilus.Handlers.EnumExtensions.WithIcon(Nautilus.Handlers.EnumBuilder{TechType},UnityEngine.Sprite)">
   WithIcon(EnumBuilder&lt;TechType&gt;, Sprite)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_TechType.cs/#L75"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_TechType.cs/#L57"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds an icon for this instance.</div>
@@ -591,7 +558,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_WithSizeInInventory_Nautilus_Handlers_EnumBuilder_TechType__Vector2int_" data-uid="Nautilus.Handlers.EnumExtensions.WithSizeInInventory(Nautilus.Handlers.EnumBuilder{TechType},Vector2int)">
   WithSizeInInventory(EnumBuilder&lt;TechType&gt;, Vector2int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_TechType.cs/#L91"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_TechType.cs/#L73"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the size in inventory for this instance.</div>
