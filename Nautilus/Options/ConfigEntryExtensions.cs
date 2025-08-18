@@ -234,7 +234,11 @@ public static class ConfigEntryExtensions
     public static ModKeybindOption ToModKeybindOption(this ConfigEntry<KeyCode> configEntry)
     {
         ModKeybindOption optionItem = ModKeybindOption.Create($"{configEntry.Definition.Section}_{configEntry.Definition.Key}",
+#if SUBNAUTICA
+            configEntry.Definition.Key, GameInput.PrimaryDevice, configEntry.Value, tooltip: configEntry.Description.Description);
+#else
             configEntry.Definition.Key, GameInput.GetPrimaryDevice(), configEntry.Value, tooltip: configEntry.Description.Description);
+#endif
         optionItem.OnChanged += (_, e) =>
         {
             configEntry.Value = e.Value;

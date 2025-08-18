@@ -32,10 +32,16 @@ public class EquipmentGadget : Gadget
     /// </summary>
     /// <param name="prefab">The custom prefab to operate on.</param>
     /// <param name="equipmentType">The type of equipment slot this item can fit into.</param>
+    /// <remarks>This method automatically sets the quick slot type to <see cref="QuickSlotType.Selectable"/> if the
+    /// equipment type is <see cref="EquipmentType.Hand"/>. This is required for controllers to navigate the hotbar.</remarks>
     [SetsRequiredMembers]
     public EquipmentGadget(ICustomPrefab prefab, EquipmentType equipmentType) : base(prefab)
     {
         EquipmentType = equipmentType;
+        if (equipmentType == EquipmentType.Hand)
+        {
+            QuickSlotType = QuickSlotType.Selectable;
+        }
     }
 
 
@@ -67,10 +73,15 @@ public class EquipmentGadget : Gadget
         {
             InternalLogger.Error($"Prefab '{prefab.Info}' cannot have an {nameof(EquipmentGadget)} where the EquipmentType is set to None.");
         }
-        
+
         if (QuickSlotType != QuickSlotType.None)
         {
             CraftDataHandler.SetQuickSlotType(prefab.Info.TechType, QuickSlotType);
+        }
+        else if (EquipmentType is EquipmentType.VehicleModule or EquipmentType.ExosuitArm or EquipmentType.ExosuitModule
+                 or EquipmentType.SeamothModule or EquipmentType.Hand)
+        {
+            InternalLogger.Warn($"Registering EquipmentGadget for TechType '{prefab.Info.TechType}' with QuickSlotType.None for an EquipmentType that expects a valid QuickSlotType.");
         }
     }
 }

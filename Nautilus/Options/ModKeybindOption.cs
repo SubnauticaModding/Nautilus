@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using BepInEx.Logging;
+using Nautilus.Extensions;
 using Nautilus.Utility;
 using TMPro;
 using UnityEngine;
@@ -24,6 +26,7 @@ public class KeybindChangedEventArgs : ConfigOptionEventArgs<KeyCode>
 /// </summary>
 public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
 {
+    
     /// <summary>
     /// The currently select input source device for the <see cref="ModKeybindOption"/>.
     /// </summary>
@@ -38,7 +41,12 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     {
         Device = device;
         Tooltip = tooltip;
+#if SUBNAUTICA
+        GameInput.OnPrimaryDeviceChanged += () => { Device = GameInput.PrimaryDevice; };
+#else
         GameInput.OnPrimaryDeviceChanged += () => { Device = GameInput.GetPrimaryDevice(); };
+#endif
+        
     }
 
     /// <summary>
@@ -53,18 +61,6 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     {
         return new ModKeybindOption(id, label, device, key, tooltip);
     }
-    /// <summary>
-    /// Creates a new <see cref="ModKeybindOption"/> for handling an option that is a keybind.
-    /// </summary>
-    /// <param name="id">The internal ID for the toggle option.</param>
-    /// <param name="label">The display text to use in the in-game menu.</param>
-    /// <param name="device">The device name.</param>
-    /// <param name="key">The starting keybind value.</param>
-    /// /// <param name="tooltip">The tooltip to show when hovering over the option.</param>
-    public static ModKeybindOption Create(string id, string label, GameInput.Device device, string key, string tooltip = null)
-    {
-        return Create(id, label, device, KeyCodeUtils.StringToKeyCode(key), tooltip);
-    }
 
     /// <summary>
     /// The base method for adding an object to the options panel
@@ -74,7 +70,12 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     public override void AddToPanel(uGUI_TabbedControlsPanel panel, int tabIndex)
     {
         // Add item
+#if SUBNAUTICA
+        OptionGameObject = panel.AddItem(tabIndex, panel.controls.prefabBinding);
+#else
         OptionGameObject = panel.AddItem(tabIndex, panel.bindingOptionPrefab);
+#endif
+        
 
         // Update text
         TextMeshProUGUI text = OptionGameObject.GetComponentInChildren<TextMeshProUGUI>();
@@ -99,22 +100,94 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
 
         // Update bindings
         binding.device = Device;
-        binding.value = KeyCodeUtils.GetDisplayTextForKeyCode(Value);
+#if SUBNAUTICA
+        binding.binding = GameInput.GetDisplayText(Value.KeyCodeToString());
+#else
+        binding.value = GameInput.GetKeyCodeAsInputName(Value);
+#endif
         binding.gameObject.EnsureComponent<ModBindingTag>();
         binding.bindingSet = GameInput.BindingSet.Primary;
+#if BELOWZERO
         binding.bindCallback = new Action<GameInput.Device, GameInput.Button, GameInput.BindingSet, string>((_, _1, _2, s) =>
         {
-            var keyCode = KeyCodeUtils.StringToKeyCode(s);
-            binding.value = KeyCodeUtils.GetDisplayTextForKeyCode(keyCode);
+            var keyCode = StringToKeyCode(s);
+            binding.value = uGUI.GetDisplayTextForBinding(GameInput.GetInputName(binding.value));
             OnChange(Id, keyCode);
-            parentOptions.OnChange<KeyCode, KeybindChangedEventArgs>(Id, KeyCodeUtils.StringToKeyCode(s));
+            parentOptions.OnChange<KeyCode, KeybindChangedEventArgs>(Id, StringToKeyCode(s));
             binding.RefreshValue();
         });
+#endif
 
         base.AddToPanel(panel, tabIndex);
     }
+    
+     private static KeyCode StringToKeyCode(string s)
+    {
+        switch (s)
+        {
+            case "0":
+                return KeyCode.Alpha0;
+            case "1":
+                return KeyCode.Alpha1;
+            case "2":
+                return KeyCode.Alpha2;
+            case "3":
+                return KeyCode.Alpha3;
+            case "4":
+                return KeyCode.Alpha4;
+            case "5":
+                return KeyCode.Alpha5;
+            case "6":
+                return KeyCode.Alpha6;
+            case "7":
+                return KeyCode.Alpha7;
+            case "8":
+                return KeyCode.Alpha8;
+            case "9":
+                return KeyCode.Alpha9;
+            case "MouseButtonLeft":
+                return KeyCode.Mouse0;
+            case "MouseButtonRight":
+                return KeyCode.Mouse1;
+            case "MouseButtonMiddle":
+                return KeyCode.Mouse2;
+            case "ControllerButtonA":
+                return KeyCode.JoystickButton0;
+            case "ControllerButtonB":
+                return KeyCode.JoystickButton1;
+            case "ControllerButtonX":
+                return KeyCode.JoystickButton2;
+            case "ControllerButtonY":
+                return KeyCode.JoystickButton3;
+            case "ControllerButtonLeftBumper":
+                return KeyCode.JoystickButton4;
+            case "ControllerButtonRightBumper":
+                return KeyCode.JoystickButton5;
+            case "ControllerButtonBack":
+                return KeyCode.JoystickButton6;
+            case "ControllerButtonHome":
+                return KeyCode.JoystickButton7;
+            case "ControllerButtonLeftStick":
+                return KeyCode.JoystickButton8;
+            case "ControllerButtonRightStick":
+                return KeyCode.JoystickButton9;
+            default:
+                try
+                {
+                    return (KeyCode)Enum.Parse(typeof(KeyCode), s);
+                }
+                catch (Exception)
+                {
+                    InternalLogger.Log($"Failed to parse {s} as a valid KeyCode!", LogLevel.Error);
+                    return 0;
+                }
+        }
+    }
 
-    internal class ModBindingTag: MonoBehaviour { };
+    internal class ModBindingTag : MonoBehaviour
+    {
+        public ModOptions parentOptions;
+    };
 
     internal class BindingOptionAdjust: ModOptionAdjust
     {

@@ -158,22 +158,6 @@ public class CustomPrefab : ICustomPrefab
         Info = PrefabInfo.WithTechType(classId, displayName, description);
     }
     
-
-#if SUBNAUTICA
-    /// <summary>
-    /// Constructs a custom prefab object with the <see cref="Info"/> assigned appropriately.
-    /// </summary>
-    /// <param name="classId">The class identifier used for the PrefabIdentifier component whenever applicable.</param>
-    /// <param name="displayName">The display name for this item.</param>
-    /// <param name="description">The description for this item.</param>
-    /// <param name="icon">The icon for this item.</param>
-    [SetsRequiredMembers]
-    public CustomPrefab(string classId, string displayName, string description, Atlas.Sprite icon) : this(classId, displayName, description)
-    {
-        Info.WithIcon(icon);
-    }
-#endif
-    
     /// <summary>
     /// Constructs a custom prefab object with the <see cref="Info"/> assigned appropriately.
     /// </summary>

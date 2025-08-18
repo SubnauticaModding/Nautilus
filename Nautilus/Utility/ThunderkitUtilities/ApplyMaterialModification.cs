@@ -195,6 +195,9 @@ public class ApplyMaterialModification : MonoBehaviour
                     gameMaterial.EnableKeyword(keywordPropertyNames[i]);
                 else
                     gameMaterial.DisableKeyword(keywordPropertyNames[i]);
+                
+                if (keywordPropertyNames[i] == nameof(KeywordProperty.MARMO_SIMPLE_GLASS))
+                    MaterialUtils.SetMaterialTransparent(gameMaterial, keywordPropertyValues[i]);
             }
 
             for (var i = 0; i < vectorPropertyNames.Length; i++)

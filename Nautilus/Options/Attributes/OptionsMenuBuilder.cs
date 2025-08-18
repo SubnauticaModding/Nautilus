@@ -243,7 +243,11 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     private void BuildModKeybindOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
     {
         KeyCode value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
+#if SUBNAUTICA
+        if(!AddItem(ModKeybindOption.Create(id, label, GameInput.PrimaryDevice, value)))
+#else
         if(!AddItem(ModKeybindOption.Create(id, label, GameInput.GetPrimaryDevice(), value)))
+#endif
             InternalLogger.Warn($"Failed to add ModKeybindOption with id {id} to {Name}");
     }
 

@@ -7,6 +7,7 @@ using Nautilus.Patchers;
 using Nautilus.Utility;
 using Nautilus.Utility.ModMessages;
 using UnityEngine;
+using UnityEngine.U2D;
 #if BELOWZERO
 using UnityEngine.U2D;
 #endif
@@ -28,8 +29,7 @@ public class Initializer : BaseUnityPlugin
 {
     private static readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
     internal static NautilusConfig ConfigFile { get; private set; } = OptionsPanelHandler.RegisterModOptions<NautilusConfig>();
-
-#if BELOWZERO
+    
     static Initializer()
     {
         var handle = AddressablesUtility.LoadAllAsync<SpriteAtlas>("SpriteAtlases");
@@ -37,7 +37,6 @@ public class Initializer : BaseUnityPlugin
         // Please dont use this method. I hate using it but we have no other choice.
         _ = handle.WaitForCompletion();
     }
-#endif
 
     /// <summary>
     /// WARNING: This method is for use only by BepInEx.

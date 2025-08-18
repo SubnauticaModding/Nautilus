@@ -42,7 +42,11 @@ This project is a continuation of [SMLHelper](https://github.com/SubnauticaModdi
 
 We hope to keep improving the modding experience in Subnautica to allow developers to create mods more easily and eliminate the implementation concerns in the mod-making process. For more information on Nautilus and its capabilities, please refer to our [documentation](https://subnauticamodding.github.io/Nautilus).  
 
-### ⚠️ Nautilus is only supported on the latest version of Subnautica. If you're playing on the Legacy branch via Steam, use [SMLHelper](https://github.com/SubnauticaModding/Nautilus/tree/sml-2) instead.
+### ⚠️ Nautilus will only receive continued support for the latest version of Subnautica
+- #### If you are using the latest version of Subnautica (post [2025 patch](https://unknownworlds.com/en/news/subnautica-2025-patch)) or Below Zero, use [the latest release of Nautilus](https://github.com/SubnauticaModding/Nautilus/releases)
+- #### If you are using the `march_2023` Steam branch, use [Nautilus pre.41](https://github.com/SubnauticaModding/Nautilus/releases/tag/1.0.0-pre.41)
+- #### If you are using the `legacy` Steam branch, use [SMLHelper](https://www.nexusmods.com/subnautica/mods/113)
+
 <!---------ABOUT SECTION END--------->
 
 
@@ -64,9 +68,9 @@ We hope to keep improving the modding experience in Subnautica to allow develope
     
     - <details><summary>How do I extract the zip file? (Click to expand)</summary>
 
-      - Extracting/unzipping a zip file is as simple as right clicking it, and selecting the `Extract here` prompt. We highly recommend the use of a zipping tool besides the Windows default one, such as [WinRAR](https://www.rarlab.com/download.htm), or [7-Zip](https://7-zip.org/download.html).
+      - Extracting/unzipping a zip file is as simple as right clicking it, and selecting the `Extract here` prompt. We highly recommend the use of a zipping tool besides the Windows default one, such as [WinRAR](https://www.rarlab.com/download.htm), or [7-Zip](https://7-zip.org/download.html)
     </details>
-3. Download Nautilus from [Nexus Mods](https://www.nexusmods.com/subnautica/mods/1262), [Submodica](https://www.submodica.net/mods/sn1/250) or [GitHub Releases](https://github.com/SubnauticaModding/Nautilus/releases) (this link will be updated later when Nautilus is released).
+3. Download Nautilus from [Nexus Mods](https://www.nexusmods.com/subnautica/mods/1262) or [GitHub Releases](https://github.com/SubnauticaModding/Nautilus/releases)
 4. Extract/unzip the Nautilus zip file to your `Subnautica\BepInEx` folder
 5. Confirm your `Subnautica\BepInEx\plugins` now looks like this:
    ###### If it doesn't look like this, try figuring out where your Nautilus folder has gone, and move it into the plugins folder

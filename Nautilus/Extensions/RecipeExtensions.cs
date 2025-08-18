@@ -6,115 +6,10 @@ using System;
 using System.Collections.Generic;
 
 /// <summary>
-/// Contains extensions that are specific to the <see cref="RecipeData"/> and <see cref="ITechData"/> classes.
+/// Contains extensions that are specific to the <see cref="RecipeData"/> class.
 /// </summary>
 public static class RecipeExtensions
 {
-
-#if SUBNAUTICA
-    /// <summary>
-    /// Converts a <see cref="RecipeData"/> to an <see cref="ITechData"/>.
-    /// </summary>
-    /// <param name="techData"> the original data to convert.</param>
-    /// <param name="techType"> The Techtype </param>
-    /// <returns><see cref="CraftData.TechData"/></returns>
-
-    public static CraftData.TechData ConvertToTechData(this ITechData techData, TechType techType)
-    {
-        var techDataInstance = new CraftData.TechData
-        {
-            _techType = techType,
-            _craftAmount = techData?.craftAmount ?? 0
-        };
-
-        var ingredientsList = new CraftData.Ingredients();
-
-        if (techData?.ingredientCount > 0)
-        {
-            for (int i = 0; i < techData.ingredientCount; i++)
-            {
-                IIngredient customIngredient = techData.GetIngredient(i);
-
-                var ingredient = new CraftData.Ingredient(customIngredient.techType, customIngredient.amount);
-                ingredientsList.Add(customIngredient.techType, customIngredient.amount);
-            }
-            techDataInstance._ingredients = ingredientsList;
-        }
-
-        if (techData?.linkedItemCount > 0)
-        {
-            var linkedItems = new List<TechType>();
-            for (int l = 0; l < techData.linkedItemCount; l++)
-            {
-                linkedItems.Add(techData.GetLinkedItem(l));
-            }
-            techDataInstance._linkedItems = linkedItems;
-        }
-
-        return techDataInstance;
-    }
-
-    /// <summary>
-    /// Converts the games ITechData into Nautilus RecipeData.
-    /// </summary>
-    /// <param name="iTechData"></param>
-    public static RecipeData ConvertToRecipeData(this ITechData iTechData)
-    {
-        var recipeData = new RecipeData() { craftAmount = iTechData.craftAmount };
-
-        for (int i = 0; i < iTechData.ingredientCount; i++)
-        {
-            IIngredient ingredient = iTechData.GetIngredient(i);
-            var customIngredient = new CraftData.Ingredient(ingredient.techType, ingredient.amount);
-            recipeData.Ingredients.Add(customIngredient);
-        }
-
-        for (int i = 0; i < iTechData.linkedItemCount; i++)
-        {
-            recipeData.LinkedItems.Add(iTechData.GetLinkedItem(i));
-        }
-
-        return recipeData;
-    }
-
-    /// <summary>
-    /// Checks if the two ITechData are equal.
-    /// </summary>
-    /// <param name="originalTechData"></param>
-    /// <param name="techData"></param>
-    /// <returns></returns>
-    public static bool SameAs(this ITechData originalTechData, ITechData techData)
-    {
-        if (originalTechData.craftAmount != techData.craftAmount ||
-            originalTechData.ingredientCount != techData.ingredientCount ||
-            originalTechData.linkedItemCount != techData.linkedItemCount)
-            return false;
-
-        for (int i = 0; i < originalTechData.ingredientCount; i++)
-        {
-            if (originalTechData.GetIngredient(i).techType != techData.GetIngredient(i).techType)
-            {
-                return false;
-            }
-            if (originalTechData.GetIngredient(i).amount != techData.GetIngredient(i).amount)
-            {
-                return false;
-            }
-        }
-
-        for (int i = 0; i < originalTechData.linkedItemCount; i++)
-        {
-            if (originalTechData.GetLinkedItem(i) != techData.GetLinkedItem(i))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-#elif BELOWZERO
-
     /// <summary>
     /// Converts the Games JsonValue data into Nautilus RecipeData.
     /// </summary>
@@ -227,5 +122,4 @@ public static class RecipeExtensions
             return null;
         }
     }
-#endif
 }

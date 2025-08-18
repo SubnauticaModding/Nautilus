@@ -50,7 +50,7 @@ internal static class MainMenuPatcher
         
         harmony.Patch(AccessTools.Method(typeof(MainMenuMusic), nameof(MainMenuMusic.Stop)),
             postfix: new HarmonyMethod(AccessTools.Method(typeof(MainMenuPatcher), nameof(MainMenuMusicStopPostfix))));
-
+        
         _activeModGuid = config.Bind("Nautilus", "ActiveModTheme", GameName);
         InternalLogger.Log("MainMenuPatcher is done.", LogLevel.Debug);
     }
@@ -96,7 +96,7 @@ internal static class MainMenuPatcher
     {
         CreateSelectionUI(__instance);
     }
-
+    
     private static void CallAddonCleanups()
     {
         if (!TitleObjectDatas.TryGetValue(_activeModGuid.Value, out var titleData)) return;
@@ -110,14 +110,19 @@ internal static class MainMenuPatcher
     private static void CreateSelectionUI(uGUI_MainMenu mainMenu)
     {
         var optionsMenu = mainMenu.GetComponentInChildren<uGUI_OptionsPanel>(true);
+#if SUBNAUTICA
+        var background = optionsMenu.controls.prefabChoice.transform.Find("Choice/Background");
+#else
         var background = optionsMenu.choiceOptionPrefab.transform.Find("Choice/Background");
+#endif
+        
         
         var selector = GameObject.Instantiate(background, mainMenu.transform, false);
         selector.gameObject.name = "ActiveModSelector";
-        selector.localPosition = new Vector3(-750, -450, 0);
 
         _choiceOption = selector.GetComponent<uGUI_Choice>();
         _choiceOption.currentText.raycastTarget = false;
+        UpdateSelectorAnchors(_choiceOption);
         RefreshModOptions(_choiceOption);
         
         if (TitleObjectDatas.TryGetValue(_activeModGuid.Value, out var data))
@@ -126,13 +131,42 @@ internal static class MainMenuPatcher
             if (currentIndex >= 0)
             {
                 _choiceOption.value = currentIndex;
-                OnActiveModChanged(_choiceOption);
+                OnActiveModChanged();
             }
         }
         
+        optionsMenu.transform.Find("Bottom/ButtonApply").GetComponent<Button>().onClick.AddListener(() =>
+        {
+            UpdateSelectorAnchors(_choiceOption);
+            RefreshModOptions(_choiceOption);
+        });
+        
         Language.main.onLanguageChanged += () => UpdateButtonPositions(_choiceOption);
 
-        UWE.CoroutineHost.StartCoroutine(AddButtonListeners(_choiceOption));
+        UWE.CoroutineHost.StartCoroutine(AddListenersDelayed());
+    }
+
+    private static void UpdateSelectorAnchors(uGUI_Choice choice)
+    {
+        choice.transform.localPosition = new Vector3(-750, -440, 0);
+        var rect = choice.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.02f, 0);
+        rect.anchorMax = new Vector2(0.2f, 0);
+        rect.pivot = Vector2.zero;
+        rect.sizeDelta = new Vector2(0, 50);
+        choice.transform.localPosition = new Vector3(-750, -440, 0);
+    }
+
+    private static IEnumerator AddListenersDelayed()
+    {
+        // Wait for choice option to register its events first, so that the selection option is changed before we look at it
+        yield return new WaitForEndOfFrame();
+        
+        var nextButton = _choiceOption.nextButton.GetComponent<Button>();
+        var prevButton = _choiceOption.previousButton.GetComponent<Button>();
+        
+        nextButton.onClick.AddListener(OnActiveModChanged);
+        prevButton.onClick.AddListener(OnActiveModChanged);
     }
 
     private static void RefreshModOptions(uGUI_Choice choice)
@@ -172,30 +206,48 @@ internal static class MainMenuPatcher
         
         var nextButtonRect = choice.nextButton.GetComponent<RectTransform>();
         var prevButtonRect = choice.previousButton.GetComponent<RectTransform>();
-        float offset = maxWidth * 0.5f + nextButtonRect.sizeDelta.x + 10;
+        var textRect = choice.currentText.rectTransform;
+        float offset = maxWidth * 0.5f + nextButtonRect.sizeDelta.x - 10;
         
         // Stop buttons from going offscreen with really long mod names
         offset = Mathf.Min(offset, 180);
-        
-        nextButtonRect.localPosition = new Vector3(offset, nextButtonRect.localPosition.y, nextButtonRect.localPosition.z);
-        prevButtonRect.localPosition = new Vector3(-offset, prevButtonRect.localPosition.y, prevButtonRect.localPosition.z);
 
+        var localPosPrev = new Vector3(-offset, 0, 0);
+        prevButtonRect.localPosition = localPosPrev;
+        prevButtonRect.pivot = new Vector2(1, 0.5f);
+        prevButtonRect.anchorMin = new Vector2(0, 0.5f);
+        prevButtonRect.anchorMax = new Vector2(0, 0.5f);
+        prevButtonRect.offsetMin = Vector2.zero;
+        prevButtonRect.offsetMax = Vector2.zero;
+        prevButtonRect.sizeDelta = new Vector2(25, 45);
+        prevButtonRect.localPosition = localPosPrev;
+
+        var localPosNext = new Vector3(offset, 0, 0);
+        nextButtonRect.localPosition = localPosNext;
+        nextButtonRect.pivot = new Vector2(0, 0.5f);
+        nextButtonRect.anchorMin = new Vector2(1, 0.5f);
+        nextButtonRect.anchorMax = new Vector2(1, 0.5f);
+        nextButtonRect.offsetMin = Vector2.zero;
+        nextButtonRect.offsetMax = Vector2.zero;
+        nextButtonRect.sizeDelta = new Vector2(25, 45);
+        nextButtonRect.localPosition = localPosNext;
+        
+        textRect.localScale = Vector3.one;
+        textRect.localPosition = Vector3.zero;
+        textRect.anchorMin = new Vector2(0.1f, 0);
+        textRect.anchorMax = new Vector2(0.9f, 1);
+        textRect.offsetMin = Vector2.zero;
+        textRect.offsetMax = Vector2.zero;
+        textRect.sizeDelta = Vector2.zero;
+        textRect.localPosition = Vector3.zero;
+        
         choice.gameObject.SetActive(choice.options.Count > 1);
     }
 
-    private static IEnumerator AddButtonListeners(uGUI_Choice choice)
+    private static void OnActiveModChanged()
     {
-        yield return new WaitForEndOfFrame();
+        var choice = _choiceOption;
         
-        var nextButton = choice.nextButton.GetComponent<Button>();
-        var prevButton = choice.previousButton.GetComponent<Button>();
-        
-        nextButton.onClick.AddListener(() => OnActiveModChanged(choice));
-        prevButton.onClick.AddListener(() => OnActiveModChanged(choice));
-    }
-
-    private static void OnActiveModChanged(uGUI_Choice choice)
-    {
         int index = 0;
         foreach (var titleData in TitleObjectDatas)
         {
@@ -249,9 +301,10 @@ internal static class MainMenuPatcher
             #endif
             
             musicEvent.getPlaybackState(out var state);
-            if (state is PLAYBACK_STATE.PLAYING or PLAYBACK_STATE.SUSTAINING) return;
-            
-            musicEvent.start();
+            if (state is not (PLAYBACK_STATE.PLAYING or PLAYBACK_STATE.SUSTAINING))
+            {
+                musicEvent.start();
+            }
         }
 
         var data = TitleObjectDatas.FirstOrDefault(d => d.Value.localizationKey == choice.options[choice.currentIndex]);
