@@ -56,6 +56,7 @@ public class Initializer : BaseUnityPlugin
         AssetReferencePatcher.Patch(_harmony);
         PrefabDatabasePatcher.PrePatch(_harmony);
         EnumPatcher.Patch(_harmony);
+        EnumExtensions.Register();
         CraftDataPatcher.Patch(_harmony);
         CraftTreePatcher.Patch(_harmony);
         ConsoleCommandsPatcher.Patch(_harmony);
