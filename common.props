@@ -2,6 +2,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Condition="'$(Configuration)'=='SN.STABLE' Or '$(Configuration)'=='Release' Or '$(Configuration)'=='Debug'">
     <PackageReference Include="Subnautica.GameLibs" Version="82304.0.0-r.0" />
+    <PackageReference Include="Unity.InputSystem" Version="1.4.1" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='BZ.STABLE'">
     <PackageReference Include="Subnautica.BelowZero.GameLibs" Version="53115.0.0-r.0" />
