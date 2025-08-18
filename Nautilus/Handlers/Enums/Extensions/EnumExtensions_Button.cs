@@ -126,6 +126,22 @@ public static partial class EnumExtensions
         return WithBinding(builder, GameInput.Device.Controller, primaryBindingPath, secondaryBindingPath);
     }
 
+    /// <summary>
+    /// Assigns this button to be bindable in the Mod Input tab.
+    /// </summary>
+    /// <param name="builder">The current custom enum object instance.</param>
+    /// <param name="devices">The devices that will have customized bindings.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public static EnumBuilder<Button> SetAsBindable(this EnumBuilder<Button> builder, params GameInput.Device[] devices)
+    {
+        foreach (var device in devices)
+        {
+            GameInputPatcher.BindableButtons.Add((builder, device));
+        }
+        
+        return builder;
+    }
+
     private static void SetBindingDefinition(Button button, GameInput.Device device, GameInput.BindingSet bindingSet, string bindingPath)
     {
         if (device == GameInput.Device.Keyboard)
