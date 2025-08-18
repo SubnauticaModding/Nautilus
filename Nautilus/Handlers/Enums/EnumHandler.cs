@@ -1,15 +1,32 @@
 ﻿using System;
 using System.Reflection;
+using System.Reflection.Emit;
 using Nautilus.Utility;
 
 // Resharper
 namespace Nautilus.Handlers;
 
 /// <summary>
+/// Delegate used when a custom enum is registered via <see cref="EnumHandler.AddEntry{TEnum}(string,System.Reflection.Assembly)"/>.
+/// </summary>
+/// <typeparam name="TEnum">The type of the enum to process.</typeparam>
+public delegate void OnEnumRegistered<TEnum>(EnumBuilder<TEnum> builder) where TEnum : Enum;
+
+/// <summary>
 /// Class responsible to resolve anything related to adding custom enum objects.
 /// </summary>
 public static class EnumHandler
 {
+    internal static class Events<TEnum> where TEnum : Enum
+    {
+        public static event OnEnumRegistered<TEnum> OnEnumRegistered;
+
+        public static void NotifyOnEnumRegistered(EnumBuilder<TEnum> builder)
+        {
+            OnEnumRegistered?.Invoke(builder);
+        }
+    }
+    
     /// <summary>
     /// Adds a new custom enum object instance.
     /// </summary>
@@ -37,7 +54,13 @@ public static class EnumHandler
             ? ReflectionHelper.CallingAssemblyByStackTrace()
             : callingAssembly;
         
-        return AddEntry<TEnum>(name, callingAssembly);
+        var builder = AddEntry<TEnum>(name, callingAssembly);
+        if (builder is not null)
+        {
+            Events<TEnum>.NotifyOnEnumRegistered(builder);
+        }
+
+        return builder;
     }
 
     /// <summary>
@@ -160,5 +183,24 @@ public static class EnumHandler
     public static bool ModdedEnumExists<TEnum>(string name) where TEnum : Enum
     {
         return TryGetValue<TEnum>(name, out _);
-    }    
+    }
+
+    /// <summary>
+    /// Adds a callback that's executed every time a custom enum of a certain type is created.
+    /// </summary>
+    /// <param name="callback">The callback that will be executed.</param>
+    /// <typeparam name="TEnum">The type of the enum this callback is for.</typeparam>
+    public static void AddOnEnumRegistered<TEnum>(OnEnumRegistered<TEnum> callback) where TEnum : Enum
+    {
+        Events<TEnum>.OnEnumRegistered +=  callback;
+    }
+    
+    /// <summary>
+    /// Removes a callback that was previously added to the OnEnumRegistered event.
+    /// </summary>
+    /// <param name="callback">The callback to remove.</param>
+    public static void RemoveOnEnumRegistered<TEnum>(OnEnumRegistered<TEnum> callback) where TEnum : Enum
+    {
+        Events<TEnum>.OnEnumRegistered -=  callback;
+    }
 }

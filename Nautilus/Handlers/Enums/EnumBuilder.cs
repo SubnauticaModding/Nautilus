@@ -67,30 +67,11 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
         var builder = new EnumBuilder<TEnum>();
         if(builder.TryAddEnum(name, addedBy, out TEnum enumValue))
         {
-            ProcessExtraActions(builder);
             return builder;
         }
 
         InternalLogger.Announce($"{name} already exists in {nameof(TEnum)}!", LogLevel.Error, true);
         return null;
-    }
-
-    private static void ProcessExtraActions(EnumBuilder<TEnum> builder)
-    {
-        switch(builder)
-        {
-            case EnumBuilder<TechType> techTypeBuilder:
-                var techType = techTypeBuilder.Value;
-                var name = techType.ToString();
-                var intKey = ((int)techType).ToString();
-                TechTypeExtensions.stringsNormal[techType] = name;
-                TechTypeExtensions.stringsLowercase[techType] = name.ToLowerInvariant();
-                TechTypeExtensions.techTypesNormal[name] = techType;
-                TechTypeExtensions.techTypesIgnoreCase[name] = techType;
-                TechTypeExtensions.techTypeKeys[techType] = intKey;
-                TechTypeExtensions.keyTechTypes[intKey] = techType;
-                break;
-        }
     }
 
     private bool TryAddEnum(string name, Assembly addedBy, out TEnum enumValue)
