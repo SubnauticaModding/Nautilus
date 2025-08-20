@@ -77,6 +77,7 @@ public class Initializer : BaseUnityPlugin
         SurvivalPatcher.Patch(_harmony);
         CustomSoundPatcher.Patch(_harmony);
         MaterialUtils.Patch();
+        MaterialLibrary.Patch();
         FontReferencesPatcher.Patch(_harmony);
         VehicleUpgradesPatcher.Patch(_harmony);
         StoryGoalPatcher.Patch(_harmony);
