@@ -33,6 +33,11 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
     public string Tooltip { get; }
 
     /// <summary>
+    /// When using Advanced UI, whether to show the Alpha controls
+    /// </summary>
+    public bool AdvancedExposeAlphaChannel { get; set; }
+
+    /// <summary>
     /// The base method for adding an object to the options panel
     /// </summary>
     /// <param name="panel">The panel to add the option to.</param>
@@ -81,7 +86,9 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                 }),
                 SliderLabelMode.Percent, "{0:F0}", "The <color=\"blue\">blue</color> level of the color.");
 
-            GameObject alphaSlider = panel.AddSliderOption(tabIndex, "Alpha", Value.a, 0, 1, 1, 0.01f,
+            if(AdvancedExposeAlphaChannel)
+            {
+                GameObject alphaSlider = panel.AddSliderOption(tabIndex, "Alpha", Value.a, 0, 1, 1, 0.01f,
                 new UnityAction<float>((float value) => {
                     Color color = new Color(Value.r, Value.g, Value.b, value);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
@@ -89,16 +96,18 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
                 SliderLabelMode.Percent, "{0:F0}", "The opaqueness of the color. The lower the value the more transparent.");
+            }
         }
 
         OptionGameObject = colorPicker.transform.parent.gameObject;
         base.AddToPanel(panel, tabIndex);
     }
 
-    private ModColorOption(string id, string label, Color value, bool advanced = false, string tooltip = null) : base(label, id, value)
+    private ModColorOption(string id, string label, Color value, bool advanced = false, string tooltip = null, bool advancedExposeAlphaChannel = true) : base(label, id, value)
     {
         Advanced = advanced;
-        Tooltip= tooltip;
+        Tooltip = tooltip;
+        AdvancedExposeAlphaChannel = advancedExposeAlphaChannel;
     }
 
     /// <summary>
@@ -109,9 +118,10 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
     /// <param name="value">The starting value.</param>
     /// <param name="advanced">Whether to use an advanced display.</param>
     /// <param name="tooltip">The tooltip to show when hovering over the options.</param>
-    public static ModColorOption Create(string id, string label, Color value, bool advanced = false, string tooltip = null)
+    /// <param name="advancedExposeAlphaChannel">When using advanced display. Whether to expose alpha channel control.</param>
+    public static ModColorOption Create(string id, string label, Color value, bool advanced = false, string tooltip = null, bool advancedExposeAlphaChannel = true)
     {
-        return new ModColorOption(id, label, value, advanced, tooltip);
+        return new ModColorOption(id, label, value, advanced, tooltip, advancedExposeAlphaChannel);
     }
 
     /// <summary>
