@@ -15,7 +15,9 @@ using UnityEngine.UI;
 
 namespace Nautilus.Patchers;
 
+#if BELOWZERO
 using static ModKeybindOption;
+#endif
 
 internal class OptionsPanelPatcher
 {
@@ -46,6 +48,7 @@ internal class OptionsPanelPatcher
         }
     }
 
+#if BELOWZERO
     [HarmonyPrefix]
     [HarmonyPatch(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue))]
     internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
@@ -54,15 +57,12 @@ internal class OptionsPanelPatcher
         {
             return true;
         }
-
-#if SUBNAUTICA
-        __instance.currentText.text = (__instance.isRebinding || __instance.binding == null) ? "" : __instance.binding;
-#else
+        
         __instance.currentText.text = (__instance.active || __instance.value == null) ? "" : __instance.value;
-#endif
         __instance.UpdateState();
         return false;
     }
+#endif
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
@@ -101,7 +101,47 @@ internal class OptionsPanelPatcher
 
         // adding all other options here
         optionsToAdd.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
+
+#if SUBNAUTICA
+        var inputTab = optionsPanel.AddTab("ModInput");
+        optionsPanel.AddHeading(inputTab, "Keyboard");
+        PopulateBindings(optionsPanel, inputTab, GameInput.Device.Keyboard);
+
+        optionsPanel.AddHeading(inputTab, "Controller");
+        PopulateBindings(optionsPanel, inputTab, GameInput.Device.Controller);
+#endif
     }
+
+#if SUBNAUTICA
+    private static void PopulateBindings(uGUI_OptionsPanel panel, int tab, GameInput.Device device)
+    {
+        panel.AddBindingsHeader(tab);
+        
+        var bindables = GameInputPatcher.BindableButtons.GroupBy(b =>
+                {
+                    if (EnumHandler.TryGetOwnerAssembly(b.button, out var assembly))
+                        return assembly;
+                
+                    InternalLogger.Error($"Couldn't find the assembly associated with bindable button '{b}'.");
+                    return null;
+                }
+            ).Where(g => g.Key is not null)
+            .ToDictionary(
+                g => g.Key, 
+                g => g.ToList());
+        
+        foreach (var kvp in bindables)
+        {
+            var assembly = kvp.Key;
+            var hotkeys = kvp.Value;
+            panel.AddHeading(tab, assembly.GetName().Name);
+            foreach (var hotkey in hotkeys)
+            {
+                panel.AddBindingOption(tab, $"Option{hotkey.button.AsString()}", device, hotkey.button);
+            }
+        }
+    }
+#endif
 
     // Class for collapsing/expanding options in 'Mods' tab
     // Options can be collapsed/expanded by clicking on mod's title or arrow button

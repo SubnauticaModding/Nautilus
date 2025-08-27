@@ -1,4 +1,5 @@
 ﻿using Nautilus.Assets;
+using Nautilus.Handlers.Internals;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 
@@ -7,6 +8,20 @@ namespace Nautilus.Handlers;
 
 public static partial class EnumExtensions
 {
+    [OnEnumRegister<TechType>]
+    private static void OnTechTypeRegistered(EnumBuilder<TechType> builder)
+    {
+        var techType = builder.Value;
+        var name = techType.ToString();
+        var intKey = ((int)techType).ToString();
+        TechTypeExtensions.stringsNormal[techType] = name;
+        TechTypeExtensions.stringsLowercase[techType] = name.ToLowerInvariant();
+        TechTypeExtensions.techTypesNormal[name] = techType;
+        TechTypeExtensions.techTypesIgnoreCase[name] = techType;
+        TechTypeExtensions.techTypeKeys[techType] = intKey;
+        TechTypeExtensions.keyTechTypes[intKey] = techType;
+    }
+    
     /// <summary>
     /// Adds a display name, tooltip to this instance.
     /// </summary>
