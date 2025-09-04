@@ -35,45 +35,60 @@ internal class EntitySpawner : MonoBehaviour
         
         yield return new WaitUntil(() => lw != null && lw.streamer.globalRoot != null); // need to make sure global root is ready too for global spawns.
 
-        foreach (var spawnInfo in spawnInfos)
+        var remainingSpawns = new List<SpawnInfo>(spawnInfos);
+        while (remainingSpawns.Count > 0)
         {
-            string stringToLog = spawnInfo.Type switch
+            if (!global)
+                yield return new WaitUntil(() => lws.IsBatchReadyToCompile(batchId));
+
+            for (int i = remainingSpawns.Count - 1; i >= 0; i--)
             {
-                SpawnInfo.SpawnType.ClassId => spawnInfo.ClassId,
-                _ => spawnInfo.TechType.AsString()
-            };
+                var spawnInfo = remainingSpawns[i];
+                
+                string stringToLog = spawnInfo.Type switch
+                {
+                    SpawnInfo.SpawnType.ClassId => spawnInfo.ClassId,
+                    _ => spawnInfo.TechType.AsString()
+                };
             
-            InternalLogger.Debug($"Spawning {stringToLog}");
+                InternalLogger.Debug($"Spawning {stringToLog}");
             
-            TaskResult<GameObject> task = new();
-            yield return GetPrefabAsync(spawnInfo, task);
+                TaskResult<GameObject> task = new();
+                yield return GetPrefabAsync(spawnInfo, task);
 
-            GameObject prefab = task.Get();
-            if (prefab == null)
-            {
-                InternalLogger.Error($"no prefab found for {stringToLog}; process for Coordinated Spawn canceled.");
-                continue;
+                if (!global && !lws.IsBatchReadyToCompile(batchId))
+                {
+                    break;
+                }
+
+                GameObject prefab = task.Get();
+                if (prefab == null)
+                {
+                    InternalLogger.Error($"no prefab found for {stringToLog}; process for Coordinated Spawn canceled.");
+                    continue;
+                }
+
+                LargeWorldEntity lwe = prefab.GetComponent<LargeWorldEntity>();
+
+                if (!lwe)
+                {
+                    InternalLogger.Error($"No LargeWorldEntity component found for prefab '{stringToLog}'; process for Coordinated Spawn canceled.");
+                    continue;
+                }
+
+                GameObject obj = Instantiate(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
+                obj.transform.localScale = spawnInfo.ActualScale;
+
+                obj.SetActive(true);
+
+                spawnInfo.OnSpawned?.Invoke(obj);
+                remainingSpawns.RemoveAt(i);
+
+                LargeWorldEntity.Register(obj);
+
+                LargeWorldStreamerPatcher.SavedSpawnInfos.Add(spawnInfo);
+                InternalLogger.Debug($"spawned {stringToLog}.");
             }
-
-            LargeWorldEntity lwe = prefab.GetComponent<LargeWorldEntity>();
-
-            if (!lwe)
-            {
-                InternalLogger.Error($"No LargeWorldEntity component found for prefab '{stringToLog}'; process for Coordinated Spawn canceled.");
-                continue;
-            }
-
-            GameObject obj = Instantiate(prefab, spawnInfo.SpawnPosition, spawnInfo.Rotation);
-            obj.transform.localScale = spawnInfo.ActualScale;
-
-            obj.SetActive(true);
-
-            spawnInfo.OnSpawned?.Invoke(obj);
-
-            LargeWorldEntity.Register(obj);
-
-            LargeWorldStreamerPatcher.SavedSpawnInfos.Add(spawnInfo);
-            InternalLogger.Debug($"spawned {stringToLog}.");
         }
     }
 
