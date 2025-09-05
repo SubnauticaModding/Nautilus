@@ -56,6 +56,7 @@ public class Initializer : BaseUnityPlugin
         AssetReferencePatcher.Patch(_harmony);
         PrefabDatabasePatcher.PrePatch(_harmony);
         EnumPatcher.Patch(_harmony);
+        EnumExtensions.Register();
         CraftDataPatcher.Patch(_harmony);
         CraftTreePatcher.Patch(_harmony);
         ConsoleCommandsPatcher.Patch(_harmony);
@@ -90,5 +91,8 @@ public class Initializer : BaseUnityPlugin
         MainMenuPatcher.Patch(_harmony, Config);
         WaitScreenPatcher.Patch(_harmony);
         uGUI_CraftingMenuPatcher.Patch(_harmony);
+#if SUBNAUTICA
+        GameInputPatcher.Patch(_harmony);
+#endif
     }
 }
