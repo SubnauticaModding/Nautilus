@@ -69,6 +69,7 @@ internal class EntitySpawner : MonoBehaviour
                 if (prefab == null)
                 {
                     InternalLogger.Error($"no prefab found for {stringToLog}; process for Coordinated Spawn canceled.");
+                    remainingSpawns.RemoveAt(i);
                     continue;
                 }
 
@@ -77,6 +78,7 @@ internal class EntitySpawner : MonoBehaviour
                 if (!lwe)
                 {
                     InternalLogger.Error($"No LargeWorldEntity component found for prefab '{stringToLog}'; process for Coordinated Spawn canceled.");
+                    remainingSpawns.RemoveAt(i);
                     continue;
                 }
 
