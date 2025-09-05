@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Nautilus.MonoBehaviours;
 
 using System.Collections;
@@ -37,7 +39,7 @@ internal class EntitySpawner : MonoBehaviour
         
         yield return new WaitUntil(() => lw != null && lw.streamer.globalRoot != null); // need to make sure global root is ready too for global spawns.
 
-        var remainingSpawns = new List<SpawnInfo>(spawnInfos);
+        var remainingSpawns = spawnInfos.Reverse().ToList();
         while (remainingSpawns.Count > 0)
         {
             if (!global)
