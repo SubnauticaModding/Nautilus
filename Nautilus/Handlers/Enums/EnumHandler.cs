@@ -37,7 +37,13 @@ public static class EnumHandler
     /// <returns>A reference to the created custom enum object or if the name is already in use it will return null</returns>
     public static EnumBuilder<TEnum> AddEntry<TEnum>(string name, Assembly ownerAssembly) where TEnum : Enum
     {
-        return EnumBuilder<TEnum>.CreateInstance(name, ownerAssembly);
+        var builder =  EnumBuilder<TEnum>.CreateInstance(name, ownerAssembly);
+        if (builder is not null)
+        {
+            Events<TEnum>.NotifyOnEnumRegistered(builder);
+        }
+
+        return builder;
     }
 
     /// <summary>
@@ -55,10 +61,6 @@ public static class EnumHandler
             : callingAssembly;
         
         var builder = AddEntry<TEnum>(name, callingAssembly);
-        if (builder is not null)
-        {
-            Events<TEnum>.NotifyOnEnumRegistered(builder);
-        }
 
         return builder;
     }
