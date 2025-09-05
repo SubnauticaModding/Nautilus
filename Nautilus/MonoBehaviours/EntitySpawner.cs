@@ -25,12 +25,12 @@ internal class EntitySpawner : MonoBehaviour
         LargeWorldStreamer lws = LargeWorldStreamer.main;
         yield return new WaitUntil(() => lws != null && lws.IsReady()); // first we make sure the world streamer is initialized
         
-        var batchReadyCheck = () => lws.IsBatchReadyToCompile(batchId);
+        var waitUntilBatchReady = new WaitUntil(() => lws.IsBatchReadyToCompile(batchId));
 
         if (!global)
         {
             // then we wait until the terrain is fully loaded (must be checked on each frame for faster spawns)
-            yield return new WaitUntil(batchReadyCheck);
+            yield return waitUntilBatchReady;
         }
 
         LargeWorld lw = LargeWorld.main;
@@ -42,7 +42,7 @@ internal class EntitySpawner : MonoBehaviour
         {
             if (!global)
             {
-                yield return new WaitUntil(batchReadyCheck);
+                yield return waitUntilBatchReady;
             }
 
             for (int i = remainingSpawns.Count - 1; i >= 0; i--)
