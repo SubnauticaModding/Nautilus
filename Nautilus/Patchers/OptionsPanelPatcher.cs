@@ -103,11 +103,11 @@ internal class OptionsPanelPatcher
         optionsToAdd.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
 
 #if SUBNAUTICA
-        optionsPanel.AddHeading(inputTab, "Keyboard");
         var inputTab = optionsPanel.AddTab("Mod Input");
+        optionsPanel.AddHeading(inputTab, "<b>Keyboard</b>");
         PopulateBindings(optionsPanel, inputTab, GameInput.Device.Keyboard);
 
-        optionsPanel.AddHeading(inputTab, "Controller");
+        optionsPanel.AddHeading(inputTab, "<b>Controller</b>");
         PopulateBindings(optionsPanel, inputTab, GameInput.Device.Controller);
 #endif
     }
