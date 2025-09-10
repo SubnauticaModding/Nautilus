@@ -129,6 +129,12 @@ internal class OptionsPanelPatcher
             .ToDictionary(
                 g => g.Key, 
                 g => g.ToList());
+
+        if (bindables.Count == 0)
+        {
+            panel.AddHeading(tab, "[No custom input]");
+            return;
+        }
         
         foreach (var kvp in bindables)
         {
