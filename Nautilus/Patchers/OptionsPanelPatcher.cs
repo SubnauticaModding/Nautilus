@@ -143,7 +143,8 @@ internal class OptionsPanelPatcher
             panel.AddHeading(tab, assembly.GetName().Name);
             foreach (var hotkey in hotkeys)
             {
-                panel.AddBindingOption(tab, $"Option{hotkey.button.AsString()}", device, hotkey.button);
+                if (hotkey.device == device)
+                    panel.AddBindingOption(tab, $"Option{hotkey.button.AsString()}", device, hotkey.button);
             }
         }
     }
