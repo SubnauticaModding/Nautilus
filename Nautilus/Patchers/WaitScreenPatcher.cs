@@ -236,11 +236,12 @@ internal static class WaitScreenPatcher
 
     private static void SetModStatus(WaitScreen.ManualWaitItem stage, string modName, string status, int current, int total)
     {
+        var language = Language.main;
         var stageDescriptor = _modStatusMap[stage.stage];
         StringBuilder sb = new StringBuilder(stageDescriptor);
-        sb.AppendFormat(" ({0}/{1}): {2}", current, total, modName);
+        sb.AppendFormat(" ({0}/{1}): {2}", current, total, language.Get(modName));
         if (!string.IsNullOrEmpty(status))
-            sb.AppendFormat(" - {0}", status);
+            sb.AppendFormat(" - {0}", language.Get(status));
 
         var text = sb.ToString();
         if (_statusText.text != text)
@@ -255,10 +256,11 @@ internal static class WaitScreenPatcher
     /// </summary>
     private static void SetModError(string modName, string status)
     {
+        var language = Language.main;
         StringBuilder sb = new StringBuilder();
-        sb.AppendFormat("<color=#FF0000FF><b>CRASHED: {0}", modName);
+        sb.AppendFormat("<color=#FF0000FF><b>CRASHED: {0}", language.Get(modName));
         if (!string.IsNullOrEmpty(status))
-            sb.AppendFormat(" during '{0}'", status);
+            sb.AppendFormat(" during '{0}'", language.Get(status));
         sb.AppendLine("</b></color>");
         sb.Append("Please check the log file for more error information.");
 
