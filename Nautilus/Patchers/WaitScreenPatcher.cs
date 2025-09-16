@@ -6,8 +6,6 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UWE;
 using Object = UnityEngine.Object;
 
 namespace Nautilus.Patchers;
@@ -144,14 +142,27 @@ internal static class WaitScreenPatcher
             SetModStatus(loadingStage, task.ModName, task.Status, i + 1, tasks.Count);
 
             task.ModActionSync?.Invoke(task);
-            if (task.ModActionAsync == null)
-                continue;
+            if (task.ModActionAsync != null)
+                yield return ProcessEnumerator(task.ModActionAsync(task), task, loadingStage, i + 1, tasks.Count);
+        }
+    }
 
-            var taskEnumerator = task.ModActionAsync(task);
-            while (taskEnumerator.MoveNext())
+    private static IEnumerator ProcessEnumerator(IEnumerator taskEnumerator, WaitScreenHandler.WaitScreenTask task,
+        WaitScreen.ManualWaitItem loadingStage, int current, int total)
+    {
+        while (taskEnumerator.MoveNext())
+        {
+            // Give the mod a chance to update its status label during longer tasks.
+            SetModStatus(loadingStage, task.ModName, task.Status, current, total);
+
+            if (taskEnumerator.Current is IEnumerator nestedEnumerator)
             {
-                // Give the mod a chance to update its status label during longer tasks.
-                SetModStatus(loadingStage, task.ModName, task.Status, i + 1, tasks.Count);
+                // Recurse nested enumerators. Without this, a method that yield returns another method is unable to
+                // update the status label.
+                yield return ProcessEnumerator(nestedEnumerator, task, loadingStage, current, total);
+            }
+            else
+            {
                 yield return taskEnumerator.Current;
             }
         }
