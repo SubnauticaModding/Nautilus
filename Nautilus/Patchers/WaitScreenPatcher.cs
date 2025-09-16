@@ -139,7 +139,7 @@ internal static class WaitScreenPatcher
         for (int i = 0; i < tasks.Count; i++)
         {
             var task = tasks[i];
-            InternalLogger.Debug($"Processing mod task by '{task.ModName}' ({i}/{tasks.Count})");
+            InternalLogger.Debug($"Processing mod task by '{task.ModName}' ({i + 1}/{tasks.Count})");
             loadingStage.SetProgress((float)i / tasks.Count);
             SetModStatus(loadingStage, task.ModName, task.Status, i + 1, tasks.Count);
 
