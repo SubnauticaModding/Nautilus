@@ -277,8 +277,6 @@ internal static class WaitScreenPatcher
         var gameObject = new GameObject("WaitScreenStatus");
         // Parent it to the loading screen itself.
         gameObject.transform.SetParent(uGUI.main.loading.loadingBackground.transform, false);
-        // Put the text right next to the spinning loading icon.
-        gameObject.transform.localPosition = new Vector3(-685f, -395f);
 
         var textMesh = gameObject.AddComponent<TextMeshProUGUI>();
         textMesh.font = FontUtils.Aller_Rg;
@@ -292,8 +290,10 @@ internal static class WaitScreenPatcher
         // If a mod message somehow gets too long, cut if off with an ellipsis (...)
         textMesh.overflowMode = TextOverflowModes.Ellipsis;
         textMesh.rectTransform.pivot = new Vector2(0f, 1f);
+        // Put the text right next to the spinning loading icon.
+        textMesh.rectTransform.anchorMin = new Vector2(0.12f, 0.15f);
         // Extend the available space to just before the other edge of the screen.
-        textMesh.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 1600f);
+        textMesh.rectTransform.anchorMax = new Vector2(0.85f, 0.15f);
 
         return textMesh;
     }
