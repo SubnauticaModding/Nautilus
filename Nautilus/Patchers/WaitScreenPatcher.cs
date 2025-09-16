@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
@@ -132,8 +134,12 @@ internal static class WaitScreenPatcher
         Object.Destroy(_statusText.gameObject);
     }
 
+    /// <summary>
+    /// Let each mod work through their tasks in turn while catching any errors along the way.
+    /// </summary>
     private static IEnumerator ProcessModTasks(List<WaitScreenHandler.WaitScreenTask> tasks, WaitScreen.ManualWaitItem loadingStage)
     {
+        var error = false;
         for (int i = 0; i < tasks.Count; i++)
         {
             var task = tasks[i];
@@ -141,9 +147,48 @@ internal static class WaitScreenPatcher
             loadingStage.SetProgress((float)i / tasks.Count);
             SetModStatus(loadingStage, task.ModName, task.Status, i + 1, tasks.Count);
 
-            task.ModActionSync?.Invoke(task);
+            try
+            {
+                task.ModActionSync?.Invoke(task);
+            }
+            catch (Exception ex)
+            {
+                SetModError(task.ModName, task.Status);
+                InternalLogger.Error(
+                    $"{task.ModName} has crashed during {_modStatusMap[loadingStage.stage]} task {i + 1}/{tasks.Count}");
+                Debug.LogException(ex);
+                error = true;
+            }
+            // Intentionally stall the loading process so that the wait screen gets stuck on the error.
+            if (error)
+                yield return new WaitWhile(() => true);
+            
+            // This is fundamentally ugly, but try-catch just doesn't pair well with yields.
             if (task.ModActionAsync != null)
-                yield return ProcessEnumerator(task.ModActionAsync(task), task, loadingStage, i + 1, tasks.Count);
+            {
+                var enumerator = ProcessEnumerator(task.ModActionAsync(task), task, loadingStage, i + 1, tasks.Count);
+                while (true)
+                {
+                    try
+                    {
+                        if (!enumerator.MoveNext())
+                            break;
+                    }
+                    catch (Exception ex)
+                    {
+                        SetModError(task.ModName, task.Status);
+                        InternalLogger.Error(
+                            $"{task.ModName} has crashed during {_modStatusMap[loadingStage.stage]} task {i + 1}/{tasks.Count}");
+                        Debug.LogException(ex);
+                        error = true;
+                    }
+                    // Intentionally stall the loading process so that the wait screen gets stuck on the error.
+                    if (error)
+                        yield return new WaitWhile(() => true);
+
+                    yield return enumerator.Current;
+                }
+            }
         }
     }
 
@@ -192,15 +237,34 @@ internal static class WaitScreenPatcher
     private static void SetModStatus(WaitScreen.ManualWaitItem stage, string modName, string status, int current, int total)
     {
         var stageDescriptor = _modStatusMap[stage.stage];
-        var text = $"{stageDescriptor} ({current}/{total}): {modName}";
+        StringBuilder sb = new StringBuilder(stageDescriptor);
+        sb.AppendFormat(" ({0}/{1}): {2}", current, total, modName);
         if (!string.IsNullOrEmpty(status))
-            text += " - " + status;
+            sb.AppendFormat(" - {0}", status);
 
+        var text = sb.ToString();
         if (_statusText.text != text)
         {
             InternalLogger.Debug($"{modName} updated task status to '{status}'");
             _statusText.text = text;
         }
+    }
+
+    /// <summary>
+    /// Make it very clear to the user that something has gone wrong if a task throws.
+    /// </summary>
+    private static void SetModError(string modName, string status)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendFormat("<color=#FF0000FF><b>CRASHED: {0}", modName);
+        if (!string.IsNullOrEmpty(status))
+            sb.AppendFormat(" during '{0}'", status);
+        sb.AppendLine("</b></color>");
+        sb.Append("Please check the log file for more error information.");
+
+        _statusText.text = sb.ToString();
+        // The error message is two lines long, make sure both are visible.
+        _statusText.overflowMode = TextOverflowModes.Overflow;
     }
 
     /// <summary>
