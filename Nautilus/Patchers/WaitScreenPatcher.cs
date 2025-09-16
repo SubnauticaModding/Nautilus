@@ -184,7 +184,12 @@ internal static class WaitScreenPatcher
         var text = $"{stageDescriptor} ({current}/{total}): {modName}";
         if (!string.IsNullOrEmpty(status))
             text += " - " + status;
-        _statusText.text = text;
+
+        if (_statusText.text != text)
+        {
+            InternalLogger.Debug($"{modName} updated task status to '{status}'");
+            _statusText.text = text;
+        }
     }
 
     /// <summary>
