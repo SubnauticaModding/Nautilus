@@ -163,31 +163,9 @@ internal static class WaitScreenPatcher
             if (error)
                 yield return new WaitWhile(() => true);
             
-            // This is fundamentally ugly, but try-catch just doesn't pair well with yields.
             if (task.ModActionAsync != null)
             {
-                var enumerator = ProcessEnumerator(task.ModActionAsync(task), task, loadingStage, i + 1, tasks.Count);
-                while (true)
-                {
-                    try
-                    {
-                        if (!enumerator.MoveNext())
-                            break;
-                    }
-                    catch (Exception ex)
-                    {
-                        SetModError(task.ModName, task.Status);
-                        InternalLogger.Error(
-                            $"{task.ModName} has crashed during {_modStatusMap[loadingStage.stage]} task {i + 1}/{tasks.Count}");
-                        Debug.LogException(ex);
-                        error = true;
-                    }
-                    // Intentionally stall the loading process so that the wait screen gets stuck on the error.
-                    if (error)
-                        yield return new WaitWhile(() => true);
-
-                    yield return enumerator.Current;
-                }
+                yield return ProcessEnumerator(task.ModActionAsync(task), task, loadingStage, i + 1, tasks.Count);
             }
         }
     }
@@ -195,8 +173,27 @@ internal static class WaitScreenPatcher
     private static IEnumerator ProcessEnumerator(IEnumerator taskEnumerator, WaitScreenHandler.WaitScreenTask task,
         WaitScreen.ManualWaitItem loadingStage, int current, int total)
     {
-        while (taskEnumerator.MoveNext())
+        bool error = false;
+        // The try-catch has to be inside the recursive method or exceptions from nested enumerators won't be caught.
+        while (true)
         {
+            try
+            {
+                if (!taskEnumerator.MoveNext())
+                    break;
+            }
+            catch (Exception ex)
+            {
+                SetModError(task.ModName, task.Status);
+                InternalLogger.Error(
+                    $"{task.ModName} has crashed during {_modStatusMap[loadingStage.stage]} task {current}/{total}");
+                Debug.LogException(ex);
+                error = true;
+            }
+            // Intentionally stall the loading process so that the wait screen gets stuck on the error.
+            if (error)
+                yield return new WaitWhile(() => true);
+            
             // Give the mod a chance to update its status label during longer tasks.
             SetModStatus(loadingStage, task.ModName, task.Status, current, total);
 
