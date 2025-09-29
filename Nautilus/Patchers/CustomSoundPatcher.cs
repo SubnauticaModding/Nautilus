@@ -349,6 +349,35 @@ internal class CustomSoundPatcher
             
         return false;
     }
+
+    [HarmonyPatch(typeof(RuntimeManager), nameof(RuntimeManager.PlayOneShotAttached), typeof(string), typeof(GameObject))]
+    [HarmonyPrefix]
+    public static bool RuntimeManager_PlayOneShotAttached_Prefix(string path, GameObject gameObject)
+    {
+        if (string.IsNullOrEmpty(path) || !CustomSounds.TryGetValue(path, out Sound soundEvent) 
+            && !CustomFModSounds.ContainsKey(path)) return true;
+
+        Channel channel;
+        if (CustomFModSounds.TryGetValue(path, out var fModSound))
+        {
+            if (!fModSound.TryPlaySound(out channel))
+                return false;
+        }
+        else if (CustomSoundBuses.TryGetValue(path, out Bus bus))
+        {
+            if (!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+        
+        CustomSoundHandler.AttachChannelToGameObject(channel, gameObject.transform);
+            
+        return false;
+    }
+    
         
     [HarmonyPatch(typeof(SoundQueue), nameof(SoundQueue.Play))]
     [HarmonyPrefix]
