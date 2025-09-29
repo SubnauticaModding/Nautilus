@@ -89,7 +89,7 @@ public static partial class EnumExtensions
         }
         
         GameInputPatcher.Bindings.GetOrAddNew(button).Add(new(device, GameInput.BindingSet.Primary, primaryBindingPath));
-        SetBindingDefinition(button, device, GameInput.BindingSet.Primary, secondaryBindingPath);
+        SetBindingDefinition(button, device, GameInput.BindingSet.Primary, primaryBindingPath);
 
         if (!string.IsNullOrWhiteSpace(secondaryBindingPath))
         {
