@@ -320,6 +320,35 @@ internal class CustomSoundPatcher
             
         return false;
     }
+
+    [HarmonyPatch(typeof(RuntimeManager), nameof(RuntimeManager.PlayOneShot), typeof(string), typeof(Vector3))]
+    [HarmonyPrefix]
+    public static bool RuntimeManager_PlayOneShot_Prefix(string path, Vector3 position)
+    {
+        if (string.IsNullOrEmpty(path) || !CustomSounds.TryGetValue(path, out Sound soundEvent) 
+            && !CustomFModSounds.ContainsKey(path)) return true;
+
+        Channel channel;
+        if (CustomFModSounds.TryGetValue(path, out var fModSound))
+        {
+            if (!fModSound.TryPlaySound(out channel))
+                return false;
+        }
+        else if (CustomSoundBuses.TryGetValue(path, out Bus bus))
+        {
+            if (!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+            
+        SetChannel3DAttributes(channel, position);
+        
+            
+        return false;
+    }
         
     [HarmonyPatch(typeof(SoundQueue), nameof(SoundQueue.Play))]
     [HarmonyPrefix]
