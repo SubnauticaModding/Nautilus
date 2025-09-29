@@ -16,7 +16,7 @@ internal static class GameInputPatcher
     
     public static Dictionary<GameInput.Button, InputAction> CustomButtons = new();
     public static Dictionary<GameInput.Button, List<InputBinding>> Bindings = new();
-    public static List<Hotkey> BindableButtons = new();
+    public static HashSet<Hotkey> BindableButtons = new();
     public static List<InputActionMap> CustomActionMaps = new();
 
     public static void Patch(Harmony harmony)
