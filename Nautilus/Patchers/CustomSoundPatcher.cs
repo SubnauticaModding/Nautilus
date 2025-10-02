@@ -292,44 +292,6 @@ internal class CustomSoundPatcher
         }
     }
     
-#if SUBNAUTICA
-        
-    [HarmonyPatch(typeof(FMODUWE), nameof(FMODUWE.PlayOneShotImpl))]
-    [HarmonyPrefix]
-    public static bool FMODUWE_PlayOneShotImpl_Prefix(string eventPath, Vector3 position, float volume)
-    {
-        if (string.IsNullOrEmpty(eventPath))
-        {
-            return true;
-        }
-        
-        if (!CustomSounds.TryGetValue(eventPath, out Sound soundEvent) && !CustomFModSounds.ContainsKey(eventPath)) 
-        {
-            return true;
-        }
-
-        Channel channel;
-        if (CustomFModSounds.TryGetValue(eventPath, out var fModSound))
-        {
-            if (!fModSound.TryPlaySound(out channel))
-                return false;
-        }
-        else if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
-        {
-            if (!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
-                return false;
-        }
-        else
-        {
-            return false;
-        }
-            
-        SetChannel3DAttributes(channel, position);
-        channel.setVolume(volume);
-            
-        return false;
-    }
-
     [HarmonyPatch(typeof(RuntimeManager), nameof(RuntimeManager.PlayOneShot), typeof(string), typeof(Vector3))]
     [HarmonyPrefix]
     public static bool RuntimeManager_PlayOneShot_Prefix(string path, Vector3 position)
@@ -401,6 +363,43 @@ internal class CustomSoundPatcher
         return false;
     }
     
+#if SUBNAUTICA
+        
+    [HarmonyPatch(typeof(FMODUWE), nameof(FMODUWE.PlayOneShotImpl))]
+    [HarmonyPrefix]
+    public static bool FMODUWE_PlayOneShotImpl_Prefix(string eventPath, Vector3 position, float volume)
+    {
+        if (string.IsNullOrEmpty(eventPath))
+        {
+            return true;
+        }
+        
+        if (!CustomSounds.TryGetValue(eventPath, out Sound soundEvent) && !CustomFModSounds.ContainsKey(eventPath)) 
+        {
+            return true;
+        }
+
+        Channel channel;
+        if (CustomFModSounds.TryGetValue(eventPath, out var fModSound))
+        {
+            if (!fModSound.TryPlaySound(out channel))
+                return false;
+        }
+        else if (CustomSoundBuses.TryGetValue(eventPath, out Bus bus))
+        {
+            if (!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+            
+        SetChannel3DAttributes(channel, position);
+        channel.setVolume(volume);
+            
+        return false;
+    }
         
     [HarmonyPatch(typeof(SoundQueue), nameof(SoundQueue.Play))]
     [HarmonyPrefix]
