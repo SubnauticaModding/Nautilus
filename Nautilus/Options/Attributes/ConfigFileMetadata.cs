@@ -431,6 +431,7 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
         }
     }
 
+#if BELOWZERO
     /// <summary>
     /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
     /// <see cref="MenuAttribute.SaveEvents.ChangeValue"/> flag is set, before passing off to
@@ -456,6 +457,7 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
             InvokeOnChangeEvents(modOptionMetadata, sender, e);
         }
     }
+#endif
 
     /// <summary>
     /// Sets the value in the <see cref="Config"/>, optionally saving the <see cref="Config"/> to disk if the
@@ -609,12 +611,14 @@ internal class ConfigFileMetadata<T> where T : ConfigFile, new()
             }
                 break;
 
-            case KeybindAttribute _:
+#if BELOWZERO
+            case KeybindAttribute _ when memberInfoMetadata.ValueType == typeof(KeyCode):
             {
                 KeybindChangedEventArgs eventArgs = new(id, memberInfoMetadata.GetValue<KeyCode>(Config));
                 InvokeOnChangeEvents(modOptionMetadata, sender, eventArgs);
             }
                 break;
+#endif
 
             case SliderAttribute _:
             {

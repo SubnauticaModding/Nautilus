@@ -1,3 +1,4 @@
+#if BELOWZERO
 using System;
 using System.Collections;
 using BepInEx.Logging;
@@ -5,6 +6,7 @@ using Nautilus.Extensions;
 using Nautilus.Utility;
 using TMPro;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Nautilus.Options;
 
@@ -95,8 +97,8 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
 
         // Destroy secondary bindings
         int last = bindings.bindings.Length - 1;
-        UnityEngine.Object.Destroy(bindings.bindings[last].gameObject);
-        UnityEngine.Object.Destroy(bindings);
+        Object.Destroy(bindings.bindings[last].gameObject);
+        Object.Destroy(bindings);
 
         // Update bindings
         binding.device = Device;
@@ -121,7 +123,7 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
         base.AddToPanel(panel, tabIndex);
     }
     
-     private static KeyCode StringToKeyCode(string s)
+    private static KeyCode StringToKeyCode(string s)
     {
         switch (s)
         {
@@ -217,3 +219,4 @@ public class ModKeybindOption : ModOption<KeyCode, KeybindChangedEventArgs>
     /// </summary>
     public override Type AdjusterComponent => typeof(BindingOptionAdjust);
 }
+#endif
