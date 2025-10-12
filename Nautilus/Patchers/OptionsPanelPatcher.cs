@@ -130,6 +130,18 @@ internal class OptionsPanelPatcher
                         File.WriteAllText(_configPath, JsonConvert.SerializeObject(this, Formatting.Indented));
                     }
                 }
+
+                public void CleanupStates()
+                {
+                    var currentModNames = new HashSet<string>(modOptions.Keys);
+                    var keysToRemove = _states.Keys.Where(key => !currentModNames.Contains(key)).ToList();
+                    
+                    if (keysToRemove.Count > 0)
+                    {
+                        keysToRemove.ForEach(key => _states.Remove(key));
+                        File.WriteAllText(_configPath, JsonConvert.SerializeObject(this, Formatting.Indented));
+                    }
+                }
             }
             private static readonly StatesConfig _statesConfig = CreateConfig();
 
@@ -153,6 +165,11 @@ internal class OptionsPanelPatcher
             public static void store(string name, HeadingState state)
             {
                 _statesConfig[name] = state;
+            }
+
+            public static void CleanupStates()
+            {
+                _statesConfig.CleanupStates();
             }
         }
 
@@ -349,6 +366,9 @@ internal class OptionsPanelPatcher
             if (tabIndex != _modsTabIndex || __instance is not uGUI_OptionsPanel)
                 return;
 
+            // Clean up inexistent states
+            StoredHeadingStates.CleanupStates();
+            
             // just in case, for changing vertical spacing between ui elements
             //__instance.tabs[tabIndex].container.GetComponent<VerticalLayoutGroup>().spacing = 15f; // default is 15f
 
