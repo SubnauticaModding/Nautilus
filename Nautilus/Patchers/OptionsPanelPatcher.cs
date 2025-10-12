@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Nautilus.Patchers;
@@ -116,6 +117,8 @@ internal class OptionsPanelPatcher
     private static void PopulateBindings(uGUI_OptionsPanel panel, int tab, GameInput.Device device)
     {
         panel.AddBindingsHeader(tab);
+
+        panel.AddButton(tab, "ResetToDefault", () => RemoveAllBindingOverrides(device));
         
         var bindables = GameInputPatcher.BindableButtons.GroupBy(b =>
                 {
@@ -144,7 +147,31 @@ internal class OptionsPanelPatcher
             foreach (var hotkey in hotkeys)
             {
                 if (hotkey.device == device)
-                    panel.AddBindingOption(tab, $"Option{hotkey.button.AsString()}", device, hotkey.button);
+                {
+                    var bindings = panel.AddBindingOption(tab, $"Option{hotkey.button.AsString()}", device, hotkey.button);
+                    (GameInput.input as GameInputSystem)!.bindingOptions.Add(bindings);
+                }
+            }
+        }
+    }
+
+    private static void RemoveAllBindingOverrides(GameInput.Device device)
+    {
+        using (GameInputSystem.DeferBindingResolution())
+        {
+            GameInput.SetBindingsChanged();
+            var deviceName = device.AsString();
+            foreach (var button in GameInputPatcher.CustomButtons)
+            {
+                var action = button.Value;
+                for (var i = 0; i < action.bindings.Count; i++)
+                {
+                    var groups = action.bindings[i].groups;
+                    if (!string.IsNullOrEmpty(groups) && groups.Contains(deviceName))
+                    {
+                        action.ApplyBindingOverride(i, default(InputBinding));
+                    }
+                }
             }
         }
     }
