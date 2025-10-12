@@ -56,6 +56,10 @@ public static partial class EnumExtensions
         GameInput.BindingSet bindingSet, string bindingPath)
     {
         Button button = builder;
+        if (!IsBindingPathValid(builder, bindingPath, device))
+        {
+            return null;
+        }
         GameInputPatcher.Bindings.GetOrAddNew(button).Add(new(device, bindingSet, bindingPath));
         SetBindingDefinition(button, device, bindingSet, bindingPath);
         SetBindable(builder, device);
@@ -83,12 +87,20 @@ public static partial class EnumExtensions
             InternalLogger.Error($"Primary binding path cannot be empty for button: '{button.AsString()}'");
             return builder;
         }
-        
+
+        if (!IsBindingPathValid(builder, primaryBindingPath, device))
+        {
+            return null;
+        }
         GameInputPatcher.Bindings.GetOrAddNew(button).Add(new(device, GameInput.BindingSet.Primary, primaryBindingPath));
         SetBindingDefinition(button, device, GameInput.BindingSet.Primary, primaryBindingPath);
 
         if (!string.IsNullOrWhiteSpace(secondaryBindingPath))
         {
+            if (!IsBindingPathValid(builder, primaryBindingPath, device))
+            {
+                return null;
+            }
             GameInputPatcher.Bindings.GetOrAddNew(button).Add(new(device,  GameInput.BindingSet.Secondary, secondaryBindingPath));
             SetBindingDefinition(button, device, GameInput.BindingSet.Secondary, secondaryBindingPath);
         }
@@ -97,7 +109,9 @@ public static partial class EnumExtensions
         
         return builder;
     }
+
     
+
     /// <summary>
     /// Sets the default bindings for keyboard controls for this button.
     /// </summary>
@@ -186,6 +200,72 @@ public static partial class EnumExtensions
         {
             GameInputSystem.bindingsController[(button, bindingSet)] = bindingPath;
         }
+    }
+    
+    private static bool IsBindingPathValid(EnumBuilder<Button> builder, string bindingPath, GameInput.Device device)
+    {
+        Button button = builder;
+        var deviceName = device.AsString();
+        
+        if (string.IsNullOrWhiteSpace(bindingPath))
+        {
+            InternalLogger.Error($"Binding cannot be empty or null for button: '{button}'.");
+            return false;
+        }
+
+        var controlsForBinding = InputSystem.FindControls(bindingPath);
+        if (controlsForBinding.Count <= 0)
+        {
+            InternalLogger.Error($"Binding path '{bindingPath}' is invalid for button: '{button}'.");
+            return false;
+        }
+
+        var actionType = GameInputPatcher.CustomButtons[button].type;
+
+        // pass through buttons can have any binding
+        if (actionType == InputActionType.PassThrough)
+        {
+            if (controlsForBinding.Any(c => !IsDeviceValid(c, device)))
+            {
+                InternalLogger.Error(
+                    $"Binding path '{bindingPath}' represents more than one binding, which is invalid for input action type '{actionType} for pass through button: '{button}'.");
+                return false;
+            }
+            return true;
+        }
+
+        if (controlsForBinding.Count > 1)
+        {
+            InternalLogger.Error($"Binding path '{bindingPath}' represents more than one binding, which is invalid for input action type '{actionType} for button: '{button}'.");
+            return false;
+        }
+
+        foreach (var inputControl in controlsForBinding)
+        {
+            if (!IsDeviceValid(inputControl, device))
+            {
+                InternalLogger.Error($"Binding path '{bindingPath}' is not compatible with device: '{device}' for button: '{button}'.");
+                return false;
+            }
+
+            if (inputControl is InputDevice)
+            {
+                InternalLogger.Error($"Binding path '{bindingPath}' cannot be a device for button: '{button}'.");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static bool IsDeviceValid(InputControl inputControl, GameInput.Device device)
+    {
+        return device switch
+        {
+            GameInput.Device.Keyboard => inputControl.device is Keyboard or Mouse,
+            GameInput.Device.Controller => inputControl.device is Gamepad,
+            _ => throw new ArgumentOutOfRangeException(nameof(device), device, null)
+        };
     }
 }
 #endif
