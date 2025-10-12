@@ -115,8 +115,6 @@ internal class OptionsPanelPatcher
     private static void PopulateBindings(uGUI_OptionsPanel panel, int tab, GameInput.Device device)
     {
         panel.AddBindingsHeader(tab);
-
-        panel.AddButton(tab, "ResetToDefault", () => RemoveAllBindingOverrides(device));
         
         var bindables = GameInputPatcher.BindableButtons.GroupBy(b =>
                 {
@@ -136,6 +134,8 @@ internal class OptionsPanelPatcher
             panel.AddHeading(tab, "[No custom input]");
             return;
         }
+        
+        panel.AddButton(tab, "ResetToDefault", () => RemoveAllBindingOverrides(device));
         
         foreach (var kvp in bindables)
         {
