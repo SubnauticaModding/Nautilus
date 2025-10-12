@@ -1,23 +1,21 @@
+namespace Nautilus.Patchers;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using Nautilus.Handlers;
-using Nautilus.Options;
-using Nautilus.Utility;
+using Options;
+using Utility;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
-
-namespace Nautilus.Patchers;
-
-#if BELOWZERO
-using static ModKeybindOption;
+#if SUBNAUTICA
+using UnityEngine.InputSystem;
+using Handlers;
 #endif
 
 internal class OptionsPanelPatcher
@@ -54,7 +52,7 @@ internal class OptionsPanelPatcher
     [HarmonyPatch(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue))]
     internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
     {
-        if (__instance.gameObject.GetComponent<ModBindingTag>() is null)
+        if (__instance.gameObject.GetComponent<ModKeybindOption.ModBindingTag>() is null)
         {
             return true;
         }
