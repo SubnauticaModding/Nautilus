@@ -1,8 +1,10 @@
 ﻿#if SUBNAUTICA
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine.InputSystem;
 using Hotkey = (GameInput.Button button, GameInput.Device device);
@@ -45,7 +47,10 @@ internal static class GameInputPatcher
             
             if (Bindings.TryGetValue(button, out var bindings))
             {
-                bindings.ForEach(binding => action.AddBinding(binding.Path, groups: __instance.GetCompositeGroup(binding.Device, binding.BindingSet)));
+                foreach (var binding in bindings)
+                {
+                    action.AddBinding(binding.Path, groups: __instance.GetCompositeGroup(binding.Device, binding.BindingSet));
+                }
             }
         }
         
