@@ -27,18 +27,34 @@ public static partial class EnumExtensions
             GameInput.ActionNames.valueToString.Add(button, name);
         }
     }
-    
+
     /// <summary>
     /// Initializes the action input for this button.
     /// </summary>
     /// <param name="builder">The current custom enum object instance.</param>
+    /// <param name="tooltip">The display name of the button, can be anything. If null or empty, this will use the language line "Option{enumName}" instead.</param>
+    /// <param name="language">The language for the display name. Defaults to English.</param>
     /// <param name="actionType">Determines the behavior with which an <see cref="InputAction"/> triggers.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     /// <seealso href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.InputActionType.html"/>
-    public static EnumBuilder<Button> CreateInput(this EnumBuilder<Button> builder, InputActionType actionType = InputActionType.Button)
+    public static EnumBuilder<Button> CreateInput(this EnumBuilder<Button> builder, string tooltip = "", string language = "English", InputActionType actionType = InputActionType.Button)
     {
         Button button = builder;
-        GameInputPatcher.CustomButtons[button] = new InputAction(button.ToString(), actionType);
+        var buttonName = button.AsString();
+        var fullName = $"Option{buttonName}";
+        GameInputPatcher.CustomButtons[button] = new InputAction(buttonName, actionType);
+        if (!string.IsNullOrEmpty(tooltip))
+        {
+            LanguageHandler.SetLanguageLine(fullName, tooltip, language);
+            return builder;
+        }
+        
+        var friendlyName = Language.main.Get(fullName);
+        if (string.IsNullOrEmpty(friendlyName))
+        {
+            InternalLogger.Warn($"Display name for Button '{buttonName}' is not specified and no language key has been found. Setting display name to 'Option{buttonName}'.");
+        }
+        
         return builder;
     }
 
