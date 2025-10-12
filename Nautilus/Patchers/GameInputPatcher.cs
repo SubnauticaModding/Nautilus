@@ -16,8 +16,9 @@ internal static class GameInputPatcher
     
     public static Dictionary<GameInput.Button, InputAction> CustomButtons = new();
     public static Dictionary<GameInput.Button, List<InputBinding>> Bindings = new();
-    public static HashSet<Hotkey> BindableButtons = new();
     public static List<InputActionMap> CustomActionMaps = new();
+    public static HashSet<Hotkey> BindableButtons = new();
+    public static HashSet<Hotkey> ConflictEvaders = new();
 
     public static void Patch(Harmony harmony)
     {
@@ -105,6 +106,26 @@ internal static class GameInputPatcher
         __result = GameInput.Device.Keyboard;
         return false;
 
+    }
+
+    [HarmonyPatch(typeof(BindConflicts))]
+    [HarmonyPatch(nameof(BindConflicts.GetConflicts))]
+    [HarmonyPrefix]
+    private static bool GetConflictsPrefix(GameInput.Device device, string input, GameInput.Button button,
+        List<BindConflict> conflicts)
+    {
+        if (conflicts is null)
+        {
+            return true;
+        }
+        
+        if (ConflictEvaders.Contains((button, device)))
+        {
+            conflicts.Clear();
+            return false;
+        }
+
+        return true;
     }
 }
 #endif

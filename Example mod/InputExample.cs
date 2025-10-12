@@ -15,7 +15,8 @@ public class InputExample : BaseUnityPlugin
     private GameInput.Button PrintButton = EnumHandler.AddEntry<GameInput.Button>("MyPrint")
         .CreateInput()
         .WithKeyboardBinding("<Keyboard>/l", "<Keyboard>/z")
-        .WithControllerBinding("<Gamepad>/dpad/right");
+        .WithControllerBinding("<Gamepad>/dpad/right")
+        .AvoidConflicts(GameInput.Device.Keyboard);
 
     private void Awake()
     {
