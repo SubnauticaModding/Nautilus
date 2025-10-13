@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using BepInEx.Bootstrap;
 using HarmonyLib;
 using Options;
 using Utility;
@@ -141,7 +142,9 @@ internal class OptionsPanelPatcher
         {
             var assembly = kvp.Key;
             var hotkeys = kvp.Value;
-            panel.AddHeading(tab, assembly.GetName().Name);
+            var pluginName =
+                Chainloader.PluginInfos.FirstOrDefault(x => x.Value.Instance.GetType().Assembly == assembly);
+            panel.AddHeading(tab, pluginName.Value?.Metadata?.Name ?? assembly.GetName().Name);
             foreach (var hotkey in hotkeys)
             {
                 if (hotkey.device == device)
