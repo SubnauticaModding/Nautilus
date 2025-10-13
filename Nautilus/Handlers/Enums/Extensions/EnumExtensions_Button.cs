@@ -149,8 +149,8 @@ public static partial class EnumExtensions
     /// </summary>
     /// <param name="builder">The current custom enum object instance.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    /// <remarks>By default, all custom buttons are bindable, unless explicitly set as unbindable by calling <see cref="SetUnbindable"/>.</remarks>
-    /// <seealso cref="SetUnbindable"/>
+    /// <remarks>By default, all custom buttons are bindable, unless explicitly set as unbindable by calling <see cref="SetUnbindable(EnumBuilder{Button})"/>.</remarks>
+    /// <seealso cref="SetBindable(EnumBuilder{Button}, GameInput.Device)"/>
     public static EnumBuilder<Button> SetBindable(this EnumBuilder<Button> builder)
     {
         foreach (var device in GameInput.AllDevices)
@@ -167,8 +167,8 @@ public static partial class EnumExtensions
     /// <param name="builder">The current custom enum object instance.</param>
     /// <param name="device">The device that was set to be bindable.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    /// <remarks>By default, all custom buttons are bindable, unless explicitly set as unbindable by calling <see cref="SetUnbindable"/>.</remarks>
-    /// <seealso cref="SetUnbindable"/>
+    /// <remarks>By default, all custom buttons are bindable, unless explicitly set as unbindable by calling <see cref="SetUnbindable(EnumBuilder{Button}, GameInput.Device)"/>.</remarks>
+    /// <seealso cref="SetBindable(EnumBuilder{Button})"/>
     public static EnumBuilder<Button> SetBindable(this EnumBuilder<Button> builder, GameInput.Device device)
     {
         GameInputPatcher.BindableButtons.Add((builder, device));
@@ -180,6 +180,7 @@ public static partial class EnumExtensions
     /// </summary>
     /// <param name="builder">The current custom enum object instance.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <seealso cref="SetUnbindable(EnumBuilder{Button}, GameInput.Device)"/>
     public static EnumBuilder<Button> SetUnbindable(this EnumBuilder<Button> builder)
     {
         foreach (var device in GameInput.AllDevices)
@@ -196,6 +197,7 @@ public static partial class EnumExtensions
     /// <param name="builder">The current custom enum object instance.</param>
     /// <param name="device">The device in which this button cannot be bound.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <seealso cref="SetUnbindable(EnumBuilder{Button})"/>
     public static EnumBuilder<Button> SetUnbindable(this EnumBuilder<Button> builder, GameInput.Device device)
     {
         GameInputPatcher.BindableButtons.Remove((builder, device));
@@ -207,6 +209,7 @@ public static partial class EnumExtensions
     /// </summary>
     /// <param name="builder">The current custom enum object instance.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <seealso cref="AvoidConflicts(EnumBuilder{Button}, GameInput.Device)"/>
     public static EnumBuilder<Button> AvoidConflicts(this EnumBuilder<Button> builder)
     {
         foreach (var device in GameInput.AllDevices)
@@ -223,6 +226,7 @@ public static partial class EnumExtensions
     /// <param name="builder">The current custom enum object instance.</param>
     /// <param name="device">The devices in which this button avoids conflicts.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <seealso cref="AvoidConflicts(EnumBuilder{Button})"/>
     public static EnumBuilder<Button> AvoidConflicts(this EnumBuilder<Button> builder, GameInput.Device device)
     {
         GameInputPatcher.ConflictEvaders.Add((builder, device));
