@@ -145,20 +145,33 @@ public static partial class EnumExtensions
     }
 
     /// <summary>
-    /// Assigns this button to be bindable in the Mod Input tab.
+    /// Assigns this button to be bindable for all devices in the Mod Input tab.
     /// </summary>
     /// <param name="builder">The current custom enum object instance.</param>
-    /// <param name="devices">The devices that will have customized bindings.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     /// <remarks>By default, all custom buttons are bindable, unless explicitly set as unbindable by calling <see cref="SetUnbindable"/>.</remarks>
     /// <seealso cref="SetUnbindable"/>
-    public static EnumBuilder<Button> SetBindable(this EnumBuilder<Button> builder, params GameInput.Device[] devices)
+    public static EnumBuilder<Button> SetBindable(this EnumBuilder<Button> builder)
     {
-        foreach (var device in devices)
+        foreach (var device in GameInput.AllDevices)
         {
-            GameInputPatcher.BindableButtons.Add((builder, device));
+            SetBindable(builder, device);
         }
         
+        return builder;
+    }
+
+    /// <summary>
+    /// Assigns this button to be bindable for a device in the Mod Input tab.
+    /// </summary>
+    /// <param name="builder">The current custom enum object instance.</param>
+    /// <param name="device">The device that was set to be bindable.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <remarks>By default, all custom buttons are bindable, unless explicitly set as unbindable by calling <see cref="SetUnbindable"/>.</remarks>
+    /// <seealso cref="SetUnbindable"/>
+    public static EnumBuilder<Button> SetBindable(this EnumBuilder<Button> builder, GameInput.Device device)
+    {
+        GameInputPatcher.BindableButtons.Add((builder, device));
         return builder;
     }
 
@@ -166,15 +179,26 @@ public static partial class EnumExtensions
     /// Removes this button from being bindable in the Mod Input tab.
     /// </summary>
     /// <param name="builder">The current custom enum object instance.</param>
-    /// <param name="devices">The devices in which this button cannot be bound.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static EnumBuilder<Button> SetUnbindable(this EnumBuilder<Button> builder, params GameInput.Device[] devices)
+    public static EnumBuilder<Button> SetUnbindable(this EnumBuilder<Button> builder)
     {
-        foreach (var device in devices)
+        foreach (var device in GameInput.AllDevices)
         {
-            GameInputPatcher.BindableButtons.Remove((builder, device));
+            SetUnbindable(builder, device);
         }
         
+        return builder;
+    }
+
+    /// <summary>
+    /// Removes this button from being bindable for a specific device in the Mod Input tab.
+    /// </summary>
+    /// <param name="builder">The current custom enum object instance.</param>
+    /// <param name="device">The device in which this button cannot be bound.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public static EnumBuilder<Button> SetUnbindable(this EnumBuilder<Button> builder, GameInput.Device device)
+    {
+        GameInputPatcher.BindableButtons.Remove((builder, device));
         return builder;
     }
 
@@ -182,15 +206,26 @@ public static partial class EnumExtensions
     /// Assigns this button to force its bindings to work regardless of whether another vanilla button or custom button have similar bindings.
     /// </summary>
     /// <param name="builder">The current custom enum object instance.</param>
-    /// <param name="devices">The devices in which this button avoids conflicts.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static EnumBuilder<Button> AvoidConflicts(this EnumBuilder<Button> builder, params GameInput.Device[] devices)
+    public static EnumBuilder<Button> AvoidConflicts(this EnumBuilder<Button> builder)
     {
-        foreach (var device in devices)
+        foreach (var device in GameInput.AllDevices)
         {
-            GameInputPatcher.ConflictEvaders.Add((builder, device));
+            AvoidConflicts(builder, device);
         }
         
+        return builder;
+    }
+    
+    /// <summary>
+    /// Assigns this button to force its bindings to work regardless of whether another vanilla button or custom button have similar bindings in a device.
+    /// </summary>
+    /// <param name="builder">The current custom enum object instance.</param>
+    /// <param name="device">The devices in which this button avoids conflicts.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    public static EnumBuilder<Button> AvoidConflicts(this EnumBuilder<Button> builder, GameInput.Device device)
+    {
+        GameInputPatcher.ConflictEvaders.Add((builder, device));
         return builder;
     }
 
