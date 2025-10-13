@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Nautilus.Utility;
 
-// Resharper
+// ReSharper disable once CheckNamespace
 namespace Nautilus.Handlers;
 
 /// <summary>
