@@ -123,17 +123,23 @@ internal class OptionsPanelPatcher
 
         var pluginNameByAssembly = new Dictionary<Assembly, string>();
         var pluginsForBinding = new Dictionary<GameInput.Button, string>();
-        GameInputPatcher.Categories.Values.ForEach(c => c.ForEach(b =>
+        var bindingAssemblies = new Dictionary<GameInput.Button, Assembly>();
+        GameInputPatcher.BindableButtons.ForEach(b =>
         {
-            if (!EnumHandler.TryGetOwnerAssembly(b, out var assembly))
+            if (pluginsForBinding.ContainsKey(b.button))
+                return;
+            
+            if (!EnumHandler.TryGetOwnerAssembly(b.button, out var assembly))
             {
                 InternalLogger.Warn("Failed to find owner assembly for input " + b);
                 return;
             }
 
+            bindingAssemblies[b.button] = assembly;
+
             if (pluginNameByAssembly.TryGetValue(assembly, out var pluginName))
             {
-                pluginsForBinding[b] = pluginName;
+                pluginsForBinding[b.button] = pluginName;
                 return;
             }
             
@@ -144,21 +150,26 @@ internal class OptionsPanelPatcher
             var pluginNameOrDefault = plugin?.Name ?? assembly.GetName().Name;
             
             pluginNameByAssembly[assembly] = pluginNameOrDefault;
-            pluginsForBinding[b] = pluginNameOrDefault;
-        }));
+            pluginsForBinding[b.button] = pluginNameOrDefault;
+        });
         
         var bindables = GameInputPatcher.BindableButtons.GroupBy(b =>
                 {
                     foreach (var kvp in GameInputPatcher.Categories)
                     {
                         if (kvp.Value.Contains(b.button) && !string.IsNullOrEmpty(kvp.Key))
-                            return kvp.Key;
+                            return (kvp.Key, null);
+                    }
+
+                    if (bindingAssemblies.TryGetValue(b.button, out var pluginAssembly))
+                    {
+                        return (string.Empty, pluginAssembly);
                     }
                 
                     InternalLogger.Error($"Couldn't find a valid category for the bindable button '{b}'.");
-                    return null;
+                    return (null, null);
                 }
-            ).Where(g => g.Key is not null)
+            ).Where(g => g.Key.pluginAssembly is not null || !string.IsNullOrEmpty(g.Key.Empty))
             .ToDictionary(
                 g => g.Key, 
                 g => g.ToList());
@@ -174,7 +185,7 @@ internal class OptionsPanelPatcher
         foreach (var kvp in bindables)
         {
             var hotkeys = kvp.Value;
-            panel.AddHeading(tab, kvp.Key);
+            panel.AddHeading(tab, string.IsNullOrEmpty(kvp.Key.Empty) ? kvp.Key.pluginAssembly.GetName().Name : kvp.Key.Empty);
             foreach (var hotkey in hotkeys)
             {
                 if (hotkey.device == device)
