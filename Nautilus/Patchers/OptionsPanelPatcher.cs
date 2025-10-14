@@ -15,6 +15,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 #if SUBNAUTICA
 using UnityEngine.InputSystem;
+using MonoBehaviours;
+using BepInEx;
 using Handlers;
 #endif
 
@@ -118,6 +120,32 @@ internal class OptionsPanelPatcher
     private static void PopulateBindings(uGUI_OptionsPanel panel, int tab, GameInput.Device device)
     {
         panel.AddBindingsHeader(tab);
+
+        var pluginNameByAssembly = new Dictionary<Assembly, string>();
+        var pluginsForBinding = new Dictionary<GameInput.Button, string>();
+        GameInputPatcher.Categories.Values.ForEach(c => c.ForEach(b =>
+        {
+            if (!EnumHandler.TryGetOwnerAssembly(b, out var assembly))
+            {
+                InternalLogger.Warn("Failed to find owner assembly for input " + b);
+                return;
+            }
+
+            if (pluginNameByAssembly.TryGetValue(assembly, out var pluginName))
+            {
+                pluginsForBinding[b] = pluginName;
+                return;
+            }
+            
+            var plugin = assembly.GetTypes().FirstOrDefault(t =>
+                t.GetCustomAttribute<BepInPlugin>() is not null)?
+                .GetCustomAttribute<BepInPlugin>();
+
+            var pluginNameOrDefault = plugin?.Name ?? assembly.GetName().Name;
+            
+            pluginNameByAssembly[assembly] = pluginNameOrDefault;
+            pluginsForBinding[b] = pluginNameOrDefault;
+        }));
         
         var bindables = GameInputPatcher.BindableButtons.GroupBy(b =>
                 {
@@ -146,8 +174,6 @@ internal class OptionsPanelPatcher
         foreach (var kvp in bindables)
         {
             var hotkeys = kvp.Value;
-            // var plugin = assembly.GetTypes().FirstOrDefault(t => t.GetCustomAttribute<BepInPlugin>() is not null)?.GetCustomAttribute<BepInPlugin>();
-            // panel.AddHeading(tab, plugin?.Name ?? assembly.GetName().Name);
             panel.AddHeading(tab, kvp.Key);
             foreach (var hotkey in hotkeys)
             {
@@ -155,6 +181,9 @@ internal class OptionsPanelPatcher
                 {
                     var bindings = panel.AddBindingOption(tab, $"Option{hotkey.button.AsString()}", device, hotkey.button);
                     (GameInput.input as GameInputSystem)!.bindingOptions.Add(bindings);
+                    if (pluginsForBinding.TryGetValue(hotkey.button, out var pluginName))
+                        bindings.transform.parent.gameObject.AddComponent<ModBindingTooltip>().tooltip =
+                            $"Added by <b><color=#FFAC09>{pluginName}</color></b>";
                 }
             }
         }
