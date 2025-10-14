@@ -1,3 +1,5 @@
+using BepInEx;
+
 namespace Nautilus.Patchers;
 
 using System.Collections;
@@ -142,9 +144,8 @@ internal class OptionsPanelPatcher
         {
             var assembly = kvp.Key;
             var hotkeys = kvp.Value;
-            var pluginName =
-                Chainloader.PluginInfos.FirstOrDefault(x => x.Value.Instance.GetType().Assembly == assembly);
-            panel.AddHeading(tab, pluginName.Value?.Metadata?.Name ?? assembly.GetName().Name);
+            var plugin = assembly.GetTypes().FirstOrDefault(t => t.GetCustomAttribute<BepInPlugin>() is not null)?.GetCustomAttribute<BepInPlugin>();
+            panel.AddHeading(tab, plugin?.Name ?? assembly.GetName().Name);
             foreach (var hotkey in hotkeys)
             {
                 if (hotkey.device == device)
