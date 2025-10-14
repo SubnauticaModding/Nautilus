@@ -121,60 +121,35 @@ internal class OptionsPanelPatcher
     {
         panel.AddBindingsHeader(tab);
 
-        var pluginNameByAssembly = new Dictionary<Assembly, string>();
-        var pluginsForBinding = new Dictionary<GameInput.Button, string>();
-        var bindingAssemblies = new Dictionary<GameInput.Button, Assembly>();
-        GameInputPatcher.BindableButtons.ForEach(b =>
-        {
-            if (pluginsForBinding.ContainsKey(b.button))
-                return;
-            
-            if (!EnumHandler.TryGetOwnerAssembly(b.button, out var assembly))
-            {
-                InternalLogger.Warn("Failed to find owner assembly for input " + b);
-                return;
-            }
-
-            bindingAssemblies[b.button] = assembly;
-
-            if (pluginNameByAssembly.TryGetValue(assembly, out var pluginName))
-            {
-                pluginsForBinding[b.button] = pluginName;
-                return;
-            }
-            
-            var plugin = assembly.GetTypes().FirstOrDefault(t =>
-                t.GetCustomAttribute<BepInPlugin>() is not null)?
-                .GetCustomAttribute<BepInPlugin>();
-
-            var pluginNameOrDefault = plugin?.Name ?? assembly.GetName().Name;
-            
-            pluginNameByAssembly[assembly] = pluginNameOrDefault;
-            pluginsForBinding[b.button] = pluginNameOrDefault;
-        });
+        /*
+         * Category logic order:
+         * 1. all buttons with the same category name go under one category
+         * 2. If a button doesn't have a category, it's automatically assigned to a category with the same name as the plugin name
+         * 3. If the plugin name couldn't be fetched, use assembly name.
+         */
         
-        var bindables = GameInputPatcher.BindableButtons.GroupBy(b =>
-                {
-                    foreach (var kvp in GameInputPatcher.Categories)
-                    {
-                        if (kvp.Value.Contains(b.button) && !string.IsNullOrEmpty(kvp.Key))
-                            return (kvp.Key, null);
-                    }
-
-                    if (bindingAssemblies.TryGetValue(b.button, out var pluginAssembly))
-                    {
-                        return (string.Empty, pluginAssembly);
-                    }
+        
+        // find buttons with no categories and assign plugin name or assembly name as their category
+        var buttonsWithCategories = GameInputPatcher.Categories.Values.SelectMany(b => b).ToHashSet();
+        var buttonsWithoutCategories = GameInputPatcher.BindableButtons
+            .Where(hotkey => !buttonsWithCategories.Contains(hotkey.button) && hotkey.device == device)
+            .GroupBy(b =>
+            {
+                if (EnumHandler.TryGetOwnerAssembly(b.button, out var assembly))
+                    return assembly;
                 
-                    InternalLogger.Error($"Couldn't find a valid category for the bindable button '{b}'.");
-                    return (null, null);
-                }
-            ).Where(g => g.Key.pluginAssembly is not null || !string.IsNullOrEmpty(g.Key.Empty))
+                InternalLogger.Error($"Couldn't find the assembly associated with bindable button '{b}'.");
+                return null;
+            }).Where(g => g.Key is not null)
             .ToDictionary(
-                g => g.Key, 
-                g => g.ToList());
-
-        if (bindables.Count == 0)
+                g => FindPluginNameForAssembly(g.Key),
+                g => g.Select(h => h.button).ToHashSet());
+        
+        
+        // merge buttons that have categories with buttons that don't have categories
+        var categorizedButtons = GameInputPatcher.Categories.Concat(buttonsWithoutCategories).ToList();
+        
+        if (categorizedButtons.Count == 0)
         {
             panel.AddHeading(tab, "[No custom input]");
             return;
@@ -182,22 +157,41 @@ internal class OptionsPanelPatcher
         
         panel.AddButton(tab, "ResetToDefault", () => RemoveAllBindingOverrides(device));
         
-        foreach (var kvp in bindables)
+        foreach (var kvp in categorizedButtons)
         {
-            var hotkeys = kvp.Value;
-            panel.AddHeading(tab, string.IsNullOrEmpty(kvp.Key.Empty) ? kvp.Key.pluginAssembly.GetName().Name : kvp.Key.Empty);
-            foreach (var hotkey in hotkeys)
+            var category = kvp.Key;
+            var buttons = kvp.Value;
+            panel.AddHeading(tab, category);
+            foreach (var button in buttons)
             {
-                if (hotkey.device == device)
+                if (!GameInputPatcher.BindableButtons.Contains((button, device)))
                 {
-                    var bindings = panel.AddBindingOption(tab, $"Option{hotkey.button.AsString()}", device, hotkey.button);
-                    (GameInput.input as GameInputSystem)!.bindingOptions.Add(bindings);
-                    if (pluginsForBinding.TryGetValue(hotkey.button, out var pluginName))
-                        bindings.transform.parent.gameObject.AddComponent<ModBindingTooltip>().tooltip =
-                            $"Added by <b><color=#FFAC09>{pluginName}</color></b>";
+                    InternalLogger.Error($"Button '{button}' has a category but wasn't set to be bindable. Please set the button to be bindable first.");
+                    continue;
                 }
+                
+                var bindings = panel.AddBindingOption(tab, $"Option{button.AsString()}", device, button);
+                (GameInput.input as GameInputSystem)!.bindingOptions.Add(bindings);
+                if (!EnumHandler.TryGetOwnerAssembly(button, out var assembly))
+                {
+                    InternalLogger.Error($"Couldn't find the assembly associated with bindable button '{button}'.");
+                    return;
+                }
+                
+                var pluginName = FindPluginNameForAssembly(assembly);
+                bindings.transform.parent.gameObject.AddComponent<ModBindingTooltip>().tooltip = 
+                    $"Added by <b><color=#FFAC09>{pluginName}</color></b>";
             }
         }
+    }
+
+    private static string FindPluginNameForAssembly(Assembly assembly)
+    {
+        var plugin = assembly
+            .GetTypes()
+            .FirstOrDefault(t => t.GetCustomAttribute<BepInPlugin>() is not null)?.GetCustomAttribute<BepInPlugin>();
+        
+        return plugin?.Name ?? assembly.GetName().Name;
     }
 
     private static void RemoveAllBindingOverrides(GameInput.Device device)
