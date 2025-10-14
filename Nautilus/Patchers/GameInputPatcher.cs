@@ -18,6 +18,7 @@ internal static class GameInputPatcher
     
     public static Dictionary<GameInput.Button, InputAction> CustomButtons = new();
     public static Dictionary<GameInput.Button, List<InputBinding>> Bindings = new();
+    public static Dictionary<string, HashSet<GameInput.Button>> Categories = new();
     public static List<InputActionMap> CustomActionMaps = new();
     public static HashSet<Hotkey> BindableButtons = new();
     public static HashSet<Hotkey> ConflictEvaders = new();

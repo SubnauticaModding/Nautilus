@@ -145,6 +145,19 @@ public static partial class EnumExtensions
     }
 
     /// <summary>
+    /// Defines a custom category in which this button will appear in the Mod Input tab.
+    /// </summary>
+    /// <param name="builder">The current custom enum object instance.</param>
+    /// <param name="category">The category name.</param>
+    /// <returns>A reference to this instance after the operation has completed.</returns>
+    /// <remarks>If the specified category was already added by another mod, both buttons will be merged under one category.</remarks>
+    public static EnumBuilder<Button> WithCategory(this EnumBuilder<Button> builder, string category)
+    {
+        GameInputPatcher.Categories.GetOrAddNew(category).Add(builder);
+        return builder;
+    }
+
+    /// <summary>
     /// Assigns this button to be bindable for all devices in the Mod Input tab.
     /// </summary>
     /// <param name="builder">The current custom enum object instance.</param>
