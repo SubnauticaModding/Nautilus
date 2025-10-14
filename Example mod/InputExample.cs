@@ -33,6 +33,12 @@ public class InputExample : BaseUnityPlugin
         .AvoidConflicts(GameInput.Device.Keyboard)
         .WithCategory("NautilusExampleLogCategory");
 
+    private GameInput.Button UncategorizedButton = EnumHandler.AddEntry<GameInput.Button>("UncategorizedButton")
+        .CreateInput()
+        .WithKeyboardBinding("<Keyboard>/i")
+        .WithControllerBinding("<Gamepad>/dpad/down")
+        .AvoidConflicts(GameInput.Device.Keyboard);
+
     private void Awake()
     {
         LanguageHandler.RegisterLocalizationFolder();
