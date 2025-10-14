@@ -174,8 +174,8 @@ internal class OptionsPanelPatcher
                 (GameInput.input as GameInputSystem)!.bindingOptions.Add(bindings);
                 if (!EnumHandler.TryGetOwnerAssembly(button, out var assembly))
                 {
-                    InternalLogger.Error($"Couldn't find the assembly associated with bindable button '{button}'.");
-                    return;
+                    InternalLogger.Error($"Couldn't find the assembly associated with bindable button '{button}', category '{category}' was skipped.'");
+                    break;
                 }
                 
                 var pluginName = FindPluginNameForAssembly(assembly);
