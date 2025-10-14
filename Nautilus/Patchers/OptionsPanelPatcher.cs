@@ -106,6 +106,9 @@ internal class OptionsPanelPatcher
         optionsPanel.AddHeading(inputTab, "<b>Keyboard</b>");
         PopulateBindings(optionsPanel, inputTab, GameInput.Device.Keyboard);
 
+        // Add dividing line
+        optionsPanel.AddHeading(inputTab, new string('-', 96));
+        
         optionsPanel.AddHeading(inputTab, "<b>Controller</b>");
         PopulateBindings(optionsPanel, inputTab, GameInput.Device.Controller);
 #endif
