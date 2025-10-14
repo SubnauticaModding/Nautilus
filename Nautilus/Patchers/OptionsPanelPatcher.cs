@@ -1,5 +1,3 @@
-using BepInEx;
-
 namespace Nautilus.Patchers;
 
 using System.Collections;
@@ -7,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using BepInEx.Bootstrap;
 using HarmonyLib;
 using Options;
 using Utility;
@@ -121,10 +118,13 @@ internal class OptionsPanelPatcher
         
         var bindables = GameInputPatcher.BindableButtons.GroupBy(b =>
                 {
-                    if (EnumHandler.TryGetOwnerAssembly(b.button, out var assembly))
-                        return assembly;
+                    foreach (var kvp in GameInputPatcher.Categories)
+                    {
+                        if (kvp.Value.Contains(b.button) && !string.IsNullOrEmpty(kvp.Key))
+                            return kvp.Key;
+                    }
                 
-                    InternalLogger.Error($"Couldn't find the assembly associated with bindable button '{b}'.");
+                    InternalLogger.Error($"Couldn't find a valid category for the bindable button '{b}'.");
                     return null;
                 }
             ).Where(g => g.Key is not null)
@@ -142,10 +142,10 @@ internal class OptionsPanelPatcher
         
         foreach (var kvp in bindables)
         {
-            var assembly = kvp.Key;
             var hotkeys = kvp.Value;
-            var plugin = assembly.GetTypes().FirstOrDefault(t => t.GetCustomAttribute<BepInPlugin>() is not null)?.GetCustomAttribute<BepInPlugin>();
-            panel.AddHeading(tab, plugin?.Name ?? assembly.GetName().Name);
+            // var plugin = assembly.GetTypes().FirstOrDefault(t => t.GetCustomAttribute<BepInPlugin>() is not null)?.GetCustomAttribute<BepInPlugin>();
+            // panel.AddHeading(tab, plugin?.Name ?? assembly.GetName().Name);
+            panel.AddHeading(tab, kvp.Key);
             foreach (var hotkey in hotkeys)
             {
                 if (hotkey.device == device)
