@@ -105,13 +105,11 @@ internal class OptionsPanelPatcher
 
 #if SUBNAUTICA
         var inputTab = optionsPanel.AddTab("Mod Input");
-        optionsPanel.AddHeading(inputTab, "<b>Keyboard</b>");
         PopulateBindings(optionsPanel, inputTab, GameInput.Device.Keyboard);
 
         // Add dividing line
         optionsPanel.AddHeading(inputTab, new string('\u2500', 34));
         
-        optionsPanel.AddHeading(inputTab, "<b>Controller</b>");
         PopulateBindings(optionsPanel, inputTab, GameInput.Device.Controller);
 #endif
     }
@@ -119,7 +117,14 @@ internal class OptionsPanelPatcher
 #if SUBNAUTICA
     private static void PopulateBindings(uGUI_OptionsPanel panel, int tab, GameInput.Device device)
     {
-        panel.AddBindingsHeader(tab);
+        var bindingsHeader = panel.AddBindingsHeader(tab);
+        bindingsHeader.transform.Find("Caption").GetComponent<TextMeshProUGUI>().text =
+            $"<color=#FFAC09><b>{device switch
+            {
+                GameInput.Device.Keyboard => "Keyboard",
+                GameInput.Device.Controller => "Controller",
+                _ => "Unknown device"
+            }}</b></color>";
 
         /*
          * Category logic order:
