@@ -21,8 +21,8 @@ public class InputExample : BaseUnityPlugin
     
     private GameInput.Button PrintHelloButton = EnumHandler.AddEntry<GameInput.Button>("PrintHello")
         .CreateInput()
-        .WithKeyboardBinding("<Keyboard>/r")
-        .WithControllerBinding("<Gamepad>/dpad/left")
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.R)
+        .WithControllerBinding(GameInputHandler.Paths.Gamepad.DpadLeft)
         .AvoidConflicts(GameInput.Device.Keyboard)
         .WithCategory("NautilusExamplePrintCategory");
 
