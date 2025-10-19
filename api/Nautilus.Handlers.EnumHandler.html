@@ -89,7 +89,7 @@
 
 
   <h1 id="Nautilus_Handlers_EnumHandler" data-uid="Nautilus.Handlers.EnumHandler" class="text-break">
-Class EnumHandler  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L11"><i class="bi bi-code-slash"></i></a>
+Class EnumHandler  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L18"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
@@ -156,7 +156,7 @@ Class EnumHandler  <a class="header-action link-secondary" title="View source" h
 
   <h3 id="Nautilus_Handlers_EnumHandler_AddEntry__1_System_String_" data-uid="Nautilus.Handlers.EnumHandler.AddEntry``1(System.String)">
   AddEntry&lt;TEnum&gt;(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L33"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L56"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a new custom enum object instance.</div>
@@ -197,7 +197,7 @@ Class EnumHandler  <a class="header-action link-secondary" title="View source" h
 
   <h3 id="Nautilus_Handlers_EnumHandler_AddEntry__1_System_String_System_Reflection_Assembly_" data-uid="Nautilus.Handlers.EnumHandler.AddEntry``1(System.String,System.Reflection.Assembly)">
   AddEntry&lt;TEnum&gt;(string, Assembly)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L21"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L38"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a new custom enum object instance.</div>
@@ -236,11 +236,47 @@ Class EnumHandler  <a class="header-action link-secondary" title="View source" h
 
 
 
+  <a id="Nautilus_Handlers_EnumHandler_AddOnEnumRegistered_" data-uid="Nautilus.Handlers.EnumHandler.AddOnEnumRegistered*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_AddOnEnumRegistered__1_Nautilus_Handlers_OnEnumRegistered___0__" data-uid="Nautilus.Handlers.EnumHandler.AddOnEnumRegistered``1(Nautilus.Handlers.OnEnumRegistered{``0})">
+  AddOnEnumRegistered&lt;TEnum&gt;(OnEnumRegistered&lt;TEnum&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L195"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Adds a callback that's executed every time a custom enum of a certain type is created.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddOnEnumRegistered&lt;TEnum&gt;(OnEnumRegistered&lt;TEnum&gt; callback) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>callback</code> <a class="xref" href="Nautilus.Handlers.OnEnumRegistered-1.html">OnEnumRegistered</a>&lt;TEnum&gt;</dt>
+    <dd>The callback that will be executed.</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>The type of the enum this callback is for.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_EnumHandler_ModdedEnumExists_" data-uid="Nautilus.Handlers.EnumHandler.ModdedEnumExists*"></a>
 
   <h3 id="Nautilus_Handlers_EnumHandler_ModdedEnumExists__1_System_String_" data-uid="Nautilus.Handlers.EnumHandler.ModdedEnumExists``1(System.String)">
   ModdedEnumExists&lt;TEnum&gt;(string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L160"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L185"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Safely looks for a custom enum object from another mod.</div>
@@ -277,11 +313,47 @@ Class EnumHandler  <a class="header-action link-secondary" title="View source" h
 
 
 
+  <a id="Nautilus_Handlers_EnumHandler_RemoveOnEnumRegistered_" data-uid="Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_RemoveOnEnumRegistered__1_Nautilus_Handlers_OnEnumRegistered___0__" data-uid="Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered``1(Nautilus.Handlers.OnEnumRegistered{``0})">
+  RemoveOnEnumRegistered&lt;TEnum&gt;(OnEnumRegistered&lt;TEnum&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L204"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">Removes a callback that was previously added to the OnEnumRegistered event.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RemoveOnEnumRegistered&lt;TEnum&gt;(OnEnumRegistered&lt;TEnum&gt; callback) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>callback</code> <a class="xref" href="Nautilus.Handlers.OnEnumRegistered-1.html">OnEnumRegistered</a>&lt;TEnum&gt;</dt>
+    <dd>The callback to remove.</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
   <a id="Nautilus_Handlers_EnumHandler_TryAddEntry_" data-uid="Nautilus.Handlers.EnumHandler.TryAddEntry*"></a>
 
   <h3 id="Nautilus_Handlers_EnumHandler_TryAddEntry__1_System_String_Nautilus_Handlers_EnumBuilder___0___" data-uid="Nautilus.Handlers.EnumHandler.TryAddEntry``1(System.String,Nautilus.Handlers.EnumBuilder{``0}@)">
   TryAddEntry&lt;TEnum&gt;(string, out EnumBuilder&lt;TEnum&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L65"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L90"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a new custom enum object instance.</div>
@@ -324,7 +396,7 @@ Class EnumHandler  <a class="header-action link-secondary" title="View source" h
 
   <h3 id="Nautilus_Handlers_EnumHandler_TryAddEntry__1_System_String_System_Reflection_Assembly_Nautilus_Handlers_EnumBuilder___0___" data-uid="Nautilus.Handlers.EnumHandler.TryAddEntry``1(System.String,System.Reflection.Assembly,Nautilus.Handlers.EnumBuilder{``0}@)">
   TryAddEntry&lt;TEnum&gt;(string, Assembly, out EnumBuilder&lt;TEnum&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L52"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L77"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Adds a new custom enum object instance.</div>
@@ -369,7 +441,7 @@ Class EnumHandler  <a class="header-action link-secondary" title="View source" h
 
   <h3 id="Nautilus_Handlers_EnumHandler_TryGetOwnerAssembly__1___0_System_Reflection_Assembly__" data-uid="Nautilus.Handlers.EnumHandler.TryGetOwnerAssembly``1(``0,System.Reflection.Assembly@)">
   TryGetOwnerAssembly&lt;TEnum&gt;(TEnum, out Assembly)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L109"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L134"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Safely looks for a custom enum object from another mod and outputs the instance when found.</div>
@@ -414,7 +486,7 @@ Class EnumHandler  <a class="header-action link-secondary" title="View source" h
 
   <h3 id="Nautilus_Handlers_EnumHandler_TryGetValue__1_System_String___0__" data-uid="Nautilus.Handlers.EnumHandler.TryGetValue``1(System.String,``0@)">
   TryGetValue&lt;TEnum&gt;(string, out TEnum)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L80"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L105"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Safely looks for a custom enum object from another mod and outputs the instance when found.</div>
@@ -459,7 +531,7 @@ Class EnumHandler  <a class="header-action link-secondary" title="View source" h
 
   <h3 id="Nautilus_Handlers_EnumHandler_TryGetValue__1_System_String___0__System_Reflection_Assembly__" data-uid="Nautilus.Handlers.EnumHandler.TryGetValue``1(System.String,``0@,System.Reflection.Assembly@)">
   TryGetValue&lt;TEnum&gt;(string, out TEnum, out Assembly)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L133"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L158"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Safely looks for a custom enum object from another mod and outputs the instance when found.</div>
@@ -506,7 +578,7 @@ Class EnumHandler  <a class="header-action link-secondary" title="View source" h
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L11" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L18" class="edit-link">Edit this page</a>
         </div>
 
 

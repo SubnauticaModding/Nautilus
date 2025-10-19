@@ -5612,6 +5612,31 @@ references:
   commentId: T:Nautilus.Handlers.EnumExtensions
   fullName: Nautilus.Handlers.EnumExtensions
   nameWithType: EnumExtensions
+- uid: Nautilus.Handlers.EnumExtensions.AvoidConflicts(Nautilus.Handlers.EnumBuilder{GameInput.Button})
+  name: AvoidConflicts(EnumBuilder<Button>)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_AvoidConflicts_Nautilus_Handlers_EnumBuilder_GameInput_Button__
+  commentId: M:Nautilus.Handlers.EnumExtensions.AvoidConflicts(Nautilus.Handlers.EnumBuilder{GameInput.Button})
+  name.vb: AvoidConflicts(EnumBuilder(Of Button))
+  fullName: Nautilus.Handlers.EnumExtensions.AvoidConflicts(Nautilus.Handlers.EnumBuilder<GameInput.Button>)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.AvoidConflicts(Nautilus.Handlers.EnumBuilder(Of GameInput.Button))
+  nameWithType: EnumExtensions.AvoidConflicts(EnumBuilder<GameInput.Button>)
+  nameWithType.vb: EnumExtensions.AvoidConflicts(EnumBuilder(Of GameInput.Button))
+- uid: Nautilus.Handlers.EnumExtensions.AvoidConflicts(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device)
+  name: AvoidConflicts(EnumBuilder<Button>, Device)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_AvoidConflicts_Nautilus_Handlers_EnumBuilder_GameInput_Button__GameInput_Device_
+  commentId: M:Nautilus.Handlers.EnumExtensions.AvoidConflicts(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device)
+  name.vb: AvoidConflicts(EnumBuilder(Of Button), Device)
+  fullName: Nautilus.Handlers.EnumExtensions.AvoidConflicts(Nautilus.Handlers.EnumBuilder<GameInput.Button>, GameInput.Device)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.AvoidConflicts(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), GameInput.Device)
+  nameWithType: EnumExtensions.AvoidConflicts(EnumBuilder<GameInput.Button>, GameInput.Device)
+  nameWithType.vb: EnumExtensions.AvoidConflicts(EnumBuilder(Of GameInput.Button), GameInput.Device)
+- uid: Nautilus.Handlers.EnumExtensions.AvoidConflicts*
+  name: AvoidConflicts
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_AvoidConflicts_
+  commentId: Overload:Nautilus.Handlers.EnumExtensions.AvoidConflicts
+  isSpec: "True"
+  fullName: Nautilus.Handlers.EnumExtensions.AvoidConflicts
+  nameWithType: EnumExtensions.AvoidConflicts
 - uid: Nautilus.Handlers.EnumExtensions.CreateCraftTreeRoot(Nautilus.Handlers.EnumBuilder{CraftTree.Type},Nautilus.Crafting.ModCraftTreeRoot@)
   name: CreateCraftTreeRoot(EnumBuilder<Type>, out ModCraftTreeRoot)
   href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_CreateCraftTreeRoot_Nautilus_Handlers_EnumBuilder_CraftTree_Type__Nautilus_Crafting_ModCraftTreeRoot__
@@ -5628,6 +5653,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.EnumExtensions.CreateCraftTreeRoot
   nameWithType: EnumExtensions.CreateCraftTreeRoot
+- uid: Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String,UnityEngine.InputSystem.InputActionType)
+  name: CreateInput(EnumBuilder<Button>, string, string, InputActionType)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_CreateInput_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_System_String_UnityEngine_InputSystem_InputActionType_
+  commentId: M:Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String,UnityEngine.InputSystem.InputActionType)
+  name.vb: CreateInput(EnumBuilder(Of Button), String, String, InputActionType)
+  fullName: Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder<GameInput.Button>, string, string, UnityEngine.InputSystem.InputActionType)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), String, String, UnityEngine.InputSystem.InputActionType)
+  nameWithType: EnumExtensions.CreateInput(EnumBuilder<GameInput.Button>, string, string, InputActionType)
+  nameWithType.vb: EnumExtensions.CreateInput(EnumBuilder(Of GameInput.Button), String, String, InputActionType)
+- uid: Nautilus.Handlers.EnumExtensions.CreateInput*
+  name: CreateInput
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_CreateInput_
+  commentId: Overload:Nautilus.Handlers.EnumExtensions.CreateInput
+  isSpec: "True"
+  fullName: Nautilus.Handlers.EnumExtensions.CreateInput
+  nameWithType: EnumExtensions.CreateInput
 - uid: Nautilus.Handlers.EnumExtensions.IsDefinedByDefault*
   name: IsDefinedByDefault
   href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_IsDefinedByDefault_
@@ -5660,6 +5701,56 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.EnumExtensions.RegisterToTechGroup
   nameWithType: EnumExtensions.RegisterToTechGroup
+- uid: Nautilus.Handlers.EnumExtensions.SetBindable(Nautilus.Handlers.EnumBuilder{GameInput.Button})
+  name: SetBindable(EnumBuilder<Button>)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_SetBindable_Nautilus_Handlers_EnumBuilder_GameInput_Button__
+  commentId: M:Nautilus.Handlers.EnumExtensions.SetBindable(Nautilus.Handlers.EnumBuilder{GameInput.Button})
+  name.vb: SetBindable(EnumBuilder(Of Button))
+  fullName: Nautilus.Handlers.EnumExtensions.SetBindable(Nautilus.Handlers.EnumBuilder<GameInput.Button>)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.SetBindable(Nautilus.Handlers.EnumBuilder(Of GameInput.Button))
+  nameWithType: EnumExtensions.SetBindable(EnumBuilder<GameInput.Button>)
+  nameWithType.vb: EnumExtensions.SetBindable(EnumBuilder(Of GameInput.Button))
+- uid: Nautilus.Handlers.EnumExtensions.SetBindable(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device)
+  name: SetBindable(EnumBuilder<Button>, Device)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_SetBindable_Nautilus_Handlers_EnumBuilder_GameInput_Button__GameInput_Device_
+  commentId: M:Nautilus.Handlers.EnumExtensions.SetBindable(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device)
+  name.vb: SetBindable(EnumBuilder(Of Button), Device)
+  fullName: Nautilus.Handlers.EnumExtensions.SetBindable(Nautilus.Handlers.EnumBuilder<GameInput.Button>, GameInput.Device)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.SetBindable(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), GameInput.Device)
+  nameWithType: EnumExtensions.SetBindable(EnumBuilder<GameInput.Button>, GameInput.Device)
+  nameWithType.vb: EnumExtensions.SetBindable(EnumBuilder(Of GameInput.Button), GameInput.Device)
+- uid: Nautilus.Handlers.EnumExtensions.SetBindable*
+  name: SetBindable
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_SetBindable_
+  commentId: Overload:Nautilus.Handlers.EnumExtensions.SetBindable
+  isSpec: "True"
+  fullName: Nautilus.Handlers.EnumExtensions.SetBindable
+  nameWithType: EnumExtensions.SetBindable
+- uid: Nautilus.Handlers.EnumExtensions.SetUnbindable(Nautilus.Handlers.EnumBuilder{GameInput.Button})
+  name: SetUnbindable(EnumBuilder<Button>)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_SetUnbindable_Nautilus_Handlers_EnumBuilder_GameInput_Button__
+  commentId: M:Nautilus.Handlers.EnumExtensions.SetUnbindable(Nautilus.Handlers.EnumBuilder{GameInput.Button})
+  name.vb: SetUnbindable(EnumBuilder(Of Button))
+  fullName: Nautilus.Handlers.EnumExtensions.SetUnbindable(Nautilus.Handlers.EnumBuilder<GameInput.Button>)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.SetUnbindable(Nautilus.Handlers.EnumBuilder(Of GameInput.Button))
+  nameWithType: EnumExtensions.SetUnbindable(EnumBuilder<GameInput.Button>)
+  nameWithType.vb: EnumExtensions.SetUnbindable(EnumBuilder(Of GameInput.Button))
+- uid: Nautilus.Handlers.EnumExtensions.SetUnbindable(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device)
+  name: SetUnbindable(EnumBuilder<Button>, Device)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_SetUnbindable_Nautilus_Handlers_EnumBuilder_GameInput_Button__GameInput_Device_
+  commentId: M:Nautilus.Handlers.EnumExtensions.SetUnbindable(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device)
+  name.vb: SetUnbindable(EnumBuilder(Of Button), Device)
+  fullName: Nautilus.Handlers.EnumExtensions.SetUnbindable(Nautilus.Handlers.EnumBuilder<GameInput.Button>, GameInput.Device)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.SetUnbindable(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), GameInput.Device)
+  nameWithType: EnumExtensions.SetUnbindable(EnumBuilder<GameInput.Button>, GameInput.Device)
+  nameWithType.vb: EnumExtensions.SetUnbindable(EnumBuilder(Of GameInput.Button), GameInput.Device)
+- uid: Nautilus.Handlers.EnumExtensions.SetUnbindable*
+  name: SetUnbindable
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_SetUnbindable_
+  commentId: Overload:Nautilus.Handlers.EnumExtensions.SetUnbindable
+  isSpec: "True"
+  fullName: Nautilus.Handlers.EnumExtensions.SetUnbindable
+  nameWithType: EnumExtensions.SetUnbindable
 - uid: Nautilus.Handlers.EnumExtensions.WithBackground(Nautilus.Handlers.EnumBuilder{CraftData.BackgroundType},UnityEngine.Sprite)
   name: WithBackground(EnumBuilder<BackgroundType>, Sprite)
   href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithBackground_Nautilus_Handlers_EnumBuilder_CraftData_BackgroundType__UnityEngine_Sprite_
@@ -5685,6 +5776,63 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.EnumExtensions.WithBackground
   nameWithType: EnumExtensions.WithBackground
+- uid: Nautilus.Handlers.EnumExtensions.WithBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device,GameInput.BindingSet,System.String)
+  name: WithBinding(EnumBuilder<Button>, Device, BindingSet, string)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithBinding_Nautilus_Handlers_EnumBuilder_GameInput_Button__GameInput_Device_GameInput_BindingSet_System_String_
+  commentId: M:Nautilus.Handlers.EnumExtensions.WithBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device,GameInput.BindingSet,System.String)
+  name.vb: WithBinding(EnumBuilder(Of Button), Device, BindingSet, String)
+  fullName: Nautilus.Handlers.EnumExtensions.WithBinding(Nautilus.Handlers.EnumBuilder<GameInput.Button>, GameInput.Device, GameInput.BindingSet, string)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.WithBinding(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), GameInput.Device, GameInput.BindingSet, String)
+  nameWithType: EnumExtensions.WithBinding(EnumBuilder<GameInput.Button>, GameInput.Device, GameInput.BindingSet, string)
+  nameWithType.vb: EnumExtensions.WithBinding(EnumBuilder(Of GameInput.Button), GameInput.Device, GameInput.BindingSet, String)
+- uid: Nautilus.Handlers.EnumExtensions.WithBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device,System.String,System.String)
+  name: WithBinding(EnumBuilder<Button>, Device, string, string)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithBinding_Nautilus_Handlers_EnumBuilder_GameInput_Button__GameInput_Device_System_String_System_String_
+  commentId: M:Nautilus.Handlers.EnumExtensions.WithBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device,System.String,System.String)
+  name.vb: WithBinding(EnumBuilder(Of Button), Device, String, String)
+  fullName: Nautilus.Handlers.EnumExtensions.WithBinding(Nautilus.Handlers.EnumBuilder<GameInput.Button>, GameInput.Device, string, string)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.WithBinding(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), GameInput.Device, String, String)
+  nameWithType: EnumExtensions.WithBinding(EnumBuilder<GameInput.Button>, GameInput.Device, string, string)
+  nameWithType.vb: EnumExtensions.WithBinding(EnumBuilder(Of GameInput.Button), GameInput.Device, String, String)
+- uid: Nautilus.Handlers.EnumExtensions.WithBinding*
+  name: WithBinding
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithBinding_
+  commentId: Overload:Nautilus.Handlers.EnumExtensions.WithBinding
+  isSpec: "True"
+  fullName: Nautilus.Handlers.EnumExtensions.WithBinding
+  nameWithType: EnumExtensions.WithBinding
+- uid: Nautilus.Handlers.EnumExtensions.WithCategory(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String)
+  name: WithCategory(EnumBuilder<Button>, string)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithCategory_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_
+  commentId: M:Nautilus.Handlers.EnumExtensions.WithCategory(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String)
+  name.vb: WithCategory(EnumBuilder(Of Button), String)
+  fullName: Nautilus.Handlers.EnumExtensions.WithCategory(Nautilus.Handlers.EnumBuilder<GameInput.Button>, string)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.WithCategory(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), String)
+  nameWithType: EnumExtensions.WithCategory(EnumBuilder<GameInput.Button>, string)
+  nameWithType.vb: EnumExtensions.WithCategory(EnumBuilder(Of GameInput.Button), String)
+- uid: Nautilus.Handlers.EnumExtensions.WithCategory*
+  name: WithCategory
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithCategory_
+  commentId: Overload:Nautilus.Handlers.EnumExtensions.WithCategory
+  isSpec: "True"
+  fullName: Nautilus.Handlers.EnumExtensions.WithCategory
+  nameWithType: EnumExtensions.WithCategory
+- uid: Nautilus.Handlers.EnumExtensions.WithControllerBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String)
+  name: WithControllerBinding(EnumBuilder<Button>, string, string)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithControllerBinding_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_System_String_
+  commentId: M:Nautilus.Handlers.EnumExtensions.WithControllerBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String)
+  name.vb: WithControllerBinding(EnumBuilder(Of Button), String, String)
+  fullName: Nautilus.Handlers.EnumExtensions.WithControllerBinding(Nautilus.Handlers.EnumBuilder<GameInput.Button>, string, string)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.WithControllerBinding(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), String, String)
+  nameWithType: EnumExtensions.WithControllerBinding(EnumBuilder<GameInput.Button>, string, string)
+  nameWithType.vb: EnumExtensions.WithControllerBinding(EnumBuilder(Of GameInput.Button), String, String)
+- uid: Nautilus.Handlers.EnumExtensions.WithControllerBinding*
+  name: WithControllerBinding
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithControllerBinding_
+  commentId: Overload:Nautilus.Handlers.EnumExtensions.WithControllerBinding
+  isSpec: "True"
+  fullName: Nautilus.Handlers.EnumExtensions.WithControllerBinding
+  nameWithType: EnumExtensions.WithControllerBinding
 - uid: Nautilus.Handlers.EnumExtensions.WithIcon(Nautilus.Handlers.EnumBuilder{PingType},UnityEngine.Sprite)
   name: WithIcon(EnumBuilder<PingType>, Sprite)
   href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithIcon_Nautilus_Handlers_EnumBuilder_PingType__UnityEngine_Sprite_
@@ -5710,6 +5858,22 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.EnumExtensions.WithIcon
   nameWithType: EnumExtensions.WithIcon
+- uid: Nautilus.Handlers.EnumExtensions.WithKeyboardBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String)
+  name: WithKeyboardBinding(EnumBuilder<Button>, string, string)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithKeyboardBinding_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_System_String_
+  commentId: M:Nautilus.Handlers.EnumExtensions.WithKeyboardBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String)
+  name.vb: WithKeyboardBinding(EnumBuilder(Of Button), String, String)
+  fullName: Nautilus.Handlers.EnumExtensions.WithKeyboardBinding(Nautilus.Handlers.EnumBuilder<GameInput.Button>, string, string)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.WithKeyboardBinding(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), String, String)
+  nameWithType: EnumExtensions.WithKeyboardBinding(EnumBuilder<GameInput.Button>, string, string)
+  nameWithType.vb: EnumExtensions.WithKeyboardBinding(EnumBuilder(Of GameInput.Button), String, String)
+- uid: Nautilus.Handlers.EnumExtensions.WithKeyboardBinding*
+  name: WithKeyboardBinding
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithKeyboardBinding_
+  commentId: Overload:Nautilus.Handlers.EnumExtensions.WithKeyboardBinding
+  isSpec: "True"
+  fullName: Nautilus.Handlers.EnumExtensions.WithKeyboardBinding
+  nameWithType: EnumExtensions.WithKeyboardBinding
 - uid: Nautilus.Handlers.EnumExtensions.WithPdaInfo(Nautilus.Handlers.EnumBuilder{TechCategory},System.String,System.String)
   name: WithPdaInfo(EnumBuilder<TechCategory>, string, string)
   href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_WithPdaInfo_Nautilus_Handlers_EnumBuilder_TechCategory__System_String_System_String_
@@ -5791,6 +5955,22 @@ references:
   fullName.vb: Nautilus.Handlers.EnumHandler.AddEntry(Of TEnum)(String, System.Reflection.Assembly)
   nameWithType: EnumHandler.AddEntry<TEnum>(string, Assembly)
   nameWithType.vb: EnumHandler.AddEntry(Of TEnum)(String, Assembly)
+- uid: Nautilus.Handlers.EnumHandler.AddOnEnumRegistered*
+  name: AddOnEnumRegistered
+  href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_AddOnEnumRegistered_
+  commentId: Overload:Nautilus.Handlers.EnumHandler.AddOnEnumRegistered
+  isSpec: "True"
+  fullName: Nautilus.Handlers.EnumHandler.AddOnEnumRegistered
+  nameWithType: EnumHandler.AddOnEnumRegistered
+- uid: Nautilus.Handlers.EnumHandler.AddOnEnumRegistered``1(Nautilus.Handlers.OnEnumRegistered{``0})
+  name: AddOnEnumRegistered<TEnum>(OnEnumRegistered<TEnum>)
+  href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_AddOnEnumRegistered__1_Nautilus_Handlers_OnEnumRegistered___0__
+  commentId: M:Nautilus.Handlers.EnumHandler.AddOnEnumRegistered``1(Nautilus.Handlers.OnEnumRegistered{``0})
+  name.vb: AddOnEnumRegistered(Of TEnum)(OnEnumRegistered(Of TEnum))
+  fullName: Nautilus.Handlers.EnumHandler.AddOnEnumRegistered<TEnum>(Nautilus.Handlers.OnEnumRegistered<TEnum>)
+  fullName.vb: Nautilus.Handlers.EnumHandler.AddOnEnumRegistered(Of TEnum)(Nautilus.Handlers.OnEnumRegistered(Of TEnum))
+  nameWithType: EnumHandler.AddOnEnumRegistered<TEnum>(OnEnumRegistered<TEnum>)
+  nameWithType.vb: EnumHandler.AddOnEnumRegistered(Of TEnum)(OnEnumRegistered(Of TEnum))
 - uid: Nautilus.Handlers.EnumHandler.ModdedEnumExists*
   name: ModdedEnumExists
   href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_ModdedEnumExists_
@@ -5807,6 +5987,22 @@ references:
   fullName.vb: Nautilus.Handlers.EnumHandler.ModdedEnumExists(Of TEnum)(String)
   nameWithType: EnumHandler.ModdedEnumExists<TEnum>(string)
   nameWithType.vb: EnumHandler.ModdedEnumExists(Of TEnum)(String)
+- uid: Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered*
+  name: RemoveOnEnumRegistered
+  href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_RemoveOnEnumRegistered_
+  commentId: Overload:Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered
+  isSpec: "True"
+  fullName: Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered
+  nameWithType: EnumHandler.RemoveOnEnumRegistered
+- uid: Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered``1(Nautilus.Handlers.OnEnumRegistered{``0})
+  name: RemoveOnEnumRegistered<TEnum>(OnEnumRegistered<TEnum>)
+  href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_RemoveOnEnumRegistered__1_Nautilus_Handlers_OnEnumRegistered___0__
+  commentId: M:Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered``1(Nautilus.Handlers.OnEnumRegistered{``0})
+  name.vb: RemoveOnEnumRegistered(Of TEnum)(OnEnumRegistered(Of TEnum))
+  fullName: Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered<TEnum>(Nautilus.Handlers.OnEnumRegistered<TEnum>)
+  fullName.vb: Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered(Of TEnum)(Nautilus.Handlers.OnEnumRegistered(Of TEnum))
+  nameWithType: EnumHandler.RemoveOnEnumRegistered<TEnum>(OnEnumRegistered<TEnum>)
+  nameWithType.vb: EnumHandler.RemoveOnEnumRegistered(Of TEnum)(OnEnumRegistered(Of TEnum))
 - uid: Nautilus.Handlers.EnumHandler.TryAddEntry*
   name: TryAddEntry
   href: api/Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_TryAddEntry_
@@ -5873,6 +6069,822 @@ references:
   fullName.vb: Nautilus.Handlers.EnumHandler.TryGetValue(Of TEnum)(String, TEnum, System.Reflection.Assembly)
   nameWithType: EnumHandler.TryGetValue<TEnum>(string, out TEnum, out Assembly)
   nameWithType.vb: EnumHandler.TryGetValue(Of TEnum)(String, TEnum, Assembly)
+- uid: Nautilus.Handlers.GameInputHandler
+  name: GameInputHandler
+  href: api/Nautilus.Handlers.GameInputHandler.html
+  commentId: T:Nautilus.Handlers.GameInputHandler
+  fullName: Nautilus.Handlers.GameInputHandler
+  nameWithType: GameInputHandler
+- uid: Nautilus.Handlers.GameInputHandler.Paths
+  name: GameInputHandler.Paths
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.html
+  commentId: T:Nautilus.Handlers.GameInputHandler.Paths
+  fullName: Nautilus.Handlers.GameInputHandler.Paths
+  nameWithType: GameInputHandler.Paths
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad
+  name: GameInputHandler.Paths.Gamepad
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html
+  commentId: T:Nautilus.Handlers.GameInputHandler.Paths.Gamepad
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad
+  nameWithType: GameInputHandler.Paths.Gamepad
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonEas
+  name: ButtonEas
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_ButtonEas
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonEas
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonEas
+  nameWithType: GameInputHandler.Paths.Gamepad.ButtonEas
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonNorth
+  name: ButtonNorth
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_ButtonNorth
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonNorth
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonNorth
+  nameWithType: GameInputHandler.Paths.Gamepad.ButtonNorth
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonSouth
+  name: ButtonSouth
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_ButtonSouth
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonSouth
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonSouth
+  nameWithType: GameInputHandler.Paths.Gamepad.ButtonSouth
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonWest
+  name: ButtonWest
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_ButtonWest
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonWest
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.ButtonWest
+  nameWithType: GameInputHandler.Paths.Gamepad.ButtonWest
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadDown
+  name: DpadDown
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_DpadDown
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadDown
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadDown
+  nameWithType: GameInputHandler.Paths.Gamepad.DpadDown
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadLeft
+  name: DpadLeft
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_DpadLeft
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadLeft
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadLeft
+  nameWithType: GameInputHandler.Paths.Gamepad.DpadLeft
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadRight
+  name: DpadRight
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_DpadRight
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadRight
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadRight
+  nameWithType: GameInputHandler.Paths.Gamepad.DpadRight
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadUp
+  name: DpadUp
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_DpadUp
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadUp
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.DpadUp
+  nameWithType: GameInputHandler.Paths.Gamepad.DpadUp
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.LeftBumper
+  name: LeftBumper
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_LeftBumper
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.LeftBumper
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.LeftBumper
+  nameWithType: GameInputHandler.Paths.Gamepad.LeftBumper
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.LeftStick
+  name: LeftStick
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_LeftStick
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.LeftStick
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.LeftStick
+  nameWithType: GameInputHandler.Paths.Gamepad.LeftStick
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.LeftTrigger
+  name: LeftTrigger
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_LeftTrigger
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.LeftTrigger
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.LeftTrigger
+  nameWithType: GameInputHandler.Paths.Gamepad.LeftTrigger
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.RightBumper
+  name: RightBumper
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_RightBumper
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.RightBumper
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.RightBumper
+  nameWithType: GameInputHandler.Paths.Gamepad.RightBumper
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.RightStick
+  name: RightStick
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_RightStick
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.RightStick
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.RightStick
+  nameWithType: GameInputHandler.Paths.Gamepad.RightStick
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.RightTrigger
+  name: RightTrigger
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_RightTrigger
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.RightTrigger
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.RightTrigger
+  nameWithType: GameInputHandler.Paths.Gamepad.RightTrigger
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.Select
+  name: Select
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_Select
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.Select
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.Select
+  nameWithType: GameInputHandler.Paths.Gamepad.Select
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.Start
+  name: Start
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html#Nautilus_Handlers_GameInputHandler_Paths_Gamepad_Start
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Gamepad.Start
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Gamepad.Start
+  nameWithType: GameInputHandler.Paths.Gamepad.Start
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard
+  name: GameInputHandler.Paths.Keyboard
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html
+  commentId: T:Nautilus.Handlers.GameInputHandler.Paths.Keyboard
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard
+  nameWithType: GameInputHandler.Paths.Keyboard
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.A
+  name: A
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_A
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.A
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.A
+  nameWithType: GameInputHandler.Paths.Keyboard.A
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Alt
+  name: Alt
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Alt
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Alt
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Alt
+  nameWithType: GameInputHandler.Paths.Keyboard.Alt
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.B
+  name: B
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_B
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.B
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.B
+  nameWithType: GameInputHandler.Paths.Keyboard.B
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Backquote
+  name: Backquote
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Backquote
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Backquote
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Backquote
+  nameWithType: GameInputHandler.Paths.Keyboard.Backquote
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Backslash
+  name: Backslash
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Backslash
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Backslash
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Backslash
+  nameWithType: GameInputHandler.Paths.Keyboard.Backslash
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Backspace
+  name: Backspace
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Backspace
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Backspace
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Backspace
+  nameWithType: GameInputHandler.Paths.Keyboard.Backspace
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.C
+  name: C
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_C
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.C
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.C
+  nameWithType: GameInputHandler.Paths.Keyboard.C
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.CapsLock
+  name: CapsLock
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_CapsLock
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.CapsLock
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.CapsLock
+  nameWithType: GameInputHandler.Paths.Keyboard.CapsLock
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Comma
+  name: Comma
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Comma
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Comma
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Comma
+  nameWithType: GameInputHandler.Paths.Keyboard.Comma
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.ContextMenu
+  name: ContextMenu
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_ContextMenu
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.ContextMenu
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.ContextMenu
+  nameWithType: GameInputHandler.Paths.Keyboard.ContextMenu
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Ctrl
+  name: Ctrl
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Ctrl
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Ctrl
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Ctrl
+  nameWithType: GameInputHandler.Paths.Keyboard.Ctrl
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.D
+  name: D
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_D
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.D
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.D
+  nameWithType: GameInputHandler.Paths.Keyboard.D
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Delete
+  name: Delete
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Delete
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Delete
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Delete
+  nameWithType: GameInputHandler.Paths.Keyboard.Delete
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.DownArrow
+  name: DownArrow
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_DownArrow
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.DownArrow
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.DownArrow
+  nameWithType: GameInputHandler.Paths.Keyboard.DownArrow
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.E
+  name: E
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_E
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.E
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.E
+  nameWithType: GameInputHandler.Paths.Keyboard.E
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.End
+  name: End
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_End
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.End
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.End
+  nameWithType: GameInputHandler.Paths.Keyboard.End
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Enter
+  name: Enter
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Enter
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Enter
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Enter
+  nameWithType: GameInputHandler.Paths.Keyboard.Enter
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Equals
+  name: Equals
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Equals
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Equals
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Equals
+  nameWithType: GameInputHandler.Paths.Keyboard.Equals
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Escape
+  name: Escape
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Escape
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Escape
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Escape
+  nameWithType: GameInputHandler.Paths.Keyboard.Escape
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F
+  name: F
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F
+  nameWithType: GameInputHandler.Paths.Keyboard.F
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F1
+  name: F1
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F1
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F1
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F1
+  nameWithType: GameInputHandler.Paths.Keyboard.F1
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F10
+  name: F10
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F10
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F10
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F10
+  nameWithType: GameInputHandler.Paths.Keyboard.F10
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F11
+  name: F11
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F11
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F11
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F11
+  nameWithType: GameInputHandler.Paths.Keyboard.F11
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F12
+  name: F12
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F12
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F12
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F12
+  nameWithType: GameInputHandler.Paths.Keyboard.F12
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F2
+  name: F2
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F2
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F2
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F2
+  nameWithType: GameInputHandler.Paths.Keyboard.F2
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F3
+  name: F3
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F3
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F3
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F3
+  nameWithType: GameInputHandler.Paths.Keyboard.F3
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F4
+  name: F4
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F4
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F4
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F4
+  nameWithType: GameInputHandler.Paths.Keyboard.F4
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F5
+  name: F5
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F5
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F5
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F5
+  nameWithType: GameInputHandler.Paths.Keyboard.F5
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F6
+  name: F6
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F6
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F6
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F6
+  nameWithType: GameInputHandler.Paths.Keyboard.F6
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F7
+  name: F7
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F7
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F7
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F7
+  nameWithType: GameInputHandler.Paths.Keyboard.F7
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F8
+  name: F8
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F8
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F8
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F8
+  nameWithType: GameInputHandler.Paths.Keyboard.F8
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F9
+  name: F9
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_F9
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F9
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.F9
+  nameWithType: GameInputHandler.Paths.Keyboard.F9
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.G
+  name: G
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_G
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.G
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.G
+  nameWithType: GameInputHandler.Paths.Keyboard.G
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.H
+  name: H
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_H
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.H
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.H
+  nameWithType: GameInputHandler.Paths.Keyboard.H
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Home
+  name: Home
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Home
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Home
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Home
+  nameWithType: GameInputHandler.Paths.Keyboard.Home
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.I
+  name: I
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_I
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.I
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.I
+  nameWithType: GameInputHandler.Paths.Keyboard.I
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.ImeSelected
+  name: ImeSelected
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_ImeSelected
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.ImeSelected
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.ImeSelected
+  nameWithType: GameInputHandler.Paths.Keyboard.ImeSelected
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Insert
+  name: Insert
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Insert
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Insert
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Insert
+  nameWithType: GameInputHandler.Paths.Keyboard.Insert
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.J
+  name: J
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_J
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.J
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.J
+  nameWithType: GameInputHandler.Paths.Keyboard.J
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.K
+  name: K
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_K
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.K
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.K
+  nameWithType: GameInputHandler.Paths.Keyboard.K
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key0
+  name: Key0
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Key0
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key0
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key0
+  nameWithType: GameInputHandler.Paths.Keyboard.Key0
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key1
+  name: Key1
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Key1
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key1
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key1
+  nameWithType: GameInputHandler.Paths.Keyboard.Key1
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key2
+  name: Key2
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Key2
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key2
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key2
+  nameWithType: GameInputHandler.Paths.Keyboard.Key2
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key3
+  name: Key3
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Key3
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key3
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key3
+  nameWithType: GameInputHandler.Paths.Keyboard.Key3
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key4
+  name: Key4
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Key4
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key4
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key4
+  nameWithType: GameInputHandler.Paths.Keyboard.Key4
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key5
+  name: Key5
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Key5
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key5
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key5
+  nameWithType: GameInputHandler.Paths.Keyboard.Key5
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key6
+  name: Key6
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Key6
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key6
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key6
+  nameWithType: GameInputHandler.Paths.Keyboard.Key6
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key7
+  name: Key7
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Key7
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key7
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key7
+  nameWithType: GameInputHandler.Paths.Keyboard.Key7
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key8
+  name: Key8
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Key8
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key8
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key8
+  nameWithType: GameInputHandler.Paths.Keyboard.Key8
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key9
+  name: Key9
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Key9
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key9
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Key9
+  nameWithType: GameInputHandler.Paths.Keyboard.Key9
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.L
+  name: L
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_L
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.L
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.L
+  nameWithType: GameInputHandler.Paths.Keyboard.L
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftArrow
+  name: LeftArrow
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_LeftArrow
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftArrow
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftArrow
+  nameWithType: GameInputHandler.Paths.Keyboard.LeftArrow
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftBracket
+  name: LeftBracket
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_LeftBracket
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftBracket
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftBracket
+  nameWithType: GameInputHandler.Paths.Keyboard.LeftBracket
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftMeta
+  name: LeftMeta
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_LeftMeta
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftMeta
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftMeta
+  nameWithType: GameInputHandler.Paths.Keyboard.LeftMeta
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.M
+  name: M
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_M
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.M
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.M
+  nameWithType: GameInputHandler.Paths.Keyboard.M
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Minus
+  name: Minus
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Minus
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Minus
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Minus
+  nameWithType: GameInputHandler.Paths.Keyboard.Minus
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.N
+  name: N
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_N
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.N
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.N
+  nameWithType: GameInputHandler.Paths.Keyboard.N
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumLock
+  name: NumLock
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_NumLock
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumLock
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumLock
+  nameWithType: GameInputHandler.Paths.Keyboard.NumLock
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad0
+  name: Numpad0
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Numpad0
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad0
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad0
+  nameWithType: GameInputHandler.Paths.Keyboard.Numpad0
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad1
+  name: Numpad1
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Numpad1
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad1
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad1
+  nameWithType: GameInputHandler.Paths.Keyboard.Numpad1
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad2
+  name: Numpad2
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Numpad2
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad2
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad2
+  nameWithType: GameInputHandler.Paths.Keyboard.Numpad2
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad3
+  name: Numpad3
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Numpad3
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad3
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad3
+  nameWithType: GameInputHandler.Paths.Keyboard.Numpad3
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad4
+  name: Numpad4
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Numpad4
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad4
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad4
+  nameWithType: GameInputHandler.Paths.Keyboard.Numpad4
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad5
+  name: Numpad5
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Numpad5
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad5
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad5
+  nameWithType: GameInputHandler.Paths.Keyboard.Numpad5
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad6
+  name: Numpad6
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Numpad6
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad6
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad6
+  nameWithType: GameInputHandler.Paths.Keyboard.Numpad6
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad7
+  name: Numpad7
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Numpad7
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad7
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad7
+  nameWithType: GameInputHandler.Paths.Keyboard.Numpad7
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad8
+  name: Numpad8
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Numpad8
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad8
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad8
+  nameWithType: GameInputHandler.Paths.Keyboard.Numpad8
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad9
+  name: Numpad9
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Numpad9
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad9
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Numpad9
+  nameWithType: GameInputHandler.Paths.Keyboard.Numpad9
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadDivide
+  name: NumpadDivide
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_NumpadDivide
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadDivide
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadDivide
+  nameWithType: GameInputHandler.Paths.Keyboard.NumpadDivide
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadEnter
+  name: NumpadEnter
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_NumpadEnter
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadEnter
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadEnter
+  nameWithType: GameInputHandler.Paths.Keyboard.NumpadEnter
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadEquals
+  name: NumpadEquals
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_NumpadEquals
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadEquals
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadEquals
+  nameWithType: GameInputHandler.Paths.Keyboard.NumpadEquals
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadMinus
+  name: NumpadMinus
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_NumpadMinus
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadMinus
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadMinus
+  nameWithType: GameInputHandler.Paths.Keyboard.NumpadMinus
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadMultiply
+  name: NumpadMultiply
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_NumpadMultiply
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadMultiply
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadMultiply
+  nameWithType: GameInputHandler.Paths.Keyboard.NumpadMultiply
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadPeriod
+  name: NumpadPeriod
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_NumpadPeriod
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadPeriod
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadPeriod
+  nameWithType: GameInputHandler.Paths.Keyboard.NumpadPeriod
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadPlus
+  name: NumpadPlus
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_NumpadPlus
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadPlus
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.NumpadPlus
+  nameWithType: GameInputHandler.Paths.Keyboard.NumpadPlus
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.O
+  name: O
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_O
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.O
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.O
+  nameWithType: GameInputHandler.Paths.Keyboard.O
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem1
+  name: Oem1
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Oem1
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem1
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem1
+  nameWithType: GameInputHandler.Paths.Keyboard.Oem1
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem2
+  name: Oem2
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Oem2
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem2
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem2
+  nameWithType: GameInputHandler.Paths.Keyboard.Oem2
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem3
+  name: Oem3
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Oem3
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem3
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem3
+  nameWithType: GameInputHandler.Paths.Keyboard.Oem3
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem4
+  name: Oem4
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Oem4
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem4
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem4
+  nameWithType: GameInputHandler.Paths.Keyboard.Oem4
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem5
+  name: Oem5
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Oem5
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem5
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Oem5
+  nameWithType: GameInputHandler.Paths.Keyboard.Oem5
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.P
+  name: P
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_P
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.P
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.P
+  nameWithType: GameInputHandler.Paths.Keyboard.P
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.PageDown
+  name: PageDown
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_PageDown
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.PageDown
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.PageDown
+  nameWithType: GameInputHandler.Paths.Keyboard.PageDown
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.PageUp
+  name: PageUp
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_PageUp
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.PageUp
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.PageUp
+  nameWithType: GameInputHandler.Paths.Keyboard.PageUp
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Pause
+  name: Pause
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Pause
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Pause
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Pause
+  nameWithType: GameInputHandler.Paths.Keyboard.Pause
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Period
+  name: Period
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Period
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Period
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Period
+  nameWithType: GameInputHandler.Paths.Keyboard.Period
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.PrintScreen
+  name: PrintScreen
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_PrintScreen
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.PrintScreen
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.PrintScreen
+  nameWithType: GameInputHandler.Paths.Keyboard.PrintScreen
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Q
+  name: Q
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Q
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Q
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Q
+  nameWithType: GameInputHandler.Paths.Keyboard.Q
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Quote
+  name: Quote
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Quote
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Quote
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Quote
+  nameWithType: GameInputHandler.Paths.Keyboard.Quote
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.R
+  name: R
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_R
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.R
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.R
+  nameWithType: GameInputHandler.Paths.Keyboard.R
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightArrow
+  name: RightArrow
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_RightArrow
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightArrow
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightArrow
+  nameWithType: GameInputHandler.Paths.Keyboard.RightArrow
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightBracket
+  name: RightBracket
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_RightBracket
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightBracket
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightBracket
+  nameWithType: GameInputHandler.Paths.Keyboard.RightBracket
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightMeta
+  name: RightMeta
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_RightMeta
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightMeta
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightMeta
+  nameWithType: GameInputHandler.Paths.Keyboard.RightMeta
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.S
+  name: S
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_S
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.S
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.S
+  nameWithType: GameInputHandler.Paths.Keyboard.S
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.ScrollLock
+  name: ScrollLock
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_ScrollLock
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.ScrollLock
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.ScrollLock
+  nameWithType: GameInputHandler.Paths.Keyboard.ScrollLock
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Semicolon
+  name: Semicolon
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Semicolon
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Semicolon
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Semicolon
+  nameWithType: GameInputHandler.Paths.Keyboard.Semicolon
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Shift
+  name: Shift
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Shift
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Shift
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Shift
+  nameWithType: GameInputHandler.Paths.Keyboard.Shift
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Slash
+  name: Slash
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Slash
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Slash
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Slash
+  nameWithType: GameInputHandler.Paths.Keyboard.Slash
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Space
+  name: Space
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Space
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Space
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Space
+  nameWithType: GameInputHandler.Paths.Keyboard.Space
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.T
+  name: T
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_T
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.T
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.T
+  nameWithType: GameInputHandler.Paths.Keyboard.T
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Tab
+  name: Tab
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Tab
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Tab
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Tab
+  nameWithType: GameInputHandler.Paths.Keyboard.Tab
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.U
+  name: U
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_U
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.U
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.U
+  nameWithType: GameInputHandler.Paths.Keyboard.U
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.UpArrow
+  name: UpArrow
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_UpArrow
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.UpArrow
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.UpArrow
+  nameWithType: GameInputHandler.Paths.Keyboard.UpArrow
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.V
+  name: V
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_V
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.V
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.V
+  nameWithType: GameInputHandler.Paths.Keyboard.V
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.W
+  name: W
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_W
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.W
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.W
+  nameWithType: GameInputHandler.Paths.Keyboard.W
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.X
+  name: X
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_X
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.X
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.X
+  nameWithType: GameInputHandler.Paths.Keyboard.X
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Y
+  name: Y
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Y
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Y
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Y
+  nameWithType: GameInputHandler.Paths.Keyboard.Y
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Z
+  name: Z
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_Z
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Z
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.Z
+  nameWithType: GameInputHandler.Paths.Keyboard.Z
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Mouse
+  name: GameInputHandler.Paths.Mouse
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.html
+  commentId: T:Nautilus.Handlers.GameInputHandler.Paths.Mouse
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Mouse
+  nameWithType: GameInputHandler.Paths.Mouse
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Mouse.BackButton
+  name: BackButton
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.html#Nautilus_Handlers_GameInputHandler_Paths_Mouse_BackButton
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Mouse.BackButton
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Mouse.BackButton
+  nameWithType: GameInputHandler.Paths.Mouse.BackButton
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Mouse.ForwardButton
+  name: ForwardButton
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.html#Nautilus_Handlers_GameInputHandler_Paths_Mouse_ForwardButton
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Mouse.ForwardButton
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Mouse.ForwardButton
+  nameWithType: GameInputHandler.Paths.Mouse.ForwardButton
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Mouse.LeftButton
+  name: LeftButton
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.html#Nautilus_Handlers_GameInputHandler_Paths_Mouse_LeftButton
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Mouse.LeftButton
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Mouse.LeftButton
+  nameWithType: GameInputHandler.Paths.Mouse.LeftButton
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Mouse.MiddleButton
+  name: MiddleButton
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.html#Nautilus_Handlers_GameInputHandler_Paths_Mouse_MiddleButton
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Mouse.MiddleButton
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Mouse.MiddleButton
+  nameWithType: GameInputHandler.Paths.Mouse.MiddleButton
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Mouse.RightButton
+  name: RightButton
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.html#Nautilus_Handlers_GameInputHandler_Paths_Mouse_RightButton
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Mouse.RightButton
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Mouse.RightButton
+  nameWithType: GameInputHandler.Paths.Mouse.RightButton
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Mouse.ScrollDown
+  name: ScrollDown
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.html#Nautilus_Handlers_GameInputHandler_Paths_Mouse_ScrollDown
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Mouse.ScrollDown
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Mouse.ScrollDown
+  nameWithType: GameInputHandler.Paths.Mouse.ScrollDown
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Mouse.ScrollUp
+  name: ScrollUp
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.html#Nautilus_Handlers_GameInputHandler_Paths_Mouse_ScrollUp
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Mouse.ScrollUp
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Mouse.ScrollUp
+  nameWithType: GameInputHandler.Paths.Mouse.ScrollUp
 - uid: Nautilus.Handlers.ItemActionHandler
   name: ItemActionHandler
   href: api/Nautilus.Handlers.ItemActionHandler.html
@@ -6493,6 +7505,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.ModDatabankHandler.RegisterMod
   nameWithType: ModDatabankHandler.RegisterMod
+- uid: Nautilus.Handlers.OnEnumRegistered`1
+  name: OnEnumRegistered<TEnum>
+  href: api/Nautilus.Handlers.OnEnumRegistered-1.html
+  commentId: T:Nautilus.Handlers.OnEnumRegistered`1
+  name.vb: OnEnumRegistered(Of TEnum)
+  fullName: Nautilus.Handlers.OnEnumRegistered<TEnum>
+  fullName.vb: Nautilus.Handlers.OnEnumRegistered(Of TEnum)
+  nameWithType: OnEnumRegistered<TEnum>
+  nameWithType.vb: OnEnumRegistered(Of TEnum)
 - uid: Nautilus.Handlers.OptionsPanelHandler
   name: OptionsPanelHandler
   href: api/Nautilus.Handlers.OptionsPanelHandler.html
@@ -10285,22 +11306,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ConfigEntryExtensions.ToModColorOption
   nameWithType: ConfigEntryExtensions.ToModColorOption
-- uid: Nautilus.Options.ConfigEntryExtensions.ToModKeybindOption(BepInEx.Configuration.ConfigEntry{UnityEngine.KeyCode})
-  name: ToModKeybindOption(ConfigEntry<KeyCode>)
-  href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModKeybindOption_BepInEx_Configuration_ConfigEntry_UnityEngine_KeyCode__
-  commentId: M:Nautilus.Options.ConfigEntryExtensions.ToModKeybindOption(BepInEx.Configuration.ConfigEntry{UnityEngine.KeyCode})
-  name.vb: ToModKeybindOption(ConfigEntry(Of KeyCode))
-  fullName: Nautilus.Options.ConfigEntryExtensions.ToModKeybindOption(BepInEx.Configuration.ConfigEntry<UnityEngine.KeyCode>)
-  fullName.vb: Nautilus.Options.ConfigEntryExtensions.ToModKeybindOption(BepInEx.Configuration.ConfigEntry(Of UnityEngine.KeyCode))
-  nameWithType: ConfigEntryExtensions.ToModKeybindOption(ConfigEntry<KeyCode>)
-  nameWithType.vb: ConfigEntryExtensions.ToModKeybindOption(ConfigEntry(Of KeyCode))
-- uid: Nautilus.Options.ConfigEntryExtensions.ToModKeybindOption*
-  name: ToModKeybindOption
-  href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModKeybindOption_
-  commentId: Overload:Nautilus.Options.ConfigEntryExtensions.ToModKeybindOption
-  isSpec: "True"
-  fullName: Nautilus.Options.ConfigEntryExtensions.ToModKeybindOption
-  nameWithType: ConfigEntryExtensions.ToModKeybindOption
 - uid: Nautilus.Options.ConfigEntryExtensions.ToModSliderOption(BepInEx.Configuration.ConfigEntry{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Int32)
   name: ToModSliderOption(ConfigEntry<int>, int?, int?, int)
   href: api/Nautilus.Options.ConfigEntryExtensions.html#Nautilus_Options_ConfigEntryExtensions_ToModSliderOption_BepInEx_Configuration_ConfigEntry_System_Int32__System_Nullable_System_Int32__System_Nullable_System_Int32__System_Int32_
@@ -10446,31 +11451,6 @@ references:
   fullName.vb: Nautilus.Options.GameObjectCreatedEventArgs.New
   nameWithType: GameObjectCreatedEventArgs.GameObjectCreatedEventArgs
   nameWithType.vb: GameObjectCreatedEventArgs.New
-- uid: Nautilus.Options.KeybindChangedEventArgs
-  name: KeybindChangedEventArgs
-  href: api/Nautilus.Options.KeybindChangedEventArgs.html
-  commentId: T:Nautilus.Options.KeybindChangedEventArgs
-  fullName: Nautilus.Options.KeybindChangedEventArgs
-  nameWithType: KeybindChangedEventArgs
-- uid: Nautilus.Options.KeybindChangedEventArgs.#ctor(System.String,UnityEngine.KeyCode)
-  name: KeybindChangedEventArgs(string, KeyCode)
-  href: api/Nautilus.Options.KeybindChangedEventArgs.html#Nautilus_Options_KeybindChangedEventArgs__ctor_System_String_UnityEngine_KeyCode_
-  commentId: M:Nautilus.Options.KeybindChangedEventArgs.#ctor(System.String,UnityEngine.KeyCode)
-  name.vb: New(String, KeyCode)
-  fullName: Nautilus.Options.KeybindChangedEventArgs.KeybindChangedEventArgs(string, UnityEngine.KeyCode)
-  fullName.vb: Nautilus.Options.KeybindChangedEventArgs.New(String, UnityEngine.KeyCode)
-  nameWithType: KeybindChangedEventArgs.KeybindChangedEventArgs(string, KeyCode)
-  nameWithType.vb: KeybindChangedEventArgs.New(String, KeyCode)
-- uid: Nautilus.Options.KeybindChangedEventArgs.#ctor*
-  name: KeybindChangedEventArgs
-  href: api/Nautilus.Options.KeybindChangedEventArgs.html#Nautilus_Options_KeybindChangedEventArgs__ctor_
-  commentId: Overload:Nautilus.Options.KeybindChangedEventArgs.#ctor
-  isSpec: "True"
-  name.vb: New
-  fullName: Nautilus.Options.KeybindChangedEventArgs.KeybindChangedEventArgs
-  fullName.vb: Nautilus.Options.KeybindChangedEventArgs.New
-  nameWithType: KeybindChangedEventArgs.KeybindChangedEventArgs
-  nameWithType.vb: KeybindChangedEventArgs.New
 - uid: Nautilus.Options.ModButtonOption
   name: ModButtonOption
   href: api/Nautilus.Options.ModButtonOption.html
@@ -10741,6 +11721,19 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModColorOption.Advanced
   nameWithType: ModColorOption.Advanced
+- uid: Nautilus.Options.ModColorOption.AdvancedExposeAlphaChannel
+  name: AdvancedExposeAlphaChannel
+  href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_AdvancedExposeAlphaChannel
+  commentId: P:Nautilus.Options.ModColorOption.AdvancedExposeAlphaChannel
+  fullName: Nautilus.Options.ModColorOption.AdvancedExposeAlphaChannel
+  nameWithType: ModColorOption.AdvancedExposeAlphaChannel
+- uid: Nautilus.Options.ModColorOption.AdvancedExposeAlphaChannel*
+  name: AdvancedExposeAlphaChannel
+  href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_AdvancedExposeAlphaChannel_
+  commentId: Overload:Nautilus.Options.ModColorOption.AdvancedExposeAlphaChannel
+  isSpec: "True"
+  fullName: Nautilus.Options.ModColorOption.AdvancedExposeAlphaChannel
+  nameWithType: ModColorOption.AdvancedExposeAlphaChannel
 - uid: Nautilus.Options.ModColorOption.Create(System.String,System.String)
   name: Create(string, string)
   href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_System_String_System_String_
@@ -10750,15 +11743,15 @@ references:
   fullName.vb: Nautilus.Options.ModColorOption.Create(String, String)
   nameWithType: ModColorOption.Create(string, string)
   nameWithType.vb: ModColorOption.Create(String, String)
-- uid: Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String)
-  name: Create(string, string, Color, bool, string)
-  href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_System_String_System_String_UnityEngine_Color_System_Boolean_System_String_
-  commentId: M:Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String)
-  name.vb: Create(String, String, Color, Boolean, String)
-  fullName: Nautilus.Options.ModColorOption.Create(string, string, UnityEngine.Color, bool, string)
-  fullName.vb: Nautilus.Options.ModColorOption.Create(String, String, UnityEngine.Color, Boolean, String)
-  nameWithType: ModColorOption.Create(string, string, Color, bool, string)
-  nameWithType.vb: ModColorOption.Create(String, String, Color, Boolean, String)
+- uid: Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String,System.Boolean)
+  name: Create(string, string, Color, bool, string, bool)
+  href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_System_String_System_String_UnityEngine_Color_System_Boolean_System_String_System_Boolean_
+  commentId: M:Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String,System.Boolean)
+  name.vb: Create(String, String, Color, Boolean, String, Boolean)
+  fullName: Nautilus.Options.ModColorOption.Create(string, string, UnityEngine.Color, bool, string, bool)
+  fullName.vb: Nautilus.Options.ModColorOption.Create(String, String, UnityEngine.Color, Boolean, String, Boolean)
+  nameWithType: ModColorOption.Create(string, string, Color, bool, string, bool)
+  nameWithType.vb: ModColorOption.Create(String, String, Color, Boolean, String, Boolean)
 - uid: Nautilus.Options.ModColorOption.Create*
   name: Create
   href: api/Nautilus.Options.ModColorOption.html#Nautilus_Options_ModColorOption_Create_
@@ -10779,83 +11772,6 @@ references:
   isSpec: "True"
   fullName: Nautilus.Options.ModColorOption.Tooltip
   nameWithType: ModColorOption.Tooltip
-- uid: Nautilus.Options.ModKeybindOption
-  name: ModKeybindOption
-  href: api/Nautilus.Options.ModKeybindOption.html
-  commentId: T:Nautilus.Options.ModKeybindOption
-  fullName: Nautilus.Options.ModKeybindOption
-  nameWithType: ModKeybindOption
-- uid: Nautilus.Options.ModKeybindOption.AddToPanel(uGUI_TabbedControlsPanel,System.Int32)
-  name: AddToPanel(uGUI_TabbedControlsPanel, int)
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_AddToPanel_uGUI_TabbedControlsPanel_System_Int32_
-  commentId: M:Nautilus.Options.ModKeybindOption.AddToPanel(uGUI_TabbedControlsPanel,System.Int32)
-  name.vb: AddToPanel(uGUI_TabbedControlsPanel, Integer)
-  fullName: Nautilus.Options.ModKeybindOption.AddToPanel(uGUI_TabbedControlsPanel, int)
-  fullName.vb: Nautilus.Options.ModKeybindOption.AddToPanel(uGUI_TabbedControlsPanel, Integer)
-  nameWithType: ModKeybindOption.AddToPanel(uGUI_TabbedControlsPanel, int)
-  nameWithType.vb: ModKeybindOption.AddToPanel(uGUI_TabbedControlsPanel, Integer)
-- uid: Nautilus.Options.ModKeybindOption.AddToPanel*
-  name: AddToPanel
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_AddToPanel_
-  commentId: Overload:Nautilus.Options.ModKeybindOption.AddToPanel
-  isSpec: "True"
-  fullName: Nautilus.Options.ModKeybindOption.AddToPanel
-  nameWithType: ModKeybindOption.AddToPanel
-- uid: Nautilus.Options.ModKeybindOption.AdjusterComponent
-  name: AdjusterComponent
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_AdjusterComponent
-  commentId: P:Nautilus.Options.ModKeybindOption.AdjusterComponent
-  fullName: Nautilus.Options.ModKeybindOption.AdjusterComponent
-  nameWithType: ModKeybindOption.AdjusterComponent
-- uid: Nautilus.Options.ModKeybindOption.AdjusterComponent*
-  name: AdjusterComponent
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_AdjusterComponent_
-  commentId: Overload:Nautilus.Options.ModKeybindOption.AdjusterComponent
-  isSpec: "True"
-  fullName: Nautilus.Options.ModKeybindOption.AdjusterComponent
-  nameWithType: ModKeybindOption.AdjusterComponent
-- uid: Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,UnityEngine.KeyCode,System.String)
-  name: Create(string, string, Device, KeyCode, string)
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Create_System_String_System_String_GameInput_Device_UnityEngine_KeyCode_System_String_
-  commentId: M:Nautilus.Options.ModKeybindOption.Create(System.String,System.String,GameInput.Device,UnityEngine.KeyCode,System.String)
-  name.vb: Create(String, String, Device, KeyCode, String)
-  fullName: Nautilus.Options.ModKeybindOption.Create(string, string, GameInput.Device, UnityEngine.KeyCode, string)
-  fullName.vb: Nautilus.Options.ModKeybindOption.Create(String, String, GameInput.Device, UnityEngine.KeyCode, String)
-  nameWithType: ModKeybindOption.Create(string, string, GameInput.Device, KeyCode, string)
-  nameWithType.vb: ModKeybindOption.Create(String, String, GameInput.Device, KeyCode, String)
-- uid: Nautilus.Options.ModKeybindOption.Create*
-  name: Create
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Create_
-  commentId: Overload:Nautilus.Options.ModKeybindOption.Create
-  isSpec: "True"
-  fullName: Nautilus.Options.ModKeybindOption.Create
-  nameWithType: ModKeybindOption.Create
-- uid: Nautilus.Options.ModKeybindOption.Device
-  name: Device
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Device
-  commentId: P:Nautilus.Options.ModKeybindOption.Device
-  fullName: Nautilus.Options.ModKeybindOption.Device
-  nameWithType: ModKeybindOption.Device
-- uid: Nautilus.Options.ModKeybindOption.Device*
-  name: Device
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Device_
-  commentId: Overload:Nautilus.Options.ModKeybindOption.Device
-  isSpec: "True"
-  fullName: Nautilus.Options.ModKeybindOption.Device
-  nameWithType: ModKeybindOption.Device
-- uid: Nautilus.Options.ModKeybindOption.Tooltip
-  name: Tooltip
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Tooltip
-  commentId: P:Nautilus.Options.ModKeybindOption.Tooltip
-  fullName: Nautilus.Options.ModKeybindOption.Tooltip
-  nameWithType: ModKeybindOption.Tooltip
-- uid: Nautilus.Options.ModKeybindOption.Tooltip*
-  name: Tooltip
-  href: api/Nautilus.Options.ModKeybindOption.html#Nautilus_Options_ModKeybindOption_Tooltip_
-  commentId: Overload:Nautilus.Options.ModKeybindOption.Tooltip
-  isSpec: "True"
-  fullName: Nautilus.Options.ModKeybindOption.Tooltip
-  nameWithType: ModKeybindOption.Tooltip
 - uid: Nautilus.Options.ModOption`2
   name: ModOption<T, E>
   href: api/Nautilus.Options.ModOption-2.html

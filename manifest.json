@@ -970,6 +970,76 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GameInputHandler.Paths.Gamepad",
+      "Summary": "A class containing all valid binding paths for controllers."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GameInputHandler.Paths.Keyboard",
+      "Summary": "A class containing all valid binding paths for keyboards."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GameInputHandler.Paths.Mouse",
+      "Summary": "A class containing all valid binding paths for mice."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GameInputHandler.Paths.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GameInputHandler.Paths.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GameInputHandler.Paths",
+      "Summary": "A super class that then refers to all valid buttons for a respective device."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GameInputHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GameInputHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GameInputHandler",
+      "Summary": "A handler class for dealing with the game's UnityEngine.InputSystem implementation."
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Handlers.ItemActionHandler.yml",
       "output": {
         ".html": {
@@ -1107,6 +1177,20 @@
       "IsMRef": true,
       "Title": "Nautilus.Handlers.ModDatabankHandler",
       "Summary": "A handler class for adding information about your mod to the \"Mods\" tab of the PDA's Datbabank. If you wish to add a standard PDA entry, instead see the <xref href=\"Nautilus.Handlers.PDAHandler\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.OnEnumRegistered-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.OnEnumRegistered-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.OnEnumRegistered<TEnum>",
+      "Summary": "Delegate used when a custom enum is registered via <xref href=\"Nautilus.Handlers.EnumHandler.AddEntry%60%601(System.String%2cSystem.Reflection.Assembly)\" data-throw-if-not-resolved=\"false\"></xref>."
     },
     {
       "type": "ManagedReference",
@@ -1834,7 +1918,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "Nautilus.Options.Attributes.KeybindAttribute",
-      "Summary": "Attribute used to signify the decorated <xref href=\"UnityEngine.KeyCode\" data-throw-if-not-resolved=\"false\"></xref> should be represented in the mod's\noption menu as a <xref href=\"Nautilus.Options.ModKeybindOption\" data-throw-if-not-resolved=\"false\"></xref>."
+      "Summary": "Attribute used to signify the decorated <xref href=\"UnityEngine.KeyCode\" data-throw-if-not-resolved=\"false\"></xref> should be represented in the mod's\noption menu as a ModKeybindOption."
     },
     {
       "type": "ManagedReference",
@@ -2076,20 +2160,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "Documentation/api/Nautilus.Options.KeybindChangedEventArgs.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Nautilus.Options.KeybindChangedEventArgs.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Nautilus.Options.KeybindChangedEventArgs",
-      "Summary": "Contains all the information about a keybind changed event."
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Options.ModButtonOption.yml",
       "output": {
         ".html": {
@@ -2129,20 +2199,6 @@
       "IsMRef": true,
       "Title": "Nautilus.Options.ModColorOption",
       "Summary": "A basic mod option class for handling an option that can be any <xref href=\"UnityEngine.Color\" data-throw-if-not-resolved=\"false\"></xref>."
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "Documentation/api/Nautilus.Options.ModKeybindOption.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/Nautilus.Options.ModKeybindOption.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "Nautilus.Options.ModKeybindOption",
-      "Summary": "A mod option class for handling an option that is a keybind."
     },
     {
       "type": "ManagedReference",

@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Class KeybindChangedEventArgs </title>
+      <title>Delegate OnEnumRegistered&lt;TEnum&gt; </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Class KeybindChangedEventArgs ">
+      <meta name="title" content="Delegate OnEnumRegistered&lt;TEnum&gt; ">
       
-      <meta name="description" content="Contains all the information about a keybind changed event.">
+      <meta name="description" content="Delegate used when a custom enum is registered via .">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Options_KeybindChangedEventArgs.md&amp;value=---%0Auid%3A%20Nautilus.Options.KeybindChangedEventArgs%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
+      <meta name="docfx:docurl" content="https://github.com/SubnauticaModding/Nautilus/new/docs/apiSpec/new?filename=Nautilus_Handlers_OnEnumRegistered_1.md&amp;value=---%0Auid%3A%20Nautilus.Handlers.OnEnumRegistered%601%0Asummary%3A%20&#39;*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax&#39;%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -84,76 +84,42 @@
           <nav id="breadcrumb"></nav>
         </div>
 
-        <article data-uid="Nautilus.Options.KeybindChangedEventArgs">
+        <article data-uid="Nautilus.Handlers.OnEnumRegistered`1">
 
 
 
-  <h1 id="Nautilus_Options_KeybindChangedEventArgs" data-uid="Nautilus.Options.KeybindChangedEventArgs" class="text-break">
-Class KeybindChangedEventArgs  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L14"><i class="bi bi-code-slash"></i></a>
+  <h1 id="Nautilus_Handlers_OnEnumRegistered_1" data-uid="Nautilus.Handlers.OnEnumRegistered`1" class="text-break">
+Delegate OnEnumRegistered&lt;TEnum&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L13"><i class="bi bi-code-slash"></i></a>
   </h1>
 
   <div class="facts text-secondary">
-    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Options.html">Options</a></dd></dl>
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></dd></dl>
   <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
 
-  <div class="markdown summary">Contains all the information about a keybind changed event.</div>
+  <div class="markdown summary">Delegate used when a custom enum is registered via <a class="xref" href="Nautilus.Handlers.EnumHandler.html#Nautilus_Handlers_EnumHandler_AddEntry__1_System_String_System_Reflection_Assembly_">AddEntry&lt;TEnum&gt;(string, Assembly)</a>.</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class KeybindChangedEventArgs : ConfigOptionEventArgs&lt;KeyCode&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public delegate void OnEnumRegistered&lt;TEnum&gt;(EnumBuilder&lt;TEnum&gt; builder) where TEnum : Enum</code></pre>
   </div>
 
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;TEnum&gt;</dt>
+    <dd>Delegate used when a custom enum is registered via .</dd>
+  </dl>
 
 
-
-  <dl class="typelist inheritance">
-    <dt>Inheritance</dt>
-    <dd>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs">EventArgs</a></div>
-      <div><a class="xref" href="Nautilus.Options.OptionEventArgs.html">OptionEventArgs</a></div>
-      <div><a class="xref" href="Nautilus.Options.ConfigOptionEventArgs-1.html">ConfigOptionEventArgs</a>&lt;<span class="xref">KeyCode</span>&gt;</div>
-      <div><span class="xref">KeybindChangedEventArgs</span></div>
-    </dd>
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>The type of the enum to process.</dd>
   </dl>
 
 
 
-  <dl class="typelist inheritedMembers">
-    <dt>Inherited Members</dt>
-    <dd>
-    <div>
-      <a class="xref" href="Nautilus.Options.ConfigOptionEventArgs-1.html#Nautilus_Options_ConfigOptionEventArgs_1_Value">ConfigOptionEventArgs&lt;KeyCode&gt;.Value</a>
-    </div>
-    <div>
-      <a class="xref" href="Nautilus.Options.OptionEventArgs.html#Nautilus_Options_OptionEventArgs_Id">OptionEventArgs.Id</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventargs.empty">EventArgs.Empty</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
-    </div>
-  </dd></dl>
+
 
   <dl class="typelist extensionMethods">
     <dt>Extension Methods</dt>
@@ -197,48 +163,11 @@ Class KeybindChangedEventArgs  <a class="header-action link-secondary" title="Vi
 
 
 
-  <h2 class="section" id="constructors">Constructors
-</h2>
-
-
-  <a id="Nautilus_Options_KeybindChangedEventArgs__ctor_" data-uid="Nautilus.Options.KeybindChangedEventArgs.#ctor*"></a>
-
-  <h3 id="Nautilus_Options_KeybindChangedEventArgs__ctor_System_String_UnityEngine_KeyCode_" data-uid="Nautilus.Options.KeybindChangedEventArgs.#ctor(System.String,UnityEngine.KeyCode)">
-  KeybindChangedEventArgs(string, KeyCode)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L21"><i class="bi bi-code-slash"></i></a>
-  </h3>
-
-  <div class="markdown level1 summary">Constructs a new <a class="xref" href="Nautilus.Options.KeybindChangedEventArgs.html">KeybindChangedEventArgs</a>.</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public KeybindChangedEventArgs(string id, KeyCode key)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The ID of the <a class="xref" href="Nautilus.Options.ModKeybindOption.html">ModKeybindOption</a> that was changed.</dd>
-    <dt><code>key</code> <span class="xref">KeyCode</span></dt>
-    <dd>The new value for the <a class="xref" href="Nautilus.Options.ModKeybindOption.html">ModKeybindOption</a>.</dd>
-  </dl>
-
-
-
-
-
-
-
-
-
-
-
-
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModKeybindOption.cs/#L14" class="edit-link">Edit this page</a>
+          <a href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/EnumHandler.cs/#L13" class="edit-link">Edit this page</a>
         </div>
 
 

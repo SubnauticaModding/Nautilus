@@ -219,7 +219,7 @@ Class ModColorOption  <a class="header-action link-secondary" title="View source
 
   <h3 id="Nautilus_Options_ModColorOption_AdjusterComponent" data-uid="Nautilus.Options.ModColorOption.AdjusterComponent">
   AdjusterComponent
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModColorOption.cs/#L130"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModColorOption.cs/#L140"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The Adjuster for this <a class="xref" href="Nautilus.Options.OptionItem.html">OptionItem</a>.</div>
@@ -258,6 +258,37 @@ Class ModColorOption  <a class="header-action link-secondary" title="View source
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public bool Advanced { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_ModColorOption_AdvancedExposeAlphaChannel_" data-uid="Nautilus.Options.ModColorOption.AdvancedExposeAlphaChannel*"></a>
+
+  <h3 id="Nautilus_Options_ModColorOption_AdvancedExposeAlphaChannel" data-uid="Nautilus.Options.ModColorOption.AdvancedExposeAlphaChannel">
+  AdvancedExposeAlphaChannel
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModColorOption.cs/#L38"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary">When using Advanced UI, whether to show the Alpha controls</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AdvancedExposeAlphaChannel { get; set; }</code></pre>
   </div>
 
 
@@ -316,7 +347,7 @@ Class ModColorOption  <a class="header-action link-secondary" title="View source
 
   <h3 id="Nautilus_Options_ModColorOption_AddToPanel_uGUI_TabbedControlsPanel_System_Int32_" data-uid="Nautilus.Options.ModColorOption.AddToPanel(uGUI_TabbedControlsPanel,System.Int32)">
   AddToPanel(uGUI_TabbedControlsPanel, int)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModColorOption.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModColorOption.cs/#L45"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">The base method for adding an object to the options panel</div>
@@ -349,7 +380,7 @@ Class ModColorOption  <a class="header-action link-secondary" title="View source
 
   <h3 id="Nautilus_Options_ModColorOption_Create_System_String_System_String_" data-uid="Nautilus.Options.ModColorOption.Create(System.String,System.String)">
   Create(string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModColorOption.cs/#L122"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModColorOption.cs/#L132"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new <a class="xref" href="Nautilus.Options.ModColorOption.html">ModColorOption</a> instance.</div>
@@ -385,16 +416,16 @@ Class ModColorOption  <a class="header-action link-secondary" title="View source
 
   <a id="Nautilus_Options_ModColorOption_Create_" data-uid="Nautilus.Options.ModColorOption.Create*"></a>
 
-  <h3 id="Nautilus_Options_ModColorOption_Create_System_String_System_String_UnityEngine_Color_System_Boolean_System_String_" data-uid="Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String)">
-  Create(string, string, Color, bool, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModColorOption.cs/#L112"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Options_ModColorOption_Create_System_String_System_String_UnityEngine_Color_System_Boolean_System_String_System_Boolean_" data-uid="Nautilus.Options.ModColorOption.Create(System.String,System.String,UnityEngine.Color,System.Boolean,System.String,System.Boolean)">
+  Create(string, string, Color, bool, string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/ModColorOption.cs/#L122"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Creates a new <a class="xref" href="Nautilus.Options.ModColorOption.html">ModColorOption</a> instance.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static ModColorOption Create(string id, string label, Color value, bool advanced = false, string tooltip = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ModColorOption Create(string id, string label, Color value, bool advanced = false, string tooltip = null, bool advancedExposeAlphaChannel = true)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -409,6 +440,8 @@ Class ModColorOption  <a class="header-action link-secondary" title="View source
     <dd>Whether to use an advanced display.</dd>
     <dt><code>tooltip</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>The tooltip to show when hovering over the options.</dd>
+    <dt><code>advancedExposeAlphaChannel</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>When using advanced display. Whether to expose alpha channel control.</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
