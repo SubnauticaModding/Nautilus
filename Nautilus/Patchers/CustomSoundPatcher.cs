@@ -109,8 +109,10 @@ internal class CustomSoundPatcher
             return true;
         }
         
-        if (string.IsNullOrEmpty(__instance.eventName) || !CustomSounds.TryGetValue(__instance.eventName, out Sound soundEvent) 
-            && !CustomFModSounds.ContainsKey(__instance.eventName)) return true;
+        if (!CustomSounds.TryGetValue(__instance.eventName, out Sound soundEvent) && !CustomFModSounds.ContainsKey(__instance.eventName))
+        {
+            return true;
+        }
         
         Channel channel;
         if (CustomFModSounds.TryGetValue(__instance.eventName, out var fModSound))
@@ -290,14 +292,92 @@ internal class CustomSoundPatcher
         }
     }
     
+    [HarmonyPatch(typeof(RuntimeManager), nameof(RuntimeManager.PlayOneShot), typeof(string), typeof(Vector3))]
+    [HarmonyPrefix]
+    public static bool RuntimeManager_PlayOneShot_Prefix(string path, Vector3 position)
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            return true;
+        }
+        
+        if (!CustomSounds.TryGetValue(path, out Sound soundEvent) && !CustomFModSounds.ContainsKey(path)) 
+        {
+            return true;
+        }
+
+        Channel channel;
+        if (CustomFModSounds.TryGetValue(path, out var fModSound))
+        {
+            if (!fModSound.TryPlaySound(out channel))
+                return false;
+        }
+        else if (CustomSoundBuses.TryGetValue(path, out Bus bus))
+        {
+            if (!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+            
+        SetChannel3DAttributes(channel, position);
+        
+            
+        return false;
+    }
+
+    [HarmonyPatch(typeof(RuntimeManager), nameof(RuntimeManager.PlayOneShotAttached), typeof(string), typeof(GameObject))]
+    [HarmonyPrefix]
+    public static bool RuntimeManager_PlayOneShotAttached_Prefix(string path, GameObject gameObject)
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            return true;
+        }
+        
+        if (!CustomSounds.TryGetValue(path, out Sound soundEvent) && !CustomFModSounds.ContainsKey(path)) 
+        {
+            return true;
+        }
+
+        Channel channel;
+        if (CustomFModSounds.TryGetValue(path, out var fModSound))
+        {
+            if (!fModSound.TryPlaySound(out channel))
+                return false;
+        }
+        else if (CustomSoundBuses.TryGetValue(path, out Bus bus))
+        {
+            if (!AudioUtils.TryPlaySound(soundEvent, bus, out channel))
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+        
+        CustomSoundHandler.AttachChannelToGameObject(channel, gameObject.transform);
+            
+        return false;
+    }
+    
 #if SUBNAUTICA
         
     [HarmonyPatch(typeof(FMODUWE), nameof(FMODUWE.PlayOneShotImpl))]
     [HarmonyPrefix]
     public static bool FMODUWE_PlayOneShotImpl_Prefix(string eventPath, Vector3 position, float volume)
     {
-        if (string.IsNullOrEmpty(eventPath) || !CustomSounds.TryGetValue(eventPath, out Sound soundEvent) 
-            && !CustomFModSounds.ContainsKey(eventPath)) return true;
+        if (string.IsNullOrEmpty(eventPath))
+        {
+            return true;
+        }
+        
+        if (!CustomSounds.TryGetValue(eventPath, out Sound soundEvent) && !CustomFModSounds.ContainsKey(eventPath)) 
+        {
+            return true;
+        }
 
         Channel channel;
         if (CustomFModSounds.TryGetValue(eventPath, out var fModSound))
@@ -325,7 +405,15 @@ internal class CustomSoundPatcher
     [HarmonyPrefix]
     public static bool SoundQueue_Play_Prefix(SoundQueue __instance, string sound, string subtitles)
     {
-        if (string.IsNullOrEmpty(sound) || !CustomSounds.TryGetValue(sound, out Sound soundEvent) && !CustomFModSounds.ContainsKey(sound)) return true;
+        if (string.IsNullOrEmpty(sound))
+        {
+            return true;
+        }
+
+        if (!CustomSounds.TryGetValue(sound, out Sound soundEvent) && !CustomFModSounds.ContainsKey(sound))
+        {
+            return true;
+        }
 
         __instance.Stop();
         __instance._current = sound;
@@ -372,8 +460,20 @@ internal class CustomSoundPatcher
     [HarmonyPrefix]
     public static bool SoundQueue_Update_Prefix(SoundQueue __instance)
     {
-        if (__instance is null || string.IsNullOrEmpty(__instance._current)  || !PlayedChannels.TryGetValue(__instance._current, out var channel)) return true;
-        if (!SoundQueue.GetIsStartingOrPlaying(__instance.eventInstance)) return true;
+        if (__instance is null || string.IsNullOrEmpty(__instance._current))
+        {
+            return true;
+        }
+
+        if (!PlayedChannels.TryGetValue(__instance._current, out var channel))
+        {
+            return true;
+        }
+        
+        if (!SoundQueue.GetIsStartingOrPlaying(__instance.eventInstance))
+        {
+            return true;
+        }
 
         ATTRIBUTES_3D attributes = Player.main.transform.To3DAttributes();
         channel.set3DAttributes(ref attributes.position, ref attributes.velocity);
@@ -411,8 +511,15 @@ internal class CustomSoundPatcher
     [HarmonyPrefix]
     public static bool FMOD_CustomEmitter_Play_Prefix(FMOD_CustomEmitter __instance)
     {
-        if (string.IsNullOrEmpty(__instance.asset?.path) || !CustomSounds.TryGetValue(__instance.asset.path, out var sound) 
-            && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
+        if (string.IsNullOrEmpty(__instance.asset?.path))
+        {
+            return true;
+        }
+
+        if (!CustomSounds.TryGetValue(__instance.asset.path, out var sound) && !CustomFModSounds.ContainsKey(__instance.asset.path))
+        {
+            return true;
+        }
 
         if (EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel) &&
             channel.isPlaying(out var playing) == RESULT.OK && playing && !__instance.restartOnPlay) // already playing, no need to play it again
@@ -499,7 +606,16 @@ internal class CustomSoundPatcher
     [HarmonyPrefix]
     public static bool FMOD_CustomEmitter_ReleaseEvent_Prefix(FMOD_CustomEmitter __instance)
     {
-        if (__instance.asset == null || !CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path)) return true;
+        if (__instance.asset == null)
+        {
+            return true;
+        }
+
+        if (!CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path))
+        {
+            return true;
+        }
+        
         if (!EmitterPlayedChannels.TryGetValue(__instance.GetInstanceID(), out var channel)) return false; // known sound but not played yet
 
         TryFadeOutBeforeStop(channel);
@@ -513,9 +629,20 @@ internal class CustomSoundPatcher
     [HarmonyPrefix]
     public static bool FMOD_CustomLoopingEmitter_PlayStopSound_Prefix(FMOD_CustomLoopingEmitter __instance)
     {
-        if (__instance.assetStop == null) return true;
-        if (string.IsNullOrEmpty(__instance.assetStop.path) || !CustomSounds.TryGetValue(__instance.assetStop.path, out var sound) 
-            && !CustomFModSounds.ContainsKey(__instance.assetStop.path)) return true;
+        if (__instance.assetStop == null)
+        {
+            return true;
+        }
+        
+        if (string.IsNullOrEmpty(__instance.assetStop.path))
+        {
+            return true;
+        }
+
+        if (!CustomSounds.TryGetValue(__instance.assetStop.path, out var sound) && !CustomFModSounds.ContainsKey(__instance.assetStop.path))
+        {
+            return true;
+        }
             
         var soundPath = __instance.assetStop.path;
         Channel channel;
@@ -545,8 +672,15 @@ internal class CustomSoundPatcher
     public static bool FMOD_CustomLoopingEmitter_OnPlay_Prefix(FMOD_CustomLoopingEmitter __instance)
     {
         if (__instance.assetStart == null) return true;
-        if (string.IsNullOrEmpty(__instance.assetStart.path) || !CustomSounds.TryGetValue(__instance.assetStart.path, out var sound) 
-            && !CustomFModSounds.ContainsKey(__instance.assetStart.path)) return true;
+        if (string.IsNullOrEmpty(__instance.assetStart.path))
+        {
+            return true;
+        }
+
+        if (!CustomSounds.TryGetValue(__instance.assetStart.path, out var sound) && !CustomFModSounds.ContainsKey(__instance.assetStart.path))
+        {
+            return true;
+        }
             
         var soundPath = __instance.assetStart.path;
         Channel channel;
@@ -576,8 +710,12 @@ internal class CustomSoundPatcher
         [HarmonyPrefix]
         public static bool FMODUWE_PlayOneShotImpl_Prefix(string eventPath, Vector3 position, float volume)
         {
-            if (string.IsNullOrEmpty(eventPath) || (!CustomSounds.TryGetValue(eventPath, out Sound soundEvent) 
-                                                && !CustomFModSounds.ContainsKey(eventPath)))
+            if (string.IsNullOrEmpty(eventPath))
+            {
+                return true;
+            }
+
+            if (!CustomSounds.TryGetValue(eventPath, out Sound soundEvent) && !CustomFModSounds.ContainsKey(eventPath))
             {
                 return true;
             }
@@ -608,7 +746,12 @@ internal class CustomSoundPatcher
         [HarmonyPrefix]
         public static bool SoundQueue_Play_Prefix(SoundQueue __instance, string sound, SoundHost host, string subtitles, int subtitlesLine)
         {
-            if (string.IsNullOrEmpty(sound) || (!CustomSounds.TryGetValue(sound, out Sound soundEvent) && !CustomFModSounds.ContainsKey(sound)))
+            if (string.IsNullOrEmpty(sound))
+            {
+                return true;
+            }
+
+            if (!CustomSounds.TryGetValue(sound, out Sound soundEvent) && !CustomFModSounds.ContainsKey(sound))
             {
                 return true;
             }
@@ -652,8 +795,12 @@ internal class CustomSoundPatcher
         [HarmonyPrefix]
         public static bool SoundQueue_Stop_Prefix(SoundQueue __instance)
         {
-            if (__instance._current is null || string.IsNullOrEmpty(__instance._current.Value.sound) 
-                                            || !PlayedChannels.TryGetValue(__instance._current.Value.sound, out Channel channel))
+            if (__instance._current is null || string.IsNullOrEmpty(__instance._current.Value.sound))
+            {
+                return true;
+            }
+
+            if (!PlayedChannels.TryGetValue(__instance._current.Value.sound, out Channel channel))
             {
                 return true;
             }
@@ -736,8 +883,13 @@ internal class CustomSoundPatcher
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_Play_Prefix(FMOD_CustomEmitter __instance)
         {
-            if (string.IsNullOrEmpty(__instance.asset?.path) || (!CustomSounds.TryGetValue(__instance.asset.path, out Sound sound) 
-                && !CustomFModSounds.ContainsKey(__instance.asset.path)))
+            if (string.IsNullOrEmpty(__instance.asset?.path))
+            {
+                return true;
+            }
+
+            if (!CustomSounds.TryGetValue(__instance.asset.path, out Sound sound) &&
+                !CustomFModSounds.ContainsKey(__instance.asset.path))
             {
                 return true;
             }
@@ -835,7 +987,12 @@ internal class CustomSoundPatcher
         [HarmonyPrefix]
         public static bool FMOD_CustomEmitter_ReleaseEvent_Prefix(FMOD_CustomEmitter __instance)
         {
-            if (__instance.asset == null || (!CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path)))
+            if (__instance.asset == null)
+            {
+                return true;
+            }
+
+            if (!CustomSounds.ContainsKey(__instance.asset.path) && !CustomFModSounds.ContainsKey(__instance.asset.path))
             {
                 return true;
             }
@@ -862,10 +1019,14 @@ internal class CustomSoundPatcher
                 return true;
             }
 
-            if (string.IsNullOrEmpty(__instance.assetStop.path) || (!CustomSounds.TryGetValue(__instance.assetStop.path, out Sound sound) 
-                && !CustomFModSounds.ContainsKey(__instance.asset.path)))
+            if (string.IsNullOrEmpty(__instance.assetStop.path))
             {
                 return true;
+            }
+
+            if (!CustomSounds.TryGetValue(__instance.assetStop.path, out Sound sound) && !CustomFModSounds.ContainsKey(__instance.asset.path))
+            {
+                
             }
 
             string soundPath = __instance.assetStop.path;
@@ -900,8 +1061,12 @@ internal class CustomSoundPatcher
                 return true;
             }
 
-            if (string.IsNullOrEmpty(__instance.assetStart.path) || (!CustomSounds.TryGetValue(__instance.assetStart.path, out Sound sound) 
-                && !CustomFModSounds.ContainsKey(__instance.asset.path)))
+            if (string.IsNullOrEmpty(__instance.assetStart.path))
+            {
+                return true;
+            }
+
+            if (!CustomSounds.TryGetValue(__instance.assetStart.path, out Sound sound) && !CustomFModSounds.ContainsKey(__instance.asset.path))
             {
                 return true;
             }

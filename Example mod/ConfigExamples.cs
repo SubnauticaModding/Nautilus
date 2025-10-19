@@ -185,6 +185,7 @@ public class Config : ConfigFile
     [Choice("My customised enum-based choice", "1", "2", "3"), OnChange(nameof(MyChoiceValueChangedEvent))]
     public CustomChoice ChoiceCustomEnum;
 
+#if BELOWZERO
     /// <summary>
     /// <para>A <see cref="KeybindAttribute"/> is represented in the mod options menu as a customistable keybind, where the
     /// user clicks the box to set the binding, stored as a <see cref="KeyCode"/>.</para>
@@ -193,6 +194,7 @@ public class Config : ConfigFile
     /// </summary>
     [Keybind("My keybind"), OnChange(nameof(MyKeybindValueChangedEvent))]
     public KeyCode KeybindKey;
+#endif
 
     /// <summary>
     /// <para>A <see cref="SliderAttribute"/> is used to represent a numeric value as a slider in the options menu, with a
@@ -279,12 +281,13 @@ public class Config : ConfigFile
         ConfigExamples.LogSource.LogInfo($"Choice value {e.Id} was changed: {choice}");
     }
 
+#if BELOWZERO
     private void MyKeybindValueChangedEvent(KeybindChangedEventArgs e)
     {
         KeyCode keyCode = e.Value;
         ConfigExamples.LogSource.LogInfo($"Keybind value {e.Id} was changed: {keyCode}");
     }
-
+#endif
     private void MySliderValueChangedEvent(SliderChangedEventArgs e)
     {
         float floatValue = e.Value;
