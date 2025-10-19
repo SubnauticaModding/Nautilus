@@ -156,7 +156,7 @@ Class EnumExtensions  <a class="header-action link-secondary" title="View source
 
   <h3 id="Nautilus_Handlers_EnumExtensions_AvoidConflicts_Nautilus_Handlers_EnumBuilder_GameInput_Button__" data-uid="Nautilus.Handlers.EnumExtensions.AvoidConflicts(Nautilus.Handlers.EnumBuilder{GameInput.Button})">
   AvoidConflicts(EnumBuilder&lt;Button&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L226"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L234"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Assigns this button to force its bindings to work regardless of whether another vanilla button or custom button have similar bindings.</div>
@@ -198,7 +198,7 @@ Class EnumExtensions  <a class="header-action link-secondary" title="View source
 
   <h3 id="Nautilus_Handlers_EnumExtensions_AvoidConflicts_Nautilus_Handlers_EnumBuilder_GameInput_Button__GameInput_Device_" data-uid="Nautilus.Handlers.EnumExtensions.AvoidConflicts(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device)">
   AvoidConflicts(EnumBuilder&lt;Button&gt;, Device)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L243"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L251"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Assigns this button to force its bindings to work regardless of whether another vanilla button or custom button have similar bindings in a device.</div>
@@ -282,26 +282,28 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <a id="Nautilus_Handlers_EnumExtensions_CreateInput_" data-uid="Nautilus.Handlers.EnumExtensions.CreateInput*"></a>
 
-  <h3 id="Nautilus_Handlers_EnumExtensions_CreateInput_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_System_String_UnityEngine_InputSystem_InputActionType_" data-uid="Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String,UnityEngine.InputSystem.InputActionType)">
-  CreateInput(EnumBuilder&lt;Button&gt;, string, string, InputActionType)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L40"><i class="bi bi-code-slash"></i></a>
+  <h3 id="Nautilus_Handlers_EnumExtensions_CreateInput_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_System_String_System_String_UnityEngine_InputSystem_InputActionType_" data-uid="Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String,System.String,UnityEngine.InputSystem.InputActionType)">
+  CreateInput(EnumBuilder&lt;Button&gt;, string, string, string, InputActionType)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L41"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Initializes the action input for this button.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;GameInput.Button&gt; CreateInput(this EnumBuilder&lt;GameInput.Button&gt; builder, string tooltip = &quot;&quot;, string language = &quot;English&quot;, InputActionType actionType = InputActionType.Button)</code></pre>
+    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;GameInput.Button&gt; CreateInput(this EnumBuilder&lt;GameInput.Button&gt; builder, string displayName = &quot;&quot;, string tooltip = &quot;&quot;, string language = &quot;English&quot;, InputActionType actionType = InputActionType.Button)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>builder</code> <a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;<span class="xref">GameInput</span>.<span class="xref">Button</span>&gt;</dt>
     <dd>The current custom enum object instance.</dd>
-    <dt><code>tooltip</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dt><code>displayName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>The display name of the button, can be anything. If null or empty, this will use the language line "Option{enumName}" instead.</dd>
+    <dt><code>tooltip</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The tooltip that's shown once the button is hovered in the Mod Input tab, can be anything. If null or empty, this will use the language line "OptionDesc_{enumName}" instead.</dd>
     <dt><code>language</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The language for the display name. Defaults to English.</dd>
+    <dd>The language for the display name and tooltip. Defaults to English.</dd>
     <dt><code>actionType</code> <span class="xref">InputActionType</span></dt>
     <dd>Determines the behavior with which an <span class="xref">UnityEngine.InputSystem.InputAction</span> triggers.</dd>
   </dl>
@@ -411,7 +413,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_SetBindable_Nautilus_Handlers_EnumBuilder_GameInput_Button__" data-uid="Nautilus.Handlers.EnumExtensions.SetBindable(Nautilus.Handlers.EnumBuilder{GameInput.Button})">
   SetBindable(EnumBuilder&lt;Button&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L167"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L175"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Assigns this button to be bindable for all devices in the Mod Input tab.</div>
@@ -455,7 +457,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_SetBindable_Nautilus_Handlers_EnumBuilder_GameInput_Button__GameInput_Device_" data-uid="Nautilus.Handlers.EnumExtensions.SetBindable(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device)">
   SetBindable(EnumBuilder&lt;Button&gt;, Device)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L185"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L193"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Assigns this button to be bindable for a device in the Mod Input tab.</div>
@@ -501,7 +503,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_SetUnbindable_Nautilus_Handlers_EnumBuilder_GameInput_Button__" data-uid="Nautilus.Handlers.EnumExtensions.SetUnbindable(Nautilus.Handlers.EnumBuilder{GameInput.Button})">
   SetUnbindable(EnumBuilder&lt;Button&gt;)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L197"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L205"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Removes this button from being bindable in the Mod Input tab.</div>
@@ -543,7 +545,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_SetUnbindable_Nautilus_Handlers_EnumBuilder_GameInput_Button__GameInput_Device_" data-uid="Nautilus.Handlers.EnumExtensions.SetUnbindable(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device)">
   SetUnbindable(EnumBuilder&lt;Button&gt;, Device)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L214"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L222"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Removes this button from being bindable for a specific device in the Mod Input tab.</div>
@@ -668,7 +670,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_WithBinding_Nautilus_Handlers_EnumBuilder_GameInput_Button__GameInput_Device_GameInput_BindingSet_System_String_" data-uid="Nautilus.Handlers.EnumExtensions.WithBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device,GameInput.BindingSet,System.String)">
   WithBinding(EnumBuilder&lt;Button&gt;, Device, BindingSet, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L71"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L79"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the default bindings for this button.</div>
@@ -718,7 +720,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_WithBinding_Nautilus_Handlers_EnumBuilder_GameInput_Button__GameInput_Device_System_String_System_String_" data-uid="Nautilus.Handlers.EnumExtensions.WithBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},GameInput.Device,System.String,System.String)">
   WithBinding(EnumBuilder&lt;Button&gt;, Device, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L92"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L100"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the default bindings for this button.</div>
@@ -768,7 +770,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_WithCategory_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_" data-uid="Nautilus.Handlers.EnumExtensions.WithCategory(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String)">
   WithCategory(EnumBuilder&lt;Button&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L154"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L162"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Defines a custom category in which this button will appear in the Mod Input tab.</div>
@@ -808,7 +810,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_WithControllerBinding_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_System_String_" data-uid="Nautilus.Handlers.EnumExtensions.WithControllerBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String)">
   WithControllerBinding(EnumBuilder&lt;Button&gt;, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L142"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L150"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the default bindings for controller controls for this button.</div>
@@ -932,7 +934,7 @@ For more advanced usage, you can replace the default value of <a class="xref" hr
 
   <h3 id="Nautilus_Handlers_EnumExtensions_WithKeyboardBinding_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_System_String_" data-uid="Nautilus.Handlers.EnumExtensions.WithKeyboardBinding(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String)">
   WithKeyboardBinding(EnumBuilder&lt;Button&gt;, string, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L128"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/Enums/Extensions/EnumExtensions_Button.cs/#L136"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Sets the default bindings for keyboard controls for this button.</div>

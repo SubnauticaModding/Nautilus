@@ -5653,15 +5653,15 @@ references:
   isSpec: "True"
   fullName: Nautilus.Handlers.EnumExtensions.CreateCraftTreeRoot
   nameWithType: EnumExtensions.CreateCraftTreeRoot
-- uid: Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String,UnityEngine.InputSystem.InputActionType)
-  name: CreateInput(EnumBuilder<Button>, string, string, InputActionType)
-  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_CreateInput_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_System_String_UnityEngine_InputSystem_InputActionType_
-  commentId: M:Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String,UnityEngine.InputSystem.InputActionType)
-  name.vb: CreateInput(EnumBuilder(Of Button), String, String, InputActionType)
-  fullName: Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder<GameInput.Button>, string, string, UnityEngine.InputSystem.InputActionType)
-  fullName.vb: Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), String, String, UnityEngine.InputSystem.InputActionType)
-  nameWithType: EnumExtensions.CreateInput(EnumBuilder<GameInput.Button>, string, string, InputActionType)
-  nameWithType.vb: EnumExtensions.CreateInput(EnumBuilder(Of GameInput.Button), String, String, InputActionType)
+- uid: Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String,System.String,UnityEngine.InputSystem.InputActionType)
+  name: CreateInput(EnumBuilder<Button>, string, string, string, InputActionType)
+  href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_CreateInput_Nautilus_Handlers_EnumBuilder_GameInput_Button__System_String_System_String_System_String_UnityEngine_InputSystem_InputActionType_
+  commentId: M:Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder{GameInput.Button},System.String,System.String,System.String,UnityEngine.InputSystem.InputActionType)
+  name.vb: CreateInput(EnumBuilder(Of Button), String, String, String, InputActionType)
+  fullName: Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder<GameInput.Button>, string, string, string, UnityEngine.InputSystem.InputActionType)
+  fullName.vb: Nautilus.Handlers.EnumExtensions.CreateInput(Nautilus.Handlers.EnumBuilder(Of GameInput.Button), String, String, String, UnityEngine.InputSystem.InputActionType)
+  nameWithType: EnumExtensions.CreateInput(EnumBuilder<GameInput.Button>, string, string, string, InputActionType)
+  nameWithType.vb: EnumExtensions.CreateInput(EnumBuilder(Of GameInput.Button), String, String, String, InputActionType)
 - uid: Nautilus.Handlers.EnumExtensions.CreateInput*
   name: CreateInput
   href: api/Nautilus.Handlers.EnumExtensions.html#Nautilus_Handlers_EnumExtensions_CreateInput_
