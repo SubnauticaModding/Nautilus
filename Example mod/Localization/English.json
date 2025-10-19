@@ -1,4 +1,11 @@
 ﻿{
   "TitaniumClone": "Titanium Clone",
-  "Tooltip_TitaniumClone": "Titanium clone that makes me go yes."
+  "Tooltip_TitaniumClone": "Titanium clone that makes me go yes.",
+  "OptionMyPrint": "My Print",
+  "OptionDesc_MyPrint": "A button that once pressed, prints!",
+  "OptionPrintHello": "Print hello",
+  "OptionMyLog": "Print to log",
+  "NautilusExamplePrintCategory": "Print binds",
+  "NautilusExampleLogCategory": "Log binds",
+  "OptionUncategorizedButton": "Useless button"
 }
