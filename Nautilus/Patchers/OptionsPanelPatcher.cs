@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Nautilus.Patchers;
 
 using System.Collections;
@@ -161,7 +163,7 @@ internal class OptionsPanelPatcher
         }
         
         panel.AddButton(tab, "ResetToDefault", () => RemoveAllBindingOverrides(device));
-        
+        var sb = new StringBuilder();
         foreach (var kvp in categorizedButtons)
         {
             var category = kvp.Key;
@@ -183,9 +185,17 @@ internal class OptionsPanelPatcher
                     break;
                 }
                 
+                
+                if (Language.main.TryGet($"OptionDesc_{button.AsString()}", out var tooltip))
+                {
+                    sb.AppendLine(tooltip);
+                    sb.AppendLine();
+                }
+
                 var pluginName = FindPluginNameForAssembly(assembly);
-                bindings.transform.parent.gameObject.AddComponent<ModBindingTooltip>().tooltip = 
-                    $"Added by <b><color=#FFAC09>{pluginName}</color></b>";
+                sb.AppendLine($"Added by <b><color=#FFAC09>{pluginName}</color></b>");
+                bindings.transform.parent.Find("Caption").gameObject.AddComponent<ModBindingTooltip>().tooltip = sb.ToString();
+                sb.Clear();
             }
         }
     }
