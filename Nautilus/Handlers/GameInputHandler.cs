@@ -564,39 +564,39 @@ public static class GameInputHandler
             /// <summary>
             /// Represents the 'Scroll' in the Mouse.
             /// </summary>
-            public const string ScrollUp = "/Mouse/scroll/up";
+            public const string ScrollUp = "<Mouse>/scroll/up";
             
             /// <summary>
             /// Represents the 'Scroll' in the Mouse.
             /// </summary>
-            public const string ScrollDown = "/Mouse/scroll/down";
+            public const string ScrollDown = "<Mouse>/scroll/down";
 
             /// <summary>
             /// Represents the 'Left Button' in the Mouse.
             /// </summary>
-            public const string LeftButton = "/Mouse/leftButton";
+            public const string LeftButton = "<Mouse>/leftButton";
 
             /// <summary>
             /// Represents the 'Right Button' in the Mouse.
             /// </summary>
-            public const string RightButton = "/Mouse/rightButton";
+            public const string RightButton = "<Mouse>/rightButton";
 
             /// <summary>
             /// Represents the 'Middle Button' in the Mouse.
             /// </summary>
-            public const string MiddleButton = "/Mouse/middleButton";
+            public const string MiddleButton = "<Mouse>/middleButton";
 
             /// <summary>
             /// Represents the 'Northern button' in the Mouse.
             /// </summary>
             /// <remarks>Only some mouse, especially macro mouse have this button.</remarks>
-            public const string ForwardButton = "/Mouse/forwardButton";
+            public const string ForwardButton = "<Mouse>/forwardButton";
 
             /// <summary>
             /// Represents the 'Southern button' in the Mouse.
             /// </summary>
             /// <remarks>Only some mouse, especially macro mouse have this button.</remarks>
-            public const string BackButton = "/Mouse/backButton";
+            public const string BackButton = "<Mouse>/backButton";
         }
 
         /// <summary>
