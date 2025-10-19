@@ -32,27 +32,35 @@ public static partial class EnumExtensions
     /// Initializes the action input for this button.
     /// </summary>
     /// <param name="builder">The current custom enum object instance.</param>
-    /// <param name="tooltip">The display name of the button, can be anything. If null or empty, this will use the language line "Option{enumName}" instead.</param>
-    /// <param name="language">The language for the display name. Defaults to English.</param>
+    /// <param name="displayName">The display name of the button, can be anything. If null or empty, this will use the language line "Option{enumName}" instead.</param>
+    /// <param name="tooltip">The tooltip that's shown once the button is hovered in the Mod Input tab, can be anything. If null or empty, this will use the language line "OptionDesc_{enumName}" instead.</param>
+    /// <param name="language">The language for the display name and tooltip. Defaults to English.</param>
     /// <param name="actionType">Determines the behavior with which an <see cref="InputAction"/> triggers.</param>
     /// <returns>A reference to this instance after the operation has completed.</returns>
     /// <seealso href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.InputActionType.html"/>
-    public static EnumBuilder<Button> CreateInput(this EnumBuilder<Button> builder, string tooltip = "", string language = "English", InputActionType actionType = InputActionType.Button)
+    public static EnumBuilder<Button> CreateInput(this EnumBuilder<Button> builder, string displayName = "", string tooltip = "", string language = "English", InputActionType actionType = InputActionType.Button)
     {
         Button button = builder;
         var buttonName = button.AsString();
         var fullName = $"Option{buttonName}";
+        var descFullName = $"OptionDesc_{buttonName}";
         GameInputPatcher.CustomButtons[button] = new InputAction(buttonName, actionType);
-        if (!string.IsNullOrEmpty(tooltip))
+        if (!string.IsNullOrEmpty(displayName))
         {
-            LanguageHandler.SetLanguageLine(fullName, tooltip, language);
-            return builder;
+            LanguageHandler.SetLanguageLine(fullName, displayName, language);
         }
-        
-        var friendlyName = Language.main.Get(fullName);
-        if (string.IsNullOrEmpty(friendlyName))
+        else if (string.IsNullOrEmpty(Language.main.Get(fullName)))
         {
             InternalLogger.Warn($"Display name for Button '{buttonName}' is not specified and no language key has been found. Setting display name to 'Option{buttonName}'.");
+        }
+        
+        if (!string.IsNullOrEmpty(tooltip))
+        {
+            LanguageHandler.SetLanguageLine(descFullName, tooltip, language);
+        }
+        else if (string.IsNullOrEmpty(Language.main.Get(descFullName)))
+        {
+            InternalLogger.Debug($"Tooltip was not specified and no existing language line has been found for Button '{buttonName}'.");
         }
         
         return builder;
