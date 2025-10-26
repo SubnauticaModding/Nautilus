@@ -52,5 +52,12 @@
   <ItemGroup>
     <None Include="DocFX\logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\MatFilePathMapBZ.resources" />
+    <EmbeddedResource Include="Resources\MatFilePathMapBZ.resources" />
+    <None Remove="Resources\MatFilePathMapSN.resources" />
+    <EmbeddedResource Include="Resources\MatFilePathMapSN.resources" />
+  </ItemGroup>
   <Import Project="..\PostBuild.targets" />
 </Project>
