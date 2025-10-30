@@ -28,14 +28,14 @@ internal static class WaitScreenPatcher
     {
         // Early Mod Loading
         {"FadeInDummy", "Preparing..."},
-        {"SaveFilesLoad", "Loading save files"},
-        {"SceneMain", "Loading game environment"},
+        {"SaveFilesLoad", "Preparing..."},
+        {"SceneMain", "Preparing..."},
         // Mod Loading
-        {"SceneEssentials", "Loading game environment"},
-        {"SceneCyclops", "Loading Cyclops assets"},
-        {"SceneEscapePod", "Loading Lifepod assets"},
-        {"SceneAurora", "Loading Aurora assets"},
-        {"Builder", "Loading world"},
+        {"SceneEssentials", "Loading level"},
+        {"SceneCyclops", "Loading Cyclops"},
+        {"SceneEscapePod", "Loading Escape pod"},
+        {"SceneAurora", "Loading Aurora"},
+        {"Builder", "Preloading base"},
         {"WorldMount", "Loading world"},
         {"WorldTiles", "Loading world"},
         {"Batches", "Loading world"},
@@ -43,8 +43,8 @@ internal static class WaitScreenPatcher
         {"Terrain", "Loading world"},
         {"Clipmap", "Loading world"},
         {"UpdatingVisibility", "Loading world"},
-        {"EntityCells", "Loading entities"},
-        {"WorldSettle", "Finalising world"},
+        {"EntityCells", "Loading entity cells"},
+        {"WorldSettle", "Finalizing world"},
         {"Equipment", "Loading equipment"}
         // Late Mod Loading
     };
