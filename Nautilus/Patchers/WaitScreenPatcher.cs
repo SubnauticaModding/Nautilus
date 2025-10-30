@@ -1,13 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UWE;
 using Object = UnityEngine.Object;
 
 namespace Nautilus.Patchers;
@@ -28,14 +28,14 @@ internal static class WaitScreenPatcher
     {
         // Early Mod Loading
         {"FadeInDummy", "Preparing..."},
-        {"SaveFilesLoad", "Loading save files"},
-        {"SceneMain", "Loading game environment"},
+        {"SaveFilesLoad", "Preparing..."},
+        {"SceneMain", "Preparing..."},
         // Mod Loading
-        {"SceneEssentials", "Loading game environment"},
-        {"SceneCyclops", "Loading Cyclops assets"},
-        {"SceneEscapePod", "Loading Lifepod assets"},
-        {"SceneAurora", "Loading Aurora assets"},
-        {"Builder", "Loading world"},
+        {"SceneEssentials", "Loading level"},
+        {"SceneCyclops", "Loading Cyclops"},
+        {"SceneEscapePod", "Loading Escape pod"},
+        {"SceneAurora", "Loading Aurora"},
+        {"Builder", "Preloading base"},
         {"WorldMount", "Loading world"},
         {"WorldTiles", "Loading world"},
         {"Batches", "Loading world"},
@@ -43,8 +43,8 @@ internal static class WaitScreenPatcher
         {"Terrain", "Loading world"},
         {"Clipmap", "Loading world"},
         {"UpdatingVisibility", "Loading world"},
-        {"EntityCells", "Loading entities"},
-        {"WorldSettle", "Finalising world"},
+        {"EntityCells", "Loading entity cells"},
+        {"WorldSettle", "Finalizing world"},
         {"Equipment", "Loading equipment"}
         // Late Mod Loading
     };
@@ -134,24 +134,77 @@ internal static class WaitScreenPatcher
         Object.Destroy(_statusText.gameObject);
     }
 
+    /// <summary>
+    /// Let each mod work through their tasks in turn while catching any errors along the way.
+    /// </summary>
     private static IEnumerator ProcessModTasks(List<WaitScreenHandler.WaitScreenTask> tasks, WaitScreen.ManualWaitItem loadingStage)
     {
+        var error = false;
         for (int i = 0; i < tasks.Count; i++)
         {
             var task = tasks[i];
-            InternalLogger.Debug($"Processing mod task by '{task.ModName}' ({i}/{tasks.Count})");
+            InternalLogger.Debug($"Processing mod task by '{task.ModName}' ({i + 1}/{tasks.Count})");
             loadingStage.SetProgress((float)i / tasks.Count);
             SetModStatus(loadingStage, task.ModName, task.Status, i + 1, tasks.Count);
 
-            task.ModActionSync?.Invoke(task);
-            if (task.ModActionAsync == null)
-                continue;
-
-            var taskEnumerator = task.ModActionAsync(task);
-            while (taskEnumerator.MoveNext())
+            try
             {
-                // Give the mod a chance to update its status label during longer tasks.
-                SetModStatus(loadingStage, task.ModName, task.Status, i + 1, tasks.Count);
+                task.ModActionSync?.Invoke(task);
+            }
+            catch (Exception ex)
+            {
+                SetModError(task.ModName, task.Status);
+                InternalLogger.Error(
+                    $"{task.ModName} has crashed during {_modStatusMap[loadingStage.stage]} task {i + 1}/{tasks.Count}");
+                Debug.LogException(ex);
+                error = true;
+            }
+            // Intentionally stall the loading process so that the wait screen gets stuck on the error.
+            if (error)
+                yield return new WaitWhile(() => true);
+            
+            if (task.ModActionAsync != null)
+            {
+                yield return ProcessEnumerator(task.ModActionAsync(task), task, loadingStage, i + 1, tasks.Count);
+            }
+        }
+    }
+
+    private static IEnumerator ProcessEnumerator(IEnumerator taskEnumerator, WaitScreenHandler.WaitScreenTask task,
+        WaitScreen.ManualWaitItem loadingStage, int current, int total)
+    {
+        bool error = false;
+        // The try-catch has to be inside the recursive method or exceptions from nested enumerators won't be caught.
+        while (true)
+        {
+            try
+            {
+                if (!taskEnumerator.MoveNext())
+                    break;
+            }
+            catch (Exception ex)
+            {
+                SetModError(task.ModName, task.Status);
+                InternalLogger.Error(
+                    $"{task.ModName} has crashed during {_modStatusMap[loadingStage.stage]} task {current}/{total}");
+                Debug.LogException(ex);
+                error = true;
+            }
+            // Intentionally stall the loading process so that the wait screen gets stuck on the error.
+            if (error)
+                yield return new WaitWhile(() => true);
+            
+            // Give the mod a chance to update its status label during longer tasks.
+            SetModStatus(loadingStage, task.ModName, task.Status, current, total);
+
+            if (taskEnumerator.Current is IEnumerator nestedEnumerator)
+            {
+                // Recurse nested enumerators. Without this, a method that yield returns another method is unable to
+                // update the status label.
+                yield return ProcessEnumerator(nestedEnumerator, task, loadingStage, current, total);
+            }
+            else
+            {
                 yield return taskEnumerator.Current;
             }
         }
@@ -180,11 +233,37 @@ internal static class WaitScreenPatcher
 
     private static void SetModStatus(WaitScreen.ManualWaitItem stage, string modName, string status, int current, int total)
     {
+        var language = Language.main;
         var stageDescriptor = _modStatusMap[stage.stage];
-        var text = $"{stageDescriptor} ({current}/{total}): {modName}";
+        StringBuilder sb = new StringBuilder(stageDescriptor);
+        sb.AppendFormat(" ({0}/{1}): {2}", current, total, language.Get(modName));
         if (!string.IsNullOrEmpty(status))
-            text += " - " + status;
-        _statusText.text = text;
+            sb.AppendFormat(" - {0}", language.Get(status));
+
+        var text = sb.ToString();
+        if (_statusText.text != text)
+        {
+            InternalLogger.Debug($"{modName} updated task status to '{status}'");
+            _statusText.text = text;
+        }
+    }
+
+    /// <summary>
+    /// Make it very clear to the user that something has gone wrong if a task throws.
+    /// </summary>
+    private static void SetModError(string modName, string status)
+    {
+        var language = Language.main;
+        StringBuilder sb = new StringBuilder();
+        sb.AppendFormat("<color=#FF0000FF><b>CRASHED: {0}", language.Get(modName));
+        if (!string.IsNullOrEmpty(status))
+            sb.AppendFormat(" during '{0}'", language.Get(status));
+        sb.AppendLine("</b></color>");
+        sb.Append("Please check the log file for more error information.");
+
+        _statusText.text = sb.ToString();
+        // The error message is two lines long, make sure both are visible.
+        _statusText.overflowMode = TextOverflowModes.Overflow;
     }
 
     /// <summary>
@@ -195,12 +274,12 @@ internal static class WaitScreenPatcher
         var gameObject = new GameObject("WaitScreenStatus");
         // Parent it to the loading screen itself.
         gameObject.transform.SetParent(uGUI.main.loading.loadingBackground.transform, false);
-        // Put the text right next to the spinning loading icon.
-        gameObject.transform.localPosition = new Vector3(-685f, -395f);
 
         var textMesh = gameObject.AddComponent<TextMeshProUGUI>();
         textMesh.font = FontUtils.Aller_Rg;
         textMesh.fontSize = 24f;
+        textMesh.outlineWidth = 0.1f;
+        textMesh.outlineColor = new Color32(0, 0, 0, 100);
         textMesh.alignment = TextAlignmentOptions.MidlineLeft;
         // Keep this text label a single line that spans across the screen.
         textMesh.autoSizeTextContainer = false;
@@ -208,8 +287,10 @@ internal static class WaitScreenPatcher
         // If a mod message somehow gets too long, cut if off with an ellipsis (...)
         textMesh.overflowMode = TextOverflowModes.Ellipsis;
         textMesh.rectTransform.pivot = new Vector2(0f, 1f);
+        // Put the text right next to the spinning loading icon.
+        textMesh.rectTransform.anchorMin = new Vector2(0.12f, 0.15f);
         // Extend the available space to just before the other edge of the screen.
-        textMesh.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 1600f);
+        textMesh.rectTransform.anchorMax = new Vector2(0.85f, 0.15f);
 
         return textMesh;
     }

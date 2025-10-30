@@ -18,542 +18,572 @@ public static class GameInputHandler
             /// <summary>
             /// Represents the 'Escape' in the Keyboard.
             /// </summary>
-            public const string Escape  = "<Keyboard>/escape";
+            public static readonly string Escape  = "<Keyboard>/escape";
 
             /// <summary>
             /// Represents the 'Space' in the Keyboard.
             /// </summary>
-            public const string Space  = "<Keyboard>/space";
+            public static readonly string Space  = "<Keyboard>/space";
 
             /// <summary>
             /// Represents the 'Enter' in the Keyboard.
             /// </summary>
-            public const string Enter  = "<Keyboard>/enter";
+            public static readonly string Enter  = "<Keyboard>/enter";
 
             /// <summary>
             /// Represents the 'Tab' in the Keyboard.
             /// </summary>
-            public const string Tab  = "<Keyboard>/tab";
+            public static readonly string Tab  = "<Keyboard>/tab";
 
             /// <summary>
             /// Represents the (`) in the Keyboard.
             /// </summary>
-            public const string Backquote  = "<Keyboard>/backquote";
+            public static readonly string Backquote  = "<Keyboard>/backquote";
 
             /// <summary>
             /// Represents the (') in the Keyboard.
             /// </summary>
-            public const string Quote  = "<Keyboard>/quote";
+            public static readonly string Quote  = "<Keyboard>/quote";
 
             /// <summary>
             /// Represents the (;) in the Keyboard.
             /// </summary>
-            public const string Semicolon  = "<Keyboard>/semicolon";
+            public static readonly string Semicolon  = "<Keyboard>/semicolon";
 
             /// <summary>
             /// Represents the (,) in the Keyboard.
             /// </summary>
-            public const string Comma  = "<Keyboard>/comma";
+            public static readonly string Comma  = "<Keyboard>/comma";
 
             /// <summary>
             /// Represents the (.) in the Keyboard.
             /// </summary>
-            public const string Period  = "<Keyboard>/period";
+            public static readonly string Period  = "<Keyboard>/period";
 
             /// <summary>
             /// Represents the (/) in the Keyboard.
             /// </summary>
-            public const string Slash  = "<Keyboard>/slash";
+            public static readonly string Slash  = "<Keyboard>/slash";
 
             /// <summary>
             /// Represents the (\) in the Keyboard.
             /// </summary>
-            public const string Backslash  = "<Keyboard>/backslash";
+            public static readonly string Backslash  = "<Keyboard>/backslash";
 
             /// <summary>
             /// Represents the '[' in the Keyboard.
             /// </summary>
-            public const string LeftBracket  = "<Keyboard>/leftBracket";
+            public static readonly string LeftBracket  = "<Keyboard>/leftBracket";
 
             /// <summary>
             /// Represents the ']' in the Keyboard.
             /// </summary>
-            public const string RightBracket  = "<Keyboard>/rightBracket";
+            public static readonly string RightBracket  = "<Keyboard>/rightBracket";
 
             /// <summary>
             /// Represents the (-) in the Keyboard.
             /// </summary>
-            public const string Minus  = "<Keyboard>/minus";
+            public static readonly string Minus  = "<Keyboard>/minus";
 
             /// <summary>
             /// Represents the (=) in the Keyboard.
             /// </summary>
-            public new const string Equals  = "<Keyboard>/equals";
+            public new static readonly string Equals  = "<Keyboard>/equals";
 
             /// <summary>
             /// Represents the 'Up Arrow' in the Keyboard.
             /// </summary>
-            public const string UpArrow  = "<Keyboard>/upArrow";
+            public static readonly string UpArrow  = "<Keyboard>/upArrow";
 
             /// <summary>
             /// Represents the 'Down Arrow' in the Keyboard.
             /// </summary>
-            public const string DownArrow  = "<Keyboard>/downArrow";
+            public static readonly string DownArrow  = "<Keyboard>/downArrow";
 
             /// <summary>
             /// Represents the 'Left Arrow' in the Keyboard.
             /// </summary>
-            public const string LeftArrow  = "<Keyboard>/leftArrow";
+            public static readonly string LeftArrow  = "<Keyboard>/leftArrow";
 
             /// <summary>
             /// Represents the 'Right Arrow' in the Keyboard.
             /// </summary>
-            public const string RightArrow  = "<Keyboard>/rightArrow";
+            public static readonly string RightArrow  = "<Keyboard>/rightArrow";
 
             /// <summary>
             /// Represents the 'A' in the Keyboard.
             /// </summary>
-            public const string A  = "<Keyboard>/a";
+            public static readonly string A  = "<Keyboard>/a";
 
             /// <summary>
             /// Represents the 'B' in the Keyboard.
             /// </summary>
-            public const string B  = "<Keyboard>/b";
+            public static readonly string B  = "<Keyboard>/b";
 
             /// <summary>
             /// Represents the 'C' in the Keyboard.
             /// </summary>
-            public const string C  = "<Keyboard>/c";
+            public static readonly string C  = "<Keyboard>/c";
 
             /// <summary>
             /// Represents the 'D' in the Keyboard.
             /// </summary>
-            public const string D  = "<Keyboard>/d";
+            public static readonly string D  = "<Keyboard>/d";
 
             /// <summary>
             /// Represents the 'E' in the Keyboard.
             /// </summary>
-            public const string E  = "<Keyboard>/e";
+            public static readonly string E  = "<Keyboard>/e";
 
             /// <summary>
             /// Represents the 'F' in the Keyboard.
             /// </summary>
-            public const string F  = "<Keyboard>/f";
+            public static readonly string F  = "<Keyboard>/f";
 
             /// <summary>
             /// Represents the 'G' in the Keyboard.
             /// </summary>
-            public const string G  = "<Keyboard>/g";
+            public static readonly string G  = "<Keyboard>/g";
 
             /// <summary>
             /// Represents the 'H' in the Keyboard.
             /// </summary>
-            public const string H  = "<Keyboard>/h";
+            public static readonly string H  = "<Keyboard>/h";
 
             /// <summary>
             /// Represents the 'I' in the Keyboard.
             /// </summary>
-            public const string I  = "<Keyboard>/i";
+            public static readonly string I  = "<Keyboard>/i";
 
             /// <summary>
             /// Represents the 'J' in the Keyboard.
             /// </summary>
-            public const string J  = "<Keyboard>/j";
+            public static readonly string J  = "<Keyboard>/j";
 
             /// <summary>
             /// Represents the 'K' in the Keyboard.
             /// </summary>
-            public const string K  = "<Keyboard>/k";
+            public static readonly string K  = "<Keyboard>/k";
 
             /// <summary>
             /// Represents the 'L' in the Keyboard.
             /// </summary>
-            public const string L  = "<Keyboard>/l";
+            public static readonly string L  = "<Keyboard>/l";
 
             /// <summary>
             /// Represents the 'M' in the Keyboard.
             /// </summary>
-            public const string M  = "<Keyboard>/m";
+            public static readonly string M  = "<Keyboard>/m";
 
             /// <summary>
             /// Represents the 'N' in the Keyboard.
             /// </summary>
-            public const string N  = "<Keyboard>/n";
+            public static readonly string N  = "<Keyboard>/n";
 
             /// <summary>
             /// Represents the 'O' in the Keyboard.
             /// </summary>
-            public const string O  = "<Keyboard>/o";
+            public static readonly string O  = "<Keyboard>/o";
 
             /// <summary>
             /// Represents the 'P' in the Keyboard.
             /// </summary>
-            public const string P  = "<Keyboard>/p";
+            public static readonly string P  = "<Keyboard>/p";
 
             /// <summary>
             /// Represents the 'Q' in the Keyboard.
             /// </summary>
-            public const string Q  = "<Keyboard>/q";
+            public static readonly string Q  = "<Keyboard>/q";
 
             /// <summary>
             /// Represents the 'R' in the Keyboard.
             /// </summary>
-            public const string R  = "<Keyboard>/r";
+            public static readonly string R  = "<Keyboard>/r";
 
             /// <summary>
             /// Represents the 'S' in the Keyboard.
             /// </summary>
-            public const string S  = "<Keyboard>/s";
+            public static readonly string S  = "<Keyboard>/s";
 
             /// <summary>
             /// Represents the 'T' in the Keyboard.
             /// </summary>
-            public const string T  = "<Keyboard>/t";
+            public static readonly string T  = "<Keyboard>/t";
 
             /// <summary>
             /// Represents the 'U' in the Keyboard.
             /// </summary>
-            public const string U  = "<Keyboard>/u";
+            public static readonly string U  = "<Keyboard>/u";
 
             /// <summary>
             /// Represents the 'V' in the Keyboard.
             /// </summary>
-            public const string V  = "<Keyboard>/v";
+            public static readonly string V  = "<Keyboard>/v";
 
             /// <summary>
             /// Represents the 'W' in the Keyboard.
             /// </summary>
-            public const string W  = "<Keyboard>/w";
+            public static readonly string W  = "<Keyboard>/w";
 
             /// <summary>
             /// Represents the 'X' in the Keyboard.
             /// </summary>
-            public const string X  = "<Keyboard>/x";
+            public static readonly string X  = "<Keyboard>/x";
 
             /// <summary>
             /// Represents the 'Y' in the Keyboard.
             /// </summary>
-            public const string Y  = "<Keyboard>/y";
+            public static readonly string Y  = "<Keyboard>/y";
 
             /// <summary>
             /// Represents the 'Z' in the Keyboard.
             /// </summary>
-            public const string Z  = "<Keyboard>/z";
+            public static readonly string Z  = "<Keyboard>/z";
 
             /// <summary>
             /// Represents the '1' in the Keyboard.
             /// </summary>
-            public const string Key1 = "<Keyboard>/1";
+            public static readonly string Key1 = "<Keyboard>/1";
 
             /// <summary>
             /// Represents the '2' in the Keyboard.
             /// </summary>
-            public const string Key2 = "<Keyboard>/2";
+            public static readonly string Key2 = "<Keyboard>/2";
 
             /// <summary>
             /// Represents the '3' in the Keyboard.
             /// </summary>
-            public const string Key3 = "<Keyboard>/3";
+            public static readonly string Key3 = "<Keyboard>/3";
 
             /// <summary>
             /// Represents the '4' in the Keyboard.
             /// </summary>
-            public const string Key4 = "<Keyboard>/4";
+            public static readonly string Key4 = "<Keyboard>/4";
 
             /// <summary>
             /// Represents the '5' in the Keyboard.
             /// </summary>
-            public const string Key5 = "<Keyboard>/5";
+            public static readonly string Key5 = "<Keyboard>/5";
 
             /// <summary>
             /// Represents the '6' in the Keyboard.
             /// </summary>
-            public const string Key6 = "<Keyboard>/6";
+            public static readonly string Key6 = "<Keyboard>/6";
 
             /// <summary>
             /// Represents the '7' in the Keyboard.
             /// </summary>
-            public const string Key7 = "<Keyboard>/7";
+            public static readonly string Key7 = "<Keyboard>/7";
 
             /// <summary>
             /// Represents the '8' in the Keyboard.
             /// </summary>
-            public const string Key8 = "<Keyboard>/8";
+            public static readonly string Key8 = "<Keyboard>/8";
 
             /// <summary>
             /// Represents the '9' in the Keyboard.
             /// </summary>
-            public const string Key9 = "<Keyboard>/9";
+            public static readonly string Key9 = "<Keyboard>/9";
 
             /// <summary>
             /// Represents the '0' in the Keyboard.
             /// </summary>
-            public const string Key0 = "<Keyboard>/0";
+            public static readonly string Key0 = "<Keyboard>/0";
 
             /// <summary>
-            /// Represents the 'Shift' in the Keyboard.
+            /// Represents the 'Shift' in the Keyboard. This is triggered when either left shift or right shift are pressed.
             /// </summary>
-            public const string Shift = "<Keyboard>/shift";
+            public static readonly string Shift = "<Keyboard>/shift";
+            
+            /// <summary>
+            /// Represents the 'Left Shift' in the Keyboard.
+            /// </summary>
+            public static readonly string LeftShift = "<Keyboard>/leftShift";
+            
+            /// <summary>
+            /// Represents the 'Right Shift' in the Keyboard.
+            /// </summary>
+            public static readonly string RightShift = "<Keyboard>/rightShift";
 
             /// <summary>
-            /// Represents the 'Alt' in the Keyboard.
+            /// Represents the 'Alt' in the Keyboard. This is triggered when either left alt or right alt are pressed.
             /// </summary>
-            public const string Alt = "<Keyboard>/alt";
+            public static readonly string Alt = "<Keyboard>/alt";
+            
+            /// <summary>
+            /// Represents the 'Left Alt' in the Keyboard.
+            /// </summary>
+            public static readonly string LeftAlt = "<Keyboard>/leftAlt";
+            
+            /// <summary>
+            /// Represents the 'Right Alt' in the Keyboard.
+            /// </summary>
+            public static readonly string RightAlt = "<Keyboard>/rightAlt";
 
             /// <summary>
-            /// Represents the 'Control' in the Keyboard.
+            /// Represents the 'Control' in the Keyboard. This is triggered when either left ctrl or right ctrl are pressed.
             /// </summary>
-            public const string Ctrl = "<Keyboard>/ctrl";
+            public static readonly string Ctrl = "<Keyboard>/ctrl";
+            
+            /// <summary>
+            /// Represents the 'Left Ctrl' in the Keyboard.
+            /// </summary>
+            public static readonly string LeftCtrl = "<Keyboard>/leftCtrl";
+            
+            /// <summary>
+            /// Represents the 'Right Ctrl' in the Keyboard.
+            /// </summary>
+            public static readonly string RightCtrl = "<Keyboard>/rightCtrl";
 
             /// <summary>
             /// Represents the 'Left System' in the Keyboard.
             /// </summary>
-            public const string LeftMeta = "<Keyboard>/leftMeta";
+            public static readonly string LeftMeta = "<Keyboard>/leftMeta";
 
             /// <summary>
             /// Represents the 'Right System' in the Keyboard.
             /// </summary>
-            public const string RightMeta = "<Keyboard>/rightMeta";
+            public static readonly string RightMeta = "<Keyboard>/rightMeta";
 
             /// <summary>
             /// Represents the 'Context Menu' in the Keyboard.
             /// </summary>
-            public const string ContextMenu = "<Keyboard>/contextMenu";
+            public static readonly string ContextMenu = "<Keyboard>/contextMenu";
 
             /// <summary>
             /// Represents the 'Backspace' in the Keyboard.
             /// </summary>
-            public const string Backspace = "<Keyboard>/backspace";
+            public static readonly string Backspace = "<Keyboard>/backspace";
 
             /// <summary>
             /// Represents the 'Page Down' in the Keyboard.
             /// </summary>
-            public const string PageDown = "<Keyboard>/pageDown";
+            public static readonly string PageDown = "<Keyboard>/pageDown";
 
             /// <summary>
             /// Represents the 'Page Up' in the Keyboard.
             /// </summary>
-            public const string PageUp = "<Keyboard>/pageUp";
+            public static readonly string PageUp = "<Keyboard>/pageUp";
 
             /// <summary>
             /// Represents the 'Home' in the Keyboard.
             /// </summary>
-            public const string Home = "<Keyboard>/home";
+            public static readonly string Home = "<Keyboard>/home";
 
             /// <summary>
             /// Represents the 'End' in the Keyboard.
             /// </summary>
-            public const string End = "<Keyboard>/end";
+            public static readonly string End = "<Keyboard>/end";
 
             /// <summary>
             /// Represents the 'Insert' in the Keyboard.
             /// </summary>
-            public const string Insert = "<Keyboard>/insert";
+            public static readonly string Insert = "<Keyboard>/insert";
 
             /// <summary>
             /// Represents the 'Delete' in the Keyboard.
             /// </summary>
-            public const string Delete = "<Keyboard>/delete";
+            public static readonly string Delete = "<Keyboard>/delete";
 
             /// <summary>
             /// Represents the 'Caps Lock' in the Keyboard.
             /// </summary>
-            public const string CapsLock = "<Keyboard>/capsLock";
+            public static readonly string CapsLock = "<Keyboard>/capsLock";
 
             /// <summary>
             /// Represents the 'Num Lock' in the Keyboard.
             /// </summary>
-            public const string NumLock = "<Keyboard>/numLock";
+            public static readonly string NumLock = "<Keyboard>/numLock";
 
             /// <summary>
             /// Represents the 'Print Screen' in the Keyboard.
             /// </summary>
-            public const string PrintScreen = "<Keyboard>/printScreen";
+            public static readonly string PrintScreen = "<Keyboard>/printScreen";
 
             /// <summary>
             /// Represents the 'Scroll Lock' in the Keyboard.
             /// </summary>
-            public const string ScrollLock = "<Keyboard>/scrollLock";
+            public static readonly string ScrollLock = "<Keyboard>/scrollLock";
 
             /// <summary>
             /// Represents the 'Pause/Break' in the Keyboard.
             /// </summary>
-            public const string Pause = "<Keyboard>/pause";
+            public static readonly string Pause = "<Keyboard>/pause";
 
             /// <summary>
             /// Represents the 'Numpad Enter' in the Keyboard.
             /// </summary>
-            public const string NumpadEnter = "<Keyboard>/numpadEnter";
+            public static readonly string NumpadEnter = "<Keyboard>/numpadEnter";
 
             /// <summary>
             /// Represents the 'Numpad /' in the Keyboard.
             /// </summary>
-            public const string NumpadDivide = "<Keyboard>/numpadDivide";
+            public static readonly string NumpadDivide = "<Keyboard>/numpadDivide";
 
             /// <summary>
             /// Represents the 'Numpad *' in the Keyboard.
             /// </summary>
-            public const string NumpadMultiply = "<Keyboard>/numpadMultiply";
+            public static readonly string NumpadMultiply = "<Keyboard>/numpadMultiply";
 
             /// <summary>
             /// Represents the 'Numpad +' in the Keyboard.
             /// </summary>
-            public const string NumpadPlus = "<Keyboard>/numpadPlus";
+            public static readonly string NumpadPlus = "<Keyboard>/numpadPlus";
 
             /// <summary>
             /// Represents the 'Numpad -' in the Keyboard.
             /// </summary>
-            public const string NumpadMinus = "<Keyboard>/numpadMinus";
+            public static readonly string NumpadMinus = "<Keyboard>/numpadMinus";
 
             /// <summary>
             /// Represents the 'Numpad .' in the Keyboard.
             /// </summary>
-            public const string NumpadPeriod = "<Keyboard>/numpadPeriod";
+            public static readonly string NumpadPeriod = "<Keyboard>/numpadPeriod";
 
             /// <summary>
             /// Represents the 'Numpad =' in the Keyboard.
             /// </summary>
-            public const string NumpadEquals = "<Keyboard>/numpadEquals";
+            public static readonly string NumpadEquals = "<Keyboard>/numpadEquals";
 
             /// <summary>
             /// Represents the 'Numpad 1' in the Keyboard.
             /// </summary>
-            public const string Numpad1 = "<Keyboard>/numpad1";
+            public static readonly string Numpad1 = "<Keyboard>/numpad1";
 
             /// <summary>
             /// Represents the 'Numpad 2' in the Keyboard.
             /// </summary>
-            public const string Numpad2 = "<Keyboard>/numpad2";
+            public static readonly string Numpad2 = "<Keyboard>/numpad2";
 
             /// <summary>
             /// Represents the 'Numpad 3' in the Keyboard.
             /// </summary>
-            public const string Numpad3 = "<Keyboard>/numpad3";
+            public static readonly string Numpad3 = "<Keyboard>/numpad3";
 
             /// <summary>
             /// Represents the 'Numpad 4' in the Keyboard.
             /// </summary>
-            public const string Numpad4 = "<Keyboard>/numpad4";
+            public static readonly string Numpad4 = "<Keyboard>/numpad4";
 
             /// <summary>
             /// Represents the 'Numpad 5' in the Keyboard.
             /// </summary>
-            public const string Numpad5 = "<Keyboard>/numpad5";
+            public static readonly string Numpad5 = "<Keyboard>/numpad5";
 
             /// <summary>
             /// Represents the 'Numpad 6' in the Keyboard.
             /// </summary>
-            public const string Numpad6 = "<Keyboard>/numpad6";
+            public static readonly string Numpad6 = "<Keyboard>/numpad6";
 
             /// <summary>
             /// Represents the 'Numpad 7' in the Keyboard.
             /// </summary>
-            public const string Numpad7 = "<Keyboard>/numpad7";
+            public static readonly string Numpad7 = "<Keyboard>/numpad7";
 
             /// <summary>
             /// Represents the 'Numpad 8' in the Keyboard.
             /// </summary>
-            public const string Numpad8 = "<Keyboard>/numpad8";
+            public static readonly string Numpad8 = "<Keyboard>/numpad8";
 
             /// <summary>
             /// Represents the 'Numpad 9' in the Keyboard.
             /// </summary>
-            public const string Numpad9 = "<Keyboard>/numpad9";
+            public static readonly string Numpad9 = "<Keyboard>/numpad9";
 
             /// <summary>
             /// Represents the 'Numpad 0' in the Keyboard.
             /// </summary>
-            public const string Numpad0 = "<Keyboard>/numpad0";
+            public static readonly string Numpad0 = "<Keyboard>/numpad0";
 
             /// <summary>
             /// Represents the 'F1' in the Keyboard.
             /// </summary>
-            public const string F1 = "<Keyboard>/f1";
+            public static readonly string F1 = "<Keyboard>/f1";
 
             /// <summary>
             /// Represents the 'F2' in the Keyboard.
             /// </summary>
-            public const string F2 = "<Keyboard>/f2";
+            public static readonly string F2 = "<Keyboard>/f2";
 
             /// <summary>
             /// Represents the 'F3' in the Keyboard.
             /// </summary>
-            public const string F3 = "<Keyboard>/f3";
+            public static readonly string F3 = "<Keyboard>/f3";
 
             /// <summary>
             /// Represents the 'F4' in the Keyboard.
             /// </summary>
-            public const string F4 = "<Keyboard>/f4";
+            public static readonly string F4 = "<Keyboard>/f4";
 
             /// <summary>
             /// Represents the 'F5' in the Keyboard.
             /// </summary>
-            public const string F5 = "<Keyboard>/f5";
+            public static readonly string F5 = "<Keyboard>/f5";
 
             /// <summary>
             /// Represents the 'F6' in the Keyboard.
             /// </summary>
-            public const string F6 = "<Keyboard>/f6";
+            public static readonly string F6 = "<Keyboard>/f6";
 
             /// <summary>
             /// Represents the 'F7' in the Keyboard.
             /// </summary>
-            public const string F7 = "<Keyboard>/f7";
+            public static readonly string F7 = "<Keyboard>/f7";
 
             /// <summary>
             /// Represents the 'F8' in the Keyboard.
             /// </summary>
-            public const string F8 = "<Keyboard>/f8";
+            public static readonly string F8 = "<Keyboard>/f8";
 
             /// <summary>
             /// Represents the 'F9' in the Keyboard.
             /// </summary>
-            public const string F9 = "<Keyboard>/f9";
+            public static readonly string F9 = "<Keyboard>/f9";
 
             /// <summary>
             /// Represents the 'F10' in the Keyboard.
             /// </summary>
-            public const string F10 = "<Keyboard>/f10";
+            public static readonly string F10 = "<Keyboard>/f10";
 
             /// <summary>
             /// Represents the 'F11' in the Keyboard.
             /// </summary>
-            public const string F11 = "<Keyboard>/f11";
+            public static readonly string F11 = "<Keyboard>/f11";
 
             /// <summary>
             /// Represents the 'F12' in the Keyboard.
             /// </summary>
-            public const string F12 = "<Keyboard>/f12";
+            public static readonly string F12 = "<Keyboard>/f12";
 
             /// <summary>
             /// Represents the 'OEM1' in the Keyboard.
             /// </summary>
-            public const string Oem1 = "<Keyboard>/OEM1";
+            public static readonly string Oem1 = "<Keyboard>/OEM1";
 
             /// <summary>
             /// Represents the 'OEM2' in the Keyboard.
             /// </summary>
-            public const string Oem2 = "<Keyboard>/OEM2";
+            public static readonly string Oem2 = "<Keyboard>/OEM2";
 
             /// <summary>
             /// Represents the 'OEM3' in the Keyboard.
             /// </summary>
-            public const string Oem3 = "<Keyboard>/OEM3";
+            public static readonly string Oem3 = "<Keyboard>/OEM3";
 
             /// <summary>
             /// Represents the 'OEM4' in the Keyboard.
             /// </summary>
-            public const string Oem4 = "<Keyboard>/OEM4";
+            public static readonly string Oem4 = "<Keyboard>/OEM4";
 
             /// <summary>
             /// Represents the 'OEM5' in the Keyboard.
             /// </summary>
-            public const string Oem5 = "<Keyboard>/OEM5";
+            public static readonly string Oem5 = "<Keyboard>/OEM5";
 
             /// <summary>
             /// Represents the 'IMESelected' in the Keyboard.
             /// </summary>
-            public const string ImeSelected = "<Keyboard>/IMESelected";
+            public static readonly string ImeSelected = "<Keyboard>/IMESelected";
         }
 
         /// <summary>
@@ -564,39 +594,39 @@ public static class GameInputHandler
             /// <summary>
             /// Represents the 'Scroll' in the Mouse.
             /// </summary>
-            public const string ScrollUp = "/Mouse/scroll/up";
+            public static readonly string ScrollUp = "<Mouse>/scroll/up";
             
             /// <summary>
             /// Represents the 'Scroll' in the Mouse.
             /// </summary>
-            public const string ScrollDown = "/Mouse/scroll/down";
+            public static readonly string ScrollDown = "<Mouse>/scroll/down";
 
             /// <summary>
             /// Represents the 'Left Button' in the Mouse.
             /// </summary>
-            public const string LeftButton = "/Mouse/leftButton";
+            public static readonly string LeftButton = "<Mouse>/leftButton";
 
             /// <summary>
             /// Represents the 'Right Button' in the Mouse.
             /// </summary>
-            public const string RightButton = "/Mouse/rightButton";
+            public static readonly string RightButton = "<Mouse>/rightButton";
 
             /// <summary>
             /// Represents the 'Middle Button' in the Mouse.
             /// </summary>
-            public const string MiddleButton = "/Mouse/middleButton";
+            public static readonly string MiddleButton = "<Mouse>/middleButton";
 
             /// <summary>
             /// Represents the 'Northern button' in the Mouse.
             /// </summary>
             /// <remarks>Only some mouse, especially macro mouse have this button.</remarks>
-            public const string ForwardButton = "/Mouse/forwardButton";
+            public static readonly string ForwardButton = "<Mouse>/forwardButton";
 
             /// <summary>
             /// Represents the 'Southern button' in the Mouse.
             /// </summary>
             /// <remarks>Only some mouse, especially macro mouse have this button.</remarks>
-            public const string BackButton = "/Mouse/backButton";
+            public static readonly string BackButton = "<Mouse>/backButton";
         }
 
         /// <summary>
@@ -607,82 +637,82 @@ public static class GameInputHandler
             /// <summary>
             /// Represents the 'D-Pad Up' in the Gamepad.
             /// </summary>
-            public const string DpadUp = "<Gamepad>/dpad/up";
+            public static readonly string DpadUp = "<Gamepad>/dpad/up";
 
             /// <summary>
             /// Represents the 'D-Pad Down' in the Gamepad.
             /// </summary>
-            public const string DpadDown = "<Gamepad>/dpad/down";
+            public static readonly string DpadDown = "<Gamepad>/dpad/down";
 
             /// <summary>
             /// Represents the 'D-Pad Left' in the Gamepad.
             /// </summary>
-            public const string DpadLeft = "<Gamepad>/dpad/left";
+            public static readonly string DpadLeft = "<Gamepad>/dpad/left";
 
             /// <summary>
             /// Represents the 'D-Pad Right' in the Gamepad.
             /// </summary>
-            public const string DpadRight = "<Gamepad>/dpad/right";
+            public static readonly string DpadRight = "<Gamepad>/dpad/right";
 
             /// <summary>
             /// Represents the 'Start' in the Gamepad.
             /// </summary>
-            public const string Start = "<Gamepad>/start";
+            public static readonly string Start = "<Gamepad>/start";
 
             /// <summary>
             /// Represents the 'Select' in the Gamepad.
             /// </summary>
-            public const string Select = "<Gamepad>/select";
+            public static readonly string Select = "<Gamepad>/select";
 
             /// <summary>
             /// Represents the 'Left Stick' in the Gamepad.
             /// </summary>
-            public const string LeftStick = "<Gamepad>/leftStickPress";
+            public static readonly string LeftStick = "<Gamepad>/leftStickPress";
 
             /// <summary>
             /// Represents the 'Right Stick' in the Gamepad.
             /// </summary>
-            public const string RightStick = "<Gamepad>/rightStickPress";
+            public static readonly string RightStick = "<Gamepad>/rightStickPress";
 
             /// <summary>
             /// Represents the 'Left Bumper' in the Gamepad.
             /// </summary>
-            public const string LeftBumper = "<Gamepad>/leftShoulder";
+            public static readonly string LeftBumper = "<Gamepad>/leftShoulder";
 
             /// <summary>
             /// Represents the 'Right Bumper' in the Gamepad.
             /// </summary>
-            public const string RightBumper = "<Gamepad>/rightShoulder";
+            public static readonly string RightBumper = "<Gamepad>/rightShoulder";
 
             /// <summary>
             /// Represents the 'A' or 'Cross' in the Gamepad.
             /// </summary>
-            public const string ButtonSouth = "<Gamepad>/buttonSouth";
+            public static readonly string ButtonSouth = "<Gamepad>/buttonSouth";
 
             /// <summary>
             /// Represents the 'B' or 'Cricle' in the Gamepad.
             /// </summary>
-            public const string ButtonEas  = "<Gamepad>/buttonEast";
+            public static readonly string ButtonEas  = "<Gamepad>/buttonEast";
 
             /// <summary>
             /// Represents the 'X' or 'Square' in the Gamepad.
             /// </summary>
-            public const string ButtonWest = "<Gamepad>/buttonWest";
+            public static readonly string ButtonWest = "<Gamepad>/buttonWest";
 
             /// <summary>
             /// Represents the 'Y' 'Triangle' in the Gamepad.
             /// </summary>
-            public const string ButtonNorth = "<Gamepad>/buttonNorth";
+            public static readonly string ButtonNorth = "<Gamepad>/buttonNorth";
 
             /// <summary>
             /// Represents the 'Left Trigger' in the Gamepad.
             /// </summary>
-            public const string LeftTrigger = "<Gamepad>/leftTrigger";
+            public static readonly string LeftTrigger = "<Gamepad>/leftTrigger";
 
             /// <summary>
             /// Represents the 'Right Trigger' in the Gamepad.
             /// </summary>
-            public const string RightTrigger = "<Gamepad>/rightTrigger";
+            public static readonly string RightTrigger = "<Gamepad>/rightTrigger";
         }
     }
 }
