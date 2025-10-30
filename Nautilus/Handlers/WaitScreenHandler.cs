@@ -20,11 +20,12 @@ public static class WaitScreenHandler
     /// scene and any GameObjects you create now will be destroyed once the in-game Main scene is loaded. Consider using
     /// <see cref="RegisterAsyncLoadTask"/> or <see cref="RegisterLateAsyncLoadTask"/> for that instead.
     /// </summary>
-    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on.</param>
+    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on. Accepts a
+    /// language key and can optionally be localised with <see cref="LanguageHandler"/>.</param>
     /// <param name="loadingFunction">The function that will be called.</param>
     /// <param name="description">An optional description to give users detailed information about what your task is
     /// doing. Can be updated even while your task is executing by setting
-    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>.</param>
+    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
     public static void RegisterEarlyLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
     {
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
@@ -47,11 +48,12 @@ public static class WaitScreenHandler
     /// similar at this time during the loading process. For that purpose, consider using
     /// <see cref="RegisterLateAsyncLoadTask"/>.
     /// </summary>
-    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on.</param>
+    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on. Accepts a
+    /// language key and can optionally be localised with <see cref="LanguageHandler"/>.</param>
     /// <param name="loadingFunction">The function that will be called.</param>
     /// <param name="description">An optional description to give users detailed information about what your task is
     /// doing. Can be updated even while your task is executing by setting
-    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>.</param>
+    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
     public static void RegisterLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
     {
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
@@ -71,11 +73,12 @@ public static class WaitScreenHandler
     /// setup at this point and is only waiting for any tasks registered through this method. Use this method for tasks
     /// that heavily rely on other GameObjects or singletons to be present, such as the Player, Inventory, or other mods.
     /// </summary>
-    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on.</param>
+    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on. Accepts a
+    /// language key and can optionally be localised with <see cref="LanguageHandler"/>.</param>
     /// <param name="loadingFunction">The function that will be called.</param>
     /// <param name="description">An optional description to give users detailed information about what your task is
     /// doing. Can be updated even while your task is executing by setting
-    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>.</param>
+    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
     public static void RegisterLateLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
     {
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
@@ -101,6 +104,8 @@ public static class WaitScreenHandler
         /// <summary>
         /// Optional detailed information about what the mod is working on during this task. Can be updated during
         /// tasks to give the user detailed feedback about what exactly the mod is doing.
+        /// <br />
+        /// Accepts a language key and can be localised with <see cref="LanguageHandler"/> if desired.
         /// </summary>
         public string Status { get; set; }
 
