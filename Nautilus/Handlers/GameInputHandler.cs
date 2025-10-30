@@ -291,19 +291,49 @@ public static class GameInputHandler
             public const string Key0 = "<Keyboard>/0";
 
             /// <summary>
-            /// Represents the 'Shift' in the Keyboard.
+            /// Represents the 'Shift' in the Keyboard. This is triggered when either left shift or right shift are pressed.
             /// </summary>
             public const string Shift = "<Keyboard>/shift";
+            
+            /// <summary>
+            /// Represents the 'Left Shift' in the Keyboard.
+            /// </summary>
+            public const string LeftShift = "<Keyboard>/leftShift";
+            
+            /// <summary>
+            /// Represents the 'Right Shift' in the Keyboard.
+            /// </summary>
+            public const string RightShift = "<Keyboard>/rightShift";
 
             /// <summary>
-            /// Represents the 'Alt' in the Keyboard.
+            /// Represents the 'Alt' in the Keyboard. This is triggered when either left alt or right alt are pressed.
             /// </summary>
             public const string Alt = "<Keyboard>/alt";
+            
+            /// <summary>
+            /// Represents the 'Left Alt' in the Keyboard.
+            /// </summary>
+            public const string LeftAlt = "<Keyboard>/leftAlt";
+            
+            /// <summary>
+            /// Represents the 'Right Alt' in the Keyboard.
+            /// </summary>
+            public const string RightAlt = "<Keyboard>/rightAlt";
 
             /// <summary>
-            /// Represents the 'Control' in the Keyboard.
+            /// Represents the 'Control' in the Keyboard. This is triggered when either left ctrl or right ctrl are pressed.
             /// </summary>
             public const string Ctrl = "<Keyboard>/ctrl";
+            
+            /// <summary>
+            /// Represents the 'Left Ctrl' in the Keyboard.
+            /// </summary>
+            public const string LeftCtrl = "<Keyboard>/leftCtrl";
+            
+            /// <summary>
+            /// Represents the 'Right Ctrl' in the Keyboard.
+            /// </summary>
+            public const string RightCtrl = "<Keyboard>/rightCtrl";
 
             /// <summary>
             /// Represents the 'Left System' in the Keyboard.
