@@ -278,8 +278,8 @@ internal static class WaitScreenPatcher
         var textMesh = gameObject.AddComponent<TextMeshProUGUI>();
         textMesh.font = FontUtils.Aller_Rg;
         textMesh.fontSize = 24f;
-        textMesh.outlineWidth = 0.3f;
-        textMesh.outlineColor = Color.black;
+        textMesh.outlineWidth = 0.1f;
+        textMesh.outlineColor = new Color32(0, 0, 0, 100);
         textMesh.alignment = TextAlignmentOptions.MidlineLeft;
         // Keep this text label a single line that spans across the screen.
         textMesh.autoSizeTextContainer = false;
