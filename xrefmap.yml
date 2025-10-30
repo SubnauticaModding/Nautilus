@@ -6495,6 +6495,12 @@ references:
   commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.L
   fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.L
   nameWithType: GameInputHandler.Paths.Keyboard.L
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftAlt
+  name: LeftAlt
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_LeftAlt
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftAlt
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftAlt
+  nameWithType: GameInputHandler.Paths.Keyboard.LeftAlt
 - uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftArrow
   name: LeftArrow
   href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_LeftArrow
@@ -6507,12 +6513,24 @@ references:
   commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftBracket
   fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftBracket
   nameWithType: GameInputHandler.Paths.Keyboard.LeftBracket
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftCtrl
+  name: LeftCtrl
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_LeftCtrl
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftCtrl
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftCtrl
+  nameWithType: GameInputHandler.Paths.Keyboard.LeftCtrl
 - uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftMeta
   name: LeftMeta
   href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_LeftMeta
   commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftMeta
   fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftMeta
   nameWithType: GameInputHandler.Paths.Keyboard.LeftMeta
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftShift
+  name: LeftShift
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_LeftShift
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftShift
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.LeftShift
+  nameWithType: GameInputHandler.Paths.Keyboard.LeftShift
 - uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.M
   name: M
   href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_M
@@ -6729,6 +6747,12 @@ references:
   commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.R
   fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.R
   nameWithType: GameInputHandler.Paths.Keyboard.R
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightAlt
+  name: RightAlt
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_RightAlt
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightAlt
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightAlt
+  nameWithType: GameInputHandler.Paths.Keyboard.RightAlt
 - uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightArrow
   name: RightArrow
   href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_RightArrow
@@ -6741,12 +6765,24 @@ references:
   commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightBracket
   fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightBracket
   nameWithType: GameInputHandler.Paths.Keyboard.RightBracket
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightCtrl
+  name: RightCtrl
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_RightCtrl
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightCtrl
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightCtrl
+  nameWithType: GameInputHandler.Paths.Keyboard.RightCtrl
 - uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightMeta
   name: RightMeta
   href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_RightMeta
   commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightMeta
   fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightMeta
   nameWithType: GameInputHandler.Paths.Keyboard.RightMeta
+- uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightShift
+  name: RightShift
+  href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_RightShift
+  commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightShift
+  fullName: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.RightShift
+  nameWithType: GameInputHandler.Paths.Keyboard.RightShift
 - uid: Nautilus.Handlers.GameInputHandler.Paths.Keyboard.S
   name: S
   href: api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html#Nautilus_Handlers_GameInputHandler_Paths_Keyboard_S

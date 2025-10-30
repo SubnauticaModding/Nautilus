@@ -156,7 +156,7 @@ Class WaitScreenHandler  <a class="header-action link-secondary" title="View sou
 
   <h3 id="Nautilus_Handlers_WaitScreenHandler_RegisterAsyncLoadTask_System_String_System_Func_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_System_Collections_IEnumerator__System_String_" data-uid="Nautilus.Handlers.WaitScreenHandler.RegisterAsyncLoadTask(System.String,System.Func{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask,System.Collections.IEnumerator},System.String)">
   RegisterAsyncLoadTask(string, Func&lt;WaitScreenTask, IEnumerator&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L61"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L63"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Register a task for doing something midway through the loading screen.
@@ -176,13 +176,14 @@ similar at this time during the loading process. For that purpose, consider usin
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>modName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The name of your mod. Will be displayed while this task is being worked on.</dd>
+    <dd>The name of your mod. Will be displayed while this task is being worked on. Accepts a
+    language key and can optionally be localised with <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a>.</dd>
     <dt><code>loadingFunction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.html">WaitScreenHandler</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenTask</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a>&gt;</dt>
     <dd>The function that will be called.</dd>
     <dt><code>description</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>An optional description to give users detailed information about what your task is
     doing. Can be updated even while your task is executing by setting
-    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>.</dd>
+    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>. Accepts language keys for localisation.</dd>
   </dl>
 
 
@@ -200,7 +201,7 @@ similar at this time during the loading process. For that purpose, consider usin
 
   <h3 id="Nautilus_Handlers_WaitScreenHandler_RegisterEarlyAsyncLoadTask_System_String_System_Func_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_System_Collections_IEnumerator__System_String_" data-uid="Nautilus.Handlers.WaitScreenHandler.RegisterEarlyAsyncLoadTask(System.String,System.Func{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask,System.Collections.IEnumerator},System.String)">
   RegisterEarlyAsyncLoadTask(string, Func&lt;WaitScreenTask, IEnumerator&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L34"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L35"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Register a task for doing something very early during the loading screen.
@@ -221,13 +222,14 @@ scene and any GameObjects you create now will be destroyed once the in-game Main
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>modName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The name of your mod. Will be displayed while this task is being worked on.</dd>
+    <dd>The name of your mod. Will be displayed while this task is being worked on. Accepts a
+    language key and can optionally be localised with <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a>.</dd>
     <dt><code>loadingFunction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.html">WaitScreenHandler</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenTask</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a>&gt;</dt>
     <dd>The function that will be called.</dd>
     <dt><code>description</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>An optional description to give users detailed information about what your task is
     doing. Can be updated even while your task is executing by setting
-    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>.</dd>
+    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>. Accepts language keys for localisation.</dd>
   </dl>
 
 
@@ -245,7 +247,7 @@ scene and any GameObjects you create now will be destroyed once the in-game Main
 
   <h3 id="Nautilus_Handlers_WaitScreenHandler_RegisterEarlyLoadTask_System_String_System_Action_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask__System_String_" data-uid="Nautilus.Handlers.WaitScreenHandler.RegisterEarlyLoadTask(System.String,System.Action{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask},System.String)">
   RegisterEarlyLoadTask(string, Action&lt;WaitScreenTask&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L28"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L29"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Register a task for doing something very early during the loading screen.
@@ -266,13 +268,14 @@ scene and any GameObjects you create now will be destroyed once the in-game Main
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>modName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The name of your mod. Will be displayed while this task is being worked on.</dd>
+    <dd>The name of your mod. Will be displayed while this task is being worked on. Accepts a
+    language key and can optionally be localised with <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a>.</dd>
     <dt><code>loadingFunction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.html">WaitScreenHandler</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenTask</a>&gt;</dt>
     <dd>The function that will be called.</dd>
     <dt><code>description</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>An optional description to give users detailed information about what your task is
     doing. Can be updated even while your task is executing by setting
-    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>.</dd>
+    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>. Accepts language keys for localisation.</dd>
   </dl>
 
 
@@ -290,7 +293,7 @@ scene and any GameObjects you create now will be destroyed once the in-game Main
 
   <h3 id="Nautilus_Handlers_WaitScreenHandler_RegisterLateAsyncLoadTask_System_String_System_Func_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_System_Collections_IEnumerator__System_String_" data-uid="Nautilus.Handlers.WaitScreenHandler.RegisterLateAsyncLoadTask(System.String,System.Func{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask,System.Collections.IEnumerator},System.String)">
   RegisterLateAsyncLoadTask(string, Func&lt;WaitScreenTask, IEnumerator&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L85"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L88"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Register a task for doing something just before the loading screen ends and the player gains control.
@@ -307,13 +310,14 @@ that heavily rely on other GameObjects or singletons to be present, such as the 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>modName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The name of your mod. Will be displayed while this task is being worked on.</dd>
+    <dd>The name of your mod. Will be displayed while this task is being worked on. Accepts a
+    language key and can optionally be localised with <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a>.</dd>
     <dt><code>loadingFunction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.html">WaitScreenHandler</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenTask</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a>&gt;</dt>
     <dd>The function that will be called.</dd>
     <dt><code>description</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>An optional description to give users detailed information about what your task is
     doing. Can be updated even while your task is executing by setting
-    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>.</dd>
+    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>. Accepts language keys for localisation.</dd>
   </dl>
 
 
@@ -331,7 +335,7 @@ that heavily rely on other GameObjects or singletons to be present, such as the 
 
   <h3 id="Nautilus_Handlers_WaitScreenHandler_RegisterLateLoadTask_System_String_System_Action_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask__System_String_" data-uid="Nautilus.Handlers.WaitScreenHandler.RegisterLateLoadTask(System.String,System.Action{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask},System.String)">
   RegisterLateLoadTask(string, Action&lt;WaitScreenTask&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L79"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L82"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Register a task for doing something just before the loading screen ends and the player gains control.
@@ -348,13 +352,14 @@ that heavily rely on other GameObjects or singletons to be present, such as the 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>modName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The name of your mod. Will be displayed while this task is being worked on.</dd>
+    <dd>The name of your mod. Will be displayed while this task is being worked on. Accepts a
+    language key and can optionally be localised with <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a>.</dd>
     <dt><code>loadingFunction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.html">WaitScreenHandler</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenTask</a>&gt;</dt>
     <dd>The function that will be called.</dd>
     <dt><code>description</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>An optional description to give users detailed information about what your task is
     doing. Can be updated even while your task is executing by setting
-    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>.</dd>
+    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>. Accepts language keys for localisation.</dd>
   </dl>
 
 
@@ -372,7 +377,7 @@ that heavily rely on other GameObjects or singletons to be present, such as the 
 
   <h3 id="Nautilus_Handlers_WaitScreenHandler_RegisterLoadTask_System_String_System_Action_Nautilus_Handlers_WaitScreenHandler_WaitScreenTask__System_String_" data-uid="Nautilus.Handlers.WaitScreenHandler.RegisterLoadTask(System.String,System.Action{Nautilus.Handlers.WaitScreenHandler.WaitScreenTask},System.String)">
   RegisterLoadTask(string, Action&lt;WaitScreenTask&gt;, string)
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L55"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Handlers/WaitScreenHandler.cs/#L57"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Register a task for doing something midway through the loading screen.
@@ -392,13 +397,14 @@ similar at this time during the loading process. For that purpose, consider usin
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>modName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
-    <dd>The name of your mod. Will be displayed while this task is being worked on.</dd>
+    <dd>The name of your mod. Will be displayed while this task is being worked on. Accepts a
+    language key and can optionally be localised with <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a>.</dd>
     <dt><code>loadingFunction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.html">WaitScreenHandler</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenTask</a>&gt;</dt>
     <dd>The function that will be called.</dd>
     <dt><code>description</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>An optional description to give users detailed information about what your task is
     doing. Can be updated even while your task is executing by setting
-    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>.</dd>
+    <a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenHandler.WaitScreenTask</a>.<a class="xref" href="Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html#Nautilus_Handlers_WaitScreenHandler_WaitScreenTask_Status">Status</a>. Accepts language keys for localisation.</dd>
   </dl>
 
 
