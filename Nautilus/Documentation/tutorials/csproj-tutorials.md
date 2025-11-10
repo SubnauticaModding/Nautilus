@@ -112,14 +112,14 @@ Finally, once again in the csproj outside of any PropertyGroups, add the followi
 ```xml
 <!--Post-Build event that automatically places your mods folder with the DLL and documentation into your plugins folder as defined in GameDir.targets-->
 <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	<Copy SourceFiles="&quot;$(TargetPath)&quot;" DestinationFolder="&quot;$(PluginsDir)\$(TargetName)&quot;" />
+	<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginsDir)\$(TargetName)" />
 </Target>
 ```
 
 If you want to do the same for a .pdb file, add this to just before `</Target>`:
 
 ```xml
-    <Copy SourceFiles="&quot;$(TargetDir)\(TargetName).pdb&quot;" DestinationFolder="&quot;$(PluginsDir)\$(TargetName)&quot;" />
+    <Copy SourceFiles="$(TargetDir)\(TargetName).pdb" DestinationFolder="$(PluginsDir)\$(TargetName)" />
 ```
 Make sure a folder exists in the BepInEx/plugins folder with the same name as your mod DLL.
 
