@@ -105,7 +105,9 @@ Still in the csproj, add the following outside of any PropertyGroups:
 
 You shouldn't have to change this.
 
-### Step 4
+#### Step 4
+
+NOTE: if your OS does not have the `copy` command, such as MacOS, please look up your copy command and the flags necessary to copy files.
 
 Finally, once again in the csproj outside of any PropertyGroups, add the following:
 
@@ -116,6 +118,11 @@ Finally, once again in the csproj outside of any PropertyGroups, add the followi
 </Target>
 ```
 
+If you want to do the same for a .pdb file, add this to just before `</Target>`:
+
+```xml
+    <Exec Command="copy /Y &quot;$(TargetDir)/$(TargetName).pdb&quot; &quot;$(PluginsDir)/$(TargetName)&quot; />"
+```
 Make sure a folder exists in the BepInEx/plugins folder with the same name as your mod DLL.
 
-If everything went correctly, upon building your project the DLL should be automatically placed in the correct location, meaning you do not have to manually move the DLL anymore!
+If everything went correctly, upon building your project the DLL should be automatically placed in the correct location, meaning you do not have to manually move the DLL anymore! If everything did not go correctly, and you get an error when building, then look up your OS's copy command and flags and go from there. Ensure that the flags you use go in front of your copy command but before the path lines, and that the flags are for copying files.
