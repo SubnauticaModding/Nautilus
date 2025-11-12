@@ -54,10 +54,6 @@ Example:
 
 It is possible to use post-build scripts that automatically place your mod's DLL into the BepInEx plugins folder right after you hit Build.
 
-> [!IMPORTANT]
-> If you plan on using GitHub Actions to automate mod builds, or have many contributors with varying operating systems, this is NOT recommended. I can only test this on Windows.
-Because of the aforementioned reasons, we do *not* use this in Nautilus. However, it can be very convenient for your own personal projects.
-
 #### Step 1
 
 In the same folder as your csproj, create a file named "GameDir.targets".
