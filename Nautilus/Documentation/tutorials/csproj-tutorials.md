@@ -54,10 +54,6 @@ Example:
 
 It is possible to use post-build scripts that automatically place your mod's DLL into the BepInEx plugins folder right after you hit Build.
 
-> [!IMPORTANT]
-> If you plan on using GitHub Actions to automate mod builds, or have many contributors with varying operating systems, this is NOT recommended. I can only test this on Windows.
-Because of the aforementioned reasons, we do *not* use this in Nautilus. However, it can be very convenient for your own personal projects.
-
 #### Step 1
 
 In the same folder as your csproj, create a file named "GameDir.targets".
@@ -105,17 +101,24 @@ Still in the csproj, add the following outside of any PropertyGroups:
 
 You shouldn't have to change this.
 
-### Step 4
+#### Step 4
 
 Finally, once again in the csproj outside of any PropertyGroups, add the following:
 
 ```xml
 <!--Post-Build event that automatically places your mods folder with the DLL and documentation into your plugins folder as defined in GameDir.targets-->
 <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	<Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;$(PluginsDir)\$(TargetName)&quot;" />
+	<MakeDir Directories="$(PluginsDir)\$(TargetName)" />
+	<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginsDir)\$(TargetName)" />
 </Target>
 ```
 
+If you want to do the same for a .pdb file, add this to just before `</Target>`:
+
+```xml
+    
+    <Copy SourceFiles="$(TargetDir)\(TargetName).pdb" DestinationFolder="$(PluginsDir)\$(TargetName)" />
+```
 Make sure a folder exists in the BepInEx/plugins folder with the same name as your mod DLL.
 
 If everything went correctly, upon building your project the DLL should be automatically placed in the correct location, meaning you do not have to manually move the DLL anymore!
