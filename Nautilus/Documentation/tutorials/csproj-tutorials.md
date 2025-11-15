@@ -108,7 +108,7 @@ Finally, once again in the csproj outside of any PropertyGroups, add the followi
 ```xml
 <!--Post-Build event that automatically places your mods folder with the DLL and documentation into your plugins folder as defined in GameDir.targets-->
 <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <MakeDir Directories="$(PluginsDir)\$(TargetName)" />
+	<MakeDir Directories="$(PluginsDir)\$(TargetName)" />
 	<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginsDir)\$(TargetName)" />
 </Target>
 ```
