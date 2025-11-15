@@ -64,8 +64,8 @@ This should be the entire contents of the file:
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
-		<!--If trying to build this project, please make sure the correct directory to your Subnautica folder is listed below:-->
-		<GameDir>C:\Program Files (x86)\Steam\steamapps\common\Subnautica</GameDir>
+      <!--If trying to build this project, please make sure the correct directory to your Subnautica folder is listed below:-->
+      <GameDir>C:\Program Files (x86)\Steam\steamapps\common\Subnautica</GameDir>
 	</PropertyGroup>
 </Project>
 ```
