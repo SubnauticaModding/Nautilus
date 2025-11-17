@@ -50,7 +50,7 @@ public sealed class ChoiceAttribute : ModOptionAttribute
     /// </remarks>
     /// <param name="label">The label for the choice. If none is set, the name of the member will be used.</param>
     /// <param name="options">The list of options for the user to choose from. Values may be either ordinary strings for
-    /// direct display, or IDs for lookup with <see cref="Language.Get(string)"/> for translation. Use the
+    /// direct display, or IDs for lookup with <c>Language.Get(string)</c> for translation. Use the
     /// <see cref="Handlers.LanguageHandler"/> API to register translation strings.</param>
     public ChoiceAttribute(string label = null, params string[] options) : base(label)
     {
@@ -66,7 +66,7 @@ public sealed class ChoiceAttribute : ModOptionAttribute
     /// <see cref="Enum"/> choices can also be parsed from their values by merely omitting the <paramref name="options"/>.
     /// </remarks>
     /// <param name="options">The list of options for the user to choose from. Values may be either ordinary strings for
-    /// direct display, or IDs for lookup with <see cref="Language.Get(string)"/> for translation. Use the
+    /// direct display, or IDs for lookup with <c>Language.Get(string)</c> for translation. Use the
     /// <see cref="Handlers.LanguageHandler"/> API to register translation strings.</param>
     public ChoiceAttribute(string[] options) : this(null, options) { }
 
