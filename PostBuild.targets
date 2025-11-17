@@ -54,7 +54,7 @@
         <MakeDir Directories="$(TemporaryBuildDir)" />
 
         <!-- Main zip file -->
-        <Copy SourceFiles="@(PluginsFiles)" DestinationFolder="$(TemporaryBuildDir)\plugins\%(RecursiveDir)" SkipUnchangedFiles="true" />
+        <Copy SourceFiles="@(PluginsFiles)" DestinationFolder="$(TemporaryBuildDir)\%(RecursiveDir)" SkipUnchangedFiles="true" />
         
         <!-- Main build zip file -->
         <ZipDirectory SourceDirectory="$(TemporaryBuildDir)"
