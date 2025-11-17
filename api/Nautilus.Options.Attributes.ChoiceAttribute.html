@@ -341,7 +341,7 @@ public class Config : ConfigFile
 
   <h3 id="Nautilus_Options_Attributes_ChoiceAttribute__ctor" data-uid="Nautilus.Options.Attributes.ChoiceAttribute.#ctor">
   ChoiceAttribute()
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ChoiceAttribute.cs/#L74"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ChoiceAttribute.cs/#L78"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Attribute used to signify the decorated member should be represented in the mod's options menu as a
@@ -369,7 +369,7 @@ public class Config : ConfigFile
 
   <h3 id="Nautilus_Options_Attributes_ChoiceAttribute__ctor_System_String_System_String___" data-uid="Nautilus.Options.Attributes.ChoiceAttribute.#ctor(System.String,System.String[])">
   ChoiceAttribute(string, params string[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ChoiceAttribute.cs/#L53"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ChoiceAttribute.cs/#L55"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Attribute used to signify the decorated member should be represented in the mod's options menu as a
@@ -386,7 +386,9 @@ public class Config : ConfigFile
     <dt><code>label</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>The label for the choice. If none is set, the name of the member will be used.</dd>
     <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
-    <dd>The list of options for the user to choose from.</dd>
+    <dd>The list of options for the user to choose from. Values may be either ordinary strings for
+    direct display, or IDs for lookup with <code>Language.Get(string)</code> for translation. Use the
+    <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a> API to register translation strings.</dd>
   </dl>
 
 
@@ -406,7 +408,7 @@ public class Config : ConfigFile
 
   <h3 id="Nautilus_Options_Attributes_ChoiceAttribute__ctor_System_String___" data-uid="Nautilus.Options.Attributes.ChoiceAttribute.#ctor(System.String[])">
   ChoiceAttribute(string[])
-  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ChoiceAttribute.cs/#L67"><i class="bi bi-code-slash"></i></a>
+  <a class="header-action link-secondary" title="View source" href="https://github.com/SubnauticaModding/Nautilus/blob/docs/Nautilus/Options/Attributes/ChoiceAttribute.cs/#L71"><i class="bi bi-code-slash"></i></a>
   </h3>
 
   <div class="markdown level1 summary">Attribute used to signify the decorated member should be represented in the mod's options menu as a
@@ -421,7 +423,9 @@ public class Config : ConfigFile
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>options</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
-    <dd>The list of options for the user to choose from.</dd>
+    <dd>The list of options for the user to choose from. Values may be either ordinary strings for
+    direct display, or IDs for lookup with <code>Language.Get(string)</code> for translation. Use the
+    <a class="xref" href="Nautilus.Handlers.LanguageHandler.html">LanguageHandler</a> API to register translation strings.</dd>
   </dl>
 
 
