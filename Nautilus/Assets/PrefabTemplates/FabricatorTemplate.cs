@@ -45,8 +45,6 @@ public class FabricatorTemplate : PrefabTemplate
     /// </summary>
     public Model FabricatorModel { get; set; }
 
-    private ConstructableFlags _constructableFlags;
-
     /// <summary>
     /// Indicates where this fabricator can be placed.<para/>
     /// By default, this is set to the following flags: <br/>
@@ -58,17 +56,17 @@ public class FabricatorTemplate : PrefabTemplate
     {
         get
         {
-            if (_constructableFlags == ConstructableFlags.None)
+            if (field == ConstructableFlags.None)
             {
-                _constructableFlags = ConstructableFlags.Inside |
-                    (FabricatorModel == Model.Workbench
-                        ? ConstructableFlags.Ground | ConstructableFlags.Rotatable
-                        : ConstructableFlags.Wall);
+                field = ConstructableFlags.Inside |
+                        (FabricatorModel == Model.Workbench
+                            ? ConstructableFlags.Ground | ConstructableFlags.Rotatable
+                            : ConstructableFlags.Wall);
             }
 
-            return _constructableFlags;
+            return field;
         }
-        set => _constructableFlags = value;
+        set;
     }
 
     /// <summary>

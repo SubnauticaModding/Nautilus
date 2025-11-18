@@ -15,7 +15,7 @@ jobs:
             - name: .NET Setup
               uses: actions/setup-dotnet@v3
               with:
-                  dotnet-version: 8.x
+                  dotnet-version: 10.x
               
             - name: Build Project
               run: dotnet build Nautilus.sln -c SN.STABLE         
@@ -28,7 +28,7 @@ jobs:
             -   name: .NET Setup
                 uses: actions/setup-dotnet@v3
                 with:
-                    dotnet-version: 8.x
+                    dotnet-version: 10.x
 
             -   name: Build Project
                 run: dotnet build Nautilus.sln -c BZ.STABLE
