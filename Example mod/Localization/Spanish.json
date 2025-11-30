@@ -1,4 +1,10 @@
 ﻿{
   "TitaniumClone": "Clon de Titanio",
-  "Tooltip_TitaniumClone": "Clon de Titanio que me hace decir que sí"
+  "Tooltip_TitaniumClone": "Clon de Titanio que me hace decir que sí",
+  "OptionMyPrint": "Mi impresión",
+  "OptionPrintHello": "Imprimir 'hello'",
+  "OptionMyLog": "Escribir en el log",
+  "NautilusExamplePrintCategory": "Imprimir",
+  "NautilusExampleLogCategory": "Log",
+  "OptionUncategorizedButton": "Botón inútil"
 }

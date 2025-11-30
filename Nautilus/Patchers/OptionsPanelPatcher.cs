@@ -1,21 +1,26 @@
+using System.Text;
+
+namespace Nautilus.Patchers;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
-using Nautilus.Handlers;
-using Nautilus.Options;
-using Nautilus.Utility;
+using Options;
+using Utility;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-namespace Nautilus.Patchers;
-
-using static ModKeybindOption;
+#if SUBNAUTICA
+using UnityEngine.InputSystem;
+using MonoBehaviours;
+using BepInEx;
+using Handlers;
+#endif
 
 internal class OptionsPanelPatcher
 {
@@ -46,23 +51,21 @@ internal class OptionsPanelPatcher
         }
     }
 
+#if BELOWZERO
     [HarmonyPrefix]
     [HarmonyPatch(typeof(uGUI_Binding), nameof(uGUI_Binding.RefreshValue))]
     internal static bool RefreshValue_Prefix(uGUI_Binding __instance)
     {
-        if (__instance.gameObject.GetComponent<ModBindingTag>() is null)
+        if (__instance.gameObject.GetComponent<ModKeybindOption.ModBindingTag>() is null)
         {
             return true;
         }
-
-#if SUBNAUTICA
-        __instance.currentText.text = (__instance.isRebinding || __instance.binding == null) ? "" : __instance.binding;
-#else
+        
         __instance.currentText.text = (__instance.active || __instance.value == null) ? "" : __instance.value;
-#endif
         __instance.UpdateState();
         return false;
     }
+#endif
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(uGUI_OptionsPanel), nameof(uGUI_OptionsPanel.AddTabs))]
@@ -101,7 +104,139 @@ internal class OptionsPanelPatcher
 
         // adding all other options here
         optionsToAdd.ForEach(options => options.AddOptionsToPanel(optionsPanel, modsTab));
+
+#if SUBNAUTICA
+        var inputTab = optionsPanel.AddTab("Mod Input");
+        PopulateBindings(optionsPanel, inputTab, GameInput.Device.Keyboard);
+
+        // Add dividing line
+        optionsPanel.AddHeading(inputTab, new string('\u2500', 34));
+        
+        PopulateBindings(optionsPanel, inputTab, GameInput.Device.Controller);
+#endif
     }
+
+#if SUBNAUTICA
+    private static void PopulateBindings(uGUI_OptionsPanel panel, int tab, GameInput.Device device)
+    {
+        var bindingsHeader = panel.AddBindingsHeader(tab);
+        bindingsHeader.transform.Find("Caption").GetComponent<TextMeshProUGUI>().text =
+            $"<color=#FFAC09><b>{device switch
+            {
+                GameInput.Device.Keyboard => "Keyboard",
+                GameInput.Device.Controller => "Controller",
+                _ => "Unknown device"
+            }}</b></color>";
+
+        /*
+         * Category logic order:
+         * 1. all buttons with the same category name go under one category
+         * 2. If a button doesn't have a category, it's automatically assigned to a category with the same name as the plugin name
+         * 3. If the plugin name couldn't be fetched, use assembly name.
+         */
+        
+        
+        // find buttons with no categories and assign plugin name or assembly name as their category
+        var buttonsWithCategories = GameInputPatcher.Categories.Values.SelectMany(b => b).ToHashSet();
+        var buttonsWithoutCategories = GameInputPatcher.BindableButtons
+            .Where(hotkey => !buttonsWithCategories.Contains(hotkey.button) && hotkey.device == device)
+            .GroupBy(b =>
+            {
+                if (EnumHandler.TryGetOwnerAssembly(b.button, out var assembly))
+                    return assembly;
+                
+                InternalLogger.Error($"Couldn't find the assembly associated with bindable button '{b}'.");
+                return null;
+            }).Where(g => g.Key is not null)
+            .ToDictionary(
+                g => FindPluginNameForAssembly(g.Key),
+                g => g.Select(h => h.button).ToHashSet());
+        
+        
+        // merge buttons that have categories with buttons that don't have categories
+        var categorizedButtons = GameInputPatcher.Categories.Concat(buttonsWithoutCategories).ToList();
+        
+        if (categorizedButtons.Count == 0)
+        {
+            panel.AddHeading(tab, "[No custom input]");
+            return;
+        }
+        
+        panel.AddButton(tab, "ResetToDefault", () => RemoveAllBindingOverrides(device));
+        var sb = new StringBuilder();
+        foreach (var kvp in categorizedButtons)
+        {
+            var category = kvp.Key;
+            var buttons = kvp.Value;
+            panel.AddHeading(tab, category);
+            foreach (var button in buttons)
+            {
+                // ReSharper disable once SimplifyLinqExpressionUseAll
+                if (!GameInputPatcher.BindableButtons.Any(h => h.button == button))
+                {
+                    InternalLogger.Error($"Button '{button}' has a category but wasn't set to be bindable. Please set the button to be bindable first.");
+                    continue;
+                }
+                
+                if (!GameInputPatcher.BindableButtons.Contains((button, device)))
+                {
+                    InternalLogger.Debug($"Button '{button}' wasn't set to be bindable for device '{device}', skipping binding option.");
+                    continue;
+                }
+                
+                var bindings = panel.AddBindingOption(tab, $"Option{button.AsString()}", device, button);
+                (GameInput.input as GameInputSystem)!.bindingOptions.Add(bindings);
+                if (!EnumHandler.TryGetOwnerAssembly(button, out var assembly))
+                {
+                    InternalLogger.Error($"Couldn't find the assembly associated with bindable button '{button}', category '{category}' was skipped.'");
+                    break;
+                }
+                
+                
+                if (Language.main.TryGet($"OptionDesc_{button.AsString()}", out var tooltip))
+                {
+                    sb.AppendLine(tooltip);
+                    sb.AppendLine();
+                }
+
+                var pluginName = FindPluginNameForAssembly(assembly);
+                sb.AppendLine($"Added by <b><color=#FFAC09>{pluginName}</color></b>");
+                bindings.transform.parent.Find("Caption").gameObject.AddComponent<ModBindingTooltip>().tooltip = sb.ToString();
+                sb.Clear();
+            }
+        }
+    }
+
+    private static string FindPluginNameForAssembly(Assembly assembly)
+    {
+        var plugin = assembly
+            .GetTypes()
+            .FirstOrDefault(t => t.GetCustomAttribute<BepInPlugin>() is not null)?.GetCustomAttribute<BepInPlugin>();
+        
+        return plugin?.Name ?? assembly.GetName().Name;
+    }
+
+    private static void RemoveAllBindingOverrides(GameInput.Device device)
+    {
+        using (GameInputSystem.DeferBindingResolution())
+        {
+            GameInput.SetBindingsChanged();
+            var deviceName = device.AsString();
+            foreach (var button in GameInputPatcher.CustomButtons)
+            {
+                var action = button.Value;
+                for (var i = 0; i < action.bindings.Count; i++)
+                {
+                    var groups = action.bindings[i].groups;
+                    if (!string.IsNullOrEmpty(groups) && groups.Contains(deviceName))
+                    {
+                        action.ApplyBindingOverride(i, default(InputBinding));
+                    }
+                }
+            }
+        }
+    }
+#endif
 
     // Class for collapsing/expanding options in 'Mods' tab
     // Options can be collapsed/expanded by clicking on mod's title or arrow button

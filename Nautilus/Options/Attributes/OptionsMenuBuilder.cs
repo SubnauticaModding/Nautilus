@@ -82,8 +82,10 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
         }
         else if (e is ColorChangedEventArgs colorChangedEventArgs)
             ConfigFileMetadata.HandleColorChanged(sender, colorChangedEventArgs);
+#if BELOWZERO
         else if (e is KeybindChangedEventArgs keybindChangedEventArgs)
             ConfigFileMetadata.HandleKeybindChanged(sender, keybindChangedEventArgs);
+#endif
         else if (e is SliderChangedEventArgs sliderChangedEventArgs)
             ConfigFileMetadata.HandleSliderChanged(sender, sliderChangedEventArgs);
         else if (e is ToggleChangedEventArgs toggleChangedEventArgs)
@@ -242,10 +244,8 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     /// <param name="memberInfoMetadata">The metadata of the corresponding member.</param>
     private void BuildModKeybindOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata)
     {
+#if BELOWZERO
         KeyCode value = memberInfoMetadata.GetValue<KeyCode>(ConfigFileMetadata.Config);
-#if SUBNAUTICA
-        if(!AddItem(ModKeybindOption.Create(id, label, GameInput.PrimaryDevice, value)))
-#else
         if(!AddItem(ModKeybindOption.Create(id, label, GameInput.GetPrimaryDevice(), value)))
 #endif
             InternalLogger.Warn($"Failed to add ModKeybindOption with id {id} to {Name}");

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Nautilus.Crafting;
 using Nautilus.Extensions;
 using Nautilus.Patchers;
@@ -85,6 +86,11 @@ public static class CraftDataHandler
             };
             current++;
         }
+
+        if (Player.main)
+        {
+            TechData.cachedIngredients[techType] = ingredients.ToList().AsReadOnly();
+        }
     }
 
     /// <summary>
@@ -120,6 +126,11 @@ public static class CraftDataHandler
             linkedItemslist.Add(new JsonValue(current));
             linkedItemslist[current] = new JsonValue((int)i);
             current++;
+        }
+        
+        if (Player.main)
+        {
+            TechData.cachedLinkedItems[techType] = linkedItems.ToList().AsReadOnly();
         }
     }
 
