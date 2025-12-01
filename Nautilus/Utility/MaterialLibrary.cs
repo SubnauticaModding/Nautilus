@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Reflection;
 using BepInEx;
+using Nautilus.Extensions;
 using UnityEngine;
 using UWE;
 using ResourceManager = System.Resources.ResourceManager;
@@ -13,78 +13,106 @@ namespace Nautilus.Utility;
 /// <summary>
 /// Allows for quick and simple retrieval of any base-game material throughout both Subnautica, and Subnautica:
 /// Below Zero. Materials can either be fetched directly using their names by accessing the <see cref="FetchMaterial"/>
-/// method, or applied generically across the entirety of a custom prefab via the <see cref="ReplaceVanillaMats"/> method.
+/// method, or applied generically across the entirety of a custom prefab via the <see cref="ReplaceVanillaMaterials"/> method.
 /// </summary>
 public static class MaterialLibrary
 {
     /// <summary>
     /// Handles loading the material filepath maps from the embedded .resources files, and accessing their contents.
     /// </summary>
-    private static ResourceManager _resourceManager;
+    #if SUBNAUTICA
+        private static readonly ResourceManager _resourceManager = new ResourceManager("Nautilus.Resources.MatFilePathMapSN", Assembly.GetExecutingAssembly());
+    #elif BELOWZERO
+        private static readonly ResourceManager _resourceManager = new ResourceManager("Nautilus.Resources.MatFilePathMapBZ", Assembly.GetExecutingAssembly());
+    #endif
     
     /// <summary>
-    /// The maximum number of times the <see cref="FetchMaterial"/> method is allowed to retry loading a material
-    /// from it's designated path. Necessary because .mat files will occasionally fail to load a couple of times before
+    /// The maximum number of times the <see cref="GetMaterialFromPath"/> method is allowed to retry loading a material
+    /// from the designated path. Necessary because .mat files will occasionally fail to load a couple of times before
     /// being successfully retrieved. This cap exists only as a failsafe, and should never actually be reached.
     /// </summary>
     private const int MaxFetchAttempts = 1000;
 
     /// <summary>
-    /// The current amount of entries within the MaterialLibrary.
+    /// The maximum amount of time, in seconds, that we should wait for materials to finish being retrieved from a scene
+    /// prefab before we time out the process. Similarly to the <see cref="MaxFetchAttempts"/> variable, this property
+    /// exists exclusively as a failsafe, to prevent neverending wait-times.
     /// </summary>
-    public static int Size
-    {
-        get
-        {
-            if (_resourceManager == null)
-                return 0;
-            
-            var resourceSet = _resourceManager.GetResourceSet(CultureInfo.InvariantCulture, true, true);
-
-            if (resourceSet == null)
-            {
-                InternalLogger.Error("Failed to get the ResourceSet of the material library.");
-                return 0;
-            }
-
-            //Sadly, this is actually the simplest way to get the total number of entries in a .resources file.
-            int materialEntries = 0;
-            foreach (var _ in resourceSet)
-                materialEntries++;
-            
-            return materialEntries;
-        }
-    }
+    private const int MaxSceneLoadTime = 300;
     
-    internal static void Patch()
-    {
-        #if SUBNAUTICA
-                string resourcePath = "Nautilus.Resources.MatFilePathMapSN";
-        #elif BELOWZERO
-                string resourcePath = "Nautilus.Resources.MatFilePathMapBZ";
-        #endif
-        
-        _resourceManager = new ResourceManager(resourcePath, Assembly.GetExecutingAssembly());
-    }
-
     /// <summary>
-    /// Iterates over every <see cref="Renderer"/> present on the given <see cref="customPrefab"/> and any of its
+    /// Iterates over every <see cref="Renderer"/> present on the given <see cref="prefab"/> and any of its
     /// children, and replaces any custom materials it finds that share the exact same name (case-sensitive) of a
     /// base-game material with its vanilla counterpart.
     /// </summary>
-    /// <param name="customPrefab">The custom object you'd like to apply base-game materials to. Children included.</param>
-    /// <returns></returns>
-    public static IEnumerator ReplaceVanillaMats(GameObject customPrefab)
+    /// <param name="prefab">The custom object you'd like to apply base-game materials to. Children included.</param>
+    public static IEnumerator ReplaceVanillaMaterials(GameObject prefab)
     {
-        if (customPrefab == null)
+        if (prefab == null)
         {
             InternalLogger.Error("Attempted to apply vanilla materials to a null prefab.");
             yield break;
         }
         
-        var loadedVanillaMats = new List<Material>();
-        var customMatNames = new List<string>();
-        foreach (var renderer in customPrefab.GetAllComponentsInChildren<Renderer>())
+        var relevantRenderers = new List<Renderer>();
+        var requiredMaterials = new List<string>();
+
+        foreach (var renderer in prefab.GetAllComponentsInChildren<Renderer>())
+        {
+            int vanillaMats = 0;
+            
+            foreach (var material in renderer.materials)
+            {
+                if (material == null)
+                    continue;
+
+                string filteredMatName = GeneralExtensions.TrimInstance(material.name);
+                
+                if (!GetPathToMaterial(filteredMatName).IsNullOrWhiteSpace())
+                {
+                    if(!requiredMaterials.Contains(filteredMatName))
+                        requiredMaterials.Add(filteredMatName);
+                    
+                    vanillaMats++;
+                }
+            }
+
+            if (vanillaMats > 0)
+                relevantRenderers.Add(renderer);
+        }
+
+        if (requiredMaterials.Count == 0)
+        {
+            InternalLogger.Warn($"No vanilla materials found on prefab: \"{prefab.name}\", consider removing " +
+                                $"your call to the ReplaceVanillaMaterials method.");
+            yield break;
+        }
+
+        var taskResult = new TaskResult<Material[]>();
+        yield return FetchMaterials(requiredMaterials.ToArray(), taskResult);
+
+        var foundMaterials = taskResult.value;
+
+        if (foundMaterials == null)
+        {
+            InternalLogger.Error($"Failed to load vanilla materials from MatLibrary for prefab: \"{prefab.name}\".");
+            yield break;
+        }
+
+        var nameToVanillaMat = new Dictionary<string, Material>();
+        foreach (var matName in requiredMaterials)
+        {
+            for (int i = 0; i < foundMaterials.Length; i++)
+            {
+                if (matName.Equals(GeneralExtensions.TrimInstance(foundMaterials[i].name)))
+                {
+                    nameToVanillaMat.Add(matName, foundMaterials[i]);
+                    break;
+                }
+            }
+        }
+
+        foreach (var renderer in relevantRenderers)
         {
             var newMatList = renderer.materials;
 
@@ -93,135 +121,190 @@ public static class MaterialLibrary
                 if (newMatList[i] == null)
                     continue;
 
-                var currentMatName = MaterialUtils.RemoveInstanceFromMatName(newMatList[i].name);
-                
-                bool skipMat = customMatNames.Contains(currentMatName);
-                if (!skipMat)
-                {
-                    foreach (var material in loadedVanillaMats)
-                    {
-                        if (MaterialUtils.RemoveInstanceFromMatName(material.name).Equals(currentMatName))
-                        {
-                            newMatList[i] = material;
-                            skipMat = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (skipMat)
-                    continue;
-
-                var taskResult = new TaskResult<Material>();
-                yield return FetchMaterial(currentMatName, taskResult);
-
-                var foundMaterial = taskResult.value;
-
-                if (foundMaterial == null)
-                {
-                    customMatNames.Add(currentMatName);
-                    continue;
-                }
-
-                newMatList[i] = foundMaterial;
-                loadedVanillaMats.Add(foundMaterial);
+                if (nameToVanillaMat.TryGetValue(GeneralExtensions.TrimInstance(newMatList[i].name), out var vanillaMat))
+                    newMatList[i] = vanillaMat;
             }
-            
+
             renderer.materials = newMatList;
         }
     }
 
     /// <summary>
     /// Searches the library for the provided <see cref="materialName"/>, and loads it from its path, if an entry for
-    /// it exists. If the material exists within the library, but fails to load, fetching the asset will be reattempted
-    /// until the <see cref="MaxFetchAttempts"/> limit is reached.
+    /// it exists.
     /// </summary>
     /// <param name="materialName">The exact name of the material you wish to retrieve as seen in-game. Case-sensitive!</param>
-    /// <param name="foundMaterial">The <see cref="TaskResult{Material}"/> to load the found material into. Otherwise, has it's value set to null.</param>
-    /// <returns></returns>
-    public static IEnumerator FetchMaterial(string materialName, IOut<Material> foundMaterial)
+    /// <param name="foundMaterial">The <see cref="TaskResult{Material}"/> to load the vanilla material into, if found. Otherwise, has it's value set to null.</param>
+    /// <param name="warnIfFailed">Whether or not Nautilus should log a warning if no materials with the provided <see cref="materialName"/> are found.</param>
+    public static IEnumerator FetchMaterial(string materialName, IOut<Material> foundMaterial, bool warnIfFailed=true)
     {
         Material matResult = null;
 
-        string filteredMatName = MaterialUtils.RemoveInstanceFromMatName(materialName);
+        string filteredMatName = GeneralExtensions.TrimInstance(materialName);
         string resourcePath = GetPathToMaterial(filteredMatName);
         if (!resourcePath.IsNullOrWhiteSpace())
+        {
+            if (resourcePath.EndsWith(".mat"))
+            {
+                var taskResult = new TaskResult<Material>();
+                yield return GetMaterialFromPath(resourcePath, taskResult);
+                
+                matResult = taskResult.value;
+            }
+            else if (resourcePath.EndsWith(".prefab"))
+            {
+                var taskResult = new TaskResult<Material[]>();
+                yield return GetMaterialsFromPrefab([filteredMatName], resourcePath, taskResult);
+                
+                var returnValue = taskResult.value;
+                if(returnValue != null)
+                    matResult = returnValue[0];
+            }
+            else if (resourcePath.StartsWith("LightmappedPrefabs/"))
+            {
+                var taskResult = new TaskResult<Material[]>();
+                yield return GetMaterialsFromScene([filteredMatName], resourcePath.Substring(resourcePath.IndexOf('/') + 1), taskResult);
+                
+                var returnValue = taskResult.value;
+                if(returnValue != null)
+                    matResult = returnValue[0];
+            }
+            else
+                InternalLogger.Error($"Invalid path provided for material: \"{filteredMatName}\".");
+        }else if (warnIfFailed)
+            InternalLogger.Warn($"Failed to find material: \"{filteredMatName}\" in MaterialLibrary.");
+        
+        foundMaterial.Set(matResult);
+    }
+
+    /// <summary>
+    /// Searches the library for all of the provided <see cref="materialNames"/>, and loads those materials from their
+    /// paths, if entries for them exist. If only some of the given mat names have entries in the library, this method
+    /// will return all of the vanilla materials it can, and will log warnings for those that it fails to find, by default.
+    /// </summary>
+    /// <param name="materialNames">An array of the exact material names that you wish to retrieve, as seen in-game. Case-sensitive!</param>
+    /// <param name="foundMaterials">The <see cref="TaskResult{Material}"/> to load the vanilla materials into, if found.
+    /// Will contain as many of the requested vanilla materials as can be found within the library.</param>
+    /// <param name="warnIfFailed">Whether or not Nautilus should log a warning if one of the requested
+    /// <see cref="materialNames"/> can not be found in the library.</param>
+    public static IEnumerator FetchMaterials(string[] materialNames, IOut<Material[]> foundMaterials, bool warnIfFailed=true)
+    {
+        var matResults = new List<Material>();
+        
+        var materialsWithPath = new Dictionary<string, string[]>();
+
+        foreach (var matName in materialNames)
+        {
+            string filteredMatName = GeneralExtensions.TrimInstance(matName);
+            string resourcePath = GetPathToMaterial(filteredMatName);
+
+            if (!resourcePath.IsNullOrWhiteSpace())
+            {
+                if (resourcePath.EndsWith(".mat"))
+                {
+                    var taskResult = new TaskResult<Material>();
+                    yield return GetMaterialFromPath(resourcePath, taskResult);
+                    
+                    matResults.Add(taskResult.value);
+                    continue;
+                }
+
+                if (materialsWithPath.TryGetValue(resourcePath, out var oldMatList))
+                {
+                    if (Array.IndexOf(oldMatList, filteredMatName) == -1)
+                    {
+                        var newMatList = new string[oldMatList.Length + 1];
+                        
+                        Array.Copy(oldMatList, newMatList, oldMatList.Length);
+                        newMatList[oldMatList.Length] = filteredMatName;
+                        
+                        materialsWithPath[resourcePath] = newMatList;
+                    }
+                }else
+                    materialsWithPath.Add(resourcePath, [filteredMatName]);
+            }else if (warnIfFailed)
+                InternalLogger.Warn($"Failed to find material: \"{filteredMatName}\" in MaterialLibrary.");
+        }
+
+        foreach (var path in materialsWithPath.Keys)
+        {
+            var pathMaterials = materialsWithPath[path];
+
+            var taskResult = new TaskResult<Material[]>();
+            
+            if (path.EndsWith(".prefab"))
+                yield return GetMaterialsFromPrefab(pathMaterials, path, taskResult);
+            else if (path.StartsWith("LightmappedPrefabs/"))
+                yield return GetMaterialsFromScene(pathMaterials, path.Substring(path.IndexOf('/') + 1), taskResult);
+            else
+            {
+                InternalLogger.Error($"The path: \"{path}\", associated with material: \"{pathMaterials[0]}\"," +
+                                     $" is invalid.");
+                continue;
+            }
+
+            var foundMats = taskResult.value;
+            if (foundMats != null)
+                foreach (var material in foundMats)
+                    matResults.Add(material);
+        }
+        
+        foundMaterials.Set(matResults.ToArray());
+    }
+
+    /// <summary>
+    /// Loads and returns a material using its path relative to the <see cref="AddressablesUtility"/>.
+    /// NOTE: For an unknown reason, materials loaded from their respective paths with the <see cref="AddressablesUtility"/>
+    /// will sometimes fail to load, and will come back as null, instead of as the desired material. For this reason,
+    /// this method has a built-in try-retry system, that will reattempt loading the requested material up to a
+    /// <see cref="MaxFetchAttempts"/> number of times.
+    /// </summary>
+    /// <param name="matPath">The path to the .mat file, relative to the <see cref="AddressablesUtility"/>.</param>
+    /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found material into. Otherwise, has it's value set to null.</param>
+    private static IEnumerator GetMaterialFromPath(string matPath, IOut<Material> matResult)
+    {
+        Material loadedMat = null;
+
+        if(matPath.EndsWith(".mat"))
         {
             int fetchAttempts = 0;
             do
             {
                 if (fetchAttempts >= MaxFetchAttempts)
                 {
-                    InternalLogger.Error($"Max retries limit reached when trying to fetch material: {materialName}.");
+                    InternalLogger.Error($"Max retries limit reached when trying to load material at path: {matPath}.");
                     InternalLogger.Error("Please ensure the material's path is valid, or up the maximum # of retries.");
-                    yield break;
-                }
-                
-                fetchAttempts++;
-                InternalLogger.Debug($"Attempting to grab material: {materialName}...");
-                
-                var taskResult = new TaskResult<Material>();
-                
-                if (resourcePath.EndsWith(".mat"))
-                    yield return GetMaterialFromPath(resourcePath, taskResult);
-                else if (resourcePath.EndsWith(".prefab"))
-                    yield return GetMaterialFromPrefab(filteredMatName, resourcePath, taskResult);
-                else if (resourcePath.StartsWith("LightmappedPrefabs/"))
-                    yield return GetMaterialFromScene(filteredMatName, resourcePath.Substring(resourcePath.IndexOf('/') + 1), taskResult);
-                else
-                {
-                    InternalLogger.Error($"Invalid path provided for material: {filteredMatName}");
                     break;
                 }
 
-                matResult = taskResult.value;
-            } while (matResult == null);
+                fetchAttempts++;
+                InternalLogger.Debug($"Attempting to load material at path: {matPath}...");
+                
+                var handle = AddressablesUtility.LoadAsync<Material>(matPath);
+                yield return handle.Task;
+                
+                loadedMat = handle.Result;
+            } while (loadedMat == null);
         }
-        
-        foundMaterial.Set(matResult);
-    }
-
-    /// <summary>
-    /// Loads and returns a material using its path relative to the <see cref="AddressablesUtility"/>.
-    /// NOTE: The provided .mat file will occasionally fail to load, resulting in <see cref="matResult"/>'s value
-    /// being null after this method is finished running. It is not currently known what causes this, but it
-    /// does not happen constantly, and will only occur a handful of times in a row, if it does at all. As such,
-    /// the best solution for this problem, for the time being, is simply to try calling this method again, until
-    /// a successful result is retrieved.
-    /// </summary>
-    /// <param name="matPath">The path to the .mat file, relative to the <see cref="AddressablesUtility"/>.</param>
-    /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found material into. Otherwise, has it's value set to null.</param>
-    /// <returns></returns>
-    private static IEnumerator GetMaterialFromPath(string matPath, IOut<Material> matResult)
-    {
-        matResult.Set(null);
-
-        if (!matPath.EndsWith(".mat"))
-        {
+        else
             InternalLogger.Error($"{matPath} is not a valid path to a material file.");
-            yield break;
-        }
-
-        var handle = AddressablesUtility.LoadAsync<Material>(matPath);
-
-        yield return handle.Task;
         
-        matResult.Set(handle.Result);
+        matResult.Set(loadedMat);
     }
 
     /// <summary>
-    /// Finds and returns a material by first loading an associated Prefab, given that prefab's path, and the desired
-    /// material's name. Iterates over every <see cref="Renderer"/> on the Prefab's parent object, and any of its
-    /// children objects, in order to find the material requested.
+    /// Finds and returns vanilla material(s) by first loading an associated Prefab, given that prefab's path, and the
+    /// desired vanilla material name(s). Iterates over every <see cref="Renderer"/> on the Prefab's parent object, and any of its
+    /// children objects, in order to find the material(s) requested.
     /// </summary>
-    /// <param name="matName">The name of the material to search for.</param>
+    /// <param name="materialNames">The name(s) of the material(s) to search for.</param>
     /// <param name="prefabPath">The path to the reference Prefab, for use in the <see cref="PrefabDatabase"/>.</param>
-    /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found material into. Otherwise, has it's value set to null.</param>
+    /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found material(s) into. Otherwise, has it's value set to null.</param>
     /// <returns></returns>
-    private static IEnumerator GetMaterialFromPrefab(string matName, string prefabPath, IOut<Material> matResult)
+    private static IEnumerator GetMaterialsFromPrefab(string[] materialNames, string prefabPath, IOut<Material[]> matResult)
     {
-        matResult.Set(null);
-
+        var matResults = new List<Material>();
+        
         if (!prefabPath.EndsWith(".prefab"))
         {
             InternalLogger.Error($"{prefabPath} is not a valid path to a prefab file.");
@@ -236,37 +319,58 @@ public static class MaterialLibrary
             InternalLogger.Error($"Failed to get prefab at path {prefabPath} from PrefabDatabase.");
             yield break;
         }
-        
+
+        var foundMats = new List<string>();
+        bool allMatsFound = false;
         foreach (var renderer in prefab.GetAllComponentsInChildren<Renderer>())
         {
+            if (allMatsFound)
+                break;
+            
             foreach (var material in renderer.materials)
             {
                 if (material == null)
                     continue;
 
-                if (MaterialUtils.RemoveInstanceFromMatName(material.name).Equals(matName))
+                string filteredMatName = GeneralExtensions.TrimInstance(material.name);
+
+                if (Array.IndexOf(materialNames, filteredMatName) != -1 && !foundMats.Contains(filteredMatName))
                 {
-                    matResult.Set(material);
-                    yield break;
+                    matResults.Add(material);
+                    foundMats.Add(filteredMatName);
+
+                    if (foundMats.Count == materialNames.Length)
+                    {
+                        allMatsFound = true;
+                        break;
+                    }
                 }
             }
         }
-            
-        InternalLogger.Error($"Failed to find material: {matName} on prefab at path: {prefabPath}");
+        
+        if (!allMatsFound)
+        {
+            foreach (var matName in materialNames)
+            {
+                if (!foundMats.Contains(matName))
+                    InternalLogger.Error($"Failed to find material: \"{matName}\" on prefab at path: \"{prefabPath}\".");
+            }
+        }
+        
+        matResult.Set(matResults.ToArray());
     }
 
     /// <summary>
-    /// Finds and returns a material with the specified <see cref="matName"/>, by searching through a scene prefab,
-    /// loaded using the given <see cref="sceneName"/>. NOTE: This method won't be able to provide a material result
+    /// Finds and returns vanilla material(s) with the specified <see cref="materialNames"/>, by searching through a scene prefab,
+    /// loaded using the given <see cref="sceneName"/>. NOTE: This method won't be able to return vanilla material(s)
     /// until the specified Scene is loaded via the <see cref="ScenePrefabDatabase"/>.
     /// </summary>
-    /// <param name="matName">The name of the material to search the scene prefab for.</param>
+    /// <param name="materialNames">The name(s) of the material(s) to search the scene prefab for.</param>
     /// <param name="sceneName">The name of the additive scene prefab to load and iterate through for the desired material.</param>
-    /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found material into. Otherwise, has it's value set to null.</param>
-    /// <returns></returns>
-    private static IEnumerator GetMaterialFromScene(string matName, string sceneName, IOut<Material> matResult)
+    /// <param name="matResults">The <see cref="TaskResult{Material}"/> to load the found material into. Otherwise, has it's value set to null.</param>
+    private static IEnumerator GetMaterialsFromScene(string[] materialNames, string sceneName, IOut<Material[]> matResults)
     {
-        matResult.Set(null);
+        var foundMaterials = new List<Material>();
 
         if (!AddressablesUtility.IsAddressableScene(sceneName))
         {
@@ -276,30 +380,49 @@ public static class MaterialLibrary
         
         yield return new WaitUntil(() => LightmappedPrefabs.main);
 
-        bool materialSet = false;
+        var loadStartTime = Time.time;
+
+        bool materialsFound = false;
         bool matCheckFailed = false;
         LightmappedPrefabs.main.RequestScenePrefab(sceneName, scenePrefab =>
         {
+            var foundMats = new List<string>();
             foreach (var renderer in scenePrefab.GetAllComponentsInChildren<Renderer>())
             {
                 foreach (var material in renderer.materials)
                 {
                     if (material == null)
                         continue;
+                    
+                    string filteredMatName = GeneralExtensions.TrimInstance(material.name);
 
-                    if (MaterialUtils.RemoveInstanceFromMatName(material.name).Equals(matName))
+                    if (Array.IndexOf(materialNames, filteredMatName) != -1 && !foundMats.Contains(filteredMatName))
                     {
-                        matResult.Set(material);
-                        materialSet = true;
-                        return;
+                        foundMaterials.Add(material);
+                        foundMats.Add(filteredMatName);
+
+                        if (foundMats.Count == materialNames.Length)
+                        {
+                            matResults.Set(foundMaterials.ToArray());
+                            materialsFound = true;
+                            return;
+                        }
                     }
                 }
             }
+
+            foreach (var matName in materialNames)
+            {
+                if (!foundMats.Contains(matName))
+                    InternalLogger.Error($"Failed to find material: \"{matName}\" in scene: \"{sceneName}\".");
+            }
+            
+            matResults.Set(foundMaterials.ToArray());
             
             matCheckFailed = true;
         });
         
-        yield return new WaitUntil(() => materialSet || matCheckFailed);
+        yield return new WaitUntil(() => materialsFound || matCheckFailed || Time.time > loadStartTime + MaxSceneLoadTime);
     }
 
     /// <summary>

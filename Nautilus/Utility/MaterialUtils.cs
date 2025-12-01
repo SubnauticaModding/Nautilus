@@ -333,29 +333,6 @@ public static partial class MaterialUtils
         }
     }
 
-    /// <summary>
-    /// Removes the (Instance) text from the end of a material's name, recursively. Primarily helpful for programmatic
-    /// material name comparisons.
-    /// </summary>
-    /// <param name="matName">The material name from which to remove the Instance string.</param>
-    /// <returns>The altered material name if any trailing (Instance) strings were found, otherwise the uneffected
-    /// matName.</returns>
-    public static string RemoveInstanceFromMatName(string matName)
-    {
-        string returnValue = matName;
-        string instanceString = " (Instance)";
-        
-        // We avoid using .Replace() here to account for users possibly including the instance string at the beginning
-        // Or in the middle of their material names. Not likely to happen, but better safe than sorry.
-        if (matName.EndsWith(instanceString))
-        {
-            returnValue = matName.Substring(0, matName.Length - instanceString.Length);
-            return RemoveInstanceFromMatName(returnValue);
-        }
-        
-        return returnValue;
-    }
-
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name != "MenuEnvironment") return;
