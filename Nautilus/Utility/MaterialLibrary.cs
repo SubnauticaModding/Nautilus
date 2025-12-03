@@ -61,11 +61,12 @@ public static class MaterialLibrary
         {
             int vanillaMats = 0;
             
-            foreach (var material in renderer.materials)
+            foreach (var material in renderer.sharedMaterials)
             {
                 if (material == null)
                     continue;
 
+                // This probably isn't necessary here anymore, but removing it feels dangerous to me for some reason...
                 string filteredMatName = GeneralExtensions.TrimInstance(material.name);
                 
                 if (!GetPathToMaterial(filteredMatName).IsNullOrWhiteSpace())
@@ -114,7 +115,7 @@ public static class MaterialLibrary
 
         foreach (var renderer in relevantRenderers)
         {
-            var newMatList = renderer.materials;
+            var newMatList = renderer.sharedMaterials;
 
             for (int i = 0; i < newMatList.Length; i++)
             {
@@ -125,7 +126,7 @@ public static class MaterialLibrary
                     newMatList[i] = vanillaMat;
             }
 
-            renderer.materials = newMatList;
+            renderer.sharedMaterials = newMatList;
         }
     }
 
