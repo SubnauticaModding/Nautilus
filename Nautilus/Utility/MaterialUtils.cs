@@ -52,6 +52,7 @@ public static partial class MaterialUtils
     // Transparency, sorting and miscellaneous
     private const string ZWriteKeyword = "_ZWRITE_ON";
     private const string AlphaClipKeyword = "MARMO_ALPHA_CLIP";
+    private const string WboitKeyword = "WBOIT";
 
     internal static void Patch()
     {
@@ -364,7 +365,7 @@ public static partial class MaterialUtils
     {
         if (transparent)
         {
-            material.EnableKeyword("WBOIT");
+            material.EnableKeyword(WboitKeyword);
             material.SetInt(ShaderPropertyID._ZWrite, 0);
             material.SetInt(ShaderPropertyID._Cutoff, 0);
             material.SetFloat(ShaderPropertyID._SrcBlend, 1f);
@@ -387,7 +388,7 @@ public static partial class MaterialUtils
             material.SetFloat(ShaderPropertyID._AddDstBlend, 0f);
             material.SetFloat(ShaderPropertyID._AddSrcBlend2, 1f);
             material.SetFloat(ShaderPropertyID._AddDstBlend2, 0f);
-            material.DisableKeyword("WBOIT");
+            material.DisableKeyword(WboitKeyword);
         }
         material.renderQueue = transparent ? kTransparencyRenderQueue : kOpaqueRenderQueue;
     }
