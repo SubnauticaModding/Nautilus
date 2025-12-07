@@ -33,6 +33,22 @@ public static partial class MaterialUtils
     private const string UnityNormalMapKeyword = "_NORMALMAP";
     private const string MarmosetNormalMapKeyword = "MARMO_NORMALMAP";
     
+    // Detail maps:
+    // Unity standard shaders
+    private static readonly int _unityDetailAlbedoMap = Shader.PropertyToID("_DetailAlbedoMap");
+    private static readonly int _unityDetailNormalMap = Shader.PropertyToID("_DetailNormalMap");
+    private static readonly int _unityDetailAlbedoMapSt = Shader.PropertyToID("_DetailAlbedoMap_ST");
+    private static readonly int _unityDetailNormalMapScale = Shader.PropertyToID("_DetailNormalMapScale");
+    
+    // Subnautica shader detail map properties
+    private static readonly int _detailDiffuseTex = Shader.PropertyToID("_DetailDiffuseTex");
+    private static readonly int _detailDiffuseTexSt = Shader.PropertyToID("_DetailDiffuseTex_ST");
+    private static readonly int _detailBumpTex = Shader.PropertyToID("_DetailBumpTex");
+    private static readonly int _detailBumpTexSt = Shader.PropertyToID("_DetailBumpTex_ST");
+    private static readonly int _detailIntensities = Shader.PropertyToID("_DetailIntensities");
+    private const string DetailMapKeyword = "UWE_DETAILMAP";
+    private const float DefaultDetailDiffuseIntensity = 0.5f;
+    
     // Transparency, sorting and miscellaneous
     private const string ZWriteKeyword = "_ZWRITE_ON";
     private const string AlphaClipKeyword = "MARMO_ALPHA_CLIP";
@@ -245,6 +261,19 @@ public static partial class MaterialUtils
         var emissionColor = material.HasProperty(ShaderPropertyID._EmissionColor)
             ? material.GetColor(ShaderPropertyID._EmissionColor)
             : Color.black;
+        // Check for existing detail map related properties
+        var detailAlbedoMap = material.HasProperty(_unityDetailAlbedoMap)
+            ? material.GetTexture(_unityDetailAlbedoMap)
+            : null;
+        var detailNormalMap = material.HasProperty(_unityDetailNormalMap)
+            ? material.GetTexture(_unityDetailNormalMap)
+            : null;
+        var detailNormalMapIntensity = material.HasProperty(_unityDetailNormalMapScale)
+            ? material.GetFloat(_unityDetailNormalMapScale)
+            : 0;
+        var detailMapsSt = material.HasProperty(_unityDetailAlbedoMapSt)
+            ? material.GetVector(_unityDetailAlbedoMapSt)
+            : new Vector4(1, 1, 0, 0);
 
         // Change the shader to MarmosetUBER
         material.shader = Shaders.MarmosetUBER;
@@ -280,6 +309,28 @@ public static partial class MaterialUtils
         if (material.GetTexture(_bumpMap))
         {
             material.EnableKeyword(MarmosetNormalMapKeyword);
+        }
+        
+        // Apply detail maps
+        bool hasDetailAlbedoMap = detailAlbedoMap != null;
+        bool hasDetailNormalMap = detailNormalMap != null;
+        if (hasDetailAlbedoMap || hasDetailNormalMap)
+        {
+            material.EnableKeyword(DetailMapKeyword);
+            
+            // Set textures
+            if (hasDetailAlbedoMap)
+                material.SetTexture(_detailDiffuseTex, detailAlbedoMap);
+            if (hasDetailNormalMap)
+                material.SetTexture(_detailBumpTex, detailNormalMap);
+
+            // Set intensities
+            material.SetVector(_detailIntensities,
+                new Vector3(DefaultDetailDiffuseIntensity, detailNormalMapIntensity, 0));
+            
+            // Set tiling
+            material.SetVector(_detailDiffuseTexSt, detailMapsSt);
+            material.SetVector(_detailBumpTexSt, detailMapsSt);
         }
         
         // Miscellaneous
