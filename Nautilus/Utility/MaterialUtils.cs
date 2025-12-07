@@ -13,11 +13,29 @@ public static partial class MaterialUtils
 {
     private static bool _sceneEventAdded;
     private static bool _startedLoadingMaterials;
-    private static readonly int _emissionMap = Shader.PropertyToID("_EmissionMap");
+    
+    // Emission:
+    private static readonly int _unityEmissionMapProperty = Shader.PropertyToID("_EmissionMap");
+    private const string UnityEmissionKeyword = "_EMISSION";
+    private const string MarmosetEmissionKeyword = "MARMO_EMISSION";
+    
+    // Specularity:
     private static readonly int _specInt = Shader.PropertyToID("_SpecInt");
     private static readonly int _shininess = Shader.PropertyToID("_Shininess");
     private static readonly int _fresnel = Shader.PropertyToID("_Fresnel");
+    private const string UnitySpecGlossMapKeyword = "_SPECGLOSSMAP";
+    private const string MarmosetSpecMapKeyword = "MARMO_SPECMAP";
+    private const float DefaultFresnel = 0.24f;
+    
+    // Normal maps:
+    // The same property name is used in both the Standard shader and MarmosetUBER
     private static readonly int _bumpMap = Shader.PropertyToID("_BumpMap");
+    private const string UnityNormalMapKeyword = "_NORMALMAP";
+    private const string MarmosetNormalMapKeyword = "MARMO_NORMALMAP";
+    
+    // Transparency, sorting and miscellaneous
+    private const string ZWriteKeyword = "_ZWRITE_ON";
+    private const string AlphaClipKeyword = "MARMO_ALPHA_CLIP";
 
     internal static void Patch()
     {
@@ -218,16 +236,22 @@ public static partial class MaterialUtils
     public static void ApplyUBERShader(Material material, float shininess, float specularIntensity, float glowStrength, MaterialType materialType)
     {
         // Grab existing references to textures & colors using property names from the standard shader
-        var specularTexture = material.HasProperty(ShaderPropertyID._SpecGlossMap) ? material.GetTexture(ShaderPropertyID._SpecGlossMap) : null;
-        var emissionTexture = material.HasProperty(_emissionMap) ? material.GetTexture(_emissionMap) : null;
-        var emissionColor = material.HasProperty(ShaderPropertyID._EmissionColor) ? material.GetColor(ShaderPropertyID._EmissionColor) : Color.black;
+        var specularTexture = material.HasProperty(ShaderPropertyID._SpecGlossMap)
+            ? material.GetTexture(ShaderPropertyID._SpecGlossMap)
+            : null;
+        var emissionTexture = material.HasProperty(_unityEmissionMapProperty)
+            ? material.GetTexture(_unityEmissionMapProperty)
+            : null;
+        var emissionColor = material.HasProperty(ShaderPropertyID._EmissionColor)
+            ? material.GetColor(ShaderPropertyID._EmissionColor)
+            : Color.black;
 
         // Change the shader to MarmosetUBER
         material.shader = Shaders.MarmosetUBER;
 
         // Disable keywords that were added by Unity
-        material.DisableKeyword("_SPECGLOSSMAP");
-        material.DisableKeyword("_NORMALMAP");
+        material.DisableKeyword(UnitySpecGlossMapKeyword);
+        material.DisableKeyword(UnityNormalMapKeyword);
 
         // Apply specular settings if there is a specular texture (otherwise it will appear bright white)
         if (specularTexture != null)
@@ -235,16 +259,16 @@ public static partial class MaterialUtils
             material.SetTexture(ShaderPropertyID._SpecTex, specularTexture);
             material.SetFloat(_specInt, specularIntensity);
             material.SetFloat(_shininess, shininess);
-            material.EnableKeyword("_ZWRITE_ON");
-            material.EnableKeyword("MARMO_SPECMAP");
-            material.SetColor(ShaderPropertyID._SpecColor, new Color(1f, 1f, 1f, 1f));
-            material.SetFloat(_fresnel, 0.24f);
+            material.EnableKeyword(ZWriteKeyword);
+            material.EnableKeyword(MarmosetSpecMapKeyword);
+            material.SetColor(ShaderPropertyID._SpecColor, Color.white);
+            material.SetFloat(_fresnel, DefaultFresnel);
         }
 
         // Apply emission if it was enabled in the standard shader
-        if (material.IsKeywordEnabled("_EMISSION"))
+        if (material.IsKeywordEnabled(UnityEmissionKeyword))
         {
-            material.EnableKeyword("MARMO_EMISSION");
+            material.EnableKeyword(MarmosetEmissionKeyword);
             material.SetFloat(ShaderPropertyID._EnableGlow, 1f);
             material.SetTexture(ShaderPropertyID._Illum, emissionTexture);
             material.SetColor(ShaderPropertyID._GlowColor, emissionColor);
@@ -255,11 +279,13 @@ public static partial class MaterialUtils
         // Apply normal map if it was applied in the standard shader
         if (material.GetTexture(_bumpMap))
         {
-            material.EnableKeyword("MARMO_NORMALMAP");
+            material.EnableKeyword(MarmosetNormalMapKeyword);
         }
-
+        
+        // Miscellaneous
         material.enableInstancing = true;
 
+        // Apply material type
         switch (materialType)
         {
             case MaterialType.Transparent:
@@ -325,11 +351,11 @@ public static partial class MaterialUtils
     {
         if (cutout)
         {
-            material.EnableKeyword("MARMO_ALPHA_CLIP");
+            material.EnableKeyword(AlphaClipKeyword);
         }
         else
         {
-            material.DisableKeyword("MARMO_ALPHA_CLIP");
+            material.DisableKeyword(AlphaClipKeyword);
         }
     }
 
