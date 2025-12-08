@@ -47,7 +47,7 @@ public static partial class MaterialUtils
     private static readonly int _detailBumpTexSt = Shader.PropertyToID("_DetailBumpTex_ST");
     private static readonly int _detailIntensities = Shader.PropertyToID("_DetailIntensities");
     private const string DetailMapKeyword = "UWE_DETAILMAP";
-    private const float DefaultDetailDiffuseIntensity = 0.5f;
+    private const float DefaultDetailDiffuseIntensity = 1.0f;
     
     // Transparency, sorting and miscellaneous
     private const string ZWriteKeyword = "_ZWRITE_ON";
