@@ -16,10 +16,16 @@ public static class CraftDataHandler
     /// <para>Can be used for existing TechTypes too.</para>
     /// </summary>
     /// <param name="techType">The TechType whose RecipeData you want to edit.</param>
-    /// <param name="recipeData">The RecipeData for that TechType.</param>
+    /// <param name="recipeData">The RecipeData for that TechType. If null and the tech type already has a recipe, it will get removed instead.</param>
     /// <seealso cref="RecipeData"/>
     public static void SetRecipeData(TechType techType, RecipeData recipeData)
     {
+        if (recipeData is null)
+        {
+            RemoveRecipeData(techType);
+            return;
+        }
+        
         if (CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue jsonValue))
         {
             jsonValue[TechData.PropertyToID("techType")] = new JsonValue((int)techType);
