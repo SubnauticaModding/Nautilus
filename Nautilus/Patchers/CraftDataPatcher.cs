@@ -47,8 +47,15 @@ internal class CraftDataPatcher
                 if (techData != jsonValue)
                 {
                     updated.Add(techType);
+                    
                     foreach (int key in jsonValue.Keys)
                     {
+                        if (jsonValue[key] is null)
+                        {
+                            techData.Remove(key);
+                            continue;
+                        }
+                        
                         techData[key] = jsonValue[key];
                     }
                 }

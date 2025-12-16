@@ -47,6 +47,39 @@ public static class CraftDataHandler
     }
 
     /// <summary>
+    /// Removes the recipe data from an item.
+    /// </summary>
+    /// <param name="techType">The item Tech type.</param>
+    public static void RemoveRecipeData(TechType techType)
+    {
+        if (CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue jsonValue))
+        {
+            jsonValue[TechData.PropertyToID("techType")] = null;
+            jsonValue[TechData.PropertyToID("craftAmount")] = null;
+            jsonValue[TechData.PropertyToID("ingredients")] = null;
+            jsonValue[TechData.PropertyToID("amount")] = null;
+        }
+        else
+        {
+            jsonValue = new JsonValue
+            {
+                {TechData.PropertyToID("techType"), null},
+                {TechData.PropertyToID("craftAmount"), null},
+                {TechData.PropertyToID("ingredients"), null},
+                {TechData.PropertyToID("amount"), null}
+            };
+            
+            CraftDataPatcher.CustomRecipeData.Add(techType, jsonValue);
+        }
+
+        if (Player.main)
+        {
+            TechData.cachedIngredients.Remove(techType);
+            TechData.cachedLinkedItems.Remove(techType);
+        }
+    }
+
+    /// <summary>
     /// <para>Allows you to edit recipes for TechTypes.</para>
     /// <para>Can be used for existing TechTypes too.</para>
     /// </summary>
