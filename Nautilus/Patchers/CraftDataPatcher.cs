@@ -50,7 +50,7 @@ internal class CraftDataPatcher
                     
                     foreach (int key in jsonValue.Keys)
                     {
-                        if (jsonValue[key] is null)
+                        if (jsonValue[key] is null or { propertyType: JsonValue.Type.None })
                         {
                             techData.Remove(key);
                             continue;

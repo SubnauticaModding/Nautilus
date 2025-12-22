@@ -60,19 +60,19 @@ public static class CraftDataHandler
     {
         if (CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue jsonValue))
         {
-            jsonValue[TechData.PropertyToID("techType")] = null;
-            jsonValue[TechData.PropertyToID("craftAmount")] = null;
-            jsonValue[TechData.PropertyToID("ingredients")] = null;
-            jsonValue[TechData.PropertyToID("amount")] = null;
+            jsonValue[TechData.PropertyToID("techType")] = new();
+            jsonValue[TechData.PropertyToID("craftAmount")] = new();
+            jsonValue[TechData.PropertyToID("ingredients")] = new();
+            jsonValue[TechData.PropertyToID("amount")] = new();
         }
         else
         {
             jsonValue = new JsonValue
             {
-                {TechData.PropertyToID("techType"), null},
-                {TechData.PropertyToID("craftAmount"), null},
-                {TechData.PropertyToID("ingredients"), null},
-                {TechData.PropertyToID("amount"), null}
+                {TechData.PropertyToID("techType"), new()},
+                {TechData.PropertyToID("craftAmount"), new()},
+                {TechData.PropertyToID("ingredients"), new()},
+                {TechData.PropertyToID("amount"), new()}
             };
             
             CraftDataPatcher.CustomRecipeData.Add(techType, jsonValue);
