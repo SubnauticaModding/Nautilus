@@ -16,10 +16,16 @@ public static class CraftDataHandler
     /// <para>Can be used for existing TechTypes too.</para>
     /// </summary>
     /// <param name="techType">The TechType whose RecipeData you want to edit.</param>
-    /// <param name="recipeData">The RecipeData for that TechType.</param>
+    /// <param name="recipeData">The RecipeData for that TechType. If null and the tech type already has a recipe, it will get removed instead.</param>
     /// <seealso cref="RecipeData"/>
     public static void SetRecipeData(TechType techType, RecipeData recipeData)
     {
+        if (recipeData is null)
+        {
+            RemoveRecipeData(techType);
+            return;
+        }
+        
         if (CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue jsonValue))
         {
             jsonValue[TechData.PropertyToID("techType")] = new JsonValue((int)techType);
@@ -43,6 +49,39 @@ public static class CraftDataHandler
         if (recipeData.linkedItemCount > 0)
         {
             SetLinkedItems(techType, recipeData.LinkedItems);
+        }
+    }
+
+    /// <summary>
+    /// Removes the recipe data from an item.
+    /// </summary>
+    /// <param name="techType">The item Tech type.</param>
+    public static void RemoveRecipeData(TechType techType)
+    {
+        if (CraftDataPatcher.CustomRecipeData.TryGetValue(techType, out JsonValue jsonValue))
+        {
+            jsonValue[TechData.PropertyToID("techType")] = new();
+            jsonValue[TechData.PropertyToID("craftAmount")] = new();
+            jsonValue[TechData.PropertyToID("ingredients")] = new();
+            jsonValue[TechData.PropertyToID("amount")] = new();
+        }
+        else
+        {
+            jsonValue = new JsonValue
+            {
+                {TechData.PropertyToID("techType"), new()},
+                {TechData.PropertyToID("craftAmount"), new()},
+                {TechData.PropertyToID("ingredients"), new()},
+                {TechData.PropertyToID("amount"), new()}
+            };
+            
+            CraftDataPatcher.CustomRecipeData.Add(techType, jsonValue);
+        }
+
+        if (Player.main)
+        {
+            TechData.cachedIngredients.Remove(techType);
+            TechData.cachedLinkedItems.Remove(techType);
         }
     }
 

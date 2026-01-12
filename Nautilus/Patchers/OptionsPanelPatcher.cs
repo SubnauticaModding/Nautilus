@@ -171,9 +171,16 @@ internal class OptionsPanelPatcher
             panel.AddHeading(tab, category);
             foreach (var button in buttons)
             {
-                if (!GameInputPatcher.BindableButtons.Contains((button, device)))
+                // ReSharper disable once SimplifyLinqExpressionUseAll
+                if (!GameInputPatcher.BindableButtons.Any(h => h.button == button))
                 {
                     InternalLogger.Error($"Button '{button}' has a category but wasn't set to be bindable. Please set the button to be bindable first.");
+                    continue;
+                }
+                
+                if (!GameInputPatcher.BindableButtons.Contains((button, device)))
+                {
+                    InternalLogger.Debug($"Button '{button}' wasn't set to be bindable for device '{device}', skipping binding option.");
                     continue;
                 }
                 

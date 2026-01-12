@@ -13,11 +13,46 @@ public static partial class MaterialUtils
 {
     private static bool _sceneEventAdded;
     private static bool _startedLoadingMaterials;
-    private static readonly int _emissionMap = Shader.PropertyToID("_EmissionMap");
+    
+    // Emission:
+    private static readonly int _unityEmissionMapProperty = Shader.PropertyToID("_EmissionMap");
+    private const string UnityEmissionKeyword = "_EMISSION";
+    private const string MarmosetEmissionKeyword = "MARMO_EMISSION";
+    
+    // Specularity:
     private static readonly int _specInt = Shader.PropertyToID("_SpecInt");
     private static readonly int _shininess = Shader.PropertyToID("_Shininess");
     private static readonly int _fresnel = Shader.PropertyToID("_Fresnel");
+    private const string UnitySpecGlossMapKeyword = "_SPECGLOSSMAP";
+    private const string MarmosetSpecMapKeyword = "MARMO_SPECMAP";
+    private const float DefaultFresnel = 0.24f;
+    
+    // Normal maps:
+    // The same property name is used in both the Standard shader and MarmosetUBER
     private static readonly int _bumpMap = Shader.PropertyToID("_BumpMap");
+    private const string UnityNormalMapKeyword = "_NORMALMAP";
+    private const string MarmosetNormalMapKeyword = "MARMO_NORMALMAP";
+    
+    // Detail maps:
+    // Unity standard shaders
+    private static readonly int _unityDetailAlbedoMap = Shader.PropertyToID("_DetailAlbedoMap");
+    private static readonly int _unityDetailNormalMap = Shader.PropertyToID("_DetailNormalMap");
+    private static readonly int _unityDetailAlbedoMapSt = Shader.PropertyToID("_DetailAlbedoMap_ST");
+    private static readonly int _unityDetailNormalMapScale = Shader.PropertyToID("_DetailNormalMapScale");
+    
+    // Subnautica shader detail map properties
+    private static readonly int _detailDiffuseTex = Shader.PropertyToID("_DetailDiffuseTex");
+    private static readonly int _detailDiffuseTexSt = Shader.PropertyToID("_DetailDiffuseTex_ST");
+    private static readonly int _detailBumpTex = Shader.PropertyToID("_DetailBumpTex");
+    private static readonly int _detailBumpTexSt = Shader.PropertyToID("_DetailBumpTex_ST");
+    private static readonly int _detailIntensities = Shader.PropertyToID("_DetailIntensities");
+    private const string DetailMapKeyword = "UWE_DETAILMAP";
+    private const float DefaultDetailDiffuseIntensity = 1.0f;
+    
+    // Transparency, sorting and miscellaneous
+    private const string ZWriteKeyword = "_ZWRITE_ON";
+    private const string AlphaClipKeyword = "MARMO_ALPHA_CLIP";
+    private const string WboitKeyword = "WBOIT";
 
     internal static void Patch()
     {
@@ -65,8 +100,6 @@ public static partial class MaterialUtils
     /// </summary>
     public static class Shaders
     {
-        private static Shader _marmosetUber;
-
         /// <summary>
         /// The <see cref="Shader"/> that is used for most materials in the game.
         /// </summary>
@@ -75,15 +108,13 @@ public static partial class MaterialUtils
             get
             {
                 // Shader.Find("MarmosetUBER") returns the wrong shader, so we need to get it in this way:
-                if (_marmosetUber == null)
+                if (field == null)
                 {
-                    _marmosetUber = AddressablesUtility.LoadAsync<Shader>("Assets/Marmoset/Shader/Uber/MarmosetUber.shader").WaitForCompletion();
+                    field = AddressablesUtility.LoadAsync<Shader>("Assets/Marmoset/Shader/Uber/MarmosetUber.shader").WaitForCompletion();
                 }
-                return _marmosetUber;
+                return field;
             }
         }
-
-        private static Shader _particlesUber;
 
         /// <summary>
         /// The <see cref="Shader"/> that is used for most particle systems.
@@ -92,15 +123,13 @@ public static partial class MaterialUtils
         {
             get
             {
-                if (_particlesUber == null)
+                if (field == null)
                 {
-                    _particlesUber = Shader.Find("UWE/Particles/UBER");
+                    field = Shader.Find("UWE/Particles/UBER");
                 }
-                return _particlesUber;
+                return field;
             }
         }
-
-        private static Shader _ionCube;
 
         /// <summary>
         /// The <see cref="Shader"/> that is used for Ion Cubes.
@@ -109,11 +138,11 @@ public static partial class MaterialUtils
         {
             get
             {
-                if (_ionCube == null)
+                if (field == null)
                 {
-                    _ionCube = Shader.Find("UWE/Marmoset/IonCrystal");
+                    field = Shader.Find("UWE/Marmoset/IonCrystal");
                 }
-                return _ionCube;
+                return field;
             }
         }
     }
@@ -218,16 +247,35 @@ public static partial class MaterialUtils
     public static void ApplyUBERShader(Material material, float shininess, float specularIntensity, float glowStrength, MaterialType materialType)
     {
         // Grab existing references to textures & colors using property names from the standard shader
-        var specularTexture = material.HasProperty(ShaderPropertyID._SpecGlossMap) ? material.GetTexture(ShaderPropertyID._SpecGlossMap) : null;
-        var emissionTexture = material.HasProperty(_emissionMap) ? material.GetTexture(_emissionMap) : null;
-        var emissionColor = material.HasProperty(ShaderPropertyID._EmissionColor) ? material.GetColor(ShaderPropertyID._EmissionColor) : Color.black;
+        var specularTexture = material.HasProperty(ShaderPropertyID._SpecGlossMap)
+            ? material.GetTexture(ShaderPropertyID._SpecGlossMap)
+            : null;
+        var emissionTexture = material.HasProperty(_unityEmissionMapProperty)
+            ? material.GetTexture(_unityEmissionMapProperty)
+            : null;
+        var emissionColor = material.HasProperty(ShaderPropertyID._EmissionColor)
+            ? material.GetColor(ShaderPropertyID._EmissionColor)
+            : Color.black;
+        // Check for existing detail map related properties
+        var detailAlbedoMap = material.HasProperty(_unityDetailAlbedoMap)
+            ? material.GetTexture(_unityDetailAlbedoMap)
+            : null;
+        var detailNormalMap = material.HasProperty(_unityDetailNormalMap)
+            ? material.GetTexture(_unityDetailNormalMap)
+            : null;
+        var detailNormalMapIntensity = material.HasProperty(_unityDetailNormalMapScale)
+            ? material.GetFloat(_unityDetailNormalMapScale)
+            : 0;
+        var detailMapsSt = material.HasProperty(_unityDetailAlbedoMapSt)
+            ? material.GetVector(_unityDetailAlbedoMapSt)
+            : new Vector4(1, 1, 0, 0);
 
         // Change the shader to MarmosetUBER
         material.shader = Shaders.MarmosetUBER;
 
         // Disable keywords that were added by Unity
-        material.DisableKeyword("_SPECGLOSSMAP");
-        material.DisableKeyword("_NORMALMAP");
+        material.DisableKeyword(UnitySpecGlossMapKeyword);
+        material.DisableKeyword(UnityNormalMapKeyword);
 
         // Apply specular settings if there is a specular texture (otherwise it will appear bright white)
         if (specularTexture != null)
@@ -235,16 +283,16 @@ public static partial class MaterialUtils
             material.SetTexture(ShaderPropertyID._SpecTex, specularTexture);
             material.SetFloat(_specInt, specularIntensity);
             material.SetFloat(_shininess, shininess);
-            material.EnableKeyword("_ZWRITE_ON");
-            material.EnableKeyword("MARMO_SPECMAP");
-            material.SetColor(ShaderPropertyID._SpecColor, new Color(1f, 1f, 1f, 1f));
-            material.SetFloat(_fresnel, 0.24f);
+            material.EnableKeyword(ZWriteKeyword);
+            material.EnableKeyword(MarmosetSpecMapKeyword);
+            material.SetColor(ShaderPropertyID._SpecColor, Color.white);
+            material.SetFloat(_fresnel, DefaultFresnel);
         }
 
         // Apply emission if it was enabled in the standard shader
-        if (material.IsKeywordEnabled("_EMISSION"))
+        if (material.IsKeywordEnabled(UnityEmissionKeyword))
         {
-            material.EnableKeyword("MARMO_EMISSION");
+            material.EnableKeyword(MarmosetEmissionKeyword);
             material.SetFloat(ShaderPropertyID._EnableGlow, 1f);
             material.SetTexture(ShaderPropertyID._Illum, emissionTexture);
             material.SetColor(ShaderPropertyID._GlowColor, emissionColor);
@@ -255,11 +303,35 @@ public static partial class MaterialUtils
         // Apply normal map if it was applied in the standard shader
         if (material.GetTexture(_bumpMap))
         {
-            material.EnableKeyword("MARMO_NORMALMAP");
+            material.EnableKeyword(MarmosetNormalMapKeyword);
         }
+        
+        // Apply detail maps
+        bool hasDetailAlbedoMap = detailAlbedoMap != null;
+        bool hasDetailNormalMap = detailNormalMap != null;
+        if (hasDetailAlbedoMap || hasDetailNormalMap)
+        {
+            material.EnableKeyword(DetailMapKeyword);
+            
+            // Set textures
+            if (hasDetailAlbedoMap)
+                material.SetTexture(_detailDiffuseTex, detailAlbedoMap);
+            if (hasDetailNormalMap)
+                material.SetTexture(_detailBumpTex, detailNormalMap);
 
+            // Set intensities
+            material.SetVector(_detailIntensities,
+                new Vector3(DefaultDetailDiffuseIntensity, detailNormalMapIntensity, 0));
+            
+            // Set tiling
+            material.SetVector(_detailDiffuseTexSt, detailMapsSt);
+            material.SetVector(_detailBumpTexSt, detailMapsSt);
+        }
+        
+        // Miscellaneous
         material.enableInstancing = true;
 
+        // Apply material type
         switch (materialType)
         {
             case MaterialType.Transparent:
@@ -287,7 +359,7 @@ public static partial class MaterialUtils
     {
         if (transparent)
         {
-            material.EnableKeyword("WBOIT");
+            material.EnableKeyword(WboitKeyword);
             material.SetInt(ShaderPropertyID._ZWrite, 0);
             material.SetInt(ShaderPropertyID._Cutoff, 0);
             material.SetFloat(ShaderPropertyID._SrcBlend, 1f);
@@ -310,7 +382,7 @@ public static partial class MaterialUtils
             material.SetFloat(ShaderPropertyID._AddDstBlend, 0f);
             material.SetFloat(ShaderPropertyID._AddSrcBlend2, 1f);
             material.SetFloat(ShaderPropertyID._AddDstBlend2, 0f);
-            material.DisableKeyword("WBOIT");
+            material.DisableKeyword(WboitKeyword);
         }
         material.renderQueue = transparent ? kTransparencyRenderQueue : kOpaqueRenderQueue;
     }
@@ -325,11 +397,11 @@ public static partial class MaterialUtils
     {
         if (cutout)
         {
-            material.EnableKeyword("MARMO_ALPHA_CLIP");
+            material.EnableKeyword(AlphaClipKeyword);
         }
         else
         {
-            material.DisableKeyword("MARMO_ALPHA_CLIP");
+            material.DisableKeyword(AlphaClipKeyword);
         }
     }
 

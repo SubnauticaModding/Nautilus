@@ -9,7 +9,7 @@
     <AssemblyName>Nautilus</AssemblyName>
     <BepInExPluginGuid>com.snmodding.nautilus</BepInExPluginGuid>
     <BepInExPluginVersion>$(VersionPrefix).$(SuffixNumber)</BepInExPluginVersion>
-    <LangVersion>12</LangVersion>
+    <LangVersion>14</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
     <Configurations>SN.STABLE;BZ.STABLE</Configurations>

@@ -6,57 +6,58 @@ namespace Nautilus.Handlers;
 
 public static partial class EnumExtensions
 {
-    /// <summary>
-    /// Adds a display name to this instance.
-    /// </summary>
     /// <param name="builder">The current enum object instance.</param>
-    /// <param name="displayName">The display name of the Tech Category, can be anything. If null or empty, this will use the language line "TechCategory{enumName}" instead.</param>
-    /// <param name="language">The language for the display name. Defaults to English.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static EnumBuilder<TechCategory> WithPdaInfo(this EnumBuilder<TechCategory> builder, string displayName, string language = "English")
+    extension(EnumBuilder<TechCategory> builder)
     {
-        var category = (TechCategory)builder;
-        var name = category.ToString();
-        var fullName = "TechCategory" + name;
-        
-        if (!string.IsNullOrEmpty(displayName))
+        /// <summary>
+        /// Adds a display name to this instance.
+        /// </summary>
+        /// <param name="displayName">The display name of the Tech Category, can be anything. If null or empty, this will use the language line "TechCategory{enumName}" instead.</param>
+        /// <param name="language">The language for the display name. Defaults to English.</param>
+        /// <returns>A reference to this instance after the operation has completed.</returns>
+        public EnumBuilder<TechCategory> WithPdaInfo(string displayName, string language = "English")
         {
-            LanguageHandler.SetLanguageLine(fullName, displayName, language);
-            uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = "TechCategory" + name;
+            var category = (TechCategory)builder;
+            var name = category.ToString();
+            var fullName = "TechCategory" + name;
+        
+            if (!string.IsNullOrEmpty(displayName))
+            {
+                LanguageHandler.SetLanguageLine(fullName, displayName, language);
+                uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = "TechCategory" + name;
+                return builder;
+            }
+
+            var friendlyName = Language.main.Get(fullName);
+            if (string.IsNullOrEmpty(friendlyName))
+            {
+                InternalLogger.Warn($"Display name for TechCategory '{name}' is not specified and no language key has been found. Setting display name to 'TechCategory{name}'.");
+            }
+        
+            uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = fullName;
             return builder;
         }
 
-        var friendlyName = Language.main.Get(fullName);
-        if (string.IsNullOrEmpty(friendlyName))
+        /// <summary>
+        /// Registers this TechCategory instance to a TechGroup.
+        /// </summary>
+        /// <param name="techGroup">The Tech Group to add this TechCategory to.</param>
+        /// <returns>A reference to this instance after the operation has completed.</returns>
+        public EnumBuilder<TechCategory> RegisterToTechGroup(TechGroup techGroup)
         {
-            InternalLogger.Warn($"Display name for TechCategory '{name}' is not specified and no language key has been found. Setting display name to 'TechCategory{name}'.");
-        }
+            TechCategory category = builder.Value;
         
-        uGUI_BlueprintsTab.techCategoryStrings.valueToString[category] = fullName;
-        return builder;
-    }
+            if (!CraftData.groups.TryGetValue(techGroup, out var techCategories))
+            {
+                InternalLogger.Error($"Cannot Register to {techGroup} as it does not have PDAInfo set. Use EnumBuilder<TechGroup>.WithPdaInfo(\"Description\") to setup the Modded TechGroup before trying to register to it.");
+                return builder;
+            }
 
-    /// <summary>
-    /// Registers this TechCategory instance to a TechGroup.
-    /// </summary>
-    /// <param name="builder">The current custom enum object instance.</param>
-    /// <param name="techGroup">The Tech Group to add this TechCategory to.</param>
-    /// <returns>A reference to this instance after the operation has completed.</returns>
-    public static EnumBuilder<TechCategory> RegisterToTechGroup(this EnumBuilder<TechCategory> builder,
-        TechGroup techGroup)
-    {
-        TechCategory category = builder.Value;
-        
-        if (!CraftData.groups.TryGetValue(techGroup, out var techCategories))
-        {
-            InternalLogger.Error($"Cannot Register to {techGroup} as it does not have PDAInfo set. Use EnumBuilder<TechGroup>.WithPdaInfo(\"Description\") to setup the Modded TechGroup before trying to register to it.");
+            if (techCategories.ContainsKey(category))
+                return builder;
+
+            techCategories[category] = new List<TechType>();
             return builder;
         }
-
-        if (techCategories.ContainsKey(category))
-            return builder;
-
-        techCategories[category] = new List<TechType>();
-        return builder;
     }
 }

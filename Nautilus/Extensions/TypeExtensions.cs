@@ -30,56 +30,58 @@ internal static class TypeExtensions
         "string"
     };
 
-    /// <summary>
-    /// Format the given <paramref name="type"/>'s name into a more developer-friendly form.
-    /// </summary>
     /// <param name="type"></param>
-    /// <returns></returns>
-    public static string GetFriendlyName(this Type type)
+    extension(Type type)
     {
-        if (type.TryUnwrapArrayType(out Type elementType))
-            return GetFriendlyName(elementType) + "[]";
+        /// <summary>
+        /// Format the given <paramref name="type"/>'s name into a more developer-friendly form.
+        /// </summary>
+        /// <returns></returns>
+        public string GetFriendlyName()
+        {
+            if (type.TryUnwrapArrayType(out Type elementType))
+                return GetFriendlyName(elementType) + "[]";
         
-        if (type.TryUnwrapNullableType(out Type valueType))
-            return GetFriendlyName(valueType) + "?";
+            if (type.TryUnwrapNullableType(out Type valueType))
+                return GetFriendlyName(valueType) + "?";
         
-        // TODO: format tuples as well
+            // TODO: format tuples as well
         
-        if (type.IsConstructedGenericType)
-            return type.Name[..type.Name.LastIndexOf('`')]
-                + $"<{type.GenericTypeArguments.Select(GetFriendlyName).Join()}>";
+            if (type.IsConstructedGenericType)
+                return type.Name[..type.Name.LastIndexOf('`')]
+                       + $"<{type.GenericTypeArguments.Select(GetFriendlyName).Join()}>";
         
-        return _builtinTypeAliases[(int) Type.GetTypeCode(type)] ?? type.Name;
-    }
+            return _builtinTypeAliases[(int) Type.GetTypeCode(type)] ?? type.Name;
+        }
 
-    /// <summary>
-    /// "Unwraps" the inner <paramref name="type"/> from an array and/or nullable type.
-    /// </summary>
-    /// <param name="type"></param>
-    /// <returns>
-    /// The inner type - for example, <see cref="string"/> from a <see cref="Array">string[]</see>, or <see cref="bool"/> from <see cref="Nullable{T}">bool?</see>.<br/>
-    /// If the <paramref name="type"/> isn't wrapped, it is returned as-is.
-    /// </returns>
-    public static Type GetUnderlyingType(this Type type)
-    {
-        if (type.TryUnwrapArrayType(out Type elementType))
-            type = elementType;
-        if (type.TryUnwrapNullableType(out Type valueType))
-            type = valueType;
-        return type;
-    }
+        /// <summary>
+        /// "Unwraps" the inner <paramref name="type"/> from an array and/or nullable type.
+        /// </summary>
+        /// <returns>
+        /// The inner type - for example, <see cref="string"/> from a <see cref="Array">string[]</see>, or <see cref="bool"/> from <see cref="Nullable{T}">bool?</see>.<br/>
+        /// If the <paramref name="type"/> isn't wrapped, it is returned as-is.
+        /// </returns>
+        public Type GetUnderlyingType()
+        {
+            if (type.TryUnwrapArrayType(out Type elementType))
+                type = elementType;
+            if (type.TryUnwrapNullableType(out Type valueType))
+                type = valueType;
+            return type;
+        }
 
-    public static bool TryUnwrapArrayType(this Type type, out Type elementType)
-    {
-        // GetElementType checks if it's an array, pointer, or reference
-        elementType = type.GetElementType();
-        return type.IsArray // restrict to arrays only
-            && elementType != null;
-    }
+        public bool TryUnwrapArrayType(out Type elementType)
+        {
+            // GetElementType checks if it's an array, pointer, or reference
+            elementType = type.GetElementType();
+            return type.IsArray // restrict to arrays only
+                   && elementType != null;
+        }
 
-    public static bool TryUnwrapNullableType(this Type type, out Type valueType)
-    {
-        valueType = Nullable.GetUnderlyingType(type);
-        return valueType != null;
+        public bool TryUnwrapNullableType(out Type valueType)
+        {
+            valueType = Nullable.GetUnderlyingType(type);
+            return valueType != null;
+        }
     }
 }
