@@ -100,8 +100,6 @@ public static partial class MaterialUtils
     /// </summary>
     public static class Shaders
     {
-        private static Shader _marmosetUber;
-
         /// <summary>
         /// The <see cref="Shader"/> that is used for most materials in the game.
         /// </summary>
@@ -110,15 +108,13 @@ public static partial class MaterialUtils
             get
             {
                 // Shader.Find("MarmosetUBER") returns the wrong shader, so we need to get it in this way:
-                if (_marmosetUber == null)
+                if (field == null)
                 {
-                    _marmosetUber = AddressablesUtility.LoadAsync<Shader>("Assets/Marmoset/Shader/Uber/MarmosetUber.shader").WaitForCompletion();
+                    field = AddressablesUtility.LoadAsync<Shader>("Assets/Marmoset/Shader/Uber/MarmosetUber.shader").WaitForCompletion();
                 }
-                return _marmosetUber;
+                return field;
             }
         }
-
-        private static Shader _particlesUber;
 
         /// <summary>
         /// The <see cref="Shader"/> that is used for most particle systems.
@@ -127,15 +123,13 @@ public static partial class MaterialUtils
         {
             get
             {
-                if (_particlesUber == null)
+                if (field == null)
                 {
-                    _particlesUber = Shader.Find("UWE/Particles/UBER");
+                    field = Shader.Find("UWE/Particles/UBER");
                 }
-                return _particlesUber;
+                return field;
             }
         }
-
-        private static Shader _ionCube;
 
         /// <summary>
         /// The <see cref="Shader"/> that is used for Ion Cubes.
@@ -144,11 +138,11 @@ public static partial class MaterialUtils
         {
             get
             {
-                if (_ionCube == null)
+                if (field == null)
                 {
-                    _ionCube = Shader.Find("UWE/Marmoset/IonCrystal");
+                    field = Shader.Find("UWE/Marmoset/IonCrystal");
                 }
-                return _ionCube;
+                return field;
             }
         }
     }

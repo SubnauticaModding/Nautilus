@@ -23,18 +23,17 @@ public class FModMultiSounds : IFModSound
     private Sound[] _sounds;
 
     private Bus _bus;
-
-    private int _currentIndex;
+    
     private int Index
     {
         get
         {
-            if (_currentIndex >= _sounds.Length - 1)
+            if (field >= _sounds.Length - 1)
             {
-                _currentIndex = 0;
+                field = 0;
             }
 
-            return _currentIndex++;
+            return field++;
         }
     }
 

@@ -12,7 +12,7 @@ New contributions will not be accepted unless you agree to and sign [this CLA](C
 * For namespaces, use [File Scoped Namespaces](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-10.0/file-scoped-namespaces).
 
 ## Setup
-1. Download and install [.NET 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+1. Download and install [.NET 10](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
 2. Fork & clone the repository
 3. Open the solution (.sln) file with your favorite IDE
 4. Restore the dependencies by performing a NuGet restore via your IDE or by simply executing `dotnet restore` in a terminal
