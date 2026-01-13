@@ -54,13 +54,13 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
-    <None Remove="Resources\MatFilePathMapSN.resources" />
-    <EmbeddedResource Include="Resources\MatFilePathMapSN.resources" />
+    <None Remove="Resources\MatFilePathMapSN.json" />
+    <EmbeddedResource Include="Resources\MatFilePathMapSN.json" />
   </ItemGroup>
     
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
-    <None Remove="Resources\MatFilePathMapBZ.resources" />
-    <EmbeddedResource Include="Resources\MatFilePathMapBZ.resources" />
+    <None Remove="Resources\MatFilePathMapBZ.json" />
+    <EmbeddedResource Include="Resources\MatFilePathMapBZ.json" />
   </ItemGroup>
     
   <Import Project="..\PostBuild.targets" />

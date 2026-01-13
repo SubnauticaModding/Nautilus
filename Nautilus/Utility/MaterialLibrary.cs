@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using BepInEx;
 using Nautilus.Extensions;
+using Newtonsoft.Json;
 using UnityEngine;
 using UWE;
-using ResourceManager = System.Resources.ResourceManager;
 
 namespace Nautilus.Utility;
 
@@ -18,13 +19,18 @@ namespace Nautilus.Utility;
 public static class MaterialLibrary
 {
     /// <summary>
-    /// Handles loading the material filepath maps from the embedded .resources files, and accessing their contents.
+    /// Handles loading the appropriate embedded JSON file, used to generate the Filepath map.
     /// </summary>
     #if SUBNAUTICA
-        private static readonly ResourceManager _resourceManager = new ResourceManager("Nautilus.Resources.MatFilePathMapSN", Assembly.GetExecutingAssembly());
+        private static readonly Stream _resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Nautilus.Resources.MatFilePathMapSN.json");
     #elif BELOWZERO
-        private static readonly ResourceManager _resourceManager = new ResourceManager("Nautilus.Resources.MatFilePathMapBZ", Assembly.GetExecutingAssembly());
+        private static readonly Stream _resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Nautilus.Resources.MatFilePathMapBZ.json");
     #endif
+    
+    /// <summary>
+    /// The parsed JSON data, mapping material names to the best path to load them from.
+    /// </summary>
+    private static readonly Dictionary<string, string> _filePathMap = JsonConvert.DeserializeObject<Dictionary<string, string>>(new StreamReader(_resourceStream).ReadToEnd());
     
     /// <summary>
     /// The maximum number of times the <see cref="GetMaterialFromPath"/> method is allowed to retry loading a material
@@ -427,8 +433,8 @@ public static class MaterialLibrary
     }
 
     /// <summary>
-    /// Uses the <see cref="_resourceManager"/> to access the MatFilePathMaps, and retrieve the path associated with
-    /// a specified material using the <see cref="materialName"/>, so that it may be loaded when requested.
+    /// Uses the <see cref="_filePathMap"/> to retrieve the path associated with a specified material using the
+    /// <see cref="materialName"/>, so that it may be loaded when requested.
     /// </summary>
     /// <param name="materialName">The name of the material whose path is being requested.</param>
     /// <returns>The path to the resource which should be loaded in order to retrieve the specified material.
@@ -436,41 +442,10 @@ public static class MaterialLibrary
     /// <see cref="materialName"/> does not have an entry within the library.</returns>
     private static string GetPathToMaterial(string materialName)
     {
-        if (_resourceManager == null)
-        {
-            InternalLogger.Error("Tried to get material path from library while ResourceManager is null. Please initialize first!");
-            return String.Empty;
-        }
-        
-        return _resourceManager.GetString(ConvertNameToKey(materialName));
-    }
+        if (_filePathMap.TryGetValue(materialName, out string path))
+            return path;
 
-    /// <summary>
-    /// Converts the name of a material to the MatFilePathMap key equivalent. This approach is necessary because files
-    /// with the .resources extension do not allow entries with duplicate text to exist, even if the text entries
-    /// have different capitalization from one another. The MatFilePathMap contains many entries with the same name,
-    /// however, and the only way to differentiate them from one another is by preserving their casing. To get around
-    /// this issue, keys within the MatFilePathMap are made to be lowercased versions of the original mat name, with
-    /// the number of lowercase and uppercase characters in the original name preserved by being appended to the end
-    /// of the key version of the name. I.e. RawTitanium -> rawtitanium_lc9_uc2
-    /// </summary>
-    /// <param name="matName">The name of the base-game material being searched for.</param>
-    /// <returns>The MatFilePathMap key version of the given material name.</returns>
-    private static string ConvertNameToKey(string matName)
-    {
-        var characters = matName.ToCharArray();
-
-        int upperCaseLetters = 0;
-        int lowerCaseLetters = 0;
-        for (int i = 0; i < characters.Length; i++)
-        {
-            if (char.IsUpper(characters[i]))
-                upperCaseLetters++;
-            else
-                lowerCaseLetters++;
-        }
-
-        return matName.ToLower() + "_lc" + lowerCaseLetters + "_uc" + upperCaseLetters;
+        return "";
     }
     
 }
