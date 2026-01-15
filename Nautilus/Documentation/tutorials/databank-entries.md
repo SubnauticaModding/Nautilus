@@ -5,7 +5,7 @@
 
 The PDA’s Databank is essential for providing players with large blocks of text that would otherwise take too long to read. These entries can also contain a custom image or audio file embedded within to enhance the player’s understanding of the information.
 
-It is recommended to set up an Asset Bundle for Databank entries that involve custom assets. Asset Bundles simplify the process of loading assets to one line per call, regardless of file type.
+It is recommended to set up an Asset Bundle for Databank entries that involve custom assets. Asset Bundles simplify the process of loading assets to a single line per call, regardless of file type.
 
 --- 
 
@@ -13,7 +13,7 @@ It is recommended to set up an Asset Bundle for Databank entries that involve cu
 
 This tutorial will be based around the [PDAHandler.AddEncyclopediaEntry(...)](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_System_String_System_String_System_String_System_String_UnityEngine_Texture2D_UnityEngine_Sprite_FMODAsset_FMODAsset_) method.
 
-The method listed above is the easiest and most proper way to register a custom entry to the game through Nautilus. Therefore, the following sections on entry creation will elaborate upon all of the parameters.
+The method listed above is the most straightforward way to register a custom entry to the game through Nautilus. Therefore, the following sections on entry creation will elaborate upon all of the parameters.
 
 Keep in mind that simply creating a PDA entry is usually not enough. You must also determine how it is unlocked.
 
@@ -25,8 +25,8 @@ Keep in mind that simply creating a PDA entry is usually not enough. You must al
 | --------- | ---- | --- |
 | `key` | `string` | Essential property; must be assigned a proper value! |
 
-Every PDA Databank entry has its own internal key (also referred to as an ID) which ensures uniqueness, allows for saving, and connects it with other systems. For example, a Story
-Goal that unlocks a Databank entry should have the same key / ID as the entry that it unlocks.
+Every PDA Databank entry has its own internal key (also referred to as an ID) which ensures uniqueness, allows for saving, and connects it with other systems. For example, a Story Goal
+that unlocks a Databank entry should have the same key / ID as the entry that it unlocks.
 
 ## Path
 
@@ -84,7 +84,7 @@ Every PDA entry has its own "path" which determines where in the PDA this entry 
 | `TimeCapsules` | Time Capsules |
 </details><br>
 
-You can also create your own paths. When doing this, make sure you set the language line properly. The key for a path in the language system is `EncyPath_{path}`, i.e. `EncyPath_Lifeforms/Fauna/Leviathans`.
+You can also create your own paths. When doing this, make sure you set the language line properly. The key for a path in the language system is `EncyPath_{path}`, e.g. `EncyPath_Lifeforms/Fauna/Leviathans`.
 
 ### Example of custom path creation
 ```csharp
@@ -107,12 +107,11 @@ PDAHandler.AddEncyclopediaEntry("Robot Dog", "Lifeforms/Fauna/Pets/Robotic" ...)
 | `title` | `string` | Can be null if implementing proper localization. | 
 | `desc` | `string` | Can be null if implementing proper localization. |
 
-Adding the text contents is very simple as it is only composed of two strings that must be passed through into method.
-
-As long as the values passed through the `title` and `desc` parameters are valid (not null), the text will be automatically set and should appear properly in-game.
+Adding the text content is very simple as it is composed of only two strings that must be passed into the method.
+Alternatively, you can use JSON-based localization and leave both the `title` and `desc` parameters as null.
 
 > [!NOTE]
-> Consider setting these parameters to null if you are using [JSON-based localization](https://subnauticamodding.github.io/Nautilus/tutorials/localization.html) in your mod.
+> It is recommended to use [JSON-based localization](https://subnauticamodding.github.io/Nautilus/tutorials/localization.html) in your mod (as opposed to embedding lengthy text in your code) to allow for user translations.
 
 ## Primary image
 
@@ -162,7 +161,7 @@ This image can be used as a template for cutting out the corners:
 
 A complete popup image looks like this:
 
-![The Reaper Leviathan's Popup popup image](../images/tutorials/databank-popup-example.png)
+![The Reaper Leviathan's popup image](../images/tutorials/databank-popup-example.png)
 
 ## Unlock sound
 
@@ -183,9 +182,9 @@ While you can technically use any sound asset, the only other recommended sound 
 | --------- | ---- | --- |
 | `voiceLog` | `FMODAsset` | Can safely be left unassigned. |
 
-Audio logs must first have their sounds be registered through the `CustomSoundHandler` class. The
+The sounds for audio logs must first be registered through the `CustomSoundHandler` class. The
 [overload that takes an AudioClip](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.CustomSoundHandler.html?q=custom%20sound%20ha#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_UnityEngine_AudioClip_FMOD_Studio_Bus_)
-is recommended due to its simplicity, but anything should work. Also, remember to use the `AudioUtils.BusPaths.VoiceOvers` bus.
+is recommended due to its simplicity. It is also suggested to use the `AudioUtils.BusPaths.VoiceOvers` bus.
 
 After registering a sound, you must make an FMODAsset. An FMODAsset essentially acts as a container for your sound path. To create one use the
 [AudioUtils.GetFmodAsset(string)](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Utility.AudioUtils.html?q=fmod#Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_)
@@ -235,7 +234,7 @@ CustomSoundHandler.RegisterCustomSound("KallieAudioLog", assetBundle.LoadAsset<A
 // Create an FMOD asset using the same ID as the sound to pass into the method
 FMODAsset kallieLogSound = AudioUtils.GetFmodAsset("KallieAudioLog");
 
-// When null values are used for the title and header parameters in AddEncyclopediaEntry, Nautilus expects
+// When null values are used for the title and description parameters in AddEncyclopediaEntry, Nautilus expects
 // localization lines defined for the keys "Ency_YourEntryIdHere" (title) and "EncyDesc_YourEntryIdHere" (description)  
 
 // Register the encyclopedia entry into the game:
