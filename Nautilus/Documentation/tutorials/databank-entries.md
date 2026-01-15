@@ -192,48 +192,54 @@ Finally, just pass this FMODAsset into the `voiceLog` parameter of the original 
 
 ### Creating an entry: Examples
 
-#### Example 1
+#### Example 1 - Localization defined in code
 
-Registers a new PDA entry with a large image, popup image and proper title/description.
+Registers a new PDA entry with a main image, popup image and English title / description.
 
 ```csharp
-// "EldritchLogImage" is the name of the image file in the asset bundle. remember to omit file extensions.
-Texture2D eldritchImage = assetBundle.LoadAsset<Texture2D>("EldritchLogImage");
+// Load the popup image, which is a basic Texture2D
+Texture2D image = assetBundle.LoadAsset<Texture2D>("EldritchLogImage");
 
-// remember: popup images must be imported as a sprite.
-Sprite eldritchPopup = assetBundle.LoadAsset<Sprite>("EldritchLogSprite");
+// Popup images, on the other hand, must be imported as Sprites
+Sprite popup = assetBundle.LoadAsset<Sprite>("EldritchLogSprite");
 
-// description string (does not need a variable of its own):
-string eldritchDesc = "There weren't enough lifeboats, I took the only one for myself.";
+string title = "Eldritch's Log";
+string description = "I took one of the lifepods all for myself.\n\nIt's actually kind of lonely in here..";
 
-// register the encyclopedia entry into the game:
-PDAHandler.AddEncyclopediaEntry("EldritchLog", "DownloadedData/PublicDocs", "Eldritch's Log", eldritchDesc, eldritchImage, eldritchPopup, null);
+// Since the title and description are passed into the method, Nautilus will internally assign the English
+// lines to the localization keys 'Ency_EldritchLog' and 'EncyDesc_EldritchLog' respectively
+
+// Register the encyclopedia entry into the game:
+PDAHandler.AddEncyclopediaEntry("EldritchLog", "DownloadedData/PublicDocs", title, description, image, popup);
 ```
 
-#### Example 2
+#### Example 2 - Localization handled by JSON files (recommended)
 
-Registers a new PDA entry with a voice log, popup image and proper title/description.
+Registers a new PDA entry with a voice log, popup image and support for custom translations. Expects external JSON files or similar for localization.
 
 ```csharp
-// remember: popup images must be imported as a sprite.
-Sprite popupLee = assetBundle.LoadAsset<Sprite>("LeeLogSprite");
+// Remember: popup images must be imported as Sprites
+Sprite popup = assetBundle.LoadAsset<Sprite>("KallieLogSprite");
 
-// register the sound for FMOD.
-// the sound's ID can be anything, as long as it corresponds with the FMOD asset.
-CustomSoundHandler.RegisterCustomSound("LeeAudioLog", assetBundle.LoadAsset<AudioClip>(), AudioUtils.BusPaths.VoiceOvers);
+// Register the custom sound into FMOD...
+// The sound's ID can be anything, but it must correspond with the FMOD asset that will be created.
+CustomSoundHandler.RegisterCustomSound("KallieAudioLog", assetBundle.LoadAsset<AudioClip>("AudioFileName"), AudioUtils.BusPaths.VoiceOvers);
 
-// create an FMOD asset, which must have the same ID as the sound.
-// all this does is act as a container for the sound's ID, but it is required for the encyclopedia entry.
-FMODAsset leeLogSound = AudioUtils.GetFmodAsset("LeeAudioLog");
+// Create an FMOD asset using the same ID as the sound to pass into the method
+FMODAsset kallieLogSound = AudioUtils.GetFmodAsset("KallieAudioLog");
 
-// passed into the subtitles and PDA entry description
-string transcript = "Hello? Hello? Anyone there? Oh... this isn't a radio, it's just an old voice recorder. Day 32 of being lost at sea. Or was it 33...? Getting lonely.";
+// When null values are used for the title and header parameters in AddEncyclopediaEntry, Nautilus expects
+// localization lines defined for the keys "Ency_YourEntryIdHere" (title) and "EncyDesc_YourEntryIdHere" (description)  
 
-// add the translation for the subtitles:
-LanguageHandler.SetLanguageLine("LeeAudioLog", transcript);
+// Register the encyclopedia entry into the game:
+PDAHandler.AddEncyclopediaEntry("KalliesLog", "DownloadedData/PublicDocs", null, null, null, popup, kallieLogSound);
 
-// register the encyclopedia entry into the game:
-PDAHandler.AddEncyclopediaEntry("LeeLog", "DownloadedData/PublicDocs", "Lee's Log", transcript, null, popupLee, leeLogSound);
+/* English.json example:
+* {
+*      "Ency_KalliesLog": "Kallie's Log",
+*      "EncyDesc_KalliesLog": "[Transcript of the voice log]"
+* }
+*/
 ```
 
 ---
