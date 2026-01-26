@@ -247,7 +247,7 @@ public static class PDAHandler
     {
         if (string.IsNullOrEmpty(path))
         {
-            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ClassId '{key}'!");
+            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ID '{key}'!");
             return;
         }
 
@@ -295,7 +295,7 @@ public static class PDAHandler
     {
         if (string.IsNullOrEmpty(path))
         {
-            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ClassId '{key}'!");
+            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ID '{key}'!");
             return;
         }
 
@@ -338,7 +338,7 @@ public static class PDAHandler
     {
         if (string.IsNullOrEmpty(path))
         {
-            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ClassId '{key}'!");
+            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ID '{key}'!");
             return;
         }
 
