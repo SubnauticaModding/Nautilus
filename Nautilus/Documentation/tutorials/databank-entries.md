@@ -5,7 +5,7 @@
 
 The PDA’s Databank is essential for providing players with large blocks of text that would otherwise take too long to read. These entries can also contain a custom image or audio file embedded within to enhance the player’s understanding of the information.
 
-It is recommended to set up an Asset Bundle for Databank entries that involve custom assets. Asset Bundles simplify the process of loading assets to one line per call, regardless of file type.
+It is recommended to set up an Asset Bundle for Databank entries that involve custom assets. Asset Bundles simplify the process of loading assets to a single line per call, regardless of file type.
 
 --- 
 
@@ -13,20 +13,22 @@ It is recommended to set up an Asset Bundle for Databank entries that involve cu
 
 This tutorial will be based around the [PDAHandler.AddEncyclopediaEntry(...)](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_AddEncyclopediaEntry_System_String_System_String_System_String_System_String_UnityEngine_Texture2D_UnityEngine_Sprite_FMODAsset_FMODAsset_) method.
 
-The method listed above is the easiest and most proper way to register a custom entry to the game through Nautilus. Therefore, the following sections on entry creation will elaborate upon all of the parameters.
+The method listed above is the most straightforward way to register a custom entry to the game through Nautilus. Therefore, the following sections on entry creation will elaborate upon all of the parameters.
 
-Keep in mind that there are also steps beyond creation. For example, your PDA entry must also be unlocked somehow.
+Keep in mind that simply creating a PDA entry is usually not enough. You must also determine how it is unlocked.
 
-### Creating an entry: Key
+# The Main Components of a Databank Entry
+
+## Key
 
 | Parameter name | Value type | Nullability |
 | --------- | ---- | --- |
 | `key` | `string` | Essential property; must be assigned a proper value! |
 
-Every PDA Databank entry has its own internal "key", also referred to as an ID, which ensures it is unique and must be used in other systems when applicable. For example, a Story
-Goal that unlocks a Databank entry should have the same key/ID as the entry that it unlocks.
+Every PDA Databank entry has its own internal key (also referred to as an ID) which ensures uniqueness, allows for saving, and connects it with other systems. For example, a Story Goal
+that unlocks a Databank entry should have the same key / ID as the entry that it unlocks.
 
-### Creating an entry: Path
+## Path
 
 ![Examples of paths in the Databank tab](../images/tutorials/databank-paths.png)
 
@@ -82,10 +84,11 @@ Every PDA entry has its own "path" which determines where in the PDA this entry 
 | `TimeCapsules` | Time Capsules |
 </details><br>
 
-You can also create your own paths. When doing this, make sure you set the language line properly. The key for a path in the language system is `EncyPath_{path}`, i.e. `EncyPath_Lifeforms/Fauna/Leviathans`.
+You can also create your own paths. When doing this, make sure you set the language line properly. The key for a path in the language system is `EncyPath_{path}`, e.g. `EncyPath_Lifeforms/Fauna/Leviathans`.
 
-#### Example of custom path creation
+### Example of custom path creation
 ```csharp
+// Manual localization handling in case you choose to not use JSON localization
 LanguageHandler.SetLanguageLine("EncyPath_Lifeforms/Fauna/Pets", "Pets");
 LanguageHandler.SetLanguageLine("EncyPath_Lifeforms/Fauna/Pets/Robotic", "Robotic Pets");
 
@@ -95,7 +98,7 @@ PDAHandler.AddEncyclopediaEntry("Doggo", "Lifeforms/Fauna/Pets" ...);
 PDAHandler.AddEncyclopediaEntry("Robot Dog", "Lifeforms/Fauna/Pets/Robotic" ...);
 ```
 
-### Creating an entry: Text
+## Title and Description
 
 ![The Peeper's Databank Entry](../images/tutorials/databank-text.png)
 
@@ -104,14 +107,13 @@ PDAHandler.AddEncyclopediaEntry("Robot Dog", "Lifeforms/Fauna/Pets/Robotic" ...)
 | `title` | `string` | Can be null if implementing proper localization. | 
 | `desc` | `string` | Can be null if implementing proper localization. |
 
-Adding the text contents is very simple as it is only composed of two strings that must be passed through into method.
-
-As long as the values passed through the `title` and `desc` parameters are valid (not null), the text will be automatically set and should appear properly in-game.
+Adding the text content is very simple as it is composed of only two strings that must be passed into the method.
+Alternatively, you can use JSON-based localization and leave both the `title` and `desc` parameters as null.
 
 > [!NOTE]
-> Consider setting these parameters to null if you are using [JSON-based localization](https://subnauticamodding.github.io/Nautilus/tutorials/localization.html) in your mod.
+> It is recommended to use [JSON-based localization](https://subnauticamodding.github.io/Nautilus/tutorials/localization.html) in your mod (as opposed to embedding lengthy text in your code) to allow for user translations.
 
-### Creating an entry: The main image
+## Primary image
 
 ![The Peeper's Databank image](../images/tutorials/databank-image.png)
 
@@ -121,7 +123,7 @@ As long as the values passed through the `title` and `desc` parameters are valid
 
 The `image` of a Databank entry is its primary visual element. Each entry can have up to one image.
 
-#### Creating your own image assets:
+### Creating your own image assets:
 
 You can make your own Databank images, but it is recommended that you are consistent with the vanilla style of the game. Photoshop is recommended, as it was used to
 make these originally, but any image editor can work.
@@ -133,7 +135,7 @@ These tend to use the Agency FB font. Stock images are often used in the "close 
 > [!IMPORTANT]
 > Please keep in mind that it is **ILLEGAL** to use Subnautica's art assets and style in other contexts. However, Unknown Worlds Entertainment has given modders permission to modify their assets for non-commercial purposes within Subnautica mods.
 
-### Creating an entry: Popup image
+## Popup images
 
 ![The Peeper's popup image](../images/tutorials/databank-popup.png)
 
@@ -144,7 +146,7 @@ These tend to use the Agency FB font. Stock images are often used in the "close 
 The popup image is a rather insignificant image that can be applied to your Databank entries. This small image appears to the left side of the screen for a few seconds
 when your entry is unlocked.
 
-#### Creating your own popup images:
+### Creating your own popup images:
 
 These images should follow the rules below:
 - Typically 256x128 pixels.
@@ -159,9 +161,9 @@ This image can be used as a template for cutting out the corners:
 
 A complete popup image looks like this:
 
-![The Reaper Leviathan's Popup popup image](../images/tutorials/databank-popup-example.png)
+![The Reaper Leviathan's popup image](../images/tutorials/databank-popup-example.png)
 
-### Creating an entry: Unlock sound
+## Unlock sound
 
 | Parameter name | Value type | Nullability |
 | --------- | ---- | --- |
@@ -172,7 +174,7 @@ By default the `unlockSound` parameter is null. This will be automatically resol
 While you can technically use any sound asset, the only other recommended sound is
 [PDAHandler.UnlockImportant](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.PDAHandler.html#Nautilus_Handlers_PDAHandler_UnlockImportant).
 
-### Creating an entry: Voice logs
+## Voice logs
 
 ![Degasi Voice Log](../images/tutorials/databank-audio-logs.png)
 
@@ -180,9 +182,9 @@ While you can technically use any sound asset, the only other recommended sound 
 | --------- | ---- | --- |
 | `voiceLog` | `FMODAsset` | Can safely be left unassigned. |
 
-Audio logs must first have their sounds be registered through the `CustomSoundHandler` class. The
+The sounds for audio logs must first be registered through the `CustomSoundHandler` class. The
 [overload that takes an AudioClip](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Handlers.CustomSoundHandler.html?q=custom%20sound%20ha#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_UnityEngine_AudioClip_FMOD_Studio_Bus_)
-is recommended due to its simplicity, but anything should work. Also, remember to use the `AudioUtils.BusPaths.VoiceOvers` bus.
+is recommended due to its simplicity. It is also suggested to use the `AudioUtils.BusPaths.VoiceOvers` bus.
 
 After registering a sound, you must make an FMODAsset. An FMODAsset essentially acts as a container for your sound path. To create one use the
 [AudioUtils.GetFmodAsset(string)](https://subnauticamodding.github.io/Nautilus/api/Nautilus.Utility.AudioUtils.html?q=fmod#Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_)
@@ -190,55 +192,65 @@ method, where the `path` is the ID that you just defined in the CustomSoundHandl
 
 Finally, just pass this FMODAsset into the `voiceLog` parameter of the original method.
 
-### Creating an entry: Examples
+---
 
-#### Example 1
+# Usage
 
-Registers a new PDA entry with a large image, popup image and proper title/description.
+## Examples
+
+### Example 1 - Localization embedded into code
+
+Registers a new PDA entry with a main image, popup image and English title / description as defined in the code.
 
 ```csharp
-// "EldritchLogImage" is the name of the image file in the asset bundle. remember to omit file extensions.
-Texture2D eldritchImage = assetBundle.LoadAsset<Texture2D>("EldritchLogImage");
+// Load the popup image, which is a basic Texture2D
+Texture2D image = assetBundle.LoadAsset<Texture2D>("EldritchLogImage");
 
-// remember: popup images must be imported as a sprite.
-Sprite eldritchPopup = assetBundle.LoadAsset<Sprite>("EldritchLogSprite");
+// Popup images, on the other hand, must be imported as Sprites
+Sprite popup = assetBundle.LoadAsset<Sprite>("EldritchLogSprite");
 
-// description string (does not need a variable of its own):
-string eldritchDesc = "There weren't enough lifeboats, I took the only one for myself.";
+string title = "Eldritch's Log";
+string description = "I took one of the lifepods all for myself.\n\nIt's actually kind of lonely in here..";
 
-// register the encyclopedia entry into the game:
-PDAHandler.AddEncyclopediaEntry("EldritchLog", "DownloadedData/PublicDocs", "Eldritch's Log", eldritchDesc, eldritchImage, eldritchPopup, null);
+// Since the title and description are passed into the method, Nautilus will internally assign the English
+// lines to the localization keys 'Ency_EldritchLog' and 'EncyDesc_EldritchLog' respectively
+
+// Register the encyclopedia entry into the game:
+PDAHandler.AddEncyclopediaEntry("EldritchLog", "DownloadedData/PublicDocs", title, description, image, popup);
 ```
 
-#### Example 2
+### Example 2 - Localization handled by JSON files (recommended)
 
-Registers a new PDA entry with a voice log, popup image and proper title/description.
+Registers a new PDA entry with a voice log, popup image and support for custom translations. Expects external JSON files or similar for localization.
 
 ```csharp
-// remember: popup images must be imported as a sprite.
-Sprite popupLee = assetBundle.LoadAsset<Sprite>("LeeLogSprite");
+// Remember: popup images must be imported as Sprites
+Sprite popup = assetBundle.LoadAsset<Sprite>("KallieLogSprite");
 
-// register the sound for FMOD.
-// the sound's ID can be anything, as long as it corresponds with the FMOD asset.
-CustomSoundHandler.RegisterCustomSound("LeeAudioLog", assetBundle.LoadAsset<AudioClip>(), AudioUtils.BusPaths.VoiceOvers);
+// Register the custom sound into FMOD...
+// The sound's ID can be anything, but it must correspond with the FMOD asset that will be created.
+CustomSoundHandler.RegisterCustomSound("KallieAudioLog", assetBundle.LoadAsset<AudioClip>("AudioFileName"), AudioUtils.BusPaths.VoiceOvers);
 
-// create an FMOD asset, which must have the same ID as the sound.
-// all this does is act as a container for the sound's ID, but it is required for the encyclopedia entry.
-FMODAsset leeLogSound = AudioUtils.GetFmodAsset("LeeAudioLog");
+// Create an FMOD asset using the same ID as the sound to pass into the method
+FMODAsset kallieLogSound = AudioUtils.GetFmodAsset("KallieAudioLog");
 
-// passed into the subtitles and PDA entry description
-string transcript = "Hello? Hello? Anyone there? Oh... this isn't a radio, it's just an old voice recorder. Day 32 of being lost at sea. Or was it 33...? Getting lonely.";
+// When null values are used for the title and description parameters in AddEncyclopediaEntry, Nautilus expects
+// localization lines defined for the keys "Ency_YourEntryIdHere" (title) and "EncyDesc_YourEntryIdHere" (description)  
 
-// add the translation for the subtitles:
-LanguageHandler.SetLanguageLine("LeeAudioLog", transcript);
+// Register the encyclopedia entry into the game:
+PDAHandler.AddEncyclopediaEntry("KalliesLog", "DownloadedData/PublicDocs", null, null, null, popup, kallieLogSound);
 
-// register the encyclopedia entry into the game:
-PDAHandler.AddEncyclopediaEntry("LeeLog", "DownloadedData/PublicDocs", "Lee's Log", transcript, null, popupLee, leeLogSound);
+/* English.json example:
+* {
+*      "Ency_KalliesLog": "Kallie's Log",
+*      "EncyDesc_KalliesLog": "[Transcript of the voice log]"
+* }
+*/
 ```
 
 ---
 
-# Making entries unlockable
+## Making entries unlockable
 
 > [!TIP]
 > The `ency [key]` command can be used to instantly unlock a Databank entry for testing purposes.
@@ -266,7 +278,7 @@ PDAHandler.AddCustomScannerEntry(ArcticReaperTechType, 4, false, "ArcticReaperEn
 
 ```csharp
 // Register encyclopedia entry like usual:
-PDAHandler.AddEncyclopediaEntry("SpadefishHate", "Advanced", "Spadefish are terrible", "Why do they lay eggs? Why do they damage your seamoth so heavily?");
+PDAHandler.AddEncyclopediaEntry("SpadefishHate", "Advanced", "Spadefish are terrible", "Why do they lay eggs? Why do they damage your seamoth so badly?");
 
 // Use the StoryGoalHandler to make it unlockable.
 // This particular example uses the RegisterItemGoal method to unlock the encyclopedia entry when picking up a Spadefish:
