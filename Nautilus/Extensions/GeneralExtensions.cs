@@ -71,6 +71,29 @@ public static class GeneralExtensions
     }
     
     /// <summary>
+    /// Removes the (Instance) text from the end of names, recursively. Primarily helpful for programmatic
+    /// material name comparisons.
+    /// </summary>
+    /// <param name="originalString">The name from which to remove the Instance string.</param>
+    /// <returns>The altered name if any trailing '(Instance)' strings were found, otherwise the uneffected
+    /// name.</returns>
+    public static string TrimInstance(string originalString)
+    {
+        string returnValue = originalString;
+        string instanceString = " (Instance)";
+        
+        // We avoid using .Replace() here to account for users possibly including the instance string at the beginning
+        // Or in the middle of their material names. Not likely to happen, but better safe than sorry.
+        if (originalString.EndsWith(instanceString))
+        {
+            returnValue = originalString.Substring(0, originalString.Length - instanceString.Length);
+            return TrimInstance(returnValue);
+        }
+        
+        return returnValue;
+    }
+    
+    /// <summary>
     /// Adds a message and increases the life of it, instead of spamming it.
     /// </summary>
     /// <param name="this"></param>

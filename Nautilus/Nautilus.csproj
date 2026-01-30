@@ -52,5 +52,16 @@
   <ItemGroup>
     <None Include="DocFX\logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
+    <None Remove="Resources\MatFilePathMapSN.json" />
+    <EmbeddedResource Include="Resources\MatFilePathMapSN.json" />
+  </ItemGroup>
+    
+  <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">
+    <None Remove="Resources\MatFilePathMapBZ.json" />
+    <EmbeddedResource Include="Resources\MatFilePathMapBZ.json" />
+  </ItemGroup>
+    
   <Import Project="..\PostBuild.targets" />
 </Project>
