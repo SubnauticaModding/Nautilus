@@ -14,7 +14,7 @@ namespace Nautilus.Utility;
 /// <summary>
 /// Allows for quick and simple retrieval of any base-game material throughout both Subnautica, and Subnautica:
 /// Below Zero. Materials can either be fetched directly using their names by accessing the <see cref="FetchMaterial"/>
-/// method, or applied generically across the entirety of a custom prefab via the <see cref="ReplaceVanillaMaterials"/> method.
+/// method, or applied generically across the entirety of a custom prefab via the <see cref="ReplaceMockMaterials"/> method.
 /// </summary>
 public static class MaterialLibrary
 {
@@ -45,96 +45,6 @@ public static class MaterialLibrary
     /// exists exclusively as a failsafe, to prevent neverending wait-times.
     /// </summary>
     private const int MaxSceneLoadTime = 300;
-    
-    /// <summary>
-    /// Iterates over every <see cref="Renderer"/> present on the given <see cref="prefab"/> and any of its
-    /// children, and replaces any custom materials it finds that share the exact same name (case-sensitive) of a
-    /// base-game material with its vanilla counterpart.
-    /// </summary>
-    /// <param name="prefab">The custom object you'd like to apply base-game materials to. Children included.</param>
-    public static IEnumerator ReplaceVanillaMaterials(GameObject prefab)
-    {
-        if (prefab == null)
-        {
-            InternalLogger.Error("Attempted to apply vanilla materials to a null prefab.");
-            yield break;
-        }
-        
-        var relevantRenderers = new List<Renderer>();
-        var requiredMaterials = new List<string>();
-
-        foreach (var renderer in prefab.GetAllComponentsInChildren<Renderer>())
-        {
-            int vanillaMats = 0;
-            
-            foreach (var material in renderer.sharedMaterials)
-            {
-                if (material == null)
-                    continue;
-
-                // This probably isn't necessary here anymore, but removing it feels dangerous to me for some reason...
-                string filteredMatName = GeneralExtensions.TrimInstance(material.name);
-                
-                if (!GetPathToMaterial(filteredMatName).IsNullOrWhiteSpace())
-                {
-                    if(!requiredMaterials.Contains(filteredMatName))
-                        requiredMaterials.Add(filteredMatName);
-                    
-                    vanillaMats++;
-                }
-            }
-
-            if (vanillaMats > 0)
-                relevantRenderers.Add(renderer);
-        }
-
-        if (requiredMaterials.Count == 0)
-        {
-            InternalLogger.Warn($"No vanilla materials found on prefab: \"{prefab.name}\", consider removing " +
-                                $"your call to the ReplaceVanillaMaterials method.");
-            yield break;
-        }
-
-        var taskResult = new TaskResult<Material[]>();
-        yield return FetchMaterials(requiredMaterials.ToArray(), taskResult);
-
-        var foundMaterials = taskResult.value;
-
-        if (foundMaterials == null)
-        {
-            InternalLogger.Error($"Failed to load vanilla materials from MatLibrary for prefab: \"{prefab.name}\".");
-            yield break;
-        }
-
-        var nameToVanillaMat = new Dictionary<string, Material>();
-        foreach (var matName in requiredMaterials)
-        {
-            for (int i = 0; i < foundMaterials.Length; i++)
-            {
-                if (matName.Equals(GeneralExtensions.TrimInstance(foundMaterials[i].name)))
-                {
-                    nameToVanillaMat.Add(matName, foundMaterials[i]);
-                    break;
-                }
-            }
-        }
-
-        foreach (var renderer in relevantRenderers)
-        {
-            var newMatList = renderer.sharedMaterials;
-
-            for (int i = 0; i < newMatList.Length; i++)
-            {
-                if (newMatList[i] == null)
-                    continue;
-
-                if (nameToVanillaMat.TryGetValue(GeneralExtensions.TrimInstance(newMatList[i].name), out var vanillaMat))
-                    newMatList[i] = vanillaMat;
-            }
-
-            renderer.sharedMaterials = newMatList;
-        }
-    }
 
     /// <summary>
     /// Searches the library for the provided <see cref="materialName"/>, and loads it from its path, if an entry for
@@ -148,7 +58,7 @@ public static class MaterialLibrary
         Material matResult = null;
 
         string filteredMatName = GeneralExtensions.TrimInstance(materialName);
-        string resourcePath = GetPathToMaterial(filteredMatName);
+        string resourcePath = GetMaterialPath(filteredMatName);
         if (!resourcePath.IsNullOrWhiteSpace())
         {
             if (resourcePath.EndsWith(".mat"))
@@ -203,7 +113,7 @@ public static class MaterialLibrary
         foreach (var matName in materialNames)
         {
             string filteredMatName = GeneralExtensions.TrimInstance(matName);
-            string resourcePath = GetPathToMaterial(filteredMatName);
+            string resourcePath = GetMaterialPath(filteredMatName);
 
             if (!resourcePath.IsNullOrWhiteSpace())
             {
@@ -440,7 +350,7 @@ public static class MaterialLibrary
     /// <returns>The path to the resource which should be loaded in order to retrieve the specified material.
     /// Points to either a mat, prefab, or scene prefab file. Returns an empty string if the provided
     /// <see cref="materialName"/> does not have an entry within the library.</returns>
-    private static string GetPathToMaterial(string materialName)
+    public static string GetMaterialPath(string materialName)
     {
         if (_filePathMap.TryGetValue(materialName, out string path))
             return path;
