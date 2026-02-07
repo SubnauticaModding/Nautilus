@@ -1,14 +1,16 @@
 ﻿# Adding Spawns
 
-Most of the time in Subnautica, the game uses two different ways to spawn objects; static spawns that always have a fixed position in the world to spawn in,
-and loot distribution which is biome-based and sudo-random.  
+Most of the time in Subnautica, the game uses two main approaches to spawning objects: 1) static spawns that always spawn in the world at a fixed position,
+and 2) runtime loot distribution which is biome-based and pseudo-random.  
 
-Nautilus offers modders to add spawns to either systems. You can add spawns for your own custom item, you can also edit vanilla spawns,
-or straight up remove them.
+Nautilus offers utilities that allow modders to add spawns to either system. You can add spawns for your own custom items, edit vanilla spawns,
+and remove existing random spawns.
+
+There also exist tools such as the [Mod Structure Helper](https://www.nexusmods.com/subnautica/mods/1665), designed for placing many static spawns with a visual editor.
 
 ## Coordinated Spawns
-Coordinated spawns is Nautilus' version of the aforementioned static spawns. With this system, you are allowed to specify exact world position and rotation spawns for an item.  
-You may register one or more coordinated spawn(s) for any item by providing either their class ID, or their tech type.
+The Coordinated Spawns system is Nautilus' implementation of the aforementioned static spawns. With this system, you are allowed to specify exact world positions, rotations and scales for item spawns.  
+You may register one or more coordinated spawn(s) for any item by providing either its class ID or tech type.
 
 ### Examples
 The following examples demonstrate the usage of [CoordinatedSpawnsHandler](xref:Nautilus.Handlers.CoordinatedSpawnsHandler) methods.
@@ -70,8 +72,9 @@ blueReaper.Register();
 ```  
 
 ## Loot Distribution
-Loot distribution system is by far the most widely used spawning system in the game. Unlike static spawns, Nautilus does not have it's own version of this system, so
-we will be registering distributions into the game's system.  
+The loot distribution system is by far the most widely used spawning system in the game for collectible items. Unlike static spawns, Nautilus does not have its own version of this system, so
+we will be registering distributions directly into the game's existing system (which affects existing spawn slots).
+
 Loot distribution only allows adding or editing distributions using a class ID and prefab file name. You normally will also need to provide a biome type, probability, and count for each loot you want to add.  
 
 Below is a table of all the parameters you may interact with in the loot distribution system.  
@@ -88,6 +91,7 @@ Below is a table of all the parameters you may interact with in the loot distrib
 
 > [!WARNING]
 > An Entity Info for each class ID to spawn via loot distribution is required. If an entity info does not have one, the loot distribution will ignore it.
+> Also, most spawn slots in the game only spawn entities with Small or Medium entity slot types.
 
 > [!NOTE]
 > Usually, vanilla prefabs do have a world entity info assigned to them. While you can, you don't have to register a new one for those that already have one.
