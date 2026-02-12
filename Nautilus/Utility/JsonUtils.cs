@@ -18,21 +18,6 @@ namespace Nautilus.Utility;
 /// </summary>
 public static class JsonUtils
 {
-    private static class Defaults
-    {
-        private static Dictionary<Type, object> _defaults = new();
-
-        public static object GetValue(Type type)
-        {
-            if (_defaults.TryGetValue(type, out var result))
-            {
-                return result;
-            }
-            
-            return _defaults[type] = Activator.CreateInstance(type);
-        }
-    }
-    
     private static string GetDefaultPath<T>(Assembly assembly) where T : class
     {
         return Path.Combine(
@@ -61,7 +46,7 @@ public static class JsonUtils
             throw new ArgumentNullException(nameof(contract));
         }
 
-        var @default = Defaults.GetValue(target.GetType());
+        var @default = Activator.CreateInstance(target.GetType());
         
         foreach (var property in contract.Properties)
         {
