@@ -49,6 +49,7 @@ public class BasicText
         CloneFont = true;
         CloneStyle = true;
         CloneMaterial = true;
+        InitializeText();
     }
 
     /// <summary>
@@ -201,12 +202,6 @@ public class BasicText
     /// <param name="seconds">The duration to hold before fading</param>
     public void ShowMessage(string s, float seconds)
     {
-        if (TextObject == null)
-        {
-            // First time only, initialize the object and components
-            InitializeText();
-        }
-
         // Set our actual text
         TextFade.SetText(s);
 
