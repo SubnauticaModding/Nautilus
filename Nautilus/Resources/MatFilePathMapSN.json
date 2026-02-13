@@ -2198,7 +2198,6 @@
 	"stairs_decal_01_modular_wreckages_room_03_04_06": "Assets/Models/chassis/explorable_wreckage_modular/Materials/stairs_decal_01_modular_wreckages_room_03_04_06.mat",
 	"stalker": "WorldEntities/Creatures/LavaLizard.prefab",
 	"Stalker_02": "WorldEntities/Creatures/Stalker.prefab",
-	"Standard": "WorldEntities/Creatures/Bleeder.prefab",
 	"starfish": "Assets/Models/doodads/Coral_reef/Materials/starfish.mat",
 	"starfish_alpha": "Assets/Models/doodads/Coral_reef/Materials/starfish_alpha.mat",
 	"Starship_big_gate_doors": "Assets/Models/props/Materials/Starship_big_gate_doors.mat",

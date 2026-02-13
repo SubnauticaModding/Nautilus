@@ -31,13 +31,6 @@ public static class MaterialLibrary
     /// The parsed JSON data, mapping material names to the best path to load them from.
     /// </summary>
     private static readonly Dictionary<string, string> _filePathMap = JsonConvert.DeserializeObject<Dictionary<string, string>>(new StreamReader(_resourceStream).ReadToEnd());
-    
-    /// <summary>
-    /// The maximum number of times the <see cref="GetMaterialFromPath"/> method is allowed to retry loading a material
-    /// from the designated path. Necessary because .mat files will occasionally fail to load a couple of times before
-    /// being successfully retrieved. This cap exists only as a failsafe, and should never actually be reached.
-    /// </summary>
-    private const int MaxFetchAttempts = 1000;
 
     /// <summary>
     /// The maximum amount of time, in seconds, that we should wait for materials to finish being retrieved from a scene
@@ -171,37 +164,20 @@ public static class MaterialLibrary
 
     /// <summary>
     /// Loads and returns a material using its path relative to the <see cref="AddressablesUtility"/>.
-    /// NOTE: For an unknown reason, materials loaded from their respective paths with the <see cref="AddressablesUtility"/>
-    /// will sometimes fail to load, and will come back as null, instead of as the desired material. For this reason,
-    /// this method has a built-in try-retry system, that will reattempt loading the requested material up to a
-    /// <see cref="MaxFetchAttempts"/> number of times.
     /// </summary>
     /// <param name="matPath">The path to the .mat file, relative to the <see cref="AddressablesUtility"/>.</param>
-    /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found material into. Otherwise, has it's value set to null.</param>
+    /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found material into. If no material 
+    /// is found, has it's value set to null.</param>
     private static IEnumerator GetMaterialFromPath(string matPath, IOut<Material> matResult)
     {
         Material loadedMat = null;
 
         if(matPath.EndsWith(".mat"))
         {
-            int fetchAttempts = 0;
-            do
-            {
-                if (fetchAttempts >= MaxFetchAttempts)
-                {
-                    InternalLogger.Error($"Max retries limit reached when trying to load material at path: {matPath}.");
-                    InternalLogger.Error("Please ensure the material's path is valid, or up the maximum # of retries.");
-                    break;
-                }
-
-                fetchAttempts++;
-                InternalLogger.Debug($"Attempting to load material at path: {matPath}...");
+            var handle = AddressablesUtility.LoadAsync<Material>(matPath);
+            yield return handle;
                 
-                var handle = AddressablesUtility.LoadAsync<Material>(matPath);
-                yield return handle.Task;
-                
-                loadedMat = handle.Result;
-            } while (loadedMat == null);
+            loadedMat = handle.Result;
         }
         else
             InternalLogger.Error($"{matPath} is not a valid path to a material file.");
@@ -244,7 +220,7 @@ public static class MaterialLibrary
             if (allMatsFound)
                 break;
             
-            foreach (var material in renderer.materials)
+            foreach (var material in renderer.sharedMaterials)
             {
                 if (material == null)
                     continue;
@@ -306,7 +282,7 @@ public static class MaterialLibrary
             var foundMats = new List<string>();
             foreach (var renderer in scenePrefab.GetAllComponentsInChildren<Renderer>())
             {
-                foreach (var material in renderer.materials)
+                foreach (var material in renderer.sharedMaterials)
                 {
                     if (material == null)
                         continue;

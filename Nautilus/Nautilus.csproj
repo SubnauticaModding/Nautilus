@@ -56,6 +56,8 @@
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
     <None Remove="Resources\MatFilePathMapSN.json" />
     <EmbeddedResource Include="Resources\MatFilePathMapSN.json" />
+    <None Remove="Resources\MatFilePathMapBZ.json" />
+    <EmbeddedResource Include="Resources\MatFilePathMapBZ.json" />
   </ItemGroup>
     
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'BZ.STABLE|AnyCPU'">

@@ -1965,7 +1965,6 @@
 	"Squid_Shark_Alpha": "Assets/Models/Creatures/Squid_Shark/Materials/Squid_Shark_Alpha.mat",
 	"Squid_Shark_egg": "WorldEntities/Eggs/Expansion/SquidSharkEgg.prefab",
 	"SS_Prop_SandtoRock": "Assets/Materials/Terrain/Castle/Model_Props/SS_Prop_SandtoRock.mat",
-	"Standard": "WorldEntities/EndGame.prefab",
 	"starfish": "Assets/Models/doodads/Coral_reef/Materials/starfish.mat",
 	"starfish_alpha": "Assets/Models/doodads/Coral_reef/Materials/starfish_alpha.mat",
 	"Starship_big_gate_doors": "Assets/Models/props/Materials/Starship_big_gate_doors.mat",
