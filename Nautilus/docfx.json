@@ -4,7 +4,7 @@
       "src": [
         {
           "files": [
-            "*.csproj"
+            "*/bin/SN.STABLE/Nautilus.dll"
           ],
 		  "exclude": [
                 "**/obj/**",
