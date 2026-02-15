@@ -90,8 +90,8 @@
 <p>Most mods will require/use some sort of user configuration from hotkeys to values to colors. Nautilus offers a wrapper to help easily create an entry in the settings for your mods options.</p>
 <p>Depending on the use case you can use a super simple <a href="#configfile">ConfigFile</a> or a more detailed and customizable <a href="#modoptions">ModOptions</a>.</p>
 <h2 id="configfile">ConfigFile</h2>
-<p>A <a href="xref:Nautilus.Json.ConfigFile">ConfigFile</a> is the simplest way of managing your mod's options automatically. This is ideal if you just want a basic plain config with little custom functionality.</p>
-<p>The <a href="xref:Nautilus.Json.ConfigFile">ConfigFile</a> by itself is just a class which automatically stores persistent data to disk but with the addition of custom <a href="xref:Nautilus.Options.Attributes">Attributes</a> you can make it display nicely in game too.</p>
+<p>A <a class="xref" href="../api/Nautilus.Json.ConfigFile.html">ConfigFile</a> is the simplest way of managing your mod's options automatically. This is ideal if you just want a basic plain config with little custom functionality.</p>
+<p>The <a class="xref" href="../api/Nautilus.Json.ConfigFile.html">ConfigFile</a> by itself is just a class which automatically stores persistent data to disk but with the addition of custom <a class="xref" href="../api/Nautilus.Options.Attributes.html">Attributes</a> you can make it display nicely in game too.</p>
 <h3 id="creating-your-configfile">Creating your <code>ConfigFile</code></h3>
 <p>The following code is an example of how you could represent an integer value with a slider in game:</p>
 <pre><code class="lang-csharp">using Nautilus.Json;
@@ -112,10 +112,10 @@ public class MyConfig : ConfigFile
     public int SliderValue = 15;
 }
 </code></pre>
-<p>See <a href="xref:Nautilus.Options.Attributes">Attributes</a> for a full list of available control types and attribute arguments.</p>
+<p>See <a class="xref" href="../api/Nautilus.Options.Attributes.html">Attributes</a> for a full list of available control types and attribute arguments.</p>
 <h2 id="modoptions">ModOptions</h2>
-<p>A <a href="xref:Nautilus.Options.ModOptions">ModOptions</a> is the more advanced way of managing your mod's options. This is ideal if you require more customization than is provided or want to manage your mods config separately (eg via BepInEx config).</p>
-<p>The <a href="xref:Nautilus.Options.ModOptions">ModOptions</a> by itself is just a class which helps display your options nicely in game and relies on other classes to persist data across game loads (eg BepInEx config). <a href="xref:Nautilus.Options.OptionItem">OptionItems</a> are added to your section with the <code>AddItem</code> function. When options are added to the list <em>they will only be created once</em>, this means that if they are changed outside of Nautilus (ex. BepInEx ConfigurationManager) they will not be updated inside of the Nautilus mods window. In order to refresh your values on every opening of the menu you must override <code>ModOptions.BuildModOptions</code> which is executed once every time the menu is opened.</p>
+<p>A <a class="xref" href="../api/Nautilus.Options.ModOptions.html">ModOptions</a> is the more advanced way of managing your mod's options. This is ideal if you require more customization than is provided or want to manage your mods config separately (eg via BepInEx config).</p>
+<p>The <a class="xref" href="../api/Nautilus.Options.ModOptions.html">ModOptions</a> by itself is just a class which helps display your options nicely in game and relies on other classes to persist data across game loads (eg BepInEx config). <a class="xref" href="../api/Nautilus.Options.OptionItem.html">OptionItems</a> are added to your section with the <code>AddItem</code> function. When options are added to the list <em>they will only be created once</em>, this means that if they are changed outside of Nautilus (ex. BepInEx ConfigurationManager) they will not be updated inside of the Nautilus mods window. In order to refresh your values on every opening of the menu you must override <code>ModOptions.BuildModOptions</code> which is executed once every time the menu is opened.</p>
 <h3 id="creating-your-modoptions">Creating your <code>ModOptions</code></h3>
 <p>The following code is an example of how you could represent an integer value with a slider in game:</p>
 <pre><code class="lang-csharp">using Nautilus.Options;
@@ -137,9 +137,9 @@ public class MyModOptions : ModOptions
 }
 </code></pre>
 <h3 id="saving-your-config">Saving your config</h3>
-<p>As mentioned above, a <a href="xref:Nautilus.Options.ModOptions">ModOptions</a> does not handle saving and retrieving config from disk and as such it does not persist across saves by default. One of the most convenient ways of accounting for this is to utilize BepInEx as a config store (we have it, may as well use it!).</p>
+<p>As mentioned above, a <a class="xref" href="../api/Nautilus.Options.ModOptions.html">ModOptions</a> does not handle saving and retrieving config from disk and as such it does not persist across saves by default. One of the most convenient ways of accounting for this is to utilize BepInEx as a config store (we have it, may as well use it!).</p>
 <p>There are a few ways to accomplish this:</p>
-<p>(1) (<strong>Recommended</strong>) Using the builtin extensions for converting BepInEx <code>ConfigEntry</code> instances to <code>OptionItem</code> instances. See <a href="xref:Nautilus.Options.ConfigEntryExtensions">ConfigEntryExtensions</a> for possible options.</p>
+<p>(1) (<strong>Recommended</strong>) Using the builtin extensions for converting BepInEx <code>ConfigEntry</code> instances to <code>OptionItem</code> instances. See <a class="xref" href="../api/Nautilus.Options.ConfigEntryExtensions.html">ConfigEntryExtensions</a> for possible options.</p>
 <p>(2) Manually hooking to an external (likely BepInEx) config with individual OnChanged. See <a href="#individual-onchanged">reacting to changed values (individual)</a> below for further explanation on the details.</p>
 <p>(3) Manually hooking to an external (likely BepInEx) config with the global OnChanged. See <a href="#global-onchanged">reacting to changed values (global)</a> below for further explanation on the details.</p>
 <p>In all cases, in order to support changes made outside of Nautilus (ex. BepInEx ConfigurationManager) you will need to override <code>ModOptions.BuildModOptions</code> which is executed once every time the menu is opened.</p>

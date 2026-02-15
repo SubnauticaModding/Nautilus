@@ -31,6 +31,2917 @@
       "version": ""
     },
     {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.CustomModelData.Targets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.CustomModelData.Targets.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.CustomModelData.Targets",
+      "Summary": "A class with some common target names"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.CustomModelData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.CustomModelData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.CustomModelData",
+      "Summary": "Custom Model data that Nautilus will use to apply custom looks to certain prefabs."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.CustomPrefab.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.CustomPrefab.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.CustomPrefab",
+      "Summary": "Represents a class with everything needed to make a custom prefab work."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.CustomPrefabExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.CustomPrefabExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.CustomPrefabExtensions",
+      "Summary": "Represents extension methods for the <xref href=\"Nautilus.Assets.CustomPrefab\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.CraftingGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.CraftingGadget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets.CraftingGadget",
+      "Summary": "Represents a crafting gadget"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.DuplicateGadgetException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.DuplicateGadgetException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets.DuplicateGadgetException",
+      "Summary": "The exception that is thrown when a <xref href=\"Nautilus.Assets.Gadgets.Gadget\" data-throw-if-not-resolved=\"false\"></xref> is attempted to be added when an existing one of the same type already exists."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.EggGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.EggGadget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets.EggGadget",
+      "Summary": "Represents a creature egg gadget."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.EquipmentGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.EquipmentGadget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets.EquipmentGadget",
+      "Summary": "Represents an equipment gadget"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.FabricatorGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.FabricatorGadget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets.FabricatorGadget",
+      "Summary": "Represents a craft tree/fabricator gadget."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.Gadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.Gadget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets.Gadget",
+      "Summary": "Represents a class that handles registers to game code."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.GadgetExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.GadgetExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets.GadgetExtensions",
+      "Summary": "Represents extension methods for the <xref href=\"Nautilus.Assets.Gadgets.Gadget\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.ScanningGadget.SortPosition.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets.ScanningGadget.SortPosition",
+      "Summary": "Defines the insertion position for the new blueprint in relation to the <xref href=\"Nautilus.Assets.Gadgets.ScanningGadget.PdaSortTarget\" data-throw-if-not-resolved=\"false\"></xref> in the PDA."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.ScanningGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.ScanningGadget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets.ScanningGadget",
+      "Summary": "Represents a scanning gadget."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.UpgradeModuleGadget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets.UpgradeModuleGadget",
+      "Summary": "Represents a vehicle upgrade module gadget."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.Gadgets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.Gadgets.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.Gadgets",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.ICustomPrefab.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.ICustomPrefab.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.ICustomPrefab",
+      "Summary": "Specifies the contract for a custom prefab."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.ModPrefabCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.ModPrefabCache.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.ModPrefabCache",
+      "Summary": "Class used by the prefab system to store GameObjects.\nObjects in the cache are inactive because they are placed within an inactive parent object."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabFactoryAsync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabFactoryAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabFactoryAsync",
+      "Summary": "A delegate for prefab construction used by Nautilus to create game objects dynamically."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabInfo.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabInfo",
+      "Summary": "Data class that represents information about a prefab."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabPostProcessorAsync.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabPostProcessorAsync.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabPostProcessorAsync",
+      "Summary": "Delegate used for Nautilus's prefab post processing event to modify the processed prefab via a dynamic method."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.AssetBundleTemplate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabTemplates.AssetBundleTemplate",
+      "Summary": "A PrefabTemplate used for loading objects in from asset bundles"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.VolumeShape",
+      "Summary": "The shape of an atmosphere volume's trigger."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate",
+      "Summary": "A template for Atmosphere Volumes, which are basic invisible triggers for mini-biomes. Atmosphere volumes can affect fog, music, ambient sounds and even the player's swim speed."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.CloneTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.CloneTemplate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabTemplates.CloneTemplate",
+      "Summary": "Represents a prefab clone template."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.EggTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.EggTemplate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabTemplates.EggTemplate",
+      "Summary": "Represents a creature egg prefab template."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.EnergySourceTemplate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabTemplates.EnergySourceTemplate",
+      "Summary": "Represents an energy source template. This template is capable of returning a Battery or a Power Cell."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.Model.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.Model.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabTemplates.FabricatorTemplate.Model",
+      "Summary": "Defines a list of available models for your custom fabricator."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.FabricatorTemplate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabTemplates.FabricatorTemplate",
+      "Summary": "Represents an fabricator template. This template is capable of returning a Fabricator or a Workbench."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.PrefabTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.PrefabTemplate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabTemplates.PrefabTemplate",
+      "Summary": "Represents the contract for a prefab template."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.PrefabTemplates.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.PrefabTemplates.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.PrefabTemplates",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.SpawnLocation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.SpawnLocation.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets.SpawnLocation",
+      "Summary": "Defines the spawn location with world position and optional euler angles. Used in the Coordinated Spawns system."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Assets.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Assets.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Assets",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Commands.ConsoleCommandAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Commands.ConsoleCommandAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Commands.ConsoleCommandAttribute",
+      "Summary": "Attribute used to signify the decorated method should be called in response to a console command.\n\n<p>Decorated method must be both <a href=\"https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/public\">public</a> and <a href=\"https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/static\">static</a>.</p>"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Commands.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Commands.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Commands",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.ModCraftTreeCraft.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.ModCraftTreeCraft.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Crafting.ModCraftTreeCraft",
+      "Summary": "A crafting node of a CraftTree. This is the last node on a tree; The one that actually crafts something."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.ModCraftTreeLinkingNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.ModCraftTreeLinkingNode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Crafting.ModCraftTreeLinkingNode",
+      "Summary": "Abstract class that provides methods for adding new nodes into the crafting tree."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.ModCraftTreeNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.ModCraftTreeNode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Crafting.ModCraftTreeNode",
+      "Summary": "Basic data structure of a crafting tree node."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.ModCraftTreeRoot.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.ModCraftTreeRoot.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Crafting.ModCraftTreeRoot",
+      "Summary": "The root node of a CraftTree. The whole tree starts here.<p></p>\nBuild up your custom crafting tree from this root node using the AddCraftingNode and AddTabNode methods.<br />\nThis tree will be automatically patched into the game.<p></p>\nFor more advanced usage, you can replace the default value of <xref href=\"Nautilus.Crafting.ModCraftTreeRoot.CraftTreeCreation\" data-throw-if-not-resolved=\"false\"></xref> with your own custom function."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.ModCraftTreeTab.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.ModCraftTreeTab.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Crafting.ModCraftTreeTab",
+      "Summary": "A tab node of a CraftTree. Tab nodes help organize crafting nodes by grouping them into categories."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.RecipeData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.RecipeData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Crafting.RecipeData",
+      "Summary": "A class that fully describes a recipe for a <xref href=\"TechType\" data-throw-if-not-resolved=\"false\"></xref> identified item."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Crafting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Crafting.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Crafting",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Extensions.FModExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Extensions.FModExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Extensions.FModExtensions",
+      "Summary": "Contains extension methods for the FMOD system."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Extensions.GameObjectExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Extensions.GameObjectExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Extensions.GameObjectExtensions",
+      "Summary": "Contains extension methods for Unity objects."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Extensions.GeneralExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Extensions.GeneralExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Extensions.GeneralExtensions",
+      "Summary": "Contains extensions that are not exclusively specific to one type."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Extensions.RecipeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Extensions.RecipeExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Extensions.RecipeExtensions",
+      "Summary": "Contains extensions that are specific to the <xref href=\"Nautilus.Crafting.RecipeData\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.AssetBundleSoundSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.AssetBundleSoundSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.AssetBundleSoundSource",
+      "Summary": "Enables loading sounds from an asset bundle by the name of AudioClips."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.CustomSoundSourceBase.CachedSound.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.CustomSoundSourceBase.CachedSound",
+      "Summary": "Contains the locator and truncated name of a sound file."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.CustomSoundSourceBase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.CustomSoundSourceBase.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.CustomSoundSourceBase",
+      "Summary": "The base class used for loading sounds."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.FModMultiSounds.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.FModMultiSounds.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.FModMultiSounds",
+      "Summary": "This class is used to register FMOD events with multiple sounds in one event."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.FModSoundBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.FModSoundBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.FModSoundBuilder",
+      "Summary": "Allows for easy creation and registration of sounds from an Asset Bundle."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.Interfaces.IFModSound.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.Interfaces.IFModSound.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.Interfaces.IFModSound",
+      "Summary": "This interface is used to integrate with <xref href=\"Nautilus.Handlers.CustomSoundHandler\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.Interfaces.IFModSoundBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.Interfaces.IFModSoundBuilder",
+      "Summary": "The interface for registering FMOD Sounds using the <xref href=\"Nautilus.FMod.FModSoundBuilder\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.Interfaces.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.Interfaces",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.ModFolderSoundSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.ModFolderSoundSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod.ModFolderSoundSource",
+      "Summary": "Enables loading sounds from a folder by the name of each sound file, EXCLUDING extensions."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.FMod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.FMod.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.FMod",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.BiomeHandler.SkyReference.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.BiomeHandler.SkyReference.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.BiomeHandler.SkyReference",
+      "Summary": "Defines a reference to a new or existing Sky prefab."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.BiomeHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.BiomeHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.BiomeHandler",
+      "Summary": "A handler class for registering new biome types."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.ConsoleCommandsHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.ConsoleCommandsHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.ConsoleCommandsHandler",
+      "Summary": "A handler class for registering your custom console commands."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.CoordinatedSpawnsHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.CoordinatedSpawnsHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.CoordinatedSpawnsHandler",
+      "Summary": "A handler class for registering Coordinated Spawns."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.CraftDataHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.CraftDataHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.CraftDataHandler",
+      "Summary": "A handler class for adding and editing crafted items."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.CraftTreeHandler.Paths.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.CraftTreeHandler.Paths.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.CraftTreeHandler.Paths",
+      "Summary": "A list of all the built-in craft tree paths (AKA \"steps to tab\") for use in methods such as <xref href=\"Nautilus.Handlers.CraftTreeHandler.AddCraftingNode(CraftTree.Type%2cTechType%2cSystem.String%5b%5d)\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.CraftTreeHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.CraftTreeHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.CraftTreeHandler",
+      "Summary": "A handler class for creating and modifying crafting trees."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.CustomSoundHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.CustomSoundHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.CustomSoundHandler",
+      "Summary": "A handler class for adding and overriding Sounds. Also see the <xref href=\"Nautilus.Utility.AudioUtils\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.EnumBuilder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.EnumBuilder-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.EnumBuilder<TEnum>",
+      "Summary": "Represents a custom enum object. This class cannot be inherited."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.EnumExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.EnumExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.EnumExtensions",
+      "Summary": "Extensions to interact more with custom enum objects."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.EnumHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.EnumHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.EnumHandler",
+      "Summary": "Class responsible to resolve anything related to adding custom enum objects."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GameInputHandler.Paths.Gamepad.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GameInputHandler.Paths.Gamepad",
+      "Summary": "A class containing all valid binding paths for controllers."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GameInputHandler.Paths.Keyboard.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GameInputHandler.Paths.Keyboard",
+      "Summary": "A class containing all valid binding paths for keyboards."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GameInputHandler.Paths.Mouse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GameInputHandler.Paths.Mouse",
+      "Summary": "A class containing all valid binding paths for mice."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GameInputHandler.Paths.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GameInputHandler.Paths.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GameInputHandler.Paths",
+      "Summary": "A super class that then refers to all valid buttons for a respective device."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GameInputHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GameInputHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GameInputHandler",
+      "Summary": "A handler class for dealing with the game's UnityEngine.InputSystem implementation."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.ItemActionHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.ItemActionHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.ItemActionHandler",
+      "Summary": "A handler class for registering custom actions when left clicking or middle clicking on an item."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.KnownTechHandler.DefaultUnlockData",
+      "Summary": "References to generic unlock sounds and unlock messages for the Known Tech system, matching those used in the base game."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.KnownTechHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.KnownTechHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.KnownTechHandler",
+      "Summary": "A handler class for configuring custom unlocking conditions for item blueprints."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.LanguageHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.LanguageHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.LanguageHandler",
+      "Summary": "A handler class for adding or modifying language lines."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.LoadingScreenData",
+      "Summary": "A data class containing info for Nautilus to register a custom loading screen"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.LoadingScreen.LoadingScreenHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.LoadingScreen.LoadingScreenHandler",
+      "Summary": "Handles custom loading screens"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.LoadingScreen.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.LoadingScreen.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.LoadingScreen",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.LootDistributionHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.LootDistributionHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.LootDistributionHandler",
+      "Summary": "A handler that manages the distribution of spawned resources throughout the world. Used for fish, items, outcrops, fragments, eggs, etc..."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.ModDatabankHandler.ModData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.ModDatabankHandler.ModData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.ModDatabankHandler.ModData",
+      "Summary": "Data for the encyclopedia entry of your mod."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.ModDatabankHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.ModDatabankHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.ModDatabankHandler",
+      "Summary": "A handler class for adding information about your mod to the \"Mods\" tab of the PDA's Datbabank. If you wish to add a standard PDA entry, instead see the <xref href=\"Nautilus.Handlers.PDAHandler\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.OnEnumRegistered-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.OnEnumRegistered-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.OnEnumRegistered<TEnum>",
+      "Summary": "Delegate used when a custom enum is registered via <xref href=\"Nautilus.Handlers.EnumHandler.AddEntry%60%601(System.String%2cSystem.Reflection.Assembly)\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.OptionsPanelHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.OptionsPanelHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.OptionsPanelHandler",
+      "Summary": "A handler class for registering your custom in-game mod options."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.PDAHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.PDAHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.PDAHandler",
+      "Summary": "A handler class for various PDA-related purposes:\n<ul><li>Registering log entries.</li><li>Registering encyclopedia (databank) entries.</li><li>Defining data for scanning fragments and other items.</li></ul>"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.PrefabCollection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.PrefabCollection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.PrefabCollection",
+      "Summary": "Represents a collection of <xref href=\"Nautilus.Assets.PrefabInfo\" data-throw-if-not-resolved=\"false\"></xref> as keys and prefab factory as values."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.PrefabCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.PrefabCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.PrefabCollectionExtensions",
+      "Summary": "Represents extension methods for the <xref href=\"Nautilus.Handlers.PrefabCollection\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.PrefabHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.PrefabHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.PrefabHandler",
+      "Summary": "A handler for registering prefabs into the game."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.SaveDataHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.SaveDataHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.SaveDataHandler",
+      "Summary": "A handler class for registering your <xref href=\"Nautilus.Json.SaveDataCache\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.SpawnInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.SpawnInfo.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.SpawnInfo",
+      "Summary": "A basic struct that provides enough info for the <xref href=\"Nautilus.Handlers.CoordinatedSpawnsHandler\" data-throw-if-not-resolved=\"false\"></xref> System to function."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.SpriteHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.SpriteHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.SpriteHandler",
+      "Summary": "A handler class for adding custom sprites into the game."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.StoryGoalHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.StoryGoalHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.StoryGoalHandler",
+      "Summary": "<p>A handler class for interacting with all of the major goal systems in Subnautica, which are essential for the's game progression.</p>\n<p>Allows for important game events to be triggered after a specified action is completed.</p>"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.SurvivalHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.SurvivalHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.SurvivalHandler",
+      "Summary": "Handler class that relates to the <xref href=\"Survival\" data-throw-if-not-resolved=\"false\"></xref> component. Allows the defining of oxygen or health gains when consuming specific items."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.MusicTitleAddon.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.MusicTitleAddon",
+      "Summary": "Enables and disables custom music depending on what mod theme is selected."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.Settings",
+      "Summary": "Settings pertaining to the <xref href=\"uSkyManager\" data-throw-if-not-resolved=\"false\"></xref> class."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.SkyChangeTitleAddon",
+      "Summary": "Handles changes to the sky in the main menu."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.TitleAddon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.TitleAddon.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.TitleAddon",
+      "Summary": "A custom title addon for the main menu. Inherit from this class to create your own main menu functionality."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.TitleScreenHandler.CollaborationData",
+      "Summary": "A data class containing info allowing other mods to add mod-specific additions to the title screen."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.TitleScreenHandler.CustomTitleData",
+      "Summary": "A data class containing additions for Nautilus to add to the main menu when your mod is selected as the current theme."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.TitleScreenHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.TitleScreenHandler",
+      "Summary": "Handles custom additions to the main menu (Title screen)."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen.WorldObjectTitleAddon",
+      "Summary": "Enables and disables a custom GameObject in the main menu depending on what mod theme is selected."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.TitleScreen.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.TitleScreen.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.TitleScreen",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.WaitScreenHandler.WaitScreenTask",
+      "Summary": "Represents the unit of work performed by a mod during the loading screen."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.WaitScreenHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.WaitScreenHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.WaitScreenHandler",
+      "Summary": "A handler for registering mod loading actions to be performed during the loading screen."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.WorldEntityDatabaseHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.WorldEntityDatabaseHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.WorldEntityDatabaseHandler",
+      "Summary": "A handler class for the <xref href=\"UWE.WorldEntityDatabase\" data-throw-if-not-resolved=\"false\"></xref>. This class is essential for the game's Loot Distribution System to work properly."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Attributes.FileNameAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Attributes.FileNameAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Attributes.FileNameAttribute",
+      "Summary": "Attribute used to specify a file name for use with a <xref href=\"Nautilus.Json.JsonFile\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Attributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Attributes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Attributes",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.ConfigFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.ConfigFile.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.ConfigFile",
+      "Summary": "A simple implementation of <xref href=\"Nautilus.Json.Interfaces.IJsonFile\" data-throw-if-not-resolved=\"false\"></xref> for use with config files."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.ConfigFileAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.ConfigFileAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.ConfigFileAttribute",
+      "Summary": "Attribute used to specify the filename and subfolder for a <xref href=\"Nautilus.Json.ConfigFile\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.ConfigFileEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.ConfigFileEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.ConfigFileEventArgs",
+      "Summary": "Contains basic information for a <xref href=\"Nautilus.Json.ConfigFile\" data-throw-if-not-resolved=\"false\"></xref> event."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.ColorConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.ColorConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters.ColorConverter",
+      "Summary": "A Color json converter that simplifies the Color to only r,g,b,a serialization."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.CustomEnumConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.CustomEnumConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters.CustomEnumConverter",
+      "Summary": "An Enum json converter that supports custom enum conversions."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.FloatConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.FloatConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters.FloatConverter",
+      "Summary": "A <xref href=\"Newtonsoft.Json.JsonConverter\" data-throw-if-not-resolved=\"false\"></xref> for rounding floats or doubles to a given number of decimal places,\ntrimming trailing 0s."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.KeyCodeConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.KeyCodeConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters.KeyCodeConverter",
+      "Summary": "A <xref href=\"Newtonsoft.Json.JsonConverter\" data-throw-if-not-resolved=\"false\"></xref> for handling <xref href=\"UnityEngine.KeyCode\" data-throw-if-not-resolved=\"false\"></xref>s."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.QuaternionConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.QuaternionConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters.QuaternionConverter",
+      "Summary": "A Quaternion json converter that simplifies the Vector3 to only x,y,z serialization."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.Vector2Converter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.Vector2Converter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters.Vector2Converter",
+      "Summary": "A Vector2 json converter that simplifies the Vector2 to only x,y serialization."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.Vector2IntConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.Vector2IntConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters.Vector2IntConverter",
+      "Summary": "A Vector2Int json converter that simplifies the Vector2Int to only x,y serialization."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.Vector3Converter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.Vector3Converter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters.Vector3Converter",
+      "Summary": "A Vector3 json converter that simplifies the Vector3 to only x,y,z serialization."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.Vector3IntConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.Vector3IntConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters.Vector3IntConverter",
+      "Summary": "A Vector3Int json converter that simplifies the Vector3Int to only x,y,z serialization."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.Vector4Converter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.Vector4Converter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters.Vector4Converter",
+      "Summary": "A Vector4 json converter that simplifies the Vector4 to only x,y,z,w serialization."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Converters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Converters.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Converters",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.ExtensionMethods.JsonExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.ExtensionMethods.JsonExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.ExtensionMethods.JsonExtensions",
+      "Summary": "Extension methods for parsing objects as JSON data."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.ExtensionMethods.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.ExtensionMethods.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.ExtensionMethods",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Interfaces.IJsonFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Interfaces.IJsonFile.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Interfaces.IJsonFile",
+      "Summary": "A simple interface for a JSON file framework."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.Interfaces.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.Interfaces",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.JsonFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.JsonFile.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.JsonFile",
+      "Summary": "A simple abstract implementation of <xref href=\"Nautilus.Json.Interfaces.IJsonFile\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.JsonFileEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.JsonFileEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.JsonFileEventArgs",
+      "Summary": "Contains basic information for a <xref href=\"Nautilus.Json.JsonFile\" data-throw-if-not-resolved=\"false\"></xref> event."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.SaveDataCache.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.SaveDataCache.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json.SaveDataCache",
+      "Summary": "An abstract implementation of <xref href=\"Nautilus.Json.Interfaces.IJsonFile\" data-throw-if-not-resolved=\"false\"></xref> intended for use with caching per-save data."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Json.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Json.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Json",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ButtonAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ButtonAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.ButtonAttribute",
+      "Summary": "Attribute used to signify the decorated method should be represented in the mod's options menu\nas a <xref href=\"Nautilus.Options.ModButtonOption\" data-throw-if-not-resolved=\"false\"></xref>.\nWhen the button is clicked, the given method will run."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ChoiceAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ChoiceAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.ChoiceAttribute",
+      "Summary": "Attribute used to signify the decorated member should be represented in the mod's options menu as a\n<xref href=\"Nautilus.Options.ModChoiceOption%601\" data-throw-if-not-resolved=\"false\"></xref>. Works for either <xref href=\"System.Int32\" data-throw-if-not-resolved=\"false\"></xref> index-based, <xref href=\"System.String\" data-throw-if-not-resolved=\"false\"></xref>-based, or\n<xref href=\"System.Enum\" data-throw-if-not-resolved=\"false\"></xref>-based members."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ColorPickerAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ColorPickerAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.ColorPickerAttribute",
+      "Summary": "Attribute used to signify the decorated <xref href=\"UnityEngine.Color\" data-throw-if-not-resolved=\"false\"></xref> should be represented in the mod's\noption menu as a <xref href=\"Nautilus.Options.ModColorOption\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.IgnoreMemberAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.IgnoreMemberAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.IgnoreMemberAttribute",
+      "Summary": "Attribute used to signify the given property, field or method should be ignored when generating your mod options menu."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.KeybindAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.KeybindAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.KeybindAttribute",
+      "Summary": "Attribute used to signify the decorated <xref href=\"UnityEngine.KeyCode\" data-throw-if-not-resolved=\"false\"></xref> should be represented in the mod's\noption menu as a ModKeybindOption."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.MenuAttribute.LoadEvents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.MenuAttribute.LoadEvents.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.MenuAttribute.LoadEvents",
+      "Summary": "Specifies after which events the config file should be loaded from disk automatically."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.MenuAttribute.Members.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.MenuAttribute.Members.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.MenuAttribute.Members",
+      "Summary": "Specifies which members of the <xref href=\"Nautilus.Json.ConfigFile\" data-throw-if-not-resolved=\"false\"></xref> will be parsed and added to the menu."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.MenuAttribute.SaveEvents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.MenuAttribute.SaveEvents.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.MenuAttribute.SaveEvents",
+      "Summary": "Specifies after which events the config file should be saved to disk automatically."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.MenuAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.MenuAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.MenuAttribute",
+      "Summary": "Attribute used to signify a <xref href=\"Nautilus.Options.ModOptions\" data-throw-if-not-resolved=\"false\"></xref> menu should be automatically generated from a\n<xref href=\"Nautilus.Json.ConfigFile\" data-throw-if-not-resolved=\"false\"></xref>, as well as specifying options for handling the <xref href=\"Nautilus.Json.ConfigFile\" data-throw-if-not-resolved=\"false\"></xref>\nand <xref href=\"Nautilus.Options.ModOptions\" data-throw-if-not-resolved=\"false\"></xref> menu."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ModOptionAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ModOptionAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.ModOptionAttribute",
+      "Summary": "Abstract base attribute used to signify the decorated public member should generate a <xref href=\"Nautilus.Options.OptionItem\" data-throw-if-not-resolved=\"false\"></xref>\nin a mod's options menu."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ModOptionEventAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ModOptionEventAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.ModOptionEventAttribute",
+      "Summary": "Abstract base attribute used to signify a method to call whenever the derivative event is invoked for the decorated member."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.OnChangeAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.OnChangeAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.OnChangeAttribute",
+      "Summary": "Attribute used to signify a method to call whenever the decorated member's value changes."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.OnGameObjectCreatedAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.OnGameObjectCreatedAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.OnGameObjectCreatedAttribute",
+      "Summary": "Attribute used to signify a method to call whenever the <xref href=\"UnityEngine.GameObject\" data-throw-if-not-resolved=\"false\"></xref> for the \n<xref href=\"Nautilus.Options.OptionItem\" data-throw-if-not-resolved=\"false\"></xref> corresponding to the decorated member is created."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.SliderAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.SliderAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.SliderAttribute",
+      "Summary": "Attribute used to signify the specified <xref href=\"System.Single\" data-throw-if-not-resolved=\"false\"></xref>, <xref href=\"System.Double\" data-throw-if-not-resolved=\"false\"></xref> or <xref href=\"System.Int32\" data-throw-if-not-resolved=\"false\"></xref> should be represented\nin the mod's option menu as a <xref href=\"Nautilus.Options.ModSliderOption\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.ToggleAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.ToggleAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes.ToggleAttribute",
+      "Summary": "Attribute used to signify the decorated <xref href=\"System.Boolean\" data-throw-if-not-resolved=\"false\"></xref> should be represented in the mod's\noption menu as a <xref href=\"Nautilus.Options.ModToggleOption\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.Attributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.Attributes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.Attributes",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ButtonClickedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ButtonClickedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ButtonClickedEventArgs",
+      "Summary": "Contains all the information about a button click event."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ChoiceChangedEventArgs-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ChoiceChangedEventArgs-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ChoiceChangedEventArgs<T>",
+      "Summary": "Contains all the information about a choice changed event."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ColorChangedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ColorChangedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ColorChangedEventArgs",
+      "Summary": "Contains all the information about a color changed event."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ConfigEntryExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ConfigEntryExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ConfigEntryExtensions",
+      "Summary": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ConfigOptionEventArgs-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ConfigOptionEventArgs-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ConfigOptionEventArgs<T>",
+      "Summary": "Interface for event arguments for a <xref href=\"Nautilus.Options.OptionItem\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.GameObjectCreatedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.GameObjectCreatedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.GameObjectCreatedEventArgs",
+      "Summary": "Contains all the information about a created game object event"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModButtonOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModButtonOption.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ModButtonOption",
+      "Summary": "A mod option class for handling a button that can be clicked."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModChoiceOption-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModChoiceOption-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ModChoiceOption<T>",
+      "Summary": "A mod option class for handling an option that can select one item from a list of values."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModColorOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModColorOption.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ModColorOption",
+      "Summary": "A basic mod option class for handling an option that can be any <xref href=\"UnityEngine.Color\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModOption-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModOption-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ModOption<T, E>",
+      "Summary": "The common generic-typed abstract class to all mod options."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ModOptions",
+      "Summary": "Abstract class that provides the framework for your mod's in-game configuration options."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModSliderOption.SliderValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModSliderOption.SliderValue.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ModSliderOption.SliderValue",
+      "Summary": "Component for customizing slider's value behaviour.\nIf you need more complex behaviour than just custom value format then you can inherit this component \nand add it to \"Slider\" game object in OnGameObjectCreated event (see <xref href=\"Nautilus.Options.ModSliderOption.AddToPanel(uGUI_TabbedControlsPanel%2cSystem.Int32)\" data-throw-if-not-resolved=\"false\"></xref> for details on adding component)\nYou can override value converters <xref href=\"Nautilus.Options.ModSliderOption.SliderValue.ConvertToDisplayValue(System.Single)\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"Nautilus.Options.ModSliderOption.SliderValue.ConvertToSliderValue(System.Single)\" data-throw-if-not-resolved=\"false\"></xref>,\nin that case internal range for slider will be changed to [0.0f : 1.0f] and you can control displayed value with these converters\n(also this value will be passed to <xref href=\"Nautilus.Options.ModOptions.OnChange%60%602(System.String%2c%60%600)\" data-throw-if-not-resolved=\"false\"></xref> event)"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModSliderOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModSliderOption.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ModSliderOption",
+      "Summary": "A mod option class for handling an option that can have any floating point value between a minimum and maximum."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ModToggleOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ModToggleOption.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ModToggleOption",
+      "Summary": "A mod option class for handling an option that can be either ON or OFF."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.OptionEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.OptionEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.OptionEventArgs",
+      "Summary": "Interface for event arguments for a <xref href=\"Nautilus.Options.OptionItem\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.OptionItem.ModOptionAdjust.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.OptionItem.ModOptionAdjust.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.OptionItem.ModOptionAdjust",
+      "Summary": "The base 'adjuster' component to prevent UI elements overlapping"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.OptionItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.OptionItem.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.OptionItem",
+      "Summary": "The common abstract class to all items in the mod options page."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.SliderChangedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.SliderChangedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.SliderChangedEventArgs",
+      "Summary": "Contains all the information about a slider changed event."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.ToggleChangedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.ToggleChangedEventArgs.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options.ToggleChangedEventArgs",
+      "Summary": "Contains all the information about a toggle changed event."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Options.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Options.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Options",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AssetBundleLoadingUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AssetBundleLoadingUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AssetBundleLoadingUtils",
+      "Summary": "Utilities related to loading Asset Bundles."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AsyncUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AsyncUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AsyncUtils",
+      "Summary": "Utilities that make it easier to work with async methods in the context of Unity."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AudioUtils.BusPaths.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AudioUtils.BusPaths.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AudioUtils.BusPaths",
+      "Summary": "A list of the relevant FMOD bus paths the game uses."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AudioUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AudioUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AudioUtils",
+      "Summary": "Utilities pertaining to the use and creation of custom <xref href=\"FMOD.Sound\" data-throw-if-not-resolved=\"false\"></xref> objects, alongside other audio-specific functionality. Also see the <xref href=\"Nautilus.Handlers.CustomSoundHandler\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.BasicText.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.BasicText.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.BasicText",
+      "Summary": "<p>\nPlaces a simple text object on the screen and keeps it there until either hidden (or a designated fade-to-black timer has passed). \nBy default uses the same font/size/color as the \"Press Any Button To Begin\" message at the beginning of the game, and appears \ncentered about 1/3 down the screen, but all parameters can be reconfigured.\n</p>"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.BiomeUtils.SkyPrefabFixer",
+      "Summary": "Wrapper class that contains all Sky properties, which are automatically assigned. Necessary for our purposes because fields with SerializeField do not have their values saved when they are instantiated. Yes, everything HAS to be public!"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.BiomeUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.BiomeUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.BiomeUtils",
+      "Summary": "Utility class containing methods related to creating custom biomes."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ConstructableFlags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ConstructableFlags.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ConstructableFlags",
+      "Summary": "Defines how a constructable can be placed."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.FontUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.FontUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.FontUtils",
+      "Summary": "<p>Contains references to frequently used Font Assets for use in the <xref href=\"TMPro.TextMeshProUGUI\" data-throw-if-not-resolved=\"false\"></xref> component, which is the preferred component for rendering text.</p>\n<p>The fonts referenced in this class should not be expected to exist until after the Main Menu scene has been loaded and both the <xref href=\"uGUI\" data-throw-if-not-resolved=\"false\"></xref> and <xref href=\"uGUI_MainMenu\" data-throw-if-not-resolved=\"false\"></xref> components have been initialized.</p>"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.IOUtilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.IOUtilities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.IOUtilities",
+      "Summary": "Utilities for files and paths."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ImageUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ImageUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ImageUtils",
+      "Summary": "A collection of image loading utility methods that can create Unity objects from image files at runtime."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ItemStorageHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ItemStorageHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ItemStorageHelper",
+      "Summary": "A utility class that offers additional info about <xref href=\"ItemsContainer\" data-throw-if-not-resolved=\"false\"></xref> instances."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.JsonUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.JsonUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.JsonUtils",
+      "Summary": "A collection of utilities for interacting with JSON files."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialLibrary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialLibrary.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialLibrary",
+      "Summary": "Allows for quick and simple retrieval of any base-game material throughout both Subnautica and Subnautica:\nBelow Zero. Materials can either be fetched directly using their names by accessing the <xref href=\"Nautilus.Utility.MaterialLibrary.FetchMaterial(System.String%2cIOut%7bUnityEngine.Material%7d%2cSystem.Boolean)\" data-throw-if-not-resolved=\"false\"></xref>\nmethod, or applied generically across the entirety of a custom prefab via the ReplaceMockMaterials method."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.ColorModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.ColorModifier.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialModifiers.ColorModifier",
+      "Summary": "Basic material modifier that sets the <xref href=\"UnityEngine.Material.color\" data-throw-if-not-resolved=\"false\"></xref> property on all materials."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.DoubleSidedModifier.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialModifiers.DoubleSidedModifier",
+      "Summary": "A material modifier that changes materials of the specified type to be double-sided."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.FresnelModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.FresnelModifier.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialModifiers.FresnelModifier",
+      "Summary": "A material modifier that changes the '_Fresnel' property of all materials."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialModifiers.GlowStrengthNightModifier",
+      "Summary": "A material modifier that changes the glow strength of materials with options related to the time of day."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialModifiers.IgnoreParticleSystemsModifier",
+      "Summary": "A simple material modifier that prevents materials on ParticleSystems from being converted to MarmosetUBER."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.MaterialModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.MaterialModifier.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialModifiers.MaterialModifier",
+      "Summary": "Base class for material modifiers. Can be overriden to implement custom behaviour."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.WavingEffectModifier.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialModifiers.WavingEffectModifier",
+      "Summary": "A material modifier that enables a \"waving\" effect on all materials, commonly used for plants."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialModifiers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialModifiers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialModifiers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialUtils.MaterialType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialUtils.MaterialType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialUtils.MaterialType",
+      "Summary": "Enum for some generic types of Materials."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialUtils.Shaders.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialUtils.Shaders.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialUtils.Shaders",
+      "Summary": "Contains references to various Shaders."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialUtils",
+      "Summary": "Utilities related to Materials and Shaders."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.BasicModMessageReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.BasicModMessageReader.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ModMessages.BasicModMessageReader",
+      "Summary": "Basic implementation of the abstract <xref href=\"Nautilus.Utility.ModMessages.ModMessageReader\" data-throw-if-not-resolved=\"false\"></xref> that runs an action when a message with the given subject is received."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.ModInbox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.ModInbox.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ModMessages.ModInbox",
+      "Summary": "An object with an address. Receives mail and allows it to be read at any time. Any held messages (messages sent before this inbox was created) will not be read\nuntil the <xref href=\"Nautilus.Utility.ModMessages.ModInbox.ReadAnyHeldMessages\" data-throw-if-not-resolved=\"false\"></xref> method is called."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.ModMessage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.ModMessage.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ModMessages.ModMessage",
+      "Summary": "An instance of a message that is either sent instantly or held until received."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.ModMessageReader.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.ModMessageReader.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ModMessages.ModMessageReader",
+      "Summary": "The base class of any object that receives mod messages and handles them."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.ModMessageSystem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.ModMessageSystem.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ModMessages.ModMessageSystem",
+      "Summary": "A messaging system for cross-mod communication with <xref href=\"Nautilus.Utility.ModMessages.ModInbox\" data-throw-if-not-resolved=\"false\"></xref> instances. Allows for ultra-soft dependencies and attempts to eliminate race conditions."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ModMessages.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ModMessages.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ModMessages",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.PlayerPrefsExtra.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.PlayerPrefsExtra.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.PlayerPrefsExtra",
+      "Summary": "A collection of utility methods that simplify calls into <xref href=\"UnityEngine.PlayerPrefs\" data-throw-if-not-resolved=\"false\"></xref> for quick custom save data."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.PrefabUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.PrefabUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.PrefabUtils",
+      "Summary": "A small collection of prefab related utilities."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ReflectionHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ReflectionHelper.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ReflectionHelper",
+      "Summary": "An extension method class for simplifying reflection calls for improved readability."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.SaveUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.SaveUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.SaveUtils",
+      "Summary": "A small collection of save data related utilities."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.SelfCheckingDictionary-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.SelfCheckingDictionary-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.SelfCheckingDictionary<K, V>",
+      "Summary": "This dictionary structure automatically checks for duplicate keys as they are being added to the collection.\nDuplicate entries are logged and removed from the final collection."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.StorageHelperExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.StorageHelperExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.StorageHelperExtensions",
+      "Summary": "Extension methods to provide static calls for <xref href=\"ItemsContainer\" data-throw-if-not-resolved=\"false\"></xref> into <xref href=\"Nautilus.Utility.ItemStorageHelper\" data-throw-if-not-resolved=\"false\"></xref> methods."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification",
+      "Summary": "A MonoBehaviour component designed for Thunderkit which allows for user-friendly modification of material properties\non models within modded prefabs, directly from the Unity Editor. Can act either standalone or as a part of custom systems."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.ThunderkitUtilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.ThunderkitUtilities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.ThunderkitUtilities",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.WorldEntityInfoUtils.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.WorldEntityInfoUtils.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.WorldEntityInfoUtils",
+      "Summary": "Utilities related to creating a <xref href=\"UWE.WorldEntityInfo\" data-throw-if-not-resolved=\"false\"></xref> instance."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "Documentation/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "Documentation/guides/assetbundles.md",
       "output": {

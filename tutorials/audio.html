@@ -120,7 +120,7 @@ can contain one sound or multiple random sounds, are assigned a bus, and can hav
 <p>Every FMOD Event has a path and an ID. In custom sounds these are interchangeable. The path/ID is required to play the
 sound.</p>
 <p>To directly register a sound (or multiple) as an event, use the methods in
-the <a href="xref:Nautilus.Handlers.CustomSoundHandler">CustomSoundHandler</a>.</p>
+the <a class="xref" href="../api/Nautilus.Handlers.CustomSoundHandler.html">CustomSoundHandler</a>.</p>
 <h3 id="fmodassets">FMODAssets</h3>
 <p>This is a concept created by Unknown Worlds, rather than being a part of FMOD. An <code>FMODAsset</code> is a type of
 <a href="https://docs.unity3d.com/6000.1/Documentation/Manual/class-ScriptableObject.html">ScriptableObject</a>
@@ -163,15 +163,15 @@ and a list for BZ
 is especially important for the distinction between directional (3D) and non-directional (2D) audio.</p>
 <h4 id="recommended-modes">Recommended modes:</h4>
 <ul>
-<li>For 3D sounds: <a href="xref:Nautilus.Utility.AudioUtils.StandardSoundModes_3D">AudioUtils.StandardSoundModes_3D</a>:
+<li>For 3D sounds: <a class="xref" href="../api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_3D">AudioUtils.StandardSoundModes_3D</a>:
 <code>MODE._3D | MODE.ACCURATETIME | MODE._3D_LINEARSQUAREROLLOFF</code></li>
-<li>For 2D sounds: <a href="xref:Nautilus.Utility.AudioUtils.StandardSoundModes_2D">AudioUtils.StandardSoundModes_2D</a>:
+<li>For 2D sounds: <a class="xref" href="../api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_2D">AudioUtils.StandardSoundModes_2D</a>:
 <code>MODE._2D | MODE.ACCURATETIME</code></li>
-<li>For music: <a href="xref:Nautilus.Utility.AudioUtils.StandardSoundModes_Stream">AudioUtils.StandardSoundModes_Stream</a>:
+<li>For music: <a class="xref" href="../api/Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_Stream">AudioUtils.StandardSoundModes_Stream</a>:
 <code>MODE._2D | MODE.ACCURATETIME | MODE.CREATESTREAM</code> (this is a complicated topic of optimization)</li>
 </ul>
 <h2 id="the-fmodsoundbuilder">The FModSoundBuilder</h2>
-<p>The <a href="xref:Nautilus.FMod.FModSoundBuilder">FModSoundBuilder</a> is a helpful builder class that simplifies the registration
+<p>The <a class="xref" href="../api/Nautilus.FMod.FModSoundBuilder.html">FModSoundBuilder</a> is a helpful builder class that simplifies the registration
 of audio in mods.</p>
 <h3 id="step-1-define-the-audio-source">Step 1: Define the audio source</h3>
 <p>The FModSoundBuilder requires a 'CustomSoundSource' to function properly. The two implementations of this in Nautilus
@@ -200,7 +200,7 @@ For example, it would be 'CreatureSound1', not 'CreatureSound1.mp3'.</p>
 <p>Call the builder's <code>CreateNewEvent(id, bus)</code> method, passing in the ID/event path you want to register, and an existing
 bus path.</p>
 <p>Now, use the returned value to set any settings as necessary using the fluent syntax setup.
-See <a href="xref:Nautilus.FMod.Interfaces.IFModSoundBuilder">IFModSoundBuilder</a> for a list of possible functions.</p>
+See <a class="xref" href="../api/Nautilus.FMod.Interfaces.IFModSoundBuilder.html">IFModSoundBuilder</a> for a list of possible functions.</p>
 <p>Be sure to always call the <code>Register</code> method on the builder when you are done with a sound.</p>
 <p>Examples:</p>
 <pre><code class="lang-csharp">// Registers a generic underwater sound

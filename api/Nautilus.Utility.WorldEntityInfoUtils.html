@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class WorldEntityInfoUtils </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class WorldEntityInfoUtils ">
+      
+      <meta name="description" content="Utilities related to creating a  instance.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Utility.WorldEntityInfoUtils">
+
+
+
+  <h1 id="Nautilus_Utility_WorldEntityInfoUtils" data-uid="Nautilus.Utility.WorldEntityInfoUtils" class="text-break">
+Class WorldEntityInfoUtils  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">Utilities related to creating a <span class="xref">UWE.WorldEntityInfo</span> instance.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class WorldEntityInfoUtils</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">WorldEntityInfoUtils</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Utility_WorldEntityInfoUtils_Create_" data-uid="Nautilus.Utility.WorldEntityInfoUtils.Create*"></a>
+
+  <h3 id="Nautilus_Utility_WorldEntityInfoUtils_Create_Nautilus_Assets_PrefabInfo_LargeWorldEntity_CellLevel_EntitySlot_Type_System_Boolean_UnityEngine_Vector3_" data-uid="Nautilus.Utility.WorldEntityInfoUtils.Create(Nautilus.Assets.PrefabInfo,LargeWorldEntity.CellLevel,EntitySlot.Type,System.Boolean,UnityEngine.Vector3)">
+  Create(PrefabInfo, CellLevel, Type, bool, Vector3)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instance of the <span class="xref">UWE.WorldEntityInfo</span> class based on the given parameters.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static WorldEntityInfo Create(PrefabInfo prefabInfo, LargeWorldEntity.CellLevel cellLevel, EntitySlot.Type slotType, bool zUp = false, Vector3 localScale = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefabInfo</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The object that holds the Class ID and TechType.</dd>
+    <dt><code>cellLevel</code> <span class="xref">CellLevel</span></dt>
+    <dd>The cell level of the prefab (should match whatever is used in the <span class="xref">LargeWorldEntity</span> component).</dd>
+    <dt><code>slotType</code> <span class="xref">Type</span></dt>
+    <dd>The slot type of the prefab.</dd>
+    <dt><code>zUp</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>If true, the prefab will use its Z axis as the "up" direction. By default is false, and instead uses its Y axis to determine which way is up.</dd>
+    <dt><code>localScale</code> <span class="xref">Vector3</span></dt>
+    <dd>The local scale of the prefab when spawned. If left at <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/default">default</a>, aka (0, 0, 0) or <span class="xref">UnityEngine.Vector3.zero</span>, will automatically resolve to <span class="xref">UnityEngine.Vector3.one</span>.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">WorldEntityInfo</span></dt>
+    <dd>The created <span class="xref">UWE.WorldEntityInfo</span>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_WorldEntityInfoUtils_Create_" data-uid="Nautilus.Utility.WorldEntityInfoUtils.Create*"></a>
+
+  <h3 id="Nautilus_Utility_WorldEntityInfoUtils_Create_System_String_TechType_LargeWorldEntity_CellLevel_EntitySlot_Type_System_Boolean_UnityEngine_Vector3_" data-uid="Nautilus.Utility.WorldEntityInfoUtils.Create(System.String,TechType,LargeWorldEntity.CellLevel,EntitySlot.Type,System.Boolean,UnityEngine.Vector3)">
+  Create(string, TechType, CellLevel, Type, bool, Vector3)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instance of the <span class="xref">UWE.WorldEntityInfo</span> class based on the given parameters.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static WorldEntityInfo Create(string classId, TechType techType, LargeWorldEntity.CellLevel cellLevel, EntitySlot.Type slotType, bool zUp = false, Vector3 localScale = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Class ID of the prefab.</dd>
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd>The TechType of the prefab.</dd>
+    <dt><code>cellLevel</code> <span class="xref">CellLevel</span></dt>
+    <dd>The cell level of the prefab (should match whatever is used in the <span class="xref">LargeWorldEntity</span> component).</dd>
+    <dt><code>slotType</code> <span class="xref">Type</span></dt>
+    <dd>The slot type of the prefab.</dd>
+    <dt><code>zUp</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>If true, the prefab will use its Z axis as the "up" direction. By default is false, and instead uses its Y axis to determine which way is up.</dd>
+    <dt><code>localScale</code> <span class="xref">Vector3</span></dt>
+    <dd>The local scale of the prefab when spawned. If left at <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/default">default</a>, aka (0, 0, 0) or <span class="xref">UnityEngine.Vector3.zero</span>, will automatically resolve to <span class="xref">UnityEngine.Vector3.one</span>.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">WorldEntityInfo</span></dt>
+    <dd>The created <span class="xref">UWE.WorldEntityInfo</span>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

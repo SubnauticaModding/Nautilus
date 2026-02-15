@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class SpawnLocation </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class SpawnLocation ">
+      
+      <meta name="description" content="Defines the spawn location with world position and optional euler angles. Used in the Coordinated Spawns system.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Assets.SpawnLocation">
+
+
+
+  <h1 id="Nautilus_Assets_SpawnLocation" data-uid="Nautilus.Assets.SpawnLocation" class="text-break">
+Class SpawnLocation  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Assets.html">Assets</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">Defines the spawn location with world position and optional euler angles. Used in the Coordinated Spawns system.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public record SpawnLocation : IEquatable&lt;SpawnLocation&gt;</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">SpawnLocation</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="Nautilus.Assets.SpawnLocation.html">SpawnLocation</a>&gt;</div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJsonAsync&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJsonAsync&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_CopyFields__1___0___0_System_Reflection_BindingFlags_">ReflectionHelper.CopyFields&lt;T&gt;(T, T, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetInstanceField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetInstanceField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Nautilus_Assets_SpawnLocation__ctor_" data-uid="Nautilus.Assets.SpawnLocation.#ctor*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation__ctor_Nautilus_Assets_SpawnLocation_" data-uid="Nautilus.Assets.SpawnLocation.#ctor(Nautilus.Assets.SpawnLocation)">
+  SpawnLocation(SpawnLocation)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected SpawnLocation(SpawnLocation original)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>original</code> <a class="xref" href="Nautilus.Assets.SpawnLocation.html">SpawnLocation</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation__ctor_" data-uid="Nautilus.Assets.SpawnLocation.#ctor*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation__ctor_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Assets.SpawnLocation.#ctor(UnityEngine.Vector3,UnityEngine.Vector3)">
+  SpawnLocation(Vector3, Vector3)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Defines the spawn location with world position and optional euler angles. Used in the Coordinated Spawns system.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SpawnLocation(Vector3 Position, Vector3 EulerAngles = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Position</code> <span class="xref">Vector3</span></dt>
+    <dd>The world position.</dd>
+    <dt><code>EulerAngles</code> <span class="xref">Vector3</span></dt>
+    <dd>Euler angles for the rotation the spawned object will appear with.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation__ctor_" data-uid="Nautilus.Assets.SpawnLocation.#ctor*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation__ctor_UnityEngine_Vector3_UnityEngine_Vector3_UnityEngine_Vector3_" data-uid="Nautilus.Assets.SpawnLocation.#ctor(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)">
+  SpawnLocation(Vector3, Vector3, Vector3)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Defines the spawn location with world position and optional euler angles. Used in the Coordinated Spawns system.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SpawnLocation(Vector3 Position, Vector3 EulerAngles, Vector3 Scale)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Position</code> <span class="xref">Vector3</span></dt>
+    <dd>The world position.</dd>
+    <dt><code>EulerAngles</code> <span class="xref">Vector3</span></dt>
+    <dd>Euler angles for the rotation the spawned object will appear with.</dd>
+    <dt><code>Scale</code> <span class="xref">Vector3</span></dt>
+    <dd>The scale that the object is spawned at. If default (0, 0, 0) will be resolved to (1, 1, 1).</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Nautilus_Assets_SpawnLocation_EqualityContract_" data-uid="Nautilus.Assets.SpawnLocation.EqualityContract*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_EqualityContract" data-uid="Nautilus.Assets.SpawnLocation.EqualityContract">
+  EqualityContract
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Type EqualityContract { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation_EulerAngles_" data-uid="Nautilus.Assets.SpawnLocation.EulerAngles*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_EulerAngles" data-uid="Nautilus.Assets.SpawnLocation.EulerAngles">
+  EulerAngles
+  
+  </h3>
+
+  <div class="markdown level1 summary">Euler angles for the rotation the spawned object will appear with.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 EulerAngles { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation_Position_" data-uid="Nautilus.Assets.SpawnLocation.Position*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_Position" data-uid="Nautilus.Assets.SpawnLocation.Position">
+  Position
+  
+  </h3>
+
+  <div class="markdown level1 summary">The world position.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Position { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation_Scale_" data-uid="Nautilus.Assets.SpawnLocation.Scale*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_Scale" data-uid="Nautilus.Assets.SpawnLocation.Scale">
+  Scale
+  
+  </h3>
+
+  <div class="markdown level1 summary">The scale that the object is spawned at. If default (0, 0, 0) will be resolved to (1, 1, 1).</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Scale { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Assets_SpawnLocation_Deconstruct_" data-uid="Nautilus.Assets.SpawnLocation.Deconstruct*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_Deconstruct_UnityEngine_Vector3__UnityEngine_Vector3__" data-uid="Nautilus.Assets.SpawnLocation.Deconstruct(UnityEngine.Vector3@,UnityEngine.Vector3@)">
+  Deconstruct(out Vector3, out Vector3)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Deconstruct(out Vector3 Position, out Vector3 EulerAngles)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>Position</code> <span class="xref">Vector3</span></dt>
+    <dd></dd>
+    <dt><code>EulerAngles</code> <span class="xref">Vector3</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation_Equals_" data-uid="Nautilus.Assets.SpawnLocation.Equals*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_Equals_Nautilus_Assets_SpawnLocation_" data-uid="Nautilus.Assets.SpawnLocation.Equals(Nautilus.Assets.SpawnLocation)">
+  Equals(SpawnLocation?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Equals(SpawnLocation? other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="Nautilus.Assets.SpawnLocation.html">SpawnLocation</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation_Equals_" data-uid="Nautilus.Assets.SpawnLocation.Equals*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_Equals_System_Object_" data-uid="Nautilus.Assets.SpawnLocation.Equals(System.Object)">
+  Equals(object?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation_GetHashCode_" data-uid="Nautilus.Assets.SpawnLocation.GetHashCode*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_GetHashCode" data-uid="Nautilus.Assets.SpawnLocation.GetHashCode">
+  GetHashCode()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation_PrintMembers_" data-uid="Nautilus.Assets.SpawnLocation.PrintMembers*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_PrintMembers_System_Text_StringBuilder_" data-uid="Nautilus.Assets.SpawnLocation.PrintMembers(System.Text.StringBuilder)">
+  PrintMembers(StringBuilder)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool PrintMembers(StringBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation_ToString_" data-uid="Nautilus.Assets.SpawnLocation.ToString*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_ToString" data-uid="Nautilus.Assets.SpawnLocation.ToString">
+  ToString()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="operators">Operators
+</h2>
+
+
+  <a id="Nautilus_Assets_SpawnLocation_op_Equality_" data-uid="Nautilus.Assets.SpawnLocation.op_Equality*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_op_Equality_Nautilus_Assets_SpawnLocation_Nautilus_Assets_SpawnLocation_" data-uid="Nautilus.Assets.SpawnLocation.op_Equality(Nautilus.Assets.SpawnLocation,Nautilus.Assets.SpawnLocation)">
+  operator ==(SpawnLocation?, SpawnLocation?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(SpawnLocation? left, SpawnLocation? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="Nautilus.Assets.SpawnLocation.html">SpawnLocation</a></dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="Nautilus.Assets.SpawnLocation.html">SpawnLocation</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_SpawnLocation_op_Inequality_" data-uid="Nautilus.Assets.SpawnLocation.op_Inequality*"></a>
+
+  <h3 id="Nautilus_Assets_SpawnLocation_op_Inequality_Nautilus_Assets_SpawnLocation_Nautilus_Assets_SpawnLocation_" data-uid="Nautilus.Assets.SpawnLocation.op_Inequality(Nautilus.Assets.SpawnLocation,Nautilus.Assets.SpawnLocation)">
+  operator !=(SpawnLocation?, SpawnLocation?)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(SpawnLocation? left, SpawnLocation? right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="Nautilus.Assets.SpawnLocation.html">SpawnLocation</a></dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="Nautilus.Assets.SpawnLocation.html">SpawnLocation</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

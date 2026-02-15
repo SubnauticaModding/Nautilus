@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class JsonUtils </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class JsonUtils ">
+      
+      <meta name="description" content="A collection of utilities for interacting with JSON files.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Utility.JsonUtils">
+
+
+
+  <h1 id="Nautilus_Utility_JsonUtils" data-uid="Nautilus.Utility.JsonUtils" class="text-break">
+Class JsonUtils  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">A collection of utilities for interacting with JSON files.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class JsonUtils</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">JsonUtils</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Utility_JsonUtils_LoadAsync_" data-uid="Nautilus.Utility.JsonUtils.LoadAsync*"></a>
+
+  <h3 id="Nautilus_Utility_JsonUtils_LoadAsync__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.LoadAsync``1(System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">
+  LoadAsync&lt;T&gt;(string, bool, params JsonConverter[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;T&gt; LoadAsync&lt;T&gt;(string path = null, bool createFileIfNotExist = true, params JsonConverter[] jsonConverters) where T : class, new()</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>createFileIfNotExist</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;T&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_JsonUtils_LoadAsync_" data-uid="Nautilus.Utility.JsonUtils.LoadAsync*"></a>
+
+  <h3 id="Nautilus_Utility_JsonUtils_LoadAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.LoadAsync``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">
+  LoadAsync&lt;T&gt;(T, string, bool, params JsonConverter[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task LoadAsync&lt;T&gt;(T jsonObject, string path = null, bool createFileIfNotExist = true, params JsonConverter[] jsonConverters) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jsonObject</code> <span class="xref">T</span></dt>
+    <dd></dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>createFileIfNotExist</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_JsonUtils_Load_" data-uid="Nautilus.Utility.JsonUtils.Load*"></a>
+
+  <h3 id="Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.Load``1(System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">
+  Load&lt;T&gt;(string, bool, params JsonConverter[])
+  
+  </h3>
+
+  <div class="markdown level1 summary">Create an instance of <code class="typeparamref">T</code>, populated with data from the JSON file at the given 
+<code class="paramref">path</code>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T Load&lt;T&gt;(string path = null, bool createFileIfNotExist = true, params JsonConverter[] jsonConverters) where T : class, new()</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The path on disk at which the JSON file can be found.</dd>
+    <dt><code>createFileIfNotExist</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether a new JSON file should be created with default values if it does not 
+            already exist.</dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd>An array of <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for deserialization.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd>The <code class="typeparamref">T</code> instance populated with data from the JSON file at
+            <code class="paramref">path</code>, or default values if it cannot be found or an error is encountered while parsing the
+            file.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>The type of object to initialise and populate with JSON data.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(T, string, bool, params JsonConverter[])</a></div>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___">Save&lt;T&gt;(T, string, params JsonConverter[])</a></div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Utility_JsonUtils_Load_" data-uid="Nautilus.Utility.JsonUtils.Load*"></a>
+
+  <h3 id="Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.Load``1(``0,System.String,System.Boolean,Newtonsoft.Json.JsonConverter[])">
+  Load&lt;T&gt;(T, string, bool, params JsonConverter[])
+  
+  </h3>
+
+  <div class="markdown level1 summary">Loads data from the JSON file at <code class="paramref">path</code> into the <code class="paramref">jsonObject</code>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Load&lt;T&gt;(T jsonObject, string path = null, bool createFileIfNotExist = true, params JsonConverter[] jsonConverters) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jsonObject</code> <span class="xref">T</span></dt>
+    <dd>The <code class="typeparamref">T</code> instance to popular with JSON data.</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The path on disk at which the JSON file can be found.</dd>
+    <dt><code>createFileIfNotExist</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether a new JSON file should be created with default values if it does not
+            already exist.</dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd>An array of <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for deserialization.</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>The type of <code class="paramref">jsonObject</code> to populate with JSON data.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(string, bool, params JsonConverter[])</a></div>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___">Save&lt;T&gt;(T, string, params JsonConverter[])</a></div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Utility_JsonUtils_SaveAsync_" data-uid="Nautilus.Utility.JsonUtils.SaveAsync*"></a>
+
+  <h3 id="Nautilus_Utility_JsonUtils_SaveAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.SaveAsync``1(``0,System.String,Newtonsoft.Json.JsonConverter[])">
+  SaveAsync&lt;T&gt;(T, string, params JsonConverter[])
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task SaveAsync&lt;T&gt;(T jsonObject, string path = null, params JsonConverter[] jsonConverters) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jsonObject</code> <span class="xref">T</span></dt>
+    <dd></dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_JsonUtils_Save_" data-uid="Nautilus.Utility.JsonUtils.Save*"></a>
+
+  <h3 id="Nautilus_Utility_JsonUtils_Save__1___0_System_String_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Utility.JsonUtils.Save``1(``0,System.String,Newtonsoft.Json.JsonConverter[])">
+  Save&lt;T&gt;(T, string, params JsonConverter[])
+  
+  </h3>
+
+  <div class="markdown level1 summary">Saves the <code class="paramref">jsonObject</code> parsed as JSON data to the JSON file at <code class="paramref">path</code>,
+creating it if it does not exist.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Save&lt;T&gt;(T jsonObject, string path = null, params JsonConverter[] jsonConverters) where T : class</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jsonObject</code> <span class="xref">T</span></dt>
+    <dd>The <code class="typeparamref">T</code> instance to parse into JSON data.</dd>
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The path on disk at which to store the JSON file.</dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd>An array of <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for serialization.</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>The type of <code class="paramref">jsonObject</code> to parse into JSON data.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(T, string, bool, params JsonConverter[])</a></div>
+    <div><a class="xref" href="Nautilus.Utility.JsonUtils.html#Nautilus_Utility_JsonUtils_Load__1_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">Load&lt;T&gt;(string, bool, params JsonConverter[])</a></div>
+    </dd>
+  </dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

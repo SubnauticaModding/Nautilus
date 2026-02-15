@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class EnumHandler </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class EnumHandler ">
+      
+      <meta name="description" content="Class responsible to resolve anything related to adding custom enum objects.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Handlers.EnumHandler">
+
+
+
+  <h1 id="Nautilus_Handlers_EnumHandler" data-uid="Nautilus.Handlers.EnumHandler" class="text-break">
+Class EnumHandler  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">Class responsible to resolve anything related to adding custom enum objects.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class EnumHandler</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">EnumHandler</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Handlers_EnumHandler_AddEntry_" data-uid="Nautilus.Handlers.EnumHandler.AddEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_AddEntry__1_System_String_" data-uid="Nautilus.Handlers.EnumHandler.AddEntry``1(System.String)">
+  AddEntry&lt;TEnum&gt;(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds a new custom enum object instance.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;TEnum&gt; AddEntry&lt;TEnum&gt;(string name) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name for this instance. Must be unique and not contain any special characters.<br></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;TEnum&gt;</dt>
+    <dd>A reference to the created custom enum object or if the name is already in use it will return null.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>Type of the enum to add an entry for.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_EnumHandler_AddEntry_" data-uid="Nautilus.Handlers.EnumHandler.AddEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_AddEntry__1_System_String_System_Reflection_Assembly_" data-uid="Nautilus.Handlers.EnumHandler.AddEntry``1(System.String,System.Reflection.Assembly)">
+  AddEntry&lt;TEnum&gt;(string, Assembly)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds a new custom enum object instance.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static EnumBuilder&lt;TEnum&gt; AddEntry&lt;TEnum&gt;(string name, Assembly ownerAssembly) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name for this instance. Must be unique and not contain any special characters.<br></dd>
+    <dt><code>ownerAssembly</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></dt>
+    <dd>The owner of this TechType instance.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;TEnum&gt;</dt>
+    <dd>A reference to the created custom enum object or if the name is already in use it will return null</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>Type of the enum to add an entry for.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_EnumHandler_AddOnEnumRegistered_" data-uid="Nautilus.Handlers.EnumHandler.AddOnEnumRegistered*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_AddOnEnumRegistered__1_Nautilus_Handlers_OnEnumRegistered___0__" data-uid="Nautilus.Handlers.EnumHandler.AddOnEnumRegistered``1(Nautilus.Handlers.OnEnumRegistered{``0})">
+  AddOnEnumRegistered&lt;TEnum&gt;(OnEnumRegistered&lt;TEnum&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds a callback that's executed every time a custom enum of a certain type is created.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddOnEnumRegistered&lt;TEnum&gt;(OnEnumRegistered&lt;TEnum&gt; callback) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>callback</code> <a class="xref" href="Nautilus.Handlers.OnEnumRegistered-1.html">OnEnumRegistered</a>&lt;TEnum&gt;</dt>
+    <dd>The callback that will be executed.</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>The type of the enum this callback is for.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_EnumHandler_ModdedEnumExists_" data-uid="Nautilus.Handlers.EnumHandler.ModdedEnumExists*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_ModdedEnumExists__1_System_String_" data-uid="Nautilus.Handlers.EnumHandler.ModdedEnumExists``1(System.String)">
+  ModdedEnumExists&lt;TEnum&gt;(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Safely looks for a custom enum object from another mod.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool ModdedEnumExists&lt;TEnum&gt;(string name) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name of the custom enum object.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the object was found; otherwise <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>Type of the enum to search for.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_EnumHandler_RemoveOnEnumRegistered_" data-uid="Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_RemoveOnEnumRegistered__1_Nautilus_Handlers_OnEnumRegistered___0__" data-uid="Nautilus.Handlers.EnumHandler.RemoveOnEnumRegistered``1(Nautilus.Handlers.OnEnumRegistered{``0})">
+  RemoveOnEnumRegistered&lt;TEnum&gt;(OnEnumRegistered&lt;TEnum&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Removes a callback that was previously added to the OnEnumRegistered event.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RemoveOnEnumRegistered&lt;TEnum&gt;(OnEnumRegistered&lt;TEnum&gt; callback) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>callback</code> <a class="xref" href="Nautilus.Handlers.OnEnumRegistered-1.html">OnEnumRegistered</a>&lt;TEnum&gt;</dt>
+    <dd>The callback to remove.</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_EnumHandler_TryAddEntry_" data-uid="Nautilus.Handlers.EnumHandler.TryAddEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_TryAddEntry__1_System_String_Nautilus_Handlers_EnumBuilder___0___" data-uid="Nautilus.Handlers.EnumHandler.TryAddEntry``1(System.String,Nautilus.Handlers.EnumBuilder{``0}@)">
+  TryAddEntry&lt;TEnum&gt;(string, out EnumBuilder&lt;TEnum&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds a new custom enum object instance.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryAddEntry&lt;TEnum&gt;(string name, out EnumBuilder&lt;TEnum&gt; builder) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name for this instance. Must be unique and not contain any special characters.<br></dd>
+    <dt><code>builder</code> <a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;TEnum&gt;</dt>
+    <dd>The reference to the created custom enum object.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>if successful; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>Type of the enum to add an entry for.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_EnumHandler_TryAddEntry_" data-uid="Nautilus.Handlers.EnumHandler.TryAddEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_TryAddEntry__1_System_String_System_Reflection_Assembly_Nautilus_Handlers_EnumBuilder___0___" data-uid="Nautilus.Handlers.EnumHandler.TryAddEntry``1(System.String,System.Reflection.Assembly,Nautilus.Handlers.EnumBuilder{``0}@)">
+  TryAddEntry&lt;TEnum&gt;(string, Assembly, out EnumBuilder&lt;TEnum&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds a new custom enum object instance.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryAddEntry&lt;TEnum&gt;(string name, Assembly ownerAssembly, out EnumBuilder&lt;TEnum&gt; builder) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name for this instance. Must be unique and not contain any special characters.<br></dd>
+    <dt><code>ownerAssembly</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></dt>
+    <dd>The owner of this TechType instance.</dd>
+    <dt><code>builder</code> <a class="xref" href="Nautilus.Handlers.EnumBuilder-1.html">EnumBuilder</a>&lt;TEnum&gt;</dt>
+    <dd>The reference to the created custom enum object.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>if successful otherwise; <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>Type of the enum to add an entry for.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_EnumHandler_TryGetOwnerAssembly_" data-uid="Nautilus.Handlers.EnumHandler.TryGetOwnerAssembly*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_TryGetOwnerAssembly__1___0_System_Reflection_Assembly__" data-uid="Nautilus.Handlers.EnumHandler.TryGetOwnerAssembly``1(``0,System.Reflection.Assembly@)">
+  TryGetOwnerAssembly&lt;TEnum&gt;(TEnum, out Assembly)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Safely looks for a custom enum object from another mod and outputs the instance when found.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetOwnerAssembly&lt;TEnum&gt;(TEnum modEnumValue, out Assembly addedBy) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>modEnumValue</code> <span class="xref">TEnum</span></dt>
+    <dd>The custom enum object value.</dd>
+    <dt><code>addedBy</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></dt>
+    <dd>The Assembly that added the Enum value.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the Assembly was found; otherwise <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>Type of the enum to search for.</dd>
+  </dl>
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Handlers_EnumHandler_TryGetOwnerAssembly__1___0_System_Reflection_Assembly___remarks">Remarks</h4>
+  <div class="markdown level1 remarks">Make sure to set a [BepInDependency("otherModGUID", BepInDependency.DependencyFlags.SoftDependency)] on your plugin to ensure theirs loads first.</div>
+
+
+
+
+  <a id="Nautilus_Handlers_EnumHandler_TryGetValue_" data-uid="Nautilus.Handlers.EnumHandler.TryGetValue*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_TryGetValue__1_System_String___0__" data-uid="Nautilus.Handlers.EnumHandler.TryGetValue``1(System.String,``0@)">
+  TryGetValue&lt;TEnum&gt;(string, out TEnum)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Safely looks for a custom enum object from another mod and outputs the instance when found.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetValue&lt;TEnum&gt;(string name, out TEnum enumValue) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name of the custom enum object.</dd>
+    <dt><code>enumValue</code> <span class="xref">TEnum</span></dt>
+    <dd>The custom enum object value.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the object was found; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>Type of the enum to search for.</dd>
+  </dl>
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Handlers_EnumHandler_TryGetValue__1_System_String___0___remarks">Remarks</h4>
+  <div class="markdown level1 remarks">Make sure to set a [BepInDependency("otherModGUID", BepInDependency.DependencyFlags.SoftDependency)] on your plugin to ensure theirs loads first.</div>
+
+
+
+
+  <a id="Nautilus_Handlers_EnumHandler_TryGetValue_" data-uid="Nautilus.Handlers.EnumHandler.TryGetValue*"></a>
+
+  <h3 id="Nautilus_Handlers_EnumHandler_TryGetValue__1_System_String___0__System_Reflection_Assembly__" data-uid="Nautilus.Handlers.EnumHandler.TryGetValue``1(System.String,``0@,System.Reflection.Assembly@)">
+  TryGetValue&lt;TEnum&gt;(string, out TEnum, out Assembly)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Safely looks for a custom enum object from another mod and outputs the instance when found.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetValue&lt;TEnum&gt;(string name, out TEnum enumValue, out Assembly addedBy) where TEnum : Enum</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name of the custom enum object.</dd>
+    <dt><code>enumValue</code> <span class="xref">TEnum</span></dt>
+    <dd>The custom enum object value.</dd>
+    <dt><code>addedBy</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></dt>
+    <dd>The Assembly that added the Enum value.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the object was found; otherwise <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TEnum</code></dt>
+    <dd>Type of the enum to search for.</dd>
+  </dl>
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Handlers_EnumHandler_TryGetValue__1_System_String___0__System_Reflection_Assembly___remarks">Remarks</h4>
+  <div class="markdown level1 remarks">Make sure to set a [BepInDependency("otherModGUID", BepInDependency.DependencyFlags.SoftDependency)] on your plugin to ensure theirs loads first.</div>
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

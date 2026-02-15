@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class AudioUtils </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class AudioUtils ">
+      
+      <meta name="description" content="Utilities pertaining to the use and creation of custom  objects, alongside other audio-specific functionality. Also see the .">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Utility.AudioUtils">
+
+
+
+  <h1 id="Nautilus_Utility_AudioUtils" data-uid="Nautilus.Utility.AudioUtils" class="text-break">
+Class AudioUtils  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">Utilities pertaining to the use and creation of custom <span class="xref">FMOD.Sound</span> objects, alongside other audio-specific functionality. Also see the <a class="xref" href="Nautilus.Handlers.CustomSoundHandler.html">CustomSoundHandler</a>.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class AudioUtils</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">AudioUtils</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Nautilus_Utility_AudioUtils_StandardSoundModes_2D" data-uid="Nautilus.Utility.AudioUtils.StandardSoundModes_2D">
+  StandardSoundModes_2D
+  
+  </h3>
+
+  <div class="markdown level1 summary">2D sounds</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const MODE StandardSoundModes_2D = 16392</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">MODE</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Utility_AudioUtils_StandardSoundModes_3D" data-uid="Nautilus.Utility.AudioUtils.StandardSoundModes_3D">
+  StandardSoundModes_3D
+  
+  </h3>
+
+  <div class="markdown level1 summary">3D sounds</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const MODE StandardSoundModes_3D = 4210704</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">MODE</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Utility_AudioUtils_StandardSoundModes_Stream" data-uid="Nautilus.Utility.AudioUtils.StandardSoundModes_Stream">
+  StandardSoundModes_Stream
+  
+  </h3>
+
+  <div class="markdown level1 summary">For music, PDA voices and any 2D sounds that can have more than one instance at a time.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const MODE StandardSoundModes_Stream = 16520</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">MODE</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Utility_AudioUtils_CreateSound_" data-uid="Nautilus.Utility.AudioUtils.CreateSound*"></a>
+
+  <h3 id="Nautilus_Utility_AudioUtils_CreateSound_System_String_FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSound(System.String,FMOD.MODE)">
+  CreateSound(string, MODE)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a <span class="xref">FMOD.Sound</span> instance from a path. Can be stored and later used with <a class="xref" href="Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__">TryPlaySound(Sound, Bus, out Channel)</a></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Sound CreateSound(string path, MODE mode = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The path of the sound. Relative to the base game folder.</dd>
+    <dt><code>mode</code> <span class="xref">MODE</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Sound</span></dt>
+    <dd>The <span class="xref">FMOD.Sound</span> instance</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AudioUtils_CreateSound_" data-uid="Nautilus.Utility.AudioUtils.CreateSound*"></a>
+
+  <h3 id="Nautilus_Utility_AudioUtils_CreateSound_UnityEngine_AudioClip_FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSound(UnityEngine.AudioClip,FMOD.MODE)">
+  CreateSound(AudioClip, MODE)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a <span class="xref">FMOD.Sound</span> instance from an <span class="xref">UnityEngine.AudioClip</span>. Can be stored and later used with <a class="xref" href="Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__">TryPlaySound(Sound, Bus, out Channel)</a></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Sound CreateSound(AudioClip audio, MODE mode = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>audio</code> <span class="xref">AudioClip</span></dt>
+    <dd>the AudioClip to make a Sound instance of.</dd>
+    <dt><code>mode</code> <span class="xref">MODE</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Sound</span></dt>
+    <dd>The <span class="xref">FMOD.Sound</span> instance.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AudioUtils_CreateSounds_" data-uid="Nautilus.Utility.AudioUtils.CreateSounds*"></a>
+
+  <h3 id="Nautilus_Utility_AudioUtils_CreateSounds_System_Collections_Generic_IEnumerable_System_String__FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSounds(System.Collections.Generic.IEnumerable{System.String},FMOD.MODE)">
+  CreateSounds(IEnumerable&lt;string&gt;, MODE)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Converts a sound paths collection to an FMOD <span class="xref">FMOD.Sound</span> collection.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;Sound&gt; CreateSounds(IEnumerable&lt;string&gt; soundPaths, MODE mode = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>soundPaths</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</dt>
+    <dd>Sound paths to create from. Relative to the base game folder</dd>
+    <dt><code>mode</code> <span class="xref">MODE</span></dt>
+    <dd>The mode to set the sound to</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">Sound</span>&gt;</dt>
+    <dd>A collection of FMOD Sounds.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AudioUtils_CreateSounds_" data-uid="Nautilus.Utility.AudioUtils.CreateSounds*"></a>
+
+  <h3 id="Nautilus_Utility_AudioUtils_CreateSounds_System_Collections_Generic_IEnumerable_UnityEngine_AudioClip__FMOD_MODE_" data-uid="Nautilus.Utility.AudioUtils.CreateSounds(System.Collections.Generic.IEnumerable{UnityEngine.AudioClip},FMOD.MODE)">
+  CreateSounds(IEnumerable&lt;AudioClip&gt;, MODE)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates an FMOD <span class="xref">FMOD.Sound</span> collection from an <span class="xref">UnityEngine.AudioClip</span> collection.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;Sound&gt; CreateSounds(IEnumerable&lt;AudioClip&gt; clips, MODE mode = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>clips</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">AudioClip</span>&gt;</dt>
+    <dd>AudioClips to create from.</dd>
+    <dt><code>mode</code> <span class="xref">MODE</span></dt>
+    <dd>The mode to set the sound to</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">Sound</span>&gt;</dt>
+    <dd>A collection of FMOD Sounds.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AudioUtils_GetFmodAsset_" data-uid="Nautilus.Utility.AudioUtils.GetFmodAsset*"></a>
+
+  <h3 id="Nautilus_Utility_AudioUtils_GetFmodAsset_System_String_System_String_" data-uid="Nautilus.Utility.AudioUtils.GetFmodAsset(System.String,System.String)">
+  GetFmodAsset(string, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a new <span class="xref">FMODAsset</span> with the given parameters. An FMODAsset is a data object that is required for various audio-related classes and methods, since it holds references to internal sound IDs.</p>
+<p>A list of vanilla sound paths for SN1 can also be viewed at this URL: <a href="https://github.com/SubnauticaModding/Nautilus/tree/master/Nautilus/Documentation/resources/SN1-FMODEvents.txt">https://github.com/SubnauticaModding/Nautilus/tree/master/Nautilus/Documentation/resources/SN1-FMODEvents.txt</a>.</p>
+<p>The best way to assign a "path" to a custom sound asset is through <a class="xref" href="Nautilus.Handlers.CustomSoundHandler.html#Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_FMOD_Sound_System_String_">RegisterCustomSound(string, Sound, string)</a>.</p></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static FMODAsset GetFmodAsset(string path, string id = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>path</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>An FMOD Event's 'path' is the part read by most audio systems within Subnautica.</p>
+<p>For custom sounds, should be identical to the ID passed into the methods when creating sounds with the <a class="xref" href="Nautilus.Handlers.CustomSoundHandler.html">CustomSoundHandler</a> class.</p>
+<p>For vanilla sounds, please refer to the list of all sound events.</p></dd>
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The internal sound ID, typically unused but occasionally required. Will be set as <code class="paramref">path</code> if unassigned.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">FMODAsset</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AudioUtils_TryPlaySound_" data-uid="Nautilus.Utility.AudioUtils.TryPlaySound*"></a>
+
+  <h3 id="Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_FMOD_Studio_Bus_FMOD_Channel__" data-uid="Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound,FMOD.Studio.Bus,FMOD.Channel@)">
+  TryPlaySound(Sound, Bus, out Channel)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Plays a <span class="xref">FMOD.Sound</span> on the specified <span class="xref">FMOD.Studio.Bus</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryPlaySound(Sound sound, Bus bus, out Channel channel)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound</code> <span class="xref">Sound</span></dt>
+    <dd>The sound which should be played.</dd>
+    <dt><code>bus</code> <span class="xref">Bus</span></dt>
+    <dd>The bus to play the sound on.</dd>
+    <dt><code>channel</code> <span class="xref">Channel</span></dt>
+    <dd>The channel on which the sound was created.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>If the sound was reported as played.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AudioUtils_TryPlaySound_" data-uid="Nautilus.Utility.AudioUtils.TryPlaySound*"></a>
+
+  <h3 id="Nautilus_Utility_AudioUtils_TryPlaySound_FMOD_Sound_System_String_FMOD_Channel__" data-uid="Nautilus.Utility.AudioUtils.TryPlaySound(FMOD.Sound,System.String,FMOD.Channel@)">
+  TryPlaySound(Sound, string, out Channel)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Plays a <span class="xref">FMOD.Sound</span> on the specified <span class="xref">FMOD.Studio.Bus</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryPlaySound(Sound sound, string busPath, out Channel channel)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sound</code> <span class="xref">Sound</span></dt>
+    <dd>The sound which should be played.</dd>
+    <dt><code>busPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The path to the bus to play the sound on.</dd>
+    <dt><code>channel</code> <span class="xref">Channel</span></dt>
+    <dd>The channel on which the sound was created.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>If the sound was reported as played.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

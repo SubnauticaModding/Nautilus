@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface ICustomPrefab </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface ICustomPrefab ">
+      
+      <meta name="description" content="Specifies the contract for a custom prefab.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Assets.ICustomPrefab">
+
+
+
+  <h1 id="Nautilus_Assets_ICustomPrefab" data-uid="Nautilus.Assets.ICustomPrefab" class="text-break">
+Interface ICustomPrefab  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Assets.html">Assets</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">Specifies the contract for a custom prefab.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ICustomPrefab</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_CreateCreatureEgg_Nautilus_Assets_ICustomPrefab_System_Int32_">GadgetExtensions.CreateCreatureEgg(ICustomPrefab, int)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_CreateFabricator_Nautilus_Assets_ICustomPrefab_CraftTree_Type__">GadgetExtensions.CreateFabricator(ICustomPrefab, out CraftTree.Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_CreateFragment_Nautilus_Assets_ICustomPrefab_TechType_System_Single_System_Int32_System_String_System_Boolean_System_Boolean_">GadgetExtensions.CreateFragment(ICustomPrefab, TechType, float, int, string, bool, bool)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetEquipment_Nautilus_Assets_ICustomPrefab_EquipmentType_">GadgetExtensions.SetEquipment(ICustomPrefab, EquipmentType)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategory_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_">GadgetExtensions.SetPdaGroupCategory(ICustomPrefab, TechGroup, TechCategory)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryAfter_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_TechType_">GadgetExtensions.SetPdaGroupCategoryAfter(ICustomPrefab, TechGroup, TechCategory, TechType)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetPdaGroupCategoryBefore_Nautilus_Assets_ICustomPrefab_TechGroup_TechCategory_TechType_">GadgetExtensions.SetPdaGroupCategoryBefore(ICustomPrefab, TechGroup, TechCategory, TechType)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetRecipe_Nautilus_Assets_ICustomPrefab_Nautilus_Crafting_RecipeData_">GadgetExtensions.SetRecipe(ICustomPrefab, RecipeData)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetRecipeFromJson_Nautilus_Assets_ICustomPrefab_System_String_">GadgetExtensions.SetRecipeFromJson(ICustomPrefab, string)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_LootDistributionData_BiomeData___">GadgetExtensions.SetSpawns(ICustomPrefab, params LootDistributionData.BiomeData[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">GadgetExtensions.SetSpawns(ICustomPrefab, params SpawnLocation[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_UWE_WorldEntityInfo_LootDistributionData_BiomeData___">GadgetExtensions.SetSpawns(ICustomPrefab, WorldEntityInfo, params LootDistributionData.BiomeData[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetUnlock_Nautilus_Assets_ICustomPrefab_TechType_System_Int32_">GadgetExtensions.SetUnlock(ICustomPrefab, TechType, int)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetVehicleUpgradeModule_Nautilus_Assets_ICustomPrefab_EquipmentType_QuickSlotType_">GadgetExtensions.SetVehicleUpgradeModule(ICustomPrefab, EquipmentType, QuickSlotType)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJsonAsync&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJsonAsync&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_CopyFields__1___0___0_System_Reflection_BindingFlags_">ReflectionHelper.CopyFields&lt;T&gt;(T, T, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetInstanceField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetInstanceField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_Info_" data-uid="Nautilus.Assets.ICustomPrefab.Info*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_Info" data-uid="Nautilus.Assets.ICustomPrefab.Info">
+  Info
+  
+  </h3>
+
+  <div class="markdown level1 summary">The prefab info for this custom prefab.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">PrefabInfo Info { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_OnPrefabPostProcess_" data-uid="Nautilus.Assets.ICustomPrefab.OnPrefabPostProcess*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_OnPrefabPostProcess" data-uid="Nautilus.Assets.ICustomPrefab.OnPrefabPostProcess">
+  OnPrefabPostProcess
+  
+  </h3>
+
+  <div class="markdown level1 summary">Function that will be executed after the Nautilus's basic processing for <a class="xref" href="Nautilus.Assets.ICustomPrefab.html#Nautilus_Assets_ICustomPrefab_Prefab">Prefab</a> has been completed.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">PrefabPostProcessorAsync OnPrefabPostProcess { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.PrefabPostProcessorAsync.html">PrefabPostProcessorAsync</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_Prefab_" data-uid="Nautilus.Assets.ICustomPrefab.Prefab*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_Prefab" data-uid="Nautilus.Assets.ICustomPrefab.Prefab">
+  Prefab
+  
+  </h3>
+
+  <div class="markdown level1 summary">Function which constructs a game object for this prefab.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">PrefabFactoryAsync Prefab { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.PrefabFactoryAsync.html">PrefabFactoryAsync</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_AddGadget_" data-uid="Nautilus.Assets.ICustomPrefab.AddGadget*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_AddGadget__1___0_" data-uid="Nautilus.Assets.ICustomPrefab.AddGadget``1(``0)">
+  AddGadget&lt;TGadget&gt;(TGadget)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds a gadget to this custom prefab. A prefab can only hold one Gadget of any given type.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">TGadget AddGadget&lt;TGadget&gt;(TGadget gadget) where TGadget : Gadget</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gadget</code> <span class="xref">TGadget</span></dt>
+    <dd>The gadget to add</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TGadget</span></dt>
+    <dd>A reference to the added gadget.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TGadget</code></dt>
+    <dd>Type of the gadget.</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section">Exceptions</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.DuplicateGadgetException.html">DuplicateGadgetException</a></dt>
+    <dd>When a Gadget of the given type already exists.</dd>
+  </dl>
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_AddOnRegister_" data-uid="Nautilus.Assets.ICustomPrefab.AddOnRegister*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_AddOnRegister_System_Action_" data-uid="Nautilus.Assets.ICustomPrefab.AddOnRegister(System.Action)">
+  AddOnRegister(Action)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds an action that will be called during the registration of the prefab.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddOnRegister(Action onRegisterCallback)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>onRegisterCallback</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></dt>
+    <dd>The action that will be called.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_AddOnUnregister_" data-uid="Nautilus.Assets.ICustomPrefab.AddOnUnregister*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_AddOnUnregister_System_Action_" data-uid="Nautilus.Assets.ICustomPrefab.AddOnUnregister(System.Action)">
+  AddOnUnregister(Action)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds an action that will be called when this prefab has performed an unregister operation.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void AddOnUnregister(Action onUnregisterCallback)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>onUnregisterCallback</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></dt>
+    <dd>The action that will be called.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_GetGadget_" data-uid="Nautilus.Assets.ICustomPrefab.GetGadget*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_GetGadget_System_Type_" data-uid="Nautilus.Assets.ICustomPrefab.GetGadget(System.Type)">
+  GetGadget(Type)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Gets the gadget instance associated with the specified gadget type attached to this custom prefab.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Gadget GetGadget(Type gadgetType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gadgetType</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd>The type of the gadget to get.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Assets.Gadgets.Gadget.html">Gadget</a></dt>
+    <dd>The gadget instance if found, otherwise; <code>null</code>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_GetGadget_" data-uid="Nautilus.Assets.ICustomPrefab.GetGadget*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_GetGadget__1" data-uid="Nautilus.Assets.ICustomPrefab.GetGadget``1">
+  GetGadget&lt;TGadget&gt;()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Gets the gadget instance associated with the specified gadget type attached to this custom prefab.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">TGadget GetGadget&lt;TGadget&gt;() where TGadget : Gadget</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TGadget</span></dt>
+    <dd>The gadget instance if found, otherwise; <code>null</code>.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TGadget</code></dt>
+    <dd>The type of the gadget to get.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_RemoveGadget_" data-uid="Nautilus.Assets.ICustomPrefab.RemoveGadget*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_RemoveGadget_System_Type_" data-uid="Nautilus.Assets.ICustomPrefab.RemoveGadget(System.Type)">
+  RemoveGadget(Type)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Removes the gadget with the specified type.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool RemoveGadget(Type gadget)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gadget</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></dt>
+    <dd>The type of the gadget to remove.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the gadget was successfully found and removed, otherwise; <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.<br>
+            This method returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a> if the gadget type was not found in this custom prefab.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_RemoveGadget_" data-uid="Nautilus.Assets.ICustomPrefab.RemoveGadget*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_RemoveGadget__1" data-uid="Nautilus.Assets.ICustomPrefab.RemoveGadget``1">
+  RemoveGadget&lt;TGadget&gt;()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Removes the gadget with the specified type.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool RemoveGadget&lt;TGadget&gt;() where TGadget : Gadget</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the gadget was successfully found and removed, otherwise; <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.<br>
+            This method returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a> if the gadget type was not found in this custom prefab.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TGadget</code></dt>
+    <dd>The type of the gadget to remove.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_TryAddGadget_" data-uid="Nautilus.Assets.ICustomPrefab.TryAddGadget*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_TryAddGadget__1___0_" data-uid="Nautilus.Assets.ICustomPrefab.TryAddGadget``1(``0)">
+  TryAddGadget&lt;TGadget&gt;(TGadget)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Attempts to add the given gadget if there is not already an existing gadget of the same type.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryAddGadget&lt;TGadget&gt;(TGadget gadget) where TGadget : Gadget</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gadget</code> <span class="xref">TGadget</span></dt>
+    <dd>The gadget that may be added, assuming the same type of gadget does not already exist on the prefab.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>True if the gadget was added, false if an instance of the same gadget type already exists on the prefab.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TGadget</code></dt>
+    <dd>The type of the gadget that may be added.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Assets_ICustomPrefab_TryGetGadget_" data-uid="Nautilus.Assets.ICustomPrefab.TryGetGadget*"></a>
+
+  <h3 id="Nautilus_Assets_ICustomPrefab_TryGetGadget__1___0__" data-uid="Nautilus.Assets.ICustomPrefab.TryGetGadget``1(``0@)">
+  TryGetGadget&lt;TGadget&gt;(out TGadget)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Gets the gadget instance associated with the specified gadget type attached to this custom prefab.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryGetGadget&lt;TGadget&gt;(out TGadget gadget) where TGadget : Gadget</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>gadget</code> <span class="xref">TGadget</span></dt>
+    <dd>The instance of the gadget found associated with the type. If not found, this will be <code>null</code> instead.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the gadget associated with type was found, otherwise; <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TGadget</code></dt>
+    <dd>The type of the gadget to get.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

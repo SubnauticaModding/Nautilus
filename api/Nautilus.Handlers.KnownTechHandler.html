@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class KnownTechHandler </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class KnownTechHandler ">
+      
+      <meta name="description" content="A handler class for configuring custom unlocking conditions for item blueprints.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Handlers.KnownTechHandler">
+
+
+
+  <h1 id="Nautilus_Handlers_KnownTechHandler" data-uid="Nautilus.Handlers.KnownTechHandler" class="text-break">
+Class KnownTechHandler  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">A handler class for configuring custom unlocking conditions for item blueprints.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class KnownTechHandler</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">KnownTechHandler</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_AddRequirementForUnlock_" data-uid="Nautilus.Handlers.KnownTechHandler.AddRequirementForUnlock*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_AddRequirementForUnlock_TechType_TechType_" data-uid="Nautilus.Handlers.KnownTechHandler.AddRequirementForUnlock(TechType,TechType)">
+  AddRequirementForUnlock(TechType, TechType)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Unlocks the <code class="paramref">blueprint</code> when the <code class="paramref">requirement</code> tech type is unlocked.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddRequirementForUnlock(TechType blueprint, TechType requirement)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>blueprint</code> <span class="xref">TechType</span></dt>
+    <dd>The blueprint to unlock.</dd>
+    <dt><code>requirement</code> <span class="xref">TechType</span></dt>
+    <dd>The tech type that will unlock the specified blueprint once unlocked.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_" data-uid="Nautilus.Handlers.KnownTechHandler.RemoveAllCurrentAnalysisTechEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_" data-uid="Nautilus.Handlers.KnownTechHandler.RemoveAllCurrentAnalysisTechEntry(TechType)">
+  RemoveAllCurrentAnalysisTechEntry(TechType)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to remove all unlock entries from a <span class="xref">TechType</span> to be able to disable or change it to a new unlock.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RemoveAllCurrentAnalysisTechEntry(TechType targetTechType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>targetTechType</code> <span class="xref">TechType</span></dt>
+    <dd>Target <span class="xref">TechType</span> to remove the unlocks for.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">The unlock entry for analysis techs for the specified <code class="paramref">targetTechType</code> will not be removed. I.E: This method will not remove self-unlocks.<br>
+            To also target unlock entry removal for the specified tech type's analysis tech entry, use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAnalysisTechEntryFromSpecific_TechType_System_Collections_Generic_List_TechType__">RemoveAnalysisTechEntryFromSpecific(TechType, List&lt;TechType&gt;)</a> instead.</div>
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><span class="xref">Nautilus.Handlers.KnownTechHandler.RemoveAnalysisTechEntry(TechType)</span></div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_RemoveAnalysisTechEntryFromSpecific_" data-uid="Nautilus.Handlers.KnownTechHandler.RemoveAnalysisTechEntryFromSpecific*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_RemoveAnalysisTechEntryFromSpecific_TechType_System_Collections_Generic_List_TechType__" data-uid="Nautilus.Handlers.KnownTechHandler.RemoveAnalysisTechEntryFromSpecific(TechType,System.Collections.Generic.List{TechType})">
+  RemoveAnalysisTechEntryFromSpecific(TechType, List&lt;TechType&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to remove unlock entries for a <span class="xref">TechType</span> from specific entries.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RemoveAnalysisTechEntryFromSpecific(TechType targetTechType, List&lt;TechType&gt; techTypes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>targetTechType</code> <span class="xref">TechType</span></dt>
+    <dd>Target <span class="xref">TechType</span> to remove the unlocks for.</dd>
+    <dt><code>techTypes</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>List of <span class="xref">TechType</span> to remove the targetTechType from.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a></div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_RemoveDefaultUnlock_" data-uid="Nautilus.Handlers.KnownTechHandler.RemoveDefaultUnlock*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_RemoveDefaultUnlock_TechType_" data-uid="Nautilus.Handlers.KnownTechHandler.RemoveDefaultUnlock(TechType)">
+  RemoveDefaultUnlock(TechType)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to remove a <span class="xref">TechType</span> from being unlocked by default.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RemoveDefaultUnlock(TechType techType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_KnownTech_AnalysisTech_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(KnownTech.AnalysisTech)">
+  SetAnalysisTechEntry(AnalysisTech)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in <span class="xref">KnownTech.AnalysisTech.unlockTechTypes</span> will be
+added to the existing AnalysisTech entry unlocks.
+***Note: This will not remove any original unlock and if you need to do so you should use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a> before calling this method.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetAnalysisTechEntry(KnownTech.AnalysisTech analysisTech)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>analysisTech</code> <span class="xref">AnalysisTech</span></dt>
+    <dd>The analysis tech entry to add.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType})">
+  SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+added to the existing AnalysisTech entry unlocks.
+***Note: This will not remove any original unlock and if you need to do so you should use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a> before calling this method.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable&lt;TechType&gt; techTypesToUnlock)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techTypeToBeAnalysed</code> <span class="xref">TechType</span></dt>
+    <dd>This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</dd>
+    <dt><code>techTypesToUnlock</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset)">
+  SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, FMODAsset)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+added to the existing AnalysisTech entry unlocks.
+***Note: This will not remove any original unlock and if you need to do so you should use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a> before calling this method.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable&lt;TechType&gt; techTypesToUnlock, FMODAsset unlockSound)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techTypeToBeAnalysed</code> <span class="xref">TechType</span></dt>
+    <dd>This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</dd>
+    <dt><code>techTypesToUnlock</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</dd>
+    <dt><code>unlockSound</code> <span class="xref">FMODAsset</span></dt>
+    <dd>The sound that plays when you unlock the blueprint.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite)">
+  SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, FMODAsset, Sprite)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+added to the existing AnalysisTech entry unlocks.
+***Note: This will not remove any original unlock and if you need to do so you should use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a> before calling this method.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable&lt;TechType&gt; techTypesToUnlock, FMODAsset unlockSound, Sprite unlockSprite)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techTypeToBeAnalysed</code> <span class="xref">TechType</span></dt>
+    <dd>This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</dd>
+    <dt><code>techTypesToUnlock</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</dd>
+    <dt><code>unlockSound</code> <span class="xref">FMODAsset</span></dt>
+    <dd>The sound that plays when you unlock the blueprint. See <a class="xref" href="Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html">KnownTechHandler.DefaultUnlockData</a> for a list of some valid parameters.</dd>
+    <dt><code>unlockSprite</code> <span class="xref">Sprite</span></dt>
+    <dd>The sprite that shows up when you unlock the blueprint.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__FMODAsset_UnityEngine_Sprite_System_Collections_Generic_List_Story_StoryGoal__" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},FMODAsset,UnityEngine.Sprite,System.Collections.Generic.List{Story.StoryGoal})">
+  SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, FMODAsset, Sprite, List&lt;StoryGoal&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+added to the existing AnalysisTech entry unlocks.
+***Note: This will not remove any original unlock and if you need to do so you should use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a> before calling this method.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable&lt;TechType&gt; techTypesToUnlock, FMODAsset unlockSound, Sprite unlockSprite, List&lt;StoryGoal&gt; storyGoals)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techTypeToBeAnalysed</code> <span class="xref">TechType</span></dt>
+    <dd>This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</dd>
+    <dt><code>techTypesToUnlock</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</dd>
+    <dt><code>unlockSound</code> <span class="xref">FMODAsset</span></dt>
+    <dd>The sound that plays when you unlock the blueprint.</dd>
+    <dt><code>unlockSprite</code> <span class="xref">Sprite</span></dt>
+    <dd>The sprite that shows up when you unlock the blueprint.</dd>
+    <dt><code>storyGoals</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">StoryGoal</span>&gt;</dt>
+    <dd>The story goals that will be triggered when you unlock the blueprint.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__System_String_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String)">
+  SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+added to the existing AnalysisTech entry unlocks.
+***Note: This will not remove any original unlock and if you need to do so you should use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a> before calling this method.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable&lt;TechType&gt; techTypesToUnlock, string unlockMessage)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techTypeToBeAnalysed</code> <span class="xref">TechType</span></dt>
+    <dd>This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</dd>
+    <dt><code>techTypesToUnlock</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</dd>
+    <dt><code>unlockMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The message that shows up on the right when the blueprint is unlocked. See <a class="xref" href="Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html">KnownTechHandler.DefaultUnlockData</a> for a list of some valid parameters.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__System_String_FMODAsset_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String,FMODAsset)">
+  SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, string, FMODAsset)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+added to the existing AnalysisTech entry unlocks.
+***Note: This will not remove any original unlock and if you need to do so you should use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a> before calling this method.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable&lt;TechType&gt; techTypesToUnlock, string unlockMessage, FMODAsset unlockSound)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techTypeToBeAnalysed</code> <span class="xref">TechType</span></dt>
+    <dd>This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</dd>
+    <dt><code>techTypesToUnlock</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</dd>
+    <dt><code>unlockMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The message that shows up on the right when the blueprint is unlocked. See <a class="xref" href="Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html">KnownTechHandler.DefaultUnlockData</a> for a list of some valid parameters.</dd>
+    <dt><code>unlockSound</code> <span class="xref">FMODAsset</span></dt>
+    <dd>The sound that plays when you unlock the blueprint. See <a class="xref" href="Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html">KnownTechHandler.DefaultUnlockData</a> for a list of some valid parameters.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__System_String_UnityEngine_Sprite_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},System.String,UnityEngine.Sprite)">
+  SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, string, Sprite)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+If there is already an existing AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+added to the existing AnalysisTech entry unlocks.
+***Note: This will not remove any original unlock and if you need to do so you should use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a> before calling this method.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable&lt;TechType&gt; techTypesToUnlock, string unlockMessage, Sprite unlockSprite)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techTypeToBeAnalysed</code> <span class="xref">TechType</span></dt>
+    <dd>This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</dd>
+    <dt><code>techTypesToUnlock</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</dd>
+    <dt><code>unlockMessage</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The message that shows up on the right when the blueprint is unlocked. See <a class="xref" href="Nautilus.Handlers.KnownTechHandler.DefaultUnlockData.html">KnownTechHandler.DefaultUnlockData</a> for a list of some valid parameters.</dd>
+    <dt><code>unlockSprite</code> <span class="xref">Sprite</span></dt>
+    <dd>The sprite that shows up when you unlock the blueprint.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetAnalysisTechEntry_TechType_System_Collections_Generic_IEnumerable_TechType__UnityEngine_Sprite_" data-uid="Nautilus.Handlers.KnownTechHandler.SetAnalysisTechEntry(TechType,System.Collections.Generic.IEnumerable{TechType},UnityEngine.Sprite)">
+  SetAnalysisTechEntry(TechType, IEnumerable&lt;TechType&gt;, Sprite)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to define which TechTypes are unlocked when a certain TechType is unlocked, i.e., "analysed".
+If there is already an exisitng AnalysisTech entry for a TechType, all the TechTypes in "techTypesToUnlock" will be
+added to the existing AnalysisTech entry unlocks.
+***Note: This will not remove any original unlock and if you need to do so you should use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a> before calling this method.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetAnalysisTechEntry(TechType techTypeToBeAnalysed, IEnumerable&lt;TechType&gt; techTypesToUnlock, Sprite unlockSprite)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techTypeToBeAnalysed</code> <span class="xref">TechType</span></dt>
+    <dd>This TechType is the criteria for all of the "unlock TechTypes"; when this TechType is unlocked, so are all the ones in that list</dd>
+    <dt><code>techTypesToUnlock</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd>The TechTypes that will be unlocked when "techTypeToSet" is unlocked.</dd>
+    <dt><code>unlockSprite</code> <span class="xref">Sprite</span></dt>
+    <dd>The sprite that shows up when you unlock the blueprint.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetCompoundUnlock_" data-uid="Nautilus.Handlers.KnownTechHandler.SetCompoundUnlock*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetCompoundUnlock_TechType_System_Collections_Generic_List_TechType__" data-uid="Nautilus.Handlers.KnownTechHandler.SetCompoundUnlock(TechType,System.Collections.Generic.List{TechType})">
+  SetCompoundUnlock(TechType, List&lt;TechType&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to set up a custom Compound Unlock requiring multiple techtypes to be unlocked before 1 is.
+***Note: This will not remove any original unlock and if you need to do so you should use <a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_RemoveAllCurrentAnalysisTechEntry_TechType_">RemoveAllCurrentAnalysisTechEntry(TechType)</a> before calling this method.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetCompoundUnlock(TechType techType, List&lt;TechType&gt; compoundTechsForUnlock)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd></dd>
+    <dt><code>compoundTechsForUnlock</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">TechType</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_SetHardLocked_" data-uid="Nautilus.Handlers.KnownTechHandler.SetHardLocked*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_SetHardLocked_TechType_" data-uid="Nautilus.Handlers.KnownTechHandler.SetHardLocked(TechType)">
+  SetHardLocked(TechType)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Makes the specified tech type hard locked. Hard locking means that the tech type will not be unlocked via the unlockall command and will not be unlocked by default
+in creative.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetHardLocked(TechType techType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd>The tech type to set as hard locked.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Handlers_KnownTechHandler_SetHardLocked_TechType__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">Calling this method will remove the specified item from being unlocked at start.</div>
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Handlers.KnownTechHandler.html#Nautilus_Handlers_KnownTechHandler_UnlockOnStart_TechType_">UnlockOnStart(TechType)</a></div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Handlers_KnownTechHandler_UnlockOnStart_" data-uid="Nautilus.Handlers.KnownTechHandler.UnlockOnStart*"></a>
+
+  <h3 id="Nautilus_Handlers_KnownTechHandler_UnlockOnStart_TechType_" data-uid="Nautilus.Handlers.KnownTechHandler.UnlockOnStart(TechType)">
+  UnlockOnStart(TechType)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Allows you to unlock a TechType on game start.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void UnlockOnStart(TechType techType)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd>The TechType to unlock at start.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

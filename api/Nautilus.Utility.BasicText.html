@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BasicText </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BasicText ">
+      
+      <meta name="description" content="Places a simple text object on the screen and keeps it there until either hidden (or a designated fade-to-black timer has passed).  By default uses the same font/size/color as the &quot;Press Any Button To Begin&quot; message at the beginning of the game, and appears  centered about 1/3 down the screen, but all parameters can be reconfigured.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Utility.BasicText">
+
+
+
+  <h1 id="Nautilus_Utility_BasicText" data-uid="Nautilus.Utility.BasicText" class="text-break">
+Class BasicText  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>
+Places a simple text object on the screen and keeps it there until either hidden (or a designated fade-to-black timer has passed). 
+By default uses the same font/size/color as the "Press Any Button To Begin" message at the beginning of the game, and appears 
+centered about 1/3 down the screen, but all parameters can be reconfigured.
+</p></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BasicText</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">BasicText</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJsonAsync&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJsonAsync&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_CopyFields__1___0___0_System_Reflection_BindingFlags_">ReflectionHelper.CopyFields&lt;T&gt;(T, T, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetInstanceField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetInstanceField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  </dd></dl>
+
+
+  <h2 id="Nautilus_Utility_BasicText_examples">Examples</h2>
+  SIMPLE USAGE EXAMPLE:
+<pre><code class="lang-csharp">BasicText message = new BasicText();
+message.ShowMessage("This Message Will Fade In 10 Seconds", 10);</code></pre>
+
+COMPLEX USAGE EXAMPLE:
+<pre><code class="lang-csharp">BasicText message = new BasicText(TextAnchor.UpperLeft); // Note many other properties could also be set as constructor parameters
+message.setColor(Color.red); // Set Color
+message.setSize(20);         // Set Font Size
+message.setLoc(200, 400);    // Set x/y position (0,0 is center of screen)
+message.setFontStyle(FontStyle.Bold); // Bold 
+message.ShowMessage("This message stays on screen until hidden"); // Display message; if fadeout seconds not specified, it just keeps showing
+... // other things happen, time goes by
+message.Hide(); // Hides the message</code></pre>
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor" data-uid="Nautilus.Utility.BasicText.#ctor">
+  BasicText()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with all default options.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32)">
+  BasicText(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int useSize)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The text size to uset</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32)">
+  BasicText(int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> at the specified origin point.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int set_x, int set_y)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>set_x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The x coordinate to set</dd>
+    <dt><code>set_y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The y coordinate to set</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32)">
+  BasicText(int, int, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified origin point and size.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int set_x, int set_y, int useSize)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>set_x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The x coordinate to set</dd>
+    <dt><code>set_y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The y coordinate to set</dd>
+    <dt><code>useSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The text size to use</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color)">
+  BasicText(int, int, int, Color)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified origin point, size, and <span class="xref">UnityEngine.Color</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int set_x, int set_y, int useSize, Color useColor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>set_x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The x coordinate to set</dd>
+    <dt><code>set_y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The y coordinate to set</dd>
+    <dt><code>useSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The text size to use</dd>
+    <dt><code>useColor</code> <span class="xref">Color</span></dt>
+    <dd>The text color to use</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_System_Int32_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,System.Int32,System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)">
+  BasicText(int, int, int, Color, TextAlignmentOptions)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified origin point, size, <span class="xref">UnityEngine.Color</span>, and <span class="xref">UnityEngine.TextAnchor</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int set_x, int set_y, int useSize, Color useColor, TextAlignmentOptions useAlign)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>set_x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The x coordinate to set</dd>
+    <dt><code>set_y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The y coordinate to set</dd>
+    <dt><code>useSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The text size to use</dd>
+    <dt><code>useColor</code> <span class="xref">Color</span></dt>
+    <dd>The text color to use</dd>
+    <dt><code>useAlign</code> <span class="xref">TextAlignmentOptions</span></dt>
+    <dd>The text anchor to align to</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,TMPro.TextAlignmentOptions)">
+  BasicText(int, TextAlignmentOptions)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size and <span class="xref">UnityEngine.TextAnchor</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int useSize, TextAlignmentOptions useAlign)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The text size to use</dd>
+    <dt><code>useAlign</code> <span class="xref">TextAlignmentOptions</span></dt>
+    <dd>The text anchor to align to</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color)">
+  BasicText(int, Color)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size and <span class="xref">UnityEngine.Color</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int useSize, Color useColor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The text size to use</dd>
+    <dt><code>useColor</code> <span class="xref">Color</span></dt>
+    <dd>The text color to use</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor_System_Int32_UnityEngine_Color_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(System.Int32,UnityEngine.Color,TMPro.TextAlignmentOptions)">
+  BasicText(int, Color, TextAlignmentOptions)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified size, <span class="xref">UnityEngine.Color</span>, and <span class="xref">UnityEngine.TextAnchor</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(int useSize, Color useColor, TextAlignmentOptions useAlign)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The text size to use</dd>
+    <dt><code>useColor</code> <span class="xref">Color</span></dt>
+    <dd>The text color to use</dd>
+    <dt><code>useAlign</code> <span class="xref">TextAlignmentOptions</span></dt>
+    <dd>The text anchor to align to</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.#ctor(TMPro.TextAlignmentOptions)">
+  BasicText(TextAlignmentOptions)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> at a specified <span class="xref">UnityEngine.TextAnchor</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(TextAlignmentOptions useAlign)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useAlign</code> <span class="xref">TextAlignmentOptions</span></dt>
+    <dd>The text anchor to align to</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText__ctor_" data-uid="Nautilus.Utility.BasicText.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText__ctor_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.#ctor(UnityEngine.Color)">
+  BasicText(Color)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instances of <a class="xref" href="Nautilus.Utility.BasicText.html">BasicText</a> with a specified <span class="xref">UnityEngine.Color</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BasicText(Color useColor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useColor</code> <span class="xref">Color</span></dt>
+    <dd>The text color to use</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Utility_BasicText_ClearAlign_" data-uid="Nautilus.Utility.BasicText.ClearAlign*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_ClearAlign" data-uid="Nautilus.Utility.BasicText.ClearAlign">
+  ClearAlign()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Resets to using "cloned" font style of Subnautica default</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearAlign()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_ClearColor_" data-uid="Nautilus.Utility.BasicText.ClearColor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_ClearColor" data-uid="Nautilus.Utility.BasicText.ClearColor">
+  ClearColor()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Resets to using "cloned" color of Subnautica default.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearColor()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_ClearFont_" data-uid="Nautilus.Utility.BasicText.ClearFont*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_ClearFont" data-uid="Nautilus.Utility.BasicText.ClearFont">
+  ClearFont()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Resets to using "cloned" font of Subnautica default.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearFont()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_ClearFontStyle_" data-uid="Nautilus.Utility.BasicText.ClearFontStyle*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_ClearFontStyle" data-uid="Nautilus.Utility.BasicText.ClearFontStyle">
+  ClearFontStyle()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Resets to using "cloned" font style of Subnautica default.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearFontStyle()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_ClearSize_" data-uid="Nautilus.Utility.BasicText.ClearSize*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_ClearSize" data-uid="Nautilus.Utility.BasicText.ClearSize">
+  ClearSize()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Resets to using "cloned" size of Subnautica default.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearSize()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_GetText_" data-uid="Nautilus.Utility.BasicText.GetText*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_GetText" data-uid="Nautilus.Utility.BasicText.GetText">
+  GetText()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Returns our current text.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetText()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_Hide_" data-uid="Nautilus.Utility.BasicText.Hide*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_Hide" data-uid="Nautilus.Utility.BasicText.Hide">
+  Hide()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Hides our text item if it is displaying.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Hide()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_SetAlign_" data-uid="Nautilus.Utility.BasicText.SetAlign*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_SetAlign_TMPro_TextAlignmentOptions_" data-uid="Nautilus.Utility.BasicText.SetAlign(TMPro.TextAlignmentOptions)">
+  SetAlign(TextAlignmentOptions)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Sets the text anchor.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetAlign(TextAlignmentOptions useAlign)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useAlign</code> <span class="xref">TextAlignmentOptions</span></dt>
+    <dd>The text anchor to align to</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_SetColor_" data-uid="Nautilus.Utility.BasicText.SetColor*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_SetColor_UnityEngine_Color_" data-uid="Nautilus.Utility.BasicText.SetColor(UnityEngine.Color)">
+  SetColor(Color)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Sets the text color</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetColor(Color useColor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useColor</code> <span class="xref">Color</span></dt>
+    <dd>The text color to use</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_SetFont_" data-uid="Nautilus.Utility.BasicText.SetFont*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_SetFont_TMPro_TMP_FontAsset_" data-uid="Nautilus.Utility.BasicText.SetFont(TMPro.TMP_FontAsset)">
+  SetFont(TMP_FontAsset)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Sets the font</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetFont(TMP_FontAsset useFont)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useFont</code> <span class="xref">TMP_FontAsset</span></dt>
+    <dd>The font to render the text as.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_SetFontStyle_" data-uid="Nautilus.Utility.BasicText.SetFontStyle*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_SetFontStyle_TMPro_FontStyles_" data-uid="Nautilus.Utility.BasicText.SetFontStyle(TMPro.FontStyles)">
+  SetFontStyle(FontStyles)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Sets the font style.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetFontStyle(FontStyles useStyle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useStyle</code> <span class="xref">FontStyles</span></dt>
+    <dd>The text font style to use</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_SetLocation_" data-uid="Nautilus.Utility.BasicText.SetLocation*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_SetLocation_System_Single_System_Single_" data-uid="Nautilus.Utility.BasicText.SetLocation(System.Single,System.Single)">
+  SetLocation(float, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Sets screen display location (position relative to the actual text is determined by the alignment)</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetLocation(float set_x, float set_y)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>set_x</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The x coordinate to set</dd>
+    <dt><code>set_y</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The y coordinate to set</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_SetSize_" data-uid="Nautilus.Utility.BasicText.SetSize*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_SetSize_System_Int32_" data-uid="Nautilus.Utility.BasicText.SetSize(System.Int32)">
+  SetSize(int)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Sets the font size.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetSize(int useSize)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>useSize</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The text size to use</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_ShowMessage_" data-uid="Nautilus.Utility.BasicText.ShowMessage*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_ShowMessage_System_String_" data-uid="Nautilus.Utility.BasicText.ShowMessage(System.String)">
+  ShowMessage(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Shows our text item, with no schedule fade (i.e. indefinitely)</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ShowMessage(string s)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The text to display</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BasicText_ShowMessage_" data-uid="Nautilus.Utility.BasicText.ShowMessage*"></a>
+
+  <h3 id="Nautilus_Utility_BasicText_ShowMessage_System_String_System_Single_" data-uid="Nautilus.Utility.BasicText.ShowMessage(System.String,System.Single)">
+  ShowMessage(string, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Shows our text item, fading after a specified number of seconds (or stays on indefinitely if 0 seconds)</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ShowMessage(string s, float seconds)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>s</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The text to display</dd>
+    <dt><code>seconds</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The duration to hold before fading</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

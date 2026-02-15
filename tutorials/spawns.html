@@ -96,7 +96,7 @@ and remove existing random spawns.</p>
 <p>The Coordinated Spawns system is Nautilus' implementation of the aforementioned static spawns. With this system, you are allowed to specify exact world positions, rotations and scales for item spawns.<br>
 You may register one or more coordinated spawn(s) for any item by providing either its class ID or tech type.</p>
 <h3 id="examples">Examples</h3>
-<p>The following examples demonstrate the usage of <a href="xref:Nautilus.Handlers.CoordinatedSpawnsHandler">CoordinatedSpawnsHandler</a> methods.</p>
+<p>The following examples demonstrate the usage of <a class="xref" href="../api/Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a> methods.</p>
 <pre><code class="lang-csharp">private void Awake()
 {
     // Adds a Reaper Leviathan to the lava lakes
@@ -131,7 +131,7 @@ private List&lt;Vector3&gt; RandomPositions(Vector3 centerPosition)
     return result;
 }
 </code></pre>
-<p>For custom prefabs, it is advised to use the <a href="xref:Nautilus.Assets.Gadgets.GadgetExtensions#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(SpawnLocation[])</a> method instead of directly interacting with the <a href="xref:Nautilus.Handlers.CoordinatedSpawnsHandler">CoordinatedSpawnsHandler</a> class.</p>
+<p>For custom prefabs, it is advised to use the <a class="xref" href="../api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(SpawnLocation[])</a> method instead of directly interacting with the <a class="xref" href="../api/Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a> class.</p>
 <p>The example below demonstrates the usage of the <code>SetSpawns</code> method.</p>
 <pre><code class="lang-csharp">var blueReaper = new CustomPrefab(&quot;BlueReaper&quot;, &quot;Blue Reaper Leviathan&quot;, null);
            
@@ -209,7 +209,7 @@ Also, most spawn slots in the game only spawn entities with Small or Medium enti
 <p>Usually, vanilla prefabs do have a world entity info assigned to them. While you can, you don't have to register a new one for those that already have one.</p>
 </div>
 <h3 id="examples-1">Examples</h3>
-<p>The following examples demonstrate the usage of <a href="xref:Nautilus.Handlers.LootDistributionHandler">LootDistributionHandler</a> methods.</p>
+<p>The following examples demonstrate the usage of <a class="xref" href="../api/Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a> methods.</p>
 <pre><code class="lang-csharp">// Drillable Sulphur's class ID
 string drillableSulphurClassId = &quot;697beac5-e39a-4809-854d-9163da9f997e&quot;;
 
@@ -230,7 +230,7 @@ string rockgrubClassId = CraftData.GetClassIdForTechType(TechType.Rockgrub);
 // Prevents the rockgrub from spawning in the Bulb zone caves.
 LootDistributionHandler.EditLootDistributionData(rockgrubClassId, BiomeType.KooshZone_CaveWall, 0f, 0);
 </code></pre>
-<p>For custom prefabs, it is advised to use the <a href="xref:Nautilus.Assets.Gadgets.GadgetExtensions#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(LootDistributionData.BiomeData[])</a> method instead of directly interacting with the <a href="xref:Nautilus.Handlers.LootDistributionHandler">LootDistributionHandler</a> class.</p>
+<p>For custom prefabs, it is advised to use the <a class="xref" href="../api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(LootDistributionData.BiomeData[])</a> method instead of directly interacting with the <a class="xref" href="../api/Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a> class.</p>
 <p>The example below demonstrates the usage of the <code>SetSpawns</code> method.</p>
 <pre><code class="lang-csharp">// Set the vanilla titanium icon for our item
 CustomPrefab titaniumClone = new CustomPrefab(&quot;TitaniumClone&quot;, &quot;Titanium Clone&quot;, &quot;Titanium clone that makes me go yes.&quot;, SpriteManager.Get(TechType.Titanium));
@@ -254,8 +254,8 @@ titaniumClone.Register();
 </code></pre>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a href="xref:Nautilus.Handlers.CoordinatedSpawnsHandler">CoordinatedSpawnsHandler</a></li>
-<li><a href="xref:Nautilus.Handlers.LootDistributionHandler">LootDistributionHandler</a></li>
+<li><a class="xref" href="../api/Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a></li>
+<li><a class="xref" href="../api/Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a></li>
 </ul>
 
 </article>

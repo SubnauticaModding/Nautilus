@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ModSliderOption.SliderValue </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ModSliderOption.SliderValue ">
+      
+      <meta name="description" content="Component for customizing slider&#39;s value behaviour. If you need more complex behaviour than just custom value format then you can inherit this component  and add it to &quot;Slider&quot; game object in OnGameObjectCreated event (see  for details on adding component) You can override value converters  and , in that case internal range for slider will be changed to [0.0f : 1.0f] and you can control displayed value with these converters (also this value will be passed to  event)">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Options.ModSliderOption.SliderValue">
+
+
+
+  <h1 id="Nautilus_Options_ModSliderOption_SliderValue" data-uid="Nautilus.Options.ModSliderOption.SliderValue" class="text-break">
+Class ModSliderOption.SliderValue  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Options.html">Options</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">Component for customizing slider's value behaviour.
+If you need more complex behaviour than just custom value format then you can inherit this component 
+and add it to "Slider" game object in OnGameObjectCreated event (see <a class="xref" href="Nautilus.Options.ModSliderOption.html#Nautilus_Options_ModSliderOption_AddToPanel_uGUI_TabbedControlsPanel_System_Int32_">AddToPanel(uGUI_TabbedControlsPanel, int)</a> for details on adding component)
+You can override value converters <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_ConvertToDisplayValue_System_Single_">ConvertToDisplayValue(float)</a> and <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_ConvertToSliderValue_System_Single_">ConvertToSliderValue(float)</a>,
+in that case internal range for slider will be changed to [0.0f : 1.0f] and you can control displayed value with these converters
+(also this value will be passed to <a class="xref" href="Nautilus.Options.ModOptions.html#Nautilus_Options_ModOptions_OnChange__2_System_String___0_">OnChange&lt;T, E&gt;(string, T)</a> event)</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class ModSliderOption.SliderValue : MonoBehaviour</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ModSliderOption.SliderValue</span></div>
+    </dd>
+  </dl>
+
+
+
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJsonAsync&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJsonAsync&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_CopyFields__1___0___0_System_Reflection_BindingFlags_">ReflectionHelper.CopyFields&lt;T&gt;(T, T, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetInstanceField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetInstanceField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue__ctor_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.#ctor*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue__ctor" data-uid="Nautilus.Options.ModSliderOption.SliderValue.#ctor">
+  SliderValue()
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SliderValue()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_label" data-uid="Nautilus.Options.ModSliderOption.SliderValue.label">
+  label
+  
+  </h3>
+
+  <div class="markdown level1 summary">The value label of the <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html">ModSliderOption.SliderValue</a></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected TextMeshProUGUI label</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TextMeshProUGUI</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_maxValue" data-uid="Nautilus.Options.ModSliderOption.SliderValue.maxValue">
+  maxValue
+  
+  </h3>
+
+  <div class="markdown level1 summary">The maximum value of the <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html">ModSliderOption.SliderValue</a>.
+In case of custom value converters it can be not equal to internal maximum value for slider</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float maxValue</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_minValue" data-uid="Nautilus.Options.ModSliderOption.SliderValue.minValue">
+  minValue
+  
+  </h3>
+
+  <div class="markdown level1 summary">The minimum value of the <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html">ModSliderOption.SliderValue</a>.
+In case of custom value converters it can be not equal to internal minimum value for slider</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float minValue</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_slider" data-uid="Nautilus.Options.ModSliderOption.SliderValue.slider">
+  slider
+  
+  </h3>
+
+  <div class="markdown level1 summary">The slider controlling this <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html">ModSliderOption.SliderValue</a></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Slider slider</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Slider</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_valueFormat" data-uid="Nautilus.Options.ModSliderOption.SliderValue.valueFormat">
+  valueFormat
+  
+  </h3>
+
+  <div class="markdown level1 summary">Custom value format</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string valueFormat</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_ValueFormat_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ValueFormat*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_ValueFormat" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ValueFormat">
+  ValueFormat
+  
+  </h3>
+
+  <div class="markdown level1 summary">Custom value format property. Set it right after adding component to game object for proper behaviour</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ValueFormat { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_ValueWidth_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ValueWidth*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_ValueWidth" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ValueWidth">
+  ValueWidth
+  
+  </h3>
+
+  <div class="markdown level1 summary">Width for value text field. Used by <a class="xref" href="Nautilus.Options.ModSliderOption.html">ModSliderOption.SliderOptionAdjust</a> to adjust label width.
+It is calculated in <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_UpdateValueWidth">UpdateValueWidth()</a>, but you can override this property.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual float ValueWidth { get; protected set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_Awake_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.Awake*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_Awake" data-uid="Nautilus.Options.ModSliderOption.SliderValue.Awake">
+  Awake()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Component initialization. If you overriding this, make sure that you calling base.Awake()</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Awake()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_ConvertToDisplayValue_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ConvertToDisplayValue*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_ConvertToDisplayValue_System_Single_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ConvertToDisplayValue(System.Single)">
+  ConvertToDisplayValue(float)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Converts internal slider value [0.0f : 1.0f] to displayed value</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual float ConvertToDisplayValue(float sliderValue)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>sliderValue</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_ConvertToSliderValue_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ConvertToSliderValue*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_ConvertToSliderValue_System_Single_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.ConvertToSliderValue(System.Single)">
+  ConvertToSliderValue(float)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Converts displayed value to internal slider value [0.0f : 1.0f]</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual float ConvertToSliderValue(float displayValue)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>displayValue</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_InitConverters_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.InitConverters*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_InitConverters" data-uid="Nautilus.Options.ModSliderOption.SliderValue.InitConverters">
+  InitConverters()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Override this if you need to initialize custom value converters</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void InitConverters()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_OnValueChanged_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.OnValueChanged*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_OnValueChanged_System_Single_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.OnValueChanged(System.Single)">
+  OnValueChanged(float)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Called when user changes slider value</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnValueChanged(float value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_Start_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.Start*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_Start" data-uid="Nautilus.Options.ModSliderOption.SliderValue.Start">
+  Start()
+  
+  </h3>
+
+  <div class="markdown level1 summary"><span class="xref">UnityEngine.MonoBehaviour</span>.Start()</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual IEnumerator Start()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_UpdateLabel_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.UpdateLabel*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_UpdateLabel" data-uid="Nautilus.Options.ModSliderOption.SliderValue.UpdateLabel">
+  UpdateLabel()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Updates label's text with formatted and converted slider's value.
+Override this if you need even more control on slider's value behaviour.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void UpdateLabel()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Options_ModSliderOption_SliderValue_UpdateValueWidth_" data-uid="Nautilus.Options.ModSliderOption.SliderValue.UpdateValueWidth*"></a>
+
+  <h3 id="Nautilus_Options_ModSliderOption_SliderValue_UpdateValueWidth" data-uid="Nautilus.Options.ModSliderOption.SliderValue.UpdateValueWidth">
+  UpdateValueWidth()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Method for calculating necessary label's width. Creates temporary label and compares widths of min and max values,
+then sets <a class="xref" href="Nautilus.Options.ModSliderOption.SliderValue.html#Nautilus_Options_ModSliderOption_SliderValue_ValueWidth">ValueWidth</a> to the wider. Be aware that in case of using custom converters some intermediate value may be wider than min/max values.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual IEnumerator UpdateValueWidth()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

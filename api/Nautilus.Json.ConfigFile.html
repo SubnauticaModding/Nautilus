@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ConfigFile </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ConfigFile ">
+      
+      <meta name="description" content="A simple implementation of  for use with config files.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Json.ConfigFile">
+
+
+
+  <h1 id="Nautilus_Json_ConfigFile" data-uid="Nautilus.Json.ConfigFile" class="text-break">
+Class ConfigFile  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Json.html">Json</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">A simple implementation of <a class="xref" href="Nautilus.Json.Interfaces.IJsonFile.html">IJsonFile</a> for use with config files.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class ConfigFile : IJsonFile</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">ConfigFile</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="Nautilus.Json.Interfaces.IJsonFile.html">IJsonFile</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJsonAsync&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJsonAsync&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_CopyFields__1___0___0_System_Reflection_BindingFlags_">ReflectionHelper.CopyFields&lt;T&gt;(T, T, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetInstanceField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetInstanceField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Nautilus_Json_ConfigFile__ctor_" data-uid="Nautilus.Json.ConfigFile.#ctor*"></a>
+
+  <h3 id="Nautilus_Json_ConfigFile__ctor" data-uid="Nautilus.Json.ConfigFile.#ctor">
+  ConfigFile()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instance of <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a>, parsing the filename and subfolder from a
+<a class="xref" href="Nautilus.Json.ConfigFileAttribute.html">ConfigFileAttribute</a> if declared, or with default values otherwise.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ConfigFile()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Json_ConfigFile__ctor_" data-uid="Nautilus.Json.ConfigFile.#ctor*"></a>
+
+  <h3 id="Nautilus_Json_ConfigFile__ctor_System_String_System_String_" data-uid="Nautilus.Json.ConfigFile.#ctor(System.String,System.String)">
+  ConfigFile(string, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new instance of <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ConfigFile(string fileName = &quot;config&quot;, string subfolder = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>fileName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name of the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a>, "config" by default.</dd>
+    <dt><code>subfolder</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>Optional subfolder for the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Json_ConfigFile__ctor_System_String_System_String__examples">Examples</h4>
+  <pre><code class="lang-csharp">using Nautilus.Options;
+using UnityEngine;
+
+public class MyConfig : ConfigFile
+{
+    public KeyCode ActivationKey { get; set; } = KeyCode.Escape;
+    public MyConfig() : base("options", "Config Files") { }
+    // The config file will be stored at the path "QMods\YourModName\Config Files\options.json"
+}</code></pre>
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="Nautilus_Json_ConfigFile_OnFinishedLoading" data-uid="Nautilus.Json.ConfigFile.OnFinishedLoading">
+  OnFinishedLoading
+  
+  </h3>
+
+  <div class="markdown level1 summary">An event that is invoked whenever the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a> has finished loading data from disk.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EventHandler&lt;ConfigFileEventArgs&gt; OnFinishedLoading</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Nautilus.Json.ConfigFileEventArgs.html">ConfigFileEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Json_ConfigFile_OnFinishedSaving" data-uid="Nautilus.Json.ConfigFile.OnFinishedSaving">
+  OnFinishedSaving
+  
+  </h3>
+
+  <div class="markdown level1 summary">An event that is invoked whenever the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a> has finished saving data to disk.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EventHandler&lt;ConfigFileEventArgs&gt; OnFinishedSaving</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Nautilus.Json.ConfigFileEventArgs.html">ConfigFileEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Json_ConfigFile_OnStartedLoading" data-uid="Nautilus.Json.ConfigFile.OnStartedLoading">
+  OnStartedLoading
+  
+  </h3>
+
+  <div class="markdown level1 summary">An event that is invoked whenever the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a> is about to load data from disk.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EventHandler&lt;ConfigFileEventArgs&gt; OnStartedLoading</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Nautilus.Json.ConfigFileEventArgs.html">ConfigFileEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Json_ConfigFile_OnStartedSaving" data-uid="Nautilus.Json.ConfigFile.OnStartedSaving">
+  OnStartedSaving
+  
+  </h3>
+
+  <div class="markdown level1 summary">An event that is invoked whenever the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a> is about to save data to disk.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public EventHandler&lt;ConfigFileEventArgs&gt; OnStartedSaving</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Nautilus.Json.ConfigFileEventArgs.html">ConfigFileEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="Nautilus_Json_ConfigFile_AlwaysIncludedJsonConverters_" data-uid="Nautilus.Json.ConfigFile.AlwaysIncludedJsonConverters*"></a>
+
+  <h3 id="Nautilus_Json_ConfigFile_AlwaysIncludedJsonConverters" data-uid="Nautilus.Json.ConfigFile.AlwaysIncludedJsonConverters">
+  AlwaysIncludedJsonConverters
+  
+  </h3>
+
+  <div class="markdown level1 summary">The <span class="xref">Newtonsoft.Json.JsonConverter</span>s that should always be used when reading/writing JSON data.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public JsonConverter[] AlwaysIncludedJsonConverters { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">JsonConverter</span>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><span class="xref">Nautilus.Json.ConfigFile.alwaysIncludedJsonConverters</span></div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Json_ConfigFile_JsonFilePath_" data-uid="Nautilus.Json.ConfigFile.JsonFilePath*"></a>
+
+  <h3 id="Nautilus_Json_ConfigFile_JsonFilePath" data-uid="Nautilus.Json.ConfigFile.JsonFilePath">
+  JsonFilePath
+  
+  </h3>
+
+  <div class="markdown level1 summary">The file path at which the JSON file is accessible for reading and writing.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string JsonFilePath { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Json_ConfigFile_Load_" data-uid="Nautilus.Json.ConfigFile.Load*"></a>
+
+  <h3 id="Nautilus_Json_ConfigFile_Load_System_Boolean_" data-uid="Nautilus.Json.ConfigFile.Load(System.Boolean)">
+  Load(bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Loads the JSON properties from the file on disk into the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Load(bool createFileIfNotExist = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>createFileIfNotExist</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether a new JSON file should be created with default values if it does not
+            already exist.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html#Nautilus_Json_ConfigFile_Save">Save()</a></div>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html#Nautilus_Json_ConfigFile_LoadWithConverters_System_Boolean_Newtonsoft_Json_JsonConverter___">LoadWithConverters(bool, params JsonConverter[])</a></div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Json_ConfigFile_LoadWithConverters_" data-uid="Nautilus.Json.ConfigFile.LoadWithConverters*"></a>
+
+  <h3 id="Nautilus_Json_ConfigFile_LoadWithConverters_System_Boolean_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Json.ConfigFile.LoadWithConverters(System.Boolean,Newtonsoft.Json.JsonConverter[])">
+  LoadWithConverters(bool, params JsonConverter[])
+  
+  </h3>
+
+  <div class="markdown level1 summary">Loads the JSON properties from the file on disk into the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LoadWithConverters(bool createFileIfNotExist = true, params JsonConverter[] jsonConverters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>createFileIfNotExist</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether a new JSON file should be created with default values if it does not
+            already exist.</dd>
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd>Optional <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for serialization.
+            The <a class="xref" href="Nautilus.Json.ConfigFile.html#Nautilus_Json_ConfigFile_AlwaysIncludedJsonConverters">AlwaysIncludedJsonConverters</a> will always be used, regardless of whether you pass them.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html#Nautilus_Json_ConfigFile_SaveWithConverters_Newtonsoft_Json_JsonConverter___">SaveWithConverters(params JsonConverter[])</a></div>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html#Nautilus_Json_ConfigFile_Load_System_Boolean_">Load(bool)</a></div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Json_ConfigFile_Save_" data-uid="Nautilus.Json.ConfigFile.Save*"></a>
+
+  <h3 id="Nautilus_Json_ConfigFile_Save" data-uid="Nautilus.Json.ConfigFile.Save">
+  Save()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Saves the current fields and properties of the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a> as JSON properties to the file on disk.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Save()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html#Nautilus_Json_ConfigFile_Load_System_Boolean_">Load(bool)</a></div>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html#Nautilus_Json_ConfigFile_SaveWithConverters_Newtonsoft_Json_JsonConverter___">SaveWithConverters(params JsonConverter[])</a></div>
+    </dd>
+  </dl>
+
+
+  <a id="Nautilus_Json_ConfigFile_SaveWithConverters_" data-uid="Nautilus.Json.ConfigFile.SaveWithConverters*"></a>
+
+  <h3 id="Nautilus_Json_ConfigFile_SaveWithConverters_Newtonsoft_Json_JsonConverter___" data-uid="Nautilus.Json.ConfigFile.SaveWithConverters(Newtonsoft.Json.JsonConverter[])">
+  SaveWithConverters(params JsonConverter[])
+  
+  </h3>
+
+  <div class="markdown level1 summary">Saves the current fields and properties of the <a class="xref" href="Nautilus.Json.ConfigFile.html">ConfigFile</a> as JSON properties to the file on disk.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SaveWithConverters(params JsonConverter[] jsonConverters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>jsonConverters</code> <span class="xref">JsonConverter</span>[]</dt>
+    <dd>Optional <span class="xref">Newtonsoft.Json.JsonConverter</span>s to be used for deserialization.
+            The <a class="xref" href="Nautilus.Json.ConfigFile.html#Nautilus_Json_ConfigFile_AlwaysIncludedJsonConverters">AlwaysIncludedJsonConverters</a> will always be used, regardless of whether you pass them.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <dl class="typelist seealso">
+    <dt>See Also</dt>
+    <dd>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html#Nautilus_Json_ConfigFile_LoadWithConverters_System_Boolean_Newtonsoft_Json_JsonConverter___">LoadWithConverters(bool, params JsonConverter[])</a></div>
+    <div><a class="xref" href="Nautilus.Json.ConfigFile.html#Nautilus_Json_ConfigFile_Save">Save()</a></div>
+    </dd>
+  </dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

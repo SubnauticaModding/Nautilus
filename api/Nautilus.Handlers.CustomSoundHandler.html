@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class CustomSoundHandler </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class CustomSoundHandler ">
+      
+      <meta name="description" content="A handler class for adding and overriding Sounds. Also see the  class.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Handlers.CustomSoundHandler">
+
+
+
+  <h1 id="Nautilus_Handlers_CustomSoundHandler" data-uid="Nautilus.Handlers.CustomSoundHandler" class="text-break">
+Class CustomSoundHandler  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">A handler class for adding and overriding Sounds. Also see the <a class="xref" href="Nautilus.Utility.AudioUtils.html">AudioUtils</a> class.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class CustomSoundHandler</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">CustomSoundHandler</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_AttachChannelToGameObject_" data-uid="Nautilus.Handlers.CustomSoundHandler.AttachChannelToGameObject*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_AttachChannelToGameObject_FMOD_Channel_UnityEngine_Transform_" data-uid="Nautilus.Handlers.CustomSoundHandler.AttachChannelToGameObject(FMOD.Channel,UnityEngine.Transform)">
+  AttachChannelToGameObject(Channel, Transform)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Attaches the specified channel to the given transform. This results in the sound position following the <code class="paramref">transform</code>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AttachChannelToGameObject(Channel channel, Transform transform)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>channel</code> <span class="xref">Channel</span></dt>
+    <dd>The channel to attach.</dd>
+    <dt><code>transform</code> <span class="xref">Transform</span></dt>
+    <dd>The transform which the channel will follow.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_DetachChannelFromGameObject_" data-uid="Nautilus.Handlers.CustomSoundHandler.DetachChannelFromGameObject*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_DetachChannelFromGameObject_FMOD_Channel_" data-uid="Nautilus.Handlers.CustomSoundHandler.DetachChannelFromGameObject(FMOD.Channel)">
+  DetachChannelFromGameObject(Channel)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Detaches the specified channel from any game object.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void DetachChannelFromGameObject(Channel channel)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>channel</code> <span class="xref">Channel</span></dt>
+    <dd>The channel to detach.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_FMOD_Sound_FMOD_Studio_Bus_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,FMOD.Sound,FMOD.Studio.Bus)">
+  RegisterCustomSound(string, Sound, Bus)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Register a Custom sound that has been loaded using AudioUtils. Some vanilla game sounds can be overridden by matching the id to the <span class="xref">FMODAsset.path</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterCustomSound(string id, Sound sound, Bus bus)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Id of your custom sound which is used when checking which sounds to play.</dd>
+    <dt><code>sound</code> <span class="xref">Sound</span></dt>
+    <dd>The pre loaded sound</dd>
+    <dt><code>bus</code> <span class="xref">Bus</span></dt>
+    <dd>The bus to play the sound on.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_FMOD_Sound_System_String_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,FMOD.Sound,System.String)">
+  RegisterCustomSound(string, Sound, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Register a Custom sound that has been loaded using AudioUtils. Some vanilla game sounds can be overridden by matching the id to the <span class="xref">FMODAsset.path</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterCustomSound(string id, Sound sound, string busPath)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Id of your custom sound which is used when checking which sounds to play.</dd>
+    <dt><code>sound</code> <span class="xref">Sound</span></dt>
+    <dd>The pre loaded sound</dd>
+    <dt><code>busPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The bus path to play the sound on.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_Nautilus_FMod_Interfaces_IFModSound_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,Nautilus.FMod.Interfaces.IFModSound)">
+  RegisterCustomSound(string, IFModSound)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Registers a Custom sound by an <a class="xref" href="Nautilus.FMod.Interfaces.IFModSound.html">IFModSound</a> instance. IFModSound instances have custom logic for playing sounds.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RegisterCustomSound(string id, IFModSound fModSound)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Id of your custom sound which is used when checking which sounds to play.</dd>
+    <dt><code>fModSound</code> <a class="xref" href="Nautilus.FMod.Interfaces.IFModSound.html">IFModSound</a></dt>
+    <dd>The sound IFModSound object to register.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_System_String_FMOD_Studio_Bus_FMOD_MODE_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,System.String,FMOD.Studio.Bus,FMOD.MODE)">
+  RegisterCustomSound(string, string, Bus, MODE)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Register a Custom sound by file path. Some vanilla game sounds can be overridden by matching the id to the <span class="xref">FMODAsset.path</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Sound RegisterCustomSound(string id, string filePath, Bus bus, MODE mode = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Id of your custom sound which is used when checking which sounds to play.</dd>
+    <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The file path on disk of the sound file to load.</dd>
+    <dt><code>bus</code> <span class="xref">Bus</span></dt>
+    <dd>The bus to play the sound on.</dd>
+    <dt><code>mode</code> <span class="xref">MODE</span></dt>
+    <dd>The audio MODE of the sound.
+            Standard values of this property can be found in the <a class="xref" href="Nautilus.Utility.AudioUtils.html">AudioUtils</a> class (i.e. <a class="xref" href="Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_3D">StandardSoundModes_3D</a>).</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Sound</span></dt>
+    <dd>the <span class="xref">FMOD.Sound</span> loaded</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_System_String_System_String_FMOD_MODE_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,System.String,System.String,FMOD.MODE)">
+  RegisterCustomSound(string, string, string, MODE)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Register a Custom sound by file path. Some vanilla game sounds can be overridden by matching the id to the <span class="xref">FMODAsset.path</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Sound RegisterCustomSound(string id, string filePath, string busPath, MODE mode = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Id of your custom sound which is used when checking which sounds to play.</dd>
+    <dt><code>filePath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The file path on disk of the sound file to load.</dd>
+    <dt><code>busPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The bus path to play the sound on.</dd>
+    <dt><code>mode</code> <span class="xref">MODE</span></dt>
+    <dd>The audio MODE of the sound.
+            Standard values of this property can be found in the <a class="xref" href="Nautilus.Utility.AudioUtils.html">AudioUtils</a> class (i.e. <a class="xref" href="Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_3D">StandardSoundModes_3D</a>).</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Sound</span></dt>
+    <dd>the <span class="xref">FMOD.Sound</span> loaded</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_UnityEngine_AudioClip_FMOD_Studio_Bus_FMOD_MODE_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,UnityEngine.AudioClip,FMOD.Studio.Bus,FMOD.MODE)">
+  RegisterCustomSound(string, AudioClip, Bus, MODE)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Register a custom sound by an <span class="xref">UnityEngine.AudioClip</span> instance. Some vanilla game sounds can be overridden by matching the id to the <span class="xref">FMODAsset.path</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Sound RegisterCustomSound(string id, AudioClip audio, Bus bus, MODE mode = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Id of your custom sound which is used when checking which sounds to play.</dd>
+    <dt><code>audio</code> <span class="xref">AudioClip</span></dt>
+    <dd>The AudioClip to register.</dd>
+    <dt><code>bus</code> <span class="xref">Bus</span></dt>
+    <dd>The bus to play the sound on.</dd>
+    <dt><code>mode</code> <span class="xref">MODE</span></dt>
+    <dd>The audio MODE of the sound.
+            Standard values of this property can be found in the <a class="xref" href="Nautilus.Utility.AudioUtils.html">AudioUtils</a> class (i.e. <a class="xref" href="Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_3D">StandardSoundModes_3D</a>).</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Sound</span></dt>
+    <dd>the <span class="xref">FMOD.Sound</span> loaded</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_RegisterCustomSound_System_String_UnityEngine_AudioClip_System_String_FMOD_MODE_" data-uid="Nautilus.Handlers.CustomSoundHandler.RegisterCustomSound(System.String,UnityEngine.AudioClip,System.String,FMOD.MODE)">
+  RegisterCustomSound(string, AudioClip, string, MODE)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Register a custom sound by an <span class="xref">UnityEngine.AudioClip</span> instance. Some vanilla game sounds can be overridden by matching the id to the <span class="xref">FMODAsset.path</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Sound RegisterCustomSound(string id, AudioClip audio, string busPath, MODE mode = 0)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Id of your custom sound which is used when checking which sounds to play.</dd>
+    <dt><code>audio</code> <span class="xref">AudioClip</span></dt>
+    <dd>The AudioClip to register.</dd>
+    <dt><code>busPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The bus path to play the sound on.</dd>
+    <dt><code>mode</code> <span class="xref">MODE</span></dt>
+    <dd>The audio MODE of the sound.
+            Standard values of this property can be found in the <a class="xref" href="Nautilus.Utility.AudioUtils.html">AudioUtils</a> class (i.e. <a class="xref" href="Nautilus.Utility.AudioUtils.html#Nautilus_Utility_AudioUtils_StandardSoundModes_3D">StandardSoundModes_3D</a>).</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Sound</span></dt>
+    <dd>the <span class="xref">FMOD.Sound</span> loaded</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_TryGetCustomSound_" data-uid="Nautilus.Handlers.CustomSoundHandler.TryGetCustomSound*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_TryGetCustomSound_System_String_FMOD_Sound__" data-uid="Nautilus.Handlers.CustomSoundHandler.TryGetCustomSound(System.String,FMOD.Sound@)">
+  TryGetCustomSound(string, out Sound)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Try to get a registered custom <span class="xref">FMOD.Sound</span>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetCustomSound(string id, out Sound sound)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Id of the custom sound</dd>
+    <dt><code>sound</code> <span class="xref">Sound</span></dt>
+    <dd>Outputs the <span class="xref">FMOD.Sound</span> if found and null if not found.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>true or false depending on if the id was found</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_TryGetCustomSoundChannel_" data-uid="Nautilus.Handlers.CustomSoundHandler.TryGetCustomSoundChannel*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_TryGetCustomSoundChannel_System_Int32_FMOD_Channel__" data-uid="Nautilus.Handlers.CustomSoundHandler.TryGetCustomSoundChannel(System.Int32,FMOD.Channel@)">
+  TryGetCustomSoundChannel(int, out Channel)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Try to get a playing custom sound channel for an emitter</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryGetCustomSoundChannel(int id, out Channel channel)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The emitter's ID, can be retrieved by calling <code>object.GetInstanceID()</code>.</dd>
+    <dt><code>channel</code> <span class="xref">Channel</span></dt>
+    <dd>Outputs the <span class="xref">FMOD.Channel</span>.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>True if found, otherwise false.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_CustomSoundHandler_TryPlayCustomSound_" data-uid="Nautilus.Handlers.CustomSoundHandler.TryPlayCustomSound*"></a>
+
+  <h3 id="Nautilus_Handlers_CustomSoundHandler_TryPlayCustomSound_System_String_FMOD_Channel__" data-uid="Nautilus.Handlers.CustomSoundHandler.TryPlayCustomSound(System.String,FMOD.Channel@)">
+  TryPlayCustomSound(string, out Channel)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Try to find and play a custom <span class="xref">FMOD.Sound</span> that has been registered.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryPlayCustomSound(string id, out Channel channel)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>id</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Id of the custom sound</dd>
+    <dt><code>channel</code> <span class="xref">Channel</span></dt>
+    <dd>the <span class="xref">FMOD.Channel</span> the sound is playing on.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

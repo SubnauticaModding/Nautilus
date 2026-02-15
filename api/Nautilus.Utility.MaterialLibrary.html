@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class MaterialLibrary </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class MaterialLibrary ">
+      
+      <meta name="description" content="Allows for quick and simple retrieval of any base-game material throughout both Subnautica and Subnautica: Below Zero. Materials can either be fetched directly using their names by accessing the  method, or applied generically across the entirety of a custom prefab via the ReplaceMockMaterials method.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Utility.MaterialLibrary">
+
+
+
+  <h1 id="Nautilus_Utility_MaterialLibrary" data-uid="Nautilus.Utility.MaterialLibrary" class="text-break">
+Class MaterialLibrary  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">Allows for quick and simple retrieval of any base-game material throughout both Subnautica and Subnautica:
+Below Zero. Materials can either be fetched directly using their names by accessing the <a class="xref" href="Nautilus.Utility.MaterialLibrary.html#Nautilus_Utility_MaterialLibrary_FetchMaterial_System_String_IOut_UnityEngine_Material__System_Boolean_">FetchMaterial(string, IOut&lt;Material&gt;, bool)</a>
+method, or applied generically across the entirety of a custom prefab via the ReplaceMockMaterials method.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class MaterialLibrary</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">MaterialLibrary</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Utility_MaterialLibrary_FetchMaterial_" data-uid="Nautilus.Utility.MaterialLibrary.FetchMaterial*"></a>
+
+  <h3 id="Nautilus_Utility_MaterialLibrary_FetchMaterial_System_String_IOut_UnityEngine_Material__System_Boolean_" data-uid="Nautilus.Utility.MaterialLibrary.FetchMaterial(System.String,IOut{UnityEngine.Material},System.Boolean)">
+  FetchMaterial(string, IOut&lt;Material&gt;, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Searches the library for the provided materialName, and loads it from its path, if an entry for
+it exists.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerator FetchMaterial(string materialName, IOut&lt;Material&gt; foundMaterial, bool warnIfFailed = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>materialName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The exact name of the material you wish to retrieve as seen in-game. Case-sensitive!</dd>
+    <dt><code>foundMaterial</code> <span class="xref">IOut</span>&lt;<span class="xref">Material</span>&gt;</dt>
+    <dd>The <span class="xref">TaskResult&lt;&gt;</span> to load the vanilla material into, if found. Otherwise, has its value set to null.</dd>
+    <dt><code>warnIfFailed</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether Nautilus should log a warning if no materials with the provided materialName are found.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_MaterialLibrary_FetchMaterials_" data-uid="Nautilus.Utility.MaterialLibrary.FetchMaterials*"></a>
+
+  <h3 id="Nautilus_Utility_MaterialLibrary_FetchMaterials_System_String___IOut_UnityEngine_Material____System_Boolean_" data-uid="Nautilus.Utility.MaterialLibrary.FetchMaterials(System.String[],IOut{UnityEngine.Material[]},System.Boolean)">
+  FetchMaterials(string[], IOut&lt;Material[]&gt;, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Searches the library for all of the provided materialNames, and loads those materials from their
+paths, if entries for them exist. If only some of the given mat names have entries in the library, this method
+will return all of the vanilla materials it can, and will log warnings for those that it fails to find, by default.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerator FetchMaterials(string[] materialNames, IOut&lt;Material[]&gt; foundMaterials, bool warnIfFailed = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>materialNames</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
+    <dd>An array of the exact material names that you wish to retrieve, as seen in-game. Case-sensitive!</dd>
+    <dt><code>foundMaterials</code> <span class="xref">IOut</span>&lt;<span class="xref">Material</span>[]&gt;</dt>
+    <dd>The <span class="xref">TaskResult&lt;&gt;</span> to load the vanilla materials into, if found.
+            Will contain as many of the requested vanilla materials as can be found within the library.</dd>
+    <dt><code>warnIfFailed</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether Nautilus should log a warning if one of the requested
+            materialNames can not be found in the library.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.ienumerator">IEnumerator</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_MaterialLibrary_GetMaterialPath_" data-uid="Nautilus.Utility.MaterialLibrary.GetMaterialPath*"></a>
+
+  <h3 id="Nautilus_Utility_MaterialLibrary_GetMaterialPath_System_String_" data-uid="Nautilus.Utility.MaterialLibrary.GetMaterialPath(System.String)">
+  GetMaterialPath(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Uses the <span class="xref">Nautilus.Utility.MaterialLibrary._filePathMap</span> to retrieve the path associated with a specified material using the
+materialName, so that it may be loaded when requested.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string GetMaterialPath(string materialName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>materialName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name of the material whose path is being requested.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The path to the resource which should be loaded in order to retrieve the specified material.
+            Points to either a mat, prefab, or scene prefab file. Returns an empty string if the provided
+            materialName does not have an entry within the library.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

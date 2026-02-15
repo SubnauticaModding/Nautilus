@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class LootDistributionHandler </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class LootDistributionHandler ">
+      
+      <meta name="description" content="A handler that manages the distribution of spawned resources throughout the world. Used for fish, items, outcrops, fragments, eggs, etc...">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Handlers.LootDistributionHandler">
+
+
+
+  <h1 id="Nautilus_Handlers_LootDistributionHandler" data-uid="Nautilus.Handlers.LootDistributionHandler" class="text-break">
+Class LootDistributionHandler  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Handlers.html">Handlers</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">A handler that manages the distribution of spawned resources throughout the world. Used for fish, items, outcrops, fragments, eggs, etc...</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class LootDistributionHandler</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">LootDistributionHandler</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_Nautilus_Assets_PrefabInfo_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__UWE_WorldEntityInfo_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(Nautilus.Assets.PrefabInfo,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData},UWE.WorldEntityInfo)">
+  AddLootDistributionData(PrefabInfo, IEnumerable&lt;BiomeData&gt;, WorldEntityInfo)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds in a custom entry into the Loot Distribution of the game.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(PrefabInfo prefabInfo, IEnumerable&lt;LootDistributionData.BiomeData&gt; biomeDistribution, WorldEntityInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>prefabInfo</code> <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a></dt>
+    <dd>The custom prefab which you want to spawn naturally in the game.</dd>
+    <dt><code>biomeDistribution</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</dt>
+    <dd>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</dd>
+    <dt><code>info</code> <span class="xref">WorldEntityInfo</span></dt>
+    <dd>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_BiomeData___" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.BiomeData[])">
+  AddLootDistributionData(string, params BiomeData[])
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds in a custom entry into Loot Distribution of the game.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, params LootDistributionData.BiomeData[] biomeDistribution)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>biomeDistribution</code> <span class="xref">BiomeData</span>[]</dt>
+    <dd>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData)">
+  AddLootDistributionData(string, SrcData)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds in a custom entry into the Loot Distribution of the game.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, LootDistributionData.SrcData data)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>data</code> <span class="xref">SrcData</span></dt>
+    <dd>The <span class="xref">LootDistributionData.SrcData</span> that contains data related to the spawning of a prefab, also contains the path to the prefab.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_LootDistributionData_SrcData_UWE_WorldEntityInfo_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,LootDistributionData.SrcData,UWE.WorldEntityInfo)">
+  AddLootDistributionData(string, SrcData, WorldEntityInfo)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds in a custom entry into the Loot Distribution of the game.
+You must also add the <span class="xref">UWE.WorldEntityInfo</span> into the <span class="xref">UWE.WorldEntityDatabase</span> using <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, LootDistributionData.SrcData data, WorldEntityInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>data</code> <span class="xref">SrcData</span></dt>
+    <dd>The <span class="xref">LootDistributionData.SrcData</span> that contains data related to the spawning of a prefab, also contains the path to the prefab.</dd>
+    <dt><code>info</code> <span class="xref">WorldEntityInfo</span></dt>
+    <dd>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData})">
+  AddLootDistributionData(string, string, IEnumerable&lt;BiomeData&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds in a custom entry into the Loot Distribution of the game.
+You must also add the <span class="xref">UWE.WorldEntityInfo</span> into the <span class="xref">UWE.WorldEntityDatabase</span> using <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, string prefabPath, IEnumerable&lt;LootDistributionData.BiomeData&gt; biomeDistribution)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>prefabPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The prefab path of the prefab.</dd>
+    <dt><code>biomeDistribution</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</dt>
+    <dd>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__UWE_WorldEntityInfo_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData},UWE.WorldEntityInfo)">
+  AddLootDistributionData(string, string, IEnumerable&lt;BiomeData&gt;, WorldEntityInfo)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds in a custom entry into the Loot Distribution of the game.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, string prefabPath, IEnumerable&lt;LootDistributionData.BiomeData&gt; biomeDistribution, WorldEntityInfo info)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>prefabPath</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The prefab path of the prefab.</dd>
+    <dt><code>biomeDistribution</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</dt>
+    <dd>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</dd>
+    <dt><code>info</code> <span class="xref">WorldEntityInfo</span></dt>
+    <dd>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData*"></a>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_AddLootDistributionData_System_String_UWE_WorldEntityInfo_LootDistributionData_BiomeData___" data-uid="Nautilus.Handlers.LootDistributionHandler.AddLootDistributionData(System.String,UWE.WorldEntityInfo,LootDistributionData.BiomeData[])">
+  AddLootDistributionData(string, WorldEntityInfo, params BiomeData[])
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds in a custom entry into Loot Distribution of the game.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AddLootDistributionData(string classId, WorldEntityInfo info, params LootDistributionData.BiomeData[] biomeDistribution)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The classId of the prefab.</dd>
+    <dt><code>info</code> <span class="xref">WorldEntityInfo</span></dt>
+    <dd>The WorldEntityInfo of the prefab. For more information on how to set this up, see <a class="xref" href="Nautilus.Handlers.WorldEntityDatabaseHandler.html">WorldEntityDatabaseHandler</a>.</dd>
+    <dt><code>biomeDistribution</code> <span class="xref">BiomeData</span>[]</dt>
+    <dd>The <span class="xref">LootDistributionData.BiomeData</span> dictating how the prefab should spawn in the world.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData*"></a>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_System_String_BiomeType_System_Single_System_Int32_" data-uid="Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData(System.String,BiomeType,System.Single,System.Int32)">
+  EditLootDistributionData(string, BiomeType, float, int)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Edits Loot Distribution data for existing prefabs.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void EditLootDistributionData(string classId, BiomeType biome, float probability, int count)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The ClassID of the prefab. If unsure, use CraftData.GetClassIdForTechType.</dd>
+    <dt><code>biome</code> <span class="xref">BiomeType</span></dt>
+    <dd>The <span class="xref">BiomeType</span>to change the data for.</dd>
+    <dt><code>probability</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The desired probability.</dd>
+    <dt><code>count</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></dt>
+    <dd>The number to spawn at a time when spawning happens.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_" data-uid="Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData*"></a>
+
+  <h3 id="Nautilus_Handlers_LootDistributionHandler_EditLootDistributionData_System_String_System_Collections_Generic_IEnumerable_LootDistributionData_BiomeData__" data-uid="Nautilus.Handlers.LootDistributionHandler.EditLootDistributionData(System.String,System.Collections.Generic.IEnumerable{LootDistributionData.BiomeData})">
+  EditLootDistributionData(string, IEnumerable&lt;BiomeData&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Edits Loot Distribution data for existing prefabs, for e.g. original game prefabs.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void EditLootDistributionData(string classId, IEnumerable&lt;LootDistributionData.BiomeData&gt; biomeDistribution)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>classId</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The ClassID of the prefab. If unsure, use CraftData.GetClassIdForTechType.</dd>
+    <dt><code>biomeDistribution</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">LootDistributionData</span>.<span class="xref">BiomeData</span>&gt;</dt>
+    <dd>The list of <span class="xref">LootDistributionData.BiomeData</span> that contains information about how/when it should spawn in biomes.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

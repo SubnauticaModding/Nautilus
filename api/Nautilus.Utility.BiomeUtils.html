@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BiomeUtils </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BiomeUtils ">
+      
+      <meta name="description" content="Utility class containing methods related to creating custom biomes.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Utility.BiomeUtils">
+
+
+
+  <h1 id="Nautilus_Utility_BiomeUtils" data-uid="Nautilus.Utility.BiomeUtils" class="text-break">
+Class BiomeUtils  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">Utility class containing methods related to creating custom biomes.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class BiomeUtils</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">BiomeUtils</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Utility_BiomeUtils_CreateBiomeSettings_" data-uid="Nautilus.Utility.BiomeUtils.CreateBiomeSettings*"></a>
+
+  <h3 id="Nautilus_Utility_BiomeUtils_CreateBiomeSettings_UnityEngine_Vector3_System_Single_UnityEngine_Color_System_Single_UnityEngine_Color_System_Single_System_Single_System_Single_System_Single_System_Single_" data-uid="Nautilus.Utility.BiomeUtils.CreateBiomeSettings(UnityEngine.Vector3,System.Single,UnityEngine.Color,System.Single,UnityEngine.Color,System.Single,System.Single,System.Single,System.Single,System.Single)">
+  CreateBiomeSettings(Vector3, float, Color, float, Color, float, float, float, float, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>A shorthand for creating an instance of the <span class="xref">WaterscapeVolume.Settings</span> class.</p>
+<p>A list of base game values can be found on this page: https://subnauticamodding.github.io/Nautilus/tutorials/biomes.html</p></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static WaterscapeVolume.Settings CreateBiomeSettings(Vector3 absorption, float scattering, Color scatteringColor, float murkiness, Color emissive, float emissiveScale = 1, float startDistance = 25, float sunlightScale = 1, float ambientScale = 1, float temperature = 24)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>absorption</code> <span class="xref">Vector3</span></dt>
+    <dd>Attenuation coefficients of light (1/cm), red green and blue respectively. The default value is 100f, 18.29155f, 3.531373f.</dd>
+    <dt><code>scattering</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The strength of light scattering, 1f by default.</dd>
+    <dt><code>scatteringColor</code> <span class="xref">Color</span></dt>
+    <dd>The color of light scattering. Default value is white.</dd>
+    <dt><code>murkiness</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The murkiness of the water. Default value is 1f, recommended range is 0f-20f.</dd>
+    <dt><code>emissive</code> <span class="xref">Color</span></dt>
+    <dd>The emission color of the fog. Default value is black.</dd>
+    <dt><code>emissiveScale</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The emission strength of the fog. Default value is 1f.</dd>
+    <dt><code>startDistance</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The starting distance of the fog. Default value is 25f. Don't make this too high.</dd>
+    <dt><code>sunlightScale</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The strength of sunlight in this biome. Default value is 1f.</dd>
+    <dt><code>ambientScale</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The strength of ambient light in this biome. Default value is 1f.</dd>
+    <dt><code>temperature</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>The temperature of this biome in Celsius. Default value is 24f.</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Settings</span></dt>
+    <dd>An instance of the class with all settings applied.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_BiomeUtils_CreateSkyPrefab_" data-uid="Nautilus.Utility.BiomeUtils.CreateSkyPrefab*"></a>
+
+  <h3 id="Nautilus_Utility_BiomeUtils_CreateSkyPrefab_System_String_UnityEngine_Texture_System_Boolean_System_Boolean_" data-uid="Nautilus.Utility.BiomeUtils.CreateSkyPrefab(System.String,UnityEngine.Texture,System.Boolean,System.Boolean)">
+  CreateSkyPrefab(string, Texture, bool, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Creates a new basic Sky prefab.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static BiomeUtils.SkyPrefabFixer CreateSkyPrefab(string name, Texture specularCube, bool affectedByDayNightCycle = true, bool outdoors = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>name</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name of the Sky, can be anything.</dd>
+    <dt><code>specularCube</code> <span class="xref">Texture</span></dt>
+    <dd>The texture of the Sky, VERY important in determining reflections.</dd>
+    <dt><code>affectedByDayNightCycle</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>If true, the Sky will appear darker at night and brighter at day.</dd>
+    <dt><code>outdoors</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
+    <dd>Whether this sky is outdoors or not (should be false for the interiors of player-made structures).</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="Nautilus.Utility.BiomeUtils.html">BiomeUtils</a>.<a class="xref" href="Nautilus.Utility.BiomeUtils.SkyPrefabFixer.html">SkyPrefabFixer</a></dt>
+    <dd>The SkyPrefabFixer component for further modification (this is necessary to get around a Unity bug).</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
