@@ -4,13 +4,8 @@
       "src": [
         {
           "files": [
-            "*/bin/SN.STABLE/Nautilus.dll"
-          ],
-		  "exclude": [
-                "**/obj/**",
-                "**/bin/**",
-                "_site/**"
-            ]
+            "bin/SN.STABLE/Nautilus.dll"
+          ]
         }
       ],
 	  "shouldSkipMarkup": true,
