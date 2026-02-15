@@ -12,7 +12,7 @@ using UWE;
 namespace Nautilus.Utility;
 
 /// <summary>
-/// Allows for quick and simple retrieval of any base-game material throughout both Subnautica, and Subnautica:
+/// Allows for quick and simple retrieval of any base-game material throughout both Subnautica and Subnautica:
 /// Below Zero. Materials can either be fetched directly using their names by accessing the <see cref="FetchMaterial"/>
 /// method, or applied generically across the entirety of a custom prefab via the <see cref="ReplaceMockMaterials"/> method.
 /// </summary>
@@ -44,8 +44,8 @@ public static class MaterialLibrary
     /// it exists.
     /// </summary>
     /// <param name="materialName">The exact name of the material you wish to retrieve as seen in-game. Case-sensitive!</param>
-    /// <param name="foundMaterial">The <see cref="TaskResult{Material}"/> to load the vanilla material into, if found. Otherwise, has it's value set to null.</param>
-    /// <param name="warnIfFailed">Whether or not Nautilus should log a warning if no materials with the provided <see cref="materialName"/> are found.</param>
+    /// <param name="foundMaterial">The <see cref="TaskResult{Material}"/> to load the vanilla material into, if found. Otherwise, has its value set to null.</param>
+    /// <param name="warnIfFailed">Whether Nautilus should log a warning if no materials with the provided <see cref="materialName"/> are found.</param>
     public static IEnumerator FetchMaterial(string materialName, IOut<Material> foundMaterial, bool warnIfFailed=true)
     {
         Material matResult = null;
@@ -95,7 +95,7 @@ public static class MaterialLibrary
     /// <param name="materialNames">An array of the exact material names that you wish to retrieve, as seen in-game. Case-sensitive!</param>
     /// <param name="foundMaterials">The <see cref="TaskResult{Material}"/> to load the vanilla materials into, if found.
     /// Will contain as many of the requested vanilla materials as can be found within the library.</param>
-    /// <param name="warnIfFailed">Whether or not Nautilus should log a warning if one of the requested
+    /// <param name="warnIfFailed">Whether Nautilus should log a warning if one of the requested
     /// <see cref="materialNames"/> can not be found in the library.</param>
     public static IEnumerator FetchMaterials(string[] materialNames, IOut<Material[]> foundMaterials, bool warnIfFailed=true)
     {
@@ -167,7 +167,7 @@ public static class MaterialLibrary
     /// </summary>
     /// <param name="matPath">The path to the .mat file, relative to the <see cref="AddressablesUtility"/>.</param>
     /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found material into. If no material 
-    /// is found, has it's value set to null.</param>
+    /// is found, has its value set to null.</param>
     private static IEnumerator GetMaterialFromPath(string matPath, IOut<Material> matResult)
     {
         Material loadedMat = null;
@@ -186,14 +186,13 @@ public static class MaterialLibrary
     }
 
     /// <summary>
-    /// Finds and returns vanilla material(s) by first loading an associated Prefab, given that prefab's path, and the
-    /// desired vanilla material name(s). Iterates over every <see cref="Renderer"/> on the Prefab's parent object, and any of its
-    /// children objects, in order to find the material(s) requested.
+    /// Finds and returns vanilla materials by first loading an associated Prefab, given that prefab's path, and the
+    /// desired vanilla material names. Iterates over every <see cref="Renderer"/> on the Prefab's parent object, and any of its
+    /// children objects, in order to find the materials requested.
     /// </summary>
-    /// <param name="materialNames">The name(s) of the material(s) to search for.</param>
+    /// <param name="materialNames">The names of the materials to search for.</param>
     /// <param name="prefabPath">The path to the reference Prefab, for use in the <see cref="PrefabDatabase"/>.</param>
-    /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found material(s) into. Otherwise, has it's value set to null.</param>
-    /// <returns></returns>
+    /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found materials into. Otherwise, has its value set to null.</param>
     private static IEnumerator GetMaterialsFromPrefab(string[] materialNames, string prefabPath, IOut<Material[]> matResult)
     {
         var matResults = new List<Material>();
@@ -254,13 +253,13 @@ public static class MaterialLibrary
     }
 
     /// <summary>
-    /// Finds and returns vanilla material(s) with the specified <see cref="materialNames"/>, by searching through a scene prefab,
-    /// loaded using the given <see cref="sceneName"/>. NOTE: This method won't be able to return vanilla material(s)
+    /// Finds and returns vanilla materials with the specified <see cref="materialNames"/>, by searching through a scene prefab,
+    /// loaded using the given <see cref="sceneName"/>. NOTE: This method won't be able to return vanilla materials
     /// until the specified Scene is loaded via the <see cref="ScenePrefabDatabase"/>.
     /// </summary>
-    /// <param name="materialNames">The name(s) of the material(s) to search the scene prefab for.</param>
+    /// <param name="materialNames">The names of the materials to search the scene prefab for.</param>
     /// <param name="sceneName">The name of the additive scene prefab to load and iterate through for the desired material.</param>
-    /// <param name="matResults">The <see cref="TaskResult{Material}"/> to load the found material into. Otherwise, has it's value set to null.</param>
+    /// <param name="matResults">The <see cref="TaskResult{Material}"/> to load the found material into. Otherwise, has its value set to null.</param>
     private static IEnumerator GetMaterialsFromScene(string[] materialNames, string sceneName, IOut<Material[]> matResults)
     {
         var foundMaterials = new List<Material>();

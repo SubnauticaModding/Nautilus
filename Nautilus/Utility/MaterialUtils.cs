@@ -1,6 +1,7 @@
 using Nautilus.Utility.MaterialModifiers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using BepInEx;
 using Nautilus.Extensions;
 using UnityEngine;
@@ -353,11 +354,12 @@ public static partial class MaterialUtils
     }
     
     /// <summary>
-    /// Iterates over every <see cref="Renderer"/> present on the given <see cref="prefab"/> and any of its
-    /// children, and replaces any custom materials it finds that share the exact same name (case-sensitive) of a
+    /// Iterates over every <see cref="Renderer"/> present on the given <see cref="GameObject"/> and any of its
+    /// children, replacing any material that shares the exact same name (case-sensitive) as a
     /// base-game material with its vanilla counterpart.
     /// </summary>
-    /// <param name="prefab">The custom object you'd like to apply base-game materials to. Children included.</param>
+    /// <param name="prefab">The <see cref="GameObject"/> to apply base-game materials to.
+    /// Includes all children (recursive).</param>
     public static IEnumerator ReplaceMockMaterials(GameObject prefab)
     {
         if (prefab == null)
@@ -370,12 +372,11 @@ public static partial class MaterialUtils
     }
     
     /// <summary>
-    /// Iterates over every <see cref="Renderer"/> present within the <see cref="renderers"/> collection, and replaces
-    /// any custom materials it finds that share the exact same name (case-sensitive) of a base-game material with its
+    /// Iterates over every <see cref="Renderer"/> present within the <paramref name="renderers"/> collection, and replaces
+    /// any material that shares the exact same name (case-sensitive) as a base-game material with its
     /// vanilla counterpart.
     /// </summary>
-    /// <param name="renderers">The generic collection of <see cref="Renderer"/> objects that you would like
-    /// to apply base-game materials to.</param>
+    /// <param name="renderers">The collection of <see cref="Renderer"/> objects to apply base-game materials to.</param>
     public static IEnumerator ReplaceMockMaterials(Renderer[] renderers)
     {
         if (renderers == null || renderers.Length == 0)
@@ -385,7 +386,7 @@ public static partial class MaterialUtils
         }
         
         var relevantRenderers = new List<Renderer>();
-        var requiredMaterials = new List<string>();
+        var requiredMaterials = new HashSet<string>();
 
         foreach (var renderer in renderers)
         {
@@ -401,8 +402,7 @@ public static partial class MaterialUtils
                 
                 if (!MaterialLibrary.GetMaterialPath(filteredMatName).IsNullOrWhiteSpace())
                 {
-                    if(!requiredMaterials.Contains(filteredMatName))
-                        requiredMaterials.Add(filteredMatName);
+                    requiredMaterials.Add(filteredMatName);
                     
                     vanillaMats++;
                 }
@@ -414,8 +414,7 @@ public static partial class MaterialUtils
 
         if (requiredMaterials.Count == 0)
         {
-            InternalLogger.Warn($"Called ReplaceMockMaterials without any vanilla materials! Consider removing" +
-                                $" your call to MaterialUtils.");
+            InternalLogger.Warn("Called ReplaceMockMaterials, but there are no materials to replace!");
             yield break;
         }
 
