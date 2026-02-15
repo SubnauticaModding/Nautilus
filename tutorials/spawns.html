@@ -87,15 +87,16 @@
         <article data-uid="">
 <h1 id="adding-spawns">Adding Spawns</h1>
 
-<p>Most of the time in Subnautica, the game uses two different ways to spawn objects; static spawns that always have a fixed position in the world to spawn in,
-and loot distribution which is biome-based and sudo-random.</p>
-<p>Nautilus offers modders to add spawns to either systems. You can add spawns for your own custom item, you can also edit vanilla spawns,
-or straight up remove them.</p>
+<p>Most of the time in Subnautica, the game uses two main approaches to spawning objects: 1) static spawns that always spawn in the world at a fixed position,
+and 2) runtime loot distribution which is biome-based and pseudo-random.</p>
+<p>Nautilus offers utilities that allow modders to add spawns to either system. You can add spawns for your own custom items, edit vanilla spawns,
+and remove existing random spawns.</p>
+<p>There also exist tools such as the <a href="https://www.nexusmods.com/subnautica/mods/1665">Mod Structure Helper</a>, designed for placing many static spawns with a visual editor.</p>
 <h2 id="coordinated-spawns">Coordinated Spawns</h2>
-<p>Coordinated spawns is Nautilus' version of the aforementioned static spawns. With this system, you are allowed to specify exact world position and rotation spawns for an item.<br>
-You may register one or more coordinated spawn(s) for any item by providing either their class ID, or their tech type.</p>
+<p>The Coordinated Spawns system is Nautilus' implementation of the aforementioned static spawns. With this system, you are allowed to specify exact world positions, rotations and scales for item spawns.<br>
+You may register one or more coordinated spawn(s) for any item by providing either its class ID or tech type.</p>
 <h3 id="examples">Examples</h3>
-<p>The following examples demonstrate the usage of <a class="xref" href="../api/Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a> methods.</p>
+<p>The following examples demonstrate the usage of <a href="xref:Nautilus.Handlers.CoordinatedSpawnsHandler">CoordinatedSpawnsHandler</a> methods.</p>
 <pre><code class="lang-csharp">private void Awake()
 {
     // Adds a Reaper Leviathan to the lava lakes
@@ -130,7 +131,7 @@ private List&lt;Vector3&gt; RandomPositions(Vector3 centerPosition)
     return result;
 }
 </code></pre>
-<p>For custom prefabs, it is advised to use the <a class="xref" href="../api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(SpawnLocation[])</a> method instead of directly interacting with the <a class="xref" href="../api/Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a> class.</p>
+<p>For custom prefabs, it is advised to use the <a href="xref:Nautilus.Assets.Gadgets.GadgetExtensions#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(SpawnLocation[])</a> method instead of directly interacting with the <a href="xref:Nautilus.Handlers.CoordinatedSpawnsHandler">CoordinatedSpawnsHandler</a> class.</p>
 <p>The example below demonstrates the usage of the <code>SetSpawns</code> method.</p>
 <pre><code class="lang-csharp">var blueReaper = new CustomPrefab(&quot;BlueReaper&quot;, &quot;Blue Reaper Leviathan&quot;, null);
            
@@ -148,9 +149,9 @@ blueReaper.SetSpawns(new SpawnLocation(280f, -1400, 47f));
 blueReaper.Register();
 </code></pre>
 <h2 id="loot-distribution">Loot Distribution</h2>
-<p>Loot distribution system is by far the most widely used spawning system in the game. Unlike static spawns, Nautilus does not have it's own version of this system, so
-we will be registering distributions into the game's system.<br>
-Loot distribution only allows adding or editing distributions using a class ID and prefab file name. You normally will also need to provide a biome type, probability, and count for each loot you want to add.</p>
+<p>The loot distribution system is by far the most widely used spawning system in the game for collectible items. Unlike static spawns, Nautilus does not have its own version of this system, so
+we will be registering distributions directly into the game's existing system (which affects existing spawn slots).</p>
+<p>Loot distribution only allows adding or editing distributions using a class ID and prefab file name. You normally will also need to provide a biome type, probability, and count for each loot you want to add.</p>
 <p>Below is a table of all the parameters you may interact with in the loot distribution system.</p>
 <table>
 <thead>
@@ -200,14 +201,15 @@ Loot distribution only allows adding or editing distributions using a class ID a
 </table>
 <div class="WARNING">
 <h5>Warning</h5>
-<p>An Entity Info for each class ID to spawn via loot distribution is required. If an entity info does not have one, the loot distribution will ignore it.</p>
+<p>An Entity Info for each class ID to spawn via loot distribution is required. If an entity info does not have one, the loot distribution will ignore it.
+Also, most spawn slots in the game only spawn entities with Small or Medium entity slot types.</p>
 </div>
 <div class="NOTE">
 <h5>Note</h5>
 <p>Usually, vanilla prefabs do have a world entity info assigned to them. While you can, you don't have to register a new one for those that already have one.</p>
 </div>
 <h3 id="examples-1">Examples</h3>
-<p>The following examples demonstrate the usage of <a class="xref" href="../api/Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a> methods.</p>
+<p>The following examples demonstrate the usage of <a href="xref:Nautilus.Handlers.LootDistributionHandler">LootDistributionHandler</a> methods.</p>
 <pre><code class="lang-csharp">// Drillable Sulphur's class ID
 string drillableSulphurClassId = &quot;697beac5-e39a-4809-854d-9163da9f997e&quot;;
 
@@ -228,7 +230,7 @@ string rockgrubClassId = CraftData.GetClassIdForTechType(TechType.Rockgrub);
 // Prevents the rockgrub from spawning in the Bulb zone caves.
 LootDistributionHandler.EditLootDistributionData(rockgrubClassId, BiomeType.KooshZone_CaveWall, 0f, 0);
 </code></pre>
-<p>For custom prefabs, it is advised to use the <a class="xref" href="../api/Nautilus.Assets.Gadgets.GadgetExtensions.html#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(LootDistributionData.BiomeData[])</a> method instead of directly interacting with the <a class="xref" href="../api/Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a> class.</p>
+<p>For custom prefabs, it is advised to use the <a href="xref:Nautilus.Assets.Gadgets.GadgetExtensions#Nautilus_Assets_Gadgets_GadgetExtensions_SetSpawns_Nautilus_Assets_ICustomPrefab_Nautilus_Assets_SpawnLocation___">ICustomPrefab.SetSpawns(LootDistributionData.BiomeData[])</a> method instead of directly interacting with the <a href="xref:Nautilus.Handlers.LootDistributionHandler">LootDistributionHandler</a> class.</p>
 <p>The example below demonstrates the usage of the <code>SetSpawns</code> method.</p>
 <pre><code class="lang-csharp">// Set the vanilla titanium icon for our item
 CustomPrefab titaniumClone = new CustomPrefab(&quot;TitaniumClone&quot;, &quot;Titanium Clone&quot;, &quot;Titanium clone that makes me go yes.&quot;, SpriteManager.Get(TechType.Titanium));
@@ -252,8 +254,8 @@ titaniumClone.Register();
 </code></pre>
 <h2 id="see-also">See also</h2>
 <ul>
-<li><a class="xref" href="../api/Nautilus.Handlers.CoordinatedSpawnsHandler.html">CoordinatedSpawnsHandler</a></li>
-<li><a class="xref" href="../api/Nautilus.Handlers.LootDistributionHandler.html">LootDistributionHandler</a></li>
+<li><a href="xref:Nautilus.Handlers.CoordinatedSpawnsHandler">CoordinatedSpawnsHandler</a></li>
+<li><a href="xref:Nautilus.Handlers.LootDistributionHandler">LootDistributionHandler</a></li>
 </ul>
 
 </article>

@@ -93,7 +93,7 @@ a user installs many mods, all of which do all their loading at the very beginni
 crashed on a black screen before the main menu even loads. Imagine if, instead, all this loading happened at a time
 when the user knows that loading is <em>going</em> to happen, and can even see the current progress. Imagine if mods could
 do all their loading as part of the game's actual loading screen.</p>
-<p>Enter the <a class="xref" href="../api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenTask</a>.</p>
+<p>Enter the <a href="xref:Nautilus.Handlers.WaitScreenHandler.WaitScreenTask">WaitScreenTask</a>.</p>
 <p>WaitScreenTasks can be used for many different things, but consider using them if:</p>
 <ul>
 <li>Your mod needs to load files (e.g. asset bundles, JSON files)</li>
@@ -111,7 +111,7 @@ screen until every single task is done.</strong></p>
 <h3 id="2-registration-order">2. Registration order</h3>
 <p>The tasks are always completed in the order they were registered. This allows you to set up chains of tasks that depend
 on the result of the previous one. For example, you could create one task that loads an asset bundle, and then a second
-task that uses said bundle to do something else, or register a <a class="xref" href="../api/Nautilus.Json.SaveDataCache.html">SaveDataCache</a> and
+task that uses said bundle to do something else, or register a <a href="xref:Nautilus.Json.SaveDataCache">SaveDataCache</a> and
 then a second task which requires access to save data (<a href="#example-using-a-savedatacache">see below</a>).</p>
 <h3 id="3-three-loading-stages">3. Three Loading Stages</h3>
 <p>During the loading screen, there are three stages you can register a task for: <code>Early</code>, <code>Main</code>, and <code>Late</code>. They differ
@@ -119,7 +119,7 @@ only in their execution timing.</p>
 <p>The <code>Early</code> stage executes almost immediately after the player finishes pressing the button in the main menu and the
 loading screen appears. Crucially, the game is still technically in the main menu. Any GameObjects created during this
 stage will be destroyed during the scene transition to the main game.
-<a class="xref" href="../api/Nautilus.Json.SaveDataCache.html">SaveDataCaches</a> are loaded here.</p>
+<a href="xref:Nautilus.Json.SaveDataCache">SaveDataCaches</a> are loaded here.</p>
 <p>The <code>Main</code> stage executes after the scene has switched to the in-game Main scene. This is the ideal time to initialise
 custom GameObjects or perform any other work that doesn't require special timing. Note that even though the main scene
 has loaded, it is prevented from performing all its usual setup until this mod loading stage is finished. As a result,
@@ -129,8 +129,8 @@ a chance to <code>Awake()</code> yet.</p>
 <code>Awake()</code> and finished their setup. Any tasks that run here can make last-minute changes to the game without worrying
 about the player gaining control before everything is ready.</p>
 <h3 id="4-savedatacache-uses-waitscreentask">4. <code>SaveDataCache</code> uses WaitScreenTask</h3>
-<p><a class="xref" href="../api/Nautilus.Json.SaveDataCache.html">SaveDataCaches</a> also use the <code>WaitScreenTask</code> system. Registering a cache with
-the <a class="xref" href="../api/Nautilus.Handlers.SaveDataHandler.html">SaveDataHandler</a> implicitly registers a task during the <code>Early</code> mod
+<p><a href="xref:Nautilus.Json.SaveDataCache">SaveDataCaches</a> also use the <code>WaitScreenTask</code> system. Registering a cache with
+the <a href="xref:Nautilus.Handlers.SaveDataHandler">SaveDataHandler</a> implicitly registers a task during the <code>Early</code> mod
 loading stage which will load the cache. Any tasks registered after the cache can always rely on save data being ready
 for use.</p>
 <h2 id="simple-example">Simple example</h2>
@@ -153,7 +153,7 @@ private void ExpandPodInventory(WaitScreenHandler.WaitScreenTask task)
 }
 </code></pre>
 <h3 id="example-using-a-savedatacache">Example using a SaveDataCache</h3>
-<p>This example demonstrates how to use save data from a <a class="xref" href="../api/Nautilus.Json.SaveDataCache.html">SaveDataCache</a> in a task.</p>
+<p>This example demonstrates how to use save data from a <a href="xref:Nautilus.Json.SaveDataCache">SaveDataCache</a> in a task.</p>
 <pre><code class="lang-csharp">public class ExampleSaveData : SaveDataCache
 {
     public bool ExampleThing;
@@ -204,7 +204,7 @@ task or by editing the status text during task execution.</p>
 ...
 </code></pre>
 <h3 id="updating-status-during-a-task">Updating status during a task</h3>
-<p>You can set the status text directly through the <a class="xref" href="../api/Nautilus.Handlers.WaitScreenHandler.WaitScreenTask.html">WaitScreenTask</a> argument you are given by Nautilus. Note that
+<p>You can set the status text directly through the <a href="xref:Nautilus.Handlers.WaitScreenHandler.WaitScreenTask">WaitScreenTask</a> argument you are given by Nautilus. Note that
 this only makes sense for longer tasks that take a long time to complete. Your task also <em>must</em> be an async task,
 otherwise the loading screen never gets to run the code that shows any changes you make to the status.</p>
 <pre><code class="lang-csharp">private void Awake()
