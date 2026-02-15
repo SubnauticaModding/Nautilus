@@ -227,9 +227,9 @@ public static class PDAHandler
     }
 
     /// <summary>
-    /// Registers a single encyclopedia entry into the game.
+    /// Registers a single encyclopedia (databank) entry into the game.
     /// </summary>
-    /// <param name="key">Key (internal ID) of this PDA entry, primarily used for the language system.</param>
+    /// <param name="key">The unique internal ID of this PDA entry. Used for the language and story goal systems.</param>
     /// <param name="path"><para>Path to this entry in the databank.</para>
     /// <para>To find examples of this string, open "Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".
     /// Remember to omit the "EncyPath_" prefix from these language keys. An example of a proper value is: "Lifeforms/Fauna/Leviathans".</para>
@@ -247,7 +247,7 @@ public static class PDAHandler
     {
         if (string.IsNullOrEmpty(path))
         {
-            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ClassId '{key}'!");
+            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ID '{key}'!");
             return;
         }
 
@@ -272,6 +272,94 @@ public static class PDAHandler
         if (!string.IsNullOrEmpty(title)) LanguageHandler.SetLanguageLine("Ency_" + key, title);
         if (!string.IsNullOrEmpty(desc)) LanguageHandler.SetLanguageLine("EncyDesc_" + key, desc);
 
+        AddEncyclopediaEntry(encyEntryData);
+    }
+    
+    /// <summary>
+    /// Registers a single encyclopedia (databank) entry into the game.
+    /// </summary>
+    /// <param name="key">The unique internal ID of this PDA entry. Used for the language and story goal systems.</param>
+    /// <param name="path"><para>Path to this entry in the databank.</para>
+    /// <para>To find examples of this string, open "Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".
+    /// Remember to omit the "EncyPath_" prefix from these language keys. An example of a proper value is: "Lifeforms/Fauna/Leviathans".</para>
+    /// <para>A list of all Databank paths can also be found in
+    /// <see href="https://subnauticamodding.github.io/Nautilus/tutorials/databank-entries.html#creating-an-entry-path">this section</see>
+    /// of Nautilus's documentation.</para>
+    /// </param>
+    /// <param name="image">Databank entry image. Can be null.</param>
+    /// <param name="popupImage">Small popup image in the notification. Can be null.</param>
+    /// <param name="unlockSound">Sound on unlock. Typical values are <see cref="UnlockBasic"/> and <see cref="UnlockImportant"/>. If unassigned, will have a default value of <see cref="UnlockBasic"/>.</param>
+    /// <param name="voiceLog">Audio player that will be displayed inside this PDA entry, typically used for voice logs. Can be null.</param>
+    /// <remarks>The corresponding language lines for the PDA entry are Ency_{key} and EncyDesc_{key}.</remarks>
+    public static void AddEncyclopediaEntry(string key, string path, FMODAsset unlockSound = null, Texture2D image = null, Sprite popupImage = null, FMODAsset voiceLog = null)
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ID '{key}'!");
+            return;
+        }
+
+        var encyNodes = path.Split('/');
+
+        if (unlockSound == null)
+        {
+            unlockSound = UnlockBasic;
+        }
+
+        var encyEntryData = new PDAEncyclopedia.EntryData()
+        {
+            key = key,
+            nodes = encyNodes,
+            path = path,
+            image = image,
+            popup = popupImage,
+            sound = unlockSound,
+            audio = voiceLog
+        };
+        
+        AddEncyclopediaEntry(encyEntryData);
+    }
+    
+    /// <summary>
+    /// Registers a single encyclopedia (databank) entry into the game with a voice log.
+    /// </summary>
+    /// <param name="key">The unique internal ID of this PDA entry. Used for the language and story goal systems.</param>
+    /// <param name="path"><para>Path to this entry in the databank.</para>
+    /// <para>To find examples of this string, open "Subnautica_Data\StreamingAssets\SNUnmanagedData\LanguageFiles\English.json" and search for "EncyPath".
+    /// Remember to omit the "EncyPath_" prefix from these language keys. An example of a proper value is: "Lifeforms/Fauna/Leviathans".</para>
+    /// <para>A list of all Databank paths can also be found in
+    /// <see href="https://subnauticamodding.github.io/Nautilus/tutorials/databank-entries.html#creating-an-entry-path">this section</see>
+    /// of Nautilus's documentation.</para>
+    /// </param>
+    /// <param name="unlockSound">Sound on unlock. Typical values are <see cref="UnlockBasic"/> and <see cref="UnlockImportant"/>. If unassigned, will have a default value of <see cref="UnlockBasic"/>.</param>
+    /// <param name="voiceLog">Audio player that will be displayed inside this PDA entry, typically used for voice logs. Can be null.</param>
+    /// <remarks>The corresponding language lines for the PDA entry are Ency_{key} and EncyDesc_{key}.</remarks>
+    public static void AddEncyclopediaEntry(string key, string path, FMODAsset voiceLog, FMODAsset unlockSound = null)
+    {
+        if (string.IsNullOrEmpty(path))
+        {
+            InternalLogger.Error($"Attempting to add encyclopedia entry with null path for ID '{key}'!");
+            return;
+        }
+
+        var encyNodes = path.Split('/');
+
+        if (unlockSound == null)
+        {
+            unlockSound = UnlockBasic;
+        }
+
+        var encyEntryData = new PDAEncyclopedia.EntryData()
+        {
+            key = key,
+            nodes = encyNodes,
+            path = path,
+            image = null,
+            popup = null,
+            sound = unlockSound,
+            audio = voiceLog
+        };
+        
         AddEncyclopediaEntry(encyEntryData);
     }
     
