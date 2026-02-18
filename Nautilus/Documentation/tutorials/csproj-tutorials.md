@@ -48,7 +48,7 @@ Example:
 ```
 
 > [!NOTE]
-> For the sake of consistency, we recommend you use reverse-DNS naming for your GUIDs, i.e. "com.authorname.modname`.
+> For consistency, we recommend you use reverse-DNS naming for your GUIDs, i.e. "com.authorname.modname`.
 
 ## Automatic DLL copying
 
@@ -56,9 +56,9 @@ It is possible to use post-build scripts that automatically place your mod's DLL
 
 #### Step 1
 
-In the same folder as your csproj, create a file named "GameDir.targets".
+In the same folder as your csproj, create a file named "GameDir.targets". This file can be named anything, but for the tutorial, we will use this for consistency.
 
-This should be the entire contents of the file:
+Paste this into the file:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -71,7 +71,8 @@ This should be the entire contents of the file:
 ```
 
 Edit the `GameDir` property's value if needed so the path matches your local Subnautica directory.
-If you understand GitHub well enough, I highly recommend adding this file to your project's gitignore.
+
+It is recommended to add this file to your project's gitignore if this is a shared repository.
 
 #### Step 2
 
@@ -79,18 +80,18 @@ Open your csproj file as shown below:
 
 ![Solution, C# Project, Right Click, Edit Project File](../images/tutorials/edit-csproj.png)
 
-Outside of any PropertyGroups, add the following (the comments are optional!):
+Outside of any PropertyGroups and ItemGroup, add the following (the comments are optional!):
 
 ```xml
-<!--Imports the GameDir.targets file (from the same folder) which should contain the path to the Subnautica directory for the post-build event-->
+<!--Imports the file (from the same folder) that contains the path to the Subnautica directory for the post-build event-->
 <Import Project="GameDir.targets" />
 ```
 
-This basically allows the rest of the csproj file to easily access your GameDir.targets file, and makes the `GameDir` property usable.
+This imports the content of your GameDir.targets into the csproj, allowing the `GameDir` variable to be used despite being located in another file.
 
 #### Step 3
 
-Still in the csproj, add the following outside of any PropertyGroups:
+In the csproj, add the following as a new group:
 
 ```xml
 <!--Defines the PluginsDir property for use in the Post-Build event-->
@@ -99,7 +100,7 @@ Still in the csproj, add the following outside of any PropertyGroups:
 </PropertyGroup>
 ```
 
-You shouldn't have to change this.
+You will likely never need to change the csproj to change the copy paths. The only file that may need to be changed is GameDir.targets.
 
 #### Step 4
 
@@ -116,9 +117,7 @@ Finally, once again in the csproj outside of any PropertyGroups, add the followi
 If you want to do the same for a .pdb file, add this to just before `</Target>`:
 
 ```xml
-    
-    <Copy SourceFiles="$(TargetDir)\(TargetName).pdb" DestinationFolder="$(PluginsDir)\$(TargetName)" />
+<Copy SourceFiles="$(TargetDir)\(TargetName).pdb" DestinationFolder="$(PluginsDir)\$(TargetName)" />
 ```
-Make sure a folder exists in the BepInEx/plugins folder with the same name as your mod DLL.
 
-If everything went correctly, upon building your project the DLL should be automatically placed in the correct location, meaning you do not have to manually move the DLL anymore!
+Assuming everything was set up correctly: upon building your project, the DLL will be automatically copied to the plugins folder, meaning that you do not have to manually move the DLL anymore!
