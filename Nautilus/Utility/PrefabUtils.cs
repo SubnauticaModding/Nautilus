@@ -428,7 +428,7 @@ public static class PrefabUtils
             return;
         }
 
-        var child = Object.Instantiate(prefab);
+        var child = UWE.Utils.InstantiateDeactivated(prefab);
         var childTransform = child.transform;
 
         childTransform.SetParent(parentObject.transform);
@@ -452,6 +452,8 @@ public static class PrefabUtils
             }
         }
 
+        child.SetActive(true);
+        
         result?.Set(child);
     }
 }
