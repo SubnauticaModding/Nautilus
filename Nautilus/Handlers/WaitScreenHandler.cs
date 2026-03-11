@@ -26,16 +26,19 @@ public static class WaitScreenHandler
     /// <param name="description">An optional description to give users detailed information about what your task is
     /// doing. Can be updated even while your task is executing by setting
     /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
-    public static void RegisterEarlyLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
+    /// <param name="priority">The priority at which your mod must load. The higher priority number the earlier the mod will load in the load order</param>
+    public static void RegisterEarlyLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null, int priority = 10)
     {
-        WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
+        WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description + $" - Priority {priority}!", priority));
+        WaitScreenPatcher.EarlyInitTasks.Sort((x, y) => y.Priority.CompareTo(x.Priority));
     }
 
     /// <inheritdoc cref="RegisterEarlyLoadTask"/>
     public static void RegisterEarlyAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
-        string description = null)
+        string description = null, int priority = 10)
     {
-        WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
+        WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description + $" - Priority {priority}!", priority));
+        WaitScreenPatcher.EarlyInitTasks.Sort((x, y) => y.Priority.CompareTo(x.Priority));
     }
 
     /// <summary>
@@ -54,16 +57,19 @@ public static class WaitScreenHandler
     /// <param name="description">An optional description to give users detailed information about what your task is
     /// doing. Can be updated even while your task is executing by setting
     /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
-    public static void RegisterLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
+    /// <param name="priority">The priority at which your mod must load. The higher priority number the earlier the mod will load in the load order</param>
+    public static void RegisterLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null, int priority = 10)
     {
-        WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
+        WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, description + $" - Priority {priority}!", priority));
+        WaitScreenPatcher.InitTasks.Sort((x, y) => y.Priority.CompareTo(x.Priority));
     }
 
     /// <inheritdoc cref="RegisterLoadTask"/>
     public static void RegisterAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
-        string description = null)
+        string description = null, int priority = 10)
     {
-        WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
+        WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, description + $" - Priority {priority}!", priority));
+        WaitScreenPatcher.InitTasks.Sort((x, y) => y.Priority.CompareTo(x.Priority));
     }
 
     /// <summary>
@@ -79,16 +85,19 @@ public static class WaitScreenHandler
     /// <param name="description">An optional description to give users detailed information about what your task is
     /// doing. Can be updated even while your task is executing by setting
     /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
-    public static void RegisterLateLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
+    /// <param name="priority">The priority at which your mod must load. The higher priority number the earlier the mod will load in the load order</param>
+    public static void RegisterLateLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null, int priority = 10)
     {
-        WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
+        WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description + $" - Priority {priority}!", priority));
+        WaitScreenPatcher.LateInitTasks.Sort((x, y) => y.Priority.CompareTo(x.Priority));
     }
 
     /// <inheritdoc cref="RegisterLateLoadTask"/>
     public static void RegisterLateAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
-        string description = null)
+        string description = null, int priority = 10)
     {
-        WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description));
+        WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, description + $" - Priority {priority}!", priority));
+        WaitScreenPatcher.LateInitTasks.Sort((x, y) => y.Priority.CompareTo(x.Priority));
     }
 
     /// <summary>
@@ -111,20 +120,23 @@ public static class WaitScreenHandler
 
         internal readonly Action<WaitScreenTask> ModActionSync;
         internal readonly Func<WaitScreenTask, IEnumerator> ModActionAsync;
+        internal readonly int Priority;
 
 
-        internal WaitScreenTask(string modName, Action<WaitScreenTask> action, string description = null)
+        internal WaitScreenTask(string modName, Action<WaitScreenTask> action, string description = null, int priority = 0)
         {
             ModName = modName;
             ModActionSync = action;
             Status = description;
+            Priority = priority;
         }
 
-        internal WaitScreenTask(string modName, Func<WaitScreenTask, IEnumerator> action, string description = null)
+        internal WaitScreenTask(string modName, Func<WaitScreenTask, IEnumerator> action, string description = null, int priority = 0)
         {
             ModName = modName;
             ModActionAsync = action;
             Status = description;
+            Priority = priority;
         }
     }
 }
