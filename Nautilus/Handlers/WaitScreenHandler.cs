@@ -30,22 +30,12 @@ public static class WaitScreenHandler
     public static void RegisterEarlyLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
     {
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description));
-        WaitScreenPatcher.EarlyInitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0 ? comparison : x.Index.CompareTo(y.Index);
-        });
     }
     /// <inheritdoc cref="RegisterEarlyLoadTask"/>
     public static void RegisterEarlyAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction, 
         string description = null)
     {
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description));
-        WaitScreenPatcher.EarlyInitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0 ? comparison : x.Index.CompareTo(y.Index);
-        });
     }
     
     /// <summary>
@@ -69,11 +59,6 @@ public static class WaitScreenHandler
     public static void RegisterPriorityEarlyLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
     {
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description, priority));
-        WaitScreenPatcher.EarlyInitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0 ? comparison : x.Index.CompareTo(y.Index);
-        });
     }
 
     /// <inheritdoc cref="RegisterPriorityEarlyLoadTask"/>
@@ -81,11 +66,6 @@ public static class WaitScreenHandler
         Priority priority, string description = null)
     {
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description, priority));
-        WaitScreenPatcher.EarlyInitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0 ? comparison : x.Index.CompareTo(y.Index);
-        });
     }
 
     /// <summary>
@@ -107,11 +87,6 @@ public static class WaitScreenHandler
     public static void RegisterLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
     {
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description));
-        WaitScreenPatcher.InitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0 ? comparison : x.Index.CompareTo(y.Index);
-        });
     }
 
     /// <inheritdoc cref="RegisterLoadTask"/>
@@ -119,11 +94,6 @@ public static class WaitScreenHandler
         string description = null)
     {
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description));
-        WaitScreenPatcher.InitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0 ? comparison : x.Index.CompareTo(y.Index);
-        });
     }
     
     /// <summary>
@@ -146,11 +116,6 @@ public static class WaitScreenHandler
     public static void RegisterPriorityLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
     {
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description, priority));
-        WaitScreenPatcher.InitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0 ? comparison : x.Index.CompareTo(y.Index);
-        });
     }
     
     /// <inheritdoc cref="RegisterPriorityLoadTask"/>
@@ -158,11 +123,6 @@ public static class WaitScreenHandler
         Priority priority, string description = null)
     {
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description, priority));
-        WaitScreenPatcher.InitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0 ? comparison : x.Index.CompareTo(y.Index);
-        });
     }
 
     /// <summary>
@@ -181,14 +141,6 @@ public static class WaitScreenHandler
     public static void RegisterLateLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
     {
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description));
-        WaitScreenPatcher.LateInitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0
-                ? comparison
-                : x.Index.CompareTo(y.Index);
-            
-        });
     }
 
     /// <inheritdoc cref="RegisterLateLoadTask"/>
@@ -196,14 +148,6 @@ public static class WaitScreenHandler
         string description = null)
     {
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description));
-        WaitScreenPatcher.LateInitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0
-                ? comparison
-                : x.Index.CompareTo(y.Index);
-            
-        });
     }
     
     /// <summary>
@@ -223,13 +167,6 @@ public static class WaitScreenHandler
     public static void RegisterPriorityLateLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
     {
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description, priority));
-        WaitScreenPatcher.LateInitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0
-                ? comparison
-                : x.Index.CompareTo(y.Index);
-        });
     }
     
     /// <inheritdoc cref="RegisterPriorityLateLoadTask"/>
@@ -237,13 +174,6 @@ public static class WaitScreenHandler
         Priority priority, string description = null)
     {
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description, priority));
-        WaitScreenPatcher.LateInitTasks.Sort((x, y) =>
-        {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0
-                ? comparison
-                : x.Index.CompareTo(y.Index);
-        });
     }
 
     /// <summary>

@@ -139,6 +139,13 @@ internal static class WaitScreenPatcher
     /// </summary>
     private static IEnumerator ProcessModTasks(List<WaitScreenHandler.WaitScreenTask> tasks, WaitScreen.ManualWaitItem loadingStage)
     {
+        tasks.Sort((x, y) =>
+        {
+            var comparison = y.Priority.CompareTo(x.Priority);
+            return comparison != 0
+                ? comparison
+                : x.Index.CompareTo(y.Index);
+        });
         var error = false;
         for (int i = 0; i < tasks.Count; i++)
         {
