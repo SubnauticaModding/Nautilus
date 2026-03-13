@@ -29,14 +29,12 @@ public static class WaitScreenHandler
     /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
     public static void RegisterEarlyLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description));
     }
     /// <inheritdoc cref="RegisterEarlyLoadTask"/>
     public static void RegisterEarlyAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction, 
         string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description));
     }
     
@@ -60,7 +58,6 @@ public static class WaitScreenHandler
     /// <param name="priority">The priority at which your mod must load. The higher priority number the earlier the mod will load in the load order</param>
     public static void RegisterPriorityEarlyLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description, priority));
     }
 
@@ -68,7 +65,6 @@ public static class WaitScreenHandler
     public static void RegisterPriorityEarlyAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
         Priority priority, string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description, priority));
     }
 
@@ -90,7 +86,6 @@ public static class WaitScreenHandler
     /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
     public static void RegisterLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description));
     }
 
@@ -98,7 +93,6 @@ public static class WaitScreenHandler
     public static void RegisterAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
         string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description));
     }
     
@@ -121,7 +115,6 @@ public static class WaitScreenHandler
     /// <param name="priority">The priority at which your mod must load. May cast ints to <see cref="Priority"/>. The higher priority number the earlier the mod will load in the load order</param>
     public static void RegisterPriorityLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description, priority));
     }
     
@@ -129,7 +122,6 @@ public static class WaitScreenHandler
     public static void RegisterPriorityAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
         Priority priority, string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description, priority));
     }
 
@@ -148,7 +140,6 @@ public static class WaitScreenHandler
     /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
     public static void RegisterLateLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description));
     }
 
@@ -156,7 +147,6 @@ public static class WaitScreenHandler
     public static void RegisterLateAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
         string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description));
     }
     
@@ -176,7 +166,6 @@ public static class WaitScreenHandler
     /// <param name="priority">The priority at which your mod must load. May cast ints to <see cref="Priority"/>. The higher priority number the earlier the mod will load in the load order</param>
     public static void RegisterPriorityLateLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description, priority));
     }
     
@@ -184,11 +173,8 @@ public static class WaitScreenHandler
     public static void RegisterPriorityLateAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction, 
         Priority priority, string description = null)
     {
-        if (FreezeRegistry) return;
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description, priority));
     }
-
-    internal static bool FreezeRegistry = false;
 
     /// <summary>
     /// Represents the unit of work performed by a mod during the loading screen.
