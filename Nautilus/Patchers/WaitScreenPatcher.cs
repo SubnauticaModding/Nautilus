@@ -141,10 +141,12 @@ internal static class WaitScreenPatcher
     {
         tasks.Sort((x, y) =>
         {
-            var comparison = y.Priority.CompareTo(x.Priority);
-            return comparison != 0
-                ? comparison
-                : x.Index.CompareTo(y.Index);
+            var comparison = y.Priority.CompareTo(x.Priority); 
+            if (comparison != 0)
+            {
+                return comparison;
+            }
+            return x.Index.CompareTo(y.Index);
         });
         var error = false;
         for (int i = 0; i < tasks.Count; i++)

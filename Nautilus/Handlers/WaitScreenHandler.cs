@@ -38,52 +38,22 @@ public static class WaitScreenHandler
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description));
     }
     
-    /// <summary>
-    /// Register a task for doing something very early during the loading screen.
-    /// <br /><br />
-    /// The task will execute almost immediately after the user presses the button to start a game, once the loading
-    /// screen fades in. This makes the timing ideal for loading save data or other data that does not directly depend
-    /// on objects in the game.
-    /// <br />
-    /// Do not use this task to set up GameObjects for your mod, as at this point the game is still in the MainMenu
-    /// scene and any GameObjects you create now will be destroyed once the in-game Main scene is loaded. Consider using
-    /// <see cref="RegisterPriorityAsyncLoadTask"/> or <see cref="RegisterPriorityLateAsyncLoadTask"/> for that instead.
-    /// </summary>
-    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on. Accepts a
-    /// language key and can optionally be localised with <see cref="LanguageHandler"/>.</param>
-    /// <param name="loadingFunction">The function that will be called.</param>
-    /// <param name="description">An optional description to give users detailed information about what your task is
-    /// doing. Can be updated even while your task is executing by setting
-    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
+    /// <inheritdoc cref="RegisterEarlyLoadTask"/>
     /// <param name="priority">The priority at which your mod must load. The higher priority number the earlier the mod will load in the load order</param>
-    public static void RegisterPriorityEarlyLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
+    public static void RegisterEarlyLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
     {
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description, priority));
     }
 
-    /// <inheritdoc cref="RegisterPriorityEarlyLoadTask"/>
-    public static void RegisterPriorityEarlyAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
+    /// <inheritdoc cref="RegisterEarlyLoadTask"/>
+    public static void RegisterEarlyAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
         Priority priority, string description = null)
     {
         WaitScreenPatcher.EarlyInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.EarlyInitTasks.Count, description, priority));
     }
 
-    /// <summary>
-    /// Register a task for doing something midway through the loading screen.
-    /// <br /><br />
-    /// The task will execute just after the Main scene has finished loading in, meaning any GameObjects created during
-    /// this task will not be destroyed by a unity scene switch.
-    /// <br />
-    /// However, nothing in the game exists yet. You cannot access in-game concepts like Player.main, EscapePod.main or
-    /// similar at this time during the loading process. For that purpose, consider using
-    /// <see cref="RegisterLateAsyncLoadTask"/>.
-    /// </summary>
-    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on. Accepts a
-    /// language key and can optionally be localised with <see cref="LanguageHandler"/>.</param>
-    /// <param name="loadingFunction">The function that will be called.</param>
-    /// <param name="description">An optional description to give users detailed information about what your task is
-    /// doing. Can be updated even while your task is executing by setting
-    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
+    /// <inheritdoc cref="RegisterLoadTask"/>
+    /// <param name="priority">The priority at which your mod must load. May cast ints to <see cref="Priority"/>. The higher priority number the earlier the mod will load in the load order</param>
     public static void RegisterLoadTask(string modName, Action<WaitScreenTask> loadingFunction, string description = null)
     {
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description));
@@ -96,30 +66,15 @@ public static class WaitScreenHandler
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description));
     }
     
-    /// <summary>
-    /// Register a task for doing something midway through the loading screen.
-    /// <br /><br />
-    /// The task will execute just after the Main scene has finished loading in, meaning any GameObjects created during
-    /// this task will not be destroyed by a unity scene switch.
-    /// <br />
-    /// However, nothing in the game exists yet. You cannot access in-game concepts like Player.main, EscapePod.main or
-    /// similar at this time during the loading process. For that purpose, consider using
-    /// <see cref="RegisterPriorityLateAsyncLoadTask"/>.
-    /// </summary>
-    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on. Accepts a
-    /// language key and can optionally be localised with <see cref="LanguageHandler"/>.</param>
-    /// <param name="loadingFunction">The function that will be called.</param>
-    /// <param name="description">An optional description to give users detailed information about what your task is
-    /// doing. Can be updated even while your task is executing by setting
-    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
+    /// <inheritdoc cref="RegisterLoadTask"/>
     /// <param name="priority">The priority at which your mod must load. May cast ints to <see cref="Priority"/>. The higher priority number the earlier the mod will load in the load order</param>
-    public static void RegisterPriorityLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
+    public static void RegisterLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
     {
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description, priority));
     }
     
-    /// <inheritdoc cref="RegisterPriorityLoadTask"/>
-    public static void RegisterPriorityAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
+    /// <inheritdoc cref="RegisterLoadTask"/>
+    public static void RegisterAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction,
         Priority priority, string description = null)
     {
         WaitScreenPatcher.InitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.InitTasks.Count, description, priority));
@@ -150,27 +105,15 @@ public static class WaitScreenHandler
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description));
     }
     
-    /// <summary>
-    /// Register a task for doing something just before the loading screen ends and the player gains control.
-    /// <br /><br />
-    /// The task will execute at the last possible moment before the loading screen ends. The game has finished all its
-    /// setup at this point and is only waiting for any tasks registered through this method. Use this method for tasks
-    /// that heavily rely on other GameObjects or singletons to be present, such as the Player, Inventory, or other mods.
-    /// </summary>
-    /// <param name="modName">The name of your mod. Will be displayed while this task is being worked on. Accepts a
-    /// language key and can optionally be localised with <see cref="LanguageHandler"/>.</param>
-    /// <param name="loadingFunction">The function that will be called.</param>
-    /// <param name="description">An optional description to give users detailed information about what your task is
-    /// doing. Can be updated even while your task is executing by setting
-    /// <see cref="WaitScreenTask"/>.<see cref="WaitScreenTask.Status"/>. Accepts language keys for localisation.</param>
+    /// <inheritdoc cref="RegisterLateLoadTask"/>
     /// <param name="priority">The priority at which your mod must load. May cast ints to <see cref="Priority"/>. The higher priority number the earlier the mod will load in the load order</param>
-    public static void RegisterPriorityLateLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
+    public static void RegisterLateLoadTask(string modName, Action<WaitScreenTask> loadingFunction, Priority priority, string description = null)
     {
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description, priority));
     }
-    
-    /// <inheritdoc cref="RegisterPriorityLateLoadTask"/>
-    public static void RegisterPriorityLateAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction, 
+
+    /// <inheritdoc cref="RegisterLateLoadTask"></inheritdoc>
+    public static void RegisterLateAsyncLoadTask(string modName, Func<WaitScreenTask, IEnumerator> loadingFunction, 
         Priority priority, string description = null)
     {
         WaitScreenPatcher.LateInitTasks.Add(new WaitScreenTask(modName, loadingFunction, WaitScreenPatcher.LateInitTasks.Count, description, priority));
