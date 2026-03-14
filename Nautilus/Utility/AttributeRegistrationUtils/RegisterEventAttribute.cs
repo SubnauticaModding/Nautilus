@@ -1,0 +1,32 @@
+using System;
+using System.Reflection;
+
+namespace Nautilus.Utility.AttributeRegistrationUtils;
+
+
+/// <summary>
+/// Attributes a method for use with the <see cref="RegisterEventAttributeLoader"/>.
+/// </summary>
+/// <param name="iD"><b><i>Unique</i></b> ID for this registration load event. Failure to have a unique ID (including between other mods) will result in errors</param>
+/// <param name="loadAfterIDs">List of IDs that should be loaded before this one. Can be from a different registry execute call or mod.</param>
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+public sealed class RegisterEventAttribute(string iD, params string[] loadAfterIDs) : System.Attribute
+{
+    /// <summary>
+    /// <b><i>Unique</i></b> ID for this registration load event. Failure to have a unique ID will result in errors
+    /// </summary>
+    public readonly string registryID = iD;
+    
+    /// <summary>
+    /// List of IDs that should be loaded before this one. Can be from a different registry execute call or mod.
+    /// </summary>
+    public readonly string[] loadAfterIDs = loadAfterIDs;
+    
+    /// <summary>
+    /// The associated method with this attribute. NOTE: the methodInfo is null until a <see cref="RegisterEventAttributeLoader"/> parses this attribute.
+    /// </summary>
+    public MethodInfo methodInfo { internal set; get; }
+
+    //used to associate this attribute with a specific loader as they can have differing injectors. Only set during parsing
+    internal RegisterEventAttributeLoader loader;
+}
