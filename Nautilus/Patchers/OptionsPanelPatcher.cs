@@ -36,8 +36,7 @@ internal class OptionsPanelPatcher
         harmony.PatchAll(typeof(ScrollPosKeeper));
         harmony.PatchAll(typeof(ModOptionsHeadingsToggle));
     }
-
-    // 'Mods' tab also added in QModManager (is it added in BepInEx?), so we can't rely on 'modsTab' in AddTabs_Postfix
+    
     [HarmonyPostfix]
     [HarmonyPatch(typeof(uGUI_TabbedControlsPanel), nameof(uGUI_TabbedControlsPanel.AddTab))]
     internal static void AddTab_Postfix(uGUI_TabbedControlsPanel __instance, string label, int __result)
