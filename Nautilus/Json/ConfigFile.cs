@@ -80,7 +80,7 @@ public abstract class ConfigFile : IJsonFile
     /// {
     ///     public KeyCode ActivationKey { get; set; } = KeyCode.Escape;
     ///     public MyConfig() : base("options", "Config Files") { }
-    ///     // The config file will be stored at the path "BepInEx\plugins\YourModName\Config Files\options.json"
+    ///     // The config file will be stored at the path "BepInEx\config\YourModName\Config Files\options.json"
     /// }
     /// </code>
     /// </example>
