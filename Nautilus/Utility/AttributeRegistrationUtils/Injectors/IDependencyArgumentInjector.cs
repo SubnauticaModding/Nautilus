@@ -23,6 +23,7 @@ public interface IDependencyArgumentInjector
     /// The <see cref="Type"/> the injector targets. The Type can either represent the argument type or the type behind an <see cref="Attribute"/>.
     /// If the injector does not search for a type or attribute attached to the argument, this should return null;
     /// </summary>
+    /// <remarks>Internally this is only used for efficient lookups to Injectors. The injector must return an expected value for <see cref="TryInjectToArgument"/> if it passes the type check, otherwise you may run into null objects being passed</remarks>
     /// <returns>The <see cref="Type"/> the injector targets</returns>
     public Type InjectorTargetType();
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Nautilus.Assets;
 using Nautilus.Utility.AttributeRegistrationUtils.Injectors;
 using UnityEngine;
 using Object = System.Object;
@@ -26,7 +25,8 @@ internal class RegisterEventAttributeLoader
     private static readonly HashSet<string> _idsRegistered = new();
     
     //the key represents which id the registry is next waiting for.
-    //the list of registries is the events waiting for key to be loaded.
+    //the list of registries is the events waiting for key to be loaded,
+    //these will attempt to execute when the key is but may return under a different key if there are still dependencies to check.
     private static readonly Dictionary<string, List<RegisterEventAttribute>> _deferredRegistrations = new();
     
     private RegisterEventAttributeLoader(Assembly assemblyToSearch, string namespaceFilter)
@@ -78,7 +78,7 @@ internal class RegisterEventAttributeLoader
                 }
 
                 //It is allowed to define multiple RegisterEventAttributes for a method, so we must parse all of them
-                //(Yes it's kinda cursed but it's useful in some edge cases)
+                //(Yes it's kinda cursed, but it might be useful to someone in certain cases)
                 foreach (RegisterEventAttribute attribute in attributes)
                 {
                     attribute.methodInfo = method;
@@ -101,7 +101,12 @@ internal class RegisterEventAttributeLoader
             attribute.loader.ExecuteMethod(attribute);
             return;
         }
-        
+
+        if (DependencyCyclic(attribute.registryID, firstFailedDependency, out string chain))
+        {
+            throw new Exception($"Cyclic dependency registrations found! Dependency chain: {chain}");
+        }
+
         if(_deferredRegistrations.TryGetValue(firstFailedDependency, out var list)){
             list.Add(attribute);
         }
@@ -111,6 +116,50 @@ internal class RegisterEventAttributeLoader
             newDependentList.Add(attribute);
             _deferredRegistrations.Add(firstFailedDependency, newDependentList);
         }
+    }
+    
+    private static bool DependencyCyclic(string registryID, string dependencyID, out string chain)
+    {
+        if (registryID == dependencyID)
+        {
+            chain = $"{registryID},{dependencyID}";
+            return true;
+        }
+        
+        //fancy c# shit put 2 types :0
+        Stack<(string registry, string pathTraversed)> toVisit = new();
+        HashSet<string> visited = new();
+
+        toVisit.Push((registryID, registryID));
+
+        while (toVisit.Count > 0)
+        {
+            var (current, path) = toVisit.Pop();
+
+            if (!visited.Add(current))
+                continue;
+
+            if (!_deferredRegistrations.TryGetValue(current, out var waiting))
+                continue;
+
+            foreach (var attr in waiting)
+            {
+                if (attr.registryID == dependencyID)
+                {
+                    path += $",{dependencyID}";
+                    path += $",{registryID}";//Add the start to the end to clearly show the path loops
+                    
+                    //The _deferredRegistrations stores dependencies in reverse (dependency, registry). So since we use it to create the chain, we must reverse for intuitive output
+                    //This has the benefit of only checking deferred registration for cyclic issues, but we have to reverse at the very end.
+                    chain = string.Join(" -> ", path.Split(',').Reverse());
+                    return true;
+                }
+                toVisit.Push((attr.registryID, path + $",{attr.registryID}"));
+            }
+        }
+
+        chain = null;
+        return false;
     }
 
     private static bool DependenciesFulfilled(RegisterEventAttribute registryEventAttribute, out string firstUnloadedDependency)
@@ -160,8 +209,10 @@ internal class RegisterEventAttributeLoader
         _idsRegistered.Add(attribute.registryID);
                 
         //check and load for any that depended on this ID
-        if(_deferredRegistrations.TryGetValue(attribute.registryID, out var list))
-            list.ForEach(HandleAttribute);
+        if (!_deferredRegistrations.TryGetValue(attribute.registryID, out var list)) return;
+        //remove the dependency from the deferred list, saves a bit of memory but not technically required.
+        _deferredRegistrations.Remove(attribute.registryID);
+        list.ForEach(HandleAttribute);
     }
 
     //Priority: Parameter/Argument attribute injector -> Type of argument injector -> Argument name injector.

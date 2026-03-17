@@ -23,8 +23,9 @@ public sealed class RegisterEventAttribute(string iD, params string[] loadAfterI
     public readonly string[] loadAfterIDs = loadAfterIDs;
     
     /// <summary>
-    /// The associated method with this attribute. NOTE: the methodInfo is null until a <see cref="RegisterEventAttributeLoader"/> parses this attribute.
+    /// The associated method with this attribute.
     /// </summary>
+    /// <remarks>NOTE: the methodInfo is null until a <see cref="RegisterEventAttributeLoader"/> parses this attribute.</remarks>
     public MethodInfo methodInfo { internal set; get; }
 
     //used to associate this attribute with a specific loader as they can have differing injectors. Only set during parsing
