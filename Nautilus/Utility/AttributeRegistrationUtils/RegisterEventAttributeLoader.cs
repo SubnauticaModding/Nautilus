@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BepInEx.Logging;
 using Nautilus.Utility.AttributeRegistrationUtils.Injectors;
 using UnityEngine;
 using Object = System.Object;
@@ -149,8 +150,8 @@ internal class RegisterEventAttributeLoader
                     path += $",{dependencyID}";
                     path += $",{registryID}";//Add the start to the end to clearly show the path loops
                     
-                    //The _deferredRegistrations stores dependencies in reverse (dependency, registry). So since we use it to create the chain, we must reverse for intuitive output
-                    //This has the benefit of only checking deferred registration for cyclic issues, but we have to reverse at the very end.
+                    //The _deferredRegistrations stores dependencies in reverse (ID, attributes waiting on ID) to how the Attributes are set up.
+                    //This has the benefit of only checking deferred registration for cyclic issues, but we have to reverse at the very end to make it logical to what they typed.
                     chain = string.Join(" -> ", path.Split(',').Reverse());
                     return true;
                 }
@@ -245,5 +246,14 @@ internal class RegisterEventAttributeLoader
         
         valueToInject = null;
         return false;
+    }
+
+    internal static void LogWarningsForUnloadedDependencies()
+    {
+        foreach (KeyValuePair<String, List<RegisterEventAttribute>> unloadedRegistryID in _deferredRegistrations)
+        {
+            string registriesWaitingForDependency = string.Join(", ", unloadedRegistryID.Value.Select(attribute => attribute.registryID));
+            InternalLogger.Log($"Registry(ies) {registriesWaitingForDependency} could not be loaded due to missing dependency: {unloadedRegistryID.Key}", LogLevel.Warning);
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using Nautilus.Utility.AttributeRegistrationUtils;
 using TMPro;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -128,6 +129,8 @@ internal static class WaitScreenPatcher
         yield return ProcessModTasks(LateInitTasks, lateLoading);
         lateLoading.SetProgress(1f);
         WaitScreen.Remove(lateLoading);
+
+        RegisterEventAttributeLoader.LogWarningsForUnloadedDependencies();
 
         // Destroy the status display. In SN this would have persisted anyway, but in BZ it would get cleaned up
         // on return to main menu.
