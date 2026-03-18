@@ -21,7 +21,6 @@ internal class RegisterEventAttributeLoader
     private readonly List<IDependencyArgumentInjector> _dependencyArgumentInjectors = new();
 
     private readonly Assembly _assemblyToSearch;
-    private readonly string _namespaceToSearch;
 
     private static readonly HashSet<string> _idsRegistered = new();
     
@@ -30,12 +29,11 @@ internal class RegisterEventAttributeLoader
     //these will attempt to execute when the key is but may return under a different key if there are still dependencies to check.
     private static readonly Dictionary<string, List<RegisterEventAttribute>> _deferredRegistrations = new();
     
-    private RegisterEventAttributeLoader(Assembly assemblyToSearch, string namespaceFilter)
+    private RegisterEventAttributeLoader(Assembly assemblyToSearch)
     {
         _assemblyToSearch = assemblyToSearch;
-        _namespaceToSearch = namespaceFilter;
-
     }
+    
     private void RegisterInjectors(IDependencyArgumentInjector[] injectors)
     {
         foreach (IDependencyArgumentInjector injector in injectors)
@@ -46,16 +44,9 @@ internal class RegisterEventAttributeLoader
         }
     }
     
-    internal static void ExecuteAssemblyAttributeRegistries(Assembly assemblyToSearch, string namespaceFilter = null, AssetBundle assetBundle = null)
+    internal static void ExecuteAssemblyAttributeRegistries(Assembly assemblyToSearch, IDependencyArgumentInjector[] injectors)
     {
-        RegisterEventAttributeLoader loader = new(assemblyToSearch, namespaceFilter);
-        loader.RegisterInjectors([new AssetBundleAssetInjector(assetBundle), new PrefabInfoInjector(), new TechTypeInjector()]);
-        loader.ProcessAttributeRegistriesForAssembly();
-    }
-    
-    internal static void ExecuteAssemblyAttributeRegistriesCustom(Assembly assemblyToSearch, IDependencyArgumentInjector[] injectors, string namespaceFilter = null)
-    {
-        RegisterEventAttributeLoader loader = new(assemblyToSearch, namespaceFilter);
+        RegisterEventAttributeLoader loader = new(assemblyToSearch);
         loader.RegisterInjectors(injectors);
         loader.ProcessAttributeRegistriesForAssembly();
     }
@@ -64,12 +55,6 @@ internal class RegisterEventAttributeLoader
     {
         foreach (Type type in _assemblyToSearch.GetTypes())
         {
-            if (_namespaceToSearch != null && type.Namespace != null && !type.Namespace.StartsWith(_namespaceToSearch))
-            {
-                //outside namespace, we are filtering for
-                continue;
-            }
-            
             foreach (MethodInfo method in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
             {
                 RegisterEventAttribute[] attributes = method.GetCustomAttributes<RegisterEventAttribute>(inherit: false).ToArray();
@@ -99,7 +84,7 @@ internal class RegisterEventAttributeLoader
         
         if (DependenciesFulfilled(attribute, out string firstFailedDependency))
         {
-            attribute.loader.ExecuteMethod(attribute);
+            attribute.loader.ExecuteMethodUnsafe(attribute);
             return;
         }
 
@@ -182,8 +167,7 @@ internal class RegisterEventAttributeLoader
         return true;
     }
     
-    //NOTE: when calling ensure the method is ready to execute, dependency checks don't happen here
-    private void ExecuteMethod(RegisterEventAttribute attribute)
+    private void ExecuteMethodUnsafe(RegisterEventAttribute attribute)
     {
         MethodInfo method = attribute.methodInfo;
         

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Nautilus.Handlers;
@@ -29,14 +30,14 @@ public sealed class TechTypeInjector : IDependencyArgumentInjector
                 return true;
             }
             
-            bool techTypeIDPresentInDependencies = attribute.loadAfterIDs.Any(loadAfterID => loadAfterID.ToLower() == attribute.registryID.ToLower());
+            bool techTypeIDPresentInDependencies = attribute.loadAfterIDs.Any(loadAfterID => loadAfterID.ToLower() == argument.Name.ToLower());
             if(techTypeIDPresentInDependencies)
             {
-                throw new Exception($"Failed to parse parameter TechType while registering {attribute.registryID} within {attribute.methodInfo.MemberType}!" +
-                                    $"Ensure the other registryId registers a TechType when requesting a parameter of type TechType.");
+                throw new InvalidEnumArgumentException($"Failed to parse parameter TechType while registering {attribute.registryID} within {attribute.methodInfo.MemberType}!" +
+                                                       $"Ensure the other registryId registers a TechType when requesting a parameter of type TechType.");
             }
-            throw new Exception($"Failed to parse parameter TechType while registering {attribute.registryID} within {attribute.methodInfo.MemberType}!" +
-                                $"Ensure you are waiting for the other modded registryID to be loaded within the {nameof(RegisterEventAttribute)} params.");
+            throw new InvalidEnumArgumentException($"Failed to parse parameter TechType while registering {attribute.registryID} within {attribute.methodInfo.MemberType}!" +
+                                                   $"Ensure you are waiting for the other modded registryID to be loaded within the {nameof(RegisterEventAttribute)} params.");
         }
         result = null;
         return false;

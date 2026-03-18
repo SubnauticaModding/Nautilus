@@ -31,6 +31,7 @@ public class RegisterEventExamples  : BaseUnityPlugin
     }
     
     //Register Events can depend on 1 (or multiple) registries to be loaded before it.
+    //Registers can also supply you modded TechType's with ease
     [RegisterEvent("MyEpicItem", "MyCoolItem")]
     private static void RegisterMyEpicItem(PrefabInfo info, TechType myCoolItem)
     {
@@ -55,22 +56,26 @@ public class RegisterEventExamples  : BaseUnityPlugin
         /*
          In this example 2 things are showcased, MyCoolItem will have its RegisterMyCoolItem()
          method executed first,and then MyEpicItem will execute.
-         However, (this is not required when depending on another registry) but this method has
-         a TechType myCoolItem in the method Header. Nautilus will automatically supply the modded
-         TechType for you when executing this method so you can just worry about using it.
-         Item Ingredients are one example but there are many use cases.
+        */
+        /*
+         This method has A TechType myCoolItem in the method Header. The name of the TechType 
+         parameter "myCoolItem" is used internally to create a modded enum value for you, so
+         there is no need to use the EnumHandler or store static instances of your TechTypes.
+         NOTE: a *dependency* does not always have to a modded TechType and vise versa. The
+         dependency is usually the same name as the modded TechType but this is not required
          */
         /*
          NOTE: You can also depend on registries from other mods to load first. Simply put
          whatever their registry uses as an ID into your dependency list and Nautilus will
-         handle the rest.
+         handle the rest. This is also why your IDs have to be unique, as conflicts with other
+         mods can occur.
          */
     }
     
     //Now, to have Nautilus execute your registries, you must use the RegistryEventUtils
     private void Awake()
     {
-        //here we ask Nautilus to search our assembly and execute our registries
+        //Here we ask Nautilus to search our assembly and execute our registries
         RegistryEventUtils.ExecuteAssemblyAttributeRegistries(Assembly.GetExecutingAssembly());
         
         /*
