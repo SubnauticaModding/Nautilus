@@ -9,7 +9,7 @@ namespace Nautilus.Utility.AttributeRegistrationUtils.Injectors;
 /// Represents an injector that checks for an <see cref="AssetLoadAttribute"/> on a method parameter
 /// </summary>
 /// <param name="bundle"><see cref="AssetBundle"/> to load from</param>
-public class AssetBundleAssetInjector(AssetBundle bundle) : IDependencyArgumentInjector
+public sealed class AssetBundleAssetInjector(AssetBundle bundle) : IDependencyArgumentInjector
 {
     /// <summary>
     /// Checks whether the argument has a <see cref="AssetLoadAttribute"/> on the method parameter. If so, an asset is loaded from the bundle based on 2 criteria.
