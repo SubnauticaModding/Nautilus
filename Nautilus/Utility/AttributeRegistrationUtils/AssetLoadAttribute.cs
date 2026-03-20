@@ -11,7 +11,7 @@ namespace Nautilus.Utility.AttributeRegistrationUtils;
 /// or during the creation of <see cref="AssetBundleAssetInjector"/>>
 /// </summary>
 [AttributeUsage(AttributeTargets.Parameter)]
-public sealed class AssetLoadAttribute(string assetToLoad = null) : System.Attribute
+public sealed class AssetLoadAttribute(string assetToLoad = null) : Attribute
 {
     internal readonly string assetNameToLoad = assetToLoad;
 }

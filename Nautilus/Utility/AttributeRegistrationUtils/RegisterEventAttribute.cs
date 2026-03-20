@@ -9,8 +9,8 @@ namespace Nautilus.Utility.AttributeRegistrationUtils;
 /// </summary>
 /// <param name="iD"><b><i>Unique</i></b> ID for this registration load event. Failure to have a unique ID (including between other mods) will result in errors</param>
 /// <param name="loadAfterIDs">List of IDs that should be loaded before this one. Can be from a different registry execute call or mod.</param>
-[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-public sealed class RegisterEventAttribute(string iD, params string[] loadAfterIDs) : System.Attribute
+[AttributeUsage(AttributeTargets.Method)]
+public sealed class RegisterEventAttribute(string iD, params string[] loadAfterIDs) : Attribute
 {
     /// <summary>
     /// <b><i>Unique</i></b> ID for this registration load event. Failure to have a unique ID will result in errors

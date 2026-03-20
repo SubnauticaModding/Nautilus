@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using BepInEx.Logging;
 using Nautilus.Utility.AttributeRegistrationUtils.Injectors;
+using Nautilus.Utility.AttributeRegistrationUtils.RegistryRequirements;
 using UnityEngine;
 using Object = System.Object;
 
@@ -62,17 +63,34 @@ internal class RegisterEventAttributeLoader
                 {
                     continue;//no attribute present
                 }
-
-                //It is allowed to define multiple RegisterEventAttributes for a method, so we must parse all of them
-                //(Yes it's kinda cursed, but it might be useful to someone in certain cases)
-                foreach (RegisterEventAttribute attribute in attributes)
-                {
-                    attribute.methodInfo = method;
-                    attribute.loader = this;
-                    HandleAttribute(attribute);
-                }
+                
+                /*There can only be 1 RegisterEventAttribute (compiler enforced) per method
+                  so we can safely assume there is only 1*/
+                RegisterEventAttribute attribute = attributes[0];
+                attribute.methodInfo = method;
+                attribute.loader = this;
+                
+                if (!AttributeShouldRegister(attribute)) continue;
+                
+                HandleAttribute(attribute);
             }
         }
+    }
+
+    private static bool AttributeShouldRegister(RegisterEventAttribute attribute)
+    {
+        /*Since IRegistryRequirement is an interface and the typed GetCustomAttributes<> requires the type to extend Attribute,
+          we must filter objects to get the instances*/
+        IEnumerable<IRegistryRequirement> registryRequirements = attribute
+            .methodInfo
+            .GetCustomAttributes(true)
+            .OfType<IRegistryRequirement>();
+        
+        foreach (IRegistryRequirement registryRequirement in registryRequirements)
+        {
+            if (!registryRequirement.RequirementsMet()) return false;
+        }
+        return true;
     }
 
     private static void HandleAttribute(RegisterEventAttribute attribute)
