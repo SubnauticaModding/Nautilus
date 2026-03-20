@@ -4,7 +4,8 @@ namespace Nautilus.Utility.AttributeRegistrationUtils.RegistryRequirements;
 
 
 /// <summary>
-/// Base attribute class used for parsing all required attributes. Can not be used as an attribute itself as it is abstract
+/// When an attribute implement this interface, Nautilus will only execute the attributed registry event when <see cref="RequirementsMet"/> returns true
+/// for all <see cref="IRegistryRequirement">IRegistryRequirements</see> attribute implementors attached.
 /// </summary>
 public interface IRegistryRequirement
 {

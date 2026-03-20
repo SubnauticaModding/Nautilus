@@ -9,7 +9,7 @@ namespace Nautilus.Utility.AttributeRegistrationUtils.RegistryRequirements;
 /// the creation of registries that optionally load when all other mod GUIDs are present.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method)]
-public sealed class RegisterRequireGuidAttribute(params string[] requiredModGUIDs) : Attribute, IRegistryRequirement
+public sealed class RequireGuidAttribute(params string[] requiredModGUIDs) : Attribute, IRegistryRequirement
 {
     /// <summary>
     /// List of BepInEx mod GUIDs to require to be loaded
