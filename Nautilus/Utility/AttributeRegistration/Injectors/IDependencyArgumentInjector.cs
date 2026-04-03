@@ -25,5 +25,5 @@ public interface IDependencyArgumentInjector
     /// </summary>
     /// <remarks>Internally this is only used for efficient lookups to Injectors. The injector must return an expected value for <see cref="TryInjectToArgument"/> if it passes the type check, otherwise you may run into null objects being passed</remarks>
     /// <returns>The <see cref="Type"/> the injector targets. Return null if it's not type/parameter attribute based</returns>
-    public Type injectorTargetType { get; }
+    public Type InjectorTargetType { get; }
 }

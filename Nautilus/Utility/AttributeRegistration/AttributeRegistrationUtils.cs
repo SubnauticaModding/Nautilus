@@ -40,9 +40,9 @@ public static class AttributeRegistrationUtils
         if (overrideInjectors != null)
         {
             Dictionary<Type, IDependencyArgumentInjector> injectorDict = new ();
-            selectedInjectors.ForEach(injector => injectorDict.Add(injector.injectorTargetType, injector));
+            selectedInjectors.ForEach(injector => injectorDict.Add(injector.InjectorTargetType, injector));
 
-            overrideInjectors.ForEach(overrideInjector => injectorDict[overrideInjector.injectorTargetType] = overrideInjector);
+            overrideInjectors.ForEach(overrideInjector => injectorDict[overrideInjector.InjectorTargetType] = overrideInjector);
 
             selectedInjectors = injectorDict.Values.ToArray();
         }

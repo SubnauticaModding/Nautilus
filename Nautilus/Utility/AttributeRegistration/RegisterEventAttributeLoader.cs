@@ -38,8 +38,8 @@ internal class RegisterEventAttributeLoader
     {
         foreach (IDependencyArgumentInjector injector in injectors)
         {
-            if (injector.injectorTargetType != null)
-                _typedDependencyArgumentInjectors.Add(injector.injectorTargetType, injector);
+            if (injector.InjectorTargetType != null)
+                _typedDependencyArgumentInjectors.Add(injector.InjectorTargetType, injector);
             _dependencyArgumentInjectors.Add(injector);
         }
     }

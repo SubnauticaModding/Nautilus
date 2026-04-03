@@ -31,5 +31,5 @@ public sealed class PrefabInfoInjector : IDependencyArgumentInjector
     }
     
     /// <returns>Returns the result of typeof(<see cref="PrefabInfo"/>)</returns>
-    public Type injectorTargetType => typeof(PrefabInfo);
+    public Type InjectorTargetType => typeof(PrefabInfo);
 }

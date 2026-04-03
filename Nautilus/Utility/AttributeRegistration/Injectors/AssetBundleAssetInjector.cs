@@ -45,5 +45,5 @@ public sealed class AssetBundleAssetInjector(AssetBundle bundle) : IDependencyAr
     }
     
     /// <returns>Returns the result of typeof(<see cref="AssetLoadAttribute"/>)</returns>
-    public Type injectorTargetType => typeof(AssetLoadAttribute);
+    public Type InjectorTargetType => typeof(AssetLoadAttribute);
 }
