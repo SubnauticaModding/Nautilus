@@ -14,7 +14,7 @@ namespace Nautilus.Utility.AttributeRegistrationUtils;
 /// <summary>
 /// Utilities for searching for and calling methods attributed with <see cref="RegisterEventAttribute"/>
 /// </summary>
-public static class RegistryEventUtils
+public static class AttributeRegistrationUtils
 {
     /// <summary>
     /// Utility method to search an <see cref="Assembly"/> and execute every method attached with an <see cref="RegisterEventAttribute"/>.
@@ -42,9 +42,9 @@ public static class RegistryEventUtils
         if (overrideInjectors != null)
         {
             Dictionary<Type, IDependencyArgumentInjector> injectorDict = new ();
-            selectedInjectors.ForEach(injector => injectorDict.Add(injector.InjectorTargetType(), injector));
+            selectedInjectors.ForEach(injector => injectorDict.Add(injector.injectorTargetType, injector));
 
-            overrideInjectors.ForEach(overrideInjector => injectorDict[overrideInjector.InjectorTargetType()] = overrideInjector);
+            overrideInjectors.ForEach(overrideInjector => injectorDict[overrideInjector.injectorTargetType] = overrideInjector);
 
             selectedInjectors = injectorDict.Values.ToArray();
         }

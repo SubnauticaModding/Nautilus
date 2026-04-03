@@ -16,18 +16,18 @@ namespace Nautilus.Utility.AttributeRegistrationUtils;
 /// </summary>
 internal class RegisterEventAttributeLoader
 {
-    //Types like TechType or PrefabInfo (but not limited to) always check here first
+    // Types like TechType or PrefabInfo (but not limited to) always check here first
     private readonly Dictionary<Type, IDependencyArgumentInjector> _typedDependencyArgumentInjectors = new();
-    //Name based Injectors that look at the argument name inject here
+    // Name based Injectors that look at the argument name inject here
     private readonly List<IDependencyArgumentInjector> _dependencyArgumentInjectors = new();
 
     private readonly Assembly _assemblyToSearch;
 
     private static readonly HashSet<string> _idsRegistered = new();
     
-    //the key represents which id the registry is next waiting for.
-    //the list of registries is the events waiting for key to be loaded,
-    //these will attempt to execute when the key is but may return under a different key if there are still dependencies to check.
+    // the key represents which id the registry is next waiting for.
+    // the list of registries is the events waiting for key to be loaded,
+    // these will attempt to execute when the key is but may return under a different key if there are still dependencies to check.
     private static readonly Dictionary<string, List<RegisterEventAttribute>> _deferredRegistrations = new();
     
     private RegisterEventAttributeLoader(Assembly assemblyToSearch)
@@ -39,8 +39,8 @@ internal class RegisterEventAttributeLoader
     {
         foreach (IDependencyArgumentInjector injector in injectors)
         {
-            if (injector.InjectorTargetType() != null)
-                _typedDependencyArgumentInjectors.Add(injector.InjectorTargetType(), injector);
+            if (injector.injectorTargetType != null)
+                _typedDependencyArgumentInjectors.Add(injector.injectorTargetType, injector);
             _dependencyArgumentInjectors.Add(injector);
         }
     }

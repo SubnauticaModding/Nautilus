@@ -44,8 +44,5 @@ public sealed class TechTypeInjector : IDependencyArgumentInjector
     }
     
     /// <returns>Returns the result of typeof(<see cref="TechType"/>)</returns>
-    public Type InjectorTargetType()
-    {
-        return typeof(TechType);
-    }
+    public Type injectorTargetType => typeof(TechType);
 }

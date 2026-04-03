@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace Nautilus.Utility.AttributeRegistrationUtils;
 
@@ -7,15 +8,16 @@ namespace Nautilus.Utility.AttributeRegistrationUtils;
 /// <summary>
 /// Attributes a method for use with the <see cref="RegisterEventAttributeLoader"/>.
 /// </summary>
-/// <param name="iD"><b><i>Unique</i></b> ID for this registration load event. Failure to have a unique ID (including between other mods) will result in errors</param>
+/// <param name="id"><b><i>Unique</i></b> ID for this registration load event. Failure to have a unique ID (including between other mods) will result in errors</param>
 /// <param name="loadAfterIDs">List of IDs that should be loaded before this one. Can be from a different registry execute call or mod.</param>
+[MeansImplicitUse]
 [AttributeUsage(AttributeTargets.Method)]
-public sealed class RegisterEventAttribute(string iD, params string[] loadAfterIDs) : Attribute
+public sealed class RegisterEventAttribute(string id, params string[] loadAfterIDs) : Attribute
 {
     /// <summary>
     /// <b><i>Unique</i></b> ID for this registration load event. Failure to have a unique ID will result in errors
     /// </summary>
-    public readonly string registryID = iD;
+    public readonly string registryID = id;
     
     /// <summary>
     /// List of IDs that should be loaded before this one. Can be from a different registry execute call or mod.

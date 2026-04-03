@@ -21,7 +21,7 @@ public sealed class PrefabInfoInjector : IDependencyArgumentInjector
     /// <returns>True if there is a valid injection for the current argument, otherwise false.</returns>
     public bool TryInjectToArgument(RegisterEventAttribute attribute, ParameterInfo argument, out object result)
     {
-        if(argument.ParameterType == typeof(PrefabInfo))
+        if (argument.ParameterType == typeof(PrefabInfo))
         {
             result = PrefabInfo.WithTechType(attribute.registryID);
             return true;
@@ -31,8 +31,5 @@ public sealed class PrefabInfoInjector : IDependencyArgumentInjector
     }
     
     /// <returns>Returns the result of typeof(<see cref="PrefabInfo"/>)</returns>
-    public Type InjectorTargetType()
-    {
-        return typeof(PrefabInfo);
-    }
+    public Type injectorTargetType => typeof(PrefabInfo);
 }

@@ -10,7 +10,7 @@ namespace Nautilus.Examples;
 [BepInDependency("com.snmodding.nautilus")]
 public class RegisterEventExamples  : BaseUnityPlugin
 {
-    //Register Events allow you to define Prefabs with less code
+    // Register Events allow you to define Prefabs with less code
     [RegisterEvent("MyCoolItem")]
     private static void RegisterMyCoolItem(PrefabInfo info)
     {
@@ -30,8 +30,8 @@ public class RegisterEventExamples  : BaseUnityPlugin
          */
     }
     
-    //Register Events can depend on 1 (or multiple) registries to be loaded before it.
-    //Registers can also supply you modded TechType's with ease
+    // Register Events can depend on 1 (or multiple) registries to be loaded before it.
+    // Registers can also supply you modded TechType's with ease
     [RegisterEvent("MyEpicItem", "MyCoolItem")]
     private static void RegisterMyEpicItem(PrefabInfo info, TechType myCoolItem)
     {
@@ -51,7 +51,7 @@ public class RegisterEventExamples  : BaseUnityPlugin
             })
             .WithFabricatorType(CraftTree.Type.Fabricator)
             .WithStepsToFabricatorTab("Personal", "Equipment");
-        //Although this can be crafted you won't be able to pick it up due to missing components
+        // Although this can be crafted you won't be able to pick it up due to missing components
         myPrefab.Register();
         /*
          In this example 2 things are showcased, MyCoolItem will have its RegisterMyCoolItem()
@@ -72,11 +72,11 @@ public class RegisterEventExamples  : BaseUnityPlugin
          */
     }
     
-    //Now, to have Nautilus execute your registries, you must use the RegistryEventUtils
+    // Now, to have Nautilus execute your registries, you must use the RegistryEventUtils
     private void Awake()
     {
-        //Here we ask Nautilus to search our assembly and execute our registries
-        RegistryEventUtils.ExecuteAssemblyAttributeRegistries(Assembly.GetExecutingAssembly());
+        // Here we ask Nautilus to search our assembly and execute our registries
+        AttributeRegistrationUtils.ExecuteAssemblyAttributeRegistries(Assembly.GetExecutingAssembly());
         
         /*
          If you need more debug info, enable Nautilus's Debug toggle in settings.
@@ -84,7 +84,7 @@ public class RegisterEventExamples  : BaseUnityPlugin
         */
     }
     
-    //Bonus Info Below
+    // Bonus Info Below
 
     /*Register Events are not limited to prefabs however
      they can execute anything and are useful in managing load order of your mod*/
@@ -94,7 +94,7 @@ public class RegisterEventExamples  : BaseUnityPlugin
         // code for loading sounds that load after something else or whatever
     }
     
-    //Register Events can also load assets from an asset bundle (provided to Nautilus in a later step)
+    // Register Events can also load assets from an asset bundle (provided to Nautilus in a later step)
     /* Though this is outside the scope of a basic tutorial, the code below should get you started */
     
     /*[RegisterEvent("MyEpicItem")]
@@ -103,6 +103,6 @@ public class RegisterEventExamples  : BaseUnityPlugin
         info.WithIcon(icon);
         CustomPrefab myPrefab = new CustomPrefab(info);
         myPrefab.Register();
-        //Commented out as no asset bundle is present, will throw an exception if the asset fails to load
+        // Commented out as no asset bundle is present, will throw an exception if the asset fails to load
     }*/
 }
