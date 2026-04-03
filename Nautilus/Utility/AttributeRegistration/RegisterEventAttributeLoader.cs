@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BepInEx.Logging;
-using Nautilus.Utility.AttributeRegistrationUtils.Injectors;
-using Nautilus.Utility.AttributeRegistrationUtils.RegistryRequirements;
-using UnityEngine;
+using Nautilus.Utility.AttributeRegistration.Injectors;
+using Nautilus.Utility.AttributeRegistration.RegistryRequirements;
 using Object = System.Object;
 
-namespace Nautilus.Utility.AttributeRegistrationUtils;
+namespace Nautilus.Utility.AttributeRegistration;
 
 
 /// <summary>

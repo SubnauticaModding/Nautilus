@@ -3,7 +3,7 @@ using BepInEx;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
-using Nautilus.Utility.AttributeRegistrationUtils;
+using Nautilus.Utility.AttributeRegistration;
 
 namespace Nautilus.Examples;
 [BepInPlugin("com.snmodding.nautilus.registerevent", "Nautilus RegisterEvent Example Mod", Nautilus.PluginInfo.PLUGIN_VERSION)]

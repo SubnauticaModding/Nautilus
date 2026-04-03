@@ -1,6 +1,4 @@
-using System;
-
-namespace Nautilus.Utility.AttributeRegistrationUtils.RegistryRequirements;
+namespace Nautilus.Utility.AttributeRegistration.RegistryRequirements;
 
 
 /// <summary>

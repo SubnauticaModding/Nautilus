@@ -2,13 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MonoMod.Utils;
 using Nautilus.Assets;
-using Nautilus.Extensions;
-using Nautilus.Utility.AttributeRegistrationUtils.Injectors;
+using Nautilus.Utility.AttributeRegistration.Injectors;
 using UnityEngine;
 
-namespace Nautilus.Utility.AttributeRegistrationUtils;
+namespace Nautilus.Utility.AttributeRegistration;
 
 
 /// <summary>

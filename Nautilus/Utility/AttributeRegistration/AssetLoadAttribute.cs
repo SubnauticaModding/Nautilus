@@ -1,8 +1,8 @@
 using System;
-using Nautilus.Utility.AttributeRegistrationUtils.Injectors;
+using Nautilus.Utility.AttributeRegistration.Injectors;
 using UnityEngine;
 
-namespace Nautilus.Utility.AttributeRegistrationUtils;
+namespace Nautilus.Utility.AttributeRegistration;
 
 
 /// <summary>

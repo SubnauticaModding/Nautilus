@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Nautilus.Handlers;
 
-namespace Nautilus.Utility.AttributeRegistrationUtils.Injectors;
+namespace Nautilus.Utility.AttributeRegistration.Injectors;
 
 
 /// <summary>

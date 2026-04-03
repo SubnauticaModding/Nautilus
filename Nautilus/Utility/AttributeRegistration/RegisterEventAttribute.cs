@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using JetBrains.Annotations;
 
-namespace Nautilus.Utility.AttributeRegistrationUtils;
+namespace Nautilus.Utility.AttributeRegistration;
 
 
 /// <summary>

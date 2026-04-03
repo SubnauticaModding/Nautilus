@@ -1,7 +1,7 @@
 using System;
 using BepInEx;
 
-namespace Nautilus.Utility.AttributeRegistrationUtils.RegistryRequirements;
+namespace Nautilus.Utility.AttributeRegistration.RegistryRequirements;
 
 /// <summary>
 /// When a method is attached with a [<see cref="RegisterEventAttribute"/>] alongside this attribute,

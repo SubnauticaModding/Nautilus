@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Nautilus.Utility.AttributeRegistrationUtils.Injectors;
+namespace Nautilus.Utility.AttributeRegistration.Injectors;
 
 
 /// <summary>

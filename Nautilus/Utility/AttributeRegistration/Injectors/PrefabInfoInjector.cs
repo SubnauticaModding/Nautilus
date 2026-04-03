@@ -2,7 +2,7 @@ using System;
 using System.Reflection;
 using Nautilus.Assets;
 
-namespace Nautilus.Utility.AttributeRegistrationUtils.Injectors;
+namespace Nautilus.Utility.AttributeRegistration.Injectors;
 
 
 /// <summary>

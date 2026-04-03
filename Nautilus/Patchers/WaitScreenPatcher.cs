@@ -6,7 +6,7 @@ using System.Text;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using Nautilus.Utility.AttributeRegistrationUtils;
+using Nautilus.Utility.AttributeRegistration;
 using TMPro;
 using UnityEngine;
 using Object = UnityEngine.Object;
