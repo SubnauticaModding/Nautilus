@@ -27,7 +27,6 @@ namespace Nautilus.Options.Attributes;
 /// <code>
 /// using Nautilus.Json;
 /// using Nautilus.Options;
-/// using QModManager.Utility;
 /// using UnityEngine;
 /// 
 /// [Menu("Nautilus Example Mod")]
