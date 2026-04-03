@@ -63,8 +63,8 @@ internal class RegisterEventAttributeLoader
                     continue;//no attribute present
                 }
                 
-                /*There can only be 1 RegisterEventAttribute (compiler enforced) per method
-                  so we can safely assume there is only 1*/
+                /* There can only be 1 RegisterEventAttribute (compiler enforced) per method
+                  so we can safely assume there is only 1 */
                 RegisterEventAttribute attribute = attributes[0];
                 attribute.methodInfo = method;
                 attribute.loader = this;
@@ -78,8 +78,8 @@ internal class RegisterEventAttributeLoader
 
     private static bool AttributeShouldRegister(RegisterEventAttribute attribute)
     {
-        /*Since IRegistryRequirement is an interface and the typed GetCustomAttributes<> requires the type to extend Attribute,
-          we must filter objects to get the instances*/
+        /* Since IRegistryRequirement is an interface and the typed GetCustomAttributes<> requires the type to extend Attribute,
+          we must filter objects to get the instances */
         IEnumerable<IRegistryRequirement> registryRequirements = attribute
             .methodInfo
             .GetCustomAttributes(true)
@@ -129,7 +129,7 @@ internal class RegisterEventAttributeLoader
             return true;
         }
         
-        //fancy c# shit put 2 types :0
+        // fancy c# shit
         Stack<(string registry, string pathTraversed)> toVisit = new();
         HashSet<string> visited = new();
 
@@ -150,10 +150,10 @@ internal class RegisterEventAttributeLoader
                 if (attr.registryID == dependencyID)
                 {
                     path += $",{dependencyID}";
-                    path += $",{registryID}";//Add the start to the end to clearly show the path loops
+                    path += $",{registryID}";// Add the start to the end to clearly show the path loops
                     
-                    //The _deferredRegistrations stores dependencies in reverse (ID, attributes waiting on ID) to how the Attributes are set up.
-                    //This has the benefit of only checking deferred registration for cyclic issues, but we have to reverse at the very end to make it logical to what they typed.
+                    // The _deferredRegistrations stores dependencies in reverse (ID, attributes waiting on ID) to how the Attributes are set up.
+                    // This has the benefit of only checking deferred registration for cyclic issues, but we have to reverse at the very end to make it logical to what they typed.
                     chain = string.Join(" -> ", path.Split(',').Reverse());
                     return true;
                 }
@@ -210,14 +210,14 @@ internal class RegisterEventAttributeLoader
         method.Invoke(null, parameterValues);
         _idsRegistered.Add(attribute.registryID);
                 
-        //check and load for any that depended on this ID
+        // check and load for any that depended on this ID
         if (!_deferredRegistrations.TryGetValue(attribute.registryID, out var list)) return;
-        //remove the dependency from the deferred list, saves a bit of memory but not technically required.
+        // remove the dependency from the deferred list, saves a bit of memory but not technically required.
         _deferredRegistrations.Remove(attribute.registryID);
         list.ForEach(HandleAttribute);
     }
 
-    //Priority: Parameter/Argument attribute injector -> Type of argument injector -> Argument name injector.
+    // Priority: Parameter/Argument attribute injector -> Type of argument injector -> Argument name injector.
     private bool TryDependencyInject(RegisterEventAttribute attr, ParameterInfo arg, out Object valueToInject)
     {
         foreach (Attribute parameterAttribute in arg.GetCustomAttributes())
