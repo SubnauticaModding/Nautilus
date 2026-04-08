@@ -302,6 +302,9 @@ public class CustomPrefab : ICustomPrefab
             InternalLogger.Warn($"Prefab '{Info}' does not contain a TechType.");
         }
 
+        if (!PrefabHandler.Prefabs.TryRegisterPrefab(this))
+            return;
+
         foreach (var reg in _onRegister)
         {
             reg?.Invoke();
@@ -311,8 +314,6 @@ public class CustomPrefab : ICustomPrefab
         {
             gadget.Value.Build();
         }
-        
-        PrefabHandler.Prefabs.RegisterPrefab(this);
 
         _registered = true;
     }
