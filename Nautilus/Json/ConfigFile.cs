@@ -153,7 +153,7 @@ public abstract class ConfigFile : IJsonFile
     /// <seealso cref="Load(bool)"/>
     public void LoadWithConverters(bool createFileIfNotExist = true, params JsonConverter[] jsonConverters)
     {
-        this.LoadJson(JsonFilePath, true,
+        this.LoadJson(JsonFilePath, createFileIfNotExist,
             AlwaysIncludedJsonConverters.Concat(jsonConverters).Distinct().ToArray());
     }
 
