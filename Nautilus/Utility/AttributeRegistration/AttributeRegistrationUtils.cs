@@ -29,13 +29,13 @@ public static class AttributeRegistrationUtils
     /// </summary>
     /// <param name="assemblyToSearch">Assembly to search through. For <i>most</i> mods, the result of <see cref="Assembly.GetExecutingAssembly"/>> should be passed as the argument.
     ///  Every Type within the Assembly will be checked for methods containing the Attribute <see cref="RegisterEventAttribute"/>.</param>
-    /// <param name="assetBundle">When using the <see cref="AssetBundleAssetInjector"/>>, the injector will pull from this asset bundle.
+    /// <param name="assetBundles">When using the <see cref="AssetBundleAssetInjector"/>>, the injector will pull from these asset bundles. If you only have 1 bundle, use an array of size 1.
     ///  This can safely be left null if you don't load assets through argument parameters</param>
     /// <param name="overrideInjectors">Optional injectors to override the defaults and or add new injectors to the default list. If you desire more control,
     ///  look into <see cref="ExecuteAssemblyAttributeRegistriesCustomInjectors"/></param>
-    public static void ExecuteAssemblyAttributeRegistries(Assembly assemblyToSearch, AssetBundle assetBundle = null, IDependencyArgumentInjector[] overrideInjectors = null)
+    public static void ExecuteAssemblyAttributeRegistries(Assembly assemblyToSearch, AssetBundle[] assetBundles = null, IDependencyArgumentInjector[] overrideInjectors = null)
     {
-        IDependencyArgumentInjector[] selectedInjectors = [new AssetBundleAssetInjector(assetBundle), new PrefabInfoInjector(), new TechTypeInjector()];
+        IDependencyArgumentInjector[] selectedInjectors = [new AssetBundleAssetInjector(assetBundles), new PrefabInfoInjector(), new TechTypeInjector()];
         
         if (overrideInjectors != null)
         {

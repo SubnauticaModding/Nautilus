@@ -8,8 +8,8 @@ namespace Nautilus.Utility.AttributeRegistration.Injectors;
 /// <summary>
 /// Represents an injector that checks for an <see cref="AssetLoadAttribute"/> on a method parameter
 /// </summary>
-/// <param name="bundle"><see cref="AssetBundle"/> to load from</param>
-public sealed class AssetBundleAssetInjector(AssetBundle bundle) : IDependencyArgumentInjector
+/// <param name="bundles"><see cref="AssetBundle"/> to attempt to load from</param>
+public sealed class AssetBundleAssetInjector(AssetBundle[] bundles) : IDependencyArgumentInjector
 {
     /// <summary>
     /// Checks whether the argument has a <see cref="AssetLoadAttribute"/> on the method parameter. If so, an asset is loaded from the bundle based on 2 criteria.
@@ -30,17 +30,21 @@ public sealed class AssetBundleAssetInjector(AssetBundle bundle) : IDependencyAr
             return false;
         }
         
-        if(!bundle) throw new Exception($"Asked to load asset {arg.Name} without providing a bundle for {attribute.registryID} registry");
-
-        //First we check if the attribute has an asset specified
-        if (assetAttribute.assetNameToLoad != null)
-        {
-            value = bundle.LoadAsset(assetAttribute.assetNameToLoad, arg.ParameterType);
-            return true;
-        }
+        if(bundles == null) throw new Exception($"Asked to load asset {arg.Name} without providing a bundle for {attribute.registryID} registry");
         
-        //fallback to name of argument
-        value = bundle.LoadAsset(arg.Name, arg.ParameterType);
+        string assetName = arg.Name;
+        if (assetAttribute.assetNameToLoad != null) // Attribute asset name gets priority over the argument name (if defined)
+        {
+            assetName = assetAttribute.assetNameToLoad;
+        }
+
+        object asset = null;
+        foreach (AssetBundle bundle in bundles)
+        {
+            asset = bundle.LoadAsset(assetName, arg.ParameterType);
+            if (asset != null) break;
+        }
+        value = asset;
         return true;
     }
     
