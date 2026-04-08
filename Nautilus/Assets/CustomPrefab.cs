@@ -293,15 +293,6 @@ public class CustomPrefab : ICustomPrefab
             return;
         }
 
-        /*
-         * It is fine for some prefabs to not have a tech type (E.G: world decorators, or anything that isn't scannable),
-         * so just warn it in-case people forgot to add one.
-         */
-        if (Info.TechType is TechType.None)
-        {
-            InternalLogger.Warn($"Prefab '{Info}' does not contain a TechType.");
-        }
-
         foreach (var reg in _onRegister)
         {
             reg?.Invoke();
