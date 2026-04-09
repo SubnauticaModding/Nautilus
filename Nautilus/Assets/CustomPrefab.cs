@@ -305,17 +305,26 @@ public class CustomPrefab : ICustomPrefab
         if (!PrefabHandler.Prefabs.TryRegisterPrefab(this))
             return;
 
-        foreach (var reg in _onRegister)
+        try
         {
-            reg?.Invoke();
-        }
+            foreach (var reg in _onRegister)
+            {
+                reg?.Invoke();
+            }
 
-        foreach (var gadget in _gadgets)
+            foreach (var gadget in _gadgets)
+            {
+                gadget.Value.Build();
+            }
+
+            _registered = true;
+        }
+        catch(Exception ex)
         {
-            gadget.Value.Build();
+            // If anything throws before _registered is set to true, unregister the prefab and log the exception.
+            InternalLogger.Error($"Failed to register prefab '{Info}'.\n{ex}");
+            PrefabHandler.Prefabs.UnregisterPrefab(this);
         }
-
-        _registered = true;
     }
 
     /// <summary>
