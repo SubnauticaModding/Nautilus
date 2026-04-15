@@ -13,7 +13,6 @@ namespace Nautilus.Options.Attributes;
 /// <code>
 /// using Nautilus.Json;
 /// using Nautilus.Options;
-/// using QModManager.Utility;
 /// 
 /// [Menu("My Options Menu")]
 /// public class Config : ConfigFile

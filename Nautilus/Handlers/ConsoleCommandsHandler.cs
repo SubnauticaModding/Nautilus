@@ -13,7 +13,7 @@ namespace Nautilus.Handlers;
 public static class ConsoleCommandsHandler
 {
     /// <summary>
-    /// Registers your custom console command by targeting a <see langword="public"/> <see langword="static"/> method.
+    /// Registers your custom console command by targeting a <see langword="static"/> method.
     /// </summary>
     /// <remarks>
     /// <para>Target method must be <see langword="static"/>.</para>
@@ -61,7 +61,7 @@ public static class ConsoleCommandsHandler
     }
 
     /// <summary>
-    /// Registers <see langword="public"/> <see langword="static"/> methods decorated with the
+    /// Registers <see langword="static"/> methods decorated with the
     /// <see cref="ConsoleCommandAttribute"/> within the <paramref name="type"/> as console commands.
     /// </summary>
     /// <remarks>

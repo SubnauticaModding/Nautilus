@@ -41,8 +41,8 @@ Output:
 
 ## Picking an IDE
 The top 3 IDEs for writing C# code are the following:
-- [Visual Studio Community](https://visualstudio.microsoft.com/vs/community) - Free, great IDE designed for .NET development (Windows and Mac only)
-- [JetBrains Rider](https://www.jetbrains.com/rider) - Paid, outstanding IDE, incredible code-completion and code suggestions with the power of ReSharper, cross-platform
+- [Visual Studio Community](https://visualstudio.microsoft.com/vs/community) - Free, great IDE designed for .NET development (Windows only)
+- [JetBrains Rider](https://www.jetbrains.com/rider) - Optional subscription, outstanding IDE, incredible code-completion and code suggestions with the power of ReSharper, cross-platform
 - [Visual Studio Code](https://code.visualstudio.com) - Free, multi-purpose editor, cross-platform, can be used for C# development with plugins.
 
 ## Installing IDE
