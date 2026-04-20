@@ -173,7 +173,11 @@ internal static class LargeWorldStreamerPatcher
             InternalLogger.Error($"No LargeWorldEntity found on {prefabInfo.ClassID}; Please ensure the prefab has a LargeWorldEntity component when using Coordinated Spawns.");
             lwe = prefab.AddComponent<LargeWorldEntity>();
         }
-        if (lwe is { cellLevel: LargeWorldEntity.CellLevel.Global })
+        if (lwe is {cellLevel: LargeWorldEntity.CellLevel.Batch})
+        {
+            InternalLogger.Warn($"Cannot spawn {info.ClassId} with coordinated spawns because it uses the batch cell level.");
+        }
+        else if (lwe is { cellLevel: LargeWorldEntity.CellLevel.Global })
         {
             var batch = LargeWorldStreamer.main.GetContainingBatch(info.SpawnPosition);
             CreateSpawner(batch, new []{info}, true);

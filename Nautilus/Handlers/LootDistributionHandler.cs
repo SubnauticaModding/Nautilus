@@ -86,6 +86,11 @@ public static class LootDistributionHandler
         }
 
         LootDistributionPatcher.CustomSrcData[classId] = data;
+
+        if (LootDistributionPatcher.AlreadyInitialized)
+        {
+            InternalLogger.Warn($"Registering {classId}-{data.prefabPath} to LootDistribution while in-game. This is likely too late.");
+        }
     }
 
     /// <summary>

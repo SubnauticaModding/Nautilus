@@ -84,6 +84,12 @@ public static class PrefabUtils
     /// <param name="cellLevel">Level of distance this prefab can stay visible before unloading.</param>
     public static void AddBasicComponents(GameObject prefab, string classId, TechType techType, LargeWorldEntity.CellLevel cellLevel)
     {
+        if (prefab.activeInHierarchy)
+        {
+            InternalLogger.Warn($"Calling PrefabUtils.AddBasicComponents on prefab '{prefab.name}' (ClassID: {classId}) while it is active. " +
+                                $"Prefabs must be inactive during setup to prevent duplication issues.");
+        }
+        
         prefab.EnsureComponent<PrefabIdentifier>().ClassId = classId;
             
         if (techType != TechType.None)
