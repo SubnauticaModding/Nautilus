@@ -7,7 +7,7 @@ namespace Nautilus;
 [ConfigFile("NautilusConfig")]
 internal class NautilusConfig : ConfigFile
 {
-    [Toggle(Label = "Enable debug logs")]
+    [Toggle(Label = "Enable debug logs", Tooltip = "WARNING: Enabling this can lead to a major decrease in performance. Debug logs are comprehensive messages that are only intended for debugging mods.")]
     [OnChange(nameof(OnDebugLogChange))]
     public bool enableDebugLogs = false;
 
