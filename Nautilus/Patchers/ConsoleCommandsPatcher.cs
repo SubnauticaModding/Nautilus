@@ -117,7 +117,7 @@ internal static class ConsoleCommandsPatcher
     /// <param name="type">The type within which to search.</param>
     public static void ParseCustomCommands(Type type)
     {
-        foreach (MethodInfo targetMethod in type.GetMethods(BindingFlags.Public | BindingFlags.Static))
+        foreach (MethodInfo targetMethod in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
         {
             ConsoleCommandAttribute customCommandAttribute = targetMethod.GetCustomAttribute<ConsoleCommandAttribute>(false);
             if (customCommandAttribute != null)

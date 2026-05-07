@@ -30,6 +30,7 @@ internal static class MainMenuPatcher
     internal static event Action onActiveModChanged;
     private static ConfigEntry<string> _activeModGuid;
     private static uGUI_Choice _choiceOption;
+    private static bool _initializedAddons;
     
     internal static void Patch(Harmony harmony, ConfigFile config)
     {
@@ -61,6 +62,8 @@ internal static class MainMenuPatcher
         {
             InitializeAddons(titleObjectData.Key, titleObjectData.Value);
         }
+
+        _initializedAddons = true;
     }
 
     private static void SceneLoadingAwakePostfix(uGUI_SceneLoading __instance)
@@ -353,6 +356,11 @@ internal static class MainMenuPatcher
 
     internal static void RegisterTitleObjectData(string key, TitleScreenHandler.CustomTitleData data)
     {
+        if (_initializedAddons)
+        {
+            InternalLogger.Warn($"Registering custom title screen '{key}' after addons are already initialized.");
+        }
+        
         if (TitleObjectDatas.ContainsKey(key))
         {
             InternalLogger.Log($"MainMenuPatcher already contain title data for {key}! Skipping.", LogLevel.Error);

@@ -8,6 +8,8 @@ namespace Nautilus.Patchers;
 internal class LootDistributionPatcher
 {
     internal static readonly SelfCheckingDictionary<string, LootDistributionData.SrcData> CustomSrcData = new("CustomSrcData");
+    internal static bool AlreadyInitialized { get; private set; }
+
 
     internal static void Patch(Harmony harmony)
     {
@@ -15,6 +17,8 @@ internal class LootDistributionPatcher
             postfix: new HarmonyMethod(AccessTools.Method(typeof(LootDistributionPatcher), nameof(LootDistributionPatcher.InitializePostfix))));
 
         InternalLogger.Log("LootDistributionPatcher is done.", LogLevel.Debug);
+        
+        SaveUtils.RegisterOnQuitEvent(() => AlreadyInitialized = false);
     }
 
     private static void InitializePostfix(LootDistributionData __instance)
@@ -35,6 +39,8 @@ internal class LootDistributionPatcher
                 }
             }
         }
+
+        AlreadyInitialized = true;
     }
 
     private static void EditExistingData(string classId, LootDistributionData.SrcData existingData, LootDistributionData.SrcData changes, Dictionary<BiomeType, LootDistributionData.DstData> dstData)
