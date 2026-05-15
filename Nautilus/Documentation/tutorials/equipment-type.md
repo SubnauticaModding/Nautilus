@@ -24,7 +24,7 @@ public enum EquipmentType
 }
 ```
 
-## How can I create a custom background type?
+## How can I create a custom equipment type?
 Since equipment types are simply just enums, we can use the enum handler to create a new instance.
 ```csharp
 private void Awake()
