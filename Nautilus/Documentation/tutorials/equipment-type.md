@@ -24,7 +24,7 @@ public enum EquipmentType
 }
 ```
 
-## How can I create a custom background type?
+## How can I create a custom equipment type?
 Since equipment types are simply just enums, we can use the enum handler to create a new instance.
 ```csharp
 private void Awake()
@@ -33,7 +33,7 @@ private void Awake()
 }
 ```
 
-And that's it. Now you can use the new `CraftData.BackgroundType` instance anywhere you want.
+And that's it. Now you can use the new `EquipmentType` anywhere you want.
 
 ## How can edit an item's equipment type?
 To edit an item's equipment type, you need to call the `CraftDataHandler.SetEquipmentType` method sitting in the `Nautilus.Handlers` namespace
@@ -47,7 +47,7 @@ CraftDataHandler.SetEquipmentType(TechType.Titanium, EquipmentType.Head);
 
 Similarly, if we wanted to set the titanium's equipment type to our custom equipment type from earlier, it would look like the following:
 ```csharp
-CraftDataHandler.SetBackgroundType(TechType.Titanium, myCustomEquipmentType);
+CraftDataHandler.SetEquipmentType(TechType.Titanium, myCustomEquipmentType);
 ```
 
 If you're setting the equipment type for a custom prefab, we recommend using the `ICustomPrefab.SetEquipment` method instead.
