@@ -11,7 +11,7 @@ namespace Nautilus.Examples;
 public class RegisterEventExamples  : BaseUnityPlugin
 {
     // Register Events allow you to define Prefabs with less code
-    [RegisterEvent("MyCoolItem")]
+    [Register("MyCoolItem")]
     private static void RegisterMyCoolItem(PrefabInfo info)
     {
         CustomPrefab myPrefab = new CustomPrefab(info);
@@ -32,7 +32,7 @@ public class RegisterEventExamples  : BaseUnityPlugin
     
     // Register Events can depend on 1 (or multiple) registries to be loaded before it.
     // Registers can also supply you modded TechType's with ease
-    [RegisterEvent("MyEpicItem", "MyCoolItem")]
+    [Register("MyEpicItem", "MyCoolItem")]
     private static void RegisterMyEpicItem(PrefabInfo info, TechType myCoolItem)
     {
         CustomPrefab myPrefab = new CustomPrefab(info);
@@ -88,7 +88,7 @@ public class RegisterEventExamples  : BaseUnityPlugin
 
     /*Register Events are not limited to prefabs however
      they can execute anything and are useful in managing load order of your mod*/
-    [RegisterEvent("MyCoolSounds", "SomeRegistryIWantToLoadFirst")]
+    [Register("MyCoolSounds", "SomeRegistryIWantToLoadFirst")]
     private static void RegisterMySounds()
     {
         // code for loading sounds that load after something else or whatever

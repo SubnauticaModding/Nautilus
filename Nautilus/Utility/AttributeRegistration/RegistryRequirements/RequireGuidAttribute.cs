@@ -4,7 +4,7 @@ using BepInEx;
 namespace Nautilus.Utility.AttributeRegistration.RegistryRequirements;
 
 /// <summary>
-/// When a method is attached with a [<see cref="RegisterEventAttribute"/>] alongside this attribute,
+/// When a method is attached with a [<see cref="RegisterAttribute"/>] alongside this attribute,
 /// Nautilus will only execute the registry if every mod GUID is present. This is similar to a soft <see cref="BepInDependency"/> but allows
 /// the creation of registries that optionally load when all other mod GUIDs are present.
 /// </summary>
