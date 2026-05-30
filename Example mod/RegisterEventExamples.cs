@@ -76,7 +76,6 @@ public class RegisterEventExamples  : BaseUnityPlugin
     private void Awake()
     {
         // Here we ask Nautilus to search our assembly and execute our registries
-        AttributeRegistrationUtils.ExecuteAssemblyAttributeRegistries(Assembly.GetExecutingAssembly());
         
         /*
          If you need more debug info, enable Nautilus's Debug toggle in settings.
