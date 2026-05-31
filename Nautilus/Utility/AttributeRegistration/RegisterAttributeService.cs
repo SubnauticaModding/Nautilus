@@ -42,7 +42,7 @@ public sealed class RegisterAttributeService
     /// Next argument types are checked, examples include <see cref="PrefabInfo"/> or <see cref="TechType"/> for their respective injectors.
     /// </summary>
     /// <param name="injector">The injector to check when determining if it can inject for the parameter type/parameter attribute</param>
-    /// <typeparam name="T">The type this injector checks. Can either be of an Attribute for the paramter or the paramter's argument type.</typeparam>
+    /// <typeparam name="T">The type this injector checks. Can either be of an Attribute for the parameter or the parameter's argument type.</typeparam>
     public void AddTypedDependencyInjector<T>(IDependencyArgumentInjector injector) => _typedDependencyArgumentInjectors.Add(typeof(T), injector);
     
     /// <summary>
@@ -56,7 +56,7 @@ public sealed class RegisterAttributeService
     /// Search an <see cref="Assembly"/> and execute every public/nonpublic static method attached with a <see cref="RegisterAttribute"/>.
     /// Method parameters are automatically processed depending on the defined <see cref="IDependencyArgumentInjector">IDependencyArgumentInjectors</see>.
     /// </summary>
-    /// <param name="assemblyToSearch">The assembly to search through</param>
+    /// <param name="assemblyToSearch">The <see cref="Assembly"/> for which all types will be checked for static methods marked with the <see cref="RegisterAttribute"/>.</param>
     public void ExecuteAssemblyRegisterAttributes(Assembly assemblyToSearch)
     {
         ProcessAttributeRegistriesForAssembly(assemblyToSearch);
@@ -71,7 +71,7 @@ public sealed class RegisterAttributeService
                 RegisterAttribute[] attributes = method.GetCustomAttributes<RegisterAttribute>(inherit: false).ToArray();
                 if (!attributes.Any())
                 {
-                    continue;// no attribute present
+                    continue; // no attribute present
                 }
                 
                 // There can only be 1 RegisterEventAttribute (compiler enforced)
@@ -95,18 +95,19 @@ public sealed class RegisterAttributeService
             throw new Exception($"Duplicate registry ID found: {registerMethod.Attribute.RegistryID}!");
         }
         
-        if (DependenciesFulfilled(registerMethod.Attribute, out string firstFailedGlobalDependency))
+        if (AreDependenciesFulfilled(registerMethod.Attribute, out string firstFailedGlobalDependency))
         {
             registerMethod.Service.ExecuteMethodUnsafe(registerMethod);
             return;
         }
 
-        if (DependencyCyclic(globalRegistryID, firstFailedGlobalDependency, out string chain))
+        if (IsDependencyCyclic(globalRegistryID, firstFailedGlobalDependency, out string chain))
         {
             throw new Exception($"Cyclic dependency registrations found! Dependency chain: {chain}");
         }
 
-        if(_deferredRegistrations.TryGetValue(firstFailedGlobalDependency, out var list)){
+        if (_deferredRegistrations.TryGetValue(firstFailedGlobalDependency, out var list))
+        {
             list.Add(registerMethod);
         }
         else
@@ -117,7 +118,7 @@ public sealed class RegisterAttributeService
         }
     }
     
-    private bool DependencyCyclic(string registryID, string dependencyID, out string chain)
+    private bool IsDependencyCyclic(string registryID, string dependencyID, out string chain)
     {
         if (registryID == dependencyID)
         {
@@ -160,7 +161,7 @@ public sealed class RegisterAttributeService
         return false;
     }
 
-    private bool DependenciesFulfilled(RegisterAttribute registryAttribute, out string firstUnloadedGlobalDependency)
+    private bool AreDependenciesFulfilled(RegisterAttribute registryAttribute, out string firstUnloadedGlobalDependency)
     {
         if (registryAttribute.LoadAfterIDs == null)
         {
@@ -183,8 +184,8 @@ public sealed class RegisterAttributeService
     
     private void ExecuteMethodUnsafe(RegisterMethod registerMethod)
     {
-        if(Initializer.ConfigFile.enableDebugLogs)
-            InternalLogger.Info($"Executing registry: {registerMethod.Attribute.RegistryID} from {registerMethod.MethodInfo.DeclaringType}");
+        if (Initializer.ConfigFile.enableDebugLogs)
+            InternalLogger.Info($"Executing registry '{registerMethod.Attribute.RegistryID}' from '{registerMethod.MethodInfo.DeclaringType}'");
         
         ParameterInfo[] parameters = registerMethod.MethodInfo.GetParameters();
         Object[] parameterValues = new Object[parameters.Length];
@@ -215,8 +216,8 @@ public sealed class RegisterAttributeService
         list.ForEach(HandleRegisterMethod);
     }
 
-    // Priority: Attribute injector -> Type of argument injector -> Argument name injector.
-    private bool TryDependencyInject(InjectionContext context, out Object valueToInject)
+    // Priority: Attribute injector > Type of argument injector > Argument name injector.
+    private bool TryDependencyInject(InjectionContext context, out object valueToInject)
     {
         foreach (Attribute parameterAttribute in context.ParameterInfo.GetCustomAttributes())
         {
@@ -230,14 +231,14 @@ public sealed class RegisterAttributeService
 
         if (_typedDependencyArgumentInjectors.TryGetValue(context.ParameterInfo.ParameterType, out IDependencyArgumentInjector typedInjector))
         {
-            typedInjector.TryInjectToArgument(context, out Object value);
+            typedInjector.TryInjectToArgument(context, out object value);
             valueToInject = value;
             return true;
         }
         
         foreach (IDependencyArgumentInjector injector in _dependencyArgumentInjectors)
         {
-            if (!injector.TryInjectToArgument(context, out Object value)) continue;
+            if (!injector.TryInjectToArgument(context, out object value)) continue;
             
             valueToInject = value;
             return true;
@@ -259,13 +260,14 @@ public sealed class RegisterAttributeService
         {
             if (!registryRequirement.RequirementsMet()) return false;
         }
+        
         return true;
     }
 
     private string GetGlobalRegistryID(string registryID)
     {
         var parts = registryID.Split(["::"], StringSplitOptions.None);
-        if (parts.Length > 1)// registryId is already globalized
+        if (parts.Length > 1) // RegistryId is already globalized
         {
             return registryID;
         }
@@ -277,7 +279,7 @@ public sealed class RegisterAttributeService
         foreach (KeyValuePair<string, List<RegisterMethod>> unloadedRegistryID in _deferredRegistrations)
         {
             string registriesWaitingForDependency = string.Join(", ", unloadedRegistryID.Value.Select(registerMethod => registerMethod.Attribute.RegistryID));
-            InternalLogger.Log($"Registry(ies) {registriesWaitingForDependency} could not be loaded due to missing dependency: {unloadedRegistryID.Key}! Use conditional registration to avoid this, registrations should only be made when they are expected to load.", LogLevel.Error);
+            InternalLogger.Log($"Registry(ies) '{registriesWaitingForDependency}' could not be loaded due to missing dependency: {unloadedRegistryID.Key}! Use conditional registration to avoid this; registrations should only be made when they are expected to load.", LogLevel.Error);
         }
     }
 }
