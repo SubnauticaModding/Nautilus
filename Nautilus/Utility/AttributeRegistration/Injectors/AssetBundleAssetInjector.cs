@@ -62,7 +62,6 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
         object asset = null;
         foreach (AssetBundle bundle in _bundles.Values)
         {
-            InternalLogger.Log(bundle.name);
             asset = bundle.LoadAsset(assetName, assetType);
             if (asset != null) break;
         }
