@@ -11,7 +11,7 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
     
     internal AssetBundleAssetInjector(AssetBundle[] bundles)
     {
-        bundles.ForEach(bundle => _bundles.Add(bundle.name, bundle));
+        bundles?.ForEach(bundle => _bundles.Add(bundle.name, bundle));
     }
 
     public bool TryInjectToArgument(InjectionContext context, out object value)

@@ -21,7 +21,7 @@ public static class RegisterAttributeServiceExtensions
         /// </summary>
         /// <param name="assetBundles">Asset bundle(s) to load from. Can be safely left null if <see cref="AssetLoadAttribute">[AssetLoad]</see> is never used</param>
         /// <remarks>Unless you know what you are doing, it is recommended to use the default injectors for most mods.</remarks>
-        public void AddDefaultInjectors(AssetBundle[] assetBundles)
+        public void AddBasicInjectors(AssetBundle[] assetBundles = null)
         {
             service.AddAssetBundleAssetInjector(assetBundles);
             service.AddPrefabInfoInjector();
@@ -36,7 +36,7 @@ public static class RegisterAttributeServiceExtensions
         /// <remarks>If multiple asset bundles are defined and your <see cref="AssetLoadAttribute">[AssetLoad]</see> attributes do not define an asset bundle name,
         /// a brute force search will be used on every bundle to determine a prefab. This may work for most use cases, but could also bring in unexpected behavior if you
         /// have multiple assets under the same name across bundles.</remarks>
-        public void AddAssetBundleAssetInjector(AssetBundle[] assetBundles) =>
+        public void AddAssetBundleAssetInjector(AssetBundle[] assetBundles = null) =>
             service.AddTypedDependencyInjector<AssetLoadAttribute>(new AssetBundleAssetInjector(assetBundles));
         
         /// <summary>

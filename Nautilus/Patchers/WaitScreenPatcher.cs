@@ -130,7 +130,7 @@ internal static class WaitScreenPatcher
         lateLoading.SetProgress(1f);
         WaitScreen.Remove(lateLoading);
 
-        //RegisterAttributeService.LogWarningsForUnloadedDependencies();
+        RegisterAttributeService.LogErrorsForUnloadedDependencies();
 
         // Destroy the status display. In SN this would have persisted anyway, but in BZ it would get cleaned up
         // on return to main menu.

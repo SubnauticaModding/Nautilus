@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BepInEx.Logging;
 using Nautilus.Assets;
 using Nautilus.Utility.AttributeRegistration.Injectors;
 using Nautilus.Utility.AttributeRegistration.RegistryRequirements;
@@ -14,17 +15,26 @@ namespace Nautilus.Utility.AttributeRegistration;
 /// </summary>
 public sealed class RegisterAttributeService
 {
+    private readonly string modGuid;
     private readonly Dictionary<Type, IDependencyArgumentInjector> _typedDependencyArgumentInjectors = new();
     private readonly List<IDependencyArgumentInjector> _dependencyArgumentInjectors = new();
-
-    private readonly HashSet<string> _idsRegistered = new();
     
+    private static readonly HashSet<string> _idsRegistered = new();
     // the key represents which id the registry is next waiting for.
     // the list of registries is the events waiting for key to be loaded,
     // these will attempt to execute when the key is but may return under a different key if there are still dependencies to check.
-    private readonly Dictionary<string, List<RegisterMethod>> _deferredRegistrations = new();
+    private static readonly Dictionary<string, List<RegisterMethod>> _deferredRegistrations = new();
     
     private record RegisterMethod(RegisterAttribute Attribute, MethodInfo MethodInfo, RegisterAttributeService Service);
+
+    /// <summary>
+    /// Utility for searching for and calling methods attributed with <see cref="RegisterAttribute"/>.
+    /// </summary>
+    /// <param name="modGuid">Used as a prefix for cross mod dependencies. Use the same guid from your BepInEx plugin</param>
+    public RegisterAttributeService(string modGuid)
+    {
+        this.modGuid = modGuid;
+    }
     
     /// <summary>
     /// Adds a dependency injector for a given type. Types can be associated in two different ways: the argument's type and the argument's attributes.
@@ -78,30 +88,32 @@ public sealed class RegisterAttributeService
     
     private void HandleRegisterMethod(RegisterMethod registerMethod)
     {
-        if (_idsRegistered.Contains(registerMethod.Attribute.registryID))
+        string globalRegistryID = GetGlobalRegistryID(registerMethod.Attribute.registryID);
+        
+        if (_idsRegistered.Contains(globalRegistryID))
         {
             throw new Exception($"Duplicate registry ID found: {registerMethod.Attribute.registryID}!");
         }
         
-        if (DependenciesFulfilled(registerMethod.Attribute, out string firstFailedDependency))
+        if (DependenciesFulfilled(registerMethod.Attribute, out string firstFailedGlobalDependency))
         {
             registerMethod.Service.ExecuteMethodUnsafe(registerMethod);
             return;
         }
 
-        if (DependencyCyclic(registerMethod.Attribute.registryID, firstFailedDependency, out string chain))
+        if (DependencyCyclic(globalRegistryID, firstFailedGlobalDependency, out string chain))
         {
             throw new Exception($"Cyclic dependency registrations found! Dependency chain: {chain}");
         }
 
-        if(_deferredRegistrations.TryGetValue(firstFailedDependency, out var list)){
+        if(_deferredRegistrations.TryGetValue(firstFailedGlobalDependency, out var list)){
             list.Add(registerMethod);
         }
         else
         {
             List<RegisterMethod> newDependentList = new();
             newDependentList.Add(registerMethod);
-            _deferredRegistrations.Add(firstFailedDependency, newDependentList);
+            _deferredRegistrations.Add(firstFailedGlobalDependency, newDependentList);
         }
     }
     
@@ -113,7 +125,6 @@ public sealed class RegisterAttributeService
             return true;
         }
         
-        // fancy c# shit
         Stack<(string registry, string pathTraversed)> toVisit = new();
         HashSet<string> visited = new();
 
@@ -149,29 +160,31 @@ public sealed class RegisterAttributeService
         return false;
     }
 
-    private bool DependenciesFulfilled(RegisterAttribute registryAttribute, out string firstUnloadedDependency)
+    private bool DependenciesFulfilled(RegisterAttribute registryAttribute, out string firstUnloadedGlobalDependency)
     {
         if (registryAttribute.loadAfterIDs == null)
         {
-            firstUnloadedDependency = null;
+            firstUnloadedGlobalDependency = null;
             return true;
         }
         
         foreach (string dependentID in registryAttribute.loadAfterIDs)
         {
-            if (_idsRegistered.Contains(dependentID)) continue;
+            string globalDependencyId = GetGlobalRegistryID(dependentID);
             
-            firstUnloadedDependency = dependentID;
+            if (_idsRegistered.Contains(globalDependencyId)) continue;
+            
+            firstUnloadedGlobalDependency = globalDependencyId;
             return false;
         }
-        firstUnloadedDependency = null;
+        firstUnloadedGlobalDependency = null;
         return true;
     }
     
     private void ExecuteMethodUnsafe(RegisterMethod registerMethod)
     {
         if(Initializer.ConfigFile.enableDebugLogs)
-            InternalLogger.Info($"Calling {registerMethod.MethodInfo.Name} from {registerMethod.MethodInfo.DeclaringType}");
+            InternalLogger.Info($"Executing registry: {registerMethod.Attribute.registryID} from {registerMethod.MethodInfo.DeclaringType}");
         
         ParameterInfo[] parameters = registerMethod.MethodInfo.GetParameters();
         Object[] parameterValues = new Object[parameters.Length];
@@ -192,16 +205,17 @@ public sealed class RegisterAttributeService
         }
         
         registerMethod.MethodInfo.Invoke(null, parameterValues);
-        _idsRegistered.Add(registerMethod.Attribute.registryID);
+        string globalRegistryId = GetGlobalRegistryID(registerMethod.Attribute.registryID);
+        _idsRegistered.Add(globalRegistryId);
                 
         // check and load for any that depended on this ID
-        if (!_deferredRegistrations.TryGetValue(registerMethod.Attribute.registryID, out var list)) return;
+        if (!_deferredRegistrations.TryGetValue(globalRegistryId, out var list)) return;
         // remove the dependency from the deferred list, saves a bit of memory but not technically required.
-        _deferredRegistrations.Remove(registerMethod.Attribute.registryID);
+        _deferredRegistrations.Remove(globalRegistryId);
         list.ForEach(HandleRegisterMethod);
     }
 
-    // Priority: Parameter/Argument attribute injector -> Type of argument injector -> Argument name injector.
+    // Priority: Attribute injector -> Type of argument injector -> Argument name injector.
     private bool TryDependencyInject(InjectionContext context, out Object valueToInject)
     {
         foreach (Attribute parameterAttribute in context.parameterInfo.GetCustomAttributes())
@@ -247,15 +261,23 @@ public sealed class RegisterAttributeService
         }
         return true;
     }
-    
-    /*
-    internal static void LogWarningsForUnloadedDependencies()
+
+    private string GetGlobalRegistryID(string registryID)
     {
-        foreach (KeyValuePair<String, List<RegisterAttribute>> unloadedRegistryID in _deferredRegistrations)
+        var parts = registryID.Split(["::"], StringSplitOptions.None);
+        if (parts.Length > 1)// registryId is already globalized
         {
-            string registriesWaitingForDependency = string.Join(", ", unloadedRegistryID.Value.Select(attribute => attribute.registryID));
-            InternalLogger.Log($"Registry(ies) {registriesWaitingForDependency} could not be loaded due to missing dependency: {unloadedRegistryID.Key}", LogLevel.Warning);
+            return registryID;
+        }
+        return modGuid + "::" + registryID;
+    }
+    
+    internal static void LogErrorsForUnloadedDependencies()
+    {
+        foreach (KeyValuePair<string, List<RegisterMethod>> unloadedRegistryID in _deferredRegistrations)
+        {
+            string registriesWaitingForDependency = string.Join(", ", unloadedRegistryID.Value.Select(registerMethod => registerMethod.Attribute.registryID));
+            InternalLogger.Log($"Registry(ies) {registriesWaitingForDependency} could not be loaded due to missing dependency: {unloadedRegistryID.Key}! Use conditional registration to avoid this, registrations should only be made when they are expected to load.", LogLevel.Error);
         }
     }
-    */
 }
