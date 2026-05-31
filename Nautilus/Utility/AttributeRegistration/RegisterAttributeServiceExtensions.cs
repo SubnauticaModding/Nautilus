@@ -40,7 +40,7 @@ public static class RegisterAttributeServiceExtensions
             service.AddTypedDependencyInjector<AssetLoadAttribute>(new AssetBundleAssetInjector(assetBundles));
         
         /// <summary>
-        /// Assigns any <see cref="PrefabInfo"/> argument with an instance containing a TechType defined by the <see cref="RegisterAttribute.registryID">registryID</see>
+        /// Assigns any <see cref="PrefabInfo"/> argument with an instance containing a TechType defined by the <see cref="RegisterAttribute.RegistryID">registryID</see>
         /// </summary>
         public void AddPrefabInfoInjector() => 
             service.AddTypedDependencyInjector<PrefabInfo>(new PrefabInfoInjector());

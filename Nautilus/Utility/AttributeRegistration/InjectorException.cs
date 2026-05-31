@@ -10,5 +10,5 @@ namespace Nautilus.Utility.AttributeRegistration;
 public class InjectorException(InjectionContext context, string message = null) : Exception
 {
     /// <inheritdoc />
-    public override string Message => $"Failed to execute registry: {context.attribute.registryID}! " + message;
+    public override string Message => $"Failed to execute registry: {context.Attribute.RegistryID}! " + message;
 }

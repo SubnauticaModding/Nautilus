@@ -88,11 +88,11 @@ public sealed class RegisterAttributeService
     
     private void HandleRegisterMethod(RegisterMethod registerMethod)
     {
-        string globalRegistryID = GetGlobalRegistryID(registerMethod.Attribute.registryID);
+        string globalRegistryID = GetGlobalRegistryID(registerMethod.Attribute.RegistryID);
         
         if (_idsRegistered.Contains(globalRegistryID))
         {
-            throw new Exception($"Duplicate registry ID found: {registerMethod.Attribute.registryID}!");
+            throw new Exception($"Duplicate registry ID found: {registerMethod.Attribute.RegistryID}!");
         }
         
         if (DependenciesFulfilled(registerMethod.Attribute, out string firstFailedGlobalDependency))
@@ -142,7 +142,7 @@ public sealed class RegisterAttributeService
 
             foreach (var registerMethod in waiting)
             {
-                if (registerMethod.Attribute.registryID == dependencyID)
+                if (registerMethod.Attribute.RegistryID == dependencyID)
                 {
                     path += $",{dependencyID}";
                     path += $",{registryID}";// Add the start to the end to clearly show the path loops
@@ -152,7 +152,7 @@ public sealed class RegisterAttributeService
                     chain = string.Join(" -> ", path.Split(',').Reverse());
                     return true;
                 }
-                toVisit.Push((registerMethod.Attribute.registryID, path + $",{registerMethod.Attribute.registryID}"));
+                toVisit.Push((registerMethod.Attribute.RegistryID, path + $",{registerMethod.Attribute.RegistryID}"));
             }
         }
 
@@ -162,13 +162,13 @@ public sealed class RegisterAttributeService
 
     private bool DependenciesFulfilled(RegisterAttribute registryAttribute, out string firstUnloadedGlobalDependency)
     {
-        if (registryAttribute.loadAfterIDs == null)
+        if (registryAttribute.LoadAfterIDs == null)
         {
             firstUnloadedGlobalDependency = null;
             return true;
         }
         
-        foreach (string dependentID in registryAttribute.loadAfterIDs)
+        foreach (string dependentID in registryAttribute.LoadAfterIDs)
         {
             string globalDependencyId = GetGlobalRegistryID(dependentID);
             
@@ -184,7 +184,7 @@ public sealed class RegisterAttributeService
     private void ExecuteMethodUnsafe(RegisterMethod registerMethod)
     {
         if(Initializer.ConfigFile.enableDebugLogs)
-            InternalLogger.Info($"Executing registry: {registerMethod.Attribute.registryID} from {registerMethod.MethodInfo.DeclaringType}");
+            InternalLogger.Info($"Executing registry: {registerMethod.Attribute.RegistryID} from {registerMethod.MethodInfo.DeclaringType}");
         
         ParameterInfo[] parameters = registerMethod.MethodInfo.GetParameters();
         Object[] parameterValues = new Object[parameters.Length];
@@ -200,12 +200,12 @@ public sealed class RegisterAttributeService
             }
             else
             {
-                throw new Exception($"No injector found for {parameterInfo.Name} when registering {context.attribute.registryID}");
+                throw new Exception($"No injector found for {parameterInfo.Name} when registering {context.Attribute.RegistryID}");
             }
         }
         
         registerMethod.MethodInfo.Invoke(null, parameterValues);
-        string globalRegistryId = GetGlobalRegistryID(registerMethod.Attribute.registryID);
+        string globalRegistryId = GetGlobalRegistryID(registerMethod.Attribute.RegistryID);
         _idsRegistered.Add(globalRegistryId);
                 
         // check and load for any that depended on this ID
@@ -218,7 +218,7 @@ public sealed class RegisterAttributeService
     // Priority: Attribute injector -> Type of argument injector -> Argument name injector.
     private bool TryDependencyInject(InjectionContext context, out Object valueToInject)
     {
-        foreach (Attribute parameterAttribute in context.parameterInfo.GetCustomAttributes())
+        foreach (Attribute parameterAttribute in context.ParameterInfo.GetCustomAttributes())
         {
             if (_typedDependencyArgumentInjectors.TryGetValue(parameterAttribute.GetType(), out IDependencyArgumentInjector argumentAttributeInjector))
             {
@@ -228,7 +228,7 @@ public sealed class RegisterAttributeService
             }
         }
 
-        if (_typedDependencyArgumentInjectors.TryGetValue(context.parameterInfo.ParameterType, out IDependencyArgumentInjector typedInjector))
+        if (_typedDependencyArgumentInjectors.TryGetValue(context.ParameterInfo.ParameterType, out IDependencyArgumentInjector typedInjector))
         {
             typedInjector.TryInjectToArgument(context, out Object value);
             valueToInject = value;
@@ -276,7 +276,7 @@ public sealed class RegisterAttributeService
     {
         foreach (KeyValuePair<string, List<RegisterMethod>> unloadedRegistryID in _deferredRegistrations)
         {
-            string registriesWaitingForDependency = string.Join(", ", unloadedRegistryID.Value.Select(registerMethod => registerMethod.Attribute.registryID));
+            string registriesWaitingForDependency = string.Join(", ", unloadedRegistryID.Value.Select(registerMethod => registerMethod.Attribute.RegistryID));
             InternalLogger.Log($"Registry(ies) {registriesWaitingForDependency} could not be loaded due to missing dependency: {unloadedRegistryID.Key}! Use conditional registration to avoid this, registrations should only be made when they are expected to load.", LogLevel.Error);
         }
     }

@@ -16,16 +16,16 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
 
     public bool TryInjectToArgument(InjectionContext context, out object value)
     {
-        AssetLoadAttribute assetAttribute = context.parameterInfo.GetCustomAttribute<AssetLoadAttribute>(true);
+        AssetLoadAttribute assetAttribute = context.ParameterInfo.GetCustomAttribute<AssetLoadAttribute>(true);
         if(assetAttribute == null)
         {
             value = null;
             return false;
         }
         
-        if(_bundles.Count == 0) throw new InjectorException(context, $"Asked to load asset {context.parameterInfo.Name} without providing a bundle for {context.attribute.registryID} registry");
+        if(_bundles.Count == 0) throw new InjectorException(context, $"Asked to load asset {context.ParameterInfo.Name} without providing a bundle for {context.Attribute.RegistryID} registry");
         
-        string assetName = context.parameterInfo.Name;
+        string assetName = context.ParameterInfo.Name;
         if (assetAttribute.AssetToLoad != null) // Attribute asset name gets priority over the argument name (if defined)
         {
             assetName = assetAttribute.AssetToLoad;
@@ -33,11 +33,11 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
 
         if (_bundles.Count == 1 || (_bundles.Count > 1 && string.IsNullOrEmpty(assetAttribute.BundleName)))
         {
-            value = LoadBruteForce(assetName, context.parameterInfo.ParameterType);
+            value = LoadBruteForce(assetName, context.ParameterInfo.ParameterType);
         }
         else
         {
-            value = LoadFromBundle(assetAttribute.BundleName, assetName, context.parameterInfo.ParameterType, context);
+            value = LoadFromBundle(assetAttribute.BundleName, assetName, context.ParameterInfo.ParameterType, context);
         }
         
         if (value == null)
