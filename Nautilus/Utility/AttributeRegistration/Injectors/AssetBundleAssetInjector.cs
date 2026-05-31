@@ -31,7 +31,7 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
             assetName = assetAttribute.AssetToLoad;
         }
 
-        if (_bundles.Count == 1 || (_bundles.Count > 1 && assetAttribute.BundleName == null))
+        if (_bundles.Count == 1 || (_bundles.Count > 1 && string.IsNullOrEmpty(assetAttribute.BundleName)))
         {
             value = LoadBruteForce(assetName, context.parameterInfo.ParameterType);
         }
