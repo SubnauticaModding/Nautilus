@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Nautilus.Utility.AttributeRegistration;
 
 /// <summary>
-/// Extensions for easy access to injectors Nautilus provides within the <see cref="RegisterAttributeService"/> system
+/// Extensions for easy access to injectors that Nautilus provides within the <see cref="RegisterAttributeService"/> system.
 /// </summary>
 public static class RegisterAttributeServiceExtensions
 {
@@ -19,9 +19,9 @@ public static class RegisterAttributeServiceExtensions
         ///   <item><see cref="RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector">Tech Type Injector</see></item>
         /// </list>
         /// </summary>
-        /// <param name="assetBundles">Asset bundle(s) to load from. Can be safely left null if <see cref="AssetLoadAttribute">[AssetLoad]</see> is never used</param>
+        /// <param name="assetBundles">Asset Bundle(s) to load from. Can be safely left null if [<see cref="AssetLoadAttribute">AssetLoad</see>] is never used.</param>
         /// <remarks>Unless you know what you are doing, it is recommended to use the default injectors for most mods.</remarks>
-        public void AddBasicInjectors(AssetBundle[] assetBundles = null)
+        public void AddBasicInjectors(params AssetBundle[] assetBundles)
         {
             service.AddAssetBundleAssetInjector(assetBundles);
             service.AddPrefabInfoInjector();
@@ -29,24 +29,24 @@ public static class RegisterAttributeServiceExtensions
         }
         
         /// <summary>
-        /// Assigns any argument with a <see cref="AssetLoadAttribute">[AssetLoad]</see> attribute with a prefab from the given asset bundles.
+        /// Assigns any argument with a <see cref="AssetLoadAttribute">[AssetLoad]</see> attribute with a prefab from the given Asset Bundles.
         /// The type to load is determined from the argument's type.
         /// </summary>
-        /// <param name="assetBundles">Asset bundle(s) to load from. Can be safely left null if <see cref="AssetLoadAttribute">[AssetLoad]</see> is never used</param>
-        /// <remarks>If multiple asset bundles are defined and your <see cref="AssetLoadAttribute">[AssetLoad]</see> attributes do not define an asset bundle name,
+        /// <param name="assetBundles">The Asset Bundle(s) to load from. Can be safely left null if [<see cref="AssetLoadAttribute">AssetLoad</see>] is never used</param>
+        /// <remarks>If multiple Asset Bundles are defined and your [<see cref="AssetLoadAttribute">AssetLoad</see>] attributes do not define an Asset Bundle name,
         /// a brute force search will be used on every bundle to determine a prefab. This may work for most use cases, but could also bring in unexpected behavior if you
         /// have multiple assets under the same name across bundles.</remarks>
         public void AddAssetBundleAssetInjector(AssetBundle[] assetBundles = null) =>
             service.AddTypedDependencyInjector<AssetLoadAttribute>(new AssetBundleAssetInjector(assetBundles));
         
         /// <summary>
-        /// Assigns any <see cref="PrefabInfo"/> argument with an instance containing a TechType defined by the <see cref="RegisterAttribute.RegistryID">registryID</see>
+        /// Assigns any <see cref="PrefabInfo"/> argument with an instance containing a TechType defined by the <see cref="RegisterAttribute.RegistryID">RegistryID</see>.
         /// </summary>
         public void AddPrefabInfoInjector() => 
             service.AddTypedDependencyInjector<PrefabInfo>(new PrefabInfoInjector());
 
         /// <summary>
-        /// Assigns any <see cref="TechType"/> argument with a valid enum value depending on the argument name
+        /// Assigns any <see cref="TechType"/> argument with a valid enum value depending on the argument name.
         /// </summary>
         public void AddTechTypeInjector() =>
             service.AddTypedDependencyInjector<TechType>(new TechTypeInjector());
