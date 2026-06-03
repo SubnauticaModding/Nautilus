@@ -6,7 +6,6 @@ using BepInEx.Logging;
 using Nautilus.Assets;
 using Nautilus.Utility.AttributeRegistration.Injectors;
 using Nautilus.Utility.AttributeRegistration.RegistryRequirements;
-using Object = System.Object;
 
 namespace Nautilus.Utility.AttributeRegistration;
 
@@ -188,14 +187,14 @@ public sealed class RegisterAttributeService
             InternalLogger.Info($"Executing registry '{registerMethod.Attribute.RegistryID}' from '{registerMethod.MethodInfo.DeclaringType}'");
         
         ParameterInfo[] parameters = registerMethod.MethodInfo.GetParameters();
-        Object[] parameterValues = new Object[parameters.Length];
+        object[] parameterValues = new object[parameters.Length];
         
         for (int i = 0; i < parameters.Length; i++)
         {
             ParameterInfo parameterInfo = parameters[i];
             InjectionContext context = new InjectionContext(registerMethod.Attribute, parameterInfo, registerMethod.MethodInfo,this);
             
-            if (TryDependencyInject(context, out Object value))
+            if (TryDependencyInject(context, out object value))
             {
                 parameterValues[i] = value;
             }
