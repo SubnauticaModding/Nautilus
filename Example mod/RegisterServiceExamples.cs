@@ -9,7 +9,7 @@ using Nautilus.Utility.AttributeRegistration.RegistryRequirements;
 namespace Nautilus.Examples;
 [BepInPlugin(ModGuid, "Nautilus RegisterEvent Example Mod", Nautilus.PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
-public class RegisterServiceExamples  : BaseUnityPlugin
+public class RegisterServiceExamples : BaseUnityPlugin
 {
     private const string ModGuid = "com.snmodding.nautilus.registerevent";
     
@@ -81,7 +81,7 @@ public class RegisterServiceExamples  : BaseUnityPlugin
     // Now, to have Nautilus execute your registries, you must use the RegistryEventUtils
     private void Awake()
     {
-        RegisterAttributeService service = new RegisterAttributeService(ModGuid);
+        RegisterAttributeService service = new RegisterAttributeService(this);
         service.AddBasicInjectors();// This adds several injectors built into Nautilus. 
         // Custom injectors can be defined here and added as well, but this is not needed for most use cases
         service.ExecuteAssemblyRegisterAttributes(Assembly.GetExecutingAssembly());

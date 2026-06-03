@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BepInEx;
 using BepInEx.Logging;
 using Nautilus.Assets;
 using Nautilus.Utility.AttributeRegistration.Injectors;
@@ -14,7 +15,7 @@ namespace Nautilus.Utility.AttributeRegistration;
 /// </summary>
 public sealed class RegisterAttributeService
 {
-    private readonly string modGuid;
+    private readonly string _modGuid;
     private readonly Dictionary<Type, IDependencyArgumentInjector> _typedDependencyArgumentInjectors = new();
     private readonly List<IDependencyArgumentInjector> _dependencyArgumentInjectors = new();
     
@@ -29,10 +30,11 @@ public sealed class RegisterAttributeService
     /// <summary>
     /// Utility for searching for and calling methods attributed with <see cref="RegisterAttribute"/>.
     /// </summary>
-    /// <param name="modGuid">Used as a prefix for cross mod dependencies. Use the same guid from your BepInEx plugin</param>
-    public RegisterAttributeService(string modGuid)
+    /// <param name="baseUnityPlugin">Supply your BepInEx plugin instance. Your GUID from there will be used for cross mod support</param>
+    public RegisterAttributeService(BaseUnityPlugin baseUnityPlugin) 
     {
-        this.modGuid = modGuid;
+        if (baseUnityPlugin == null) throw new ArgumentNullException(nameof(baseUnityPlugin));
+        _modGuid = baseUnityPlugin.Info.Metadata.GUID;
     }
     
     /// <summary>
@@ -270,7 +272,7 @@ public sealed class RegisterAttributeService
         {
             return registryID;
         }
-        return modGuid + "::" + registryID;
+        return _modGuid + "::" + registryID;
     }
     
     internal static void LogErrorsForUnloadedDependencies()
