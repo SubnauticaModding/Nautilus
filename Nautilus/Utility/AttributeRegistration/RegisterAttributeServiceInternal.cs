@@ -2,22 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using BepInEx;
 using BepInEx.Logging;
-using Nautilus.Assets;
 using Nautilus.Utility.AttributeRegistration.Injectors;
 using Nautilus.Utility.AttributeRegistration.RegistryRequirements;
 
 namespace Nautilus.Utility.AttributeRegistration;
 
-/// <summary>
-/// Utility for searching for and calling methods attributed with <see cref="RegisterAttribute"/>.
-/// </summary>
-public sealed class RegisterAttributeService
+
+public sealed partial class RegisterAttributeService
 {
     private readonly string _modGuid;
     private readonly Dictionary<Type, IDependencyArgumentInjector> _typedDependencyArgumentInjectors = new();
     private readonly List<IDependencyArgumentInjector> _dependencyArgumentInjectors = new();
+    private readonly Dictionary<Type, List<object>> _singletons = new();
+    private readonly Dictionary<(Type, string), object> _keyedSingletons = new();
     
     private static readonly HashSet<string> _idsRegistered = new();
     // the key represents which id the registry is next waiting for.
@@ -26,43 +24,7 @@ public sealed class RegisterAttributeService
     private static readonly Dictionary<string, List<RegisterMethod>> _deferredRegistrations = new();
     
     private record RegisterMethod(RegisterAttribute Attribute, MethodInfo MethodInfo, RegisterAttributeService Service);
-
-    /// <summary>
-    /// Utility for searching for and calling methods attributed with <see cref="RegisterAttribute"/>.
-    /// </summary>
-    /// <param name="baseUnityPlugin">Supply your BepInEx plugin instance. Your GUID from there will be used for cross mod support</param>
-    public RegisterAttributeService(BaseUnityPlugin baseUnityPlugin) 
-    {
-        if (baseUnityPlugin == null) throw new ArgumentNullException(nameof(baseUnityPlugin));
-        _modGuid = baseUnityPlugin.Info.Metadata.GUID;
-    }
     
-    /// <summary>
-    /// Adds a dependency injector for a given type. Types can be associated in two different ways: the argument's type and the argument's attributes.
-    /// First argument attributes are checked, an example of this is the <see cref="AssetLoadAttribute"/> which takes precedence regardless of the argument type.
-    /// Next argument types are checked, examples include <see cref="PrefabInfo"/> or <see cref="TechType"/> for their respective injectors.
-    /// </summary>
-    /// <param name="injector">The injector to check when determining if it can inject for the parameter type/parameter attribute</param>
-    /// <typeparam name="T">The type this injector checks. Can either be of an Attribute for the parameter or the parameter's argument type.</typeparam>
-    public void AddTypedDependencyInjector<T>(IDependencyArgumentInjector injector) => _typedDependencyArgumentInjectors.Add(typeof(T), injector);
-    
-    /// <summary>
-    /// Adds a dependency injector without a Type. Typeless injectors are only checked when no Typed injector could be determined.
-    /// </summary>
-    /// <param name="injector"></param>
-    /// <remarks>Since this injector is not based on a type, you may want to look at the parameter name instead</remarks>
-    public void AddDependencyInjector(IDependencyArgumentInjector injector) => _dependencyArgumentInjectors.Add(injector);
-    
-    /// <summary>
-    /// Search an <see cref="Assembly"/> and execute every public/nonpublic static method attached with a <see cref="RegisterAttribute"/>.
-    /// Method parameters are automatically processed depending on the defined <see cref="IDependencyArgumentInjector">IDependencyArgumentInjectors</see>.
-    /// </summary>
-    /// <param name="assemblyToSearch">The <see cref="Assembly"/> for which all types will be checked for static methods marked with the <see cref="RegisterAttribute"/>.</param>
-    public void ExecuteAssemblyRegisterAttributes(Assembly assemblyToSearch)
-    {
-        ProcessAttributeRegistriesForAssembly(assemblyToSearch);
-    }
-
     private void ProcessAttributeRegistriesForAssembly(Assembly assemblyToSearch)
     {
         foreach (Type type in assemblyToSearch.GetTypes())
@@ -202,7 +164,7 @@ public sealed class RegisterAttributeService
             }
             else
             {
-                throw new Exception($"No injector found for {parameterInfo.Name} when registering {context.Attribute.RegistryID}");
+                throw new Exception($"No injector/singleton found for {parameterInfo.Name} when registering {context.Attribute.RegistryID}");
             }
         }
         
@@ -242,6 +204,12 @@ public sealed class RegisterAttributeService
             if (!injector.TryInjectToArgument(context, out object value)) continue;
             
             valueToInject = value;
+            return true;
+        }
+
+        if (_singletons.TryGetValue(context.ParameterInfo.ParameterType, out List<object> singletonValues))
+        {
+            valueToInject = singletonValues[^1];// Inject the last singleton value added for a type
             return true;
         }
         

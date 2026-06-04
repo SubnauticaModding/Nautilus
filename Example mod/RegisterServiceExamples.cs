@@ -102,7 +102,7 @@ public class RegisterServiceExamples : BaseUnityPlugin
     }
     
     // Register Events can also load assets from an asset bundle (provided to Nautilus in a later step)
-    /* Though this is outside the scope of a basic tutorial, the code below should get you started */
+    /* Though this is outside the scope of a basic tutorial, the code below should get you started,*/
     
     /*[RegisterEvent("MyEpicItem")]
     private static void RegisterItemWithAsset(PrefabInfo info, [AssetLoad("myBundleAssetIcon")] Sprite icon)

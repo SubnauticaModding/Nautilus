@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -7,13 +8,6 @@ namespace Nautilus.Utility.AttributeRegistration.Injectors;
 
 internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
 {
-    private readonly Dictionary<string, AssetBundle> _bundles = new();
-    
-    internal AssetBundleAssetInjector(AssetBundle[] bundles)
-    {
-        bundles?.ForEach(bundle => _bundles.Add(bundle.name, bundle));
-    }
-
     public bool TryInjectToArgument(InjectionContext context, out object value)
     {
         AssetLoadAttribute assetAttribute = context.ParameterInfo.GetCustomAttribute<AssetLoadAttribute>(true);
@@ -22,49 +16,59 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
             value = null;
             return false;
         }
-        
-        if(_bundles.Count == 0) throw new InjectorException(context, $"Asked to load asset {context.ParameterInfo.Name} without providing a bundle for {context.Attribute.RegistryID} registry");
-        
-        string assetName = context.ParameterInfo.Name;
-        if (assetAttribute.AssetToLoad != null) // Attribute asset name gets priority over the argument name (if defined)
-        {
-            assetName = assetAttribute.AssetToLoad;
-        }
 
-        if (_bundles.Count == 1 || (_bundles.Count > 1 && string.IsNullOrEmpty(assetAttribute.BundleName)))
+        List<AssetBundle> bundles = context.Service.GetAllSingletons<AssetBundle>().ToList();
+        foreach (AssetBundle bundle in bundles)
         {
-            value = LoadBruteForce(assetName, context.ParameterInfo.ParameterType);
+            InternalLogger.Log(bundle.name);
+        }
+        
+        if (bundles.Count == 0) throw new InjectorException(context, $"Asked to load asset {context.ParameterInfo.Name} without providing bundles within the service! Add then as a singleton/keyedSingleton");
+        
+        string assetName = GetAssetNameToLoad(context, assetAttribute);
+        
+        if (bundles.Count == 1)
+        {
+            value = bundles[0].LoadAsset(assetName, context.ParameterInfo.ParameterType);
         }
         else
         {
-            value = LoadFromBundle(assetAttribute.BundleName, assetName, context.ParameterInfo.ParameterType, context);
+            value = LoadFromKeyedBundle(assetAttribute, assetName, context);
         }
         
         if (value == null)
         {
             throw new InjectorException(context, $"Asset {assetAttribute.AssetToLoad} could not be loaded! Returned null for the given bundle(s).");
         }
-        
+           
         return true;
     }
 
-    private object LoadFromBundle(string bundleName, string assetName, Type assetType, InjectionContext context)
+    // Priority: IAssetBundleKeyResolver > AssetToLoad in Attribute > Parameter Name
+    private static string GetAssetNameToLoad(InjectionContext context, AssetLoadAttribute assetAttribute)
     {
-        if (_bundles.TryGetValue(bundleName, out AssetBundle bundle))
+        if (assetAttribute.AssetToLoad != null)
         {
-            return bundle.LoadAsset(assetName, assetType);
+            return assetAttribute.AssetToLoad;
         }
-        throw new InjectorException(context, $"Unknown AssetBundle: {bundleName}! The bundle name should match the internal name set within UnityEditor.");
+        return context.ParameterInfo.Name;
     }
 
-    private object LoadBruteForce(string assetName, Type assetType)
+    private static object LoadFromKeyedBundle(AssetLoadAttribute assetAttribute, string assetName, InjectionContext context)
     {
-        object asset = null;
-        foreach (AssetBundle bundle in _bundles.Values)
+        string bundleKey = assetAttribute.BundleKey;
+        IAssetBundleKeyResolver resolver = context.Service.GetSingleton<IAssetBundleKeyResolver>();
+        if (resolver != null)
         {
-            asset = bundle.LoadAsset(assetName, assetType);
-            if (asset != null) break;
+            bundleKey = resolver.GetAssetBundleKey(context);
         }
-        return asset;
+        
+        if(string.IsNullOrEmpty(bundleKey)) throw new InjectorException(context, $"Asset bundle name could not be determined with multiple bundles added as singletons!");
+        
+        AssetBundle bundle = context.Service.GetKeyedSingleton<AssetBundle>(bundleKey);
+        if (bundle == null) throw new InjectorException(context, $"Unknown AssetBundle: {bundleKey}! The bundle key should be resolved to the same value used when adding the bundle as a keyedSingleton.");
+        
+        return bundle.LoadAsset(assetName, context.ParameterInfo.ParameterType);
     }
+    
 }
