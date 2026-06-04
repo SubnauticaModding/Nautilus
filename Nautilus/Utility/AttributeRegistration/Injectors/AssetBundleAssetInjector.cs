@@ -18,10 +18,6 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
         }
 
         List<AssetBundle> bundles = context.Service.GetAllSingletons<AssetBundle>().ToList();
-        foreach (AssetBundle bundle in bundles)
-        {
-            InternalLogger.Log(bundle.name);
-        }
         
         if (bundles.Count == 0) throw new InjectorException(context, $"Asked to load asset {context.ParameterInfo.Name} without providing bundles within the service! Add then as a singleton/keyedSingleton");
         
