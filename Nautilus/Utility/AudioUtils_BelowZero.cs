@@ -11,47 +11,47 @@ public static partial class AudioUtils
         /// <summary>
         /// Used for underwater creature SFXs. Tied to the master volume.
         /// </summary>
-        public const string UnderwaterCreatures = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures underwater";
+        public static readonly string UnderwaterCreatures = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures underwater";
 
         /// <summary>
         /// Used for surface creature SFXs that dont get muted when at the surface of the ocean. Tied to the master volume.
         /// </summary>
-        public const string SurfaceCreatures = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures surface";
+        public static readonly string SurfaceCreatures = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures surface";
 
         /// <summary>
         /// Used for PDA voices. Tied to the voice volume.
         /// </summary>
-        public const string PDAVoice = "bus:/master/SFX_for_pause/PDA_pause/all/all voice/AI voice";
+        public static readonly string PDAVoice = "bus:/master/SFX_for_pause/PDA_pause/all/all voice/AI voice";
 
         /// <summary>
         /// Used for encyclopedia VOs. Tied to the voice volume.
         /// </summary>
-        public const string VoiceOvers = "bus:/master/SFX_for_pause/PDA_pause/all/all voice/VOs";
+        public static readonly string VoiceOvers = "bus:/master/SFX_for_pause/PDA_pause/all/all voice/VOs";
 
         /// <summary>
         /// Used for main music. Tied to the music volume.
         /// </summary>
-        public const string Music = "bus:/master/Music_no_pause/music";
+        public static readonly string Music = "bus:/master/Music_no_pause/music";
 
         /// <summary>
         /// Used for environmental music. Tied to the music volume.
         /// </summary>
-        public const string EnvironmentalMusic = "bus:/master/Music_no_pause/music/mutable music";
+        public static readonly string EnvironmentalMusic = "bus:/master/Music_no_pause/music/mutable music";
 
         /// <summary>
         /// Used for underwater ambience SFXs. Tied to the ambient volume.
         /// </summary>
-        public const string UnderwaterAmbient = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds";
+        public static readonly string UnderwaterAmbient = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds";
 
         /// <summary>
         /// Used for ambience SFXs that dont get muted when at the surface of the ocean. Tied to the ambient volume.
         /// </summary>
-        public const string SurfaceAmbient = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/surface";
+        public static readonly string SurfaceAmbient = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds/surface";
         
         /// <summary>
         /// Used for player and hand-held tools SFXs. Tied to the master volume.
         /// </summary>
-        public const string PlayerSFXs = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend";
+        public static readonly string PlayerSFXs = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend";
     }
 }
 #endif
