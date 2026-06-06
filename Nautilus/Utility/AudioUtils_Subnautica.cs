@@ -21,7 +21,7 @@ public static partial class AudioUtils
         /// <summary>
         /// Used for PDA voices. Tied to the voice volume.
         /// </summary>
-        public static readonly string PDAVoice = "bus:/master/SFX_for_pause/PDA_pause/all/all voice/AI voice";
+        public static readonly string PDAVoice = "bus:/master/SFX_for_pause/all_no_pda_pause/all_voice_no_pda_pause/aI_voice";
 
         /// <summary>
         /// Used for encyclopedia VOs. Tied to the voice volume.
