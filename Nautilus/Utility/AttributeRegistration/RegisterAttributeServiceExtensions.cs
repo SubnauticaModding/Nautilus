@@ -30,18 +30,16 @@ public static class RegisterAttributeServiceExtensions
         
         /// <summary>
         /// Assigns any argument with a <see cref="AssetLoadAttribute">[AssetLoad]</see> attribute with a prefab from the given Asset Bundles. The type to load is determined from the argument's type.
-        /// There are 2 ways to add asset bundles into the system:
+        /// There are 3 ways to add/use asset bundles within the service:
         /// <list type="bullet">
         ///   <item>For mods that use a singular asset bundle, add it as a <see cref="RegisterAttributeService.AddSingleton">Singleton</see> for the injector to pull from.</item>
-        ///   <item>For mods with multiple asset bundles, add them as <see cref="RegisterAttributeService.AddKeyedSingleton">KeyedSingletons</see>.</item>
-        /// </list>
-        /// If multiple asset bundles are used, the register MUST determine which bundle to load from. There are 2 ways to accomplish this,
-        /// both using the key from the <see cref="RegisterAttributeService.AddKeyedSingleton">AddKeyedSingleton</see>:
-        /// <list type="bullet">
-        ///   <item>The <see cref="AssetLoadAttribute">[AssetLoad("AssetName", "BundleKey")]</see> attribute has an optional argument for the bundle key.</item>
-        ///   <item>An <see cref="IAssetBundleKeyResolver"/> can be added as a <see cref="RegisterAttributeService.AddSingleton">Singleton</see> to the service.
-        ///   Ensure the type <see cref="IAssetBundleKeyResolver"/> is used for the singleton and NOT the implementing class. If a resolver is added to the service,
-        ///   it will take precedence over anything defined in a <see cref="AssetLoadAttribute">[AssetLoad]</see> attribute</item>
+        ///   <item>One way for mods with multiple asset bundles, is to add them as <see cref="RegisterAttributeService.AddKeyedSingleton">KeyedSingletons</see> within the service.
+        ///         From there, The <see cref="AssetLoadAttribute">[AssetLoad("AssetName", "BundleKey")]</see> attribute has an optional argument for the bundle key. This key is
+        ///         the same used to register the bundle as a singleton.</item>
+        ///   <item>Another way for mods with multiple asset bundles, is to create an implementation of <see cref="IRegistryAssetBundleResolver"/> that can be added as a
+        ///         <see cref="RegisterAttributeService.AddSingleton">Singleton</see> to the service. Ensure the type <see cref="IRegistryAssetBundleResolver"/> is used
+        ///         for the singleton and NOT the implementing class, otherwise the injector will fail to use your resolver. If a resolver is added to the service,
+        ///         it will take precedence over any key defined in the <see cref="AssetLoadAttribute">[AssetLoad]</see> attribute</item>
         /// </list>
         /// </summary>
         public void AddAssetBundleAssetInjector() =>

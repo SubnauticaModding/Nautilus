@@ -29,7 +29,7 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
         }
         else
         {
-            value = LoadFromKeyedBundle(assetAttribute, assetName, context);
+            value = LoadWithMultipleBundles(assetAttribute, assetName, context);
         }
         
         if (value == null)
@@ -50,21 +50,29 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
         return context.ParameterInfo.Name;
     }
 
-    private static object LoadFromKeyedBundle(AssetLoadAttribute assetAttribute, string assetName, InjectionContext context)
+    private static object LoadWithMultipleBundles(AssetLoadAttribute assetAttribute, string assetName, InjectionContext context)
     {
-        string bundleKey = assetAttribute.BundleKey;
-        IAssetBundleKeyResolver resolver = context.Service.GetLatestSingleton<IAssetBundleKeyResolver>();
-        if (resolver != null)
-        {
-            bundleKey = resolver.GetAssetBundleKey(context);
-        }
-        
-        if(string.IsNullOrEmpty(bundleKey)) throw new InjectorException(context, $"Asset bundle name could not be determined with multiple bundles added as singletons!");
-        
-        AssetBundle bundle = context.Service.GetKeyedSingleton<AssetBundle>(bundleKey);
-        if (bundle == null) throw new InjectorException(context, $"Unknown AssetBundle: {bundleKey}! The bundle key should be resolved to the same value used when adding the bundle as a keyedSingleton.");
-        
+        AssetBundle bundle = GetBundle(assetAttribute, context);
         return bundle.LoadAsset(assetName, context.ParameterInfo.ParameterType);
     }
-    
+
+    private static AssetBundle GetBundle(AssetLoadAttribute assetAttribute, InjectionContext context)
+    {
+        IRegistryAssetBundleResolver resolver = context.Service.GetLatestSingleton<IRegistryAssetBundleResolver>();
+        if (resolver != null)
+        {
+            AssetBundle resolvedBundle = resolver.GetAssetBundle(context);
+            if (resolvedBundle == null) throw new InjectorException(context, "The AssetBundle given from a IRegistryAssetBundleResolver is null!");
+            return resolvedBundle;
+        }
+
+        if (string.IsNullOrEmpty(assetAttribute.BundleKey)) throw new InjectorException(context, "Asset bundle name could not be determined with multiple bundles added as singletons!");
+        
+        AssetBundle keyedBundle = context.Service.GetKeyedSingleton<AssetBundle>(assetAttribute.BundleKey);
+
+        if (keyedBundle == null) throw new InjectorException(context, $"Unknown AssetBundle: {assetAttribute.BundleKey}! The bundle key should be resolved " +
+                                                                        $"to the same value used when adding the bundle as a keyedSingleton.");
+        
+        return keyedBundle;
+    }
 }
