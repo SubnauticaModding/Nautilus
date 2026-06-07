@@ -1,6 +1,5 @@
 ﻿using Nautilus.Assets;
 using Nautilus.Utility.AttributeRegistration.Injectors;
-using UnityEngine;
 
 namespace Nautilus.Utility.AttributeRegistration;
 

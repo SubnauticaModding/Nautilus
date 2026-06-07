@@ -4,6 +4,7 @@ using System.Reflection;
 using BepInEx;
 using Nautilus.Assets;
 using Nautilus.Utility.AttributeRegistration.Injectors;
+
 namespace Nautilus.Utility.AttributeRegistration;
 
 /// <summary>

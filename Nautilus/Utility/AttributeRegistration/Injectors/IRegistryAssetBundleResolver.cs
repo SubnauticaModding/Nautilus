@@ -1,4 +1,5 @@
 using UnityEngine;
+
 namespace Nautilus.Utility.AttributeRegistration.Injectors;
 
 
