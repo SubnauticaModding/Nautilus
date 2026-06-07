@@ -53,7 +53,7 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
     private static object LoadFromKeyedBundle(AssetLoadAttribute assetAttribute, string assetName, InjectionContext context)
     {
         string bundleKey = assetAttribute.BundleKey;
-        IAssetBundleKeyResolver resolver = context.Service.GetSingleton<IAssetBundleKeyResolver>();
+        IAssetBundleKeyResolver resolver = context.Service.GetLatestSingleton<IAssetBundleKeyResolver>();
         if (resolver != null)
         {
             bundleKey = resolver.GetAssetBundleKey(context);

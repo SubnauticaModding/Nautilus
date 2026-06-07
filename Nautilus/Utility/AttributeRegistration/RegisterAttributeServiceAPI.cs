@@ -78,7 +78,7 @@ public sealed partial class RegisterAttributeService
     /// </summary>
     /// <typeparam name="T">Singleton Type to retrieve</typeparam>
     /// <returns>The last added singleton for a given type. If no singleton was added for the type, null (or default for valuetypes) is returned.</returns>
-    public T GetSingleton<T>()
+    public T GetLatestSingleton<T>()
     {
         if (_singletons.TryGetValue(typeof(T), out List<object> singletons))
         {
