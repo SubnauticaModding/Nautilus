@@ -52,11 +52,11 @@ internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
 
     private static object LoadWithMultipleBundles(AssetLoadAttribute assetAttribute, string assetName, InjectionContext context)
     {
-        AssetBundle bundle = GetBundle(assetAttribute, context);
+        AssetBundle bundle = GetSpecificBundle(assetAttribute, context);
         return bundle.LoadAsset(assetName, context.ParameterInfo.ParameterType);
     }
 
-    private static AssetBundle GetBundle(AssetLoadAttribute assetAttribute, InjectionContext context)
+    private static AssetBundle GetSpecificBundle(AssetLoadAttribute assetAttribute, InjectionContext context)
     {
         IRegistryAssetBundleResolver resolver = context.Service.GetLatestSingleton<IRegistryAssetBundleResolver>();
         if (resolver != null)
