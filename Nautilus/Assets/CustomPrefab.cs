@@ -293,28 +293,29 @@ public class CustomPrefab : ICustomPrefab
             return;
         }
 
-        /*
-         * It is fine for some prefabs to not have a tech type (E.G: world decorators, or anything that isn't scannable),
-         * so just warn it in-case people forgot to add one.
-         */
-        if (Info.TechType is TechType.None)
-        {
-            InternalLogger.Warn($"Prefab '{Info}' does not contain a TechType.");
-        }
+        if (!PrefabHandler.Prefabs.TryRegisterPrefab(this))
+            return;
 
-        foreach (var reg in _onRegister)
+        try
         {
-            reg?.Invoke();
-        }
+            foreach (var reg in _onRegister)
+            {
+                reg?.Invoke();
+            }
 
-        foreach (var gadget in _gadgets)
+            foreach (var gadget in _gadgets)
+            {
+                gadget.Value.Build();
+            }
+
+            _registered = true;
+        }
+        catch(Exception ex)
         {
-            gadget.Value.Build();
+            // If anything throws before _registered is set to true, unregister the prefab and log the exception.
+            InternalLogger.Error($"Failed to register prefab '{Info}'.\n{ex}");
+            PrefabHandler.Prefabs.UnregisterPrefab(this);
         }
-        
-        PrefabHandler.Prefabs.RegisterPrefab(this);
-
-        _registered = true;
     }
 
     /// <summary>

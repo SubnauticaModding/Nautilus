@@ -139,7 +139,7 @@ public abstract class JsonFile : IJsonFile
     /// <seealso cref="Load(bool)"/>
     public virtual void LoadWithConverters(bool createFileIfNotExist = true, params JsonConverter[] jsonConverters)
     {
-        JsonUtils.Load(this, JsonFilePath, true,
+        JsonUtils.Load(this, JsonFilePath, createFileIfNotExist,
             AlwaysIncludedJsonConverters.Concat(jsonConverters).Distinct().ToArray());
     }
     
@@ -155,7 +155,7 @@ public abstract class JsonFile : IJsonFile
     /// <seealso cref="Load(bool)"/>
     public virtual async Task LoadWithConvertersAsync(bool createFileIfNotExist = true, params JsonConverter[] jsonConverters)
     {
-        await JsonUtils.LoadAsync(this, JsonFilePath, true,
+        await JsonUtils.LoadAsync(this, JsonFilePath, createFileIfNotExist,
             AlwaysIncludedJsonConverters.Concat(jsonConverters).Distinct().ToArray());
     }
 

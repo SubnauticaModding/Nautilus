@@ -115,7 +115,17 @@ public static class PrefabCollectionExtensions
     /// <param name="customPrefab">The custom prefab to register.</param>
     public static void RegisterPrefab(this PrefabCollection collection, ICustomPrefab customPrefab)
     {
-        collection.Add(customPrefab.Info, customPrefab.Prefab, customPrefab.OnPrefabPostProcess);
+        collection.TryAdd(customPrefab.Info, customPrefab.Prefab, customPrefab.OnPrefabPostProcess);
+    }
+
+    /// <summary>
+    /// Tries to register a <see cref="CustomPrefab"/> into the game.
+    /// </summary>
+    /// <param name="collection">The collection to register to.</param>
+    /// <param name="customPrefab">The custom prefab to register.</param>
+    public static bool TryRegisterPrefab(this PrefabCollection collection, ICustomPrefab customPrefab)
+    {
+        return collection.TryAdd(customPrefab.Info, customPrefab.Prefab, customPrefab.OnPrefabPostProcess);
     }
 
     /// <summary>
@@ -147,24 +157,32 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
     /// <param name="info">The prefab info to register.</param>
     /// <param name="prefabFactory">The function that constructs the game object for this prefab info.</param>
     /// <param name="postProcessor">The prefab post processor that will be invoked after Nautilus's prefab processing.</param>
-    public void Add(PrefabInfo info, PrefabFactoryAsync prefabFactory, PrefabPostProcessorAsync postProcessor = null)
+    public void Add(PrefabInfo info, PrefabFactoryAsync prefabFactory, PrefabPostProcessorAsync postProcessor = null) => TryAdd(info, prefabFactory, postProcessor);
+
+    /// <summary>
+    /// Tries to add a prefab info with the function that constructs the game object into the game.
+    /// </summary>
+    /// <param name="info">The prefab info to register.</param>
+    /// <param name="prefabFactory">The function that constructs the game object for this prefab info.</param>
+    /// <param name="postProcessor">The prefab post processor that will be invoked after Nautilus's prefab processing.</param>
+    public bool TryAdd(PrefabInfo info, PrefabFactoryAsync prefabFactory, PrefabPostProcessorAsync postProcessor = null)
     {
         if (_prefabs.ContainsKey(info))
         {
             InternalLogger.Error($"Another modded prefab already registered the following prefab: {info}");
-            return;
+            return false;
         }
 
         if (_classIdPrefabs.ContainsKey(info.ClassID) || string.IsNullOrWhiteSpace(info.ClassID))
         {
             InternalLogger.Error($"Class ID is required and must be unique for prefab: {info}");
-            return;
+            return false;
         }
         
         if (_fileNamePrefabs.ContainsKey(info.PrefabFileName) || string.IsNullOrWhiteSpace(info.PrefabFileName))
         {
             InternalLogger.Error($"PrefabFileName is required and must be unique for prefab: {info}");
-            return;
+            return false;
         }
 
         if (postProcessor is {})
@@ -182,6 +200,7 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
         }
 
         CraftDataPatcher.ModPrefabsPatched = false;
+        return true;
     }
 
     /// <summary>

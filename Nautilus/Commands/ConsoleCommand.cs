@@ -18,7 +18,7 @@ internal class ConsoleCommand
     public string Trigger { get; }
 
     /// <summary>
-    /// The QMod that registered the command.
+    /// The plugin/mod that registered the command.
     /// </summary>
     public string ModName { get; }
 

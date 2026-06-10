@@ -109,6 +109,13 @@ internal class ModPrefabCacheInstance: MonoBehaviour
             return;
         }
 
+        if (prefab.activeInHierarchy)
+        {
+            InternalLogger.Warn($"Adding prefab '{prefab.name}' to cache while it is active. Prefabs must be deactivated " +
+                                $"as early as possible during setup to avoid duplication issues.\n" +
+                                $"Use UWE.Utils.InstantiateDeactivated when possible or call SetActive(false) before initialization.");
+        }
+
         if (BannedPrefabs.Contains(prefabIdentifier.classId))
         {
             return;

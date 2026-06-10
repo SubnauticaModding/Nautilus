@@ -80,7 +80,7 @@ public abstract class ConfigFile : IJsonFile
     /// {
     ///     public KeyCode ActivationKey { get; set; } = KeyCode.Escape;
     ///     public MyConfig() : base("options", "Config Files") { }
-    ///     // The config file will be stored at the path "QMods\YourModName\Config Files\options.json"
+    ///     // The config file will be stored at the path "BepInEx\config\YourModName\Config Files\options.json"
     /// }
     /// </code>
     /// </example>
@@ -153,7 +153,7 @@ public abstract class ConfigFile : IJsonFile
     /// <seealso cref="Load(bool)"/>
     public void LoadWithConverters(bool createFileIfNotExist = true, params JsonConverter[] jsonConverters)
     {
-        this.LoadJson(JsonFilePath, true,
+        this.LoadJson(JsonFilePath, createFileIfNotExist,
             AlwaysIncludedJsonConverters.Concat(jsonConverters).Distinct().ToArray());
     }
 

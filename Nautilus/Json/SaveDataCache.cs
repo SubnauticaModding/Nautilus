@@ -14,7 +14,7 @@ namespace Nautilus.Json;
 /// </summary>
 public abstract class SaveDataCache : JsonFile
 {
-    private string QModId { get; init; }
+    private string ModId { get; init; }
 
     private bool InGame => !string.IsNullOrWhiteSpace(SaveLoadManager.GetTemporarySavePath());
 
@@ -22,13 +22,13 @@ public abstract class SaveDataCache : JsonFile
     private string JsonFileName => jsonFileName ??= GetType().GetCustomAttribute<FileNameAttribute>() switch
     {
         FileNameAttribute fileNameAttribute => fileNameAttribute.FileName,
-        _ => QModId
+        _ => ModId
     };
 
     /// <summary>
     /// The file path at which the JSON file is accessible for reading and writing.
     /// </summary>
-    public override string JsonFilePath => Path.Combine(SaveLoadManager.GetTemporarySavePath(), QModId, $"{JsonFileName}.json");
+    public override string JsonFilePath => Path.Combine(SaveLoadManager.GetTemporarySavePath(), ModId, $"{JsonFileName}.json");
 
     /// <summary>
     /// Creates a new instance of <see cref="SaveDataCache"/>, parsing the file name from <see cref="FileNameAttribute"/>
@@ -36,7 +36,7 @@ public abstract class SaveDataCache : JsonFile
     /// </summary>
     public SaveDataCache()
     {
-        QModId = GetType().Assembly.GetName().Name;
+        ModId = GetType().Assembly.GetName().Name;
     }
 
     /// <summary>
@@ -57,11 +57,11 @@ public abstract class SaveDataCache : JsonFile
         if (InGame)
         {
             base.Load(createFileIfNotExist);
-            InternalLogger.Log($"[{QModId}] Loaded save data from {JsonFileName}.json");
+            InternalLogger.Log($"[{ModId}] Loaded save data from {JsonFileName}.json");
         }
         else
         {
-            throw new InvalidOperationException($"[{QModId}] Cannot load save data when not in game!");
+            throw new InvalidOperationException($"[{ModId}] Cannot load save data when not in game!");
         }
     }
     
@@ -79,11 +79,11 @@ public abstract class SaveDataCache : JsonFile
         if (InGame)
         {
             await base.LoadAsync(createFileIfNotExist);
-            InternalLogger.Log($"[{QModId}] Loaded save data from {JsonFileName}.json");
+            InternalLogger.Log($"[{ModId}] Loaded save data from {JsonFileName}.json");
         }
         else
         {
-            throw new InvalidOperationException($"[{QModId}] Cannot load save data when not in game!");
+            throw new InvalidOperationException($"[{ModId}] Cannot load save data when not in game!");
         }
     }
 
@@ -103,11 +103,11 @@ public abstract class SaveDataCache : JsonFile
         if (InGame)
         {
             base.Save();
-            InternalLogger.Log($"[{QModId}] Saved save data to {JsonFileName}.json");
+            InternalLogger.Log($"[{ModId}] Saved save data to {JsonFileName}.json");
         }
         else
         {
-            throw new InvalidOperationException($"[{QModId}] Cannot save save data when not in game!");
+            throw new InvalidOperationException($"[{ModId}] Cannot save save data when not in game!");
         }
     }
     
@@ -123,11 +123,11 @@ public abstract class SaveDataCache : JsonFile
         if (InGame)
         {
             await base.SaveAsync();
-            InternalLogger.Log($"[{QModId}] Saved save data to {JsonFileName}.json");
+            InternalLogger.Log($"[{ModId}] Saved save data to {JsonFileName}.json");
         }
         else
         {
-            throw new InvalidOperationException($"[{QModId}] Cannot save save data when not in game!");
+            throw new InvalidOperationException($"[{ModId}] Cannot save save data when not in game!");
         }
     }
 
@@ -146,11 +146,11 @@ public abstract class SaveDataCache : JsonFile
         if (InGame)
         {
             base.LoadWithConverters(createFileIfNotExist, jsonConverters);
-            InternalLogger.Log($"[{QModId}] Loaded save data from {JsonFileName}.json");
+            InternalLogger.Log($"[{ModId}] Loaded save data from {JsonFileName}.json");
         }
         else
         {
-            throw new InvalidOperationException($"[{QModId}] Cannot load save data when not in game!");
+            throw new InvalidOperationException($"[{ModId}] Cannot load save data when not in game!");
         }
     }
     
@@ -169,11 +169,11 @@ public abstract class SaveDataCache : JsonFile
         if (InGame)
         {
             await base.LoadWithConvertersAsync(createFileIfNotExist, jsonConverters);
-            InternalLogger.Log($"[{QModId}] Loaded save data from {JsonFileName}.json");
+            InternalLogger.Log($"[{ModId}] Loaded save data from {JsonFileName}.json");
         }
         else
         {
-            throw new InvalidOperationException($"[{QModId}] Cannot load save data when not in game!");
+            throw new InvalidOperationException($"[{ModId}] Cannot load save data when not in game!");
         }
     }
 
@@ -190,11 +190,11 @@ public abstract class SaveDataCache : JsonFile
         if (InGame)
         {
             base.SaveWithConverters(jsonConverters);
-            InternalLogger.Log($"[{QModId}] Saved save data to {JsonFileName}.json");
+            InternalLogger.Log($"[{ModId}] Saved save data to {JsonFileName}.json");
         }
         else
         {
-            throw new InvalidOperationException($"[{QModId}] Cannot save save data when not in game!");
+            throw new InvalidOperationException($"[{ModId}] Cannot save save data when not in game!");
         }
     }
     
@@ -211,11 +211,11 @@ public abstract class SaveDataCache : JsonFile
         if (InGame)
         {
             await base.SaveWithConvertersAsync(jsonConverters);
-            InternalLogger.Log($"[{QModId}] Saved save data to {JsonFileName}.json");
+            InternalLogger.Log($"[{ModId}] Saved save data to {JsonFileName}.json");
         }
         else
         {
-            throw new InvalidOperationException($"[{QModId}] Cannot save save data when not in game!");
+            throw new InvalidOperationException($"[{ModId}] Cannot save save data when not in game!");
         }
     }
 }
