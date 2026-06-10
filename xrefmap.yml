@@ -8005,6 +8005,18 @@ references:
   commentId: Overload:Nautilus.Handlers.PrefabCollection.Remove
   fullName: Nautilus.Handlers.PrefabCollection.Remove
   nameWithType: PrefabCollection.Remove
+- uid: Nautilus.Handlers.PrefabCollection.TryAdd(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabFactoryAsync,Nautilus.Assets.PrefabPostProcessorAsync)
+  name: TryAdd(PrefabInfo, PrefabFactoryAsync, PrefabPostProcessorAsync)
+  href: api/Nautilus.Handlers.PrefabCollection.html#Nautilus_Handlers_PrefabCollection_TryAdd_Nautilus_Assets_PrefabInfo_Nautilus_Assets_PrefabFactoryAsync_Nautilus_Assets_PrefabPostProcessorAsync_
+  commentId: M:Nautilus.Handlers.PrefabCollection.TryAdd(Nautilus.Assets.PrefabInfo,Nautilus.Assets.PrefabFactoryAsync,Nautilus.Assets.PrefabPostProcessorAsync)
+  fullName: Nautilus.Handlers.PrefabCollection.TryAdd(Nautilus.Assets.PrefabInfo, Nautilus.Assets.PrefabFactoryAsync, Nautilus.Assets.PrefabPostProcessorAsync)
+  nameWithType: PrefabCollection.TryAdd(PrefabInfo, PrefabFactoryAsync, PrefabPostProcessorAsync)
+- uid: Nautilus.Handlers.PrefabCollection.TryAdd*
+  name: TryAdd
+  href: api/Nautilus.Handlers.PrefabCollection.html#Nautilus_Handlers_PrefabCollection_TryAdd_
+  commentId: Overload:Nautilus.Handlers.PrefabCollection.TryAdd
+  fullName: Nautilus.Handlers.PrefabCollection.TryAdd
+  nameWithType: PrefabCollection.TryAdd
 - uid: Nautilus.Handlers.PrefabCollection.TryGetInfoForClassId(System.String,Nautilus.Assets.PrefabInfo@)
   name: TryGetInfoForClassId(string, out PrefabInfo)
   href: api/Nautilus.Handlers.PrefabCollection.html#Nautilus_Handlers_PrefabCollection_TryGetInfoForClassId_System_String_Nautilus_Assets_PrefabInfo__
@@ -8098,6 +8110,18 @@ references:
   commentId: Overload:Nautilus.Handlers.PrefabCollectionExtensions.RegisterPrefab
   fullName: Nautilus.Handlers.PrefabCollectionExtensions.RegisterPrefab
   nameWithType: PrefabCollectionExtensions.RegisterPrefab
+- uid: Nautilus.Handlers.PrefabCollectionExtensions.TryRegisterPrefab(Nautilus.Handlers.PrefabCollection,Nautilus.Assets.ICustomPrefab)
+  name: TryRegisterPrefab(PrefabCollection, ICustomPrefab)
+  href: api/Nautilus.Handlers.PrefabCollectionExtensions.html#Nautilus_Handlers_PrefabCollectionExtensions_TryRegisterPrefab_Nautilus_Handlers_PrefabCollection_Nautilus_Assets_ICustomPrefab_
+  commentId: M:Nautilus.Handlers.PrefabCollectionExtensions.TryRegisterPrefab(Nautilus.Handlers.PrefabCollection,Nautilus.Assets.ICustomPrefab)
+  fullName: Nautilus.Handlers.PrefabCollectionExtensions.TryRegisterPrefab(Nautilus.Handlers.PrefabCollection, Nautilus.Assets.ICustomPrefab)
+  nameWithType: PrefabCollectionExtensions.TryRegisterPrefab(PrefabCollection, ICustomPrefab)
+- uid: Nautilus.Handlers.PrefabCollectionExtensions.TryRegisterPrefab*
+  name: TryRegisterPrefab
+  href: api/Nautilus.Handlers.PrefabCollectionExtensions.html#Nautilus_Handlers_PrefabCollectionExtensions_TryRegisterPrefab_
+  commentId: Overload:Nautilus.Handlers.PrefabCollectionExtensions.TryRegisterPrefab
+  fullName: Nautilus.Handlers.PrefabCollectionExtensions.TryRegisterPrefab
+  nameWithType: PrefabCollectionExtensions.TryRegisterPrefab
 - uid: Nautilus.Handlers.PrefabCollectionExtensions.UnregisterPrefab(Nautilus.Handlers.PrefabCollection,Nautilus.Assets.ICustomPrefab)
   name: UnregisterPrefab(PrefabCollection, ICustomPrefab)
   href: api/Nautilus.Handlers.PrefabCollectionExtensions.html#Nautilus_Handlers_PrefabCollectionExtensions_UnregisterPrefab_Nautilus_Handlers_PrefabCollection_Nautilus_Assets_ICustomPrefab_
@@ -12915,6 +12939,471 @@ references:
   commentId: Overload:Nautilus.Utility.AsyncUtils.WaitUntilTaskComplete
   fullName: Nautilus.Utility.AsyncUtils.WaitUntilTaskComplete
   nameWithType: AsyncUtils.WaitUntilTaskComplete
+- uid: Nautilus.Utility.AttributeRegistration
+  name: Nautilus.Utility.AttributeRegistration
+  href: api/Nautilus.Utility.AttributeRegistration.html
+  commentId: N:Nautilus.Utility.AttributeRegistration
+  fullName: Nautilus.Utility.AttributeRegistration
+  nameWithType: Nautilus.Utility.AttributeRegistration
+- uid: Nautilus.Utility.AttributeRegistration.AssetLoadAttribute
+  name: AssetLoadAttribute
+  href: api/Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.html
+  commentId: T:Nautilus.Utility.AttributeRegistration.AssetLoadAttribute
+  fullName: Nautilus.Utility.AttributeRegistration.AssetLoadAttribute
+  nameWithType: AssetLoadAttribute
+- uid: Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.#ctor(System.String,System.String)
+  name: AssetLoadAttribute(string, string)
+  href: api/Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.html#Nautilus_Utility_AttributeRegistration_AssetLoadAttribute__ctor_System_String_System_String_
+  commentId: M:Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.#ctor(System.String,System.String)
+  name.vb: New(String, String)
+  fullName: Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.AssetLoadAttribute(string, string)
+  fullName.vb: Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.New(String, String)
+  nameWithType: AssetLoadAttribute.AssetLoadAttribute(string, string)
+  nameWithType.vb: AssetLoadAttribute.New(String, String)
+- uid: Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.#ctor*
+  name: AssetLoadAttribute
+  href: api/Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.html#Nautilus_Utility_AttributeRegistration_AssetLoadAttribute__ctor_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.#ctor
+  name.vb: New
+  fullName: Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.AssetLoadAttribute
+  fullName.vb: Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.New
+  nameWithType: AssetLoadAttribute.AssetLoadAttribute
+  nameWithType.vb: AssetLoadAttribute.New
+- uid: Nautilus.Utility.AttributeRegistration.InjectionContext
+  name: InjectionContext
+  href: api/Nautilus.Utility.AttributeRegistration.InjectionContext.html
+  commentId: T:Nautilus.Utility.AttributeRegistration.InjectionContext
+  fullName: Nautilus.Utility.AttributeRegistration.InjectionContext
+  nameWithType: InjectionContext
+- uid: Nautilus.Utility.AttributeRegistration.InjectionContext.Attribute
+  name: Attribute
+  href: api/Nautilus.Utility.AttributeRegistration.InjectionContext.html#Nautilus_Utility_AttributeRegistration_InjectionContext_Attribute
+  commentId: P:Nautilus.Utility.AttributeRegistration.InjectionContext.Attribute
+  fullName: Nautilus.Utility.AttributeRegistration.InjectionContext.Attribute
+  nameWithType: InjectionContext.Attribute
+- uid: Nautilus.Utility.AttributeRegistration.InjectionContext.Attribute*
+  name: Attribute
+  href: api/Nautilus.Utility.AttributeRegistration.InjectionContext.html#Nautilus_Utility_AttributeRegistration_InjectionContext_Attribute_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.InjectionContext.Attribute
+  fullName: Nautilus.Utility.AttributeRegistration.InjectionContext.Attribute
+  nameWithType: InjectionContext.Attribute
+- uid: Nautilus.Utility.AttributeRegistration.InjectionContext.MethodInfo
+  name: MethodInfo
+  href: api/Nautilus.Utility.AttributeRegistration.InjectionContext.html#Nautilus_Utility_AttributeRegistration_InjectionContext_MethodInfo
+  commentId: P:Nautilus.Utility.AttributeRegistration.InjectionContext.MethodInfo
+  fullName: Nautilus.Utility.AttributeRegistration.InjectionContext.MethodInfo
+  nameWithType: InjectionContext.MethodInfo
+- uid: Nautilus.Utility.AttributeRegistration.InjectionContext.MethodInfo*
+  name: MethodInfo
+  href: api/Nautilus.Utility.AttributeRegistration.InjectionContext.html#Nautilus_Utility_AttributeRegistration_InjectionContext_MethodInfo_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.InjectionContext.MethodInfo
+  fullName: Nautilus.Utility.AttributeRegistration.InjectionContext.MethodInfo
+  nameWithType: InjectionContext.MethodInfo
+- uid: Nautilus.Utility.AttributeRegistration.InjectionContext.ParameterInfo
+  name: ParameterInfo
+  href: api/Nautilus.Utility.AttributeRegistration.InjectionContext.html#Nautilus_Utility_AttributeRegistration_InjectionContext_ParameterInfo
+  commentId: P:Nautilus.Utility.AttributeRegistration.InjectionContext.ParameterInfo
+  fullName: Nautilus.Utility.AttributeRegistration.InjectionContext.ParameterInfo
+  nameWithType: InjectionContext.ParameterInfo
+- uid: Nautilus.Utility.AttributeRegistration.InjectionContext.ParameterInfo*
+  name: ParameterInfo
+  href: api/Nautilus.Utility.AttributeRegistration.InjectionContext.html#Nautilus_Utility_AttributeRegistration_InjectionContext_ParameterInfo_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.InjectionContext.ParameterInfo
+  fullName: Nautilus.Utility.AttributeRegistration.InjectionContext.ParameterInfo
+  nameWithType: InjectionContext.ParameterInfo
+- uid: Nautilus.Utility.AttributeRegistration.InjectionContext.Service
+  name: Service
+  href: api/Nautilus.Utility.AttributeRegistration.InjectionContext.html#Nautilus_Utility_AttributeRegistration_InjectionContext_Service
+  commentId: P:Nautilus.Utility.AttributeRegistration.InjectionContext.Service
+  fullName: Nautilus.Utility.AttributeRegistration.InjectionContext.Service
+  nameWithType: InjectionContext.Service
+- uid: Nautilus.Utility.AttributeRegistration.InjectionContext.Service*
+  name: Service
+  href: api/Nautilus.Utility.AttributeRegistration.InjectionContext.html#Nautilus_Utility_AttributeRegistration_InjectionContext_Service_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.InjectionContext.Service
+  fullName: Nautilus.Utility.AttributeRegistration.InjectionContext.Service
+  nameWithType: InjectionContext.Service
+- uid: Nautilus.Utility.AttributeRegistration.InjectorException
+  name: InjectorException
+  href: api/Nautilus.Utility.AttributeRegistration.InjectorException.html
+  commentId: T:Nautilus.Utility.AttributeRegistration.InjectorException
+  fullName: Nautilus.Utility.AttributeRegistration.InjectorException
+  nameWithType: InjectorException
+- uid: Nautilus.Utility.AttributeRegistration.InjectorException.#ctor(Nautilus.Utility.AttributeRegistration.InjectionContext,System.String)
+  name: InjectorException(InjectionContext, string)
+  href: api/Nautilus.Utility.AttributeRegistration.InjectorException.html#Nautilus_Utility_AttributeRegistration_InjectorException__ctor_Nautilus_Utility_AttributeRegistration_InjectionContext_System_String_
+  commentId: M:Nautilus.Utility.AttributeRegistration.InjectorException.#ctor(Nautilus.Utility.AttributeRegistration.InjectionContext,System.String)
+  name.vb: New(InjectionContext, String)
+  fullName: Nautilus.Utility.AttributeRegistration.InjectorException.InjectorException(Nautilus.Utility.AttributeRegistration.InjectionContext, string)
+  fullName.vb: Nautilus.Utility.AttributeRegistration.InjectorException.New(Nautilus.Utility.AttributeRegistration.InjectionContext, String)
+  nameWithType: InjectorException.InjectorException(InjectionContext, string)
+  nameWithType.vb: InjectorException.New(InjectionContext, String)
+- uid: Nautilus.Utility.AttributeRegistration.InjectorException.#ctor*
+  name: InjectorException
+  href: api/Nautilus.Utility.AttributeRegistration.InjectorException.html#Nautilus_Utility_AttributeRegistration_InjectorException__ctor_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.InjectorException.#ctor
+  name.vb: New
+  fullName: Nautilus.Utility.AttributeRegistration.InjectorException.InjectorException
+  fullName.vb: Nautilus.Utility.AttributeRegistration.InjectorException.New
+  nameWithType: InjectorException.InjectorException
+  nameWithType.vb: InjectorException.New
+- uid: Nautilus.Utility.AttributeRegistration.InjectorException.Message
+  name: Message
+  href: api/Nautilus.Utility.AttributeRegistration.InjectorException.html#Nautilus_Utility_AttributeRegistration_InjectorException_Message
+  commentId: P:Nautilus.Utility.AttributeRegistration.InjectorException.Message
+  fullName: Nautilus.Utility.AttributeRegistration.InjectorException.Message
+  nameWithType: InjectorException.Message
+- uid: Nautilus.Utility.AttributeRegistration.InjectorException.Message*
+  name: Message
+  href: api/Nautilus.Utility.AttributeRegistration.InjectorException.html#Nautilus_Utility_AttributeRegistration_InjectorException_Message_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.InjectorException.Message
+  fullName: Nautilus.Utility.AttributeRegistration.InjectorException.Message
+  nameWithType: InjectorException.Message
+- uid: Nautilus.Utility.AttributeRegistration.Injectors
+  name: Nautilus.Utility.AttributeRegistration.Injectors
+  href: api/Nautilus.Utility.AttributeRegistration.Injectors.html
+  commentId: N:Nautilus.Utility.AttributeRegistration.Injectors
+  fullName: Nautilus.Utility.AttributeRegistration.Injectors
+  nameWithType: Nautilus.Utility.AttributeRegistration.Injectors
+- uid: Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector
+  name: IDependencyArgumentInjector
+  href: api/Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.html
+  commentId: T:Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector
+  fullName: Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector
+  nameWithType: IDependencyArgumentInjector
+- uid: Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.TryInjectToArgument(Nautilus.Utility.AttributeRegistration.InjectionContext,System.Object@)
+  name: TryInjectToArgument(InjectionContext, out object)
+  href: api/Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.html#Nautilus_Utility_AttributeRegistration_Injectors_IDependencyArgumentInjector_TryInjectToArgument_Nautilus_Utility_AttributeRegistration_InjectionContext_System_Object__
+  commentId: M:Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.TryInjectToArgument(Nautilus.Utility.AttributeRegistration.InjectionContext,System.Object@)
+  name.vb: TryInjectToArgument(InjectionContext, Object)
+  fullName: Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.TryInjectToArgument(Nautilus.Utility.AttributeRegistration.InjectionContext, out object)
+  fullName.vb: Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.TryInjectToArgument(Nautilus.Utility.AttributeRegistration.InjectionContext, Object)
+  nameWithType: IDependencyArgumentInjector.TryInjectToArgument(InjectionContext, out object)
+  nameWithType.vb: IDependencyArgumentInjector.TryInjectToArgument(InjectionContext, Object)
+- uid: Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.TryInjectToArgument*
+  name: TryInjectToArgument
+  href: api/Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.html#Nautilus_Utility_AttributeRegistration_Injectors_IDependencyArgumentInjector_TryInjectToArgument_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.TryInjectToArgument
+  fullName: Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.TryInjectToArgument
+  nameWithType: IDependencyArgumentInjector.TryInjectToArgument
+- uid: Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver
+  name: IRegistryAssetBundleResolver
+  href: api/Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.html
+  commentId: T:Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver
+  fullName: Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver
+  nameWithType: IRegistryAssetBundleResolver
+- uid: Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.GetAssetBundle(Nautilus.Utility.AttributeRegistration.InjectionContext)
+  name: GetAssetBundle(InjectionContext)
+  href: api/Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.html#Nautilus_Utility_AttributeRegistration_Injectors_IRegistryAssetBundleResolver_GetAssetBundle_Nautilus_Utility_AttributeRegistration_InjectionContext_
+  commentId: M:Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.GetAssetBundle(Nautilus.Utility.AttributeRegistration.InjectionContext)
+  fullName: Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.GetAssetBundle(Nautilus.Utility.AttributeRegistration.InjectionContext)
+  nameWithType: IRegistryAssetBundleResolver.GetAssetBundle(InjectionContext)
+- uid: Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.GetAssetBundle*
+  name: GetAssetBundle
+  href: api/Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.html#Nautilus_Utility_AttributeRegistration_Injectors_IRegistryAssetBundleResolver_GetAssetBundle_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.GetAssetBundle
+  fullName: Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.GetAssetBundle
+  nameWithType: IRegistryAssetBundleResolver.GetAssetBundle
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttribute
+  name: RegisterAttribute
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttribute.html
+  commentId: T:Nautilus.Utility.AttributeRegistration.RegisterAttribute
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttribute
+  nameWithType: RegisterAttribute
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttribute.#ctor(System.String,System.String[])
+  name: RegisterAttribute(string, params string[])
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttribute.html#Nautilus_Utility_AttributeRegistration_RegisterAttribute__ctor_System_String_System_String___
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttribute.#ctor(System.String,System.String[])
+  name.vb: New(String, ParamArray String())
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttribute.RegisterAttribute(string, params string[])
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegisterAttribute.New(String, ParamArray String())
+  nameWithType: RegisterAttribute.RegisterAttribute(string, params string[])
+  nameWithType.vb: RegisterAttribute.New(String, ParamArray String())
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttribute.#ctor*
+  name: RegisterAttribute
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttribute.html#Nautilus_Utility_AttributeRegistration_RegisterAttribute__ctor_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttribute.#ctor
+  name.vb: New
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttribute.RegisterAttribute
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegisterAttribute.New
+  nameWithType: RegisterAttribute.RegisterAttribute
+  nameWithType.vb: RegisterAttribute.New
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttribute.LoadAfterIDs
+  name: LoadAfterIDs
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttribute.html#Nautilus_Utility_AttributeRegistration_RegisterAttribute_LoadAfterIDs
+  commentId: P:Nautilus.Utility.AttributeRegistration.RegisterAttribute.LoadAfterIDs
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttribute.LoadAfterIDs
+  nameWithType: RegisterAttribute.LoadAfterIDs
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttribute.LoadAfterIDs*
+  name: LoadAfterIDs
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttribute.html#Nautilus_Utility_AttributeRegistration_RegisterAttribute_LoadAfterIDs_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttribute.LoadAfterIDs
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttribute.LoadAfterIDs
+  nameWithType: RegisterAttribute.LoadAfterIDs
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttribute.RegistryID
+  name: RegistryID
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttribute.html#Nautilus_Utility_AttributeRegistration_RegisterAttribute_RegistryID
+  commentId: P:Nautilus.Utility.AttributeRegistration.RegisterAttribute.RegistryID
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttribute.RegistryID
+  nameWithType: RegisterAttribute.RegistryID
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttribute.RegistryID*
+  name: RegistryID
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttribute.html#Nautilus_Utility_AttributeRegistration_RegisterAttribute_RegistryID_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttribute.RegistryID
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttribute.RegistryID
+  nameWithType: RegisterAttribute.RegistryID
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService
+  name: RegisterAttributeService
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html
+  commentId: T:Nautilus.Utility.AttributeRegistration.RegisterAttributeService
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService
+  nameWithType: RegisterAttributeService
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.#ctor(BepInEx.BaseUnityPlugin)
+  name: RegisterAttributeService(BaseUnityPlugin)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService__ctor_BepInEx_BaseUnityPlugin_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.#ctor(BepInEx.BaseUnityPlugin)
+  name.vb: New(BaseUnityPlugin)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.RegisterAttributeService(BepInEx.BaseUnityPlugin)
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.New(BepInEx.BaseUnityPlugin)
+  nameWithType: RegisterAttributeService.RegisterAttributeService(BaseUnityPlugin)
+  nameWithType.vb: RegisterAttributeService.New(BaseUnityPlugin)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.#ctor*
+  name: RegisterAttributeService
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService__ctor_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.#ctor
+  name.vb: New
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.RegisterAttributeService
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.New
+  nameWithType: RegisterAttributeService.RegisterAttributeService
+  nameWithType.vb: RegisterAttributeService.New
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddDependencyInjector(Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector)
+  name: AddDependencyInjector(IDependencyArgumentInjector)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddDependencyInjector_Nautilus_Utility_AttributeRegistration_Injectors_IDependencyArgumentInjector_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddDependencyInjector(Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddDependencyInjector(Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector)
+  nameWithType: RegisterAttributeService.AddDependencyInjector(IDependencyArgumentInjector)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddDependencyInjector*
+  name: AddDependencyInjector
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddDependencyInjector_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddDependencyInjector
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddDependencyInjector
+  nameWithType: RegisterAttributeService.AddDependencyInjector
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddKeyedSingleton*
+  name: AddKeyedSingleton
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddKeyedSingleton_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddKeyedSingleton
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddKeyedSingleton
+  nameWithType: RegisterAttributeService.AddKeyedSingleton
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddKeyedSingleton``1(``0,System.String)
+  name: AddKeyedSingleton<T>(T, string)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddKeyedSingleton__1___0_System_String_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddKeyedSingleton``1(``0,System.String)
+  name.vb: AddKeyedSingleton(Of T)(T, String)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddKeyedSingleton<T>(T, string)
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddKeyedSingleton(Of T)(T, String)
+  nameWithType: RegisterAttributeService.AddKeyedSingleton<T>(T, string)
+  nameWithType.vb: RegisterAttributeService.AddKeyedSingleton(Of T)(T, String)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddSingleton*
+  name: AddSingleton
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddSingleton_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddSingleton
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddSingleton
+  nameWithType: RegisterAttributeService.AddSingleton
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddSingleton``1(``0)
+  name: AddSingleton<T>(T)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddSingleton__1___0_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddSingleton``1(``0)
+  name.vb: AddSingleton(Of T)(T)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddSingleton<T>(T)
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddSingleton(Of T)(T)
+  nameWithType: RegisterAttributeService.AddSingleton<T>(T)
+  nameWithType.vb: RegisterAttributeService.AddSingleton(Of T)(T)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddTypedDependencyInjector*
+  name: AddTypedDependencyInjector
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddTypedDependencyInjector_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddTypedDependencyInjector
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddTypedDependencyInjector
+  nameWithType: RegisterAttributeService.AddTypedDependencyInjector
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddTypedDependencyInjector``1(Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector)
+  name: AddTypedDependencyInjector<T>(IDependencyArgumentInjector)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddTypedDependencyInjector__1_Nautilus_Utility_AttributeRegistration_Injectors_IDependencyArgumentInjector_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddTypedDependencyInjector``1(Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector)
+  name.vb: AddTypedDependencyInjector(Of T)(IDependencyArgumentInjector)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddTypedDependencyInjector<T>(Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector)
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddTypedDependencyInjector(Of T)(Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector)
+  nameWithType: RegisterAttributeService.AddTypedDependencyInjector<T>(IDependencyArgumentInjector)
+  nameWithType.vb: RegisterAttributeService.AddTypedDependencyInjector(Of T)(IDependencyArgumentInjector)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.ExecuteAssemblyRegisterAttributes(System.Reflection.Assembly)
+  name: ExecuteAssemblyRegisterAttributes(Assembly)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_ExecuteAssemblyRegisterAttributes_System_Reflection_Assembly_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.ExecuteAssemblyRegisterAttributes(System.Reflection.Assembly)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.ExecuteAssemblyRegisterAttributes(System.Reflection.Assembly)
+  nameWithType: RegisterAttributeService.ExecuteAssemblyRegisterAttributes(Assembly)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.ExecuteAssemblyRegisterAttributes*
+  name: ExecuteAssemblyRegisterAttributes
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_ExecuteAssemblyRegisterAttributes_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.ExecuteAssemblyRegisterAttributes
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.ExecuteAssemblyRegisterAttributes
+  nameWithType: RegisterAttributeService.ExecuteAssemblyRegisterAttributes
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetAllSingletons*
+  name: GetAllSingletons
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetAllSingletons_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetAllSingletons
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetAllSingletons
+  nameWithType: RegisterAttributeService.GetAllSingletons
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetAllSingletons``1
+  name: GetAllSingletons<T>()
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetAllSingletons__1
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetAllSingletons``1
+  name.vb: GetAllSingletons(Of T)()
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetAllSingletons<T>()
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetAllSingletons(Of T)()
+  nameWithType: RegisterAttributeService.GetAllSingletons<T>()
+  nameWithType.vb: RegisterAttributeService.GetAllSingletons(Of T)()
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetKeyedSingleton*
+  name: GetKeyedSingleton
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetKeyedSingleton_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetKeyedSingleton
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetKeyedSingleton
+  nameWithType: RegisterAttributeService.GetKeyedSingleton
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetKeyedSingleton``1(System.String)
+  name: GetKeyedSingleton<T>(string)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetKeyedSingleton__1_System_String_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetKeyedSingleton``1(System.String)
+  name.vb: GetKeyedSingleton(Of T)(String)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetKeyedSingleton<T>(string)
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetKeyedSingleton(Of T)(String)
+  nameWithType: RegisterAttributeService.GetKeyedSingleton<T>(string)
+  nameWithType.vb: RegisterAttributeService.GetKeyedSingleton(Of T)(String)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetLatestSingleton*
+  name: GetLatestSingleton
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetLatestSingleton_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetLatestSingleton
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetLatestSingleton
+  nameWithType: RegisterAttributeService.GetLatestSingleton
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetLatestSingleton``1
+  name: GetLatestSingleton<T>()
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetLatestSingleton__1
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetLatestSingleton``1
+  name.vb: GetLatestSingleton(Of T)()
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetLatestSingleton<T>()
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetLatestSingleton(Of T)()
+  nameWithType: RegisterAttributeService.GetLatestSingleton<T>()
+  nameWithType.vb: RegisterAttributeService.GetLatestSingleton(Of T)()
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions
+  name: RegisterAttributeServiceExtensions
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html
+  commentId: T:Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions
+  nameWithType: RegisterAttributeServiceExtensions
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  name: AddAssetBundleAssetInjector(RegisterAttributeService)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddAssetBundleAssetInjector_Nautilus_Utility_AttributeRegistration_RegisterAttributeService_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  nameWithType: RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector(RegisterAttributeService)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector*
+  name: AddAssetBundleAssetInjector
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddAssetBundleAssetInjector_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector
+  nameWithType: RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddBasicInjectors(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  name: AddBasicInjectors(RegisterAttributeService)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddBasicInjectors_Nautilus_Utility_AttributeRegistration_RegisterAttributeService_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddBasicInjectors(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddBasicInjectors(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  nameWithType: RegisterAttributeServiceExtensions.AddBasicInjectors(RegisterAttributeService)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddBasicInjectors*
+  name: AddBasicInjectors
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddBasicInjectors_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddBasicInjectors
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddBasicInjectors
+  nameWithType: RegisterAttributeServiceExtensions.AddBasicInjectors
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddPrefabInfoInjector(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  name: AddPrefabInfoInjector(RegisterAttributeService)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddPrefabInfoInjector_Nautilus_Utility_AttributeRegistration_RegisterAttributeService_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddPrefabInfoInjector(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddPrefabInfoInjector(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  nameWithType: RegisterAttributeServiceExtensions.AddPrefabInfoInjector(RegisterAttributeService)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddPrefabInfoInjector*
+  name: AddPrefabInfoInjector
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddPrefabInfoInjector_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddPrefabInfoInjector
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddPrefabInfoInjector
+  nameWithType: RegisterAttributeServiceExtensions.AddPrefabInfoInjector
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddTechTypeInjector(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  name: AddTechTypeInjector(RegisterAttributeService)
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddTechTypeInjector_Nautilus_Utility_AttributeRegistration_RegisterAttributeService_
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddTechTypeInjector(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddTechTypeInjector(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)
+  nameWithType: RegisterAttributeServiceExtensions.AddTechTypeInjector(RegisterAttributeService)
+- uid: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddTechTypeInjector*
+  name: AddTechTypeInjector
+  href: api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddTechTypeInjector_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddTechTypeInjector
+  fullName: Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddTechTypeInjector
+  nameWithType: RegisterAttributeServiceExtensions.AddTechTypeInjector
+- uid: Nautilus.Utility.AttributeRegistration.RegistryRequirements
+  name: Nautilus.Utility.AttributeRegistration.RegistryRequirements
+  href: api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.html
+  commentId: N:Nautilus.Utility.AttributeRegistration.RegistryRequirements
+  fullName: Nautilus.Utility.AttributeRegistration.RegistryRequirements
+  nameWithType: Nautilus.Utility.AttributeRegistration.RegistryRequirements
+- uid: Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement
+  name: IRegistryRequirement
+  href: api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.html
+  commentId: T:Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement
+  fullName: Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement
+  nameWithType: IRegistryRequirement
+- uid: Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.RequirementsMet
+  name: RequirementsMet()
+  href: api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.html#Nautilus_Utility_AttributeRegistration_RegistryRequirements_IRegistryRequirement_RequirementsMet
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.RequirementsMet
+  fullName: Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.RequirementsMet()
+  nameWithType: IRegistryRequirement.RequirementsMet()
+- uid: Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.RequirementsMet*
+  name: RequirementsMet
+  href: api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.html#Nautilus_Utility_AttributeRegistration_RegistryRequirements_IRegistryRequirement_RequirementsMet_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.RequirementsMet
+  fullName: Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.RequirementsMet
+  nameWithType: IRegistryRequirement.RequirementsMet
+- uid: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute
+  name: RequireGuidAttribute
+  href: api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.html
+  commentId: T:Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute
+  fullName: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute
+  nameWithType: RequireGuidAttribute
+- uid: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.#ctor(System.String[])
+  name: RequireGuidAttribute(params string[])
+  href: api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.html#Nautilus_Utility_AttributeRegistration_RegistryRequirements_RequireGuidAttribute__ctor_System_String___
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.#ctor(System.String[])
+  name.vb: New(ParamArray String())
+  fullName: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.RequireGuidAttribute(params string[])
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.New(ParamArray String())
+  nameWithType: RequireGuidAttribute.RequireGuidAttribute(params string[])
+  nameWithType.vb: RequireGuidAttribute.New(ParamArray String())
+- uid: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.#ctor*
+  name: RequireGuidAttribute
+  href: api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.html#Nautilus_Utility_AttributeRegistration_RegistryRequirements_RequireGuidAttribute__ctor_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.#ctor
+  name.vb: New
+  fullName: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.RequireGuidAttribute
+  fullName.vb: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.New
+  nameWithType: RequireGuidAttribute.RequireGuidAttribute
+  nameWithType.vb: RequireGuidAttribute.New
+- uid: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.RequirementsMet
+  name: RequirementsMet()
+  href: api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.html#Nautilus_Utility_AttributeRegistration_RegistryRequirements_RequireGuidAttribute_RequirementsMet
+  commentId: M:Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.RequirementsMet
+  fullName: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.RequirementsMet()
+  nameWithType: RequireGuidAttribute.RequirementsMet()
+- uid: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.RequirementsMet*
+  name: RequirementsMet
+  href: api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.html#Nautilus_Utility_AttributeRegistration_RegistryRequirements_RequireGuidAttribute_RequirementsMet_
+  commentId: Overload:Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.RequirementsMet
+  fullName: Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.RequirementsMet
+  nameWithType: RequireGuidAttribute.RequirementsMet
 - uid: Nautilus.Utility.AudioUtils
   name: AudioUtils
   href: api/Nautilus.Utility.AudioUtils.html

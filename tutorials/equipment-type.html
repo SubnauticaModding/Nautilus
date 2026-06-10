@@ -109,14 +109,14 @@
     DecoySlot // (Need actual name) Possibly for the decoy tube thing in the cyclops
 }
 </code></pre>
-<h2 id="how-can-i-create-a-custom-background-type">How can I create a custom background type?</h2>
+<h2 id="how-can-i-create-a-custom-equipment-type">How can I create a custom equipment type?</h2>
 <p>Since equipment types are simply just enums, we can use the enum handler to create a new instance.</p>
 <pre><code class="lang-csharp">private void Awake()
 {
     var myCustomEquipmentType = EnumHandler.AddEntry&lt;EquipmentType&gt;(&quot;CustomEquipmentType&quot;);
 }
 </code></pre>
-<p>And that's it. Now you can use the new <code>CraftData.BackgroundType</code> instance anywhere you want.</p>
+<p>And that's it. Now you can use the new <code>EquipmentType</code> anywhere you want.</p>
 <h2 id="how-can-edit-an-items-equipment-type">How can edit an item's equipment type?</h2>
 <p>To edit an item's equipment type, you need to call the <code>CraftDataHandler.SetEquipmentType</code> method sitting in the <code>Nautilus.Handlers</code> namespace</p>
 <h3 id="examples">Examples</h3>
@@ -124,7 +124,7 @@
 <pre><code class="lang-csharp">CraftDataHandler.SetEquipmentType(TechType.Titanium, EquipmentType.Head);
 </code></pre>
 <p>Similarly, if we wanted to set the titanium's equipment type to our custom equipment type from earlier, it would look like the following:</p>
-<pre><code class="lang-csharp">CraftDataHandler.SetBackgroundType(TechType.Titanium, myCustomEquipmentType);
+<pre><code class="lang-csharp">CraftDataHandler.SetEquipmentType(TechType.Titanium, myCustomEquipmentType);
 </code></pre>
 <p>If you're setting the equipment type for a custom prefab, we recommend using the <code>ICustomPrefab.SetEquipment</code> method instead.</p>
 <pre><code class="lang-csharp">var customPrefab = new CustomPrefab(&quot;CustomItem&quot;, &quot;.&quot;, &quot;.&quot;);

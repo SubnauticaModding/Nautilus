@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class RegisterAttributeService </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class RegisterAttributeService ">
+      
+      <meta name="description" content="Utility for searching for and calling methods attributed with .">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService">
+
+
+
+  <h1 id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService" class="text-break">
+Class RegisterAttributeService  
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="Nautilus.html">Nautilus</a>.<a class="xref" href="Nautilus.Utility.html">Utility</a>.<a class="xref" href="Nautilus.Utility.AttributeRegistration.html">AttributeRegistration</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary">Utility for searching for and calling methods attributed with <a class="xref" href="Nautilus.Utility.AttributeRegistration.RegisterAttribute.html">RegisterAttribute</a>.</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class RegisterAttributeService</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+      <div><span class="xref">RegisterAttributeService</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </dd></dl>
+
+  <dl class="typelist extensionMethods">
+    <dt>Extension Methods</dt>
+    <dd>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJsonAsync__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJsonAsync&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_LoadJson__1___0_System_String_System_Boolean_Newtonsoft_Json_JsonConverter___">JsonExtensions.LoadJson&lt;T&gt;(T, string, bool, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJsonAsync__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJsonAsync&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Json.ExtensionMethods.JsonExtensions.html#Nautilus_Json_ExtensionMethods_JsonExtensions_SaveJson__1___0_System_String_Newtonsoft_Json_JsonConverter___">JsonExtensions.SaveJson&lt;T&gt;(T, string, params JsonConverter[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddAssetBundleAssetInjector_Nautilus_Utility_AttributeRegistration_RegisterAttributeService_">RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector(RegisterAttributeService)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddBasicInjectors_Nautilus_Utility_AttributeRegistration_RegisterAttributeService_">RegisterAttributeServiceExtensions.AddBasicInjectors(RegisterAttributeService)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddPrefabInfoInjector_Nautilus_Utility_AttributeRegistration_RegisterAttributeService_">RegisterAttributeServiceExtensions.AddPrefabInfoInjector(RegisterAttributeService)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeServiceExtensions_AddTechTypeInjector_Nautilus_Utility_AttributeRegistration_RegisterAttributeService_">RegisterAttributeServiceExtensions.AddTechTypeInjector(RegisterAttributeService)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_CopyFields__1___0___0_System_Reflection_BindingFlags_">ReflectionHelper.CopyFields&lt;T&gt;(T, T, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetInstanceMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetInstanceMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticField__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticField&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_GetStaticMethod__1___0_System_String_System_Reflection_BindingFlags_">ReflectionHelper.GetStaticMethod&lt;T&gt;(T, string, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetInstanceField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetInstanceField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  <div>
+      <a class="xref" href="Nautilus.Utility.ReflectionHelper.html#Nautilus_Utility_ReflectionHelper_SetStaticField__1___0_System_String_System_Object_System_Reflection_BindingFlags_">ReflectionHelper.SetStaticField&lt;T&gt;(T, string, object, BindingFlags)</a>
+  </div>
+  </dd></dl>
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService__ctor_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.#ctor*"></a>
+
+  <h3 id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService__ctor_BepInEx_BaseUnityPlugin_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.#ctor(BepInEx.BaseUnityPlugin)">
+  RegisterAttributeService(BaseUnityPlugin)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Utility for searching for and calling methods attributed with <a class="xref" href="Nautilus.Utility.AttributeRegistration.RegisterAttribute.html">RegisterAttribute</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RegisterAttributeService(BaseUnityPlugin baseUnityPlugin)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>baseUnityPlugin</code> <span class="xref">BaseUnityPlugin</span></dt>
+    <dd>Supply your BepInEx plugin instance. Your GUID from there will be used for cross mod support.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddDependencyInjector_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddDependencyInjector*"></a>
+
+  <h3 id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddDependencyInjector_Nautilus_Utility_AttributeRegistration_Injectors_IDependencyArgumentInjector_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddDependencyInjector(Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector)">
+  AddDependencyInjector(IDependencyArgumentInjector)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds a dependency injector without a Type. Typeless injectors are only checked when no Typed injector could be determined.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddDependencyInjector(IDependencyArgumentInjector injector)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>injector</code> <a class="xref" href="Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.html">IDependencyArgumentInjector</a></dt>
+    <dd>an injector instance</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddDependencyInjector_Nautilus_Utility_AttributeRegistration_Injectors_IDependencyArgumentInjector__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">Since this injector is not based on a type, it is useful for looking at the parameter name (or some other surrounding context) instead.</div>
+
+
+
+
+  <a id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddKeyedSingleton_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddKeyedSingleton*"></a>
+
+  <h3 id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddKeyedSingleton__1___0_System_String_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddKeyedSingleton``1(``0,System.String)">
+  AddKeyedSingleton&lt;T&gt;(T, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds a singleton to the service with an associated key for retrieval using <a class="xref" href="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetKeyedSingleton__1_System_String_">GetKeyedSingleton&lt;T&gt;(string)</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddKeyedSingleton&lt;T&gt;(T inst, string key)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>inst</code> <span class="xref">T</span></dt>
+    <dd>Instance of the singleton</dd>
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>Key for the singleton</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>Singleton Type</dd>
+  </dl>
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddKeyedSingleton__1___0_System_String__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">Despite the singleton having an associated key, it is still treated as the latest for the type as if <a class="xref" href="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html#Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddSingleton__1___0_">AddSingleton&lt;T&gt;(T)</a> was called.</div>
+
+
+
+
+  <a id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddSingleton_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddSingleton*"></a>
+
+  <h3 id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddSingleton__1___0_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddSingleton``1(``0)">
+  AddSingleton&lt;T&gt;(T)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds a singleton within the service. If a valid injector cannot be determined for an argument but a singleton was added for the type, the last singleton added for the type will be injected.
+Singletons can be used within injectors. Multiple singletons can be registered for the same type.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddSingleton&lt;T&gt;(T inst)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>inst</code> <span class="xref">T</span></dt>
+    <dd>Instance of the singleton</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>Singleton Type</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddTypedDependencyInjector_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddTypedDependencyInjector*"></a>
+
+  <h3 id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_AddTypedDependencyInjector__1_Nautilus_Utility_AttributeRegistration_Injectors_IDependencyArgumentInjector_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddTypedDependencyInjector``1(Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector)">
+  AddTypedDependencyInjector&lt;T&gt;(IDependencyArgumentInjector)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Adds a dependency injector for a given type. Types can be associated in two different ways: the argument's type and the argument's attributes.
+First argument attributes are checked, an example of this is the <a class="xref" href="Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.html">AssetLoadAttribute</a> which takes precedence regardless of the argument type.
+Next argument types are checked, examples include <a class="xref" href="Nautilus.Assets.PrefabInfo.html">PrefabInfo</a> or <span class="xref">TechType</span> for their respective injectors.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddTypedDependencyInjector&lt;T&gt;(IDependencyArgumentInjector injector)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>injector</code> <a class="xref" href="Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.html">IDependencyArgumentInjector</a></dt>
+    <dd>The injector to check when determining if it can inject for the parameter type/parameter attribute.</dd>
+  </dl>
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>The type this injector checks. Can either be of an Attribute for the parameter or the parameter's argument type.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_ExecuteAssemblyRegisterAttributes_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.ExecuteAssemblyRegisterAttributes*"></a>
+
+  <h3 id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_ExecuteAssemblyRegisterAttributes_System_Reflection_Assembly_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.ExecuteAssemblyRegisterAttributes(System.Reflection.Assembly)">
+  ExecuteAssemblyRegisterAttributes(Assembly)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Search an <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a> and execute every public/nonpublic static method attached with a <a class="xref" href="Nautilus.Utility.AttributeRegistration.RegisterAttribute.html">RegisterAttribute</a>.
+Method parameters are automatically processed depending on the defined <a class="xref" href="Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.html">IDependencyArgumentInjectors</a>.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ExecuteAssemblyRegisterAttributes(Assembly assemblyToSearch)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>assemblyToSearch</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a></dt>
+    <dd>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.assembly">Assembly</a> for which all types will be checked for static methods marked with the <a class="xref" href="Nautilus.Utility.AttributeRegistration.RegisterAttribute.html">RegisterAttribute</a>.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetAllSingletons_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetAllSingletons*"></a>
+
+  <h3 id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetAllSingletons__1" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetAllSingletons``1">
+  GetAllSingletons&lt;T&gt;()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Gets all singleton instances registered for a given type within the service. The order of retrieval is based on the order the instances were added.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;T&gt; GetAllSingletons&lt;T&gt;()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;T&gt;</dt>
+    <dd>A collection containing every singleton in order of registration for the desired type.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>Singleton Type to retrieve</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetKeyedSingleton_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetKeyedSingleton*"></a>
+
+  <h3 id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetKeyedSingleton__1_System_String_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetKeyedSingleton``1(System.String)">
+  GetKeyedSingleton&lt;T&gt;(string)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Retrieves the singleton instance for an associated key within the service.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T GetKeyedSingleton&lt;T&gt;(string key)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>Key to check for</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd>The instance for the given type and key. If no keyed instance was added for the type, null (or default for valuetypes) is returned.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>Keyed Singleton Type to retrieve</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetLatestSingleton_" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetLatestSingleton*"></a>
+
+  <h3 id="Nautilus_Utility_AttributeRegistration_RegisterAttributeService_GetLatestSingleton__1" data-uid="Nautilus.Utility.AttributeRegistration.RegisterAttributeService.GetLatestSingleton``1">
+  GetLatestSingleton&lt;T&gt;()
+  
+  </h3>
+
+  <div class="markdown level1 summary">Retrieves the last added singleton instance for a given type within the service. EX: if multiple instances were added to the service for the same type, the last one will be returned here.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T GetLatestSingleton&lt;T&gt;()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">T</span></dt>
+    <dd>The last added singleton for a given type. If no singleton was added for the type, null (or default for valuetypes) is returned.</dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>T</code></dt>
+    <dd>Singleton Type to retrieve</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

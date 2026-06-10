@@ -2384,6 +2384,188 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.AssetLoadAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.AssetLoadAttribute",
+      "Summary": "Marks an argument for a method attributed with a <xref href=\"Nautilus.Utility.AttributeRegistration.RegisterAttribute\" data-throw-if-not-resolved=\"false\"></xref> to load an asset of any given type from an Asset Bundle."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.InjectionContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.InjectionContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.InjectionContext",
+      "Summary": "Represents immutable information about the requested injection."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.InjectorException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.InjectorException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.InjectorException",
+      "Summary": "Represents an error that is thrown when injecting arguments within <xref href=\"Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions\" data-throw-if-not-resolved=\"false\"></xref>"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.Injectors.IDependencyArgumentInjector",
+      "Summary": "Represents an injector that can inject a required parameter into a method for execution."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.Injectors.IRegistryAssetBundleResolver",
+      "Summary": "A resolver for use within the <xref href=\"Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.AddAssetBundleAssetInjector(Nautilus.Utility.AttributeRegistration.RegisterAttributeService)?text=AssetBundleInjector\" data-throw-if-not-resolved=\"false\"></xref>.\nIf an implementation instance is added to the <xref href=\"Nautilus.Utility.AttributeRegistration.RegisterAttributeService\" data-throw-if-not-resolved=\"false\"></xref> as a <xref href=\"Nautilus.Utility.AttributeRegistration.RegisterAttributeService.AddSingleton%60%601(%60%600)?text=Singleton\" data-throw-if-not-resolved=\"false\"></xref>,\nit will be used to resolve the AssetBundle for the requested asset."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.Injectors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.Injectors.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.Injectors",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.RegisterAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.RegisterAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.RegisterAttribute",
+      "Summary": "Attributes a method for use with the <xref href=\"Nautilus.Utility.AttributeRegistration.RegisterAttributeService\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.RegisterAttributeService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.RegisterAttributeService",
+      "Summary": "Utility for searching for and calling methods attributed with <xref href=\"Nautilus.Utility.AttributeRegistration.RegisterAttribute\" data-throw-if-not-resolved=\"false\"></xref>."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.RegisterAttributeServiceExtensions",
+      "Summary": "Extensions for easy access to injectors that Nautilus provides within the <xref href=\"Nautilus.Utility.AttributeRegistration.RegisterAttributeService\" data-throw-if-not-resolved=\"false\"></xref> system."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement",
+      "Summary": "When an attribute implements this interface, Nautilus will only execute the attributed registry event when <xref href=\"Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement.RequirementsMet\" data-throw-if-not-resolved=\"false\"></xref> returns true\nfor all <xref href=\"Nautilus.Utility.AttributeRegistration.RegistryRequirements.IRegistryRequirement?text=IRegistryRequirements\" data-throw-if-not-resolved=\"false\"></xref> attribute implementors attached."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.RegistryRequirements.RequireGuidAttribute",
+      "Summary": "When a method is attached with a [<xref href=\"Nautilus.Utility.AttributeRegistration.RegisterAttribute\" data-throw-if-not-resolved=\"false\"></xref>] alongside this attribute,\nNautilus will only execute the registry if every mod GUID is present. This is similar to a soft <xref href=\"BepInEx.BepInDependency\" data-throw-if-not-resolved=\"false\"></xref> but allows\nthe creation of registries that optionally load when all other mod GUIDs are present."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.RegistryRequirements.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration.RegistryRequirements",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.AttributeRegistration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.AttributeRegistration.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.AttributeRegistration",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Utility.AudioUtils.BusPaths.yml",
       "output": {
         ".html": {
@@ -2932,11 +3114,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/api/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "api/toc.html"
-        },
         ".json": {
           "relative_path": "api/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/toc.html"
         }
       },
       "version": ""
@@ -3005,11 +3187,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/guides/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "guides/toc.html"
-        },
         ".json": {
           "relative_path": "guides/toc.json"
+        },
+        ".html": {
+          "relative_path": "guides/toc.html"
         }
       },
       "version": ""
@@ -3298,11 +3480,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "toc.html"
-        },
         ".json": {
           "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
         }
       },
       "version": ""
@@ -3501,11 +3683,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/tutorials/toc.yml",
       "output": {
-        ".html": {
-          "relative_path": "tutorials/toc.html"
-        },
         ".json": {
           "relative_path": "tutorials/toc.json"
+        },
+        ".html": {
+          "relative_path": "tutorials/toc.html"
         }
       },
       "version": ""
