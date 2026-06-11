@@ -5,6 +5,8 @@ using System.Runtime.InteropServices;
 using FMOD;
 using FMOD.Studio;
 using FMODUnity;
+using Nautilus.FMod;
+using Nautilus.Patchers;
 using UnityEngine;
 
 namespace Nautilus.Utility;
@@ -140,6 +142,66 @@ public static partial class AudioUtils
             asset.id = id;
         }
         return asset;
+    }
+
+    /// <summary>
+    /// Retrieves the length of an FMOD asset audio clip with respect to the given <see cref="TIMEUNIT"/> (default is milliseconds).
+    /// </summary>
+    /// <param name="asset">The FMOD asset to retrieve the length of</param>
+    /// <param name="timeUnit">The time unit to retrieve the duration in. Milliseconds (MS) is the most common</param>
+    /// <param name="channelIndex">The index to the channel of the asset you want to access. Only applicable to non-modded sounds, and can be left at 0 most of the time.</param>
+    /// <returns>The duration of the given FMOD asset</returns>
+    public static uint GetFmodAssetDuration(FMODAsset asset, TIMEUNIT timeUnit = TIMEUNIT.MS, int channelIndex = 0)
+    {
+        uint length;
+        RESULT result;
+        
+        if (CustomSoundPatcher.CustomFModSounds.ContainsKey(asset.id))
+        {
+            InternalLogger.Error($"Cannot retrieve length data for multi FMOD asset {asset} with AudioUtils.GetFmodAssetDuration. " +
+                                 $"Use AudioUtils.GetMultiFmodAssetDuration instead. Returning 0.");
+            return 0;
+        }
+        
+        // Some mods only use the path when creating FMOD assets, so check for that too
+        if (CustomSoundPatcher.CustomSounds.TryGetValue(asset.id, out var sound) || 
+            CustomSoundPatcher.CustomSounds.TryGetValue(asset.path, out sound))
+        {
+            result = sound.getLength(out length, timeUnit);
+        }
+        else
+        {
+            // Not a custom sound
+            FMODUWE.GetEvent(asset).getChannelGroup(out var group);
+            group.getChannel(channelIndex, out var channel);
+            channel.getCurrentSound(out var vanillaSound);
+            result = vanillaSound.getLength(out length, timeUnit);
+        }
+        
+        if (result == RESULT.OK) return length;
+        
+        InternalLogger.Error($"Error retrieving asset duration for {asset}: {result}");
+        return length;
+    }
+    
+    /// <summary>
+    /// Retrieves the duration of a specific <see cref="Sound"/> for an <see cref="FModMultiSounds"/>
+    /// </summary>
+    /// <param name="fmodAsset">The asset to retrieve the duration from</param>
+    /// <param name="soundIndex">The index of the sound you want to access </param>
+    /// <param name="timeUnit">The time unit to retrieve the duration in. Milliseconds (MS) is the most common</param>
+    /// <returns>The duration of the specified <see cref="Sound"/> in the given FMOD asset</returns>
+    public static uint GetMultiFmodAssetDuration(FMODAsset fmodAsset, int soundIndex = 0, TIMEUNIT timeUnit = TIMEUNIT.MS)
+    {
+        if (!CustomSoundPatcher.CustomFModSounds.TryGetValue(fmodAsset.id, out var asset))
+        {
+            InternalLogger.Error($"Custom FMOD Multi Sound not found for id = {fmodAsset.id} | Returning 0 for duration");
+            return 0;
+        }
+        
+        var sound = asset.GetSoundClips()[soundIndex];
+        sound.getLength(out uint length, timeUnit);
+        return length;
     }
 
     private static Sound CreateSoundFromAudioClip(AudioClip audioClip, MODE mode)
