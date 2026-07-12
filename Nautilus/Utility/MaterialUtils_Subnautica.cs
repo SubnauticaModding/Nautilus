@@ -52,7 +52,7 @@ public static partial class MaterialUtils
     public static Material GhostMaterial { get; private set; }
 
     /// <summary>
-    /// Gets the material used by the UI in the Cyclops
+    /// Gets the material used by the UI in the Cyclops.
     /// </summary>
     public static Material HolographicUIMaterial { get; private set; }
 
