@@ -2874,6 +2874,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialUtils.Textures.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Utility.MaterialUtils.Textures.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Utility.MaterialUtils.Textures",
+      "Summary": "Contains references to various textures."
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "Documentation/api/Nautilus.Utility.MaterialUtils.yml",
       "output": {
         ".html": {
@@ -3114,11 +3128,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/api/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "api/toc.json"
-        },
         ".html": {
           "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
         }
       },
       "version": ""
@@ -3187,11 +3201,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/guides/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "guides/toc.json"
-        },
         ".html": {
           "relative_path": "guides/toc.html"
+        },
+        ".json": {
+          "relative_path": "guides/toc.json"
         }
       },
       "version": ""
@@ -3480,11 +3494,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "toc.json"
-        },
         ".html": {
           "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""
@@ -3683,11 +3697,11 @@
       "type": "Toc",
       "source_relative_path": "Documentation/tutorials/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "tutorials/toc.json"
-        },
         ".html": {
           "relative_path": "tutorials/toc.html"
+        },
+        ".json": {
+          "relative_path": "tutorials/toc.json"
         }
       },
       "version": ""

@@ -15096,6 +15096,24 @@ references:
   commentId: Overload:Nautilus.Utility.MaterialUtils.StasisFieldMaterial
   fullName: Nautilus.Utility.MaterialUtils.StasisFieldMaterial
   nameWithType: MaterialUtils.StasisFieldMaterial
+- uid: Nautilus.Utility.MaterialUtils.Textures
+  name: MaterialUtils.Textures
+  href: api/Nautilus.Utility.MaterialUtils.Textures.html
+  commentId: T:Nautilus.Utility.MaterialUtils.Textures
+  fullName: Nautilus.Utility.MaterialUtils.Textures
+  nameWithType: MaterialUtils.Textures
+- uid: Nautilus.Utility.MaterialUtils.Textures.ConstructionEmissiveTex
+  name: ConstructionEmissiveTex
+  href: api/Nautilus.Utility.MaterialUtils.Textures.html#Nautilus_Utility_MaterialUtils_Textures_ConstructionEmissiveTex
+  commentId: P:Nautilus.Utility.MaterialUtils.Textures.ConstructionEmissiveTex
+  fullName: Nautilus.Utility.MaterialUtils.Textures.ConstructionEmissiveTex
+  nameWithType: MaterialUtils.Textures.ConstructionEmissiveTex
+- uid: Nautilus.Utility.MaterialUtils.Textures.ConstructionEmissiveTex*
+  name: ConstructionEmissiveTex
+  href: api/Nautilus.Utility.MaterialUtils.Textures.html#Nautilus_Utility_MaterialUtils_Textures_ConstructionEmissiveTex_
+  commentId: Overload:Nautilus.Utility.MaterialUtils.Textures.ConstructionEmissiveTex
+  fullName: Nautilus.Utility.MaterialUtils.Textures.ConstructionEmissiveTex
+  nameWithType: MaterialUtils.Textures.ConstructionEmissiveTex
 - uid: Nautilus.Utility.MaterialUtils.kOpaqueRenderQueue
   name: kOpaqueRenderQueue
   href: api/Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_kOpaqueRenderQueue
