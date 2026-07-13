@@ -24,8 +24,8 @@ internal static class ConsoleCommandsPatcher
     private static Color ModOriginColor = new(0, 1, 0);
     private static Color ModConflictColor = new(0.75f, 0.75f, 0.75f);
 
-    internal static List<TeleportPosition> GotoTeleportPositionsToAdd = new List<TeleportPosition>();
-    internal static List<TeleportPosition> BiomeTeleportPositionsToAdd = new List<TeleportPosition>();
+    internal static List<TeleportPosition> CustomGotoTeleportPositions = new List<TeleportPosition>();
+    internal static List<TeleportPosition> CustomBiomeTeleportPositions = new List<TeleportPosition>();
 
     public static void Patch(Harmony harmony)
     {
@@ -289,33 +289,45 @@ internal static class ConsoleCommandsPatcher
     [HarmonyPostfix]
     private static void GotoConsoleCommandAwakePostfix(GotoConsoleCommand __instance)
     {
-        UpdateTeleportPositions();
+        AddAllToCommandData(__instance.data, CustomGotoTeleportPositions);
     }
     
     [HarmonyPatch(typeof(BiomeConsoleCommand), nameof(BiomeConsoleCommand.Awake))]
     [HarmonyPostfix]
     private static void BiomeConsoleCommandAwakePostfix(BiomeConsoleCommand __instance)
     {
-        UpdateTeleportPositions();
+        AddAllToCommandData(__instance.data, CustomBiomeTeleportPositions);
     }
 
-    internal static void UpdateTeleportPositions()
+    internal static void AddGotoPosition(TeleportPosition position)
     {
-        if (GotoConsoleCommand.main != null && GotoTeleportPositionsToAdd.Count > 0)
+        if (GotoConsoleCommand.main != null)
         {
-            AddTeleportPositionsToCommandData(GotoConsoleCommand.main.data, GotoTeleportPositionsToAdd);
+            AddToCommandData(GotoConsoleCommand.main.data, position);
         }
-        if (BiomeConsoleCommand.main != null && BiomeTeleportPositionsToAdd.Count > 0)
+        CustomGotoTeleportPositions.Add(position);
+    }
+    
+    internal static void AddBiomeTeleportPosition(TeleportPosition position)
+    {
+        if (BiomeConsoleCommand.main != null)
         {
-            AddTeleportPositionsToCommandData(BiomeConsoleCommand.main.data, BiomeTeleportPositionsToAdd);
+            AddToCommandData(BiomeConsoleCommand.main.data, position);
         }
+        CustomBiomeTeleportPositions.Add(position);
     }
 
-    private static void AddTeleportPositionsToCommandData(TeleportCommandData commandData, List<TeleportPosition> positionsToAdd)
+    private static void AddAllToCommandData(TeleportCommandData commandData, List<TeleportPosition> positions)
     {
         var list = new List<TeleportPosition>(commandData.locations);
-        list.AddRange(positionsToAdd);
+        list.AddRange(positions);
         commandData.locations = list.ToArray();
-        positionsToAdd.Clear();
+    }
+
+    private static void AddToCommandData(TeleportCommandData commandData, TeleportPosition position)
+    {
+        var list = new List<TeleportPosition>(commandData.locations);
+        list.Add(position);
+        commandData.locations = list.ToArray();
     }
 }
