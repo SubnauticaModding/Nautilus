@@ -15,17 +15,17 @@ namespace Nautilus.Patchers;
 
 internal static class ConsoleCommandsPatcher
 {
-    private static Dictionary<string, ConsoleCommand> ConsoleCommands = new(StringComparer.OrdinalIgnoreCase);
+    private static readonly Dictionary<string, ConsoleCommand> _consoleCommands = new(StringComparer.OrdinalIgnoreCase);
 
-    private static Color CommandColor = new(1, 1, 0);
-    private static Color ParameterTypeColor = new(0, 1, 1);
-    private static Color ParameterInputColor = new(1, 0, 0);
-    private static Color ParameterOptionalColor = new(0, 1, 0);
-    private static Color ModOriginColor = new(0, 1, 0);
-    private static Color ModConflictColor = new(0.75f, 0.75f, 0.75f);
+    private static readonly Color _commandColor = new(1, 1, 0);
+    private static readonly Color _parameterTypeColor = new(0, 1, 1);
+    private static readonly Color _parameterInputColor = new(1, 0, 0);
+    private static readonly Color _parameterOptionalColor = new(0, 1, 0);
+    private static readonly Color _modOriginColor = new(0, 1, 0);
+    private static readonly Color _modConflictColor = new(0.75f, 0.75f, 0.75f);
 
-    internal static List<TeleportPosition> GotoTeleportPositionsToAdd = new List<TeleportPosition>();
-    internal static List<TeleportPosition> BiomeTeleportPositionsToAdd = new List<TeleportPosition>();
+    private static readonly List<TeleportPosition> _customGotoTeleportPositions = new List<TeleportPosition>();
+    private static readonly List<TeleportPosition> _customBiomeTeleportPositions = new List<TeleportPosition>();
 
     public static void Patch(Harmony harmony)
     {
@@ -45,11 +45,11 @@ internal static class ConsoleCommandsPatcher
         ConsoleCommand consoleCommand = new(command, targetMethod, isDelegate, instance);
 
         // if this command string was already registered, print an error and don't add it
-        if (ConsoleCommands.TryGetValue(consoleCommand.Trigger, out ConsoleCommand alreadyDefinedCommand))
+        if (_consoleCommands.TryGetValue(consoleCommand.Trigger, out ConsoleCommand alreadyDefinedCommand))
         {
             string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
-                           $"{GetColoredString(consoleCommand.ModName, ModOriginColor)}\n" +
-                           $"{GetColoredString(alreadyDefinedCommand.ModName, ModConflictColor)} already registered this command!";
+                           $"{GetColoredString(consoleCommand.ModName, _modOriginColor)}\n" +
+                           $"{GetColoredString(alreadyDefinedCommand.ModName, _modConflictColor)} already registered this command!";
 
             LogAndAnnounce(error, LogLevel.Error);
 
@@ -60,7 +60,7 @@ internal static class ConsoleCommandsPatcher
         if (!consoleCommand.HasValidInvoke())
         {
             string error = $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
-                           $"{GetColoredString(consoleCommand.ModName, ModOriginColor)}\n" +
+                           $"{GetColoredString(consoleCommand.ModName, _modOriginColor)}\n" +
                            "Target method must be static.";
 
             LogAndAnnounce(error, LogLevel.Error);
@@ -84,7 +84,7 @@ internal static class ConsoleCommandsPatcher
             
             StringBuilder error = new StringBuilder(
                 $"Could not register custom command {GetColoredString(consoleCommand)} for mod " +
-                $"{GetColoredString(consoleCommand.ModName, ModOriginColor)}\n"
+                $"{GetColoredString(consoleCommand.ModName, _modOriginColor)}\n"
             );
 
             if (parametersWithUnsupportedTypes.Count > 0)
@@ -107,7 +107,7 @@ internal static class ConsoleCommandsPatcher
             return;
         }
 
-        ConsoleCommands.Add(consoleCommand.Trigger, consoleCommand);
+        _consoleCommands.Add(consoleCommand.Trigger, consoleCommand);
     }
 
     /// <summary>
@@ -179,7 +179,7 @@ internal static class ConsoleCommandsPatcher
 
         string trigger = components[0];
 
-        if (!ConsoleCommands.TryGetValue(trigger, out ConsoleCommand command))
+        if (!_consoleCommands.TryGetValue(trigger, out ConsoleCommand command))
         {
             InternalLogger.Debug($"No command listener registered for [{trigger}].");
             return false;
@@ -206,9 +206,9 @@ internal static class ConsoleCommandsPatcher
                     string parameterTypeName = invalidParameter.UnderlyingValueType.GetFriendlyName();
 
                     // Print a message about why it is invalid
-                    string error = $"Parameter {GetColoredString(invalidParameter.Name, ParameterOptionalColor)} could not be parsed:\n" +
-                                   $"{GetColoredString(invalidInput, ParameterInputColor)} is not a valid " +
-                                   $"{GetColoredString(parameterTypeName, ParameterTypeColor)}!";
+                    string error = $"Parameter {GetColoredString(invalidParameter.Name, _parameterOptionalColor)} could not be parsed:\n" +
+                                   $"{GetColoredString(invalidInput, _parameterInputColor)} is not a valid " +
+                                   $"{GetColoredString(parameterTypeName, _parameterTypeColor)}!";
 
                     LogAndAnnounce(error, LogLevel.Error);
                 }
@@ -216,14 +216,14 @@ internal static class ConsoleCommandsPatcher
             else if (!consumedAll)
             {
                 string error = "Received too many parameters!\n" +
-                    $"expected {GetColoredString(command.Parameters.Count.ToString(), ParameterTypeColor)} " +
-                    $"but got {GetColoredString(inputParameters.Count.ToString(), ParameterInputColor)}";
+                    $"expected {GetColoredString(command.Parameters.Count.ToString(), _parameterTypeColor)} " +
+                    $"but got {GetColoredString(inputParameters.Count.ToString(), _parameterInputColor)}";
 
                 LogAndAnnounce(error, LogLevel.Error);
             }
 
             // Print a message about what parameters the command expects
-            string parameterInfoString = $"{GetColoredString(command.Trigger, CommandColor)} " +
+            string parameterInfoString = $"{GetColoredString(command.Trigger, _commandColor)} " +
                                          "expects the following parameters\n" +
                                          command.Parameters.Select(GetColoredString).Join(delimiter: "\n");
 
@@ -244,7 +244,7 @@ internal static class ConsoleCommandsPatcher
 
         if (!string.IsNullOrEmpty(result)) // If the command has a return, print it.
         {
-            LogAndAnnounce($"{GetColoredString($"[{command.ModName}]", ModOriginColor)} {result}", LogLevel.Info);
+            LogAndAnnounce($"{GetColoredString($"[{command.ModName}]", _modOriginColor)} {result}", LogLevel.Info);
         }
 
         InternalLogger.Debug($"Command [{trigger}] handled successfully by [{command.ModName}].");
@@ -265,13 +265,13 @@ internal static class ConsoleCommandsPatcher
 
     private static string GetColoredString(ConsoleCommand command)
     {
-        return GetColoredString(command.Trigger, CommandColor);
+        return GetColoredString(command.Trigger, _commandColor);
     }
 
     private static string GetColoredString(Parameter parameter)
     {
-        return $"{parameter.Name}: {GetColoredString(parameter.ParameterType.GetFriendlyName(), ParameterTypeColor)}" +
-               (parameter.IsOptional ? $" {GetColoredString("(optional)", ParameterOptionalColor)}" : string.Empty);
+        return $"{parameter.Name}: {GetColoredString(parameter.ParameterType.GetFriendlyName(), _parameterTypeColor)}" +
+               (parameter.IsOptional ? $" {GetColoredString("(optional)", _parameterOptionalColor)}" : string.Empty);
     }
 
     private static string GetColoredString(string str, Color color)
@@ -279,43 +279,61 @@ internal static class ConsoleCommandsPatcher
         return $"<color=#{ColorUtility.ToHtmlStringRGB(color)}>{str}</color>";
     }
 
-    private static Regex xmlRegex = new("<.*?>", RegexOptions.Compiled);
+    private static readonly Regex _xmlRegex = new("<.*?>", RegexOptions.Compiled);
     public static string StripXML(this string source)
     {
-        return xmlRegex.Replace(source, string.Empty);
+        return _xmlRegex.Replace(source, string.Empty);
     }
 
     [HarmonyPatch(typeof(GotoConsoleCommand), nameof(GotoConsoleCommand.Awake))]
     [HarmonyPostfix]
     private static void GotoConsoleCommandAwakePostfix(GotoConsoleCommand __instance)
     {
-        UpdateTeleportPositions();
+        if (_customGotoTeleportPositions.Count == 0) return;
+        AddAllToCommandData(__instance.data, _customGotoTeleportPositions);
     }
     
     [HarmonyPatch(typeof(BiomeConsoleCommand), nameof(BiomeConsoleCommand.Awake))]
     [HarmonyPostfix]
     private static void BiomeConsoleCommandAwakePostfix(BiomeConsoleCommand __instance)
     {
-        UpdateTeleportPositions();
+        if (_customBiomeTeleportPositions.Count == 0) return;
+        AddAllToCommandData(__instance.data, _customBiomeTeleportPositions);
     }
 
-    internal static void UpdateTeleportPositions()
+    internal static void AddGotoPosition(TeleportPosition position)
     {
-        if (GotoConsoleCommand.main != null && GotoTeleportPositionsToAdd.Count > 0)
+        if (GotoConsoleCommand.main != null)
         {
-            AddTeleportPositionsToCommandData(GotoConsoleCommand.main.data, GotoTeleportPositionsToAdd);
+            AddToCommandData(GotoConsoleCommand.main.data, position);
         }
-        if (BiomeConsoleCommand.main != null && BiomeTeleportPositionsToAdd.Count > 0)
+        _customGotoTeleportPositions.Add(position);
+    }
+    
+    internal static void AddBiomeTeleportPosition(TeleportPosition position)
+    {
+        if (BiomeConsoleCommand.main != null)
         {
-            AddTeleportPositionsToCommandData(BiomeConsoleCommand.main.data, BiomeTeleportPositionsToAdd);
+            AddToCommandData(BiomeConsoleCommand.main.data, position);
         }
+        _customBiomeTeleportPositions.Add(position);
     }
 
-    private static void AddTeleportPositionsToCommandData(TeleportCommandData commandData, List<TeleportPosition> positionsToAdd)
+    private static void AddAllToCommandData(TeleportCommandData commandData, List<TeleportPosition> positions)
     {
-        var list = new List<TeleportPosition>(commandData.locations);
-        list.AddRange(positionsToAdd);
-        commandData.locations = list.ToArray();
-        positionsToAdd.Clear();
+        TeleportPosition[] newPositions = new TeleportPosition[commandData.locations.Length + positions.Count];
+        commandData.locations.CopyTo(newPositions, 0);
+        positions.CopyTo(newPositions, commandData.locations.Length);
+        
+        commandData.locations = newPositions;
+    }
+
+    private static void AddToCommandData(TeleportCommandData commandData, TeleportPosition position)
+    {
+        TeleportPosition[] newPositions = new TeleportPosition[commandData.locations.Length + 1];
+        commandData.locations.CopyTo(newPositions, 0);
+        newPositions[commandData.locations.Length] = position;
+        
+        commandData.locations = newPositions;
     }
 }
