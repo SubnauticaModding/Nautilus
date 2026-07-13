@@ -10,7 +10,6 @@ namespace Nautilus.Patchers;
 internal class SurvivalPatcher
 {
     internal static IDictionary<TechType, List<Action>> CustomSurvivalInventoryAction = new SelfCheckingDictionary<TechType, List<Action>>("CustomSurvivalInventoryAction", TechTypeExtensions.sTechTypeComparer);
-    internal static HashSet<TechType> InventoryUseables = new();
 
     internal static void Patch(Harmony harmony)
     {

@@ -9,20 +9,16 @@ namespace Nautilus.Handlers;
 /// </summary>
 public static class SurvivalHandler
 {
+    [Obsolete]
+    private static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible) => GiveOxygenOnConsume(techType, oxygenGiven);
+    
     /// <summary>
     /// <para>makes the item gives oxygen on use.</para>
     /// </summary>
     /// <param name="techType">the TechType that you want to make it give oxygen on use</param>
     /// <param name="oxygenGiven">the oxygen amount the item gives</param>
-    /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
-    /// </param>
-    public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible)
+    public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven)
     {
-        if (!isEdible)
-        {
-            SurvivalPatcher.InventoryUseables.Add(techType); // add it to the HashSet of useables if its not edible
-        }
-
         if (!SurvivalPatcher.CustomSurvivalInventoryAction.TryGetValue(techType, out List<Action> actions))
         {
             actions = new List<Action>();
@@ -40,20 +36,16 @@ public static class SurvivalHandler
         });
     }
 
+    [Obsolete]
+    private static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible) => GiveHealthOnConsume(techType, healthBack);
+    
     /// <summary>
     /// <para>makes the item Heal the player on consume.</para>
     /// </summary>
     /// <param name="techType">the TechType that you want it to heal back</param>
     /// <param name="healthBack">amount to heal the player</param>
-    /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
-    /// </param>
-    public static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible)
+    public static void GiveHealthOnConsume(TechType techType, float healthBack)
     {
-        if (!isEdible)
-        {
-            SurvivalPatcher.InventoryUseables.Add(techType); // add it to the HashSet of useables if its not edible
-        }
-
         if (!SurvivalPatcher.CustomSurvivalInventoryAction.TryGetValue(techType, out List<Action> actions))
         {
             actions = new List<Action>();
@@ -69,24 +61,20 @@ public static class SurvivalHandler
         }); 
     }
 
+    [Obsolete]
+    private static void RunActionOnConsume(TechType techType, Action customAction, bool isEdible) => RunActionOnConsume(techType, customAction);
+    
     /// <summary>
     /// <para>runs a custom action on consume.</para>
     /// </summary>
     /// <param name="techType">the TechType that you want it to heal back</param>
     /// <param name="customAction"> the Action to perform.</param>
-    /// <param name="isEdible">set it to <see langword="true" /> if the item is edible and has the <see cref="Eatable"/> component attached to it. 
-    /// </param>
-    public static void RunActionOnConsume(TechType techType, Action customAction, bool isEdible)
+    public static void RunActionOnConsume(TechType techType, Action customAction)
     {
         if (techType == TechType.None)
             throw new ArgumentNullException(nameof(techType), "TechType cannot be None.");
         if (customAction == null)
             throw new ArgumentNullException(nameof(customAction), "Action cannot be null.");
-
-        if (!isEdible)
-        {
-            SurvivalPatcher.InventoryUseables.Add(techType); // add it to the HashSet of useables if its not edible
-        }
 
         if (!SurvivalPatcher.CustomSurvivalInventoryAction.TryGetValue(techType, out List<Action> actions))
         {
