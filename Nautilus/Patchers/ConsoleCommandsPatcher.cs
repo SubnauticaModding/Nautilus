@@ -289,6 +289,7 @@ internal static class ConsoleCommandsPatcher
     [HarmonyPostfix]
     private static void GotoConsoleCommandAwakePostfix(GotoConsoleCommand __instance)
     {
+        if (_customGotoTeleportPositions.Count == 0) return;
         AddAllToCommandData(__instance.data, _customGotoTeleportPositions);
     }
     
@@ -296,6 +297,7 @@ internal static class ConsoleCommandsPatcher
     [HarmonyPostfix]
     private static void BiomeConsoleCommandAwakePostfix(BiomeConsoleCommand __instance)
     {
+        if (_customBiomeTeleportPositions.Count == 0) return;
         AddAllToCommandData(__instance.data, _customBiomeTeleportPositions);
     }
 
@@ -319,15 +321,19 @@ internal static class ConsoleCommandsPatcher
 
     private static void AddAllToCommandData(TeleportCommandData commandData, List<TeleportPosition> positions)
     {
-        var list = new List<TeleportPosition>(commandData.locations);
-        list.AddRange(positions);
-        commandData.locations = list.ToArray();
+        TeleportPosition[] newPositions = new TeleportPosition[commandData.locations.Length + positions.Count];
+        commandData.locations.CopyTo(newPositions, 0);
+        positions.CopyTo(newPositions, commandData.locations.Length);
+        
+        commandData.locations = newPositions;
     }
 
     private static void AddToCommandData(TeleportCommandData commandData, TeleportPosition position)
     {
-        var list = new List<TeleportPosition>(commandData.locations);
-        list.Add(position);
-        commandData.locations = list.ToArray();
+        TeleportPosition[] newPositions = new TeleportPosition[commandData.locations.Length + 1];
+        commandData.locations.CopyTo(newPositions, 0);
+        newPositions[commandData.locations.Length] = position;
+        
+        commandData.locations = newPositions;
     }
 }
