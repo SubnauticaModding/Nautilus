@@ -144,6 +144,7 @@ public static class PrefabUtils
         // TODO: Add ghost material for BZ
 #if SUBNAUTICA
         constructable.ghostMaterial = MaterialUtils.GhostMaterial;
+        constructable._EmissiveTex = MaterialUtils.Textures.ConstructionEmissiveTex;
 #endif
         constructable.techType = techType;
         constructable.allowedInBase = constructableFlags.HasFlag(ConstructableFlags.Base);

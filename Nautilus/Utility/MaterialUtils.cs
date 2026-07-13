@@ -80,22 +80,22 @@ public static partial class MaterialUtils
     public static bool IsReady { get; private set; }
 
     /// <summary>
-    /// Gets the basic glass material
+    /// Gets the basic glass material.
     /// </summary>
     public static Material GlassMaterial { get; private set; }
 
     /// <summary>
-    /// Gets the material for the outside of glass, such as for base windows
+    /// Gets the material for the outside of glass, such as for base windows.
     /// </summary>
     public static Material ExteriorGlassMaterial { get; private set; }
 
     /// <summary>
-    /// Gets the material for the inside of glass, such as the inside of the Cyclops windshield
+    /// Gets the material for the inside of glass, such as the inside of the Cyclops windshield.
     /// </summary>
     public static Material InteriorGlassMaterial { get; private set; }
 
     /// <summary>
-    /// Gets a shiny glass material
+    /// Gets a shiny glass material.
     /// </summary>
     public static Material ShinyGlassMaterial { get; private set; }
 
