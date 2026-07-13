@@ -24,7 +24,10 @@ public static class SurvivalHandler
         }
 
         if (!SurvivalPatcher.CustomSurvivalInventoryAction.TryGetValue(techType, out List<Action> actions))
+        {
             actions = new List<Action>();
+            SurvivalPatcher.CustomSurvivalInventoryAction[techType] = actions;
+        }
 
         // add an action to the list
         actions.Add(() => 
@@ -35,8 +38,6 @@ public static class SurvivalHandler
             else
                 oxygenManager.RemoveOxygen(-oxygenGiven);
         });
-
-        SurvivalPatcher.CustomSurvivalInventoryAction[techType] = actions;
     }
 
     /// <summary>
@@ -54,8 +55,11 @@ public static class SurvivalHandler
         }
 
         if (!SurvivalPatcher.CustomSurvivalInventoryAction.TryGetValue(techType, out List<Action> actions))
+        {
             actions = new List<Action>();
-
+            SurvivalPatcher.CustomSurvivalInventoryAction[techType] = actions;
+        }
+        
         actions.Add(() => {
             var liveMixin = Player.main.GetComponent<LiveMixin>();
             if (healthBack > 0)
@@ -63,8 +67,6 @@ public static class SurvivalHandler
             else
                 liveMixin.TakeDamage(-healthBack, default, DamageType.Poison);
         }); 
-
-        SurvivalPatcher.CustomSurvivalInventoryAction[techType] = actions;
     }
 
     /// <summary>
@@ -87,9 +89,11 @@ public static class SurvivalHandler
         }
 
         if (!SurvivalPatcher.CustomSurvivalInventoryAction.TryGetValue(techType, out List<Action> actions))
+        {
             actions = new List<Action>();
+            SurvivalPatcher.CustomSurvivalInventoryAction[techType] = actions;
+        }
 
         actions.Add(customAction);
-        SurvivalPatcher.CustomSurvivalInventoryAction[techType] = actions;
     }
 }
