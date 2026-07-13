@@ -17,6 +17,7 @@ public static partial class MaterialUtils
         yield return LoadGhostMaterial();
         yield return LoadGlassMaterials();
         yield return LoadUIMaterial();
+        yield return Textures.LoadConstructionTextures();
     }
 
     /// <summary>
@@ -50,10 +51,28 @@ public static partial class MaterialUtils
     public static Material GhostMaterial { get; private set; }
 
     /// <summary>
-    /// Gets the material used by the UI in the Cyclops
+    /// Gets the material used by the UI in the Cyclops.
     /// </summary>
     public static Material HolographicUIMaterial { get; private set; }
 
+    /// <summary>
+    /// Contains references to various textures.
+    /// </summary>
+    public static class Textures
+    {
+        /// <summary>
+        /// Gets the circuit board Texture used by FX_BUILDING for constructing.
+        /// </summary>
+        public static Texture ConstructionEmissiveTex { get; private set; }
+
+        internal static IEnumerator LoadConstructionTextures()
+        {
+            var fabricatorTask = CraftData.GetPrefabForTechTypeAsync(TechType.Fabricator);
+            yield return fabricatorTask;
+            ConstructionEmissiveTex = fabricatorTask.GetResult().GetComponent<Fabricator>().ghost._EmissiveTex;
+        }
+    }
+    
     private static IEnumerator LoadIonCubeMaterial()
     {
         if (IonCubeMaterial)
