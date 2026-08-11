@@ -20,6 +20,7 @@ internal class WorldEntityDatabasePatcher
         if (CustomWorldEntityInfos.TryGetValue(classId, out WorldEntityInfo customInfo))
         {
             info = customInfo;
+            __result = true;
             return false;
         }
 
