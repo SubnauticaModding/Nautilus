@@ -89,8 +89,7 @@ public static class ConsoleCommandsHandler
     /// <param name="position">The world coordinates of the teleport.</param>
     public static void AddBiomeTeleportPosition(string biomeName, Vector3 position)
     {
-        ConsoleCommandsPatcher.BiomeTeleportPositionsToAdd.Add(new TeleportPosition{name = biomeName, position = position});
-        ConsoleCommandsPatcher.UpdateTeleportPositions();
+        ConsoleCommandsPatcher.AddBiomeTeleportPosition(new TeleportPosition{name = biomeName, position = position});
     }
     
     /// <summary>
@@ -100,7 +99,6 @@ public static class ConsoleCommandsHandler
     /// <param name="position">The world coordinates of the teleport.</param>
     public static void AddGotoTeleportPosition(string locationName, Vector3 position)
     {
-        ConsoleCommandsPatcher.GotoTeleportPositionsToAdd.Add(new TeleportPosition{name = locationName, position = position});
-        ConsoleCommandsPatcher.UpdateTeleportPositions();
+        ConsoleCommandsPatcher.AddGotoPosition(new TeleportPosition{name = locationName, position = position});
     }
 }
