@@ -37,7 +37,7 @@ public static class SurvivalHandler
     }
 
     [Obsolete]
-    private static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible) => GiveHealthOnConsume(techType, healthBack);
+    public static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible) => GiveHealthOnConsume(techType, healthBack);
     
     /// <summary>
     /// <para>makes the item Heal the player on consume.</para>
@@ -62,7 +62,7 @@ public static class SurvivalHandler
     }
 
     [Obsolete]
-    private static void RunActionOnConsume(TechType techType, Action customAction, bool isEdible) => RunActionOnConsume(techType, customAction);
+    public static void RunActionOnConsume(TechType techType, Action customAction, bool isEdible) => RunActionOnConsume(techType, customAction);
     
     /// <summary>
     /// <para>runs a custom action on consume.</para>
