@@ -12,19 +12,15 @@ internal class WorldEntityDatabasePatcher
     internal static void Patch(Harmony harmony)
     {
         harmony.Patch(AccessTools.Method(typeof(WorldEntityDatabase), nameof(WorldEntityDatabase.TryGetInfo)),
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), nameof(WorldEntityDatabasePatcher.Prefix))));
+            prefix: new HarmonyMethod(AccessTools.Method(typeof(WorldEntityDatabasePatcher), nameof(Prefix))));
     }
 
     private static bool Prefix(string classId, ref WorldEntityInfo info, ref bool __result)
     {
-        foreach (KeyValuePair<string, WorldEntityInfo> entry in CustomWorldEntityInfos)
+        if (CustomWorldEntityInfos.TryGetValue(classId, out WorldEntityInfo customInfo))
         {
-            if (entry.Key == classId)
-            {
-                __result = true;
-                info = entry.Value;
-                return false;
-            }
+            info = customInfo;
+            return false;
         }
 
         return true;
