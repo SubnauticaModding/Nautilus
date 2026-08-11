@@ -1,164 +1,124 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BepInEx.Logging;
 using HarmonyLib;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 
 namespace Nautilus.Patchers;
 
+
 internal class ItemActionPatcher
 {
-    internal class CustomItemAction
-    {
-        internal Action<InventoryItem> Action;
-        internal string LanguageLineKey;
-        internal Predicate<InventoryItem> Condition;
+    internal record CustomItemAction(Action<InventoryItem> Action, string LanguageLineKey, Predicate<InventoryItem> Condition);
 
-        internal CustomItemAction(Action<InventoryItem> action, string tooltipKey, Predicate<InventoryItem> condition)
-        {
-            Action = action;
-            LanguageLineKey = tooltipKey;
-            Condition = condition;
-        }
-    }
+    internal static readonly IDictionary<TechType, CustomItemAction> MiddleClickActions = new SelfCheckingDictionary<TechType, CustomItemAction>("MiddleClickActions", t => t.AsString());
+    internal static readonly IDictionary<TechType, CustomItemAction> LeftClickActions = new SelfCheckingDictionary<TechType, CustomItemAction>("LeftClickActions", t => t.AsString());
+    
+    private static ItemAction _customMiddleClick;
+    private static ItemAction _customLeftClick;
 
-    #region Internal Fields
-
-    private static readonly Func<TechType, string> AsStringFunction = (t) => t.AsString();
-
-    /// <summary>
-    /// A constant <see cref="ItemAction"/> value to represent a custom middle click item action
-    /// </summary>
-    internal const ItemAction CustomMiddleClickItemAction = (ItemAction)1337;
-    /// <summary>
-    /// A constant <see cref="ItemAction"/> value to represent a custom left click item action
-    /// </summary>
-    internal const ItemAction CustomLeftClickItemAction = (ItemAction)1338;
-
-    internal const string LeftClickMouseIcon = "<color=#ADF8FFFF></color>";
-    internal const string MiddleClickMouseIcon = "<color=#ADF8FFFF></color>";
-
-    internal static readonly IDictionary<TechType, CustomItemAction> MiddleClickActions = new SelfCheckingDictionary<TechType, CustomItemAction>("MiddleClickActions", AsStringFunction);
-    internal static readonly IDictionary<TechType, CustomItemAction> LeftClickActions = new SelfCheckingDictionary<TechType, CustomItemAction>("LeftClickActions", AsStringFunction);
-
-    #endregion
-
-    #region Patching
-
+    //Controller does not have a button
+    internal const GameInput.Button ControllerMiddleClickBind = GameInput.Button.Sprint;
+    
     internal static void Patch(Harmony harmony)
     {
-        // Direct access to private fields made possible by https://github.com/CabbageCrow/AssemblyPublicizer/
-        // See README.md for details.
-
-        harmony.Patch(AccessTools.Method(typeof(uGUI_InventoryTab), nameof(uGUI_InventoryTab.OnPointerClick)), 
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.OnPointerClick_Prefix))));
-
-        harmony.Patch(AccessTools.Method(typeof(Inventory), nameof(Inventory.ExecuteItemAction),new Type[] { typeof(ItemAction), typeof(InventoryItem) }), 
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.ExecuteItemAction_Prefix))));
-
-        harmony.Patch(AccessTools.Method(typeof(TooltipFactory), nameof(TooltipFactory.ItemActions)), 
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(ItemActionPatcher), nameof(ItemActionPatcher.ItemActions_Postfix))));
-
-        if (MiddleClickActions.Count > 0 && LeftClickActions.Count > 0)
-        {
-            InternalLogger.Log($"Added {LeftClickActions.Count} left click actions and {MiddleClickActions.Count} middle click actions.");
-        }
-        else if (LeftClickActions.Count > 0)
-        {
-            InternalLogger.Log($"Added {LeftClickActions.Count} left click actions.");
-        }
-        else if (MiddleClickActions.Count > 0)
-        {
-            InternalLogger.Log($"Added {MiddleClickActions.Count} middle click actions.");
-        }
-
-        InternalLogger.Log("ItemActionPatcher is done.", LogLevel.Debug);
+        _customMiddleClick = EnumHandler.AddEntry<ItemAction>("CustomMiddleClick");
+        _customLeftClick = EnumHandler.AddEntry<ItemAction>("CustomLeftClick");
+        harmony.PatchAll(typeof(ItemActionPatcher));
+        InternalLogger.Debug("ItemActionPatcher is done.");
     }
 
-    internal static bool OnPointerClick_Prefix(InventoryItem item, int button)
+    [HarmonyPatch(typeof(uGUI_ItemsContainer))]
+    [HarmonyPatch(nameof(uGUI_ItemsContainer.OnButtonDown))]
+    [HarmonyPostfix]
+    private static void OnButtonDown_Postfix(uGUI_ItemsContainer __instance, uGUI_ItemIcon icon, GameInput.Button button)
     {
-        if (ItemDragManager.isDragging)
+        //This method is only called with a controller attached. Controller by default does not give events for a middle click like input
+        if (GameInput.IsPrimaryDeviceGamepad() && button == ControllerMiddleClickBind)
         {
-            return true;
+            __instance.icons.TryGetValue(icon, out InventoryItem inventoryItem);
+            Inventory.main.ExecuteItemAction(_customMiddleClick, inventoryItem);
         }
+    }
+
+    [HarmonyPatch(typeof(uGUI_InventoryTab))]
+    [HarmonyPatch(nameof(uGUI_InventoryTab.OnPointerClick))]
+    [HarmonyPrefix]
+    private static bool OnPointerClick_Prefix(InventoryItem item, int button)
+    {
+        if (ItemDragManager.isDragging) return true;
         if (button == 0 && LeftClickActions.ContainsKey(item.item.GetTechType()))
         {
-            Inventory.main.ExecuteItemAction(CustomLeftClickItemAction, item);
+            Inventory.main.ExecuteItemAction(_customLeftClick, item);
             return false;
         }
-        if (button == 2 && MiddleClickActions.ContainsKey(item.item.GetTechType()))
+        //Controller binds button 2 to X (for xbox). This is the drop button for items so we don't want it
+        if (!GameInput.IsPrimaryDeviceGamepad() && button == 2 && MiddleClickActions.ContainsKey(item.item.GetTechType()))
         {
-            Inventory.main.ExecuteItemAction(CustomMiddleClickItemAction, item);
+            Inventory.main.ExecuteItemAction(_customMiddleClick, item);
             return false;
         }
         return true;
     }
 
-    internal static bool ExecuteItemAction_Prefix(ItemAction action, InventoryItem item)
+    [HarmonyPatch(typeof(Inventory))]
+    [HarmonyPatch(nameof(Inventory.ExecuteItemAction), typeof(ItemAction), typeof(InventoryItem))]
+    [HarmonyPrefix]
+    private static bool ExecuteItemAction_Prefix(ItemAction action, InventoryItem item)
     {
-        if (action != CustomLeftClickItemAction && action != CustomMiddleClickItemAction)
+        if (action == _customLeftClick)
         {
-            return true;
-        }
-
-        TechType itemTechType = item.item.GetTechType();
-
-        if (action == CustomLeftClickItemAction)
-        {
-            if (LeftClickActions.TryGetValue(itemTechType, out CustomItemAction customItemAction))
-            {
-                if (customItemAction.Condition(item))
-                {
-                    customItemAction.Action(item);
-                }
-            }
+            HandleActionFor(LeftClickActions);
             return false;
         }
-
-        if (action == CustomMiddleClickItemAction)
+        if (action == _customMiddleClick)
         {
-            if (MiddleClickActions.TryGetValue(itemTechType, out CustomItemAction customItemAction))
-            {
-                if (customItemAction.Condition(item))
-                {
-                    customItemAction.Action(item);
-                }
-            }
+            HandleActionFor(MiddleClickActions);
             return false;
         }
-
         return true;
+        
+        void HandleActionFor(IDictionary<TechType, CustomItemAction> actions)
+        {
+            TechType itemTechType = item.item.GetTechType();
+            if (actions.TryGetValue(itemTechType, out CustomItemAction customItemAction) && customItemAction.Condition(item))
+            {
+                customItemAction.Action(item);
+            }
+        }
     }
 
-    internal static void ItemActions_Postfix(StringBuilder sb, InventoryItem item)
+    [HarmonyPatch(typeof(TooltipFactory))]
+    [HarmonyPatch(nameof(TooltipFactory.ItemActions))]
+    [HarmonyPostfix]
+    private static void ItemActions_Postfix(StringBuilder sb, InventoryItem item)
     {
         TechType itemTechType = item.item.GetTechType();
-        bool hasLeftAction = false;
-
-        if (LeftClickActions.TryGetValue(itemTechType, out CustomItemAction action))
+        if (LeftClickActions.TryGetValue(itemTechType, out CustomItemAction action) && action.Condition(item))
         {
-            if (action.Condition(item))
-            {
-                sb.Append("\n");
-                TooltipFactory.WriteAction(sb, LeftClickMouseIcon, Language.main.Get(action.LanguageLineKey));
-                hasLeftAction = true;
-            }
+            TooltipFactory.WriteAction(sb, TooltipFactory.stringButton0, Language.main.Get(action.LanguageLineKey));
         }
-
-        if (MiddleClickActions.TryGetValue(itemTechType, out action))
+        if (MiddleClickActions.TryGetValue(itemTechType, out action) && action.Condition(item))
         {
-            if (action.Condition(item))
-            {
-                if (!hasLeftAction)
-                {
-                    sb.Append("\n");
-                }
-
-                TooltipFactory.WriteAction(sb, MiddleClickMouseIcon, Language.main.Get(action.LanguageLineKey));
-            }
+            TooltipFactory.WriteAction(sb, GetMiddleClickGlyph(), Language.main.Get(action.LanguageLineKey));
         }
     }
-
-    #endregion
+    
+    private static string GetMiddleClickGlyph()
+    {
+        //Middle click is not bound to a button like others are. Getting TooltipFactory.stringButton2 format does NOT give what is expected for keyboard :(
+#if SUBNAUTICA
+        if (GameInput.IsPrimaryDeviceGamepad()) return GameInput.FormatButton(ControllerMiddleClickBind);
+        return "<sprite name=\"MouseButtonMiddle\" color=#ADF8FFFF>";
+#elif BELOWZERO
+        if (GameInput.IsPrimaryDeviceGamepad())
+        {
+            string bindName = GameInput.GetBindingName(ControllerMiddleClickBind, GameInput.BindingSet.Primary, true);
+            string bindGlyph = uGUI.GetDisplayTextForBinding(bindName);
+            return $"<color=#ADF8FFFF>{bindGlyph}</color>";
+        }
+        return TooltipFactory.stringButton2;
+#endif
+    }
 }
