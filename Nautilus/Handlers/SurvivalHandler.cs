@@ -10,7 +10,7 @@ namespace Nautilus.Handlers;
 public static class SurvivalHandler
 {
     [Obsolete]
-    private static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible) => GiveOxygenOnConsume(techType, oxygenGiven);
+    public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible) => GiveOxygenOnConsume(techType, oxygenGiven);
     
     /// <summary>
     /// <para>makes the item gives oxygen on use.</para>
