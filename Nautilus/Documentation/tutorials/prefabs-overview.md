@@ -19,17 +19,21 @@ Subnautica prefabs consist of the following:
 
 ## Differences between Class ID and TechType
 
-These are two distinct identification systems used by the game and should not be confused.
+These are two distinct identification systems used by the game and should not be conflated.
 
+## Class ID
 The Class ID is the only thing that is *required* for a prefab. A mod that adds new commands such as [DebugHelper](https://www.nexusmods.com/subnautica/mods/1560) is required
 to actually spawn a prefab by its Class ID. All base-game Class IDs are 36-character-long GUIDs. When you create a prefab with Nautilus, the Class ID will use the TechType name by default. You can find a list of all Class IDs [here](https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-PrefabPaths.json).
 
-TechTypes are more accessible and readable. You may recognize them from the `spawn` command. Unlike Class IDs, which aren't readily available, TechTypes are all
+## TechType
+TechTypes are more easily accessible without external resources, and are often far more readable. You may recognize them from the `spawn` command. Unlike Class IDs, which aren't readily available, TechTypes are all
 listed under the `TechType` enum in the game's codebase. There are thousands of prefabs that cannot be spawned with the spawn command because they don't have
-a TechType assigned. Having a TechType is also required for **crafting recipes**, **blueprints** and **inventory items**.
+a TechType assigned. Having a TechType is required for **crafting recipes**, **blueprints**, **inventory items**, and more.
+
+![A screenshot of the first 22 values of the decompiled TechType enum](../images/tutorials/tech-type-enum.png)
 
 Most importantly: **there can be multiple prefabs with the same TechType, but every prefab has a different Class ID.** This is why you can have multiple
-fragments with different models that unlock the same blueprint.
+fragments with different models that unlock the same blueprint. Each fragment would have the same TechType, but a unique ClassID.
 
 ## Essential components
 
