@@ -154,8 +154,8 @@ Class SurvivalHandler
 
   <a id="Nautilus_Handlers_SurvivalHandler_GiveHealthOnConsume_" data-uid="Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume*"></a>
 
-  <h3 id="Nautilus_Handlers_SurvivalHandler_GiveHealthOnConsume_TechType_System_Single_System_Boolean_" data-uid="Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume(TechType,System.Single,System.Boolean)">
-  GiveHealthOnConsume(TechType, float, bool)
+  <h3 id="Nautilus_Handlers_SurvivalHandler_GiveHealthOnConsume_TechType_System_Single_" data-uid="Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume(TechType,System.Single)">
+  GiveHealthOnConsume(TechType, float)
   
   </h3>
 
@@ -163,7 +163,7 @@ Class SurvivalHandler
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void GiveHealthOnConsume(TechType techType, float healthBack)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
@@ -172,8 +172,75 @@ Class SurvivalHandler
     <dd>the TechType that you want it to heal back</dd>
     <dt><code>healthBack</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
     <dd>amount to heal the player</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_SurvivalHandler_GiveHealthOnConsume_" data-uid="Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume*"></a>
+
+  <h3 id="Nautilus_Handlers_SurvivalHandler_GiveHealthOnConsume_TechType_System_Single_System_Boolean_" data-uid="Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume(TechType,System.Single,System.Boolean)">
+  GiveHealthOnConsume(TechType, float, bool)
+  
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete]
+public static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd></dd>
+    <dt><code>healthBack</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd></dd>
     <dt><code>isEdible</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd>set it to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the item is edible and has the <span class="xref">Eatable</span> component attached to it.</dd>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_SurvivalHandler_GiveOxygenOnConsume_" data-uid="Nautilus.Handlers.SurvivalHandler.GiveOxygenOnConsume*"></a>
+
+  <h3 id="Nautilus_Handlers_SurvivalHandler_GiveOxygenOnConsume_TechType_System_Single_" data-uid="Nautilus.Handlers.SurvivalHandler.GiveOxygenOnConsume(TechType,System.Single)">
+  GiveOxygenOnConsume(TechType, float)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>makes the item gives oxygen on use.</p></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd>the TechType that you want to make it give oxygen on use</dd>
+    <dt><code>oxygenGiven</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
+    <dd>the oxygen amount the item gives</dd>
   </dl>
 
 
@@ -194,21 +261,55 @@ Class SurvivalHandler
   
   </h3>
 
-  <div class="markdown level1 summary"><p>makes the item gives oxygen on use.</p></div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete]
+public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>techType</code> <span class="xref">TechType</span></dt>
-    <dd>the TechType that you want to make it give oxygen on use</dd>
+    <dd></dd>
     <dt><code>oxygenGiven</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd>the oxygen amount the item gives</dd>
+    <dd></dd>
     <dt><code>isEdible</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd>set it to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the item is edible and has the <span class="xref">Eatable</span> component attached to it.</dd>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_SurvivalHandler_RunActionOnConsume_" data-uid="Nautilus.Handlers.SurvivalHandler.RunActionOnConsume*"></a>
+
+  <h3 id="Nautilus_Handlers_SurvivalHandler_RunActionOnConsume_TechType_System_Action_" data-uid="Nautilus.Handlers.SurvivalHandler.RunActionOnConsume(TechType,System.Action)">
+  RunActionOnConsume(TechType, Action)
+  
+  </h3>
+
+  <div class="markdown level1 summary"><p>runs a custom action on consume.</p></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void RunActionOnConsume(TechType techType, Action customAction)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>techType</code> <span class="xref">TechType</span></dt>
+    <dd>the TechType that you want it to heal back</dd>
+    <dt><code>customAction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></dt>
+    <dd>the Action to perform.</dd>
   </dl>
 
 
@@ -229,21 +330,22 @@ Class SurvivalHandler
   
   </h3>
 
-  <div class="markdown level1 summary"><p>runs a custom action on consume.</p></div>
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RunActionOnConsume(TechType techType, Action customAction, bool isEdible)</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete]
+public static void RunActionOnConsume(TechType techType, Action customAction, bool isEdible)</code></pre>
   </div>
 
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>techType</code> <span class="xref">TechType</span></dt>
-    <dd>the TechType that you want it to heal back</dd>
+    <dd></dd>
     <dt><code>customAction</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></dt>
-    <dd>the Action to perform.</dd>
+    <dd></dd>
     <dt><code>isEdible</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd>set it to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the item is edible and has the <span class="xref">Eatable</span> component attached to it.</dd>
+    <dd></dd>
   </dl>
 
 

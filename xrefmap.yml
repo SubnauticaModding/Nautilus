@@ -8563,6 +8563,15 @@ references:
   commentId: T:Nautilus.Handlers.SurvivalHandler
   fullName: Nautilus.Handlers.SurvivalHandler
   nameWithType: SurvivalHandler
+- uid: Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume(TechType,System.Single)
+  name: GiveHealthOnConsume(TechType, float)
+  href: api/Nautilus.Handlers.SurvivalHandler.html#Nautilus_Handlers_SurvivalHandler_GiveHealthOnConsume_TechType_System_Single_
+  commentId: M:Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume(TechType,System.Single)
+  name.vb: GiveHealthOnConsume(TechType, Single)
+  fullName: Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume(TechType, float)
+  fullName.vb: Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume(TechType, Single)
+  nameWithType: SurvivalHandler.GiveHealthOnConsume(TechType, float)
+  nameWithType.vb: SurvivalHandler.GiveHealthOnConsume(TechType, Single)
 - uid: Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume(TechType,System.Single,System.Boolean)
   name: GiveHealthOnConsume(TechType, float, bool)
   href: api/Nautilus.Handlers.SurvivalHandler.html#Nautilus_Handlers_SurvivalHandler_GiveHealthOnConsume_TechType_System_Single_System_Boolean_
@@ -8578,6 +8587,15 @@ references:
   commentId: Overload:Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume
   fullName: Nautilus.Handlers.SurvivalHandler.GiveHealthOnConsume
   nameWithType: SurvivalHandler.GiveHealthOnConsume
+- uid: Nautilus.Handlers.SurvivalHandler.GiveOxygenOnConsume(TechType,System.Single)
+  name: GiveOxygenOnConsume(TechType, float)
+  href: api/Nautilus.Handlers.SurvivalHandler.html#Nautilus_Handlers_SurvivalHandler_GiveOxygenOnConsume_TechType_System_Single_
+  commentId: M:Nautilus.Handlers.SurvivalHandler.GiveOxygenOnConsume(TechType,System.Single)
+  name.vb: GiveOxygenOnConsume(TechType, Single)
+  fullName: Nautilus.Handlers.SurvivalHandler.GiveOxygenOnConsume(TechType, float)
+  fullName.vb: Nautilus.Handlers.SurvivalHandler.GiveOxygenOnConsume(TechType, Single)
+  nameWithType: SurvivalHandler.GiveOxygenOnConsume(TechType, float)
+  nameWithType.vb: SurvivalHandler.GiveOxygenOnConsume(TechType, Single)
 - uid: Nautilus.Handlers.SurvivalHandler.GiveOxygenOnConsume(TechType,System.Single,System.Boolean)
   name: GiveOxygenOnConsume(TechType, float, bool)
   href: api/Nautilus.Handlers.SurvivalHandler.html#Nautilus_Handlers_SurvivalHandler_GiveOxygenOnConsume_TechType_System_Single_System_Boolean_
@@ -8593,6 +8611,12 @@ references:
   commentId: Overload:Nautilus.Handlers.SurvivalHandler.GiveOxygenOnConsume
   fullName: Nautilus.Handlers.SurvivalHandler.GiveOxygenOnConsume
   nameWithType: SurvivalHandler.GiveOxygenOnConsume
+- uid: Nautilus.Handlers.SurvivalHandler.RunActionOnConsume(TechType,System.Action)
+  name: RunActionOnConsume(TechType, Action)
+  href: api/Nautilus.Handlers.SurvivalHandler.html#Nautilus_Handlers_SurvivalHandler_RunActionOnConsume_TechType_System_Action_
+  commentId: M:Nautilus.Handlers.SurvivalHandler.RunActionOnConsume(TechType,System.Action)
+  fullName: Nautilus.Handlers.SurvivalHandler.RunActionOnConsume(TechType, System.Action)
+  nameWithType: SurvivalHandler.RunActionOnConsume(TechType, Action)
 - uid: Nautilus.Handlers.SurvivalHandler.RunActionOnConsume(TechType,System.Action,System.Boolean)
   name: RunActionOnConsume(TechType, Action, bool)
   href: api/Nautilus.Handlers.SurvivalHandler.html#Nautilus_Handlers_SurvivalHandler_RunActionOnConsume_TechType_System_Action_System_Boolean_
