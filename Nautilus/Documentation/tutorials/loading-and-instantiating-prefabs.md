@@ -1,37 +1,63 @@
-# Loading and instantiating prefabs
+# Loading and Instantiating Prefabs
 
-In Subnautica, objects are created (obviously). Peepers spawn in the water around you. Titanium appears when outcrops are broken.
-Your Seamoth is built in front of you as soon as you craft it. But how exactly is this done, and how can you recreate this in your own mods?
+In Subnautica, objects are created constantly. Creatures and fragments spawn randomly in the ocean. Titanium and other ores appear when outcrops are broken.
+Vehicles are physically constructed when crafted. Entire biomes load in when you get close enough. But how exactly is this done, and how can you recreate this in your own mods?
 
-In reality, there are countless ways to spawn prefabs into the world. Chances are some have not even been discovered yet. Each method has its ups and downs,
-so it's a good idea to be familiar with all of them.
+There are countless ways to spawn prefabs into the world, including obscure methods that are beyond the scope of this guide. Each method has its ups and downs,
+so it's helpful to be familiar with all of the common approaches.
 
-> [!IMPORTANT]
-> If you are accessing a prefab for reference purposes (like reusing its materials for another prefab), then please do NOT instantiate it. Instead, access the prefab that was loaded directly,
-*without* calling the Instantiate method. This works perfectly fine. You should only call Instantiate if you want it to appear in the world.
-
-> [!IMPORTANT]
-> Some prefabs (often modded ones) may be inactive by default, so it is suggested to call `SetActive(true)` on any instances of newly instantiated prefab.
-
-## Asynchronous loading
+## Instantiation
 
 ---
 
-As of the Living Large update, both SN1 and Below Zero use **asynchronous** prefab loading. Therefore, prefab loading now must always be handled within coroutines, because
-the loading occurs across multiple frames. Please note that this is not a guide on coroutines. You can look that up on your own;
-they have been extensively explained online.
+Instantiation is the process of copying a prefab and spawning it into the active scene (i.e., the world). To instantiate a prefab, use the [Object.Instantiate](https://docs.unity3d.com/6000.5/Documentation/ScriptReference/Object.Instantiate.html) method provided by Unity.
 
-Also take note of the `UWE.CoroutineHost.StartCoroutine(IEnumerator)` method. This amazing utility method provided by Subnautica lets you execute a coroutine
+> [!IMPORTANT]
+> If you are accessing a prefab for reference purposes (like reusing its materials for another prefab), then you should NOT instantiate it. Instead, directly access the prefab that was loaded *without* calling the Instantiate method. This works perfectly fine. You should only Instantiate prefabs that you want to physically appear in the world.
+
+Some prefabs (particularly modded prefabs) may be inactive by default, so it is suggested to call `SetActive(true)` on newly instantiated GameObjects. If you want to safely instantiate something as deactivated without it initializing for a single frame, you must use `UWE.Utils.InstantiateDeactivated`.
+
+## Common Solutions
+
+---
+
+This section covers common solutions for loading and instantiating prefabs that may require minimal or no custom code, to help avoid reinventing the wheel.
+
+### Loot Distribution System
+
+The [Loot Distribution system](https://subnauticamodding.github.io/Nautilus/tutorials/spawns.html) is used for spawning fragments, creatures, and resources. Modded entities can still spawn in pre-existing saves, but only in regions that have not yet been loaded.
+
+![A Cyclops Hull Fragment, Cyclops Bridge Fragment, and two salt deposits in the Mushroom Forest](../images/tutorials/loot-distribution.png)
+*An example of various entities spawned through the Loot Distribution system.*
+
+### The Mod Structure Helper and Coordinated Spawns
+
+Many mods use the [Mod Structure Helper](https://www.nexusmods.com/subnautica/mods/1665) to place a large number of entities into the world of Subnautica. This tool is usually used in tandem with the Epic Structure Loader or custom logic to register the `.structure` files so they can be automatically loaded for users.
+
+This method does not require any code and is very safe with a low chance of duplication, stray entities, etc. It uses the Coordinated Spawns system under the hood.
+
+![A screenshot of the Mod Structure Helper depicting the user interface, a transformation handle, and the entity browser](../images/tutorials/mod-structure-helper.png)
+*The Mod Structure Helper interface.*
+
+### Prefab Placeholder Groups
+
+The `PrefabPlaceholder` and `PrefabPlaceholdersGroup` components are used by the game to spawn child prefabs within other prefabs. A major example is Degasi bases: when they are first loaded, these bases will manage their own spawning of loot, such as the alien tablets, which stay parented. However, this is only very convenient for mods that are heavily made within the Unity Editor, particularly those using Thunderkit.
+
+## Asynchronously Loading Prefabs
+
+---
+
+Both SN1 and Below Zero use **asynchronous** prefab loading. Therefore, prefab loading must always be handled within [coroutines](https://docs.unity3d.com/6000.5/Documentation/Manual/Coroutines.html), because the loading can occur across multiple frames.
+Please note that this is not a guide on coroutines; they have been extensively explained online.
+
+Also, take note of the `UWE.CoroutineHost.StartCoroutine(IEnumerator)` method. This amazing utility method provided by Subnautica lets you execute a coroutine
 at any point in your mod, without needing your own MonoBehaviour to host it.
 
-> [!NOTE]
-> Resources.Load should no longer be used. The game does NOT use the Resources folder for managing prefabs. Instead, Unknown Worlds has begun using Unity's
-[Addressable Asset System](https://docs.unity3d.com/Packages/com.unity.addressables@0.8/manual/index.html). Luckily, the game has many utilities that interact with
-that for us.
+## Manually Loading Prefabs
 
-## Methods of loading prefabs
+This section lists common C# methods and examples of how to use them to spawn any prefabs arbitrarily at runtime.
 
---- 
+---
 
 ### CraftData.GetPrefabForTechTypeAsync
 
@@ -56,7 +82,7 @@ private static IEnumerator SpawnPeeper()
     GameObject prefab = task.GetResult();
 
     // Instantiate the prefab with a random rotation 2 meters in front of the player camera:
-    Instantiate(prefab, MainCamera.camera.transform.position + (MainCamera.camera.transform.forward * 2), Random.rotation);
+    GameObject.Instantiate(prefab, MainCamera.camera.transform.position + (MainCamera.camera.transform.forward * 2), Random.rotation);
 }
 ```
 
@@ -85,7 +111,6 @@ The downside of this method is that the Class IDs are not part of the game's ass
 compiler will not autocomplete them for you.
 
 For your convenience, a list of all Class IDs can be found [here](https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-PrefabPaths.json).
-Do note that a list has not been made for Below Zero yet.
 
 Example code that spawns a Peeper behind the player:
 ```csharp
@@ -101,7 +126,7 @@ private static IEnumerator SpawnPeeper()
     task.TryGetPrefab(out GameObject prefab);
 
     // Instantiate the prefab with a random rotation 2 meters behind the player camera:
-    Instantiate(prefab, MainCamera.camera.transform.position - (MainCamera.camera.transform.forward * 2), Random.rotation);
+    GameObject.Instantiate(prefab, MainCamera.camera.transform.position - (MainCamera.camera.transform.forward * 2), Random.rotation);
 }
 ```
 
@@ -123,8 +148,7 @@ private static IEnumerator SpawnPeeper()
 public static IPrefabRequest GetPrefabForFilenameAsync(string filename)
 ```
 
-This method is similar to `PrefabDatabase.GetPrefabAsync` but takes a file path as opposed to a Class ID. If you are familiar with `Resources.Load` from before the
-Living Large update, the paths here are *very* similar to the ones used in that method.
+This method is similar to `PrefabDatabase.GetPrefabAsync` but takes a file path as opposed to a Class ID.
 
 The [Class ID list](https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-PrefabPaths.json)
 also contains the file path of every prefab on the right side. Make sure to include the `.prefab` extension and exclude the `Assets/AddressableResources/` prefix.
@@ -143,7 +167,7 @@ private static IEnumerator SpawnPeeper()
     task.TryGetPrefab(out GameObject prefab);
 
     // Instantiate the prefab with a random rotation 2 meters above the player camera:
-    Instantiate(prefab, MainCamera.camera.transform.position + (MainCamera.camera.transform.up * 2), Random.rotation);
+    GameObject.Instantiate(prefab, MainCamera.camera.transform.position + (MainCamera.camera.transform.up * 2), Random.rotation);
 }
 ```
 
@@ -159,10 +183,9 @@ private static IEnumerator SpawnPeeper()
 
 ---
 
-## When to use each method
+## When to Use Each Method
 
-For most purposes, `CraftData.GetPrefabForTechTypeAsync(TechType)` can be the only thing you use. TechTypes are convenient, and most functional prefabs have one. There
-is no reason not to use this unless the prefab you need is lacking a TechType.
+For many mods, `CraftData.GetPrefabForTechTypeAsync(TechType)` can be the only thing you use. TechTypes are convenient and readable, and most functional prefabs have one.
 
 `PrefabDatabase.GetPrefabAsync` and `PrefabDatabase.GetPrefabForFilenameAsync` can be used interchangeably. The former generally takes up less space in terms of characters.
-However the paths in the latter are definitely more readable than Class IDs. Whichever you want to use is up to you.
+However, full prefab paths are far more readable than Class IDs. Whichever you want to use is up to you; there is no functional difference.
