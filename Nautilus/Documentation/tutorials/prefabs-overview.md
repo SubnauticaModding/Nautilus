@@ -1,15 +1,15 @@
 # Prefab Basics
 
-Creating and utilizing prefabs is essential for any Subnautica mod that adds new content. This page will provide basic information on how prefabs are used in
+Understanding and creating prefabs is essential for any Subnautica mod that adds new content. This page will provide basic information on how prefabs are used in
 Subnautica and why they are important.
 
 ## What are prefabs?
 
-At the most basic levels, prefabs are simply [GameObjects](https://docs.unity3d.com/Manual/class-GameObject.html) that are instantiated into a scene. This is a Unity
+At the most basic level, prefabs are simply stored [GameObjects](https://docs.unity3d.com/Manual/class-GameObject.html) that can be instantiated into a scene. This is a Unity
 Engine concept, and it applies for Subnautica modding as well.
 
-In Subnautica, prefabs are essentially anything that exists in the world outside of terrain and the player, with a few other exceptions. This encompasses anything from
-creatures to base modules to unnamed rock formations and debris props. They are registered and managed by the `UWE.PrefabDatabase` class. Nautilus allows you to indirectly
+In Subnautica, prefabs encompass essentially anything that exists in the world, aside from terrain, the player, and a few other exceptions. This includes anything from
+creatures to base modules to fragments to unnamed rock formations and debris. They are registered and managed by the `UWE.PrefabDatabase` class. Nautilus allows you to indirectly
 register your own custom prefabs into this system.
 
 Subnautica prefabs consist of the following:
@@ -19,26 +19,29 @@ Subnautica prefabs consist of the following:
 
 ## Differences between Class ID and TechType
 
-These are two distinct identification systems used by the game and should not be confused.
+These are two distinct identification systems used by the game and should not be conflated.
 
-The Class ID is the only thing that is *required* for a prefab. A mod that adds new commands such as [DebugHelper](https://www.submodica.xyz/mods/sn1/248) is required
-to actually spawn a prefab by its Class ID. Generally, Class IDs are 36 character strings, but when you create a prefab with Nautilus the Class ID will actually
-match its TechType. You can find a list of all Class IDs [here](https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-PrefabPaths.json).
+## Class ID
+The Class ID is the only thing that is *required* for a prefab. A mod that adds new commands such as [DebugHelper](https://www.nexusmods.com/subnautica/mods/1560) is required
+to actually spawn a prefab by its Class ID. All base-game Class IDs are 36-character-long GUIDs. When you create a prefab with Nautilus, the Class ID will use the TechType name by default. You can find a list of all Class IDs [here](https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-PrefabPaths.json).
 
-TechTypes are more accessible and readable. You may recognize them from the `spawn` command. Unlike Class IDs, which live in an obfuscated file, TechTypes are all
-listed under the `TechType` enum in the game's code. There are potentially thousands of prefabs that cannot be spawned with the spawn command because they don't have
-a TechType assigned. These are also required for **crafting**, **blueprints** and **inventory items**.
+## TechType
+TechTypes are more easily accessible without external resources, and are often far more readable. You may recognize them from the `spawn` command. Unlike Class IDs, which aren't readily available, TechTypes are all
+listed under the `TechType` enum in the game's codebase. There are thousands of prefabs that cannot be spawned with the spawn command because they don't have
+a TechType assigned. Having a TechType is required for **crafting recipes**, **blueprints**, **inventory items**, and more.
 
-The most important part? **There can be multiple prefabs with the same TechType, but every prefab has a different Class ID.** This is why you can have multiple
-fragments with different models that unlock the same blueprint.
+![A screenshot of the first 22 values of the decompiled TechType enum](../images/tutorials/tech-type-enum.png)
+
+Most importantly: **there can be multiple prefabs with the same TechType, but every prefab has a different Class ID.** This is why you can have multiple
+fragments with different models that unlock the same blueprint. Each fragment would have the same TechType, but a unique ClassID.
 
 ## Essential components
 
 There are a few components that are required or heavily recommended for prefabs. The [PrefabUtils.AddBasicComponents](xref:Nautilus.Utility.PrefabUtils) method provided by
-Nautilus handles most of this for you, besides Pickupable.
+Nautilus handles most of this for you. You can also set up these components in the Unity Editor if using Thunderkit.
 
-- PrefabIdentifier: The only one that is *truly* required for something to be spawned. Holds the Class ID of your prefab so it can be saved and loaded.
-- TechTag: Holds the TechType of your prefab. This is not required for prefabs, but is needed for *many* cases. It's nice because it lets you use the spawn command.
-- LargeWorldEntity: Heavily recommended. Generally needed for a prefab to save properly. You also will want to set its `cellLevel` field to change its loading distance.
-- SkyApplier: Required for proper shading whenever you have a custom model.
-- Pickupable: Not required unless you are making an inventory item.
+- PrefabIdentifier: The only component that is truly required for spawnable prefabs. Holds the Class ID of your prefab to be used when saving and loading regions.
+- TechTag: Holds the TechType of your prefab. This is not required for prefabs, but it is generally used for convenience.
+- LargeWorldEntity: Needed for a prefab to save and load properly as an individual world entity. You will also want to set its `cellLevel` field to change its loading distance.
+- SkyApplier: Required for applying proper shading to a model.
+- Pickupable: Needed for inventory items to be pickupable.

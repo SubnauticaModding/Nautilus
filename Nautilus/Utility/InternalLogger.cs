@@ -125,6 +125,8 @@ internal static class InternalLogger
 
             return;
         }
+        
+        if (level == LogLevel.Debug && !EnableDebugging) return;
 
         Logger.Log(level, text);
     }
