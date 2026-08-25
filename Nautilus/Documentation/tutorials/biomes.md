@@ -23,9 +23,9 @@ You can quickly poll the player biome string at any time by calling `Player.main
 
 The "LD" or 'level design' biome primarily determines the fog and temperature and is tied to the camera, not the player. An instance of the `WaterscapeVolume.Settings` class exists for each of these, with settings such as the wavelength absorption, murkiness, and start distance.
 
-If the camera is inside one or more atmosphere volumes, the volume with the highest priority will be used as the LD biome.
+If the player is inside one or more atmosphere volumes, the volume with the highest priority will be used as the LD biome.
 
-If the camera is not in any atmosphere volume, the LD biome will first be determined by the 2D biome map. It can then be overridden by being in a specific batch. Every batch has the `LargeWorldBatchRoot` component, which has an `overrideBiome` string field. The override is typically not set at the surface, but some cave systems such as the Lost River use batch-level overrides.
+If the player is not in any atmosphere volume, the LD biome will first be determined by the 2D biome map. It can then be overridden by being in a specific batch. Every batch has the `LargeWorldBatchRoot` component, which has an `overrideBiome` string field. The override is typically not set at the surface, but some cave systems such as the Lost River use batch-level overrides.
 
 The game's method of calculating this is roughly:
 ```csharp
@@ -36,7 +36,7 @@ private static string CalculateLevelBiome()
     {
         return biomeOverride;
     }
-    return LargeWorld.main.GetBiome(Player.main.transform.position);
+    return LargeWorld.main.GetBiome(position); // position of camera or player (depends)
 }
 ```
 
