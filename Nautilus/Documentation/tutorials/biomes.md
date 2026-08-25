@@ -31,21 +31,12 @@ The game's method of calculating this is roughly:
 ```csharp
 private static string CalculateLevelBiome()
 {
-    AtmosphereDirector atmosphereDirector = AtmosphereDirector.main;
-    if (atmosphereDirector != null)
+    string biomeOverride = AtmosphereDirector.main.GetBiomeOverride();
+    if (!string.IsNullOrEmpty(biomeOverride))
     {
-        string biomeOverride = atmosphereDirector.GetBiomeOverride();
-        if (!string.IsNullOrEmpty(biomeOverride))
-        {
-            return biomeOverride;
-        }
+        return biomeOverride;
     }
-    LargeWorld largeWorld = LargeWorld.main;
-    if (largeWorld != null && player != null)
-    {
-        return largeWorld.GetBiome(player.transform.position);
-    }
-    return "<unknown>";
+    return LargeWorld.main.GetBiome(Player.main.transform.position);
 }
 ```
 
