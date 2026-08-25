@@ -87,12 +87,158 @@
         <article data-uid="">
 <h1 id="adding-custom-biomes">Adding Custom Biomes</h1>
 
-<p>This guide provides some information on adding custom biomes.</p>
+<p>This guide provides information on how biomes function in Subnautica and how you can start adding your own biomes!</p>
+<p>Are you looking for information on creating a biome by hand? Sculpting terrain and placing large numbers of props to populate entire regions of the world goes beyond the scope of Nautilus. If you need a solution to create the level design for a new custom biome by hand, see other mods/programs such as <a href="https://www.nexusmods.com/subnautica/mods/3298">Abyss Editor</a> and the <a href="https://www.nexusmods.com/subnautica/mods/1665">Mod Structure Helper</a>.</p>
+<h1 id="what-is-a-biome">What Is a Biome?</h1>
+<p>There is no singular concept of biomes in Subnautica.
+For the purposes of this guide, a &quot;biome&quot; refers to the location-specific strings that affect the visuals and soundscape of the game.
+You can see your current in-game biome in the F1 debug menu.
+There you will see the &quot;LD biome&quot; and the &quot;player biome&quot;.</p>
+<h2 id="the-player-biome">The &quot;Player Biome&quot;</h2>
+<p>The player biome determines what music and ambience will play at any given moment. The player biome is based on the LD biome, but can be overriden by being inside of an observatory, the Aurora, precursor base, etc.</p>
+<p>The player biome is also used in the rich presence calculation, ghost leviathan spawning, and some other mechanics.</p>
+<p>You can quickly poll the player biome string at any time by calling <code>Player.main.GetBiomeString()</code>.</p>
+<h2 id="the-ld-biome">The &quot;LD Biome&quot;</h2>
+<p>The &quot;LD&quot; or 'level design' biome primarily determines the fog and temperature and is tied to the camera, not the player. An instance of the <code>WaterscapeVolume.Settings</code> class exists for each of these, with settings such as the wavelength absorption, murkiness, and start distance.</p>
+<p>If the player is inside one or more atmosphere volumes, the volume with the highest priority will be used as the LD biome.</p>
+<p>If the player is not in any atmosphere volume, the LD biome will first be determined by the 2D biome map. It can then be overridden by being in a specific batch. Every batch has the <code>LargeWorldBatchRoot</code> component, which has an <code>overrideBiome</code> string field. The override is typically not set at the surface, but some cave systems such as the Lost River use batch-level overrides.</p>
+<p>The game's method of calculating this is roughly:</p>
+<pre><code class="lang-csharp">private static string CalculateLevelBiome()
+{
+    string biomeOverride = AtmosphereDirector.main.GetBiomeOverride();
+    if (!string.IsNullOrEmpty(biomeOverride))
+    {
+        return biomeOverride;
+    }
+    return LargeWorld.main.GetBiome(position); // position of camera or player (depends)
+}
+</code></pre>
+<p><img src="../Documentation/images/tutorials/BiomeMapTransparent.png" alt="Exported 2D Biome Map"></p>
+<p><em>The 2D Biome Map used by the game for surface biome.</em></p>
+<h2 id="waterscape-volume-settings">Waterscape Volume Settings</h2>
+<p>The <code>WaterscapeVolume.Settings</code> class from Subnautica has the following settings:</p>
+<table>
+<thead>
+<tr>
+<th>Property name</th>
+<th>Default value</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>absorption</code></td>
+<td><code>(100f, 18.29155f, 3.531373f)</code></td>
+<td>Attenuation coefficients of light (1/cm).</td>
+</tr>
+<tr>
+<td><code>scattering</code></td>
+<td><code>1f</code></td>
+<td>The intensity of light scattering.</td>
+</tr>
+<tr>
+<td><code>scatteringColor</code></td>
+<td><code>Color.white</code></td>
+<td>The color of the scattering. Affected by absorption.</td>
+</tr>
+<tr>
+<td><code>murkiness</code></td>
+<td><code>1f</code></td>
+<td>Higher values reduce visibility.</td>
+</tr>
+<tr>
+<td><code>emissive</code></td>
+<td><code>Color.black</code></td>
+<td>The emission color. Typically very dim or black.</td>
+</tr>
+<tr>
+<td><code>emissiveScale</code></td>
+<td><code>1f</code></td>
+<td>The multiplier for the emission color.</td>
+</tr>
+<tr>
+<td><code>startDistance</code></td>
+<td><code>25f</code></td>
+<td>The distance in meters from the camera where fog begins.</td>
+</tr>
+<tr>
+<td><code>sunlightScale</code></td>
+<td><code>1f</code></td>
+<td>Scale applied to the sunlight.</td>
+</tr>
+<tr>
+<td><code>ambientScale</code></td>
+<td><code>1f</code></td>
+<td>Scale applied to the ambient lighting.</td>
+</tr>
+<tr>
+<td><code>temperature</code></td>
+<td><code>24f</code></td>
+<td>Temperature in Celsius.</td>
+</tr>
+</tbody>
+</table>
+<p>All settings used by the game are listed at the bottom of this page.</p>
+<h2 id="atmosphere-volumes">Atmosphere Volumes</h2>
+<p>Atmosphere volumes are the easiest way to put modded biomes in the world.
+While inside of its collider, the player's biome will be set to its <code>overrideBiome</code> value.
+It also affects the camera, meaning the LD biome is set appropriately.</p>
+<p>Atmosphere volumes are essentially large trigger colliders with the <code>AtmosphereVolume</code> component.
+The <code>overrideBiome</code> field and priority must be set.
+They should also be on the trigger layer (layer 21).</p>
+<hr>
+<h1 id="creating-new-biomes">Creating New Biomes</h1>
+<h2 id="creating-waterscape-settings">Creating Waterscape Settings</h2>
+<p>Waterscape Volume settings affect the appearance of the fog and the temperature.</p>
+<p>You can manually create an instance of the <code>WaterscapeVolume.Settings</code> class and initialize the needed fields.
+To construct it in one line, you can also use the <a class="xref" href="../api/Nautilus.Utility.BiomeUtils.html">BiomeUtils.CreateBiomeSettings</a> method.</p>
+<pre><code class="lang-csharp">// Settings for a very dark cave with no ambient lighting and no sunlight.
+WaterscapeVolume.Settings settings = BiomeUtils.CreateBiomeSettings(
+    new Vector3(20, 10, 6), 0.7f, Color.white, 0.37f, new Color(0, 0, 0), 1, 7, 0, 0, 21);
+</code></pre>
+<h2 id="registering-biome-settings">Registering Biome Settings</h2>
+<p>Use the <a class="xref" href="../api/Nautilus.Handlers.BiomeHandler.html">BiomeHandler</a> to register your custom biome to be recognized by the game.</p>
+<pre><code class="lang-csharp">// Registers a custom biome that uses the settings defined earlier and the Grand Reef sky
+BiomeHandler.RegisterBiome(&quot;mycustombiome&quot;, settings, new BiomeHandler.SkyReference(&quot;SkyGrandReef&quot;));
+</code></pre>
+<h2 id="creating-atmosphere-volumes">Creating Atmosphere Volumes</h2>
+<p>You can use the <a class="xref" href="../api/Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html">AtmosphereVolumeTemplate</a> prefab class to quickly create your own atmosphere volume prefabs.
+You must place them in the world and scale them up sufficiently to have any noticeable effect.</p>
+<pre><code class="lang-csharp">// Example code for registering an Atmosphere Volume prefab that uses the Kelp Forest biome
+CustomPrefab prefab = new CustomPrefab(PrefabInfo.WithTechType(&quot;MyKelpForestVolume&quot;));
+AtmosphereVolumeTemplate template = new AtmosphereVolumeTemplate(prefab.Info,
+    AtmosphereVolumeTemplate.VolumeShape.Sphere, &quot;kelpForest&quot;, priority: 10);
+prefab.SetGameObject(template);
+prefab.Register();
+</code></pre>
+<pre><code class="lang-csharp">// Example code for registering an Atmosphere Volume prefab with our own biome!
+CustomPrefab prefab = new CustomPrefab(PrefabInfo.WithTechType(&quot;NautilusExampleBiomeVolume&quot;));
+AtmosphereVolumeTemplate template = new AtmosphereVolumeTemplate(prefab.Info,
+    AtmosphereVolumeTemplate.VolumeShape.Sphere, &quot;mycustombiome&quot;, priority: 10);
+prefab.SetGameObject(template);
+prefab.Register();
+</code></pre>
+<p>Common methods of spawning atmosphere volumes include the Coordinated Spawns system, or the Mod Structure Helper while
+using the DebugHelper's <code>showcolliders</code> command.</p>
+<h2 id="setting-music-and-ambience">Setting Music and Ambience</h2>
+<p>Use the <a class="xref" href="../api/Nautilus.Handlers.BiomeHandler.html">BiomeHandler</a> to set the music and ambience for a modded biome.
+Note that biome music and ambience uses a prefix to match, not equivalence. So if you have a biome named <code>kelpForestTWO</code>,
+the normal Kelp Forest music will still play there. Likewise, if you register music for a biome called &quot;kelp&quot;, that will
+affect ALL biomes with a name that begins with the word &quot;kelp.&quot;</p>
+<pre><code class="lang-csharp">// Music
+BiomeHandler.AddBiomeMusic(&quot;mycustombiome&quot;, AudioUtils.GetFmodAsset(&quot;SomeFmodEventThatMustBeRegisteredElsewhere&quot;));
+
+// Ambience
+BiomeHandler.AddBiomeAmbience(&quot;mycustombiome&quot;, AudioUtils.GetFmodAsset(&quot;AnotherFmodEventThatMustBeRegisteredElsewhere&quot;),
+    FMODGameParams.InteriorState.OnlyOutside);
+</code></pre>
 <div class="NOTE">
 <h5>Note</h5>
-<p>This page is under construction and may not be finished any time soon. However, any information currently provided should still be accurate.</p>
+<p>This approach alone will not affect the current music or ambience when the player's biome is overriden by being inside the Aurora, in an observatory, or while walking inside a precursor base.</p>
 </div>
-<h2 id="sn1-biome-settings">SN1 Biome Settings:</h2>
+<hr>
+<h1 id="references">References</h1>
+<h2 id="sn1-biome-settings">SN1 Biome Settings</h2>
 <table>
 <thead>
 <tr>
@@ -829,7 +975,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="bz-biome-settings">BZ Biome Settings:</h2>
+<h2 id="bz-biome-settings">BZ Biome Settings</h2>
 <table>
 <thead>
 <tr>

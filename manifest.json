@@ -3382,6 +3382,16 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "Documentation/images/tutorials/BiomeMapTransparent.png",
+      "output": {
+        "resource": {
+          "relative_path": "Documentation/images/tutorials/BiomeMapTransparent.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "Documentation/images/tutorials/command-results.png",
       "output": {
         "resource": {
