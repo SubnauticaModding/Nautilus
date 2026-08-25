@@ -41,6 +41,7 @@ private static string CalculateLevelBiome()
 ```
 
 ![Exported 2D Biome Map](../images/tutorials/BiomeMapTransparent.png)
+
 *The 2D Biome Map used by the game for surface biome.*
 
 ## Waterscape Volume Settings
