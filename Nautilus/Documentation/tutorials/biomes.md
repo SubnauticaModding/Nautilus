@@ -42,7 +42,7 @@ private static string CalculateLevelBiome()
 
 ## Waterscape Volume Settings
 
-This is a class from Subnautica that defines LD biome settings.
+The `WaterscapeVolume.Settings` class from Subnautica has the following settings:
 
 | Property name     | Default value                   | Explanation                                              |
 | ----------------- |---------------------------------|----------------------------------------------------------|
