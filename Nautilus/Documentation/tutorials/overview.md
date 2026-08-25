@@ -10,7 +10,7 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 * [Story goals](story-goals.md)
 * [Databank entries](databank-entries.md)
 * [Custom vehicle upgrade modules](vehicle-module.md)
-* [Custom biomes](biomes.md)
+* [Biomes](biomes.md)
 * [FMOD and Custom Audio](audio.md)
 * [Custom title screens](title-addons.md)
 * [Custom loading screens](loading-screens.md)

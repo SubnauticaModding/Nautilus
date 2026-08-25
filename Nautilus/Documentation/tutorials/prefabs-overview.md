@@ -3,7 +3,7 @@
 Understanding and creating prefabs is essential for any Subnautica mod that adds new content. This page will provide basic information on how prefabs are used in
 Subnautica and why they are important.
 
-## What are prefabs?
+## What Are Prefabs?
 
 At the most basic level, prefabs are simply stored [GameObjects](https://docs.unity3d.com/Manual/class-GameObject.html) that can be instantiated into a scene. This is a Unity
 Engine concept, and it applies for Subnautica modding as well.
@@ -17,15 +17,15 @@ Subnautica prefabs consist of the following:
 - **TechType** (this is actually optional, and is defined in the GameObject's `TechTag` component)
 - The actual **GameObject** that is spawned.
 
-## Differences between Class ID and TechType
+## Differences Between Class ID and TechType
 
 These are two distinct identification systems used by the game and should not be conflated.
 
-## Class ID
+### Class ID
 The Class ID is the only thing that is *required* for a prefab. A mod that adds new commands such as [DebugHelper](https://www.nexusmods.com/subnautica/mods/1560) is required
 to actually spawn a prefab by its Class ID. All base-game Class IDs are 36-character-long GUIDs. When you create a prefab with Nautilus, the Class ID will use the TechType name by default. You can find a list of all Class IDs [here](https://github.com/SubnauticaModding/Nautilus/blob/master/Nautilus/Documentation/resources/SN1-PrefabPaths.json).
 
-## TechType
+### TechType
 TechTypes are more easily accessible without external resources, and are often far more readable. You may recognize them from the `spawn` command. Unlike Class IDs, which aren't readily available, TechTypes are all
 listed under the `TechType` enum in the game's codebase. There are thousands of prefabs that cannot be spawned with the spawn command because they don't have
 a TechType assigned. Having a TechType is required for **crafting recipes**, **blueprints**, **inventory items**, and more.
@@ -35,7 +35,7 @@ a TechType assigned. Having a TechType is required for **crafting recipes**, **b
 Most importantly: **there can be multiple prefabs with the same TechType, but every prefab has a different Class ID.** This is why you can have multiple
 fragments with different models that unlock the same blueprint. Each fragment would have the same TechType, but a unique ClassID.
 
-## Essential components
+## Essential Components
 
 There are a few components that are required or heavily recommended for prefabs. The [PrefabUtils.AddBasicComponents](xref:Nautilus.Utility.PrefabUtils) method provided by
 Nautilus handles most of this for you. You can also set up these components in the Unity Editor if using Thunderkit.
