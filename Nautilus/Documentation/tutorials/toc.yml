@@ -3,24 +3,24 @@
   
 - name: Adding Content
   items:
-    - name: Spawning objects in the world
-      href: spawns.md
-    - name: Custom console commands
-      href: console-commands.md
-    - name: Story goals
-      href: story-goals.md
-    - name: Databank entries
-      href: databank-entries.md
-    - name: Custom vehicle upgrade modules
-      href: vehicle-module.md
+    - name: Audio
+      href: audio.md
     - name: Biomes
       href: biomes.md
-    - name: FMOD and Custom Audio
-      href: audio.md
-    - name : Custom title screens
-      href: title-addons.md
-    - name : Custom loading screens
+    - name: Console commands
+      href: console-commands.md
+    - name: Databank entries
+      href: databank-entries.md
+    - name: Loading screens
       href: loading-screens.md
+    - name: Spawning objects in the world
+      href: spawns.md
+    - name: Story goals
+      href: story-goals.md
+    - name: Title screens
+      href: title-addons.md
+    - name: Vehicle upgrade modules
+      href: vehicle-module.md
 
 - name: Prefabs
   items:
@@ -33,10 +33,10 @@
   items:
     - name: Background type
       href: background-type.md
-    - name: Equipment type
-      href: equipment-type.md
     - name: Crafting recipes
       href: crafting-recipes.md
+    - name: Equipment type
+      href: equipment-type.md
   
 - name: Utilities
   items:
@@ -49,6 +49,8 @@
 
 - name: Quick References
   items:
+    - name: Biome settings references
+      href: biome-setting-references.md
     - name: Customizing your C# project
       href: csproj-tutorials.md
     - name: Craft tree paths

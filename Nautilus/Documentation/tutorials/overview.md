@@ -5,15 +5,15 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 ## Sections
 
 ### Adding Content
-* [Spawning objects in the world](spawns.md)  
-* [Custom console commands](console-commands.md)
-* [Story goals](story-goals.md)
+* [Audio](audio.md)
+* [Biomes](biomes.md) 
+* [Console commands](console-commands.md)
 * [Databank entries](databank-entries.md)
-* [Custom vehicle upgrade modules](vehicle-module.md)
-* [Biomes](biomes.md)
-* [FMOD and Custom Audio](audio.md)
-* [Custom title screens](title-addons.md)
-* [Custom loading screens](loading-screens.md)
+* [Loading screens](loading-screens.md)
+* [Spawning objects in the world](spawns.md)
+* [Story goals](story-goals.md)
+* [Title screens](title-addons.md)
+* [Vehicle upgrade modules](vehicle-module.md)
 
 ### Prefabs
 * [Prefab basics](prefabs-overview.md)
@@ -21,8 +21,8 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 
 ### Editing Content
 * [Background type](background-type.md)
-* [Equipment type](equipment-type.md)
 * [Crafting recipes](crafting-recipes.md)
+* [Equipment type](equipment-type.md)
 
 
 ### Utilities
@@ -32,5 +32,6 @@ This section covers step-by-step tutorials on how to get some of the useful feat
 
 
 ### Quick References
+* [Biome settings references](biome-setting-references.md)
 * [Customizing your C# project](csproj-tutorials.md)
 * [Craft tree paths](craft-tree-paths.md)
