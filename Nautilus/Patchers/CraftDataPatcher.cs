@@ -194,19 +194,16 @@ internal class CraftDataPatcher
         __result = TechType.None;
         return;
     }
-
-    private static bool NeedsPatching = true;
-
+    
     private static void CraftDataPrefabIDCachePrefix()
     {
-        NeedsPatching = CraftData.cacheInitialized;
+        if (!CraftData.cacheInitialized) ModPrefabsPatched = false;
     }
 
     private static void CraftDataPrefabIDCachePostfix()
     {
-        if(!NeedsPatching && ModPrefabsPatched)
-            return;
-
+        if(ModPrefabsPatched) return;
+        
         Dictionary<TechType, string> techMapping = CraftData.techMapping;
         Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
         foreach (var prefab in PrefabHandler.Prefabs)
