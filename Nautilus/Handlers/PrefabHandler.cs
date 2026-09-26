@@ -199,7 +199,7 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
             _techTypePrefabs.Add(info.TechType.AsString(), info);
         }
 
-        CraftDataPatcher.ModPrefabsPatched = false;
+        CraftDataPatcher.EnsureCacheRebuild();
         return true;
     }
 
@@ -218,7 +218,7 @@ public class PrefabCollection : IEnumerable<KeyValuePair<PrefabInfo, PrefabFacto
             _classIdPrefabs.Remove(info.ClassID);
             _fileNamePrefabs.Remove(info.PrefabFileName);
             _techTypePrefabs.Remove(info.TechType.AsString());
-            CraftDataPatcher.ModPrefabsPatched = false;
+            CraftDataPatcher.EnsureCacheRebuild();
         }
 
         return result;

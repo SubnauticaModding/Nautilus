@@ -11,17 +11,18 @@ namespace Nautilus.Patchers;
 
 internal class CraftDataPatcher
 {
-    internal static readonly IDictionary<TechType, JsonValue> CustomRecipeData = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", AsStringFunction);
+    internal static readonly IDictionary<TechType, JsonValue> CustomRecipeData 
+        = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", t => t.AsString());
 
-    private static void PatchForGame(Harmony harmony)
+    internal static void Patch(Harmony harmony)
     {
-        harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.TryGetValue)),
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CheckPatchRequired))));
+        harmony.PatchAll(typeof(CraftDataPatcher));
 
-        harmony.Patch(AccessTools.Method(typeof(TechData), nameof(TechData.Cache)),
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(AddCustomTechDataToOriginalDictionary))));
+        InternalLogger.Log("CraftDataPatcher is done.", LogLevel.Debug);
     }
 
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(TechData), nameof(TechData.TryGetValue))]
     private static void CheckPatchRequired(TechType techType)
     {
         if (CustomRecipeData.TryGetValue(techType, out JsonValue customTechData))
@@ -34,6 +35,8 @@ internal class CraftDataPatcher
         }
     }
 
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(TechData), nameof(TechData.Cache))]
     private static void AddCustomTechDataToOriginalDictionary()
     {
         List<TechType> added = new();
@@ -96,16 +99,8 @@ internal class CraftDataPatcher
 
         InternalLogger.Log($"{log}:{Environment.NewLine}{builder}", LogLevel.Debug);
     }
-    
-    #region Internal Fields
-
-    private static readonly Func<TechType, string> AsStringFunction = (t) => t.AsString();
-
-    #endregion
 
     #region Group Handling
-
-    internal static bool ModPrefabsPatched;
 
     internal static void AddToGroup(TechGroup group, TechCategory category, TechType techType, TechType target, bool after)
     {
@@ -150,74 +145,34 @@ internal class CraftDataPatcher
 
     #endregion
 
-    #region Patching
+    #region Cache Patching
 
-    internal static void Patch(Harmony harmony)
-    {
-        PatchForGame(harmony);
-        harmony.Patch(AccessTools.Method(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache)),
-            prefix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePrefix))),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(CraftDataPatcher), nameof(CraftDataPrefabIDCachePostfix))));
-
-        InternalLogger.Log("CraftDataPatcher is done.", LogLevel.Debug);
-    }
-
+    internal static void EnsureCacheRebuild() => _modPrefabsPatched = false;
+    
+    private static bool _modPrefabsPatched;
+    
     [HarmonyPrefix]
-    [HarmonyPatch(typeof(CraftData), nameof(CraftData.GetTechType), new Type[] { typeof(GameObject), typeof(GameObject) }, argumentVariations: new ArgumentType[] { ArgumentType.Normal, ArgumentType.Out })]
-    private static void CraftDataGetTechTypePrefix(GameObject obj, out GameObject go, ref TechType __result)
-    {
-        CraftData.PreparePrefabIDCache();
-        Transform transform = obj.transform;
-        TechTag techTag = null;
-        PrefabIdentifier prefabIdentifier = null;
-
-        while(transform != null && !transform.TryGetComponent(out prefabIdentifier) && !transform.TryGetComponent(out techTag))
-        {
-            transform = transform.parent;
-        }
-
-        if(prefabIdentifier != null)
-        {
-            go = prefabIdentifier.gameObject;
-            __result = CraftData.entClassTechTable.GetOrDefault(prefabIdentifier.ClassId, TechType.None);
-            return;
-        }
-
-        if(techTag != null)
-        {
-            go = techTag.gameObject;
-            __result = techTag.type;
-            return;
-        }
-
-        go = null;
-        __result = TechType.None;
-        return;
-    }
-
-    private static bool NeedsPatching = true;
-
+    [HarmonyPatch(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache))]
     private static void CraftDataPrefabIDCachePrefix()
     {
-        NeedsPatching = CraftData.cacheInitialized;
+        if (!CraftData.cacheInitialized) _modPrefabsPatched = false;
     }
 
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache))]
     private static void CraftDataPrefabIDCachePostfix()
     {
-        if(!NeedsPatching && ModPrefabsPatched)
-            return;
-
-        Dictionary<TechType, string> techMapping = CraftData.techMapping;
-        Dictionary<string, TechType> entClassTechTable = CraftData.entClassTechTable;
+        if (_modPrefabsPatched) return;
+        
         foreach (var prefab in PrefabHandler.Prefabs)
         {
-            if (prefab.Key.TechType is TechType.None)
-                continue;
-                
-            techMapping[prefab.Key.TechType] = prefab.Key.ClassID;
-            entClassTechTable[prefab.Key.ClassID] = prefab.Key.TechType;
+            if (prefab.Key.TechType is TechType.None) continue;
+            
+            CraftData.techMapping[prefab.Key.TechType] = prefab.Key.ClassID;
+            CraftData.entClassTechTable[prefab.Key.ClassID] = prefab.Key.TechType;
         }
-        ModPrefabsPatched = true;
+        _modPrefabsPatched = true;
     }
+    
     #endregion
 }
