@@ -1,4 +1,5 @@
 {
+  "docfx_version": "2.81.0+ba844df625370a6bd7c1ecab0d0ec4d1d9128ac4",
   "source_base_path": "/home/runner/work/Nautilus/Nautilus/Nautilus",
   "xrefmap": "xrefmap.yml",
   "files": [
@@ -1037,6 +1038,20 @@
       "IsMRef": true,
       "Title": "Nautilus.Handlers.GameInputHandler",
       "Summary": "A handler class for dealing with the game's UnityEngine.InputSystem implementation."
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "Documentation/api/Nautilus.Handlers.GravSphereHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Nautilus.Handlers.GravSphereHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Nautilus.Handlers.GravSphereHandler",
+      "Summary": "Allows registering objects to be affected by the Grav Trap."
     },
     {
       "type": "ManagedReference",

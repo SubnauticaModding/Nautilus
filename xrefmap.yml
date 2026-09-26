@@ -6983,6 +6983,36 @@ references:
   commentId: F:Nautilus.Handlers.GameInputHandler.Paths.Mouse.ScrollUp
   fullName: Nautilus.Handlers.GameInputHandler.Paths.Mouse.ScrollUp
   nameWithType: GameInputHandler.Paths.Mouse.ScrollUp
+- uid: Nautilus.Handlers.GravSphereHandler
+  name: GravSphereHandler
+  href: api/Nautilus.Handlers.GravSphereHandler.html
+  commentId: T:Nautilus.Handlers.GravSphereHandler
+  fullName: Nautilus.Handlers.GravSphereHandler
+  nameWithType: GravSphereHandler
+- uid: Nautilus.Handlers.GravSphereHandler.AddAffectedTechType(TechType)
+  name: AddAffectedTechType(TechType)
+  href: api/Nautilus.Handlers.GravSphereHandler.html#Nautilus_Handlers_GravSphereHandler_AddAffectedTechType_TechType_
+  commentId: M:Nautilus.Handlers.GravSphereHandler.AddAffectedTechType(TechType)
+  fullName: Nautilus.Handlers.GravSphereHandler.AddAffectedTechType(TechType)
+  nameWithType: GravSphereHandler.AddAffectedTechType(TechType)
+- uid: Nautilus.Handlers.GravSphereHandler.AddAffectedTechType*
+  name: AddAffectedTechType
+  href: api/Nautilus.Handlers.GravSphereHandler.html#Nautilus_Handlers_GravSphereHandler_AddAffectedTechType_
+  commentId: Overload:Nautilus.Handlers.GravSphereHandler.AddAffectedTechType
+  fullName: Nautilus.Handlers.GravSphereHandler.AddAffectedTechType
+  nameWithType: GravSphereHandler.AddAffectedTechType
+- uid: Nautilus.Handlers.GravSphereHandler.RemoveAffectedTechType(TechType)
+  name: RemoveAffectedTechType(TechType)
+  href: api/Nautilus.Handlers.GravSphereHandler.html#Nautilus_Handlers_GravSphereHandler_RemoveAffectedTechType_TechType_
+  commentId: M:Nautilus.Handlers.GravSphereHandler.RemoveAffectedTechType(TechType)
+  fullName: Nautilus.Handlers.GravSphereHandler.RemoveAffectedTechType(TechType)
+  nameWithType: GravSphereHandler.RemoveAffectedTechType(TechType)
+- uid: Nautilus.Handlers.GravSphereHandler.RemoveAffectedTechType*
+  name: RemoveAffectedTechType
+  href: api/Nautilus.Handlers.GravSphereHandler.html#Nautilus_Handlers_GravSphereHandler_RemoveAffectedTechType_
+  commentId: Overload:Nautilus.Handlers.GravSphereHandler.RemoveAffectedTechType
+  fullName: Nautilus.Handlers.GravSphereHandler.RemoveAffectedTechType
+  nameWithType: GravSphereHandler.RemoveAffectedTechType
 - uid: Nautilus.Handlers.ItemActionHandler
   name: ItemActionHandler
   href: api/Nautilus.Handlers.ItemActionHandler.html
