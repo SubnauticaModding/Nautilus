@@ -27,6 +27,8 @@ public static class GravSphereHandler
     /// Removes the given TechType from the collection of custom inclusions for the Grav Trap. 
     /// </summary>
     /// <param name="techType">The TechType to remove, which must have been previously registered.</param>
+    /// <remarks>This method only removes TechTypes that were added through the <see cref="GravSphereHandler"/> class;
+    /// it cannot exclude default entries defined as part of the base game.</remarks>
     public static void RemoveAffectedTechType(TechType techType)
     {
         _customTechTypes.Remove(techType);
