@@ -91,6 +91,7 @@ public class Initializer : BaseUnityPlugin
         MainMenuPatcher.Patch(_harmony, Config);
         WaitScreenPatcher.Patch(_harmony);
         uGUI_CraftingMenuPatcher.Patch(_harmony);
+        GravSpherePatcher.Patch(_harmony);
 #if SUBNAUTICA
         GameInputPatcher.Patch(_harmony);
 #endif
