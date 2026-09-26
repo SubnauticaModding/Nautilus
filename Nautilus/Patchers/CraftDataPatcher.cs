@@ -14,7 +14,7 @@ internal class CraftDataPatcher
     internal static readonly IDictionary<TechType, JsonValue> CustomRecipeData 
         = new SelfCheckingDictionary<TechType, JsonValue>("CustomTechData", t => t.AsString());
 
-    private static void Patch(Harmony harmony)
+    internal static void Patch(Harmony harmony)
     {
         harmony.PatchAll(typeof(CraftDataPatcher));
 
