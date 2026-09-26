@@ -160,7 +160,7 @@ internal class CraftDataPatcher
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache))]
     private static void CraftDataPrefabIDCachePostfix()
     {
-        if(ModPrefabsPatched) return;
+        if (ModPrefabsPatched) return;
         
         foreach (var prefab in PrefabHandler.Prefabs)
         {
