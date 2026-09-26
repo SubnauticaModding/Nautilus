@@ -146,21 +146,23 @@ internal class CraftDataPatcher
     #endregion
 
     #region Cache Patching
+
+    internal static void EnsureCacheRebuild() => _modPrefabsPatched = false;
     
-    internal static bool ModPrefabsPatched;
+    private static bool _modPrefabsPatched;
     
     [HarmonyPrefix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache))]
     private static void CraftDataPrefabIDCachePrefix()
     {
-        if (!CraftData.cacheInitialized) ModPrefabsPatched = false;
+        if (!CraftData.cacheInitialized) _modPrefabsPatched = false;
     }
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(CraftData), nameof(CraftData.PreparePrefabIDCache))]
     private static void CraftDataPrefabIDCachePostfix()
     {
-        if (ModPrefabsPatched) return;
+        if (_modPrefabsPatched) return;
         
         foreach (var prefab in PrefabHandler.Prefabs)
         {
@@ -169,7 +171,7 @@ internal class CraftDataPatcher
             CraftData.techMapping[prefab.Key.TechType] = prefab.Key.ClassID;
             CraftData.entClassTechTable[prefab.Key.ClassID] = prefab.Key.TechType;
         }
-        ModPrefabsPatched = true;
+        _modPrefabsPatched = true;
     }
     
     #endregion
