@@ -1,4 +1,6 @@
-﻿namespace Nautilus.Handlers;
+using System.Collections.Generic;
+
+namespace Nautilus.Handlers;
 
 /// <summary>
 /// A handler class for dealing with the game's UnityEngine.InputSystem implementation.
@@ -714,5 +716,169 @@ public static class GameInputHandler
             /// </summary>
             public static readonly string RightTrigger = "<Gamepad>/rightTrigger";
         }
+    }
+
+    private struct BindingState
+    {
+        public int lastUpdatedFrame;
+        public string bindingPath;
+        public bool previousPressed;
+        public bool currentPressed;
+    }
+
+    private static readonly Dictionary<(GameInput.Device device, GameInput.Button button, GameInput.BindingSet bindingSet), BindingState> _bindingStates = [];
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="button"></param>
+    /// <param name="bindingSet"></param>
+    /// <returns></returns>
+    public static bool GetButtonHeld(GameInput.Button button, GameInput.BindingSet bindingSet)
+    {
+        return GetButtonHeld(button, GameInput.PrimaryDevice, bindingSet);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="button"></param>
+    /// <param name="device"></param>
+    /// <param name="bindingSet"></param>
+    /// <returns></returns>
+    public static bool GetButtonHeld(GameInput.Button button, GameInput.Device device, GameInput.BindingSet bindingSet)
+    {
+        return GetBindingState(device, button, bindingSet).currentPressed;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="button"></param>
+    /// <param name="bindingSet"></param>
+    /// <returns></returns>
+    public static bool GetButtonDown(GameInput.Button button, GameInput.BindingSet bindingSet)
+    {
+        return GetButtonDown(button, GameInput.PrimaryDevice, bindingSet);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="button"></param>
+    /// <param name="device"></param>
+    /// <param name="bindingSet"></param>
+    /// <returns></returns>
+    public static bool GetButtonDown(GameInput.Button button, GameInput.Device device, GameInput.BindingSet bindingSet)
+    {
+        var state = GetBindingState(device, button, bindingSet);
+        return state.currentPressed && !state.previousPressed;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="button"></param>
+    /// <param name="bindingSet"></param>
+    /// <returns></returns>
+    public static bool GetButtonUp(GameInput.Button button, GameInput.BindingSet bindingSet)
+    {
+        return GetButtonUp(button, GameInput.PrimaryDevice, bindingSet);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="button"></param>
+    /// <param name="device"></param>
+    /// <param name="bindingSet"></param>
+    /// <returns></returns>
+    public static bool GetButtonUp(GameInput.Button button, GameInput.Device device, GameInput.BindingSet bindingSet)
+    {
+        var state = GetBindingState(device, button, bindingSet);
+        return !state.currentPressed && state.previousPressed;
+    }
+
+
+    private static BindingState GetBindingState(GameInput.Device device, GameInput.Button button, GameInput.BindingSet bindingSet)
+    {
+        if(!GameInput.IsInitialized)
+            return default;
+
+        bindingSet = GetEffectiveBindingSet(device, button, bindingSet);
+
+        var bindingPath = GameInput.GetBinding(device, button, bindingSet);
+
+        if(string.IsNullOrWhiteSpace(bindingPath))
+            return default;
+
+        var bindingKey = (device, button, bindingSet);
+
+        var frame = UnityEngine.Time.frameCount;
+
+        var isPressed = false;
+
+        if(!_bindingStates.TryGetValue(bindingKey, out var state) || state.bindingPath != bindingPath)
+        {
+            isPressed = IsBindingPressed(bindingPath);
+
+            state = new BindingState
+            {
+                lastUpdatedFrame = frame,
+                bindingPath = bindingPath,
+                previousPressed = isPressed,
+                currentPressed = isPressed
+            };
+
+            _bindingStates[bindingKey] = state;
+            return state;
+        }
+
+        if(state.lastUpdatedFrame == frame)
+            return state;
+
+        isPressed = IsBindingPressed(bindingPath);
+
+        var updatedLastFrame = state.lastUpdatedFrame == frame - 1;
+
+        state.previousPressed = updatedLastFrame ? state.currentPressed : isPressed;
+        state.currentPressed = isPressed;
+
+        state.lastUpdatedFrame = frame;
+        _bindingStates[bindingKey] = state;
+
+        return state;
+    }
+
+    private static GameInput.BindingSet GetEffectiveBindingSet(GameInput.Device device, GameInput.Button button, GameInput.BindingSet bindingSet)
+    {
+        if(bindingSet != GameInput.BindingSet.Secondary)
+            return bindingSet;
+
+        var secondaryBindingPath = GameInput.GetBinding(device, button, bindingSet);
+
+        return string.IsNullOrWhiteSpace(secondaryBindingPath) ? GameInput.BindingSet.Primary : GameInput.BindingSet.Secondary;
+    }
+
+    private static bool IsBindingPressed(string bindingPath)
+    {
+        using var controls = UnityEngine.InputSystem.InputSystem.FindControls(bindingPath);
+        var pressPoint = UnityEngine.InputSystem.InputSystem.settings.defaultButtonPressPoint;
+
+        foreach(var control in controls)
+        {
+            if(control is UnityEngine.InputSystem.Controls.ButtonControl buttonControl)
+            {
+                if(buttonControl.isPressed)
+                    return true;
+
+                continue;
+            }
+
+            if(control.EvaluateMagnitude() >= pressPoint)
+                return true;
+        }
+
+        return false;
     }
 }
