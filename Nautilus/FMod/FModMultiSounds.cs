@@ -97,4 +97,10 @@ public class FModMultiSounds : IFModSound
         InternalLogger.Error("MultiSounds must have some sounds.");
         return false;
     }
+
+    /// <summary>
+    /// Retrieves all sound clips this asset could play
+    /// </summary>
+    /// <returns>The asset's sound clips</returns>
+    public Sound[] GetSoundClips() => _sounds;
 }
