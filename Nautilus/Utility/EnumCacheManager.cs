@@ -396,7 +396,7 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
                 stringBuilder.AppendLine($"{entry.Value}:{entry.Key}");
             }
 
-            File.WriteAllText(savePathDir, stringBuilder.ToString());
+            WriteAllTextAtomic(savePathDir, stringBuilder.ToString());
 
 
             savePathDir = GetDeactivatedCachePath();
@@ -410,12 +410,35 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
                 }
             }
 
-            File.WriteAllText(savePathDir, stringBuilder.ToString());
+            WriteAllTextAtomic(savePathDir, stringBuilder.ToString());
             entriesFromFile.Clear();
         }
         catch (Exception exception)
         {
             InternalLogger.Error($"Caught exception while saving cache!{Environment.NewLine}{exception}");
+        }
+    }
+
+    private static void WriteAllTextAtomic(string path, string contents)
+    {
+        string tempPath = path + ".tmp";
+        File.WriteAllText(tempPath, contents);
+
+        if (File.Exists(path))
+        {
+            try
+            {
+                File.Replace(tempPath, path, null);
+            }
+            catch (PlatformNotSupportedException)
+            {
+                File.Copy(tempPath, path, true);
+                File.Delete(tempPath);
+            }
+        }
+        else
+        {
+            File.Move(tempPath, path);
         }
     }
 
