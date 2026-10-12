@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Nautilus.Utility.ThunderkitUtilities;
@@ -20,7 +22,15 @@ public class ApplyMaterialModification : MonoBehaviour
     /// Defines the renderer that this material modification is applied to.
     /// </summary>
     [Tooltip("The renderer that this material modification is applied to")]
+    [Obsolete("Use the new 'renderers' field with support for LODs.")]
+    [HideInInspector]
     public Renderer renderer;
+
+    /// <summary>
+    /// Defines the renderers that this material modification is applied to. Use this for LOD support.
+    /// </summary>
+    [Tooltip("The renderers that this material modification is applied to. Can be used for LODs.")]
+    public Renderer[] renderers;
 
     /// <summary>
     /// If this has a length greater than zero, only materials with the same name as the materials in this array will be modified.
@@ -121,8 +131,11 @@ public class ApplyMaterialModification : MonoBehaviour
             vectorPropertyValues[i] = vectorProperties[i].vector;
         }
 
-        if (renderer == null)
+        bool hasRenderersInArr = (renderers != null && renderers.Length > 0);
+        if (renderer == null && !hasRenderersInArr)
+        {
             renderer = GetComponent<Renderer>();
+        }
     }
 
     private void Start()
@@ -141,8 +154,32 @@ public class ApplyMaterialModification : MonoBehaviour
     /// <exception cref="NullReferenceException"></exception>
     public void ApplyMaterialModifications()
     {
-        if (renderer == null) throw new NullReferenceException($"Renderer is null on material setter: {name}!");
+        var renderersSet = new HashSet<Renderer>();
+        
+        if (renderer != null)
+        {
+            renderersSet.Add(renderer);
+        }
+        
+        if (renderers != null)
+        {
+            foreach (var r in renderers)
+            {
+                renderersSet.Add(r);
+            }
+        }
+        
+        Renderer[] targetRenderers = renderersSet.ToArray();
+        if (targetRenderers == null) throw new NullReferenceException($"Renderer is null on material setter: {name}!");
 
+        foreach (var renderer in targetRenderers)
+        {
+            ApplyModificationsToRenderer(renderer);
+        }
+    }
+
+    private void ApplyModificationsToRenderer(Renderer renderer)
+    {
         var rendererMaterials = renderer.materials;
 
         foreach (var gameMaterial in rendererMaterials)
