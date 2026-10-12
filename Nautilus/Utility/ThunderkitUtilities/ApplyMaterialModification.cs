@@ -22,13 +22,14 @@ public class ApplyMaterialModification : MonoBehaviour
     /// Defines the renderer that this material modification is applied to.
     /// </summary>
     [Tooltip("The renderer that this material modification is applied to")]
+    [Obsolete("Use the new 'renderers' field with support for LODs.")]
+    [HideInInspector]
     public Renderer renderer;
 
     /// <summary>
     /// Defines the renderers that this material modification is applied to. Use this for LOD support.
-    /// If both this and renderer are set, they will be combined with duplicates removed.
     /// </summary>
-    [Tooltip("The renderers that this material modification is applied to. Use this for LOD support. If both this and renderer are set, they will be combined with duplicates removed.")]
+    [Tooltip("The renderers that this material modification is applied to. Can be used for LODs.")]
     public Renderer[] renderers;
 
     /// <summary>
