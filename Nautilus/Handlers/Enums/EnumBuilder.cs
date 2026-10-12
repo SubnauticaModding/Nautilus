@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BepInEx.Logging;
@@ -15,6 +16,7 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
 {
     internal static EnumCacheManager<TEnum> CacheManager { get; } = (EnumCacheManager<TEnum>)EnumCacheProvider.EnsureManager<TEnum>();
     private static bool _initialized = false;
+    private static readonly HashSet<string> _vanillaNamesLowerInvariant = new(typeof(TEnum).GetFields(BindingFlags.Public | BindingFlags.Static).Select(field => field.Name.ToLowerInvariant()));
 
     private TEnum _enumValue;
 
@@ -82,7 +84,7 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
             return false;
         }
 
-        if(Enum.GetNames(typeof(TEnum)).Any((x)=> x.ToLowerInvariant() == name.ToLowerInvariant()))
+        if(_vanillaNamesLowerInvariant.Contains(name.ToLowerInvariant()))
         {
             enumValue = default;
             return false;
