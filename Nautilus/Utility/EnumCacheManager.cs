@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -319,10 +320,26 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
         if (cacheLoaded)
             return;
 
-        ReadCacheFile(GetCachePath(), (index, name) => { entriesFromFile.Add(index, name); });
+        ReadCacheFile(GetCachePath(), (index, name) =>
+        {
+            if (entriesFromFile.IsKnownKey(index) || entriesFromFile.IsKnownKey(name))
+            {
+                InternalLogger.Warn($"Skipping duplicate entry '{name}:{index}' in the {EnumTypeName} cache.");
+                return;
+            }
+
+            entriesFromFile.Add(index, name);
+        });
 
         ReadCacheFile(GetDeactivatedCachePath(), (index, name) =>
         {
+            if (entriesFromDeactivatedFile.IsKnownKey(index) || entriesFromDeactivatedFile.IsKnownKey(name) ||
+                entriesFromFile.IsKnownKey(index) || entriesFromFile.IsKnownKey(name))
+            {
+                InternalLogger.Warn($"Skipping duplicate entry '{name}:{index}' in the {EnumTypeName} deactivated cache.");
+                return;
+            }
+
             entriesFromDeactivatedFile.Add(index, name);
             entriesFromFile.Add(index, name);
         });
@@ -343,11 +360,21 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
             string[] allText = File.ReadAllLines(savePathDir);
             foreach (string line in allText)
             {
-                string[] split = line.Split(':');
-                string name = split[0];
-                string index = split[1];
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
 
-                loadParsedEntry.Invoke(Convert.ToInt32(index), name);
+                int separatorIndex = line.LastIndexOf(':');
+                if (separatorIndex <= 0 || !int.TryParse(line.Substring(separatorIndex + 1), NumberStyles.Integer, CultureInfo.InvariantCulture, out int index))
+                {
+                    InternalLogger.Warn($"Skipping malformed line in {savePathDir}: {line}");
+                    continue;
+                }
+
+                string name = line.Substring(0, separatorIndex);
+
+                loadParsedEntry.Invoke(index, name);
             }
         }
         catch (Exception exception)
