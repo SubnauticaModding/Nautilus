@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace Nautilus.Utility.ThunderkitUtilities;
@@ -21,6 +21,12 @@ public class ApplyMaterialModification : MonoBehaviour
     /// </summary>
     [Tooltip("The renderer that this material modification is applied to")]
     public Renderer renderer;
+
+    /// <summary>
+    /// Defines the renderers that this material modification is applied to. Use this for LOD support.
+    /// </summary>
+    [Tooltip("The renderers that this material modification is applied to. Use this for LOD support")]
+    public Renderer[] renderers;
 
     /// <summary>
     /// If this has a length greater than zero, only materials with the same name as the materials in this array will be modified.
@@ -121,7 +127,7 @@ public class ApplyMaterialModification : MonoBehaviour
             vectorPropertyValues[i] = vectorProperties[i].vector;
         }
 
-        if (renderer == null)
+        if (renderer == null && (renderers == null || renderers.Length == 0))
             renderer = GetComponent<Renderer>();
     }
 
@@ -141,9 +147,12 @@ public class ApplyMaterialModification : MonoBehaviour
     /// <exception cref="NullReferenceException"></exception>
     public void ApplyMaterialModifications()
     {
-        if (renderer == null) throw new NullReferenceException($"Renderer is null on material setter: {name}!");
+        var targetRenderers = renderers != null && renderers.Length > 0 ? renderers : (renderer != null ? new[] { renderer } : null);
+        if (targetRenderers == null) throw new NullReferenceException($"Renderer is null on material setter: {name}!");
 
-        var rendererMaterials = renderer.materials;
+        foreach (var renderer in targetRenderers)
+        {
+            var rendererMaterials = renderer.materials;
 
         foreach (var gameMaterial in rendererMaterials)
         {
@@ -204,6 +213,7 @@ public class ApplyMaterialModification : MonoBehaviour
             {
                 gameMaterial.SetVector(vectorPropertyNames[i], vectorPropertyValues[i]);
             }
+        }
         }
     }
     
