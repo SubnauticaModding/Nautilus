@@ -38,6 +38,46 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
     public bool AdvancedExposeAlphaChannel { get; set; }
 
     /// <summary>
+    /// The label for the red channel slider when using advanced mode.
+    /// </summary>
+    public string RedLabel { get; }
+
+    /// <summary>
+    /// The label for the green channel slider when using advanced mode.
+    /// </summary>
+    public string GreenLabel { get; }
+
+    /// <summary>
+    /// The label for the blue channel slider when using advanced mode.
+    /// </summary>
+    public string BlueLabel { get; }
+
+    /// <summary>
+    /// The label for the alpha channel slider when using advanced mode.
+    /// </summary>
+    public string AlphaLabel { get; }
+
+    /// <summary>
+    /// The tooltip for the red channel slider when using advanced mode.
+    /// </summary>
+    public string RedTooltip { get; }
+
+    /// <summary>
+    /// The tooltip for the green channel slider when using advanced mode.
+    /// </summary>
+    public string GreenTooltip { get; }
+
+    /// <summary>
+    /// The tooltip for the blue channel slider when using advanced mode.
+    /// </summary>
+    public string BlueTooltip { get; }
+
+    /// <summary>
+    /// The tooltip for the alpha channel slider when using advanced mode.
+    /// </summary>
+    public string AlphaTooltip { get; }
+
+    /// <summary>
     /// The base method for adding an object to the options panel
     /// </summary>
     /// <param name="panel">The panel to add the option to.</param>
@@ -59,43 +99,43 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
             UnityEngine.Object.Destroy(colorPicker.transform.Find("Choice/Background/ButtonLeft").gameObject);
             UnityEngine.Object.Destroy(colorPicker.transform.Find("Choice/Background/ButtonRight").gameObject);
 
-            GameObject redSlider = panel.AddSliderOption(tabIndex, "Red", Value.r, 0, 1, 0, 0.01f,
+            GameObject redSlider = panel.AddSliderOption(tabIndex, RedLabel, Value.r, 0, 1, 0, 0.01f,
                 new UnityAction<float>((float value) => {
                     Color color = new Color(value, Value.g, Value.b, Value.a);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}", "The <color=\"red\">red</color> level of the color.");
+                SliderLabelMode.Percent, "{0:F0}", RedTooltip);
 
-            GameObject greenSlider = panel.AddSliderOption(tabIndex, "Green", Value.g, 0, 1, 0, 0.01f,
+            GameObject greenSlider = panel.AddSliderOption(tabIndex, GreenLabel, Value.g, 0, 1, 0, 0.01f,
                 new UnityAction<float>((float value) => {
                     Color color = new Color(Value.r, value, Value.b, Value.a);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}", "The <color=\"green\">green</color> level of the color.");
+                SliderLabelMode.Percent, "{0:F0}", GreenTooltip);
 
-            GameObject blueSlider = panel.AddSliderOption(tabIndex, "Blue", Value.b, 0, 1, 0, 0.01f,
+            GameObject blueSlider = panel.AddSliderOption(tabIndex, BlueLabel, Value.b, 0, 1, 0, 0.01f,
                 new UnityAction<float>((float value) => {
                     Color color = new Color(Value.r, Value.g, value, Value.a);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}", "The <color=\"blue\">blue</color> level of the color.");
+                SliderLabelMode.Percent, "{0:F0}", BlueTooltip);
 
             if(AdvancedExposeAlphaChannel)
             {
-                GameObject alphaSlider = panel.AddSliderOption(tabIndex, "Alpha", Value.a, 0, 1, 1, 0.01f,
+                GameObject alphaSlider = panel.AddSliderOption(tabIndex, AlphaLabel, Value.a, 0, 1, 1, 0.01f,
                 new UnityAction<float>((float value) => {
                     Color color = new Color(Value.r, Value.g, Value.b, value);
                     colorPicker.GetComponentInChildren<uGUI_ColorChoice>().value = color;
                     OnChange(Id, color);
                     parentOptions.OnChange<Color, ColorChangedEventArgs>(Id, color);
                 }),
-                SliderLabelMode.Percent, "{0:F0}", "The opaqueness of the color. The lower the value the more transparent.");
+                SliderLabelMode.Percent, "{0:F0}", AlphaTooltip);
             }
         }
 
@@ -103,11 +143,25 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
         base.AddToPanel(panel, tabIndex);
     }
 
-    private ModColorOption(string id, string label, Color value, bool advanced = false, string tooltip = null, bool advancedExposeAlphaChannel = true) : base(label, id, value)
+    private ModColorOption(string id, string label, Color value, bool advanced = false, string tooltip = null,
+        bool advancedExposeAlphaChannel = true, string redLabel = "Red", string greenLabel = "Green",
+        string blueLabel = "Blue", string alphaLabel = "Alpha",
+        string redTooltip = "The <color=\"red\">red</color> level of the color.",
+        string greenTooltip = "The <color=\"green\">green</color> level of the color.",
+        string blueTooltip = "The <color=\"blue\">blue</color> level of the color.",
+        string alphaTooltip = "The opaqueness of the color. The lower the value the more transparent.") : base(label, id, value)
     {
         Advanced = advanced;
         Tooltip = tooltip;
         AdvancedExposeAlphaChannel = advancedExposeAlphaChannel;
+        RedLabel = redLabel;
+        GreenLabel = greenLabel;
+        BlueLabel = blueLabel;
+        AlphaLabel = alphaLabel;
+        RedTooltip = redTooltip;
+        GreenTooltip = greenTooltip;
+        BlueTooltip = blueTooltip;
+        AlphaTooltip = alphaTooltip;
     }
 
     /// <summary>
@@ -119,9 +173,25 @@ public class ModColorOption : ModOption<Color, ColorChangedEventArgs>
     /// <param name="advanced">Whether to use an advanced display.</param>
     /// <param name="tooltip">The tooltip to show when hovering over the options.</param>
     /// <param name="advancedExposeAlphaChannel">When using advanced display. Whether to expose alpha channel control.</param>
-    public static ModColorOption Create(string id, string label, Color value, bool advanced = false, string tooltip = null, bool advancedExposeAlphaChannel = true)
+    /// <param name="redLabel">The label for the red channel slider when using advanced display.</param>
+    /// <param name="greenLabel">The label for the green channel slider when using advanced display.</param>
+    /// <param name="blueLabel">The label for the blue channel slider when using advanced display.</param>
+    /// <param name="alphaLabel">The label for the alpha channel slider when using advanced display.</param>
+    /// <param name="redTooltip">The tooltip for the red channel slider when using advanced display.</param>
+    /// <param name="greenTooltip">The tooltip for the green channel slider when using advanced display.</param>
+    /// <param name="blueTooltip">The tooltip for the blue channel slider when using advanced display.</param>
+    /// <param name="alphaTooltip">The tooltip for the alpha channel slider when using advanced display.</param>
+    public static ModColorOption Create(string id, string label, Color value, bool advanced = false, string tooltip = null, bool advancedExposeAlphaChannel = true, 
+        string redLabel = "Red", 
+        string greenLabel = "Green",
+        string blueLabel = "Blue", 
+        string alphaLabel = "Alpha",
+        string redTooltip = "The <color=\"red\">red</color> level of the color.",
+        string greenTooltip = "The <color=\"green\">green</color> level of the color.",
+        string blueTooltip = "The <color=\"blue\">blue</color> level of the color.",
+        string alphaTooltip = "The opaqueness of the color. The lower the value the more transparent.")
     {
-        return new ModColorOption(id, label, value, advanced, tooltip, advancedExposeAlphaChannel);
+        return new ModColorOption(id, label, value, advanced, tooltip, advancedExposeAlphaChannel, redLabel, greenLabel, blueLabel, alphaLabel, redTooltip, greenTooltip, blueTooltip, alphaTooltip);
     }
 
     /// <summary>
