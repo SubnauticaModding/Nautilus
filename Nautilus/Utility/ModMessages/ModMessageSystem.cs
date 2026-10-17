@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Nautilus.Handlers;
 
 namespace Nautilus.Utility.ModMessages;
 
@@ -9,7 +10,7 @@ public static class ModMessageSystem
 {
     internal static void Patch()
     {
-        SaveUtils.RegisterOnStartLoadingEvent(OnStartLoading);
+        WaitScreenHandler.RegisterLateLoadTask("Nautilus", OnFinishLoading);
     }
 
     private static bool _allowedToHoldMessages = true;
@@ -130,7 +131,7 @@ public static class ModMessageSystem
     }
 
     // Once game time has started, stop holding global messages and remove any held global messages from patch time
-    private static void OnStartLoading()
+    private static void OnFinishLoading(WaitScreenHandler.WaitScreenTask task)
     {
         _globalMessages.Clear();
         _heldMessages.Clear();
