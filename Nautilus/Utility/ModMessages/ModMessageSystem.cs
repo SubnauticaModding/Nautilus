@@ -116,7 +116,7 @@ public static class ModMessageSystem
     {
         if (inbox == null)
         {
-            InternalLogger.Log("Trying to send held messages to a registered inbox, but the inbox is null", LogLevel.Error);
+            InternalLogger.Log("Trying to send held messages to a registered inbox, but the inbox is null", LogLevel.Warning);
             return;
         }
         
