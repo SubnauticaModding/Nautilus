@@ -73,6 +73,8 @@ public class ApplyMaterialModification : MonoBehaviour
     [SerializeField, HideInInspector] private string[] vectorPropertyNames;
     [SerializeField, HideInInspector] private Vector4[] vectorPropertyValues;
 
+    private Material[] _materialInstancesToDestroy;
+
     // Editor-only operations to work around bugs
 
     private void OnValidate()
@@ -142,7 +144,7 @@ public class ApplyMaterialModification : MonoBehaviour
     {
         if (applyOnStart && !Application.isEditor)
         {
-            ApplyMaterialModifications();
+            Apply(true);
         }
     }
 
@@ -153,6 +155,11 @@ public class ApplyMaterialModification : MonoBehaviour
     /// but it is recommended to instead implement your own system to apply this during prefab creation to prevent incorrect materials in the first frame.</remarks>
     /// <exception cref="NullReferenceException"></exception>
     public void ApplyMaterialModifications()
+    {
+        Apply(false);
+    }
+
+    private void Apply(bool onStart)
     {
         var renderersSet = new HashSet<Renderer>();
         
@@ -171,14 +178,28 @@ public class ApplyMaterialModification : MonoBehaviour
         
         Renderer[] targetRenderers = renderersSet.ToArray();
         if (targetRenderers == null) throw new NullReferenceException($"Renderer is null on material setter: {name}!");
-
-        foreach (var renderer in targetRenderers)
+        
+        // Prepare materials array to clear material instances in memory
+        if (onStart)
         {
-            ApplyModificationsToRenderer(renderer);
+            int materialsCount = 0;
+            foreach (var renderer in targetRenderers)
+            {
+                materialsCount += renderer.sharedMaterials.Length;
+            }
+
+            _materialInstancesToDestroy = new Material[materialsCount];
+        }
+        
+        // Apply modifications
+        int materialIndex = 0;
+        foreach (var targetRenderer in targetRenderers)
+        {
+            ApplyModificationsToRenderer(targetRenderer, onStart, ref materialIndex);
         }
     }
 
-    private void ApplyModificationsToRenderer(Renderer renderer)
+    private void ApplyModificationsToRenderer(Renderer renderer, bool trackMaterialInstancesForCleaning, ref int materialIndex)
     {
         var rendererMaterials = renderer.materials;
 
@@ -242,8 +263,30 @@ public class ApplyMaterialModification : MonoBehaviour
                 gameMaterial.SetVector(vectorPropertyNames[i], vectorPropertyValues[i]);
             }
         }
+
+        // Cache materials for destruction in OnDestroy to prevent headless material instances
+        if (trackMaterialInstancesForCleaning)
+        {
+            for (int i = 0; i < rendererMaterials.Length; i++)
+            {
+                _materialInstancesToDestroy[materialIndex + i] = rendererMaterials[i];
+            }
+        }
+        materialIndex += rendererMaterials.Length;
     }
     
+    // Destroy headless material instances
+    private void OnDestroy()
+    {
+        if (_materialInstancesToDestroy != null)
+        {
+            foreach (var materialInstance in _materialInstancesToDestroy)
+            {
+                Destroy(materialInstance);
+            }
+        }
+    }
+
     // Property holder class definitions
     
     #pragma warning disable CS0649
