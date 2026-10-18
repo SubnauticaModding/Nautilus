@@ -50,6 +50,11 @@
   </ItemGroup>
 
   <ItemGroup>
+      <!-- Ignore NewtonSoft DOS vulnerability warnings on compile -->
+    <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-5crp-9r3c-p9vr" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="DocFX\logo.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
