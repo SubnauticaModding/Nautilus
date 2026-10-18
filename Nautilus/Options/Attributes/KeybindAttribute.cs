@@ -6,7 +6,7 @@ namespace Nautilus.Options.Attributes;
 
 /// <summary>
 /// Attribute used to signify the decorated <see cref="KeyCode"/> should be represented in the mod's
-/// option menu as a <see cref="ModKeybindOption"/>.
+/// option menu as a <see cref="ModChoiceOption{T}"/>.
 /// </summary>
 /// <example>
 /// <code>
@@ -29,14 +29,14 @@ public sealed class KeybindAttribute : ModOptionAttribute
 {
     /// <summary>
     /// Signifies the decorated <see cref="KeyCode"/> should be represented in the mod's option menu
-    /// as a <see cref="ModKeybindOption"/>.
+    /// as a <see cref="ModChoiceOption{T}"/>.
     /// </summary>
     /// <param name="label">The label for the keybind. If none is set, the name of the member will be used.</param>
     public KeybindAttribute(string label = null) : base(label) { }
 
     /// <summary>
     /// Signifies the decorated <see cref="KeyCode"/> should be represented in the mod's option menu
-    /// as a <see cref="ModKeybindOption"/>.
+    /// as a <see cref="ModChoiceOption{T}"/>.
     /// </summary>
     public KeybindAttribute() { }
 }

@@ -14,7 +14,8 @@ namespace Nautilus.Utility;
 /// <summary>
 /// Allows for quick and simple retrieval of any base-game material throughout both Subnautica and Subnautica:
 /// Below Zero. Materials can either be fetched directly using their names by accessing the <see cref="FetchMaterial"/>
-/// method, or applied generically across the entirety of a custom prefab via the <see cref="ReplaceMockMaterials"/> method.
+/// method, or applied generically across the entirety of a custom prefab via the
+/// <see cref="MaterialUtils.ReplaceMockMaterials(UnityEngine.GameObject)">MaterialUtils.ReplaceMockMaterials</see> method.
 /// </summary>
 public static class MaterialLibrary
 {
@@ -34,18 +35,17 @@ public static class MaterialLibrary
 
     /// <summary>
     /// The maximum amount of time, in seconds, that we should wait for materials to finish being retrieved from a scene
-    /// prefab before we time out the process. Similarly to the <see cref="MaxFetchAttempts"/> variable, this property
-    /// exists exclusively as a failsafe, to prevent neverending wait-times.
+    /// prefab before we time out the process. This property exists exclusively as a failsafe, to prevent neverending wait-times.
     /// </summary>
     private const int MaxSceneLoadTime = 300;
 
     /// <summary>
-    /// Searches the library for the provided <see cref="materialName"/>, and loads it from its path, if an entry for
+    /// Searches the library for the provided <paramref name="materialName"/>, and loads it from its path, if an entry for
     /// it exists.
     /// </summary>
     /// <param name="materialName">The exact name of the material you wish to retrieve as seen in-game. Case-sensitive!</param>
     /// <param name="foundMaterial">The <see cref="TaskResult{Material}"/> to load the vanilla material into, if found. Otherwise, has its value set to null.</param>
-    /// <param name="warnIfFailed">Whether Nautilus should log a warning if no materials with the provided <see cref="materialName"/> are found.</param>
+    /// <param name="warnIfFailed">Whether Nautilus should log a warning if no materials with the provided <paramref name="materialName"/> are found.</param>
     public static IEnumerator FetchMaterial(string materialName, IOut<Material> foundMaterial, bool warnIfFailed=true)
     {
         Material matResult = null;
@@ -88,7 +88,7 @@ public static class MaterialLibrary
     }
 
     /// <summary>
-    /// Searches the library for all of the provided <see cref="materialNames"/>, and loads those materials from their
+    /// Searches the library for all of the provided <paramref name="materialNames"/>, and loads those materials from their
     /// paths, if entries for them exist. If only some of the given mat names have entries in the library, this method
     /// will return all of the vanilla materials it can, and will log warnings for those that it fails to find, by default.
     /// </summary>
@@ -96,7 +96,7 @@ public static class MaterialLibrary
     /// <param name="foundMaterials">The <see cref="TaskResult{Material}"/> to load the vanilla materials into, if found.
     /// Will contain as many of the requested vanilla materials as can be found within the library.</param>
     /// <param name="warnIfFailed">Whether Nautilus should log a warning if one of the requested
-    /// <see cref="materialNames"/> can not be found in the library.</param>
+    /// <paramref name="materialNames"/> can not be found in the library.</param>
     public static IEnumerator FetchMaterials(string[] materialNames, IOut<Material[]> foundMaterials, bool warnIfFailed=true)
     {
         var matResults = new List<Material>();
@@ -253,8 +253,8 @@ public static class MaterialLibrary
     }
 
     /// <summary>
-    /// Finds and returns vanilla materials with the specified <see cref="materialNames"/>, by searching through a scene prefab,
-    /// loaded using the given <see cref="sceneName"/>. NOTE: This method won't be able to return vanilla materials
+    /// Finds and returns vanilla materials with the specified <paramref name="materialNames"/>, by searching through a scene prefab,
+    /// loaded using the given <paramref name="sceneName"/>. NOTE: This method won't be able to return vanilla materials
     /// until the specified Scene is loaded via the <see cref="ScenePrefabDatabase"/>.
     /// </summary>
     /// <param name="materialNames">The names of the materials to search the scene prefab for.</param>
@@ -319,12 +319,12 @@ public static class MaterialLibrary
 
     /// <summary>
     /// Uses the <see cref="_filePathMap"/> to retrieve the path associated with a specified material using the
-    /// <see cref="materialName"/>, so that it may be loaded when requested.
+    /// <paramref name="materialName"/>, so that it may be loaded when requested.
     /// </summary>
     /// <param name="materialName">The name of the material whose path is being requested.</param>
     /// <returns>The path to the resource which should be loaded in order to retrieve the specified material.
     /// Points to either a mat, prefab, or scene prefab file. Returns an empty string if the provided
-    /// <see cref="materialName"/> does not have an entry within the library.</returns>
+    /// <paramref name="materialName"/> does not have an entry within the library.</returns>
     public static string GetMaterialPath(string materialName)
     {
         if (_filePathMap.TryGetValue(materialName, out string path))

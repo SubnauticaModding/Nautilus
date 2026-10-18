@@ -15,8 +15,8 @@ namespace Nautilus.Options.Attributes;
 /// - <see cref="EventArgs"/> eventArgs: The generalized event arguments of the event<br/>
 /// - <see cref="ChoiceChangedEventArgs{T}"/> choiceChangedEventArgs: Only when the member corresponds to a
 ///   <see cref="ModChoiceOption{T}"/><br/>
-/// - <see cref="KeybindChangedEventArgs"/> keybindChangedEventArgs: Only when the member correspends to a
-///   <see cref="ModKeybindOption"/><br/>
+/// - <see cref="ChoiceChangedEventArgs{T}"/> keybindChangedEventArgs: Only when the member correspends to a
+///   <see cref="ModChoiceOption{T}"/><br/>
 /// - <see cref="SliderChangedEventArgs"/> sliderChangedEventArgs: Only when the member corresponds to a
 ///   <see cref="ModSliderOption"/><br/>
 /// - <see cref="ToggleChangedEventArgs"/> toggleChangedEventArgs: Only when the member corresponds to a
@@ -68,7 +68,7 @@ namespace Nautilus.Options.Attributes;
 /// <seealso cref="ToggleAttribute"/>
 /// <seealso cref="EventArgs"/>
 /// <seealso cref="ChoiceChangedEventArgs{T}"/>
-/// <seealso cref="KeybindChangedEventArgs"/>
+/// <seealso cref="ModChoiceOption{T}"/>
 /// <seealso cref="SliderChangedEventArgs"/>
 /// <seealso cref="ToggleChangedEventArgs"/>
 /// <seealso cref="ConfigFile"/>

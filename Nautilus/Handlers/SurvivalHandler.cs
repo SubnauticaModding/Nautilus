@@ -9,6 +9,9 @@ namespace Nautilus.Handlers;
 /// </summary>
 public static class SurvivalHandler
 {
+    /// <summary>
+    /// Obsolete: Use <see cref="GiveOxygenOnConsume(TechType, float)"/>
+    /// </summary>
     [Obsolete]
     public static void GiveOxygenOnConsume(TechType techType, float oxygenGiven, bool isEdible) => GiveOxygenOnConsume(techType, oxygenGiven);
     
@@ -36,6 +39,9 @@ public static class SurvivalHandler
         });
     }
 
+    /// <summary>
+    /// Obsolete: Use <see cref="GiveHealthOnConsume(TechType, float)"/>
+    /// </summary>
     [Obsolete]
     public static void GiveHealthOnConsume(TechType techType, float healthBack, bool isEdible) => GiveHealthOnConsume(techType, healthBack);
     
@@ -61,6 +67,9 @@ public static class SurvivalHandler
         }); 
     }
 
+    /// <summary>
+    /// Obsolete: Use <see cref="RunActionOnConsume(TechType, Action)"/>
+    /// </summary>
     [Obsolete]
     public static void RunActionOnConsume(TechType techType, Action customAction, bool isEdible) => RunActionOnConsume(techType, customAction);
     
