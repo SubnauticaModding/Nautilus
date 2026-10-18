@@ -42,7 +42,6 @@
     <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" PrivateAssets="all" />
     <PackageReference Include="PolySharp" Version="1.13.1" PrivateAssets="all" />
 
     <Publicize Include="Newtonsoft.Json" />
@@ -71,4 +70,5 @@
   </ItemGroup>
     
   <Import Project="..\PostBuild.targets" />
+  <Import Project="..\PluginProps.targets" />
 </Project>
