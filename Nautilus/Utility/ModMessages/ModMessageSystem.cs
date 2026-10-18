@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BepInEx.Logging;
 using Nautilus.Handlers;
 
 namespace Nautilus.Utility.ModMessages;
@@ -46,7 +47,8 @@ public static class ModMessageSystem
         var globalMessage = new GlobalMessage(new ModMessage(null, subject, contents));
         foreach (var inbox in _inboxes.Values)
         {
-            globalMessage.TrySendMessageToInbox(inbox);
+            if (inbox != null)
+                globalMessage.TrySendMessageToInbox(inbox);
         }
         if (_allowedToHoldMessages)
         {
@@ -61,7 +63,7 @@ public static class ModMessageSystem
     /// <param name="messageInstance">The message to send.</param>
     public static void Send(ModMessage messageInstance)
     {
-        if (_inboxes.TryGetValue(messageInstance.Recipient, out var inbox) && inbox.IsAcceptingMessages)
+        if (_inboxes.TryGetValue(messageInstance.Recipient, out var inbox) && inbox != null && inbox.IsAcceptingMessages)
         {
             inbox.ReceiveMessage(messageInstance);
             return;
@@ -89,7 +91,7 @@ public static class ModMessageSystem
     {
         // if the message responds immediately:
 
-        if (_inboxes.TryGetValue(messageInstance.Recipient, out var inbox) && inbox.IsAcceptingMessages && inbox.ReceiveDataRequest(messageInstance, out result))
+        if (_inboxes.TryGetValue(messageInstance.Recipient, out var inbox) && inbox != null && inbox.IsAcceptingMessages && inbox.ReceiveDataRequest(messageInstance, out result))
         {
             return true;
         }
@@ -112,6 +114,12 @@ public static class ModMessageSystem
 
     internal static void SendHeldMessagesToInbox(ModInbox inbox)
     {
+        if (inbox == null)
+        {
+            InternalLogger.Log("Trying to send held messages to a registered inbox, but the inbox is null", LogLevel.Error);
+            return;
+        }
+        
         // this is a necessary check for the sake of consistency
         if (!inbox.IsAcceptingMessages)
             return;
