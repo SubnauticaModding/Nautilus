@@ -72,6 +72,7 @@ public class SkyChangeTitleAddon : TitleAddon, IManagedUpdateBehaviour
     }
 
 
+    /// <inheritdoc />
     protected override void OnEnterLoadScreen()
     {
         _transitionActive = false;
