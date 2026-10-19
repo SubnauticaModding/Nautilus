@@ -16,6 +16,7 @@
     <Platforms>AnyCPU</Platforms>
     <Copyright>Copyright @ 2019</Copyright>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
     <OutputPath>bin\SN.STABLE\</OutputPath>
@@ -55,6 +56,7 @@
 
   <ItemGroup>
     <None Include="DocFX\logo.png" Pack="true" PackagePath="" />
+    <None Include="..\README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
