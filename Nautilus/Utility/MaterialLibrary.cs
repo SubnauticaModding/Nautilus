@@ -35,18 +35,18 @@ public static class MaterialLibrary
 
     /// <summary>
     /// The maximum amount of time, in seconds, that we should wait for materials to finish being retrieved from a scene
-    /// prefab before we time out the process. This property exists exclusively as a failsafe, to prevent neverending wait-times.
+    /// prefab before we time out the process. This property exists exclusively as a failsafe, to prevent never-ending wait times.
     /// </summary>
     private const int MaxSceneLoadTime = 300;
 
     /// <summary>
-    /// Searches the library for the provided <paramref name="materialName"/>, and loads it from its path, if an entry for
-    /// it exists.
+    /// Searches the library for the provided Material by name <paramref name="materialName"/>,
+    /// and loads it from its path, if an entry for it exists.
     /// </summary>
     /// <param name="materialName">The exact name of the material you wish to retrieve as seen in-game. Case-sensitive!</param>
     /// <param name="foundMaterial">The <see cref="TaskResult{Material}"/> to load the vanilla material into, if found. Otherwise, has its value set to null.</param>
     /// <param name="warnIfFailed">Whether Nautilus should log a warning if no materials with the provided <paramref name="materialName"/> are found.</param>
-    public static IEnumerator FetchMaterial(string materialName, IOut<Material> foundMaterial, bool warnIfFailed=true)
+    public static IEnumerator FetchMaterial(string materialName, IOut<Material> foundMaterial, bool warnIfFailed = true)
     {
         Material matResult = null;
 
@@ -80,24 +80,30 @@ public static class MaterialLibrary
                     matResult = returnValue[0];
             }
             else
+            {
                 InternalLogger.Error($"Invalid path provided for material: \"{filteredMatName}\".");
-        }else if (warnIfFailed)
+            }
+        }
+        else if (warnIfFailed)
+        {
             InternalLogger.Warn($"Failed to find material: \"{filteredMatName}\" in MaterialLibrary.");
-        
+        }
+
         foundMaterial.Set(matResult);
     }
 
     /// <summary>
-    /// Searches the library for all of the provided <paramref name="materialNames"/>, and loads those materials from their
-    /// paths, if entries for them exist. If only some of the given mat names have entries in the library, this method
-    /// will return all of the vanilla materials it can, and will log warnings for those that it fails to find, by default.
+    /// Searches the library for all of the provided Materials with the names from <paramref name="materialNames"/>, and
+    /// loads those materials from their paths, if entries for them exist. If only some of the given material names have
+    /// entries in the library, this method will return all of the vanilla materials it can, and will log warnings
+    /// for those that it fails to find.
     /// </summary>
-    /// <param name="materialNames">An array of the exact material names that you wish to retrieve, as seen in-game. Case-sensitive!</param>
+    /// <param name="materialNames">An array of the exact names of the materials that you wish to retrieve, as seen in-game. Case-sensitive!</param>
     /// <param name="foundMaterials">The <see cref="TaskResult{Material}"/> to load the vanilla materials into, if found.
     /// Will contain as many of the requested vanilla materials as can be found within the library.</param>
     /// <param name="warnIfFailed">Whether Nautilus should log a warning if one of the requested
     /// <paramref name="materialNames"/> can not be found in the library.</param>
-    public static IEnumerator FetchMaterials(string[] materialNames, IOut<Material[]> foundMaterials, bool warnIfFailed=true)
+    public static IEnumerator FetchMaterials(string[] materialNames, IOut<Material[]> foundMaterials, bool warnIfFailed = true)
     {
         var matResults = new List<Material>();
         
@@ -167,7 +173,7 @@ public static class MaterialLibrary
     /// </summary>
     /// <param name="matPath">The path to the .mat file, relative to the <see cref="AddressablesUtility"/>.</param>
     /// <param name="matResult">The <see cref="TaskResult{Material}"/> to load the found material into. If no material 
-    /// is found, has its value set to null.</param>
+    /// is found, this has its value set to null.</param>
     private static IEnumerator GetMaterialFromPath(string matPath, IOut<Material> matResult)
     {
         Material loadedMat = null;
@@ -323,14 +329,14 @@ public static class MaterialLibrary
     /// </summary>
     /// <param name="materialName">The name of the material whose path is being requested.</param>
     /// <returns>The path to the resource which should be loaded in order to retrieve the specified material.
-    /// Points to either a mat, prefab, or scene prefab file. Returns an empty string if the provided
+    /// Points to either a material, prefab, or scene prefab file. Returns an empty string if the provided
     /// <paramref name="materialName"/> does not have an entry within the library.</returns>
     public static string GetMaterialPath(string materialName)
     {
         if (_filePathMap.TryGetValue(materialName, out string path))
             return path;
 
-        return "";
+        return string.Empty;
     }
     
 }
