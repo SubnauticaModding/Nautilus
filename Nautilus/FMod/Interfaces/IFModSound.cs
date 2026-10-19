@@ -13,4 +13,6 @@ public interface IFModSound
     /// <param name="channel">The channel on which the sound was created.</param>
     /// <returns>If the sound was reported as played.</returns>
     bool TryPlaySound(out Channel channel);
+
+    internal Sound[] GetSoundClips();
 }
