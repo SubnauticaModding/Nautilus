@@ -163,10 +163,12 @@ public class ApplyMaterialModification : MonoBehaviour
     {
         var renderersSet = new HashSet<Renderer>();
         
+#pragma warning disable CS0618 // Type or member is obsolete
         if (renderer != null)
         {
             renderersSet.Add(renderer);
         }
+#pragma warning restore CS0618 // Type or member is obsolete
         
         if (renderers != null)
         {
