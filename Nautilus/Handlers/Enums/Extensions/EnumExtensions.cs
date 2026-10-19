@@ -29,7 +29,7 @@ public static partial class EnumExtensions
             return true;
         }
         
-        if (manager.ModdedKeys.Contains(enumValue))
+        if (manager.ContainsKey(enumValue))
         {
             return false;
         }
