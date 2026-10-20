@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using Nautilus.Handlers;
 
 namespace Nautilus.Commands;
@@ -19,6 +20,7 @@ namespace Nautilus.Commands;
 /// <seealso cref="ConsoleCommandsHandler.RegisterConsoleCommand{T}(string, T)"/>
 /// <seealso cref="ConsoleCommandsHandler.RegisterConsoleCommands(Type)"/>
 /// <seealso cref="ConsoleCommandsHandler"/>
+[MeansImplicitUse]
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
 public sealed class ConsoleCommandAttribute : Attribute
 {
