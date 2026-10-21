@@ -257,7 +257,7 @@ internal class EnumCacheManager<TEnum> : IEnumCache where TEnum : Enum
     internal EnumCacheManager()
     {
         int largestID = 0;
-        var bannedIDs = ExtBannedIdManager.GetBannedIdsFor(typeof(TEnum).Name, GetBannedIds());
+        var bannedIDs = GetBannedIds();
         BannedIDs = new HashSet<int>();
         foreach (int id in bannedIDs)
         {
