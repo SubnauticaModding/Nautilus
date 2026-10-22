@@ -8,9 +8,6 @@ using Nautilus.Utility;
 using Nautilus.Utility.ModMessages;
 using UnityEngine;
 using UnityEngine.U2D;
-#if BELOWZERO
-using UnityEngine.U2D;
-#endif
 
 namespace Nautilus;
 

@@ -211,10 +211,12 @@ internal class HoverbikeModulesSupport : MonoBehaviour, IQuickSlots
 
     public void Bind(int slotID, InventoryItem item)
     {
+        onBind?.Invoke(slotID, item.techType, true);
     }
 
     public void Unbind(int slotID)
     {
+        onBind?.Invoke(slotID, TechType.None, true);
     }
 
     public void DeselectSlots()

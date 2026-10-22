@@ -92,6 +92,18 @@ public static class BiomeHandler
             _type = Type.GetPrefabFromCallback;
         }
         
+        /// <summary>
+        /// Gets the sky prefab for this <see cref="SkyReference"/>.
+        /// </summary>
+        /// <param name="waterBiomeManager">Used when the type is <see cref="SkyReference.Type.StringLookup">StringLookup</see>.</param>
+        /// <returns>
+        /// Returns the sky's prefab depending on the given <see cref="SkyReference.Type"/>:
+        /// <list type="bullet">
+        ///     <item><see cref="SkyReference.Type.GameObjectReference">GameObjectReference</see>: Prefab reference is returned.</item>
+        ///     <item><see cref="SkyReference.Type.StringLookup">StringLookup</see>: The sky's name is searched for in the given <paramref name="waterBiomeManager"/>. Returns null if not found.</item>
+        ///     <item><see cref="SkyReference.Type.GetPrefabFromCallback">GetPrefabFromCallback</see>: The callback is invoked and the result is returned.</item>
+        /// </list>
+        /// </returns>
         public virtual GameObject GetSkyPrefabAtRuntime(WaterBiomeManager waterBiomeManager)
         {
             if (_type == Type.StringLookup)
