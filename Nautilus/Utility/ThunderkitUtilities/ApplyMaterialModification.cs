@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Nautilus.Utility.ThunderkitUtilities;
@@ -20,7 +22,15 @@ public class ApplyMaterialModification : MonoBehaviour
     /// Defines the renderer that this material modification is applied to.
     /// </summary>
     [Tooltip("The renderer that this material modification is applied to")]
+    [Obsolete("Use the new 'renderers' field with support for LODs.")]
+    [HideInInspector]
     public Renderer renderer;
+
+    /// <summary>
+    /// Defines the renderers that this material modification is applied to. Use this for LOD support.
+    /// </summary>
+    [Tooltip("The renderers that this material modification is applied to. Can be used for LODs.")]
+    public Renderer[] renderers;
 
     /// <summary>
     /// If this has a length greater than zero, only materials with the same name as the materials in this array will be modified.
@@ -62,6 +72,8 @@ public class ApplyMaterialModification : MonoBehaviour
 
     [SerializeField, HideInInspector] private string[] vectorPropertyNames;
     [SerializeField, HideInInspector] private Vector4[] vectorPropertyValues;
+
+    private Material[] _materialInstancesToDestroy;
 
     // Editor-only operations to work around bugs
 
@@ -121,15 +133,30 @@ public class ApplyMaterialModification : MonoBehaviour
             vectorPropertyValues[i] = vectorProperties[i].vector;
         }
 
-        if (renderer == null)
-            renderer = GetComponent<Renderer>();
+#pragma warning disable CS0618 // Type or member is obsolete
+        if (renderer != null)
+        {
+            if (renderers == null)
+            {
+                renderers = new Renderer[] { renderer };
+            }
+            else
+            {
+                var newRenderers = new Renderer[renderers.Length + 1];
+                Array.Copy(renderers, newRenderers, renderers.Length);
+                newRenderers[renderers.Length] = renderer;
+                renderers = newRenderers;
+            }
+            renderer = null;
+        }
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 
     private void Start()
     {
         if (applyOnStart && !Application.isEditor)
         {
-            ApplyMaterialModifications();
+            Apply(true);
         }
     }
 
@@ -141,8 +168,53 @@ public class ApplyMaterialModification : MonoBehaviour
     /// <exception cref="NullReferenceException"></exception>
     public void ApplyMaterialModifications()
     {
-        if (renderer == null) throw new NullReferenceException($"Renderer is null on material setter: {name}!");
+        Apply(false);
+    }
 
+    private void Apply(bool onStart)
+    {
+        var renderersSet = new HashSet<Renderer>();
+        
+#pragma warning disable CS0618 // Type or member is obsolete
+        if (renderer != null)
+        {
+            renderersSet.Add(renderer);
+        }
+#pragma warning restore CS0618 // Type or member is obsolete
+        
+        if (renderers != null)
+        {
+            foreach (var r in renderers)
+            {
+                renderersSet.Add(r);
+            }
+        }
+        
+        Renderer[] targetRenderers = renderersSet.ToArray();
+        if (targetRenderers == null) throw new NullReferenceException($"Renderer is null on material setter: {name}!");
+        
+        // Prepare materials array to clear material instances in memory
+        if (onStart)
+        {
+            int materialsCount = 0;
+            foreach (var renderer in targetRenderers)
+            {
+                materialsCount += renderer.sharedMaterials.Length;
+            }
+
+            _materialInstancesToDestroy = new Material[materialsCount];
+        }
+        
+        // Apply modifications
+        int materialIndex = 0;
+        foreach (var targetRenderer in targetRenderers)
+        {
+            ApplyModificationsToRenderer(targetRenderer, onStart, ref materialIndex);
+        }
+    }
+
+    private void ApplyModificationsToRenderer(Renderer renderer, bool trackMaterialInstancesForCleaning, ref int materialIndex)
+    {
         var rendererMaterials = renderer.materials;
 
         foreach (var gameMaterial in rendererMaterials)
@@ -205,8 +277,30 @@ public class ApplyMaterialModification : MonoBehaviour
                 gameMaterial.SetVector(vectorPropertyNames[i], vectorPropertyValues[i]);
             }
         }
+
+        // Cache materials for destruction in OnDestroy to prevent headless material instances
+        if (trackMaterialInstancesForCleaning)
+        {
+            for (int i = 0; i < rendererMaterials.Length; i++)
+            {
+                _materialInstancesToDestroy[materialIndex + i] = rendererMaterials[i];
+            }
+        }
+        materialIndex += rendererMaterials.Length;
     }
     
+    // Destroy headless material instances
+    private void OnDestroy()
+    {
+        if (_materialInstancesToDestroy != null)
+        {
+            foreach (var materialInstance in _materialInstancesToDestroy)
+            {
+                Destroy(materialInstance);
+            }
+        }
+    }
+
     // Property holder class definitions
     
     #pragma warning disable CS0649
