@@ -133,11 +133,23 @@ public class ApplyMaterialModification : MonoBehaviour
             vectorPropertyValues[i] = vectorProperties[i].vector;
         }
 
-        bool hasRenderersInArr = (renderers != null && renderers.Length > 0);
-        if (renderer == null && !hasRenderersInArr)
+#pragma warning disable CS0618 // Type or member is obsolete
+        if (renderer != null)
         {
-            renderer = GetComponent<Renderer>();
+            if (renderers == null)
+            {
+                renderers = new Renderer[] { renderer };
+            }
+            else
+            {
+                var newRenderers = new Renderer[renderers.Length + 1];
+                Array.Copy(renderers, newRenderers, renderers.Length);
+                newRenderers[renderers.Length] = renderer;
+                renderers = newRenderers;
+            }
+            renderer = null;
         }
+#pragma warning restore CS0618 // Type or member is obsolete
     }
 
     private void Start()
