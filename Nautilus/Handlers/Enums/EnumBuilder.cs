@@ -147,7 +147,7 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
         _initialized = true;
     }
 
-    // Since we had no restrictions on enum names in the past, these should remain very relaxed to avoid breaking changes
+    // This is less restrictive than it needs to be, only for backwards compatibility
     private static bool IsEnumNameInvalid(string enumName)
     {
         if (enumName.IndexOfAny(_invalidEnumCharacters) >= 0)
