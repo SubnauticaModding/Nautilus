@@ -133,7 +133,7 @@ These tend to use the Agency FB font. Stock images are often used in the "close 
 ![Template for Databank images](../images/tutorials/databank-image-template.png)
 
 > [!IMPORTANT]
-> Please keep in mind that it is **ILLEGAL** to use Subnautica's art assets and style in other contexts. However, Unknown Worlds Entertainment has given modders permission to modify their assets for non-commercial purposes within Subnautica mods.
+> Please keep in mind that it is **ILLEGAL** to use Subnautica's art assets and style in other contexts. However, Unknown Worlds has granted modders limited permission to *modify* assets within the same game for non-commercial purposes within Subnautica mods.
 
 ## Popup images
 
