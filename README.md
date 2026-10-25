@@ -94,13 +94,13 @@ We hope to keep improving the modding experience in Subnautica to allow develope
 
 <!---------LINKS SECTION START--------->
 ## Links
-[Nautilus Documentation](https://subnauticamodding.github.io/Nautilus) ([source](https://github.com/SubnauticaModding/Nautilus/tree/docs/Nautilus/Documentation))
+[Nautilus Documentation](https://subnauticamodding.github.io/Nautilus) ([source](https://github.com/SubnauticaModding/Nautilus/tree/docs/Nautilus/Documentation)) - API docs, guides for getting started, and detailed tutorials
 
-[Development Setup Guide](https://subnauticamodding.github.io/Nautilus/guides/dev-setup.html)
+[Development Setup Guide](https://subnauticamodding.github.io/Nautilus/guides/dev-setup.html) - Start here for your first mod
 
-[Updating to Nautilus from SMLHelper](https://subnauticamodding.github.io/Nautilus/guides/sml2-to-nautilus.html)
+[Updating to Nautilus from SMLHelper](https://subnauticamodding.github.io/Nautilus/guides/sml2-to-nautilus.html) - For updating older mods 
 
-[Subnautica Modding Discord Server](https://discord.gg/UpWuWwq)
+[Subnautica Modding Discord Server](https://discord.gg/UpWuWwq) - The best place to discuss making mods for Subnautica
 <!---------LINKS SECTION END--------->
 
 
