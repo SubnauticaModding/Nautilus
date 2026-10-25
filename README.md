@@ -94,13 +94,13 @@ We hope to keep improving the modding experience in Subnautica to allow develope
 
 <!---------LINKS SECTION START--------->
 ## Links
-* Developer resources:
-  * [Documentation](https://subnauticamodding.github.io/Nautilus) ([source](https://github.com/SubnauticaModding/Nautilus/tree/docs/Nautilus/Documentation))
-  * [Updating to Nautilus from SMLHelper](https://subnauticamodding.github.io/Nautilus/guides/sml2-to-nautilus.html)
+[Nautilus Documentation](https://subnauticamodding.github.io/Nautilus) ([source](https://github.com/SubnauticaModding/Nautilus/tree/docs/Nautilus/Documentation))
 
+[Development Setup Guide](https://subnauticamodding.github.io/Nautilus/guides/dev-setup.html)
 
-* Other links:
-  * [Subnautica Modding Discord Server](https://discord.gg/UpWuWwq)
+[Updating to Nautilus from SMLHelper](https://subnauticamodding.github.io/Nautilus/guides/sml2-to-nautilus.html)
+
+[Subnautica Modding Discord Server](https://discord.gg/UpWuWwq)
 <!---------LINKS SECTION END--------->
 
 
@@ -110,7 +110,8 @@ We hope to keep improving the modding experience in Subnautica to allow develope
 <!---------CONTRIBUTORS SECTION START--------->
 ## Contributors
 To everyone who has taken the time to contribute to Nautilus and/or SMLHelper, we cannot thank you enough!
-* [Table of contributors](https://github.com/SubnauticaModding/Nautilus/blob/master/AUTHORS.md)
+
+[Table of contributors](https://github.com/SubnauticaModding/Nautilus/blob/master/AUTHORS.md)
 
 <!---------CONTRIBUTORS SECTION END--------->
 
