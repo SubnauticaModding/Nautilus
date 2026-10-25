@@ -237,7 +237,7 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     }
 
     /// <summary>
-    /// Adds a <see cref="ModKeybindOption"/> to the <see cref="ModOptions"/> menu.
+    /// Adds a <see cref="ModChoiceOption{T}"/> to the <see cref="ModOptions"/> menu.
     /// </summary>
     /// <param name="id"></param>
     /// <param name="label"></param>

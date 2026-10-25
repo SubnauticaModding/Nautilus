@@ -4,6 +4,7 @@ using Nautilus.FMod.Interfaces;
 using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Nautilus.Handlers;
 
@@ -368,7 +369,7 @@ public static class PDAHandler
     {
         if (!_gameHasLoadedFirstScene)
         {
-            if (string.IsNullOrEmpty(Application.loadedLevelName))
+            if (SceneManager.GetActiveScene().IsValid())
             {
                 return false;
             }

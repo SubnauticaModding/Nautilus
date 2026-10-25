@@ -75,7 +75,8 @@ public static partial class EnumExtensions
         /// <param name="bindingSet">Whether this is the primary binding or the secondary binding.</param>
         /// <param name="bindingPath">The binding path to bind this button to.</param>
         /// <returns>A reference to this instance after the operation has completed.</returns>
-        /// <remarks>By default, the binding will be bindable in the Mod Input tab. If you wish to make the button unbindable, consider using <see cref="SetUnbindable"/>.</remarks>
+        /// <remarks>By default, the binding will be bindable in the Mod Input tab. If you wish to make the button unbindable,
+        /// consider using <see cref="EnumExtensions.SetUnbindable(EnumBuilder{Button})">SetUnbindable</see>.</remarks>
         /// <seealso href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.2/api/UnityEngine.InputSystem.InputControlPath.html"/>
         public EnumBuilder<Button> WithBinding(GameInput.Device device,
             GameInput.BindingSet bindingSet, string bindingPath)
@@ -95,7 +96,8 @@ public static partial class EnumExtensions
         /// <param name="primaryBindingPath">The binding path to bind the primary hotkey of this button.</param>
         /// <param name="secondaryBindingPath">The binding path to bind the secondary hotkey of this button. If null or empty, the button will have an empty secondary binding.</param>
         /// <returns>A reference to this instance after the operation has completed.</returns>
-        /// <remarks>By default, the binding will be bindable in the Mod Input tab. If you wish to make the button unbindable, consider using <see cref="SetUnbindable"/>.</remarks>
+        /// <remarks>By default, the binding will be bindable in the Mod Input tab. If you wish to make the button unbindable,
+        /// consider using <see cref="EnumExtensions.SetUnbindable(EnumBuilder{Button})">SetUnbindable</see>.</remarks>
         /// <seealso href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.2/api/UnityEngine.InputSystem.InputControlPath.html"/>
         public EnumBuilder<Button> WithBinding(GameInput.Device device,
             string primaryBindingPath, string secondaryBindingPath = null)
@@ -128,7 +130,8 @@ public static partial class EnumExtensions
         /// <param name="primaryBindingPath">The binding path to bind the primary hotkey of this button.</param>
         /// <param name="secondaryBindingPath">The binding path to bind the secondary hotkey of this button. If null or empty, the button will have an empty secondary binding.</param>
         /// <returns>A reference to this instance after the operation has completed.</returns>
-        /// <remarks>By default, the binding will be bindable in the Mod Input tab. If you wish to make the button unbindable, consider using <see cref="SetUnbindable"/>.</remarks>
+        /// <remarks>By default, the binding will be bindable in the Mod Input tab. If you wish to make the button unbindable,
+        /// consider using <see cref="EnumExtensions.SetUnbindable(EnumBuilder{Button})">SetUnbindable</see>.</remarks>
         /// <seealso href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.2/api/UnityEngine.InputSystem.InputControlPath.html"/>
         public EnumBuilder<Button> WithKeyboardBinding(string primaryBindingPath, string secondaryBindingPath = null)
         {
@@ -141,7 +144,8 @@ public static partial class EnumExtensions
         /// <param name="primaryBindingPath">The binding path to bind the primary hotkey of this button.</param>
         /// <param name="secondaryBindingPath">The binding path to bind the secondary hotkey of this button. If null or empty, the button will have an empty secondary binding.</param>
         /// <returns>A reference to this instance after the operation has completed.</returns>
-        /// <remarks>By default, the binding will be bindable in the Mod Input tab. If you wish to make the button unbindable, consider using <see cref="SetUnbindable"/>.</remarks>
+        /// <remarks>By default, the binding will be bindable in the Mod Input tab. If you wish to make the button unbindable,
+        /// consider using <see cref="EnumExtensions.SetUnbindable(EnumBuilder{Button})">SetUnbindable</see>.</remarks>
         /// <seealso href="https://docs.unity3d.com/Packages/com.unity.inputsystem@1.2/api/UnityEngine.InputSystem.InputControlPath.html"/>
         public EnumBuilder<Button> WithControllerBinding(string primaryBindingPath, string secondaryBindingPath = null)
         {

@@ -42,7 +42,7 @@ public interface IFModSoundBuilder
     /// <returns>A reference to the builder for further setup.</returns>
     public IFModSoundBuilder SetFadeDuration(float fadeDuration);
     /// <summary>
-    /// Uses a sound from the sound source that matches the name defined in <see cref="clipName"/>. Does not use file extensions.
+    /// Uses a sound from the sound source that matches the name defined in <paramref ref="clipName"/>. Does not use file extensions.
     /// </summary>
     /// <param name="clipName">The name of the sound to load. File extensions should not be used.</param>
     /// <returns>A reference to the builder for further setup.</returns>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BepInEx.Logging;
@@ -15,8 +16,12 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
 {
     internal static EnumCacheManager<TEnum> CacheManager { get; } = (EnumCacheManager<TEnum>)EnumCacheProvider.EnsureManager<TEnum>();
     private static bool _initialized = false;
+    private static readonly HashSet<string> _vanillaNamesLowerInvariant = new(typeof(TEnum).GetFields(BindingFlags.Public | BindingFlags.Static).Select(field => field.Name.ToLowerInvariant()));
 
     private TEnum _enumValue;
+
+    // Colons in particular are NOT valid because they interfere with the EnumCache format
+    private static readonly char[] _invalidEnumCharacters = [':', '\n'];
 
     /// <summary>
     /// The enum value corresponding to this builder.
@@ -65,27 +70,43 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
     internal static EnumBuilder<TEnum> CreateInstance(string name, Assembly addedBy)
     {
         var builder = new EnumBuilder<TEnum>();
-        if(builder.TryAddEnum(name, addedBy, out TEnum enumValue))
+
+        TryAddEnumValueResult valueResult = builder.TryAddEnum(name, addedBy, out TEnum enumValue);
+        
+        if (valueResult == TryAddEnumValueResult.Success)
         {
             return builder;
         }
 
-        InternalLogger.Announce($"{name} already exists in {nameof(TEnum)}!", LogLevel.Error, true);
-        return null;
-    }
-
-    private bool TryAddEnum(string name, Assembly addedBy, out TEnum enumValue)
-    {                
-        if(CacheManager.RequestCacheForTypeName(name, false, true) != null)
+        // For duplicate results, produce errors but do not throw
+        if (valueResult is TryAddEnumValueResult.AlreadyExistsInVanilla or TryAddEnumValueResult.DuplicateModEnumValue)
         {
-            enumValue = default;
-            return false;
+            InternalLogger.Announce($"{name} already exists in {nameof(TEnum)}! Message: {valueResult}", LogLevel.Error, true);
+            return null;
         }
 
-        if(Enum.GetNames(typeof(TEnum)).Any((x)=> x.ToLowerInvariant() == name.ToLowerInvariant()))
+        // For other invalid results, throw an exception
+        throw new ArgumentException($"Problem while registering enum value '{name}' in {nameof(TEnum)}: {valueResult}");
+    }
+
+    private TryAddEnumValueResult TryAddEnum(string name, Assembly addedBy, out TEnum enumValue)
+    {                
+        if (CacheManager.RequestCacheForTypeName(name, false, true) != null)
         {
             enumValue = default;
-            return false;
+            return TryAddEnumValueResult.DuplicateModEnumValue;
+        }
+
+        if (_vanillaNamesLowerInvariant.Contains(name.ToLowerInvariant()))
+        {
+            enumValue = default;
+            return TryAddEnumValueResult.AlreadyExistsInVanilla;
+        }
+
+        if (IsEnumNameInvalid(name))
+        {
+            enumValue = default;
+            return TryAddEnumValueResult.InvalidName;
         }
 
         EnumTypeCache cache = CacheManager.RequestCacheForTypeName(name, addedBy: addedBy) ?? new EnumTypeCache()
@@ -111,7 +132,7 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
         InternalLogger.Log($"Successfully added {enumName}: '{name}' to Index: '{cache.Index}'", LogLevel.Debug);
         _enumValue = enumValue;
 
-        return true;
+        return TryAddEnumValueResult.Success;
     }
 
     internal void Initialize()
@@ -124,5 +145,24 @@ public sealed class EnumBuilder<TEnum> where TEnum : Enum
         SaveUtils.RegisterOnSaveEvent(() => CacheManager.SaveCache());
         InternalLogger.Log($"{enumName}Patcher is initialized.", LogLevel.Debug);
         _initialized = true;
+    }
+
+    // This is less restrictive than it needs to be, only for backwards compatibility
+    private static bool IsEnumNameInvalid(string enumName)
+    {
+        if (enumName.IndexOfAny(_invalidEnumCharacters) >= 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private enum TryAddEnumValueResult : byte
+    {
+        Success,
+        DuplicateModEnumValue,
+        AlreadyExistsInVanilla,
+        InvalidName
     }
 }

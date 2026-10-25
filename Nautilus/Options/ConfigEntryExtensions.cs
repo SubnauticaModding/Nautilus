@@ -250,7 +250,7 @@ public static class ConfigEntryExtensions
     /// </summary>
     /// <param name="configEntry">A </param>
     /// <param name="options">Array of valid options if not using the whole Enum</param>
-    /// <returns><see cref="ModKeybindOption"/></returns>
+    /// <returns><see cref="ModChoiceOption{T}"/></returns>
     public static ModChoiceOption<T> ToModChoiceOption<T>(this ConfigEntry<T> configEntry, IEnumerable<T> options = null) where T : Enum
     {
         T[] viableValues = options?.ToArray<T>() ?? (T[])Enum.GetValues(typeof(T));
@@ -271,7 +271,7 @@ public static class ConfigEntryExtensions
     /// </summary>
     /// <param name="configEntry">A </param>
     /// <param name="options"></param>
-    /// <returns><see cref="ModKeybindOption"/></returns>
+    /// <returns><see cref="ModChoiceOption{T}"/></returns>
     public static ModChoiceOption<T> ToModChoiceOption<T>(this ConfigEntry<T> configEntry, T[] options = null) where T : IEquatable<T>
     {
         ModChoiceOption<T> optionItem;

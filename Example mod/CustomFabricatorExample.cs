@@ -48,6 +48,7 @@ public class CustomFabricatorExample : BaseUnityPlugin
         };
         customFab.SetGameObject(fabPrefab);
 
+#if JSONRECIPE
         /*
          * This is a string example of how a RecipeData may look like in a json file. TechTypes can be
          * Modded string values as well. The accepted values for tech types are: Vanilla names, modded names, and numbers.
@@ -56,7 +57,7 @@ public class CustomFabricatorExample : BaseUnityPlugin
          * - 1 nickel ore (7 is the integer number for nickel ore)
          * - The custom item we made earlier; Stone.
          */
-        string recipeJson = """
+        string recipe = """
         {
         	"craftAmount": 1,
         	"Ingredients": [
@@ -77,26 +78,25 @@ public class CustomFabricatorExample : BaseUnityPlugin
         """;
 
         /*
+         * Set the recipe to the json object we made earlier.
+         */
+        customFab.SetRecipeFromJson(recipe);
+#else
+        /*
          * This is what the aforementioned json object will look like as a RecipeData object.
          * You may use the CustomPrefab.SetRecipe() to set the recipe to a RecipeData object.
          */
         RecipeData recipe = new RecipeData
         {
-	        craftAmount = 1,
-	        Ingredients =
-	        {
-		        new Ingredient(TechType.Titanium, 1),
-		        new Ingredient(TechType.Nickel, 1),
-		        new Ingredient(stone.Info.TechType, 1)
-	        }
+            craftAmount = 1,
+            Ingredients =
+            {
+                new Ingredient(TechType.Titanium, 1),
+                new Ingredient(TechType.Nickel, 1),
+                new Ingredient(stone.Info.TechType, 1)
+            }
         };
 
-#if JSONRECIPE
-        /*
-         * Set the recipe to the json object we made earlier.
-         */
-        customFab.SetRecipeFromJson(recipeJson);
-#else
 	    /*
 	     * Set the recipe.
 	     */

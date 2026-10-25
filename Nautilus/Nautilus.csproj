@@ -16,6 +16,7 @@
     <Platforms>AnyCPU</Platforms>
     <Copyright>Copyright @ 2019</Copyright>
     <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
     <OutputPath>bin\SN.STABLE\</OutputPath>
@@ -38,19 +39,24 @@
   </ItemDefinitionGroup>
 
   <ItemGroup>
-    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.0" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" PrivateAssets="all"/>
     <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" PrivateAssets="all" />
     <PackageReference Include="PolySharp" Version="1.13.1" PrivateAssets="all" />
 
-    <Publicize Include="Newtonsoft.Json" />
-    <Publicize Include="FMODUnity" />
+    <Reference Include="Newtonsoft.Json" Publicize="true"/>
+    <Reference Include="FMODUnity" Publicize="true"/>
+  </ItemGroup>
+
+  <ItemGroup>
+      <!-- Ignore NewtonSoft DOS vulnerability warnings on compile -->
+    <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-5crp-9r3c-p9vr" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="DocFX\logo.png" Pack="true" PackagePath="" />
+    <None Include="..\README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)|$(Platform)' == 'SN.STABLE|AnyCPU'">
@@ -66,4 +72,5 @@
   </ItemGroup>
     
   <Import Project="..\PostBuild.targets" />
+  <Import Project="..\PluginProps.targets" />
 </Project>
