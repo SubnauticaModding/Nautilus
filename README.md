@@ -21,11 +21,11 @@
 <!---- To get the links for section names that have emojis: go to 'Preview' > hover over the section text > hit the link icon that shows, and use that url ---->
 <!---------TABLE OF CONTENTS START--------->  
 ## Contents
-- [🌐 About](#-about)
-- [⬇️ Installation](#%EF%B8%8F-installation)
-- [📚 Resources / links](#-links)
-- [❤️ Contributors](#%EF%B8%8F-contributors)
-- [🤝 Contributing](#-contributing)
+- [About](#-about)
+- [Installation](#-installation)
+- [Resources / links](#-links)
+- [Contributors](#-contributors)
+- [Contributing](#-contributing)
 <!---------TABLE OF CONTENTS END--------->
 
 
@@ -33,14 +33,22 @@
 
 
 <!---------ABOUT SECTION START--------->
-## 🌐 About 
+## About 
 
-Nautilus is a modding library that aims to enhance developer productivity by offering common helper utilities as easy to use and robust as possible.
-Notable systems which Nautilus offers: Adding/editing items, implementing custom sprites & textures, custom audio, a Subnautica-styled mod configuration menu, and so much more! 
+Nautilus is the __core modding library__ for Subnautica and Subnautica: Below Zero. It offers many simple helpers and utilities for interacting with the game, allowing for easy implementation of content.
 
-This project is a continuation of [SMLHelper](https://github.com/SubnauticaModding/Nautilus/tree/sml-2) with an improved codebase and maintainability. Nautilus offers all the features SML used to offer in a more robust implementation. Additionally, Nautilus took another route of managing handlers to fix many bugs and timing issues that were persistent in SML.  
+Some notable features and techniques that Nautilus allows for are:
+- Adding new items, decorations, base modules, tools, and other prefabs
+- Regstering custom biomes, spawning objects in the world
+- In-game mod configuration in the Subnautica style
+- Adding sounds and replacing existing audio
+- Registering new story events: voice logs, PDA entries, story triggers, etc.
+- Setting up materials and shaders as accurately as possible
+- Registration utilities to help with making larger mods scaleable
 
-We hope to keep improving the modding experience in Subnautica to allow developers to create mods more easily and eliminate the implementation concerns in the mod-making process. For more information on Nautilus and its capabilities, please refer to our [documentation](https://subnauticamodding.github.io/Nautilus).  
+This project is a continuation of [SMLHelper](https://github.com/SubnauticaModding/Nautilus/tree/sml-2) with an improved codebase and maintainability. Nautilus offers all the features SML used to offer with a more robust implementation. Additionally, Nautilus took a different route for managing handlers to address many bugs and timing issues that were persistent in SML.  
+
+We hope to keep improving the modding experience in Subnautica to allow developers to create mods more easily and eliminate the implementation concerns in the mod-making process. For more information on Nautilus and its capabilities, please refer to our [documentation](https://subnauticamodding.github.io/Nautilus).
 
 ### ⚠️ Nautilus will only receive continued support for the latest version of Subnautica
 - #### If you are using the latest version of Subnautica (post [2025 patch](https://unknownworlds.com/en/news/subnautica-2025-patch)) or Below Zero, use [the latest release of Nautilus](https://github.com/SubnauticaModding/Nautilus/releases)
@@ -54,7 +62,7 @@ We hope to keep improving the modding experience in Subnautica to allow develope
 
 
 <!---------INSTALLATION SECTION START--------->
-## ⬇️ Installation
+## Installation
 1. Download the [Subnautica BepInEx Pack](https://www.nexusmods.com/subnautica/mods/1108). 
 2. Extract/unzip the BepInEx x64 zip file to your game folder
    <!---- FYI these dropdowns have a really weird spacing issue, the line breaks are mandatory to keep formatting! ---->
@@ -85,10 +93,12 @@ We hope to keep improving the modding experience in Subnautica to allow develope
 
 
 <!---------LINKS SECTION START--------->
-## 📚 Links
+## Links
 * Developer resources:
   * [Documentation](https://subnauticamodding.github.io/Nautilus) ([source](https://github.com/SubnauticaModding/Nautilus/tree/docs/Nautilus/Documentation))
   * [Updating to Nautilus from SMLHelper](https://subnauticamodding.github.io/Nautilus/guides/sml2-to-nautilus.html)
+
+
 * Other links:
   * [Subnautica Modding Discord Server](https://discord.gg/UpWuWwq)
 <!---------LINKS SECTION END--------->
@@ -98,9 +108,9 @@ We hope to keep improving the modding experience in Subnautica to allow develope
 
 
 <!---------CONTRIBUTORS SECTION START--------->
-## ❤️ Contributors
+## Contributors
 To everyone who has taken the time to contribute to Nautilus and/or SMLHelper, we cannot thank you enough!
-* [Table of contributors](https://github.com/SubnauticaModding/Nautilus/blob/master/AUTHORS.md) 📌
+* [Table of contributors](https://github.com/SubnauticaModding/Nautilus/blob/master/AUTHORS.md)
 
 <!---------CONTRIBUTORS SECTION END--------->
 
@@ -109,9 +119,11 @@ To everyone who has taken the time to contribute to Nautilus and/or SMLHelper, w
 
 
 <!---------CONTRIBUTING SECTION START--------->
-## 🤝 Contributing
-We welcome all kinds of contributions; simply ensure you have read through our [Contribution Guidelines](CONTRIBUTING.md) before submitting a pull request.<br>
-If you are not capable of writing code, but have feature ideas, or bug reports, feel free to [submit an issue](https://github.com/SubnauticaModding/Nautilus/issues/new) instead.
+## Contributing
+We welcome all kinds of contributions; simply ensure you have read through our [Contribution Guidelines](CONTRIBUTING.md) before submitting a pull request.
+
+If you are not capable of writing code, but have feature ideas or bug reports, feel free to [submit an issue](https://github.com/SubnauticaModding/Nautilus/issues/new) instead.
+
 <!---------CONTRIBUTING SECTION END--------->
 
 
