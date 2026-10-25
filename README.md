@@ -111,7 +111,7 @@ We hope to keep improving the modding experience in Subnautica to allow develope
 ## Contributors
 To everyone who has taken the time to contribute to Nautilus and/or SMLHelper, we cannot thank you enough!
 
-[Table of contributors](https://github.com/SubnauticaModding/Nautilus/blob/master/AUTHORS.md)
+[Table of contributors](https://github.com/SubnauticaModding/Nautilus/blob/master/AUTHORS.md) ❤️
 
 <!---------CONTRIBUTORS SECTION END--------->
 
