@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class MaterialLibrary ">
       
-      <meta name="description" content="Allows for quick and simple retrieval of any base-game material throughout both Subnautica and Subnautica: Below Zero. Materials can either be fetched directly using their names by accessing the  method, or applied generically across the entirety of a custom prefab via the ReplaceMockMaterials method.">
+      <meta name="description" content="Allows for quick and simple retrieval of any base-game material throughout both Subnautica and Subnautica: Below Zero. Materials can either be fetched directly using their names by accessing the  method, or applied generically across the entirety of a custom prefab via the  method.">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -99,7 +99,8 @@ Class MaterialLibrary
 
   <div class="markdown summary">Allows for quick and simple retrieval of any base-game material throughout both Subnautica and Subnautica:
 Below Zero. Materials can either be fetched directly using their names by accessing the <a class="xref" href="Nautilus.Utility.MaterialLibrary.html#Nautilus_Utility_MaterialLibrary_FetchMaterial_System_String_IOut_UnityEngine_Material__System_Boolean_">FetchMaterial(string, IOut&lt;Material&gt;, bool)</a>
-method, or applied generically across the entirety of a custom prefab via the ReplaceMockMaterials method.</div>
+method, or applied generically across the entirety of a custom prefab via the
+<a class="xref" href="Nautilus.Utility.MaterialUtils.html#Nautilus_Utility_MaterialUtils_ReplaceMockMaterials_UnityEngine_GameObject_">MaterialUtils.ReplaceMockMaterials</a> method.</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -161,8 +162,8 @@ method, or applied generically across the entirety of a custom prefab via the Re
   
   </h3>
 
-  <div class="markdown level1 summary">Searches the library for the provided materialName, and loads it from its path, if an entry for
-it exists.</div>
+  <div class="markdown level1 summary">Searches the library for the provided Material by name <code class="paramref">materialName</code>,
+and loads it from its path, if an entry for it exists.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -176,7 +177,7 @@ it exists.</div>
     <dt><code>foundMaterial</code> <span class="xref">IOut</span>&lt;<span class="xref">Material</span>&gt;</dt>
     <dd>The <span class="xref">TaskResult&lt;&gt;</span> to load the vanilla material into, if found. Otherwise, has its value set to null.</dd>
     <dt><code>warnIfFailed</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
-    <dd>Whether Nautilus should log a warning if no materials with the provided materialName are found.</dd>
+    <dd>Whether Nautilus should log a warning if no materials with the provided <code class="paramref">materialName</code> are found.</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -202,9 +203,10 @@ it exists.</div>
   
   </h3>
 
-  <div class="markdown level1 summary">Searches the library for all of the provided materialNames, and loads those materials from their
-paths, if entries for them exist. If only some of the given mat names have entries in the library, this method
-will return all of the vanilla materials it can, and will log warnings for those that it fails to find, by default.</div>
+  <div class="markdown level1 summary">Searches the library for all of the provided Materials with the names from <code class="paramref">materialNames</code>, and
+loads those materials from their paths, if entries for them exist. If only some of the given material names have
+entries in the library, this method will return all of the vanilla materials it can, and will log warnings
+for those that it fails to find.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -214,13 +216,13 @@ will return all of the vanilla materials it can, and will log warnings for those
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>materialNames</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</dt>
-    <dd>An array of the exact material names that you wish to retrieve, as seen in-game. Case-sensitive!</dd>
+    <dd>An array of the exact names of the materials that you wish to retrieve, as seen in-game. Case-sensitive!</dd>
     <dt><code>foundMaterials</code> <span class="xref">IOut</span>&lt;<span class="xref">Material</span>[]&gt;</dt>
     <dd>The <span class="xref">TaskResult&lt;&gt;</span> to load the vanilla materials into, if found.
             Will contain as many of the requested vanilla materials as can be found within the library.</dd>
     <dt><code>warnIfFailed</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></dt>
     <dd>Whether Nautilus should log a warning if one of the requested
-            materialNames can not be found in the library.</dd>
+            <code class="paramref">materialNames</code> can not be found in the library.</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
@@ -247,7 +249,7 @@ will return all of the vanilla materials it can, and will log warnings for those
   </h3>
 
   <div class="markdown level1 summary">Uses the <span class="xref">Nautilus.Utility.MaterialLibrary._filePathMap</span> to retrieve the path associated with a specified material using the
-materialName, so that it may be loaded when requested.</div>
+<code class="paramref">materialName</code>, so that it may be loaded when requested.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -264,8 +266,8 @@ materialName, so that it may be loaded when requested.</div>
   <dl class="parameters">
     <dt><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd>The path to the resource which should be loaded in order to retrieve the specified material.
-            Points to either a mat, prefab, or scene prefab file. Returns an empty string if the provided
-            materialName does not have an entry within the library.</dd>
+            Points to either a material, prefab, or scene prefab file. Returns an empty string if the provided
+            <code class="paramref">materialName</code> does not have an entry within the library.</dd>
   </dl>
 
 

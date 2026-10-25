@@ -14214,27 +14214,6 @@ references:
   commentId: Overload:Nautilus.Utility.FontUtils.SetFontInChildren
   fullName: Nautilus.Utility.FontUtils.SetFontInChildren
   nameWithType: FontUtils.SetFontInChildren
-- uid: Nautilus.Utility.IOUtilities
-  name: IOUtilities
-  href: api/Nautilus.Utility.IOUtilities.html
-  commentId: T:Nautilus.Utility.IOUtilities
-  fullName: Nautilus.Utility.IOUtilities
-  nameWithType: IOUtilities
-- uid: Nautilus.Utility.IOUtilities.Combine(System.String,System.String,System.String[])
-  name: Combine(string, string, params string[])
-  href: api/Nautilus.Utility.IOUtilities.html#Nautilus_Utility_IOUtilities_Combine_System_String_System_String_System_String___
-  commentId: M:Nautilus.Utility.IOUtilities.Combine(System.String,System.String,System.String[])
-  name.vb: Combine(String, String, ParamArray String())
-  fullName: Nautilus.Utility.IOUtilities.Combine(string, string, params string[])
-  fullName.vb: Nautilus.Utility.IOUtilities.Combine(String, String, ParamArray String())
-  nameWithType: IOUtilities.Combine(string, string, params string[])
-  nameWithType.vb: IOUtilities.Combine(String, String, ParamArray String())
-- uid: Nautilus.Utility.IOUtilities.Combine*
-  name: Combine
-  href: api/Nautilus.Utility.IOUtilities.html#Nautilus_Utility_IOUtilities_Combine_
-  commentId: Overload:Nautilus.Utility.IOUtilities.Combine
-  fullName: Nautilus.Utility.IOUtilities.Combine
-  nameWithType: IOUtilities.Combine
 - uid: Nautilus.Utility.ImageUtils
   name: ImageUtils
   href: api/Nautilus.Utility.ImageUtils.html
@@ -16665,6 +16644,12 @@ references:
   commentId: F:Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.renderer
   fullName: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.renderer
   nameWithType: ApplyMaterialModification.renderer
+- uid: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.renderers
+  name: renderers
+  href: api/Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.html#Nautilus_Utility_ThunderkitUtilities_ApplyMaterialModification_renderers
+  commentId: F:Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.renderers
+  fullName: Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.renderers
+  nameWithType: ApplyMaterialModification.renderers
 - uid: Nautilus.Utility.WorldEntityInfoUtils
   name: WorldEntityInfoUtils
   href: api/Nautilus.Utility.WorldEntityInfoUtils.html

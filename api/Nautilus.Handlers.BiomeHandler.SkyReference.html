@@ -294,7 +294,7 @@ Class BiomeHandler.SkyReference
   
   </h3>
 
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary">Gets the sky prefab for this <a class="xref" href="Nautilus.Handlers.BiomeHandler.SkyReference.html">BiomeHandler.SkyReference</a>.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -304,13 +304,14 @@ Class BiomeHandler.SkyReference
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>waterBiomeManager</code> <span class="xref">WaterBiomeManager</span></dt>
-    <dd></dd>
+    <dd>Used when the type is <span class="xref">StringLookup</span>.</dd>
   </dl>
 
   <h4 class="section">Returns</h4>
   <dl class="parameters">
     <dt><span class="xref">GameObject</span></dt>
-    <dd></dd>
+    <dd>Returns the sky's prefab depending on the given <a class="xref" href="Nautilus.Handlers.BiomeHandler.html">BiomeHandler.SkyReference.Type</a>:
+<ul><li><span class="xref">GameObjectReference</span>: Prefab reference is returned.</li><li><span class="xref">StringLookup</span>: The sky's name is searched for in the given <code class="paramref">waterBiomeManager</code>. Returns null if not found.</li><li><span class="xref">GetPrefabFromCallback</span>: The callback is invoked and the result is returned.</li></ul></dd>
   </dl>
 
 

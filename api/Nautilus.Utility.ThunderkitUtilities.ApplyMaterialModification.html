@@ -266,7 +266,8 @@ of custom implementation during prefab creation, because Start is called a frame
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Renderer renderer</code></pre>
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Use the new &#39;renderers&#39; field with support for LODs.&quot;)]
+public Renderer renderer</code></pre>
   </div>
 
 
@@ -275,6 +276,36 @@ of custom implementation during prefab creation, because Start is called a frame
   <h4 class="section">Field Value</h4>
   <dl class="parameters">
     <dt><span class="xref">Renderer</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="Nautilus_Utility_ThunderkitUtilities_ApplyMaterialModification_renderers" data-uid="Nautilus.Utility.ThunderkitUtilities.ApplyMaterialModification.renderers">
+  renderers
+  
+  </h3>
+
+  <div class="markdown level1 summary">Defines the renderers that this material modification is applied to. Use this for LOD support.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Renderer[] renderers</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Renderer</span>[]</dt>
     <dd></dd>
   </dl>
 
