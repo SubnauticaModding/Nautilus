@@ -369,7 +369,7 @@ public static class PDAHandler
     {
         if (!_gameHasLoadedFirstScene)
         {
-            if (SceneManager.GetActiveScene().IsValid())
+            if (!SceneManager.GetActiveScene().IsValid())
             {
                 return false;
             }
