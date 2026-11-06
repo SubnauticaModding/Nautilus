@@ -231,8 +231,19 @@ internal class OptionsMenuBuilder<T> : ModOptions where T : ConfigFile, new()
     /// <param name="colorAttribute">The defined or generated <see cref="ColorPickerAttribute"/> of the member.</param>
     private void BuildModColorOption(string id, string label, MemberInfoMetadata<T> memberInfoMetadata, ColorPickerAttribute colorAttribute)
     {
-        Color value = memberInfoMetadata.GetValue<Color>(ConfigFileMetadata.Config);
-        if (!AddItem(ModColorOption.Create(id, label, value, colorAttribute.Advanced)))
+        var value = memberInfoMetadata.GetValue<Color>(ConfigFileMetadata.Config);
+
+        var tooltip = Language.main.TryGet(colorAttribute.TooltipLanguageId, out var languageTooltip) ? languageTooltip : colorAttribute.Tooltip;
+        var redLabel = Language.main.TryGet(colorAttribute.RedLabel, out var languageRedLabel) ? languageRedLabel : colorAttribute.RedLabel;
+        var greenLabel = Language.main.TryGet(colorAttribute.GreenLabel, out var languageGreenLabel) ? languageGreenLabel : colorAttribute.GreenLabel;
+        var blueLabel = Language.main.TryGet(colorAttribute.BlueLabel, out var languageBlueLabel) ? languageBlueLabel : colorAttribute.BlueLabel;
+        var alphaLabel = Language.main.TryGet(colorAttribute.AlphaLabel, out var languageAlphaLabel) ? languageAlphaLabel : colorAttribute.AlphaLabel;
+        var redTooltip = Language.main.TryGet(colorAttribute.RedTooltip, out var languageRedTooltip) ? languageRedTooltip : colorAttribute.RedTooltip;
+        var greenTooltip = Language.main.TryGet(colorAttribute.GreenTooltip, out var languageGreenTooltip) ? languageGreenTooltip : colorAttribute.GreenTooltip;
+        var blueTooltip = Language.main.TryGet(colorAttribute.BlueTooltip, out var languageBlueTooltip) ? languageBlueTooltip : colorAttribute.BlueTooltip;
+        var alphaTooltip = Language.main.TryGet(colorAttribute.AlphaTooltip, out var languageAlphaTooltip) ? languageAlphaTooltip : colorAttribute.AlphaTooltip;
+
+        if(!AddItem(ModColorOption.Create(id, label, value, colorAttribute.Advanced, tooltip, redLabel:redLabel, greenLabel:greenLabel, blueLabel:blueLabel, alphaLabel:alphaLabel, redTooltip:redTooltip, greenTooltip:greenTooltip, blueTooltip:blueTooltip, alphaTooltip:alphaTooltip)))
             InternalLogger.Warn($"Failed to add ModColorOption with id {id} to {Name}");
     }
 
