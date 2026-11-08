@@ -158,19 +158,19 @@ public class MyModOptions : ModOptions
     {
         OnChanged += Options_Changed;
 
-        var Slider1 = ModSliderOption.Create(&quot;Slider1&quot;, &quot;My Slider&quot;, 0, 50, 15, 25);
-        Slider1_OnChanged += Slider1_OnChanged;
-        AddItem(Slider1);
+        var slider1 = ModSliderOption.Create(&quot;Slider1&quot;, &quot;My Slider&quot;, 0, 50, 15, 25);
+        slider1.OnChanged += Slider1_OnChanged;
+        AddItem(slider1);
 
-        var Toggle1 = ModToggleOption.Create(&quot;Toggle1&quot;, &quot;My Toggle&quot;, true);
-        Toggle1_OnChanged += Toggle1_OnChanged;
-        AddItem(Toggle1);
+        var toggle1 = ModToggleOption.Create(&quot;Toggle1&quot;, &quot;My Toggle&quot;, true);
+        toggle1.OnChanged += Toggle1_OnChanged;
+        AddItem(toggle1);
 
-        var Toggle2 = ModToggleOption.Create(&quot;Toggle2&quot;, &quot;My Other Toggle&quot;, true);
-        Toggle2_OnChanged += (object sender, ToggleChangedEventArgs e) =&gt; { /// Handle changes here };
+        var toggle2 = ModToggleOption.Create(&quot;Toggle2&quot;, &quot;My Other Toggle&quot;, true);
+        toggle2.OnChanged += (object sender, ToggleChangedEventArgs e) =&gt; { /// Handle changes here };
         
         
-        AddItem(Toggle2);
+        AddItem(toggle2);
     }
 
     private void Slider1_OnChanged(object sender, SliderChangedEventArgs e)
