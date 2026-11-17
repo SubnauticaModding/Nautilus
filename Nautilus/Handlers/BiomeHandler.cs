@@ -65,7 +65,7 @@ public static class BiomeHandler
     /// Removes a batch biome override that was set through <see cref="SetBatchBiome"/>.
     /// </summary>
     /// <param name="batch">The batch that will have its biome override unregistered and reset to the game's default biome.</param>
-    /// <remarks>This change will not apply until the batch is fully unloaded.</remarks>
+    /// <remarks>If this batch is currently loaded, this change will not apply until the batch has been unloaded.</remarks>
     public static void ResetBatchBiomeToDefault(Int3 batch)
     {
         BiomePatcher.ResetBatchAtmosphereVolume(batch);
