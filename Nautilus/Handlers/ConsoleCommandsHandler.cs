@@ -2,7 +2,7 @@
 using System.Reflection;
 using HarmonyLib;
 using Nautilus.Commands;
-using Nautilus.Patchers;
+using Nautilus.Patchers.HandlerPatchers;
 using UnityEngine;
 
 namespace Nautilus.Handlers;

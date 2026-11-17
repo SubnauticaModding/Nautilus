@@ -1,5 +1,3 @@
-namespace Nautilus.Patchers;
-
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +5,8 @@ using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Utility;
 using UnityEngine;
+
+namespace Nautilus.Patchers.HandlerPatchers;
 
 internal static class LanguagePatcher
 {

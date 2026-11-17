@@ -1,14 +1,14 @@
-using HarmonyLib;
-using Newtonsoft.Json.Utilities;
-using System.Collections.Generic;
-using Nautilus.Utility;
-using System.Reflection.Emit;
-using Nautilus.Handlers;
-using System.Linq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
+using HarmonyLib;
+using Nautilus.Handlers;
+using Nautilus.Utility;
+using Newtonsoft.Json.Utilities;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.Fixes;
 
 // Patches methods in the Newtonsoft.Json.Utilities.EnumUtils class to ensure that custom enums are handled properly, without error
 internal static class NewtonsoftJsonPatcher

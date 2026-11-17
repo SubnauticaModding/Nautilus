@@ -2,6 +2,7 @@ using System.Linq;
 using System.Reflection;
 using HarmonyLib;
 using Nautilus.Patchers;
+using Nautilus.Patchers.Fixes;
 using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

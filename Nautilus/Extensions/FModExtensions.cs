@@ -1,6 +1,6 @@
 ﻿using FMOD;
 using FMODUnity;
-using Nautilus.Patchers;
+using Nautilus.Patchers.HandlerPatchers;
 using Nautilus.Utility;
 
 namespace Nautilus.Extensions;

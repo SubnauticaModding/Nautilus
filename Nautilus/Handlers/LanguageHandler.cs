@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Nautilus.Patchers;
+using Nautilus.Patchers.HandlerPatchers;
 using Nautilus.Utility;
 using Newtonsoft.Json;
 

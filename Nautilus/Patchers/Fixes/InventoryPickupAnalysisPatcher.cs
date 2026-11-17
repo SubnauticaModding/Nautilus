@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.Fixes;
 
 /* This class fixes a bug related to picked up items not having "verbose" analysis tech
  * In other words... there are no notifications for unlocked tech when you pick up creatures, resources, etc...

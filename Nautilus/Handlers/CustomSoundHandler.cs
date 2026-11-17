@@ -2,7 +2,7 @@ using FMOD;
 using FMOD.Studio;
 using FMODUnity;
 using Nautilus.FMod.Interfaces;
-using Nautilus.Patchers;
+using Nautilus.Patchers.HandlerPatchers;
 using Nautilus.Utility;
 using UnityEngine;
 

@@ -11,7 +11,7 @@ using Nautilus.Extensions;
 using Nautilus.Utility;
 using UnityEngine;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.HandlerPatchers;
 
 internal static class ConsoleCommandsPatcher
 {

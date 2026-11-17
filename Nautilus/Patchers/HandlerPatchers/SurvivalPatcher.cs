@@ -5,7 +5,7 @@ using HarmonyLib;
 using Nautilus.Utility;
 using UnityEngine;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.HandlerPatchers;
 
 internal class SurvivalPatcher
 {

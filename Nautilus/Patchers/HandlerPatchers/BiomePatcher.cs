@@ -4,7 +4,7 @@ using mset;
 using Nautilus.Handlers;
 using UnityEngine;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.HandlerPatchers;
 
 internal static class BiomePatcher
 {
