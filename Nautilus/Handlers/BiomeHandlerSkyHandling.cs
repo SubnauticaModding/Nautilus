@@ -10,64 +10,46 @@ public static partial class BiomeHandler
     /// </summary>
     public class SkyReference
     {
-        private enum Type
-        {
-            GameObjectReference,
-            StringLookup,
-            GetPrefabFromCallback
-        }
-
         private readonly GameObject _obj;
         private readonly string _existingSkyPrefabNameToLookUp;
         private readonly System.Func<GameObject> _prefabCallback;
-        private readonly Type _type;
+        private readonly ReferenceType _referenceType;
 
         /// <summary>
         /// Defines a reference to a new or existing Sky prefab.
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">The GameObject containing the <see cref="mset.Sky"/> component.</param>
         public SkyReference(GameObject obj)
         {
             _obj = obj;
-            _type = Type.GameObjectReference;
+            _referenceType = ReferenceType.GameObjectReference;
         }
 
         /// <summary>
         /// Defines a reference to a base-game Sky prefab.
         /// </summary>
         /// <param name="existingSkyPrefabName"><para>The name of the Sky prefab from the list of base-game Skies, i.e. "SkySafeShallows".</para>
-        /// <para>A list of valid inputs can be found on this page: https://subnauticamodding.github.io/Nautilus/tutorials/biomes.html</para></param>
+        /// <para>A list of valid inputs can be found on this page: https://subnauticamodding.github.io/Nautilus/tutorials/biome-setting-references.html</para></param>
         public SkyReference(string existingSkyPrefabName)
         {
             _existingSkyPrefabNameToLookUp = existingSkyPrefabName;
-            _type = Type.StringLookup;
+            _referenceType = ReferenceType.StringLookup;
         }
         
         /// <summary>
         /// Defines a reference to a Sky prefab that is created on demand at runtime.
         /// </summary>
         /// <param name="prefabCallback">A deferred callback to retrieve a GameObject containing the <see cref="mset.Sky"/> component.</param>
+        /// <remarks>The object returned by the callback will not be cached.</remarks>
         public SkyReference(System.Func<GameObject> prefabCallback)
         {
             _prefabCallback = prefabCallback;
-            _type = Type.GetPrefabFromCallback;
+            _referenceType = ReferenceType.GetPrefabFromCallback;
         }
         
-        /// <summary>
-        /// Gets the sky prefab for this <see cref="SkyReference"/>.
-        /// </summary>
-        /// <param name="waterBiomeManager">Used when the type is <see cref="SkyReference.Type.StringLookup">StringLookup</see>.</param>
-        /// <returns>
-        /// Returns the sky's prefab depending on the given <see cref="SkyReference.Type"/>:
-        /// <list type="bullet">
-        ///     <item><see cref="SkyReference.Type.GameObjectReference">GameObjectReference</see>: Prefab reference is returned.</item>
-        ///     <item><see cref="SkyReference.Type.StringLookup">StringLookup</see>: The sky's name is searched for in the given <paramref name="waterBiomeManager"/>. Returns null if not found.</item>
-        ///     <item><see cref="SkyReference.Type.GetPrefabFromCallback">GetPrefabFromCallback</see>: The callback is invoked and the result is returned.</item>
-        /// </list>
-        /// </returns>
-        public virtual GameObject GetSkyPrefabAtRuntime(WaterBiomeManager waterBiomeManager)
+        internal virtual GameObject GetSkyPrefabAtRuntime(WaterBiomeManager waterBiomeManager)
         {
-            if (_type == Type.StringLookup)
+            if (_referenceType == ReferenceType.StringLookup)
             {
                 foreach (var settings in waterBiomeManager.biomeSettings)
                 {
@@ -81,12 +63,19 @@ public static partial class BiomeHandler
                 return null;
             }
 
-            if (_type == Type.GetPrefabFromCallback)
+            if (_referenceType == ReferenceType.GetPrefabFromCallback)
             {
                 return _prefabCallback?.Invoke();
             }
 
             return _obj;
+        }
+        
+        private enum ReferenceType
+        {
+            GameObjectReference,
+            StringLookup,
+            GetPrefabFromCallback
         }
     }
 }
