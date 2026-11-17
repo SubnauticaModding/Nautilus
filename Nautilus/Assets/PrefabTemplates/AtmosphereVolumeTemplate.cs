@@ -84,6 +84,12 @@ public class AtmosphereVolumeTemplate : PrefabTemplate
         var atmosphereVolume = prefab.AddComponent<AtmosphereVolume>();
         atmosphereVolume.overrideBiome = OverrideBiome;
         atmosphereVolume.priority = Priority;
+        
+#pragma warning disable CS0612 // Type or member is obsolete -- Disable warning to prevent NREs
+        atmosphereVolume.fog = new FogSettings();
+        atmosphereVolume.sun = new SunlightSettings();
+        atmosphereVolume.amb = new AmbientLightSettings();
+#pragma warning restore CS0612 // Type or member is obsolete
 
         if (CanEnterWhileInsideVehicle)
         {
