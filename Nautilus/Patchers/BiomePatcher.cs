@@ -72,6 +72,26 @@ internal static class BiomePatcher
         }
     }
     
+    [HarmonyPatch(typeof(LargeWorldBatchRoot), nameof(LargeWorldBatchRoot.Start))]
+    [HarmonyPrefix]
+    internal static void PatchBatchBiome(LargeWorldBatchRoot __instance)
+    {
+        // The batchId will consistently be set to 0,0,0 due to a race condition.
+        // The batchId is set only after all batch objects load. Therefore, we must ensure it is correct.
+        
+        Int3 batchId = __instance.batchId;
+        if (batchId == Int3.zero)
+        {
+            // Check slightly further into the batch to prevent rounding errors
+            batchId = LargeWorldStreamer.main.GetContainingBatch(__instance.transform.position + Vector3.one);
+        }
+        
+        if (BatchAtmosphereVolumeOverrides.TryGetValue(batchId, out var overrideVolume))
+        {
+            __instance.atmospherePrefabClassId = overrideVolume;
+        }
+    }
+    
     private static bool InMainMenu(WaterBiomeManager waterBiomeManager)
     {
         return waterBiomeManager.biomeSkies == null || waterBiomeManager.biomeSkies.Count == 1;
