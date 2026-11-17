@@ -60,6 +60,16 @@ public static class BiomeHandler
     {
         BiomePatcher.SetBatchAtmosphereVolume(batch, atmosphereVolumeClassID);
     }
+
+    /// <summary>
+    /// Removes a batch biome override that was set through <see cref="SetBatchBiome"/>.
+    /// </summary>
+    /// <param name="batch">The batch that will have its biome override unregistered and reset to the game's default biome.</param>
+    /// <remarks>This change will not apply until the batch is fully unloaded.</remarks>
+    public static void ResetBatchBiomeToDefault(Int3 batch)
+    {
+        BiomePatcher.ResetBatchAtmosphereVolume(batch);
+    }
     
     /// <summary>
     /// Defines a reference to a new or existing Sky prefab.

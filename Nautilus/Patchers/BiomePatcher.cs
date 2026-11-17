@@ -46,6 +46,11 @@ internal static class BiomePatcher
     {
         BatchAtmosphereVolumeOverrides[batch] = atmosphereVolumeClassId;
     }
+    
+    internal static void ResetBatchAtmosphereVolume(Int3 batch)
+    {
+        BatchAtmosphereVolumeOverrides.Remove(batch);
+    }
 
     [HarmonyPatch(typeof(WaterBiomeManager), nameof(WaterBiomeManager.Start))]
     [HarmonyPostfix]
