@@ -1,5 +1,5 @@
 ﻿using Nautilus.Crafting;
-using Nautilus.Patchers;
+using Nautilus.Patchers.PdaData;
 
 // ReSharper disable once CheckNamespace
 namespace Nautilus.Handlers;

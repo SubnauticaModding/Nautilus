@@ -2,6 +2,7 @@ using Nautilus.Json;
 using Nautilus.Options;
 using Nautilus.Options.Attributes;
 using Nautilus.Patchers;
+using Nautilus.Patchers.PdaData;
 
 namespace Nautilus;
 [ConfigFile("NautilusConfig")]

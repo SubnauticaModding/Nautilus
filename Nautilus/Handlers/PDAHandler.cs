@@ -1,7 +1,7 @@
 using BepInEx.Logging;
 using FMOD;
 using Nautilus.FMod.Interfaces;
-using Nautilus.Patchers;
+using Nautilus.Patchers.PdaData;
 using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;

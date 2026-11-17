@@ -4,6 +4,7 @@ using BepInEx;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Patchers;
+using Nautilus.Patchers.PdaData;
 using Nautilus.Utility;
 using Nautilus.Utility.ModMessages;
 using UnityEngine;

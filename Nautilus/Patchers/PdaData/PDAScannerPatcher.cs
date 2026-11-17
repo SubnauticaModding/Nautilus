@@ -3,7 +3,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Utility;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.PdaData;
 
 // Special thanks to Gorillazilla9 for sharing this method of fragment count patching
 // https://github.com/Gorillazilla9/SubnauticaFragReqBoost/blob/master/PDAScannerPatcher.cs

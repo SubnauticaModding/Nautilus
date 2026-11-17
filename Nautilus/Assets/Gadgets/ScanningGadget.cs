@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Nautilus.Handlers;
-using Nautilus.Patchers;
+using Nautilus.Patchers.PdaData;
 using Nautilus.Utility;
 using Story;
 using UnityEngine;

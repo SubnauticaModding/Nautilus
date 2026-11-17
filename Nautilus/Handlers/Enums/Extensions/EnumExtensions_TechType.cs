@@ -1,6 +1,6 @@
 ﻿using Nautilus.Assets;
 using Nautilus.Handlers.Internals;
-using Nautilus.Patchers;
+using Nautilus.Patchers.PdaData;
 using Nautilus.Utility;
 
 // ReSharper disable once CheckNamespace

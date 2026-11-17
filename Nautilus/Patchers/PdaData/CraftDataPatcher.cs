@@ -5,9 +5,8 @@ using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using UnityEngine;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.PdaData;
 
 internal class CraftDataPatcher
 {

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Text;
 using BepInEx.Logging;
@@ -7,7 +6,7 @@ using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.PdaData;
 
 internal class TooltipPatcher
 {

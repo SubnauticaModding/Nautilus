@@ -1,7 +1,7 @@
 using HarmonyLib;
 using Nautilus.Handlers;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.PdaData;
 
 internal class PDAEncyclopediaTabPatcher
 {

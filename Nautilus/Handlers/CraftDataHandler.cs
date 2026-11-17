@@ -3,6 +3,7 @@ using System.Linq;
 using Nautilus.Crafting;
 using Nautilus.Extensions;
 using Nautilus.Patchers;
+using Nautilus.Patchers.PdaData;
 
 namespace Nautilus.Handlers;
 
