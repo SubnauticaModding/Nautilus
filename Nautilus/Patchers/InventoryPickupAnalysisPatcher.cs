@@ -8,7 +8,7 @@ namespace Nautilus.Patchers;
  * In other words... there are no notifications for unlocked tech when you pick up creatures, resources, etc...
  * We're technically fixing a vanilla bug, which does go beyond the normal scope of Nautilus. However, this bug does affect Nautilus!
  */
-internal static class InventoryPatcher
+internal static class InventoryPickupAnalysisPatcher
 {
     private const string CHANGESET_WHERE_BUG_EXISTS = "71288";
 
@@ -20,7 +20,7 @@ internal static class InventoryPatcher
         if (SNUtils.GetPlasticChangeSetOfBuild() != CHANGESET_WHERE_BUG_EXISTS)
             return;
 
-        var transpiler = new HarmonyMethod(AccessTools.Method(typeof(InventoryPatcher), nameof(VerbosePickupFixTranspiler)));
+        var transpiler = new HarmonyMethod(AccessTools.Method(typeof(InventoryPickupAnalysisPatcher), nameof(VerbosePickupFixTranspiler)));
 
         harmony.Patch(AccessTools.Method(typeof(Inventory), nameof(Inventory.Pickup)),
             transpiler: transpiler);
