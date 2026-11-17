@@ -1,6 +1,7 @@
 using HarmonyLib;
 
 namespace Nautilus.Patchers;
+
 internal class uGUI_CraftingMenuPatcher
 {
     internal static void Patch(Harmony harmony)

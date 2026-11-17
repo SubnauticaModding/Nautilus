@@ -4,6 +4,9 @@ using BepInEx;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Patchers;
+using Nautilus.Patchers.Fixes;
+using Nautilus.Patchers.HandlerPatchers;
+using Nautilus.Patchers.PdaData;
 using Nautilus.Utility;
 using Nautilus.Utility.ModMessages;
 using UnityEngine;
@@ -64,7 +67,7 @@ public class Initializer : BaseUnityPlugin
         OptionsPanelPatcher.Patch(_harmony);
         ItemsContainerPatcher.Patch(_harmony);
         PDALogPatcher.Patch(_harmony);
-        PDAPatcher.Patch(_harmony);
+        PDAScannerPatcher.Patch(_harmony);
         PDAEncyclopediaPatcher.Patch(_harmony);
         ItemActionPatcher.Patch(_harmony);
         LootDistributionPatcher.Patch(_harmony);
@@ -80,7 +83,7 @@ public class Initializer : BaseUnityPlugin
         StoryGoalPatcher.Patch(_harmony);
         PDAEncyclopediaTabPatcher.Patch(_harmony);
         NewtonsoftJsonPatcher.Patch(_harmony);
-        InventoryPatcher.Patch(_harmony);
+        InventoryPickupAnalysisPatcher.Patch(_harmony);
         WaterParkPatcher.Patch(_harmony);
         ModMessageSystem.Patch();
         BiomePatcher.Patch(_harmony);

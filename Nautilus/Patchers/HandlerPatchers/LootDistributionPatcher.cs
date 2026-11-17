@@ -3,7 +3,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Utility;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.HandlerPatchers;
 
 internal class LootDistributionPatcher
 {

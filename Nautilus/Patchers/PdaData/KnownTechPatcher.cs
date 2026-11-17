@@ -1,11 +1,11 @@
-﻿namespace Nautilus.Patchers;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
-using Handlers;
-using Utility;
+using Nautilus.Handlers;
+using Nautilus.Utility;
+
+namespace Nautilus.Patchers.PdaData;
 
 internal class KnownTechPatcher
 {

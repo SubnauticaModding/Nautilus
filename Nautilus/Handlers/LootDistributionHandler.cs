@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using BepInEx.Logging;
 using Nautilus.Assets;
-using Nautilus.Patchers;
+using Nautilus.Patchers.HandlerPatchers;
 using Nautilus.Utility;
 using UWE;
 

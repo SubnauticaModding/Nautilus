@@ -1,11 +1,12 @@
+using Nautilus.Patchers.PdaData;
+
 namespace Nautilus.Handlers;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nautilus.Crafting;
-using Nautilus.Patchers;
-using Nautilus.Utility;
+using Crafting;
+using Utility;
 
 /// <summary>
 /// A handler class for creating and modifying crafting trees.

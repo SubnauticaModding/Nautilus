@@ -12,7 +12,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.HandlerPatchers;
 
 internal class CustomSoundPatcher
 {

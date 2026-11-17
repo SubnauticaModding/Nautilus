@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Nautilus.Utility;
 using UWE;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.HandlerPatchers;
 
 internal class WorldEntityDatabasePatcher
 {

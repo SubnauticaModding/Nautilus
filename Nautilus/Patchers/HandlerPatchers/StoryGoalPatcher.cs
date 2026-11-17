@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using HarmonyLib;
 using Nautilus.MonoBehaviours;
-using Story;
 using Nautilus.Utility;
+using Story;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.HandlerPatchers;
 
 internal static class StoryGoalPatcher
 {

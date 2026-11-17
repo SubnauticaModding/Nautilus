@@ -1,10 +1,8 @@
 ﻿#if SUBNAUTICA
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using HarmonyLib;
-using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine.InputSystem;
 using Hotkey = (GameInput.Button button, GameInput.Device device);

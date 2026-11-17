@@ -2,7 +2,7 @@
 using HarmonyLib;
 using UnityEngine.AddressableAssets;
 
-namespace Nautilus.Patchers;
+namespace Nautilus.Patchers.Fixes;
 
 [HarmonyPatch(typeof(AssetReference))]
 internal static class AssetReferencePatcher
