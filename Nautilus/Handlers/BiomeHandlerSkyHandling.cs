@@ -8,7 +8,7 @@ public static partial class BiomeHandler
     /// <summary>
     /// Defines a reference to a new or existing Sky prefab.
     /// </summary>
-    public class SkyReference
+    public sealed class SkyReference
     {
         private readonly GameObject _obj;
         private readonly string _existingSkyPrefabNameToLookUp;
@@ -47,7 +47,7 @@ public static partial class BiomeHandler
             _referenceType = ReferenceType.GetPrefabFromCallback;
         }
         
-        internal virtual GameObject GetSkyPrefabAtRuntime(WaterBiomeManager waterBiomeManager)
+        internal GameObject GetSkyPrefabAtRuntime(WaterBiomeManager waterBiomeManager)
         {
             if (_referenceType == ReferenceType.StringLookup)
             {
