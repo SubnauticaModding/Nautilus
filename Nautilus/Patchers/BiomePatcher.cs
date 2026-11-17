@@ -10,6 +10,7 @@ internal static class BiomePatcher
 {
     private static readonly List<CustomBiomeData> CustomBiomes = new();
     private static readonly List<CustomBiomeSoundData> CustomBiomeSoundDatas = new();
+    private static readonly Dictionary<Int3, string> BatchAtmosphereVolumeOverrides = new();
 
     internal static void Patch(Harmony harmony)
     {
@@ -39,6 +40,11 @@ internal static class BiomePatcher
         {
             AddBiomeSoundEmitterToWaterAmbience(waterAmbienceComponent, biomeSoundData);
         }
+    }
+
+    internal static void SetBatchAtmosphereVolume(Int3 batch, string atmosphereVolumeClassId)
+    {
+        BatchAtmosphereVolumeOverrides[batch] = atmosphereVolumeClassId;
     }
 
     [HarmonyPatch(typeof(WaterBiomeManager), nameof(WaterBiomeManager.Start))]

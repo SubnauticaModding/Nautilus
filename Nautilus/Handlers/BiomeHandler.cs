@@ -1,4 +1,5 @@
-﻿using Nautilus.Patchers;
+﻿using Nautilus.Assets.PrefabTemplates;
+using Nautilus.Patchers;
 using Nautilus.Utility;
 using UnityEngine;
 
@@ -42,6 +43,22 @@ public static class BiomeHandler
     public static void AddBiomeAmbience(string biomeName, FMODAsset ambienceAsset, FMODGameParams.InteriorState interiorState)
     {
         BiomePatcher.RegisterBiomeSoundData(new BiomePatcher.CustomBiomeSoundData(BiomePatcher.CustomBiomeSoundData.Type.Ambience, biomeName, ambienceAsset, interiorState));
+    }
+
+    /// <summary>
+    /// Overrides the biome of the batch that is located at the provided coordinates.
+    /// </summary>
+    /// <param name="batch">The coordinates of the batch to override. Example batch coordinates: (12, 18, 12).
+    /// The current batch can be found in-game using the F1 menu.</param>
+    /// <param name="atmosphereVolumeClassID">The Class ID of the atmosphere volume prefab that settings are pulled from.
+    /// See the <see cref="AtmosphereVolumeTemplate"/> class for making your own.</param>
+    /// <remarks>
+    /// Biomes defined at the batch level override the 2D biome map, but do NOT override Atmosphere Volumes.
+    /// Batch biomes are typically used by the game for large caves such as the Jellyshroom Cave, Lost River, and Lava Zone.
+    /// </remarks>
+    public static void SetBatchBiome(Int3 batch, string atmosphereVolumeClassID)
+    {
+        BiomePatcher.SetBatchAtmosphereVolume(batch, atmosphereVolumeClassID);
     }
     
     /// <summary>
