@@ -64,7 +64,7 @@ public class Initializer : BaseUnityPlugin
         OptionsPanelPatcher.Patch(_harmony);
         ItemsContainerPatcher.Patch(_harmony);
         PDALogPatcher.Patch(_harmony);
-        PDAPatcher.Patch(_harmony);
+        PDAScannerPatcher.Patch(_harmony);
         PDAEncyclopediaPatcher.Patch(_harmony);
         ItemActionPatcher.Patch(_harmony);
         LootDistributionPatcher.Patch(_harmony);
