@@ -10,7 +10,7 @@ namespace Nautilus.Patchers;
  */
 internal static class InventoryPatcher
 {
-    private const string CHANGESET_WHERE_BUG_EXISTS = "71288";
+    private const string CHANGESET_WHERE_BUG_EXISTS = "83031";
 
     internal static void Patch(Harmony harmony)
     {
