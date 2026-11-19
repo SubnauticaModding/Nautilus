@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
+using BepInEx.Logging;
 using Nautilus.Extensions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -291,7 +292,8 @@ public static partial class MaterialUtils
         else
         {
             InternalLogger.Log($"No specular map was applied to the material '{material}'. It will not react to lighting correctly. " +
-                               $"Please use the 'Standard (Specular setup)' shader or an equivalent to apply a specular map.");
+                               $"Please use the 'Standard (Specular setup)' shader or equivalent and apply a specular map.",
+                LogLevel.Debug);
         }
 
         // Apply emission if it was enabled in the standard shader
