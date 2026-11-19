@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using BepInEx.Logging;
 using HarmonyLib;
 using mset;
@@ -100,6 +100,7 @@ internal static class BiomePatcher
             if (!PrefabDatabase.prefabFiles.ContainsKey(overrideVolume))
             {
                 InternalLogger.Log($"Error while patching batch {batchId}: No atmosphere volume prefab exists with Class ID '{overrideVolume}'. Batch biome will not be replaced.", LogLevel.Error);
+                return;
             }
             __instance.atmospherePrefabClassId = overrideVolume;
         }
