@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using BepInEx.Logging;
 using HarmonyLib;
 using mset;
 using Nautilus.Handlers;
+using Nautilus.Utility;
 using UnityEngine;
+using UWE;
 
 namespace Nautilus.Patchers;
 
@@ -10,7 +13,8 @@ internal static class BiomePatcher
 {
     private static readonly List<CustomBiomeData> CustomBiomes = new();
     private static readonly List<CustomBiomeSoundData> CustomBiomeSoundDatas = new();
-    private static readonly Dictionary<Int3, string> BatchAtmosphereVolumeOverrides = new();
+    private static readonly SelfCheckingDictionary<Int3, string> BatchAtmosphereVolumeOverrides =
+        new("BatchAtmosphereVolumePrefabOverrides");
 
     internal static void Patch(Harmony harmony)
     {
@@ -93,6 +97,10 @@ internal static class BiomePatcher
         
         if (BatchAtmosphereVolumeOverrides.TryGetValue(batchId, out var overrideVolume))
         {
+            if (!PrefabDatabase.prefabFiles.ContainsKey(overrideVolume))
+            {
+                InternalLogger.Log($"Error while patching batch {batchId}: No atmosphere volume prefab exists with Class ID '{overrideVolume}'. Batch biome will not be replaced.", LogLevel.Error);
+            }
             __instance.atmospherePrefabClassId = overrideVolume;
         }
     }
