@@ -184,15 +184,18 @@ public static partial class MaterialUtils
     public const int kTransparencyRenderQueue = 3101;
 
     /// <summary>
-    /// <para>Applies the necessary settings for Subnautica's standard shader (<see cref="Shaders.MarmosetUBER"/>) to the passed <see cref="GameObject"/>.</para>
-    /// <para><b>The specific changes to each material are influenced by certain (case-insensitive) keywords in their asset names:</b>
-    /// <br/>"TRANSPARENT": Enables transparency.
-    /// <br/>"CUTOUT": Enables alpha clipping.</para>
+    /// <para>Converts materials to use Subnautica's standard shader (<see cref="Shaders.MarmosetUBER"/>). Applies to all
+    /// materials in each Renderer in the given <see cref="GameObject"/>.</para>
+    /// <para>The expected shader properties for input materials are based on Unity's default 'Standard (Specular setup)' shader.
+    /// The color, main texture, specular texture, normal map, emission, and detail maps will be transferred.</para>
+    /// <para><b>Certain (case-insensitive) keywords in the material asset names have an effect:</b>
+    /// <br/>"TRANSPARENT": Forces the material to be transparent.
+    /// <br/>"CUTOUT": Forces the material to have alpha clipping.</para>
     /// </summary>
     /// <param name="gameObject">The <see cref="GameObject"/> to apply the shaders to (includes all children).</param>
-    /// <param name="shininess">'_Shininess' value of the shader. Recommended range of 1.0f-8.0f.</param>
-    /// <param name="specularIntensity">'_SpecularInt' value of the shader. Values around 1f are recommended.</param>
-    /// <param name="glowStrength">'_GlowStrength' and '_GlowStrengthNight' value of the shader. Should not be absurdly high.</param>
+    /// <param name="shininess">'_Shininess' value of the shader. Recommended range is 0.0f-8.0f.</param>
+    /// <param name="specularIntensity">'_SpecInt' value of the shader.</param>
+    /// <param name="glowStrength">'_GlowStrength' and '_GlowStrengthNight' value of the shader.</param>
     /// <param name="modifiers">Optional array of classes that inherit from the <see cref="MaterialModifier"/> class. This allows for extensive customization of the method. Called in ascending order on every material.</param>
     /// <remarks>For tighter control, use the <see cref="ApplyUBERShader"/> method, which ApplySNShaders calls internally.</remarks>
     public static void ApplySNShaders(GameObject gameObject, float shininess = 4f, float specularIntensity = 1f, float glowStrength = 1f, params MaterialModifier[] modifiers)
