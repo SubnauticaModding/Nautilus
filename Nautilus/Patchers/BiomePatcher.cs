@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using BepInEx.Logging;
 using HarmonyLib;
 using mset;
 using Nautilus.Handlers;
+using Nautilus.Utility;
 using UnityEngine;
+using UWE;
 
 namespace Nautilus.Patchers;
 
@@ -10,6 +13,8 @@ internal static class BiomePatcher
 {
     private static readonly List<CustomBiomeData> CustomBiomes = new();
     private static readonly List<CustomBiomeSoundData> CustomBiomeSoundDatas = new();
+    private static readonly SelfCheckingDictionary<Int3, string> BatchAtmosphereVolumeOverrides =
+        new("BatchAtmosphereVolumePrefabOverrides");
 
     internal static void Patch(Harmony harmony)
     {
@@ -41,6 +46,16 @@ internal static class BiomePatcher
         }
     }
 
+    internal static void SetBatchAtmosphereVolume(Int3 batch, string atmosphereVolumeClassId)
+    {
+        BatchAtmosphereVolumeOverrides[batch] = atmosphereVolumeClassId;
+    }
+    
+    internal static void ResetBatchAtmosphereVolume(Int3 batch)
+    {
+        BatchAtmosphereVolumeOverrides.Remove(batch);
+    }
+
     [HarmonyPatch(typeof(WaterBiomeManager), nameof(WaterBiomeManager.Start))]
     [HarmonyPostfix]
     internal static void WaterBiomeManagerStartPostfix(WaterBiomeManager __instance)
@@ -63,6 +78,31 @@ internal static class BiomePatcher
         foreach (var soundData in CustomBiomeSoundDatas)
         {
             AddBiomeSoundEmitterToWaterAmbience(__instance, soundData);
+        }
+    }
+    
+    [HarmonyPatch(typeof(LargeWorldBatchRoot), nameof(LargeWorldBatchRoot.Start))]
+    [HarmonyPrefix]
+    internal static void PatchBatchBiome(LargeWorldBatchRoot __instance)
+    {
+        // The batchId will consistently be set to 0,0,0 due to a race condition.
+        // The batchId is set only after all batch objects load. Therefore, we must ensure it is correct.
+        
+        Int3 batchId = __instance.batchId;
+        if (batchId == Int3.zero)
+        {
+            // Check slightly further into the batch to prevent rounding errors
+            batchId = LargeWorldStreamer.main.GetContainingBatch(__instance.transform.position + Vector3.one);
+        }
+        
+        if (BatchAtmosphereVolumeOverrides.TryGetValue(batchId, out var overrideVolume))
+        {
+            if (!PrefabDatabase.prefabFiles.ContainsKey(overrideVolume))
+            {
+                InternalLogger.Log($"Error while patching batch {batchId}: No atmosphere volume prefab exists with Class ID '{overrideVolume}'. Batch biome will not be replaced.", LogLevel.Error);
+                return;
+            }
+            __instance.atmospherePrefabClassId = overrideVolume;
         }
     }
     
