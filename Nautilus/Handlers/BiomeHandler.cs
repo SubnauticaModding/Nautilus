@@ -49,7 +49,7 @@ public static partial class BiomeHandler
     /// This can be used to set the entire biome throughout a single batch.
     /// </summary>
     /// <param name="batch">The coordinates of the batch to override. Example batch coordinates: (12, 18, 12).
-    /// The current batch can be found in-game using the F1 menu.</param>
+    /// Each batch is a 160x160x160 meter volume. The current batch can be found in-game using the F1 menu.</param>
     /// <param name="atmosphereVolumeClassID">The Class ID of the atmosphere volume prefab that settings are pulled from.
     /// See the <see cref="AtmosphereVolumeTemplate"/> class for making your own.</param>
     /// <remarks>
