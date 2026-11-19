@@ -45,27 +45,29 @@ public static partial class BiomeHandler
     }
 
     /// <summary>
-    /// Overrides the biome of the batch that is located at the provided coordinates.
+    /// Overrides the atmosphere volume prefab of the batch that is located at the provided coordinates.
+    /// This can be used to set the entire biome throughout a single batch.
     /// </summary>
     /// <param name="batch">The coordinates of the batch to override. Example batch coordinates: (12, 18, 12).
     /// The current batch can be found in-game using the F1 menu.</param>
     /// <param name="atmosphereVolumeClassID">The Class ID of the atmosphere volume prefab that settings are pulled from.
     /// See the <see cref="AtmosphereVolumeTemplate"/> class for making your own.</param>
     /// <remarks>
-    /// Biomes defined at the batch level override the 2D biome map, but do NOT override Atmosphere Volumes.
+    /// Biomes defined at the batch level can override the 2D biome map, but will NOT override Atmosphere Volumes.
     /// Batch biomes are typically used by the game for large caves such as the Jellyshroom Cave, Lost River, and Lava Zone.
     /// </remarks>
-    public static void SetBatchBiome(Int3 batch, string atmosphereVolumeClassID)
+    public static void SetBatchAtmospherePrefab(Int3 batch, string atmosphereVolumeClassID)
     {
         BiomePatcher.SetBatchAtmosphereVolume(batch, atmosphereVolumeClassID);
     }
 
     /// <summary>
-    /// Removes a batch biome override that was set through <see cref="SetBatchBiome"/>.
+    /// Removes batch atmosphere volume prefab overrides set by <see cref="SetBatchAtmospherePrefab"/>,
+    /// reverting it to the default biome set by the game.
     /// </summary>
     /// <param name="batch">The batch that will have its biome override unregistered and reset to the game's default biome.</param>
     /// <remarks>If this batch is currently loaded, this change will not apply until the batch has been unloaded.</remarks>
-    public static void ResetBatchBiomeToDefault(Int3 batch)
+    public static void ResetBatchAtmospherePrefab(Int3 batch)
     {
         BiomePatcher.ResetBatchAtmosphereVolume(batch);
     }
