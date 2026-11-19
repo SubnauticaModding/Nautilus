@@ -184,20 +184,20 @@ public static partial class MaterialUtils
     public const int kTransparencyRenderQueue = 3101;
 
     /// <summary>
-    /// <para>Converts materials to use Subnautica's standard shader (<see cref="Shaders.MarmosetUBER"/>). Applies to all
-    /// materials in each Renderer in the given <see cref="GameObject"/>.</para>
-    /// <para>The expected shader properties for input materials are based on Unity's default 'Standard (Specular setup)' shader.
-    /// The color, main texture, specular texture, normal map, emission, and detail maps will be transferred.</para>
-    /// <para><b>Certain (case-insensitive) keywords in the material asset names have an effect:</b>
-    /// <br/>"TRANSPARENT": Forces the material to be transparent.
-    /// <br/>"CUTOUT": Forces the material to have alpha clipping.</para>
+    /// Converts materials on the provided GameObject to use the standard Subnautica shader (<see cref="Shaders.MarmosetUBER"/>).
+    /// Applies to all materials on each Renderer within the given <see cref="GameObject"/>.
     /// </summary>
     /// <param name="gameObject">The <see cref="GameObject"/> to apply the shaders to (includes all children).</param>
     /// <param name="shininess">'_Shininess' value of the shader. Recommended range is 0.0f-8.0f.</param>
     /// <param name="specularIntensity">'_SpecInt' value of the shader.</param>
     /// <param name="glowStrength">'_GlowStrength' and '_GlowStrengthNight' value of the shader.</param>
     /// <param name="modifiers">Optional array of classes that inherit from the <see cref="MaterialModifier"/> class. This allows for extensive customization of the method. Called in ascending order on every material.</param>
-    /// <remarks>For tighter control, use the <see cref="ApplyUBERShader"/> method, which ApplySNShaders calls internally.</remarks>
+    /// <remarks><para>The expected shader properties for input materials are based on Unity's default 'Standard (Specular setup)' shader.
+    /// The color, main texture, specular texture, normal map, emission, and detail maps will be transferred.</para>
+    /// <para><b>Certain (case-insensitive) keywords in the material asset names have an effect:</b>
+    /// <br/>"TRANSPARENT": Forces the material to be transparent.
+    /// <br/>"CUTOUT": Forces the material to have alpha clipping.</para></remarks>
+    /// <seealso>For tighter control, use the <see cref="ApplyUBERShader"/> method, which ApplySNShaders calls internally.</seealso>
     public static void ApplySNShaders(GameObject gameObject, float shininess = 4f, float specularIntensity = 1f, float glowStrength = 1f, params MaterialModifier[] modifiers)
     {
         var renderers = gameObject.GetComponentsInChildren<Renderer>(true);
