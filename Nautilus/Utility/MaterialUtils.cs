@@ -1,3 +1,4 @@
+using System;
 using Nautilus.Utility.MaterialModifiers;
 using System.Collections;
 using System.Collections.Generic;
@@ -57,6 +58,8 @@ public static partial class MaterialUtils
     private const string ZWriteKeyword = "_ZWRITE_ON";
     private const string AlphaClipKeyword = "MARMO_ALPHA_CLIP";
     private const string WboitKeyword = "WBOIT";
+    // 0: opaque, 1: cutout; 2: fade, 3: transparent
+    private static readonly int _unityTransparencyModeProperty = Shader.PropertyToID("_Mode");
 
     internal static void Patch()
     {
@@ -190,6 +193,7 @@ public static partial class MaterialUtils
     /// <param name="specularIntensity">'_SpecularInt' value of the shader. Values around 1f are recommended.</param>
     /// <param name="glowStrength">'_GlowStrength' and '_GlowStrengthNight' value of the shader. Should not be absurdly high.</param>
     /// <param name="modifiers">Optional array of classes that inherit from the <see cref="MaterialModifier"/> class. This allows for extensive customization of the method. Called in ascending order on every material.</param>
+    /// <remarks>For tighter control, use the <see cref="ApplyUBERShader"/> method, which ApplySNShaders calls internally.</remarks>
     public static void ApplySNShaders(GameObject gameObject, float shininess = 4f, float specularIntensity = 1f, float glowStrength = 1f, params MaterialModifier[] modifiers)
     {
         var renderers = gameObject.GetComponentsInChildren<Renderer>(true);
@@ -199,15 +203,7 @@ public static partial class MaterialUtils
             {
                 var material = renderers[i].materials[j];
 
-                var matNameLower = material.name.ToLower();
-                bool transparent = matNameLower.Contains("transparent");
-                bool alphaClip = matNameLower.Contains("cutout");
-
-                var materialType = MaterialType.Opaque;
-                if (transparent)
-                    materialType = MaterialType.Transparent;
-                else if (alphaClip)
-                    materialType = MaterialType.Cutout;
+                var materialType = GuessMaterialType(material);
 
                 // check each material modifier first. determine if any want to block the shader conversion
                 bool blockShaderConversion = false;
@@ -514,6 +510,24 @@ public static partial class MaterialUtils
         {
             material.DisableKeyword(AlphaClipKeyword);
         }
+    }
+
+    private static MaterialType GuessMaterialType(Material unityMaterial)
+    {
+        if (unityMaterial.HasProperty(_unityTransparencyModeProperty))
+        {
+            int value = unityMaterial.GetInt(_unityTransparencyModeProperty);
+            if (value == 2 || value == 3) return MaterialType.Transparent;
+            if (value == 1) return MaterialType.Cutout;
+        }
+
+        if (unityMaterial.name.IndexOf("transparent", StringComparison.InvariantCultureIgnoreCase) >= 0)
+            return MaterialType.Transparent;
+        
+        if (unityMaterial.name.IndexOf("cutout", StringComparison.InvariantCultureIgnoreCase) >= 0)
+            return MaterialType.Cutout;
+
+        return MaterialType.Opaque;
     }
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
