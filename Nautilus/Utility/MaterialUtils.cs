@@ -288,6 +288,11 @@ public static partial class MaterialUtils
             material.SetColor(ShaderPropertyID._SpecColor, Color.white);
             material.SetFloat(_fresnel, DefaultFresnel);
         }
+        else
+        {
+            InternalLogger.Log($"No specular map was applied to the material '{material}'. It will not react to lighting correctly. " +
+                               $"Please use the 'Standard (Specular setup)' shader or an equivalent to apply a specular map.");
+        }
 
         // Apply emission if it was enabled in the standard shader
         if (material.IsKeywordEnabled(UnityEmissionKeyword))
