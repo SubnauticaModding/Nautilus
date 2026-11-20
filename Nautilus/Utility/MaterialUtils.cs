@@ -281,21 +281,31 @@ public static partial class MaterialUtils
         material.DisableKeyword(UnitySpecGlossMapKeyword);
         material.DisableKeyword(UnityNormalMapKeyword);
 
-        // Apply specular settings if there is a specular texture (otherwise it will appear bright white)
-        if (specularTexture != null)
+        // If specular intensity is used, set a spec tex or fall back to avoid a bright white spec map
+        if (specularIntensity > 0)
         {
-            material.SetTexture(ShaderPropertyID._SpecTex, specularTexture);
+            Color specColor = Color.white;
+            if (specularTexture != null)
+            {
+                material.SetTexture(ShaderPropertyID._SpecTex, specularTexture);
+            }
+            else
+            {
+                var mainTexture = material.GetTexture(ShaderPropertyID._MainTex);
+                if (mainTexture != null)
+                {
+                    material.SetTexture(ShaderPropertyID._SpecTex, mainTexture);
+                }
+                else
+                {
+                    specColor = material.color; // If there is no Main texture AND no Spec texture, spec color = main color
+                }
+            }
             material.SetFloat(_specInt, specularIntensity);
             material.SetFloat(_shininess, shininess);
             material.EnableKeyword(MarmosetSpecMapKeyword);
-            material.SetColor(ShaderPropertyID._SpecColor, Color.white);
+            material.SetColor(ShaderPropertyID._SpecColor, specColor);
             material.SetFloat(_fresnel, DefaultFresnel);
-        }
-        else
-        {
-            InternalLogger.Log($"No specular map was applied to the material '{material}'. It will not react to lighting correctly. " +
-                               $"Please use the 'Standard (Specular setup)' shader or equivalent and apply a specular map.",
-                LogLevel.Debug);
         }
 
         // Apply emission if it was enabled in the standard shader
