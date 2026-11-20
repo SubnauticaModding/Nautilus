@@ -1,8 +1,10 @@
+using System;
 using Nautilus.Utility.MaterialModifiers;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
+using BepInEx.Logging;
 using Nautilus.Extensions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -57,6 +59,8 @@ public static partial class MaterialUtils
     private const string ZWriteKeyword = "_ZWRITE_ON";
     private const string AlphaClipKeyword = "MARMO_ALPHA_CLIP";
     private const string WboitKeyword = "WBOIT";
+    // 0: opaque, 1: cutout; 2: fade, 3: transparent
+    private static readonly int _unityTransparencyModeProperty = Shader.PropertyToID("_Mode");
 
     internal static void Patch()
     {
@@ -180,16 +184,20 @@ public static partial class MaterialUtils
     public const int kTransparencyRenderQueue = 3101;
 
     /// <summary>
-    /// <para>Applies the necessary settings for Subnautica's standard shader (<see cref="Shaders.MarmosetUBER"/>) to the passed <see cref="GameObject"/>.</para>
-    /// <para><b>The specific changes to each material are influenced by certain (case-insensitive) keywords in their asset names:</b>
-    /// <br/>"TRANSPARENT": Enables transparency.
-    /// <br/>"CUTOUT": Enables alpha clipping.</para>
+    /// Converts materials on the provided GameObject to use the standard Subnautica shader (<see cref="Shaders.MarmosetUBER"/>).
+    /// Applies to all materials on each Renderer within the given <see cref="GameObject"/>.
     /// </summary>
     /// <param name="gameObject">The <see cref="GameObject"/> to apply the shaders to (includes all children).</param>
-    /// <param name="shininess">'_Shininess' value of the shader. Recommended range of 1.0f-8.0f.</param>
-    /// <param name="specularIntensity">'_SpecularInt' value of the shader. Values around 1f are recommended.</param>
-    /// <param name="glowStrength">'_GlowStrength' and '_GlowStrengthNight' value of the shader. Should not be absurdly high.</param>
+    /// <param name="shininess">'_Shininess' value of the shader. Recommended range is 0.0f-8.0f.</param>
+    /// <param name="specularIntensity">'_SpecInt' value of the shader.</param>
+    /// <param name="glowStrength">'_GlowStrength' and '_GlowStrengthNight' value of the shader.</param>
     /// <param name="modifiers">Optional array of classes that inherit from the <see cref="MaterialModifier"/> class. This allows for extensive customization of the method. Called in ascending order on every material.</param>
+    /// <remarks><para>The expected shader properties for input materials are based on Unity's default 'Standard (Specular setup)' shader.
+    /// The color, main texture, specular texture, normal map, emission, and detail maps will be transferred.</para>
+    /// <para><b>Certain (case-insensitive) keywords in the material asset names have an effect:</b>
+    /// <br/>"TRANSPARENT": Forces the material to be transparent.
+    /// <br/>"CUTOUT": Forces the material to have alpha clipping.</para></remarks>
+    /// <seealso>For tighter control, use the <see cref="ApplyUBERShader"/> method, which ApplySNShaders calls internally.</seealso>
     public static void ApplySNShaders(GameObject gameObject, float shininess = 4f, float specularIntensity = 1f, float glowStrength = 1f, params MaterialModifier[] modifiers)
     {
         var renderers = gameObject.GetComponentsInChildren<Renderer>(true);
@@ -199,15 +207,7 @@ public static partial class MaterialUtils
             {
                 var material = renderers[i].materials[j];
 
-                var matNameLower = material.name.ToLower();
-                bool transparent = matNameLower.Contains("transparent");
-                bool alphaClip = matNameLower.Contains("cutout");
-
-                var materialType = MaterialType.Opaque;
-                if (transparent)
-                    materialType = MaterialType.Transparent;
-                else if (alphaClip)
-                    materialType = MaterialType.Cutout;
+                var materialType = GuessMaterialType(material);
 
                 // check each material modifier first. determine if any want to block the shader conversion
                 bool blockShaderConversion = false;
@@ -281,15 +281,30 @@ public static partial class MaterialUtils
         material.DisableKeyword(UnitySpecGlossMapKeyword);
         material.DisableKeyword(UnityNormalMapKeyword);
 
-        // Apply specular settings if there is a specular texture (otherwise it will appear bright white)
-        if (specularTexture != null)
+        // If specular intensity is used, set a spec tex or fall back to avoid a bright white spec map
+        if (specularIntensity > 0)
         {
-            material.SetTexture(ShaderPropertyID._SpecTex, specularTexture);
+            Color specColor = Color.white;
+            if (specularTexture != null)
+            {
+                material.SetTexture(ShaderPropertyID._SpecTex, specularTexture);
+            }
+            else
+            {
+                var mainTexture = material.GetTexture(ShaderPropertyID._MainTex);
+                if (mainTexture != null)
+                {
+                    material.SetTexture(ShaderPropertyID._SpecTex, mainTexture);
+                }
+                else
+                {
+                    specColor = material.color; // If there is no Main texture AND no Spec texture, spec color = main color
+                }
+            }
             material.SetFloat(_specInt, specularIntensity);
             material.SetFloat(_shininess, shininess);
-            material.EnableKeyword(ZWriteKeyword);
             material.EnableKeyword(MarmosetSpecMapKeyword);
-            material.SetColor(ShaderPropertyID._SpecColor, Color.white);
+            material.SetColor(ShaderPropertyID._SpecColor, specColor);
             material.SetFloat(_fresnel, DefaultFresnel);
         }
 
@@ -333,6 +348,7 @@ public static partial class MaterialUtils
         }
         
         // Miscellaneous
+        material.EnableKeyword(ZWriteKeyword);
         material.enableInstancing = true;
 
         // Apply material type
@@ -514,6 +530,24 @@ public static partial class MaterialUtils
         {
             material.DisableKeyword(AlphaClipKeyword);
         }
+    }
+
+    private static MaterialType GuessMaterialType(Material unityMaterial)
+    {
+        if (unityMaterial.HasProperty(_unityTransparencyModeProperty))
+        {
+            int value = unityMaterial.GetInt(_unityTransparencyModeProperty);
+            if (value == 2 || value == 3) return MaterialType.Transparent;
+            if (value == 1) return MaterialType.Cutout;
+        }
+
+        if (unityMaterial.name.IndexOf("transparent", StringComparison.InvariantCultureIgnoreCase) >= 0)
+            return MaterialType.Transparent;
+        
+        if (unityMaterial.name.IndexOf("cutout", StringComparison.InvariantCultureIgnoreCase) >= 0)
+            return MaterialType.Cutout;
+
+        return MaterialType.Opaque;
     }
 
     private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
