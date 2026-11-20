@@ -287,7 +287,6 @@ public static partial class MaterialUtils
             material.SetTexture(ShaderPropertyID._SpecTex, specularTexture);
             material.SetFloat(_specInt, specularIntensity);
             material.SetFloat(_shininess, shininess);
-            material.EnableKeyword(ZWriteKeyword);
             material.EnableKeyword(MarmosetSpecMapKeyword);
             material.SetColor(ShaderPropertyID._SpecColor, Color.white);
             material.SetFloat(_fresnel, DefaultFresnel);
@@ -339,6 +338,7 @@ public static partial class MaterialUtils
         }
         
         // Miscellaneous
+        material.EnableKeyword(ZWriteKeyword);
         material.enableInstancing = true;
 
         // Apply material type
