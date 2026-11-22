@@ -32,17 +32,18 @@ internal static class WaterParkPatcher
         if (requiredAcuSize.TryGetValue(tt, out var eggGadget))
         {
             var waterPark = Player.main.currentWaterPark;
+            var itemName = Language.main.Get(item.GetTechType());
             // large ACU
             if (waterPark is LargeRoomWaterPark largeRoomWaterPark)
             {
                 if (eggGadget.RequiredLargeAcuSize == 0)
                 {
-                    ErrorMessage.main.AddHint(Language.main.GetFormat(NormalAcuOnlyKey, Language.main.Get(tt)));
+                    ErrorMessage.main.AddHint(Language.main.GetFormat(NormalAcuOnlyKey, itemName));
                     __result = false;
                 }
                 else if (largeRoomWaterPark.size < eggGadget.RequiredLargeAcuSize)
                 {
-                    ErrorMessage.main.AddHint(Language.main.GetFormat(LargeAcuTooSmallKey, Language.main.Get(tt), eggGadget.RequiredLargeAcuSize));
+                    ErrorMessage.main.AddHint(Language.main.GetFormat(LargeAcuTooSmallKey, itemName, eggGadget.RequiredLargeAcuSize));
                     __result = false;
                 }
                 else
@@ -56,12 +57,12 @@ internal static class WaterParkPatcher
             {
                 if (eggGadget.RequiredAcuSize == 0)
                 {
-                    ErrorMessage.main.AddHint(Language.main.GetFormat(LargeAcuOnlyKey, Language.main.Get(tt)));
+                    ErrorMessage.main.AddHint(Language.main.GetFormat(LargeAcuOnlyKey, itemName));
                     __result = false;
                 }
                 else if (waterPark.height < eggGadget.RequiredAcuSize)
                 {
-                    ErrorMessage.main.AddHint(Language.main.GetFormat(NormalAcuTooSmallKey, Language.main.Get(tt), eggGadget.RequiredAcuSize));
+                    ErrorMessage.main.AddHint(Language.main.GetFormat(NormalAcuTooSmallKey, itemName, eggGadget.RequiredAcuSize));
                     __result = false;
                 }
                 else
