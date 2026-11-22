@@ -51,7 +51,7 @@ public static partial class EnumExtensions
             {
                 LanguageHandler.SetLanguageLine(fullName, displayName, language);
             }
-            else if (string.IsNullOrEmpty(Language.main.Get(fullName)))
+            else if (Language.main != null && !Language.main.Contains(fullName))
             {
                 InternalLogger.Warn($"Display name for Button '{buttonName}' is not specified and no language key has been found. Setting display name to 'Option{buttonName}'.");
             }
@@ -60,7 +60,7 @@ public static partial class EnumExtensions
             {
                 LanguageHandler.SetLanguageLine(descFullName, tooltip, language);
             }
-            else if (string.IsNullOrEmpty(Language.main.Get(descFullName)))
+            else if (Language.main != null && !Language.main.Contains(descFullName))
             {
                 InternalLogger.Debug($"Tooltip was not specified and no existing language line has been found for Button '{buttonName}'.");
             }

@@ -24,7 +24,7 @@ public static class ItemActionHandler
         {
             LanguageHandler.SetLanguageLine(languageLine, tooltip, language);
         }
-        else if (string.IsNullOrEmpty(Language.main.Get(languageLine)))
+        else if (Language.main != null && !Language.main.Contains(languageLine))
         {
             InternalLogger.Warn($"Tooltip was not specified and no existing language line has been found for LeftClickAction '{targetTechType}'.");
         }
