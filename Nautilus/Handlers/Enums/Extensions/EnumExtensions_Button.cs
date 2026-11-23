@@ -47,6 +47,10 @@ public static partial class EnumExtensions
             var fullName = $"Option{buttonName}";
             var descFullName = $"OptionDesc_{buttonName}";
             GameInputPatcher.CustomButtons[button] = new InputAction(buttonName, actionType);
+            foreach (var device in GameInput.AllDevices)
+            {
+                GameInputPatcher.BindableButtons.Add((button, device));
+            }
             if (!string.IsNullOrEmpty(displayName))
             {
                 LanguageHandler.SetLanguageLine(fullName, displayName, language);
@@ -84,7 +88,6 @@ public static partial class EnumExtensions
             Button button = builder;
             GameInputPatcher.Bindings.GetOrAddNew(button).Add(new(device, bindingSet, bindingPath));
             SetBindingDefinition(button, device, bindingSet, bindingPath);
-            SetBindable(builder, device);
         
             return builder;
         }
@@ -118,8 +121,6 @@ public static partial class EnumExtensions
                 GameInputPatcher.Bindings.GetOrAddNew(button).Add(new(device,  GameInput.BindingSet.Secondary, secondaryBindingPath));
                 SetBindingDefinition(button, device, GameInput.BindingSet.Secondary, secondaryBindingPath);
             }
-
-            SetBindable(builder, device);
         
             return builder;
         }

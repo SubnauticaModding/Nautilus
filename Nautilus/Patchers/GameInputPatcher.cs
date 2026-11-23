@@ -45,25 +45,31 @@ internal static class GameInputPatcher
             __instance.actions[button] = action;
             action.started += __instance.OnActionStarted;
             action.Enable();
-            
-            if (Bindings.TryGetValue(button, out var bindings))
+
+            if (!Bindings.TryGetValue(button, out var bindings))
             {
-                foreach (var bindableButton in BindableButtons)
+                bindings = Bindings[button] = new List<InputBinding>();
+            }
+
+            foreach (var device in GameInput.AllDevices)
+            {
+                if (!BindableButtons.Contains((button, device)))
                 {
-                    foreach (var bindingSet in GameInput.AllBindingSets)
+                    continue;
+                }
+
+                foreach (var bindingSet in GameInput.AllBindingSets)
+                {
+                    if (!bindings.Any(b => b.Device == device && b.BindingSet == bindingSet))
                     {
-                        var index = bindings.FindIndex(x => x.Device == bindableButton.device && x.BindingSet == bindingSet);
-                        if (index == -1)
-                        {
-                            bindings.Add(new(bindableButton.device, bindingSet, string.Empty));
-                        }
+                        bindings.Add(new(device, bindingSet, string.Empty));
                     }
                 }
-                
-                foreach (var binding in bindings)
-                {
-                    action.AddBinding(binding.Path, groups: __instance.GetCompositeGroup(binding.Device, binding.BindingSet));
-                }
+            }
+
+            foreach (var binding in bindings)
+            {
+                action.AddBinding(binding.Path, groups: __instance.GetCompositeGroup(binding.Device, binding.BindingSet));
             }
         }
         
