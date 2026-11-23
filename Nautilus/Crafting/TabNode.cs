@@ -25,7 +25,7 @@ internal class TabNode : Node
         {
             LanguageHandler.SetLanguageLine(Id, displayName);
         }
-        else if (Language.main != null && !Language.main.Contains(Id))
+        else if (!Language.main.Contains(Id))
         {
             InternalLogger.Warn($"Display name was not specified and no existing language line has been found for Tab node '{name}'.");
         }

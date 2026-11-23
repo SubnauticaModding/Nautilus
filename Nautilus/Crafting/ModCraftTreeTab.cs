@@ -44,7 +44,7 @@ public class ModCraftTreeTab : ModCraftTreeLinkingNode
         {
             LanguageHandler.SetLanguageLine(langKey, _displayText, _language);
         }
-        else if (Language.main != null && !Language.main.Contains(langKey))
+        else if (!Language.main.Contains(langKey))
         {
             InternalLogger.Warn($"Display name was not specified and no existing language line has been found for CraftTree tab '{Name}'.");
         }

@@ -15,7 +15,7 @@ namespace Nautilus.Assets.PrefabTemplates;
 /// </summary>
 public class EggTemplate : PrefabTemplate
 {
-    private const string VanillaUndiscoveredEggKey = "StalkerEggUndiscovered";
+    private const string VanillaUndiscoveredEggKey = "CrashEggUndiscovered";
 
     private readonly Func<TaskResult<GameObject>, IEnumerator> _modelFactory;
     

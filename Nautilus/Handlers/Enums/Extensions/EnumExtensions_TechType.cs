@@ -43,7 +43,7 @@ public static partial class EnumExtensions
             {
                 LanguageHandler.SetLanguageLine(name, displayName, language);
             }
-            else if (Language.main != null && !Language.main.Contains(name))
+            else if (!Language.main.Contains(name))
             {
                 InternalLogger.Warn($"Display name was not specified and no existing language line has been found for TechType '{name}'.");
             }
@@ -52,7 +52,7 @@ public static partial class EnumExtensions
             {
                 LanguageHandler.SetLanguageLine("Tooltip_" + name, tooltip, language);
             }
-            else if (Language.main != null && !Language.main.Contains("Tooltip_" + name))
+            else if (!Language.main.Contains("Tooltip_" + name))
             {
                 InternalLogger.Warn($"Tooltip was not specified and no existing language line has been found for TechType '{name}'.");
             }

@@ -28,7 +28,7 @@ public static partial class EnumExtensions
                 return builder;
             }
 
-            if (Language.main != null && !Language.main.Contains(fullName))
+            if (!Language.main.Contains(fullName))
             {
                 InternalLogger.Warn($"Display name for TechCategory '{name}' is not specified and no language key has been found. Setting display name to 'TechCategory{name}'.");
             }
