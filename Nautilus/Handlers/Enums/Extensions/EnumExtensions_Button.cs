@@ -47,10 +47,7 @@ public static partial class EnumExtensions
             var fullName = $"Option{buttonName}";
             var descFullName = $"OptionDesc_{buttonName}";
             GameInputPatcher.CustomButtons[button] = new InputAction(buttonName, actionType);
-            foreach (var device in GameInput.AllDevices)
-            {
-                GameInputPatcher.BindableButtons.Add((button, device));
-            }
+            SetBindable(builder);
             if (!string.IsNullOrEmpty(displayName))
             {
                 LanguageHandler.SetLanguageLine(fullName, displayName, language);
