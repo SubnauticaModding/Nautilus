@@ -122,8 +122,16 @@ public static partial class BiomeHandler
             skyPrefab.name = _newSkyName;
             _cachedSkyPrefab = skyPrefab;
             var sky = skyPrefab.GetComponent<Sky>();
-            _modifyCallback?.Invoke(sky);
-            sky.Dirty = true; // force dirty because this is an instantiated clone
+            try
+            {
+                _modifyCallback?.Invoke(sky);
+            }
+            catch (Exception e)
+            {
+                InternalLogger.Error($"Exception thrown while applying modification to the custom Sky '{_newSkyName}': {e}");
+            }
+
+            sky.Dirty = true; // force Dirty to true because this is an instantiated clone that needs to be refreshed
             skyPrefab.SetActive(true);
             return skyPrefab;
         }
