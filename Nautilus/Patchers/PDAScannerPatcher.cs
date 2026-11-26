@@ -7,7 +7,7 @@ namespace Nautilus.Patchers;
 
 // Special thanks to Gorillazilla9 for sharing this method of fragment count patching
 // https://github.com/Gorillazilla9/SubnauticaFragReqBoost/blob/master/PDAScannerPatcher.cs
-internal class PDAPatcher
+internal class PDAScannerPatcher
 {
     internal static readonly SelfCheckingDictionary<TechType, int> FragmentCount = new("CustomFragmentCount");
     internal static readonly SelfCheckingDictionary<TechType, float> FragmentScanTime = new("CustomFragmentScanTime");
@@ -18,7 +18,7 @@ internal class PDAPatcher
     internal static void Patch(Harmony harmony)
     {
         harmony.Patch(AccessTools.Method(typeof(PDAScanner), nameof(PDAScanner.Initialize)),
-            postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAPatcher), nameof(PDAPatcher.InitializePostfix))));
+            postfix: new HarmonyMethod(AccessTools.Method(typeof(PDAScannerPatcher), nameof(InitializePostfix))));
 
         InternalLogger.Log($"PDAPatcher is done.", LogLevel.Debug);
     }
