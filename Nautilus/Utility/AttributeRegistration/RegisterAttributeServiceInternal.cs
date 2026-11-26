@@ -8,7 +8,7 @@ using Nautilus.Utility.AttributeRegistration.RegistryRequirements;
 
 namespace Nautilus.Utility.AttributeRegistration;
 
-[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", false)]
 public sealed partial class RegisterAttributeService
 {
     private readonly string _modGuid;
