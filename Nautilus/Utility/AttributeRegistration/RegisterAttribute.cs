@@ -10,6 +10,7 @@ namespace Nautilus.Utility.AttributeRegistration;
 /// <param name="loadAfterIDs">List of IDs that should be loaded before this one. Can be from a different registry execute call.</param>
 [MeansImplicitUse]
 [AttributeUsage(AttributeTargets.Method)]
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
 public sealed class RegisterAttribute(string id, params string[] loadAfterIDs) : Attribute
 {
     /// <summary>

@@ -7,6 +7,7 @@ namespace Nautilus.Utility.AttributeRegistration;
 /// </summary>
 /// <param name="context">the given context of the injection</param>
 /// <param name="message">further error specification to tack on</param>
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
 public class InjectorException(InjectionContext context, string message = null) : Exception
 {
     /// <inheritdoc />

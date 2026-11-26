@@ -1,9 +1,12 @@
+using System;
+
 namespace Nautilus.Utility.AttributeRegistration.RegistryRequirements;
 
 /// <summary>
 /// When an attribute implements this interface, Nautilus will only execute the attributed registry event when <see cref="RequirementsMet"/> returns true
 /// for all <see cref="IRegistryRequirement">IRegistryRequirements</see> attribute implementors attached.
 /// </summary>
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
 public interface IRegistryRequirement
 {
     /// <summary>

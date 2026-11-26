@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Nautilus.Utility.AttributeRegistration.Injectors;
@@ -8,6 +9,7 @@ namespace Nautilus.Utility.AttributeRegistration.Injectors;
 /// If an implementation instance is added to the <see cref="RegisterAttributeService"/> as a <see cref="RegisterAttributeService.AddSingleton">Singleton</see>,
 /// it will be used to resolve the AssetBundle for the requested asset.
 /// </summary>
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
 public interface IRegistryAssetBundleResolver
 {
     /// <summary>

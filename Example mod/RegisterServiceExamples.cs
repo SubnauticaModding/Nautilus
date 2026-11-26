@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using BepInEx;
 using Nautilus.Assets;
@@ -9,6 +10,7 @@ using Nautilus.Utility.AttributeRegistration.RegistryRequirements;
 namespace Nautilus.Examples;
 [BepInPlugin(ModGuid, "Nautilus RegisterEvent Example Mod", Nautilus.PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
 public class RegisterServiceExamples : BaseUnityPlugin
 {
     private const string ModGuid = "com.snmodding.nautilus.registerevent";
