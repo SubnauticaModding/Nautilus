@@ -9,6 +9,7 @@ namespace Nautilus.Utility.AttributeRegistration.RegistryRequirements;
 /// the creation of registries that optionally load when all other mod GUIDs are present.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method)]
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
 public sealed class RequireGuidAttribute(params string[] requiredModGUIDs) : Attribute, IRegistryRequirement
 {
     /// <summary>

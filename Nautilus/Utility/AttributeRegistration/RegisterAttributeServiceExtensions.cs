@@ -1,4 +1,5 @@
-﻿using Nautilus.Assets;
+﻿using System;
+using Nautilus.Assets;
 using Nautilus.Utility.AttributeRegistration.Injectors;
 
 namespace Nautilus.Utility.AttributeRegistration;
@@ -6,6 +7,7 @@ namespace Nautilus.Utility.AttributeRegistration;
 /// <summary>
 /// Extensions for easy access to injectors that Nautilus provides within the <see cref="RegisterAttributeService"/> system.
 /// </summary>
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
 public static class RegisterAttributeServiceExtensions
 {
     extension(RegisterAttributeService service)

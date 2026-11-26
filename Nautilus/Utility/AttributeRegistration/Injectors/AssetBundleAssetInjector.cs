@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -5,6 +6,7 @@ using UnityEngine;
 
 namespace Nautilus.Utility.AttributeRegistration.Injectors;
 
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
 internal sealed class AssetBundleAssetInjector : IDependencyArgumentInjector
 {
     public bool TryInjectToArgument(InjectionContext context, out object value)

@@ -1,10 +1,12 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace Nautilus.Utility.AttributeRegistration;
 
 /// <summary>
 /// Represents immutable information about the requested injection.
 /// </summary>
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
 public sealed class InjectionContext
 {
     internal InjectionContext(RegisterAttribute attribute, ParameterInfo parameterInfo, MethodInfo methodInfo, RegisterAttributeService service)

@@ -1,8 +1,11 @@
+using System;
+
 namespace Nautilus.Utility.AttributeRegistration.Injectors;
 
 /// <summary>
 /// Represents an injector that can inject a required parameter into a method for execution.
 /// </summary>
+[Obsolete("This will be removed in a future Nautilus update and moved to another library.", true)]
 public interface IDependencyArgumentInjector
 {
     /// <summary>
