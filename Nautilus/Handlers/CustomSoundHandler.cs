@@ -22,6 +22,11 @@ public static class CustomSoundHandler
     /// <param name="mode">The audio MODE of the sound.
     /// Standard values of this property can be found in the <see cref="AudioUtils"/> class (i.e. <see cref="AudioUtils.StandardSoundModes_3D"/>).</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
+    /// <remarks>
+    /// This operation is executed by FMOD asynchronously. Most operations can safely ignore this, but
+    /// If you need the sound to be available within a few frames after registering, call
+    /// <c>RuntimeManager.StudioSystem.flushCommands();</c> to ensure the sound can be played right away.
+    /// </remarks>
     public static Sound RegisterCustomSound(string id, string filePath, string busPath, MODE mode = MODE.DEFAULT)
     {
         Bus bus = RuntimeManager.GetBus(busPath);
@@ -37,6 +42,11 @@ public static class CustomSoundHandler
     /// <param name="mode">The audio MODE of the sound.
     /// Standard values of this property can be found in the <see cref="AudioUtils"/> class (i.e. <see cref="AudioUtils.StandardSoundModes_3D"/>).</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
+    /// <remarks>
+    /// This operation is executed by FMOD asynchronously. Most operations can safely ignore this, but
+    /// If you need the sound to be available within a few frames after registering, call
+    /// <c>RuntimeManager.StudioSystem.flushCommands();</c> to ensure the sound can be played right away.
+    /// </remarks>
     public static Sound RegisterCustomSound(string id, string filePath, Bus bus, MODE mode = MODE.DEFAULT)
     {
         if (bus.getChannelGroup(out ChannelGroup channelGroup) != RESULT.OK || !channelGroup.hasHandle())
@@ -58,6 +68,11 @@ public static class CustomSoundHandler
     /// <param name="mode">The audio MODE of the sound.
     /// Standard values of this property can be found in the <see cref="AudioUtils"/> class (i.e. <see cref="AudioUtils.StandardSoundModes_3D"/>).</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
+    /// <remarks>
+    /// This operation is executed by FMOD asynchronously. Most operations can safely ignore this, but
+    /// If you need the sound to be available within a few frames after registering, call
+    /// <c>RuntimeManager.StudioSystem.flushCommands();</c> to ensure the sound can be played right away.
+    /// </remarks>
     public static Sound RegisterCustomSound(string id, AudioClip audio, string busPath, MODE mode = MODE.DEFAULT)
     {
         Bus bus = RuntimeManager.GetBus(busPath);
@@ -73,6 +88,11 @@ public static class CustomSoundHandler
     /// <param name="mode">The audio MODE of the sound.
     /// Standard values of this property can be found in the <see cref="AudioUtils"/> class (i.e. <see cref="AudioUtils.StandardSoundModes_3D"/>).</param>
     /// <returns>the <see cref="Sound"/> loaded</returns>
+    /// <remarks>
+    /// This operation is executed by FMOD asynchronously. Most operations can safely ignore this, but
+    /// If you need the sound to be available within a few frames after registering, call
+    /// <c>RuntimeManager.StudioSystem.flushCommands();</c> to ensure the sound can be played right away.
+    /// </remarks>
     public static Sound RegisterCustomSound(string id, AudioClip audio, Bus bus, MODE mode = MODE.DEFAULT)
     {
         if (bus.getChannelGroup(out ChannelGroup channelGroup) != RESULT.OK || !channelGroup.hasHandle())
@@ -101,6 +121,11 @@ public static class CustomSoundHandler
     /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
     /// <param name="sound">The pre loaded sound</param>
     /// <param name="busPath">The bus path to play the sound on.</param>
+    /// <remarks>
+    /// This operation is executed by FMOD asynchronously. Most operations can safely ignore this, but
+    /// If you need the sound to be available within a few frames after registering, call
+    /// <c>RuntimeManager.StudioSystem.flushCommands();</c> to ensure the sound can be played right away.
+    /// </remarks>
     public static void RegisterCustomSound(string id, Sound sound, string busPath)
     {
         Bus bus = RuntimeManager.GetBus(busPath);
@@ -113,6 +138,11 @@ public static class CustomSoundHandler
     /// <param name="id">The Id of your custom sound which is used when checking which sounds to play.</param>
     /// <param name="sound">The pre loaded sound</param>
     /// <param name="bus">The bus to play the sound on.</param>
+    /// <remarks>
+    /// This operation is executed by FMOD asynchronously. Most operations can safely ignore this, but
+    /// If you need the sound to be available within a few frames after registering, call
+    /// <c>RuntimeManager.StudioSystem.flushCommands();</c> to ensure the sound can be played right away.
+    /// </remarks>
     public static void RegisterCustomSound(string id, Sound sound, Bus bus)
     {
         if (bus.getChannelGroup(out ChannelGroup channelGroup) != RESULT.OK || !channelGroup.hasHandle())
