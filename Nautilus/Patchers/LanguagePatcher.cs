@@ -13,6 +13,7 @@ internal static class LanguagePatcher
     private const string FallbackLanguage = "English";
         
     private static readonly Dictionary<string, Dictionary<string, string>> _customLines = new();
+    private static readonly Dictionary<string, string> _lineAliases = new();
     private static string _currentLanguage = FallbackLanguage;
 
     static LanguagePatcher()
@@ -28,6 +29,17 @@ internal static class LanguagePatcher
     {
         if (string.IsNullOrWhiteSpace(key))
         {
+            return;
+        }
+
+        if (_lineAliases.TryGetValue(key, out string sourceLineId))
+        {
+            if (TryResolveLineAlias(__instance, key, sourceLineId, out string aliasValue) &&
+                (!__instance.strings.TryGetValue(key, out string currentAliasValue) || aliasValue != currentAliasValue))
+            {
+                InsertCustomLines(ref __instance);
+            }
+
             return;
         }
 
@@ -47,6 +59,7 @@ internal static class LanguagePatcher
     {
         if (!_customLines.TryGetValue(FallbackLanguage, out var fallbackStrings) & !_customLines.TryGetValue(_currentLanguage, out var currentStrings))
         {
+            ApplyLineAliases(__instance);
             return;
         }
 
@@ -64,6 +77,7 @@ internal static class LanguagePatcher
             
         if (_currentLanguage == FallbackLanguage)
         {
+            ApplyLineAliases(__instance);
             __instance.ParseMetaData();
             return;
         }
@@ -76,7 +90,44 @@ internal static class LanguagePatcher
             __instance.strings[currentOnlyString.Key] = currentOnlyString.Value;
         }
         
+        ApplyLineAliases(__instance);
         __instance.ParseMetaData();
+    }
+
+    private static void ApplyLineAliases(Language language)
+    {
+        foreach (var alias in _lineAliases)
+        {
+            if (TryResolveLineAlias(language, alias.Key, alias.Value, out string value))
+            {
+                language.strings[alias.Key] = value;
+            }
+        }
+    }
+
+    private static bool TryResolveLineAlias(Language language, string lineId, string sourceLineId, out string value)
+    {
+        value = null;
+
+        if (_customLines.TryGetValue(_currentLanguage, out var currentStrings) && currentStrings.TryGetValue(lineId, out string currentValue))
+        {
+            value = currentValue;
+            return true;
+        }
+
+        if (language.strings.TryGetValue(sourceLineId, out string sourceValue) && !string.IsNullOrEmpty(sourceValue))
+        {
+            value = sourceValue;
+            return true;
+        }
+
+        if (_customLines.TryGetValue(FallbackLanguage, out var fallbackStrings) && fallbackStrings.TryGetValue(lineId, out string fallbackValue))
+        {
+            value = fallbackValue;
+            return true;
+        }
+
+        return false;
     }
         
     private static void LoadLanguageFilePrefix(string language)
@@ -111,6 +162,29 @@ internal static class LanguagePatcher
             _customLines[language] = new();
 
         _customLines[language][lineId] = text;
+    }
+
+    internal static void AddDefaultLanguageLine(string lineId, string text)
+    {
+        if (!_customLines.ContainsKey(FallbackLanguage))
+            _customLines[FallbackLanguage] = new();
+
+        var fallbackStrings = _customLines[FallbackLanguage];
+
+        if (!fallbackStrings.ContainsKey(lineId))
+        {
+            fallbackStrings[lineId] = text;
+        }
+    }
+
+    internal static void AddLanguageLineAlias(string lineId, string sourceLineId)
+    {
+        if (string.IsNullOrWhiteSpace(lineId) || string.IsNullOrWhiteSpace(sourceLineId))
+        {
+            return;
+        }
+
+        _lineAliases[lineId] = sourceLineId;
     }
 
     internal static void AddCustomLanguageLines(string language, Dictionary<string, string> languageStrings)

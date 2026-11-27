@@ -8,10 +8,19 @@ namespace Nautilus.Patchers;
 [HarmonyPatch(typeof(WaterPark))]
 internal static class WaterParkPatcher
 {
+    private const string NormalAcuOnlyKey = "Nautilus_WaterParkNormalAcuOnly";
+    private const string LargeAcuOnlyKey = "Nautilus_WaterParkLargeAcuOnly";
+    private const string LargeAcuTooSmallKey = "Nautilus_WaterParkLargeAcuTooSmall";
+    private const string NormalAcuTooSmallKey = "Nautilus_WaterParkNormalAcuTooSmall";
+
     internal static Dictionary<TechType, EggGadget> requiredAcuSize = new();
 
     internal static void Patch(Harmony harmony)
     {
+        LanguagePatcher.AddDefaultLanguageLine(NormalAcuOnlyKey, "Cannot drop this egg here. Must be hatched in a small alien containment unit.");
+        LanguagePatcher.AddDefaultLanguageLine(LargeAcuOnlyKey, "Cannot drop this egg here. Must be hatched in a large alien containment unit.");
+        LanguagePatcher.AddDefaultLanguageLine(LargeAcuTooSmallKey, "Cannot drop this egg here. Must be hatched in a large alien containment unit that is {0} or more floors tall.");
+        LanguagePatcher.AddDefaultLanguageLine(NormalAcuTooSmallKey, "Cannot drop this egg here. Must be hatched in an alien containment unit that is {0} or more floors tall.");
         harmony.PatchAll(typeof(WaterParkPatcher));
     }
     
@@ -28,12 +37,12 @@ internal static class WaterParkPatcher
             {
                 if (eggGadget.RequiredLargeAcuSize == 0)
                 {
-                    ErrorMessage.main.AddHint($"Cannot drop {Language.main.Get(tt)} here. Drop in the normal ACU instead.");
+                    ErrorMessage.main.AddHint(Language.main.Get(NormalAcuOnlyKey));
                     __result = false;
                 }
                 else if (largeRoomWaterPark.size < eggGadget.RequiredLargeAcuSize)
                 {
-                    ErrorMessage.main.AddHint($"Cannot drop {Language.main.Get(tt)} here, the large ACU must be at least {eggGadget.RequiredAcuSize} floors tall.");
+                    ErrorMessage.main.AddHint(Language.main.GetFormat(LargeAcuTooSmallKey, eggGadget.RequiredLargeAcuSize));
                     __result = false;
                 }
                 else
@@ -47,12 +56,12 @@ internal static class WaterParkPatcher
             {
                 if (eggGadget.RequiredAcuSize == 0)
                 {
-                    ErrorMessage.main.AddHint($"Cannot drop {Language.main.Get(tt)} here. Drop in the large ACU instead.");
+                    ErrorMessage.main.AddHint(Language.main.Get(LargeAcuOnlyKey));
                     __result = false;
                 }
                 else if (waterPark.height < eggGadget.RequiredAcuSize)
                 {
-                    ErrorMessage.main.AddHint($"Cannot drop {Language.main.Get(tt)} here, the large ACU must be at least {eggGadget.RequiredAcuSize} floors tall.");
+                    ErrorMessage.main.AddHint(Language.main.GetFormat(NormalAcuTooSmallKey, eggGadget.RequiredAcuSize));
                     __result = false;
                 }
                 else

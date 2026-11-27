@@ -15,6 +15,8 @@ namespace Nautilus.Assets.PrefabTemplates;
 /// </summary>
 public class EggTemplate : PrefabTemplate
 {
+    private const string VanillaUndiscoveredEggKey = "CrashEggUndiscovered";
+
     private readonly Func<TaskResult<GameObject>, IEnumerator> _modelFactory;
     
     /// <summary>
@@ -188,10 +190,18 @@ public class EggTemplate : PrefabTemplate
     /// <returns>A reference to this instance after the operation is completed.</returns>
     public EggTemplate SetUndiscoveredTechType()
     {
-        UndiscoveredTechType = EnumHandler.AddEntry<TechType>(info.ClassID + "Undiscovered")
-            .WithPdaInfo("Creature Egg", "An unidentified egg.")
+        var key = info.ClassID + "Undiscovered";
+        var tooltipKey = "Tooltip_" + key;
+
+        UndiscoveredTechType = EnumHandler.AddEntry<TechType>(key)
             .WithIcon(SpriteManager.Get(info.TechType))
             .WithSizeInInventory(TechData.GetItemSize(info.TechType));
+
+        LanguagePatcher.AddDefaultLanguageLine(key, "Creature Egg");
+        LanguagePatcher.AddDefaultLanguageLine(tooltipKey, "An unidentified egg.");
+        LanguagePatcher.AddLanguageLineAlias(key, VanillaUndiscoveredEggKey);
+        LanguagePatcher.AddLanguageLineAlias(tooltipKey, "Tooltip_" + VanillaUndiscoveredEggKey);
+        TooltipFactory.techTypeTooltipStrings.valueToString[UndiscoveredTechType] = tooltipKey;
 
         // eggs with undiscovered tech types shouldn't be unlocked by default at all, even on creative.
         KnownTechHandler.SetHardLocked(info.TechType);

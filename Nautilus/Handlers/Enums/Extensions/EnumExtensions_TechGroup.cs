@@ -25,7 +25,7 @@ public static partial class EnumExtensions
             {
                 LanguageHandler.SetLanguageLine(fullName, displayName, language);
             }
-            else if (string.IsNullOrEmpty(Language.main.Get(fullName)))
+            else if (!Language.main.Contains(fullName))
             {
                 InternalLogger.Warn($"Display name was not specified and no existing language line has been found for TechGroup '{name}'.");
             }
