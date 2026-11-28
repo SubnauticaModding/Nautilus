@@ -104,6 +104,7 @@ the creation of registries that optionally load when all other mod GUIDs are pre
 
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[AttributeUsage(AttributeTargets.Method)]
+[Obsolete(&quot;This will be removed in a future Nautilus update and moved to another library.&quot;, true)]
 public sealed class RequireGuidAttribute : Attribute, IRegistryRequirement</code></pre>
   </div>
 

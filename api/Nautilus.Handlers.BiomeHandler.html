@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="title" content="Class BiomeHandler ">
       
-      <meta name="description" content="A handler class for registering new biome types.">
+      <meta name="description" content="A handler class for registering new biomes.">
       <link rel="icon" href="../favicon.ico">
       <link rel="stylesheet" href="../public/docfx.min.css">
       <link rel="stylesheet" href="../public/main.css">
@@ -97,7 +97,7 @@ Class BiomeHandler
   <dl><dt>Assembly</dt><dd>Nautilus.dll</dd></dl>
   </div>
 
-  <div class="markdown summary">A handler class for registering new biome types.</div>
+  <div class="markdown summary">A handler class for registering new biomes.</div>
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
@@ -253,6 +253,79 @@ Class BiomeHandler
 
 
 
+
+
+
+
+  <a id="Nautilus_Handlers_BiomeHandler_ResetBatchAtmospherePrefab_" data-uid="Nautilus.Handlers.BiomeHandler.ResetBatchAtmospherePrefab*"></a>
+
+  <h3 id="Nautilus_Handlers_BiomeHandler_ResetBatchAtmospherePrefab_Int3_" data-uid="Nautilus.Handlers.BiomeHandler.ResetBatchAtmospherePrefab(Int3)">
+  ResetBatchAtmospherePrefab(Int3)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Removes batch atmosphere volume prefab overrides set by <a class="xref" href="Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_SetBatchAtmospherePrefab_Int3_System_String_">SetBatchAtmospherePrefab(Int3, string)</a>,
+reverting it to the default biome set by the game.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ResetBatchAtmospherePrefab(Int3 batch)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>batch</code> <span class="xref">Int3</span></dt>
+    <dd>The batch that will have its biome override unregistered and reset to the game's default biome.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Handlers_BiomeHandler_ResetBatchAtmospherePrefab_Int3__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">If this batch is currently loaded, this change will not apply until the batch has been unloaded.</div>
+
+
+
+
+  <a id="Nautilus_Handlers_BiomeHandler_SetBatchAtmospherePrefab_" data-uid="Nautilus.Handlers.BiomeHandler.SetBatchAtmospherePrefab*"></a>
+
+  <h3 id="Nautilus_Handlers_BiomeHandler_SetBatchAtmospherePrefab_Int3_System_String_" data-uid="Nautilus.Handlers.BiomeHandler.SetBatchAtmospherePrefab(Int3,System.String)">
+  SetBatchAtmospherePrefab(Int3, string)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Overrides the atmosphere volume prefab of the batch that is located at the provided coordinates.
+This can be used to set the entire biome throughout a single batch.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetBatchAtmospherePrefab(Int3 batch, string atmosphereVolumeClassID)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>batch</code> <span class="xref">Int3</span></dt>
+    <dd>The coordinates of the batch to override. Example batch coordinates: (12, 18, 12).
+            Each batch is a 160x160x160 meter volume. The current batch can be found in-game using the F1 menu.</dd>
+    <dt><code>atmosphereVolumeClassID</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The Class ID of the atmosphere volume prefab that settings are pulled from.
+            See the <a class="xref" href="Nautilus.Assets.PrefabTemplates.AtmosphereVolumeTemplate.html">AtmosphereVolumeTemplate</a> class for making your own.</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="Nautilus_Handlers_BiomeHandler_SetBatchAtmospherePrefab_Int3_System_String__remarks">Remarks</h4>
+  <div class="markdown level1 remarks">Biomes defined at the batch level can override the 2D biome map, but will NOT override Atmosphere Volumes.
+Batch biomes are typically used by the game for large caves such as the Jellyshroom Cave, Lost River, and Lava Zone.</div>
 
 
 

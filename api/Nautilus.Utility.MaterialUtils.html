@@ -599,10 +599,8 @@ Class MaterialUtils
   
   </h3>
 
-  <div class="markdown level1 summary"><p>Applies the necessary settings for Subnautica's standard shader (<a class="xref" href="Nautilus.Utility.MaterialUtils.Shaders.html#Nautilus_Utility_MaterialUtils_Shaders_MarmosetUBER">MarmosetUBER</a>) to the passed <span class="xref">UnityEngine.GameObject</span>.</p>
-<p><b>The specific changes to each material are influenced by certain (case-insensitive) keywords in their asset names:</b>
-<br>"TRANSPARENT": Enables transparency.
-<br>"CUTOUT": Enables alpha clipping.</p></div>
+  <div class="markdown level1 summary">Converts materials on the provided GameObject to use the standard Subnautica shader (<a class="xref" href="Nautilus.Utility.MaterialUtils.Shaders.html#Nautilus_Utility_MaterialUtils_Shaders_MarmosetUBER">MarmosetUBER</a>).
+Applies to all materials on each Renderer within the given <span class="xref">UnityEngine.GameObject</span>.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -614,11 +612,11 @@ Class MaterialUtils
     <dt><code>gameObject</code> <span class="xref">GameObject</span></dt>
     <dd>The <span class="xref">UnityEngine.GameObject</span> to apply the shaders to (includes all children).</dd>
     <dt><code>shininess</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd>'_Shininess' value of the shader. Recommended range of 1.0f-8.0f.</dd>
+    <dd>'_Shininess' value of the shader. Recommended range is 0.0f-8.0f.</dd>
     <dt><code>specularIntensity</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd>'_SpecularInt' value of the shader. Values around 1f are recommended.</dd>
+    <dd>'_SpecInt' value of the shader.</dd>
     <dt><code>glowStrength</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></dt>
-    <dd>'_GlowStrength' and '_GlowStrengthNight' value of the shader. Should not be absurdly high.</dd>
+    <dd>'_GlowStrength' and '_GlowStrengthNight' value of the shader.</dd>
     <dt><code>modifiers</code> <a class="xref" href="Nautilus.Utility.MaterialModifiers.MaterialModifier.html">MaterialModifier</a>[]</dt>
     <dd>Optional array of classes that inherit from the <a class="xref" href="Nautilus.Utility.MaterialModifiers.MaterialModifier.html">MaterialModifier</a> class. This allows for extensive customization of the method. Called in ascending order on every material.</dd>
   </dl>
@@ -630,6 +628,12 @@ Class MaterialUtils
 
 
 
+  <h4 class="section" id="Nautilus_Utility_MaterialUtils_ApplySNShaders_UnityEngine_GameObject_System_Single_System_Single_System_Single_Nautilus_Utility_MaterialModifiers_MaterialModifier____remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The expected shader properties for input materials are based on Unity's default 'Standard (Specular setup)' shader.
+            The color, main texture, specular texture, normal map, emission, and detail maps will be transferred.</p>
+            <p><b>Certain (case-insensitive) keywords in the material asset names have an effect:</b>
+            <br>"TRANSPARENT": Forces the material to be transparent.
+            <br>"CUTOUT": Forces the material to have alpha clipping.</p></div>
 
 
 

@@ -4669,6 +4669,33 @@ references:
   commentId: Overload:Nautilus.Handlers.BiomeHandler.RegisterBiome
   fullName: Nautilus.Handlers.BiomeHandler.RegisterBiome
   nameWithType: BiomeHandler.RegisterBiome
+- uid: Nautilus.Handlers.BiomeHandler.ResetBatchAtmospherePrefab(Int3)
+  name: ResetBatchAtmospherePrefab(Int3)
+  href: api/Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_ResetBatchAtmospherePrefab_Int3_
+  commentId: M:Nautilus.Handlers.BiomeHandler.ResetBatchAtmospherePrefab(Int3)
+  fullName: Nautilus.Handlers.BiomeHandler.ResetBatchAtmospherePrefab(Int3)
+  nameWithType: BiomeHandler.ResetBatchAtmospherePrefab(Int3)
+- uid: Nautilus.Handlers.BiomeHandler.ResetBatchAtmospherePrefab*
+  name: ResetBatchAtmospherePrefab
+  href: api/Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_ResetBatchAtmospherePrefab_
+  commentId: Overload:Nautilus.Handlers.BiomeHandler.ResetBatchAtmospherePrefab
+  fullName: Nautilus.Handlers.BiomeHandler.ResetBatchAtmospherePrefab
+  nameWithType: BiomeHandler.ResetBatchAtmospherePrefab
+- uid: Nautilus.Handlers.BiomeHandler.SetBatchAtmospherePrefab(Int3,System.String)
+  name: SetBatchAtmospherePrefab(Int3, string)
+  href: api/Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_SetBatchAtmospherePrefab_Int3_System_String_
+  commentId: M:Nautilus.Handlers.BiomeHandler.SetBatchAtmospherePrefab(Int3,System.String)
+  name.vb: SetBatchAtmospherePrefab(Int3, String)
+  fullName: Nautilus.Handlers.BiomeHandler.SetBatchAtmospherePrefab(Int3, string)
+  fullName.vb: Nautilus.Handlers.BiomeHandler.SetBatchAtmospherePrefab(Int3, String)
+  nameWithType: BiomeHandler.SetBatchAtmospherePrefab(Int3, string)
+  nameWithType.vb: BiomeHandler.SetBatchAtmospherePrefab(Int3, String)
+- uid: Nautilus.Handlers.BiomeHandler.SetBatchAtmospherePrefab*
+  name: SetBatchAtmospherePrefab
+  href: api/Nautilus.Handlers.BiomeHandler.html#Nautilus_Handlers_BiomeHandler_SetBatchAtmospherePrefab_
+  commentId: Overload:Nautilus.Handlers.BiomeHandler.SetBatchAtmospherePrefab
+  fullName: Nautilus.Handlers.BiomeHandler.SetBatchAtmospherePrefab
+  nameWithType: BiomeHandler.SetBatchAtmospherePrefab
 - uid: Nautilus.Handlers.BiomeHandler.SkyReference
   name: BiomeHandler.SkyReference
   href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html
@@ -4693,6 +4720,15 @@ references:
   fullName.vb: Nautilus.Handlers.BiomeHandler.SkyReference.New(String)
   nameWithType: BiomeHandler.SkyReference.SkyReference(string)
   nameWithType.vb: BiomeHandler.SkyReference.New(String)
+- uid: Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(System.String,System.String,System.Action{mset.Sky})
+  name: SkyReference(string, string, Action<Sky>)
+  href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html#Nautilus_Handlers_BiomeHandler_SkyReference__ctor_System_String_System_String_System_Action_mset_Sky__
+  commentId: M:Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(System.String,System.String,System.Action{mset.Sky})
+  name.vb: New(String, String, Action(Of Sky))
+  fullName: Nautilus.Handlers.BiomeHandler.SkyReference.SkyReference(string, string, System.Action<mset.Sky>)
+  fullName.vb: Nautilus.Handlers.BiomeHandler.SkyReference.New(String, String, System.Action(Of mset.Sky))
+  nameWithType: BiomeHandler.SkyReference.SkyReference(string, string, Action<Sky>)
+  nameWithType.vb: BiomeHandler.SkyReference.New(String, String, Action(Of Sky))
 - uid: Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(UnityEngine.GameObject)
   name: SkyReference(GameObject)
   href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html#Nautilus_Handlers_BiomeHandler_SkyReference__ctor_UnityEngine_GameObject_
@@ -4711,18 +4747,6 @@ references:
   fullName.vb: Nautilus.Handlers.BiomeHandler.SkyReference.New
   nameWithType: BiomeHandler.SkyReference.SkyReference
   nameWithType.vb: BiomeHandler.SkyReference.New
-- uid: Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime(WaterBiomeManager)
-  name: GetSkyPrefabAtRuntime(WaterBiomeManager)
-  href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html#Nautilus_Handlers_BiomeHandler_SkyReference_GetSkyPrefabAtRuntime_WaterBiomeManager_
-  commentId: M:Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime(WaterBiomeManager)
-  fullName: Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime(WaterBiomeManager)
-  nameWithType: BiomeHandler.SkyReference.GetSkyPrefabAtRuntime(WaterBiomeManager)
-- uid: Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime*
-  name: GetSkyPrefabAtRuntime
-  href: api/Nautilus.Handlers.BiomeHandler.SkyReference.html#Nautilus_Handlers_BiomeHandler_SkyReference_GetSkyPrefabAtRuntime_
-  commentId: Overload:Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime
-  fullName: Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime
-  nameWithType: BiomeHandler.SkyReference.GetSkyPrefabAtRuntime
 - uid: Nautilus.Handlers.ConsoleCommandsHandler
   name: ConsoleCommandsHandler
   href: api/Nautilus.Handlers.ConsoleCommandsHandler.html

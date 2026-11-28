@@ -101,7 +101,7 @@ Class BiomeHandler.SkyReference
   <div class="markdown conceptual"></div>
 
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class BiomeHandler.SkyReference</code></pre>
+    <pre><code class="lang-csharp hljs">public sealed class BiomeHandler.SkyReference</code></pre>
   </div>
 
 
@@ -122,9 +122,6 @@ Class BiomeHandler.SkyReference
     <dd>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
-    </div>
-    <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
@@ -196,7 +193,7 @@ Class BiomeHandler.SkyReference
   
   </h3>
 
-  <div class="markdown level1 summary">Defines a reference to a Sky prefab created from a callback at runtime.</div>
+  <div class="markdown level1 summary">Defines a reference to a Sky prefab that is created on demand at runtime.</div>
   <div class="markdown level1 conceptual"></div>
 
   <div class="codewrapper">
@@ -206,7 +203,7 @@ Class BiomeHandler.SkyReference
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>prefabCallback</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<span class="xref">GameObject</span>&gt;</dt>
-    <dd></dd>
+    <dd>A deferred callback to retrieve a GameObject containing the <span class="xref">mset.Sky</span> component.</dd>
   </dl>
 
 
@@ -216,6 +213,8 @@ Class BiomeHandler.SkyReference
 
 
 
+  <h4 class="section" id="Nautilus_Handlers_BiomeHandler_SkyReference__ctor_System_Func_UnityEngine_GameObject___remarks">Remarks</h4>
+  <div class="markdown level1 remarks">The object returned by the callback will not be cached.</div>
 
 
 
@@ -238,7 +237,43 @@ Class BiomeHandler.SkyReference
   <dl class="parameters">
     <dt><code>existingSkyPrefabName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
     <dd><p>The name of the Sky prefab from the list of base-game Skies, i.e. "SkySafeShallows".</p>
-            <p>A list of valid inputs can be found on this page: https://subnauticamodding.github.io/Nautilus/tutorials/biomes.html</p></dd>
+            <p>A list of valid inputs can be found on this page: https://subnauticamodding.github.io/Nautilus/tutorials/biome-setting-references.html</p></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="Nautilus_Handlers_BiomeHandler_SkyReference__ctor_" data-uid="Nautilus.Handlers.BiomeHandler.SkyReference.#ctor*"></a>
+
+  <h3 id="Nautilus_Handlers_BiomeHandler_SkyReference__ctor_System_String_System_String_System_Action_mset_Sky__" data-uid="Nautilus.Handlers.BiomeHandler.SkyReference.#ctor(System.String,System.String,System.Action{mset.Sky})">
+  SkyReference(string, string, Action&lt;Sky&gt;)
+  
+  </h3>
+
+  <div class="markdown level1 summary">Defines a reference to a new custom Sky prefab that is based on an existing one.</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SkyReference(string existingSkyPrefabName, string newSkyName, Action&lt;Sky&gt; modify)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>existingSkyPrefabName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd><p>The name of the Sky prefab from the list of base-game Skies, i.e. "SkySafeShallows".</p>
+            <p>A list of valid inputs can be found on this page: https://subnauticamodding.github.io/Nautilus/tutorials/biome-setting-references.html</p></dd>
+    <dt><code>newSkyName</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></dt>
+    <dd>The name of the new Sky object.</dd>
+    <dt><code>modify</code> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<span class="xref">Sky</span>&gt;</dt>
+    <dd>A callback that is called to allow for modifying the Sky.</dd>
   </dl>
 
 
@@ -269,50 +304,9 @@ Class BiomeHandler.SkyReference
   <h4 class="section">Parameters</h4>
   <dl class="parameters">
     <dt><code>obj</code> <span class="xref">GameObject</span></dt>
-    <dd></dd>
+    <dd>The GameObject containing the <span class="xref">mset.Sky</span> component.</dd>
   </dl>
 
-
-
-
-
-
-
-
-
-
-
-
-  <h2 class="section" id="methods">Methods
-</h2>
-
-
-  <a id="Nautilus_Handlers_BiomeHandler_SkyReference_GetSkyPrefabAtRuntime_" data-uid="Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime*"></a>
-
-  <h3 id="Nautilus_Handlers_BiomeHandler_SkyReference_GetSkyPrefabAtRuntime_WaterBiomeManager_" data-uid="Nautilus.Handlers.BiomeHandler.SkyReference.GetSkyPrefabAtRuntime(WaterBiomeManager)">
-  GetSkyPrefabAtRuntime(WaterBiomeManager)
-  
-  </h3>
-
-  <div class="markdown level1 summary">Gets the sky prefab for this <a class="xref" href="Nautilus.Handlers.BiomeHandler.SkyReference.html">BiomeHandler.SkyReference</a>.</div>
-  <div class="markdown level1 conceptual"></div>
-
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual GameObject GetSkyPrefabAtRuntime(WaterBiomeManager waterBiomeManager)</code></pre>
-  </div>
-
-  <h4 class="section">Parameters</h4>
-  <dl class="parameters">
-    <dt><code>waterBiomeManager</code> <span class="xref">WaterBiomeManager</span></dt>
-    <dd>Used when the type is <span class="xref">StringLookup</span>.</dd>
-  </dl>
-
-  <h4 class="section">Returns</h4>
-  <dl class="parameters">
-    <dt><span class="xref">GameObject</span></dt>
-    <dd>Returns the sky's prefab depending on the given <a class="xref" href="Nautilus.Handlers.BiomeHandler.html">BiomeHandler.SkyReference.Type</a>:
-<ul><li><span class="xref">GameObjectReference</span>: Prefab reference is returned.</li><li><span class="xref">StringLookup</span>: The sky's name is searched for in the given <code class="paramref">waterBiomeManager</code>. Returns null if not found.</li><li><span class="xref">GetPrefabFromCallback</span>: The callback is invoked and the result is returned.</li></ul></dd>
-  </dl>
 
 
 
